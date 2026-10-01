@@ -52,9 +52,18 @@ Dans un mod existant : `python INSTALLER.py /chemin/PMDO/MODS/mon_mod --dry-run`
 Générer l'image complète à partir d'une **référence canonique** (rip PMD : `starcavepmdsky.png`,
 `witheringdesert.png`, `Dark_Crater_*`, `Sealed_Ruin_*`, `Mt_Bristle_*`, carte du monde…).
 Conventions :
-- décor complet **sur magenta** (le magenta remplace ce qui doit être transparent) ;
+- décor complet **sur magenta** (le magenta remplace ce qui doit être détouré ou devenir un élément
+  animé : torrent, rivière, vide) ;
 - le sol complet est généré **séparément** (`sol_complet.png`) ;
 - le rendu est un **guide de composition** : il n'est pas importable tel quel.
+
+> Le détail du mécanisme — formules de détourage, segmentation en matières, réduction 2×2 par classe,
+> palette commune, contrôle de fidélité — est dans **[METHODE_MAGENTA_ET_GENERATEUR.md](METHODE_MAGENTA_ET_GENERATEUR.md)**.
+> En résumé : `key()` détoure le magenta par **rapport de canaux** (`r > 1.45 g`, `b > 1.45 g` +
+> frange antialiasée), `classify()` découpe le décor en masques de matières (eau, roche, berge, sable…),
+> la réduction se fait à **facteur uniforme** par **moyenne 2×2 par classe** (aucun mélange entre
+> matières, arbitrage par vote), puis une **palette commune de 96 couleurs** (MEDIANCUT, sans dither)
+> harmonise tous les calques.
 
 Contrôle de fidélité : comparer les couleurs des zones clés au rip, **seuil ≈ 35** (distance de
 couleur) ; noter les valeurs dans le `README_PACK.md` (ex. « sol 6,8 · cristal 30,8 »).
