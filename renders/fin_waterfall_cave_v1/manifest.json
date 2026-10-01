@@ -1,0 +1,1135 @@
+{
+  "lot": "fin_waterfall_cave_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Waterfall Cave",
+  "entree_correspondante": [
+    "entree_waterfall_cave_sud_nord_v1",
+    "entree_waterfall_cave_sud_nord_v2",
+    "entree_waterfall_cave_sud_nord_v3"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "poursuis !",
+    "continue !"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Waterfall Cave apres Jungle",
+    "layout": "comme la vraie salle du joyau : chemin de galets seme de cristaux entre deux bassins, joyau geant au nord, stalactites sur fond bordeaux ; arrivee au sud, aucune sortie",
+    "boss": "aucun dans le jeu : pousser le joyau declenche une vague qui emporte les heros (Bulbapedia, Explorers of Sky chapitre 5) ; marqueur arene au centre, marqueur joyau au pied du joyau",
+    "animations": "eau a reseau de reflets (calcul), pulsation du joyau, scintillement des cristaux"
+  },
+  "reference_fin": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Mystery_Dungeon:_Explorers_of_Sky/Chapter_5",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet avec eau en magenta, en deux etapes avec la capture ; sol complet genere depuis une decoupe des galets",
+  "reference_da": [
+    "Waterfall_Cave_gem_TDS.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_waterfall_cave_v1/bruts/decor_magenta.png",
+      "sha256": "25f721448781388576c127476f2993930c88713d5ede81850c0053351a08e692",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Waterfall_Cave_gem_TDS.png"
+      ],
+      "etape": 1,
+      "utilise": false,
+      "raison": "bassins peints en galets, magenta seulement aux bords"
+    },
+    {
+      "file": "source/fin_waterfall_cave_v1/bruts/decor_magenta_v2.png",
+      "sha256": "4de9604dcd65bf7c1662b1168caf08ea34d7522411cf50ce522a9b7d891e87fb",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_waterfall_cave_v1/bruts/decor_magenta.png"
+      ],
+      "etape": 2,
+      "utilise": true,
+      "consigne": "un seul changement : bassins gauche et droit en magenta pur, sans liseré"
+    },
+    {
+      "file": "source/fin_waterfall_cave_v1/bruts/sol_complet.png",
+      "sha256": "1090f24d3e45b4b830c4391fa18008f7a9286958715ed3c009eaa8d2d1b2cb76",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Waterfall_Cave_gem_TDS.png decoupe [225, 270, 275, 300] x4"
+      ],
+      "utilise": true
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs (sol complet, sol, parois) ; cristaux 32 et joyau 24 couleurs propres ; eau calculee dans les tons de la capture",
+    "miettes_vers_parois_px": 0
+  },
+  "segmentation": {
+    "eau": "magenta pur (R, B > 200, G < 90), dilate 2 px",
+    "sol": "galets bleus (B - G > 22, 105 < B < 170, R < 90) ou chemin sombre (60, 56, 76) +- 14, lisses 7 px, fermes 5, trous rebouches, ouverts 4, composante reliee au bas",
+    "joyau": "rose (R > 170, B > 110, G < 150, R - G > 60) hors eau, plus grande composante, dilate 2 px",
+    "cristaux": "sat > 70 et lum > 80, 12 a 3000 px, dilates 2 px",
+    "parois": "le reste",
+    "praticable": "sol ferme et rebouche (cristaux du sol compris) moins le joyau, plus grande composante"
+  },
+  "fidelite": {
+    "galets": {
+      "ref_rgb": [
+        59.4,
+        104.9,
+        145.0
+      ],
+      "rgb": [
+        62.2,
+        97.8,
+        129.2
+      ],
+      "pixels": 43584,
+      "distance": 17.53,
+      "decoupe_ref": [
+        225,
+        270,
+        275,
+        300
+      ]
+    },
+    "chemin": {
+      "ref_rgb": [
+        64.7,
+        64.7,
+        86.1
+      ],
+      "rgb": [
+        51.0,
+        57.3,
+        73.2
+      ],
+      "pixels": 18377,
+      "distance": 20.13,
+      "decoupe_ref": [
+        225,
+        340,
+        275,
+        420
+      ]
+    },
+    "sol_complet": {
+      "ref_rgb": [
+        59.4,
+        104.9,
+        145.0
+      ],
+      "rgb": [
+        52.8,
+        98.9,
+        138.7
+      ],
+      "pixels": 442368,
+      "distance": 10.86,
+      "decoupe_ref": [
+        225,
+        270,
+        275,
+        300
+      ]
+    },
+    "eau": {
+      "ref_rgb": [
+        8.3,
+        96.8,
+        147.6
+      ],
+      "rgb": [
+        9.2,
+        95.0,
+        144.3
+      ],
+      "distance": 3.88,
+      "decoupe_ref": [
+        10,
+        160,
+        150,
+        245
+      ],
+      "part_tons_capture": 0.933
+    },
+    "seuil": 35,
+    "seuil_eau": 15
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FWC1_00_sol_complet.png",
+    "animation/eau/FWC1_01_eau_fNN.png",
+    "calques/FWC1_02_sol.png",
+    "calques/FWC1_03_parois.png",
+    "calques/FWC1_04_cristaux.png",
+    "calques/FWC1_05_joyau.png",
+    "animation/lueur_joyau/FWC1_06_lueur_joyau_fNN.png",
+    "animation/scintillements/FWC1_07_scintillements_fNN.png"
+  ],
+  "eau": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "cellule_px": [
+      34,
+      20
+    ],
+    "orbite_px": [
+      1.5,
+      3.5
+    ],
+    "seuils_q": {
+      "trait": 0.93,
+      "bord": 0.86,
+      "halo": 0.77,
+      "proche": 0.66,
+      "jonction": 0.8
+    },
+    "palette": [
+      [
+        0,
+        63,
+        111
+      ],
+      [
+        0,
+        71,
+        127
+      ],
+      [
+        0,
+        79,
+        119
+      ],
+      [
+        0,
+        87,
+        143
+      ],
+      [
+        0,
+        95,
+        135
+      ],
+      [
+        0,
+        111,
+        183
+      ],
+      [
+        23,
+        135,
+        191
+      ],
+      [
+        63,
+        143,
+        199
+      ],
+      [
+        95,
+        159,
+        207
+      ]
+    ],
+    "graine": 11,
+    "loi": "centres p = p0 + r (cos, 0,6 sin)(2 pi t / 24 + phi) ; q = F1 / F2 et qj = F1 / F3 en metrique y x 1,7 (cellules rondes) ; tons par seuils sur q (halo et bord aussi sur qj - 0,06 / - 0,05) ; fond de cellule : bruit fixe etire (traînees)",
+    "origine": "calcule ; tons exacts de l eau de la capture"
+  },
+  "lueur_joyau": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "rampe": [
+      [
+        197,
+        15,
+        133
+      ],
+      [
+        206,
+        36,
+        146
+      ],
+      [
+        216,
+        81,
+        174
+      ],
+      [
+        219,
+        129,
+        198
+      ],
+      [
+        247,
+        197,
+        241
+      ],
+      [
+        249,
+        214,
+        245
+      ],
+      [
+        251,
+        229,
+        249
+      ]
+    ],
+    "pixels": 1740,
+    "origine": "facettes du joyau (lum > 25e centile), rang de luminance + pulsation"
+  },
+  "scintillements": {
+    "phases": 12,
+    "frame_length_ticks": 5,
+    "bras": [
+      1,
+      2,
+      3,
+      3,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "etoiles": [
+      {
+        "xy": [
+          418,
+          88
+        ],
+        "phase": 9,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          166,
+          91
+        ],
+        "phase": 1,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          423,
+          92
+        ],
+        "phase": 2,
+        "teinte": [
+          92,
+          121,
+          166
+        ]
+      },
+      {
+        "xy": [
+          602,
+          95
+        ],
+        "phase": 2,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          124,
+          103
+        ],
+        "phase": 2,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          350,
+          100
+        ],
+        "phase": 9,
+        "teinte": [
+          67,
+          99,
+          137
+        ]
+      },
+      {
+        "xy": [
+          644,
+          103
+        ],
+        "phase": 10,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          251,
+          106
+        ],
+        "phase": 6,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          367,
+          108
+        ],
+        "phase": 0,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          513,
+          106
+        ],
+        "phase": 1,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          351,
+          107
+        ],
+        "phase": 3,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          200,
+          140
+        ],
+        "phase": 5,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          232,
+          156
+        ],
+        "phase": 7,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          545,
+          156
+        ],
+        "phase": 5,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          354,
+          155
+        ],
+        "phase": 3,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          298,
+          171
+        ],
+        "phase": 1,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          480,
+          171
+        ],
+        "phase": 8,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          293,
+          179
+        ],
+        "phase": 8,
+        "teinte": [
+          150,
+          195,
+          178
+        ]
+      },
+      {
+        "xy": [
+          460,
+          207
+        ],
+        "phase": 0,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          335,
+          217
+        ],
+        "phase": 1,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          410,
+          214
+        ],
+        "phase": 5,
+        "teinte": [
+          95,
+          105,
+          139
+        ]
+      },
+      {
+        "xy": [
+          416,
+          217
+        ],
+        "phase": 4,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          401,
+          236
+        ],
+        "phase": 10,
+        "teinte": [
+          68,
+          104,
+          138
+        ]
+      },
+      {
+        "xy": [
+          464,
+          247
+        ],
+        "phase": 6,
+        "teinte": [
+          150,
+          195,
+          178
+        ]
+      },
+      {
+        "xy": [
+          349,
+          244
+        ],
+        "phase": 5,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          345,
+          249
+        ],
+        "phase": 5,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          457,
+          249
+        ],
+        "phase": 7,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          432,
+          263
+        ],
+        "phase": 7,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          468,
+          268
+        ],
+        "phase": 2,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          289,
+          271
+        ],
+        "phase": 8,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          357,
+          273
+        ],
+        "phase": 9,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          380,
+          275
+        ],
+        "phase": 11,
+        "teinte": [
+          65,
+          118,
+          156
+        ]
+      },
+      {
+        "xy": [
+          477,
+          279
+        ],
+        "phase": 9,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          441,
+          284
+        ],
+        "phase": 3,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          290,
+          327
+        ],
+        "phase": 3,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          479,
+          298
+        ],
+        "phase": 7,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          277,
+          304
+        ],
+        "phase": 7,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          483,
+          312
+        ],
+        "phase": 8,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          432,
+          324
+        ],
+        "phase": 10,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          508,
+          331
+        ],
+        "phase": 3,
+        "teinte": [
+          92,
+          121,
+          166
+        ]
+      },
+      {
+        "xy": [
+          486,
+          335
+        ],
+        "phase": 11,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          411,
+          338
+        ],
+        "phase": 0,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          459,
+          340
+        ],
+        "phase": 0,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          422,
+          341
+        ],
+        "phase": 11,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          256,
+          350
+        ],
+        "phase": 11,
+        "teinte": [
+          150,
+          195,
+          178
+        ]
+      },
+      {
+        "xy": [
+          476,
+          349
+        ],
+        "phase": 3,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          418,
+          355
+        ],
+        "phase": 1,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          360,
+          355
+        ],
+        "phase": 3,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          284,
+          359
+        ],
+        "phase": 0,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          254,
+          362
+        ],
+        "phase": 10,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          411,
+          371
+        ],
+        "phase": 7,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          464,
+          371
+        ],
+        "phase": 7,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          315,
+          371
+        ],
+        "phase": 2,
+        "teinte": [
+          229,
+          227,
+          174
+        ]
+      },
+      {
+        "xy": [
+          450,
+          370
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          195,
+          178
+        ]
+      },
+      {
+        "xy": [
+          257,
+          376
+        ],
+        "phase": 2,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          480,
+          382
+        ],
+        "phase": 9,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          323,
+          409
+        ],
+        "phase": 5,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          355,
+          409
+        ],
+        "phase": 0,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          417,
+          409
+        ],
+        "phase": 3,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          465,
+          411
+        ],
+        "phase": 8,
+        "teinte": [
+          70,
+          105,
+          142
+        ]
+      },
+      {
+        "xy": [
+          484,
+          443
+        ],
+        "phase": 6,
+        "teinte": [
+          65,
+          118,
+          156
+        ]
+      }
+    ],
+    "origine": "calcule : centre blanc, bras bleu tres clair, bout du bras dans la teinte du cristal"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        560
+      ],
+      "arene": [
+        384,
+        312
+      ],
+      "joyau": [
+        376,
+        224
+      ]
+    },
+    "chemins_16x16": {
+      "arene": {
+        "ok": true,
+        "cases_explorees": 457
+      },
+      "joyau": {
+        "ok": true,
+        "cases_explorees": 746
+      }
+    },
+    "blocked_cells": 5857,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol (cristaux du sol praticables)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fwc1_fin_waterfall_cave",
+    "namespace": "fin_waterfall_cave",
+    "tiles_per_bank": {
+      "FWC1_00_SOL": 6902,
+      "FWC1_01_EAU": 20372,
+      "FWC1_02_SOL": 1213,
+      "FWC1_03_PAROIS": 4898,
+      "FWC1_04_CRISTAUX": 434,
+      "FWC1_05_JOYAU": 53,
+      "FWC1_06_LUEUR": 130,
+      "FWC1_07_SCINTILLEMENTS": 259
+    },
+    "banks": [
+      "FWC1_00_SOL",
+      "FWC1_01_EAU",
+      "FWC1_02_SOL",
+      "FWC1_03_PAROIS",
+      "FWC1_04_CRISTAUX",
+      "FWC1_05_JOYAU",
+      "FWC1_06_LUEUR",
+      "FWC1_07_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

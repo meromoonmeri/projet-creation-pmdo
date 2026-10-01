@@ -1,0 +1,2010 @@
+{
+  "lot": "fin_ocean_kyogre_v1",
+  "serie": "fins de donjon",
+  "biome": "fond de l ocean (arene de Kyogre)",
+  "demande": [
+    "fait une zone de fin donjon sous l'ocean avec des motif sur toute la zone et des nuance deau des effet de bulle etc une zone ou y'aura kyogre apres etc elle doit etre magnifique"
+  ],
+  "choix_agent": {
+    "reference": "D42P41A : fond marin grave (anneaux de bulles, fissures de corail) sur tout le sol, anneau de roche bleue, scintillements multicolores ; aucune map sous-marine jouable dans PMD Sky, c est la plus proche",
+    "layout": "chemin au sud qui s ouvre sur une grande arene ovale ; grand sceau de Kyogre grave au centre ; fosse abyssale au nord d ou Kyogre surgira ; algues et coraux sur les parois ; aucune sortie",
+    "kyogre": "pas de sprite : marqueur kyogre au bord sud de la fosse, marqueur sceau au centre du sceau",
+    "animations": "abysse en tourbillon, caustiques + nappes de lumiere (nuances d eau), onde lumineuse sur toutes les gravures depuis le sceau (motifs sur toute la zone), algues qui ondulent, bulles, scintillements"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet avec fosse en magenta (decoupe de style de la reference x3) ; sol complet genere depuis une decoupe du sol de la reference (x4)",
+  "reference_da": {
+    "code": "D42P41A",
+    "fichier": "source/fin_ocean_kyogre_v1/reference/D42P41A.png",
+    "sha256": "d8409682d9b570a648393c14f23b279acf212099a7ee56be1126acf502833b1f",
+    "origine": "source/outil_maps_pmdsky (pret/pmd-sky c8073235 + skytemple-files, frame 0 sans collision)"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_ocean_kyogre_v1/bruts/decor_magenta.png",
+      "sha256": "e071e4196b82b3b0a78dd28a714e5a13b484e3e50b7ecc843c6d2bf1b2d126c9",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_ocean_kyogre_v1/reference/D42P41A_decoupe_style_x3.png"
+      ],
+      "utilise": true
+    },
+    {
+      "file": "source/fin_ocean_kyogre_v1/bruts/sol_complet.png",
+      "sha256": "0ae7017280dbb3be78eb34b7488ed565cc5338a3a41a8901e06a1f4ab7b5ed88",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_ocean_kyogre_v1/reference/D42P41A_decoupe_sol_x4.png"
+      ],
+      "utilise": true
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "miettes_vers_parois_px": 0,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs (sol complet, sol, parois) ; coraux et algues 24 couleurs propres ; animations calculees"
+  },
+  "segmentation": {
+    "fosse": "magenta pur (R, B > 170, G < 110), fermee 3, trous rebouches, dilatee 2 px",
+    "sol": "ton du sol (51, 122, 160) +- 22, lisse 9 px, ferme 6, rebouche, ouvert 5, composante reliee au bas",
+    "algues": "G - R > 55, G >= B - 25, G > 80, hors sol, composantes >= 150 px, dilatees 1 px",
+    "coraux": "R > 110, R - G > 12, B > 100, hors sol, composantes >= 150 px, dilates 1 px",
+    "corniches": "ellipse [602, 192, 240, 114] hors fosse : parois, non praticables",
+    "parois": "le reste (corniches de la fosse comprises) ; pixels sous les algues remplis par la paroi la plus proche",
+    "sceau": "disque mesure sur le brut, centre [600, 477] rayon 156 px",
+    "gravures": "pixels du sol plus sombres que la mediane locale 9 x 9 de plus de 10"
+  },
+  "fidelite": {
+    "sol": {
+      "ref_rgb": [
+        47.2,
+        109.9,
+        150.0
+      ],
+      "rgb": [
+        50.4,
+        118.2,
+        158.3
+      ],
+      "pixels": 173648,
+      "distance": 12.2,
+      "decoupe_ref": [
+        170,
+        190,
+        330,
+        330
+      ]
+    },
+    "sol_complet": {
+      "ref_rgb": [
+        47.2,
+        109.9,
+        150.0
+      ],
+      "rgb": [
+        47.9,
+        107.7,
+        146.6
+      ],
+      "pixels": 442368,
+      "distance": 4.03,
+      "decoupe_ref": [
+        170,
+        190,
+        330,
+        330
+      ]
+    },
+    "parois": {
+      "ref_rgb": [
+        42.2,
+        59.4,
+        75.2
+      ],
+      "rgb": [
+        35.0,
+        70.0,
+        102.4
+      ],
+      "pixels": 247034,
+      "distance": 30.1,
+      "decoupe_ref": [
+        60,
+        60,
+        150,
+        150
+      ]
+    },
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FOC1_00_sol_complet.png",
+    "animation/abysse/FOC1_01_abysse_fNN.png",
+    "calques/FOC1_02_sol.png",
+    "animation/nuances_eau/FOC1_03_nuances_eau_fNN.png",
+    "animation/motifs_lumineux/FOC1_04_motifs_lumineux_fNN.png",
+    "calques/FOC1_05_parois.png",
+    "calques/FOC1_06_coraux.png",
+    "animation/algues/FOC1_07_algues_fNN.png",
+    "animation/bulles/FOC1_08_bulles_fNN.png",
+    "animation/scintillements/FOC1_09_scintillements_fNN.png"
+  ],
+  "abysse": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "tons": [
+      [
+        2,
+        14,
+        36
+      ],
+      [
+        4,
+        26,
+        58
+      ],
+      [
+        6,
+        40,
+        80
+      ],
+      [
+        10,
+        58,
+        104
+      ],
+      [
+        22,
+        84,
+        130
+      ],
+      [
+        48,
+        124,
+        164
+      ],
+      [
+        110,
+        190,
+        220
+      ]
+    ],
+    "centre": [
+      384.0,
+      121.2
+    ],
+    "rayons": [
+      116.0,
+      44.0
+    ],
+    "loi": "niveau = 1,2 + 3,2 rho^1,3 + 0,9 sin(3 theta + 11 rho - phi) + 0,35 sin(5 theta - 7 rho + 2 phi) - ombre nord ; phi = 2 pi t / 24 ; cretes sin > 0,96 en ton clair"
+  },
+  "nuances_eau": {
+    "phases": 16,
+    "frame_length_ticks": 15,
+    "lumiere": [
+      168,
+      232,
+      246
+    ],
+    "loi": "caustiques : F2 - F1 de 420 centres qui tournent sur un cercle (2,5 a 6 px), domaine deforme par des sinus (traits ondules), trait < 1,1 px (+17 % vers la lumiere) coupe par une porte ondulante, noeuds (+28 %) ; nappes : 3 ondes planes a frequence temporelle entiere, > 0,42 eclaircit de 7 %, < -0,5 assombrit de 8 %",
+    "graine": 21
+  },
+  "motifs_lumineux": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "rampe": [
+      [
+        46,
+        128,
+        176
+      ],
+      [
+        72,
+        168,
+        210
+      ],
+      [
+        122,
+        214,
+        240
+      ],
+      [
+        196,
+        246,
+        255
+      ]
+    ],
+    "centre_sceau": [
+      384.7,
+      306.6
+    ],
+    "rayon_max_px": 329.6,
+    "pixels_graves": 13841,
+    "pixels_sceau": 8402,
+    "loi": "front d onde r = (rmax + 120) t / 24 depuis le centre du sceau (traine eteinte au raccord) ; derriere le front : 0-14 px niveau 3, 14-34 niveau 2, 34-70 niveau 1, 70-120 niveau 0 ; le sceau s allume en premier (3, 3, 2, 2, 1, 1) puis reste veille au niveau 0"
+  },
+  "algues": {
+    "phases": 12,
+    "frame_length_ticks": 20,
+    "touffes": [
+      {
+        "base": [
+          512,
+          17
+        ],
+        "hauteur": 12,
+        "phase": 5.058,
+        "amplitude_px": 1.45
+      },
+      {
+        "base": [
+          289,
+          56
+        ],
+        "hauteur": 48,
+        "phase": 5.076,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          477,
+          49
+        ],
+        "hauteur": 40,
+        "phase": 3.238,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          593,
+          139
+        ],
+        "hauteur": 77,
+        "phase": 1.796,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          170,
+          147
+        ],
+        "hauteur": 68,
+        "phase": 0.339,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          187,
+          137
+        ],
+        "hauteur": 47,
+        "phase": 2.409,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          692,
+          216
+        ],
+        "hauteur": 82,
+        "phase": 2.567,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          707,
+          209
+        ],
+        "hauteur": 24,
+        "phase": 0.284,
+        "amplitude_px": 1.99
+      },
+      {
+        "base": [
+          745,
+          266
+        ],
+        "hauteur": 47,
+        "phase": 0.306,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          23,
+          267
+        ],
+        "hauteur": 46,
+        "phase": 6.278,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          701,
+          353
+        ],
+        "hauteur": 84,
+        "phase": 4.099,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          62,
+          355
+        ],
+        "hauteur": 81,
+        "phase": 1.473,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          719,
+          329
+        ],
+        "hauteur": 21,
+        "phase": 2.733,
+        "amplitude_px": 1.85
+      },
+      {
+        "base": [
+          95,
+          442
+        ],
+        "hauteur": 62,
+        "phase": 6.121,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          668,
+          443
+        ],
+        "hauteur": 63,
+        "phase": 5.64,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          29,
+          426
+        ],
+        "hauteur": 38,
+        "phase": 5.304,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          737,
+          425
+        ],
+        "hauteur": 34,
+        "phase": 2.466,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          109,
+          438
+        ],
+        "hauteur": 44,
+        "phase": 3.098,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          83,
+          448
+        ],
+        "hauteur": 35,
+        "phase": 4.252,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          684,
+          448
+        ],
+        "hauteur": 34,
+        "phase": 0.382,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          174,
+          477
+        ],
+        "hauteur": 38,
+        "phase": 3.491,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          544,
+          519
+        ],
+        "hauteur": 60,
+        "phase": 1.706,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          189,
+          489
+        ],
+        "hauteur": 24,
+        "phase": 5.527,
+        "amplitude_px": 1.99
+      },
+      {
+        "base": [
+          519,
+          508
+        ],
+        "hauteur": 43,
+        "phase": 0.403,
+        "amplitude_px": 2.4
+      },
+      {
+        "base": [
+          162,
+          490
+        ],
+        "hauteur": 17,
+        "phase": 4.267,
+        "amplitude_px": 1.67
+      },
+      {
+        "base": [
+          292,
+          513
+        ],
+        "hauteur": 16,
+        "phase": 5.467,
+        "amplitude_px": 1.63
+      },
+      {
+        "base": [
+          474,
+          514
+        ],
+        "hauteur": 15,
+        "phase": 1.428,
+        "amplitude_px": 1.58
+      },
+      {
+        "base": [
+          239,
+          554
+        ],
+        "hauteur": 23,
+        "phase": 5.626,
+        "amplitude_px": 1.95
+      },
+      {
+        "base": [
+          528,
+          553
+        ],
+        "hauteur": 21,
+        "phase": 5.48,
+        "amplitude_px": 1.85
+      }
+    ],
+    "loi": "dx = round(A ((base - y) / h)^1,4 sin(2 pi t / 12 + phi)), base fixe"
+  },
+  "bulles": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 69,
+    "sources": [
+      {
+        "nom": "abysse",
+        "xy": [
+          384.0,
+          121.2
+        ],
+        "spread": [
+          92.80000000000001,
+          26.4
+        ],
+        "n": 26,
+        "life": [
+          14,
+          30
+        ],
+        "rise": [
+          18,
+          46
+        ],
+        "rad": [
+          1,
+          4
+        ]
+      },
+      {
+        "nom": "event_0",
+        "xy": [
+          635.0,
+          421.0
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_1",
+        "xy": [
+          252.0,
+          301.0
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_2",
+        "xy": [
+          196.0,
+          250.0
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_3",
+        "xy": [
+          198.0,
+          303.0
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_4",
+        "xy": [
+          163.66666666666666,
+          399.3333333333333
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_5",
+        "xy": [
+          188.0,
+          244.5
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_6",
+        "xy": [
+          160.0,
+          255.0
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_7",
+        "xy": [
+          170.66666666666666,
+          345.0833333333333
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "event_8",
+        "xy": [
+          173.4,
+          259.6
+        ],
+        "spread": [
+          1.5,
+          1.0
+        ],
+        "n": 3,
+        "life": [
+          10,
+          18
+        ],
+        "rise": [
+          14,
+          26
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_0",
+        "xy": [
+          701,
+          269
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_1",
+        "xy": [
+          692,
+          134
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_2",
+        "xy": [
+          62,
+          274
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_3",
+        "xy": [
+          593,
+          62
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_4",
+        "xy": [
+          170,
+          79
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_5",
+        "xy": [
+          668,
+          380
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_6",
+        "xy": [
+          95,
+          380
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      },
+      {
+        "nom": "algue_7",
+        "xy": [
+          544,
+          459
+        ],
+        "spread": [
+          3,
+          2
+        ],
+        "n": 2,
+        "life": [
+          10,
+          16
+        ],
+        "rise": [
+          12,
+          22
+        ],
+        "rad": [
+          1,
+          2
+        ]
+      }
+    ],
+    "couleurs": {
+      "bord": [
+        168,
+        226,
+        246
+      ],
+      "reflet": [
+        250,
+        255,
+        255
+      ],
+      "interieur": [
+        90,
+        168,
+        206
+      ]
+    },
+    "loi": "chaque bulle nait a sa phase, grossit, monte en oscillant puis eclate (croix) ; age = (t - debut) mod 48"
+  },
+  "scintillements": {
+    "phases": 12,
+    "frame_length_ticks": 5,
+    "bras": [
+      1,
+      2,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "etoiles": [
+      {
+        "xy": [
+          25,
+          106
+        ],
+        "phase": 4,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          619,
+          394
+        ],
+        "phase": 8,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          225,
+          319
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          604,
+          121
+        ],
+        "phase": 4,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          16,
+          16
+        ],
+        "phase": 1,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          417,
+          486
+        ],
+        "phase": 11,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          736,
+          370
+        ],
+        "phase": 0,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          659,
+          272
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          544,
+          41
+        ],
+        "phase": 1,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          488,
+          429
+        ],
+        "phase": 6,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          265,
+          413
+        ],
+        "phase": 1,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          233,
+          360
+        ],
+        "phase": 8,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          239,
+          203
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          697,
+          560
+        ],
+        "phase": 5,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          591,
+          486
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          559,
+          311
+        ],
+        "phase": 3,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          751,
+          516
+        ],
+        "phase": 2,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          551,
+          366
+        ],
+        "phase": 8,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          241,
+          441
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          758,
+          261
+        ],
+        "phase": 1,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          10,
+          41
+        ],
+        "phase": 1,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          205,
+          262
+        ],
+        "phase": 5,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          277,
+          414
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          627,
+          37
+        ],
+        "phase": 10,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          480,
+          397
+        ],
+        "phase": 9,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          184,
+          233
+        ],
+        "phase": 1,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          467,
+          56
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          750,
+          266
+        ],
+        "phase": 10,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          267,
+          391
+        ],
+        "phase": 10,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          101,
+          266
+        ],
+        "phase": 2,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          178,
+          318
+        ],
+        "phase": 2,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          0,
+          243
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          279,
+          244
+        ],
+        "phase": 3,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          588,
+          317
+        ],
+        "phase": 5,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          516,
+          319
+        ],
+        "phase": 8,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          269,
+          165
+        ],
+        "phase": 5,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          159,
+          66
+        ],
+        "phase": 5,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          520,
+          351
+        ],
+        "phase": 10,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          485,
+          234
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          420,
+          504
+        ],
+        "phase": 9,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          502,
+          62
+        ],
+        "phase": 10,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          764,
+          535
+        ],
+        "phase": 7,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          465,
+          13
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          279,
+          212
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          585,
+          24
+        ],
+        "phase": 2,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          140,
+          490
+        ],
+        "phase": 3,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          424,
+          62
+        ],
+        "phase": 3,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          591,
+          251
+        ],
+        "phase": 1,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          658,
+          503
+        ],
+        "phase": 5,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          682,
+          145
+        ],
+        "phase": 11,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          238,
+          469
+        ],
+        "phase": 5,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          247,
+          155
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          495,
+          211
+        ],
+        "phase": 5,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          104,
+          111
+        ],
+        "phase": 5,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          262,
+          23
+        ],
+        "phase": 1,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          91,
+          256
+        ],
+        "phase": 2,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          384,
+          518
+        ],
+        "phase": 9,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          533,
+          295
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          538,
+          311
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          33,
+          150
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          0,
+          352
+        ],
+        "phase": 9,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          734,
+          190
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          33,
+          258
+        ],
+        "phase": 9,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          269,
+          338
+        ],
+        "phase": 0,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          81,
+          198
+        ],
+        "phase": 8,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          637,
+          85
+        ],
+        "phase": 3,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          24,
+          318
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          1,
+          302
+        ],
+        "phase": 8,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          451,
+          33
+        ],
+        "phase": 9,
+        "teinte": [
+          232,
+          166,
+          236
+        ]
+      },
+      {
+        "xy": [
+          526,
+          334
+        ],
+        "phase": 7,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          419,
+          470
+        ],
+        "phase": 3,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          511,
+          219
+        ],
+        "phase": 10,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          331,
+          570
+        ],
+        "phase": 6,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          236,
+          248
+        ],
+        "phase": 0,
+        "teinte": [
+          236,
+          244,
+          255
+        ]
+      },
+      {
+        "xy": [
+          290,
+          152
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          498,
+          498
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          759,
+          508
+        ],
+        "phase": 4,
+        "teinte": [
+          150,
+          196,
+          255
+        ]
+      },
+      {
+        "xy": [
+          744,
+          360
+        ],
+        "phase": 7,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          587,
+          572
+        ],
+        "phase": 10,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      },
+      {
+        "xy": [
+          316,
+          546
+        ],
+        "phase": 2,
+        "teinte": [
+          126,
+          232,
+          196
+        ]
+      }
+    ],
+    "origine": "calcule ; teintes relevees sur les scintillements de D42P41A (blanc, vert d eau, rose, bleu)"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "sceau": [
+        376,
+        296
+      ],
+      "kyogre": [
+        368,
+        200
+      ]
+    },
+    "chemins_16x16": {
+      "sceau": {
+        "ok": true,
+        "cases_explorees": 644
+      },
+      "kyogre": {
+        "ok": true,
+        "cases_explorees": 1299
+      }
+    },
+    "blocked_cells": 4256,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; fosse, parois, coraux et algues bloquants"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "foc1_fin_ocean_kyogre",
+    "namespace": "fin_ocean_kyogre",
+    "tiles_per_bank": {
+      "FOC1_00_SOL": 4747,
+      "FOC1_01_ABYSSE": 4753,
+      "FOC1_02_SOL": 2398,
+      "FOC1_03_NUANCES": 20139,
+      "FOC1_04_MOTIFS": 4859,
+      "FOC1_05_PAROIS": 3884,
+      "FOC1_06_CORAUX": 200,
+      "FOC1_07_ALGUES": 2316,
+      "FOC1_08_BULLES": 581,
+      "FOC1_09_SCINTILLEMENTS": 262
+    },
+    "banks": [
+      "FOC1_00_SOL",
+      "FOC1_01_ABYSSE",
+      "FOC1_02_SOL",
+      "FOC1_03_NUANCES",
+      "FOC1_04_MOTIFS",
+      "FOC1_05_PAROIS",
+      "FOC1_06_CORAUX",
+      "FOC1_07_ALGUES",
+      "FOC1_08_BULLES",
+      "FOC1_09_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zone de réveil · prairie de Sky Peak face à l'océan · jour, aube, nuit</title>
+<style>
+body{background:#101820;color:#e4e6f2;font:15px/1.55 system-ui,sans-serif;margin:0;padding:22px}
+main{max-width:1180px;margin:auto}h1{font-size:28px;margin:0 0 6px}p{color:#b3c9d3;max-width:95ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+button{background:#1d2b36;color:#e4e6f2;border:1px solid #33505f;border-radius:6px;padding:6px 12px;font:inherit;cursor:pointer}
+button.on{background:#e7c77f;color:#1a1a1a;border-color:#e7c77f}
+.stage{position:relative;display:inline-block;border:1px solid #29404c;border-radius:6px;overflow:hidden;background:#000}
+canvas{display:block;image-rendering:pixelated;width:100%;max-width:1152px}
+#info{color:#9fb6c0;font-size:13px;margin-left:8px}
+.note{font-size:13px;color:#8fa6b0}
+table{border-collapse:collapse;font-size:13px;margin-top:10px}td,th{border:1px solid #29404c;padding:3px 8px;text-align:left}
+</style>
+<main>
+<h1>Zone de réveil — la première scène</h1>
+<p>Le Pokémon se réveille dans une <strong>grande prairie fleurie de Sky Peak</strong>, au bord d'un promontoire plat, sans falaise en relief.
+En contrebas s'étend l'<strong>océan, animé comme dans PMD Ciel</strong> : c'est la même rotation de palette que la mer de la carte s01p02a,
+avec les mêmes couleurs et la même cadence (10 crans de 10 ticks). La crête blanche avance vers la prairie. Au pied de l'herbe, l'<strong>écume</strong>
+(palette d'écume du même jeu) et les <strong>bulles</strong> vont et viennent. À l'horizon, la mer de nuages, les cimes enneigées et des <strong>nuages qui passent</strong>
+sur deux rangées en parallaxe.</p>
+<div class="bar">
+  <button data-amb="jour" class="on">Jour</button><button data-amb="aube">Aube</button><button data-amb="nuit">Nuit</button>
+  <span style="width:16px"></span>
+  <button id="pause">Pause</button><button data-speed="0.5">×0,5</button><button data-speed="1" class="on">×1</button><button data-speed="2">×2</button><button data-speed="8">×8</button>
+  <button id="coll">Collisions et marqueurs</button><button id="zoom">Zoom ×2 (bord de mer)</button>
+  <span id="info"></span>
+</div>
+<div class="stage"><canvas id="c"></canvas></div>
+<p class="note">Rejoué à 60 ticks par seconde, comme le moteur : chaque calque avance de <code>tick / durée % phases</code>.
+Marqueurs : <code>reveil</code> (cyan, au bord de la prairie, tourné vers l'océan) et <code>entrance</code> (jaune, sortie au sud).
+Choix faits avec toi : promontoire, trois ambiances (jour, aube, nuit), réveil face à l'horizon, sortie au sud. Non testé dans PMDO.</p>
+<table><tr><th>Calque</th><th>Cadence</th><th>Origine</th></tr>
+<tr><td>Prairie, fleurs, rochers, buissons, chemin, panorama</td><td>fixes</td><td>générés avec le GIF Sky Peak, <code>232233.png</code> et la nuit native en référence</td></tr>
+<tr><td>Mer</td><td>10 × 10 ticks</td><td>jour : palette 7 de s01p02a exacte ; aube et nuit : couleurs transposées depuis les bruts, reflet de l'astre à part</td></tr>
+<tr><td>Écume</td><td>10 × 10 ticks</td><td>jour : palette 8 de s01p02a exacte</td></tr>
+<tr><td>Bulles, scintillements</td><td>24 × 5 ticks</td><td>créés par nous (étoiles et paillettes : pixels des bruts)</td></tr>
+<tr><td>Nuages qui passent</td><td>192 × 8 ticks (25,6 s)</td><td>sprites générés ; nuit : couleurs exactes des nuages de la nuit native</td></tr></table>
+</main>
+<script>
+const D = __DATA__;
+const [W, H] = D.size; const cv = document.getElementById('c'); const cx = cv.getContext('2d');
+cv.width = W; cv.height = H; cx.imageSmoothingEnabled = false;
+const load = u => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = u; });
+let amb = 'jour', speed = 1, paused = false, showColl = false, zoom = false, tick = 0, last = null;
+const IMG = {};
+async function prep() {
+  for (const a of Object.keys(D.amb)) {
+    const A = D.amb[a];
+    IMG[a] = {fond: await load(A.fond), layers: [], strips: {}};
+    for (const L of A.layers) IMG[a].layers.push({ticks: L.ticks, frames: await Promise.all(L.frames.map(load))});
+    for (const [n, u] of Object.entries(A.strips)) IMG[a].strips[n] = await load(u);
+  }
+  IMG.coll = await load(D.collisions);
+  requestAnimationFrame(loop);
+}
+function draw() {
+  const I = IMG[amb]; cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, W, H);
+  if (zoom) { cx.setTransform(2, 0, 0, 2, -W * 0.08, -H * 0.3); }
+  cx.drawImage(I.fond, 0, 0);
+  for (const L of I.layers) cx.drawImage(L.frames[Math.floor(tick / L.ticks) % L.frames.length], 0, 0);
+  const t = Math.floor(tick / D.clouds.frame_length_ticks) % D.clouds.phases;
+  for (const [n, row] of Object.entries(D.clouds.rangees)) {
+    const s = I.strips[n], shift = (row.pas * t) % row.periode;
+    for (let k = -1; k * row.periode < W; k++) cx.drawImage(s, shift + k * row.periode, 0);
+  }
+  if (showColl) { cx.globalAlpha = 0.85; cx.drawImage(IMG.coll, 0, 0); cx.globalAlpha = 1; }
+  document.getElementById('info').textContent = `${amb} · tick ${Math.floor(tick)} · mer cran ${Math.floor(tick / 10) % 10} · nuages phase ${t}`;
+}
+function loop(ts) {
+  if (last !== null && !paused) tick += (ts - last) * 0.06 * speed;
+  last = ts; draw(); requestAnimationFrame(loop);
+}
+document.querySelectorAll('[data-amb]').forEach(b => b.onclick = () => {
+  amb = b.dataset.amb; document.querySelectorAll('[data-amb]').forEach(x => x.classList.toggle('on', x === b)); });
+document.querySelectorAll('[data-speed]').forEach(b => b.onclick = () => {
+  speed = +b.dataset.speed; document.querySelectorAll('[data-speed]').forEach(x => x.classList.toggle('on', x === b)); });
+document.getElementById('pause').onclick = e => { paused = !paused; e.target.classList.toggle('on', paused); };
+document.getElementById('coll').onclick = e => { showColl = !showColl; e.target.classList.toggle('on', showColl); };
+document.getElementById('zoom').onclick = e => { zoom = !zoom; e.target.classList.toggle('on', zoom); };
+prep();
+</script>
+</html>

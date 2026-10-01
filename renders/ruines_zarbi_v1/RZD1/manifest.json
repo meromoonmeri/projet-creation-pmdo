@@ -1,0 +1,826 @@
+{
+  "lot": "ruines_zarbi_v1",
+  "serie": "ruines Zarbi (fin de zone)",
+  "biome": "ruines dechirees par la realite, Zarbi",
+  "demande": [
+    "une zone de ruine avec des Zarbi qui sortent de dechirures / failles dans la realite, etc",
+    "je choisis toutes les options recommandees, choisis les textures de reference"
+  ],
+  "choix_agent": {
+    "references": "D28P44A (matieres de la ruine) + D30P34A (realite qui se desagrege : dallage fendu, colonnes brisees, rochers en levitation) ; decoupes de style x2 seulement, sans leurs compositions",
+    "layout": "fragment de ruine flottant dans le vide de la distorsion ; esplanade de briques fendue de cinq failles ; bandes de terre ocre et linteaux sur piliers a l ouest et a l est ; dais et mur de tablettes a glyphes au nord ; chemin de dalles depuis le bord sud",
+    "zarbi": "Z A R B I ! ? (le mot ZARBI), sprites calcules, chacun lie a une faille",
+    "noms_de_lieux": "non affirmes (prefixe dNN non fiable), seuls les codes ROM comptent"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference (2 decoupes de style x2), magenta pur pour le vide et les failles, calques calcules ; sol complet = plage de briques du brut en miroir",
+  "references_da": {
+    "D28P44A": {
+      "fichier": "source/ruines_zarbi_v1/reference/D28P44A.png",
+      "sha256": "81603c8ecc6ff77011cf537eddf833b4caec8e69d6798e6c73442532a65d0fc9",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    },
+    "D30P34A": {
+      "fichier": "source/ruines_zarbi_v1/reference/D30P34A.png",
+      "sha256": "e5567f9791651d703ce48759ebce157034efa907ef3664390c23c5ef6f27c408",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    }
+  },
+  "raw_inputs": [
+    {
+      "file": "source/ruines_zarbi_v1/bruts/decor_magenta.png",
+      "sha256": "c9db9a94a1f0bd99d6ea7232454b24c1b001f48e171205ff0127d057b810e284",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/ruines_zarbi_v1/reference/D28P44A_decoupe_style_x2.png",
+        "source/ruines_zarbi_v1/reference/D30P34A_decoupe_style_x2.png"
+      ],
+      "utilise": true,
+      "editions": 0,
+      "note": "premier rendu garde tel quel"
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage de briques du brut en miroir (la plus proche des briques de D30P34A, peu contrastee)",
+    "plage_y0_y1_x0_x1": [
+      216,
+      312,
+      536,
+      632
+    ]
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe, palette commune 96 couleurs (sol complet, sol) ; palettes propres : ruines 48, rochers 24 ; vide, failles, debris et zarbi calcules"
+  },
+  "segmentation": {
+    "magenta": "R > 200, B > 200, G < 80",
+    "vide": "composantes magenta touchant un bord, fermees 2, dilatees 1",
+    "failles": "composantes magenta fermees >= 800 px, dilatees 1, trous rebouches",
+    "rochers": "composantes hors magenta separees du fragment de ruine",
+    "sol": "proche des tons {\"briques\": [[178, 146, 130], 40], \"terre\": [[166, 121, 76], 45], \"dalles\": [[159, 151, 146], 38], \"terre_vive\": [[200, 150, 70], 50]}, lisse 11 (> 0,6), ouvert 3, >= 20000 px, a plus de 3 px d une faille",
+    "dalles": "joints du chemin rebouches dans [600, 896, 500, 700] (ferme 6) + trous de moins de 400 px",
+    "ruines": "le reste du fragment (colonnes, linteaux, piliers, mur de tablettes, falaises, crevasses)"
+  },
+  "fidelite": {
+    "briques": {
+      "ref": "D30P34A",
+      "boite_ref_y0x0y1x1": [
+        340,
+        240,
+        400,
+        300
+      ],
+      "boite_scene_y0x0y1x1": [
+        225,
+        308,
+        251,
+        359
+      ],
+      "ref_rgb": [
+        184.5,
+        151.2,
+        136.1
+      ],
+      "rgb": [
+        177.0,
+        144.9,
+        129.0
+      ],
+      "distance": 12.07
+    },
+    "dalles": {
+      "ref": "D28P44A",
+      "boite_ref_y0x0y1x1": [
+        150,
+        170,
+        320,
+        330
+      ],
+      "boite_scene_y0x0y1x1": [
+        501,
+        346,
+        553,
+        410
+      ],
+      "ref_rgb": [
+        163.8,
+        157.3,
+        153.6
+      ],
+      "rgb": [
+        166.6,
+        147.5,
+        136.9
+      ],
+      "distance": 19.6
+    },
+    "linteaux": {
+      "ref": "D28P44A",
+      "boite_ref_y0x0y1x1": [
+        72,
+        25,
+        98,
+        110
+      ],
+      "boite_scene_y0x0y1x1": [
+        119,
+        83,
+        138,
+        173
+      ],
+      "ref_rgb": [
+        131.3,
+        124.9,
+        118.2
+      ],
+      "rgb": [
+        132.9,
+        116.6,
+        109.3
+      ],
+      "distance": 12.27
+    },
+    "terre": {
+      "ref": "D28P44A",
+      "regle": "(R - B > 50) et (G > B + 15) et (R > 90), image entiere",
+      "part_ref": 0.176,
+      "part_rendu": 0.211,
+      "ref_rgb": [
+        172.2,
+        126.9,
+        75.8
+      ],
+      "rgb": [
+        180.1,
+        132.1,
+        87.6
+      ],
+      "distance": 15.16
+    },
+    "sol_complet": {
+      "ref": "D30P34A",
+      "ref_rgb": [
+        184.5,
+        151.2,
+        136.1
+      ],
+      "rgb": [
+        176.5,
+        143.5,
+        127.7
+      ],
+      "distance": 13.85
+    },
+    "methode": "boites de meme matiere mesurees a la main dans la reference et dans la scene t000 (briques D30P34A ; dalles, linteaux D28P44A) ; terre : meme regle de couleur sur D28P44A entiere et sur la scene (la premiere boite de reference tombait sur des gravillons gris : 45) ; moyennes comparees",
+    "seuil": 35,
+    "seuille": [
+      "briques",
+      "terre",
+      "dalles",
+      "linteaux",
+      "sol_complet"
+    ]
+  },
+  "layer_order_bottom_to_top": [
+    "calques/RZD1_00_sol_complet.png",
+    "animation/vide/RZD1_01_vide_fNN.png",
+    "calques/RZD1_02_sol.png",
+    "calques/RZD1_03_ruines.png",
+    "animation/rochers/RZD1_04_rochers_fNN.png",
+    "animation/failles/RZD1_05_failles_fNN.png",
+    "animation/debris/RZD1_06_debris_fNN.png",
+    "animation/zarbi/RZD1_07_zarbi_fNN.png"
+  ],
+  "loi_rom": {
+    "source": "D30P34A, vitrail anime (seul element anime de la map)",
+    "tons": [
+      [
+        79,
+        0,
+        95
+      ],
+      [
+        87,
+        15,
+        87
+      ],
+      [
+        87,
+        23,
+        79
+      ],
+      [
+        87,
+        31,
+        71
+      ],
+      [
+        95,
+        15,
+        87
+      ],
+      [
+        103,
+        0,
+        103
+      ],
+      [
+        111,
+        23,
+        79
+      ],
+      [
+        119,
+        15,
+        95
+      ],
+      [
+        127,
+        15,
+        119
+      ],
+      [
+        127,
+        23,
+        79
+      ],
+      [
+        127,
+        31,
+        71
+      ],
+      [
+        135,
+        15,
+        95
+      ],
+      [
+        135,
+        31,
+        63
+      ],
+      [
+        151,
+        23,
+        95
+      ],
+      [
+        167,
+        23,
+        79
+      ],
+      [
+        167,
+        31,
+        71
+      ],
+      [
+        175,
+        23,
+        95
+      ],
+      [
+        183,
+        31,
+        39
+      ],
+      [
+        199,
+        31,
+        63
+      ],
+      [
+        215,
+        31,
+        71
+      ],
+      [
+        255,
+        31,
+        39
+      ]
+    ],
+    "rampes_indices": {
+      "vive": [
+        20,
+        19,
+        16,
+        8,
+        13,
+        15,
+        17
+      ],
+      "moyenne": [
+        18,
+        14,
+        11,
+        5,
+        7,
+        9,
+        12
+      ],
+      "sombre": [
+        10,
+        6,
+        4,
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "pas": 7,
+    "ticks_par_pas": 10
+  },
+  "vide": {
+    "phases": 7,
+    "frame_length_ticks": 30,
+    "tons": [
+      [
+        14,
+        4,
+        22
+      ],
+      [
+        30,
+        6,
+        42
+      ],
+      [
+        52,
+        6,
+        68
+      ],
+      [
+        79,
+        0,
+        95
+      ],
+      [
+        103,
+        0,
+        103
+      ],
+      [
+        135,
+        15,
+        95
+      ]
+    ],
+    "tons_rom": [
+      [
+        79,
+        0,
+        95
+      ],
+      [
+        103,
+        0,
+        103
+      ],
+      [
+        135,
+        15,
+        95
+      ]
+    ],
+    "etoiles": 90,
+    "loi": "bandes qui coulent, frequences temporelles entieres sur 7 pas ; etoiles allumees 3 pas sur 7"
+  },
+  "failles": {
+    "phases": 21,
+    "frame_length_ticks": 10,
+    "liste": [
+      {
+        "id": 3,
+        "centre": [
+          258.77589134125634,
+          267.33361629881153
+        ],
+        "px": 1178,
+        "bbox": [
+          243,
+          230,
+          273,
+          304
+        ]
+      },
+      {
+        "id": 5,
+        "centre": [
+          289.07296137339057,
+          396.6763948497854
+        ],
+        "px": 1165,
+        "bbox": [
+          275,
+          358,
+          303,
+          434
+        ]
+      },
+      {
+        "id": 2,
+        "centre": [
+          386.40062667860343,
+          286.88630259623994
+        ],
+        "px": 2234,
+        "bbox": [
+          368,
+          226,
+          405,
+          344
+        ]
+      },
+      {
+        "id": 4,
+        "centre": [
+          500.9722455845248,
+          390.6972245584525
+        ],
+        "px": 2378,
+        "bbox": [
+          471,
+          329,
+          525,
+          434
+        ]
+      },
+      {
+        "id": 1,
+        "centre": [
+          530.84243697479,
+          259.30252100840335
+        ],
+        "px": 952,
+        "bbox": [
+          517,
+          225,
+          544,
+          292
+        ]
+      }
+    ],
+    "tons_interieur": [
+      [
+        6,
+        2,
+        12
+      ],
+      [
+        24,
+        4,
+        34
+      ],
+      [
+        79,
+        0,
+        95
+      ],
+      [
+        127,
+        15,
+        119
+      ],
+      [
+        175,
+        23,
+        95
+      ]
+    ],
+    "loi": "interieur : tourbillon 21 pas ; bord interne rampe vive, 2e rang rampe moyenne, lueur externe rampe sombre (2 px au pic, sinon 1) ; crevasses peintes a moins de 30 px : rampe moyenne pas 0-2 avec un retard d un pas par 6 px",
+    "crevasses_px": 6634
+  },
+  "rochers": {
+    "phases": 21,
+    "frame_length_ticks": 10,
+    "liste": [
+      {
+        "id": 1,
+        "phase": 2,
+        "amp": 1
+      },
+      {
+        "id": 2,
+        "phase": 16,
+        "amp": 1
+      },
+      {
+        "id": 3,
+        "phase": 12,
+        "amp": 2
+      },
+      {
+        "id": 4,
+        "phase": 14,
+        "amp": 1
+      },
+      {
+        "id": 5,
+        "phase": 10,
+        "amp": 1
+      },
+      {
+        "id": 6,
+        "phase": 8,
+        "amp": 2
+      },
+      {
+        "id": 7,
+        "phase": 11,
+        "amp": 1
+      },
+      {
+        "id": 8,
+        "phase": 11,
+        "amp": 1
+      },
+      {
+        "id": 9,
+        "phase": 15,
+        "amp": 2
+      },
+      {
+        "id": 10,
+        "phase": 20,
+        "amp": 2
+      },
+      {
+        "id": 11,
+        "phase": 18,
+        "amp": 1
+      },
+      {
+        "id": 12,
+        "phase": 3,
+        "amp": 2
+      },
+      {
+        "id": 13,
+        "phase": 9,
+        "amp": 2
+      },
+      {
+        "id": 14,
+        "phase": 20,
+        "amp": 1
+      },
+      {
+        "id": 15,
+        "phase": 17,
+        "amp": 1
+      },
+      {
+        "id": 16,
+        "phase": 7,
+        "amp": 2
+      },
+      {
+        "id": 17,
+        "phase": 5,
+        "amp": 2
+      },
+      {
+        "id": 18,
+        "phase": 9,
+        "amp": 2
+      },
+      {
+        "id": 19,
+        "phase": 19,
+        "amp": 2
+      },
+      {
+        "id": 20,
+        "phase": 17,
+        "amp": 2
+      },
+      {
+        "id": 21,
+        "phase": 20,
+        "amp": 2
+      },
+      {
+        "id": 22,
+        "phase": 2,
+        "amp": 1
+      },
+      {
+        "id": 23,
+        "phase": 6,
+        "amp": 2
+      },
+      {
+        "id": 24,
+        "phase": 17,
+        "amp": 1
+      }
+    ],
+    "loi": "dy = round(amp * sin(2 pi (t - phase) / 21)), amp 1 ou 2 px"
+  },
+  "debris": {
+    "phases": 21,
+    "frame_length_ticks": 10,
+    "eclats": 30,
+    "loi": "spirale vers le centre de la faille, rayon r0 (1 - u/21), 2,2 rad sur la vie, ton ROM vif les 7 derniers pas"
+  },
+  "zarbi": {
+    "phases": 84,
+    "frame_length_ticks": 5,
+    "lettres": [
+      {
+        "lettre": "Z",
+        "faille": 3,
+        "centre": [
+          258.77589134125634,
+          267.33361629881153
+        ],
+        "rx": 41.55146464525892,
+        "ry": 27.848749325269385,
+        "a0": 0.8082955000860867,
+        "sens": 1,
+        "decalage": 0
+      },
+      {
+        "lettre": "A",
+        "faille": 5,
+        "centre": [
+          289.07296137339057,
+          396.6763948497854
+        ],
+        "rx": 36.909664401050634,
+        "ry": 27.920073128007523,
+        "a0": 5.362429148508308,
+        "sens": -1,
+        "decalage": 6
+      },
+      {
+        "lettre": "R",
+        "faille": 2,
+        "centre": [
+          386.40062667860343,
+          286.88630259623994
+        ],
+        "rx": 37.61423307552325,
+        "ry": 25.308111822514416,
+        "a0": 4.502434055785688,
+        "sens": 1,
+        "decalage": 12
+      },
+      {
+        "lettre": "B",
+        "faille": 4,
+        "centre": [
+          500.9722455845248,
+          390.6972245584525
+        ],
+        "rx": 39.7655973653542,
+        "ry": 26.491331583844268,
+        "a0": 2.1937603566357544,
+        "sens": -1,
+        "decalage": 24
+      },
+      {
+        "lettre": "I",
+        "faille": 1,
+        "centre": [
+          530.84243697479,
+          259.30252100840335
+        ],
+        "rx": 36.51083002514954,
+        "ry": 26.727996995469347,
+        "a0": 1.8940868171817933,
+        "sens": 1,
+        "decalage": 36
+      },
+      {
+        "lettre": "!",
+        "faille": 2,
+        "centre": [
+          386.40062667860343,
+          286.88630259623994
+        ],
+        "rx": 51.11261402632481,
+        "ry": 35.24178691600021,
+        "a0": 4.295120709367577,
+        "sens": 1,
+        "decalage": 54
+      },
+      {
+        "lettre": "?",
+        "faille": 5,
+        "centre": [
+          289.07296137339057,
+          396.6763948497854
+        ],
+        "rx": 52.99801901742583,
+        "ry": 36.45622672333143,
+        "a0": 0.11446302216468454,
+        "sens": -1,
+        "decalage": 48
+      }
+    ],
+    "cycle": "sortie 10 pas (echelle 1/3 -> 1, halo rampe moyenne) ; tour de la faille 64 pas (ellipse, flottement 1,5 px sur 12 pas) ; retour 8 pas ; cache 2 pas ; 84 pas de 5 ticks = boucle de scene 420 ticks (7 s)",
+    "sprites": "calcules (zarbi.py) : contour, corps, reflet, oeil blanc, pupille ; 24 x 24 ; ombre au sol 18 px sous le Zarbi",
+    "tons": [
+      [
+        20,
+        16,
+        30
+      ],
+      [
+        52,
+        50,
+        64
+      ],
+      [
+        104,
+        102,
+        122
+      ],
+      [
+        244,
+        244,
+        248
+      ],
+      [
+        16,
+        12,
+        22
+      ]
+    ]
+  },
+  "scene_loop_ticks": 420,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "autel": [
+        376,
+        136
+      ],
+      "faille": [
+        376,
+        352
+      ]
+    },
+    "chemins_16x16": {
+      "autel": {
+        "ok": true,
+        "cases_explorees": 1276
+      },
+      "faille": {
+        "ok": true,
+        "cases_explorees": 517
+      }
+    },
+    "blocked_cells": 4561,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; vide, failles, crevasses, colonnes, linteaux et mur bloquants",
+    "autel": "sur le dais devant le mur de tablettes (evenement a scripter)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "rzd1_ruines_zarbi",
+    "namespace": "ruines_zarbi",
+    "tiles_per_bank": {
+      "RZD1_00_SOL": 6913,
+      "RZD1_01_VIDE": 6143,
+      "RZD1_02_SOL": 3317,
+      "RZD1_03_RUINES": 3593,
+      "RZD1_04_ROCHERS": 627,
+      "RZD1_05_FAILLES": 4797,
+      "RZD1_06_DEBRIS": 420,
+      "RZD1_07_ZARBI": 3341
+    },
+    "banks": [
+      "RZD1_00_SOL",
+      "RZD1_01_VIDE",
+      "RZD1_02_SOL",
+      "RZD1_03_RUINES",
+      "RZD1_04_ROCHERS",
+      "RZD1_05_FAILLES",
+      "RZD1_06_DEBRIS",
+      "RZD1_07_ZARBI"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccords a scripter)"
+  },
+  "art_approved": false
+}

@@ -1,0 +1,414 @@
+{
+  "lot": "fin_vapeur_sommet_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Vapeur (Steam Cave)",
+  "entree_correspondante": [
+    "entree_vapeur_sud_nord_v1",
+    "entree_vapeur_sud_nord_v2"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Vapeur d abord (questions laissees sans reponse)",
+    "layout": "arrivee au sud (couloir qui sort du donjon), arene (boss), source chaude au nord (objectif), aucune sortie",
+    "reference": "vraie fin du jeu : Steam_Cave_Peak_TDS.png"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sur magenta (source = magenta), sol seul, planche de vapeur ; rip en images=",
+  "reference_da": "Steam_Cave_Peak_TDS.png",
+  "raw_inputs": [
+    {
+      "file": "source/fin_vapeur_sommet_v1/bruts/decor_magenta.png",
+      "sha256": "9200acc063cf4a5e7552d768b95bc2ad6f64d3d6d2eb4ad47022b9ab3a5c1462",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Steam_Cave_Peak_TDS.png"
+      ]
+    },
+    {
+      "file": "source/fin_vapeur_sommet_v1/bruts/sol_complet.png",
+      "sha256": "0f0df4439695e3ecace134784fc3d89f86ecd6e989e7e8be60a6c5e5834c78ec",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_vapeur_sommet_v1/bruts/decor_magenta.png"
+      ]
+    },
+    {
+      "file": "source/fin_vapeur_sommet_v1/bruts/vapeur_poses.png",
+      "sha256": "17323bf1e40203018d586bd9b5acfbb0c6e57e0387cd51e9142d637f993b0c2e",
+      "size": [
+        1047,
+        1008
+      ],
+      "images": [
+        "Steam_Cave_Peak_TDS.png"
+      ]
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs"
+  },
+  "segmentation": {
+    "source": "magenta dilate 2 px",
+    "sol": "moyenne 11 px > 125 et ecart-type 11 px < 20, plus grande composante, grains < 2500 px rebouches",
+    "margelle": "hors sol a moins de 48 px de la source",
+    "events": {
+      "event_nord_est": {
+        "centre_brut": [
+          838,
+          318
+        ],
+        "demi_axes": [
+          52,
+          45
+        ]
+      },
+      "event_ouest": {
+        "centre_brut": [
+          258,
+          482
+        ],
+        "demi_axes": [
+          55,
+          45
+        ]
+      },
+      "event_est": {
+        "centre_brut": [
+          942,
+          482
+        ],
+        "demi_axes": [
+          55,
+          48
+        ]
+      }
+    },
+    "stalagmites": "le reste"
+  },
+  "fidelite": {
+    "rip_sol_rgb": [
+      163.0,
+      134.6,
+      116.8
+    ],
+    "sol_arene_rgb": [
+      161.0,
+      130.6,
+      111.4
+    ],
+    "distance": 7.05,
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "animation/eau_source/FVS1_00_eau_source_fNN.png",
+    "animation/bulles/FVS1_01_bulles_fNN.png",
+    "calques/FVS1_02_sol_complet.png",
+    "calques/FVS1_03_sol_arene.png",
+    "calques/FVS1_04_margelle.png",
+    "calques/FVS1_05_events.png",
+    "calques/FVS1_06_stalagmites.png",
+    "animation/vapeur/FVS1_07_vapeur_fNN.png"
+  ],
+  "eau_source": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "couleurs": {
+      "surface": [
+        43,
+        115,
+        112
+      ],
+      "bande": [
+        20,
+        62,
+        84
+      ],
+      "contour": [
+        14,
+        50,
+        74
+      ],
+      "inter": [
+        30,
+        92,
+        100
+      ],
+      "accent": [
+        36,
+        104,
+        108
+      ],
+      "clair": [
+        84,
+        158,
+        146
+      ],
+      "reflet": [
+        190,
+        226,
+        214
+      ]
+    },
+    "origine": "fonction water_phases de l entree Vapeur V2 (structure riviere Metano), recalculee sur la source ; pas de tuiles natives"
+  },
+  "bulles": {
+    "poses": "planche generee de l entree Vapeur V2 (bruts/bulles_8_poses.png)",
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "emetteurs": [
+      {
+        "xy": [
+          344,
+          120
+        ],
+        "decalage": 0
+      },
+      {
+        "xy": [
+          352,
+          160
+        ],
+        "decalage": 7
+      },
+      {
+        "xy": [
+          384,
+          160
+        ],
+        "decalage": 14
+      },
+      {
+        "xy": [
+          408,
+          120
+        ],
+        "decalage": 21
+      }
+    ]
+  },
+  "vapeur": {
+    "brut": "source/fin_vapeur_sommet_v1/bruts/vapeur_poses.png",
+    "cases": [
+      [
+        2,
+        260,
+        0,
+        210
+      ],
+      [
+        2,
+        260,
+        210,
+        420
+      ],
+      [
+        2,
+        260,
+        420,
+        636
+      ],
+      [
+        2,
+        260,
+        636,
+        1047
+      ],
+      [
+        262,
+        1006,
+        0,
+        352
+      ],
+      [
+        262,
+        1006,
+        352,
+        787
+      ],
+      [
+        262,
+        1006,
+        787,
+        1047
+      ]
+    ],
+    "reduction": 0.14,
+    "palette": [
+      [
+        215,
+        214,
+        211
+      ],
+      [
+        213,
+        214,
+        209
+      ],
+      [
+        207,
+        198,
+        187
+      ],
+      [
+        193,
+        167,
+        143
+      ],
+      [
+        145,
+        116,
+        99
+      ],
+      [
+        88,
+        70,
+        64
+      ]
+    ],
+    "contour": "noir du generateur -> brun sombre (88, 70, 64)",
+    "chronologie_event": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6
+    ],
+    "chronologie_volute": [
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      2,
+      1
+    ],
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "events_px": {
+      "event_nord_est": [
+        538,
+        182
+      ],
+      "event_ouest": [
+        161,
+        287
+      ],
+      "event_est": [
+        606,
+        285
+      ]
+    },
+    "volutes_px": [
+      [
+        350,
+        155
+      ],
+      [
+        390,
+        141
+      ],
+      [
+        422,
+        159
+      ]
+    ],
+    "decalages": {
+      "event_nord_est": 0,
+      "event_ouest": 8,
+      "event_est": 16,
+      "volute_0": 3,
+      "volute_1": 8,
+      "volute_2": 13
+    },
+    "origine": "dessin GENERE, chronologie creee ; pas une animation officielle"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        344
+      ],
+      "source": [
+        376,
+        224
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 423
+      },
+      "source": {
+        "ok": true,
+        "cases_explorees": 1061
+      }
+    },
+    "blocked_cells": 4931,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol de l arene"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fvs1_fin_vapeur_sommet",
+    "namespace": "fin_vapeur_sommet",
+    "tiles_per_bank": {
+      "FVS1_00_EAU": 338,
+      "FVS1_01_BULLES": 52,
+      "FVS1_02_SOL": 6769,
+      "FVS1_03_SOL": 2211,
+      "FVS1_04_MARGELLE": 285,
+      "FVS1_05_EVENTS": 184,
+      "FVS1_06_STALAGMITES": 4533,
+      "FVS1_07_VAPEUR": 724
+    },
+    "banks": [
+      "FVS1_00_EAU",
+      "FVS1_01_BULLES",
+      "FVS1_02_SOL",
+      "FVS1_03_SOL",
+      "FVS1_04_MARGELLE",
+      "FVS1_05_EVENTS",
+      "FVS1_06_STALAGMITES",
+      "FVS1_07_VAPEUR"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

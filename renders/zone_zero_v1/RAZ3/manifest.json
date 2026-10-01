@@ -1,0 +1,1612 @@
+{
+  "lot": "zone_zero_v1/raz3",
+  "serie": "reseau Zone Zero (routes RAZ, entree EAZ)",
+  "biome": "fond cristallin du cratere de la Zone Zero",
+  "demande": [
+    "reseau de routes dans un abime facon Zone Zero avec des cascades jusqu'a la map d'entree du donjon Zone Zero (Pokemon Paradoxe)",
+    "la suite !! (RAZ1, RAZ2)",
+    "je choisis toutes les options recommandees + 3 routes, choisis les textures de reference pour composer cette zone inedite"
+  ],
+  "choix_agent": {
+    "reseau": "RAZ1 levre -> RAZ2 terrasses -> RAZ3 fond cristallin (derniere route) -> EAZ1 entree (grotte de cristal)",
+    "references": "D17P34A (lac de cristal : sol hexagonal, cristaux, eau) + P03P01A (cascades) ; D17P11A pour la roche",
+    "layout": "lac (magenta) sur toute la carte ; chemin de sol hexagonal du sud a une grande place de cristal, puis vers le tunnel de la paroi nord ; amas et piliers de cristal le long du chemin ; paroi de roche bleue incrustee de cristaux ; deux cascades du bord haut ; ilots de cristal"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet avec lac en magenta (decoupes de style x2 de D17P34A et P03P01A) ; sol complet = plage de sol du brut en miroir",
+  "references_da": {
+    "D17P34A": {
+      "fichier": "source/zone_zero_v1/reference/D17P34A.png",
+      "sha256": "160aba8a222ae914d493385087795c1723c7dbf6f9fa2d6b460915b492a42c96"
+    },
+    "P03P01A": {
+      "fichier": "source/zone_zero_v1/reference/P03P01A.png",
+      "sha256": "6cd3c095e1da6075958fbdc5b793a3e0e44c7c9f6dd14d2dad37cd94a9be6193"
+    },
+    "D17P11A": {
+      "fichier": "source/zone_zero_v1/reference/D17P11A.png",
+      "sha256": "604b8274058ffb9ee86a722f8a068886cc00f560e643e6b0e90fba152a0061eb"
+    }
+  },
+  "raw_inputs": [
+    {
+      "file": "source/zone_zero_v1/raz3/bruts/decor_magenta.png",
+      "sha256": "abd43b2290fc36d34281492d774e844267bb8cb72b9485461f302e9a487e9985",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/reference/D17P34A_decoupe_style_x2.png",
+        "source/zone_zero_v1/reference/P03P01A_decoupe_style_x2.png"
+      ],
+      "utilise": true
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage du brut en miroir",
+    "plage_y0_y1_x0_x1": [
+      776,
+      872,
+      552,
+      648
+    ]
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "miettes_vers_cristaux_px": 0,
+    "methode": "moyenne ponderee par classe, palette commune 96 couleurs (sol complet, sol) ; palettes propres : parois 32, cristaux 32 ; animations calculees"
+  },
+  "segmentation": {
+    "lac": "magenta pur ou anneaux roses (R, B > 180, G < min(R, B) - 40), >= 3000 px, ferme 2, dilate 1",
+    "cascades": "rectangles mesures sur le brut (x0, x1, haut de l ecume) : [(316, 376, 189), (836, 896, 188)]",
+    "ecume": "blanc (min > 190) relie au pied de chaque chute, ferme 3, rebouche, dilate 1",
+    "sol": "ton [110, 220, 244] +- 60 et ecart-type local < 30 (pas japonais hexagonaux), lisse 9, rebouche, ouvert 3, >= 6000 px",
+    "dalles": "rectangle mesure compte comme sol (dalles hexagonales plates, claires comme les cristaux) : [(300, 336, 540, 690)]",
+    "tunnel": "sombre (lum < 60, B < 110) dans [20, 120, 540, 660], >= 800 px, rebouche (bloquant, compte en parois)",
+    "cristaux": "reste clair (lum > 120 ou B > 170 et G > 150), >= 30 px, ferme 1, rebouche",
+    "parois": "le reste (roche bleue)"
+  },
+  "fidelite": {
+    "sol": {
+      "ref": "D17P34A",
+      "decoupe_ref": [
+        300,
+        250,
+        400,
+        350
+      ],
+      "ref_rgb": [
+        114.6,
+        223.7,
+        248.8
+      ],
+      "rgb": [
+        115.4,
+        215.3,
+        241.9
+      ],
+      "pixels": 56440,
+      "distance": 10.92
+    },
+    "sol_complet": {
+      "ref": "D17P34A",
+      "decoupe_ref": [
+        300,
+        250,
+        400,
+        350
+      ],
+      "ref_rgb": [
+        114.6,
+        223.7,
+        248.8
+      ],
+      "rgb": [
+        111.4,
+        216.7,
+        243.4
+      ],
+      "pixels": 223510,
+      "distance": 9.45
+    },
+    "cristaux": {
+      "ref": "D17P34A",
+      "decoupe_ref": [
+        150,
+        100,
+        230,
+        180
+      ],
+      "ref_rgb": [
+        162.3,
+        231.6,
+        245.8
+      ],
+      "rgb": [
+        142.6,
+        211.9,
+        230.9
+      ],
+      "pixels": 55685,
+      "distance": 31.6
+    },
+    "parois": {
+      "ref": "D17P11A",
+      "decoupe_ref": [
+        20,
+        80,
+        120,
+        180
+      ],
+      "ref_rgb": [
+        38.8,
+        57.6,
+        70.6
+      ],
+      "rgb": [
+        32.8,
+        82.1,
+        127.3
+      ],
+      "pixels": 77928,
+      "distance": 62.15,
+      "note": "roche bleue du cratere : aucune matiere equivalente dans D17P34A ; comparee a la roche de D17P11A, signalee, non seuillee"
+    },
+    "seuil": 35,
+    "seuille": [
+      "sol",
+      "sol_complet",
+      "cristaux"
+    ]
+  },
+  "layer_order_bottom_to_top": [
+    "animation/eau/RAZ3_00_eau_fNN.png",
+    "animation/rides/RAZ3_01_rides_fNN.png",
+    "calques/RAZ3_02_sol_complet.png",
+    "calques/RAZ3_03_sol.png",
+    "calques/RAZ3_04_parois.png",
+    "calques/RAZ3_05_cristaux.png",
+    "animation/cascades/RAZ3_06_cascades_fNN.png",
+    "animation/ecume/RAZ3_07_ecume_fNN.png",
+    "animation/scintillements/RAZ3_08_scintillements_fNN.png"
+  ],
+  "eau": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "tons": [
+      [
+        55,
+        103,
+        143
+      ],
+      [
+        55,
+        111,
+        143
+      ],
+      [
+        55,
+        111,
+        151
+      ],
+      [
+        55,
+        119,
+        159
+      ],
+      [
+        47,
+        119,
+        159
+      ],
+      [
+        47,
+        119,
+        167
+      ],
+      [
+        47,
+        119,
+        175
+      ],
+      [
+        47,
+        127,
+        175
+      ],
+      [
+        47,
+        127,
+        183
+      ],
+      [
+        47,
+        135,
+        183
+      ],
+      [
+        47,
+        135,
+        191
+      ],
+      [
+        47,
+        151,
+        191
+      ]
+    ],
+    "cellule_px": [
+      52,
+      24
+    ],
+    "orbite_px": [
+      1.5,
+      3.0
+    ],
+    "loi": "ROM D17P34A : 4 images de 10 ticks, reseau de reflets qui ondule sur place (0-1-2-3, sans aller-retour ni defilement) ; recalcule : cellules de Worley arrondies q = F1 / F2 dans un domaine deforme par des sinus fixes (traits ondules), chaque centre fait un tour de son petit cercle en 4 phases"
+  },
+  "rides": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "sources": [
+      {
+        "centre": [
+          554.9,
+          131.0
+        ],
+        "demi_axes": [
+          36.0,
+          14.5
+        ]
+      },
+      {
+        "centre": [
+          220.1,
+          131.4
+        ],
+        "demi_axes": [
+          36.0,
+          14.0
+        ]
+      }
+    ],
+    "tons": [
+      [
+        82,
+        148,
+        198
+      ],
+      [
+        132,
+        165,
+        206
+      ]
+    ]
+  },
+  "cascades": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "periode_px": 96,
+    "pas_px": 32,
+    "colonnes": [
+      {
+        "x0": 202,
+        "x1": 241,
+        "y0": 0,
+        "y1": 126,
+        "graine": 31
+      },
+      {
+        "x0": 536,
+        "x1": 575,
+        "y0": 0,
+        "y1": 125,
+        "graine": 32
+      }
+    ],
+    "palette": [
+      [
+        16,
+        66,
+        123
+      ],
+      [
+        33,
+        82,
+        148
+      ],
+      [
+        57,
+        99,
+        165
+      ],
+      [
+        74,
+        123,
+        181
+      ],
+      [
+        82,
+        148,
+        198
+      ],
+      [
+        123,
+        140,
+        198
+      ],
+      [
+        132,
+        165,
+        206
+      ],
+      [
+        156,
+        181,
+        222
+      ],
+      [
+        181,
+        198,
+        231
+      ],
+      [
+        189,
+        206,
+        239
+      ],
+      [
+        214,
+        222,
+        239
+      ],
+      [
+        239,
+        239,
+        247
+      ],
+      [
+        247,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "origine": "loi de P03P01A (commun.py)"
+  },
+  "ecume": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "bouillons": 51,
+    "palette": [
+      [
+        123,
+        140,
+        198
+      ],
+      [
+        156,
+        181,
+        222
+      ],
+      [
+        189,
+        206,
+        239
+      ],
+      [
+        214,
+        222,
+        239
+      ],
+      [
+        239,
+        239,
+        247
+      ],
+      [
+        247,
+        255,
+        255
+      ]
+    ]
+  },
+  "scintillements": {
+    "phases": 12,
+    "frame_length_ticks": 5,
+    "sequence": [
+      1,
+      2,
+      3,
+      3,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "etoiles": [
+      {
+        "xy": [
+          443,
+          422
+        ],
+        "phase": 3,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          615,
+          59
+        ],
+        "phase": 6,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          22,
+          426
+        ],
+        "phase": 1,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          261,
+          198
+        ],
+        "phase": 1,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          628,
+          86
+        ],
+        "phase": 3,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          648,
+          5
+        ],
+        "phase": 6,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          535,
+          38
+        ],
+        "phase": 9,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          287,
+          230
+        ],
+        "phase": 2,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          27,
+          227
+        ],
+        "phase": 4,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          750,
+          384
+        ],
+        "phase": 1,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          732,
+          64
+        ],
+        "phase": 1,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          688,
+          131
+        ],
+        "phase": 3,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          66,
+          55
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          744,
+          458
+        ],
+        "phase": 7,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          741,
+          379
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          45,
+          194
+        ],
+        "phase": 3,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          666,
+          22
+        ],
+        "phase": 2,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          503,
+          311
+        ],
+        "phase": 3,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          750,
+          341
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          485,
+          168
+        ],
+        "phase": 8,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          702,
+          549
+        ],
+        "phase": 11,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          619,
+          79
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          285,
+          214
+        ],
+        "phase": 10,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          681,
+          567
+        ],
+        "phase": 1,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          284,
+          160
+        ],
+        "phase": 3,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          80,
+          134
+        ],
+        "phase": 8,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          323,
+          458
+        ],
+        "phase": 3,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          508,
+          271
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          39,
+          70
+        ],
+        "phase": 10,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          31,
+          259
+        ],
+        "phase": 1,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          605,
+          449
+        ],
+        "phase": 2,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          449,
+          499
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          19,
+          442
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          755,
+          240
+        ],
+        "phase": 1,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          11,
+          507
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          750,
+          230
+        ],
+        "phase": 6,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          68,
+          34
+        ],
+        "phase": 6,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          470,
+          210
+        ],
+        "phase": 1,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          736,
+          198
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          14,
+          99
+        ],
+        "phase": 10,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          743,
+          473
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          423,
+          129
+        ],
+        "phase": 7,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          512,
+          289
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          332,
+          515
+        ],
+        "phase": 0,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          302,
+          207
+        ],
+        "phase": 6,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          533,
+          306
+        ],
+        "phase": 6,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          445,
+          386
+        ],
+        "phase": 2,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          346,
+          150
+        ],
+        "phase": 1,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          475,
+          189
+        ],
+        "phase": 4,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          72,
+          554
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          3,
+          430
+        ],
+        "phase": 6,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          277,
+          225
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          718,
+          28
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          521,
+          250
+        ],
+        "phase": 11,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          90,
+          116
+        ],
+        "phase": 6,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          33,
+          184
+        ],
+        "phase": 4,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          38,
+          521
+        ],
+        "phase": 10,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          19,
+          376
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          478,
+          229
+        ],
+        "phase": 3,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          587,
+          466
+        ],
+        "phase": 9,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          747,
+          442
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          345,
+          53
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          28,
+          398
+        ],
+        "phase": 1,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          764,
+          299
+        ],
+        "phase": 5,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          511,
+          36
+        ],
+        "phase": 10,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          449,
+          84
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          307,
+          38
+        ],
+        "phase": 9,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          20,
+          505
+        ],
+        "phase": 8,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          5,
+          529
+        ],
+        "phase": 2,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          756,
+          263
+        ],
+        "phase": 4,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          63,
+          552
+        ],
+        "phase": 5,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          95,
+          570
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          10,
+          263
+        ],
+        "phase": 2,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          341,
+          181
+        ],
+        "phase": 8,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          236,
+          278
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          519,
+          272
+        ],
+        "phase": 11,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          731,
+          554
+        ],
+        "phase": 4,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          11,
+          328
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          346,
+          102
+        ],
+        "phase": 0,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          32,
+          156
+        ],
+        "phase": 4,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          267,
+          21
+        ],
+        "phase": 7,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          505,
+          261
+        ],
+        "phase": 8,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          575,
+          11
+        ],
+        "phase": 1,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          25,
+          407
+        ],
+        "phase": 6,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          745,
+          544
+        ],
+        "phase": 0,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          748,
+          96
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          289,
+          286
+        ],
+        "phase": 6,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          428,
+          57
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          93,
+          151
+        ],
+        "phase": 2,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          753,
+          505
+        ],
+        "phase": 5,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      }
+    ],
+    "teintes": [
+      [
+        240,
+        170,
+        226
+      ],
+      [
+        150,
+        236,
+        236
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        190,
+        170,
+        255
+      ]
+    ],
+    "note": "teintes tera du reseau (commun.GLINT_TINTS)"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        560
+      ],
+      "sortie": [
+        376,
+        72
+      ],
+      "place": [
+        376,
+        288
+      ]
+    },
+    "chemins_16x16": {
+      "sortie": {
+        "ok": true,
+        "cases_explorees": 725
+      },
+      "place": {
+        "ok": true,
+        "cases_explorees": 313
+      }
+    },
+    "blocked_cells": 6071,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; lac, cascades, ecume, parois, tunnel et cristaux bloquants",
+    "sortie_nord": "devant le tunnel de la paroi nord (vers EAZ1)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "raz3_fond_cristallin",
+    "namespace": "route_zone_zero_3",
+    "tiles_per_bank": {
+      "RAZ3_00_EAU": 11975,
+      "RAZ3_01_RIDES": 251,
+      "RAZ3_02_SOL": 3795,
+      "RAZ3_03_SOL": 996,
+      "RAZ3_04_PAROIS": 2013,
+      "RAZ3_05_CRISTAUX": 2277,
+      "RAZ3_06_CASCADES": 135,
+      "RAZ3_07_ECUME": 202,
+      "RAZ3_08_SCINTILLEMENTS": 404
+    },
+    "banks": [
+      "RAZ3_00_EAU",
+      "RAZ3_01_RIDES",
+      "RAZ3_02_SOL",
+      "RAZ3_03_SOL",
+      "RAZ3_04_PAROIS",
+      "RAZ3_05_CRISTAUX",
+      "RAZ3_06_CASCADES",
+      "RAZ3_07_ECUME",
+      "RAZ3_08_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccords RAZ2 -> RAZ3 -> EAZ1 a scripter)"
+  },
+  "art_approved": false
+}

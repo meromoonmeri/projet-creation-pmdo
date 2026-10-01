@@ -1,0 +1,646 @@
+{
+  "lot": "entree_jardin_secret_sud_nord_v1",
+  "prefix": "EJS1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (EWC1 et ESN1 pour les utilitaires) ; aucun emprunt aux branches soeurs",
+  "biome": "jardin secret (souche a marches sous un rayon de lumiere), choisi par l agent (« Lance la suite ! »)",
+  "method": "textures canoniques = rendu genere REFERENCE : rip passe au generateur ; decor complet, temoin sans objets edite depuis le decor, sol complet edite depuis le temoin",
+  "reference_da": {
+    "file": "secretgarden.png",
+    "sha256": "e5a41562745c6fbfd3bb9edceed054810bbb07adf2f1b2a74e7ece8e19a2164f",
+    "titre": "Jardin secret (Explorers of Sky, nom de fichier ; scene non confirmee)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "secretgarden.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon secret garden): same light yellow-green meadow grass with small tufts, same rounded bushy hedge borders, same round leafy trees, same tan-brown boulders, same small white, yellow and pink flowers, same big golden tree stump with a square dark hole and wooden steps, same vertical bright green light beam falling from the top edge, same dark green background. Make a NEW, larger top-down map. WIDE LANDSCAPE 4:3, zoomed out so the garden feels vast. Layout: the player arrives at the SOUTH (bottom edge center) on a grass path between bushy hedges; the path opens into a wide meadow with a few boulders, trees and flower patches; at the NORTH (top center) the big tree stump with its dark hole and steps, the green light beam falling from the top edge onto it, flowers around it, and the grass leads right up to the steps. Dark green background around the hedges. No characters, no text, no UI, no border.",
+      "essais": "premier essai ; conforme"
+    },
+    {
+      "file": "temoin_sans_objets.png",
+      "images": [
+        "source/entree_jardin_secret_sud_nord_v1/bruts/decor.png"
+      ],
+      "prompt": "Same image, same framing and exact same pixel-art style. Remove every round leafy tree (with its trunk and shadow), every boulder and rock, and every small flower: replace them with the same meadow grass around them. Keep the bushy hedge borders, the big golden tree stump with its dark hole and steps, the green light beam, the light grass path and the dark green background exactly as they are. No text, no border.",
+      "essais": "premier essai ; temoin de segmentation, jamais exporte"
+    },
+    {
+      "file": "ecartes/sol_complet_essai1_touffes.png",
+      "images": [
+        "source/entree_jardin_secret_sud_nord_v1/bruts/decor.png"
+      ],
+      "ecarte": true,
+      "prompt": "Same image, same framing and pixel-art style, but only the plain medium yellow-green meadow grass with its small grass tufts everywhere, covering the whole image edge to edge, keep the texture detail, nothing else.",
+      "essais": "ECARTE : grosses touffes hautes, vert acide (148.5,178.3,28.6), distance 43.2 > 35 a l herbe du rip"
+    },
+    {
+      "file": "ecartes/sol_complet_essai2_plaques.png",
+      "images": [
+        "secretgarden.png"
+      ],
+      "ecarte": true,
+      "prompt": "Fill the ENTIRE image edge to edge with only the medium yellow-green meadow grass from the reference image (the grass around the flowers and trees, with its fine texture and a few tiny grass tufts), same pixel-art style, same palette and contrast. No tall grass clumps, no bushes, no trees, no rocks, no flowers, no path, no dark areas. Wide landscape 4:3.",
+      "essais": "ECARTE : plaques tramees, (151.2,193.5,48.3), distance 45.7 > 35 a l herbe du rip"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/entree_jardin_secret_sud_nord_v1/bruts/temoin_sans_objets.png"
+      ],
+      "prompt": "Same image, same framing and exact same pixel-art style. Replace the bushy hedges, the tree stump, the green light beam, the light central grass and the dark green background with the same medium green meadow grass that is between the hedges and the light path, with its small grass tufts, so that the whole image is only that medium meadow grass, edge to edge. No text, no border.",
+      "essais": "troisieme essai ; conforme (121.7,174.9,52.6), distance 11.0 a l herbe du rip"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_jardin_secret_sud_nord_v1/bruts/decor.png",
+      "sha256": "ea1c585e985376499a85507d7bbe7fda14338032ce3c25d093c5bdda47e19ff9",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/entree_jardin_secret_sud_nord_v1/bruts/temoin_sans_objets.png",
+      "sha256": "df4719a8eed1af4a0743984b4949d2da43cc6a3c5d442facd98e47a41b27053d",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/entree_jardin_secret_sud_nord_v1/bruts/ecartes/sol_complet_essai1_touffes.png",
+      "sha256": "22688af693aab5010bcee8a17db43ca7d98edc4710ff4615e610f2cbad5d3540",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": true
+    },
+    {
+      "file": "source/entree_jardin_secret_sud_nord_v1/bruts/ecartes/sol_complet_essai2_plaques.png",
+      "sha256": "efefca9da67b02afdfae14751218aa6ce6b564692d5051d0d92c800bf023550e",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": true
+    },
+    {
+      "file": "source/entree_jardin_secret_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "c439d1f975811959cc16a3ef5f54b5b2527c4e8490f8c5e606f7455f42ca230d",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    }
+  ],
+  "recalage": {
+    "temoin": {
+      "ecart_moyen": 2.28,
+      "ecart_decale_1px": 2.88
+    },
+    "zones": "temoin : hors objets (ecart > 10) dilates de 4 px"
+  },
+  "segmentation_mesures": {
+    "objets": 171,
+    "fleurs": 145,
+    "rochers": 26,
+    "arbres": 19,
+    "miettes_rendues_a_l_herbe_px": 3467,
+    "trou_y": [
+      176,
+      196
+    ],
+    "trou_x": [
+      585,
+      615
+    ],
+    "souche_y": [
+      158,
+      242
+    ],
+    "ombres_lum": 124.3,
+    "herbe_lum": 171.2,
+    "prairie_b": 43.5
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
+    "brut": {
+      "fond": {
+        "rip_rgb": [
+          47.5,
+          87.9,
+          53.9
+        ],
+        "decor_rgb": [
+          43.9,
+          82.1,
+          46.8
+        ],
+        "distance": 9.9
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          152.7,
+          206.3,
+          74.1
+        ],
+        "decor_rgb": [
+          152.2,
+          203.5,
+          65.9
+        ],
+        "distance": 8.7
+      },
+      "herbe": {
+        "rip_rgb": [
+          115.0,
+          166.1,
+          53.1
+        ],
+        "decor_rgb": [
+          107.5,
+          162.9,
+          50.6
+        ],
+        "distance": 8.5
+      },
+      "roche": {
+        "rip_rgb": [
+          137.2,
+          129.6,
+          68.4
+        ],
+        "decor_rgb": [
+          153.6,
+          138.9,
+          75.4
+        ],
+        "distance": 20.1
+      }
+    },
+    "calques_finaux": {
+      "prairie": {
+        "matiere": "herbe_claire",
+        "rgb": [
+          162.5,
+          205.0,
+          45.2
+        ],
+        "distance_rip": 30.5
+      },
+      "ombres": {
+        "matiere": "herbe",
+        "rgb": [
+          115.6,
+          164.0,
+          53.3
+        ],
+        "distance_rip": 2.2
+      },
+      "herbe": {
+        "matiere": "herbe_claire",
+        "rgb": [
+          147.6,
+          200.1,
+          75.3
+        ],
+        "distance_rip": 8.1
+      },
+      "rochers": {
+        "matiere": "roche",
+        "rgb": [
+          152.1,
+          137.0,
+          80.5
+        ],
+        "distance_rip": 20.5
+      },
+      "fond": {
+        "matiere": "fond",
+        "rgb": [
+          41.6,
+          79.0,
+          49.2
+        ],
+        "distance_rip": 11.7
+      }
+    },
+    "sol_complet": 11.0,
+    "sol_complet_ecartes": {
+      "ecartes/sol_complet_essai1_touffes.png": 43.2,
+      "ecartes/sol_complet_essai2_plaques.png": 45.7
+    },
+    "rayon_lucioles": "couleurs EXACTES du rip (test : sous-ensemble des couleurs du rip)"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "herbe": {
+        "calques": [
+          "sol_complet",
+          "prairie",
+          "herbe",
+          "ombres"
+        ],
+        "couleurs": 64
+      },
+      "fleurs": {
+        "calques": [
+          "fleurs"
+        ],
+        "couleurs": 24
+      },
+      "rochers": {
+        "calques": [
+          "rochers"
+        ],
+        "couleurs": 32
+      },
+      "vegetation": {
+        "calques": [
+          "arbres",
+          "haies"
+        ],
+        "couleurs": 96
+      },
+      "souche": {
+        "calques": [
+          "souche",
+          "marches",
+          "profondeur"
+        ],
+        "couleurs": 48
+      },
+      "fond": {
+        "calques": [
+          "fond"
+        ],
+        "couleurs": 8
+      }
+    }
+  },
+  "segmentation": "fond = lum lissée 5 px du témoin < 85, vert (g > r + 15), ouvert 3 px, relié au bord ; rayon = pixels du témoin\n    très verts (g - r > 70) ou très clairs (lum > 205), y < 175, x 470-730, hors fond, fermés 2 px, reliés au bord haut ;\n    souche = doré (r >= g - 12, r - b > 60) au haut-centre, fermé 4 px, > 3000 px, trous bouchés ; profondeur = lum < 75\n    dans la souche, ouverte 1 px, plus grande composante ; marches = toute la souche sous le trou, dans\n    sa largeur (+- 2 px), barreaux clairs et creux compris (sinon l'escalier ne rejoint pas l'herbe) ; haies = témoin texturé (écart-type 9 px > 6), fermé 3 px, > 3000 px, ouvert 5 px puis redilaté (les lisières\n    fines, comme l'arc entre prairie et allée, ne sont pas des haies), petits trous (< 800 px) bouchés,\n    rien dans la zone dégagée sous la souche ; objets = écart décor / témoin lissé 3 px > 28, fermé 3 px, trous bouchés,\n    >= 30 px : fleurs = composantes < 400 px à >= 20 % de pixels de fleur ; rochers = beige (|r-g| < 30, r-b > 25) fermé\n    2 px, trous bouchés, >= 150 px, lum moyenne > 115 (les troncs, plus sombres, restent aux arbres) ; ombres portées =\n    herbe plate sombre (écart-type < 6, lum < 155, g > r + 30) ; arbres = le reste des objets (>= 300 px) ; herbe hors\n    objets : prairie = b lissé 5 px < 50 (jaune), ombres = lum lissée 5 px < 150, herbe = le reste. Les composantes d'objets du décor (diff > 28) posées sur le rayon du témoin\n    et dont moins de 30 % des pixels ont la couleur du rayon dans le décor (le rocher à gauche du faisceau) sortent du rayon.",
+  "ombres": "calque ombres = herbe du rendu assombrie au pied des haies, des arbres et des rochers (separee, pas inventee)",
+  "layers": [
+    {
+      "file": "calques/EJS1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_01_prairie.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_02_herbe.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_03_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_04_fleurs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_05_rochers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_06_arbres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_07_haies.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_08_souche.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_09_marches.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_10_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EJS1_11_fond.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/rayon/EJS1_12_rayon_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/lucioles/EJS1_13_lucioles_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "rayon": {
+    "rampe": [
+      [
+        47,
+        95,
+        55
+      ],
+      [
+        47,
+        103,
+        55
+      ],
+      [
+        55,
+        119,
+        55
+      ],
+      [
+        63,
+        135,
+        55
+      ],
+      [
+        63,
+        151,
+        55
+      ],
+      [
+        63,
+        167,
+        55
+      ],
+      [
+        71,
+        183,
+        63
+      ],
+      [
+        79,
+        199,
+        71
+      ],
+      [
+        79,
+        215,
+        71
+      ],
+      [
+        87,
+        223,
+        71
+      ],
+      [
+        95,
+        231,
+        71
+      ],
+      [
+        95,
+        239,
+        71
+      ],
+      [
+        103,
+        247,
+        79
+      ],
+      [
+        111,
+        255,
+        87
+      ],
+      [
+        127,
+        255,
+        95
+      ],
+      [
+        151,
+        255,
+        111
+      ],
+      [
+        175,
+        255,
+        127
+      ],
+      [
+        191,
+        255,
+        135
+      ],
+      [
+        207,
+        255,
+        151
+      ],
+      [
+        231,
+        255,
+        199
+      ],
+      [
+        239,
+        255,
+        223
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "rampe_source": "rip, zone y < 95, x 130-280, verts du rayon par luminance",
+    "souffle_crans": 2,
+    "bords_attenues_crans": 6,
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "loi": "cran = clip(cran0 + round(2 sin(2 pi t / 24)) x min(1, cran0 / 6))",
+    "origine": "forme du rayon GENEREE ; couleurs EXACTES du rip ; souffle cree par nous"
+  },
+  "lucioles": {
+    "lucioles": [
+      [
+        336,
+        128,
+        0,
+        2
+      ],
+      [
+        434,
+        132,
+        6,
+        2
+      ],
+      [
+        360,
+        96,
+        12,
+        3
+      ],
+      [
+        414,
+        90,
+        18,
+        3
+      ],
+      [
+        346,
+        60,
+        3,
+        2
+      ],
+      [
+        428,
+        56,
+        15,
+        2
+      ],
+      [
+        196,
+        214,
+        4,
+        3
+      ],
+      [
+        566,
+        206,
+        10,
+        3
+      ],
+      [
+        170,
+        310,
+        16,
+        3
+      ],
+      [
+        610,
+        300,
+        22,
+        3
+      ]
+    ],
+    "montee_px_par_phase": 2,
+    "couleurs": [
+      [
+        207,
+        255,
+        151
+      ],
+      [
+        231,
+        255,
+        199
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "formes": "point 1 px (phases 0-2, 21-23 et 2 phases sur 4), croix 3 x 3 (2 phases sur 4)",
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "origine": "couleurs EXACTES du rayon du rip ; formes, trajets et cadence crees par nous"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      376,
+      128
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 1115,
+    "blocked_cells": 4791,
+    "total_cells": 6912,
+    "walkable_cells": 2121,
+    "rule": "case bloquee si > 25 % hors praticable (prairie, herbe, ombres, fleurs, marches relies au bord sud)",
+    "seuil": "premiere case 2 x 2 libre sous le trou de la souche"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "ejs1_entree_jardin_secret",
+    "namespace": "entree_jardin_secret_sud_nord",
+    "tiles_per_bank": {
+      "EJS1_00_SOL": 6247,
+      "EJS1_01_PRAIRIE": 1024,
+      "EJS1_02_HERBE": 1679,
+      "EJS1_03_OMBRES": 815,
+      "EJS1_04_FLEURS": 457,
+      "EJS1_05_ROCHERS": 442,
+      "EJS1_06_ARBRES": 892,
+      "EJS1_07_HAIES": 2295,
+      "EJS1_08_SOUCHE": 58,
+      "EJS1_09_MARCHES": 21,
+      "EJS1_10_PROFONDEUR": 9,
+      "EJS1_11_FOND": 1615,
+      "EJS1_12_RAYON": 529,
+      "EJS1_13_LUCIOLES": 73
+    },
+    "banks": [
+      "EJS1_00_SOL",
+      "EJS1_01_PRAIRIE",
+      "EJS1_02_HERBE",
+      "EJS1_03_OMBRES",
+      "EJS1_04_FLEURS",
+      "EJS1_05_ROCHERS",
+      "EJS1_06_ARBRES",
+      "EJS1_07_HAIES",
+      "EJS1_08_SOUCHE",
+      "EJS1_09_MARCHES",
+      "EJS1_10_PROFONDEUR",
+      "EJS1_11_FOND",
+      "EJS1_12_RAYON",
+      "EJS1_13_LUCIOLES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

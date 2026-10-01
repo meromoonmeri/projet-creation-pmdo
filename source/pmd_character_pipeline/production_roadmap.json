@@ -1,0 +1,493 @@
+{
+  "updated_on": "2026-09-18",
+  "status": "User-requested roadmap; planned entries are not completed assets or background jobs",
+  "order": [
+    {
+      "id": "guild_members_priority",
+      "subject": "Priority audit and missing assets for the nine PMDO quest guild members",
+      "status": "Eat available for 9/9: four new eight-view candidates, two retained V5 cycles, three native single-view cycles. Art/runtime pending; 124 full32 actions remain unproduced.",
+      "members": [
+        "Gardevoir",
+        "Farfetch’d",
+        "Pancham",
+        "Bagon",
+        "Shroomish",
+        "Happiny",
+        "Pachirisu",
+        "Weavile",
+        "Politoed"
+      ],
+      "scope": "Standard/base slots audited; cutscene/female variants inventoried separately, not selected without quest identity context",
+      "priority_1": "Keep user-preferred Politoed V1/ac15d0fa; replace only Dizzy with a true spiral eye, add applause Special0 (eyes closed, mouth open). Sigh/Stunned remain absent; disliked V2 must not fill them.",
+      "priority_2": "Continue missing species-specific guild animations with complete cycles, appropriate direction coverage, GIFs and regular pushes. No baked-in food; no unrelated renamed Specials.",
+      "already_available": "All nine have dungeon10; Bagon/Happiny/Pachirisu base have full32",
+      "paths": [
+        "exports/guild_members_audit",
+        "source/guild_members_audit",
+        "source/pokemon_custom/politoed_portraits_v1",
+        "exports/pokemon_custom/politoed_portraits_v1",
+        "apercu_tarpaud_portraits_v1.html",
+        "exports/pokemon_custom/politoed_portraits_v3",
+        "exports/guild_scene_animations_v1",
+        "apercu_guilde_scenes_v1.html",
+        "source/guild_scene_animations_v2",
+        "exports/guild_scene_animations_v2",
+        "apercu_gardevoir_eat_v2.html",
+        "exports/guild_scene_recovery_v5",
+        "source/guild_scene_recovery_v5",
+        "apercu_guilde_reconstruction_v5.html",
+        "exports/guild_eat_all_v6",
+        "source/guild_eat_all_v6",
+        "apercu_guilde_eat_tous_v6.html"
+      ],
+      "portrait_progress": "14 core portraits + optional Special0 in V3: 13 V1 portraits byte-identical, targeted pixel-authored spiral from generated guide, generated applause on explicit Extra_Backgrounds slot (40,0)-(80,40). New additions not art-approved.",
+      "scene_progress": {
+        "gardevoir": "All 14 base actions preserved plus 7 exact Cutscene actions (Special1 alias safely materialized from Cutscene Appeal) and a front-only generated/cleaned Nod candidate, 5 frames/3 drawings.",
+        "weavile": "All 13 base actions preserved plus authentic Cutscene Special0/1; not renamed as generic missing actions.",
+        "technical": "Both full base-plus-additions packs PASS local dungeon precheck; PMDO NOT TESTED; no global completion claim.",
+        "gardevoir_eat": "V2 front-only Eat candidate: 8 stages, generated arm/berry guide cleaned onto native anatomy, moving hand marker, full local technical precheck PASS. Other seven directions and art/runtime approval pending.",
+        "recovery_v5": {
+          "actions": [
+            "Gardevoir Eat",
+            "Gardevoir Nod",
+            "Shroomish Eat"
+          ],
+          "directions": 8,
+          "steps_per_view": 16,
+          "cycle_gifs": 27,
+          "halcyon_reference_gifs": 3,
+          "food_in_sprite": false,
+          "first_successful_push": "adb28898",
+          "state": "technical_pass; art/runtime pending",
+          "remaining_project_actions_without_local_cycle": 128,
+          "note": "New reconstruction after unpushed V3/V4 commits were unavailable, not byte-identical recovery."
+        }
+      },
+      "current_progress": "exports/guild_eat_all_v6/production_progress.json",
+      "guild_proposals_selection": "All previously presented guild proposals retained by user: buildings/treehouse HQ and annexes, vegetation, member animations. Not approval of unseen art or runtime; structures still pending."
+    },
+    {
+      "id": "team_dazzling_diva",
+      "subject": "Team Dazzling: Lopunny / Mawile / Tsareena (Lockpin / Mysdibule / Sucreine)",
+      "status": "Queued after the missing guild-member assets are finished; no animation created yet",
+      "scope": "Species-specific diva performance animations following actual anatomy and native PMD scale; exact native animation/portrait resources to audit before generation",
+      "gate": "User-selected membership is authoritative; do not substitute the canonical team roster or generic human acting."
+    },
+    {
+      "id": "battle_launch_canonical_pmdo",
+      "subject": "Battle launch animation based on the canonical PMDO battle transition",
+      "status": "Queued after Team Dazzling; native transition assets and engine hooks not yet inspected for this task",
+      "gate": "Identify and inspect the actual canonical PMDO transition before design; do not substitute a generic transition and call it canonical. Separate visual deliverable and Ground/Dungeon runtime validation."
+    },
+    {
+      "id": "return_canonical_maps",
+      "subject": "Resume map creation with canonical PMD textures as before",
+      "status": "Queued after missing guild resources, Team Dazzling and battle launch",
+      "scope": "Return to existing native-reference and layered canonical-texture workflow; preserve approved maps/backgrounds and original textures."
+    },
+    {
+      "id": "spritecollab_all_missing",
+      "subject": "Entire SpriteCollab missing-resource catalogue",
+      "status": "Global pinned inventory built; production required in reviewed batches, not complete",
+      "paths": [
+        "exports/spritecollab_global",
+        "source/sprite_audit_v2/global_backlog.py",
+        "apercu_spritecollab_global.html"
+      ],
+      "rules": [
+        "Preserve existing native resources and credits",
+        "Review upstream pending submissions before competing work",
+        "Do not count project-only action requirements as upstream omissions",
+        "Preserve non-required slots in inventory for applicability review",
+        "Generated drafts are not approved exports"
+      ]
+    },
+    {
+      "id": "dynamax_transformation",
+      "subject": "Dynamax transformation animation",
+      "status": "Charizard visual pilot delivered: eight transformation GIFs and eight periodic hold GIFs, 240 phases / 8 seconds each; seven transparent layers for direction D; real PMDO verification pending",
+      "scope": "Energy buildup, visible size transition, Dynamax visual state and return sequence",
+      "required": [
+        "Generated and reviewed PMD-style keyframes",
+        "Fluid multiframe sequence and looping hold effects where appropriate",
+        "Independent front/rear/ground effect layers",
+        "Eight gameplay-direction review",
+        "Pre/post envelopes and fixed ground anchor",
+        "GIF per sequence"
+      ],
+      "engine_gate": "Visual scaling is not engine size, collision or gameplay integration. Verify actual PMDO support before claiming playability.",
+      "paths": [
+        "source/transformations_v1",
+        "exports/transformations_v1",
+        "apercu_transformations_v1.html"
+      ]
+    },
+    {
+      "id": "gigantamax_transformation",
+      "subject": "Gigantamax transformation animation",
+      "status": "Charizard visual pilot delivered: eight transformation GIFs and eight periodic hold GIFs, 240 phases / 8 seconds each; seven transparent layers for direction D; real PMDO verification pending",
+      "scope": "Energy buildup and transformation revealing the correct species-specific Gigantamax form, plus return sequence",
+      "gate": "Not just an enlarged normal sprite. Reference and provide the actual target form, register both silhouettes, and conceal the form switch at the intended stage.",
+      "required": [
+        "Generated and reviewed PMD-style keyframes",
+        "Independent effect layers",
+        "Eight gameplay-direction review",
+        "GIF per sequence",
+        "Separate image and runtime tests"
+      ],
+      "pilot": "Charizard to authentic SpriteCollab Gigantamax Charizard (0006/0003), not normal-sprite scaling",
+      "paths": [
+        "source/transformations_v1",
+        "exports/transformations_v1",
+        "apercu_transformations_v1.html"
+      ]
+    },
+    {
+      "id": "terastallization",
+      "subject": "Terastallization transformation animation",
+      "status": "Charizard visual pilot delivered: eight transformation GIFs and eight periodic hold GIFs, 240 phases / 8 seconds each; seven transparent layers for direction D; real PMDO verification pending",
+      "scope": "Crystal formation, appearance of the relevant type crown, crystalline hold effects and dissipation",
+      "gate": "Verify crown references per supported type. Generic Terastallization must not be confused with Terapagos Stellar's specific anatomy.",
+      "required": [
+        "Generated and reviewed PMD-style keyframes",
+        "Separate subject, crown and effect layers",
+        "Fluid multiframe animation",
+        "Eight gameplay-direction review",
+        "GIF per sequence",
+        "Transparent limitations for any unimplemented types"
+      ],
+      "attachment_gate": "Accessory only, no integrated head or face. Per-frame anatomical head markers and species/form/direction tuning; ambiguous poses blocked. Six local folders do not cover the remote catalogue. Ground/Dungeon not tested.",
+      "paths": [
+        "source/transformations_v1",
+        "exports/transformations_v1",
+        "apercu_transformations_v1.html",
+        "source/tera_v2",
+        "exports/tera_v2",
+        "apercu_tera_v2.html"
+      ],
+      "type_coverage": "Fire transformation only; Fire/Water static faceless crowns provisional; remaining 17 static crowns absent; no all-species coverage",
+      "latest": "Tera V2: 19 generated crown type proposals (Stellar rejected, Flying count wrong); Fire 4 cardinal / Water 8 provisional views / other17 front only. New alpha-preserving glass renderer, 59 local sheets x24 phases plus12 remote sheets x24. Complete catalogue55953 sheets; not all rendered, no PMDO integration."
+    },
+    {
+      "id": "tirtouga_finish",
+      "subject": "Carapagos",
+      "status": "32 actions/16 portraits previously exported; consolidated review now in apercu_tera_v2.html; six originals preserved; art and PMDO validation still pending",
+      "preserve": "User-approved portraits V3 and canonical backgrounds, identified by approval.json; new portraits are not covered by that approval",
+      "paths": [
+        "source/pokemon_custom/tirtouga_v5",
+        "source/pokemon_custom/tirtouga_portraits_v4",
+        "exports/pokemon_custom/canonical_expressions_v1",
+        "exports/pokemon_custom/canonical_expressions_v2",
+        "apercu_expressions_canoniques_v2.html"
+      ],
+      "latest_portrait_batch": "canonical_expressions_v2: sixteen front emotions, six approved originals byte-preserved + ten anatomy-locked candidates (eight new this lot). Full technical precheck PASS, no duplicate new subjects; art/runtime approval and reverse portraits pending."
+    },
+    {
+      "id": "zarude",
+      "subject": "Zarude standard form",
+      "status": "Initial generated model unapproved/unexported; direction errors need correction",
+      "scope": "Build missing sprites and animation set; preserve the existing sixteen SpriteCollab portraits rather than replace them",
+      "paths": [
+        "source/pokemon_custom/next_species"
+      ],
+      "latest_attempt": "West correction blocked by image-generation limit; no new file. Existing16portraits preserved; raw wrong-west sprite remains unexported."
+    },
+    {
+      "id": "terapagos_stellar",
+      "subject": "Terapagos Stellar form, SpriteCollab slot 1024/0002",
+      "status": "Initial generated sheet rejected by user; correct official and native portrait references verified",
+      "gate": "Reconstruct one faithful view before multiple directions. Never derive exports or animations from the rejected sheet. Do not substitute Terastal form 1024/0001.",
+      "paths": [
+        "source/pokemon_custom/next_species/references/terapagos_stellar"
+      ],
+      "missing_portraits": "15 required emotions; preserve Normal and Normal^. Fresh faithful-model attempt blocked by image-generation limit; no replacement generated.",
+      "portrait_status": "Blocked by latest user correction: generated expression face inaccurate; do not pursue this portrait sheet. Native Normal and Normal^ preserved. This does not cancel the separate sprite task."
+    },
+    {
+      "id": "mega_raichu_x",
+      "subject": "Mega Raichu X",
+      "status": "Existing native Normal portrait located and preserved at 0026/0002; sprites absent and15required emotions missing at pinned revision; full official body reference and generation pending",
+      "scope": "Distinct form model, missing sprite animations and portraits; compatible with the Mega Evolution effect timeline",
+      "gate": "Verify exact official form identity and anatomy; inspect existing resources and credits before creating or replacing anything. Do not infer a design from ordinary or Alolan Raichu.",
+      "reference_path": "source/pokemon_custom/next_species/references/mega_raichu_x",
+      "portrait_rule": "Exact native Normal facial anatomy is mandatory. Prior broad expression sheets not accepted; one constrained Happy study now generated, no art approval or final emotion pack.",
+      "latest_portrait_batch": "canonical_expressions_v1: fixed native anatomy, natural animal expression rules, canonical emotion backgrounds. X has five new technically valid candidates; Y has three plus two blocked at16colors; Carapagos has new Pain/Worried plus six original approved portraits preserved. No art approval or final full pack.",
+      "paths": [
+        "exports/pokemon_custom/canonical_expressions_v1"
+      ]
+    },
+    {
+      "id": "mega_raichu_y",
+      "subject": "Mega Raichu Y",
+      "status": "Existing native Normal portrait located and preserved at 0026/0003; sprites absent and15required emotions missing at pinned revision; full official body reference and generation pending",
+      "scope": "Distinct form model, missing sprite animations and portraits; compatible with the Mega Evolution effect timeline",
+      "gate": "Verify exact official form identity independently from X; no simple recolor presented as a separate form.",
+      "reference_path": "source/pokemon_custom/next_species/references/mega_raichu_y",
+      "portrait_rule": "Exact native Normal facial anatomy is mandatory. Prior broad expression sheets not accepted; one constrained Happy study now generated, no art approval or final emotion pack.",
+      "latest_portrait_batch": "canonical_expressions_v1: fixed native anatomy, natural animal expression rules, canonical emotion backgrounds. X has five new technically valid candidates; Y has three plus two blocked at16colors; Carapagos has new Pain/Worried plus six original approved portraits preserved. No art approval or final full pack.",
+      "paths": [
+        "exports/pokemon_custom/canonical_expressions_v1"
+      ]
+    }
+  ],
+  "standing_requirements": {
+    "character_format": "Follow contract.json and the two reviewed portrait/sprite guides; sprites <=15 visible colors globally with binary alpha, portraits 40x40 opaque and <=15 colors including canonical background",
+    "effects_format": "Independent VFX layers may use their own palette and alpha fades; do not impose the character palette on VFX or contaminate character Anim sheets with VFX halos",
+    "review": "Technical precheck, visual/user approval, public SpriteCollab admissibility, and actual PMDO runtime tests remain distinct gates",
+    "missing_resources": "Audit dictionary keys as resource presence; values are lock flags. Preserve existing credited or locked assets and existing portraits",
+    "references": "A generator prompt and a supplied reference do not prove fidelity. Inspect the output and reject wrong forms before making directional sheets",
+    "persistence": "Checkpoint and push source work and deliverables on arena/01a095e8-guilde-treehouse-pmd",
+    "portrait_identity": "All expression variants must preserve native/approved Normal facial identity and anatomy. Only natural expression movements; no facial redesign."
+  },
+  "confirmed_missing_resource_scope": "Latest user correction OVERRIDES previous project-only selection: ALL missing SpriteCollab creations, including forms and variants. Global inventory in exports/spritecollab_global; no claim all are produced.",
+  "active_priority": "Produce missing assets for the nine guild members first, then Team Dazzling diva animations, canonical PMDO battle launch, then canonical-texture maps. Other backlog retained.",
+  "environment_render_method_correction": {
+    "instruction": "Use prior generated renders workflow: one coherent generated terrain on magenta, full generated floor, cleanup and aligned layers; not collages of map chunks.",
+    "current_example": "renders/arene_glace_generee_v2",
+    "terrain_native_pixel_exact": false,
+    "background_motion": "Canonical aurora artwork with retained authored motion, not an extracted official cycle",
+    "supersedes_method": "exports/ice_arena_aurora_v1 terrain assembly",
+    "scope": "Current generated environment render request; preserve separate Metano-specific canonical restrictions and prior approved assets.",
+    "all_environment_work_complete": false
+  },
+  "environment_wide_wrap_correction": {
+    "user_request": "Régénérer le ciel séparément ; aurore wrap overlay boucle parfaite ; arène plus large et moins étirée.",
+    "status": "V3 generated candidate delivered; awaiting visual review; runtime not tested",
+    "source": "source/arene_glace_large_v3/",
+    "renders": "renders/arene_glace_large_v3/",
+    "viewer": "apercu_arene_glace_large_v3.html",
+    "size": [
+      768,
+      512
+    ],
+    "method": "Fresh landscape full-scene generation, uniformly scaled, no map-piece assembly or stretched old portrait. New separate sky, stars, generated floor and terrain depth planes.",
+    "aurora": "Canonical drawing in authored poses, alpha-feathered periodic strip792px. Newly authored horizontal30px/s wrap,198steps,26.4s. Not official extracted cycle.",
+    "tests": 13,
+    "other_zones_complete": false,
+    "runtime_validated": false
+  },
+  "environment_aurora_intrinsic_animation_correction": {
+    "request": "Boréales animées en plusieurs frames, pas un simple défilement",
+    "source": "source/arene_boreales_v4/",
+    "viewer": "apercu_boreales_animees_v4.html",
+    "intrinsic_poses": 88,
+    "intrinsic_loop_seconds": 8.8,
+    "optional_wrap_loop_seconds": 26.4,
+    "method": "Nonrigid animated folds, height variation and travelling alpha scintillation; preview starts with scroll OFF",
+    "sky_terrain": "V3 preserved byte-identically",
+    "native_cycle_recovered": false,
+    "dedicated_tests": 9,
+    "runtime_validated": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_generated_frames_palette_cycling": {
+    "request": "Générer les frames elles-mêmes, palette cycling aussi",
+    "source": "source/boreales_frames_generees_v5/",
+    "viewer": "apercu_boreales_generees_palette_v5.html",
+    "generated_drawings": 9,
+    "frames_with_dissolves": 72,
+    "cycle_seconds": 7.2,
+    "palette": "256 entries,72 cyclic tables; fixed index/alpha demonstration",
+    "old_aurora_warp": false,
+    "native_pixels": false,
+    "native_cycle": false,
+    "dedicated_tests": 11,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_pmdsky_reference_animation": {
+    "request": "Frames animées subtiles du ciel boréal PMD Sky lui-même, pas de wrap, pas de dessins nouveaux mélangés",
+    "source": "source/boreales_pmdsky_v7/",
+    "viewer": "apercu_ciel_boreal_pmdsky_v7.html",
+    "frames": 24,
+    "frame_ms": 120,
+    "cycle_s": 2.88,
+    "method": "reference image modulated: proportional luminance +/-7.5% on curtains, overlay veil +/-11%, integer-period cosines, frame0 = exact reference",
+    "no_wrap": true,
+    "no_translation": true,
+    "no_palette_global_hue": true,
+    "peaks_clouds_stars_unchanged": true,
+    "official_cycle_extracted": false,
+    "dedicated_tests": 12,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_ondulation_glace_v8": {
+    "request": "Glace sur les zones grises latérales ; aurore animée en ondulations générées ; méthode habituelle inchangée",
+    "source": "source/boreales_ondulation_glace_v8/",
+    "viewer": "apercu_arene_ondulation_glace_v8.html",
+    "aurora_poses": 8,
+    "frames": 32,
+    "frame_ms": 125,
+    "cycle_s": 4.0,
+    "aurora_method": "generated drawn poses, premultiplied dissolves, vertical undulation, zero horizontal translation, no wrap",
+    "ice_backdrop": true,
+    "grey_voids_filled": true,
+    "sky_terrain_V3_unchanged": true,
+    "dedicated_tests": 10,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_onde_boreale_v9": {
+    "request": "Recommencer : 10 frames, chacune sur son propre layer, physique et logique d'onde boréale",
+    "source": "source/onde_boreale_v9/",
+    "viewer": "apercu_onde_boreale_v9.html",
+    "layers": 10,
+    "frame_ms": 160,
+    "cycle_s": 1.6,
+    "physics": "pure transverse wave, per-column vertical shift, travelling phase, 2+5 integer wavelengths, exact 10-frame loop",
+    "context_byte_identical": true,
+    "wrap": false,
+    "dedicated_tests": 10,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_effet_boreale_canonique_v10": {
+    "request": "Effet onde boréal canonique récupéré (aurorepmdsky.png), sans ciel derrière, animé sur son propre layer en plusieurs frames",
+    "source": "source/effet_boreale_canonique_v10/",
+    "viewer": "apercu_effet_boreale_canonique_v10.html",
+    "texture": "canonical PMD Sky aurora image, luminous ribbons extracted like stars were, no baked sky, stars excluded",
+    "layers": 10,
+    "frame_ms": 160,
+    "cycle_s": 1.6,
+    "physics": "pure transverse wave, per-column vertical shift, travelling phase, exact loop",
+    "context_byte_identical": true,
+    "wrap": false,
+    "dedicated_tests": 9,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_boreale_suite_generee_v11": {
+    "request": "Passer les boréals dans le générateur : suite d'animation subtile sur son propre layer, à poser sur notre ciel de zone",
+    "source": "source/boreales_suite_generee_v11/",
+    "viewer": "apercu_boreale_suite_generee_v11.html",
+    "generation": "8 poses with canonical texture + our zone sky as references, subtle core/shimmer motion, locked positions",
+    "extraction": "geometric flood-fill background removal; navy interior kept as harmonised veil; magenta cracks transparent",
+    "etapes": 16,
+    "duree_ms": 120,
+    "cycle_s": 1.92,
+    "own_layer": true,
+    "context_byte_identical": true,
+    "wrap": false,
+    "dedicated_tests": 9,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_palette_cycling_v12": {
+    "request": "Onde boréale générée sans ciel, mouvement logique séquentiel en palette cycling, style Halcyon",
+    "source": "source/boreales_palette_cycling_v12/",
+    "viewer": "apercu_palette_cycling_v12.html",
+    "frames": 8,
+    "duree_ms": 120,
+    "cycle_s": 0.96,
+    "own_layer": true,
+    "sans_ciel": true,
+    "method": "generated sheet: identical silhouette, colors advanced one step per frame (palette cycling)",
+    "dedicated_tests": 9,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_guide_couches_v13": {
+    "request": "Rebaser sur layout_guide.png (V1), faire les plusieurs layers, aurores animées indépendantes du ciel",
+    "source": "source/arene_guide_couches_v13/",
+    "viewer": "apercu_arene_guide_couches_v13.html",
+    "layers": [
+      "ciel_fixe",
+      "etoiles_fixes",
+      "aurore_8frames_palette_cycling",
+      "terrain_fixe"
+    ],
+    "frames": 8,
+    "duree_ms": 120,
+    "frame0_egale_guide": true,
+    "recomposition_exacte": true,
+    "aurore_independante": true,
+    "dedicated_tests": 8,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_guide_couches_v14": {
+    "request": "Calques exacts de la référence + 15 frames de mouvement élégant : changement de couleur harmonieux des boréales, même design/texture, à la place des boréales statiques",
+    "source": "source/arene_guide_couches_v14/",
+    "viewer": "apercu_arene_guide_couches_v14.html",
+    "layers_exact": true,
+    "cristaux_sombres_au_terrain": true,
+    "recomposition_exacte": true,
+    "frames": 15,
+    "duree_ms": 120,
+    "cycle_s": 1.8,
+    "harmonieux": "interpolation lineaire circulaire des rampes, pas adjacent < saut/2",
+    "frame0_egale_guide": true,
+    "dedicated_tests": 9,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_halcyon_v15": {
+    "request": "Méthode canonique de map au générateur + ondulations boréales multi-frames + conversion aux critères Halcyon/Palika",
+    "source": "source/arene_halcyon_v15/",
+    "viewer": "apercu_arene_halcyon_v15.html",
+    "methode": "canonique: full-frame generated terrain, magenta flood alpha",
+    "frames_ondulation": 8,
+    "taille_frame": [
+      768,
+      256
+    ],
+    "duree_ms": 150,
+    "halcyon": {
+      "grille_8px": true,
+      "position_aurore": [
+        80,
+        24
+      ],
+      "nommage_uniforme": true,
+      "sans_wrap": true,
+      "calques": [
+        "ciel_fixe",
+        "etoiles_fixes",
+        "aurore_x8",
+        "terrain_fixe"
+      ]
+    },
+    "dedicated_tests": 8,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  },
+  "environment_halcyon_v16": {
+    "request": "Zone sans trou au centre + boréales du style de la référence en 10 frames de boucle parfaite",
+    "source": "source/arene_halcyon_v16/",
+    "viewer": "apercu_arene_halcyon_v16.html",
+    "sol_continu": true,
+    "bord_sombre_redu": "5471 -> 226 px",
+    "frames": 10,
+    "taille_frame": [
+      768,
+      256
+    ],
+    "duree_ms": 130,
+    "boucle_parfaite": true,
+    "halcyon": {
+      "grille_8px": true,
+      "position_aurore": [
+        80,
+        24
+      ],
+      "nommage_uniforme": true,
+      "sans_wrap": true
+    },
+    "dedicated_tests": 7,
+    "runtime_tested": false,
+    "art_approved": false,
+    "other_zones_complete": false
+  }
+}

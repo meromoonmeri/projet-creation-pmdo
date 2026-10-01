@@ -1,0 +1,1585 @@
+{
+  "lot": "fin_jungle_sud_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Jungle (Southern Jungle)",
+  "entree_correspondante": [
+    "entree_jungle_sud_nord_v1"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "continue !",
+    "poursuis !"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Jungle apres Bristle",
+    "layout": "comme la vraie sortie : clairiere de sable, pelouse a gauche, rocher gris au fond (objectif), jungle dense et canopee au premier plan ; arrivee au sud, arene (boss), aucune sortie",
+    "boss": "non nomme : Southern Jungle est un donjon de l episode special 4 (Team Charm) ; les sources consultees ne s accordent pas sur le combat de fin",
+    "animations": "feuilles qui tombent (calcul) et papillons de EJN1"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sans cle (pas de liquide), en trois etapes avec la reference ; sol complet genere depuis une decoupe du sable",
+  "reference_da": [
+    "Southern_Jungle_exit_S.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_jungle_sud_v1/bruts/decor.png",
+      "sha256": "f026c197481cba299f2219d32afaf4fc6222aa76d3d6d345ebd6c94e840ad882",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_jungle_sud_v1/bruts/decor_etape_recolore.png"
+      ],
+      "etape": 3,
+      "consigne": "bord gauche ferme par des buissons"
+    },
+    {
+      "file": "source/fin_jungle_sud_v1/bruts/decor_etape_recolore.png",
+      "sha256": "497d404e6ea29b2b126f5c20e211298e2742dca53a86872a662b48b731acfb93",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "decor etape 1 (non garde)",
+        "Southern_Jungle_exit_S.png"
+      ],
+      "etape": 2,
+      "consigne": "sable et herbe aux couleurs de la reference"
+    },
+    {
+      "file": "source/fin_jungle_sud_v1/bruts/sol_complet.png",
+      "sha256": "9e34ef79472ec0d16681a77d4b4ac103ae123b477a863c8107b503c0594c5f89",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Southern_Jungle_exit_S.png decoupe [300, 190, 400, 240] x4"
+      ]
+    }
+  ],
+  "bruts_ecartes": [
+    {
+      "essai": "etape 1, decor au rip seul",
+      "raison": "sable rose, pelouse vert fluo, pelouse ouverte a gauche ; image remplacee par sa recoloration"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs ; rocher : palette propre de 16 couleurs",
+    "miettes_vers_jungle_px": 0
+  },
+  "segmentation": {
+    "sable": "R, G > 120, B < 140, R - B > 40, |R - G| < 35, lisse 7 px > 0,5",
+    "pelouse": "G > R + 25, G > B + 40, lum > 105, lisse 9 px > 0,6, >= 2000 px",
+    "sol": "sable + pelouse fermes 4 px, trous rebouches, composante reliee au bas",
+    "rocher": "pixels gris (sat < 35, lum > 75) fermes 3 / ouverts 2, composante qui touche le plus le sol, trous rebouches, dilate 3 px (contour)",
+    "canopee": "luminance lissee 5 px < 42, composantes touchant le bord, >= 5000 px",
+    "jungle": "le reste"
+  },
+  "fidelite": {
+    "sable": {
+      "ref_rgb": [
+        150.9,
+        159.9,
+        90.2
+      ],
+      "rgb": [
+        168.5,
+        166.5,
+        93.9
+      ],
+      "distance": 19.15,
+      "decoupe_ref": [
+        300,
+        190,
+        400,
+        240
+      ]
+    },
+    "pelouse": {
+      "ref_rgb": [
+        61.5,
+        145.6,
+        77.1
+      ],
+      "rgb": [
+        73.5,
+        157.2,
+        75.9
+      ],
+      "distance": 16.82,
+      "decoupe_ref": [
+        20,
+        220,
+        120,
+        260
+      ]
+    },
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FJS1_00_sol_complet.png",
+    "calques/FJS1_01_sable.png",
+    "calques/FJS1_02_pelouse.png",
+    "animation/feuilles/FJS1_03_feuilles_fNN.png",
+    "calques/FJS1_04_rocher.png",
+    "calques/FJS1_05_jungle.png",
+    "animation/papillons/FJS1_06_papillons_fNN.png",
+    "calques/FJS1_07_canopee.png"
+  ],
+  "feuilles": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "chute": 20,
+    "au_sol": 6,
+    "nombre": 14,
+    "couleurs": [
+      [
+        64,
+        186,
+        92
+      ],
+      [
+        46,
+        118,
+        67
+      ],
+      [
+        35,
+        90,
+        52
+      ]
+    ],
+    "placements": [
+      {
+        "depart": [
+          284,
+          155
+        ],
+        "phase": 23,
+        "sens": 1
+      },
+      {
+        "depart": [
+          447,
+          176
+        ],
+        "phase": 46,
+        "sens": 1
+      },
+      {
+        "depart": [
+          359,
+          160
+        ],
+        "phase": 24,
+        "sens": 1
+      },
+      {
+        "depart": [
+          495,
+          167
+        ],
+        "phase": 26,
+        "sens": 1
+      },
+      {
+        "depart": [
+          582,
+          210
+        ],
+        "phase": 37,
+        "sens": -1
+      },
+      {
+        "depart": [
+          634,
+          368
+        ],
+        "phase": 6,
+        "sens": -1
+      },
+      {
+        "depart": [
+          627,
+          205
+        ],
+        "phase": 14,
+        "sens": -1
+      },
+      {
+        "depart": [
+          525,
+          165
+        ],
+        "phase": 38,
+        "sens": -1
+      },
+      {
+        "depart": [
+          229,
+          166
+        ],
+        "phase": 8,
+        "sens": 1
+      },
+      {
+        "depart": [
+          559,
+          164
+        ],
+        "phase": 9,
+        "sens": -1
+      },
+      {
+        "depart": [
+          619,
+          336
+        ],
+        "phase": 10,
+        "sens": 1
+      },
+      {
+        "depart": [
+          321,
+          155
+        ],
+        "phase": 45,
+        "sens": 1
+      },
+      {
+        "depart": [
+          400,
+          172
+        ],
+        "phase": 47,
+        "sens": -1
+      },
+      {
+        "depart": [
+          215,
+          196
+        ],
+        "phase": 6,
+        "sens": 1
+      }
+    ],
+    "loi": "k = (t - phase) mod 48 ; chute k < 20 : y = y0 + 2k, x = x0 + sens 4 sin(2 pi k / 10), pose alternee toutes les 3 phases ; posee a plat 6 phases puis effacee ; meme trajet a chaque boucle",
+    "origine": "calcule ; 3 tons des palmes vertes du decor"
+  },
+  "papillons": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "vols": [
+      {
+        "centre": [
+          250,
+          300
+        ],
+        "amplitude": [
+          70,
+          40
+        ],
+        "decalage": 0,
+        "couleur": "jaune",
+        "positions": [
+          [
+            250,
+            300
+          ],
+          [
+            259,
+            310
+          ],
+          [
+            268,
+            320
+          ],
+          [
+            277,
+            328
+          ],
+          [
+            285,
+            335
+          ],
+          [
+            293,
+            339
+          ],
+          [
+            299,
+            340
+          ],
+          [
+            306,
+            339
+          ],
+          [
+            311,
+            335
+          ],
+          [
+            315,
+            328
+          ],
+          [
+            318,
+            320
+          ],
+          [
+            319,
+            310
+          ],
+          [
+            320,
+            300
+          ],
+          [
+            319,
+            290
+          ],
+          [
+            318,
+            280
+          ],
+          [
+            315,
+            272
+          ],
+          [
+            311,
+            265
+          ],
+          [
+            306,
+            261
+          ],
+          [
+            299,
+            260
+          ],
+          [
+            293,
+            261
+          ],
+          [
+            285,
+            265
+          ],
+          [
+            277,
+            272
+          ],
+          [
+            268,
+            280
+          ],
+          [
+            259,
+            290
+          ],
+          [
+            250,
+            300
+          ],
+          [
+            241,
+            310
+          ],
+          [
+            232,
+            320
+          ],
+          [
+            223,
+            328
+          ],
+          [
+            215,
+            335
+          ],
+          [
+            207,
+            339
+          ],
+          [
+            201,
+            340
+          ],
+          [
+            194,
+            339
+          ],
+          [
+            189,
+            335
+          ],
+          [
+            185,
+            328
+          ],
+          [
+            182,
+            320
+          ],
+          [
+            181,
+            310
+          ],
+          [
+            180,
+            300
+          ],
+          [
+            181,
+            290
+          ],
+          [
+            182,
+            280
+          ],
+          [
+            185,
+            272
+          ],
+          [
+            189,
+            265
+          ],
+          [
+            194,
+            261
+          ],
+          [
+            201,
+            260
+          ],
+          [
+            207,
+            261
+          ],
+          [
+            215,
+            265
+          ],
+          [
+            223,
+            272
+          ],
+          [
+            232,
+            280
+          ],
+          [
+            241,
+            290
+          ]
+        ]
+      },
+      {
+        "centre": [
+          520,
+          260
+        ],
+        "amplitude": [
+          80,
+          50
+        ],
+        "decalage": 17,
+        "couleur": "bleu",
+        "positions": [
+          [
+            583,
+            212
+          ],
+          [
+            577,
+            210
+          ],
+          [
+            569,
+            212
+          ],
+          [
+            560,
+            217
+          ],
+          [
+            551,
+            225
+          ],
+          [
+            541,
+            235
+          ],
+          [
+            530,
+            247
+          ],
+          [
+            520,
+            260
+          ],
+          [
+            510,
+            273
+          ],
+          [
+            499,
+            285
+          ],
+          [
+            489,
+            295
+          ],
+          [
+            480,
+            303
+          ],
+          [
+            471,
+            308
+          ],
+          [
+            463,
+            310
+          ],
+          [
+            457,
+            308
+          ],
+          [
+            451,
+            303
+          ],
+          [
+            446,
+            295
+          ],
+          [
+            443,
+            285
+          ],
+          [
+            441,
+            273
+          ],
+          [
+            440,
+            260
+          ],
+          [
+            441,
+            247
+          ],
+          [
+            443,
+            235
+          ],
+          [
+            446,
+            225
+          ],
+          [
+            451,
+            217
+          ],
+          [
+            457,
+            212
+          ],
+          [
+            463,
+            210
+          ],
+          [
+            471,
+            212
+          ],
+          [
+            480,
+            217
+          ],
+          [
+            489,
+            225
+          ],
+          [
+            499,
+            235
+          ],
+          [
+            510,
+            247
+          ],
+          [
+            520,
+            260
+          ],
+          [
+            530,
+            273
+          ],
+          [
+            541,
+            285
+          ],
+          [
+            551,
+            295
+          ],
+          [
+            560,
+            303
+          ],
+          [
+            569,
+            308
+          ],
+          [
+            577,
+            310
+          ],
+          [
+            583,
+            308
+          ],
+          [
+            589,
+            303
+          ],
+          [
+            594,
+            295
+          ],
+          [
+            597,
+            285
+          ],
+          [
+            599,
+            273
+          ],
+          [
+            600,
+            260
+          ],
+          [
+            599,
+            247
+          ],
+          [
+            597,
+            235
+          ],
+          [
+            594,
+            225
+          ],
+          [
+            589,
+            217
+          ]
+        ]
+      },
+      {
+        "centre": [
+          380,
+          390
+        ],
+        "amplitude": [
+          60,
+          36
+        ],
+        "decalage": 31,
+        "couleur": "jaune",
+        "positions": [
+          [
+            332,
+            425
+          ],
+          [
+            328,
+            421
+          ],
+          [
+            325,
+            415
+          ],
+          [
+            322,
+            408
+          ],
+          [
+            321,
+            399
+          ],
+          [
+            320,
+            390
+          ],
+          [
+            321,
+            381
+          ],
+          [
+            322,
+            372
+          ],
+          [
+            325,
+            365
+          ],
+          [
+            328,
+            359
+          ],
+          [
+            332,
+            355
+          ],
+          [
+            338,
+            354
+          ],
+          [
+            343,
+            355
+          ],
+          [
+            350,
+            359
+          ],
+          [
+            357,
+            365
+          ],
+          [
+            364,
+            372
+          ],
+          [
+            372,
+            381
+          ],
+          [
+            380,
+            390
+          ],
+          [
+            388,
+            399
+          ],
+          [
+            396,
+            408
+          ],
+          [
+            403,
+            415
+          ],
+          [
+            410,
+            421
+          ],
+          [
+            417,
+            425
+          ],
+          [
+            422,
+            426
+          ],
+          [
+            428,
+            425
+          ],
+          [
+            432,
+            421
+          ],
+          [
+            435,
+            415
+          ],
+          [
+            438,
+            408
+          ],
+          [
+            439,
+            399
+          ],
+          [
+            440,
+            390
+          ],
+          [
+            439,
+            381
+          ],
+          [
+            438,
+            372
+          ],
+          [
+            435,
+            365
+          ],
+          [
+            432,
+            359
+          ],
+          [
+            428,
+            355
+          ],
+          [
+            422,
+            354
+          ],
+          [
+            417,
+            355
+          ],
+          [
+            410,
+            359
+          ],
+          [
+            403,
+            365
+          ],
+          [
+            396,
+            372
+          ],
+          [
+            388,
+            381
+          ],
+          [
+            380,
+            390
+          ],
+          [
+            372,
+            399
+          ],
+          [
+            364,
+            408
+          ],
+          [
+            357,
+            415
+          ],
+          [
+            350,
+            421
+          ],
+          [
+            343,
+            425
+          ],
+          [
+            338,
+            426
+          ]
+        ]
+      },
+      {
+        "centre": [
+          600,
+          380
+        ],
+        "amplitude": [
+          55,
+          45
+        ],
+        "decalage": 8,
+        "couleur": "bleu",
+        "positions": [
+          [
+            648,
+            419
+          ],
+          [
+            651,
+            412
+          ],
+          [
+            653,
+            402
+          ],
+          [
+            655,
+            392
+          ],
+          [
+            655,
+            380
+          ],
+          [
+            655,
+            368
+          ],
+          [
+            653,
+            358
+          ],
+          [
+            651,
+            348
+          ],
+          [
+            648,
+            341
+          ],
+          [
+            644,
+            337
+          ],
+          [
+            639,
+            335
+          ],
+          [
+            633,
+            337
+          ],
+          [
+            628,
+            341
+          ],
+          [
+            621,
+            348
+          ],
+          [
+            614,
+            358
+          ],
+          [
+            607,
+            368
+          ],
+          [
+            600,
+            380
+          ],
+          [
+            593,
+            392
+          ],
+          [
+            586,
+            402
+          ],
+          [
+            579,
+            412
+          ],
+          [
+            572,
+            419
+          ],
+          [
+            567,
+            423
+          ],
+          [
+            561,
+            425
+          ],
+          [
+            556,
+            423
+          ],
+          [
+            552,
+            419
+          ],
+          [
+            549,
+            412
+          ],
+          [
+            547,
+            402
+          ],
+          [
+            545,
+            392
+          ],
+          [
+            545,
+            380
+          ],
+          [
+            545,
+            368
+          ],
+          [
+            547,
+            358
+          ],
+          [
+            549,
+            348
+          ],
+          [
+            552,
+            341
+          ],
+          [
+            556,
+            337
+          ],
+          [
+            561,
+            335
+          ],
+          [
+            567,
+            337
+          ],
+          [
+            572,
+            341
+          ],
+          [
+            579,
+            348
+          ],
+          [
+            586,
+            357
+          ],
+          [
+            593,
+            368
+          ],
+          [
+            600,
+            380
+          ],
+          [
+            607,
+            392
+          ],
+          [
+            614,
+            402
+          ],
+          [
+            621,
+            412
+          ],
+          [
+            628,
+            419
+          ],
+          [
+            633,
+            423
+          ],
+          [
+            639,
+            425
+          ],
+          [
+            644,
+            423
+          ]
+        ]
+      },
+      {
+        "centre": [
+          330,
+          180
+        ],
+        "amplitude": [
+          60,
+          30
+        ],
+        "decalage": 40,
+        "couleur": "bleu",
+        "positions": [
+          [
+            278,
+            154
+          ],
+          [
+            282,
+            151
+          ],
+          [
+            288,
+            150
+          ],
+          [
+            293,
+            151
+          ],
+          [
+            300,
+            154
+          ],
+          [
+            307,
+            159
+          ],
+          [
+            314,
+            165
+          ],
+          [
+            322,
+            172
+          ],
+          [
+            330,
+            180
+          ],
+          [
+            338,
+            188
+          ],
+          [
+            346,
+            195
+          ],
+          [
+            353,
+            201
+          ],
+          [
+            360,
+            206
+          ],
+          [
+            367,
+            209
+          ],
+          [
+            372,
+            210
+          ],
+          [
+            378,
+            209
+          ],
+          [
+            382,
+            206
+          ],
+          [
+            385,
+            201
+          ],
+          [
+            388,
+            195
+          ],
+          [
+            389,
+            188
+          ],
+          [
+            390,
+            180
+          ],
+          [
+            389,
+            172
+          ],
+          [
+            388,
+            165
+          ],
+          [
+            385,
+            159
+          ],
+          [
+            382,
+            154
+          ],
+          [
+            378,
+            151
+          ],
+          [
+            372,
+            150
+          ],
+          [
+            367,
+            151
+          ],
+          [
+            360,
+            154
+          ],
+          [
+            353,
+            159
+          ],
+          [
+            346,
+            165
+          ],
+          [
+            338,
+            172
+          ],
+          [
+            330,
+            180
+          ],
+          [
+            322,
+            188
+          ],
+          [
+            314,
+            195
+          ],
+          [
+            307,
+            201
+          ],
+          [
+            300,
+            206
+          ],
+          [
+            293,
+            209
+          ],
+          [
+            288,
+            210
+          ],
+          [
+            282,
+            209
+          ],
+          [
+            278,
+            206
+          ],
+          [
+            275,
+            201
+          ],
+          [
+            272,
+            195
+          ],
+          [
+            271,
+            188
+          ],
+          [
+            270,
+            180
+          ],
+          [
+            271,
+            172
+          ],
+          [
+            272,
+            165
+          ],
+          [
+            275,
+            159
+          ]
+        ]
+      },
+      {
+        "centre": [
+          540,
+          160
+        ],
+        "amplitude": [
+          70,
+          35
+        ],
+        "decalage": 24,
+        "couleur": "jaune",
+        "positions": [
+          [
+            540,
+            160
+          ],
+          [
+            531,
+            169
+          ],
+          [
+            522,
+            178
+          ],
+          [
+            513,
+            185
+          ],
+          [
+            505,
+            190
+          ],
+          [
+            497,
+            194
+          ],
+          [
+            491,
+            195
+          ],
+          [
+            484,
+            194
+          ],
+          [
+            479,
+            190
+          ],
+          [
+            475,
+            185
+          ],
+          [
+            472,
+            178
+          ],
+          [
+            471,
+            169
+          ],
+          [
+            470,
+            160
+          ],
+          [
+            471,
+            151
+          ],
+          [
+            472,
+            143
+          ],
+          [
+            475,
+            135
+          ],
+          [
+            479,
+            130
+          ],
+          [
+            484,
+            126
+          ],
+          [
+            491,
+            125
+          ],
+          [
+            497,
+            126
+          ],
+          [
+            505,
+            130
+          ],
+          [
+            513,
+            135
+          ],
+          [
+            522,
+            142
+          ],
+          [
+            531,
+            151
+          ],
+          [
+            540,
+            160
+          ],
+          [
+            549,
+            169
+          ],
+          [
+            558,
+            178
+          ],
+          [
+            567,
+            185
+          ],
+          [
+            575,
+            190
+          ],
+          [
+            583,
+            194
+          ],
+          [
+            589,
+            195
+          ],
+          [
+            596,
+            194
+          ],
+          [
+            601,
+            190
+          ],
+          [
+            605,
+            185
+          ],
+          [
+            608,
+            178
+          ],
+          [
+            609,
+            169
+          ],
+          [
+            610,
+            160
+          ],
+          [
+            609,
+            151
+          ],
+          [
+            608,
+            143
+          ],
+          [
+            605,
+            135
+          ],
+          [
+            601,
+            130
+          ],
+          [
+            596,
+            126
+          ],
+          [
+            589,
+            125
+          ],
+          [
+            583,
+            126
+          ],
+          [
+            575,
+            130
+          ],
+          [
+            567,
+            135
+          ],
+          [
+            558,
+            142
+          ],
+          [
+            549,
+            151
+          ]
+        ]
+      }
+    ],
+    "origine": "poses generees de l entree Jungle (source/entree_jungle_sud_nord_v1/bruts/papillons_poses.png), butterfly_poses de EJN1 ; boucles en huit fermees"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        560
+      ],
+      "boss": [
+        384,
+        296
+      ],
+      "objectif": [
+        376,
+        176
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 488
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 1094
+      }
+    },
+    "blocked_cells": 4698,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sable et pelouse"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fjs1_fin_jungle_sud",
+    "namespace": "fin_jungle_sud",
+    "tiles_per_bank": {
+      "FJS1_00_SOL": 6902,
+      "FJS1_01_SABLE": 2202,
+      "FJS1_02_PELOUSE": 167,
+      "FJS1_03_FEUILLES": 201,
+      "FJS1_04_ROCHER": 41,
+      "FJS1_05_JUNGLE": 2899,
+      "FJS1_06_PAPILLONS": 1436,
+      "FJS1_07_CANOPEE": 2701
+    },
+    "banks": [
+      "FJS1_00_SOL",
+      "FJS1_01_SABLE",
+      "FJS1_02_PELOUSE",
+      "FJS1_03_FEUILLES",
+      "FJS1_04_ROCHER",
+      "FJS1_05_JUNGLE",
+      "FJS1_06_PAPILLONS",
+      "FJS1_07_CANOPEE"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

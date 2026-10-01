@@ -1,0 +1,865 @@
+{
+  "lot": "zone_zero_v1/eaz1",
+  "serie": "reseau Zone Zero (routes RAZ, entree EAZ)",
+  "biome": "grotte de cristal, entree du donjon Zone Zero",
+  "demande": [
+    "reseau de routes dans un abime facon Zone Zero avec des cascades jusqu'a la map d'entree du donjon Zone Zero (Pokemon Paradoxe)",
+    "je choisis toutes les options recommandees + 3 routes, choisis les textures de reference pour composer cette zone inedite"
+  ],
+  "choix_agent": {
+    "reseau": "RAZ1 levre -> RAZ2 terrasses -> RAZ3 fond cristallin -> EAZ1 entree (cette map)",
+    "references": "D17P11A (entree de la grotte de cristal) : textures seulement, petite decoupe sans le cristal geant pour ne pas recopier sa composition",
+    "layout": "grotte vaste ; breche au sud ; pas japonais sinueux vers une geode fendue au nord-est dont le coeur est le tunnel du donjon ; corniche aux fleches de cristal a l ouest (inaccessible) ; plage lumineuse cerclee de rochers a l est"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference (decoupe de style x2 de D17P11A), puis une edition de palette ; sol complet = plage de sol du brut en miroir",
+  "references_da": {
+    "D17P11A": {
+      "fichier": "source/zone_zero_v1/reference/D17P11A.png",
+      "sha256": "604b8274058ffb9ee86a722f8a068886cc00f560e643e6b0e90fba152a0061eb"
+    }
+  },
+  "raw_inputs": [
+    {
+      "file": "source/zone_zero_v1/eaz1/bruts/decor_v0_couleurs_derivees.png",
+      "sha256": "ae932db2672be097cf2e8ba480b4a7b1f051db1b0aeeb333a682a09b1d6bae31",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/reference/D17P11A_decoupe_style_x2.png"
+      ],
+      "utilise": false,
+      "rejet": "bon layout, couleurs derivees : sol (55, 180, 167), trop clair et trop vert"
+    },
+    {
+      "file": "source/zone_zero_v1/eaz1/bruts/decor_v1_edition1_trop_claire.png",
+      "sha256": "bc61fb3525a60ae5a2d6e5f761c16945d48a602b91206fe87957c9b369e44629",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/eaz1/bruts/decor_v0_couleurs_derivees.png",
+        "source/zone_zero_v1/reference/D17P11A.png"
+      ],
+      "utilise": false,
+      "edition": "un seul changement : recolorer a la palette de la reference, meme layout",
+      "rejet": "encore trop claire (cristaux blanchatres) ; une 2e edition plus sombre a ete jetee sans etre gardee (terne, lueurs perdues, geode introuvable par la segmentation)"
+    },
+    {
+      "file": "source/zone_zero_v1/eaz1/bruts/decor.png",
+      "sha256": "79fd89e2a115ee0e7084a3f35ec4015e9d8b4426a60a9935ccfa2f8f8fe6ad8f",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/eaz1/bruts/decor_v1_edition1_trop_claire.png",
+        "source/zone_zero_v1/reference/D17P11A.png"
+      ],
+      "utilise": true,
+      "edition": {
+        "demande": "un seul changement : baisser la luminosite d environ 20 % en gardant les lueurs, meme layout",
+        "correlation_contours_avec_v0": 0.905
+      }
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage du brut en miroir (la plus proche du sol de la reference, peu contrastee)",
+    "plage_y0_y1_x0_x1": [
+      480,
+      576,
+      560,
+      656
+    ]
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe, palette commune 96 couleurs (sol complet, sol) ; palettes propres : parois 32, cristaux 32, geode 32, portail 16 ; animations calculees"
+  },
+  "segmentation": {
+    "sol": "G - R > 52, B - R > 65, 52 < lum < 215 (sol sombre des bords compris ; G - R > 68, B - R > 70, lum > 70 dans la boite de la geode), lisse 9 (> 0,6), ouvert 3, >= 5000 px",
+    "dalles": "composantes non sol de moins de 9000 px dont l anneau de 3 px est a plus de 45 % du sol",
+    "cristaux": "clairs et textures : (lum > 150 et ecart-type local > 16) ou (lum > 110, G - R < 70, ecart-type > 25), ferme 1, >= 40 px, rebouche",
+    "geode": "plus gros amas de cristal (>= 20000 px) dans [20, 340, 640, 1000], enveloppe convexe ; les composantes de sol a plus de 90 % dans l enveloppe lui reviennent (reflets des faces)",
+    "tunnel": "sombre dans la geode (lum < 70, B - R > 30), ferme 3, rebouche, >= 1500 px",
+    "parois": "le reste (rochers, stalactites, nuit de la grotte)"
+  },
+  "fidelite": {
+    "sol": {
+      "ref": "D17P11A",
+      "part_ref": 0.183,
+      "part_rendu": 0.282,
+      "ref_rgb": [
+        41.6,
+        108.5,
+        135.0
+      ],
+      "rgb": [
+        35.4,
+        109.9,
+        129.9
+      ],
+      "distance": 8.08
+    },
+    "cristaux": {
+      "ref": "D17P11A",
+      "part_ref": 0.091,
+      "part_rendu": 0.105,
+      "ref_rgb": [
+        126.9,
+        189.5,
+        198.2
+      ],
+      "rgb": [
+        137.8,
+        201.8,
+        202.6
+      ],
+      "distance": 17.01
+    },
+    "parois": {
+      "ref": "D17P11A",
+      "part_ref": 0.69,
+      "part_rendu": 0.567,
+      "ref_rgb": [
+        37.0,
+        59.5,
+        75.6
+      ],
+      "rgb": [
+        24.9,
+        51.9,
+        66.3
+      ],
+      "distance": 17.1
+    },
+    "sol_complet": {
+      "ref": "D17P11A",
+      "ref_rgb": [
+        41.6,
+        108.5,
+        135.0
+      ],
+      "rgb": [
+        29.5,
+        106.6,
+        133.0
+      ],
+      "distance": 12.41
+    },
+    "methode": "meme regle d extraction (materials) appliquee a D17P11A et a la scene rendue t000, moyennes comparees ; les decoupes rectangulaires ont ete abandonnees : elles comparaient des melanges differents (sol de la reference sans ses plages claires contre notre sol avec plages et corniche) et donnaient sol 55, cristaux 69",
+    "seuil": 35,
+    "seuille": [
+      "sol",
+      "sol_complet",
+      "cristaux",
+      "parois"
+    ]
+  },
+  "layer_order_bottom_to_top": [
+    "calques/EAZ1_00_sol_complet.png",
+    "calques/EAZ1_01_sol.png",
+    "calques/EAZ1_02_parois.png",
+    "animation/cristaux/EAZ1_03_cristaux_fNN.png",
+    "calques/EAZ1_04_geode.png",
+    "animation/portail/EAZ1_05_portail_fNN.png",
+    "animation/lucioles/EAZ1_06_lucioles_fNN.png",
+    "animation/scintillements/EAZ1_07_scintillements_fNN.png"
+  ],
+  "cristaux": {
+    "phases": 18,
+    "frame_length_ticks": 10,
+    "sequence_niveaux": [
+      0,
+      0,
+      0,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4,
+      4,
+      3,
+      3,
+      2,
+      2,
+      1,
+      1,
+      1
+    ],
+    "pas_par_niveau": 8,
+    "plafond": 231,
+    "loi": "ROM D17P11A : animation de palette des petits amas de cristal (cristal geant fixe) ; chaque ton + 8 par canal et par niveau, plafonne a 231 ; 18 pas de 10 ticks"
+  },
+  "portail": {
+    "phases": 18,
+    "frame_length_ticks": 10,
+    "sequence_niveaux": [
+      0,
+      0,
+      0,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4,
+      4,
+      3,
+      3,
+      2,
+      2,
+      1,
+      1,
+      1
+    ],
+    "loi": "meme loi que les cristaux, en phase : le tunnel du donjon respire"
+  },
+  "lucioles": {
+    "phases": 18,
+    "frame_length_ticks": 10,
+    "montee_px_par_pas": 2,
+    "sources": [
+      [
+        [
+          510.29382747280545,
+          204.0
+        ],
+        [
+          53.666666666666664,
+          6.0
+        ]
+      ],
+      [
+        [
+          592.0,
+          360.0
+        ],
+        [
+          40.0,
+          18.0
+        ]
+      ]
+    ],
+    "nombre": 26,
+    "teintes": [
+      [
+        240,
+        170,
+        226
+      ],
+      [
+        150,
+        236,
+        236
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        190,
+        170,
+        255
+      ]
+    ]
+  },
+  "scintillements": {
+    "phases": 12,
+    "frame_length_ticks": 5,
+    "sequence": [
+      1,
+      2,
+      3,
+      3,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "etoiles": [
+      {
+        "xy": [
+          446,
+          94
+        ],
+        "phase": 11,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          476,
+          109
+        ],
+        "phase": 9,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          441,
+          22
+        ],
+        "phase": 6,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          550,
+          104
+        ],
+        "phase": 6,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          502,
+          79
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          486,
+          98
+        ],
+        "phase": 2,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          466,
+          150
+        ],
+        "phase": 10,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          433,
+          138
+        ],
+        "phase": 5,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          438,
+          66
+        ],
+        "phase": 5,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          452,
+          117
+        ],
+        "phase": 7,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          448,
+          30
+        ],
+        "phase": 5,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          500,
+          162
+        ],
+        "phase": 6,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          607,
+          158
+        ],
+        "phase": 7,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          459,
+          133
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          427,
+          122
+        ],
+        "phase": 5,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          615,
+          172
+        ],
+        "phase": 5,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          436,
+          33
+        ],
+        "phase": 10,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          441,
+          136
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          449,
+          22
+        ],
+        "phase": 9,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          576,
+          193
+        ],
+        "phase": 8,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          494,
+          71
+        ],
+        "phase": 9,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          525,
+          92
+        ],
+        "phase": 2,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          481,
+          171
+        ],
+        "phase": 11,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          563,
+          89
+        ],
+        "phase": 4,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          575,
+          165
+        ],
+        "phase": 8,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          603,
+          180
+        ],
+        "phase": 0,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          556,
+          162
+        ],
+        "phase": 9,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          441,
+          77
+        ],
+        "phase": 7,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          496,
+          29
+        ],
+        "phase": 0,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          579,
+          201
+        ],
+        "phase": 3,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          577,
+          182
+        ],
+        "phase": 5,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          510,
+          37
+        ],
+        "phase": 10,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          438,
+          42
+        ],
+        "phase": 11,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          555,
+          173
+        ],
+        "phase": 10,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          450,
+          108
+        ],
+        "phase": 8,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          611,
+          194
+        ],
+        "phase": 1,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      },
+      {
+        "xy": [
+          470,
+          24
+        ],
+        "phase": 5,
+        "teinte": [
+          240,
+          170,
+          226
+        ]
+      },
+      {
+        "xy": [
+          597,
+          194
+        ],
+        "phase": 11,
+        "teinte": [
+          150,
+          236,
+          236
+        ]
+      },
+      {
+        "xy": [
+          536,
+          70
+        ],
+        "phase": 7,
+        "teinte": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "xy": [
+          439,
+          58
+        ],
+        "phase": 2,
+        "teinte": [
+          190,
+          170,
+          255
+        ]
+      }
+    ],
+    "teintes": [
+      [
+        240,
+        170,
+        226
+      ],
+      [
+        150,
+        236,
+        236
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        190,
+        170,
+        255
+      ]
+    ],
+    "note": "sur la geode, teintes tera du reseau"
+  },
+  "scene_loop_ticks": 180,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon": [
+        504,
+        208
+      ],
+      "cercle": [
+        584,
+        272
+      ]
+    },
+    "chemins_16x16": {
+      "donjon": {
+        "ok": true,
+        "cases_explorees": 1486
+      },
+      "cercle": {
+        "ok": true,
+        "cases_explorees": 1515
+      }
+    },
+    "blocked_cells": 4676,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; parois, cristaux, geode et tunnel bloquants",
+    "donjon": "devant le tunnel de la geode (entree du donjon Zone Zero, a scripter)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "eaz1_entree_zone_zero",
+    "namespace": "entree_zone_zero",
+    "tiles_per_bank": {
+      "EAZ1_00_SOL": 4834,
+      "EAZ1_01_SOL": 2712,
+      "EAZ1_02_PAROIS": 4218,
+      "EAZ1_03_CRISTAUX": 4816,
+      "EAZ1_04_GEODE": 381,
+      "EAZ1_05_PORTAIL": 1051,
+      "EAZ1_06_LUCIOLES": 380,
+      "EAZ1_07_SCINTILLEMENTS": 191
+    },
+    "banks": [
+      "EAZ1_00_SOL",
+      "EAZ1_01_SOL",
+      "EAZ1_02_PAROIS",
+      "EAZ1_03_CRISTAUX",
+      "EAZ1_04_GEODE",
+      "EAZ1_05_PORTAIL",
+      "EAZ1_06_LUCIOLES",
+      "EAZ1_07_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccord RAZ3 -> EAZ1 et entree du donjon a scripter)"
+  },
+  "art_approved": false
+}

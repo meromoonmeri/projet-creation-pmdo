@@ -1,0 +1,379 @@
+{
+  "lot": "arene_groudon_magma_v1",
+  "biome": "Cratere (magma, textures de Dark Crater Pit)",
+  "entree_correspondante": [
+    "entree_cratere_magma_v1"
+  ],
+  "demande": [
+    "une arene avec des colonne de lave magma qui jaillis a cote de l'arene au centre avec le symbole de groudon qui pulse sur l'arene",
+    "arene avec le signe de groudon qui pulse et faut que le magma de la sone bouge de maniere visqueuse"
+  ],
+  "choix_agent": {
+    "symbole": "Omega de Primo-Groudon grave sur un dais rond au centre ; ses lignes pulsent",
+    "colonnes": "4 events dans le lac, deux de chaque cote de l arene a hauteur du dais, eruptions en alternance",
+    "layout": "arrivee au sud par le chemin de pierre, arene sur le magma, dais au centre (boss), heros devant le dais",
+    "note": "dans PMD Explorers of Sky, Groudon se combat au sommet de Steam Cave ; association avec Dark Crater choisie par l utilisateur"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sur magenta (lave), dais et symbole compris ; sol complet = plage du sol du decor en miroir",
+  "reference_da": [
+    "Dark_Crater_Pit_TDS.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/arene_groudon_magma_v1/bruts/decor_magenta.png",
+      "sha256": "5b2ca433b4f7c312f425e0cf900268729536a20411a85748145d1ab999de0523",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Dark_Crater_Pit_TDS.png"
+      ]
+    },
+    {
+      "file": "source/arene_groudon_magma_v1/bruts/sol_complet.png",
+      "sha256": "3f44b8a4bcfe9cdaa46bae0c635b2772650b25c8232be0d0b5e21d30d49a8461",
+      "size": [
+        1200,
+        896
+      ],
+      "origine": "miroir de la plage [190, 280, 420, 780] (y0, y1, x0, x1) du decor"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs ; dais : palette propre de 48 couleurs"
+  },
+  "segmentation": {
+    "magma": "magenta dilate 2 px",
+    "dais": "ellipse relevee sur le brut ((599, 418), (140, 130)) (centre, demi-axes)",
+    "sol": "moyenne 11 px > 62 et saturation 11 px < 16, plus grande composante, cailloux rebouches",
+    "rebord": "plateau hors sol et dais",
+    "pitons": "terre hors plateau",
+    "symbole": "pixels rouges-orangés du dais (r > 120, r > 1,6 g, b < 90)",
+    "braises": "orange sur rebord et pitons (seuil ECN1)"
+  },
+  "fidelite": {
+    "rip_sol_rgb": [
+      90.1,
+      84.9,
+      79.9
+    ],
+    "sol_arene_rgb": [
+      87.3,
+      82.1,
+      77.4
+    ],
+    "distance": 4.64,
+    "seuil": 35
+  },
+  "fidelite_magma": {
+    "lave_rip_rgb": [
+      250.4,
+      147.9,
+      37.8
+    ],
+    "magma_chaud_rgb": [
+      250.5,
+      157.5,
+      38.9
+    ],
+    "distance": 9.7,
+    "part_croute": 0.081,
+    "seuil": 12
+  },
+  "layer_order_bottom_to_top": [
+    "animation/magma/AGM1_00_magma_fNN.png",
+    "calques/AGM1_01_sol_complet.png",
+    "calques/AGM1_02_sol_arene.png",
+    "calques/AGM1_03_rebord.png",
+    "calques/AGM1_04_pitons.png",
+    "calques/AGM1_05_dais.png",
+    "animation/symbole_groudon/AGM1_06_symbole_groudon_fNN.png",
+    "animation/braises/AGM1_07_braises_fNN.png",
+    "animation/colonnes/AGM1_08_colonnes_fNN.png"
+  ],
+  "magma": {
+    "phases": 32,
+    "frame_length_ticks": 15,
+    "palette": [
+      [
+        70,
+        20,
+        26
+      ],
+      [
+        120,
+        26,
+        22
+      ],
+      [
+        184,
+        32,
+        26
+      ],
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        63,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        119,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        247,
+        151,
+        39
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        199,
+        47
+      ],
+      [
+        255,
+        223,
+        55
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "periode_texture": [
+      192,
+      96
+    ],
+    "cellule": 24,
+    "derive": "une periode (96 px) vers le sud par boucle",
+    "rides": "autour des 4 events",
+    "origine": "module source/magma_visqueux/magma.py, le meme que l entree ECM1 ; pixels calcules"
+  },
+  "colonnes": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "events": [
+      {
+        "x": 98,
+        "y": 220,
+        "h": 112,
+        "decalage": 0
+      },
+      {
+        "x": 60,
+        "y": 328,
+        "h": 112,
+        "decalage": 24
+      },
+      {
+        "x": 670,
+        "y": 218,
+        "h": 112,
+        "decalage": 12
+      },
+      {
+        "x": 708,
+        "y": 322,
+        "h": 112,
+        "decalage": 36
+      }
+    ],
+    "origine": "jet procedural du module partage (memes poses que ECM1)"
+  },
+  "symbole_groudon": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        120,
+        26,
+        22
+      ],
+      [
+        184,
+        32,
+        26
+      ],
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        63,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        223,
+        55
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "pixels": 7353,
+    "halo_px": 3320,
+    "origine": "lignes du Omega et de l anneau du decor genere ; rang de luminance + pulsation, halo de 2 px au pic"
+  },
+  "braises": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        223,
+        55
+      ]
+    ],
+    "pixels": 519,
+    "origine": "pixels orange du decor genere ; methode des braises de ECN1"
+  },
+  "scene_loop_ticks": 480,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        368,
+        248
+      ],
+      "heros": [
+        368,
+        352
+      ]
+    },
+    "chemin_16x16": {
+      "ok": true,
+      "cases_explorees": 283
+    },
+    "blocked_cells": 5059,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol de l arene (dais surelevé bloquant)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "agm1_arene_groudon_magma",
+    "namespace": "arene_groudon_magma",
+    "tiles_per_bank": {
+      "AGM1_00_MAGMA": 113585,
+      "AGM1_01_SOL": 3803,
+      "AGM1_02_SOL": 2077,
+      "AGM1_03_REBORD": 1297,
+      "AGM1_04_PITONS": 340,
+      "AGM1_05_DAIS": 407,
+      "AGM1_06_SYMBOLE": 1240,
+      "AGM1_07_BRAISES": 364,
+      "AGM1_08_COLONNES": 4169
+    },
+    "banks": [
+      "AGM1_00_MAGMA",
+      "AGM1_01_SOL",
+      "AGM1_02_SOL",
+      "AGM1_03_REBORD",
+      "AGM1_04_PITONS",
+      "AGM1_05_DAIS",
+      "AGM1_06_SYMBOLE",
+      "AGM1_07_BRAISES",
+      "AGM1_08_COLONNES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

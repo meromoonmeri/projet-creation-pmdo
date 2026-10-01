@@ -1,0 +1,987 @@
+{
+  "lot": "zone_zero_v1/raz2",
+  "serie": "reseau Zone Zero (routes RAZ, entree EAZ)",
+  "biome": "terrasses aux cascades de la Zone Zero",
+  "demande": [
+    "reseau de routes dans un abime facon Zone Zero avec des cascades jusqu'a la map d'entree du donjon Zone Zero (Pokemon Paradoxe)",
+    "la suite !! (RAZ1)",
+    "la suite !! (RAZ2)"
+  ],
+  "choix_agent": {
+    "reseau": "RAZ1 levre du cratere -> RAZ2 terrasses aux cascades -> RAZ3 fond cristallin -> EAZ1 entree (grotte de cristal) ; 4:3, arrivee au sud, sortie au nord (defauts annonces, questions sans reponse)",
+    "reference": "P03P01A (zone des cascades de la jungle) : falaises ocre, cascades, bassins, ecume, prairie",
+    "layout": "deux terrasses de prairie separees par une bande de falaise ocre, escalier taille au centre ; trois cascades du bord haut vers les bassins de la terrasse haute, deux chutes par-dessus la falaise du milieu ; abime (magenta) sur le tiers est ; corniche d herbe le long du vide jusqu aux marches du bord haut ; buissons le long du bord gauche",
+    "abime": "calcule : profondeur par distance au bord, brume qui ondule, eclats de cristal lointains (annonce du fond cristallin)"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet avec abime en magenta (decoupe de style de P03P01A x2) ; sol complet = plage de prairie du brut en miroir",
+  "reference_da": {
+    "code": "P03P01A",
+    "fichier": "source/zone_zero_v1/reference/P03P01A.png",
+    "sha256": "6cd3c095e1da6075958fbdc5b793a3e0e44c7c9f6dd14d2dad37cd94a9be6193",
+    "origine": "capture junglewaterfallzonepmdsky.png, identifiee P03P01A au pixel pres par source/outil_maps_pmdsky"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/zone_zero_v1/raz2/bruts/decor_magenta_v0.png",
+      "sha256": "a9516b75c0f630911872413f4dae71cb6917599ff10ccf84e14ce5f46a2ea860",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/reference/P03P01A_decoupe_style_x2.png"
+      ],
+      "utilise": false,
+      "note": "premier rendu ; la prairie touchait le bord gauche (y 400-440 et 750-885 : sorties laterales)"
+    },
+    {
+      "file": "source/zone_zero_v1/raz2/bruts/decor_magenta.png",
+      "sha256": "f137769b9902d4856fffc1fea74e13ff6eb30f237c218702565fdd45f874e51b",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/zone_zero_v1/raz2/bruts/decor_magenta_v0.png"
+      ],
+      "utilise": true,
+      "edition": "un seul changement : bande continue de buissons (~110 px) le long du bord gauche",
+      "ecart_hors_zone": {
+        "zone_y0_y1_x0_x1": [
+          0,
+          896,
+          0,
+          170
+        ],
+        "somme_rvb_moyenne": 10.66,
+        "part_pixels_ecart_60": 0.004
+      }
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage du brut en miroir",
+    "plage_y0_y1_x0_x1": [
+      656,
+      744,
+      456,
+      544
+    ],
+    "note": "deux sols generes ecartes (trop sature, distance ~35 ; puis generateur sans reponse)"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "miettes_vers_buissons_px": 0,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs (sol complet, sol) ; palettes propres : falaises 32, buissons 24, eau 16 ; animations calculees"
+  },
+  "segmentation": {
+    "abime": "magenta pur (R, B > 170, G < 110), composantes >= 3000 px, ferme 2, dilate 2",
+    "cascades": "eau de chute (bleu vif B > 100 ou blanc ; les bassins ont B < 100) fermee 7 px en vertical ; courses verticales >= 90 px, une composante = une chute (haut < 8 px -> bord haut) ; bas = premiere ligne ou l ecume deborde des deux cotes",
+    "escaliers": "rectangles mesures sur le brut comptes comme sol : [(425, 568, 356, 436), (0, 16, 968, 1027)]",
+    "ecume": "blanc (min > 165) ferme 2 au pied de chaque cascade, rebouche, dilate 1",
+    "eau": "bleu (B > R + 40) ou bassin sombre (G > R + 30, B > G, R < 50), ferme 3, rebouche, ouvert 2",
+    "sol": "prairie [75, 140, 69] +- 38, chemin [152, 200, 87] +- 45, pelouse [42, 128, 31] +- 34 et ecart-type local < 15 ; lisse 9, cailloux rebouches, ouvert 4, composantes >= 15000 px",
+    "buissons": "vert (G > R + 25, G > B + 20) hors sol, ouvert 2, >= 200 px, ferme 3",
+    "falaises": "le reste (falaises, rochers, bords de la corniche)"
+  },
+  "fidelite": {
+    "prairie": {
+      "ref_rgb": [
+        70.2,
+        141.1,
+        66.8
+      ],
+      "rgb": [
+        72.9,
+        137.5,
+        66.6
+      ],
+      "pixels": 108579,
+      "distance": 4.54,
+      "decoupe_ref": [
+        300,
+        400,
+        440,
+        480
+      ]
+    },
+    "sol_complet": {
+      "ref_rgb": [
+        70.2,
+        141.1,
+        66.8
+      ],
+      "rgb": [
+        72.0,
+        135.3,
+        66.0
+      ],
+      "pixels": 313297,
+      "distance": 6.16,
+      "decoupe_ref": [
+        300,
+        400,
+        440,
+        480
+      ]
+    },
+    "falaises": {
+      "ref_rgb": [
+        109.7,
+        90.5,
+        64.4
+      ],
+      "rgb": [
+        108.1,
+        87.8,
+        59.4
+      ],
+      "pixels": 82678,
+      "distance": 5.96,
+      "decoupe_ref": [
+        280,
+        40,
+        470,
+        300
+      ]
+    },
+    "chemin": {
+      "rgb": [
+        149.7,
+        198.6,
+        88.3
+      ],
+      "pixels": 20604,
+      "note": "herbe rase claire : ton absent de P03P01A (choix du generateur, garde comme matiere a part), non seuille"
+    },
+    "pelouse_absente": {
+      "pixels": 732,
+      "note": "pas de pelouse dans ce brut (pixels isoles mal classes, non mesures)"
+    },
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "animation/abime/RAZ2_00_abime_fNN.png",
+    "calques/RAZ2_01_sol_complet.png",
+    "animation/eau/RAZ2_02_eau_fNN.png",
+    "calques/RAZ2_03_sol.png",
+    "calques/RAZ2_04_falaises.png",
+    "calques/RAZ2_05_buissons.png",
+    "animation/cascades/RAZ2_06_cascades_fNN.png",
+    "animation/ecume/RAZ2_07_ecume_fNN.png"
+  ],
+  "abime": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "tons": [
+      [
+        8,
+        26,
+        36
+      ],
+      [
+        14,
+        42,
+        52
+      ],
+      [
+        24,
+        62,
+        70
+      ],
+      [
+        40,
+        86,
+        90
+      ],
+      [
+        62,
+        112,
+        112
+      ],
+      [
+        92,
+        142,
+        138
+      ],
+      [
+        132,
+        176,
+        168
+      ],
+      [
+        182,
+        214,
+        204
+      ],
+      [
+        224,
+        240,
+        232
+      ]
+    ],
+    "eclats": [
+      {
+        "xy": [
+          542,
+          438
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 17
+      },
+      {
+        "xy": [
+          526,
+          456
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 9
+      },
+      {
+        "xy": [
+          682,
+          376
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 18
+      },
+      {
+        "xy": [
+          621,
+          299
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 11
+      },
+      {
+        "xy": [
+          619,
+          500
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 8
+      },
+      {
+        "xy": [
+          600,
+          385
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 23
+      },
+      {
+        "xy": [
+          567,
+          348
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 1
+      },
+      {
+        "xy": [
+          573,
+          446
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 10
+      },
+      {
+        "xy": [
+          600,
+          466
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 9
+      },
+      {
+        "xy": [
+          737,
+          259
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 16
+      },
+      {
+        "xy": [
+          524,
+          296
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 1
+      },
+      {
+        "xy": [
+          544,
+          402
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 1
+      },
+      {
+        "xy": [
+          590,
+          419
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 12
+      },
+      {
+        "xy": [
+          538,
+          302
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 8
+      },
+      {
+        "xy": [
+          717,
+          113
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 10
+      },
+      {
+        "xy": [
+          693,
+          188
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 12
+      },
+      {
+        "xy": [
+          680,
+          435
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 11
+      },
+      {
+        "xy": [
+          611,
+          381
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 6
+      },
+      {
+        "xy": [
+          522,
+          321
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 9
+      },
+      {
+        "xy": [
+          689,
+          164
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 12
+      },
+      {
+        "xy": [
+          601,
+          419
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 7
+      },
+      {
+        "xy": [
+          706,
+          512
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 7
+      },
+      {
+        "xy": [
+          514,
+          424
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 20
+      },
+      {
+        "xy": [
+          719,
+          407
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 9
+      },
+      {
+        "xy": [
+          570,
+          400
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 0
+      },
+      {
+        "xy": [
+          697,
+          153
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 1
+      },
+      {
+        "xy": [
+          717,
+          127
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 8
+      },
+      {
+        "xy": [
+          710,
+          46
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 10
+      },
+      {
+        "xy": [
+          724,
+          52
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 0
+      },
+      {
+        "xy": [
+          703,
+          447
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 5
+      },
+      {
+        "xy": [
+          573,
+          338
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 7
+      },
+      {
+        "xy": [
+          686,
+          343
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 9
+      },
+      {
+        "xy": [
+          690,
+          496
+        ],
+        "teinte": [
+          240,
+          170,
+          226
+        ],
+        "phase": 10
+      },
+      {
+        "xy": [
+          641,
+          299
+        ],
+        "teinte": [
+          150,
+          236,
+          236
+        ],
+        "phase": 21
+      },
+      {
+        "xy": [
+          558,
+          387
+        ],
+        "teinte": [
+          255,
+          255,
+          255
+        ],
+        "phase": 3
+      },
+      {
+        "xy": [
+          588,
+          198
+        ],
+        "teinte": [
+          190,
+          170,
+          255
+        ],
+        "phase": 4
+      }
+    ],
+    "sequence_eclat": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "loi": "niveau = 2,3 + 1,2 (1 - p) + 1,9 brume + 0,9 sin(y / 17 - x / 90 + phi), p = min(distance au bord / 90, 1) ; brume = somme de 3 sinus a frequences temporelles 1, 2, 1 sur 24 phases ; ombre sous la levre (< 4 px) ; tramage ordonne 2 x 2"
+  },
+  "eau": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "sources": [
+      {
+        "centre": [
+          362.4,
+          154.6
+        ],
+        "demi_axes": [
+          42.0,
+          35.0
+        ]
+      },
+      {
+        "centre": [
+          253.1,
+          153.1
+        ],
+        "demi_axes": [
+          42.0,
+          30.5
+        ]
+      },
+      {
+        "centre": [
+          140.4,
+          154.4
+        ],
+        "demi_axes": [
+          41.0,
+          20.0
+        ]
+      },
+      {
+        "centre": [
+          137.8,
+          140.1
+        ],
+        "demi_axes": [
+          8.0,
+          4.5
+        ]
+      },
+      {
+        "centre": [
+          364.3,
+          372.8
+        ],
+        "demi_axes": [
+          39.0,
+          24.0
+        ]
+      },
+      {
+        "centre": [
+          139.2,
+          373.2
+        ],
+        "demi_axes": [
+          40.5,
+          19.5
+        ]
+      }
+    ],
+    "tons_rides": [
+      [
+        82,
+        148,
+        198
+      ],
+      [
+        132,
+        165,
+        206
+      ]
+    ],
+    "loi": "3 arcs par source a rho = 1,08 + 0,2 (k + t / 3) (ellipse de l ecume), trait 0,022 + 0,004 k, coupes par sin(9 theta + 2 k)"
+  },
+  "cascades": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "periode_px": 96,
+    "pas_px": 32,
+    "colonnes": [
+      {
+        "x0": 121,
+        "x1": 159,
+        "y0": 0,
+        "y1": 142,
+        "graine": 11
+      },
+      {
+        "x0": 232,
+        "x1": 273,
+        "y0": 0,
+        "y1": 142,
+        "graine": 12
+      },
+      {
+        "x0": 342,
+        "x1": 384,
+        "y0": 0,
+        "y1": 142,
+        "graine": 13
+      },
+      {
+        "x0": 346,
+        "x1": 383,
+        "y0": 277,
+        "y1": 361,
+        "graine": 14
+      },
+      {
+        "x0": 122,
+        "x1": 159,
+        "y0": 281,
+        "y1": 363,
+        "graine": 15
+      }
+    ],
+    "palette": [
+      [
+        16,
+        66,
+        123
+      ],
+      [
+        33,
+        82,
+        148
+      ],
+      [
+        57,
+        99,
+        165
+      ],
+      [
+        74,
+        123,
+        181
+      ],
+      [
+        82,
+        148,
+        198
+      ],
+      [
+        123,
+        140,
+        198
+      ],
+      [
+        132,
+        165,
+        206
+      ],
+      [
+        156,
+        181,
+        222
+      ],
+      [
+        181,
+        198,
+        231
+      ],
+      [
+        189,
+        206,
+        239
+      ],
+      [
+        214,
+        222,
+        239
+      ],
+      [
+        239,
+        239,
+        247
+      ],
+      [
+        247,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "origine": "loi relevee sur P03P01A (ROM : 3 images de 10 ticks, motif de 96 px qui descend de 32 px par image) ; motif recalcule (pas de pixels natifs) avec les 14 tons de la cascade de P03P01A"
+  },
+  "ecume": {
+    "phases": 3,
+    "frame_length_ticks": 10,
+    "bouillons": 247,
+    "palette": [
+      [
+        123,
+        140,
+        198
+      ],
+      [
+        156,
+        181,
+        222
+      ],
+      [
+        189,
+        206,
+        239
+      ],
+      [
+        214,
+        222,
+        239
+      ],
+      [
+        239,
+        239,
+        247
+      ],
+      [
+        247,
+        255,
+        255
+      ]
+    ],
+    "loi": "chaque bouillon grossit de 0 / 1 / 0,4 px selon (t + phase) mod 3 et glisse de 1 px a la phase 1 ; ombrage haut-gauche"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        256,
+        560
+      ],
+      "sortie": [
+        632,
+        0
+      ],
+      "belvedere": [
+        456,
+        448
+      ]
+    },
+    "chemins_16x16": {
+      "sortie": {
+        "ok": true,
+        "cases_explorees": 1737
+      },
+      "belvedere": {
+        "ok": true,
+        "cases_explorees": 1001
+      }
+    },
+    "blocked_cells": 4900,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; abime, eau, cascades, ecume, falaises et buissons bloquants",
+    "sortie_nord": "corniche et marches jusqu au bord haut (vers RAZ3)",
+    "escalier": "seul passage entre les terrasses"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "raz2_terrasses_cascades",
+    "namespace": "route_zone_zero_2",
+    "tiles_per_bank": {
+      "RAZ2_00_ABIME": 25770,
+      "RAZ2_01_SOL": 4947,
+      "RAZ2_02_EAU": 1129,
+      "RAZ2_03_SOL": 2352,
+      "RAZ2_04_FALAISES": 1729,
+      "RAZ2_05_BUISSONS": 776,
+      "RAZ2_06_CASCADES": 344,
+      "RAZ2_07_ECUME": 860
+    },
+    "banks": [
+      "RAZ2_00_ABIME",
+      "RAZ2_01_SOL",
+      "RAZ2_02_EAU",
+      "RAZ2_03_SOL",
+      "RAZ2_04_FALAISES",
+      "RAZ2_05_BUISSONS",
+      "RAZ2_06_CASCADES",
+      "RAZ2_07_ECUME"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccords RAZ1 -> RAZ2 -> RAZ3 a scripter)"
+  },
+  "art_approved": false
+}

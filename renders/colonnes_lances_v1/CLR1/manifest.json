@@ -1,0 +1,886 @@
+{
+  "lot": "colonnes_lances_v1",
+  "serie": "Colonnes Lances (ruines du sommet)",
+  "biome": "sommet en ruine dans une mer de nuages",
+  "demande": [
+    "lance toi je veux que tu genere les colonne de magma etc et je veux une map style colonne lance ruin etc avec les texture pmd"
+  ],
+  "choix_agent": {
+    "references": "D30P42A (sommet intact : briques, colonnes cannelees, autel a vitrail, rochers, nuages dores) + D28P33A (grand escalier a balustres) ; decoupes de style seulement, sans leurs compositions",
+    "layout": "plateforme de briques flottante ; cercle de huit colonnes (brisees ou debout) et trois colonnes couchees autour de l esplanade ; autel a vitrail au nord sur une terrasse haute ; grand escalier a balustres au sud (arrivee) ; mer de nuages et rochers en levitation autour",
+    "animations": "vitrail a la loi ROM ; nuages qui derivent ; rochers qui flottent ; eclats de lumiere qui montent de l autel",
+    "noms_de_lieux": "non affirmes (prefixe dNN non fiable), seuls les codes ROM comptent"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendus generes references (decor : 2 decoupes de style x2 ; nuages : 1 decoupe x3), ciel en magenta pur remplace par le ton ROM et des nuages animes ; obstacles mesures a la main sur le brut",
+  "references_da": {
+    "D30P42A": {
+      "fichier": "source/colonnes_lances_v1/reference/D30P42A.png",
+      "sha256": "ea29be47eadcc0b17e98d034b94078e1d4eb5243d279a516b6b2942d329b75a2",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    },
+    "D28P33A": {
+      "fichier": "source/colonnes_lances_v1/reference/D28P33A.png",
+      "sha256": "dd5f5a0578ed0b63c01d1670e59c9ab339247ee91e8b88661e5463dc033079a6",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    }
+  },
+  "raw_inputs": [
+    {
+      "file": "source/colonnes_lances_v1/bruts/decor_magenta.png",
+      "sha256": "a0999e2ebba4cefb5231d8e0dca97966bebdce9f0b8cdb1256377dc9480807b7",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/colonnes_lances_v1/reference/D30P42A_sommet_decoupe_x2.png",
+        "source/colonnes_lances_v1/reference/D28P33A_escalier_decoupe_x2.png"
+      ],
+      "utilise": true,
+      "editions": 0,
+      "note": "premier rendu garde tel quel"
+    },
+    {
+      "file": "source/colonnes_lances_v1/bruts/nuages_magenta.png",
+      "sha256": "7e678251186cc761afd3a9d8d9a2ac43a8d4dd0d4162337e94e9497abc2d5f72",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/colonnes_lances_v1/reference/D30P42A_nuages_decoupe_x3.png"
+      ],
+      "utilise": true,
+      "editions": 0,
+      "note": "4 bandes de nuages festonnes sur magenta"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe ; palettes : sol commune 96, ruines 64, rochers 24, nuages 16 ; ciel, vitrail et eclats aux tons ROM"
+  },
+  "segmentation": {
+    "magenta": "R > 200, B > 200, G < 80",
+    "vide": "composantes magenta touchant un bord (liseré rose R - G > 45 et B - G > 35 a moins de 3 px compris), dilatees 1",
+    "nuages": "hors magenta, liseré rose compris, dilate 1",
+    "rochers": "composantes hors magenta separees de la plateforme (>= 60 px)",
+    "sol": "proche de [180, 147, 133] (< 45), lisse 11 (> 0,6), ouvert 3, au sud de y = 205 (terrasse haute exclue), + escalier central [540, 690, 660, 896], - obstacles, + trous de moins de 400 px",
+    "obstacles_mesures": {
+      "colonnes_debout": [
+        [
+          410,
+          460,
+          145,
+          400,
+          470,
+          270,
+          320
+        ],
+        [
+          730,
+          775,
+          195,
+          718,
+          785,
+          265,
+          318
+        ],
+        [
+          340,
+          385,
+          293,
+          328,
+          396,
+          415,
+          460
+        ],
+        [
+          818,
+          862,
+          322,
+          805,
+          872,
+          410,
+          460
+        ],
+        [
+          410,
+          455,
+          437,
+          398,
+          466,
+          515,
+          565
+        ],
+        [
+          742,
+          790,
+          383,
+          732,
+          802,
+          515,
+          565
+        ],
+        [
+          494,
+          542,
+          470,
+          484,
+          552,
+          590,
+          640
+        ],
+        [
+          660,
+          708,
+          470,
+          650,
+          718,
+          590,
+          640
+        ]
+      ],
+      "colonnes_couchees": [
+        [
+          [
+            230,
+            390
+          ],
+          [
+            285,
+            445
+          ],
+          24
+        ],
+        [
+          [
+            262,
+            510
+          ],
+          [
+            330,
+            545
+          ],
+          26
+        ],
+        [
+          [
+            818,
+            505
+          ],
+          [
+            885,
+            540
+          ],
+          26
+        ]
+      ],
+      "autel": [
+        495,
+        0,
+        700,
+        252
+      ]
+    },
+    "vitrail": "bloc de l autel, G > R + 60, G > B + 20, G > 110",
+    "ruines": "le reste de la plateforme (colonnes, autel, terrasse haute, balustres, bords rocheux, corbeaux)"
+  },
+  "fidelite": {
+    "briques": {
+      "ref": "D30P42A",
+      "boite_ref_y0x0y1x1": [
+        240,
+        250,
+        300,
+        330
+      ],
+      "boite_scene_y0x0y1x1": [
+        212,
+        359,
+        244,
+        449
+      ],
+      "ref_rgb": [
+        185.9,
+        152.2,
+        136.8
+      ],
+      "rgb": [
+        181.2,
+        146.9,
+        132.9
+      ],
+      "distance": 8.1
+    },
+    "piliers": {
+      "ref": "D30P42A",
+      "boite_ref_y0x0y1x1": [
+        150,
+        155,
+        215,
+        183
+      ],
+      "boite_scene_y0x0y1x1": [
+        103,
+        268,
+        167,
+        290
+      ],
+      "ref_rgb": [
+        153.9,
+        131.8,
+        124.2
+      ],
+      "rgb": [
+        150.1,
+        127.1,
+        120.3
+      ],
+      "distance": 7.19
+    },
+    "escalier": {
+      "ref": "D28P33A",
+      "boite_ref_y0x0y1x1": [
+        280,
+        262,
+        420,
+        292
+      ],
+      "boite_scene_y0x0y1x1": [
+        463,
+        349,
+        566,
+        420
+      ],
+      "ref_rgb": [
+        137.7,
+        131.7,
+        127.3
+      ],
+      "rgb": [
+        139.7,
+        127.7,
+        121.8
+      ],
+      "distance": 7.03
+    },
+    "nuages": {
+      "ref": "D30P42A",
+      "regle": "(G > 172) et (R > 186) et (B < 150), image entiere / calque des nuages",
+      "part_ref": 0.093,
+      "part_calque": 0.676,
+      "ref_rgb": [
+        208.1,
+        197.8,
+        106.8
+      ],
+      "rgb": [
+        204.9,
+        192.4,
+        100.8
+      ],
+      "distance": 8.75
+    },
+    "ciel": {
+      "ref": "D30P42A",
+      "ref_rgb": [
+        183,
+        167,
+        87
+      ],
+      "rgb": [
+        183,
+        167,
+        87
+      ],
+      "distance": 0.0,
+      "note": "ton ROM repris tel quel"
+    },
+    "methode": "boites de meme matiere verifiees dans la reference et dans le brut (briques et piliers D30P42A, escalier D28P33A) ; nuages : meme regle de couleur sur D30P42A entiere et sur le calque ; moyennes comparees",
+    "seuil": 35,
+    "seuille": [
+      "briques",
+      "piliers",
+      "escalier",
+      "nuages"
+    ]
+  },
+  "layer_order_bottom_to_top": [
+    "calques/CLR1_00_ciel.png",
+    "animation/nuages/CLR1_01_nuages_fNNN.png",
+    "calques/CLR1_02_sol.png",
+    "calques/CLR1_03_ruines.png",
+    "animation/rochers/CLR1_04_rochers_fNN.png",
+    "animation/vitrail/CLR1_05_vitrail_fNN.png",
+    "animation/eclats/CLR1_06_eclats_fNN.png"
+  ],
+  "ciel": {
+    "ton": [
+      183,
+      167,
+      87
+    ],
+    "source": "D30P42A (ciel uni)"
+  },
+  "nuages": {
+    "phases": 120,
+    "frame_length_ticks": 10,
+    "pas_px": 4,
+    "periode_px": 480,
+    "echelle_brut": 0.45,
+    "fondu_px": 60,
+    "bandes_brut_lignes": [
+      [
+        28,
+        184
+      ],
+      [
+        248,
+        428
+      ],
+      [
+        477,
+        672
+      ],
+      [
+        712,
+        896
+      ]
+    ],
+    "hauteurs": [
+      70,
+      81,
+      88,
+      83
+    ],
+    "rangees": [
+      {
+        "haut": 4,
+        "bande": 0,
+        "decalage_x": 0
+      },
+      {
+        "haut": 134,
+        "bande": 1,
+        "decalage_x": 160
+      },
+      {
+        "haut": 264,
+        "bande": 2,
+        "decalage_x": 320
+      },
+      {
+        "haut": 394,
+        "bande": 3,
+        "decalage_x": 80
+      },
+      {
+        "haut": 510,
+        "bande": 0,
+        "decalage_x": 240
+      }
+    ],
+    "palette": [
+      [
+        223,
+        221,
+        113
+      ],
+      [
+        219,
+        213,
+        113
+      ],
+      [
+        216,
+        205,
+        113
+      ],
+      [
+        208,
+        196,
+        105
+      ],
+      [
+        203,
+        188,
+        101
+      ],
+      [
+        199,
+        185,
+        96
+      ],
+      [
+        197,
+        183,
+        94
+      ],
+      [
+        197,
+        181,
+        92
+      ],
+      [
+        198,
+        180,
+        93
+      ],
+      [
+        195,
+        179,
+        92
+      ],
+      [
+        190,
+        177,
+        91
+      ],
+      [
+        186,
+        169,
+        87
+      ],
+      [
+        182,
+        165,
+        86
+      ],
+      [
+        181,
+        164,
+        86
+      ],
+      [
+        180,
+        164,
+        86
+      ],
+      [
+        183,
+        162,
+        88
+      ]
+    ],
+    "loi": "x_source = (x + decalage + 4 t) mod 480 : derive vers l ouest, une periode par boucle (20 s) ; dessines seulement dans les cases ou le ciel se voit"
+  },
+  "vitrail": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "source": "D30P42A (seul element anime de la map)",
+    "tons_rom": [
+      [
+        15,
+        191,
+        255
+      ],
+      [
+        15,
+        223,
+        255
+      ],
+      [
+        15,
+        231,
+        223
+      ],
+      [
+        15,
+        231,
+        231
+      ],
+      [
+        15,
+        239,
+        183
+      ],
+      [
+        15,
+        239,
+        191
+      ],
+      [
+        15,
+        239,
+        207
+      ],
+      [
+        15,
+        247,
+        135
+      ],
+      [
+        15,
+        247,
+        159
+      ],
+      [
+        15,
+        255,
+        87
+      ],
+      [
+        15,
+        255,
+        111
+      ],
+      [
+        15,
+        255,
+        127
+      ],
+      [
+        23,
+        199,
+        223
+      ],
+      [
+        23,
+        207,
+        191
+      ],
+      [
+        23,
+        207,
+        215
+      ],
+      [
+        23,
+        215,
+        159
+      ],
+      [
+        23,
+        215,
+        167
+      ],
+      [
+        31,
+        223,
+        127
+      ],
+      [
+        31,
+        231,
+        79
+      ],
+      [
+        31,
+        231,
+        95
+      ],
+      [
+        31,
+        239,
+        31
+      ],
+      [
+        31,
+        239,
+        63
+      ]
+    ],
+    "rampes_indices": {
+      "a": [
+        20,
+        18,
+        17,
+        16,
+        14,
+        0,
+        12,
+        13,
+        15,
+        17,
+        19,
+        21
+      ],
+      "b": [
+        9,
+        11,
+        8,
+        5,
+        2,
+        1,
+        3,
+        6,
+        4,
+        8,
+        7,
+        10
+      ]
+    },
+    "pixels_a": 212,
+    "pixels_b": 213,
+    "loi": "verts du rendu classes par rang de luminance : tiers sombre fixe, tiers moyen rampe a, tiers clair rampe b, en phase"
+  },
+  "rochers": {
+    "phases": 30,
+    "frame_length_ticks": 20,
+    "liste": [
+      {
+        "id": 1,
+        "phase": 4,
+        "amp": 1
+      },
+      {
+        "id": 2,
+        "phase": 23,
+        "amp": 1
+      },
+      {
+        "id": 3,
+        "phase": 17,
+        "amp": 2
+      },
+      {
+        "id": 4,
+        "phase": 21,
+        "amp": 1
+      },
+      {
+        "id": 5,
+        "phase": 14,
+        "amp": 1
+      },
+      {
+        "id": 6,
+        "phase": 12,
+        "amp": 2
+      },
+      {
+        "id": 7,
+        "phase": 16,
+        "amp": 1
+      },
+      {
+        "id": 8,
+        "phase": 16,
+        "amp": 1
+      }
+    ],
+    "loi": "dy = round(amp sin(2 pi (t - phase) / 30)), amp 1 ou 2 px"
+  },
+  "eclats": {
+    "phases": 60,
+    "frame_length_ticks": 10,
+    "liste": [
+      {
+        "x": 432,
+        "y": 102,
+        "phase": 41,
+        "vie": 48,
+        "w": 4.873776931938056
+      },
+      {
+        "x": 419,
+        "y": 114,
+        "phase": 3,
+        "vie": 40,
+        "w": 5.488698173149897
+      },
+      {
+        "x": 428,
+        "y": 120,
+        "phase": 29,
+        "vie": 47,
+        "w": 5.008134923536883
+      },
+      {
+        "x": 334,
+        "y": 106,
+        "phase": 48,
+        "vie": 40,
+        "w": 1.7493997150940617
+      },
+      {
+        "x": 405,
+        "y": 113,
+        "phase": 59,
+        "vie": 42,
+        "w": 3.1701702074476534
+      },
+      {
+        "x": 389,
+        "y": 104,
+        "phase": 30,
+        "vie": 49,
+        "w": 4.980441724364625
+      },
+      {
+        "x": 403,
+        "y": 102,
+        "phase": 20,
+        "vie": 49,
+        "w": 1.3528244492618786
+      },
+      {
+        "x": 420,
+        "y": 116,
+        "phase": 51,
+        "vie": 44,
+        "w": 0.2760957787909324
+      },
+      {
+        "x": 372,
+        "y": 119,
+        "phase": 8,
+        "vie": 43,
+        "w": 2.9292588484424504
+      },
+      {
+        "x": 416,
+        "y": 93,
+        "phase": 49,
+        "vie": 44,
+        "w": 3.2302964432758126
+      },
+      {
+        "x": 351,
+        "y": 106,
+        "phase": 22,
+        "vie": 39,
+        "w": 0.07410404800117357
+      },
+      {
+        "x": 331,
+        "y": 115,
+        "phase": 58,
+        "vie": 45,
+        "w": 1.2604492206765188
+      },
+      {
+        "x": 405,
+        "y": 109,
+        "phase": 29,
+        "vie": 36,
+        "w": 5.215343700148099
+      },
+      {
+        "x": 398,
+        "y": 116,
+        "phase": 32,
+        "vie": 39,
+        "w": 5.5312900553301
+      },
+      {
+        "x": 342,
+        "y": 105,
+        "phase": 56,
+        "vie": 47,
+        "w": 4.019461504083831
+      },
+      {
+        "x": 325,
+        "y": 98,
+        "phase": 28,
+        "vie": 37,
+        "w": 3.4001069075437687
+      },
+      {
+        "x": 406,
+        "y": 105,
+        "phase": 36,
+        "vie": 48,
+        "w": 2.269889027609814
+      },
+      {
+        "x": 396,
+        "y": 103,
+        "phase": 6,
+        "vie": 36,
+        "w": 2.4355624373344904
+      }
+    ],
+    "tons": [
+      [
+        15,
+        231,
+        231
+      ],
+      [
+        15,
+        223,
+        255
+      ],
+      [
+        23,
+        199,
+        223
+      ],
+      [
+        15,
+        191,
+        255
+      ]
+    ],
+    "loi": "montent de 42 px sur leur vie (36-49 pas), oscillent de 2 px, 2 x 2 puis 1 px, palissent (tons ROM du vitrail)"
+  },
+  "scene_loop_ticks": 1200,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        560
+      ],
+      "autel": [
+        376,
+        160
+      ],
+      "centre": [
+        376,
+        296
+      ]
+    },
+    "chemins_16x16": {
+      "autel": {
+        "ok": true,
+        "cases_explorees": 545
+      },
+      "centre": {
+        "ok": true,
+        "cases_explorees": 269
+      }
+    },
+    "blocked_cells": 4653,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; colonnes, autel, terrasse haute, balustres, bords et ciel bloquants",
+    "autel": "devant les marches de l autel (evenement a scripter)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "clr1_colonnes_lances",
+    "namespace": "colonnes_lances",
+    "tiles_per_bank": {
+      "CLR1_00_CIEL": 2,
+      "CLR1_01_NUAGES": 4277,
+      "CLR1_02_SOL": 2673,
+      "CLR1_03_RUINES": 2887,
+      "CLR1_04_ROCHERS": 296,
+      "CLR1_05_VITRAIL": 529,
+      "CLR1_06_ECLATS": 294
+    },
+    "banks": [
+      "CLR1_00_CIEL",
+      "CLR1_01_NUAGES",
+      "CLR1_02_SOL",
+      "CLR1_03_RUINES",
+      "CLR1_04_ROCHERS",
+      "CLR1_05_VITRAIL",
+      "CLR1_06_ECLATS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccords a scripter)"
+  },
+  "art_approved": false
+}

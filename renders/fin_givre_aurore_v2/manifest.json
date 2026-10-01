@@ -1,0 +1,1489 @@
+{
+  "lot": "fin_givre_aurore_v2",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Givre (Frosty Forest -> Frosty Grotto)",
+  "remplace_sans_supprimer": "fin_givre_grotte_v1 (FGG1, gardé)",
+  "demande": [
+    "Il faut pas de cristal stp et on aurait aimé voir les aurore boreal dans le design texture canonique de la référence adapté a notre layout"
+  ],
+  "choix_agent": {
+    "layout": "celui de FGG1 : arrivee au sud, arene (boss), deux bassins ; cristal et monticule retires ; le nord s ouvre sur le ciel (belvedere face aux aurores), aucune sortie",
+    "aurore": "rideaux de aurorepmdsky.png regeneres en panorama 768 px sur le marine de la reference, calque propre, une seule geometrie animee (onde + rayons), pas de defilement",
+    "terrain": "couleurs de FGG1 gardees (pics clairs sous ciel de nuit, comme les pics de la reference)"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor = brut FGG1 edite (ciel = cle verte, bassins = magenta) ; aurore generee seule sur marine uni",
+  "reference_da": [
+    "pmdskyicearena.png",
+    "aurorepmdsky.png",
+    "source/fin_givre_aurore_v2/reference/Rescue_Team_-_Articuno_first_appearance_120px.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_givre_aurore_v2/bruts/decor_magenta_ciel_vert.png",
+      "sha256": "d2ee951c1ce5d20e6d44759a6716b0186089476f4c526c2b49972efcbd3c5085",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_givre_grotte_v1/bruts/decor_magenta.png",
+        "aurorepmdsky.png"
+      ]
+    },
+    {
+      "file": "source/fin_givre_aurore_v2/bruts/sol_complet.png",
+      "sha256": "11e32c6cfe4c631a13b65c4f9128510a8e422b6c8eba8a67350cf6de578102cc",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "pmdskyicearena.png decoupe [0, 222, 504, 282]"
+      ],
+      "origine": "copie du brut FGG1"
+    },
+    {
+      "file": "source/fin_givre_aurore_v2/bruts/aurore_panorama_marine.png",
+      "sha256": "a66dcb6aacf14025558f76aa090e9288bdec9a8149388919c684217c941cbbcb",
+      "size": [
+        2048,
+        512
+      ],
+      "images": [
+        "toile marine unie 1536 x 384",
+        "source/fin_givre_aurore_v2/reference/aurore_ref_y0_144_x3.png"
+      ],
+      "reference_decoupe": {
+        "fichier": "aurorepmdsky.png",
+        "zone": [
+          0,
+          0,
+          264,
+          144
+        ],
+        "agrandissement": "x3 plus proche voisin"
+      }
+    }
+  ],
+  "bruts_ecartes": [
+    {
+      "essai": "meme panorama sur fond magenta",
+      "raison": "le magenta des rideaux se confond avec la cle : extraction impossible"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "terrain : moyenne ponderee par classe (BOX), palette commune 96 couleurs ; aurore : reduction 2048 -> 768 ponderee par le masque, palette propre 48 couleurs"
+  },
+  "segmentation": {
+    "ciel": "cle verte (G > R + 60 et G > B + 60) ; liseré verdâtre a moins de 4 px : G et B echanges (3255 px du brut)",
+    "eau": "magenta dilate 2 px",
+    "sol": "(moyenne 11 px > 195 et ecart-type 11 px < 4) ou couleur a moins de 22 de [190, 214, 245], hors ciel",
+    "parois": "le reste"
+  },
+  "fidelite": {
+    "ref_sol_rgb": [
+      187.8,
+      212.2,
+      244.3
+    ],
+    "sol_glace_rgb": [
+      188.0,
+      211.0,
+      242.4
+    ],
+    "distance": 2.26,
+    "vignette_salle_articuno_rgb": [
+      169.2,
+      220.5,
+      219.6
+    ],
+    "distance_vignette": 31.15,
+    "seuil": 35
+  },
+  "fidelite_aurore": {
+    "ref_aurore_rgb": [
+      68.1,
+      85.4,
+      162.3
+    ],
+    "aurore_rgb": [
+      67.5,
+      73.6,
+      158.5
+    ],
+    "distance": 12.34,
+    "part_vert_cyan_ref": 0.548,
+    "part_vert_cyan": 0.581,
+    "seuil": 30,
+    "visible_dans_le_ciel": {
+      "aurore_rgb": [
+        84.2,
+        58.0,
+        162.5
+      ],
+      "distance": 31.77,
+      "part_vert_cyan": 0.436,
+      "pixels": 48339
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "animation/eau_glacee/FGG2_00_eau_glacee_fNN.png",
+    "animation/reflets/FGG2_01_reflets_fNN.png",
+    "calques/FGG2_02_sol_complet.png",
+    "calques/FGG2_03_ciel.png",
+    "animation/etoiles/FGG2_04_etoiles_fNN.png",
+    "animation/aurore/FGG2_05_aurore_fNN.png",
+    "calques/FGG2_06_sol_glace.png",
+    "calques/FGG2_07_parois.png",
+    "animation/flocons/FGG2_08_flocons_fNN.png"
+  ],
+  "ciel": {
+    "bandes": [
+      [
+        0,
+        [
+          0,
+          0,
+          63
+        ]
+      ],
+      [
+        78,
+        [
+          0,
+          15,
+          79
+        ]
+      ],
+      [
+        118,
+        [
+          0,
+          36,
+          88
+        ]
+      ]
+    ],
+    "tramage": "2 x 2 sur 4 px a chaque passage",
+    "origine": "couleurs relevees dans aurorepmdsky.png",
+    "depasse_sous_les_pics_px": 2
+  },
+  "etoiles": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "nombre": 36,
+    "sequence": [
+      0,
+      0,
+      1,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "couleurs": {
+      "claire": [
+        247,
+        255,
+        255
+      ],
+      "douce": [
+        0,
+        103,
+        111
+      ],
+      "etoiles_isolees_dans_la_reference": 6
+    },
+    "placements": [
+      {
+        "xy": [
+          301,
+          57
+        ],
+        "phase": 9,
+        "grande": true
+      },
+      {
+        "xy": [
+          670,
+          42
+        ],
+        "phase": 4,
+        "grande": true
+      },
+      {
+        "xy": [
+          349,
+          41
+        ],
+        "phase": 2,
+        "grande": false
+      },
+      {
+        "xy": [
+          15,
+          52
+        ],
+        "phase": 10,
+        "grande": false
+      },
+      {
+        "xy": [
+          646,
+          27
+        ],
+        "phase": 6,
+        "grande": false
+      },
+      {
+        "xy": [
+          377,
+          45
+        ],
+        "phase": 6,
+        "grande": true
+      },
+      {
+        "xy": [
+          325,
+          27
+        ],
+        "phase": 0,
+        "grande": false
+      },
+      {
+        "xy": [
+          238,
+          46
+        ],
+        "phase": 5,
+        "grande": false
+      },
+      {
+        "xy": [
+          34,
+          52
+        ],
+        "phase": 8,
+        "grande": false
+      },
+      {
+        "xy": [
+          487,
+          10
+        ],
+        "phase": 9,
+        "grande": true
+      },
+      {
+        "xy": [
+          763,
+          23
+        ],
+        "phase": 9,
+        "grande": false
+      },
+      {
+        "xy": [
+          615,
+          16
+        ],
+        "phase": 7,
+        "grande": false
+      },
+      {
+        "xy": [
+          371,
+          76
+        ],
+        "phase": 8,
+        "grande": false
+      },
+      {
+        "xy": [
+          212,
+          5
+        ],
+        "phase": 5,
+        "grande": false
+      },
+      {
+        "xy": [
+          470,
+          46
+        ],
+        "phase": 2,
+        "grande": false
+      },
+      {
+        "xy": [
+          575,
+          63
+        ],
+        "phase": 3,
+        "grande": true
+      },
+      {
+        "xy": [
+          149,
+          70
+        ],
+        "phase": 9,
+        "grande": true
+      },
+      {
+        "xy": [
+          572,
+          17
+        ],
+        "phase": 0,
+        "grande": true
+      },
+      {
+        "xy": [
+          107,
+          55
+        ],
+        "phase": 3,
+        "grande": false
+      },
+      {
+        "xy": [
+          731,
+          16
+        ],
+        "phase": 9,
+        "grande": true
+      },
+      {
+        "xy": [
+          432,
+          42
+        ],
+        "phase": 7,
+        "grande": false
+      },
+      {
+        "xy": [
+          440,
+          14
+        ],
+        "phase": 7,
+        "grande": false
+      },
+      {
+        "xy": [
+          393,
+          45
+        ],
+        "phase": 3,
+        "grande": false
+      },
+      {
+        "xy": [
+          37,
+          26
+        ],
+        "phase": 5,
+        "grande": true
+      },
+      {
+        "xy": [
+          580,
+          45
+        ],
+        "phase": 5,
+        "grande": false
+      },
+      {
+        "xy": [
+          394,
+          71
+        ],
+        "phase": 7,
+        "grande": false
+      },
+      {
+        "xy": [
+          599,
+          20
+        ],
+        "phase": 6,
+        "grande": true
+      },
+      {
+        "xy": [
+          678,
+          70
+        ],
+        "phase": 11,
+        "grande": false
+      },
+      {
+        "xy": [
+          429,
+          89
+        ],
+        "phase": 1,
+        "grande": false
+      },
+      {
+        "xy": [
+          290,
+          86
+        ],
+        "phase": 6,
+        "grande": false
+      },
+      {
+        "xy": [
+          547,
+          62
+        ],
+        "phase": 3,
+        "grande": true
+      },
+      {
+        "xy": [
+          268,
+          61
+        ],
+        "phase": 4,
+        "grande": true
+      },
+      {
+        "xy": [
+          354,
+          7
+        ],
+        "phase": 5,
+        "grande": false
+      },
+      {
+        "xy": [
+          144,
+          25
+        ],
+        "phase": 10,
+        "grande": false
+      },
+      {
+        "xy": [
+          690,
+          48
+        ],
+        "phase": 5,
+        "grande": false
+      },
+      {
+        "xy": [
+          190,
+          57
+        ],
+        "phase": 8,
+        "grande": false
+      }
+    ]
+  },
+  "aurore": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "pixels_base": 80271,
+    "y0": -24,
+    "fond_du_brut": [
+      2,
+      3,
+      67
+    ],
+    "seuil_fond": 15,
+    "onde": {
+      "amplitude_px": 3,
+      "longueur_px": 256,
+      "loi": "dy(x,t) = round(A sin 2pi(x/L - t/12))"
+    },
+    "rayons": {
+      "longueur_px": 128,
+      "loi": "w = cos 2pi(x/L - t/12) + j(x), j uniforme fixe par colonne ; rang +2 si > 0.85, +1 si > 0.45",
+      "jitter": 0.35,
+      "graine": 5
+    },
+    "familles": {
+      "vert_cyan": [
+        [
+          4,
+          15,
+          83
+        ],
+        [
+          2,
+          20,
+          78
+        ],
+        [
+          4,
+          20,
+          84
+        ],
+        [
+          1,
+          28,
+          82
+        ],
+        [
+          14,
+          20,
+          92
+        ],
+        [
+          5,
+          27,
+          85
+        ],
+        [
+          23,
+          25,
+          98
+        ],
+        [
+          1,
+          39,
+          87
+        ],
+        [
+          5,
+          38,
+          90
+        ],
+        [
+          26,
+          34,
+          100
+        ],
+        [
+          3,
+          50,
+          95
+        ],
+        [
+          3,
+          62,
+          102
+        ],
+        [
+          4,
+          79,
+          112
+        ],
+        [
+          4,
+          96,
+          121
+        ],
+        [
+          4,
+          112,
+          130
+        ],
+        [
+          7,
+          138,
+          146
+        ],
+        [
+          9,
+          177,
+          170
+        ],
+        [
+          118,
+          134,
+          221
+        ],
+        [
+          68,
+          176,
+          208
+        ],
+        [
+          10,
+          213,
+          192
+        ],
+        [
+          102,
+          164,
+          222
+        ],
+        [
+          33,
+          217,
+          197
+        ],
+        [
+          21,
+          239,
+          207
+        ],
+        [
+          74,
+          209,
+          231
+        ],
+        [
+          9,
+          246,
+          212
+        ],
+        [
+          3,
+          249,
+          225
+        ]
+      ],
+      "magenta": [
+        [
+          32,
+          12,
+          100
+        ],
+        [
+          28,
+          20,
+          99
+        ],
+        [
+          68,
+          2,
+          119
+        ],
+        [
+          62,
+          9,
+          117
+        ],
+        [
+          97,
+          0,
+          143
+        ],
+        [
+          62,
+          25,
+          117
+        ],
+        [
+          120,
+          1,
+          161
+        ],
+        [
+          120,
+          2,
+          162
+        ],
+        [
+          117,
+          12,
+          157
+        ],
+        [
+          170,
+          1,
+          198
+        ],
+        [
+          173,
+          0,
+          200
+        ],
+        [
+          175,
+          16,
+          210
+        ],
+        [
+          203,
+          3,
+          228
+        ],
+        [
+          110,
+          72,
+          187
+        ],
+        [
+          224,
+          4,
+          246
+        ],
+        [
+          214,
+          15,
+          243
+        ],
+        [
+          205,
+          31,
+          243
+        ],
+        [
+          174,
+          58,
+          234
+        ],
+        [
+          161,
+          67,
+          229
+        ],
+        [
+          164,
+          76,
+          229
+        ],
+        [
+          117,
+          107,
+          207
+        ]
+      ]
+    },
+    "regles": "une seule geometrie, pas de poses dephasees, pas de cycle de palette global, pas de defilement ; visible seulement dans le ciel"
+  },
+  "eau_glacee": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "couleurs": {
+      "lip": [
+        170,
+        212,
+        244
+      ],
+      "bande": [
+        58,
+        92,
+        168
+      ],
+      "inter": [
+        84,
+        136,
+        204
+      ],
+      "accent": [
+        100,
+        158,
+        218
+      ],
+      "surface": [
+        112,
+        172,
+        226
+      ],
+      "clair": [
+        170,
+        212,
+        244
+      ],
+      "reflet": [
+        240,
+        248,
+        255
+      ]
+    },
+    "origine": "fonction water_phases de l entree Givre (structure riviere Metano), recalculee ; pas de tuiles natives"
+  },
+  "reflets": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "placements": [
+      {
+        "famille": "A_16x24",
+        "xy": [
+          200,
+          256
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          528,
+          296
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          560,
+          288
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          232,
+          256
+        ]
+      }
+    ],
+    "origine": "pixels Metano_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)"
+  },
+  "flocons": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "emetteurs": [
+      {
+        "type": "flocon",
+        "depart_xy": [
+          714,
+          313
+        ],
+        "decalage": 0,
+        "amplitude_px": 3.55
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          630,
+          113
+        ],
+        "decalage": 11,
+        "amplitude_px": 3.75
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          690,
+          2
+        ],
+        "decalage": 22,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          93,
+          234
+        ],
+        "decalage": 33,
+        "amplitude_px": 2.56
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          545,
+          127
+        ],
+        "decalage": 44,
+        "amplitude_px": 3.01
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          442,
+          277
+        ],
+        "decalage": 7,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          530,
+          312
+        ],
+        "decalage": 18,
+        "amplitude_px": 2.43
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          639,
+          80
+        ],
+        "decalage": 29,
+        "amplitude_px": 2.09
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          338,
+          17
+        ],
+        "decalage": 40,
+        "amplitude_px": 2.93
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          611,
+          460
+        ],
+        "decalage": 3,
+        "amplitude_px": 3.03
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          204,
+          249
+        ],
+        "decalage": 14,
+        "amplitude_px": 2.02
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          77,
+          96
+        ],
+        "decalage": 25,
+        "amplitude_px": 2.4
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          546,
+          185
+        ],
+        "decalage": 36,
+        "amplitude_px": 3.66
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          503,
+          77
+        ],
+        "decalage": 47,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          144,
+          255
+        ],
+        "decalage": 10,
+        "amplitude_px": 3.28
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          35,
+          372
+        ],
+        "decalage": 21,
+        "amplitude_px": 3.08
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          550,
+          254
+        ],
+        "decalage": 32,
+        "amplitude_px": 2.72
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          487,
+          300
+        ],
+        "decalage": 43,
+        "amplitude_px": 2.78
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          453,
+          162
+        ],
+        "decalage": 6,
+        "amplitude_px": 3.63
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          305,
+          190
+        ],
+        "decalage": 17,
+        "amplitude_px": 3.18
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          334,
+          303
+        ],
+        "decalage": 28,
+        "amplitude_px": 3.35
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          723,
+          75
+        ],
+        "decalage": 39,
+        "amplitude_px": 2.48
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          43,
+          202
+        ],
+        "decalage": 2,
+        "amplitude_px": 3.94
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          719,
+          107
+        ],
+        "decalage": 13,
+        "amplitude_px": 2.6
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          377,
+          438
+        ],
+        "decalage": 24,
+        "amplitude_px": 2.26
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          639,
+          424
+        ],
+        "decalage": 35,
+        "amplitude_px": 3.81
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          726,
+          285
+        ],
+        "decalage": 46,
+        "amplitude_px": 2.38
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          568,
+          465
+        ],
+        "decalage": 9,
+        "amplitude_px": 2.36
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          287,
+          443
+        ],
+        "decalage": 20,
+        "amplitude_px": 3.14
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          49,
+          188
+        ],
+        "decalage": 31,
+        "amplitude_px": 2.48
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          540,
+          19
+        ],
+        "decalage": 42,
+        "amplitude_px": 2.94
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          576,
+          274
+        ],
+        "decalage": 5,
+        "amplitude_px": 3.5
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          45,
+          12
+        ],
+        "decalage": 16,
+        "amplitude_px": 2.06
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          686,
+          61
+        ],
+        "decalage": 27,
+        "amplitude_px": 3.32
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          551,
+          214
+        ],
+        "decalage": 38,
+        "amplitude_px": 3.75
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          517,
+          172
+        ],
+        "decalage": 1,
+        "amplitude_px": 3.37
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          653,
+          178
+        ],
+        "decalage": 12,
+        "amplitude_px": 3.53
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          597,
+          456
+        ],
+        "decalage": 23,
+        "amplitude_px": 3.87
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          235,
+          2
+        ],
+        "decalage": 34,
+        "amplitude_px": 3.62
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          488,
+          68
+        ],
+        "decalage": 45,
+        "amplitude_px": 3.63
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          733,
+          7
+        ],
+        "decalage": 8,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          720,
+          257
+        ],
+        "decalage": 19,
+        "amplitude_px": 2.45
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          149,
+          99
+        ],
+        "decalage": 30,
+        "amplitude_px": 2.36
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          300,
+          173
+        ],
+        "decalage": 41,
+        "amplitude_px": 3.15
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          745,
+          170
+        ],
+        "decalage": 4,
+        "amplitude_px": 3.9
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          168,
+          223
+        ],
+        "decalage": 15,
+        "amplitude_px": 3.03
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          718,
+          261
+        ],
+        "decalage": 26,
+        "amplitude_px": 3.49
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          437,
+          291
+        ],
+        "decalage": 37,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          285,
+          206
+        ],
+        "decalage": 0,
+        "amplitude_px": 2.14
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          190,
+          215
+        ],
+        "decalage": 11,
+        "amplitude_px": 3.9
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          564,
+          126
+        ],
+        "decalage": 22,
+        "amplitude_px": 3.35
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          237,
+          359
+        ],
+        "decalage": 33,
+        "amplitude_px": 3.94
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          228,
+          167
+        ],
+        "decalage": 44,
+        "amplitude_px": 2.41
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          131,
+          25
+        ],
+        "decalage": 7,
+        "amplitude_px": 3.83
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          616,
+          421
+        ],
+        "decalage": 18,
+        "amplitude_px": 3.21
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          687,
+          240
+        ],
+        "decalage": 29,
+        "amplitude_px": 3.32
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          286,
+          153
+        ],
+        "decalage": 40,
+        "amplitude_px": 2.93
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          180,
+          315
+        ],
+        "decalage": 3,
+        "amplitude_px": 2.37
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          556,
+          31
+        ],
+        "decalage": 14,
+        "amplitude_px": 3.53
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          530,
+          409
+        ],
+        "decalage": 25,
+        "amplitude_px": 2.23
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          694,
+          458
+        ],
+        "decalage": 36,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          672,
+          262
+        ],
+        "decalage": 47,
+        "amplitude_px": 2.09
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          131,
+          15
+        ],
+        "decalage": 10,
+        "amplitude_px": 2.51
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          535,
+          124
+        ],
+        "decalage": 21,
+        "amplitude_px": 3.13
+      }
+    ],
+    "origine": "planche generee de l entree Givre (bruts/flocons_poses.png), flake_poses et flake_frames de EGN1"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        304
+      ],
+      "belvedere": [
+        376,
+        184
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 380
+      },
+      "belvedere": {
+        "ok": true,
+        "cases_explorees": 968
+      }
+    },
+    "blocked_cells": 5247,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol de glace"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fgg2_fin_givre_aurore",
+    "namespace": "fin_givre_aurore",
+    "tiles_per_bank": {
+      "FGG2_00_EAU": 385,
+      "FGG2_01_REFLETS": 40,
+      "FGG2_02_SOL": 5799,
+      "FGG2_03_CIEL": 283,
+      "FGG2_04_ETOILES": 67,
+      "FGG2_05_AURORE": 10780,
+      "FGG2_06_SOL": 1676,
+      "FGG2_07_PAROIS": 4144,
+      "FGG2_08_FLOCONS": 1657
+    },
+    "banks": [
+      "FGG2_00_EAU",
+      "FGG2_01_REFLETS",
+      "FGG2_02_SOL",
+      "FGG2_03_CIEL",
+      "FGG2_04_ETOILES",
+      "FGG2_05_AURORE",
+      "FGG2_06_SOL",
+      "FGG2_07_PAROIS",
+      "FGG2_08_FLOCONS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

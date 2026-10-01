@@ -1,0 +1,714 @@
+{
+  "lot": "fin_bristle_sommet_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Bristle (Mt. Bristle -> Mt. Bristle Peak)",
+  "entree_correspondante": [
+    "entree_bristle_sud_nord_v1"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "continue !"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Bristle apres Givre (reprise apres les lots magma et FGG2)",
+    "layout": "comme la vraie salle : clairiere de sable carree fermee de rochers, arrivee au sud par un couloir, arene (boss : Drowzee), Azurill au fond nord ; aucune sortie",
+    "animations": "touffes au vent de EBN1 et rafales de sable (sommet expose au vent)",
+    "reference": "vraie fin en vignette 110 px -> composition et palette ; textures de Mt_Bristle_entrance_TD.png"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet (sans liquide, pas de magenta), sol complet genere depuis une decoupe du sable du rip",
+  "reference_da": [
+    "Mt_Bristle_entrance_TD.png",
+    "source/fin_bristle_sommet_v1/reference/Explorers_TD_-_Mt._Bristle_Peak_110px.png"
+  ],
+  "reference_fin_source": "https://mysterydungeonwiki.com/wiki/Explorers_TD:Mt._Bristle",
+  "reference_fin_boss": "Bulbapedia, Mt. Bristle : a Mt. Bristle Peak, les heros battent Drowzee pour sauver Azurill",
+  "raw_inputs": [
+    {
+      "file": "source/fin_bristle_sommet_v1/bruts/decor.png",
+      "sha256": "667ea3b28e2e414957bb9c1a4cf33a83191518149b36ff294fea29c2333e1f03",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Mt_Bristle_entrance_TD.png"
+      ]
+    },
+    {
+      "file": "source/fin_bristle_sommet_v1/bruts/sol_complet.png",
+      "sha256": "b21043e7728e3b092adedafeb4377bf32e1aff1934bd59def4f3c8598e75d00d",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Mt_Bristle_entrance_TD.png decoupe [220, 190, 340, 262] x4"
+      ]
+    }
+  ],
+  "bruts_ecartes": [
+    {
+      "essai": "decor avec la vignette agrandie x4 en seconde image",
+      "raison": "rochers flous (gros pixels de la vignette)"
+    },
+    {
+      "essai": "decor au rip seul, premier prompt",
+      "raison": "1376 x 768 (pas 4:3) et chemin ouvert au nord"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs"
+  },
+  "segmentation": {
+    "touffes": "vert (G > R + 10 et G > B + 10), fermeture 2, >= 30 px, dilatation 3",
+    "roche": "fraction de pixels de saturation < 40 lissee sur 7 px > 0,5, ouverture 2, >= 2500 px",
+    "rochers": "saturation > 95 et lum < 180 sur le sable, >= 80 px, trous rebouches",
+    "sable": "composante reliee au bas de l image ; touffes et blocs isoles dans la roche -> falaises",
+    "falaises": "complement exact (roche grise et replats bruns)",
+    "miettes": "10 px de sable isoles apres reduction -> falaises (couleur de l image reduite)"
+  },
+  "fidelite": {
+    "ref_sable_rgb": [
+      216.8,
+      191.1,
+      137.4
+    ],
+    "sable_rgb": [
+      210.8,
+      183.2,
+      128.6
+    ],
+    "distance": 13.25,
+    "vignette_sommet_sable_rgb": [
+      182.1,
+      163.8,
+      137.6
+    ],
+    "distance_vignette": 35.76,
+    "seuil": 35,
+    "ref_roche_grise_rgb": [
+      142.1,
+      144.0,
+      142.9
+    ],
+    "falaises_grises_rgb": [
+      135.8,
+      135.9,
+      132.3
+    ],
+    "distance_roche": 14.75,
+    "seuil_roche": 25
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FBS1_00_sol_complet.png",
+    "calques/FBS1_01_sable.png",
+    "animation/rafales/FBS1_02_rafales_fNN.png",
+    "calques/FBS1_03_rochers.png",
+    "animation/touffes/FBS1_04_touffes_fNN.png",
+    "calques/FBS1_05_falaises.png"
+  ],
+  "rafales": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "visibles": 12,
+    "pas_px": 8,
+    "nombre": 44,
+    "couleurs": {
+      "claire": [
+        240,
+        226,
+        196
+      ],
+      "douce": [
+        232,
+        211,
+        167
+      ]
+    },
+    "placements": [
+      {
+        "depart": [
+          430,
+          258
+        ],
+        "phase": 3,
+        "longueur": 5,
+        "ondulation": 4.115958751995632
+      },
+      {
+        "depart": [
+          535,
+          277
+        ],
+        "phase": 8,
+        "longueur": 4,
+        "ondulation": 5.4054958768063655
+      },
+      {
+        "depart": [
+          185,
+          254
+        ],
+        "phase": 7,
+        "longueur": 5,
+        "ondulation": 1.7222573545569724
+      },
+      {
+        "depart": [
+          541,
+          368
+        ],
+        "phase": 16,
+        "longueur": 6,
+        "ondulation": 5.3724190886878995
+      },
+      {
+        "depart": [
+          370,
+          325
+        ],
+        "phase": 14,
+        "longueur": 5,
+        "ondulation": 5.312048868272229
+      },
+      {
+        "depart": [
+          489,
+          379
+        ],
+        "phase": 7,
+        "longueur": 6,
+        "ondulation": 3.433081755924753
+      },
+      {
+        "depart": [
+          466,
+          207
+        ],
+        "phase": 16,
+        "longueur": 4,
+        "ondulation": 2.2003151515870445
+      },
+      {
+        "depart": [
+          538,
+          414
+        ],
+        "phase": 17,
+        "longueur": 4,
+        "ondulation": 0.513124857107923
+      },
+      {
+        "depart": [
+          183,
+          234
+        ],
+        "phase": 6,
+        "longueur": 6,
+        "ondulation": 2.883424754689611
+      },
+      {
+        "depart": [
+          432,
+          361
+        ],
+        "phase": 10,
+        "longueur": 5,
+        "ondulation": 0.7287292593049102
+      },
+      {
+        "depart": [
+          298,
+          316
+        ],
+        "phase": 3,
+        "longueur": 6,
+        "ondulation": 4.70623258708725
+      },
+      {
+        "depart": [
+          142,
+          448
+        ],
+        "phase": 19,
+        "longueur": 4,
+        "ondulation": 4.778036026584837
+      },
+      {
+        "depart": [
+          384,
+          366
+        ],
+        "phase": 8,
+        "longueur": 5,
+        "ondulation": 0.38595943328562654
+      },
+      {
+        "depart": [
+          217,
+          377
+        ],
+        "phase": 7,
+        "longueur": 5,
+        "ondulation": 0.8285627624400572
+      },
+      {
+        "depart": [
+          129,
+          228
+        ],
+        "phase": 16,
+        "longueur": 5,
+        "ondulation": 0.43173485395365596
+      },
+      {
+        "depart": [
+          371,
+          222
+        ],
+        "phase": 18,
+        "longueur": 4,
+        "ondulation": 4.611882711226548
+      },
+      {
+        "depart": [
+          532,
+          292
+        ],
+        "phase": 2,
+        "longueur": 5,
+        "ondulation": 4.8373933168709575
+      },
+      {
+        "depart": [
+          214,
+          201
+        ],
+        "phase": 15,
+        "longueur": 5,
+        "ondulation": 5.708083663590187
+      },
+      {
+        "depart": [
+          273,
+          268
+        ],
+        "phase": 10,
+        "longueur": 5,
+        "ondulation": 2.7226049447427263
+      },
+      {
+        "depart": [
+          441,
+          246
+        ],
+        "phase": 8,
+        "longueur": 5,
+        "ondulation": 3.387779050912572
+      },
+      {
+        "depart": [
+          547,
+          304
+        ],
+        "phase": 19,
+        "longueur": 6,
+        "ondulation": 1.520930376556214
+      },
+      {
+        "depart": [
+          466,
+          233
+        ],
+        "phase": 20,
+        "longueur": 5,
+        "ondulation": 1.1976672057412137
+      },
+      {
+        "depart": [
+          501,
+          322
+        ],
+        "phase": 7,
+        "longueur": 4,
+        "ondulation": 0.6998626775917169
+      },
+      {
+        "depart": [
+          259,
+          218
+        ],
+        "phase": 20,
+        "longueur": 6,
+        "ondulation": 1.0940915087409298
+      },
+      {
+        "depart": [
+          395,
+          289
+        ],
+        "phase": 12,
+        "longueur": 5,
+        "ondulation": 0.5341844878168581
+      },
+      {
+        "depart": [
+          281,
+          286
+        ],
+        "phase": 11,
+        "longueur": 5,
+        "ondulation": 0.1045567483573453
+      },
+      {
+        "depart": [
+          467,
+          342
+        ],
+        "phase": 1,
+        "longueur": 6,
+        "ondulation": 4.252864817057806
+      },
+      {
+        "depart": [
+          343,
+          167
+        ],
+        "phase": 11,
+        "longueur": 5,
+        "ondulation": 1.900906495941474
+      },
+      {
+        "depart": [
+          411,
+          342
+        ],
+        "phase": 19,
+        "longueur": 4,
+        "ondulation": 5.394869942714665
+      },
+      {
+        "depart": [
+          175,
+          288
+        ],
+        "phase": 5,
+        "longueur": 5,
+        "ondulation": 2.174251980258461
+      },
+      {
+        "depart": [
+          116,
+          250
+        ],
+        "phase": 2,
+        "longueur": 4,
+        "ondulation": 5.531645255770028
+      },
+      {
+        "depart": [
+          358,
+          355
+        ],
+        "phase": 22,
+        "longueur": 5,
+        "ondulation": 0.19187697878132143
+      },
+      {
+        "depart": [
+          160,
+          383
+        ],
+        "phase": 8,
+        "longueur": 5,
+        "ondulation": 4.672413071820659
+      },
+      {
+        "depart": [
+          383,
+          192
+        ],
+        "phase": 22,
+        "longueur": 5,
+        "ondulation": 2.6349434014186555
+      },
+      {
+        "depart": [
+          510,
+          222
+        ],
+        "phase": 3,
+        "longueur": 6,
+        "ondulation": 1.8782425749216562
+      },
+      {
+        "depart": [
+          305,
+          334
+        ],
+        "phase": 17,
+        "longueur": 4,
+        "ondulation": 0.8225081807379312
+      },
+      {
+        "depart": [
+          185,
+          215
+        ],
+        "phase": 17,
+        "longueur": 5,
+        "ondulation": 4.914131952007719
+      },
+      {
+        "depart": [
+          138,
+          310
+        ],
+        "phase": 6,
+        "longueur": 6,
+        "ondulation": 2.871591903469712
+      },
+      {
+        "depart": [
+          110,
+          415
+        ],
+        "phase": 0,
+        "longueur": 4,
+        "ondulation": 2.25629437192829
+      },
+      {
+        "depart": [
+          255,
+          333
+        ],
+        "phase": 2,
+        "longueur": 5,
+        "ondulation": 3.0646523455653814
+      },
+      {
+        "depart": [
+          515,
+          430
+        ],
+        "phase": 11,
+        "longueur": 4,
+        "ondulation": 0.4097716598782797
+      },
+      {
+        "depart": [
+          269,
+          189
+        ],
+        "phase": 11,
+        "longueur": 5,
+        "ondulation": 5.528380099007656
+      },
+      {
+        "depart": [
+          547,
+          191
+        ],
+        "phase": 14,
+        "longueur": 5,
+        "ondulation": 2.578827346854041
+      },
+      {
+        "depart": [
+          137,
+          401
+        ],
+        "phase": 7,
+        "longueur": 4,
+        "ondulation": 5.632048853453478
+      }
+    ],
+    "loi": "x = x0 + 8 k, y = y0 + round(1.5 sin(2 pi k / 12 + phi)), k = (t - phase) mod 24, visible si k < 12 ; longueur 2, 3, L..., 3, 2",
+    "origine": "calcule ; ton le plus clair du calque sable mele de blanc",
+    "part_de_blanc": [
+      0.5,
+      0.25
+    ]
+  },
+  "touffes": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "poses": 24,
+    "cycle": [
+      11,
+      16,
+      16,
+      23,
+      16,
+      16,
+      12,
+      5,
+      4,
+      0,
+      4,
+      5
+    ],
+    "palette": [
+      [
+        161,
+        183,
+        102
+      ],
+      [
+        125,
+        156,
+        74
+      ],
+      [
+        116,
+        138,
+        65
+      ],
+      [
+        88,
+        133,
+        49
+      ],
+      [
+        93,
+        116,
+        50
+      ],
+      [
+        67,
+        112,
+        34
+      ],
+      [
+        56,
+        90,
+        27
+      ]
+    ],
+    "placements": [
+      {
+        "base_xy": [
+          493,
+          197
+        ],
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          460,
+          185
+        ],
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          175,
+          210
+        ],
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          315,
+          241
+        ],
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          243,
+          336
+        ],
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          587,
+          356
+        ],
+        "decalage": 9
+      },
+      {
+        "base_xy": [
+          337,
+          366
+        ],
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          132,
+          394
+        ],
+        "decalage": 2
+      }
+    ],
+    "origine": "planche generee de l entree Bristle (source/entree_bristle_sud_nord_v1/bruts/touffes_vent_poses.png), tuft_poses de EBN1 ; palette des touffes de ce decor"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        384,
+        288
+      ],
+      "azurill": [
+        376,
+        160
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 276
+      },
+      "azurill": {
+        "ok": true,
+        "cases_explorees": 975
+      }
+    },
+    "blocked_cells": 4561,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sable et touffes"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fbs1_fin_bristle_sommet",
+    "namespace": "fin_bristle_sommet",
+    "tiles_per_bank": {
+      "FBS1_00_SOL": 6722,
+      "FBS1_01_SABLE": 2642,
+      "FBS1_02_RAFALES": 193,
+      "FBS1_03_ROCHERS": 164,
+      "FBS1_04_TOUFFES": 446,
+      "FBS1_05_FALAISES": 4570
+    },
+    "banks": [
+      "FBS1_00_SOL",
+      "FBS1_01_SABLE",
+      "FBS1_02_RAFALES",
+      "FBS1_03_ROCHERS",
+      "FBS1_04_TOUFFES",
+      "FBS1_05_FALAISES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

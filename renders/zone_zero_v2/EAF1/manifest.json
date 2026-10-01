@@ -1,0 +1,2235 @@
+{
+ "lot": "EAF1",
+ "serie": "Reseau Zone Zero V2 (routes fleuries)",
+ "remplace_pas": "EAZ1 (gardee)",
+ "demande": "la suite ! (apres la passe haute qualite des routes Zone Zero : faut que les zone route area zero soit magnifique avec la verdure sky peak hight qualite les fleur avec plein de couleur des cascade de la brume etc)",
+ "lecture_agent": "suite du reseau fleuri : EAZ1 (grotte de cristal sombre, gardee) refaite en entree fleurie haute qualite, RAF3 -> EAF1 -> ATP1",
+ "format": "4:3 vaste",
+ "size_px": [
+  768,
+  576
+ ],
+ "grid_8px": [
+  96,
+  72
+ ],
+ "references": {
+  "sky_peak": {
+   "fichier": "source/zone_zero_v2/reference/skypeak_gif_f0.png",
+   "sha256": "7727ccf253623f2010c281c9aae5b70f2919a3ceac8d233dbfbf463dabdb1479",
+   "source": "2cwdrrs469f61.gif (racine), frame 0"
+  },
+  "apple_woods": {
+   "fichier": "source/zone_zero_v2/reference/Apple_Woods_entrance_TDS.png",
+   "sha256": "544c1497d0e1f99ae848409221ae0b537bac16aee5a41b6ff3fbaaa96b843c07",
+   "source": "Apple_Woods_entrance_TDS.png (racine)"
+  },
+  "decoupes": [
+   "source/zone_zero_v2/reference/skypeak_decoupe_x2.png",
+   "source/zone_zero_v2/reference/applewoods_arbres_decoupe_x2.png"
+  ],
+  "brut_v1": {
+   "fichier": "source/zone_zero_v1/eaz1/bruts/decor.png",
+   "sha256": "79fd89e2a115ee0e7084a3f35ec4015e9d8b4426a60a9935ccfa2f8f8fe6ad8f"
+  },
+  "cascades": "loi de P03P01A (source/zone_zero_v1/commun.py)"
+ },
+ "raw_inputs": [
+  {
+   "file": "source/zone_zero_v2/eaf1/bruts/decor_magenta.png",
+   "sha256": "e2dcf2ffce2d966d70d0b48463b7bcb8754eb9fc2f3e3ac7f14fbee520b58c5b",
+   "size": [
+    1200,
+    896
+   ]
+  },
+  {
+   "file": "source/zone_zero_v2/eaf1/bruts/decor_magenta_b.png",
+   "sha256": "b7ca31996d1bf204f46f25bea93dfaddd28931536670c672f46373e4700e108f",
+   "size": [
+    1200,
+    896
+   ]
+  },
+  {
+   "file": "source/zone_zero_v2/eaf1/bruts/decor_magenta_c.png",
+   "sha256": "5d04ba42c3aba6bfd43ab3db985ffc9ca83085cd57e73cad5241b1eb7162aa3b",
+   "size": [
+    1200,
+    896
+   ]
+  },
+  {
+   "file": "source/zone_zero_v2/eaf1/bruts/decor_gouffre.png",
+   "sha256": "b532adee6318d05a52ccf776e2a1b20c7b4020f7f5f7fab71e78c00d901208ea",
+   "size": [
+    1200,
+    896
+   ]
+  }
+ ],
+ "arbres_source": {
+  "modeles": [
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     508,
+     459,
+     632,
+     569
+    ],
+    "miroir": false
+   },
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     508,
+     459,
+     632,
+     569
+    ],
+    "miroir": true
+   },
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     517,
+     694,
+     621,
+     788
+    ],
+    "miroir": false
+   },
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     517,
+     694,
+     621,
+     788
+    ],
+    "miroir": true
+   },
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     722,
+     405,
+     823,
+     494
+    ],
+    "miroir": false
+   },
+   {
+    "brut": "raf1",
+    "boite_y0x0y1x1": [
+     722,
+     405,
+     823,
+     494
+    ],
+    "miroir": true
+   },
+   {
+    "brut": "raf2",
+    "boite_y0x0y1x1": [
+     671,
+     164,
+     812,
+     291
+    ],
+    "miroir": false
+   },
+   {
+    "brut": "raf2",
+    "boite_y0x0y1x1": [
+     671,
+     164,
+     812,
+     291
+    ],
+    "miroir": true
+   }
+  ],
+  "echelle": 0.6428571428571429,
+  "regle": "feuillage entier des bruts de decor (5000-12500 px, remplissage > 0,55, h/l 0,9-1,3, hors bords) + tronc brun",
+  "planches_rejetees": [
+   {
+    "nom": "arbres_magenta v0",
+    "feuillage_rgb": [
+     30,
+     101,
+     10
+    ],
+    "distance_apple_woods": 56,
+    "motif": "vert emeraude trop sature"
+   },
+   {
+    "nom": "arbres_magenta v1",
+    "feuillage_rgb": [
+     81,
+     80,
+     31
+    ],
+    "distance_apple_woods": 51,
+    "motif": "kaki, trop jaune et sombre"
+   }
+  ]
+ },
+ "methode": "decor = brut V1 repeint (images : brut V1, decoupe Sky Peak x2, decoupe arbres Apple Woods x2), abime en magenta ; gouffre = edition du decor, pixels pris SEULEMENT dans le masque magenta du decor (le reste de l edition, qui mangeait la prairie et le chemin, est jete) ; arbres = feuillages entiers decoupes dans les bruts de decor (pas de planche generee : les deux essais ont ete rejetes), plantes en lisiere et sur les massifs",
+ "edition_b": null,
+ "fidelite": {
+  "herbe": {
+   "ref": "skypeak_gif_f0 (y >= 120)",
+   "ref_rgb": [
+    129.8,
+    237.9,
+    114.1
+   ],
+   "rgb": [
+    129.1,
+    240.8,
+    112.6
+   ],
+   "pixels_ref": 118552,
+   "pixels": 111403,
+   "distance": 3.4
+  },
+  "falaises": {
+   "ref": "skypeak_gif_f0 (y >= 120)",
+   "ref_rgb": [
+    125.8,
+    144.9,
+    160.0
+   ],
+   "rgb": [
+    85.9,
+    124.9,
+    138.5
+   ],
+   "pixels_ref": 28590,
+   "pixels": 141573,
+   "distance": 49.52
+  },
+  "arbres": {
+   "ref": "Apple_Woods_entrance_TDS, coeurs de 4 feuillages (boites 30 x 30 verifiees a l oeil)",
+   "boites_ref_y0x0y1x1": [
+    [
+     245,
+     135,
+     275,
+     165
+    ],
+    [
+     305,
+     35,
+     335,
+     65
+    ],
+    [
+     250,
+     390,
+     280,
+     420
+    ],
+    [
+     315,
+     485,
+     345,
+     515
+    ]
+   ],
+   "ref_rgb": [
+    71.4,
+    130.1,
+    35.3
+   ],
+   "rgb": [
+    69.2,
+    130.9,
+    43.5
+   ],
+   "pixels": 26224,
+   "distance": 8.53
+  },
+  "regles": {
+   "herbe": "G > 185, G - R > 40, G - B > 70",
+   "falaises": "gris-bleu peu sature (B >= G - 6, G >= R - 4, ecart < 75, min > 40)",
+   "arbres": "feuillage des modeles (G > R + 25, G > B + 30) contre les coeurs de feuillage d Apple Woods"
+  },
+  "seuil": 35,
+  "seuille": [
+   "herbe",
+   "arbres"
+  ],
+  "signale": {
+   "falaises": "matiere secondaire, signalee et non seuillee (precedent RAZ3) : le generateur les a faites plus sombres que Sky Peak"
+  }
+ },
+ "layer_order_bottom_to_top": [
+  "calques/EAF1_00_sol_complet.png",
+  "calques/EAF1_01_abime.png",
+  "animation/brume_profonde/EAF1_02_brume_profonde_fNN.png",
+  "animation/brume_haute/EAF1_03_brume_haute_fNN.png",
+  "animation/lueurs/EAF1_04_lueurs_fNN.png",
+  "animation/eau/EAF1_05_eau_fNN.png",
+  "calques/EAF1_06_sol.png",
+  "calques/EAF1_07_falaises.png",
+  "calques/EAF1_08_cristaux.png",
+  "animation/reflets/EAF1_09_reflets_fNN.png",
+  "animation/herbes/EAF1_10_herbes_fNN.png",
+  "animation/fleurs/EAF1_11_fleurs_fNN.png",
+  "calques/EAF1_12_buissons.png",
+  "calques/EAF1_13_arbres.png",
+  "animation/cascades/EAF1_14_cascades_fNN.png",
+  "animation/ecume/EAF1_15_ecume_fNN.png",
+  "animation/embruns/EAF1_16_embruns_fNN.png",
+  "animation/papillons/EAF1_17_papillons_fNN.png"
+ ],
+ "profondeur": {
+  "carte": "assombrissement lisse (gaussienne 6) du gouffre genere, normalise p5-p95, nul au bord (10 px)",
+  "brume_profonde": {
+   "phases": 24,
+   "frame_length_ticks": 20,
+   "pas_px": 4,
+   "periode_px": 96,
+   "tons": [
+    [
+     26,
+     58,
+     74
+    ],
+    [
+     38,
+     80,
+     96
+    ],
+    [
+     58,
+     104,
+     118
+    ],
+    [
+     84,
+     130,
+     142
+    ]
+   ],
+   "loi": "bruit periodique (96 px) translate de +4 px par phase ; densite = bruit + profondeur ; trame de Bayer 4 x 4 ; seulement profondeur > 0,35"
+  },
+  "brume_haute": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "pas_px": -8,
+   "periode_px": 192,
+   "tons": [
+    [
+     118,
+     150,
+     166
+    ],
+    [
+     146,
+     176,
+     190
+    ],
+    [
+     176,
+     200,
+     210
+    ]
+   ],
+   "loi": "voiles clairs, bruit periodique (192 px) translate de -8 px par phase (sens oppose, 4 fois plus vite : parallaxe)"
+  },
+  "lueurs": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "nombre": 34,
+   "loi": "eclats 1-2-3-2-1 puis repos, seulement profondeur > 0,7"
+  }
+ },
+ "fleurs": {
+  "phases": 4,
+  "frame_length_ticks": 12,
+  "tetes": 234,
+  "couleurs": [
+   "blanc",
+   "bleu",
+   "corail",
+   "jaune",
+   "rose",
+   "rouge",
+   "violet"
+  ],
+  "dessin": "fleurs nettes de 7 px calculees (petale, 4 encoches, bord sombre, reflet en damier, coeur) + ombre verte ; massifs du rendu redessines dans leur couleur, massifs en plus de toutes les couleurs",
+  "palettes": {
+   "corail": [
+    [
+     239,
+     135,
+     119
+    ],
+    [
+     255,
+     223,
+     215
+    ],
+    [
+     191,
+     87,
+     79
+    ],
+    [
+     247,
+     175,
+     143
+    ]
+   ],
+   "rouge": [
+    [
+     232,
+     56,
+     64
+    ],
+    [
+     255,
+     190,
+     190
+    ],
+    [
+     160,
+     24,
+     40
+    ],
+    [
+     255,
+     210,
+     90
+    ]
+   ],
+   "rose": [
+    [
+     240,
+     120,
+     190
+    ],
+    [
+     255,
+     215,
+     240
+    ],
+    [
+     176,
+     64,
+     136
+    ],
+    [
+     255,
+     230,
+     120
+    ]
+   ],
+   "jaune": [
+    [
+     248,
+     216,
+     56
+    ],
+    [
+     255,
+     250,
+     200
+    ],
+    [
+     200,
+     150,
+     24
+    ],
+    [
+     232,
+     120,
+     40
+    ]
+   ],
+   "orange": [
+    [
+     248,
+     152,
+     40
+    ],
+    [
+     255,
+     224,
+     160
+    ],
+    [
+     192,
+     96,
+     16
+    ],
+    [
+     255,
+     240,
+     150
+    ]
+   ],
+   "blanc": [
+    [
+     240,
+     244,
+     240
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     176,
+     188,
+     200
+    ],
+    [
+     248,
+     200,
+     64
+    ]
+   ],
+   "bleu": [
+    [
+     80,
+     144,
+     240
+    ],
+    [
+     200,
+     228,
+     255
+    ],
+    [
+     40,
+     80,
+     184
+    ],
+    [
+     255,
+     240,
+     150
+    ]
+   ],
+   "violet": [
+    [
+     160,
+     96,
+     224
+    ],
+    [
+     228,
+     200,
+     255
+    ],
+    [
+     96,
+     48,
+     160
+    ],
+    [
+     255,
+     220,
+     110
+    ]
+   ]
+  },
+  "loi": "A B A C (GIF Sky Peak) : en B et C chaque fleur descend de 1 px et penche de +-1 px"
+ },
+ "haute_qualite": {
+  "demande": "faut que les zone route area zero soit magnifique avec la verdure sky peak hight qualite les fleur avec plein de couleur des cascade de la brume etc",
+  "stats": {
+   "ton_dominant_lot": [
+    132,
+    235,
+    112
+   ],
+   "seuil_aplat": 52,
+   "herbe_aplatie_px": 95565,
+   "restes_flous_px": 1690,
+   "tiges_effacees_px": 762,
+   "massifs_flous_repris_px": 9025,
+   "massifs_falaises_rendus_au_sol_px": 2383,
+   "boites_massifs_falaise": [
+    [
+     270,
+     400,
+     334,
+     444
+    ],
+    [
+     268,
+     444,
+     304,
+     480
+    ]
+   ],
+   "familles_massifs_origine": [
+    "blanc",
+    "bleu",
+    "corail",
+    "jaune",
+    "orange",
+    "rouge",
+    "violet"
+   ],
+   "couleurs": [
+    "blanc",
+    "bleu",
+    "corail",
+    "jaune",
+    "rose",
+    "rouge",
+    "violet"
+   ],
+   "touffes": 51,
+   "gouttelettes": 70
+  },
+  "herbe": {
+   "ton": [
+    135,
+    247,
+    119
+   ],
+   "regle": "pixels d herbe (regle herbe) a moins de 40 du ton dominant du lot -> aplat au ton dominant du GIF Sky Peak ; restes flous <= 60 px entoures d herbe -> aplat ; le chemin clair reste"
+  },
+  "herbes": {
+   "phases": 4,
+   "frame_length_ticks": 12,
+   "touffes": 51,
+   "tons": [
+    [
+     95,
+     183,
+     87
+    ],
+    [
+     103,
+     207,
+     95
+    ],
+    [
+     119,
+     215,
+     103
+    ]
+   ],
+   "loi": "etoiles de 6 brins de 5 px, grille de 26 px en quinconce ; A B A C, brins du haut penches de +-1 px en B et C (GIF Sky Peak : toute la prairie se balance)"
+  },
+  "embruns": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "gouttelettes": 70,
+   "loi": "au pied de chaque cascade, chaque gouttelette part du bord haut de l ecume et monte de 34 px sur la boucle, derive en sinus et s efface (trame de Bayer)"
+  },
+  "papillons": {
+   "phases": 48,
+   "frame_length_ticks": 10,
+   "liste": [
+    {
+     "cx": 564,
+     "cy": 240,
+     "ax": 16,
+     "ay": 10,
+     "phi": 2.82,
+     "psi": 5.636,
+     "couleur": "jaune"
+    },
+    {
+     "cx": 399,
+     "cy": 339,
+     "ax": 22,
+     "ay": 8,
+     "phi": 0.944,
+     "psi": 2.509,
+     "couleur": "blanc"
+    },
+    {
+     "cx": 378,
+     "cy": 476,
+     "ax": 21,
+     "ay": 7,
+     "phi": 4.465,
+     "psi": 1.676,
+     "couleur": "rose"
+    },
+    {
+     "cx": 450,
+     "cy": 262,
+     "ax": 19,
+     "ay": 6,
+     "phi": 5.4,
+     "psi": 4.595,
+     "couleur": "bleu"
+    },
+    {
+     "cx": 202,
+     "cy": 258,
+     "ax": 14,
+     "ay": 6,
+     "phi": 3.34,
+     "psi": 3.675,
+     "couleur": "orange"
+    }
+   ],
+   "trajets": [
+    [
+     [
+      569,
+      234
+     ],
+     [
+      567,
+      236
+     ],
+     [
+      565,
+      239
+     ],
+     [
+      563,
+      241
+     ],
+     [
+      561,
+      244
+     ],
+     [
+      559,
+      246
+     ],
+     [
+      557,
+      248
+     ],
+     [
+      555,
+      249
+     ],
+     [
+      553,
+      250
+     ],
+     [
+      552,
+      250
+     ],
+     [
+      551,
+      249
+     ],
+     [
+      550,
+      248
+     ],
+     [
+      549,
+      246
+     ],
+     [
+      548,
+      244
+     ],
+     [
+      548,
+      241
+     ],
+     [
+      548,
+      239
+     ],
+     [
+      548,
+      236
+     ],
+     [
+      549,
+      234
+     ],
+     [
+      550,
+      232
+     ],
+     [
+      551,
+      231
+     ],
+     [
+      552,
+      230
+     ],
+     [
+      554,
+      230
+     ],
+     [
+      555,
+      231
+     ],
+     [
+      557,
+      232
+     ],
+     [
+      559,
+      234
+     ],
+     [
+      561,
+      236
+     ],
+     [
+      563,
+      239
+     ],
+     [
+      565,
+      241
+     ],
+     [
+      567,
+      244
+     ],
+     [
+      569,
+      246
+     ],
+     [
+      571,
+      248
+     ],
+     [
+      573,
+      249
+     ],
+     [
+      575,
+      250
+     ],
+     [
+      576,
+      250
+     ],
+     [
+      577,
+      249
+     ],
+     [
+      578,
+      248
+     ],
+     [
+      579,
+      246
+     ],
+     [
+      580,
+      244
+     ],
+     [
+      580,
+      241
+     ],
+     [
+      580,
+      239
+     ],
+     [
+      580,
+      236
+     ],
+     [
+      579,
+      234
+     ],
+     [
+      578,
+      232
+     ],
+     [
+      577,
+      231
+     ],
+     [
+      576,
+      230
+     ],
+     [
+      574,
+      230
+     ],
+     [
+      573,
+      231
+     ],
+     [
+      571,
+      232
+     ]
+    ],
+    [
+     [
+      417,
+      344
+     ],
+     [
+      418,
+      342
+     ],
+     [
+      420,
+      340
+     ],
+     [
+      420,
+      338
+     ],
+     [
+      421,
+      336
+     ],
+     [
+      421,
+      334
+     ],
+     [
+      421,
+      333
+     ],
+     [
+      420,
+      332
+     ],
+     [
+      419,
+      331
+     ],
+     [
+      418,
+      331
+     ],
+     [
+      416,
+      332
+     ],
+     [
+      414,
+      333
+     ],
+     [
+      412,
+      334
+     ],
+     [
+      409,
+      336
+     ],
+     [
+      407,
+      338
+     ],
+     [
+      404,
+      340
+     ],
+     [
+      401,
+      342
+     ],
+     [
+      398,
+      344
+     ],
+     [
+      396,
+      345
+     ],
+     [
+      393,
+      346
+     ],
+     [
+      390,
+      347
+     ],
+     [
+      387,
+      347
+     ],
+     [
+      385,
+      346
+     ],
+     [
+      383,
+      345
+     ],
+     [
+      381,
+      344
+     ],
+     [
+      380,
+      342
+     ],
+     [
+      378,
+      340
+     ],
+     [
+      378,
+      338
+     ],
+     [
+      377,
+      336
+     ],
+     [
+      377,
+      334
+     ],
+     [
+      377,
+      333
+     ],
+     [
+      378,
+      332
+     ],
+     [
+      379,
+      331
+     ],
+     [
+      380,
+      331
+     ],
+     [
+      382,
+      332
+     ],
+     [
+      384,
+      333
+     ],
+     [
+      386,
+      334
+     ],
+     [
+      389,
+      336
+     ],
+     [
+      391,
+      338
+     ],
+     [
+      394,
+      340
+     ],
+     [
+      397,
+      342
+     ],
+     [
+      400,
+      344
+     ],
+     [
+      402,
+      345
+     ],
+     [
+      405,
+      346
+     ],
+     [
+      408,
+      347
+     ],
+     [
+      411,
+      347
+     ],
+     [
+      413,
+      346
+     ],
+     [
+      415,
+      345
+     ]
+    ],
+    [
+     [
+      358,
+      483
+     ],
+     [
+      357,
+      483
+     ],
+     [
+      357,
+      482
+     ],
+     [
+      357,
+      480
+     ],
+     [
+      358,
+      479
+     ],
+     [
+      359,
+      477
+     ],
+     [
+      360,
+      475
+     ],
+     [
+      362,
+      473
+     ],
+     [
+      363,
+      472
+     ],
+     [
+      365,
+      471
+     ],
+     [
+      368,
+      470
+     ],
+     [
+      370,
+      469
+     ],
+     [
+      373,
+      469
+     ],
+     [
+      376,
+      469
+     ],
+     [
+      378,
+      470
+     ],
+     [
+      381,
+      472
+     ],
+     [
+      384,
+      473
+     ],
+     [
+      386,
+      475
+     ],
+     [
+      389,
+      477
+     ],
+     [
+      391,
+      479
+     ],
+     [
+      393,
+      480
+     ],
+     [
+      395,
+      481
+     ],
+     [
+      396,
+      482
+     ],
+     [
+      398,
+      483
+     ],
+     [
+      398,
+      483
+     ],
+     [
+      399,
+      483
+     ],
+     [
+      399,
+      482
+     ],
+     [
+      399,
+      480
+     ],
+     [
+      398,
+      479
+     ],
+     [
+      397,
+      477
+     ],
+     [
+      396,
+      475
+     ],
+     [
+      394,
+      473
+     ],
+     [
+      393,
+      472
+     ],
+     [
+      391,
+      471
+     ],
+     [
+      388,
+      470
+     ],
+     [
+      386,
+      469
+     ],
+     [
+      383,
+      469
+     ],
+     [
+      380,
+      469
+     ],
+     [
+      378,
+      470
+     ],
+     [
+      375,
+      472
+     ],
+     [
+      372,
+      473
+     ],
+     [
+      370,
+      475
+     ],
+     [
+      367,
+      477
+     ],
+     [
+      365,
+      479
+     ],
+     [
+      363,
+      480
+     ],
+     [
+      361,
+      481
+     ],
+     [
+      360,
+      482
+     ],
+     [
+      358,
+      483
+     ]
+    ],
+    [
+     [
+      435,
+      256
+     ],
+     [
+      437,
+      256
+     ],
+     [
+      439,
+      256
+     ],
+     [
+      441,
+      257
+     ],
+     [
+      443,
+      258
+     ],
+     [
+      446,
+      260
+     ],
+     [
+      448,
+      261
+     ],
+     [
+      451,
+      263
+     ],
+     [
+      453,
+      264
+     ],
+     [
+      456,
+      266
+     ],
+     [
+      458,
+      267
+     ],
+     [
+      460,
+      268
+     ],
+     [
+      462,
+      268
+     ],
+     [
+      464,
+      268
+     ],
+     [
+      465,
+      268
+     ],
+     [
+      467,
+      267
+     ],
+     [
+      468,
+      266
+     ],
+     [
+      469,
+      264
+     ],
+     [
+      469,
+      263
+     ],
+     [
+      469,
+      261
+     ],
+     [
+      469,
+      260
+     ],
+     [
+      468,
+      258
+     ],
+     [
+      467,
+      257
+     ],
+     [
+      466,
+      256
+     ],
+     [
+      465,
+      256
+     ],
+     [
+      463,
+      256
+     ],
+     [
+      461,
+      256
+     ],
+     [
+      459,
+      257
+     ],
+     [
+      457,
+      258
+     ],
+     [
+      454,
+      260
+     ],
+     [
+      452,
+      261
+     ],
+     [
+      449,
+      263
+     ],
+     [
+      447,
+      264
+     ],
+     [
+      444,
+      266
+     ],
+     [
+      442,
+      267
+     ],
+     [
+      440,
+      268
+     ],
+     [
+      438,
+      268
+     ],
+     [
+      436,
+      268
+     ],
+     [
+      435,
+      268
+     ],
+     [
+      433,
+      267
+     ],
+     [
+      432,
+      266
+     ],
+     [
+      431,
+      264
+     ],
+     [
+      431,
+      263
+     ],
+     [
+      431,
+      261
+     ],
+     [
+      431,
+      260
+     ],
+     [
+      432,
+      258
+     ],
+     [
+      433,
+      257
+     ],
+     [
+      434,
+      256
+     ]
+    ],
+    [
+     [
+      199,
+      255
+     ],
+     [
+      197,
+      254
+     ],
+     [
+      196,
+      253
+     ],
+     [
+      194,
+      252
+     ],
+     [
+      193,
+      252
+     ],
+     [
+      191,
+      252
+     ],
+     [
+      190,
+      253
+     ],
+     [
+      189,
+      254
+     ],
+     [
+      189,
+      255
+     ],
+     [
+      188,
+      257
+     ],
+     [
+      188,
+      258
+     ],
+     [
+      188,
+      260
+     ],
+     [
+      188,
+      261
+     ],
+     [
+      189,
+      262
+     ],
+     [
+      189,
+      263
+     ],
+     [
+      190,
+      264
+     ],
+     [
+      191,
+      264
+     ],
+     [
+      193,
+      264
+     ],
+     [
+      194,
+      263
+     ],
+     [
+      196,
+      262
+     ],
+     [
+      198,
+      261
+     ],
+     [
+      199,
+      259
+     ],
+     [
+      201,
+      258
+     ],
+     [
+      203,
+      256
+     ],
+     [
+      205,
+      255
+     ],
+     [
+      207,
+      254
+     ],
+     [
+      208,
+      253
+     ],
+     [
+      210,
+      252
+     ],
+     [
+      211,
+      252
+     ],
+     [
+      213,
+      252
+     ],
+     [
+      214,
+      253
+     ],
+     [
+      215,
+      254
+     ],
+     [
+      215,
+      255
+     ],
+     [
+      216,
+      257
+     ],
+     [
+      216,
+      258
+     ],
+     [
+      216,
+      260
+     ],
+     [
+      216,
+      261
+     ],
+     [
+      215,
+      262
+     ],
+     [
+      215,
+      263
+     ],
+     [
+      214,
+      264
+     ],
+     [
+      213,
+      264
+     ],
+     [
+      211,
+      264
+     ],
+     [
+      210,
+      263
+     ],
+     [
+      208,
+      262
+     ],
+     [
+      206,
+      261
+     ],
+     [
+      205,
+      259
+     ],
+     [
+      203,
+      258
+     ],
+     [
+      201,
+      256
+     ]
+    ]
+   ],
+   "loi": "Lissajous fermee x = cx + ax sin(2 pi t / 48 + phi), y = cy + ay sin(4 pi t / 48 + psi) ; ailes ouvertes / fermees une phase sur deux"
+  },
+  "nature": "pixels calcules (pas des tuiles natives) ; seuls les tons de l herbe, des touffes et des fleurs corail sont releves sur le GIF Sky Peak"
+ },
+ "arbres": {
+  "plantes": [
+   {
+    "y": 4,
+    "x": 90,
+    "arbre": 4,
+    "taille": [
+     57,
+     65
+    ]
+   },
+   {
+    "y": 4,
+    "x": 175,
+    "arbre": 4,
+    "taille": [
+     57,
+     65
+    ]
+   },
+   {
+    "y": 4,
+    "x": 668,
+    "arbre": 2,
+    "taille": [
+     60,
+     67
+    ]
+   },
+   {
+    "y": 6,
+    "x": 73,
+    "arbre": 1,
+    "taille": [
+     71,
+     80
+    ]
+   },
+   {
+    "y": 9,
+    "x": 147,
+    "arbre": 4,
+    "taille": [
+     57,
+     65
+    ]
+   },
+   {
+    "y": 9,
+    "x": 697,
+    "arbre": 1,
+    "taille": [
+     71,
+     80
+    ]
+   },
+   {
+    "y": 10,
+    "x": 613,
+    "arbre": 5,
+    "taille": [
+     57,
+     65
+    ]
+   },
+   {
+    "y": 29,
+    "x": 707,
+    "arbre": 6,
+    "taille": [
+     82,
+     91
+    ]
+   },
+   {
+    "y": 385,
+    "x": 310,
+    "arbre": 2,
+    "taille": [
+     60,
+     67
+    ]
+   },
+   {
+    "y": 401,
+    "x": 305,
+    "arbre": 0,
+    "taille": [
+     71,
+     80
+    ]
+   },
+   {
+    "y": 403,
+    "x": 459,
+    "arbre": 5,
+    "taille": [
+     57,
+     65
+    ]
+   },
+   {
+    "y": 406,
+    "x": 483,
+    "arbre": 6,
+    "taille": [
+     82,
+     91
+    ]
+   },
+   {
+    "y": 555,
+    "x": 287,
+    "arbre": 5,
+    "taille": [
+     57,
+     65
+    ]
+   }
+  ],
+  "du_brut_pixels": 611,
+  "lisiere": "masses de buissons du brut (>= 1500 px) + bandes de 40 px aux bords gauche et droit, 34 px au bas (hors couloir d entree), 30 px en haut (hors sortie)"
+ },
+ "cascades": {
+  "phases": 3,
+  "frame_length_ticks": 10,
+  "rects": [
+   {
+    "x0": 286,
+    "x1": 320,
+    "y0": 0,
+    "y1": 105,
+    "graine": 11,
+    "embruns_y": 94
+   },
+   {
+    "x0": 376,
+    "x1": 412,
+    "y0": 0,
+    "y1": 101,
+    "graine": 12,
+    "embruns_y": 93
+   }
+  ],
+  "loi": "P03P01A : motif 96 px, 32 px par image"
+ },
+ "animations": {
+  "brume_profonde": {
+   "phases": 24,
+   "frame_length_ticks": 20,
+   "boucle_ticks": 480
+  },
+  "brume_haute": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 240
+  },
+  "lueurs": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 240
+  },
+  "eau": {
+   "phases": 3,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 30
+  },
+  "herbes": {
+   "phases": 4,
+   "frame_length_ticks": 12,
+   "boucle_ticks": 48
+  },
+  "fleurs": {
+   "phases": 4,
+   "frame_length_ticks": 12,
+   "boucle_ticks": 48
+  },
+  "cascades": {
+   "phases": 3,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 30
+  },
+  "ecume": {
+   "phases": 3,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 30
+  },
+  "embruns": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 240
+  },
+  "papillons": {
+   "phases": 48,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 480
+  },
+  "reflets": {
+   "phases": 24,
+   "frame_length_ticks": 10,
+   "boucle_ticks": 240
+  }
+ },
+ "cristaux": {
+  "pixels_cristal": 57437,
+  "pixels_contour": 2393,
+  "eclats": 36,
+  "bases_piliers": 137,
+  "tons_base": [
+   [
+    150,
+    156,
+    196
+   ],
+   [
+    188,
+    194,
+    226
+   ],
+   [
+    220,
+    224,
+    244
+   ],
+   [
+    240,
+    242,
+    252
+   ],
+   [
+    255,
+    255,
+    255
+   ]
+  ],
+  "contour": [
+   92,
+   96,
+   140
+  ],
+  "arc_en_ciel": {
+   "rouge": [
+    255,
+    96,
+    120
+   ],
+   "orange": [
+    255,
+    164,
+    88
+   ],
+   "jaune": [
+    255,
+    232,
+    104
+   ],
+   "vert": [
+    128,
+    232,
+    140
+   ],
+   "cyan": [
+    104,
+    222,
+    255
+   ],
+   "bleu": [
+    122,
+    140,
+    255
+   ],
+   "mauve": [
+    192,
+    118,
+    255
+   ],
+   "rose": [
+    255,
+    120,
+    210
+   ]
+  },
+  "palette_reflets": [
+   [
+    116,
+    203,
+    238
+   ],
+   [
+    127,
+    214,
+    246
+   ],
+   [
+    129,
+    144,
+    238
+   ],
+   [
+    134,
+    210,
+    155
+   ],
+   [
+    136,
+    222,
+    251
+   ],
+   [
+    140,
+    155,
+    246
+   ],
+   [
+    144,
+    221,
+    164
+   ],
+   [
+    149,
+    163,
+    251
+   ],
+   [
+    153,
+    229,
+    169
+   ],
+   [
+    161,
+    230,
+    253
+   ],
+   [
+    167,
+    235,
+    255
+   ],
+   [
+    171,
+    182,
+    253
+   ],
+   [
+    175,
+    236,
+    187
+   ],
+   [
+    177,
+    188,
+    255
+   ],
+   [
+    180,
+    128,
+    238
+   ],
+   [
+    181,
+    241,
+    188
+   ],
+   [
+    190,
+    139,
+    246
+   ],
+   [
+    199,
+    147,
+    251
+   ],
+   [
+    212,
+    170,
+    253
+   ],
+   [
+    218,
+    175,
+    255
+   ],
+   [
+    225,
+    112,
+    141
+   ],
+   [
+    225,
+    130,
+    206
+   ],
+   [
+    225,
+    161,
+    118
+   ],
+   [
+    225,
+    210,
+    129
+   ],
+   [
+    232,
+    240,
+    255
+   ],
+   [
+    236,
+    123,
+    149
+   ],
+   [
+    236,
+    140,
+    214
+   ],
+   [
+    236,
+    172,
+    126
+   ],
+   [
+    236,
+    221,
+    138
+   ],
+   [
+    245,
+    131,
+    154
+   ],
+   [
+    245,
+    149,
+    219
+   ],
+   [
+    245,
+    180,
+    131
+   ],
+   [
+    245,
+    229,
+    143
+   ],
+   [
+    248,
+    157,
+    175
+   ],
+   [
+    248,
+    171,
+    227
+   ],
+   [
+    248,
+    196,
+    156
+   ],
+   [
+    248,
+    236,
+    166
+   ],
+   [
+    255,
+    162,
+    176
+   ],
+   [
+    255,
+    176,
+    228
+   ],
+   [
+    255,
+    202,
+    158
+   ],
+   [
+    255,
+    241,
+    167
+   ],
+   [
+    255,
+    255,
+    255
+   ]
+  ],
+  "phases": 24,
+  "frame_length_ticks": 10,
+  "demande": "je veux que les cristal et des reflet et que ce soit comme area zero blanc de base a reflet arc en ciel qui change de couleur rouge mauve etc",
+  "loi": "cristaux (regle : vert menthe pale, g - r > 45, g - b < 50, lum > 125, + reflets blancs ; composantes gardees si >= 5 % de facettes tres claires, lum > 205, pour laisser les reflets de roche) sortis du calque falaises, bases menthe des piliers du calque sol rattachees ; base blanche en 5 tons selon la luminance d origine (les facettes restent) + contour indigo ; reflets : bande diagonale de 34 px (periode 96 px, +4 px par phase) aux 8 teintes de l arc-en-ciel posees sur le blanc, teinte = ((x + y) / 8 + t / 3) mod 8 (la couleur tourne : rouge, orange, jaune, vert, cyan, bleu, mauve, rose) ; 36 eclats 1-2-3-2-1",
+  "nature": "pixels calcules (recoloration des cristaux du brut genere), pas des tuiles natives"
+ },
+ "scene_loop_ticks": 480,
+ "access": {
+  "markers": {
+   "entrance": [
+    376,
+    560
+   ],
+   "sortie": [
+    536,
+    200
+   ],
+   "belvedere": [
+    632,
+    264
+   ]
+  },
+  "chemins_16x16": {
+   "sortie": {
+    "ok": true,
+    "cases_explorees": 1042
+   },
+   "belvedere": {
+    "ok": true,
+    "cases_explorees": 1079
+   }
+  },
+  "blocked_cells": 5465,
+  "total_cells": 6912,
+  "rule": "case bloquee si > 25 % hors sol praticable (masque praticable = sol, fleurs et massifs compris, + escaliers ; lisiere, vegetation, troncs et arbres exclus)"
+ },
+ "pmdo": {
+  "target": "0.8.12",
+  "asset": "eaf1_entree_zone_zero_fleurie",
+  "namespace": "entree_zone_zero_fleurie",
+  "tiles_per_bank": {
+   "EAF1_00_SOL": 1872,
+   "EAF1_01_ABIME": 1085,
+   "EAF1_02_BRUME": 3304,
+   "EAF1_03_BRUME": 1064,
+   "EAF1_04_LUEURS": 137,
+   "EAF1_05_EAU": 264,
+   "EAF1_06_SOL": 895,
+   "EAF1_07_FALAISES": 3718,
+   "EAF1_08_CRISTAUX": 1332,
+   "EAF1_09_REFLETS": 10225,
+   "EAF1_10_HERBES": 168,
+   "EAF1_11_FLEURS": 1077,
+   "EAF1_12_BUISSONS": 229,
+   "EAF1_13_ARBRES": 365,
+   "EAF1_14_CASCADES": 121,
+   "EAF1_15_ECUME": 182,
+   "EAF1_16_EMBRUNS": 672,
+   "EAF1_17_PAPILLONS": 379
+  },
+  "banks": [
+   "EAF1_00_SOL",
+   "EAF1_01_ABIME",
+   "EAF1_02_BRUME",
+   "EAF1_03_BRUME",
+   "EAF1_04_LUEURS",
+   "EAF1_05_EAU",
+   "EAF1_06_SOL",
+   "EAF1_07_FALAISES",
+   "EAF1_08_CRISTAUX",
+   "EAF1_09_REFLETS",
+   "EAF1_10_HERBES",
+   "EAF1_11_FLEURS",
+   "EAF1_12_BUISSONS",
+   "EAF1_13_ARBRES",
+   "EAF1_14_CASCADES",
+   "EAF1_15_ECUME",
+   "EAF1_16_EMBRUNS",
+   "EAF1_17_PAPILLONS"
+  ],
+  "runtime_tested": false,
+  "warp": "aucun (raccords a scripter)"
+ },
+ "art_approved": false
+}

@@ -1,0 +1,367 @@
+{
+  "lot": "fin_ruine_puits_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Ruine (Sealed Ruin)",
+  "entree_correspondante": [
+    "entree_ruine_sud_nord_v1"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "passons a la suite",
+    "Choisis !"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Ruine apres Cratere",
+    "layout": "arrivee au sud entre deux rochers plats, arene (boss), cle de voute dans la niche nord (objectif), aucune sortie",
+    "objectif": "Cle de voute etrange (Odd Keystone) : dans le jeu, les heros la trouvent au fond de Sealed Ruin et elle se revele etre Spiritomb",
+    "reference": "vraie fin du jeu : Sealed_Ruin_pit_TDS.png"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : blocs sur sol magenta, sol complet genere depuis une decoupe du sol du rip, cle de voute generee sur magenta",
+  "reference_da": "Sealed_Ruin_pit_TDS.png",
+  "raw_inputs": [
+    {
+      "file": "source/fin_ruine_puits_v1/bruts/decor_magenta.png",
+      "sha256": "cfb1f3386bb5041e8f91138451f12140ce475fb798704bdeb14e540f372732d2",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Sealed_Ruin_pit_TDS.png"
+      ]
+    },
+    {
+      "file": "source/fin_ruine_puits_v1/bruts/sol_complet.png",
+      "sha256": "ef95e3a28a19eb36d7952d7153d94a58346a1bf7d43b45627b0dcbd97e56bfe4",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Sealed_Ruin_pit_TDS.png decoupe [220, 130, 440, 360]"
+      ],
+      "origine": "generateur avec la decoupe (x0, y0, x1, y1) du sol du rip ; deux essais avec le rip entier revenus vides"
+    },
+    {
+      "file": "source/fin_ruine_puits_v1/bruts/pierre_magenta.png",
+      "sha256": "fe78009333e65d7e186c6fe97f8be0413c715fbe79a9077c4ceae5d68cafd3d0",
+      "size": [
+        1139,
+        928
+      ],
+      "images": [
+        "Sealed_Ruin_pit_TDS.png"
+      ]
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs ; parois neutralisees (teinte violette de la niche retiree) ; cle de voute : palette propre de 16 couleurs"
+  },
+  "segmentation": {
+    "sol": "r - g > 40 et b - g > 40 (magenta et franges), plus grande composante, trous rebouches",
+    "parois": "le reste",
+    "ombre_parois": "sol a moins de 3 px des parois ou sous une paroi (5 px), assombri x0,62 / x0,78"
+  },
+  "cle_de_voute": {
+    "bbox_brut": [
+      202,
+      85,
+      950,
+      844
+    ],
+    "facteur": 0.04813,
+    "taille_px": [
+      36,
+      37
+    ],
+    "xy": [
+      366,
+      133
+    ],
+    "base_y": 170,
+    "fissure_px": 55
+  },
+  "fidelite": {
+    "rip_sol_rgb": [
+      66.8,
+      66.8,
+      66.8
+    ],
+    "sol_rgb": [
+      60.8,
+      60.7,
+      60.8
+    ],
+    "distance": 10.44,
+    "rip_parois_rgb": [
+      60.8,
+      59.5,
+      62.1
+    ],
+    "parois_rgb": [
+      61.4,
+      59.9,
+      61.9
+    ],
+    "distance_parois": 0.75,
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FRP1_00_sol_complet.png",
+    "calques/FRP1_01_ombre_parois.png",
+    "animation/aura/FRP1_02_aura_fNN.png",
+    "animation/tourbillons/FRP1_03_tourbillons_fNN.png",
+    "calques/FRP1_04_parois.png",
+    "calques/FRP1_05_cle_de_voute.png",
+    "animation/fissure/FRP1_06_fissure_fNN.png",
+    "animation/feux_follets/FRP1_07_feux_follets_fNN.png"
+  ],
+  "aura": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "couleurs": [
+      [
+        70,
+        62,
+        84
+      ],
+      [
+        82,
+        66,
+        104
+      ],
+      [
+        98,
+        72,
+        130
+      ]
+    ],
+    "origine": "voile tramé (Bayer 4x4) en ellipse au pied de la pierre, densite selon la pulsation"
+  },
+  "tourbillons": {
+    "phases": 8,
+    "frame_length_ticks": 5,
+    "positions": [
+      [
+        272,
+        232
+      ],
+      [
+        448,
+        216
+      ]
+    ],
+    "decalages": [
+      0,
+      3
+    ],
+    "couleurs": [
+      [
+        76,
+        76,
+        80
+      ],
+      [
+        88,
+        88,
+        92
+      ],
+      [
+        102,
+        102,
+        106
+      ],
+      [
+        118,
+        118,
+        122
+      ],
+      [
+        136,
+        136,
+        140
+      ],
+      [
+        156,
+        156,
+        160
+      ]
+    ],
+    "origine": "poses generees de l entree Ruine (source/entree_ruine_sud_nord_v1/bruts/tourbillon_8_poses.png), extract_poses de ERN1, recolorees en gris par rang de luminance"
+  },
+  "fissure": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        58,
+        34,
+        78
+      ],
+      [
+        92,
+        52,
+        128
+      ],
+      [
+        136,
+        78,
+        188
+      ],
+      [
+        182,
+        124,
+        232
+      ],
+      [
+        226,
+        190,
+        255
+      ]
+    ],
+    "origine": "pixels de fissure de la pierre, rang de luminance + pulsation (methode des braises de ECN1)"
+  },
+  "feux_follets": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "vie_phases": 16,
+    "tailles": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      3,
+      3
+    ],
+    "decalages": [
+      0,
+      8,
+      16
+    ],
+    "montee_px_par_phase": 2,
+    "couleurs": [
+      [
+        58,
+        34,
+        78
+      ],
+      [
+        92,
+        52,
+        128
+      ],
+      [
+        136,
+        78,
+        188
+      ],
+      [
+        182,
+        124,
+        232
+      ],
+      [
+        226,
+        190,
+        255
+      ]
+    ],
+    "origine": "sprites proceduraux (4 tailles, 7 x 9 au plus), trois emetteurs sur la pierre"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        384,
+        288
+      ],
+      "cle_de_voute": [
+        376,
+        176
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 279
+      },
+      "cle_de_voute": {
+        "ok": true,
+        "cases_explorees": 928
+      }
+    },
+    "blocked_cells": 5377,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol (la cle de voute bloque)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "frp1_fin_ruine_puits",
+    "namespace": "fin_ruine_puits",
+    "tiles_per_bank": {
+      "FRP1_00_SOL": 6911,
+      "FRP1_01_OMBRE": 282,
+      "FRP1_02_AURA": 83,
+      "FRP1_03_TOURBILLONS": 153,
+      "FRP1_04_PAROIS": 5404,
+      "FRP1_05_CLE": 32,
+      "FRP1_06_FISSURE": 16,
+      "FRP1_07_FEUX": 73
+    },
+    "banks": [
+      "FRP1_00_SOL",
+      "FRP1_01_OMBRE",
+      "FRP1_02_AURA",
+      "FRP1_03_TOURBILLONS",
+      "FRP1_04_PAROIS",
+      "FRP1_05_CLE",
+      "FRP1_06_FISSURE",
+      "FRP1_07_FEUX"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

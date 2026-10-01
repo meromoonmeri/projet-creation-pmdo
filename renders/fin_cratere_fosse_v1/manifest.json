@@ -1,0 +1,434 @@
+{
+  "lot": "fin_cratere_fosse_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Cratere (Dark Crater)",
+  "entree_correspondante": [
+    "entree_cratere_sud_nord_v1"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "passons a la suite"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Cratere apres Vapeur",
+    "layout": "arrivee au sud (pointe du plateau), arene (boss), embleme de feu au nord (objectif), lave autour, aucune sortie",
+    "reference": "vraie fin du jeu : Dark_Crater_Pit_TDS.png"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sur magenta (lave = magenta), rip en images= ; sol complet en miroir d une plage du decor",
+  "reference_da": "Dark_Crater_Pit_TDS.png",
+  "raw_inputs": [
+    {
+      "file": "source/fin_cratere_fosse_v1/bruts/decor_magenta.png",
+      "sha256": "b69e85bf2e7600befee3abcd0abad65b0160a4da75ad13f4c2da2380e373b110",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Dark_Crater_Pit_TDS.png"
+      ]
+    },
+    {
+      "file": "source/fin_cratere_fosse_v1/bruts/sol_complet.png",
+      "sha256": "fea2d11c13d54e40684f53ddcea8126b627f452e5fde48c60d45c97a63f6e6b3",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [],
+      "origine": "miroir de la plage [280, 600, 360, 840] (y0, y1, x0, x1) du decor ; generateur vide deux fois"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs ; embleme ramene aux 8 tons de lave de ECN1"
+  },
+  "segmentation": {
+    "lave": "magenta dilate 2 px",
+    "sol": "moyenne 11 px > 62, saturation < 30, plus grande composante",
+    "embleme": "tons de feu satures (r > 150, b < 90, r > g + 30) dans le quart nord, plus grande composante remplie",
+    "rebord": "reste de la composante de terre du plateau",
+    "pitons": "autres composantes de terre (dans la lave)",
+    "braises": "seuil des braises de ECN1, sur le rebord"
+  },
+  "fidelite": {
+    "rip_sol_rgb": [
+      90.1,
+      84.9,
+      79.9
+    ],
+    "sol_plateau_rgb": [
+      89.1,
+      83.7,
+      78.6
+    ],
+    "distance": 2.03,
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "animation/lave/FCF1_00_lave_fNN.png",
+    "animation/eclats/FCF1_01_eclats_fNN.png",
+    "animation/bulles/FCF1_02_bulles_fNN.png",
+    "calques/FCF1_03_sol_complet.png",
+    "calques/FCF1_04_sol_plateau.png",
+    "calques/FCF1_05_rebord.png",
+    "calques/FCF1_06_pitons.png",
+    "calques/FCF1_07_embleme.png",
+    "animation/lueur/FCF1_08_lueur_fNN.png"
+  ],
+  "lave": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "couleurs": {
+      "lip": [
+        70,
+        20,
+        26
+      ],
+      "bande": [
+        120,
+        26,
+        22
+      ],
+      "inter": [
+        194,
+        40,
+        8
+      ],
+      "accent": [
+        232,
+        72,
+        6
+      ],
+      "surface": [
+        246,
+        108,
+        10
+      ],
+      "chaud": [
+        252,
+        150,
+        12
+      ],
+      "jaune": [
+        253,
+        184,
+        30
+      ],
+      "clair": [
+        253,
+        227,
+        121
+      ]
+    },
+    "origine": "fonction lava_phases de l entree Cratere (structure riviere Metano), recalculee ; pas de tuiles natives"
+  },
+  "eclats": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "placements": [
+      {
+        "famille": "A_16x24",
+        "xy": [
+          224,
+          16
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          304,
+          0
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          480,
+          520
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          16,
+          352
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          592,
+          520
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          256,
+          16
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          744,
+          312
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          696,
+          488
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          704,
+          376
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          704,
+          312
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          720,
+          8
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          184,
+          56
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          584,
+          472
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          40,
+          528
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          568,
+          40
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          288,
+          560
+        ]
+      }
+    ],
+    "origine": "pixels Metano_Town_River_Sparkles recolores en tons de lave (sparkle_families de ECN1)"
+  },
+  "bulles": {
+    "poses": "planche generee de l entree Cratere (bruts/bulles_lave_poses.png)",
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "emetteurs": [
+      {
+        "xy": [
+          248,
+          512
+        ],
+        "decalage": 0
+      },
+      {
+        "xy": [
+          224,
+          56
+        ],
+        "decalage": 5
+      },
+      {
+        "xy": [
+          688,
+          120
+        ],
+        "decalage": 10
+      },
+      {
+        "xy": [
+          48,
+          328
+        ],
+        "decalage": 15
+      },
+      {
+        "xy": [
+          704,
+          224
+        ],
+        "decalage": 20
+      },
+      {
+        "xy": [
+          80,
+          480
+        ],
+        "decalage": 1
+      },
+      {
+        "xy": [
+          8,
+          184
+        ],
+        "decalage": 6
+      },
+      {
+        "xy": [
+          712,
+          408
+        ],
+        "decalage": 11
+      },
+      {
+        "xy": [
+          72,
+          8
+        ],
+        "decalage": 16
+      },
+      {
+        "xy": [
+          64,
+          440
+        ],
+        "decalage": 21
+      }
+    ]
+  },
+  "lueur": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        232,
+        72,
+        6
+      ],
+      [
+        246,
+        108,
+        10
+      ],
+      [
+        252,
+        150,
+        12
+      ],
+      [
+        253,
+        184,
+        30
+      ],
+      [
+        253,
+        227,
+        121
+      ]
+    ],
+    "pixels": 1218,
+    "origine": "pixels chauds de l embleme et braises du rebord, rang de luminance + pulsation (methode des braises de ECN1)"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        288
+      ],
+      "embleme": [
+        376,
+        96
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 543
+      },
+      "embleme": {
+        "ok": true,
+        "cases_explorees": 1733
+      }
+    },
+    "blocked_cells": 4395,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol du plateau"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fcf1_fin_cratere_fosse",
+    "namespace": "fin_cratere_fosse",
+    "tiles_per_bank": {
+      "FCF1_00_LAVE": 3333,
+      "FCF1_01_ECLATS": 36,
+      "FCF1_02_BULLES": 58,
+      "FCF1_03_SOL": 4128,
+      "FCF1_04_SOL": 2678,
+      "FCF1_05_REBORD": 1372,
+      "FCF1_06_PITONS": 298,
+      "FCF1_07_EMBLEME": 78,
+      "FCF1_08_LUEUR": 256
+    },
+    "banks": [
+      "FCF1_00_LAVE",
+      "FCF1_01_ECLATS",
+      "FCF1_02_BULLES",
+      "FCF1_03_SOL",
+      "FCF1_04_SOL",
+      "FCF1_05_REBORD",
+      "FCF1_06_PITONS",
+      "FCF1_07_EMBLEME",
+      "FCF1_08_LUEUR"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

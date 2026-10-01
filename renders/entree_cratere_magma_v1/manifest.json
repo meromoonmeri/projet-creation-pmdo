@@ -1,0 +1,322 @@
+{
+  "lot": "entree_cratere_magma_v1",
+  "biome": "Cratere (Dark Crater)",
+  "version_de": "entree_cratere_sud_nord_v1 (ECN1, conservee)",
+  "demande": [
+    "Je veux un entree de map avec magma dark crater des cascade de lave",
+    "Des colonnes de magma etc et cascade pour une version entree crater pit entree [...] faut que le magma de la zone bouge de maniere visqueuse"
+  ],
+  "choix_agent": {
+    "layout": "arrivee au sud sur le chemin de cendre, grotte au nord, cascade de chaque cote de la grotte qui nourrit une mare de magma le long du chemin",
+    "colonnes": "4 events dans les mares, eruptions decalees facon geyser",
+    "magma": "motif cellulaire de la lave du rip de la fosse, derive lente, pliage, gonflements, plaques de croute"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sur magenta (mares) et vert (cascades) ; sol complet = plage de cendre du decor en miroir",
+  "reference_da": [
+    "Dark_Crater_entrance_TDS.png",
+    "Dark_Crater_Pit_TDS.png (rampe de lave)"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_cratere_magma_v1/bruts/decor_magenta.png",
+      "sha256": "7389f7ae6eb94608e0c7f13a35960e94ca6bfa771e883d9968b97fa006574adc",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "Dark_Crater_entrance_TDS.png"
+      ]
+    },
+    {
+      "file": "source/entree_cratere_magma_v1/bruts/sol_complet.png",
+      "sha256": "243b7b7d971a9c59763a6144f60ac3b0057ccd24d805249fad5c8ee65aa51c0c",
+      "size": [
+        1200,
+        896
+      ],
+      "origine": "miroir de la plage [560, 800, 470, 720] (y0, y1, x0, x1) du decor"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs"
+  },
+  "segmentation": {
+    "magma": "magenta dilate 2 px (+ bas des cascades sous le haut de la mare)",
+    "cascades": "vert pur dilate 2 px",
+    "cendre": "saturation moyenne 11 px < 15, plus grandes zones, cailloux isoles rebouches",
+    "bouche": "pixels < 32 dans la cavite",
+    "falaises": "le reste",
+    "braises": "orange sur roche (seuil ECN1)"
+  },
+  "fidelite": {
+    "ref_cendre_rgb": [
+      95.3,
+      87.5,
+      92.5
+    ],
+    "cendre_rgb": [
+      90.3,
+      81.4,
+      87.6
+    ],
+    "distance": 9.28,
+    "seuil": 35,
+    "lave_rip_rgb": [
+      250.4,
+      147.9,
+      37.8
+    ]
+  },
+  "fidelite_magma": {
+    "lave_rip_rgb": [
+      250.4,
+      147.9,
+      37.8
+    ],
+    "magma_chaud_rgb": [
+      250.5,
+      156.7,
+      38.8
+    ],
+    "distance": 8.89,
+    "part_croute": 0.087,
+    "seuil": 12
+  },
+  "layer_order_bottom_to_top": [
+    "animation/magma/ECM1_00_magma_fNN.png",
+    "calques/ECM1_01_sol_complet.png",
+    "calques/ECM1_02_cendre.png",
+    "calques/ECM1_03_falaises.png",
+    "calques/ECM1_04_bouche_grotte.png",
+    "animation/cascades/ECM1_05_cascades_fNN.png",
+    "animation/braises/ECM1_06_braises_fNN.png",
+    "animation/colonnes/ECM1_07_colonnes_fNN.png"
+  ],
+  "magma": {
+    "phases": 32,
+    "frame_length_ticks": 15,
+    "palette": [
+      [
+        70,
+        20,
+        26
+      ],
+      [
+        120,
+        26,
+        22
+      ],
+      [
+        184,
+        32,
+        26
+      ],
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        63,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        119,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        247,
+        151,
+        39
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        199,
+        47
+      ],
+      [
+        255,
+        223,
+        55
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "periode_texture": [
+      192,
+      96
+    ],
+    "cellule": 24,
+    "derive": "une periode (96 px) vers le sud par boucle",
+    "pieds_cascade": [
+      [
+        143,
+        272
+      ],
+      [
+        625,
+        272
+      ]
+    ],
+    "origine": "module source/magma_visqueux/magma.py (bruit de Worley periodique, rampe relevee sur la lave du rip de la fosse) ; pixels calcules"
+  },
+  "cascades": {
+    "phases": 32,
+    "frame_length_ticks": 15,
+    "descente": "1 periode de matiere (96 x 2,5 = 240 px) par boucle, 7,5 px par phase",
+    "origine": "meme matiere etiree verticalement, bords de croute ondulants, pied dechiquete"
+  },
+  "colonnes": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "events": [
+      {
+        "x": 28,
+        "y": 512,
+        "h": 112,
+        "decalage": 0
+      },
+      {
+        "x": 152,
+        "y": 424,
+        "h": 112,
+        "decalage": 13
+      },
+      {
+        "x": 616,
+        "y": 424,
+        "h": 112,
+        "decalage": 26
+      },
+      {
+        "x": 740,
+        "y": 512,
+        "h": 112,
+        "decalage": 37
+      }
+    ],
+    "chronologie": "0-11 bouche qui palpite, 12-15 gonflement, 16-21 jaillissement, 22-31 colonne, 32-35 retombee, 22-45 gouttes, 34-43 anneau",
+    "origine": "jet procedural en tons du rip ; dessin cree, pas une animation officielle"
+  },
+  "braises": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        223,
+        55
+      ]
+    ],
+    "pixels": 468,
+    "origine": "pixels orange du decor genere ; methode des braises de ECN1"
+  },
+  "scene_loop_ticks": 480,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        368,
+        144
+      ]
+    },
+    "chemin_16x16": {
+      "ok": true,
+      "cases_explorees": 1860
+    },
+    "blocked_cells": 4709,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors cendre"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "ecm1_entree_cratere_magma",
+    "namespace": "entree_cratere_magma",
+    "tiles_per_bank": {
+      "ECM1_00_MAGMA": 69355,
+      "ECM1_01_SOL": 4963,
+      "ECM1_02_CENDRE": 2435,
+      "ECM1_03_FALAISES": 3167,
+      "ECM1_04_BOUCHE": 44,
+      "ECM1_05_CASCADES": 11200,
+      "ECM1_06_BRAISES": 112,
+      "ECM1_07_COLONNES": 3864
+    },
+    "banks": [
+      "ECM1_00_MAGMA",
+      "ECM1_01_SOL",
+      "ECM1_02_CENDRE",
+      "ECM1_03_FALAISES",
+      "ECM1_04_BOUCHE",
+      "ECM1_05_CASCADES",
+      "ECM1_06_BRAISES",
+      "ECM1_07_COLONNES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

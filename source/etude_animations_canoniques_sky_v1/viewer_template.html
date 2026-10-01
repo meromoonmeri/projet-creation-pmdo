@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Étude · animations canoniques eau et magma (PMD Ciel) · portage PMDO</title>
+<style>
+body{background:#141b24;color:#e4e6f2;font:15px/1.55 system-ui,sans-serif;margin:0;padding:24px}
+main{max-width:1320px;margin:auto}
+h1{font-size:28px;margin:0 0 6px}
+p{color:#b3c9d3;max-width:95ch}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+button{background:#cfe4ee;color:#10303e;border:0;border-radius:6px;padding:7px 12px;cursor:pointer;font-weight:600}
+button.on{background:#e7c77f}
+.wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+figure{margin:0}
+figcaption{color:#e7c77f;margin:0 0 6px;font-weight:600}
+canvas{display:block;image-rendering:pixelated;background:#081116;border:1px solid #29404c}
+.stats{flex:1;min-width:300px;max-width:430px;font-size:14px}
+table{border-collapse:collapse;width:100%}
+td,th{border-bottom:1px solid #29404c;padding:3px 6px;text-align:left}
+.note{border-left:3px solid #e7c77f;padding-left:12px;font-size:14px}
+code{color:#cfe4ee}
+img.strip{image-rendering:pixelated;max-width:100%;border:1px solid #29404c}
+</style>
+<main>
+<h1>Animations canoniques d'eau et de magma — PMD Explorateurs du Ciel → PMDO</h1>
+<p>Le jeu anime l'eau et la lave surtout par <strong>rotation de palette</strong> (BPL) : les pixels ne bougent pas, leurs couleurs tournent. Chaque palette animée a sa suite de jeux de 15 couleurs et sa durée par cran, en frames à 60 par seconde. Les tuiles animées (BPA) ont leurs propres crans et durées. RogueEssence affiche une piste de tuile par <code>totalTick / FrameLength % nombre de frames</code>, sur une horloge globale. Une piste reproduit donc exactement l'animation du jeu si <code>FrameLength</code> = durée NDS et si la suite des frames <strong>garde ses répétitions et son ordre</strong>.</p>
+<p>À gauche, la <strong>piste exacte</strong> de chaque case de 8 px, calculée ici et vérifiée tick par tick contre le rendu de la ROM. À droite, la piste du <strong>Ground publié par PMD-SKY-PMDO-PORT</strong> : frames dédoublonnées dans chaque case, <code>FrameLength = 10</code> partout. Les deux sont rejouées par la même formule que le moteur. Cadre rouge : case qui diffère au tick courant.</p>
+<div class="bar" id="maps"></div>
+<div class="bar"><button id="play">Pause</button><button id="step">+1 tick</button><button id="back">−1 tick</button>
+<button data-z="1">1×</button><button data-z="2" class="on">2×</button>
+<label><input type="checkbox" id="diff" checked> Cases différentes</label><span id="tick"></span></div>
+<div class="wrap">
+  <figure><figcaption>Piste exacte (ROM)</figcaption><canvas id="a"></canvas></figure>
+  <figure><figcaption>Ground du port (dédoublonné, FrameLength 10)</figcaption><canvas id="b"></canvas></figure>
+  <div class="stats" id="stats"></div>
+</div>
+<p class="note">Étude seulement : les pixels sont ceux de la ROM (pret/pmd-sky), rendus avec skytemple-files. Rien n'est copié dans les cartes de la série. L'aperçu rejoue les pistes, ce n'est pas un test dans PMDO.</p>
+</main>
+<script>
+const DATA=__DATA__;
+let M,atlas,tick=0,playing=true,zoom=2,last=performance.now();
+const ca=document.getElementById('a'),cb=document.getElementById('b'),xa=ca.getContext('2d'),xb=cb.getContext('2d');
+const bar=document.getElementById('maps');
+DATA.forEach((d,i)=>{const b=document.createElement('button');b.textContent=d.name+' — '+d.label;b.onclick=()=>load(i);bar.append(b)});
+function load(i){M=DATA[i];[...bar.children].forEach((b,j)=>b.classList.toggle('on',j===i));atlas=new Image();atlas.onload=()=>{size();draw()};atlas.src=M.atlas;
+ const s=M.stats;let h='<table><tr><th colspan=2>'+M.name+' — boucle '+M.loop+' ticks ('+(M.loop/60).toFixed(2)+' s)</th></tr>';
+ s.rows.forEach(r=>h+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>');h+='</table><p>Cycles de palette (une ligne par cran, 15 couleurs) :</p><img class="strip" src="'+M.strip+'">';
+ document.getElementById('stats').innerHTML=h;tick=0;}
+function size(){for(const c of [ca,cb]){c.width=M.w*8*zoom;c.height=M.h*8*zoom}}
+function tileAt(tr,t){const fl=tr[0],fr=tr[1];return fr[Math.floor(t/fl)%fr.length]}
+function blit(x,id,cx,cy){const pr=M.per_row;x.drawImage(atlas,(id%pr)*8,Math.floor(id/pr)*8,8,8,cx*8*zoom,cy*8*zoom,8*zoom,8*zoom)}
+function draw(){if(!M||!atlas.complete)return;xa.imageSmoothingEnabled=xb.imageSmoothingEnabled=false;let nd=0;const diffs=[];
+ for(let y=0;y<M.h;y++)for(let x=0;x<M.w;x++){const ia=tileAt(M.exact[y][x],tick),ib=tileAt(M.port[y][x],tick);blit(xa,ia,x,y);blit(xb,ib,x,y);if(ia!==ib){nd++;diffs.push([x,y])}}
+ if(document.getElementById('diff').checked){xb.strokeStyle='#ff3b1f';xb.lineWidth=Math.max(1,zoom/2);for(const [x,y] of diffs)xb.strokeRect(x*8*zoom+.5,y*8*zoom+.5,8*zoom-1,8*zoom-1)}
+ document.getElementById('tick').textContent='tick '+tick+' · cases différentes : '+nd+' / '+(M.w*M.h);}
+function loop(t){if(playing&&t-last>=1000/60){last=t;tick++;draw()}requestAnimationFrame(loop)}
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Lecture'};
+document.getElementById('step').onclick=()=>{tick++;draw()};
+document.getElementById('back').onclick=()=>{tick=Math.max(0,tick-1);draw()};
+document.getElementById('diff').onchange=draw;
+document.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>{zoom=+b.dataset.z;document.querySelectorAll('[data-z]').forEach(o=>o.classList.toggle('on',o===b));size();draw()});
+load(0);requestAnimationFrame(loop);
+</script>
+</html>

@@ -1,0 +1,860 @@
+{
+  "lot": "fin_givre_grotte_v1",
+  "serie": "fins de donjon de la serie des entrees",
+  "biome": "Givre (Frosty Forest -> Frosty Grotto)",
+  "entree_correspondante": [
+    "entree_givre_sud_nord_v1"
+  ],
+  "demande": [
+    "Fait des zone fin de donjon multicalque de la serie entree on passe au fin",
+    "Lance toi",
+    "passons a la suite",
+    "Choisis !",
+    "Parfait lance toi !"
+  ],
+  "choix_agent": {
+    "ordre": "une fin par biome, ordre du mod ; Givre apres Ruine",
+    "layout": "arrivee au sud par le couloir de glace, arene (boss), bassins d eau glacee sur les cotes, cristal de glace au nord (objectif), aucune sortie",
+    "reference": "vraie fin (salle d Articuno, etage 5 de Frosty Grotto) seulement en vignette 120 px -> palette ; textures de pmdskyicearena.png"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : decor complet sur magenta (bassins = magenta), sol complet genere depuis une decoupe du sol de la reference",
+  "reference_da": [
+    "pmdskyicearena.png",
+    "source/fin_givre_grotte_v1/reference/Rescue_Team_-_Articuno_first_appearance_120px.png"
+  ],
+  "reference_fin_source": "https://mysterydungeonwiki.com/wiki/File:Rescue_Team_-_Articuno_first_appearance.png",
+  "raw_inputs": [
+    {
+      "file": "source/fin_givre_grotte_v1/bruts/decor_magenta.png",
+      "sha256": "851e202d1c5800e4aac66cb23441e3c84f3f094d10eba223506e9aef3b3fb8d6",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "pmdskyicearena.png",
+        "reference/Rescue_Team_-_Articuno_first_appearance_120px.png"
+      ]
+    },
+    {
+      "file": "source/fin_givre_grotte_v1/bruts/sol_complet.png",
+      "sha256": "11e32c6cfe4c631a13b65c4f9128510a8e422b6c8eba8a67350cf6de578102cc",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "pmdskyicearena.png decoupe [0, 222, 504, 282]"
+      ]
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs ; cristal : palette propre de 32 couleurs"
+  },
+  "segmentation": {
+    "eau": "magenta dilate 2 px",
+    "sol": "(moyenne 11 px > 195 et ecart-type 11 px < 4) ou couleur a moins de 22 de [190, 214, 245], plus grande composante, fermeture 7 px (fissures), trous rebouches",
+    "cristal": "ellipse relevee sur le brut ((600, 262), (118, 98)) (centre, demi-axes), hors sol et eau",
+    "parois": "le reste"
+  },
+  "fidelite": {
+    "ref_sol_rgb": [
+      187.8,
+      212.2,
+      244.3
+    ],
+    "sol_glace_rgb": [
+      186.4,
+      211.7,
+      243.9
+    ],
+    "distance": 1.5,
+    "vignette_salle_articuno_rgb": [
+      169.2,
+      220.5,
+      219.6
+    ],
+    "distance_vignette": 31.12,
+    "seuil": 35
+  },
+  "layer_order_bottom_to_top": [
+    "animation/eau_glacee/FGG1_00_eau_glacee_fNN.png",
+    "animation/reflets/FGG1_01_reflets_fNN.png",
+    "calques/FGG1_02_sol_complet.png",
+    "calques/FGG1_03_sol_glace.png",
+    "calques/FGG1_04_parois.png",
+    "calques/FGG1_05_cristal.png",
+    "animation/lueur_cristal/FGG1_06_lueur_cristal_fNN.png",
+    "animation/flocons/FGG1_07_flocons_fNN.png"
+  ],
+  "eau_glacee": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "couleurs": {
+      "lip": [
+        170,
+        212,
+        244
+      ],
+      "bande": [
+        58,
+        92,
+        168
+      ],
+      "inter": [
+        84,
+        136,
+        204
+      ],
+      "accent": [
+        100,
+        158,
+        218
+      ],
+      "surface": [
+        112,
+        172,
+        226
+      ],
+      "clair": [
+        170,
+        212,
+        244
+      ],
+      "reflet": [
+        240,
+        248,
+        255
+      ]
+    },
+    "origine": "fonction water_phases de l entree Givre (structure riviere Metano), recalculee ; pas de tuiles natives"
+  },
+  "reflets": {
+    "phases": 4,
+    "frame_length_ticks": 10,
+    "placements": [
+      {
+        "famille": "A_16x24",
+        "xy": [
+          200,
+          256
+        ]
+      },
+      {
+        "famille": "A_16x24",
+        "xy": [
+          528,
+          296
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          560,
+          288
+        ]
+      },
+      {
+        "famille": "B_24x16",
+        "xy": [
+          232,
+          256
+        ]
+      }
+    ],
+    "origine": "pixels Metano_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)"
+  },
+  "lueur_cristal": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        120,
+        160,
+        210
+      ],
+      [
+        150,
+        186,
+        222
+      ],
+      [
+        170,
+        212,
+        244
+      ],
+      [
+        206,
+        232,
+        246
+      ],
+      [
+        244,
+        250,
+        255
+      ]
+    ],
+    "pixels": 6247,
+    "origine": "facettes cyan du cristal, rang de luminance + pulsation (methode des braises de ECN1)"
+  },
+  "flocons": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "emetteurs": [
+      {
+        "type": "flocon",
+        "depart_xy": [
+          714,
+          313
+        ],
+        "decalage": 0,
+        "amplitude_px": 3.55
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          630,
+          113
+        ],
+        "decalage": 11,
+        "amplitude_px": 3.75
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          690,
+          2
+        ],
+        "decalage": 22,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          93,
+          234
+        ],
+        "decalage": 33,
+        "amplitude_px": 2.56
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          545,
+          127
+        ],
+        "decalage": 44,
+        "amplitude_px": 3.01
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          442,
+          277
+        ],
+        "decalage": 7,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          530,
+          312
+        ],
+        "decalage": 18,
+        "amplitude_px": 2.43
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          639,
+          80
+        ],
+        "decalage": 29,
+        "amplitude_px": 2.09
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          338,
+          17
+        ],
+        "decalage": 40,
+        "amplitude_px": 2.93
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          611,
+          460
+        ],
+        "decalage": 3,
+        "amplitude_px": 3.03
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          204,
+          249
+        ],
+        "decalage": 14,
+        "amplitude_px": 2.02
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          77,
+          96
+        ],
+        "decalage": 25,
+        "amplitude_px": 2.4
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          546,
+          185
+        ],
+        "decalage": 36,
+        "amplitude_px": 3.66
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          503,
+          77
+        ],
+        "decalage": 47,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          144,
+          255
+        ],
+        "decalage": 10,
+        "amplitude_px": 3.28
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          35,
+          372
+        ],
+        "decalage": 21,
+        "amplitude_px": 3.08
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          550,
+          254
+        ],
+        "decalage": 32,
+        "amplitude_px": 2.72
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          487,
+          300
+        ],
+        "decalage": 43,
+        "amplitude_px": 2.78
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          453,
+          162
+        ],
+        "decalage": 6,
+        "amplitude_px": 3.63
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          305,
+          190
+        ],
+        "decalage": 17,
+        "amplitude_px": 3.18
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          334,
+          303
+        ],
+        "decalage": 28,
+        "amplitude_px": 3.35
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          723,
+          75
+        ],
+        "decalage": 39,
+        "amplitude_px": 2.48
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          43,
+          202
+        ],
+        "decalage": 2,
+        "amplitude_px": 3.94
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          719,
+          107
+        ],
+        "decalage": 13,
+        "amplitude_px": 2.6
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          377,
+          438
+        ],
+        "decalage": 24,
+        "amplitude_px": 2.26
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          639,
+          424
+        ],
+        "decalage": 35,
+        "amplitude_px": 3.81
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          726,
+          285
+        ],
+        "decalage": 46,
+        "amplitude_px": 2.38
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          568,
+          465
+        ],
+        "decalage": 9,
+        "amplitude_px": 2.36
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          287,
+          443
+        ],
+        "decalage": 20,
+        "amplitude_px": 3.14
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          49,
+          188
+        ],
+        "decalage": 31,
+        "amplitude_px": 2.48
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          540,
+          19
+        ],
+        "decalage": 42,
+        "amplitude_px": 2.94
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          576,
+          274
+        ],
+        "decalage": 5,
+        "amplitude_px": 3.5
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          45,
+          12
+        ],
+        "decalage": 16,
+        "amplitude_px": 2.06
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          686,
+          61
+        ],
+        "decalage": 27,
+        "amplitude_px": 3.32
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          551,
+          214
+        ],
+        "decalage": 38,
+        "amplitude_px": 3.75
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          517,
+          172
+        ],
+        "decalage": 1,
+        "amplitude_px": 3.37
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          653,
+          178
+        ],
+        "decalage": 12,
+        "amplitude_px": 3.53
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          597,
+          456
+        ],
+        "decalage": 23,
+        "amplitude_px": 3.87
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          235,
+          2
+        ],
+        "decalage": 34,
+        "amplitude_px": 3.62
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          488,
+          68
+        ],
+        "decalage": 45,
+        "amplitude_px": 3.63
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          733,
+          7
+        ],
+        "decalage": 8,
+        "amplitude_px": 3.59
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          720,
+          257
+        ],
+        "decalage": 19,
+        "amplitude_px": 2.45
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          149,
+          99
+        ],
+        "decalage": 30,
+        "amplitude_px": 2.36
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          300,
+          173
+        ],
+        "decalage": 41,
+        "amplitude_px": 3.15
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          745,
+          170
+        ],
+        "decalage": 4,
+        "amplitude_px": 3.9
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          168,
+          223
+        ],
+        "decalage": 15,
+        "amplitude_px": 3.03
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          718,
+          261
+        ],
+        "decalage": 26,
+        "amplitude_px": 3.49
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          437,
+          291
+        ],
+        "decalage": 37,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          285,
+          206
+        ],
+        "decalage": 0,
+        "amplitude_px": 2.14
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          190,
+          215
+        ],
+        "decalage": 11,
+        "amplitude_px": 3.9
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          564,
+          126
+        ],
+        "decalage": 22,
+        "amplitude_px": 3.35
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          237,
+          359
+        ],
+        "decalage": 33,
+        "amplitude_px": 3.94
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          228,
+          167
+        ],
+        "decalage": 44,
+        "amplitude_px": 2.41
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          131,
+          25
+        ],
+        "decalage": 7,
+        "amplitude_px": 3.83
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          616,
+          421
+        ],
+        "decalage": 18,
+        "amplitude_px": 3.21
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          687,
+          240
+        ],
+        "decalage": 29,
+        "amplitude_px": 3.32
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          286,
+          153
+        ],
+        "decalage": 40,
+        "amplitude_px": 2.93
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          180,
+          315
+        ],
+        "decalage": 3,
+        "amplitude_px": 2.37
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          556,
+          31
+        ],
+        "decalage": 14,
+        "amplitude_px": 3.53
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          530,
+          409
+        ],
+        "decalage": 25,
+        "amplitude_px": 2.23
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          694,
+          458
+        ],
+        "decalage": 36,
+        "amplitude_px": 3.76
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          672,
+          262
+        ],
+        "decalage": 47,
+        "amplitude_px": 2.09
+      },
+      {
+        "type": "flocon",
+        "depart_xy": [
+          131,
+          15
+        ],
+        "decalage": 10,
+        "amplitude_px": 2.51
+      },
+      {
+        "type": "boule",
+        "depart_xy": [
+          535,
+          124
+        ],
+        "decalage": 21,
+        "amplitude_px": 3.13
+      }
+    ],
+    "origine": "planche generee de l entree Givre (bruts/flocons_poses.png), flake_poses et flake_frames de EGN1"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        312
+      ],
+      "cristal": [
+        376,
+        232
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 356
+      },
+      "cristal": {
+        "ok": true,
+        "cases_explorees": 679
+      }
+    },
+    "blocked_cells": 5338,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol de glace"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fgg1_fin_givre_grotte",
+    "namespace": "fin_givre_grotte",
+    "tiles_per_bank": {
+      "FGG1_00_EAU": 387,
+      "FGG1_01_REFLETS": 40,
+      "FGG1_02_SOL": 5796,
+      "FGG1_03_SOL": 1737,
+      "FGG1_04_PAROIS": 5031,
+      "FGG1_05_CRISTAL": 262,
+      "FGG1_06_LUEUR": 700,
+      "FGG1_07_FLOCONS": 1657
+    },
+    "banks": [
+      "FGG1_00_EAU",
+      "FGG1_01_REFLETS",
+      "FGG1_02_SOL",
+      "FGG1_03_SOL",
+      "FGG1_04_PAROIS",
+      "FGG1_05_CRISTAL",
+      "FGG1_06_LUEUR",
+      "FGG1_07_FLOCONS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

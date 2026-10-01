@@ -1,0 +1,909 @@
+{
+  "lot": "arene_terapagos_v1",
+  "serie": "arene de Terapagos (fin du reseau Zone Zero)",
+  "biome": "caverne de cristal de verre prismatique",
+  "demande": [
+    "Fait une zone de crystal de verre qui reflette les spectre de couleur une arene pour terragos tu vois ce que je veux dire ? avec des rune et signe qui pulse etc"
+  ],
+  "choix_agent": {
+    "lecture": "Terapagos (Pokemon Stellaire) ; arene au bout du reseau Zone Zero, apres EAZ1",
+    "references": "D17P45A (champ de cristaux, sol lumineux a dalles hexagonales) + D42P42A (arene ronde, etoile au sol, scintillements) ; decoupes de style x2 seulement",
+    "layout": "caverne ronde fermee par des amas de cristaux ; sol lumineux en coeur ; embleme Teracristal (etoile a 12 branches en facettes hexagonales dans un anneau) grave a plat au centre ; 14 runes (12 demandees, 14 peintes) autour ; couloir de cristal depuis le bord sud",
+    "spectre": "12 teintes x 5 niveaux calcules (tons 5 bits NDS) : ce ne sont pas des tons de la ROM",
+    "noms_de_lieux": "non affirmes (prefixe dNN non fiable), seuls les codes ROM comptent"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference (2 decoupes x2), gravures en vert pur remplacees par des calques calcules ; sol sous les gravures = pixel de sol non grave le plus proche ; sol complet = plage de sol en miroir",
+  "references_da": {
+    "D17P45A": {
+      "fichier": "source/arene_terapagos_v1/reference/D17P45A.png",
+      "sha256": "ba273bcf401a0608001637451ef2e373c9a815fedf6f80e31b793670554ea2de",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    },
+    "D42P42A": {
+      "fichier": "source/arene_terapagos_v1/reference/D42P42A.png",
+      "sha256": "179e04bed8943e7db0ea66b18e2fe6cbc06bf50a3b2325e83c229c009a5a16be",
+      "source": "recuperer_maps.py rom (pret/pmd-sky c8073235)"
+    }
+  },
+  "reference_animation": {
+    "fichier": "source/arene_terapagos_v1/reference/D42P42A_anim.webp",
+    "sha256": "d370769e6e7eb480b427b05c90dc3252baa69fd3dfec13bfd76cf6c98d696206",
+    "images": 27
+  },
+  "raw_inputs": [
+    {
+      "file": "source/arene_terapagos_v1/bruts/decor_vert.png",
+      "sha256": "b3f133f5bf31321b55ffd850dcebc7cf99a07dabc4c6492d5b905b53c978fc85",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/arene_terapagos_v1/reference/D17P45A_decoupe_x2.png",
+        "source/arene_terapagos_v1/reference/D42P42A_etoile_decoupe_x2.png"
+      ],
+      "utilise": true,
+      "editions": 0,
+      "note": "premier rendu garde tel quel"
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage de sol du brut (sans gravure) en miroir",
+    "plage_y0_y1_x0_x1": [
+      680,
+      776,
+      440,
+      536
+    ]
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe ; palette commune 96 couleurs (sol complet, sol) ; cristaux 64 ; embleme, runes, reflets et scintillements aux tons du spectre"
+  },
+  "segmentation": {
+    "vert": "G - max(R, B) > 80 et G > 150, + liseré G - max(R, B) > 30 a moins de 2 px",
+    "sol": "plus grande zone lisse (ecart-type local 9 x 9 < 16) et claire (lum > 110), gravures comprises, trous rebouches, ouverte 6",
+    "embleme": "composantes vertes de plus de 200 px de cote (etoile et anneau)",
+    "runes": "autres composantes vertes de 60 px ou plus hors de l anneau, triees dans le sens horaire depuis le nord",
+    "cristaux": "tout le reste"
+  },
+  "fidelite": {
+    "sol": {
+      "ref": "D17P45A",
+      "part_ref": 0.157,
+      "part_scene": 0.219,
+      "ref_rgb": [
+        114.7,
+        223.0,
+        248.7
+      ],
+      "rgb": [
+        85.6,
+        225.9,
+        250.2
+      ],
+      "distance": 29.32
+    },
+    "cristaux": {
+      "ref": "D17P45A",
+      "part_ref": 0.811,
+      "part_scene": 0.67,
+      "ref_rgb": [
+        96.3,
+        162.7,
+        193.6
+      ],
+      "rgb": [
+        99.4,
+        180.5,
+        208.0
+      ],
+      "distance": 23.13
+    },
+    "methode": "meme regle sur D17P45A entiere et sur la scene t000 : sol = plus grande zone lisse (ecart-type local 9 x 9 < 16) et claire (lum > 110), sans les gravures qui pulsent ; cristaux = le reste a plus de 4 px du sol",
+    "seuil": 35,
+    "seuille": [
+      "sol",
+      "cristaux"
+    ]
+  },
+  "layer_order_bottom_to_top": [
+    "calques/ATP1_00_sol_complet.png",
+    "calques/ATP1_01_sol.png",
+    "calques/ATP1_02_cristaux.png",
+    "animation/reflets/ATP1_03_reflets_fNN.png",
+    "animation/embleme/ATP1_04_embleme_fNN.png",
+    "animation/runes/ATP1_05_runes_fNN.png",
+    "animation/scintillements/ATP1_06_scintillements_fNN.png"
+  ],
+  "spectre": {
+    "teintes": 12,
+    "niveaux": 5,
+    "saturation": [
+      0.78,
+      0.7,
+      0.58,
+      0.42,
+      0.24
+    ],
+    "valeur": [
+      0.5,
+      0.64,
+      0.78,
+      0.9,
+      1.0
+    ],
+    "tons": [
+      [
+        [
+          127,
+          31,
+          31
+        ],
+        [
+          167,
+          47,
+          47
+        ],
+        [
+          199,
+          87,
+          87
+        ],
+        [
+          231,
+          135,
+          135
+        ],
+        [
+          255,
+          191,
+          191
+        ]
+      ],
+      [
+        [
+          127,
+          79,
+          31
+        ],
+        [
+          167,
+          103,
+          47
+        ],
+        [
+          199,
+          143,
+          87
+        ],
+        [
+          231,
+          183,
+          135
+        ],
+        [
+          255,
+          223,
+          191
+        ]
+      ],
+      [
+        [
+          127,
+          127,
+          31
+        ],
+        [
+          167,
+          167,
+          47
+        ],
+        [
+          199,
+          199,
+          87
+        ],
+        [
+          231,
+          231,
+          135
+        ],
+        [
+          255,
+          255,
+          191
+        ]
+      ],
+      [
+        [
+          79,
+          127,
+          31
+        ],
+        [
+          103,
+          167,
+          47
+        ],
+        [
+          143,
+          199,
+          87
+        ],
+        [
+          183,
+          231,
+          135
+        ],
+        [
+          223,
+          255,
+          191
+        ]
+      ],
+      [
+        [
+          31,
+          127,
+          31
+        ],
+        [
+          47,
+          167,
+          47
+        ],
+        [
+          87,
+          199,
+          87
+        ],
+        [
+          135,
+          231,
+          135
+        ],
+        [
+          191,
+          255,
+          191
+        ]
+      ],
+      [
+        [
+          31,
+          127,
+          79
+        ],
+        [
+          47,
+          167,
+          103
+        ],
+        [
+          87,
+          199,
+          143
+        ],
+        [
+          135,
+          231,
+          183
+        ],
+        [
+          191,
+          255,
+          223
+        ]
+      ],
+      [
+        [
+          31,
+          127,
+          127
+        ],
+        [
+          47,
+          167,
+          167
+        ],
+        [
+          87,
+          199,
+          199
+        ],
+        [
+          135,
+          231,
+          231
+        ],
+        [
+          191,
+          255,
+          255
+        ]
+      ],
+      [
+        [
+          31,
+          79,
+          127
+        ],
+        [
+          47,
+          103,
+          167
+        ],
+        [
+          87,
+          143,
+          199
+        ],
+        [
+          135,
+          183,
+          231
+        ],
+        [
+          191,
+          223,
+          255
+        ]
+      ],
+      [
+        [
+          31,
+          31,
+          127
+        ],
+        [
+          47,
+          47,
+          167
+        ],
+        [
+          87,
+          87,
+          199
+        ],
+        [
+          135,
+          135,
+          231
+        ],
+        [
+          191,
+          191,
+          255
+        ]
+      ],
+      [
+        [
+          79,
+          31,
+          127
+        ],
+        [
+          103,
+          47,
+          167
+        ],
+        [
+          143,
+          87,
+          199
+        ],
+        [
+          183,
+          135,
+          231
+        ],
+        [
+          223,
+          191,
+          255
+        ]
+      ],
+      [
+        [
+          127,
+          31,
+          127
+        ],
+        [
+          167,
+          47,
+          167
+        ],
+        [
+          199,
+          87,
+          199
+        ],
+        [
+          231,
+          135,
+          231
+        ],
+        [
+          255,
+          191,
+          255
+        ]
+      ],
+      [
+        [
+          127,
+          31,
+          79
+        ],
+        [
+          167,
+          47,
+          103
+        ],
+        [
+          199,
+          87,
+          143
+        ],
+        [
+          231,
+          135,
+          183
+        ],
+        [
+          255,
+          191,
+          223
+        ]
+      ]
+    ],
+    "arrondi": "8 k + 7 (tons 5 bits NDS)"
+  },
+  "embleme": {
+    "phases": 36,
+    "frame_length_ticks": 5,
+    "centre_xy": [
+      384.2491751326082,
+      293.08830126764366
+    ],
+    "rayon_anneau": 117.96428571428572,
+    "pixels": 10069,
+    "loi": "I = 0,5 - 0,5 cos(2 pi (t/36 - 0,5 r/R)) : onde qui part du centre ; niveau = round(4 I) ; teinte = floor(12 (angle/2pi + t/36)) : le spectre fait un tour par boucle ; halo 1 px au niveau 3+, 2 px au niveau 4"
+  },
+  "runes": {
+    "phases": 36,
+    "frame_length_ticks": 5,
+    "nombre": 14,
+    "angles_deg": [
+      30.1,
+      61.0,
+      87.7,
+      112.7,
+      134.6,
+      155.6,
+      179.2,
+      203.4,
+      225.3,
+      247.3,
+      272.3,
+      300.4,
+      329.8,
+      359.4
+    ],
+    "loi": "rune k (sens horaire depuis le nord) allumee au pas round(36 (k - 1) / n), puis s eteint en 12 pas (niveau plancher 1) ; teinte k ; halo 1 px au niveau 3+"
+  },
+  "reflets": {
+    "phases": 54,
+    "frame_length_ticks": 10,
+    "demi_largeur": 60,
+    "seuils_luminance": {
+      "q75": 210.1,
+      "q90": 234.4,
+      "q97": 243.5
+    },
+    "loi": "deux bandes arc-en-ciel sur s = x + 0,6 y, ecart D = moitie du parcours, avancent de D par boucle ; seulement les facettes claires des cristaux (quartile haut), niveau selon la luminance"
+  },
+  "scintillements": {
+    "phases": 54,
+    "frame_length_ticks": 10,
+    "formes_rom": {
+      "petite": {
+        "pixels": 5,
+        "periodes_rom": {
+          "5": 2,
+          "11": 34,
+          "16": 18
+        },
+        "periode_ici": 9
+      },
+      "grande": {
+        "pixels": 17,
+        "periodes_rom": {
+          "6": 15,
+          "16": 32
+        },
+        "periode_ici": 18
+      }
+    },
+    "liste": [
+      {
+        "y": 487,
+        "x": 692,
+        "forme": "grande",
+        "teinte": 1,
+        "phase": 33
+      },
+      {
+        "y": 528,
+        "x": 495,
+        "forme": "petite",
+        "teinte": 3,
+        "phase": 13
+      },
+      {
+        "y": 101,
+        "x": 394,
+        "forme": "petite",
+        "teinte": 11,
+        "phase": 34
+      },
+      {
+        "y": 218,
+        "x": 689,
+        "forme": "grande",
+        "teinte": 9,
+        "phase": 7
+      },
+      {
+        "y": 261,
+        "x": 724,
+        "forme": "petite",
+        "teinte": 2,
+        "phase": 17
+      },
+      {
+        "y": 268,
+        "x": 100,
+        "forme": "petite",
+        "teinte": 11,
+        "phase": 36
+      },
+      {
+        "y": 168,
+        "x": 59,
+        "forme": "grande",
+        "teinte": 0,
+        "phase": 11
+      },
+      {
+        "y": 501,
+        "x": 81,
+        "forme": "petite",
+        "teinte": 8,
+        "phase": 36
+      },
+      {
+        "y": 112,
+        "x": 183,
+        "forme": "petite",
+        "teinte": 10,
+        "phase": 42
+      },
+      {
+        "y": 15,
+        "x": 276,
+        "forme": "grande",
+        "teinte": 2,
+        "phase": 36
+      },
+      {
+        "y": 14,
+        "x": 459,
+        "forme": "petite",
+        "teinte": 3,
+        "phase": 37
+      },
+      {
+        "y": 344,
+        "x": 700,
+        "forme": "petite",
+        "teinte": 3,
+        "phase": 47
+      },
+      {
+        "y": 294,
+        "x": 683,
+        "forme": "grande",
+        "teinte": 11,
+        "phase": 33
+      },
+      {
+        "y": 557,
+        "x": 681,
+        "forme": "petite",
+        "teinte": 8,
+        "phase": 49
+      },
+      {
+        "y": 333,
+        "x": 66,
+        "forme": "petite",
+        "teinte": 2,
+        "phase": 37
+      },
+      {
+        "y": 386,
+        "x": 60,
+        "forme": "grande",
+        "teinte": 9,
+        "phase": 51
+      },
+      {
+        "y": 340,
+        "x": 755,
+        "forme": "petite",
+        "teinte": 4,
+        "phase": 8
+      },
+      {
+        "y": 150,
+        "x": 604,
+        "forme": "petite",
+        "teinte": 5,
+        "phase": 13
+      },
+      {
+        "y": 130,
+        "x": 741,
+        "forme": "grande",
+        "teinte": 1,
+        "phase": 53
+      },
+      {
+        "y": 517,
+        "x": 670,
+        "forme": "petite",
+        "teinte": 11,
+        "phase": 20
+      },
+      {
+        "y": 306,
+        "x": 716,
+        "forme": "petite",
+        "teinte": 5,
+        "phase": 50
+      },
+      {
+        "y": 449,
+        "x": 624,
+        "forme": "grande",
+        "teinte": 7,
+        "phase": 24
+      },
+      {
+        "y": 93,
+        "x": 567,
+        "forme": "petite",
+        "teinte": 6,
+        "phase": 21
+      },
+      {
+        "y": 91,
+        "x": 760,
+        "forme": "petite",
+        "teinte": 6,
+        "phase": 18
+      },
+      {
+        "y": 137,
+        "x": 29,
+        "forme": "grande",
+        "teinte": 1,
+        "phase": 0
+      },
+      {
+        "y": 126,
+        "x": 623,
+        "forme": "petite",
+        "teinte": 9,
+        "phase": 28
+      },
+      {
+        "y": 46,
+        "x": 397,
+        "forme": "petite",
+        "teinte": 7,
+        "phase": 38
+      },
+      {
+        "y": 75,
+        "x": 709,
+        "forme": "grande",
+        "teinte": 4,
+        "phase": 8
+      },
+      {
+        "y": 71,
+        "x": 322,
+        "forme": "petite",
+        "teinte": 10,
+        "phase": 51
+      },
+      {
+        "y": 536,
+        "x": 253,
+        "forme": "petite",
+        "teinte": 10,
+        "phase": 4
+      },
+      {
+        "y": 439,
+        "x": 749,
+        "forme": "grande",
+        "teinte": 2,
+        "phase": 28
+      },
+      {
+        "y": 90,
+        "x": 516,
+        "forme": "petite",
+        "teinte": 4,
+        "phase": 28
+      },
+      {
+        "y": 224,
+        "x": 98,
+        "forme": "petite",
+        "teinte": 7,
+        "phase": 52
+      },
+      {
+        "y": 90,
+        "x": 78,
+        "forme": "grande",
+        "teinte": 7,
+        "phase": 20
+      },
+      {
+        "y": 507,
+        "x": 551,
+        "forme": "petite",
+        "teinte": 4,
+        "phase": 23
+      },
+      {
+        "y": 48,
+        "x": 670,
+        "forme": "petite",
+        "teinte": 9,
+        "phase": 42
+      },
+      {
+        "y": 140,
+        "x": 131,
+        "forme": "grande",
+        "teinte": 7,
+        "phase": 17
+      },
+      {
+        "y": 148,
+        "x": 177,
+        "forme": "petite",
+        "teinte": 8,
+        "phase": 29
+      },
+      {
+        "y": 298,
+        "x": 3,
+        "forme": "petite",
+        "teinte": 4,
+        "phase": 39
+      },
+      {
+        "y": 50,
+        "x": 483,
+        "forme": "grande",
+        "teinte": 1,
+        "phase": 44
+      },
+      {
+        "y": 547,
+        "x": 538,
+        "forme": "petite",
+        "teinte": 1,
+        "phase": 46
+      },
+      {
+        "y": 460,
+        "x": 59,
+        "forme": "petite",
+        "teinte": 10,
+        "phase": 12
+      },
+      {
+        "y": 50,
+        "x": 564,
+        "forme": "grande",
+        "teinte": 2,
+        "phase": 42
+      },
+      {
+        "y": 316,
+        "x": 40,
+        "forme": "petite",
+        "teinte": 0,
+        "phase": 18
+      }
+    ],
+    "loi": "loi de D42P42A : allumage d un coup puis decroissance lineaire sur la periode ; formes relevees dans la ROM ; tons du spectre (une teinte par scintillement)"
+  },
+  "scene_loop_ticks": 540,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        560
+      ],
+      "boss": [
+        376,
+        288
+      ],
+      "heros": [
+        376,
+        416
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 756
+      },
+      "heros": {
+        "ok": true,
+        "cases_explorees": 266
+      }
+    },
+    "blocked_cells": 4537,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol ; amas de cristaux bloquants",
+    "boss": "sur l embleme (Terapagos)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "atp1_arene_terapagos",
+    "namespace": "arene_terapagos",
+    "tiles_per_bank": {
+      "ATP1_00_SOL": 6913,
+      "ATP1_01_SOL": 2602,
+      "ATP1_02_CRISTAUX": 4634,
+      "ATP1_03_REFLETS": 29576,
+      "ATP1_04_EMBLEME": 12941,
+      "ATP1_05_RUNES": 681,
+      "ATP1_06_SCINTILLEMENTS": 254
+    },
+    "banks": [
+      "ATP1_00_SOL",
+      "ATP1_01_SOL",
+      "ATP1_02_CRISTAUX",
+      "ATP1_03_REFLETS",
+      "ATP1_04_EMBLEME",
+      "ATP1_05_RUNES",
+      "ATP1_06_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun (raccords a scripter)"
+  },
+  "art_approved": false
+}

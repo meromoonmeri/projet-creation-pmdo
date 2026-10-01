@@ -1,0 +1,2088 @@
+{
+  "lot": "fin_star_cave_v1",
+  "prefix": "FST1",
+  "format": "4:3 vaste",
+  "type": "fin de donjon",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (EWC1 pour les utilitaires, ESC1 pour la planche de poussiere) ; aucun emprunt aux branches soeurs",
+  "biome": "fin de la grotte de cristaux etoilee (biome de ESC1), biome et portee choisis par l agent (« bon travail continue la suite ! »), a confirmer",
+  "method": "textures canoniques = rendu genere REFERENCE : rip passe au generateur ; decor complet sans etoiles, sol complet edite depuis le decor, planche poussiere d etoile sur magenta",
+  "reference_da": {
+    "file": "starcavepmdsky.png",
+    "sha256": "4aa7edd76aa16bc7674fec693e565e468d2bf266e7be898e3c011eab36de5b45",
+    "titre": "Star Cave (PMD Explorers of Sky d apres le nom du fichier) ; deux vues 504 x 504, la seconde avec la bouche"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "starcavepmdsky.png"
+      ],
+      "prompt": "Use the reference image's exact pixel-art style, palette and textures (Pokemon Mystery Dungeon, Star Cave): smooth flat steel-blue cave floor with small round crater dents and faint cracks, darker floor band along the walls, dark blue crystal cave walls made of stacked faceted blue crystal boulders with cyan highlights, loose blue rock chunks. Create a NEW map, WIDE LANDSCAPE 4:3, zoomed out, top-down view. The player arrives from the SOUTH edge through a floor corridor between crystal walls, which opens into a large round crystal cavern, a boss arena with a wide open round floor. At the NORTH, inside the crystal wall, a tall alcove of stacked crystal boulders with the blue floor leading right up to its foot (no dark hole). Four small clusters of loose blue rocks on the floor, two on each side, away from the central path. Crystal walls fill all map edges, no empty dark void background. IMPORTANT: no sparkles, no stars, no glints, no characters, no text, no UI, no border.",
+      "essais": "deuxieme essai ; le premier (meme prompt plus long, « very large round cavern... boss fight ») a rendu 1440 x 720 (2:1) au lieu de 4:3 : ecarte (non conserve) ; aucune etoile peinte"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_star_cave_v1/bruts/decor.png",
+        "starcavepmdsky.png"
+      ],
+      "prompt": "Edit this pixel-art map, same framing and exact same pixel style: replace ALL the crystal walls, the loose blue rocks and the alcove with the same smooth steel-blue cave floor, so the whole image is floor only. Keep the floor's small round crater dents and faint cracks, and add more of the same scattered across the new floor areas. Keep the exact same floor blue colour and pixel texture. No walls, no rocks, no sparkles, no border.",
+      "essais": "premier essai"
+    },
+    {
+      "file": "poussiere_etoile_poses.png",
+      "images": [
+        "starcavepmdsky.png"
+      ],
+      "prompt": "REUTILISEE sans nouvelle generation : planche de l'entree ESC1 (source/entree_star_cave_sud_nord_v1/bruts/poussiere_etoile_poses.png, meme sha256), fenetres et reduction inchangees. Prompt d'origine : Pixel-art sprite sheet on a flat pure magenta #FF00FF background, same pixel style and palette as the reference. Two rows of six separate small sprites: a tiny glowing star-dust mote rising (six poses), then a small cluster of floating star dust specks (six poses). Hard pixel edges, no text, no grid lines.",
+      "essais": "copie de la planche ESC1 (meme biome, memes poses) : aucune generation supplementaire"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_star_cave_v1/bruts/decor.png",
+      "sha256": "164ab6e34f2ae4c6e28ecf08e27ea5af101dd37058e69c085ae838e4b1aba782",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_star_cave_v1/bruts/sol_complet.png",
+      "sha256": "7e36cd229c991106b38d5f69e0fcc3469a6e405467eecfc91ad382ebe1a9d3be",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_star_cave_v1/bruts/poussiere_etoile_poses.png",
+      "sha256": "0ab94658e49401e07830e7f4a3b31e64f5087f70f3405cdfd4ed4219ad85df8b",
+      "size": [
+        1440,
+        720
+      ]
+    }
+  ],
+  "sol_complet": {
+    "recalage_px": [
+      0,
+      0
+    ],
+    "ecart_moyen_sol": 12.01,
+    "ecart_decale_1px": 12.5,
+    "note": "cratères et fissures gardés et prolongés ; tout le sol sous les parois (caché)"
+  },
+  "segmentation_mesures": {
+    "blocs": 10,
+    "trous_rendus_au_sol": 6
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne",
+    "brut": {
+      "sol": {
+        "rip_rgb": [
+          47.2,
+          110.5,
+          151.1
+        ],
+        "decor_rgb": [
+          42.3,
+          107.1,
+          147.8
+        ],
+        "distance": 6.8
+      },
+      "cristal": {
+        "rip_rgb": [
+          46.5,
+          81.8,
+          116.4
+        ],
+        "decor_rgb": [
+          37.2,
+          98.2,
+          140.7
+        ],
+        "distance": 30.8
+      }
+    },
+    "calques_finaux": {
+      "sol": {
+        "matiere": "sol",
+        "rgb": [
+          44.2,
+          107.1,
+          144.0
+        ],
+        "distance_rip": 8.4
+      },
+      "parois": {
+        "matiere": "cristal",
+        "rgb": [
+          36.0,
+          99.0,
+          141.3
+        ],
+        "distance_rip": 32.1
+      },
+      "blocs": {
+        "matiere": "cristal",
+        "rgb": [
+          37.1,
+          86.8,
+          131.0
+        ],
+        "distance_rip": 18.0
+      }
+    },
+    "etoiles_et_reflets": "couleurs EXACTES du rip (test : sous-ensemble des couleurs du rip)"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "terrain": {
+        "calques": [
+          "sol_complet",
+          "sol",
+          "ombres"
+        ],
+        "couleurs": 96
+      },
+      "cristal": {
+        "calques": [
+          "parois",
+          "blocs"
+        ],
+        "couleurs": 96
+      }
+    }
+  },
+  "segmentation": "sol = couleur du sol a +-8, ferme 3 px puis ouvert 2 px, grande composante, trous < 150 px (crateres, fissures) rendus au sol ; blocs = trous du sol >= 150 px ; pas d entree sombre ; ombres = sol assombri contigu (<= 28 px du sol, b-r > 55, ecart-type local < 7) ; parois = le reste",
+  "layers": [
+    {
+      "file": "calques/FST1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FST1_01_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FST1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FST1_03_parois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FST1_04_blocs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/reflets/FST1_05_reflets_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/etoiles/FST1_06_etoiles_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/poussiere_etoile/FST1_07_poussiere_etoile_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "etoiles": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "sprites": {
+      "blanc_pt": [
+        "W"
+      ],
+      "croix_blanche": [
+        ".a.",
+        "aWa",
+        ".a."
+      ],
+      "etoile_verte": [
+        "..g..",
+        ".ggg.",
+        "ggWgg",
+        ".ggg.",
+        "..g.."
+      ],
+      "lavande_pt": [
+        "m"
+      ],
+      "croix_lavande": [
+        ".l.",
+        "lml",
+        ".l."
+      ],
+      "etoile_lavande": [
+        "..l..",
+        ".lnl.",
+        "lnmnl",
+        ".lnl.",
+        "..l.."
+      ]
+    },
+    "couleurs": {
+      "W": [
+        255,
+        255,
+        255
+      ],
+      "a": [
+        79,
+        167,
+        207
+      ],
+      "l": [
+        111,
+        119,
+        167
+      ],
+      "m": [
+        119,
+        127,
+        175
+      ],
+      "n": [
+        119,
+        135,
+        175
+      ],
+      "g": [
+        55,
+        159,
+        143
+      ]
+    },
+    "familles": {
+      "blanc": [
+        "blanc_pt",
+        "croix_blanche",
+        "etoile_verte"
+      ],
+      "lavande": [
+        "lavande_pt",
+        "croix_lavande",
+        "etoile_lavande"
+      ]
+    },
+    "cycles": {
+      "veille": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "eclat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        3,
+        3,
+        3,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "etoiles": [
+      [
+        698,
+        261,
+        "blanc",
+        "eclat",
+        19
+      ],
+      [
+        378,
+        86,
+        "blanc",
+        "veille",
+        4
+      ],
+      [
+        83,
+        189,
+        "lavande",
+        "veille",
+        3
+      ],
+      [
+        105,
+        305,
+        "blanc",
+        "eclat",
+        5
+      ],
+      [
+        627,
+        419,
+        "blanc",
+        "veille",
+        5
+      ],
+      [
+        555,
+        134,
+        "blanc",
+        "eclat",
+        22
+      ],
+      [
+        501,
+        444,
+        "blanc",
+        "veille",
+        3
+      ],
+      [
+        610,
+        394,
+        "lavande",
+        "eclat",
+        15
+      ],
+      [
+        690,
+        215,
+        "blanc",
+        "veille",
+        20
+      ],
+      [
+        183,
+        448,
+        "blanc",
+        "eclat",
+        10
+      ],
+      [
+        74,
+        255,
+        "lavande",
+        "eclat",
+        12
+      ],
+      [
+        745,
+        184,
+        "lavande",
+        "eclat",
+        7
+      ],
+      [
+        337,
+        534,
+        "blanc",
+        "eclat",
+        13
+      ],
+      [
+        665,
+        199,
+        "blanc",
+        "veille",
+        15
+      ],
+      [
+        19,
+        335,
+        "blanc",
+        "eclat",
+        2
+      ],
+      [
+        226,
+        81,
+        "blanc",
+        "veille",
+        9
+      ],
+      [
+        99,
+        89,
+        "lavande",
+        "eclat",
+        15
+      ],
+      [
+        626,
+        254,
+        "lavande",
+        "veille",
+        20
+      ],
+      [
+        509,
+        145,
+        "blanc",
+        "eclat",
+        16
+      ],
+      [
+        614,
+        327,
+        "lavande",
+        "veille",
+        13
+      ],
+      [
+        481,
+        126,
+        "lavande",
+        "eclat",
+        20
+      ],
+      [
+        617,
+        9,
+        "lavande",
+        "eclat",
+        19
+      ],
+      [
+        285,
+        478,
+        "lavande",
+        "veille",
+        11
+      ],
+      [
+        705,
+        129,
+        "blanc",
+        "veille",
+        19
+      ],
+      [
+        478,
+        481,
+        "lavande",
+        "veille",
+        22
+      ],
+      [
+        536,
+        22,
+        "lavande",
+        "eclat",
+        13
+      ],
+      [
+        632,
+        62,
+        "lavande",
+        "eclat",
+        1
+      ],
+      [
+        634,
+        79,
+        "blanc",
+        "eclat",
+        21
+      ],
+      [
+        455,
+        524,
+        "lavande",
+        "eclat",
+        2
+      ],
+      [
+        637,
+        466,
+        "blanc",
+        "veille",
+        4
+      ],
+      [
+        9,
+        306,
+        "lavande",
+        "eclat",
+        14
+      ],
+      [
+        317,
+        559,
+        "lavande",
+        "eclat",
+        20
+      ],
+      [
+        761,
+        437,
+        "blanc",
+        "veille",
+        17
+      ],
+      [
+        497,
+        462,
+        "blanc",
+        "eclat",
+        20
+      ],
+      [
+        660,
+        330,
+        "blanc",
+        "veille",
+        11
+      ],
+      [
+        675,
+        150,
+        "lavande",
+        "eclat",
+        3
+      ],
+      [
+        40,
+        214,
+        "blanc",
+        "veille",
+        22
+      ],
+      [
+        640,
+        213,
+        "blanc",
+        "eclat",
+        19
+      ],
+      [
+        5,
+        484,
+        "lavande",
+        "veille",
+        14
+      ],
+      [
+        13,
+        450,
+        "blanc",
+        "eclat",
+        22
+      ],
+      [
+        683,
+        28,
+        "blanc",
+        "eclat",
+        13
+      ],
+      [
+        371,
+        14,
+        "lavande",
+        "eclat",
+        3
+      ],
+      [
+        111,
+        123,
+        "blanc",
+        "veille",
+        17
+      ],
+      [
+        431,
+        45,
+        "blanc",
+        "eclat",
+        21
+      ],
+      [
+        730,
+        192,
+        "blanc",
+        "eclat",
+        0
+      ],
+      [
+        106,
+        343,
+        "lavande",
+        "veille",
+        18
+      ],
+      [
+        201,
+        485,
+        "blanc",
+        "eclat",
+        23
+      ],
+      [
+        60,
+        35,
+        "blanc",
+        "veille",
+        13
+      ],
+      [
+        204,
+        159,
+        "blanc",
+        "eclat",
+        19
+      ],
+      [
+        264,
+        31,
+        "lavande",
+        "veille",
+        17
+      ],
+      [
+        186,
+        115,
+        "blanc",
+        "veille",
+        14
+      ],
+      [
+        455,
+        129,
+        "blanc",
+        "eclat",
+        21
+      ],
+      [
+        85,
+        416,
+        "blanc",
+        "eclat",
+        5
+      ],
+      [
+        88,
+        63,
+        "lavande",
+        "eclat",
+        12
+      ],
+      [
+        393,
+        99,
+        "lavande",
+        "veille",
+        12
+      ],
+      [
+        712,
+        308,
+        "blanc",
+        "eclat",
+        10
+      ],
+      [
+        232,
+        528,
+        "blanc",
+        "eclat",
+        17
+      ],
+      [
+        663,
+        223,
+        "lavande",
+        "veille",
+        2
+      ],
+      [
+        160,
+        537,
+        "lavande",
+        "veille",
+        14
+      ],
+      [
+        392,
+        68,
+        "lavande",
+        "veille",
+        4
+      ],
+      [
+        154,
+        303,
+        "lavande",
+        "veille",
+        19
+      ],
+      [
+        548,
+        507,
+        "blanc",
+        "eclat",
+        16
+      ],
+      [
+        305,
+        4,
+        "lavande",
+        "eclat",
+        17
+      ],
+      [
+        583,
+        207,
+        "lavande",
+        "eclat",
+        0
+      ],
+      [
+        760,
+        476,
+        "blanc",
+        "eclat",
+        14
+      ],
+      [
+        43,
+        354,
+        "blanc",
+        "eclat",
+        16
+      ],
+      [
+        93,
+        359,
+        "lavande",
+        "eclat",
+        4
+      ],
+      [
+        308,
+        440,
+        "blanc",
+        "veille",
+        16
+      ],
+      [
+        278,
+        157,
+        "lavande",
+        "eclat",
+        17
+      ],
+      [
+        647,
+        259,
+        "blanc",
+        "eclat",
+        4
+      ],
+      [
+        663,
+        46,
+        "lavande",
+        "veille",
+        4
+      ],
+      [
+        231,
+        20,
+        "blanc",
+        "veille",
+        8
+      ],
+      [
+        688,
+        383,
+        "blanc",
+        "eclat",
+        6
+      ],
+      [
+        56,
+        84,
+        "blanc",
+        "veille",
+        15
+      ],
+      [
+        63,
+        121,
+        "lavande",
+        "veille",
+        20
+      ],
+      [
+        739,
+        257,
+        "blanc",
+        "eclat",
+        12
+      ],
+      [
+        325,
+        442,
+        "blanc",
+        "eclat",
+        19
+      ],
+      [
+        38,
+        103,
+        "lavande",
+        "eclat",
+        16
+      ],
+      [
+        6,
+        390,
+        "blanc",
+        "eclat",
+        23
+      ],
+      [
+        130,
+        200,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        295,
+        139,
+        "blanc",
+        "veille",
+        6
+      ],
+      [
+        735,
+        440,
+        "lavande",
+        "eclat",
+        20
+      ],
+      [
+        21,
+        542,
+        "lavande",
+        "veille",
+        16
+      ],
+      [
+        764,
+        418,
+        "blanc",
+        "eclat",
+        18
+      ],
+      [
+        235,
+        105,
+        "blanc",
+        "veille",
+        18
+      ],
+      [
+        617,
+        373,
+        "lavande",
+        "veille",
+        7
+      ],
+      [
+        725,
+        390,
+        "blanc",
+        "eclat",
+        17
+      ],
+      [
+        638,
+        115,
+        "blanc",
+        "eclat",
+        22
+      ],
+      [
+        758,
+        512,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        44,
+        25,
+        "blanc",
+        "veille",
+        15
+      ],
+      [
+        502,
+        117,
+        "lavande",
+        "eclat",
+        11
+      ],
+      [
+        259,
+        164,
+        "lavande",
+        "eclat",
+        19
+      ],
+      [
+        150,
+        378,
+        "lavande",
+        "eclat",
+        7
+      ],
+      [
+        201,
+        524,
+        "blanc",
+        "eclat",
+        13
+      ],
+      [
+        712,
+        61,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        462,
+        439,
+        "lavande",
+        "veille",
+        0
+      ],
+      [
+        95,
+        440,
+        "blanc",
+        "veille",
+        2
+      ],
+      [
+        311,
+        507,
+        "lavande",
+        "eclat",
+        13
+      ],
+      [
+        74,
+        100,
+        "blanc",
+        "eclat",
+        13
+      ],
+      [
+        595,
+        165,
+        "lavande",
+        "eclat",
+        15
+      ],
+      [
+        315,
+        150,
+        "lavande",
+        "veille",
+        8
+      ],
+      [
+        528,
+        543,
+        "blanc",
+        "veille",
+        3
+      ],
+      [
+        709,
+        480,
+        "blanc",
+        "veille",
+        18
+      ],
+      [
+        666,
+        297,
+        "lavande",
+        "eclat",
+        17
+      ],
+      [
+        33,
+        142,
+        "blanc",
+        "veille",
+        15
+      ],
+      [
+        227,
+        566,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        742,
+        487,
+        "blanc",
+        "eclat",
+        13
+      ],
+      [
+        152,
+        400,
+        "blanc",
+        "eclat",
+        5
+      ],
+      [
+        255,
+        455,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        235,
+        512,
+        "blanc",
+        "eclat",
+        3
+      ],
+      [
+        293,
+        449,
+        "lavande",
+        "eclat",
+        14
+      ],
+      [
+        696,
+        404,
+        "lavande",
+        "eclat",
+        23
+      ],
+      [
+        136,
+        428,
+        "blanc",
+        "veille",
+        5
+      ],
+      [
+        31,
+        502,
+        "lavande",
+        "eclat",
+        3
+      ],
+      [
+        635,
+        165,
+        "blanc",
+        "veille",
+        7
+      ],
+      [
+        502,
+        524,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        461,
+        154,
+        "blanc",
+        "veille",
+        9
+      ],
+      [
+        114,
+        45,
+        "blanc",
+        "veille",
+        9
+      ],
+      [
+        393,
+        12,
+        "blanc",
+        "eclat",
+        11
+      ],
+      [
+        171,
+        377,
+        "lavande",
+        "eclat",
+        1
+      ],
+      [
+        155,
+        480,
+        "lavande",
+        "veille",
+        22
+      ],
+      [
+        691,
+        319,
+        "blanc",
+        "veille",
+        17
+      ],
+      [
+        101,
+        532,
+        "blanc",
+        "veille",
+        18
+      ],
+      [
+        522,
+        246,
+        "lavande",
+        "veille",
+        21
+      ],
+      [
+        292,
+        424,
+        "blanc",
+        "eclat",
+        10
+      ],
+      [
+        696,
+        420,
+        "blanc",
+        "eclat",
+        8
+      ],
+      [
+        191,
+        141,
+        "lavande",
+        "veille",
+        21
+      ],
+      [
+        148,
+        364,
+        "lavande",
+        "eclat",
+        19
+      ],
+      [
+        527,
+        569,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        649,
+        570,
+        "lavande",
+        "veille",
+        1
+      ],
+      [
+        192,
+        36,
+        "lavande",
+        "veille",
+        20
+      ],
+      [
+        310,
+        467,
+        "blanc",
+        "veille",
+        23
+      ],
+      [
+        65,
+        388,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        171,
+        117,
+        "blanc",
+        "veille",
+        21
+      ],
+      [
+        10,
+        419,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        99,
+        320,
+        "blanc",
+        "veille",
+        6
+      ],
+      [
+        164,
+        60,
+        "lavande",
+        "veille",
+        6
+      ],
+      [
+        601,
+        364,
+        "lavande",
+        "eclat",
+        8
+      ],
+      [
+        552,
+        54,
+        "blanc",
+        "veille",
+        12
+      ],
+      [
+        137,
+        277,
+        "blanc",
+        "veille",
+        11
+      ],
+      [
+        85,
+        291,
+        "lavande",
+        "eclat",
+        14
+      ],
+      [
+        362,
+        87,
+        "lavande",
+        "veille",
+        4
+      ],
+      [
+        115,
+        418,
+        "lavande",
+        "eclat",
+        23
+      ],
+      [
+        413,
+        100,
+        "lavande",
+        "veille",
+        4
+      ],
+      [
+        498,
+        89,
+        "blanc",
+        "veille",
+        18
+      ],
+      [
+        270,
+        52,
+        "lavande",
+        "eclat",
+        23
+      ],
+      [
+        152,
+        198,
+        "lavande",
+        "veille",
+        14
+      ],
+      [
+        135,
+        478,
+        "lavande",
+        "eclat",
+        13
+      ],
+      [
+        195,
+        65,
+        "blanc",
+        "veille",
+        7
+      ],
+      [
+        313,
+        77,
+        "blanc",
+        "eclat",
+        2
+      ],
+      [
+        311,
+        332,
+        "blanc",
+        "eclat",
+        4
+      ],
+      [
+        291,
+        285,
+        "lavande",
+        "veille",
+        15
+      ],
+      [
+        246,
+        225,
+        "lavande",
+        "veille",
+        23
+      ],
+      [
+        353,
+        196,
+        "blanc",
+        "veille",
+        11
+      ],
+      [
+        354,
+        550,
+        "blanc",
+        "eclat",
+        18
+      ],
+      [
+        537,
+        268,
+        "lavande",
+        "veille",
+        3
+      ],
+      [
+        262,
+        227,
+        "blanc",
+        "veille",
+        7
+      ],
+      [
+        412,
+        188,
+        "lavande",
+        "eclat",
+        17
+      ],
+      [
+        429,
+        521,
+        "blanc",
+        "eclat",
+        8
+      ],
+      [
+        536,
+        373,
+        "blanc",
+        "veille",
+        14
+      ],
+      [
+        269,
+        411,
+        "lavande",
+        "eclat",
+        4
+      ],
+      [
+        234,
+        307,
+        "blanc",
+        "eclat",
+        0
+      ],
+      [
+        468,
+        323,
+        "lavande",
+        "eclat",
+        14
+      ],
+      [
+        289,
+        336,
+        "lavande",
+        "veille",
+        1
+      ],
+      [
+        372,
+        240,
+        "lavande",
+        "veille",
+        17
+      ],
+      [
+        388,
+        289,
+        "lavande",
+        "eclat",
+        7
+      ],
+      [
+        489,
+        203,
+        "blanc",
+        "veille",
+        20
+      ],
+      [
+        473,
+        215,
+        "lavande",
+        "veille",
+        19
+      ],
+      [
+        387,
+        208,
+        "blanc",
+        "eclat",
+        15
+      ],
+      [
+        347,
+        238,
+        "blanc",
+        "veille",
+        21
+      ],
+      [
+        426,
+        312,
+        "blanc",
+        "eclat",
+        20
+      ],
+      [
+        372,
+        547,
+        "lavande",
+        "veille",
+        23
+      ],
+      [
+        533,
+        199,
+        "blanc",
+        "veille",
+        17
+      ],
+      [
+        340,
+        295,
+        "lavande",
+        "eclat",
+        23
+      ],
+      [
+        439,
+        200,
+        "blanc",
+        "veille",
+        11
+      ],
+      [
+        424,
+        457,
+        "blanc",
+        "eclat",
+        23
+      ],
+      [
+        305,
+        401,
+        "blanc",
+        "eclat",
+        8
+      ],
+      [
+        434,
+        374,
+        "blanc",
+        "eclat",
+        9
+      ],
+      [
+        361,
+        429,
+        "blanc",
+        "eclat",
+        10
+      ],
+      [
+        279,
+        359,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        556,
+        304,
+        "lavande",
+        "eclat",
+        4
+      ],
+      [
+        403,
+        224,
+        "blanc",
+        "veille",
+        8
+      ],
+      [
+        425,
+        224,
+        "lavande",
+        "eclat",
+        17
+      ],
+      [
+        320,
+        291,
+        "blanc",
+        "eclat",
+        14
+      ],
+      [
+        561,
+        267,
+        "blanc",
+        "eclat",
+        17
+      ],
+      [
+        222,
+        395,
+        "blanc",
+        "veille",
+        19
+      ],
+      [
+        468,
+        372,
+        "lavande",
+        "veille",
+        12
+      ],
+      [
+        381,
+        411,
+        "lavande",
+        "eclat",
+        15
+      ],
+      [
+        356,
+        479,
+        "lavande",
+        "eclat",
+        16
+      ],
+      [
+        422,
+        409,
+        "blanc",
+        "veille",
+        22
+      ],
+      [
+        535,
+        307,
+        "lavande",
+        "eclat",
+        22
+      ],
+      [
+        206,
+        284,
+        "lavande",
+        "veille",
+        15
+      ],
+      [
+        393,
+        325,
+        "blanc",
+        "veille",
+        8
+      ],
+      [
+        363,
+        378,
+        "lavande",
+        "veille",
+        2
+      ],
+      [
+        408,
+        434,
+        "lavande",
+        "eclat",
+        18
+      ],
+      [
+        438,
+        262,
+        "blanc",
+        "veille",
+        16
+      ],
+      [
+        384,
+        392,
+        "lavande",
+        "veille",
+        19
+      ],
+      [
+        515,
+        411,
+        "blanc",
+        "eclat",
+        5
+      ],
+      [
+        414,
+        331,
+        "blanc",
+        "eclat",
+        15
+      ],
+      [
+        228,
+        276,
+        "blanc",
+        "veille",
+        19
+      ],
+      [
+        353,
+        504,
+        "lavande",
+        "eclat",
+        20
+      ],
+      [
+        581,
+        251,
+        "blanc",
+        "eclat",
+        9
+      ],
+      [
+        386,
+        353,
+        "lavande",
+        "veille",
+        23
+      ],
+      [
+        344,
+        334,
+        "blanc",
+        "veille",
+        0
+      ],
+      [
+        490,
+        381,
+        "lavande",
+        "eclat",
+        22
+      ],
+      [
+        406,
+        354,
+        "lavande",
+        "veille",
+        9
+      ],
+      [
+        331,
+        241,
+        "blanc",
+        "eclat",
+        6
+      ],
+      [
+        202,
+        317,
+        "lavande",
+        "eclat",
+        6
+      ],
+      [
+        183,
+        277,
+        "lavande",
+        "veille",
+        8
+      ],
+      [
+        434,
+        428,
+        "lavande",
+        "eclat",
+        19
+      ]
+    ],
+    "ecart_min_px": 14,
+    "nombre": {
+      "parois": 150,
+      "sol": 60
+    },
+    "mesure_rip": "254 etoiles relevees : 96 croix blanches, 70 croix lavande, 48 etoiles lavande, 40 etoiles vertes",
+    "origine": "formes et couleurs EXACTES du rip ; cycles, placement et scintillement crees par nous"
+  },
+  "reflets": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "rampe": [
+      [
+        71,
+        151,
+        191
+      ],
+      [
+        87,
+        167,
+        199
+      ],
+      [
+        103,
+        191,
+        215
+      ],
+      [
+        135,
+        207,
+        215
+      ]
+    ],
+    "periode_u_px": 480,
+    "pas_px": 20,
+    "demi_largeurs": [
+      6,
+      16
+    ],
+    "facettes_quantile": 0.88,
+    "facettes_seuil_lum": 125.4,
+    "facettes_px": 40566,
+    "origine": "couleurs EXACTES du rip (rampe cyan des cristaux) ; vague creee par nous"
+  },
+  "poussiere_etoile": {
+    "poses": {
+      "orbe_0": [
+        257,
+        119,
+        24
+      ],
+      "orbe_1": [
+        224,
+        362,
+        80
+      ],
+      "orbe_2": [
+        209,
+        599,
+        120
+      ],
+      "orbe_3": [
+        179,
+        839,
+        144
+      ],
+      "orbe_4": [
+        176,
+        1079,
+        112
+      ],
+      "orbe_5": [
+        179,
+        1319,
+        24
+      ],
+      "nuee_0": [
+        533,
+        123,
+        64
+      ],
+      "nuee_1": [
+        533,
+        359,
+        80
+      ],
+      "nuee_2": [
+        536,
+        593,
+        144
+      ],
+      "nuee_3": [
+        528,
+        839,
+        200
+      ],
+      "nuee_4": [
+        527,
+        1074,
+        192
+      ]
+    },
+    "poses_ecartees": {
+      "nuee_5": "fenetre (527, 1310, 112) : 416 px sur 416 teintes de magenta (r-g > 60 et b-g > 60)"
+    },
+    "fond": "magenta pur et pixels teintes de magenta (r-g > 60 et b-g > 60), ni gardes ni recolores",
+    "reduction": "x1/8 pour toutes les poses",
+    "palette": [
+      [
+        218,
+        252,
+        249
+      ],
+      [
+        188,
+        251,
+        246
+      ],
+      [
+        154,
+        246,
+        243
+      ],
+      [
+        111,
+        224,
+        237
+      ],
+      [
+        143,
+        210,
+        242
+      ],
+      [
+        96,
+        211,
+        229
+      ],
+      [
+        167,
+        169,
+        244
+      ],
+      [
+        76,
+        158,
+        209
+      ]
+    ],
+    "emetteurs": [
+      [
+        318,
+        228,
+        0
+      ],
+      [
+        429,
+        272,
+        4
+      ],
+      [
+        197,
+        303,
+        9
+      ],
+      [
+        570,
+        308,
+        14
+      ],
+      [
+        369,
+        455,
+        19
+      ]
+    ],
+    "sequence": [
+      "orbe_0",
+      "orbe_0",
+      "orbe_1",
+      "orbe_1",
+      "orbe_2",
+      "orbe_2",
+      "orbe_3",
+      "orbe_3",
+      "orbe_3",
+      "orbe_4",
+      "orbe_4",
+      "nuee_0",
+      "nuee_1",
+      "nuee_1",
+      "nuee_2",
+      "nuee_2",
+      "nuee_3",
+      "nuee_3",
+      "nuee_4",
+      "nuee_4",
+      null,
+      null,
+      null,
+      null
+    ],
+    "montee_px_par_phase": 1,
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "origine": "dessin GENERE (8 couleurs tirees de la planche) ; chronologie, montee et placement crees par nous"
+  },
+  "shadows": "calque ombres = sol assombri du rendu genere contre les parois (separe, pas invente)",
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      384,
+      320
+    ],
+    "objective_px": [
+      384,
+      152
+    ],
+    "path_found_16x16": true,
+    "path_to_boss": true,
+    "path_to_objective": true,
+    "cells_explored": 349,
+    "blocked_cells": 5253,
+    "total_cells": 6912,
+    "walkable_cells": 1659,
+    "rule": "case bloquee si > 25 % hors sol (ombres comprises)",
+    "boss": "case 2 x 2 libre la plus proche du centre de gravite du sol praticable",
+    "objectif": "case 2 x 2 libre la plus haute de la colonne centrale (+-64 px), au pied de l alcove",
+    "fin": "aucune sortie, aucun warp, pas de donjon_seuil ; la bande nord est une paroi"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fst1_fin_star_cave",
+    "namespace": "fin_star_cave",
+    "tiles_per_bank": {
+      "FST1_00_SOL": 6455,
+      "FST1_01_SOL": 1603,
+      "FST1_02_OMBRES": 440,
+      "FST1_03_PAROIS": 5325,
+      "FST1_04_BLOCS": 141,
+      "FST1_05_REFLETS": 4215,
+      "FST1_06_ETOILES": 427,
+      "FST1_07_POUSSIERE": 508
+    },
+    "banks": [
+      "FST1_00_SOL",
+      "FST1_01_SOL",
+      "FST1_02_OMBRES",
+      "FST1_03_PAROIS",
+      "FST1_04_BLOCS",
+      "FST1_05_REFLETS",
+      "FST1_06_ETOILES",
+      "FST1_07_POUSSIERE"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

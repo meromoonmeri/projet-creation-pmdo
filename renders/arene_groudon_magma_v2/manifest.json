@@ -1,0 +1,401 @@
+{
+  "lot": "arene_groudon_magma_v2",
+  "biome": "Cratere (magma, textures de Dark Crater Pit)",
+  "entree_correspondante": [
+    "entree_cratere_magma_v1"
+  ],
+  "remplace_sans_supprimer": "arene_groudon_magma_v1",
+  "demande": [
+    "On continue pour groudon le signe doit pulser directement sur le sol de l'arene pas sur un estrade genere de nouvelle colonne de magma elle doit etre plus grande qu'on en voit pas le bout sur la map et plus impressionnante etc",
+    "une arene avec des colonne de lave magma qui jaillis a cote de l'arene au centre avec le symbole de groudon qui pulse sur l'arene",
+    "arene avec le signe de groudon qui pulse et faut que le magma de la sone bouge de maniere visqueuse"
+  ],
+  "choix_agent": {
+    "symbole": "Omega de Primo-Groudon et son anneau graves a plat dans le sol (plus de dais) ; lignes qui pulsent, halo qui s etend sur la pierre au pic ; praticable",
+    "colonnes": "4 colonnes geantes en jaillissement continu, deux de chaque cote (fond plus etroit : perspective) ; elles sortent par le haut de la carte ; decalees",
+    "layout": "celui d AGM1 sans le dais : arrivee au sud, boss sur le Omega, heros au sud de l anneau",
+    "note": "dans PMD Explorers of Sky, Groudon se combat au sommet de Steam Cave ; association avec Dark Crater choisie par l utilisateur"
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "rendu genere reference : brut AGM1 (genere avec la fosse de Dark Crater) edite en un seul changement (dais retire, signe grave a plat) ; sol complet d AGM1",
+  "reference_da": [
+    "Dark_Crater_Pit_TDS.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/arene_groudon_magma_v2/bruts/decor_magenta.png",
+      "sha256": "5bea975c2adcc654cdfa9e7974ec864ebb4c8f2c23c4942d7e9f2a2cf6ffc651",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/arene_groudon_magma_v1/bruts/decor_magenta.png"
+      ],
+      "consigne": "un seul changement : retirer le dais rond ; le Omega et son anneau graves a plat dans le sol, un peu plus grands",
+      "ecart_hors_signe": {
+        "somme_rvb_moyenne": 10.65,
+        "part_pixels_ecart_60": 0.0012
+      }
+    },
+    {
+      "file": "source/arene_groudon_magma_v2/bruts/sol_complet.png",
+      "sha256": "3f44b8a4bcfe9cdaa46bae0c635b2772650b25c8232be0d0b5e21d30d49a8461",
+      "size": [
+        1200,
+        896
+      ],
+      "origine": "copie du sol complet AGM1 : miroir de la plage [190, 280, 420, 780] (y0, y1, x0, x1) du brut AGM1"
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "methode": "moyenne ponderee par classe (BOX), palette commune 96 couleurs"
+  },
+  "segmentation": {
+    "magma": "magenta dilate 2 px",
+    "zone_signe": "ellipse relevee sur le brut ((600, 425), (212, 196)) (centre, demi-axes), comptee en sol",
+    "sol": "moyenne 11 px > 62 et saturation 11 px < 16, plus grande composante, cailloux rebouches",
+    "rebord": "plateau hors sol",
+    "pitons": "terre hors plateau",
+    "symbole": "pixels rouges-orangés de la zone du signe (r > 120, r > 1,6 g, b < 90)",
+    "braises": "orange sur rebord et pitons (seuil ECN1)"
+  },
+  "fidelite": {
+    "rip_sol_rgb": [
+      90.1,
+      84.9,
+      79.9
+    ],
+    "sol_arene_rgb": [
+      95.2,
+      76.6,
+      70.2
+    ],
+    "distance": 13.73,
+    "seuil": 35
+  },
+  "fidelite_magma": {
+    "lave_rip_rgb": [
+      250.4,
+      147.9,
+      37.8
+    ],
+    "magma_chaud_rgb": [
+      250.6,
+      158.0,
+      39.0
+    ],
+    "distance": 10.12,
+    "part_croute": 0.075,
+    "seuil": 12
+  },
+  "layer_order_bottom_to_top": [
+    "animation/magma/AGM2_00_magma_fNN.png",
+    "calques/AGM2_01_sol_complet.png",
+    "calques/AGM2_02_sol_arene.png",
+    "calques/AGM2_03_rebord.png",
+    "calques/AGM2_04_pitons.png",
+    "animation/symbole_groudon/AGM2_05_symbole_groudon_fNN.png",
+    "animation/braises/AGM2_06_braises_fNN.png",
+    "animation/colonnes/AGM2_07_colonnes_fNN.png"
+  ],
+  "magma": {
+    "phases": 32,
+    "frame_length_ticks": 15,
+    "palette": [
+      [
+        70,
+        20,
+        26
+      ],
+      [
+        120,
+        26,
+        22
+      ],
+      [
+        184,
+        32,
+        26
+      ],
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        63,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        119,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        247,
+        151,
+        39
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        199,
+        47
+      ],
+      [
+        255,
+        223,
+        55
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "periode_texture": [
+      192,
+      96
+    ],
+    "cellule": 24,
+    "derive": "une periode (96 px) vers le sud par boucle",
+    "rides": "autour des 4 bouches de colonnes",
+    "origine": "module source/magma_visqueux/magma.py, le meme que l entree ECM1 ; pixels calcules"
+  },
+  "colonnes": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "colonnes": [
+      {
+        "nom": "gauche_fond",
+        "x": 40,
+        "y": 206,
+        "demi": 20,
+        "decalage": 0,
+        "graine": 1
+      },
+      {
+        "nom": "gauche_devant",
+        "x": 82,
+        "y": 432,
+        "demi": 28,
+        "decalage": 17,
+        "graine": 2
+      },
+      {
+        "nom": "droite_fond",
+        "x": 672,
+        "y": 202,
+        "demi": 20,
+        "decalage": 29,
+        "graine": 3
+      },
+      {
+        "nom": "droite_devant",
+        "x": 724,
+        "y": 434,
+        "demi": 28,
+        "decalage": 8,
+        "graine": 4
+      }
+    ],
+    "montee_px_par_phase": 12.0,
+    "poussees_par_boucle": 2,
+    "gouttes_par_colonne": 14,
+    "ondes": 3,
+    "loi": "axe x0 + 2,2 sin(y/41 + phi + g) + 1,1 sin(y/15 - 2 phi + 2g) ; demi-largeur d (1 + 0,07 sin(y/17 - 3 phi + g)) + 11 exp(-(yb - y)/13) + 4,5 poussees ; matiere du lac etiree x2 qui monte de 3 periodes par boucle ; profil coeur jaune (niveau >= 11,3), lisiere rouge, croute 2 px, contour sombre ; couronne, gouttes, ondes",
+    "sommet": "hors cadre : chaque colonne touche le bord haut (y = 0) a toutes les phases",
+    "origine": "source/magma_visqueux/colonnes_geantes.py ; pixels calcules, rampe relevee sur la lave du rip"
+  },
+  "symbole_groudon": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        120,
+        26,
+        22
+      ],
+      [
+        184,
+        32,
+        26
+      ],
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        63,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        223,
+        55
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "pixels": 17549,
+    "halo_px": 12026,
+    "origine": "lignes du Omega et de l anneau graves a plat ; rang de luminance + pulsation ; halo 1 px des le niveau 3, puis 3 px au pic, sur la pierre du sol"
+  },
+  "braises": {
+    "phases": 6,
+    "frame_length_ticks": 10,
+    "pulsation": [
+      0,
+      1,
+      2,
+      2,
+      1,
+      0
+    ],
+    "rampe": [
+      [
+        247,
+        39,
+        31
+      ],
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        167,
+        39
+      ],
+      [
+        255,
+        223,
+        55
+      ]
+    ],
+    "pixels": 422,
+    "origine": "pixels orange du decor genere ; methode des braises de ECN1"
+  },
+  "scene_loop_ticks": 480,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        264
+      ],
+      "heros": [
+        376,
+        400
+      ]
+    },
+    "chemin_16x16": {
+      "ok": true,
+      "cases_explorees": 158
+    },
+    "chemin_boss_16x16": {
+      "ok": true,
+      "cases_explorees": 573
+    },
+    "blocked_cells": 4743,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors sol de l arene ; le signe grave est du sol"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "agm2_arene_groudon_magma",
+    "namespace": "arene_groudon_magma_v2",
+    "tiles_per_bank": {
+      "AGM2_00_MAGMA": 113653,
+      "AGM2_01_SOL": 3797,
+      "AGM2_02_SOL": 2371,
+      "AGM2_03_REBORD": 1355,
+      "AGM2_04_PITONS": 339,
+      "AGM2_05_SYMBOLE": 3400,
+      "AGM2_06_BRAISES": 320,
+      "AGM2_07_COLONNES": 55869
+    },
+    "banks": [
+      "AGM2_00_MAGMA",
+      "AGM2_01_SOL",
+      "AGM2_02_SOL",
+      "AGM2_03_REBORD",
+      "AGM2_04_PITONS",
+      "AGM2_05_SYMBOLE",
+      "AGM2_06_BRAISES",
+      "AGM2_07_COLONNES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

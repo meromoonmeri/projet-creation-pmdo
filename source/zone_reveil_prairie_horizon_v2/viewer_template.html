@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zone de réveil V2 · mer de V24P04A · jour, aube, crépuscule, nuit</title>
+<style>
+body{background:#101820;color:#e4e6f2;font:15px/1.55 system-ui,sans-serif;margin:0;padding:22px}
+main{max-width:1180px;margin:auto}h1{font-size:28px;margin:0 0 6px}p{color:#b3c9d3;max-width:95ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+button{background:#1d2b36;color:#e4e6f2;border:1px solid #33505f;border-radius:6px;padding:6px 12px;font:inherit;cursor:pointer}
+button.on{background:#e7c77f;color:#1a1a1a;border-color:#e7c77f}
+.stage{position:relative;display:inline-block;border:1px solid #29404c;border-radius:6px;overflow:hidden;background:#000}
+canvas{display:block;image-rendering:pixelated;width:100%;max-width:1152px}
+#info{color:#9fb6c0;font-size:13px;margin-left:8px}
+.note{font-size:13px;color:#8fa6b0}
+table{border-collapse:collapse;font-size:13px;margin-top:10px}td,th{border:1px solid #29404c;padding:3px 8px;text-align:left}
+</style>
+<main>
+<h1>Zone de réveil V2 — la première scène</h1>
+<p>Même disposition que la V1 : la grande prairie fleurie de Sky Peak, ses collisions et ses marqueurs sont inchangés. Seuls la mer et l'arrière-plan sont refaits, chacun sur son propre calque.
+La <strong>mer</strong> est générée d'après la carte V24P04A de PMD Ciel et suit ses lois d'animation :
+<ul>
+<li>les crêtes naissent en houle sombre sous l'horizon, grandissent en descendant et roulent vers la prairie (12 crans de 10 ticks, motif de 96 px) ;</li>
+<li>cadence décodée des 12 images de V24P04A : une crête avance d'une rangée en 6 crans ;</li>
+<li>chaque crête couvre presque tout le motif, et une fine ligne de houle continue court sous chaque rangée : pas de trou entre les vagues ;</li>
+<li>l'horizon scintille (16 crans de 4 ticks) ;</li>
+<li>les fines lignes de houle et les reflets clairs peints dans la mer ne sont plus figés : sur leur propre calque, ils décrivent l'orbite de l'eau au rythme de la houle.</li>
+</ul>
+Le <strong>banc de nuages</strong> fait toute la largeur de l'écran (trois bancs générés raccordés : aucun nuage ne se répète) et défile lentement derrière la <strong>montagne de la V1</strong>, dont les flancs descendent jusqu'à l'horizon. La profondeur va de l'avant vers l'arrière : <strong>mer, montagne, nuages</strong>.
+La nuit, la lune se lève derrière le sommet ; à l'aube, le soleil se lève ; au crépuscule, il se couche derrière les nuages.
+Chaque astre a un reflet sur la mer, dessiné au générateur, qui ondule au rythme de la houle. L'écume et les bulles sont celles de la V1. Les fleurs se balancent comme à Sky Peak.</p>
+<div class="bar">
+  <button data-amb="jour" class="on">Jour</button><button data-amb="aube">Aube</button><button data-amb="crepuscule">Crépuscule</button><button data-amb="nuit">Nuit</button>
+  <span style="width:16px"></span>
+  <button id="pause">Pause</button><button data-speed="0.5">×0,5</button><button data-speed="1" class="on">×1</button><button data-speed="2">×2</button><button data-speed="8">×8</button>
+  <button id="coll">Collisions et marqueurs</button><button id="zoom">Zoom ×2 (horizon)</button>
+  <span id="info"></span>
+</div>
+<div class="stage"><canvas id="c"></canvas></div>
+<p class="note">Rejoué à 60 ticks par seconde, comme le moteur : chaque calque avance de <code>tick / durée % phases</code>.
+Marqueurs : <code>reveil</code> (cyan, au bord de la prairie, tourné vers l'océan) et <code>entrance</code> (jaune, sortie au sud).
+Non testé dans PMDO. Les petits pics sombres de la mer de nuages de la V1 ne sont pas repris.</p>
+<table><tr><th>Calque</th><th>Cadence</th><th>Origine</th></tr>
+<tr><td>Prairie (herbe, chemin, rochers, buissons)</td><td>fixes</td><td>calques de la V1 ; crépuscule : brut édité recalé au pixel</td></tr>
+<tr><td>Fleurs</td><td>4 × 12 ticks (A B A C)</td><td>calque de la V1 ; balancement mesuré sur le GIF Sky Peak</td></tr>
+<tr><td>Ciel, mer</td><td>fixes</td><td>générés avec V24P04A en référence ; aube, crépuscule, nuit : couleurs des bruts de ces ambiances</td></tr>
+<tr><td>Houle</td><td>12 × 10 ticks</td><td>crêtes générées ; loi de profondeur, largeur et cadence de V24P04A (12 images décodées de la ROM)</td></tr>
+<tr><td>Reflet de l'astre</td><td>12 × 10 ticks</td><td>planche de reflets générée (lune, aube, crépuscule) ; ondulation calée sur la houle</td></tr>
+<tr><td>Écume, bulles</td><td>10 × 10, 24 × 5 ticks</td><td>celles de la V1 (palette 8 de s01p02a) ; crépuscule : même méthode</td></tr>
+<tr><td>Scintillement de l'horizon</td><td>16 × 4 ticks</td><td>cadence des palettes animées de V24P04A</td></tr>
+<tr><td>Nuages</td><td>384 × 16 ticks (102 s)</td><td>trois bancs générés raccordés là où les silhouettes se prolongent (sommet rogné arrondi en dôme), 2 px par cran, boucle de 768 px : aucune répétition à l'écran</td></tr>
+<tr><td>Ondes</td><td>12 × 10 ticks</td><td>lignes de houle et reflets clairs peints dans la mer générée, extraits sur leur calque ; orbite de l'eau calée sur la houle</td></tr>
+<tr><td>Montagne</td><td>fixe</td><td>celle de la V1, redessinée seule, flancs prolongés jusqu'à l'horizon</td></tr>
+<tr><td>Étoiles (nuit)</td><td>24 × 5 ticks</td><td>étoiles de la V1</td></tr></table>
+</main>
+<script>
+const D = __DATA__;
+const [W, H] = D.size; const cv = document.getElementById('c'); const cx = cv.getContext('2d');
+cv.width = W; cv.height = H; cx.imageSmoothingEnabled = false;
+const load = u => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = u; });
+let amb = 'jour', speed = 1, paused = false, showColl = false, zoom = false, tick = 0, last = null;
+const IMG = {};
+async function prep() {
+  for (const a of Object.keys(D.amb)) {
+    IMG[a] = [];
+    for (const s of D.amb[a]) {
+      if (s.type === 'anim') IMG[a].push({type: 'anim', ticks: s.ticks, frames: await Promise.all(s.frames.map(load))});
+      else IMG[a].push({type: s.type, img: await load(s.img)});
+    }
+  }
+  IMG.coll = await load(D.collisions);
+  requestAnimationFrame(loop);
+}
+function draw() {
+  cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, W, H);
+  if (zoom) cx.setTransform(2, 0, 0, 2, -W * 0.25, 0);
+  const N = D.nuages, t = Math.floor(tick / N.frame_length_ticks) % N.phases;
+  for (const s of IMG[amb]) {
+    if (s.type === 'fixe') cx.drawImage(s.img, 0, 0);
+    else if (s.type === 'anim') cx.drawImage(s.frames[Math.floor(tick / s.ticks) % s.frames.length], 0, 0);
+    else {                                            // np.roll(bande, t) : la bande glisse de t px vers la droite
+      const sh = (t * N.pas_px) % N.periode_px;
+      for (let k = -1; k * N.periode_px < W; k++) cx.drawImage(s.img, sh + k * N.periode_px, D.horizon - N.hauteur_px);
+    }
+  }
+  if (showColl) { cx.globalAlpha = 0.85; cx.drawImage(IMG.coll, 0, 0); cx.globalAlpha = 1; }
+  document.getElementById('info').textContent = `${amb} · tick ${Math.floor(tick)} · houle cran ${Math.floor(tick / 10) % 12} · nuages phase ${t}`;
+}
+function loop(ts) {
+  if (last !== null && !paused) tick += (ts - last) * 0.06 * speed;
+  last = ts; draw(); requestAnimationFrame(loop);
+}
+document.querySelectorAll('[data-amb]').forEach(b => b.onclick = () => {
+  amb = b.dataset.amb; document.querySelectorAll('[data-amb]').forEach(x => x.classList.toggle('on', x === b)); });
+document.querySelectorAll('[data-speed]').forEach(b => b.onclick = () => {
+  speed = +b.dataset.speed; document.querySelectorAll('[data-speed]').forEach(x => x.classList.toggle('on', x === b)); });
+document.getElementById('pause').onclick = e => { paused = !paused; e.target.classList.toggle('on', paused); };
+document.getElementById('coll').onclick = e => { showColl = !showColl; e.target.classList.toggle('on', showColl); };
+document.getElementById('zoom').onclick = e => { zoom = !zoom; e.target.classList.toggle('on', zoom); };
+prep();
+</script>
+</html>
