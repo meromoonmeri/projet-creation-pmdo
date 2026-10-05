@@ -1,0 +1,888 @@
+{
+  "lot": "entree_canyon_cuivre_sud_nord_v1",
+  "title": "Entrée du Canyon Cuivré",
+  "prefix": "EOC1",
+  "namespace": "entree_canyon_cuivre",
+  "asset": "eoc1_entree_canyon_cuivre",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "reference": {
+    "code": "D55P11A",
+    "source": "pret/pmd-sky via source/outil_maps_pmdsky",
+    "commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "sha256": "8f59c745f3a40fc300e767a5eafc1d6bc8610d85c733b15809d4b0bd08b58213",
+    "identification": "code ROM only; no dungeon name inferred"
+  },
+  "reference_fidelity": null,
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation with D55P11A as a visual reference",
+      "selected_option": 1,
+      "prompt": "Create one standalone overhead game-map composition, not a collage or UI. Treat the attached PMD reference ONLY as a guide for its warm ochre ground, rounded layered copper-orange boulders, small sparse sage-green tufts, and crisp Pokémon Mystery Dungeon pixel-art language; invent a wholly new layout. Landscape 4:3 composition, wide and zoomed out, strict top-down orthographic view, readable at native 8-pixel tile scale. A new canyon entrance map: the player enters from the south/lower-center, follows a broad clear sandy path in two gentle bends northward, then reaches one dark arched cave threshold at the upper-center. Keep a continuous uncluttered corridor at least three tiles wide; rocks and plants never block it. Build a distinctive asymmetric canyon: stepped warm red-copper cliffs and natural rock shelves along both sides, scattered small rubble groups, subtly striated pale ochre sand, just a few low green hardy plants. Give the northern cave mouth a readable deep static shadow, not a portal or door. The map's landmass reaches all four image edges behind the cliffs, so no transparent border is needed. Use warm terracotta, amber, ochre and restrained moss green, faithfully related to the reference palette; do not copy its exact composition. Clean hard pixel clusters, no blur, no antialiasing, no painterly gradients. Absolutely no characters, signs, text, labels, UI, border, watermark, lava, water, snow, ice, crystals, giant trees, or mushrooms. No pink accents; no magenta in the artwork."
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image edit of decor with D55P11A as a material guide",
+      "prompt": "Edit the supplied map composition to create its matching full-floor companion image. Preserve image 1's exact 4:3 canvas, dimensions, framing, pixel-art style, and warm ochre/copper palette. Replace every cliff wall, rock pile, plant, and the dark cave opening with continuous sandy canyon floor; extend the same subtle pale-ochre striations and small worn marks naturally beneath all former objects. The entire image must be floor only, edge to edge. Keep the main floor tone and texture consistent with the map and the PMD reference in image 2. No walls, no rocks, no plants, no cave mouth, no shadows, no water, no magenta, no text, no border, no blur, no crop, no camera change, no perspective change. This is a separate aligned source layer, not a new layout."
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/entree_canyon_cuivre_sud_nord_v1/bruts/decor.png",
+      "sha256": "bfefb2a73c700464223b240254666dd0e7c3cb802eb38d1e3292cf680322b16e",
+      "size_px": [
+        2304,
+        1728
+      ]
+    },
+    {
+      "file": "source/entree_canyon_cuivre_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "382ca78228314b95109ba982f5652634e5281969ca856835ffaff578393e05bd",
+      "size_px": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "normalization": {
+    "decor": {
+      "source_px": [
+        2304,
+        1728
+      ],
+      "scale_xy": [
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "method": "3x3 average by winning material class, no cross-class mixing"
+    },
+    "sol_complet": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "edge-pad 2 px top/bottom, then uniform BOX reduction"
+    },
+    "palette_colors": 96,
+    "dither": false
+  },
+  "magenta_key": "cave void selected by low-luminance source pixels, filled with #FF00FF, then extracted by channel-ratio key()",
+  "segmentation": {
+    "magenta_keyed_pixels_hi": 74408,
+    "cave_pixels_8px": 8260,
+    "vegetation_pixels_8px": 3270,
+    "rock_pixels_8px": 18583,
+    "shadow_pixels_8px": 14582,
+    "class_pixel_counts": {
+      "profondeur": 8260,
+      "vegetation": 3270,
+      "sol": 213430,
+      "parois": 217408
+    },
+    "floor_polygon": [
+      [
+        350,
+        132
+      ],
+      [
+        415,
+        132
+      ],
+      [
+        428,
+        154
+      ],
+      [
+        452,
+        172
+      ],
+      [
+        489,
+        188
+      ],
+      [
+        526,
+        205
+      ],
+      [
+        557,
+        229
+      ],
+      [
+        580,
+        255
+      ],
+      [
+        602,
+        288
+      ],
+      [
+        625,
+        321
+      ],
+      [
+        650,
+        354
+      ],
+      [
+        678,
+        383
+      ],
+      [
+        704,
+        407
+      ],
+      [
+        704,
+        575
+      ],
+      [
+        64,
+        575
+      ],
+      [
+        64,
+        410
+      ],
+      [
+        82,
+        382
+      ],
+      [
+        98,
+        349
+      ],
+      [
+        114,
+        317
+      ],
+      [
+        132,
+        282
+      ],
+      [
+        158,
+        250
+      ],
+      [
+        186,
+        226
+      ],
+      [
+        220,
+        208
+      ],
+      [
+        256,
+        193
+      ],
+      [
+        291,
+        178
+      ],
+      [
+        320,
+        161
+      ],
+      [
+        338,
+        145
+      ]
+    ],
+    "block_windows": [
+      [
+        142,
+        444,
+        224,
+        522
+      ],
+      [
+        198,
+        510,
+        322,
+        576
+      ],
+      [
+        458,
+        526,
+        514,
+        576
+      ],
+      [
+        510,
+        424,
+        622,
+        512
+      ],
+      [
+        600,
+        482,
+        672,
+        544
+      ]
+    ],
+    "key": "cave void selected by low-luminance source pixels, filled with #FF00FF, then extracted by channel-ratio key()",
+    "vegetation_detection": "automatic raw-RGB mask g > r+10, g > b+10, g > 42; 1 px closing, components >=70 source pixels, then 2 px dilation"
+  },
+  "layers": [
+    {
+      "name": "00_sol_complet",
+      "file": "calques/EOC1_00_sol_complet.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 0
+    },
+    {
+      "name": "01_sol",
+      "file": "calques/EOC1_01_sol.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 1
+    },
+    {
+      "name": "02_ombres",
+      "file": "calques/EOC1_02_ombres.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 2
+    },
+    {
+      "name": "03_parois",
+      "file": "calques/EOC1_03_parois.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 3
+    },
+    {
+      "name": "04_rochers",
+      "file": "calques/EOC1_04_rochers.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 4
+    },
+    {
+      "name": "05_vegetation",
+      "file": "calques/EOC1_05_vegetation.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 5
+    },
+    {
+      "name": "06_profondeur",
+      "file": "calques/EOC1_06_profondeur.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 6
+    },
+    {
+      "name": "07_poussiere",
+      "file": "animation/poussiere/EOC1_07_poussiere_fNN.png",
+      "phases": 24,
+      "frame_length_ticks": 5,
+      "order": 7
+    },
+    {
+      "name": "08_top",
+      "file": "calques/EOC1_08_top.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 8,
+      "ground_layer": 4
+    }
+  ],
+  "animation": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "loop_ticks": 120,
+    "loop_seconds_at_60hz": 2.0,
+    "origin": "animation originale de poussiere ; pas un cycle officiel recupere",
+    "emitters": [
+      [
+        256,
+        284
+      ],
+      [
+        496,
+        264
+      ],
+      [
+        213,
+        354
+      ],
+      [
+        560,
+        350
+      ],
+      [
+        315,
+        420
+      ],
+      [
+        448,
+        392
+      ],
+      [
+        285,
+        466
+      ],
+      [
+        535,
+        405
+      ],
+      [
+        365,
+        238
+      ],
+      [
+        414,
+        302
+      ]
+    ],
+    "palette_rgb": [
+      [
+        253,
+        232,
+        169
+      ],
+      [
+        252,
+        226,
+        169
+      ],
+      [
+        250,
+        224,
+        169
+      ],
+      [
+        252,
+        219,
+        153
+      ],
+      [
+        252,
+        208,
+        141
+      ],
+      [
+        252,
+        200,
+        134
+      ],
+      [
+        252,
+        190,
+        124
+      ],
+      [
+        251,
+        183,
+        116
+      ],
+      [
+        239,
+        196,
+        130
+      ],
+      [
+        237,
+        182,
+        113
+      ],
+      [
+        238,
+        180,
+        112
+      ],
+      [
+        235,
+        181,
+        112
+      ],
+      [
+        234,
+        180,
+        110
+      ],
+      [
+        236,
+        180,
+        108
+      ],
+      [
+        231,
+        180,
+        111
+      ],
+      [
+        248,
+        178,
+        115
+      ],
+      [
+        236,
+        179,
+        110
+      ],
+      [
+        246,
+        177,
+        107
+      ],
+      [
+        234,
+        178,
+        111
+      ],
+      [
+        234,
+        178,
+        108
+      ],
+      [
+        234,
+        177,
+        108
+      ],
+      [
+        234,
+        177,
+        107
+      ],
+      [
+        246,
+        172,
+        111
+      ],
+      [
+        248,
+        168,
+        102
+      ],
+      [
+        233,
+        178,
+        111
+      ],
+      [
+        233,
+        178,
+        108
+      ],
+      [
+        233,
+        176,
+        109
+      ],
+      [
+        233,
+        176,
+        107
+      ],
+      [
+        232,
+        174,
+        107
+      ],
+      [
+        230,
+        174,
+        107
+      ],
+      [
+        229,
+        169,
+        104
+      ],
+      [
+        221,
+        167,
+        104
+      ],
+      [
+        245,
+        160,
+        101
+      ],
+      [
+        221,
+        161,
+        99
+      ],
+      [
+        218,
+        160,
+        99
+      ],
+      [
+        216,
+        161,
+        104
+      ],
+      [
+        216,
+        161,
+        102
+      ],
+      [
+        216,
+        160,
+        101
+      ],
+      [
+        216,
+        157,
+        96
+      ],
+      [
+        217,
+        158,
+        92
+      ],
+      [
+        216,
+        156,
+        93
+      ],
+      [
+        216,
+        156,
+        91
+      ],
+      [
+        215,
+        160,
+        104
+      ],
+      [
+        215,
+        160,
+        103
+      ],
+      [
+        215,
+        159,
+        105
+      ],
+      [
+        214,
+        159,
+        102
+      ],
+      [
+        215,
+        162,
+        99
+      ],
+      [
+        214,
+        160,
+        101
+      ],
+      [
+        215,
+        160,
+        98
+      ],
+      [
+        215,
+        158,
+        97
+      ],
+      [
+        215,
+        157,
+        95
+      ],
+      [
+        215,
+        156,
+        92
+      ],
+      [
+        215,
+        158,
+        91
+      ],
+      [
+        215,
+        156,
+        90
+      ],
+      [
+        215,
+        156,
+        89
+      ],
+      [
+        213,
+        161,
+        103
+      ],
+      [
+        213,
+        158,
+        101
+      ],
+      [
+        212,
+        157,
+        100
+      ],
+      [
+        213,
+        158,
+        98
+      ],
+      [
+        209,
+        158,
+        101
+      ],
+      [
+        236,
+        155,
+        97
+      ],
+      [
+        216,
+        155,
+        96
+      ],
+      [
+        216,
+        155,
+        92
+      ],
+      [
+        216,
+        155,
+        90
+      ],
+      [
+        248,
+        145,
+        93
+      ],
+      [
+        234,
+        143,
+        93
+      ],
+      [
+        215,
+        155,
+        96
+      ],
+      [
+        215,
+        155,
+        92
+      ],
+      [
+        215,
+        155,
+        91
+      ],
+      [
+        214,
+        152,
+        93
+      ],
+      [
+        211,
+        153,
+        94
+      ],
+      [
+        208,
+        146,
+        91
+      ],
+      [
+        198,
+        140,
+        88
+      ],
+      [
+        237,
+        127,
+        86
+      ],
+      [
+        229,
+        124,
+        86
+      ],
+      [
+        229,
+        115,
+        79
+      ],
+      [
+        225,
+        104,
+        71
+      ],
+      [
+        205,
+        120,
+        79
+      ],
+      [
+        183,
+        120,
+        75
+      ],
+      [
+        206,
+        100,
+        68
+      ],
+      [
+        209,
+        91,
+        62
+      ],
+      [
+        197,
+        88,
+        60
+      ],
+      [
+        184,
+        84,
+        57
+      ],
+      [
+        182,
+        75,
+        51
+      ],
+      [
+        168,
+        72,
+        48
+      ],
+      [
+        158,
+        82,
+        55
+      ],
+      [
+        157,
+        77,
+        53
+      ],
+      [
+        159,
+        71,
+        48
+      ],
+      [
+        154,
+        76,
+        52
+      ],
+      [
+        153,
+        68,
+        45
+      ],
+      [
+        126,
+        75,
+        46
+      ],
+      [
+        147,
+        61,
+        40
+      ],
+      [
+        130,
+        60,
+        39
+      ],
+      [
+        128,
+        53,
+        34
+      ],
+      [
+        104,
+        46,
+        29
+      ],
+      [
+        50,
+        31,
+        22
+      ]
+    ]
+  },
+  "access": {
+    "entry_cell_yx": [
+      67,
+      47
+    ],
+    "threshold_cell_yx": [
+      19,
+      47
+    ],
+    "entry_px": [
+      376,
+      536
+    ],
+    "threshold_px": [
+      376,
+      152
+    ],
+    "path_found_16x16": true,
+    "path_cells": 49,
+    "cells_explored": 1819,
+    "blocked_cells": 4013,
+    "walkable_cells": 2899,
+    "rule": "case bloquée si au moins 25 % des pixels hors sol ; empreinte joueur 16x16 px"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "EOC1_00_00_SOL_COMPLET": 6609,
+      "EOC1_01_01_SOL": 3104,
+      "EOC1_02_02_OMBRES": 786,
+      "EOC1_03_03_PAROIS": 3352,
+      "EOC1_04_04_ROCHERS": 408,
+      "EOC1_05_05_VEGETATION": 122,
+      "EOC1_06_06_PROFONDEUR": 99,
+      "EOC1_07_07_POUSSIERE": 100
+    },
+    "runtime_tested": false,
+    "warp": null
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Generated artwork is a composition guide, not native source tiles.",
+    "The original D55P11A location is not inferred from its code prefix.",
+    "Marker donjon_seuil has no destination or warp."
+  ]
+}

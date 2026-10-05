@@ -1,0 +1,44 @@
+{
+  "lot": "fin_clairiere_tropicale_v1",
+  "prefix": "FTL1",
+  "type": "zone de fin de donjon / arène naturelle",
+  "queue_source": "REPRISE_MAPS.md: après FST1, prochaine fin de la série = Clairière tropicale",
+  "biome_selection": "choix de l'agent d'après la file locale; le nom canonique/la portée de cette fin n'ont pas été confirmés par l'utilisateur",
+  "reference_context": {
+    "thematic_map": "Entrée Clairière tropicale (ETC1)",
+    "reference_filename_recorded_by_ETC1": "large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png",
+    "source_notes": [
+      "source/entree_clairiere_tropicale_sud_nord_v1/README_PACK.md",
+      "source/entree_clairiere_tropicale_sud_nord_v1/build.py",
+      "renders/entree_clairiere_tropicale_sud_nord_v1/manifest.json"
+    ],
+    "raw_reference_available_in_checkout": false,
+    "palette_metrics_reused_from_ETC1_manifest": {
+      "grass_rgb": [182.6, 213.5, 96.7],
+      "jungle_rgb": [103.8, 138.7, 50.7]
+    },
+    "limitation": "L'image canonique et les bruts ETC1 ne sont pas présents dans ce checkout; les mesures écrites d'ETC1 servent de guide de teinte seulement, pas de référence visuelle directe."
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation from text",
+      "selected_option": null,
+      "user_selected": false,
+      "prompt": "Create one standalone full-frame overhead game-map composition, landscape 4:3, strict top-down orthographic view, matching the readable pixel-art style and lush tropical palette of a classic Pokémon Mystery Dungeon dungeon. This is a beautiful final clearing deep in a tropical jungle, designed as a large boss arena. Layout: a narrow natural-earth passage opens from the SOUTH edge into a wide, uncluttered oval clearing; keep the central arena broad and fully open. At the NORTH edge of the clearing, make a distinctive ancient tree-root arch with a small shaded alcove at its foot as a quiet objective focal point, not a portal. Enclose the clearing with layered dark-green jungle canopy, broad-leaf plants, a few coconut palms, and restrained clusters of red, yellow and pink hibiscus around the outer rim; keep all plants out of the playable central arena. Ground is natural warm soil and soft yellow-green grass with fine irregular texture and occasional tiny leaf litter, not paved. Preserve clear north-south route and closed natural walls at top and sides. Rich depth, refined composition, varied plant silhouettes, clean high-quality pixel clusters, strong readable contrast at small game-map scale. No crystals or gemstones, no tiles, no paving slabs, no checkerboard, no stepping stones, no water, no characters, no monsters, no text, no UI, no border, no watermark."
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image edit of the selected full composition",
+      "source_images": ["bruts/decor.png"],
+      "prompt": "Edit this map to make its aligned full-floor companion. Keep exactly the same canvas size, overhead view, pixel-art rendering and light yellow-green grass texture from the open central clearing. Replace all jungle, trees, roots, flowers, dirt entrances, path marks, leaves and shadows with continuous matching grass; fill the entire image edge to edge with natural grass only. Use the clearing's current muted spring-green palette, fine irregular blade clusters and sparse tiny grass flecks, with no large patterns. Absolutely no objects, plants, rocks, dirt, path, tiles, paving, crystals, text, border or camera change."
+    }
+  ],
+  "palette_correction": {
+    "method": "apply a low-strength per-channel shift only to pixels classified as clear grass, toward ETC1's recorded rip grass mean",
+    "target_rgb": [182.6, 213.5, 96.7],
+    "dither": false
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}

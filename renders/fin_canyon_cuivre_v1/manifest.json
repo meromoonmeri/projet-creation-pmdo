@@ -1,0 +1,267 @@
+{
+  "lot": "fin_canyon_cuivre_v1",
+  "title": "Fin Canyon Cuivré — arène au fond de la caverne",
+  "prefix": "FCC1",
+  "namespace": "fin_canyon_cuivre",
+  "asset": "fcc1_fin_canyon_cuivre",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_constraints": {
+    "arena_without_crystal": true,
+    "natural_floor_without_tiles_or_slabs": true,
+    "keep_copper_cave_theme": true,
+    "source": "correction explicite de l'utilisateur; composition sans cristal ni dalles choisie par l'utilisateur"
+  },
+  "generation": {
+    "lot": "fin_canyon_cuivre_v1",
+    "prefix": "FCC1",
+    "type": "zone de fin de donjon / arène",
+    "user_direction": {
+      "verbatim": "Fait une arene sans le cristal et les dalle u sol la reste dans le theme qualitative",
+      "interpreted_constraints": [
+        "arène sans cristal",
+        "sol naturel sans dalles ni carrelage",
+        "conserver le thème cuivré de la caverne",
+        "préserver une finition visuelle soignée"
+      ]
+    },
+    "images": [
+      {
+        "file": "bruts/decor.png",
+        "method": "image generation; candidate selected by the user",
+        "selected_option": 2,
+        "prompt_summary": "Arène fermée en roche cuivrée, arrivée par un passage au sud, vaste espace central dégagé, reliefs naturels autour; sans cristal ni dalles/carrelage au sol, sans texte, personnages ou interface.",
+        "prompt_recovery": "Le texte exact du prompt initial n'est pas conservé dans le contexte de reprise; ne pas le présenter comme verbatim.",
+        "selection": "option 2 choisie par l'utilisateur après la correction demandant l'absence de cristal et de dalles",
+        "source_px": [
+          1184,
+          864
+        ]
+      },
+      {
+        "file": "bruts/sol_complet_reutilise.png",
+        "method": "copie inchangée d'une base de sol de la même caverne, issue de l'entrée EOC1",
+        "source": "source/entree_canyon_cuivre_sud_nord_v1/bruts/sol_complet.png",
+        "generation_attempts": 2,
+        "generation_result": "les deux tentatives de génération dédiée ont retourné une réponse sans image; source jumelle réutilisée plutôt que de réessayer le même prompt",
+        "source_px": [
+          1200,
+          896
+        ]
+      }
+    ],
+    "art_approved": false,
+    "runtime_tested": false
+  },
+  "inputs": [
+    {
+      "file": "source/fin_canyon_cuivre_v1/bruts/decor.png",
+      "sha256": "bc01f928cea8e0bbc030d683d0b4e26e2286741eb07e3cc16ddde2fb841169ff",
+      "size_px": [
+        1184,
+        864
+      ]
+    },
+    {
+      "file": "source/fin_canyon_cuivre_v1/bruts/sol_complet_reutilise.png",
+      "sha256": "382ca78228314b95109ba982f5652634e5281969ca856835ffaff578393e05bd",
+      "size_px": [
+        1200,
+        896
+      ],
+      "original_source": "source/entree_canyon_cuivre_sud_nord_v1/bruts/sol_complet.png"
+    }
+  ],
+  "normalization": {
+    "decor": {
+      "source_px": [
+        1184,
+        864
+      ],
+      "crop_px_ltrb": [
+        16,
+        0,
+        16,
+        0
+      ],
+      "cropped_px": [
+        1152,
+        864
+      ],
+      "output_px": [
+        768,
+        576
+      ],
+      "scale_xy": [
+        0.6666666666666666,
+        0.6666666666666666
+      ],
+      "method": "crop central 4:3, then uniform BOX reduction; no stretching"
+    },
+    "sol_complet": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "edge-pad 2 px top/bottom then uniform BOX reduction",
+      "provenance": "copie sans retouche du sol complet de l'entrée EOC1, même palette de caverne cuivrée"
+    },
+    "shared_palette_colors": 96,
+    "dither": false
+  },
+  "segmentation": {
+    "floor_outline": "polygone intérieur relevé sur l'arène à l'échelle 768x576; aucun pixel source n'est repeint",
+    "vegetation_detection": {
+      "method": "masque RGB g > r + 5, g > b + 5, g > 42; composantes connexes >= 5 px",
+      "manual_plant_coordinates": false,
+      "green_candidate_pixels": 54,
+      "candidate_components": 5,
+      "kept_components": 1,
+      "kept_component_sizes_px": [
+        49
+      ],
+      "vegetation_pixels_8px": 49
+    },
+    "shadows": {
+      "method": "pixels du sol source avec luminance < 154 et écart-type local 5x5 > 3; purement décoratif",
+      "pixels_8px": 6730
+    },
+    "floor_pixels_8px": 128414,
+    "walkable_pixels_8px": 128365,
+    "wall_pixels_8px": 313954,
+    "input_green_component_sizes_px": [
+      1,
+      2,
+      49,
+      1,
+      1
+    ]
+  },
+  "layers": [
+    {
+      "name": "00_sol_complet",
+      "file": "calques/FCC1_00_sol_complet.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 0
+    },
+    {
+      "name": "01_sol",
+      "file": "calques/FCC1_01_sol.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 1
+    },
+    {
+      "name": "02_ombres",
+      "file": "calques/FCC1_02_ombres.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 2
+    },
+    {
+      "name": "03_parois",
+      "file": "calques/FCC1_03_parois.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 3
+    },
+    {
+      "name": "04_vegetation",
+      "file": "calques/FCC1_04_vegetation.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 4
+    },
+    {
+      "name": "05_top",
+      "file": "calques/FCC1_05_top.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 5,
+      "ground_layer": 4
+    }
+  ],
+  "access": {
+    "entry_cell_yx": [
+      68,
+      47
+    ],
+    "boss_cell_yx": [
+      41,
+      48
+    ],
+    "objective_cell_yx": [
+      14,
+      47
+    ],
+    "entry_px": [
+      376,
+      544
+    ],
+    "boss_px": [
+      384,
+      328
+    ],
+    "objective_px": [
+      376,
+      112
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "path_boss_cells": 29,
+    "path_objective_cells": 55,
+    "cells_explored_to_boss": 519,
+    "cells_explored_to_objective": 1642,
+    "blocked_cells": 4945,
+    "walkable_cells": 1967,
+    "rule": "case bloquée si au moins 25 % de ses pixels sont hors sol; collisionneur joueur 16x16 px",
+    "boss_rule": "case 2x2 libre la plus proche du centroïde du sol dans la zone centrale",
+    "objective_rule": "case 2x2 libre la plus au nord dans une bande centrale de 144 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "FCC1_00_00_SOL_COMPLET": 6680,
+      "FCC1_01_01_SOL": 1886,
+      "FCC1_02_02_OMBRES": 451,
+      "FCC1_03_03_PAROIS": 4795,
+      "FCC1_04_04_VEGETATION": 6
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Le biome/cadrage Canyon Cuivré est un choix de travail, pas un nom canonique demandé par l'utilisateur.",
+    "La composition sélectionnée est une image-guide générée, convertie en calques et non en tuiles canoniques certifiées.",
+    "Le calque sol_complet est réutilisé sans retouche depuis l'entrée EOC1; il sert de base sous la partition opaque.",
+    "Aucun objet cristal, dallage, sortie ou warp n'est créé.",
+    "Les repères boss et objectif n'ajoutent aucun personnage ni événement."
+  ]
+}
