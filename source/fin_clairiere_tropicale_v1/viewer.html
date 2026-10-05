@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FCT2 · Fin Clairière tropicale</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07130f; --panel:#10231c; --line:#2c493b; --text:#e8f0e8; --muted:#a1b6a8; --accent:#a7d77d; --blue:#8cdde0; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(ellipse at 50% -20%, #1b3d2e 0, var(--bg) 58%); color:var(--text); font:15px/1.5 system-ui,sans-serif; }
+    .shell { width:min(1180px,calc(100% - 32px)); margin:30px auto 56px; }
+    header { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:18px; }
+    .eyebrow { color:var(--accent); font-size:.76rem; font-weight:750; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { margin:5px 0 4px; font-size:clamp(1.7rem,4vw,2.6rem); line-height:1.1; }
+    .lede,.subtle { color:var(--muted); }
+    .lede { margin:0; }
+    .actions,.variant-tabs,.view-tabs,.bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .actions { justify-content:flex-end; }
+    a.button,button { border:1px solid var(--line); border-radius:9px; padding:9px 13px; color:var(--text); background:#173326; font:inherit; text-decoration:none; cursor:pointer; }
+    a.button:hover,button:hover { border-color:var(--accent); color:white; }
+    button[aria-selected="true"] { border-color:var(--accent); color:#ecffd8; background:#29472f; }
+    .variant-tabs { margin:18px 0 10px; }
+    .variant-tabs button { min-width:122px; }
+    .view-tabs { margin:16px 0 10px; }
+    .panel { border:1px solid var(--line); border-radius:15px; background:rgba(16,35,28,.94); padding:18px; box-shadow:0 18px 60px #0005; }
+    .view { display:none; }
+    .view.active { display:block; }
+    .stage { display:grid; place-items:center; overflow:hidden; border:1px solid #35533f; border-radius:10px; background:#050d0a; }
+    canvas,.preview-image { display:block; width:min(100%,960px); height:auto; aspect-ratio:4 / 3; object-fit:contain; image-rendering:pixelated; }
+    .bar { margin-top:13px; }
+    .bar input[type="range"] { flex:1; min-width:160px; accent-color:var(--accent); }
+    .bar .phase { min-width:70px; color:var(--muted); text-align:right; font-variant-numeric:tabular-nums; }
+    .layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr)); gap:8px 16px; padding:14px 2px 2px; }
+    .layers label { color:#d7e3d9; display:flex; gap:9px; align-items:center; cursor:pointer; }
+    .layers input { accent-color:var(--accent); }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:14px 0 0; }
+    .card { border:1px solid var(--line); border-radius:10px; background:#0b1b14; padding:12px 14px; }
+    .card strong { display:block; color:#f1f6eb; font-size:1.02rem; }
+    .card span { color:var(--muted); font-size:.89rem; }
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .split figure,figure { margin:0; }
+    figure img { width:100%; height:auto; display:block; border:1px solid #35533f; border-radius:9px; image-rendering:pixelated; background:#06100c; }
+    figcaption { color:var(--muted); font-size:.88rem; padding:7px 2px 0; }
+    .notice { border-left:3px solid #b5a766; padding:9px 13px; color:#d9d2af; background:#252417; border-radius:0 8px 8px 0; }
+    .status { min-height:1.4em; color:var(--muted); font-size:.87rem; }
+    footer { margin-top:18px; color:var(--muted); font-size:.9rem; }
+    code { color:#d9f0b0; }
+    @media (max-width:720px) { header { align-items:start; flex-direction:column; } .actions { justify-content:flex-start; } .split { grid-template-columns:1fr; } .shell { width:min(100% - 20px,1180px); margin-top:18px; } .panel { padding:11px; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <div class="eyebrow">FCT2 · fin de donjon</div>
+        <h1>Fin Clairière tropicale</h1>
+        <p class="lede">768 × 576 px · 96 × 72 cases · grille 8 px · cible PMDO 0.8.12</p>
+      </div>
+      <nav class="actions" aria-label="Fichiers du lot">
+        <a class="button" id="download" href="../FCT2_JN_fin_clairiere_tropicale_PMDO_0812.zip">Télécharger le pack PMDO</a>
+        <a class="button" id="ora-link" href="../FCT2_fin_clairiere_tropicale_calques.ora">Document ORA</a>
+        <a class="button" href="../manifest.json">Manifeste</a>
+      </nav>
+    </header>
+
+    <div class="variant-tabs" role="tablist" aria-label="Variante de la carte">
+      <button id="variant-day" role="tab" aria-selected="true" data-variant="jour">Jour</button>
+      <button id="variant-night" role="tab" aria-selected="false" data-variant="nuit">Nuit · Mystic Forest</button>
+    </div>
+    <div class="view-tabs" role="tablist" aria-label="Aperçus">
+      <button role="tab" aria-selected="true" data-view="scene">Scène · calques</button>
+      <button role="tab" aria-selected="false" data-view="collision">Collisions · marqueurs</button>
+      <button role="tab" aria-selected="false" data-view="animation">Animation</button>
+    </div>
+
+    <section id="scene" class="panel view active" role="tabpanel">
+      <div class="stage"><canvas id="map" width="768" height="576" aria-label="Composition de la carte, calques superposés"></canvas></div>
+      <div class="bar">
+        <button id="play" type="button" aria-pressed="true">Pause</button>
+        <label for="phase">Phase</label>
+        <input id="phase" type="range" min="0" max="23" value="0">
+        <span class="phase" id="phase-label">00 / 23</span>
+      </div>
+      <div class="layers" id="layers"></div>
+      <p class="status" id="load-status" role="status">Chargement du manifeste…</p>
+    </section>
+
+    <section id="collision" class="panel view" role="tabpanel">
+      <figure><img class="preview-image" id="collision-image" alt="Carte de collisions et marqueurs superposés"></figure>
+      <div class="meta-grid">
+        <div class="card"><strong>Arrivée sud</strong><span id="entry-stat">—</span></div>
+        <div class="card"><strong>Boss · arène</strong><span id="boss-stat">—</span></div>
+        <div class="card"><strong>Objectif · sanctuaire</strong><span id="objective-stat">—</span></div>
+        <div class="card"><strong>Chemins testés</strong><span>Grille 2 × 2 cases · parcours atteignables depuis l’arrivée</span></div>
+      </div>
+      <p class="subtle">Rouge translucide : cases bloquées calculées par le masque. Jaune : arrivée · magenta : repère boss · cyan : objectif.</p>
+    </section>
+
+    <section id="animation" class="panel view" role="tabpanel">
+      <div class="split">
+        <figure><img id="animated-image" alt="Aperçu animé de la clairière tropicale"><figcaption id="animation-caption">Cycle complet : 24 phases, 5 ticks par phase (2 s à 60 Hz).</figcaption></figure>
+        <figure><img id="pose-image" alt="Planche de sprites de feuilles"><figcaption id="pose-caption">Sprites 5 × 5 calculés depuis la palette de végétation.</figcaption></figure>
+      </div>
+    </section>
+
+    <div class="meta-grid">
+      <div class="card"><strong>Art référencé, non natif</strong><span>Nouvelle composition générée avec le rip canonique Southern Jungle D54P32A comme référence ; textures et animations calculées pour ce lot.</span></div>
+      <div class="card"><strong>Projet PMDO natif</strong><span>Deux Grounds séparés, banques .tile 8 px et installateur qui fusionne l’index du mod. « Natif » décrit les fichiers techniques, pas la provenance de l’illustration.</span></div>
+      <div class="card"><strong>Fidélité matière · jour</strong><span id="fidelity-stat">—</span></div>
+      <div class="card"><strong>Lumières · nuit</strong><span id="light-stat">—</span></div>
+    </div>
+    <p class="notice">Limite de test : reconstruction binaire, pixels, accès et installateur validés en Python. PMDO/.NET n'était pas disponible ; ouverture dans l'éditeur et test en jeu restent à confirmer.</p>
+    <footer>Les textures ne sont pas des pixels ou tuiles natifs de PMD. Le format PMDO cible 0.8.12. <a href="../README.md" style="color:#c9e5a7">Notice d'installation et limites</a> · <a href="../verification.json" style="color:#c9e5a7">Rapport de vérification</a></footer>
+  </main>
+  <script>
+    const $ = selector => document.querySelector(selector);
+    const canvas = $('#map');
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    const layerHost = $('#layers');
+    const status = $('#load-status');
+    const phaseSlider = $('#phase');
+    const phaseLabel = $('#phase-label');
+    const layerTitles = {
+      sol_complet: 'Sous-sol complet', clairiere: 'Clairière', ombres: 'Ombres',
+      jungle: 'Jungle et plantes', roches: 'Roches', sanctuaire: 'Sanctuaire',
+      feuilles: 'Feuilles · animées', lumieres: 'Lumières · animées', canopee_avant: 'Canopée avant · Top 4'
+    };
+    let manifest = null, currentVariant = 'jour', images = [], phase = 0, playing = true, timer = null;
+
+    function variantBase(config) {
+      return `../${config.output_dir && config.output_dir !== '.' ? `${config.output_dir}/` : ''}`;
+    }
+    function phasePath(layer, phaseIndex) {
+      return layer.file.includes('fNN') ? layer.file.replace('fNN', `f${String(phaseIndex).padStart(2, '0')}`) : layer.file;
+    }
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error(`Impossible de lire ${src}`));
+        image.src = src;
+      });
+    }
+    async function setVariant(key) {
+      currentVariant = key;
+      const config = manifest.variants[key];
+      const base = variantBase(config);
+      images = [];
+      phase = 0;
+      $('#phase').value = '0';
+      $('#variant-day').setAttribute('aria-selected', String(key === 'jour'));
+      $('#variant-night').setAttribute('aria-selected', String(key === 'nuit'));
+      $('#ora-link').href = `../${config.ora}`;
+      $('#ora-link').textContent = key === 'nuit' ? 'Document ORA · nuit' : 'Document ORA · jour';
+      $('#collision-image').src = `${base}review/${config.prefix}_collisions_marqueurs.png`;
+      $('#animated-image').src = `${base}review/${config.prefix}_scene_animee.webp`;
+      $('#pose-image').src = `${base}review/${config.prefix}_planche_poses.png`;
+      $('#collision-image').alt = `Collisions et marqueurs — variante ${key}`;
+      $('#animated-image').alt = `Aperçu animé — variante ${key}`;
+      $('#pose-caption').textContent = key === 'nuit'
+        ? 'Sprites de feuilles assombris par le même étalonnage bleu-vert.'
+        : 'Sprites 5 × 5 calculés depuis la palette de végétation du décor généré.';
+      $('#animation-caption').textContent = key === 'nuit'
+        ? 'Feuilles et lumières : 24 phases, 5 ticks par phase ; halos translucides derrière la canopée avant.'
+        : 'Feuilles : 24 phases, 5 ticks par phase (2 s à 60 Hz).';
+      layerHost.replaceChildren();
+      config.layers.forEach((layer, index) => {
+        const label = document.createElement('label');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox'; checkbox.checked = true; checkbox.id = `layer-${index}`;
+        checkbox.addEventListener('change', draw);
+        label.append(checkbox, document.createTextNode(layerTitles[layer.name] || layer.name));
+        layerHost.append(label);
+      });
+      status.textContent = `Chargement des calques ${key}…`;
+      try {
+        const loaded = await Promise.all(config.layers.map(layer =>
+          Promise.all(Array.from({length: layer.phases}, (_, frame) => loadImage(`${base}${phasePath(layer, frame)}`)))
+        ));
+        if (currentVariant !== key) return;
+        images = loaded;
+        $('#entry-stat').textContent = `${manifest.access.markers_px.entrance[0] / 8} × ${manifest.access.markers_px.entrance[1] / 8} cases · 16 × 16 px`;
+        $('#boss-stat').textContent = `${manifest.access.markers_px.boss[0] / 8} × ${manifest.access.markers_px.boss[1] / 8} cases · 16 × 16 px`;
+        $('#objective-stat').textContent = `${manifest.access.markers_px.objectif[0] / 8} × ${manifest.access.markers_px.objectif[1] / 8} cases · 16 × 16 px`;
+        const f = manifest.variants.jour.fidelity;
+        $('#fidelity-stat').textContent = `Bruts : ${fmt(manifest.fidelity.raw)} · calques jour : ${fmt(f)} (seuil <35).`;
+        const light = manifest.variants.nuit.lighting;
+        $('#light-stat').textContent = `Alpha ${light.alpha_min_positive}–${light.alpha_max}/255, max. ${light.max_opacity_percent}% · lucioles et halo animés.`;
+        status.textContent = `${config.layers.length} calques chargés · ${manifest.access.path_found_16x16 ? 'chemins d’accès validés' : 'accès à revoir'} · animation 24 phases.`;
+        draw(); startTimer();
+      } catch (error) {
+        status.textContent = `${error.message} — ouvre le viewer depuis un serveur HTTP local.`;
+      }
+    }
+    function fmt(values) {
+      return ['clairiere','feuillage','pierre'].map(name => `${values[name].distance.toFixed(2)}`).join(' · ');
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < images.length; i++) {
+        const toggle = document.getElementById(`layer-${i}`);
+        if (toggle?.checked) ctx.drawImage(images[i][phase % images[i].length], 0, 0);
+      }
+      phaseSlider.value = String(phase);
+      phaseLabel.textContent = `${String(phase).padStart(2, '0')} / 23`;
+    }
+    document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('[data-view]').forEach(tab => tab.setAttribute('aria-selected', String(tab === button)));
+      document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === button.dataset.view));
+    }));
+    document.querySelectorAll('[data-variant]').forEach(button => button.addEventListener('click', () => setVariant(button.dataset.variant)));
+    phaseSlider.addEventListener('input', () => { phase = Number(phaseSlider.value); draw(); });
+    $('#play').addEventListener('click', event => {
+      playing = !playing;
+      event.currentTarget.textContent = playing ? 'Pause' : 'Lecture';
+      event.currentTarget.setAttribute('aria-pressed', String(playing));
+      if (playing) startTimer(); else clearInterval(timer);
+    });
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => { if (playing) { phase = (phase + 1) % 24; draw(); } }, 1000 / 12);
+    }
+    fetch('../manifest.json')
+      .then(response => { if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`); return response.json(); })
+      .then(data => { manifest = data; setVariant('jour'); })
+      .catch(error => { status.textContent = `${error.message} — ouvre le viewer depuis un serveur HTTP local.`; });
+  </script>
+</body>
+</html>

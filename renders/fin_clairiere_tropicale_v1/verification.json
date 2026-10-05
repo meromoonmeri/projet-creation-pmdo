@@ -1,0 +1,47 @@
+{
+  "result": "PASS",
+  "target": "PMDO 0.8.12.0",
+  "ground_assets": {
+    "jour": "fct2_fin_clairiere_tropicale",
+    "nuit": "fct2_fin_clairiere_tropicale_nuit"
+  },
+  "variants": [
+    "jour",
+    "nuit"
+  ],
+  "pixels_each": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "tile_banks": 17,
+  "native_layers_reconstructed": 17,
+  "animation_frames_reconstructed": 72,
+  "ora_documents_checked": 2,
+  "pixel_differences": 0,
+  "stone_day": "roches and sanctuaire R >= G >= B (warm neutral gray, no green cast)",
+  "stone_night": "roches and sanctuaire R <= G <= B (cool neutral blue-grey, no green cast)",
+  "night_lights": {
+    "alpha_min_positive": 1,
+    "alpha_max": 55,
+    "max_opacity_percent": 21.6
+  },
+  "walkability": "both blocked grids match rendered floor layers; independent 2×2-cell paths reach boss and objective",
+  "installer": {
+    "dry_run": true,
+    "index_merge": true,
+    "index_backup": true,
+    "idempotent": true,
+    "both_variants_installed": true,
+    "conflict_protected": true
+  },
+  "pmdo_engine_or_dotnet_tested": false,
+  "limitations": [
+    "No PMDO editor/runtime opening or .NET deserialization test was run.",
+    "Generated art is reference-guided, not canonical native PMD pixels or tiles.",
+    "Collision visualization and gameplay still require in-engine review."
+  ]
+}

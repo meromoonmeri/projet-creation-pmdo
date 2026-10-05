@@ -1,0 +1,1333 @@
+{
+  "lot": "fin_clairiere_tropicale_v1",
+  "prefix": "FCT2",
+  "format": "4:3 vaste",
+  "type": "fin de donjon",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "lineage": {
+    "continues": "série des fins de donjon après FST1 (Fin Star Cave)",
+    "prefix_choice": "FCT2 (jour) et FCT2N (nuit), deux variantes du même lot ; FTC1 est réservé par une branche sœur ; aucune carte sœur n a été reprise."
+  },
+  "biome": "clairière tropicale de Southern Jungle",
+  "method": "illustrations autonomes jour et nuit générées par le générateur d image avec le rip canonique D54P32A comme référence ; sous-sols assortis générés séparément ; segmentation par matière avant réduction uniforme BOX pondérée par classe, correction pierre, palettes par matière et export PMDO 0.8.12",
+  "reference_da": {
+    "file": "source/fin_clairiere_tropicale_v1/reference/D54P32A.png",
+    "sha256": "ac6ef5acc6df67f4474ef0b01418e91080ac6ef728fa29c7f8fbae29baf9860b",
+    "source": "pret/pmd-sky, commit c8073235b39746a7ee74e6cea16c730bd91a1e67, MAP_BG D54P32A (BMA/BPC/BPL D54P32A)",
+    "identification": "Southern_Jungle_exit_2_S.png ; écart de capture 0,0 dans index_rom.json",
+    "size_px": [
+      600,
+      456
+    ],
+    "frames": 1,
+    "status": "référence PMD authentique, identification de scène documentée par capture ; textures du lot générées, non natives"
+  },
+  "generation": [
+    {
+      "source": "generation/FCT2_jour_genere.png",
+      "target": "decor.png",
+      "variant": "jour",
+      "role": "illustration standalone complète",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ],
+      "generator": "Arena image generator, génération référencée ; option 1 sélectionnée par l utilisateur",
+      "prompt_summary": "Nouvelle clairière tropicale 4:3, textures/palette/feuillage du rip canonique Southern Jungle ; arène ovale, sanctuaire gris au nord, corridor d entrée sud, pas de texte ni d UI.",
+      "file": "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+      "sha256": "deeaf5e233a90882610ee52d98ed7a45b8f6d37a0add03d3fc56d4f0c771bac0",
+      "size_px": [
+        1448,
+        1086
+      ],
+      "preparation": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "generator_sha256": "deeaf5e233a90882610ee52d98ed7a45b8f6d37a0add03d3fc56d4f0c771bac0",
+        "original_size_px": [
+          1448,
+          1086
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/decor.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 0.82872928,
+        "crop_px": [
+          0,
+          2,
+          0,
+          2
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      }
+    },
+    {
+      "source": "generation/FCT2_sol_complet_genere.png",
+      "target": "sol_complet.png",
+      "variant": "jour",
+      "role": "sous-sol complet généré",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ],
+      "generator": "Arena image generator, édition référencée ; sortie sans sélection d options",
+      "prompt_summary": "Sous-sol plein cadre : retrait de toute végétation, pierre, objet et ombre ; continuation de la texture sol générée et du rip canonique.",
+      "file": "source/fin_clairiere_tropicale_v1/generation/FCT2_sol_complet_genere.png",
+      "sha256": "ce7308a57706a00d7ec75f384b5d09969b5173b110ce0f8e23bb8a7413e9a828",
+      "size_px": [
+        1200,
+        896
+      ],
+      "preparation": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_sol_complet_genere.png",
+        "generator_sha256": "ce7308a57706a00d7ec75f384b5d09969b5173b110ce0f8e23bb8a7413e9a828",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      }
+    },
+    {
+      "source": "generation/FCT2N_nuit_genere.png",
+      "target": "decor_nuit.png",
+      "variant": "nuit",
+      "role": "illustration standalone complète, lumière séparée",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ],
+      "generator": "Arena image generator, option nocturne retenue puis éditée sur la même source pour aligner le layout jour et séparer les lumières ; le candidat intermédiaire n est pas conservé",
+      "prompt_summary": "Variante nocturne générée depuis le layout jour et les textures du rip, palette Mystic Forest bleu-vert, roches gris-bleu, sans lueurs intégrées ; les halos seront un calque animation séparé.",
+      "file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+      "sha256": "c7047554c0ab52572e37af6d948d2f31c25fa9e5955c3689b0d0dc1ad2cf372b",
+      "size_px": [
+        1200,
+        896
+      ],
+      "preparation": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+        "generator_sha256": "c7047554c0ab52572e37af6d948d2f31c25fa9e5955c3689b0d0dc1ad2cf372b",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/decor_nuit.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      }
+    },
+    {
+      "source": "generation/FCT2N_sol_complet_genere.png",
+      "target": "sol_complet_nuit.png",
+      "variant": "nuit",
+      "role": "sous-sol complet nocturne généré",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ],
+      "generator": "Arena image generator, édition référencée ; sortie sans sélection d options",
+      "prompt_summary": "Sous-sol nocturne plein cadre, retrait de toute végétation, pierre, objet, ombre et lueur ; texture sol et étalonnage nuit dérivés des références.",
+      "file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_sol_complet_genere.png",
+      "sha256": "7beed5177ccebdf7c2dc8d927afbec9adbe99e7ee69293f30c846a167b3cd9ac",
+      "size_px": [
+        1200,
+        896
+      ],
+      "preparation": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_sol_complet_genere.png",
+        "generator_sha256": "7beed5177ccebdf7c2dc8d927afbec9adbe99e7ee69293f30c846a167b3cd9ac",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet_nuit.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      }
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_clairiere_tropicale_v1/bruts/decor.png",
+      "sha256": "3e8b6c66b312592f07c9e3898de3e41b51b251f4d08e38ee2a4ae25661e60472",
+      "size_px": [
+        1200,
+        896
+      ],
+      "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+      "generator_sha256": "deeaf5e233a90882610ee52d98ed7a45b8f6d37a0add03d3fc56d4f0c771bac0",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ]
+    },
+    {
+      "file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet.png",
+      "sha256": "c044309d3f27427b7b6e31e95fc0762f1edd49e48993d4738b4f265c0dafa8dc",
+      "size_px": [
+        1200,
+        896
+      ],
+      "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_sol_complet_genere.png",
+      "generator_sha256": "ce7308a57706a00d7ec75f384b5d09969b5173b110ce0f8e23bb8a7413e9a828",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ]
+    },
+    {
+      "file": "source/fin_clairiere_tropicale_v1/bruts/decor_nuit.png",
+      "sha256": "4e3eefaadc3a6c5e58ba472ebe54e545fca91dffa11e9729c89434ec27dc23d3",
+      "size_px": [
+        1200,
+        896
+      ],
+      "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+      "generator_sha256": "c7047554c0ab52572e37af6d948d2f31c25fa9e5955c3689b0d0dc1ad2cf372b",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ]
+    },
+    {
+      "file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet_nuit.png",
+      "sha256": "38f441a255b381921d3fb358564b347f0b816844a795dd1d79955a04037762c5",
+      "size_px": [
+        1200,
+        896
+      ],
+      "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_sol_complet_genere.png",
+      "generator_sha256": "7beed5177ccebdf7c2dc8d927afbec9adbe99e7ee69293f30c846a167b3cd9ac",
+      "images": [
+        "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+        "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
+      ]
+    }
+  ],
+  "normalization": {
+    "scale_uniforme": 0.6428571428571429,
+    "scaled_size": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "generated_inputs_preparation": {
+      "decor.png": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
+        "generator_sha256": "deeaf5e233a90882610ee52d98ed7a45b8f6d37a0add03d3fc56d4f0c771bac0",
+        "original_size_px": [
+          1448,
+          1086
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/decor.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 0.82872928,
+        "crop_px": [
+          0,
+          2,
+          0,
+          2
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      },
+      "sol_complet.png": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_sol_complet_genere.png",
+        "generator_sha256": "ce7308a57706a00d7ec75f384b5d09969b5173b110ce0f8e23bb8a7413e9a828",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      },
+      "decor_nuit.png": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
+        "generator_sha256": "c7047554c0ab52572e37af6d948d2f31c25fa9e5955c3689b0d0dc1ad2cf372b",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/decor_nuit.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      },
+      "sol_complet_nuit.png": {
+        "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_sol_complet_genere.png",
+        "generator_sha256": "7beed5177ccebdf7c2dc8d927afbec9adbe99e7ee69293f30c846a167b3cd9ac",
+        "original_size_px": [
+          1200,
+          896
+        ],
+        "prepared_file": "source/fin_clairiere_tropicale_v1/bruts/sol_complet_nuit.png",
+        "prepared_size_px": [
+          1200,
+          896
+        ],
+        "uniform_scale": 1.0,
+        "crop_px": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "method": "mise à l échelle uniforme LANCZOS puis crop centré, aucun étirement"
+      }
+    },
+    "method": "entrées générateur ajustées uniformément à 1200×896 sans étirement ; segmentation avant réduction ; moyenne BOX pondérée par classe, attribution exclusive par poids maximal ; palette MEDIANCUT sans dither",
+    "palette_groups": {
+      "terrain": {
+        "layers": [
+          "sol_complet",
+          "clairiere",
+          "ombres"
+        ],
+        "colors": 96
+      },
+      "vegetation": {
+        "layers": [
+          "jungle",
+          "canopee_avant"
+        ],
+        "colors": 96
+      },
+      "pierre": {
+        "layers": [
+          "roches",
+          "sanctuaire"
+        ],
+        "colors": 48
+      }
+    }
+  },
+  "segmentation": {
+    "method": "classifieur matière sur le brut ; enveloppe de clairière reliée au sud ; pixels inconnus dedans affectés au sol ; végétation séparée ; silhouette du sanctuaire complétée manuellement avant réduction",
+    "source_floor": "r>112, g>120, g-b>32, r-b>28, |g-r|<58, hors végétation ; fermeture/remplissage de l’enveloppe, composante reliée au sud",
+    "stone": "jour : sat<46, lum>38 ; composantes >=24 pixels ; silhouette du sanctuaire complétée par le polygone documenté ; partition géométrique reprise pour la nuit afin de conserver l alignement",
+    "shrine_polygon_raw_xy": [
+      [
+        592,
+        162
+      ],
+      [
+        609,
+        162
+      ],
+      [
+        623,
+        168
+      ],
+      [
+        634,
+        178
+      ],
+      [
+        641,
+        190
+      ],
+      [
+        646,
+        203
+      ],
+      [
+        648,
+        219
+      ],
+      [
+        648,
+        237
+      ],
+      [
+        646,
+        253
+      ],
+      [
+        542,
+        253
+      ],
+      [
+        541,
+        241
+      ],
+      [
+        542,
+        225
+      ],
+      [
+        544,
+        210
+      ],
+      [
+        548,
+        197
+      ],
+      [
+        554,
+        185
+      ],
+      [
+        563,
+        175
+      ],
+      [
+        576,
+        168
+      ],
+      [
+        585,
+        164
+      ]
+    ],
+    "stone_correction": "jour [Y-30, Y-30, Y-44] gris chaud ; nuit [Y-12, Y-4, Y+5] gris-bleu ; alpha et relief conservés, aucune dominance verte",
+    "shadow": "pixels de sol à <=26 px de la bordure et plus sombres que le sol complet généré (>7 lum)",
+    "foreground": "végétation sombre (lum<62), y>=72% du brut, composantes connectées au bord inférieur",
+    "counts_raw_by_variant": {
+      "jour": {
+        "source_floor_pixels": 385765,
+        "ground_envelope_pixels": 403582,
+        "unclassified_floor_pixels": 1226,
+        "foliage_preserved_inside_arena_pixels": 12213,
+        "small_stone_assigned_to_floor_pixels": 578,
+        "walkable_floor_pixels": 382648,
+        "shadow_pixels": 11671,
+        "rock_pixels": 35240,
+        "shrine_pixels": 12972,
+        "foliage_pixels": 652098,
+        "foreground_pixels": 216682,
+        "shrine_roi_raw_xyxy": [
+          420,
+          89,
+          780,
+          376
+        ],
+        "shrine_polygon_raw_xy": [
+          [
+            592,
+            162
+          ],
+          [
+            609,
+            162
+          ],
+          [
+            623,
+            168
+          ],
+          [
+            634,
+            178
+          ],
+          [
+            641,
+            190
+          ],
+          [
+            646,
+            203
+          ],
+          [
+            648,
+            219
+          ],
+          [
+            648,
+            237
+          ],
+          [
+            646,
+            253
+          ],
+          [
+            542,
+            253
+          ],
+          [
+            541,
+            241
+          ],
+          [
+            542,
+            225
+          ],
+          [
+            544,
+            210
+          ],
+          [
+            548,
+            197
+          ],
+          [
+            554,
+            185
+          ],
+          [
+            563,
+            175
+          ],
+          [
+            576,
+            168
+          ],
+          [
+            585,
+            164
+          ]
+        ],
+        "stone_color_correction": "warm neutral gray from luminance: [Y-30, Y-30, Y-44], no green channel dominance"
+      },
+      "nuit": {
+        "geometry_source": "partition pleine résolution du décor jour réutilisée pour conserver le même layout 4:3",
+        "mask_pixels": {
+          "clairiere": 370977,
+          "ombres": 11671,
+          "jungle": 435416,
+          "roches": 27482,
+          "sanctuaire": 12972,
+          "canopee_avant": 216682
+        },
+        "stone_color_correction": "blue-grey neutral from luminance: [Y-12, Y-4, Y+5], no green channel dominance"
+      }
+    }
+  },
+  "fidelity": {
+    "method": "distance euclidienne des RGB moyens ; classifieur identique sur le rip et les calques jour ; seuil bloquant <35 pour le jour ; nuit générée séparément en palette sombre, comparaison non appliquée",
+    "raw": {
+      "clairiere": {
+        "pixels_brut": 385765,
+        "pixels_rip": 65510,
+        "rgb_brut": [
+          161.9,
+          164.8,
+          84.0
+        ],
+        "rgb_rip": [
+          157.1,
+          164.0,
+          92.4
+        ],
+        "distance": 9.73
+      },
+      "feuillage": {
+        "pixels_brut": 388831,
+        "pixels_rip": 98703,
+        "rgb_brut": [
+          19.8,
+          92.9,
+          46.2
+        ],
+        "rgb_rip": [
+          26.3,
+          90.9,
+          50.0
+        ],
+        "distance": 7.76
+      },
+      "pierre": {
+        "pixels_brut": 32114,
+        "pixels_rip": 9587,
+        "rgb_brut": [
+          77.6,
+          81.8,
+          54.0
+        ],
+        "rgb_rip": [
+          51.3,
+          69.6,
+          46.9
+        ],
+        "distance": 29.85
+      }
+    },
+    "final_layers_day": {
+      "clairiere": {
+        "rgb_final": [
+          161.4,
+          163.5,
+          82.3
+        ],
+        "rgb_rip": [
+          157.1,
+          164.0,
+          92.4
+        ],
+        "distance": 10.98,
+        "seuil": 35
+      },
+      "feuillage": {
+        "rgb_final": [
+          19.1,
+          91.5,
+          45.3
+        ],
+        "rgb_rip": [
+          26.3,
+          90.9,
+          50.0
+        ],
+        "distance": 8.64,
+        "seuil": 35
+      },
+      "pierre": {
+        "rgb_final": [
+          73.7,
+          73.7,
+          59.7
+        ],
+        "rgb_rip": [
+          51.3,
+          69.6,
+          46.9
+        ],
+        "distance": 26.23,
+        "seuil": 35
+      }
+    },
+    "night_comparison": {
+      "applied": false,
+      "reason": "variante nocturne générée séparément depuis la référence canonique ; étalonnage bleu-vert intentionnel"
+    }
+  },
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/FCT2_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "clairiere",
+      "file": "calques/FCT2_01_clairiere.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "ombres",
+      "file": "calques/FCT2_02_ombres.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "jungle",
+      "file": "calques/FCT2_03_jungle.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "roches",
+      "file": "calques/FCT2_04_roches.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "sanctuaire",
+      "file": "calques/FCT2_05_sanctuaire.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 0
+    },
+    {
+      "name": "feuilles",
+      "file": "animation/feuilles/FCT2_06_feuilles_fNN.png",
+      "phases": 24,
+      "ticks": 5,
+      "draw_layer": 0
+    },
+    {
+      "name": "canopee_avant",
+      "file": "calques/FCT2_07_canopee_avant.png",
+      "phases": 1,
+      "ticks": 60,
+      "draw_layer": 4
+    }
+  ],
+  "animation": {
+    "feuilles": {
+      "phases": 24,
+      "frame_length_ticks": 5,
+      "loop_ticks": 120,
+      "sprites": "2 sprites 5x5 calculés ; palette prélevée dans le calque de végétation généré, sans recoloration de textures PMD",
+      "palette_rgb": [
+        [
+          1,
+          53,
+          39
+        ],
+        [
+          5,
+          85,
+          47
+        ],
+        [
+          24,
+          151,
+          70
+        ]
+      ],
+      "emitters": [
+        {
+          "x": 63,
+          "y": 295,
+          "offset": 0,
+          "direction": -1,
+          "variant": 0
+        },
+        {
+          "x": 689,
+          "y": 248,
+          "offset": 3,
+          "direction": 1,
+          "variant": 1
+        },
+        {
+          "x": 485,
+          "y": 413,
+          "offset": 6,
+          "direction": -1,
+          "variant": 0
+        },
+        {
+          "x": 534,
+          "y": 168,
+          "offset": 9,
+          "direction": 1,
+          "variant": 1
+        },
+        {
+          "x": 154,
+          "y": 371,
+          "offset": 12,
+          "direction": -1,
+          "variant": 0
+        },
+        {
+          "x": 695,
+          "y": 293,
+          "offset": 15,
+          "direction": -1,
+          "variant": 1
+        },
+        {
+          "x": 219,
+          "y": 358,
+          "offset": 18,
+          "direction": -1,
+          "variant": 0
+        },
+        {
+          "x": 370,
+          "y": 536,
+          "offset": 21,
+          "direction": -1,
+          "variant": 1
+        }
+      ],
+      "active_phases": 12,
+      "hidden_phases": 12,
+      "law": "k=(tick+offset) modulo 24 ; chute de 1,15 px par phase, balancier sinusoïdal ; inactive sur les 12 phases suivantes",
+      "origin": "animation ajoutée par nous, pas une animation officielle PMD"
+    }
+  },
+  "variants": {
+    "jour": {
+      "prefix": "FCT2",
+      "asset": "fct2_fin_clairiere_tropicale",
+      "output_dir": ".",
+      "layers": [
+        {
+          "name": "sol_complet",
+          "file": "calques/FCT2_00_sol_complet.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "clairiere",
+          "file": "calques/FCT2_01_clairiere.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "ombres",
+          "file": "calques/FCT2_02_ombres.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "jungle",
+          "file": "calques/FCT2_03_jungle.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "roches",
+          "file": "calques/FCT2_04_roches.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "sanctuaire",
+          "file": "calques/FCT2_05_sanctuaire.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "feuilles",
+          "file": "animation/feuilles/FCT2_06_feuilles_fNN.png",
+          "phases": 24,
+          "ticks": 5,
+          "draw_layer": 0
+        },
+        {
+          "name": "canopee_avant",
+          "file": "calques/FCT2_07_canopee_avant.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 4
+        }
+      ],
+      "banks": {
+        "FCT2_00_SOL_COMPLET": 6913,
+        "FCT2_01_CLAIRIERE": 2764,
+        "FCT2_02_OMBRES": 372,
+        "FCT2_03_JUNGLE": 3689,
+        "FCT2_04_ROCHES": 469,
+        "FCT2_05_SANCTUAIRE": 118,
+        "FCT2_06_FEUILLES": 124,
+        "FCT2_07_CANOP_FG": 1702
+      },
+      "animation": {
+        "feuilles": {
+          "phases": 24,
+          "frame_length_ticks": 5,
+          "loop_ticks": 120,
+          "sprites": "2 sprites 5x5 calculés ; palette prélevée dans le calque de végétation généré, sans recoloration de textures PMD",
+          "palette_rgb": [
+            [
+              1,
+              53,
+              39
+            ],
+            [
+              5,
+              85,
+              47
+            ],
+            [
+              24,
+              151,
+              70
+            ]
+          ],
+          "emitters": [
+            {
+              "x": 63,
+              "y": 295,
+              "offset": 0,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 689,
+              "y": 248,
+              "offset": 3,
+              "direction": 1,
+              "variant": 1
+            },
+            {
+              "x": 485,
+              "y": 413,
+              "offset": 6,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 534,
+              "y": 168,
+              "offset": 9,
+              "direction": 1,
+              "variant": 1
+            },
+            {
+              "x": 154,
+              "y": 371,
+              "offset": 12,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 695,
+              "y": 293,
+              "offset": 15,
+              "direction": -1,
+              "variant": 1
+            },
+            {
+              "x": 219,
+              "y": 358,
+              "offset": 18,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 370,
+              "y": 536,
+              "offset": 21,
+              "direction": -1,
+              "variant": 1
+            }
+          ],
+          "active_phases": 12,
+          "hidden_phases": 12,
+          "law": "k=(tick+offset) modulo 24 ; chute de 1,15 px par phase, balancier sinusoïdal ; inactive sur les 12 phases suivantes",
+          "origin": "animation ajoutée par nous, pas une animation officielle PMD"
+        }
+      },
+      "review_scene": "review/FCT2_scene_t000.png",
+      "ora": "FCT2_fin_clairiere_tropicale_calques.ora",
+      "fidelity": {
+        "clairiere": {
+          "rgb_final": [
+            161.4,
+            163.5,
+            82.3
+          ],
+          "rgb_rip": [
+            157.1,
+            164.0,
+            92.4
+          ],
+          "distance": 10.98,
+          "seuil": 35
+        },
+        "feuillage": {
+          "rgb_final": [
+            19.1,
+            91.5,
+            45.3
+          ],
+          "rgb_rip": [
+            26.3,
+            90.9,
+            50.0
+          ],
+          "distance": 8.64,
+          "seuil": 35
+        },
+        "pierre": {
+          "rgb_final": [
+            73.7,
+            73.7,
+            59.7
+          ],
+          "rgb_rip": [
+            51.3,
+            69.6,
+            46.9
+          ],
+          "distance": 26.23,
+          "seuil": 35
+        }
+      }
+    },
+    "nuit": {
+      "prefix": "FCT2N",
+      "asset": "fct2_fin_clairiere_tropicale_nuit",
+      "output_dir": "nuit",
+      "layers": [
+        {
+          "name": "sol_complet",
+          "file": "calques/FCT2N_00_sol_complet.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "clairiere",
+          "file": "calques/FCT2N_01_clairiere.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "ombres",
+          "file": "calques/FCT2N_02_ombres.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "jungle",
+          "file": "calques/FCT2N_03_jungle.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "roches",
+          "file": "calques/FCT2N_04_roches.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "sanctuaire",
+          "file": "calques/FCT2N_05_sanctuaire.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 0
+        },
+        {
+          "name": "feuilles",
+          "file": "animation/feuilles/FCT2N_06_feuilles_fNN.png",
+          "phases": 24,
+          "ticks": 5,
+          "draw_layer": 0
+        },
+        {
+          "name": "lumieres",
+          "file": "animation/lumieres/FCT2N_07_lumieres_fNN.png",
+          "phases": 24,
+          "ticks": 5,
+          "draw_layer": 0
+        },
+        {
+          "name": "canopee_avant",
+          "file": "calques/FCT2N_08_canopee_avant.png",
+          "phases": 1,
+          "ticks": 60,
+          "draw_layer": 4
+        }
+      ],
+      "banks": {
+        "FCT2N_00_SOL_COMPLET": 6913,
+        "FCT2N_01_CLAIRIERE": 2764,
+        "FCT2N_02_OMBRES": 373,
+        "FCT2N_03_JUNGLE": 3750,
+        "FCT2N_04_ROCHES": 469,
+        "FCT2N_05_SANCTUAIRE": 118,
+        "FCT2N_06_FEUILLES": 124,
+        "FCT2N_07_LUMIERES": 11429,
+        "FCT2N_08_CANOP_FG": 1767
+      },
+      "animation": {
+        "feuilles": {
+          "phases": 24,
+          "frame_length_ticks": 5,
+          "loop_ticks": 120,
+          "sprites": "2 sprites 5x5 calculés ; palette prélevée dans le calque de végétation de la carte nuit générée",
+          "palette_rgb": [
+            [
+              34,
+              128,
+              119
+            ],
+            [
+              34,
+              128,
+              119
+            ],
+            [
+              45,
+              145,
+              131
+            ]
+          ],
+          "emitters": [
+            {
+              "x": 63,
+              "y": 295,
+              "offset": 0,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 689,
+              "y": 248,
+              "offset": 3,
+              "direction": 1,
+              "variant": 1
+            },
+            {
+              "x": 485,
+              "y": 413,
+              "offset": 6,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 534,
+              "y": 168,
+              "offset": 9,
+              "direction": 1,
+              "variant": 1
+            },
+            {
+              "x": 154,
+              "y": 371,
+              "offset": 12,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 695,
+              "y": 293,
+              "offset": 15,
+              "direction": -1,
+              "variant": 1
+            },
+            {
+              "x": 219,
+              "y": 358,
+              "offset": 18,
+              "direction": -1,
+              "variant": 0
+            },
+            {
+              "x": 370,
+              "y": 536,
+              "offset": 21,
+              "direction": -1,
+              "variant": 1
+            }
+          ],
+          "active_phases": 12,
+          "hidden_phases": 12,
+          "law": "k=(tick+offset) modulo 24 ; chute de 1,15 px par phase, balancier sinusoïdal ; inactive sur les 12 phases suivantes",
+          "origin": "animation ajoutée par nous à la carte nuit générée, pas une animation officielle PMD"
+        },
+        "lumieres": {
+          "phases": 24,
+          "frame_length_ticks": 5,
+          "loop_ticks": 120,
+          "alpha_min_positive": 1,
+          "alpha_max": 55,
+          "max_opacity_percent": 21.6,
+          "colors": "cyan, menthe et ambre doux ; opacité partielle, halos derrière la canopée avant",
+          "sources_px": [
+            [
+              126,
+              202
+            ],
+            [
+              644,
+              203
+            ],
+            [
+              105,
+              340
+            ],
+            [
+              665,
+              342
+            ],
+            [
+              254,
+              410
+            ],
+            [
+              521,
+              411
+            ],
+            [
+              363,
+              179
+            ]
+          ],
+          "origin": "lucioles et halo du sanctuaire générés par ce lot ; non repris d une animation PMD"
+        }
+      },
+      "review_scene": "nuit/review/FCT2N_scene_t000.png",
+      "ora": "nuit/FCT2N_fin_clairiere_tropicale_nuit_calques.ora",
+      "generation_source": "illustration autonome nocturne générée séparément avec référence canonique ; couleurs non dérivées par simple filtre de la carte jour",
+      "partition_geometry": "masques jour réutilisés pour conserver le layout commun ; couleurs calculées depuis les pixels de la carte nuit générée",
+      "lighting": {
+        "phases": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "alpha_min_positive": 1,
+        "alpha_max": 55,
+        "max_opacity_percent": 21.6,
+        "colors": "cyan, menthe et ambre doux ; opacité partielle, halos derrière la canopée avant",
+        "sources_px": [
+          [
+            126,
+            202
+          ],
+          [
+            644,
+            203
+          ],
+          [
+            105,
+            340
+          ],
+          [
+            665,
+            342
+          ],
+          [
+            254,
+            410
+          ],
+          [
+            521,
+            411
+          ],
+          [
+            363,
+            179
+          ]
+        ],
+        "origin": "lucioles et halo du sanctuaire générés par ce lot ; non repris d une animation PMD"
+      },
+      "fidelity_comparison": "non appliquée : carte générée séparément en palette nocturne ; contrôles pixel à pixel des calques et de leur sérialisation restent actifs"
+    }
+  },
+  "access": {
+    "markers_px": {
+      "entrance": [
+        376,
+        560
+      ],
+      "boss": [
+        376,
+        288
+      ],
+      "objectif": [
+        352,
+        176
+      ]
+    },
+    "path_found_16x16": true,
+    "path_to_boss": true,
+    "path_to_objective": true,
+    "cells_explored_boss": 348,
+    "cells_explored_objective": 1045,
+    "entry_cell": [
+      47,
+      70
+    ],
+    "boss_cell": [
+      47,
+      36
+    ],
+    "objective_cell": [
+      44,
+      22
+    ],
+    "blocked_cells": 4545,
+    "walkable_cells": 2367,
+    "total_cells": 6912,
+    "walkability": "clairière et ombres ; case bloquée si plus de 25% de ses pixels sont non praticables",
+    "exit": "aucun warp, aucune sortie et aucune destination configurée ; la bande nord et les côtés sont bloqués"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fct2_fin_clairiere_tropicale",
+    "assets": [
+      "fct2_fin_clairiere_tropicale",
+      "fct2_fin_clairiere_tropicale_nuit"
+    ],
+    "namespace": "fin_clairiere_tropicale",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground (version 0.8.12.0, TexSize 1)",
+    "banks": {
+      "FCT2_00_SOL_COMPLET": 6913,
+      "FCT2_01_CLAIRIERE": 2764,
+      "FCT2_02_OMBRES": 372,
+      "FCT2_03_JUNGLE": 3689,
+      "FCT2_04_ROCHES": 469,
+      "FCT2_05_SANCTUAIRE": 118,
+      "FCT2_06_FEUILLES": 124,
+      "FCT2_07_CANOP_FG": 1702,
+      "FCT2N_00_SOL_COMPLET": 6913,
+      "FCT2N_01_CLAIRIERE": 2764,
+      "FCT2N_02_OMBRES": 373,
+      "FCT2N_03_JUNGLE": 3750,
+      "FCT2N_04_ROCHES": 469,
+      "FCT2N_05_SANCTUAIRE": 118,
+      "FCT2N_06_FEUILLES": 124,
+      "FCT2N_07_LUMIERES": 11429,
+      "FCT2N_08_CANOP_FG": 1767
+    },
+    "grid_px": 8,
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
