@@ -107,6 +107,7 @@
       <div class="card"><strong>Art référencé, non natif</strong><span>Nouvelle composition générée avec le rip canonique Southern Jungle D54P32A comme référence ; textures et animations calculées pour ce lot.</span></div>
       <div class="card"><strong>Projet PMDO natif</strong><span>Deux Grounds séparés, banques .tile 8 px et installateur qui fusionne l’index du mod. « Natif » décrit les fichiers techniques, pas la provenance de l’illustration.</span></div>
       <div class="card"><strong>Fidélité matière · jour</strong><span id="fidelity-stat">—</span></div>
+      <div class="card"><strong>Recomposition multicalque</strong><span id="reconstruction-stat">—</span></div>
       <div class="card"><strong>Lumières · nuit</strong><span id="light-stat">—</span></div>
     </div>
     <p class="notice">Limite de test : reconstruction binaire, pixels, accès et installateur validés en Python. PMDO/.NET n'était pas disponible ; ouverture dans l'éditeur et test en jeu restent à confirmer.</p>
@@ -185,6 +186,8 @@
         $('#objective-stat').textContent = `${manifest.access.markers_px.objectif[0] / 8} × ${manifest.access.markers_px.objectif[1] / 8} cases · 16 × 16 px`;
         const f = manifest.variants.jour.fidelity;
         $('#fidelity-stat').textContent = `Bruts : ${fmt(manifest.fidelity.raw)} · calques jour : ${fmt(f)} (seuil <35).`;
+        const reconstruction = manifest.reconstruction_from_generated_maps[key];
+        $('#reconstruction-stat').textContent = `Erreur RGB moyenne ${reconstruction.mean_absolute_rgb_error.toFixed(2)}/255 ; ${reconstruction.pixels_with_max_channel_error_le_8_percent.toFixed(2)} % des pixels à ≤8 (couches statiques).`;
         const light = manifest.variants.nuit.lighting;
         $('#light-stat').textContent = `Alpha ${light.alpha_min_positive}–${light.alpha_max}/255, max. ${light.max_opacity_percent}% · lucioles et halo animés.`;
         status.textContent = `${config.layers.length} calques chargés · ${manifest.access.path_found_16x16 ? 'chemins d’accès validés' : 'accès à revoir'} · animation 24 phases.`;

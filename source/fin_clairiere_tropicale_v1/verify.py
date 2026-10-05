@@ -76,6 +76,36 @@ def _assert_pixels(actual, expected, label):
         raise AssertionError(f'{label}: tailles {a.shape}/{b.shape} ou pixels différents')
 
 
+def _down_uniform_box(source):
+    """Réduction uniforme BOX indépendante du code producteur pour l'audit du brut."""
+    rgb = np.asarray(Image.open(source).convert('RGB'), dtype=np.uint8)
+    h, w = rgb.shape[:2]
+    scale = max(W / w, H / h)
+    scaled = (round(w * scale), round(h * scale))
+    left = (scaled[0] - W) // 2
+    top = (scaled[1] - H) // 2
+    planes = []
+    for channel in range(3):
+        plane = Image.fromarray(rgb[..., channel].astype(np.float32), 'F')
+        resized = np.asarray(plane.resize(scaled, Image.Resampling.BOX), dtype=np.float32)
+        planes.append(resized[top:top + H, left:left + W])
+    return np.clip(np.round(np.stack(planes, axis=-1)), 0, 255).astype(np.uint8)
+
+
+def _reconstruction_metrics(scene, source):
+    reference = _down_uniform_box(source).astype(np.int16)
+    actual = np.asarray(scene.convert('RGB'), dtype=np.int16)
+    error = np.abs(actual - reference)
+    max_channel = error.max(2)
+    return {
+        'mean_absolute_rgb_error': round(float(error.mean()), 3),
+        'mean_max_channel_error': round(float(max_channel.mean()), 3),
+        'p95_max_channel_error': round(float(np.percentile(max_channel, 95)), 2),
+        'pixels_with_max_channel_error_le_8_percent': round(float(100 * np.mean(max_channel <= 8)), 2),
+        'pixels_with_max_channel_error_le_16_percent': round(float(100 * np.mean(max_channel <= 16)), 2),
+    }
+
+
 def verify(pack=STAGE):
     pack = Path(pack).resolve()
     manifest_path = pack / 'manifest.json'
@@ -151,6 +181,7 @@ def verify(pack=STAGE):
         assert not any((pack / 'Content/Tile').glob('*.idx'))
 
     variant_scenes = {}
+    variant_reconstruction = {}
     variant_walk = {}
     variant_blocked = {}
     rendered_total = 0
@@ -192,6 +223,7 @@ def verify(pack=STAGE):
         # Reconstruire chaque calque depuis les .tile (pixels prémultipliés), puis
         # composer les PNG source vérifiés pour contrôler l'aperçu straight-alpha.
         rendered_layers = []
+        native_static_layers = []
         for index, layer_spec in enumerate(spec['layers']):
             assert layer_spec['name'] == EXPECTED_LAYERS[variant_key][index]
             native_layer = obj['Layers'][index]
@@ -205,6 +237,8 @@ def verify(pack=STAGE):
                 _assert_pixels(rendered, expected_image, f"{variant_key}/{layer_spec['name']} phase {phase}")
                 if phase == 0:
                     rendered_layers.append(Image.open(out_dir / relative).convert('RGBA'))
+                    if layer_spec['name'] not in ('feuilles', 'lumieres'):
+                        native_static_layers.append(rendered.convert('RGBA'))
             rendered_total += 1
 
         scene = Image.new('RGBA', (W, H), (0, 0, 0, 0))
@@ -213,6 +247,20 @@ def verify(pack=STAGE):
         scene_path = OUT / spec['review_scene']
         _assert_pixels(scene, Image.open(scene_path), f'composition {variant_key} phase 0')
         variant_scenes[variant_key] = scene
+
+        static_scene = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+        for layer_image in native_static_layers:
+            static_scene.alpha_composite(layer_image)
+        source_record = next(record for record in manifest['raw_inputs'] if record['variant'] == variant_key and record['target'] == ('decor.png' if variant_key == 'jour' else 'decor_nuit.png'))
+        reconstruction = _reconstruction_metrics(static_scene, ROOT / source_record['file'])
+        expected_reconstruction = manifest['reconstruction_from_generated_maps'][variant_key]
+        assert expected_reconstruction['source_size_px'] == [1200, 896]
+        assert expected_reconstruction['render_size_px'] == [W, H]
+        for metric, value in reconstruction.items():
+            assert abs(value - expected_reconstruction[metric]) <= 0.02, (variant_key, metric, value, expected_reconstruction[metric])
+        if reconstruction['mean_absolute_rgb_error'] >= 10:
+            raise AssertionError(f'Reconstruction multicalque trop éloignée du brut {variant_key}: {reconstruction}')
+        variant_reconstruction[variant_key] = reconstruction
 
         # Vérifier les pierres jour (gris chaud : R >= G >= B) et le plafond alpha des lumières.
         if variant_key == 'jour':
@@ -362,6 +410,7 @@ def verify(pack=STAGE):
         'animation_frames_reconstructed': animation_total,
         'ora_documents_checked': ora_total,
         'pixel_differences': 0,
+        'generated_map_reconstruction': variant_reconstruction,
         'stone_day': 'roches and sanctuaire R >= G >= B (warm neutral gray, no green cast)',
         'stone_night': 'roches and sanctuaire R <= G <= B (cool neutral blue-grey, no green cast)',
         'night_lights': {'alpha_min_positive': night_lights['alpha_min_positive'],

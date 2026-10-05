@@ -542,6 +542,26 @@ def save_ora(path, layers, title='Fin Clairière tropicale (FCT2)'):
         archive.writestr('stack.xml', ET.tostring(root, encoding='utf-8', xml_declaration=True))
 
 
+def reconstruction_metrics(source_rgb, rendered_scene):
+    """Mesurer l'écart de l'assemblage multicalque au brut généré réduit uniformément."""
+    target = JM.down_full(source_rgb).astype(np.int16)
+    actual = np.asarray(rendered_scene.convert('RGB'), dtype=np.int16)
+    if actual.shape != target.shape:
+        raise AssertionError(f'Comparaison de reconstruction incompatible : {actual.shape}/{target.shape}')
+    error = np.abs(actual - target)
+    max_channel = error.max(2)
+    return {
+        'source_size_px': [SRC[0], SRC[1]],
+        'render_size_px': [W, H],
+        'mean_absolute_rgb_error': round(float(error.mean()), 3),
+        'mean_max_channel_error': round(float(max_channel.mean()), 3),
+        'p95_max_channel_error': round(float(np.percentile(max_channel, 95)), 2),
+        'pixels_with_max_channel_error_le_8_percent': round(float(100 * np.mean(max_channel <= 8)), 2),
+        'pixels_with_max_channel_error_le_16_percent': round(float(100 * np.mean(max_channel <= 16)), 2),
+        'comparison': 'assemblage des calques statiques contre image générée réduite BOX à échelle uniforme ; palettes matière et neutralisation pierre peuvent modifier les pixels',
+    }
+
+
 def export_variant_assets(prefix, variant_dir, stack, blocked, markers, exclusive, sprites,
                           *, ora_name, ora_title):
     for folder in ('calques', 'animation/feuilles', 'animation/lumieres', 'masques', 'review', 'poses'):
@@ -808,6 +828,9 @@ def build():
             'size_px': list(Image.open(RAW / entry['target']).size),
             'generator_file': f'source/{LOT}/{entry["source"]}',
             'generator_sha256': prep['generator_sha256'],
+            'variant': entry['variant'],
+            'role': entry['role'],
+            'target': entry['target'],
             'images': entry['images'],
         })
 
@@ -862,6 +885,14 @@ def build():
         PFX_NIGHT, OUT / 'nuit', night_stack, night_blocked, night_markers, night_exclusive, night_sprites,
         ora_name=f'{PFX_NIGHT}_fin_clairiere_tropicale_nuit_calques.ora',
         ora_title='Fin Clairière tropicale — nuit (FCT2N)')
+
+    day_static_stack = [layer for layer in day_stack if layer[0] != 'feuilles']
+    night_static_stack = [layer for layer in night_stack if layer[0] not in ('feuilles', 'lumieres')]
+    reconstruction = {
+        'jour': reconstruction_metrics(decor, composite_scene(day_static_stack, 0)),
+        'nuit': reconstruction_metrics(decor_night, composite_scene(night_static_stack, 0)),
+        'scope': 'comparaison des couches statiques ; animations de feuilles et lumières sont des ajouts au décor généré',
+    }
 
     final_fidelity = {}
     reference_materials = materials(reference)
@@ -1007,9 +1038,10 @@ def build():
             'final_layers_day': final_fidelity,
             'night_comparison': {
                 'applied': False,
-                'reason': 'variante nocturne générée séparément depuis la référence canonique ; étalonnage bleu-vert intentionnel',
+                'reason': 'variante nocturne générée séparément depuis la référence canonique ; palette bleu-vert intentionnelle',
             },
         },
+        'reconstruction_from_generated_maps': reconstruction,
         'layers': day_layers_manifest,
         'animation': day_animation,
         'variants': variants,
@@ -1050,6 +1082,7 @@ def build():
         'night_light_alpha': [light_min_positive, light_max_alpha],
         'fidelity_raw': {k: v['distance'] for k, v in raw_fidelity.items()},
         'fidelity_final_day': {k: v['distance'] for k, v in final_fidelity.items()},
+        'reconstruction': reconstruction,
         'tiles_by_variant': {'jour': day_bank_counts, 'nuit': night_bank_counts},
     }, ensure_ascii=False, indent=2))
 

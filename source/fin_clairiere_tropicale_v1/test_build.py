@@ -70,6 +70,9 @@ class FCT2ProductionTests(unittest.TestCase):
         self.assertEqual(report['native_layers_reconstructed'], 17)
         self.assertEqual(report['animation_frames_reconstructed'], 72)
         self.assertEqual(report['ora_documents_checked'], 2)
+        for metrics in report['generated_map_reconstruction'].values():
+            self.assertLess(metrics['mean_absolute_rgb_error'], 10)
+            self.assertGreater(metrics['pixels_with_max_channel_error_le_8_percent'], 80)
         self.assertFalse(report['pmdo_engine_or_dotnet_tested'])
         self.assertTrue(report['installer']['index_merge'])
         self.assertTrue(report['installer']['both_variants_installed'])

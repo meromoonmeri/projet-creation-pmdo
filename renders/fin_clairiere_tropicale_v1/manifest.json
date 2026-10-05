@@ -196,6 +196,9 @@
       ],
       "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
       "generator_sha256": "deeaf5e233a90882610ee52d98ed7a45b8f6d37a0add03d3fc56d4f0c771bac0",
+      "variant": "jour",
+      "role": "illustration standalone complète",
+      "target": "decor.png",
       "images": [
         "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
       ]
@@ -209,6 +212,9 @@
       ],
       "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2_sol_complet_genere.png",
       "generator_sha256": "ce7308a57706a00d7ec75f384b5d09969b5173b110ce0f8e23bb8a7413e9a828",
+      "variant": "jour",
+      "role": "sous-sol complet généré",
+      "target": "sol_complet.png",
       "images": [
         "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
         "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
@@ -223,6 +229,9 @@
       ],
       "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
       "generator_sha256": "c7047554c0ab52572e37af6d948d2f31c25fa9e5955c3689b0d0dc1ad2cf372b",
+      "variant": "nuit",
+      "role": "illustration standalone complète, lumière séparée",
+      "target": "decor_nuit.png",
       "images": [
         "source/fin_clairiere_tropicale_v1/generation/FCT2_jour_genere.png",
         "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
@@ -237,6 +246,9 @@
       ],
       "generator_file": "source/fin_clairiere_tropicale_v1/generation/FCT2N_sol_complet_genere.png",
       "generator_sha256": "7beed5177ccebdf7c2dc8d927afbec9adbe99e7ee69293f30c846a167b3cd9ac",
+      "variant": "nuit",
+      "role": "sous-sol complet nocturne généré",
+      "target": "sol_complet_nuit.png",
       "images": [
         "source/fin_clairiere_tropicale_v1/generation/FCT2N_nuit_genere.png",
         "source/fin_clairiere_tropicale_v1/reference/D54P32A.png"
@@ -650,8 +662,43 @@
     },
     "night_comparison": {
       "applied": false,
-      "reason": "variante nocturne générée séparément depuis la référence canonique ; étalonnage bleu-vert intentionnel"
+      "reason": "variante nocturne générée séparément depuis la référence canonique ; palette bleu-vert intentionnelle"
     }
+  },
+  "reconstruction_from_generated_maps": {
+    "jour": {
+      "source_size_px": [
+        1200,
+        896
+      ],
+      "render_size_px": [
+        768,
+        576
+      ],
+      "mean_absolute_rgb_error": 3.298,
+      "mean_max_channel_error": 5.128,
+      "p95_max_channel_error": 19.0,
+      "pixels_with_max_channel_error_le_8_percent": 88.49,
+      "pixels_with_max_channel_error_le_16_percent": 94.46,
+      "comparison": "assemblage des calques statiques contre image générée réduite BOX à échelle uniforme ; palettes matière et neutralisation pierre peuvent modifier les pixels"
+    },
+    "nuit": {
+      "source_size_px": [
+        1200,
+        896
+      ],
+      "render_size_px": [
+        768,
+        576
+      ],
+      "mean_absolute_rgb_error": 2.391,
+      "mean_max_channel_error": 3.949,
+      "p95_max_channel_error": 12.0,
+      "pixels_with_max_channel_error_le_8_percent": 91.51,
+      "pixels_with_max_channel_error_le_16_percent": 97.77,
+      "comparison": "assemblage des calques statiques contre image générée réduite BOX à échelle uniforme ; palettes matière et neutralisation pierre peuvent modifier les pixels"
+    },
+    "scope": "comparaison des couches statiques ; animations de feuilles et lumières sont des ajouts au décor généré"
   },
   "layers": [
     {
