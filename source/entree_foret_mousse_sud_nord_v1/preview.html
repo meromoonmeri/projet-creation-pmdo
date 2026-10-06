@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EFM1 · Entrée de la Forêt Moussa</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0f1410; --panel:#1a2019; --line:#2e3a2d; --accent:#6bcf73; --muted:#a8b5a8; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(ellipse at 55% -20%, #243326, var(--bg) 62%); color:#e6f1e6; font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:1550px; padding:28px clamp(16px,3vw,42px) 42px; margin:auto; }
+    header { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin:0 0 18px; }
+    h1 { margin:0; font-size:clamp(22px,3vw,34px); letter-spacing:.01em; }
+    .eyebrow { color:#7fd47f; text-transform:uppercase; letter-spacing:.14em; font-size:11px; font-weight:700; }
+    .sub { color:var(--muted); margin:.35rem 0 0; }
+    .badge { border:1px solid #3a5a3a; color:#a8e6a8; background:#1d2f1d; border-radius:999px; padding:7px 11px; white-space:nowrap; font-size:12px; }
+    .workspace { display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:16px; align-items:start; }
+    .stage,.panel { background:rgba(26,32,25,.94); border:1px solid var(--line); border-radius:14px; box-shadow:0 18px 55px #0006; }
+    .stage { padding:12px; overflow:hidden; }
+    canvas { display:block; width:100%; height:auto; image-rendering:pixelated; image-rendering:crisp-edges; background:#1a241a; border-radius:7px; }
+    .stage-foot { display:flex; justify-content:space-between; gap:12px; padding:10px 3px 1px; color:var(--muted); font-size:12px; }
+    .panel { padding:16px; }
+    .panel h2 { margin:0 0 8px; font-size:15px; }
+    .panel p { margin:0 0 15px; color:var(--muted); font-size:12px; }
+    .toggles { display:grid; gap:8px; }
+    label { display:flex; align-items:center; gap:9px; cursor:pointer; font-size:13px; }
+    input[type=checkbox] { accent-color:var(--accent); width:15px; height:15px; margin:0; }
+    .control { width:100%; padding:9px 10px; margin:11px 0 0; border:1px solid #3a5a3a; border-radius:8px; color:#e0f0d0; background:#243326; cursor:pointer; font:inherit; font-size:13px; }
+    .control:hover { background:#2e4a2d; }
+    .rule { height:1px; background:var(--line); margin:15px 0; }
+    .meta { display:grid; gap:7px; color:var(--muted); font-size:12px; }
+    .meta strong { color:#d8ecd8; font-weight:600; }
+    .legend { display:flex; flex-wrap:wrap; gap:10px; margin-top:13px; font-size:11px; color:var(--muted); }
+    .dot { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px; vertical-align:-1px; }
+    footer { max-width:1000px; margin:16px auto 0; color:#8a9a8a; font-size:11px; }
+    @media (max-width:900px) { .workspace { grid-template-columns:1fr; } .panel { order:-1; } .toggles { grid-template-columns:repeat(2,minmax(0,1fr)); } header { align-items:flex-start; flex-direction:column; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <div class="eyebrow">PMDO · carte de travail · EFM1 — 100% canonique multilayer</div>
+      <h1>Entrée de la Forêt Moussa</h1>
+      <p class="sub">Entrée sud → seuil de grotte au nord · 768 × 576 px · grille 96 × 72 · un seul modèle générateur</p>
+    </div>
+    <div class="badge">Animation spores : 24 phases · 120 ticks · 2 s</div>
+  </header>
+  <section class="workspace">
+    <div class="stage">
+      <canvas id="map" width="768" height="576" aria-label="Prévisualisation Forêt Moussa"></canvas>
+      <div class="stage-foot"><span id="status">Chargement des calques…</span><span>Échelle native · rendu net · textures D24P11A</span></div>
+    </div>
+    <aside class="panel">
+      <h2>Calques multilayer pro</h2>
+      <p>Chaque calque est une texture canonique séparée. Le sol complet est la base.</p>
+      <div class="toggles" id="toggles"></div>
+      <button class="control" id="play">⏸ Mettre l'animation en pause</button>
+      <button class="control" id="collision">Afficher collisions et marqueurs</button>
+      <div class="rule"></div>
+      <div class="meta">
+        <div><strong>Arrivée</strong> · sud · x 376, y 536</div>
+        <div><strong>Seuil</strong> · nord · x 376, y 144</div>
+        <div><strong>Passage</strong> · chemin 16 × 16 px testé</div>
+        <div><strong>Référence</strong> · PMD Sky D24P11A · distance 7.1 &lt; 35</div>
+        <div><strong>Palette</strong> · 96 couleurs MEDIANCUT sans dither</div>
+        <div><strong>État</strong> · art_approved false · runtime à tester en jeu</div>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:#ffeb2d"></i>entrée</span>
+        <span><i class="dot" style="background:#41dcff"></i>seuil</span>
+        <span><i class="dot" style="background:#dc3030"></i>blocage</span>
+      </div>
+    </aside>
+  </section>
+  <footer>Textures 100% canonique multilayer façon spriter pro : chaque calque est une matière D24P11A isolée sans mélange, quantifiée avec palette commune. Composition générée avec un seul modèle et référencée, non natives certifiées. Le marqueur donjon_seuil n'a ni warp ni destination.</footer>
+</main>
+<script>
+(() => {
+  const canvas = document.getElementById('map');
+  const ctx = canvas.getContext('2d', { alpha: true });
+  const status = document.getElementById('status');
+  const collisionSource = '../review/EFM1_collisions_marqueurs.png';
+  const layers = [
+    { id:'sol_complet', label:'00 · Sol complet', src:'../calques/EFM1_00_sol_complet.png' },
+    { id:'mousse', label:'01 · Tapis mousse', src:'../calques/EFM1_01_mousse.png' },
+    { id:'sentier', label:'02 · Sentier pavé', src:'../calques/EFM1_02_sentier.png' },
+    { id:'ombres', label:'03 · Ombres douces', src:'../calques/EFM1_03_ombres.png' },
+    { id:'rochers', label:'04 · Rochers mousseux', src:'../calques/EFM1_04_rochers.png' },
+    { id:'fleurs', label:'05 · Fleurs', src:'../calques/EFM1_05_fleurs.png' },
+    { id:'parois', label:'06 · Parois / Troncs', src:'../calques/EFM1_06_parois.png' },
+    { id:'caverne', label:'07 · Caverne', src:'../calques/EFM1_07_caverne.png' },
+    { id:'spores', label:'08 · Spores animées', frames:Array.from({length:24},(_,i)=>`../animation/spores/EFM1_08_spores_f${String(i).padStart(2,'0')}.png`) },
+    { id:'top', label:'09 · Top vide', src:'../calques/EFM1_08_top.png' }
+  ];
+  const imageCache = new Map();
+  const loadedImages = new Map();
+  const enabled = new Map(layers.map(layer => [layer.id, true]));
+  let collisionMode = false, playing = true, phase = 0;
+  const load = src => {
+    if (!imageCache.has(src)) {
+      const image = new Image();
+      imageCache.set(src, new Promise((resolve,reject) => {
+        image.onload=()=>{ loadedImages.set(src,image); resolve(image); };
+        image.onerror=reject;
+        image.src = src;
+      }));
+    }
+    return imageCache.get(src);
+  };
+  const allSources = layers.flatMap(layer => layer.frames || [layer.src]).concat([collisionSource]);
+  Promise.all(allSources.map(src => load(src))).then(() => {
+    status.textContent = 'Calques chargés · multilayer canonique 96c · aperçu net';
+    render();
+  }).catch(error => { status.textContent = 'Erreur chargement'; console.error(error); });
+  layers.forEach(layer => {
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.checked = true;
+    checkbox.addEventListener('change', () => { enabled.set(layer.id, checkbox.checked); render(); });
+    label.append(checkbox, document.createTextNode(layer.label));
+    document.getElementById('toggles').append(label);
+  });
+  function render() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if (collisionMode) {
+      const image = loadedImages.get(collisionSource);
+      if (image) ctx.drawImage(image,0,0);
+      return;
+    }
+    for (const layer of layers) {
+      if (!enabled.get(layer.id)) continue;
+      const src = layer.frames ? layer.frames[phase] : layer.src;
+      const image = loadedImages.get(src);
+      if (image) ctx.drawImage(image,0,0);
+    }
+  }
+  document.getElementById('play').addEventListener('click', event => {
+    playing = !playing;
+    event.currentTarget.textContent = playing ? '⏸ Mettre l’animation en pause' : '▶ Reprendre l’animation';
+  });
+  document.getElementById('collision').addEventListener('click', event => {
+    collisionMode = !collisionMode;
+    event.currentTarget.textContent = collisionMode ? 'Revenir aux calques' : 'Afficher collisions et marqueurs';
+    render();
+  });
+  setInterval(() => { if (playing && !collisionMode) { phase=(phase+1)%24; render(); } }, 83);
+})();
+</script>
+</body>
+</html>

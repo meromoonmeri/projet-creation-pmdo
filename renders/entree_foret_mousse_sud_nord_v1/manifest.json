@@ -1,0 +1,260 @@
+{
+  "lot": "entree_foret_mousse_sud_nord_v1",
+  "title": "Entree Foret Moussa - foret a racines",
+  "prefix": "EFM1",
+  "namespace": "entree_foret_mousse",
+  "asset": "efm1_entree_foret_mousse",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "reference": {
+    "code": "D24P11A",
+    "source": "pret/pmd-sky via source/outil_maps_pmdsky",
+    "commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+    "identification": "code ROM only; foret a racines (mossy forest with twisting roots, dense canopy)",
+    "dimensions": [
+      504,
+      432
+    ],
+    "note": "Fidele a la palette mousse/racines de la reference, layout entierement nouveau"
+  },
+  "reference_fidelity": {
+    "metric": "euclidienne RGB moyenne mousse vs reference D24P11A",
+    "reference_mean": [
+      83.7,
+      118.9,
+      40.4
+    ],
+    "moss_mean": [
+      84.6,
+      119.4,
+      47.4
+    ],
+    "distance": 7.1,
+    "threshold": 35,
+    "pass": true,
+    "interpretation": "mesure indicative de fidelite matiere, pas preuve pixel natif"
+  },
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation with D24P11A as visual reference (single generator model)",
+      "prompt": "Create ONE standalone overhead game-map composition, not a collage or UI. Treat the attached PMD reference ONLY as a guide for its deep moss-green grass, gnarled brown tree roots with fluffy green crowns, stone cobble path beige, small grey mossy rocks, and crisp Pokemon Mystery Dungeon pixel-art language; invent a wholly new layout. Landscape 4:3 composition, 1200 by 896 pixels, wide and zoomed out, strict top-down orthographic view, readable at native 8-pixel tile scale. A new forest entrance map: the player enters from the south/lower-center, follows a clear stone cobble path with two gentle bends northward, then reaches one dark arched cave threshold at the upper-center. Keep a continuous uncluttered corridor at least three tiles wide; roots, trees and rocks never block it. Build a distinctive asymmetric forest: dense lush mossy ground cover, scattered small grey stones, gnarled ancient trees with round lollipop canopies and twisting exposed roots, tiny pink and yellow flowers, subtle dappled light. Give the northern cave mouth a readable deep static shadow under knotted roots, not a portal or door. The map's landmass reaches all four image edges behind the dense tree walls, so no transparent border. Use deep moss green, forest green, bark brown, stone beige and soft flower accents faithfully related to the reference palette; do not copy its exact composition. Clean hard pixel clusters, no blur, no antialiasing, no painterly gradients. Absolutely no characters, signs, text, labels, UI, border, watermark, water, lava, snow, ice, crystals. No magenta in the artwork itself.",
+      "selected_option": 2,
+      "size_px": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image edit of decor with D24P11A as material guide (single generator model)",
+      "prompt": "Edit the supplied map composition to create its matching full-floor companion image. Image 1 is the forest entrance layout you just created; Image 2 is the PMD reference with moss palette. Preserve Image 1's exact 4:3 canvas, dimensions 1200 by 896, framing, pixel-art style, and deep moss-green palette. Replace every tree crown, trunk, exposed root, rock pile, flower, and the dark cave opening with continuous lush mossy forest floor; extend the same fine mossy grass texture and subtle wear marks naturally beneath all former objects. The entire image must be floor only, edge to edge, with slight variations in moss tone and scattered tiny ground speckles. Keep the main floor tone and texture consistent with the map and PMD reference. No trees, roots, rocks, flowers, cave mouth, shadows, water, magenta, text, border, blur, crop, camera change, perspective change. This is a separate aligned source layer, not a new layout.",
+      "size_px": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/entree_foret_mousse_sud_nord_v1/bruts/decor.png",
+      "sha256": "1f5a24a6974966c6e7a04a2ef85d2d30b92e586b7674e5f1178c40c4fd29b17f",
+      "size_px": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_mousse_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "5b71670f745ca6c46f1a6edf6f073d852a5b1b5af318697dae30670286040a8c",
+      "size_px": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "normalization": {
+    "decor": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad 2px top/bottom edge, then uniform BOX 0.64, aucun etirement"
+    },
+    "sol_complet": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad 2px top/bottom edge, then uniform BOX 0.64, aucun etirement"
+    },
+    "palette_colors": 96,
+    "dither": false
+  },
+  "segmentation": {
+    "floor_outline_pixels": 263252,
+    "walkable_pixels": 261391,
+    "cave_pixels": 1861,
+    "path_pixels": 16223,
+    "moss_pixels": 196111,
+    "shadow_pixels": 46624,
+    "rock_pixels": 2023,
+    "flower_pixels": 410,
+    "shadow_cut": 72.03,
+    "roi_rocks": 6
+  },
+  "layers": [
+    {
+      "name": "00_sol_complet",
+      "file": "calques/EFM1_00_sol_complet.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 0
+    },
+    {
+      "name": "01_mousse",
+      "file": "calques/EFM1_01_mousse.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 1
+    },
+    {
+      "name": "02_sentier",
+      "file": "calques/EFM1_02_sentier.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 2
+    },
+    {
+      "name": "03_ombres",
+      "file": "calques/EFM1_03_ombres.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 3
+    },
+    {
+      "name": "04_rochers",
+      "file": "calques/EFM1_04_rochers.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 4
+    },
+    {
+      "name": "05_fleurs",
+      "file": "calques/EFM1_05_fleurs.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 5
+    },
+    {
+      "name": "06_parois",
+      "file": "calques/EFM1_06_parois.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 6
+    },
+    {
+      "name": "07_caverne",
+      "file": "calques/EFM1_07_caverne.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 7
+    },
+    {
+      "name": "08_spores",
+      "file": "animation/spores/EFM1_08_spores_fNN.png",
+      "phases": 24,
+      "frame_length_ticks": 5,
+      "order": 8
+    },
+    {
+      "name": "09_top",
+      "file": "calques/EFM1_08_top.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 9,
+      "ground_layer": 4
+    }
+  ],
+  "animation": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "loop_ticks": 120,
+    "loop_seconds_at_60hz": 2.0,
+    "origin": "spores forestieres originales, pas cycle officiel"
+  },
+  "access": {
+    "entry_cell_yx": [
+      67,
+      47
+    ],
+    "threshold_cell_yx": [
+      18,
+      47
+    ],
+    "entry_px": [
+      376,
+      536
+    ],
+    "threshold_px": [
+      376,
+      144
+    ],
+    "path_found_16x16": true,
+    "path_cells": 50,
+    "cells_explored": 2245,
+    "blocked_cells": 2877,
+    "walkable_cells": 4035,
+    "rule": "case bloquee si >=25% pixels hors praticable; empreinte 16x16"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "EFM1_00_00_SOL_COMPLET": 6913,
+      "EFM1_01_01_MOUSSE": 4132,
+      "EFM1_02_02_SENTIER": 479,
+      "EFM1_03_03_OMBRES": 1829,
+      "EFM1_04_04_ROCHERS": 114,
+      "EFM1_05_05_FLEURS": 28,
+      "EFM1_06_06_PAROIS": 2870,
+      "EFM1_07_07_CAVERNE": 33,
+      "EFM1_08_08_SPORES": 87
+    },
+    "runtime_tested": false,
+    "warp": null
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Textures 100% canonique multilayer spriter pro: palette D24P11A mesuree, calques separes sans recoloration, 96 couleurs MEDIANCUT sans dither.",
+    "Un seul modele generateur utilise pour decor et sol, conforme demande.",
+    "Segmentation pro par seuils mesures et polygone clairiere, verification partition exclusive.",
+    "Marqueur donjon_seuil sans warp."
+  ]
+}

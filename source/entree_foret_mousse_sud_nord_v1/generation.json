@@ -1,0 +1,31 @@
+{
+  "lot": "entree_foret_mousse_sud_nord_v1",
+  "prefix": "EFM1",
+  "reference": {
+    "code": "D24P11A",
+    "source": "pret/pmd-sky via source/outil_maps_pmdsky",
+    "commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+    "identification": "code ROM only; foret a racines (mossy forest with twisting roots, dense canopy)",
+    "dimensions": [504, 432],
+    "note": "Fidele a la palette mousse/racines de la reference, layout entierement nouveau"
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation with D24P11A as visual reference (single generator model)",
+      "prompt": "Create ONE standalone overhead game-map composition, not a collage or UI. Treat the attached PMD reference ONLY as a guide for its deep moss-green grass, gnarled brown tree roots with fluffy green crowns, stone cobble path beige, small grey mossy rocks, and crisp Pokemon Mystery Dungeon pixel-art language; invent a wholly new layout. Landscape 4:3 composition, 1200 by 896 pixels, wide and zoomed out, strict top-down orthographic view, readable at native 8-pixel tile scale. A new forest entrance map: the player enters from the south/lower-center, follows a clear stone cobble path with two gentle bends northward, then reaches one dark arched cave threshold at the upper-center. Keep a continuous uncluttered corridor at least three tiles wide; roots, trees and rocks never block it. Build a distinctive asymmetric forest: dense lush mossy ground cover, scattered small grey stones, gnarled ancient trees with round lollipop canopies and twisting exposed roots, tiny pink and yellow flowers, subtle dappled light. Give the northern cave mouth a readable deep static shadow under knotted roots, not a portal or door. The map's landmass reaches all four image edges behind the dense tree walls, so no transparent border. Use deep moss green, forest green, bark brown, stone beige and soft flower accents faithfully related to the reference palette; do not copy its exact composition. Clean hard pixel clusters, no blur, no antialiasing, no painterly gradients. Absolutely no characters, signs, text, labels, UI, border, watermark, water, lava, snow, ice, crystals. No magenta in the artwork itself.",
+      "selected_option": 2,
+      "size_px": [1200, 896]
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image edit of decor with D24P11A as material guide (single generator model)",
+      "prompt": "Edit the supplied map composition to create its matching full-floor companion image. Image 1 is the forest entrance layout you just created; Image 2 is the PMD reference with moss palette. Preserve Image 1's exact 4:3 canvas, dimensions 1200 by 896, framing, pixel-art style, and deep moss-green palette. Replace every tree crown, trunk, exposed root, rock pile, flower, and the dark cave opening with continuous lush mossy forest floor; extend the same fine mossy grass texture and subtle wear marks naturally beneath all former objects. The entire image must be floor only, edge to edge, with slight variations in moss tone and scattered tiny ground speckles. Keep the main floor tone and texture consistent with the map and PMD reference. No trees, roots, rocks, flowers, cave mouth, shadows, water, magenta, text, border, blur, crop, camera change, perspective change. This is a separate aligned source layer, not a new layout.",
+      "size_px": [1200, 896]
+    }
+  ],
+  "art_approved": false,
+  "runtime_tested": false,
+  "generator": "single Arena image generation model, multilayer pro spriter workflow"
+}
