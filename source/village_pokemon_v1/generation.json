@@ -1,0 +1,54 @@
+{
+  "lot": "village_pokemon_v1",
+  "prefix": "VIL1",
+  "type": "grand village Pokémon style Treasure Town",
+  "user_direction": {
+    "verbatim": "proposer un grand layout de village Pokémon avec textures canoniques, maisons style T00P02/T00P03, en plusieurs layers",
+    "interpreted_constraints": [
+      "grand layout de village (T00P02/T00P03 canoniques, ROM pret/pmd-sky)",
+      "maisons style T00 (halle de guilde au toit rouge, tentes, maisonnettes, échoppes)",
+      "plusieurs layers (10 calques + Top)",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)",
+      "VFX GÉNÉRÉS (eau de la mare générée, album 908 en référence)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, ports t00p02/t00p03 en référence (images=)",
+      "prompt_summary": "Mêmes textures, palette et style pixel-art que les références (village Treasure Town) ; NOUVEAU plan large 4:3 (1200×896) : arrivée au sud par un chemin sableux, placette ronde centrale avec petite mare MAGENTA plate (255,0,255, sans texture), grande halle de guilde jaune au toit rouge et tapis rouge au nord, deux tentes (rose, verte) à l'ouest, dôme de pierre gris et échoppe de bois à l'est, arbres ronds, barrières, étals, fleurs, falaises et forêt dense en bordure ; ni eau texturée, ni personnages, ni texte.",
+      "source_px": [1200, 896],
+      "attempts": 1,
+      "note": "conforme du premier essai (halle au nord, tentes et échoppes, mare magenta)"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, port t00p02 et décor en référence (images=)",
+      "prompt_summary": "Herbe de prairie jaune-vert vif seule, plein cadre 4:3, touffes et texture uniforme ; ni chemins, ni maisons, ni arbres, ni eau, ni magenta.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/eau.png",
+      "method": "image generation, port t00p02 en référence (images=)",
+      "prompt_summary": "Eau de mare calme bleu clair à vaguelettes, plein cadre 4:3, uniforme ; ni sable, ni herbe, ni maisons, ni magenta.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/temoin_sans_maisons.png",
+      "method": "image editing, décor en référence (images=decor.png)",
+      "prompt_summary": "Même image : retirer halle, tentes, dôme, échoppe, tipi, arbres et mare magenta (herbe à la place, sable de la placette à la place de la mare) ; garder chemins, falaises, barrières, étals, fleurs ; aucun magenta. Témoin de segmentation recalé (0,0), jamais exporté.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    }
+  ],
+  "segmentation": {
+    "method": "écart décor/témoin + règles couleur (rouge des tapis à voisins sable hors bâti, vert des arbres, brun du bois, gris des falaises relié au bord)",
+    "iterations": [
+      "v1 : toit pollué par le magenta de la mare dans la fidélité (44,1) → magenta exclu des deux côtés",
+      "v2 : rive de la mare rendue à la place, tapis resserré (voisins sable hors bâti, pleine image), composantes mixtes découpées au pixel, miettes adjacentes aux maisons absorbées, couche rochers supprimée"
+    ],
+    "result": "maisons (halle, tente, tipi, dômes, échoppe), arbres, tapis (halle + tente), mare fleurie bloquée, partition exacte"
+  }
+}
