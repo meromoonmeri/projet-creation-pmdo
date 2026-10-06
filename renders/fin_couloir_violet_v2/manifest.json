@@ -1,0 +1,337 @@
+{
+  "lot": "fin_couloir_violet_v2",
+  "title": "Fin Couloir violet — arène rocheuse naturelle",
+  "prefix": "FCV2",
+  "namespace": "fin_couloir_violet",
+  "asset": "fcv2_fin_couloir_violet",
+  "type": "fin de donjon / arène naturelle",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "créer la carte suivante après FTL1 : Fin Couloir violet; tester, empaqueter et documenter sans modifier les cartes précédentes",
+  "agent_choices": {
+    "reference": "rip rendu de l'entrée S05P03A, car aucune capture de la salle finale n'a été trouvée dans ce checkout ou sur la branche sœur consultée",
+    "layout": "entrée sud, vaste arène centrale, petit autel de roche au nord comme point d'objectif",
+    "prefix": "FCV2",
+    "prefix_status": "FCV1 était déjà réservé; FCV2, d'abord contrôlé dans main et la tête sœur, a ensuite été re-vérifié dans main et les deux têtes arena distantes disponibles avant empaquetage; aucune collision trouvée",
+    "biome": "prolongement rocheux violet guidé par S05P03A; intitulé de travail, pas une désignation canonique de l'utilisateur"
+  },
+  "generation": {
+    "lot": "fin_couloir_violet_v2",
+    "prefix": "FCV2",
+    "type": "fin de donjon / arène naturelle",
+    "queue_source": "REPRISE_MAPS.md : Couloir violet est indiqué après FTL1",
+    "agent_choices": {
+      "reference": "rendu de la carte d'entrée S05P03A; aucune capture de la vraie salle finale trouvée dans le checkout ou les références distantes disponibles",
+      "layout": "passage d'arrivée au sud, grande arène ouverte au centre, autel de roche discret au nord",
+      "prefix": "FCV2; choix de l'agent après contrôle initial de main et de la tête sœur, puis re-vérification de main et des deux têtes Arena distantes disponibles avant empaquetage; FCV1 était déjà réservé",
+      "canonical_status": "nom de biome, disposition, objectif et préfixe sont des choix de travail, pas des décisions canoniques de l'utilisateur"
+    },
+    "reference_context": {
+      "map_code": "S05P03A",
+      "map_role": "couloir d'entrée rocheux violet",
+      "repository": "https://github.com/pret/pmd-sky",
+      "pinned_commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+      "renderer": "source/outil_maps_pmdsky/recuperer_maps.py avec skytemple-files 1.8.5",
+      "file": "reference/S05P03A.png",
+      "sha256": "96b073db0f03852e5dbb5fe9cf536642f3b8fe38ed72df7d32cdcc56b35de4ce",
+      "source_px": [
+        312,
+        720
+      ],
+      "render_metadata": {
+        "frames": 1,
+        "frames_kept": 1,
+        "bpa_loaded": 0,
+        "layers": 1,
+        "collision": false,
+        "palette_animation": false
+      },
+      "final_room_capture_found": false,
+      "limitation": "La composition finale est générée à partir du rip d'entrée; elle n'est pas une capture canonique ni une copie des pixels de la ROM."
+    },
+    "images": [
+      {
+        "file": "bruts/decor.png",
+        "method": "génération d'image avec le rendu S05P03A passé comme référence",
+        "source_images": [
+          "reference/S05P03A.png"
+        ],
+        "selected_option": null,
+        "user_selected": false,
+        "prompt": "Create ONE standalone full-frame video-game map composition, not a collage or sheet. Use the supplied Pokémon Mystery Dungeon S05P03A image as the authoritative material and palette reference: mottled muted mauve-violet cave floor, rounded stacked indigo/blue-violet boulders with restrained lilac highlights, deep dark-violet crevices, and dark blue horizontally striated cliff rock. Preserve that exact cozy pixel-art material language; do not introduce a new biome. Landscape 4:3 composition, target 1200 by 896 pixels, top-down orthographic PMD map, crisp low-resolution pixel clusters with no blur or antialiasing. This is the FINAL chamber at the end of the violet cave, not the entry: a narrow natural mauve-rock passage arrives from the SOUTH edge and opens into a large broad, almost round, uncluttered central boss arena; the playable mauve floor forms one continuous clear route from south to the arena and onward to a small northern objective alcove. The chamber is enclosed by thick layered boulder walls at both sides and a continuous CLOSED rock wall across the whole NORTH edge. At the north, place a small low dark-violet carved stone altar/cairn recessed into the rock, made of the same ordinary boulders and carved stone, a quiet objective focal point with no glowing magic. Keep the center spacious and readable, with only a few low boulder clusters around the outer rim, not blocking the route. Natural irregular cave floor, subtly marbled like the reference, no pavement. No crystals, gemstones, crystal spikes, water, lava, tiles, paving slabs, checkerboard, stairs, portal, doorway, cave opening, black hole, exit, characters, creatures, text, symbols, UI, frame, or watermark. The top edge must be completely closed by rock; the southern passage must be visible as continuous floor, not a dark hole."
+      },
+      {
+        "file": "bruts/sol_complet.png",
+        "method": "génération d'image avec le rendu S05P03A passé comme référence",
+        "source_images": [
+          "reference/S05P03A.png"
+        ],
+        "selected_option": null,
+        "user_selected": false,
+        "prompt": "Using the supplied violet cave-map only as a palette and material reference, generate one seamless-looking full-frame texture of EMPTY cave floor. Landscape 4:3, same fine crisp pixel-art scale. Fill every edge with uninterrupted muted mauve-violet mottled stone ground, subtle blue-lilac flecks, no visible horizon, no lighting vignette, no repeated large motif. Absolutely no walls, cliffs, boulders, stones, pebbles, altar, plants, objects, shadows, borders, tiles, text, or openings."
+      }
+    ],
+    "art_approved": false,
+    "runtime_tested": false
+  },
+  "inputs": [
+    {
+      "file": "source/fin_couloir_violet_v2/bruts/decor.png",
+      "sha256": "dcd9d8268c04168fe5cbcda24727dcedefd0c0bcbd01e1a4eb07251316ea43fa",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition générée avec le rip en référence"
+    },
+    {
+      "file": "source/fin_couloir_violet_v2/bruts/sol_complet.png",
+      "sha256": "83a6ba5508659fc16fb3acc55a98ed277fe3e8f15fc2b3546c76a5e053a98a25",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "fond de sol complet généré pour ce cadrage"
+    },
+    {
+      "file": "source/fin_couloir_violet_v2/reference/S05P03A.png",
+      "sha256": "96b073db0f03852e5dbb5fe9cf536642f3b8fe38ed72df7d32cdcc56b35de4ce",
+      "size_px": [
+        312,
+        720
+      ],
+      "role": "rendu PMD-Sky de la carte d'entrée S05P03A, conservé comme référence"
+    }
+  ],
+  "normalization": {
+    "decor": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "output_px": [
+        768,
+        576
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad par répétition des bords de 2 px haut/bas, puis réduction BOX uniforme; aucun étirement"
+    },
+    "sol_complet": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "output_px": [
+        768,
+        576
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad par répétition des bords de 2 px haut/bas, puis réduction BOX uniforme; aucun étirement"
+    },
+    "shared_palette_limit": 96,
+    "shared_palette_colors_used": 96,
+    "dither": false,
+    "reference_fidelity": {
+      "method": "mean RGB Euclidean distance; source sample is the unobstructed corridor x=120:190,y=280:620; generated sample is the open arena x=230:540,y=190:410",
+      "reference_map": "S05P03A",
+      "reference_sample_ltrb": [
+        120,
+        280,
+        190,
+        620
+      ],
+      "generated_sample_ltrb": [
+        230,
+        190,
+        540,
+        410
+      ],
+      "reference_floor_rgb": [
+        94.23,
+        80.56,
+        115.14
+      ],
+      "generated_floor_rgb": [
+        93.85,
+        79.8,
+        113.55
+      ],
+      "generated_floor_distance": 1.8,
+      "full_floor_base_rgb": [
+        91.11,
+        77.23,
+        108.14
+      ],
+      "full_floor_base_distance": 8.35,
+      "threshold": 35.0,
+      "generated_floor_pass": true,
+      "full_floor_base_pass": true,
+      "note": "Mesure de cohérence de matière/couleur, pas une preuve de copie pixel à pixel."
+    }
+  },
+  "segmentation": {
+    "floor_outline": "polygone du sol intérieur relevé sur le rendu 768x576; aucun pixel source n'est repeint",
+    "collision_geometry": {
+      "method": "contour intérieur du sol + empreintes polygonales des blocs majeurs et de l'autel; gravillons mineurs praticables",
+      "manual_coordinates": true,
+      "major_obstacles": [
+        "autel_nord",
+        "blocs_nord_ouest",
+        "blocs_nord_est",
+        "blocs_ouest",
+        "blocs_est",
+        "eboulis_sud_ouest",
+        "eboulis_sud_est"
+      ],
+      "floor_outline_pixels": 198188,
+      "major_obstacle_pixels_inside_floor": 22853,
+      "walkable_pixels": 175335,
+      "blocked_pixels": 267033
+    },
+    "shadows": {
+      "method": "sol praticable sous le 25e percentile de luminance et écart-type local 5x5 > 2; détail décoratif praticable",
+      "luminance_cutoff": 79.18,
+      "pixels": 43653
+    },
+    "visual_partition": {
+      "sol": 131682,
+      "ombres": 43653,
+      "parois": 267033
+    },
+    "obstacle_polygon_pixel_counts_unclipped": {
+      "autel_nord": 2537,
+      "blocs_nord_ouest": 4804,
+      "blocs_nord_est": 5094,
+      "blocs_ouest": 4447,
+      "blocs_est": 4326,
+      "eboulis_sud_ouest": 2747,
+      "eboulis_sud_est": 3961
+    }
+  },
+  "layers": [
+    {
+      "name": "00_sol_complet",
+      "file": "calques/FCV2_00_sol_complet.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 0
+    },
+    {
+      "name": "01_sol",
+      "file": "calques/FCV2_01_sol.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 1
+    },
+    {
+      "name": "02_ombres",
+      "file": "calques/FCV2_02_ombres.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 2
+    },
+    {
+      "name": "03_parois",
+      "file": "calques/FCV2_03_parois.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 3
+    },
+    {
+      "name": "04_top",
+      "file": "calques/FCV2_04_top.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 4,
+      "ground_layer": 4
+    }
+  ],
+  "access": {
+    "entry_cell_yx": [
+      68,
+      47
+    ],
+    "boss_cell_yx": [
+      34,
+      48
+    ],
+    "objective_cell_yx": [
+      18,
+      47
+    ],
+    "entry_px": [
+      376,
+      544
+    ],
+    "boss_px": [
+      384,
+      272
+    ],
+    "objective_px": [
+      376,
+      144
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "path_boss_cells": 36,
+    "path_objective_cells": 51,
+    "cells_explored_to_boss": 453,
+    "cells_explored_to_objective": 1192,
+    "blocked_cells": 4249,
+    "walkable_cells": 2663,
+    "rule": "case bloquée si au moins 25 % de ses pixels sont hors du masque praticable; empreinte joueur 16x16 px",
+    "boss_rule": "case 2x2 libre la plus proche du centroïde du sol dans la zone centrale",
+    "objective_rule": "case 2x2 libre la plus proche du point cible (x milieu, y=18), sous l'autel nord",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "FCV2_00_00_SOL_COMPLET": 6913,
+      "FCV2_01_01_SOL": 2792,
+      "FCV2_02_02_OMBRES": 2600,
+      "FCV2_03_03_PAROIS": 4249
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Le choix de la référence d'entrée, du layout, de l'autel, du biome de travail et du préfixe FCV2 est celui de l'agent; aucun n'est présenté comme canonique ou explicitement choisi par l'utilisateur.",
+    "Aucune capture de vraie salle finale n'a été trouvée dans le checkout ni sur la branche sœur distante consultée; la référence utilisée est le rip rendu de l'entrée S05P03A.",
+    "Les matériaux sont générés en référence à S05P03A; le contrôle RGB confirme une proximité de teinte, pas une copie pixel à pixel ni des tuiles natives certifiées.",
+    "Le sol est naturel et non carrelé; aucun cristal, personnage, objet de gameplay, warp ou sortie n'est ajouté.",
+    "Les polygones d'obstacles sont des repères d'édition de collision; gravillons et textures ne garantissent pas le passage dans PMDO en jeu.",
+    "Les tests vérifient les artefacts locaux et l'accessibilité géométrique 16x16; le runtime PMDO n'a pas été lancé."
+  ]
+}

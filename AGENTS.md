@@ -1218,3 +1218,14 @@ Pas de runtime. Pas dans le mod unique.
 - **Mutations** vérifiées : boss déplacé sur une paroi (manifeste), pixel rouge dans le sol, poussière modifiée, marqueur `donjon_seuil` ajouté au Ground, masque de blocs modifié. Sauvegarder `renders/` et `.cache/` dans `/tmp` avant, restaurer après.
 - **Limite connue** : les cristaux de parois générés sont plus cyan que le rip (32,1 sur 35) et en motif répétitif ; une régénération ciblée des parois serait la première amélioration.
 
+## Fin Couloir violet — FCV2, ajouts à la recette
+
+- **Référence de fin absente** : rechercher la vraie salle de fin dans le checkout et les têtes distantes avant de générer. Ici, aucune capture finale n'a été trouvée; prendre le rip d'entrée `S05P03A` comme référence de matière, sans prétendre que la composition finale est native.
+- **Récupération sans écraser l'index partagé** : `recuperer_maps.py rom --only S05P03A` écrit aussi `index_rom.json` et les planches. Pour garder le dépôt intact, appeler directement ses fonctions `ensure_clone`, `bg_entries`, `render` et écrire le PNG sous `.cache/`; versionner la copie de référence avec le commit et le SHA-256.
+- **Fidélité de matériau** : échantillonner le couloir propre du rip et le centre dégagé du rendu, mesurer l'écart euclidien des moyennes RGB et publier les boîtes, les valeurs et le seuil. FCV2 : distance 1,8 sous le seuil 35; cette mesure n'est pas une preuve de copie pixel à pixel.
+- **Composition/sol complet** : le générateur accepte mieux une demande courte de sol vide, avec le rip fourni en image de référence, qu'une édition qui tente d'effacer tous les rochers d'un décor. Vérifier que la sortie n'a ni horizon ni bord rocheux avant normalisation.
+- **Géométrie de fin** : tracer un contour intérieur, puis des polygones séparés pour l'autel et les gros massifs de blocs. Tester les chemins de 16 × 16 px et regarder `review/FCV2_collisions_marqueurs.png`; les gravillons restent décoratifs/praticables par choix d'édition.
+- **Choix du marqueur d'objectif** : ne pas prendre mécaniquement la case libre la plus haute si l'alcôve/autel est décentré par une découpe du masque. Cibler le pied de l'objectif, puis tester son accès; FCV2 place le marqueur juste au sud de l'autel.
+- **Préfixe et portée** : `FCV1` étant réservé, FCV2 a été contrôlé initialement dans `main` et la tête sœur, puis re-vérifié dans `main` et les deux têtes Arena distantes disponibles avant empaquetage; aucune collision n'a été trouvée. Le préfixe, le biome et le layout restent des choix de travail de l'agent, pas des décisions canoniques de l'utilisateur.
+- **Validation** : 8 tests, reconstruction des banques `.tile`, archive ORA et dry-run de l'installeur réussis; aucun moteur PMDO ni gameplay en jeu n'a été testé.
+

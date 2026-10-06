@@ -1,0 +1,52 @@
+{
+  "lot": "fin_couloir_violet_v2",
+  "prefix": "FCV2",
+  "type": "fin de donjon / arène naturelle",
+  "queue_source": "REPRISE_MAPS.md : Couloir violet est indiqué après FTL1",
+  "agent_choices": {
+    "reference": "rendu de la carte d'entrée S05P03A; aucune capture de la vraie salle finale trouvée dans le checkout ou les références distantes disponibles",
+    "layout": "passage d'arrivée au sud, grande arène ouverte au centre, autel de roche discret au nord",
+    "prefix": "FCV2; choix de l'agent après contrôle initial de main et de la tête sœur, puis re-vérification de main et des deux têtes Arena distantes disponibles avant empaquetage; FCV1 était déjà réservé",
+    "canonical_status": "nom de biome, disposition, objectif et préfixe sont des choix de travail, pas des décisions canoniques de l'utilisateur"
+  },
+  "reference_context": {
+    "map_code": "S05P03A",
+    "map_role": "couloir d'entrée rocheux violet",
+    "repository": "https://github.com/pret/pmd-sky",
+    "pinned_commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "renderer": "source/outil_maps_pmdsky/recuperer_maps.py avec skytemple-files 1.8.5",
+    "file": "reference/S05P03A.png",
+    "sha256": "96b073db0f03852e5dbb5fe9cf536642f3b8fe38ed72df7d32cdcc56b35de4ce",
+    "source_px": [312, 720],
+    "render_metadata": {
+      "frames": 1,
+      "frames_kept": 1,
+      "bpa_loaded": 0,
+      "layers": 1,
+      "collision": false,
+      "palette_animation": false
+    },
+    "final_room_capture_found": false,
+    "limitation": "La composition finale est générée à partir du rip d'entrée; elle n'est pas une capture canonique ni une copie des pixels de la ROM."
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "génération d'image avec le rendu S05P03A passé comme référence",
+      "source_images": ["reference/S05P03A.png"],
+      "selected_option": null,
+      "user_selected": false,
+      "prompt": "Create ONE standalone full-frame video-game map composition, not a collage or sheet. Use the supplied Pokémon Mystery Dungeon S05P03A image as the authoritative material and palette reference: mottled muted mauve-violet cave floor, rounded stacked indigo/blue-violet boulders with restrained lilac highlights, deep dark-violet crevices, and dark blue horizontally striated cliff rock. Preserve that exact cozy pixel-art material language; do not introduce a new biome. Landscape 4:3 composition, target 1200 by 896 pixels, top-down orthographic PMD map, crisp low-resolution pixel clusters with no blur or antialiasing. This is the FINAL chamber at the end of the violet cave, not the entry: a narrow natural mauve-rock passage arrives from the SOUTH edge and opens into a large broad, almost round, uncluttered central boss arena; the playable mauve floor forms one continuous clear route from south to the arena and onward to a small northern objective alcove. The chamber is enclosed by thick layered boulder walls at both sides and a continuous CLOSED rock wall across the whole NORTH edge. At the north, place a small low dark-violet carved stone altar/cairn recessed into the rock, made of the same ordinary boulders and carved stone, a quiet objective focal point with no glowing magic. Keep the center spacious and readable, with only a few low boulder clusters around the outer rim, not blocking the route. Natural irregular cave floor, subtly marbled like the reference, no pavement. No crystals, gemstones, crystal spikes, water, lava, tiles, paving slabs, checkerboard, stairs, portal, doorway, cave opening, black hole, exit, characters, creatures, text, symbols, UI, frame, or watermark. The top edge must be completely closed by rock; the southern passage must be visible as continuous floor, not a dark hole."
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "génération d'image avec le rendu S05P03A passé comme référence",
+      "source_images": ["reference/S05P03A.png"],
+      "selected_option": null,
+      "user_selected": false,
+      "prompt": "Using the supplied violet cave-map only as a palette and material reference, generate one seamless-looking full-frame texture of EMPTY cave floor. Landscape 4:3, same fine crisp pixel-art scale. Fill every edge with uninterrupted muted mauve-violet mottled stone ground, subtle blue-lilac flecks, no visible horizon, no lighting vignette, no repeated large motif. Absolutely no walls, cliffs, boulders, stones, pebbles, altar, plants, objects, shadows, borders, tiles, text, or openings."
+    }
+  ],
+  "art_approved": false,
+  "runtime_tested": false
+}
