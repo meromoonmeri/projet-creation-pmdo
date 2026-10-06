@@ -1,0 +1,58 @@
+{
+  "project": "FCV3 — Fin Couloir violet, sanctuaire du sigil gravé",
+  "purpose": "Nouvelle passe visuelle plus marquante de la fin du Couloir violet, sans modifier FCV2.",
+  "image_generation": {
+    "tool": "Arena image generation",
+    "count": 1,
+    "selected_option": null,
+    "user_selected": false,
+    "raw_output": "bruts/decor.png",
+    "source_px": [
+      1200,
+      896
+    ],
+    "source_images": [
+      "reference/S05P03A.png",
+      "reference/FCV2_decor.png"
+    ],
+    "prompt": "Create ONE polished, magnificent top-down PMD dungeon-finale map composition, landscape 4:3, target 1200 by 896 pixels, crisp low-resolution pixel clusters and readable at 768 by 576. The FIRST supplied image is the authoritative violet-rock palette/material reference; the SECOND is a layout reference to preserve. Keep the same spatial plan: closed layered boulder walls on all sides, a narrow natural passage from the SOUTH edge opening into a very broad circular arena, and a small central objective alcove at the NORTH wall. Elevate the scene into a memorable ancient violet sanctuary while keeping the same cozy mauve floor, rounded indigo-blue-violet boulders, lilac highlights and deep dark crevices from the canonical reference. Make the center beautiful but still clear and playable: engrave a large broken circular sigil directly into the natural cave floor, with three irregular concentric grooves, a few radial cuts and tiny abstract non-letter rune marks; give the carved grooves a restrained lavender-violet inner glow. It must look etched into continuous natural rock, not a raised platform and not tiles; leave the inner center and a wide ring of floor open. At the north, frame a small carved stone altar with a grand natural arch of stacked rounded boulders and two subtle flanking rock pillars; soft violet light spills from the altar across the floor. Add rich layered wall silhouettes, a little violet bioluminescent moss tucked into the outer cracks, a few tiny drifting violet dust motes, and refined light/shadow depth around the perimeter. Strong focal hierarchy, elegant balanced composition, detailed but uncluttered, keep the south-to-north route unobstructed. No crystal, gemstones, crystal spikes, tiled floor, paving slabs, checkerboard, stairs, water, lava, doorway, portal, black hole, exit opening, characters, monsters, readable letters, text, UI, border, or watermark. The top edge must remain completely closed rock."
+  },
+  "reference_context": {
+    "map_code": "S05P03A",
+    "pinned_commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "final_room_capture_found": false,
+    "material_reference": "reference/S05P03A.png",
+    "layout_reference": "reference/FCV2_decor.png",
+    "layout_reference_status": "Composition FCV2 réutilisée uniquement comme guide spatial; le nouveau décor est une génération distincte.",
+    "floor_base": "bruts/sol_complet.png est repris sans retouche du socle FCV2 et sert de base d'édition sous la composition opaque."
+  },
+  "normalization": {
+    "target_px": [
+      768,
+      576
+    ],
+    "cells": [
+      96,
+      72
+    ],
+    "cell_px": 8,
+    "method": "Ajout de 2 px par répétition de bord en haut et en bas, puis réduction BOX uniforme x0.64; aucun étirement."
+  },
+  "separation": {
+    "layers": [
+      "00_sol_complet",
+      "01_sol",
+      "02_ombres",
+      "03_gravure_lumineuse",
+      "04_lueur_sigil",
+      "05_parois",
+      "06_top (vide)"
+    ],
+    "sigil_method": "Seuil lilas/luminance dans une ellipse manuelle; halo lavande translucide généré par flou gaussien."
+  },
+  "review_status": {
+    "art_approved": false,
+    "runtime_tested": false,
+    "collision_coordinates_reviewed_in_game": false
+  }
+}

@@ -1229,3 +1229,13 @@ Pas de runtime. Pas dans le mod unique.
 - **Préfixe et portée** : `FCV1` étant réservé, FCV2 a été contrôlé initialement dans `main` et la tête sœur, puis re-vérifié dans `main` et les deux têtes Arena distantes disponibles avant empaquetage; aucune collision n'a été trouvée. Le préfixe, le biome et le layout restent des choix de travail de l'agent, pas des décisions canoniques de l'utilisateur.
 - **Validation** : 8 tests, reconstruction des banques `.tile`, archive ORA et dry-run de l'installeur réussis; aucun moteur PMDO ni gameplay en jeu n'a été testé.
 
+## Fin Couloir violet — FCV3, passe haute qualité (6 octobre 2026)
+
+- L'utilisateur demande une carte « magnifique pour cette fin ». Créer une nouvelle version **FCV3** sans écraser FCV2 ni les maps antérieures.
+- Composition générée distincte avec deux références : rip S05P03A pour palette/matière, décor FCV2 pour continuité spatiale. Aucune capture de la vraie salle finale disponible dans les recherches déjà effectuées. Le socle `sol_complet.png` est repris inchangé de FCV2 et reste sous les nouveaux calques opaques.
+- Focal design d'agent : sigil concentrique gravé et lumineux dans la roche continue, arche naturelle et autel au nord, entrée sud dégagée, lichen violet discret. Le layout, le sigil, le biome de travail, le namespace `fin_couloir_violet_v3` et le préfixe FCV3 ne sont pas des choix canoniques de l'utilisateur.
+- 768 × 576 px, grille 96 × 72, palette commune de 96 couleurs. 7 calques Ground (sol complet, sol, ombres, gravure, halo, parois, Top vide). Le halo utilise une alpha graduée; le codec `.tile` stocke l'alpha prémultipliée. Son test d'aller-retour compare le signal prémultiplié (tolérance maximale 1), pas les RGB droits sous faible alpha.
+- Chemins d'empreinte 16 × 16 vérifiés : entrée `[376,544]`, centre du sigil `[376,296]`, objectif sous l'arche `[376,168]`. Les polygones de collision restent des repères manuels, à valider dans PMDO.
+- Préfixe FCV3 contrôlé libre sur les refs distantes accessibles. 8 tests, vérification de l'ORA/Ground/.tile et dry-run d'installeur, paquet PMDO et ZIP d'art vérifiés. Aperçu `apercu_fin_couloir_violet_v3.html`.
+- `art_approved: false`, `runtime_tested: false`: pas de revue finale validée ni d'exécution moteur PMDO.
+

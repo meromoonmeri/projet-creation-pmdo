@@ -1,0 +1,387 @@
+{
+  "lot": "fin_couloir_violet_v3",
+  "title": "Fin Couloir violet — sanctuaire du sigil gravé",
+  "prefix": "FCV3",
+  "namespace": "fin_couloir_violet_v3",
+  "asset": "fcv3_fin_couloir_violet",
+  "type": "fin de donjon / arène naturelle",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "faire une carte magnifique pour la fin du Couloir violet en préservant la version FCV2",
+  "agent_choices": {
+    "reference": "rip rendu de l'entrée S05P03A, car aucune capture de la salle finale n'a été trouvée dans ce checkout ou sur la branche sœur consultée",
+    "layout": "entrée sud, grande arène centrale avec sigil gravé lumineux, arche et autel au nord; composition nouvelle basée sur FCV2 sans le modifier",
+    "prefix": "FCV3",
+    "prefix_status": "FCV1 était déjà réservé; FCV3, d'abord contrôlé dans main et la tête sœur, a ensuite été re-vérifié dans main et les deux têtes arena distantes disponibles avant empaquetage; aucune collision trouvée",
+    "biome": "prolongement rocheux violet guidé par S05P03A; intitulé de travail, pas une désignation canonique de l'utilisateur"
+  },
+  "generation": {
+    "project": "FCV3 — Fin Couloir violet, sanctuaire du sigil gravé",
+    "purpose": "Nouvelle passe visuelle plus marquante de la fin du Couloir violet, sans modifier FCV2.",
+    "image_generation": {
+      "tool": "Arena image generation",
+      "count": 1,
+      "selected_option": null,
+      "user_selected": false,
+      "raw_output": "bruts/decor.png",
+      "source_px": [
+        1200,
+        896
+      ],
+      "source_images": [
+        "reference/S05P03A.png",
+        "reference/FCV2_decor.png"
+      ],
+      "prompt": "Create ONE polished, magnificent top-down PMD dungeon-finale map composition, landscape 4:3, target 1200 by 896 pixels, crisp low-resolution pixel clusters and readable at 768 by 576. The FIRST supplied image is the authoritative violet-rock palette/material reference; the SECOND is a layout reference to preserve. Keep the same spatial plan: closed layered boulder walls on all sides, a narrow natural passage from the SOUTH edge opening into a very broad circular arena, and a small central objective alcove at the NORTH wall. Elevate the scene into a memorable ancient violet sanctuary while keeping the same cozy mauve floor, rounded indigo-blue-violet boulders, lilac highlights and deep dark crevices from the canonical reference. Make the center beautiful but still clear and playable: engrave a large broken circular sigil directly into the natural cave floor, with three irregular concentric grooves, a few radial cuts and tiny abstract non-letter rune marks; give the carved grooves a restrained lavender-violet inner glow. It must look etched into continuous natural rock, not a raised platform and not tiles; leave the inner center and a wide ring of floor open. At the north, frame a small carved stone altar with a grand natural arch of stacked rounded boulders and two subtle flanking rock pillars; soft violet light spills from the altar across the floor. Add rich layered wall silhouettes, a little violet bioluminescent moss tucked into the outer cracks, a few tiny drifting violet dust motes, and refined light/shadow depth around the perimeter. Strong focal hierarchy, elegant balanced composition, detailed but uncluttered, keep the south-to-north route unobstructed. No crystal, gemstones, crystal spikes, tiled floor, paving slabs, checkerboard, stairs, water, lava, doorway, portal, black hole, exit opening, characters, monsters, readable letters, text, UI, border, or watermark. The top edge must remain completely closed rock."
+    },
+    "reference_context": {
+      "map_code": "S05P03A",
+      "pinned_commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+      "final_room_capture_found": false,
+      "material_reference": "reference/S05P03A.png",
+      "layout_reference": "reference/FCV2_decor.png",
+      "layout_reference_status": "Composition FCV2 réutilisée uniquement comme guide spatial; le nouveau décor est une génération distincte.",
+      "floor_base": "bruts/sol_complet.png est repris sans retouche du socle FCV2 et sert de base d'édition sous la composition opaque."
+    },
+    "normalization": {
+      "target_px": [
+        768,
+        576
+      ],
+      "cells": [
+        96,
+        72
+      ],
+      "cell_px": 8,
+      "method": "Ajout de 2 px par répétition de bord en haut et en bas, puis réduction BOX uniforme x0.64; aucun étirement."
+    },
+    "separation": {
+      "layers": [
+        "00_sol_complet",
+        "01_sol",
+        "02_ombres",
+        "03_gravure_lumineuse",
+        "04_lueur_sigil",
+        "05_parois",
+        "06_top (vide)"
+      ],
+      "sigil_method": "Seuil lilas/luminance dans une ellipse manuelle; halo lavande translucide généré par flou gaussien."
+    },
+    "review_status": {
+      "art_approved": false,
+      "runtime_tested": false,
+      "collision_coordinates_reviewed_in_game": false
+    }
+  },
+  "inputs": [
+    {
+      "file": "source/fin_couloir_violet_v3/bruts/decor.png",
+      "sha256": "64bd087006b4e12641abe4ce3651aaef1a7c7f53acf45cfd5f5dad0eb8c782ce",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition FCV3 générée avec références matière et layout"
+    },
+    {
+      "file": "source/fin_couloir_violet_v3/bruts/sol_complet.png",
+      "sha256": "83a6ba5508659fc16fb3acc55a98ed277fe3e8f15fc2b3546c76a5e053a98a25",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "fond de sol complet repris sans retouche du socle FCV2"
+    },
+    {
+      "file": "source/fin_couloir_violet_v3/reference/S05P03A.png",
+      "sha256": "96b073db0f03852e5dbb5fe9cf536642f3b8fe38ed72df7d32cdcc56b35de4ce",
+      "size_px": [
+        312,
+        720
+      ],
+      "role": "rendu PMD-Sky de la carte d'entrée S05P03A, référence matière"
+    },
+    {
+      "file": "source/fin_couloir_violet_v3/reference/FCV2_decor.png",
+      "sha256": "dcd9d8268c04168fe5cbcda24727dcedefd0c0bcbd01e1a4eb07251316ea43fa",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition FCV2 conservée comme repère de continuité spatiale"
+    }
+  ],
+  "normalization": {
+    "decor": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "output_px": [
+        768,
+        576
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad par répétition des bords de 2 px haut/bas, puis réduction BOX uniforme; aucun étirement"
+    },
+    "sol_complet": {
+      "source_px": [
+        1200,
+        896
+      ],
+      "normalized_px": [
+        1200,
+        900
+      ],
+      "output_px": [
+        768,
+        576
+      ],
+      "scale_xy": [
+        0.64,
+        0.64
+      ],
+      "method": "pad par répétition des bords de 2 px haut/bas, puis réduction BOX uniforme; aucun étirement"
+    },
+    "shared_palette_limit": 96,
+    "shared_palette_colors_used": 96,
+    "dither": false,
+    "reference_fidelity": {
+      "method": "mean RGB Euclidean distance; source sample is the unobstructed corridor x=120:190,y=280:620; generated sample is the clear north-west floor x=230:330,y=190:270, outside the engraved sigil",
+      "reference_map": "S05P03A",
+      "reference_sample_ltrb": [
+        120,
+        280,
+        190,
+        620
+      ],
+      "generated_sample_ltrb": [
+        230,
+        190,
+        330,
+        270
+      ],
+      "reference_floor_rgb": [
+        94.23,
+        80.56,
+        115.14
+      ],
+      "generated_floor_rgb": [
+        97.65,
+        80.66,
+        117.78
+      ],
+      "generated_floor_distance": 4.33,
+      "full_floor_base_rgb": [
+        91.33,
+        77.48,
+        108.27
+      ],
+      "full_floor_base_distance": 8.07,
+      "threshold": 35.0,
+      "generated_floor_pass": true,
+      "full_floor_base_pass": true,
+      "note": "Mesure de cohérence de matière/couleur, pas une preuve de copie pixel à pixel."
+    }
+  },
+  "segmentation": {
+    "floor_outline": "polygone du sol intérieur relevé sur le rendu 768x576; aucun pixel source n'est repeint",
+    "collision_geometry": {
+      "method": "contour intérieur du sol + empreintes polygonales des massifs, piliers d'arche et autel; gravillons mineurs praticables",
+      "manual_coordinates": true,
+      "major_obstacles": [
+        "autel_nord",
+        "arche_pilier_ouest",
+        "arche_pilier_est",
+        "blocs_nord_ouest",
+        "blocs_nord_est",
+        "blocs_ouest",
+        "blocs_est",
+        "eboulis_sud_ouest",
+        "eboulis_sud_est"
+      ],
+      "floor_outline_pixels": 197198,
+      "major_obstacle_pixels_inside_floor": 26708,
+      "walkable_pixels": 170490,
+      "blocked_pixels": 271878
+    },
+    "sigil": {
+      "method": "pixels lilas lumineux isolés par teinte/luminance dans une ellipse manuelle centrée sur les trois anneaux gravés",
+      "center_px": [
+        384,
+        304
+      ],
+      "radius_px": [
+        143,
+        128
+      ],
+      "pixels": 21327,
+      "glow_pixels": 25022
+    },
+    "shadows": {
+      "method": "sol praticable hors gravure sous le 25e percentile de luminance et écart-type local 5x5 > 2; détail décoratif praticable",
+      "luminance_cutoff": 75.49,
+      "pixels": 37106
+    },
+    "visual_partition": {
+      "sol": 112057,
+      "ombres": 37106,
+      "gravure": 21327,
+      "parois": 271878
+    },
+    "additive_glow_pixels": 25022,
+    "obstacle_polygon_pixel_counts_unclipped": {
+      "autel_nord": 3468,
+      "arche_pilier_ouest": 2898,
+      "arche_pilier_est": 2898,
+      "blocs_nord_ouest": 4804,
+      "blocs_nord_est": 5094,
+      "blocs_ouest": 4447,
+      "blocs_est": 4326,
+      "eboulis_sud_ouest": 2747,
+      "eboulis_sud_est": 3961
+    }
+  },
+  "layers": [
+    {
+      "name": "00_sol_complet",
+      "file": "calques/FCV3_00_sol_complet.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 0,
+      "alpha_mode": "binaire 0/255"
+    },
+    {
+      "name": "01_sol",
+      "file": "calques/FCV3_01_sol.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 1,
+      "alpha_mode": "binaire 0/255"
+    },
+    {
+      "name": "02_ombres",
+      "file": "calques/FCV3_02_ombres.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 2,
+      "alpha_mode": "binaire 0/255"
+    },
+    {
+      "name": "03_gravure_lumineuse",
+      "file": "calques/FCV3_03_gravure_lumineuse.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 3,
+      "alpha_mode": "binaire 0/255"
+    },
+    {
+      "name": "04_lueur_sigil",
+      "file": "calques/FCV3_04_lueur_sigil.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 4,
+      "alpha_mode": "graduée 3–48/255, halo prémultiplié par le codec Ground"
+    },
+    {
+      "name": "05_parois",
+      "file": "calques/FCV3_05_parois.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 5,
+      "alpha_mode": "binaire 0/255"
+    },
+    {
+      "name": "06_top",
+      "file": "calques/FCV3_06_top.png",
+      "phases": 1,
+      "frame_length_ticks": 60,
+      "order": 6,
+      "ground_layer": 6,
+      "alpha_mode": "transparent 0"
+    }
+  ],
+  "access": {
+    "entry_cell_yx": [
+      68,
+      47
+    ],
+    "boss_cell_yx": [
+      37,
+      47
+    ],
+    "objective_cell_yx": [
+      21,
+      47
+    ],
+    "entry_px": [
+      376,
+      544
+    ],
+    "boss_px": [
+      376,
+      296
+    ],
+    "objective_px": [
+      376,
+      168
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "path_boss_cells": 32,
+    "path_objective_cells": 48,
+    "cells_explored_to_boss": 324,
+    "cells_explored_to_objective": 1024,
+    "blocked_cells": 4325,
+    "walkable_cells": 2587,
+    "rule": "case bloquée si au moins 25 % de ses pixels sont hors du masque praticable; empreinte joueur 16x16 px",
+    "boss_rule": "case 2x2 libre la plus proche du centre de l'anneau gravé (autour de 384,304 px)",
+    "objective_rule": "case 2x2 libre la plus proche du point cible (x milieu, y=21), juste au sud de l'autel nord",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "FCV3_00_00_SOL_COMPLET": 6913,
+      "FCV3_01_01_SOL": 2705,
+      "FCV3_02_02_OMBRES": 2010,
+      "FCV3_03_03_GRAVURE_LUMINEUSE": 736,
+      "FCV3_04_04_LUEUR_SIGIL": 770,
+      "FCV3_05_05_PAROIS": 4399
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Le choix de S05P03A comme référence matière, la continuité spatiale avec FCV2, le sigil central, l'arche, le biome de travail et le préfixe FCV3 sont des choix d'agent, non des décisions canoniques de l'utilisateur.",
+    "Aucune capture de vraie salle finale n'a été trouvée dans le checkout ni sur la branche sœur distante consultée; la référence utilisée est le rip rendu de l'entrée S05P03A.",
+    "La composition de FCV3 est une nouvelle passe générée en s'appuyant sur S05P03A pour la matière et FCV2 pour la continuité; le contrôle RGB porte sur un échantillon de sol hors sigil, pas une preuve de copie pixel à pixel ni de tuiles natives certifiées.",
+    "Le sol reste une roche naturelle continue; les points lilas périphériques sont des accents de lichen lumineux, pas des objets de gameplay. Aucun personnage, warp ou sortie n'est ajouté.",
+    "Les polygones d'obstacles sont des repères d'édition de collision; gravillons et textures ne garantissent pas le passage dans PMDO en jeu.",
+    "Les tests vérifient les artefacts locaux et l'accessibilité géométrique 16x16; le runtime PMDO n'a pas été lancé."
+  ]
+}

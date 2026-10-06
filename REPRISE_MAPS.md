@@ -230,3 +230,14 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Reprise du 6 octobre 2026 — FCV3, passe magnifique pour la fin du Couloir violet
+
+Demande : « Fait une map magnifique pour cette fin ». FCV2 étant déjà livré, la passe est non destructive : **FCV2 et les versions antérieures sont conservées**, et la nouvelle composition est produite dans `source/fin_couloir_violet_v3/`, avec les livrables dans `renders/fin_couloir_violet_v3/` et l'aperçu autonome `apercu_fin_couloir_violet_v3.html`.
+
+- Préfixe **FCV3**, contrôlé libre sur les refs distantes disponibles; namespace de projet `fin_couloir_violet_v3` (choix d'agent, non canonique).
+- Composition entièrement nouvelle : grande arène rocheuse violette, sigil circulaire gravé dans le sol, halo séparé, arche naturelle et autel au nord, entrée au sud. Référence S05P03A pour la matière; décor FCV2 comme guide de continuité; aucune capture de la salle finale n'avait été trouvée. Le fond complet caché est repris sans retouche de FCV2.
+- Format 768 × 576 px / 96 × 72 cases, sept couches Ground, entrée `[376,544]`, centre `[376,296]`, objectif `[376,168]`. Le trajet vers les deux repères passe les contrôles géométriques 16 × 16 px. Le contrôle RGB du sol hors sigil donne 4,33 (<35), simple proximité de matière/couleur, pas preuve de copie.
+- 8 tests PASS; ORA, reconstruction `.tile`, index, Ground et dry-run installateur vérifiés; ZIP projet (1,95 Mo), archive calques (16,96 Mo) et preview créés. Aucun runtime PMDO/GPU ou test de gameplay.
+- `art_approved: false`, `runtime_tested: false`. La composition, le sigil, l'arche, le layout, le biome de travail et le préfixe restent des choix d'agent en attente de validation visuelle.
+- Méthode et limites détaillées : `source/fin_couloir_violet_v3/README_PACK.md`; manifeste et provenance : `renders/fin_couloir_violet_v3/manifest.json`.
