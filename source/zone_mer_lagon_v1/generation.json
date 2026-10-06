@@ -1,0 +1,50 @@
+{
+  "lot": "zone_mer_lagon_v1",
+  "prefix": "ZME1",
+  "type": "zone de donjon / lagon tropical",
+  "user_direction": {
+    "verbatim": "poursuivre les zones ; les vfx (lave, eau, etc.) tu dois les générer, album 908 des fonds animés en référence ; anime l'eau canoniquement",
+    "interpreted_constraints": [
+      "zone lagon tropical (S01P02A canonique, album 908 / ROM)",
+      "VFX GENERES : texture d'eau générée (pas de pixels ROM copiés), animée canoniquement (défilement latéral S01)",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, port s01p02a en référence (images=)",
+      "prompt_summary": "Plage d'arrivée au sud, île de sable ronde au centre, lagon magenta tout autour, arche de basalte et cercle de pierre au nord ; textures et palette du port s01 ; sans eau texturée, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/eau.png",
+      "method": "image generation, port s01p02a en référence (images=)",
+      "prompt_summary": "Mer bleue à bandes de vagues horizontales et crêtes blanches, plein cadre, mêmes tons que la crique du port.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, décor en référence (images=decor.png)",
+      "prompt_summary": "Sable clair chaud, plein cadre, mêmes tons que l'île.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    }
+  ],
+  "reference": {
+    "port": "reference/s01p02a_port.png (456 x 456, PMD-SKY-PMDO-PORT, master)",
+    "canon_stats": "reference/canon_stats.json (classe eau du port, cible du calibrage)",
+    "strip": "reference/s01_mer.png (6 crans témoins rendus depuis la ROM pret/pmd-sky)",
+    "origin": "S01P02A, clairière et mer (Explorers of Sky) ; boucle ROM 1200 ticks, bandes de vagues en défilement latéral",
+    "role": "matière + cible palette de l'eau générée + loi d'animation (aucun pixel copié)"
+  },
+  "agent_choices": {
+    "prefix": "ZME1 continue la série Z des zones (libre, sans collision avec ZCR1/ZPO1/ZMA1)",
+    "calibration": "offset additif + épaule douce monotone vers la classe eau du port ; sable calibré sur le décor (cohérence interne)",
+    "animation": "dérive latérale ±8 px + onde progressive (3 tours impairs → période 48 réelle) ; 24 reflets calculés (cycle 16)"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}

@@ -325,8 +325,16 @@ PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky).
   dérive circulaire 6 px + pulsation (boucle exacte, 96 couleurs partagées) ; 48 braises calculées ;
   5 calques + Top, boucle 240 ticks. `entry=[376,560]`, `boss=[376,296]`, `objectif=[384,104]`.
   ZIP projet 5,73 Mo + ZIP calques 13,46 Mo, aperçu 9,14 Mo.
-- En cours : **Zone Mer/lagon (ZME1)** — références sécurisées (`s01p02a_port.png`, stats canoniques,
-  vérité ROM : bandes de vagues en défilement latéral, boucle 1200), décor à générer.
+- **Zone Mer lagon** (`source/zone_mer_lagon_v1/`, livrables `renders/zone_mer_lagon_v1/`, préfixe
+  **ZME1** (libre), aperçu `apercu_zone_mer_lagon_v1.html`, **12 tests PASS**). Plage sud, île de sable
+  ronde au centre, lagon d'un seul tenant autour, arche de basalte et cercle de pierre au nord
+  (décor, isolés par l'eau), jungle et falaises autour. Référence S01P02A (boucle ROM 1200 ticks,
+  bandes de vagues en défilement latéral). Fidélité : eau 4,0 · sable 19,1 (seuil 35 ; l'herbe et les
+  rochers suivent la DA du décor). Texture d'eau générée à bandes calibrée (offset additif + épaule
+  douce), animée par dérive latérale ±8 px + onde progressive (3 tours impairs → période 48 réelle,
+  vérifiée f24 ≠ f00) ; 24 reflets calculés (cycle 16) ; 6 calques + Top, boucle 240 ticks.
+  `entry=[384,560]`, `boss=[384,320]`, `objectif=[384,208]`. ZIP projet 7,74 Mo + ZIP calques
+  14,35 Mo, aperçu 8,39 Mo.
 
 Leçons : `.venv` et `.cache` ne persistent pas entre les tours (tout re-créer/re-télécharger ; stocker
 les références utiles dans `source/<lot>/reference/`, versionné) ; `read_file` sur 2 images peut les

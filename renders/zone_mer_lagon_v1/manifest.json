@@ -1,0 +1,526 @@
+{
+  "lot": "zone_mer_lagon_v1",
+  "title": "Zone Mer lagon — île de sable au lagon",
+  "prefix": "ZME1",
+  "namespace": "zone_mer_lagon",
+  "asset": "zme1_zone_mer_lagon",
+  "type": "zone de donjon / lagon tropical",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "poursuivre les zones ; VFX (lave, eau, etc.) GENERES, album 908 des fonds animés en référence ; eau animée canoniquement (S01)",
+  "agent_choices": {
+    "reference": "S01P02A canonique (clairière et mer, Explorers of Sky) : port PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky (boucle 1200 ticks, bandes de vagues en défilement latéral)",
+    "methode_vfx": "texture d'eau générée (pas de pixels du rip), palette calibrée sur la classe eau du port, animée par dérive latérale + onde progressive ; reflets calculés",
+    "layout": "plage d'arrivée au sud, île de sable ronde au centre, lagon tout autour, arche de basalte et cercle de pierre au nord (décor, isolés par l'eau)",
+    "prefix": "ZME1, série Z des zones (libre, pas de collision avec ZCR1/ZPO1/ZMA1)",
+    "biome": "mer lagon ; intitulé de travail"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/zone_mer_lagon_v1/reference/s01p02a_port.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon beach and sea cove): same light sandy beach sand, same blue sea water colours, same dark basalt rocks, same palm trees. Make a NEW, larger top-down lagoon zone map. WIDE LANDSCAPE 4:3, target 1200 by 896 pixels, zoomed out so the zone feels vast. Layout: the player arrives at the SOUTH (bottom edge center) on a sandy beach; the beach opens onto a round sandy island clearing in the CENTER with a few palm trees and dark rocks at its sides; a big lagoon wraps around the island on the LEFT, RIGHT and NORTH, with wavy sandy shores. IMPORTANT: fill the entire lagoon water FLAT with pure magenta (255, 0, 255), solid, no texture, no gradient, no waves inside the water. At the NORTH (top center) a dark basalt rock arch behind the water with a stone circle on a small sandy spit in front of it. A few palm trees on the island and the beach. No water texture anywhere (magenta only), no characters, no text, no UI, no border.",
+      "essais": "premier essai ; conforme (lagon magenta d un seul tenant, arche et cercle au nord, jungle autour)"
+    },
+    {
+      "file": "eau.png",
+      "images": [
+        "source/zone_mer_lagon_v1/reference/s01p02a_port.png"
+      ],
+      "prompt": "Same pixel-art style and same blue sea colours as the reference image cove water. Fill the ENTIRE image edge to edge, wide 4:3, with only sea water texture: deep blue water with lighter blue horizontal wavy bands and white-crest highlights, gentle waves pattern everywhere, keep the texture detail. No sand, no grass, no rocks, no magenta, no text.",
+      "essais": "premier essai ; bandes de vagues horizontales canon, conforme"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/zone_mer_lagon_v1/bruts/decor.png"
+      ],
+      "prompt": "Same pixel-art style and same light sand colours as the sandy island in the center of the reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only that light warm sand texture: subtle speckles and ripples, uniform tiling texture, keep the texture detail. No water, no grass, no palms, no rocks, no magenta, no text.",
+      "essais": "premier essai ; sable clair seul, conforme"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/zone_mer_lagon_v1/bruts/decor.png",
+      "sha256": "3ab119351e44c8fd698d2a397428fd97e4dc5ad29d1455bdaff7440869dd1829",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition ZME1 générée avec le port s01p02a en référence (lagon magenta)"
+    },
+    {
+      "file": "source/zone_mer_lagon_v1/bruts/eau.png",
+      "sha256": "86a8dbb79ad28e3260b9ab84a83fd92e788c648826550900a2a5891dbabc3d23",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "texture d'eau générée à bandes de vagues, calibrée en palette, animée"
+    },
+    {
+      "file": "source/zone_mer_lagon_v1/bruts/sol_complet.png",
+      "sha256": "9af264b30725dc8a7e36b798d4c85d3f74ed632bb80ec24c31fb29e5ce7991a4",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "sable seul, calibré sur le décor, base d édition sous la composition opaque"
+    },
+    {
+      "file": "source/zone_mer_lagon_v1/reference/s01p02a_port.png",
+      "sha256": "194ab4b7c171a777f338466bc4316d5c7919cd73fff7dbd2d49252ded3b7280c",
+      "size_px": [
+        456,
+        456
+      ],
+      "role": "port s01p02a : matière + cible palette de l eau"
+    },
+    {
+      "file": "source/zone_mer_lagon_v1/reference/canon_stats.json",
+      "sha256": "1546bcf5fe874f5f27d25855bff6cd8e0578aa0c081ee30249cfce7d09b091c4",
+      "size_px": "n/a",
+      "role": "statistiques canoniques (classe eau du port), cible du calibrage"
+    }
+  ],
+  "normalization": {
+    "methode": "moyenne pondérée par classe (BOX), facteur uniforme 0.642857 identique en X et Y, recadrage 1 px de chaque côté ; palettes par groupes (sol 64, jungle 48, rochers 48), sans tramage ; eau calibrée quantifiée sur 96 couleurs partagées (MEDIANCUT, sans tramage), reflets calculés",
+    "scale": 0.6428571428571429,
+    "crop_x": 1
+  },
+  "calibrage_eau": {
+    "cible": "port_eau_classe_mean de canon_stats.json",
+    "methode": "offset additif par canal + épaule douce monotone",
+    "apres_moyenne": [
+      67.5,
+      142.2,
+      210.2
+    ]
+  },
+  "calibrage_sable": {
+    "cible": "sable du décor (moyenne RGB)",
+    "methode": "offset additif par canal + épaule douce monotone (cohérence interne)",
+    "apres_moyenne": [
+      230.5,
+      218.3,
+      154.1
+    ]
+  },
+  "segmentation": {
+    "lagons": 1,
+    "eau_pct": 30.04,
+    "sable_pct": 19.21,
+    "jungle_pct": 35.77,
+    "rochers_pct": 14.98,
+    "sable_rgb": [
+      248.6,
+      224.4,
+      154.3
+    ],
+    "jungle_rgb": [
+      108.5,
+      145.1,
+      50.8
+    ]
+  },
+  "fidelite_rip": {
+    "eau": {
+      "rip_rgb": [
+        68.0,
+        143.5,
+        214.0
+      ],
+      "decor_rgb": [
+        67.5,
+        142.2,
+        210.2
+      ],
+      "distance": 4.0
+    },
+    "sable": {
+      "rip_rgb": [
+        248.6,
+        224.4,
+        154.3
+      ],
+      "decor_rgb": [
+        230.5,
+        218.3,
+        154.1
+      ],
+      "distance": 19.1
+    },
+    "seuil": 35,
+    "methode": "eau : moyenne RGB du brut calibré contre la classe eau du port ; sable : brut calibré contre le sable du décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor) ; distance euclidienne ; seuil 35"
+  },
+  "layers": [
+    {
+      "file": "calques/ZME1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "00_sol_complet",
+      "order": 0
+    },
+    {
+      "file": "calques/ZME1_01_sable.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "01_sable",
+      "order": 1
+    },
+    {
+      "file": "calques/ZME1_02_jungle.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "02_jungle",
+      "order": 2
+    },
+    {
+      "file": "calques/ZME1_03_rochers.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "03_rochers",
+      "order": 3
+    },
+    {
+      "file": "animation/eau/ZME1_04_eau_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "04_eau",
+      "order": 4
+    },
+    {
+      "file": "animation/reflets/ZME1_05_reflets_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "05_reflets",
+      "order": 5
+    },
+    {
+      "file": "calques/ZME1_06_top.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "06_top",
+      "order": 6
+    }
+  ],
+  "eau": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "derive_px": 8,
+    "onde": 0.07,
+    "longueur_onde_px": 96,
+    "tours_par_boucle": 3,
+    "palette_partagee": 96,
+    "rampe_calibree": [
+      [
+        24,
+        102,
+        198
+      ],
+      [
+        22,
+        104,
+        200
+      ],
+      [
+        22,
+        105,
+        202
+      ],
+      [
+        25,
+        109,
+        203
+      ],
+      [
+        32,
+        119,
+        209
+      ],
+      [
+        33,
+        122,
+        205
+      ],
+      [
+        41,
+        130,
+        205
+      ],
+      [
+        44,
+        130,
+        209
+      ],
+      [
+        56,
+        131,
+        204
+      ],
+      [
+        63,
+        143,
+        213
+      ],
+      [
+        64,
+        145,
+        214
+      ],
+      [
+        67,
+        148,
+        213
+      ],
+      [
+        78,
+        148,
+        209
+      ],
+      [
+        121,
+        185,
+        220
+      ],
+      [
+        173,
+        209,
+        222
+      ],
+      [
+        219,
+        233,
+        230
+      ]
+    ],
+    "loi": "dx = 8 sin(2 pi t / 48) ; onde 1 + 0.07 sin(2 pi x / 96 - 6 pi t / 48) + 0.02 sin(2 pi t / 48) ; boucle exacte de période 48 (3 tours, impair), défilement vers la droite façon S01",
+    "origine": "texture generee calibree sur S01P02A (ni pixels du rip ni pixels ROM)"
+  },
+  "reflets": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 24,
+    "cycle": 16,
+    "couleurs": {
+      "point": [
+        170,
+        215,
+        245
+      ],
+      "halo": [
+        205,
+        235,
+        250
+      ],
+      "coeur": [
+        245,
+        252,
+        255
+      ]
+    },
+    "placements": [
+      {
+        "x0": 312,
+        "y0": 418,
+        "phase": 0
+      },
+      {
+        "x0": 193,
+        "y0": 484,
+        "phase": 14
+      },
+      {
+        "x0": 162,
+        "y0": 264,
+        "phase": 2
+      },
+      {
+        "x0": 237,
+        "y0": 177,
+        "phase": 8
+      },
+      {
+        "x0": 606,
+        "y0": 460,
+        "phase": 8
+      },
+      {
+        "x0": 551,
+        "y0": 226,
+        "phase": 6
+      },
+      {
+        "x0": 569,
+        "y0": 226,
+        "phase": 14
+      },
+      {
+        "x0": 568,
+        "y0": 267,
+        "phase": 9
+      },
+      {
+        "x0": 116,
+        "y0": 432,
+        "phase": 10
+      },
+      {
+        "x0": 597,
+        "y0": 381,
+        "phase": 0
+      },
+      {
+        "x0": 613,
+        "y0": 332,
+        "phase": 3
+      },
+      {
+        "x0": 601,
+        "y0": 188,
+        "phase": 11
+      },
+      {
+        "x0": 145,
+        "y0": 390,
+        "phase": 4
+      },
+      {
+        "x0": 562,
+        "y0": 176,
+        "phase": 15
+      },
+      {
+        "x0": 441,
+        "y0": 171,
+        "phase": 7
+      },
+      {
+        "x0": 561,
+        "y0": 242,
+        "phase": 10
+      },
+      {
+        "x0": 226,
+        "y0": 241,
+        "phase": 4
+      },
+      {
+        "x0": 218,
+        "y0": 407,
+        "phase": 5
+      },
+      {
+        "x0": 651,
+        "y0": 332,
+        "phase": 15
+      },
+      {
+        "x0": 690,
+        "y0": 331,
+        "phase": 9
+      },
+      {
+        "x0": 143,
+        "y0": 337,
+        "phase": 1
+      },
+      {
+        "x0": 675,
+        "y0": 303,
+        "phase": 4
+      },
+      {
+        "x0": 611,
+        "y0": 166,
+        "phase": 0
+      },
+      {
+        "x0": 204,
+        "y0": 195,
+        "phase": 3
+      }
+    ],
+    "loi": "u = (t + phase) mod 16 ; visible u < 10 (croix 3x3 si u mod 4 < 2, point sinon), éteint sinon ; boucle exacte",
+    "origine": "reflets calcules sur le lagon"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      384,
+      320
+    ],
+    "objective_px": [
+      384,
+      208
+    ],
+    "entry_cell_yx": [
+      70,
+      48
+    ],
+    "boss_cell_yx": [
+      40,
+      48
+    ],
+    "objective_cell_yx": [
+      26,
+      48
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 379
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 589
+      }
+    },
+    "blocked_cells": 5857,
+    "total_cells": 6912,
+    "rule": "case bloquée si > 25 % hors sable praticable (cell_grid, franchissement 4 px) ; empreinte joueur 16x16 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "ZME1_00_SOL": 6913,
+      "ZME1_01_SABLE": 1903,
+      "ZME1_02_JUNGLE": 3015,
+      "ZME1_03_ROCHERS": 2364,
+      "ZME1_04_EAU": 95390,
+      "ZME1_05_REFLETS": 51
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Composition et eau générées, palette de l'eau calibrée sur S01P02A ; aucun pixel du rip ni de la ROM dans les calques.",
+    "Les tests vérifient les artefacts locaux et l accessibilité géométrique 16x16 ; le runtime PMDO n a pas été lancé."
+  ]
+}
