@@ -1,0 +1,685 @@
+{
+  "lot": "zone_magma_rives_v1",
+  "title": "Zone Rives de magma — arène volcanique à lacs de lave",
+  "prefix": "ZMA1",
+  "namespace": "zone_magma_rives",
+  "asset": "zma1_zone_magma_rives",
+  "type": "zone de donjon / arène volcanique",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "poursuivre les zones ; VFX (lave, eau, etc.) GENERES, album 908 des fonds animés en référence",
+  "agent_choices": {
+    "reference": "D41P41A canonique (fin volcanique, Explorers of Sky) : port PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky (boucle 130 ticks, cellules jaune-orange pulsantes)",
+    "methode_vfx": "texture de lave générée (pas de pixels du rip), palette calibrée sur la classe lave du port (cellules brillantes), animée par dérive + pulsation ; braises calculées",
+    "layout": "arrivée au sud, arène d'obsidienne au centre entre trois lacs de lave, arche de basalte à évent incandescent au nord",
+    "prefix": "ZMA1, série Z des zones (libre)",
+    "biome": "rives de magma ; intitulé de travail"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/zone_magma_rives_v1/reference/d41p41a_port.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon dark crater lava arena): same very dark grey-brown cracked obsidian ground, same black jagged basalt rock walls with orange rim light, same dark volcanic background. Make a NEW, larger top-down volcanic zone map. WIDE LANDSCAPE 4:3, target 1200 by 896 pixels, zoomed out so the zone feels vast. Layout: the player arrives at the SOUTH (bottom edge center) on an obsidian path; the path opens onto a WIDE dark arena clearing in the CENTER; THREE rounded lava lakes with wavy shores: one large lake on the LEFT, one large lake on the RIGHT, one smaller lake at the NORTH-CENTER below a black basalt arch; dark rocky rim around each lake. IMPORTANT: fill every lava lake FLAT with pure magenta (255, 0, 255), solid, no texture, no gradient inside the lakes. At the NORTH (top center) the black basalt arch with a glowing vent behind it, obsidian ground leading up to it. No lava texture anywhere (magenta only), no characters, no text, no UI, no border.",
+      "essais": "premier essai ; conforme (3 lacs magenta, arche à évent au nord, distances dans le manifeste)"
+    },
+    {
+      "file": "lave.png",
+      "images": [
+        "source/zone_magma_rives_v1/bruts/decor.png"
+      ],
+      "prompt": "Same pixel-art style and same glowing orange-yellow lava colours as the glowing lake rims in the reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only churning lava: bright yellow-orange cellular blobs with glowing cores on deep red-orange, cellular pattern everywhere, keep the texture detail. No rocks, no dark areas, no magenta, no text.",
+      "essais": "1 échec API (réponse vide) avec le rip d41 en référence, succès en référençant le décor"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/zone_magma_rives_v1/bruts/decor.png"
+      ],
+      "prompt": "Same pixel-art style and same dark ground colours as the dark arena floor in the center of the reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only that dark grey-brown cracked volcanic ground texture: subtle cracks and speckles, uniform tiling texture, keep the texture detail. No rocks, no lava, no glow, no magenta, no text.",
+      "essais": "3 échecs API (réponses vides) avec le rip d41 en référence, succès en référençant le décor"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/zone_magma_rives_v1/bruts/decor.png",
+      "sha256": "69a1a65694ac40262b3d7fabccf1a9a9bc1ce5844df634ef431d6f5015b5e2de",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition ZMA1 générée avec le port d41p41a en référence (lacs magenta)"
+    },
+    {
+      "file": "source/zone_magma_rives_v1/bruts/lave.png",
+      "sha256": "7bcb79a2742125b1027179f7ea04c7c0ff64cc1705e39997c757fd19b1637da9",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "texture de lave générée, calibrée en palette, animée"
+    },
+    {
+      "file": "source/zone_magma_rives_v1/bruts/sol_complet.png",
+      "sha256": "e50735cda1faa6ecc1bc30dea3d325c98b9b9ecf3e1d2c4aefeaa83cef23bd19",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "obsidienne seule, base d édition sous la composition opaque"
+    },
+    {
+      "file": "source/zone_magma_rives_v1/reference/d41p41a_port.png",
+      "sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95",
+      "size_px": [
+        552,
+        576
+      ],
+      "role": "port d41p41a : matière + cible palette de la lave"
+    },
+    {
+      "file": "source/zone_magma_rives_v1/reference/canon_stats.json",
+      "sha256": "cda5aa7d8c8cb4c7ab0b5136bd379d856d18e064572bcecf755aef379eb62a1c",
+      "size_px": "n/a",
+      "role": "statistiques canoniques (région lave du port), cible du calibrage"
+    }
+  ],
+  "normalization": {
+    "methode": "moyenne pondérée par classe (BOX), facteur uniforme 0.642857 identique en X et Y, recadrage 1 px de chaque côté ; palettes par groupes (sol 64, rochers 48), sans tramage ; lave calibrée quantifiée sur 96 couleurs partagées (MEDIANCUT, sans tramage), braises calculées",
+    "scale": 0.6428571428571429,
+    "crop_x": 1
+  },
+  "calibrage_lave": {
+    "cible": "port_lave_classe_mean de canon_stats.json",
+    "methode": "offset additif par canal + épaule douce monotone (recalage moyenne/écart-type proscrit : teintes froides interdites)",
+    "apres_moyenne": [
+      221.0,
+      131.2,
+      35.7
+    ],
+    "apres_ecart_type": [
+      27.2,
+      66.5,
+      26.5
+    ]
+  },
+  "segmentation": {
+    "lacs": 3,
+    "lave_pct": 12.57,
+    "glow_pct": 1.17,
+    "murs_pct": 62.82,
+    "sol_pct": 23.43,
+    "murs_lum": 29.7,
+    "sol_lum": 57.3
+  },
+  "fidelite_rip": {
+    "lave": {
+      "rip_rgb": [
+        245.4,
+        135.3,
+        35.8
+      ],
+      "decor_rgb": [
+        221.0,
+        131.2,
+        35.7
+      ],
+      "distance": 24.7
+    },
+    "basalte": {
+      "rip_rgb": [
+        45.5,
+        34.3,
+        31.4
+      ],
+      "decor_rgb": [
+        35.2,
+        27.4,
+        27.3
+      ],
+      "distance": 13.1
+    },
+    "sol": {
+      "rip_rgb": [
+        73.3,
+        52.3,
+        44.8
+      ],
+      "decor_rgb": [
+        49.5,
+        39.4,
+        32.2
+      ],
+      "distance": 29.8
+    },
+    "seuil": 35,
+    "methode": "lave : moyenne RGB du brut calibré contre la classe lave du port (cellules brillantes) ; basalte : murs du décor contre murs du port (même classifieur) ; sol : brut sol contre sol du décor (cohérence interne) ; distance euclidienne ; seuil 35"
+  },
+  "layers": [
+    {
+      "file": "calques/ZMA1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "00_sol_complet",
+      "order": 0
+    },
+    {
+      "file": "calques/ZMA1_01_sol.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "01_sol",
+      "order": 1
+    },
+    {
+      "file": "calques/ZMA1_02_rochers.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "02_rochers",
+      "order": 2
+    },
+    {
+      "file": "animation/lave/ZMA1_03_lave_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "03_lave",
+      "order": 3
+    },
+    {
+      "file": "animation/braises/ZMA1_04_braises_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "04_braises",
+      "order": 4
+    },
+    {
+      "file": "calques/ZMA1_05_top.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "05_top",
+      "order": 5
+    }
+  ],
+  "lave": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "derive_px": 6,
+    "pulsation": 0.045,
+    "palette_partagee": 96,
+    "rampe_calibree": [
+      [
+        171,
+        43,
+        25
+      ],
+      [
+        174,
+        48,
+        24
+      ],
+      [
+        184,
+        53,
+        24
+      ],
+      [
+        192,
+        61,
+        30
+      ],
+      [
+        213,
+        64,
+        26
+      ],
+      [
+        225,
+        79,
+        24
+      ],
+      [
+        234,
+        101,
+        31
+      ],
+      [
+        239,
+        123,
+        24
+      ],
+      [
+        239,
+        139,
+        24
+      ],
+      [
+        242,
+        148,
+        32
+      ],
+      [
+        242,
+        161,
+        41
+      ],
+      [
+        241,
+        184,
+        25
+      ],
+      [
+        242,
+        200,
+        25
+      ],
+      [
+        242,
+        213,
+        27
+      ],
+      [
+        241,
+        235,
+        28
+      ],
+      [
+        242,
+        242,
+        141
+      ]
+    ],
+    "loi": "dx = 6 cos(2 pi t / 48), dy = 6 sin(2 pi t / 48) ; pulsation 1 + 0.045 sin(2 pi t / 48) + 0.03 sin(4 pi t / 48 + 2 pi (x + y) / 192) ; boucle exacte",
+    "origine": "texture generee calibree sur D41P41A (ni pixels du rip ni pixels ROM)"
+  },
+  "braises": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 48,
+    "montee_px": 32,
+    "couleurs": {
+      "point": [
+        255,
+        170,
+        60
+      ],
+      "halo": [
+        255,
+        215,
+        120
+      ],
+      "coeur": [
+        255,
+        246,
+        205
+      ]
+    },
+    "placements": [
+      {
+        "x0": 127,
+        "y0": 262,
+        "phase": 6,
+        "wob": 2.655
+      },
+      {
+        "x0": 632,
+        "y0": 328,
+        "phase": 32,
+        "wob": 5.344
+      },
+      {
+        "x0": 595,
+        "y0": 291,
+        "phase": 35,
+        "wob": 1.805
+      },
+      {
+        "x0": 207,
+        "y0": 429,
+        "phase": 47,
+        "wob": 2.266
+      },
+      {
+        "x0": 169,
+        "y0": 299,
+        "phase": 20,
+        "wob": 2.754
+      },
+      {
+        "x0": 234,
+        "y0": 260,
+        "phase": 14,
+        "wob": 1.572
+      },
+      {
+        "x0": 343,
+        "y0": 181,
+        "phase": 46,
+        "wob": 3.105
+      },
+      {
+        "x0": 163,
+        "y0": 315,
+        "phase": 14,
+        "wob": 2.17
+      },
+      {
+        "x0": 569,
+        "y0": 280,
+        "phase": 2,
+        "wob": 0.211
+      },
+      {
+        "x0": 340,
+        "y0": 196,
+        "phase": 18,
+        "wob": 0.882
+      },
+      {
+        "x0": 205,
+        "y0": 349,
+        "phase": 17,
+        "wob": 4.659
+      },
+      {
+        "x0": 598,
+        "y0": 318,
+        "phase": 28,
+        "wob": 4.537
+      },
+      {
+        "x0": 141,
+        "y0": 316,
+        "phase": 36,
+        "wob": 1.884
+      },
+      {
+        "x0": 654,
+        "y0": 325,
+        "phase": 32,
+        "wob": 2.953
+      },
+      {
+        "x0": 232,
+        "y0": 357,
+        "phase": 16,
+        "wob": 3.85
+      },
+      {
+        "x0": 158,
+        "y0": 349,
+        "phase": 26,
+        "wob": 5.111
+      },
+      {
+        "x0": 554,
+        "y0": 367,
+        "phase": 28,
+        "wob": 3.27
+      },
+      {
+        "x0": 611,
+        "y0": 333,
+        "phase": 14,
+        "wob": 4.15
+      },
+      {
+        "x0": 417,
+        "y0": 174,
+        "phase": 18,
+        "wob": 1.847
+      },
+      {
+        "x0": 615,
+        "y0": 246,
+        "phase": 17,
+        "wob": 2.832
+      },
+      {
+        "x0": 126,
+        "y0": 329,
+        "phase": 47,
+        "wob": 2.155
+      },
+      {
+        "x0": 574,
+        "y0": 366,
+        "phase": 13,
+        "wob": 5.676
+      },
+      {
+        "x0": 194,
+        "y0": 311,
+        "phase": 19,
+        "wob": 1.177
+      },
+      {
+        "x0": 580,
+        "y0": 316,
+        "phase": 43,
+        "wob": 3.084
+      },
+      {
+        "x0": 221,
+        "y0": 388,
+        "phase": 41,
+        "wob": 2.838
+      },
+      {
+        "x0": 216,
+        "y0": 257,
+        "phase": 10,
+        "wob": 3.724
+      },
+      {
+        "x0": 439,
+        "y0": 216,
+        "phase": 42,
+        "wob": 2.764
+      },
+      {
+        "x0": 445,
+        "y0": 191,
+        "phase": 35,
+        "wob": 3.928
+      },
+      {
+        "x0": 140,
+        "y0": 410,
+        "phase": 44,
+        "wob": 0.139
+      },
+      {
+        "x0": 641,
+        "y0": 374,
+        "phase": 24,
+        "wob": 0.699
+      },
+      {
+        "x0": 151,
+        "y0": 277,
+        "phase": 15,
+        "wob": 3.653
+      },
+      {
+        "x0": 326,
+        "y0": 198,
+        "phase": 36,
+        "wob": 4.686
+      },
+      {
+        "x0": 194,
+        "y0": 404,
+        "phase": 22,
+        "wob": 4.532
+      },
+      {
+        "x0": 625,
+        "y0": 388,
+        "phase": 16,
+        "wob": 0.046
+      },
+      {
+        "x0": 212,
+        "y0": 241,
+        "phase": 12,
+        "wob": 0.651
+      },
+      {
+        "x0": 356,
+        "y0": 215,
+        "phase": 34,
+        "wob": 5.064
+      },
+      {
+        "x0": 635,
+        "y0": 410,
+        "phase": 28,
+        "wob": 2.663
+      },
+      {
+        "x0": 400,
+        "y0": 185,
+        "phase": 46,
+        "wob": 0.404
+      },
+      {
+        "x0": 202,
+        "y0": 277,
+        "phase": 2,
+        "wob": 5.683
+      },
+      {
+        "x0": 167,
+        "y0": 395,
+        "phase": 26,
+        "wob": 2.287
+      },
+      {
+        "x0": 122,
+        "y0": 309,
+        "phase": 38,
+        "wob": 2.154
+      },
+      {
+        "x0": 624,
+        "y0": 277,
+        "phase": 10,
+        "wob": 5.134
+      },
+      {
+        "x0": 173,
+        "y0": 418,
+        "phase": 34,
+        "wob": 0.812
+      },
+      {
+        "x0": 573,
+        "y0": 392,
+        "phase": 22,
+        "wob": 3.908
+      },
+      {
+        "x0": 414,
+        "y0": 230,
+        "phase": 20,
+        "wob": 0.536
+      },
+      {
+        "x0": 651,
+        "y0": 355,
+        "phase": 16,
+        "wob": 0.432
+      },
+      {
+        "x0": 615,
+        "y0": 260,
+        "phase": 31,
+        "wob": 0.782
+      },
+      {
+        "x0": 233,
+        "y0": 408,
+        "phase": 3,
+        "wob": 3.561
+      }
+    ],
+    "loi": "y = y0 - u, x = x0 + 2 sin(2 pi u / 12 + wob), u = (t + phase) mod 48 ; visible u < 32 (croix 3x3 jeune, point sinon), cachee sinon ; boucle exacte",
+    "origine": "braises calculees au-dessus des lacs"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      376,
+      560
+    ],
+    "boss_px": [
+      376,
+      296
+    ],
+    "objective_px": [
+      384,
+      104
+    ],
+    "entry_cell_yx": [
+      70,
+      47
+    ],
+    "boss_cell_yx": [
+      37,
+      47
+    ],
+    "objective_cell_yx": [
+      13,
+      48
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 288
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 859
+      }
+    },
+    "blocked_cells": 5758,
+    "total_cells": 6912,
+    "rule": "case bloquée si > 25 % hors sol praticable (cell_grid, franchissement 4 px) ; empreinte joueur 16x16 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "ZMA1_00_SOL": 6913,
+      "ZMA1_01_SOL": 2984,
+      "ZMA1_02_ROCHERS": 5614,
+      "ZMA1_03_LAVE": 46142,
+      "ZMA1_04_BRAISES": 173
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Composition et lave générées, palette de la lave calibrée sur D41P41A ; aucun pixel du rip ni de la ROM dans les calques.",
+    "Les tests vérifient les artefacts locaux et l accessibilité géométrique 16x16 ; le runtime PMDO n a pas été lancé."
+  ]
+}

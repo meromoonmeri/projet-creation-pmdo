@@ -307,3 +307,28 @@ Les deux lots : ORA, reconstruction `.tile` (frame 0), index, Ground et dry-run 
 Marqueurs `entrance`/`boss`/`objectif` = repères d'édition, aucun warp. `art_approved: false`,
 `runtime_tested: false`. Leçons build : objectif = case atteignable la plus proche (poches isolées sinon) ;
 seuil rouge r−g > 90 (le sable piégeait r−g > 60) ; pierre hors brun (les troncs piégeaient la règle).
+
+## Reprise du 6 octobre 2026 (soir) — Zone magma ZMA1 : VFX générés
+
+Nouvelle demande : « poursuivre les zones », avec des **VFX (lave, eau, etc.) GENERES** en s'appuyant
+sur l'album 908 des fonds animés comme référence. Règle de session : pas de pixels ROM/rip copiés dans
+les calques ; textures générées, calibrées/animées d'après les références canoniques (port
+PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky).
+
+- **Zone Rives de magma** (`source/zone_magma_rives_v1/`, livrables `renders/zone_magma_rives_v1/`,
+  préfixe **ZMA1** (libre, pas de collision avec ZCR1/ZPO1), aperçu
+  `apercu_zone_magma_rives_v1.html`, **12 tests PASS**). Chemin d'obsidienne au sud, arène sombre
+  entre trois lacs de lave, arche de basalte à évent incandescent au nord. Référence D41P41A (boucle
+  ROM 130 ticks, cellules jaune-orange pulsantes). Fidélité : lave 24,7 · basalte 13,1 · sol 29,8
+  (seuil 35). Texture de lave générée calibrée (offset additif + épaule douce monotone vers la classe
+  lave du port — le recalage moyenne/écart-type rendait les chenaux sarcelle, proscrit), animée par
+  dérive circulaire 6 px + pulsation (boucle exacte, 96 couleurs partagées) ; 48 braises calculées ;
+  5 calques + Top, boucle 240 ticks. `entry=[376,560]`, `boss=[376,296]`, `objectif=[384,104]`.
+  ZIP projet 5,73 Mo + ZIP calques 13,46 Mo, aperçu 9,14 Mo.
+- En cours : **Zone Mer/lagon (ZME1)** — références sécurisées (`s01p02a_port.png`, stats canoniques,
+  vérité ROM : bandes de vagues en défilement latéral, boucle 1200), décor à générer.
+
+Leçons : `.venv` et `.cache` ne persistent pas entre les tours (tout re-créer/re-télécharger ; stocker
+les références utiles dans `source/<lot>/reference/`, versionné) ; `read_file` sur 2 images peut les
+afficher inversées (vérifier par le contenu) ; `edit_file` en parallèle sur le même fichier peut
+perdre des éditions (toujours vérifier par `grep`, préférer un script Python séquentiel).

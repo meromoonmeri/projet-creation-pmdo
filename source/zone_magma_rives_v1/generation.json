@@ -1,0 +1,52 @@
+{
+  "lot": "zone_magma_rives_v1",
+  "prefix": "ZMA1",
+  "type": "zone de donjon / arène volcanique",
+  "user_direction": {
+    "verbatim": "poursuivre les zones ; les vfx (lave, eau, etc.) tu dois les générer, album 908 des fonds animés en référence",
+    "interpreted_constraints": [
+      "zone volcanique à lacs de lave (D41P41A canonique, album 908 / ROM)",
+      "VFX GENERES : texture de lave générée (pas de pixels ROM copiés), animée par dérive + pulsation",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, port d41p41a en référence (images=)",
+      "prompt_summary": "Arrivée au sud, arène d'obsidienne au centre, TROIS lacs magenta (gauche, droite, nord-centre), arche de basalte à évent incandescent au nord ; textures et palette du port d41 ; sans lave texturée, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/lave.png",
+      "method": "image generation, décor en référence (images=decor.png)",
+      "prompt_summary": "Lave cellulaire jaune-orange sur rouge-orange, plein cadre, mêmes tons que les liserés du décor.",
+      "source_px": [1200, 896],
+      "attempts": 2,
+      "note": "1 échec API (réponse vide) avec le rip d41 en référence, succès en référençant le décor"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, décor en référence (images=decor.png)",
+      "prompt_summary": "Obsidienne fissurée gris-brun sombre, plein cadre, mêmes tons que le sol de l'arène.",
+      "source_px": [1200, 896],
+      "attempts": 4,
+      "note": "3 échecs API (réponses vides) avec le rip d41 en référence, succès en référençant le décor"
+    }
+  ],
+  "reference": {
+    "port": "reference/d41p41a_port.png (552 x 576, PMD-SKY-PMDO-PORT, master)",
+    "canon_stats": "reference/canon_stats.json (région + classe lave du port, cibles du calibrage)",
+    "strip": "reference/d41_lave.png (6 crans témoins rendus depuis la ROM pret/pmd-sky)",
+    "origin": "D41P41A, fin volcanique (Explorers of Sky) ; boucle ROM 130 ticks, cellules jaune-orange pulsantes",
+    "role": "matière + cible palette de la lave générée (aucun pixel copié)"
+  },
+  "agent_choices": {
+    "prefix": "ZMA1 ouvre la série Z des zones (libre)",
+    "calibration": "offset additif + épaule douce monotone vers la classe lave du port ; recalage moyenne/écart-type proscrit (teintes froides)",
+    "animation": "dérive circulaire 6 px + pulsation, période 48 exacte ; 48 braises calculées"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}
