@@ -1,0 +1,51 @@
+{
+  "lot": "zone_pommiers_v1",
+  "prefix": "ZPO1",
+  "type": "zone de donjon / verger",
+  "user_direction": {
+    "verbatim": "poursuivre les zones (album 908) ; pour les VFX etc., l'agent doit les générer",
+    "interpreted_constraints": [
+      "layout de zone logique (arrivée sud, clairière, objectif nord)",
+      "bois aux pommes D05P11A avec pommes qui tombent + pollen (VFX générés, pas de pixels exacts)",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, preview D05P11A en référence (images=)",
+      "prompt_summary": "Arrivée au sud sur le chemin de sable, clairière ronde au centre, pommiers à pommes rouges des deux côtés, rochers et buissons, arche de pierre au nord ; sans pommes qui tombent, pollen, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, sans référence (3 essais vides avec la preview)",
+      "prompt_summary": "Herbe de prairie verte, plein cadre, sans autre élément.",
+      "source_px": [1200, 896],
+      "attempts": 4
+    },
+    {
+      "file": "bruts/vfx.png",
+      "method": "image generation, preview D05P11A en référence (images=)",
+      "prompt_summary": "Planche d'effets sur fond noir : grains de pollen dorés, pétales rose-blanc, brisures de feuilles vertes.",
+      "source_px": [1191, 880],
+      "attempts": 1,
+      "role": "planche VFX AGENT, sprites découpés au seuil somme >= 60"
+    }
+  ],
+  "reference": {
+    "file": "reference/d05p11a_port.png",
+    "origin": "PMD-SKY-PMDO-PORT, output/Previews/d05p11a.png (bois aux pommes)",
+    "role": "matière de référence + paires de fidélité"
+  },
+  "agent_choices": {
+    "prefix": "ZPO1 (zone pommiers 1), libre dans le dépôt",
+    "segmentation": "sans témoin : directe du décor (couleurs + géométrie)",
+    "pommes": "sprites 8x8 découpés dans le décor (pomme en 276-289 x 180-191), chute comme les feuilles FJR1",
+    "pollen": "8 points qui montent + 4 pétales qui descendent, décalages uniformes",
+    "objectif": "case atteignable la plus proche du pied de l'arche (recherche d'atteignabilité depuis l'entrée)"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}

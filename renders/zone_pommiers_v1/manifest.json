@@ -1,0 +1,511 @@
+{
+  "lot": "zone_pommiers_v1",
+  "title": "Zone Pommiers — verger D05P11A",
+  "prefix": "ZPO1",
+  "namespace": "zone_pommiers",
+  "asset": "zpo1_zone_pommiers",
+  "type": "zone de donjon / verger",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "poursuivre les zones (album 908) ; les VFX sont générés par l agent, pas en pixels exacts",
+  "agent_choices": {
+    "reference": "preview D05P11A du port PMD-SKY-PMDO-PORT (bois aux pommes)",
+    "layout": "arrivée au sud sur le chemin de sable, clairière ronde au centre, arche de pierre au nord",
+    "prefix": "ZPO1 (zone pommiers 1), libre dans le dépôt",
+    "vfx": "pommes découpées dans le décor, pollen découpé dans la planche vfx.png générée",
+    "biome": "bois aux pommes D05P11A ; intitulé de travail"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/zone_pommiers_v1/reference/d05p11a_port.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon apple woods): same sandy winding path, same green meadow grass with small tufts, same round apple trees with red apples, same grey rocks, same small bushes. Make a NEW, larger top-down zone map. WIDE LANDSCAPE 4:3, target 1200 by 896 pixels, zoomed out so the orchard feels vast. Layout: the player arrives at the SOUTH (bottom edge center) on the sandy path; the path winds north and opens onto a WIDE round grassy clearing in the CENTER; apple trees with red apples stand densely on both sides of the clearing; a few rocks and bushes dot the grass; at the NORTH (top center) the path continues to an old mossy stone arch between two big apple trees. No falling apples, no floating pollen, no characters, no text, no UI, no border.",
+      "essais": "premier essai ; conforme (distances à la référence dans le manifeste)"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [],
+      "prompt": "A seamless green meadow grass pixel-art texture filling the whole image, 4:3 landscape, top-down retro game background: mid-green grass with small darker and lighter tufts and speckles, no objects, no characters, no text.",
+      "essais": "3 essais vides avec la preview en référence (réponse sans image) ; conforme sans référence, tons herbacés"
+    },
+    {
+      "file": "vfx.png",
+      "images": [
+        "source/zone_pommiers_v1/reference/d05p11a_port.png"
+      ],
+      "prompt": "Pixel-art visual effects sheet on a PURE BLACK background, nothing else: about twenty small warm glowing pollen grains (yellow-white dots with soft halos), a few small pink-white apple blossom petals, and a few tiny green leaf flecks. Same warm spring palette as sunlight through an orchard. Scattered across the frame with black space between them, no ground, no trees, no characters, no text, no UI, no border.",
+      "essais": "premier essai ; planche AGENT sur fond noir, sprites découpés au seuil somme >= 60"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/zone_pommiers_v1/bruts/decor.png",
+      "sha256": "5f08e54cb7edfe3065b77c717bc3db968af1669682cca421b63673d8108efa1a",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition ZPO1 générée avec la référence en images="
+    },
+    {
+      "file": "source/zone_pommiers_v1/bruts/sol_complet.png",
+      "sha256": "a26111680da241461af5eb2064cfe5e65f3254d0a7d2f70b898e2143f98242a6",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "herbe de prairie seule, base sous la composition opaque"
+    },
+    {
+      "file": "source/zone_pommiers_v1/bruts/vfx.png",
+      "sha256": "580906ab0495111df2796453badf5c69144c37fa279de73b7ae8cd8d7c121619",
+      "size_px": [
+        1191,
+        880
+      ],
+      "role": "planche VFX générée sur fond noir (pollen, pétales)"
+    },
+    {
+      "file": "source/zone_pommiers_v1/reference/d05p11a_port.png",
+      "sha256": "544c1497d0e1f99ae848409221ae0b537bac16aee5a41b6ff3fbaaa96b843c07",
+      "size_px": [
+        552,
+        408
+      ],
+      "role": "preview D05P11A : matière de référence"
+    }
+  ],
+  "normalization": {
+    "methode": "BOX uniforme 0.642857 + recadrage 1 px ; palettes par groupes (sol 64, détail 32, bois 96), sans tramage ; pommes du décor, pollen de vfx.png",
+    "scale": 0.6428571428571429,
+    "crop_x": 1
+  },
+  "recalage": {
+    "methode": "sans témoin : segmentation directe (couleurs + géométrie), pas de recalage"
+  },
+  "segmentation": {
+    "chemin_pct": 7.6,
+    "pommiers_composantes": 410,
+    "pommes_statiques_px": 6247,
+    "rochers_composantes": 128,
+    "fleurs_composantes": 28,
+    "arche_y": [
+      40,
+      211
+    ],
+    "arche_x": [
+      454,
+      746
+    ]
+  },
+  "fidelite_rip": {
+    "sable": {
+      "rip_rgb": [
+        239,
+        191,
+        119
+      ],
+      "decor_rgb": [
+        240,
+        191,
+        119
+      ],
+      "rip_xy": [
+        300,
+        60
+      ],
+      "decor_xy": [
+        514,
+        598
+      ],
+      "distance": 1.0
+    },
+    "herbe_claire": {
+      "rip_rgb": [
+        87,
+        167,
+        63
+      ],
+      "decor_rgb": [
+        87,
+        167,
+        63
+      ],
+      "rip_xy": [
+        180,
+        60
+      ],
+      "decor_xy": [
+        176,
+        840
+      ],
+      "distance": 0.0
+    },
+    "arbre_sombre": {
+      "rip_rgb": [
+        63,
+        119,
+        31
+      ],
+      "decor_rgb": [
+        63,
+        119,
+        30
+      ],
+      "rip_xy": [
+        60,
+        60
+      ],
+      "decor_xy": [
+        146,
+        88
+      ],
+      "distance": 1.0
+    },
+    "herbe_vive": {
+      "rip_rgb": [
+        95,
+        191,
+        31
+      ],
+      "decor_rgb": [
+        95,
+        191,
+        31
+      ],
+      "rip_xy": [
+        60,
+        300
+      ],
+      "decor_xy": [
+        4,
+        98
+      ],
+      "distance": 0.0
+    },
+    "seuil": 35,
+    "methode": "paires de pixels vérifiées preview D05P11A / brut ; distance euclidienne ; seuil 35"
+  },
+  "layers": [
+    {
+      "file": "calques/ZPO1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "00_sol_complet",
+      "order": 0
+    },
+    {
+      "file": "calques/ZPO1_01_chemin.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "01_chemin",
+      "order": 1
+    },
+    {
+      "file": "calques/ZPO1_02_herbe.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "02_herbe",
+      "order": 2
+    },
+    {
+      "file": "calques/ZPO1_03_fleurs.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "03_fleurs",
+      "order": 3
+    },
+    {
+      "file": "calques/ZPO1_04_rochers.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "04_rochers",
+      "order": 4
+    },
+    {
+      "file": "calques/ZPO1_05_pommiers.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "05_pommiers",
+      "order": 5
+    },
+    {
+      "file": "calques/ZPO1_06_arche.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "06_arche",
+      "order": 6
+    },
+    {
+      "file": "animation/pommes/ZPO1_07_pommes_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "07_pommes",
+      "order": 7
+    },
+    {
+      "file": "animation/pollen/ZPO1_08_pollen_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "08_pollen",
+      "order": 8
+    },
+    {
+      "file": "calques/ZPO1_09_top.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "09_top",
+      "order": 9
+    }
+  ],
+  "pommes": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "chute": 20,
+    "au_sol": 6,
+    "nombre": 8,
+    "placements": [
+      {
+        "depart": [
+          476,
+          418
+        ],
+        "phase": 27,
+        "sens": 1
+      },
+      {
+        "depart": [
+          434,
+          173
+        ],
+        "phase": 24,
+        "sens": 1
+      },
+      {
+        "depart": [
+          287,
+          268
+        ],
+        "phase": 5,
+        "sens": 1
+      },
+      {
+        "depart": [
+          334,
+          178
+        ],
+        "phase": 4,
+        "sens": 1
+      },
+      {
+        "depart": [
+          289,
+          227
+        ],
+        "phase": 2,
+        "sens": -1
+      },
+      {
+        "depart": [
+          291,
+          298
+        ],
+        "phase": 15,
+        "sens": 1
+      },
+      {
+        "depart": [
+          313,
+          17
+        ],
+        "phase": 7,
+        "sens": -1
+      },
+      {
+        "depart": [
+          307,
+          52
+        ],
+        "phase": 17,
+        "sens": 1
+      }
+    ],
+    "loi": "k = (t - phase) mod 48 ; chute k < 20 : y = y0 + 2k, x = x0 + sens 4 sin(2 pi k / 10), pose alternee toutes les 3 phases ; posee 6 phases puis effacee ; meme trajet a chaque boucle",
+    "origine": "calcule ; 2 poses 8x8 (originale + miroir), couleurs exactes de la pomme du decor"
+  },
+  "pollen": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 12,
+    "placements": [
+      {
+        "x": 450,
+        "y": 502,
+        "forme": "point",
+        "phase": 0,
+        "ax": 2
+      },
+      {
+        "x": 380,
+        "y": 445,
+        "forme": "point",
+        "phase": 6,
+        "ax": 3
+      },
+      {
+        "x": 388,
+        "y": 78,
+        "forme": "point",
+        "phase": 12,
+        "ax": 4
+      },
+      {
+        "x": 285,
+        "y": 356,
+        "forme": "point",
+        "phase": 18,
+        "ax": 2
+      },
+      {
+        "x": 398,
+        "y": 318,
+        "forme": "point",
+        "phase": 24,
+        "ax": 3
+      },
+      {
+        "x": 467,
+        "y": 80,
+        "forme": "point",
+        "phase": 30,
+        "ax": 4
+      },
+      {
+        "x": 748,
+        "y": 96,
+        "forme": "point",
+        "phase": 36,
+        "ax": 2
+      },
+      {
+        "x": 368,
+        "y": 518,
+        "forme": "point",
+        "phase": 42,
+        "ax": 3
+      },
+      {
+        "x": 430,
+        "y": 228,
+        "forme": "petale",
+        "phase": 3,
+        "ax": 4
+      },
+      {
+        "x": 537,
+        "y": 417,
+        "forme": "petale",
+        "phase": 15,
+        "ax": 2
+      },
+      {
+        "x": 321,
+        "y": 200,
+        "forme": "petale",
+        "phase": 27,
+        "ax": 3
+      },
+      {
+        "x": 542,
+        "y": 29,
+        "forme": "petale",
+        "phase": 39,
+        "ax": 4
+      }
+    ],
+    "loi": "points : y = y0 - u//4, x = x0 + ax sin(2 pi u / 24) ; pétales : y = y0 + u//3, x = x0 + ax sin(2 pi u / 16), pose alternee toutes les 12 phases ; u = (t + phase) mod 48",
+    "origine": "grains calcules, sprites exacts de vfx.png (point 6x6, pétale 9x8 + miroir)"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      264
+    ],
+    "objective_px": [
+      376,
+      136
+    ],
+    "entry_cell_yx": [
+      70,
+      48
+    ],
+    "boss_cell_yx": [
+      33,
+      47
+    ],
+    "objective_cell_yx": [
+      17,
+      47
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 700
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 1052
+      }
+    },
+    "blocked_cells": 5555,
+    "total_cells": 6912,
+    "rule": "case bloquée si > 25 % hors chemin, herbe et fleurs (cell_grid, franchissement 4 px) ; empreinte joueur 16x16 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "ZPO1_00_SOL": 6913,
+      "ZPO1_01_CHEMIN": 611,
+      "ZPO1_02_HERBE": 2621,
+      "ZPO1_03_FLEURS": 41,
+      "ZPO1_04_ROCHERS": 432,
+      "ZPO1_05_POMMIERS": 5232,
+      "ZPO1_06_ARCHE": 167,
+      "ZPO1_07_POMMES": 193,
+      "ZPO1_08_POLLEN": 482
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Composition générée référencée, pas de tuiles natives certifiées ; les pommes reprennent des couleurs exactes du décor, le pollen est découpé dans la planche VFX générée.",
+    "Les tests vérifient les artefacts locaux et l accessibilité géométrique 16x16 ; le runtime PMDO n a pas été lancé."
+  ]
+}

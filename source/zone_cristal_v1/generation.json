@@ -1,0 +1,50 @@
+{
+  "lot": "zone_cristal_v1",
+  "prefix": "ZCR1",
+  "type": "zone de donjon / grotte de cristal",
+  "user_direction": {
+    "verbatim": "poursuivre les zones (album 908) ; pour les VFX etc., l'agent doit les générer",
+    "interpreted_constraints": [
+      "layout de zone logique (arrivée sud, arène, objectif nord)",
+      "grotte de cristal D17P11A avec scintillements + lueurs respirantes (VFX générés, pas de pixels exacts)",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, preview D17P11A en référence (images=)",
+      "prompt_summary": "Arrivée au sud sur la glace, vaste arène de glace ronde au centre avec Flaques lumineuses, cristaux et rocailles sur les côtés, grand cristal pâle sur son autel au nord, murs de roche bleu-gris ; sans étincelles, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, preview D17P11A en référence (images=)",
+      "prompt_summary": "Glace bleue de la grotte, plein cadre, sans autre élément.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/vfx.png",
+      "method": "image generation, preview D17P11A en référence (images=)",
+      "prompt_summary": "Planche d'effets sur fond noir : croix d'étincelles blanches et bleu-glace, halos ronds, éclats de cristal.",
+      "source_px": [1047, 1008],
+      "attempts": 1,
+      "role": "planche VFX AGENT, sprites découpés au seuil somme >= 60"
+    }
+  ],
+  "reference": {
+    "file": "reference/d17p11a_port.png",
+    "origin": "PMD-SKY-PMDO-PORT, output/Previews/d17p11a.png (la vraie grotte de cristal ; d10p41a.png contient un couloir marron)",
+    "role": "matière de référence + paires de fidélité"
+  },
+  "agent_choices": {
+    "prefix": "ZCR1 (zone cristal 1), libre dans le dépôt",
+    "segmentation": "sans témoin : directe du décor (couleurs + géométrie)",
+    "vfx": "étincelles découpées dans vfx.png (S 12x12, M 18x18), halos calculés en 8 bleus exacts du décor",
+    "objectif": "case atteignable la plus proche du pied du monument (recherche d'atteignabilité depuis l'entrée)"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}

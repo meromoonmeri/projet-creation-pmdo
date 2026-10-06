@@ -278,3 +278,32 @@ ou test de gameplay. **La file locale des fins est désormais complète** (Vapeu
 Bristle, Jungle, Waterfall, Canyon, Sables, Star, Clairière, Couloir violet ×2, Mt. Thunder, Jardin) ; restent,
 hors file locale : les fins Underground Lake et Mystifying Forest (branches sœurs, non fusionnées) et les
 cartes magma/mer à vrais cycles.
+
+## Reprise du 6 octobre 2026 — ZCR1 + ZPO1, deux zones album 908 aux VFX générés
+
+Demande : « poursuivre les zones » de l'album 908 ; pour les VFX etc., l'agent les GÉNÈRE (pas de pixels
+exacts). Deux zones construites avec la méthode des lots 4:3 (rendu généré référencé + séparation
+multicalque 8 px + Ground PMDO 0.8.12), sans témoin (segmentation directe du décor, couleurs + géométrie),
+avec planche `vfx.png` générée sur fond noir par zone. **Correction d'étiquetage** : le fichier
+`output/Previews/d10p41a.png` du port contient un couloir marron à stalagmites, PAS la grotte de cristal ;
+la vraie grotte est `d17p11a.png` (prise pour référence ; la section FMT2+FJR1 ci-dessus inverse les deux).
+
+- **Zone Cristal** (`source/zone_cristal_v1/`, livrables `renders/zone_cristal_v1/`, préfixe **ZCR1**,
+  référence `d17p11a_port.png`, aperçu `apercu_zone_cristal_v1.html`, **11 tests PASS**). Arrivée sud sur la
+  glace, arène de glace ronde avec Flaques lumineuses, grand cristal pâle sur son autel au nord
+  (`entry=[384,560]`, `boss=[376,320]`, `objectif=[344,232]`). Fidélité : cristal pâle 11,8 · moyen 5,9 ·
+  mur 5,4 · glace 2,4 · glace sombre 1,4 (seuil 35). 12 scintillements (sprites S/M découpés dans vfx.png,
+  décalages uniformes, 264 px/frame) + lueurs respirantes (rampe 8 bleus exacts) ; 8 calques + Top, boucle
+  240 ticks. ZIP projet 2,1 Mo + ZIP calques 7,31 Mo, aperçu 4,0 Mo.
+- **Zone Pommiers** (`source/zone_pommiers_v1/`, livrables `renders/zone_pommiers_v1/`, préfixe **ZPO1**,
+  référence `d05p11a_port.png`, aperçu `apercu_zone_pommiers_v1.html`, **11 tests PASS**). Arrivée sud sur le
+  chemin de sable, clairière ronde, pommiers à pommes rouges, arche de pierre au nord (`entry=[384,560]`,
+  `boss=[376,264]`, `objectif=[376,136]`). Fidélité : sable 1,0 · herbe claire 0,0 · arbre sombre 1,0 ·
+  herbe vive 0,0. 8 pommes qui tombent (sprites 8×8 du décor, boucle exacte) + 12 grains de pollen
+  (8 points + 4 pétales de vfx.png) ; 9 calques + Top, boucle 240 ticks. ZIP projet 1,94 Mo + ZIP calques
+  6,59 Mo, aperçu 3,26 Mo. Sol : 3 essais vides avec la référence, conforme sans référence.
+
+Les deux lots : ORA, reconstruction `.tile` (frame 0), index, Ground et dry-run installateur vérifiés.
+Marqueurs `entrance`/`boss`/`objectif` = repères d'édition, aucun warp. `art_approved: false`,
+`runtime_tested: false`. Leçons build : objectif = case atteignable la plus proche (poches isolées sinon) ;
+seuil rouge r−g > 90 (le sable piégeait r−g > 60) ; pierre hors brun (les troncs piégeaient la règle).
