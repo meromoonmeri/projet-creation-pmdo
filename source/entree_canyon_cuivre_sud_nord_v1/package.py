@@ -37,7 +37,7 @@ def image_uri(path: Path) -> str:
 
 
 def standalone_preview() -> Path:
-    """Create an offline root-level preview, independent of ignored render files."""
+    """Create offline root and package-review previews, independent of ignored render files."""
     manifest = json.loads((OUT / "manifest.json").read_text(encoding="utf-8"))
     page = (HERE / "preview.html").read_text(encoding="utf-8")
 
@@ -67,6 +67,7 @@ def standalone_preview() -> Path:
 
     destination = ROOT / "apercu_entree_canyon_cuivre_v1.html"
     destination.write_text(page, encoding="utf-8")
+    (OUT / "review/index.html").write_text(page, encoding="utf-8")
     return destination
 
 

@@ -267,6 +267,8 @@ class EOC1Build(unittest.TestCase):
         package = load_module("eoc1_package_for_test", HERE / "package.py")
         preview_path = package.standalone_preview()
         page = preview_path.read_text(encoding="utf-8")
+        review_page = (OUT / "review/index.html").read_text(encoding="utf-8")
+        self.assertEqual(review_page, page)
         self.assertNotIn("__DATA__", page)
         self.assertNotIn("renders/entree_canyon_cuivre_sud_nord_v1/", page)
         self.assertNotIn("../calques/", page)
