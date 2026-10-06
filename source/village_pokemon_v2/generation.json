@@ -1,0 +1,55 @@
+{
+  "lot": "village_pokemon_v2",
+  "prefix": "VIL2",
+  "type": "second village Pokémon style Treasure Town (place du marché)",
+  "user_direction": {
+    "verbatim": "génère les villages en plusieurs layers : structure, house, etc.",
+    "interpreted_constraints": [
+      "nouveau layout de village (distinct de VIL1)",
+      "découpage fin : halle, maisons, tentes, structures bois séparées",
+      "textures canoniques T00P02/T00P03, méthode des lots 4:3 de la série",
+      "VFX GÉNÉRÉS (eau de la mare générée, album 908 en référence)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, ports t00p02/t00p03 en référence (images=)",
+      "prompt_summary": "Mêmes textures/palette que les références ; NOUVEAU plan large 4:3 (1200×896) : arrivée au sud, place du marché à l'est avec étals à auvents, halle de guilde jaune au toit rouge et tapis au nord-est, deux maisonnettes aux toits bleu-gris à l'ouest, mare MAGENTA plate à l'ouest du centre, tente de cirque rayée près de la place, tipi au sud-ouest, dôme de pierre, arbres, barrières, fleurs, falaises et forêt en bordure ; ni eau texturée, ni personnages, ni texte.",
+      "source_px": [1200, 896],
+      "attempts": 1,
+      "note": "conforme du premier essai (le générateur a ajouté un second tipi et une haie autour de la mare)"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, port t00p02 et décor en référence (images=)",
+      "prompt_summary": "Herbe de prairie jaune-vert vif seule, plein cadre 4:3 ; ni chemins, ni maisons, ni eau, ni magenta.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/eau.png",
+      "method": "image generation, port t00p02 en référence (images=)",
+      "prompt_summary": "Eau de mare calme bleu clair à vaguelettes, plein cadre 4:3 ; ni sable, ni maisons, ni magenta.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/temoin_sans_maisons.png",
+      "method": "image editing, décor en référence (images=decor.png)",
+      "prompt_summary": "Même image : retirer halle, maisonnettes, cirque, tipis, dôme, étals, arbres, haie et mare magenta (herbe / sol sableux à la place) ; garder chemins, place, falaises, barrières, tonneaux, fleurs ; aucun magenta. Témoin de segmentation recalé (0,0), jamais exporté.",
+      "source_px": [1200, 896],
+      "attempts": 1,
+      "note": "le témoin ajoute deux bancs/étals qui se superposent aux composantes du décor : inoffensifs (fusionnés dans les composantes bâties)"
+    }
+  ],
+  "segmentation": {
+    "method": "écart décor/témoin + cascade par composante : arbres (verts) d'abord, découpage des mixtes, puis routage structures/tentes/maisons, la plus grande devient la halle",
+    "iterations": [
+      "v1 : tapis vide (tapis de la halle à 0,68 voisins sable, seuil 0,7) → seuil 0,6 (suivant à 0,29)",
+      "v2 : routage bois>35 % en premier : halle, arbres (ombres), tente et tipis (ombres orange) happés → cascade réordonnée (verts d'abord, vert = g>r+10 et g>=b pour les toits bleus), structures = bois>45 % et rouge<15 %",
+      "v3 : la halle (rouge 0,43, pans clairs 0,16) passait le test des tentes → plus grande composante exclue + pans clairs>20 % (cirque 0,26, tipis 0,30-0,31)"
+    ],
+    "result": "halle (1), maisons (maisonnettes, dôme, 2 étals), tentes (cirque + 2 étals fusionnés, 2 tipis), arbres, structures (boutique, barrières, tonneaux), partition exacte ; tout le bâti bloque, les étals mal triés restent praticables visuellement identiques"
+  }
+}

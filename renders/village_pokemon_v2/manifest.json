@@ -1,0 +1,569 @@
+{
+  "lot": "village_pokemon_v2",
+  "title": "Village Pokémon — place du marché (Treasure Town)",
+  "prefix": "VIL2",
+  "namespace": "village_pokemon_v2",
+  "asset": "vil2_village_pokemon",
+  "type": "village / place centrale",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "second village pokémon (nouveau layout), textures canoniques T00P02/T00P03, découpage fin : halle, maisons, tentes, structures",
+  "agent_choices": {
+    "reference": "T00P02/T00P03 canoniques (Treasure Town, Explorers of Sky) : rendus de vérité ROM pret/pmd-sky (tuiles invalides exclues)",
+    "methode_vfx": "eau de mare générée (pas de pixels ROM), calibrée sur l'eau T00 ; pétales calculés",
+    "layout": "chemin d'arrivée au sud, place du marché à l'est, halle de guilde au nord-est, maisonnettes à l'ouest, tente de cirque, tipis, dôme, mare à l'ouest",
+    "prefix": "VIL2, série V des villages (libre)",
+    "biome": "village pokémon ; intitulé de travail"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/village_pokemon_v2/reference/t00p02_t00.png",
+        "source/village_pokemon_v2/reference/t00p03_t00.png"
+      ],
+      "prompt": "Treasure Town village, same textures/palette/pixel-art as references. NEW wide 4:3 (1200x896) layout: arrival SOUTH on a sandy path; busy market square EAST with stalls and awnings; big yellow guild hall with red roof and red carpet NORTH-EAST; row of two small blue-grey-roof cottages WEST; small round pond WEST of center filled FLAT pure magenta (255,0,255); striped shop tent near the square, small tipi south-west; round trees, fences, stalls, barrels, flowers; cliffs and dense forest borders. Magenta pond only, no water texture, no characters, no text.",
+      "essais": "premier essai ; conforme (halle au nord-est, maisonnettes, tente de cirque, tipis, dôme, mare magenta)"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/village_pokemon_v2/reference/t00p02_t00.png",
+        "source/village_pokemon_v2/bruts/decor.png"
+      ],
+      "prompt": "Same meadow grass as references, full-frame 4:3 tiling texture with tufts; no paths, houses, trees, water, magenta or text.",
+      "essais": "premier essai ; herbe seule, conforme"
+    },
+    {
+      "file": "eau.png",
+      "images": [
+        "source/village_pokemon_v2/reference/t00p02_t00.png"
+      ],
+      "prompt": "Same light-blue water as the reference's water, calm pond ripples full-frame 4:3; no sand, grass, houses, magenta or text.",
+      "essais": "premier essai ; eau de mare à vaguelettes, conforme"
+    },
+    {
+      "file": "temoin_sans_maisons.png",
+      "images": [
+        "source/village_pokemon_v2/bruts/decor.png"
+      ],
+      "prompt": "Same image: remove guild hall, cottages, circus tent, tipis, stone dome, market stalls, trees, hedge ring and magenta pond (grass / sandy ground instead); keep paths, square, cliffs, fences, barrels, flowers. No magenta. Segmentation witness, never exported.",
+      "essais": "premier essai ; témoin de segmentation recalé (0, 0), jamais exporté"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/village_pokemon_v2/bruts/decor.png",
+      "sha256": "7e2e03d6519838a69c7e8cd5aa5e4cd6ca6e72e2dd61f375704c7668e4e3e986",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition VIL2 générée avec T00P02/T00P03 en référence (mare magenta)"
+    },
+    {
+      "file": "source/village_pokemon_v2/bruts/temoin_sans_maisons.png",
+      "sha256": "907e04146756904ceafbd3c0db57b188481573261c04c66b2f4eb4db95b29509",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "témoin de segmentation recalé (0, 0), jamais exporté"
+    },
+    {
+      "file": "source/village_pokemon_v2/bruts/sol_complet.png",
+      "sha256": "12ca44ad929b114c4adb8168be0d1ef85cece371ae37357c7a74d5a629ef5b41",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "herbe seule, base d édition sous la composition opaque"
+    },
+    {
+      "file": "source/village_pokemon_v2/bruts/eau.png",
+      "sha256": "81537bd52ca31b17ebeee70dcb7336101f21ba89547f774c80caa36e4774d4d2",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "eau de mare générée à vaguelettes, calibrée sur l'eau T00, animée"
+    },
+    {
+      "file": "source/village_pokemon_v2/reference/t00p02_t00.png",
+      "sha256": "88b0a4f96fb640632820da5d6fe98349ebbeb8d74f5d2f06ca1070b8c300961f",
+      "size_px": [
+        672,
+        504
+      ],
+      "role": "vérité ROM T00P02 : matière + fidélité"
+    },
+    {
+      "file": "source/village_pokemon_v2/reference/t00p03_t00.png",
+      "sha256": "5a1f0666f599c32c84b4b19c905862b51d7c197360716adb399a9bf20b7ddc3a",
+      "size_px": [
+        552,
+        504
+      ],
+      "role": "vérité ROM T00P03 : matière + fidélité"
+    },
+    {
+      "file": "source/village_pokemon_v2/reference/canon_stats.json",
+      "sha256": "368e0888936c91ca73efc64a3586f6082790847bd47efb256b288f82bddc5b6b",
+      "size_px": "n/a",
+      "role": "statistiques canoniques (eau T00), cible du calibrage"
+    }
+  ],
+  "normalization": {
+    "methode": "moyenne pondérée par classe (BOX), facteur uniforme 0.642857 identique en X et Y, recadrage 1 px de chaque côté ; palettes par groupes (sol 96, maisons 96, arbres 64, bois 64), sans tramage ; eau calibrée quantifiée sur 64 couleurs partagées (MEDIANCUT, sans tramage), pétales calculés",
+    "scale": 0.6428571428571429,
+    "crop_x": 1
+  },
+  "recalage": {
+    "temoin": {
+      "ecart_moyen": 3.58,
+      "ecart_decale_1px": 4.76
+    }
+  },
+  "calibrage_eau": {
+    "cible": "t00_eau_mean de canon_stats.json",
+    "methode": "offset additif par canal + épaule douce monotone",
+    "apres_moyenne": [
+      132.7,
+      214.7,
+      221.2
+    ]
+  },
+  "segmentation": {
+    "objets": 43,
+    "halle": 1,
+    "maisons": 13,
+    "tentes": 3,
+    "arbres": 23,
+    "mixtes_decoupes": 0,
+    "miettes_rendues_au_sol_px": 651,
+    "structures_pct": 5.43,
+    "falaises_pct": 8.66,
+    "place_pct": 22.79,
+    "tapis_px": 4279,
+    "herbe_pct": 32.38
+  },
+  "fidelite_rip": {
+    "herbe": {
+      "rip_rgb": [
+        91.8,
+        149.8,
+        39.2
+      ],
+      "decor_rgb": [
+        88.1,
+        154.4,
+        36.8
+      ],
+      "distance": 6.4
+    },
+    "sable": {
+      "rip_rgb": [
+        239.1,
+        197.5,
+        126.8
+      ],
+      "decor_rgb": [
+        241.3,
+        199.4,
+        120.8
+      ],
+      "distance": 6.7
+    },
+    "bois": {
+      "rip_rgb": [
+        178.9,
+        129.9,
+        76.4
+      ],
+      "decor_rgb": [
+        180.2,
+        128.7,
+        69.8
+      ],
+      "distance": 6.8
+    },
+    "toit": {
+      "rip_rgb": [
+        209.0,
+        97.8,
+        77.3
+      ],
+      "decor_rgb": [
+        207.7,
+        86.5,
+        70.0
+      ],
+      "distance": 13.5
+    },
+    "seuil": 35,
+    "methode": "moyenne RGB par matière (herbe, sable, bois, toit), même classifieur pixel sur T00P02+T00P03 et sur le brut, tuiles glitchées exclues ; distance euclidienne ; seuil 35"
+  },
+  "layers": [
+    {
+      "file": "calques/VIL2_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "00_sol_complet",
+      "order": 0
+    },
+    {
+      "file": "calques/VIL2_01_herbe.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "01_herbe",
+      "order": 1
+    },
+    {
+      "file": "calques/VIL2_02_place.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "02_place",
+      "order": 2
+    },
+    {
+      "file": "calques/VIL2_03_tapis.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "03_tapis",
+      "order": 3
+    },
+    {
+      "file": "calques/VIL2_04_halle.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "04_halle",
+      "order": 4
+    },
+    {
+      "file": "calques/VIL2_05_maisons.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "05_maisons",
+      "order": 5
+    },
+    {
+      "file": "calques/VIL2_06_tentes.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "06_tentes",
+      "order": 6
+    },
+    {
+      "file": "calques/VIL2_07_arbres.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "07_arbres",
+      "order": 7
+    },
+    {
+      "file": "calques/VIL2_08_structures.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "08_structures",
+      "order": 8
+    },
+    {
+      "file": "calques/VIL2_09_falaises.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "09_falaises",
+      "order": 9
+    },
+    {
+      "file": "animation/eau/VIL2_10_eau_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "10_eau",
+      "order": 10
+    },
+    {
+      "file": "animation/petales/VIL2_11_petales_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "11_petales",
+      "order": 11
+    },
+    {
+      "file": "calques/VIL2_12_top.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "12_top",
+      "order": 12
+    }
+  ],
+  "eau": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "derive_px": 4,
+    "onde": 0.05,
+    "longueur_onde_px": 64,
+    "tours_par_boucle": 3,
+    "palette_partagee": 64,
+    "rampe_calibree": [
+      [
+        122,
+        211,
+        220
+      ],
+      [
+        123,
+        212,
+        218
+      ],
+      [
+        122,
+        213,
+        220
+      ],
+      [
+        123,
+        213,
+        220
+      ],
+      [
+        128,
+        211,
+        219
+      ],
+      [
+        124,
+        213,
+        222
+      ],
+      [
+        127,
+        212,
+        222
+      ],
+      [
+        124,
+        214,
+        222
+      ],
+      [
+        130,
+        212,
+        219
+      ],
+      [
+        127,
+        214,
+        221
+      ],
+      [
+        135,
+        213,
+        218
+      ],
+      [
+        136,
+        216,
+        222
+      ],
+      [
+        142,
+        217,
+        222
+      ],
+      [
+        145,
+        219,
+        224
+      ],
+      [
+        151,
+        221,
+        223
+      ],
+      [
+        168,
+        221,
+        222
+      ]
+    ],
+    "loi": "dx = 4 sin(2 pi t / 48) ; onde 1 + 0.05 sin(2 pi x / 64 - 6 pi t / 48) + 0.02 sin(2 pi t / 48) ; boucle exacte de période 48",
+    "origine": "texture generee calibree sur T00 (ni pixels du rip ni pixels ROM)"
+  },
+  "petales": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 12,
+    "course": 40,
+    "couleurs": {
+      "blanc": [
+        250,
+        250,
+        248
+      ],
+      "rose": [
+        250,
+        200,
+        215
+      ]
+    },
+    "placements": [
+      {
+        "x0": 533,
+        "y0": 169,
+        "phase": 30,
+        "ton": "blanc"
+      },
+      {
+        "x0": 446,
+        "y0": 188,
+        "phase": 17,
+        "ton": "blanc"
+      },
+      {
+        "x0": 372,
+        "y0": 418,
+        "phase": 21,
+        "ton": "rose"
+      },
+      {
+        "x0": 429,
+        "y0": 359,
+        "phase": 37,
+        "ton": "blanc"
+      },
+      {
+        "x0": 351,
+        "y0": 349,
+        "phase": 16,
+        "ton": "blanc"
+      },
+      {
+        "x0": 576,
+        "y0": 255,
+        "phase": 29,
+        "ton": "rose"
+      },
+      {
+        "x0": 140,
+        "y0": 190,
+        "phase": 13,
+        "ton": "blanc"
+      },
+      {
+        "x0": 344,
+        "y0": 227,
+        "phase": 9,
+        "ton": "blanc"
+      },
+      {
+        "x0": 507,
+        "y0": 433,
+        "phase": 27,
+        "ton": "rose"
+      },
+      {
+        "x0": 525,
+        "y0": 333,
+        "phase": 2,
+        "ton": "blanc"
+      },
+      {
+        "x0": 238,
+        "y0": 375,
+        "phase": 8,
+        "ton": "blanc"
+      },
+      {
+        "x0": 741,
+        "y0": 249,
+        "phase": 35,
+        "ton": "rose"
+      }
+    ],
+    "loi": "k = (t - phase) mod 48 ; visible k < 40 : x = x0 + 20k/40 + 3 sin(2 pi k / 10), y = y0 + 6k/40, losange 3x3 puis point les 6 dernières phases ; caché sinon ; boucle exacte",
+    "origine": "pétales calculés dérivant sur la place"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      400,
+      560
+    ],
+    "boss_px": [
+      384,
+      336
+    ],
+    "objective_px": [
+      608,
+      208
+    ],
+    "entry_cell_yx": [
+      70,
+      50
+    ],
+    "boss_cell_yx": [
+      42,
+      48
+    ],
+    "objective_cell_yx": [
+      26,
+      76
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 324
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 1276
+      }
+    },
+    "blocked_cells": 4179,
+    "total_cells": 6912,
+    "rule": "case bloquée si > 25 % hors herbe, place et tapis praticables (cell_grid, franchissement 4 px) ; empreinte joueur 16x16 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "VIL2_00_SOL": 6913,
+      "VIL2_01_HERBE": 3950,
+      "VIL2_02_PLACE": 3340,
+      "VIL2_03_TAPIS": 25,
+      "VIL2_04_HALLE": 473,
+      "VIL2_05_MAISONS": 477,
+      "VIL2_06_TENTES": 357,
+      "VIL2_07_ARBRES": 1703,
+      "VIL2_08_STRUCTURES": 1028,
+      "VIL2_09_FALAISES": 1118,
+      "VIL2_10_EAU": 4300,
+      "VIL2_11_PETALES": 189
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Composition et eau générées, eau calibrée sur T00P02/T00P03 ; aucun pixel ROM dans les calques.",
+    "Les tests vérifient les artefacts locaux et l accessibilité géométrique 16x16 ; le runtime PMDO n a pas été lancé."
+  ]
+}
