@@ -2,6 +2,8 @@
 """Tests et verifie EOC1, puis cree les deux livrables ZIP deterministes."""
 from __future__ import annotations
 
+import base64
+import json
 import subprocess
 import sys
 import zipfile
@@ -25,14 +27,44 @@ def zip_files(destination: Path, files: list[tuple[Path, str]]) -> None:
             archive.writestr(info, source.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
 
 
+PFX = "EOC1"
+
+
+def image_uri(path: Path) -> str:
+    if not path.is_file():
+        raise FileNotFoundError(f"Image de l'aperçu introuvable : {path}")
+    return "data:image/png;base64," + base64.b64encode(path.read_bytes()).decode("ascii")
+
+
 def standalone_preview() -> Path:
-    """Create a root-level preview whose image URLs remain relative to the repository."""
+    """Create an offline root-level preview, independent of ignored render files."""
+    manifest = json.loads((OUT / "manifest.json").read_text(encoding="utf-8"))
     page = (HERE / "preview.html").read_text(encoding="utf-8")
-    prefix = "renders/entree_canyon_cuivre_sud_nord_v1/"
-    for old, new in (("../calques/", prefix + "calques/"),
-                     ("../animation/", prefix + "animation/"),
-                     ("../review/", prefix + "review/")):
-        page = page.replace(old, new)
+
+    def replace_asset(reference: str, path: Path, expected_count: int = 1) -> None:
+        nonlocal page
+        if page.count(reference) != expected_count:
+            raise ValueError(f"Nombre inattendu de références {reference}: {page.count(reference)}")
+        page = page.replace(reference, image_uri(path))
+
+    for layer in manifest["layers"]:
+        if layer["name"] == "07_poussiere":
+            refs = "frames:Array.from({length:24},(_,i)=>`../animation/poussiere/EOC1_07_poussiere_f${String(i).padStart(2,'0')}.png`)"
+            frames = [
+                image_uri(OUT / f"animation/poussiere/{PFX}_07_poussiere_f{phase:02d}.png")
+                for phase in range(manifest["animation"]["phases"])
+            ]
+            if page.count(refs) != 1:
+                raise ValueError("Référence de frames de poussière absente ou dupliquée dans le gabarit")
+            page = page.replace(refs, "frames:" + json.dumps(frames, separators=(",", ":")))
+        else:
+            replace_asset("../" + layer["file"], OUT / layer["file"])
+
+    replace_asset(f"../review/{PFX}_collisions_marqueurs.png",
+                  OUT / f"review/{PFX}_collisions_marqueurs.png")
+    if any(prefix in page for prefix in ("../calques/", "../animation/", "../review/")):
+        raise ValueError("Le gabarit contient encore des liens vers les rendus locaux")
+
     destination = ROOT / "apercu_entree_canyon_cuivre_v1.html"
     destination.write_text(page, encoding="utf-8")
     return destination

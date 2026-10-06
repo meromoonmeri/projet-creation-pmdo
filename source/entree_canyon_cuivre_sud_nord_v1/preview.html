@@ -79,6 +79,7 @@
   const canvas = document.getElementById('map');
   const ctx = canvas.getContext('2d', { alpha: true });
   const status = document.getElementById('status');
+  const collisionSource = '../review/EOC1_collisions_marqueurs.png';
   const layers = [
     { id:'floor', label:'00 · Sol complet', src:'../calques/EOC1_00_sol_complet.png' },
     { id:'path', label:'01 · Sol et sentier', src:'../calques/EOC1_01_sol.png' },
@@ -105,7 +106,7 @@
     }
     return imageCache.get(src);
   };
-  const allSources = layers.flatMap(layer => layer.frames || [layer.src]).concat(['../review/EOC1_collisions_marqueurs.png']);
+  const allSources = layers.flatMap(layer => layer.frames || [layer.src]).concat([collisionSource]);
   Promise.all(allSources.map(src => load(src))).then(() => {
     status.textContent = 'Calques chargés · aperçu analytique, pas un test moteur PMDO';
     render();
@@ -120,7 +121,7 @@
   function render() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if (collisionMode) {
-      const image = loadedImages.get('../review/EOC1_collisions_marqueurs.png');
+      const image = loadedImages.get(collisionSource);
       if (image) ctx.drawImage(image,0,0);
       return;
     }

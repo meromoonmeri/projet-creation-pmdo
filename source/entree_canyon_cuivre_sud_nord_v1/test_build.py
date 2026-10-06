@@ -5,10 +5,12 @@ Commande : .venv/bin/python -m unittest source.entree_canyon_cuivre_sud_nord_v1.
 """
 from __future__ import annotations
 
+import base64
 import hashlib
 import importlib.util
 import io
 import json
+import re
 import struct
 import subprocess
 import sys
@@ -260,6 +262,21 @@ class EOC1Build(unittest.TestCase):
         self.assertTrue(build.reachable_2x2(blocked,
                         tuple(self.manifest["access"]["entry_cell_yx"]),
                         tuple(self.manifest["access"]["threshold_cell_yx"]))[0])
+
+    def test_standalone_preview_embeds_every_png(self):
+        package = load_module("eoc1_package_for_test", HERE / "package.py")
+        preview_path = package.standalone_preview()
+        page = preview_path.read_text(encoding="utf-8")
+        self.assertNotIn("__DATA__", page)
+        self.assertNotIn("renders/entree_canyon_cuivre_sud_nord_v1/", page)
+        self.assertNotIn("../calques/", page)
+        self.assertNotIn("../animation/", page)
+        payloads = re.findall(r"data:image/png;base64,([A-Za-z0-9+/=]+)", page)
+        self.assertEqual(len(payloads), 33)  # 8 calques, 24 frames de poussière, collisions
+        for payload in payloads:
+            raw = base64.b64decode(payload, validate=True)
+            with Image.open(io.BytesIO(raw)) as image:
+                self.assertEqual(image.size, (self.width, self.height))
 
 
 def rgba_from_bytes(raw: bytes) -> np.ndarray:
