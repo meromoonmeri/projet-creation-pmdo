@@ -59,12 +59,13 @@ GEN = [
      'obsidian ground leading up to it. No lava texture anywhere (magenta only), no characters, no text, no UI, '
      'no border.',
      'essais': 'premier essai ; conforme (3 lacs magenta, arche à évent au nord, distances dans le manifeste)'},
-    {'file': 'lave.png', 'images': [f'source/{LOT}/bruts/decor.png'],
-     'prompt': 'Same pixel-art style and same glowing orange-yellow lava colours as the glowing lake rims in the '
-     'reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only churning lava: bright yellow-orange '
-     'cellular blobs with glowing cores on deep red-orange, cellular pattern everywhere, keep the texture detail. '
-     'No rocks, no dark areas, no magenta, no text.',
-     'essais': '1 échec API (réponse vide) avec le rip d41 en référence, succès en référençant le décor'},
+    {'file': 'lave.png', 'images': [f'source/{LOT}/reference/d41p41a_port.png'],
+     'prompt': 'Use EXACTLY the same lava look as the reference image molten lava (Pokemon Mystery Dungeon '
+     'volcanic dungeon): deep dark red-orange churning molten rock background with bright glowing yellow-orange '
+     'cellular blobs and cracks, patches of dark cooling crust, same canonical lava colours and pixel-art style. '
+     'Fill the ENTIRE image edge to edge, wide 4:3, with ONLY this canonical lava texture, keep the texture detail. '
+     'No rocks, no ground, no walls, no magenta, no text.',
+     'essais': 'v2 canonique (croûte sombre + fissures incandescentes, premier essai, avec le port en référence) ; v1 : 1 échec API avec le port, succès en référençant le décor'},
     {'file': 'sol_complet.png', 'images': [f'source/{LOT}/bruts/decor.png'],
      'prompt': 'Same pixel-art style and same dark ground colours as the dark arena floor in the center of the '
      'reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only that dark grey-brown cracked '

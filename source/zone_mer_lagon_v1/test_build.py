@@ -153,7 +153,8 @@ class ZME1Build(unittest.TestCase):
     def test_water_moves_and_loops_exactly_48(self):
         b = self.build
         canon = json.loads((HERE / 'reference/canon_stats.json').read_text(encoding='utf-8'))
-        base = b.down_full(b.palette_match(b.rgb(HERE / 'bruts/eau.png'), canon['port_eau_classe_mean']))
+        base = b.down_full(b.luminance_match(b.rgb(HERE / 'bruts/eau.png'),
+            float(__import__('numpy').array(canon['port_eau_classe_mean'], float) @ [.299, .587, .114])))
         mask = np.asarray(Image.open(OUT / 'masques' / f'{PFX}_masque_eau.png').convert('L')) > 0
         pal = b.eau_palette(base)
         f0 = b.eau_frame(base, mask, 0, pal)

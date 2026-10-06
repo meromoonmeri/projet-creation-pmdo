@@ -18,7 +18,7 @@
   "user_request": "poursuivre les zones ; VFX (lave, eau, etc.) GENERES, album 908 des fonds animés en référence ; eau animée canoniquement (S01)",
   "agent_choices": {
     "reference": "S01P02A canonique (clairière et mer, Explorers of Sky) : port PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky (boucle 1200 ticks, bandes de vagues en défilement latéral)",
-    "methode_vfx": "texture d'eau générée (pas de pixels du rip), palette calibrée sur la classe eau du port, animée par dérive latérale + onde progressive ; reflets calculés",
+    "methode_vfx": "texture d'eau lagon générée (pas de pixels du rip), teinte plage conservée à la luminance canonique, animée par dérive latérale + onde progressive (S01) ; reflets calculés",
     "layout": "plage d'arrivée au sud, île de sable ronde au centre, lagon tout autour, arche de basalte et cercle de pierre au nord (décor, isolés par l'eau)",
     "prefix": "ZME1, série Z des zones (libre, pas de collision avec ZCR1/ZPO1/ZMA1)",
     "biome": "mer lagon ; intitulé de travail"
@@ -37,8 +37,8 @@
       "images": [
         "source/zone_mer_lagon_v1/reference/s01p02a_port.png"
       ],
-      "prompt": "Same pixel-art style and same blue sea colours as the reference image cove water. Fill the ENTIRE image edge to edge, wide 4:3, with only sea water texture: deep blue water with lighter blue horizontal wavy bands and white-crest highlights, gentle waves pattern everywhere, keep the texture detail. No sand, no grass, no rocks, no magenta, no text.",
-      "essais": "premier essai ; bandes de vagues horizontales canon, conforme"
+      "prompt": "Same retro pixel-art style as the reference image cove water. Fill the ENTIRE image edge to edge, wide 4:3, with ONLY a pretty tropical beach lagoon water texture: luminous turquoise-aqua water with lighter horizontal wavy bands plus sparkling white foam crests and glints, uniform water everywhere, no land, no sand, no island, no shallows, no grass, no rocks, no magenta, no text.",
+      "essais": "2 essais : le premier contenait un îlot de sable au milieu (rejeté) ; le second, sans île ni hauts-fonds, conforme"
     },
     {
       "file": "sol_complet.png",
@@ -61,7 +61,7 @@
     },
     {
       "file": "source/zone_mer_lagon_v1/bruts/eau.png",
-      "sha256": "86a8dbb79ad28e3260b9ab84a83fd92e788c648826550900a2a5891dbabc3d23",
+      "sha256": "8e8f35f8c2e79613ccf7d5b4cd616b253fecad95b8f8e29082f31cccea9fec43",
       "size_px": [
         1200,
         896
@@ -88,7 +88,7 @@
     },
     {
       "file": "source/zone_mer_lagon_v1/reference/canon_stats.json",
-      "sha256": "1546bcf5fe874f5f27d25855bff6cd8e0578aa0c081ee30249cfce7d09b091c4",
+      "sha256": "c5bc145b8fa78af256299edae6a52ff4b9fe793c1dcfe724479b132c9ad4821d",
       "size_px": "n/a",
       "role": "statistiques canoniques (classe eau du port), cible du calibrage"
     }
@@ -99,12 +99,12 @@
     "crop_x": 1
   },
   "calibrage_eau": {
-    "cible": "port_eau_classe_mean de canon_stats.json",
-    "methode": "offset additif par canal + épaule douce monotone",
+    "cible": "cible_lagon_plage de canon_stats.json (teinte plage, luminance canonique)",
+    "methode": "mise à l échelle uniforme (teinte conservée) vers la luminance canonique",
     "apres_moyenne": [
-      67.5,
-      142.2,
-      210.2
+      47.8,
+      163.8,
+      162.5
     ]
   },
   "calibrage_sable": {
@@ -136,16 +136,16 @@
   "fidelite_rip": {
     "eau": {
       "rip_rgb": [
-        68.0,
-        143.5,
-        214.0
+        47.8,
+        163.8,
+        162.5
       ],
       "decor_rgb": [
-        67.5,
-        142.2,
-        210.2
+        47.8,
+        163.8,
+        162.5
       ],
-      "distance": 4.0
+      "distance": 0.0
     },
     "sable": {
       "rip_rgb": [
@@ -161,7 +161,7 @@
       "distance": 19.1
     },
     "seuil": 35,
-    "methode": "eau : moyenne RGB du brut calibré contre la classe eau du port ; sable : brut calibré contre le sable du décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor) ; distance euclidienne ; seuil 35"
+    "methode": "eau : moyenne RGB du brut turquoise (luminance canonique) contre la cible lagon style plage ; sable : brut calibré contre le sable du décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor) ; distance euclidienne ; seuil 35"
   },
   "layers": [
     {
@@ -224,84 +224,84 @@
     "palette_partagee": 96,
     "rampe_calibree": [
       [
-        24,
-        102,
-        198
+        2,
+        144,
+        152
       ],
       [
-        22,
-        104,
-        200
-      ],
-      [
-        22,
-        105,
-        202
-      ],
-      [
-        25,
-        109,
-        203
-      ],
-      [
-        32,
-        119,
-        209
-      ],
-      [
-        33,
-        122,
-        205
-      ],
-      [
-        41,
-        130,
-        205
-      ],
-      [
-        44,
-        130,
-        209
-      ],
-      [
-        56,
-        131,
-        204
-      ],
-      [
-        63,
-        143,
-        213
-      ],
-      [
-        64,
+        3,
         145,
-        214
+        152
       ],
       [
-        67,
-        148,
-        213
+        4,
+        146,
+        152
       ],
       [
-        78,
-        148,
-        209
+        5,
+        151,
+        154
       ],
       [
-        121,
-        185,
-        220
+        7,
+        155,
+        156
       ],
       [
-        173,
-        209,
-        222
+        9,
+        156,
+        156
       ],
       [
-        219,
-        233,
-        230
+        15,
+        160,
+        154
+      ],
+      [
+        17,
+        161,
+        154
+      ],
+      [
+        31,
+        169,
+        164
+      ],
+      [
+        45,
+        167,
+        162
+      ],
+      [
+        45,
+        170,
+        163
+      ],
+      [
+        62,
+        172,
+        166
+      ],
+      [
+        104,
+        178,
+        173
+      ],
+      [
+        116,
+        180,
+        175
+      ],
+      [
+        146,
+        183,
+        178
+      ],
+      [
+        176,
+        184,
+        184
       ]
     ],
     "loi": "dx = 8 sin(2 pi t / 48) ; onde 1 + 0.07 sin(2 pi x / 96 - 6 pi t / 48) + 0.02 sin(2 pi t / 48) ; boucle exacte de période 48 (3 tours, impair), défilement vers la droite façon S01",
@@ -505,7 +505,7 @@
       "ZME1_01_SABLE": 1903,
       "ZME1_02_JUNGLE": 3015,
       "ZME1_03_ROCHERS": 2364,
-      "ZME1_04_EAU": 95390,
+      "ZME1_04_EAU": 96776,
       "ZME1_05_REFLETS": 51
     },
     "runtime_tested": false,

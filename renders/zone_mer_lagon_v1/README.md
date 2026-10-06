@@ -1,27 +1,28 @@
-# ZME1 — Zone Mer lagon : arène volcanique à lacs de lave (4:3, PMDO 0.8.12)
+# ZME1 — Zone Mer lagon : île de sable au lagon (4:3, PMDO 0.8.12)
 
 Zone de donjon demandée comme « poursuivre les zones », avec des VFX (lave, eau, etc.) GENERES en
-s'appuyant sur l'album 908 des fonds animés comme référence. Arrivée au sud par un chemin
-d'obsidienne, arène sombre au centre entre trois lacs de lave (gauche, droite, nord-centre), arche
-de basalte à évent incandescent au nord. Aucune sortie, aucun warp.
+s'appuyant sur l'album 908 des fonds animés comme référence, et l'eau animée canoniquement.
+Plage d'arrivée au sud, île de sable ronde au centre, lagon tout autour, arche de basalte et cercle
+de pierre au nord (décor, isolés par l'eau), jungle et falaises autour. Aucune sortie, aucun warp.
 
-- **Référence** : D41P41A canonique (fin volcanique, *Explorers of Sky*) : `reference/d41p41a_port.png`
-  (port PMD-SKY-PMDO-PORT) + vérité ROM pret/pmd-sky (boucle 130 ticks, cellules jaune-orange
-  pulsantes) + `reference/d41_lave.png` (6 crans témoins).
+- **Référence** : S01P02A canonique (clairière et mer, *Explorers of Sky*) : `reference/s01p02a_port.png`
+  (port PMD-SKY-PMDO-PORT) + vérité ROM pret/pmd-sky (boucle 1200 ticks, bandes de vagues
+  horizontales en défilement latéral) + `reference/s01_mer.png` (6 crans témoins).
 - **Méthode** : rendu généré référencé, comme les lots 4:3 de la série, avec VFX générés : le générateur
-  a reçu le port en référence et a produit le décor complet (lacs magenta), la texture de lave et le sol
-  d'obsidienne (`bruts/`, 1200 × 896). La lave est calibrée en palette sur la classe lave du port
-  (offset additif + épaule douce, teintes froides interdites) : aucun pixel du rip ni de la ROM dans
+  a reçu le port en référence et a produit le décor complet (lagon magenta), la texture d'eau lagon turquoise à bandes
+  de vagues et le sol de sable (`bruts/`, 1200 × 896). L'eau garde sa teinte plage à la luminance canonique (échelle uniforme),
+  le sable est calibré sur le décor (offset additif + épaule douce) : aucun pixel du rip ni de la ROM dans
   les calques. Fidélité : distances RGB dans `renders/zone_mer_lagon_v1/manifest.json` (seuil 35).
-- **Lave** : texture générée calibrée, animée par dérive circulaire de 6 px + pulsation ±4,5 %
-  (plus harmonique spatiale) ; boucle de 4 s (48 × 5 ticks) exacte.
-- **Braises** : 48 braises calculées qui montent de 32 px au-dessus des lacs en vacillant (point 1 px
-  ou croix 3 × 3), 32 phases visibles puis 16 cachées ; boucle exacte.
-- **Calques, du bas vers le haut** : sol complet, sol, rochers (basalte + liserés incandescents +
-  évent), lave (48 phases), braises (48 phases), Top vide dans le Ground. La scène boucle en
+- **Eau** : texture générée calibrée, animée par dérive latérale de ±8 px + onde progressive
+  (3 longueurs d'onde de 96 px par boucle, vers la droite, façon S01) ; boucle de 4 s (48 × 5 ticks)
+  exacte, de période 48 réelle (3 tours, impair).
+- **Reflets** : 24 reflets calculés qui scintillent sur le lagon (point 1 px ou croix 3 × 3,
+  cycle 16) ; boucle exacte.
+- **Calques, du bas vers le haut** : sol complet, sable, jungle, rochers (falaises + rochers + troncs
+  + arche), eau (48 phases), reflets (48 phases), Top vide dans le Ground. La scène boucle en
   240 ticks (4 s).
-- **Marqueurs** : `entrance` (chemin sud), `boss` (centre de l'arène), `objectif` (devant l'arche à
-  évent). Repères d'édition 16 × 16 px uniquement ; aucun personnage, objet, warp ni sortie.
+- **Marqueurs** : `entrance` (plage sud), `boss` (centre de l'île), `objectif` (nord de l'île, face à
+  l'arche). Repères d'édition 16 × 16 px uniquement ; aucun personnage, objet, warp ni sortie.
 
 ## Reproduire
 
@@ -41,7 +42,6 @@ de basalte à évent incandescent au nord. Aucune sortie, aucun warp.
 ## Limites et statut
 
 - `art_approved: false` ; `runtime_tested: false`. Aucun test PMDO en jeu.
-- Le terrain et la lave sont générés : ce ne sont pas des tuiles natives certifiées. Seule la palette
-  de la lave est calibrée sur D41P41A ; les braises sont calculées.
-- Le préfixe **ZME1** ouvre la série Z des zones ; le biome, le layout et le préfixe restent des choix
-  de travail de l'agent.
+- Le terrain et l'eau sont générés : ce ne sont pas des tuiles natives certifiées. Seule la luminance de l'eau suit S01P02A (teinte plage demandée) ; les reflets sont calculés.
+- Le préfixe **ZME1** continue la série Z des zones (sans collision avec ZCR1/ZPO1/ZMA1) ; le biome, le
+  layout et le préfixe restent des choix de travail de l'agent.

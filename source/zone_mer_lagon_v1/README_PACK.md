@@ -9,9 +9,9 @@ de pierre au nord (décor, isolés par l'eau), jungle et falaises autour. Aucune
   (port PMD-SKY-PMDO-PORT) + vérité ROM pret/pmd-sky (boucle 1200 ticks, bandes de vagues
   horizontales en défilement latéral) + `reference/s01_mer.png` (6 crans témoins).
 - **Méthode** : rendu généré référencé, comme les lots 4:3 de la série, avec VFX générés : le générateur
-  a reçu le port en référence et a produit le décor complet (lagon magenta), la texture d'eau à bandes
-  de vagues et le sol de sable (`bruts/`, 1200 × 896). L'eau est calibrée en palette sur la classe eau
-  du port (offset additif + épaule douce), le sable sur le décor : aucun pixel du rip ni de la ROM dans
+  a reçu le port en référence et a produit le décor complet (lagon magenta), la texture d'eau lagon turquoise à bandes
+  de vagues et le sol de sable (`bruts/`, 1200 × 896). L'eau garde sa teinte plage à la luminance canonique (échelle uniforme),
+  le sable est calibré sur le décor (offset additif + épaule douce) : aucun pixel du rip ni de la ROM dans
   les calques. Fidélité : distances RGB dans `renders/zone_mer_lagon_v1/manifest.json` (seuil 35).
 - **Eau** : texture générée calibrée, animée par dérive latérale de ±8 px + onde progressive
   (3 longueurs d'onde de 96 px par boucle, vers la droite, façon S01) ; boucle de 4 s (48 × 5 ticks)
@@ -42,7 +42,6 @@ de pierre au nord (décor, isolés par l'eau), jungle et falaises autour. Aucune
 ## Limites et statut
 
 - `art_approved: false` ; `runtime_tested: false`. Aucun test PMDO en jeu.
-- Le terrain et l'eau sont générés : ce ne sont pas des tuiles natives certifiées. Seule la palette de
-  l'eau est calibrée sur S01P02A ; les reflets sont calculés.
+- Le terrain et l'eau sont générés : ce ne sont pas des tuiles natives certifiées. Seule la luminance de l'eau suit S01P02A (teinte plage demandée) ; les reflets sont calculés.
 - Le préfixe **ZME1** continue la série Z des zones (sans collision avec ZCR1/ZPO1/ZMA1) ; le biome, le
   layout et le préfixe restent des choix de travail de l'agent.

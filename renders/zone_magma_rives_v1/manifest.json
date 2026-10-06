@@ -35,10 +35,10 @@
     {
       "file": "lave.png",
       "images": [
-        "source/zone_magma_rives_v1/bruts/decor.png"
+        "source/zone_magma_rives_v1/reference/d41p41a_port.png"
       ],
-      "prompt": "Same pixel-art style and same glowing orange-yellow lava colours as the glowing lake rims in the reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only churning lava: bright yellow-orange cellular blobs with glowing cores on deep red-orange, cellular pattern everywhere, keep the texture detail. No rocks, no dark areas, no magenta, no text.",
-      "essais": "1 échec API (réponse vide) avec le rip d41 en référence, succès en référençant le décor"
+      "prompt": "Use EXACTLY the same lava look as the reference image molten lava (Pokemon Mystery Dungeon volcanic dungeon): deep dark red-orange churning molten rock background with bright glowing yellow-orange cellular blobs and cracks, patches of dark cooling crust, same canonical lava colours and pixel-art style. Fill the ENTIRE image edge to edge, wide 4:3, with ONLY this canonical lava texture, keep the texture detail. No rocks, no ground, no walls, no magenta, no text.",
+      "essais": "v2 canonique (croûte sombre + fissures incandescentes, premier essai, avec le port en référence) ; v1 : 1 échec API avec le port, succès en référençant le décor"
     },
     {
       "file": "sol_complet.png",
@@ -61,7 +61,7 @@
     },
     {
       "file": "source/zone_magma_rives_v1/bruts/lave.png",
-      "sha256": "7bcb79a2742125b1027179f7ea04c7c0ff64cc1705e39997c757fd19b1637da9",
+      "sha256": "32f56ea11fe2887224eaca0aa32fb5ce5ad3f393fba90eab19cfb0831854a84c",
       "size_px": [
         1200,
         896
@@ -102,14 +102,14 @@
     "cible": "port_lave_classe_mean de canon_stats.json",
     "methode": "offset additif par canal + épaule douce monotone (recalage moyenne/écart-type proscrit : teintes froides interdites)",
     "apres_moyenne": [
-      221.0,
-      131.2,
-      35.7
+      216.7,
+      133.0,
+      35.6
     ],
     "apres_ecart_type": [
-      27.2,
-      66.5,
-      26.5
+      34.5,
+      45.0,
+      6.2
     ]
   },
   "segmentation": {
@@ -129,11 +129,11 @@
         35.8
       ],
       "decor_rgb": [
-        221.0,
-        131.2,
-        35.7
+        216.7,
+        133.0,
+        35.6
       ],
-      "distance": 24.7
+      "distance": 28.7
     },
     "basalte": {
       "rip_rgb": [
@@ -216,84 +216,84 @@
     "palette_partagee": 96,
     "rampe_calibree": [
       [
-        171,
-        43,
-        25
+        144,
+        91,
+        34
       ],
       [
-        174,
-        48,
-        24
-      ],
-      [
-        184,
-        53,
-        24
-      ],
-      [
-        192,
-        61,
-        30
-      ],
-      [
-        213,
-        64,
-        26
-      ],
-      [
-        225,
-        79,
-        24
-      ],
-      [
-        234,
-        101,
-        31
-      ],
-      [
-        239,
-        123,
-        24
-      ],
-      [
-        239,
-        139,
-        24
-      ],
-      [
-        242,
         148,
+        92,
+        35
+      ],
+      [
+        168,
+        88,
         32
       ],
       [
-        242,
-        161,
-        41
+        187,
+        92,
+        33
       ],
       [
-        241,
-        184,
-        25
+        209,
+        93,
+        32
+      ],
+      [
+        219,
+        99,
+        32
+      ],
+      [
+        222,
+        109,
+        32
+      ],
+      [
+        232,
+        115,
+        33
+      ],
+      [
+        232,
+        125,
+        39
+      ],
+      [
+        239,
+        133,
+        32
+      ],
+      [
+        239,
+        142,
+        33
       ],
       [
         242,
-        200,
-        25
+        151,
+        32
       ],
       [
-        242,
-        213,
-        27
+        246,
+        162,
+        37
       ],
       [
-        241,
-        235,
-        28
+        246,
+        185,
+        33
       ],
       [
-        242,
-        242,
-        141
+        249,
+        211,
+        47
+      ],
+      [
+        249,
+        233,
+        76
       ]
     ],
     "loi": "dx = 6 cos(2 pi t / 48), dy = 6 sin(2 pi t / 48) ; pulsation 1 + 0.045 sin(2 pi t / 48) + 0.03 sin(4 pi t / 48 + 2 pi (x + y) / 192) ; boucle exacte",
@@ -664,7 +664,7 @@
       "ZMA1_00_SOL": 6913,
       "ZMA1_01_SOL": 2984,
       "ZMA1_02_ROCHERS": 5614,
-      "ZMA1_03_LAVE": 46142,
+      "ZMA1_03_LAVE": 46782,
       "ZMA1_04_BRAISES": 173
     },
     "runtime_tested": false,

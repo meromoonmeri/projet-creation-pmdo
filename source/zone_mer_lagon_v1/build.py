@@ -10,8 +10,8 @@ calibrée en palette sur la classe eau du port, puis animée par dérive latéra
 (boucle exacte) ; reflets calculés qui scintillent sur le lagon.
 - decor.png : plage d'arrivée au sud, île de sable ronde au centre, lagon magenta tout autour,
   arche de basalte et cercle de pierre au nord, jungle et falaises autour ; premier essai, conforme ;
-- eau.png : mer bleue à bandes de vagues horizontales et crêtes blanches, plein cadre ; premier essai,
-  conforme (avec le port en référence) ;
+- eau.png : lagon tropical turquoise à bandes de vagues et crêtes d'écume, plein cadre ; 2 essais (le
+  premier contenait un îlot de sable, rejeté) ; teinte plage conservée, luminance canonique ;
 - sol_complet.png : sable clair seul, plein cadre ; premier essai, conforme.
 Calques : sol complet, sable, jungle, rochers (falaises + rochers + troncs + arche), eau (anim),
 reflets (anim).
@@ -58,11 +58,11 @@ GEN = [
      'beach. No water texture anywhere (magenta only), no characters, no text, no UI, no border.',
      'essais': 'premier essai ; conforme (lagon magenta d un seul tenant, arche et cercle au nord, jungle autour)'},
     {'file': 'eau.png', 'images': [f'source/{LOT}/reference/s01p02a_port.png'],
-     'prompt': 'Same pixel-art style and same blue sea colours as the reference image cove water. Fill the ENTIRE '
-     'image edge to edge, wide 4:3, with only sea water texture: deep blue water with lighter blue horizontal wavy '
-     'bands and white-crest highlights, gentle waves pattern everywhere, keep the texture detail. No sand, no '
-     'grass, no rocks, no magenta, no text.',
-     'essais': 'premier essai ; bandes de vagues horizontales canon, conforme'},
+     'prompt': 'Same retro pixel-art style as the reference image cove water. Fill the ENTIRE image edge to '
+     'edge, wide 4:3, with ONLY a pretty tropical beach lagoon water texture: luminous turquoise-aqua water with '
+     'lighter horizontal wavy bands plus sparkling white foam crests and glints, uniform water everywhere, no land, '
+     'no sand, no island, no shallows, no grass, no rocks, no magenta, no text.',
+     'essais': '2 essais : le premier contenait un îlot de sable au milieu (rejeté) ; le second, sans île ni hauts-fonds, conforme'},
     {'file': 'sol_complet.png', 'images': [f'source/{LOT}/bruts/decor.png'],
      'prompt': 'Same pixel-art style and same light sand colours as the sandy island in the center of the '
      'reference image. Fill the ENTIRE image edge to edge, wide 4:3, with only that light warm sand texture: '
@@ -167,12 +167,20 @@ def palette_match(brut, mean_c):
     return np.where(x > 200, 255 - 55 * np.exp(-(x - 200) / 60), x).round().astype('uint8')
 
 
+def luminance_match(brut, lum_cible):
+    """Mise à l'échelle UNIFORME (teinte strictement conservée) vers la luminance cible : l'eau
+    garde son turquoise « style plage » (direction utilisateur) à la luminosité canonique."""
+    m = brut.reshape(-1, 3).mean(0)
+    return np.clip(brut.astype(float) * (lum_cible / (m @ [.299, .587, .114])), 0, 255).round().astype('uint8')
+
+
 # ---------------------------------------------------------------- fidélité (cibles canoniques S01)
 def fidelity(gmatch_eau, fmatch_sable, canon):
-    """eau : brut calibré contre la classe eau du port ; sable : brut calibré contre le sable du
-    décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor)."""
+    """eau : brut turquoise mis à la luminance canonique, contre la cible lagon « style plage »
+    (direction utilisateur, teinte conservée) ; sable : brut calibré contre le sable du décor
+    (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor)."""
     out = {}
-    for k, m, c in (('eau', gmatch_eau.reshape(-1, 3).mean(0), np.array(canon['port_eau_classe_mean'], float)),
+    for k, m, c in (('eau', gmatch_eau.reshape(-1, 3).mean(0), np.array(canon['cible_lagon_plage'], float)),
                     ('sable', fmatch_sable.reshape(-1, 3).mean(0), np.array(canon['cible_sable_decor'], float))):
         out[k] = {'rip_rgb': [round(float(v), 1) for v in c], 'decor_rgb': [round(float(v), 1) for v in m],
                   'distance': round(float(np.linalg.norm(m - c)), 1)}
@@ -375,7 +383,7 @@ def build():
     canon = json.loads(CANON.read_text())
     assert a.shape[:2] == f.shape[:2] == wtr.shape[:2] == (SRC[1], SRC[0])
     m, seg = classify(a)
-    gmatch = palette_match(wtr, canon['port_eau_classe_mean'])
+    gmatch = luminance_match(wtr, float(np.array(canon['port_eau_classe_mean'], float) @ [.299, .587, .114]))
     Image.fromarray(gmatch).save(OUT / 'review' / f'{PFX}_eau_calibree.png')
     fmatch = palette_match(f, np.array(seg['sable_rgb'], float))
     Image.fromarray(fmatch).save(OUT / 'review' / f'{PFX}_sable_calibre.png')
@@ -487,7 +495,7 @@ def build():
         'user_request': 'poursuivre les zones ; VFX (lave, eau, etc.) GENERES, album 908 des fonds animés en référence ; eau animée canoniquement (S01)',
         'agent_choices': {
             'reference': 'S01P02A canonique (clairière et mer, Explorers of Sky) : port PMD-SKY-PMDO-PORT + vérité ROM pret/pmd-sky (boucle 1200 ticks, bandes de vagues en défilement latéral)',
-            'methode_vfx': "texture d'eau générée (pas de pixels du rip), palette calibrée sur la classe eau du port, animée par dérive latérale + onde progressive ; reflets calculés",
+            'methode_vfx': "texture d'eau lagon générée (pas de pixels du rip), teinte plage conservée à la luminance canonique, animée par dérive latérale + onde progressive (S01) ; reflets calculés",
             'layout': "plage d'arrivée au sud, île de sable ronde au centre, lagon tout autour, arche de basalte et cercle de pierre au nord (décor, isolés par l'eau)",
             'prefix': 'ZME1, série Z des zones (libre, pas de collision avec ZCR1/ZPO1/ZMA1)',
             'biome': 'mer lagon ; intitulé de travail'},
@@ -504,15 +512,15 @@ def build():
                     'role': 'statistiques canoniques (classe eau du port), cible du calibrage'}],
         'normalization': {'methode': 'moyenne pondérée par classe (BOX), facteur uniforme 0.642857 identique en X et Y, recadrage 1 px de chaque côté ; palettes par groupes (sol 64, jungle 48, rochers 48), sans tramage ; eau calibrée quantifiée sur 96 couleurs partagées (MEDIANCUT, sans tramage), reflets calculés',
                           'scale': JM.SCALE, 'crop_x': JM.CROP_X},
-        'calibrage_eau': {'cible': 'port_eau_classe_mean de canon_stats.json',
-                          'methode': 'offset additif par canal + épaule douce monotone',
+        'calibrage_eau': {'cible': 'cible_lagon_plage de canon_stats.json (teinte plage, luminance canonique)',
+                          'methode': 'mise à l échelle uniforme (teinte conservée) vers la luminance canonique',
                           'apres_moyenne': [round(float(v), 1) for v in gmatch.reshape(-1, 3).mean(0)]},
         'calibrage_sable': {'cible': 'sable du décor (moyenne RGB)',
                             'methode': 'offset additif par canal + épaule douce monotone (cohérence interne)',
                             'apres_moyenne': [round(float(v), 1) for v in fmatch.reshape(-1, 3).mean(0)]},
         'segmentation': seg,
         'fidelite_rip': {**fid, 'seuil': FIDELITY_MAX,
-                         'methode': "eau : moyenne RGB du brut calibré contre la classe eau du port ; sable : brut calibré contre le sable du décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor) ; distance euclidienne ; seuil 35"},
+                         'methode': "eau : moyenne RGB du brut turquoise (luminance canonique) contre la cible lagon style plage ; sable : brut calibré contre le sable du décor (cohérence interne ; l'herbe et les rochers suivent la direction artistique du décor) ; distance euclidienne ; seuil 35"},
         'layers': layer_list,
         'eau': {'phases': PHASES, 'frame_length_ticks': TICKS, 'derive_px': EAU_DERIVE, 'onde': EAU_ONDE,
                 'longueur_onde_px': EAU_LONGUEUR, 'tours_par_boucle': EAU_TOURS,

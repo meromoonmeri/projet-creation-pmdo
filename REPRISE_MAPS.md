@@ -340,3 +340,24 @@ Leçons : `.venv` et `.cache` ne persistent pas entre les tours (tout re-créer/
 les références utiles dans `source/<lot>/reference/`, versionné) ; `read_file` sur 2 images peut les
 afficher inversées (vérifier par le contenu) ; `edit_file` en parallèle sur le même fichier peut
 perdre des éditions (toujours vérifier par `grep`, préférer un script Python séquentiel).
+
+## Reprise du 6 octobre 2026 (après-midi) — Textures v2 : eau plage (ZME1) + lave canonique (ZMA1)
+
+Demandes : voir les maps dans l'aperçu map (serveur `serveur_apercus` relancé, port 8000) ; texture
+d'eau « plus jolie style plage » pour ZME1 ; texture « lave/magma canonique » pour ZMA1.
+
+- **ZME1 eau v2** : lagon tropical turquoise à bandes et crêtes d'écume (2 essais : le 1er contenait un
+  îlot de sable, rejeté). Teinte plage conservée par mise à l'échelle UNIFORME vers la luminance
+  canonique (ratio 0,72) ; cible `cible_lagon_plage` dans `canon_stats.json`. Fidélité : eau 0,0 ·
+  sable 19,1. Animation S01 inchangée (dérive + onde, période 48). **12 tests PASS**, re-packagé
+  (ZIP 7,62 + 14,01 Mo, aperçu 8,23 Mo).
+- **ZMA1 lave v2** : lave canonique D41 (croûte rouge-orange sombre + fissures jaune incandescent,
+  premier essai avec le port en référence). Même calibrage offset + épaule douce. Fidélité :
+  lave 28,7 · basalte 13,1 · sol 29,8. **12 tests PASS**, re-packagé (ZIP 6,44 + 14,16 Mo, aperçu
+  9,73 Mo).
+
+Leçon critique : les fichiers de travail (`source/zone_mer_lagon_v1/*.py`) étaient REVENUS à leur état
+pré-réécriture entre deux tours (snapshot partiel), alors que le commit distant 50a18ef contenait les
+bonnes versions — récupération par `git reset --hard origin/<branche>` + restauration du brut du jour
+mis de côté. **Pousser sur le distant est la seule sauvegarde durable** : committer + pousser chaque
+lot dès qu'il est vert, et se méfier de `/tmp` (hors snapshot) autant que de `.venv`/`.cache`.
