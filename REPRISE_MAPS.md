@@ -241,3 +241,40 @@ Demande : « Fait une map magnifique pour cette fin ». FCV2 étant déjà livr�
 - 8 tests PASS; ORA, reconstruction `.tile`, index, Ground et dry-run installateur vérifiés; ZIP projet (1,95 Mo), archive calques (16,96 Mo) et preview créés. Aucun runtime PMDO/GPU ou test de gameplay.
 - `art_approved: false`, `runtime_tested: false`. La composition, le sigil, l'arche, le layout, le biome de travail et le préfixe restent des choix d'agent en attente de validation visuelle.
 - Méthode et limites détaillées : `source/fin_couloir_violet_v3/README_PACK.md`; manifeste et provenance : `renders/fin_couloir_violet_v3/manifest.json`.
+
+## Reprise du 6 octobre 2026 — FMT2 + FJR1, les deux dernières fins de la file locale
+
+Demande : « poursuivre la création de map multicalque 4:3 » avec les textures canoniques de l'album
+[(Animated) Map Backgrounds (GIF)](https://projectpokemon.org/home/gallery/album/908-animated-map-backgrounds-gif/)
+et du dépôt `meromoonmeri/PMD-SKY-PMDO-PORT`, « comme l'a fait l'agent pour les 4:3 série lots », avec
+« des layout de fin logique : sommet au milieu d'une mer de nuage electrique (Mt. Thunder) et fin jardin
+avec des feuille qui tombe etc ». Les deux lots sont construits avec la méthode des lots 4:3 (rendu généré
+référencé + séparation multicalque 8 px + Ground PMDO 0.8.12). L'album 908 a été relevé (44 GIF : D05–D29,
+T00, V00) et le port vérifié (458 MAP_BG, previews `s01p02a`/`d41p41a`/`v03p08a`/`d17p11a`/`d10p41a` et Grounds
+récupérés dans `.cache/port_ref/`, non versionnés) : ils serviront aux prochaines cartes (magma D41P41A et
+mer S01 avec les vrais cycles, proposées par l'étude). Pour ces deux fins, les bonnes références canoniques
+restent les rips de leurs entrées (planche GBA Mt. Thunder, `secretgarden.png`), récupérés depuis `projet-pmdo`.
+
+- **Fin Mt. Thunder** (`source/fin_mt_thunder_v1/`, livrables `renders/fin_mt_thunder_v1/`, préfixe **FMT2** —
+  FMT1 étant un repère de la branche sœur `01a0eaca`, même logique que FCV2 face à FCV1 — aperçu
+  `apercu_fin_mt_thunder_v1.html`, **10 tests PASS**). Sommet central dans une mer de nuages, arrivée sud sur
+  la pointe de la crête (qui émerge des nuages sans toucher le bord, `entry=[376,528]`), arène (`boss=[384,240]`),
+  piton à fente sombre au nord (`objectif=[368,128]`). Fidélité rip : sable 3,9 · roche 7,2 · ciel 5,2 ·
+  nuages sombres 1,7 · nuages clairs 31,2 (seuil 35). Six frappes d'éclairs en pixels EXACTS (Normal/Fading),
+  10 calques + Top, boucle 240 ticks. Retouche documentée : deux pastilles noires 42×71 aux coins hauts,
+  rebouchées par miroir dans le build.
+- **Fin Jardin secret** (`source/fin_jardin_secret_v1/`, livrables `renders/fin_jardin_secret_v1/`, préfixe
+  **FJR1** — FJS étant pris par Fin Jungle Sud (FJS1) et FJS3 par la même branche sœur — aperçu
+  `apercu_fin_jardin_secret_v1.html`, **12 tests PASS**). Allée sud, prairie d'arène ronde, souche dorée
+  classique à marches sous le rayon au nord (sans le temple de Celebi d'EJS2, choix d'agent à confirmer).
+  Fidélité rip : fond 3,6 · herbe claire 14,4 · herbe 15,5 · roche 7,4. 14 feuilles calculées qui tombent des
+  arbres et des haies (boucle exacte), rayon recoloré rampe EXACTE 22 couleurs + respiration, 10 lucioles aux
+  couleurs du rip ; 15 calques + Top, boucle 240 ticks. Seuils adaptés au brut (trou lum < 90, chutes depuis
+  arbres + haies), documentés dans le build.
+
+Les deux lots : ORA, reconstruction `.tile` (frame 0), index, Ground et dry-run installateur vérifiés ; ZIP
+projet + ZIP calques + aperçu créés. `art_approved: false`, `runtime_tested: false`. Aucun runtime PMDO/GPU
+ou test de gameplay. **La file locale des fins est désormais complète** (Vapeur, Cratère, Ruine, Givre ×2,
+Bristle, Jungle, Waterfall, Canyon, Sables, Star, Clairière, Couloir violet ×2, Mt. Thunder, Jardin) ; restent,
+hors file locale : les fins Underground Lake et Mystifying Forest (branches sœurs, non fusionnées) et les
+cartes magma/mer à vrais cycles.

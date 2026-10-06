@@ -1,0 +1,38 @@
+{
+  "lot": "fin_mt_thunder_v1",
+  "prefix": "FMT2",
+  "type": "zone de fin de donjon / arène",
+  "user_direction": {
+    "verbatim": "fait des layout de fin logique sommet au milieu d'une mer de nuage electrique mt fin thunder",
+    "interpreted_constraints": [
+      "layout de fin logique (arrivée sud, arène, objectif nord)",
+      "sommet au milieu d'une mer de nuages électrique",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, rip GBA Mt. Thunder en référence (images=)",
+      "prompt_summary": "Arène sommitale ronde au centre, crête d'arrivée au sud, piton à fente sombre au nord, mer de nuages d'orage tout autour ; textures et palette exactes du rip ; sans éclairs, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1,
+      "retouch": "deux pastilles noires 42x71 aux coins hauts, rebouchées dans le build par miroir (patch_corners)"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, rip GBA Mt. Thunder en référence (images=)",
+      "prompt_summary": "Texture de sable jaune pâle du plateau, plein cadre, sans autre élément.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    }
+  ],
+  "reference": {
+    "file": "reference/mt_thunder_gba.png",
+    "origin": "projet-pmdo (racine), même fichier que l'entrée EMT1",
+    "role": "matière + éclairs/arc Flash en pixels exacts"
+  },
+  "prefix_note": "FMT2 évite FMT1, repère de la branche sœur 01a0eaca (non fusionnée) ; FJS pris par Fin Jungle Sud, sans rapport.",
+  "art_approved": false,
+  "runtime_tested": false
+}

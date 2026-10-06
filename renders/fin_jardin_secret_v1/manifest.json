@@ -1,0 +1,715 @@
+{
+  "lot": "fin_jardin_secret_v1",
+  "title": "Fin Jardin secret — prairie d'arène sous le rayon",
+  "prefix": "FJR1",
+  "namespace": "fin_jardin_secret",
+  "asset": "fjr1_fin_jardin_secret",
+  "type": "fin de donjon / arène naturelle",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_px": 8,
+  "grid_cells": [
+    96,
+    72
+  ],
+  "user_request": "layout de fin logique : fin jardin avec des feuilles qui tombent etc",
+  "agent_choices": {
+    "reference": "même rip secretgarden.png que EJS1/EJS2 ; matière + rampe exacte du rayon + couleurs des lucioles",
+    "layout": "allée d arrivée au sud, vaste prairie d arène ronde au centre, souche dorée à marches sous le rayon au nord",
+    "prefix": "FJR1, car FJS est pris par Fin Jungle Sud (FJS1) et FJS3 est un repère de la branche sœur 01a0eaca (non fusionnée)",
+    "souche": "forme classique sans le temple miniature de Celebi (EJS2), qui appartient à l entrée ; à confirmer",
+    "biome": "jardin secret, continuité avec EJS1/EJS2 ; intitulé de travail"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/fin_jardin_secret_v1/reference/secretgarden.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon secret garden): same light yellow-green meadow grass with small tufts, same rounded bushy hedge borders, same round leafy trees, same tan-brown boulders, same small white, yellow and pink flowers, same big golden tree stump with a square dark hole and wooden steps, same vertical bright green light beam falling from the top edge, same dark green background. Make a NEW, larger top-down dungeon-finale map. WIDE LANDSCAPE 4:3, target 1200 by 896 pixels, zoomed out so the garden feels vast. Layout: the player arrives at the SOUTH (bottom edge center) on a grass path between bushy hedges; the path opens into a WIDE round meadow arena in the CENTER with flower patches; a few boulders and round leafy trees stand at the sides of the arena; at the NORTH (top center) the big golden tree stump with its square dark hole and wooden steps, the green light beam falling from the top edge onto it, flowers around it, and the grass leads right up to the steps. Dark green background around the hedges. No falling leaves, no characters, no text, no UI, no border.",
+      "essais": "premier essai ; conforme (distances au rip dans le manifeste)"
+    },
+    {
+      "file": "temoin_sans_objets.png",
+      "images": [
+        "source/fin_jardin_secret_v1/bruts/decor.png"
+      ],
+      "prompt": "Same image, same framing and exact same pixel-art style. Remove every round leafy tree (with its trunk and shadow), every boulder and rock, and every small flower: replace them with the same meadow grass around them. Keep the bushy hedge borders, the big golden tree stump with its dark hole and steps, the green light beam, the light grass path and the dark green background exactly as they are. No text, no border.",
+      "essais": "premier essai ; témoin de segmentation recalé (0, 0), jamais exporté"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_jardin_secret_v1/reference/secretgarden.png"
+      ],
+      "prompt": "Fill the ENTIRE image edge to edge, WIDE LANDSCAPE 4:3, target 1200 by 896 pixels, with only the plain medium yellow-green meadow grass texture from the reference image: same yellow-green grass colour, same small grass tufts and subtle pixel-art speckle, keep the texture detail, nothing else. No hedges, no trees, no rocks, no flowers, no stump, no light beam, no dark areas, no characters, no text, no UI, no border.",
+      "essais": "premier essai ; herbe moyenne seule, conforme"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "source/fin_jardin_secret_v1/bruts/decor.png",
+      "sha256": "2f0a7ef35cbc9b38f26020dcc3c8c2ffba980db91d62338ff5237a14f0644ccf",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "composition FJR1 générée avec le rip en référence"
+    },
+    {
+      "file": "source/fin_jardin_secret_v1/bruts/temoin_sans_objets.png",
+      "sha256": "78602adb0b574093b9edcbf576b9d1edd50d65262f970cfab78bb0b0ca31eee4",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "témoin de segmentation recalé (0, 0), jamais exporté"
+    },
+    {
+      "file": "source/fin_jardin_secret_v1/bruts/sol_complet.png",
+      "sha256": "43e79a587a04a987964cb31b21713a1543b5b661ecdba653f893cb1d171f0bcc",
+      "size_px": [
+        1200,
+        896
+      ],
+      "role": "herbe moyenne seule, base d édition sous la composition opaque"
+    },
+    {
+      "file": "source/fin_jardin_secret_v1/reference/secretgarden.png",
+      "sha256": "e5a41562745c6fbfd3bb9edceed054810bbb07adf2f1b2a74e7ece8e19a2164f",
+      "size_px": [
+        408,
+        408
+      ],
+      "role": "rip jardin secret : matière + rampe du rayon + lucioles"
+    }
+  ],
+  "normalization": {
+    "methode": "moyenne pondérée par classe (BOX), facteur uniforme 0.642857 identique en X et Y, recadrage 1 px de chaque côté ; palettes par groupes (herbe 64, fleurs 24, rochers 32, végétation 96, souche 48, fond 8), sans tramage ; rayon recoloré rampe exacte, feuilles et lucioles calculées",
+    "scale": 0.6428571428571429,
+    "crop_x": 1
+  },
+  "recalage": {
+    "temoin": {
+      "ecart_moyen": 2.21,
+      "ecart_decale_1px": 2.71
+    }
+  },
+  "segmentation": {
+    "objets": 119,
+    "fleurs": 108,
+    "rochers": 6,
+    "arbres": 7,
+    "miettes_rendues_a_l_herbe_px": 1055,
+    "trou_y": [
+      164,
+      184
+    ],
+    "trou_x": [
+      585,
+      614
+    ],
+    "souche_y": [
+      147,
+      229
+    ],
+    "ombres_lum": 109.8,
+    "herbe_lum": 171.2,
+    "prairie_b": 40.3
+  },
+  "fidelite_rip": {
+    "fond": {
+      "rip_rgb": [
+        47.5,
+        87.9,
+        53.9
+      ],
+      "decor_rgb": [
+        47.6,
+        86.7,
+        50.6
+      ],
+      "distance": 3.6
+    },
+    "herbe_claire": {
+      "rip_rgb": [
+        152.7,
+        206.3,
+        74.1
+      ],
+      "decor_rgb": [
+        154.1,
+        201.8,
+        60.5
+      ],
+      "distance": 14.4
+    },
+    "herbe": {
+      "rip_rgb": [
+        115.0,
+        166.1,
+        53.1
+      ],
+      "decor_rgb": [
+        101.2,
+        163.2,
+        46.6
+      ],
+      "distance": 15.5
+    },
+    "roche": {
+      "rip_rgb": [
+        137.2,
+        129.6,
+        68.4
+      ],
+      "decor_rgb": [
+        140.8,
+        135.4,
+        71.3
+      ],
+      "distance": 7.4
+    },
+    "seuil": 35,
+    "methode": "moyenne RGB par matière, même classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35"
+  },
+  "layers": [
+    {
+      "file": "calques/FJR1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "00_sol_complet",
+      "order": 0
+    },
+    {
+      "file": "calques/FJR1_01_prairie.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "01_prairie",
+      "order": 1
+    },
+    {
+      "file": "calques/FJR1_02_herbe.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "02_herbe",
+      "order": 2
+    },
+    {
+      "file": "calques/FJR1_03_ombres.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "03_ombres",
+      "order": 3
+    },
+    {
+      "file": "calques/FJR1_04_fleurs.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "04_fleurs",
+      "order": 4
+    },
+    {
+      "file": "animation/feuilles/FJR1_05_feuilles_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "05_feuilles",
+      "order": 5
+    },
+    {
+      "file": "calques/FJR1_06_rochers.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "06_rochers",
+      "order": 6
+    },
+    {
+      "file": "calques/FJR1_07_arbres.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "07_arbres",
+      "order": 7
+    },
+    {
+      "file": "calques/FJR1_08_souche.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "08_souche",
+      "order": 8
+    },
+    {
+      "file": "calques/FJR1_09_marches.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "09_marches",
+      "order": 9
+    },
+    {
+      "file": "calques/FJR1_10_profondeur.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "10_profondeur",
+      "order": 10
+    },
+    {
+      "file": "calques/FJR1_11_haies.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "11_haies",
+      "order": 11
+    },
+    {
+      "file": "calques/FJR1_12_fond.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "12_fond",
+      "order": 12
+    },
+    {
+      "file": "animation/rayon/FJR1_13_rayon_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "13_rayon",
+      "order": 13
+    },
+    {
+      "file": "animation/lucioles/FJR1_14_lucioles_fNN.png",
+      "phases": 48,
+      "ticks": 5,
+      "name": "14_lucioles",
+      "order": 14
+    },
+    {
+      "file": "calques/FJR1_15_top.png",
+      "phases": 1,
+      "ticks": 60,
+      "name": "15_top",
+      "order": 15
+    }
+  ],
+  "feuilles": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "chute": 20,
+    "au_sol": 6,
+    "nombre": 14,
+    "couleurs": [
+      [
+        148,
+        202,
+        78
+      ],
+      [
+        101,
+        174,
+        46
+      ],
+      [
+        76,
+        143,
+        32
+      ]
+    ],
+    "placements": [
+      {
+        "depart": [
+          213,
+          210
+        ],
+        "phase": 20,
+        "sens": 1
+      },
+      {
+        "depart": [
+          439,
+          107
+        ],
+        "phase": 39,
+        "sens": -1
+      },
+      {
+        "depart": [
+          318,
+          107
+        ],
+        "phase": 31,
+        "sens": -1
+      },
+      {
+        "depart": [
+          259,
+          180
+        ],
+        "phase": 7,
+        "sens": 1
+      },
+      {
+        "depart": [
+          407,
+          160
+        ],
+        "phase": 6,
+        "sens": 1
+      },
+      {
+        "depart": [
+          166,
+          268
+        ],
+        "phase": 33,
+        "sens": -1
+      },
+      {
+        "depart": [
+          480,
+          178
+        ],
+        "phase": 46,
+        "sens": 1
+      },
+      {
+        "depart": [
+          308,
+          186
+        ],
+        "phase": 40,
+        "sens": 1
+      },
+      {
+        "depart": [
+          593,
+          261
+        ],
+        "phase": 31,
+        "sens": -1
+      },
+      {
+        "depart": [
+          510,
+          182
+        ],
+        "phase": 40,
+        "sens": -1
+      },
+      {
+        "depart": [
+          644,
+          223
+        ],
+        "phase": 36,
+        "sens": 1
+      },
+      {
+        "depart": [
+          448,
+          178
+        ],
+        "phase": 5,
+        "sens": -1
+      },
+      {
+        "depart": [
+          543,
+          204
+        ],
+        "phase": 36,
+        "sens": 1
+      },
+      {
+        "depart": [
+          363,
+          473
+        ],
+        "phase": 10,
+        "sens": 1
+      }
+    ],
+    "loi": "k = (t - phase) mod 48 ; chute k < 20 : y = y0 + 2k, x = x0 + sens 4 sin(2 pi k / 10), pose alternee toutes les 3 phases ; posee a plat 6 phases puis effacee ; meme trajet a chaque boucle",
+    "origine": "calcule ; 2 poses 6x4, 3 tons du feuillage vert des arbres et des haies du decor"
+  },
+  "rayon": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "rampe_exacte": [
+      [
+        47,
+        95,
+        55
+      ],
+      [
+        47,
+        103,
+        55
+      ],
+      [
+        55,
+        119,
+        55
+      ],
+      [
+        63,
+        135,
+        55
+      ],
+      [
+        63,
+        151,
+        55
+      ],
+      [
+        63,
+        167,
+        55
+      ],
+      [
+        71,
+        183,
+        63
+      ],
+      [
+        79,
+        199,
+        71
+      ],
+      [
+        79,
+        215,
+        71
+      ],
+      [
+        87,
+        223,
+        71
+      ],
+      [
+        95,
+        231,
+        71
+      ],
+      [
+        95,
+        239,
+        71
+      ],
+      [
+        103,
+        247,
+        79
+      ],
+      [
+        111,
+        255,
+        87
+      ],
+      [
+        127,
+        255,
+        95
+      ],
+      [
+        151,
+        255,
+        111
+      ],
+      [
+        175,
+        255,
+        127
+      ],
+      [
+        191,
+        255,
+        135
+      ],
+      [
+        207,
+        255,
+        151
+      ],
+      [
+        231,
+        255,
+        199
+      ],
+      [
+        239,
+        255,
+        223
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "respiration": "decalage de +-2 crans, sinusoide de periode 48, attenue sur les 6 premiers crans",
+    "origine": "recoloration du rayon du rendu avec la rampe exacte du rip"
+  },
+  "lucioles": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "nombre": 10,
+    "couleurs": {
+      "point": [
+        207,
+        255,
+        151
+      ],
+      "halo": [
+        231,
+        255,
+        199
+      ],
+      "coeur": [
+        255,
+        255,
+        255
+      ]
+    },
+    "placements": [
+      {
+        "x0": 352,
+        "y0": 120,
+        "decalage": 0,
+        "amplitude_x": 2
+      },
+      {
+        "x0": 408,
+        "y0": 124,
+        "decalage": 6,
+        "amplitude_x": 2
+      },
+      {
+        "x0": 368,
+        "y0": 94,
+        "decalage": 12,
+        "amplitude_x": 3
+      },
+      {
+        "x0": 398,
+        "y0": 88,
+        "decalage": 18,
+        "amplitude_x": 3
+      },
+      {
+        "x0": 360,
+        "y0": 62,
+        "decalage": 3,
+        "amplitude_x": 2
+      },
+      {
+        "x0": 404,
+        "y0": 58,
+        "decalage": 15,
+        "amplitude_x": 2
+      },
+      {
+        "x0": 180,
+        "y0": 260,
+        "decalage": 4,
+        "amplitude_x": 3
+      },
+      {
+        "x0": 580,
+        "y0": 254,
+        "decalage": 10,
+        "amplitude_x": 3
+      },
+      {
+        "x0": 170,
+        "y0": 340,
+        "decalage": 16,
+        "amplitude_x": 3
+      },
+      {
+        "x0": 590,
+        "y0": 334,
+        "decalage": 22,
+        "amplitude_x": 3
+      }
+    ],
+    "loi": "y = y0 - 1 u, x = x0 + ax sin(2 pi u / 12), u = (t + off) mod 48 ; croix 3x3 ou point 1 px",
+    "origine": "etincelles calculees aux couleurs exactes du rayon du rip"
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      296
+    ],
+    "objective_px": [
+      376,
+      152
+    ],
+    "entry_cell_yx": [
+      70,
+      48
+    ],
+    "boss_cell_yx": [
+      37,
+      47
+    ],
+    "objective_cell_yx": [
+      19,
+      47
+    ],
+    "path_to_boss_16x16": true,
+    "path_to_objective_16x16": true,
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 465
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 1226
+      }
+    },
+    "blocked_cells": 5073,
+    "total_cells": 6912,
+    "rule": "case bloquée si > 25 % hors prairie, herbe, ombres, fleurs et marches (cell_grid, franchissement 4 px) ; empreinte joueur 16x16 px",
+    "exit_and_warp": "aucun"
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "version": "0.8.12.0",
+    "tile_banks": {
+      "FJR1_00_SOL": 6855,
+      "FJR1_01_PRAIRIE": 186,
+      "FJR1_02_HERBE": 2380,
+      "FJR1_03_OMBRES": 309,
+      "FJR1_04_FLEURS": 274,
+      "FJR1_05_FEUILLES": 206,
+      "FJR1_06_ROCHERS": 156,
+      "FJR1_07_ARBRES": 348,
+      "FJR1_08_SOUCHE": 54,
+      "FJR1_09_MARCHES": 20,
+      "FJR1_10_PROFONDEUR": 9,
+      "FJR1_11_HAIES": 2182,
+      "FJR1_12_FOND": 2295,
+      "FJR1_13_RAYON": 502,
+      "FJR1_14_LUCIOLES": 147
+    },
+    "runtime_tested": false,
+    "markers": [
+      "entrance",
+      "boss",
+      "objectif"
+    ],
+    "warp": "aucun",
+    "exit": "aucune"
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "notes": [
+    "Composition générée référencée, pas de tuiles natives certifiées ; seules la rampe du rayon et les couleurs des lucioles sont exactes du rip, les feuilles sont calculées.",
+    "Les tests vérifient les artefacts locaux et l accessibilité géométrique 16x16 ; le runtime PMDO n a pas été lancé."
+  ]
+}

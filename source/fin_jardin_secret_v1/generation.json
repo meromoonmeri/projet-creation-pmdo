@@ -1,0 +1,49 @@
+{
+  "lot": "fin_jardin_secret_v1",
+  "prefix": "FJR1",
+  "type": "zone de fin de donjon / arène",
+  "user_direction": {
+    "verbatim": "fait des layout de fin logique [...] fin jardin avec des feuille qui tombe etc",
+    "interpreted_constraints": [
+      "layout de fin logique (arrivée sud, arène, objectif nord)",
+      "jardin secret avec des feuilles qui tombent (+ rayon et lucioles dans l'esprit d'EJS1)",
+      "méthode des lots 4:3 de la série (rendu généré référencé + multicalque 8 px)"
+    ]
+  },
+  "images": [
+    {
+      "file": "bruts/decor.png",
+      "method": "image generation, rip secretgarden.png en référence (images=)",
+      "prompt_summary": "Allée d'arrivée au sud, vaste prairie d'arène ronde au centre avec fleurs, rochers et arbres sur les côtés, souche dorée à marches sous le rayon vert au nord ; textures et palette exactes du rip ; sans feuilles, personnages, texte ni interface.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    },
+    {
+      "file": "bruts/temoin_sans_objets.png",
+      "method": "image generation, édition du décor (images=decor.png)",
+      "prompt_summary": "Même image, sans arbres, rochers ni fleurs (remplacés par l'herbe) ; haies, souche, rayon, allée et fond inchangés.",
+      "source_px": [1200, 896],
+      "attempts": 1,
+      "role": "témoin de segmentation recalé (0, 0), jamais exporté"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "method": "image generation, rip secretgarden.png en référence (images=)",
+      "prompt_summary": "Herbe moyenne jaune-vert du jardin, plein cadre, sans autre élément.",
+      "source_px": [1200, 896],
+      "attempts": 1
+    }
+  ],
+  "reference": {
+    "file": "reference/secretgarden.png",
+    "origin": "projet-pmdo (racine), même fichier que les entrées EJS1/EJS2",
+    "role": "matière + rampe exacte du rayon (22 couleurs) + couleurs des lucioles"
+  },
+  "agent_choices": {
+    "prefix": "FJR1 évite FJS (Fin Jungle Sud, FJS1) et FJS3 (repère de la branche sœur 01a0eaca, non fusionnée)",
+    "stump": "souche classique sans le temple miniature de Celebi (EJS2), qui appartient à l'entrée ; à confirmer",
+    "leaves": "feuilles calculées (2 poses, 3 tons du feuillage du décor), pas des sprites du rip"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}
