@@ -7,6 +7,23 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Méthodes de création : WORKFLOW, série sud→nord, FCT1 ouvert (8 octobre 2026)
+
+**Demande** : « Regarde le projet on va poursuivre les map et les méthodes de création read me workflow etc »
+dans `projet-creation-pmdo` (extraction sans PNG de rendu).
+
+- **WORKFLOW.md** racine : ouverture de session, gabarit Jungle, génération des bruts, segmentation,
+  tests, paquet, pièges, récupération des rips via `gh api`.
+- **`source/methode_serie_sud_nord/`** : README, WORKFLOW de relance, STATUS (tables entrées/fins,
+  préfixes pris, carte suivante).
+- **`WORKFLOW.md` par lot** de la série (47 chantiers + gabarit Jungle à la main + `zone_zero_v1`),
+  outil `OUTILS/ecrire_workflows_lots.py`. Chaque fiche donne PFX, namespace, commandes, liste `GEN`,
+  ce qui n’est pas extrait.
+- **Carte suivante** : Fin Clairière tropicale, préfixe **FCT1** (jumeau ETC1). Layout de fin
+  (pas de mer/ponton/bouche), papillons ETC1 à réutiliser, calques listés, seuils de fidélité
+  rappelés. **Aucun brut généré** — `build.py` / tests / paquet à écrire avec les pixels.
+- Index, README, GUIDE, REPRISE mis à jour. `art_approved: false`, pas de runtime.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.

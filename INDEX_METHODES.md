@@ -1,9 +1,11 @@
-# Index des méthodes — 208 sous-projets de `source/`
+# Index des méthodes — 210 sous-projets de `source/`
 
 Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-pmdo) au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pmdo/commit/6cca4a09380211e510ab1bea454a1b1926ef4b5a) — 2026-10-01.
 
 Chaque sous-projet est un **chantier de map autonome** : il contient son générateur, ses tests,
 sa documentation et, quand il existe, ses données PMDO natives (`.rsground`, `.tile`).
+
+Mise à jour du **8 octobre 2026** (ce dépôt) : `WORKFLOW.md` de session à la racine, chantier `source/methode_serie_sud_nord/`, `WORKFLOW.md` par lot de la série (outil `OUTILS/ecrire_workflows_lots.py`), carte suivante **FCT1** `source/fin_clairiere_tropicale_v1/` (méthode ouverte, pas de pixels).
 
 Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build, `verify` = vérification
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
@@ -13,59 +15,60 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
-| `source/entree_bristle_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/entree_clairiere_tropicale_sud_nord_v1/` | build · package · test · PACK · viewer | 5/10 | 0.1 |
-| `source/entree_couloir_violet_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_cratere_magma_v1/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
-| `source/entree_cratere_sud_nord_v1/` | build · package · test · PACK · viewer | 5/9 | 0.0 |
-| `source/entree_givre_sud_nord_v1/` | build · package · test · PACK · viewer | 6/9 | 0.1 |
-| `source/entree_jardin_secret_sud_nord_v1/` | build · package · test · PACK · viewer | 5/10 | 0.1 |
-| `source/entree_jardin_secret_sud_nord_v2/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
-| `source/entree_jungle_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/entree_mt_thunder_sud_nord_v1/` | build · package · test · PACK · viewer | 5/7 | 0.1 |
-| `source/entree_mystifying_forest_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_ruine_sud_nord_v1/` | build · package · test · PACK · viewer | 5/9 | 0.0 |
-| `source/entree_sables_mouvants_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_star_cave_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_sud_nord_generee_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/entree_underground_lake_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_vapeur_sud_nord_v2/` | build · package · test · PACK · viewer | 5/6 | 0.0 |
-| `source/entree_waterfall_cave_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/entree_waterfall_cave_sud_nord_v2/` | build · package · test · PACK · viewer | 5/5 | 0.1 |
-| `source/entree_waterfall_cave_sud_nord_v3/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
+| `source/entree_bristle_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/entree_clairiere_tropicale_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/10 | 0.1 |
+| `source/entree_couloir_violet_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_cratere_magma_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/7 | 0.0 |
+| `source/entree_cratere_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/9 | 0.0 |
+| `source/entree_givre_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 6/9 | 0.1 |
+| `source/entree_jardin_secret_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/10 | 0.1 |
+| `source/entree_jardin_secret_sud_nord_v2/` | build · package · test · PACK · viewer · WORKFLOW | 5/6 | 0.1 |
+| `source/entree_jungle_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/entree_mt_thunder_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/7 | 0.1 |
+| `source/entree_mystifying_forest_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_ruine_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/9 | 0.0 |
+| `source/entree_sables_mouvants_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_star_cave_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_sud_nord_generee_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/entree_underground_lake_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_vapeur_sud_nord_v2/` | build · package · test · PACK · viewer · WORKFLOW | 5/6 | 0.0 |
+| `source/entree_waterfall_cave_sud_nord_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/entree_waterfall_cave_sud_nord_v2/` | build · package · test · PACK · viewer · WORKFLOW | 5/5 | 0.1 |
+| `source/entree_waterfall_cave_sud_nord_v3/` | build · package · test · PACK · viewer · WORKFLOW | 5/6 | 0.1 |
 
-## Fins de donjon / arènes de boss — 11 projets · 62 fichiers extraits · 1 Mo
+## Fins de donjon / arènes de boss — 12 projets · 65 fichiers extraits · 1 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
-| `source/fin_bristle_sommet_v1/` | build · package · test · PACK · viewer | 6/8 | 0.1 |
-| `source/fin_cratere_fosse_v1/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
-| `source/fin_givre_aurore_v2/` | build · package · test · PACK · viewer | 7/10 | 0.1 |
-| `source/fin_givre_grotte_v1/` | build · package · test · PACK · viewer | 6/8 | 0.1 |
-| `source/fin_jungle_sud_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/fin_ocean_kyogre_v1/` | build · package · test · PACK · viewer | 8/10 | 0.2 |
-| `source/fin_ruine_puits_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/fin_sables_mouvants_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/fin_star_cave_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
-| `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
-| `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
+| `source/fin_bristle_sommet_v1/` | build · package · test · PACK · viewer · WORKFLOW | 6/8 | 0.1 |
+| `source/fin_cratere_fosse_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/7 | 0.0 |
+| `source/fin_givre_aurore_v2/` | build · package · test · PACK · viewer · WORKFLOW | 7/10 | 0.1 |
+| `source/fin_givre_grotte_v1/` | build · package · test · PACK · viewer · WORKFLOW | 6/8 | 0.1 |
+| `source/fin_jungle_sud_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/fin_ocean_kyogre_v1/` | build · package · test · PACK · viewer · WORKFLOW | 8/10 | 0.2 |
+| `source/fin_ruine_puits_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/fin_sables_mouvants_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/fin_star_cave_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
+| `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
+| `source/fin_clairiere_tropicale_v1/` | PACK · WORKFLOW · STATUS | 3/3 | 0.0 |
 
 ## Arènes — 12 projets · 61 fichiers extraits · 1 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
-| `source/arene_aquatique_bois_v1/` | build · package · verify | 3/3 | 0.0 |
-| `source/arene_boreales_v4/` | build · package · test · STATUS | 5/5 | 0.0 |
-| `source/arene_glace_generee_v2/` | build · package · test · STATUS | 4/4 | 0.0 |
-| `source/arene_glace_large_v3/` | build · package · test · STATUS | 4/4 | 0.0 |
-| `source/arene_groudon_magma_v1/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
-| `source/arene_groudon_magma_v2/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
-| `source/arene_groudon_magma_v3/` | build · package · test · PACK · viewer | 7/9 | 0.1 |
-| `source/arene_guide_couches_v13/` | build · package · test · STATUS | 5/5 | 0.0 |
-| `source/arene_guide_couches_v14/` | build · package · test · STATUS | 5/5 | 0.0 |
-| `source/arene_halcyon_v15/` | build · package · test · STATUS | 5/5 | 0.0 |
-| `source/arene_halcyon_v16/` | build · package · test · STATUS | 5/5 | 0.0 |
-| `source/arene_terapagos_v1/` | build · package · test · PACK · viewer | 8/11 | 0.3 |
+| `source/arene_aquatique_bois_v1/` | build · package · verify · WORKFLOW | 3/3 | 0.0 |
+| `source/arene_boreales_v4/` | build · package · test · STATUS · WORKFLOW | 5/5 | 0.0 |
+| `source/arene_glace_generee_v2/` | build · package · test · STATUS · WORKFLOW | 4/4 | 0.0 |
+| `source/arene_glace_large_v3/` | build · package · test · STATUS · WORKFLOW | 4/4 | 0.0 |
+| `source/arene_groudon_magma_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/7 | 0.0 |
+| `source/arene_groudon_magma_v2/` | build · package · test · PACK · viewer · WORKFLOW | 5/7 | 0.0 |
+| `source/arene_groudon_magma_v3/` | build · package · test · PACK · viewer · WORKFLOW | 7/9 | 0.1 |
+| `source/arene_guide_couches_v13/` | build · package · test · STATUS · WORKFLOW | 5/5 | 0.0 |
+| `source/arene_guide_couches_v14/` | build · package · test · STATUS · WORKFLOW | 5/5 | 0.0 |
+| `source/arene_halcyon_v15/` | build · package · test · STATUS · WORKFLOW | 5/5 | 0.0 |
+| `source/arene_halcyon_v16/` | build · package · test · STATUS · WORKFLOW | 5/5 | 0.0 |
+| `source/arene_terapagos_v1/` | build · package · test · PACK · viewer · WORKFLOW | 8/11 | 0.3 |
 
 ## Falaises, côtes et matière Métano — 12 projets · 109 fichiers extraits · 9 Mo
 
@@ -105,10 +108,10 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
-| `source/zone_reveil_prairie_horizon_v1/` | build · package · test · PACK · viewer | 6/11 | 0.1 |
-| `source/zone_reveil_prairie_horizon_v2/` | build · package · test · PACK · viewer · réf. | 10/23 | 0.3 |
-| `source/zone_zero_v1/` | build · package · test · PACK · viewer | 23/37 | 0.4 |
-| `source/zone_zero_v2/` | build · package · test · PACK · viewer | 17/30 | 0.3 |
+| `source/zone_reveil_prairie_horizon_v1/` | build · package · test · PACK · viewer · WORKFLOW | 6/11 | 0.1 |
+| `source/zone_reveil_prairie_horizon_v2/` | build · package · test · PACK · viewer · réf. · WORKFLOW | 10/23 | 0.3 |
+| `source/zone_zero_v1/` | build · package · test · PACK · viewer · WORKFLOW | 23/37 | 0.4 |
+| `source/zone_zero_v2/` | build · package · test · PACK · viewer · WORKFLOW | 17/30 | 0.3 |
 | `source/zones_bg_audit_v1/` | — | 1/1 | 0.0 |
 | `source/zones_guidees/` | req | 4/6 | 0.0 |
 | `source/zones_pmd_20_v1/` | req · WORKFLOW · réf. | 18/28 | 0.7 |
@@ -178,7 +181,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 |---|---|---:|---:|
 | `source/caps_terrasses_v3/` | build · verify · README · gallery | 7/9 | 0.0 |
 | `source/caps_terrasses_v4/` | build · verify · req · README · AUDIT · gallery | 15/15 | 0.1 |
-| `source/colonnes_lances_v1/` | build · package · test · PACK · viewer | 8/12 | 0.2 |
+| `source/colonnes_lances_v1/` | build · package · test · PACK · viewer · WORKFLOW | 8/12 | 0.2 |
 | `source/mont_horn_altitude_v2/` | build · package · verify | 3/3 | 0.0 |
 | `source/mont_horn_panorama_v1/` | build · package · verify | 3/3 | 0.0 |
 | `source/panoramas_tours_v2/` | build · package · verify | 5/9 | 0.0 |
@@ -207,6 +210,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/layouts_commit_3bc185b/` | README | 2/4 | 0.0 |
 | `source/layouts_magenta_v1/` | build · package · verify · req · WORKFLOW · gallery · réf. | 21/26 | 0.4 |
 | `source/outil_maps_pmdsky/` | README | 7/12 | 0.4 |
+| `source/methode_serie_sud_nord/` | README · WORKFLOW · STATUS | 3/3 | 0.0 |
 | `source/pmdo_runtime/` | README | 4/5 | 0.0 |
 | `source/references_54d3731/` | build · verify · req · gallery | 16/19 | 0.6 |
 | `source/references_calques_v1/` | build · gallery | 2/3 | 0.0 |
@@ -261,7 +265,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/pmdo_cote/` | build · package · verify · installer · README | 6/6 | 0.0 |
 | `source/ponts_generes/` | — | 0/2 | 0.0 |
 | `source/retouches_v6/` | req · README · gallery · réf. | 12/13 | 0.1 |
-| `source/ruines_zarbi_v1/` | build · package · test · PACK · viewer | 9/11 | 0.3 |
+| `source/ruines_zarbi_v1/` | build · package · test · PACK · viewer · WORKFLOW | 9/11 | 0.3 |
 | `source/secrete_pmd_v1/` | — | 1/1 | 0.0 |
 | `source/serveur_apercus/` | serve | 1/1 | 0.0 |
 | `source/steam_cave_geysers_v1/` | build | 1/1 | 0.0 |

@@ -18,9 +18,11 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 
 | Document | Rôle |
 |---|---|
+| **[WORKFLOW.md](WORKFLOW.md)** | **Procédure de session** : ouvrir, copier le gabarit, générer, tester, documenter, commit |
 | **[GUIDE_CREATION_DE_MAP.md](GUIDE_CREATION_DE_MAP.md)** | **La méthode pas à pas**, du rendu généré au Ground importé dans PMDO |
 | **[METHODE_MAGENTA_ET_GENERATEUR.md](METHODE_MAGENTA_ET_GENERATEUR.md)** | **Comment ça marche** : générateur d'images → fond magenta → tuiles natives (formules, seuils, fidélité) |
-| [INDEX_METHODES.md](INDEX_METHODES.md) | Tableau des **208 sous-projets** : générateur, tests, package, provenance, Ground/tileset présents |
+| **[source/methode_serie_sud_nord/](source/methode_serie_sud_nord/)** | Gabarit, ordre des lots, préfixes, **carte suivante (FCT1)** |
+| [INDEX_METHODES.md](INDEX_METHODES.md) | Tableau des **208+ sous-projets** : générateur, tests, package, provenance, Ground/tileset, WORKFLOW |
 | [MANUEL_METHODE_PMDO.md](MANUEL_METHODE_PMDO.md) | Manuel de production : état des livraisons, contrat artistique, limites du moteur |
 | [AGENTS.md](AGENTS.md) | Méthode de production approuvée (Métano, textures canoniques, contrat d'import) |
 | [REPRISE_MAPS.md](REPRISE_MAPS.md) | Reprise de la série de maps sud→nord : état, bogues, décisions |
@@ -42,7 +44,9 @@ Le détail — commandes, formats, règles de calques, marqueurs, collisions, li
 ## Structure du dépôt
 
 ```
-├── source/           208 chantiers de map, chacun autonome
+├── WORKFLOW.md       procédure de session (série courante 4:3)
+├── source/           208+ chantiers de map, chacun autonome
+│   ├── methode_serie_sud_nord/   gabarit, STATUS, préfixes, carte suivante
 │   └── <projet>/     build.py · test_build.py · verify.py · package.py
 │                     README_PACK.md · WORKFLOW.md · STATUS.md · provenance.json
 │                     viewer_template.html · references/*.rsground · references/*.tile
@@ -59,7 +63,7 @@ Le détail — commandes, formats, règles de calques, marqueurs, collisions, li
 ├── sprites/          données de découpe/layout (.tmj, .tsj, JSON) — pas les planches PNG
 ├── exports/          JSON, CSV, NPZ de provenance et d'audit (pas les images)
 ├── renders/          manifest.json, configs et scripts des rendus (pas les images)
-└── OUTILS/           extraction reproductible depuis projet-pmdo
+└── OUTILS/           extraction reproductible ; `ecrire_workflows_lots.py` (WORKFLOW par lot)
 ```
 
 ## Ce qui n'est **pas** ici

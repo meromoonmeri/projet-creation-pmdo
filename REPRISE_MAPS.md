@@ -1,5 +1,26 @@
 # Reprise des maps — 20 septembre 2026
 
+## Reprise du 8 octobre 2026 — méthodes (ce dépôt)
+
+Session `arena/94f0168a-projet-creation-pmdo`. Demande : poursuivre les maps **et** les méthodes
+(README, WORKFLOW, etc.). Ce checkout est l’extraction méthodes (pas les 6 Go de rendus) :
+on ne relance pas un `build.py` sans bruts.
+
+Livré ici :
+
+- [WORKFLOW.md](WORKFLOW.md) à la racine — procédure de session de la série 4:3.
+- `source/methode_serie_sud_nord/` — gabarit, [STATUS.md](source/methode_serie_sud_nord/STATUS.md)
+  (ordre des lots, préfixes, carte suivante), WORKFLOW de relance.
+- `WORKFLOW.md` par chantier de la série (entrées, fins, arènes, zones), générés par
+  `OUTILS/ecrire_workflows_lots.py` ; gabarit Jungle et FCT1 rédigés à la main.
+- Carte suivante **ouverte** : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`,
+  préfixe **FCT1**, `FTC1` interdit). Méthode + README_PACK + STATUS ; **pas de pixels**,
+  `build.py` volontairement absent tant que les bruts n’existent pas.
+- Fins encore à faire après FCT1 : Couloir violet (`FCV1` pris), Mt. Thunder (`FMT1` pris),
+  Jardin secret. Underground Lake / Mystifying Forest existent sur des sœurs non fusionnées.
+
+Aucune fusion de branche sœur. Aucun test moteur. `art_approved: false`.
+
 ## Demande actuelle
 
 Reprendre la création de maps avec textures canoniques. **Mise à jour du 25 septembre** : l'utilisateur a choisi une entrée de donjon sud → nord, la méthode rendu généré et les deux livrables (PNG 8 px + Ground). Premier lot : `renders/entree_vapeur_sud_nord_v1/`, biome Steam Cave choisi par l'agent et à confirmer. Les anciens travaux sont conservés. **V2** (`renders/entree_vapeur_sud_nord_v2/`) : eau façon rivière Métano, scintillements Métano, bulles de marais générées ; V1 intacte. Map suivante réalisée : **Entrée Cratère** (`renders/entree_cratere_sud_nord_v1/`, réf. Dark Crater, biome choisi par l'agent et à confirmer). Puis **Entrée Ruine** (`renders/entree_ruine_sud_nord_v1/`, réf. Sealed Ruin) et **Entrée Givre** (`renders/entree_givre_sud_nord_v1/`, réf. Frosty Forest, neige). Puis **Entrée Bristle** (`renders/entree_bristle_sud_nord_v1/`, réf. Mt. Bristle, canyon de sable et torrent). **Nouveau standard demandé (26 septembre) : maps plus vastes au format 4:3** — premier lot `renders/entree_jungle_sud_nord_v1/` en 768 × 576 (96 × 72 cases). L'utilisateur a demandé de continuer la série de maps.

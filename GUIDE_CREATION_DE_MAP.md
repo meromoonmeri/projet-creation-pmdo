@@ -4,6 +4,10 @@ Méthode réellement employée dans `projet-pmdo`, cible **PMDO 0.8.12**. Elle p
 *Ground* ouvrables dans l'éditeur de développement, avec leurs calques PNG, leurs animations, leurs
 marqueurs et leurs collisions.
 
+La **procédure de session** (gabarit, commandes, préfixes, carte suivante) est dans
+**[WORKFLOW.md](WORKFLOW.md)** et **[source/methode_serie_sud_nord/](source/methode_serie_sud_nord/)**.
+Chaque chantier de la série a son propre `WORKFLOW.md` (relance, bruts `GEN`, limites de l'extraction).
+
 ---
 
 ## 1. Vocabulaire et formats
@@ -151,14 +155,16 @@ fragments de 8 px et colonnes d'ombre répétées **ne préserve pas les volumes
 
 ## 5. Livrer un lot
 
-1. Un identifiant de lot propre (`v50812_*`, `EJN1`, `FSM1`, `FST1`…) — les préfixes déjà pris
+1. Un identifiant de lot propre (`v50812_*`, `EJN1`, `FSM1`, `FST1`, `FCT1`…) — les préfixes déjà pris
    ailleurs ne se réutilisent pas.
 2. `README_PACK.md` : identifiant, format, calques (tableau), marqueurs, limites, ce qui est généré
    et ce qui est natif.
-3. Les sorties dans un dossier de rendu dédié, **jamais en écrasant** un lot antérieur.
-4. Une entrée dans le journal (`JOURNAL_GUILDE_TREEHOUSE.md`) : demande, décisions, fidélité mesurée,
+3. `WORKFLOW.md` du lot : rip, liste `GEN`, seuils, commandes de relance (gabarit :
+   `OUTILS/ecrire_workflows_lots.py` ou copie du Jungle). `STATUS.md` si l’état n’est pas trivial.
+4. Les sorties dans un dossier de rendu dédié, **jamais en écrasant** un lot antérieur.
+5. Une entrée dans le journal (`JOURNAL_GUILDE_TREEHOUSE.md`) : demande, décisions, fidélité mesurée,
    tests (PASS/échecs), `art_approved`, ce qui reste à confirmer.
-5. Ne jamais déclarer comme fait : un test moteur non exécuté, une approbation artistique, une
+6. Ne jamais déclarer comme fait : un test moteur non exécuté, une approbation artistique, une
    ouverture de carte.
 
 ---
