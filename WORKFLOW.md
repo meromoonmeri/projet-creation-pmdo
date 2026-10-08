@@ -51,8 +51,8 @@ Sans eux, `build.py` ne peut pas relancer un lot existant. Voir
 - Identifier le lot : `source/<slug>_vN/`, préfixe 4 lettres unique (`EJN1`, `FST1`, `FCT1`…).
 - **Ne jamais écraser** un lot antérieur : incrémenter `vN` ou changer le slug.
 
-Dernier lot livré ici : **FVL1 Fin Couloir violet** (`source/fin_couloir_violet_v1/`).
-Carte suivante : **Fin Mt. Thunder** (préfixe à choisir, `FMT1` pris sur une sœur).
+Dernier lot livré ici : **FTM1 Fin Mt. Thunder** (`source/fin_mt_thunder_v1/`).
+Carte suivante : **Fin Jardin secret** (préfixe à choisir, `FJS3` pris sur une sœur ; `FJS1` est la jungle).
 
 ---
 

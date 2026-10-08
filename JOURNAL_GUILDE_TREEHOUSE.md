@@ -7,6 +7,20 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Fin Mt. Thunder : plateau fermé, FTM1 (8 octobre 2026)
+
+**Demande** : « oui go enchaines » (après FVL1). Jumeau de EMT1.
+Préfixe **FTM1** (`FMT1` pris sur une sœur).
+
+- Sorties : `renders/fin_mt_thunder_v1/`, aperçu `apercu_fin_mt_thunder_v1.html`,
+  build `source/fin_mt_thunder_v1/build.py`.
+- **Méthode** : rendu généré référencé sur la planche Mt. Thunder (Red Rescue Team). Pas de grotte.
+- **Layout** : crête de sable au sud (`entrance`), plateau (`boss`), piton/alcôve au nord (`objectif`). Nuages tout autour.
+- **Calques** : sol complet, sable, cailloux, pics, falaise, piton, ciel, nuages, lueurs + éclairs (sprites exacts, 48 × 5), Top vide.
+- **Fidélité** (seuil 35) : sable 2,9 · roche 10,3 · ciel 5,4 · nuages sombres 3,0 · nuages clairs 20,6.
+- **Contrôles** : 10 tests PASS. 2 726 cases praticables. Pas de runtime, `art_approved: false`.
+- Fins restantes ici : Jardin secret.
+
 ## Fin Couloir violet : arène fermée, FVL1 (8 octobre 2026)
 
 **Demande** : « bon travail continuons » (après FCT1). Jumeau de ECV1.
@@ -19,7 +33,7 @@ Préfixe **FVL1** (`FCV1` pris sur une sœur).
 - **Calques** : sol complet, sol, ombres, gravillons, blocs, rochers, vide, éboulis (gravillons exacts du rip), poussière (planche ECV1, 24 × 5), Top vide.
 - **Fidélité** (seuil 35) : sol 2,7 · roche 11,9. Calques : sol 5,1 · rochers 11,6 · blocs 7,8.
 - **Contrôles** : 12 tests PASS. 2 721 cases praticables. Pas de runtime, `art_approved: false`.
-- Fins restantes ici : Mt. Thunder, Jardin secret.
+- Fins restantes ici (à cette date) : Mt. Thunder, Jardin secret.
 
 ## Fin Clairière tropicale : arène fermée, FCT1 (8 octobre 2026)
 

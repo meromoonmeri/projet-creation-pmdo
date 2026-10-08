@@ -45,23 +45,23 @@ Toute nouvelle entrée de la série doit être ajoutée à `MAPS` dans `build_mo
 | FSM1 | `fin_sables_mouvants_v1` | EQS1 | fait |
 | FST1 | `fin_star_cave_v1` | ESC1 | fait — **dernier livré** |
 | FCT1 | `fin_clairiere_tropicale_v1` | ETC1 | fait (8 oct. 2026, 11 tests PASS) |
-| **FVL1** | **`fin_couloir_violet_v1`** | ECV1 | **fait (8 oct. 2026, 12 tests PASS)** |
-| — | Fin Mt. Thunder | EMT1 | à faire (`FMT1` pris sur sœur) |
-| — | Fin Jardin secret | EJS* | à faire |
+| FVL1 | `fin_couloir_violet_v1` | ECV1 | fait (8 oct. 2026, 12 tests PASS) |
+| **FTM1** | **`fin_mt_thunder_v1`** | EMT1 | **fait (8 oct. 2026, 10 tests PASS)** |
+| — | Fin Jardin secret | EJS* | à faire (`FJS3` pris sur sœur ; `FJS1` = jungle) |
 | FUL1, FMF1/2 | Underground Lake, Mystifying Forest | EUL1, EMF1 | **sœurs non fusionnées** |
 
 ## Carte suivante
 
-**Fin Mt. Thunder** (jumeau EMT1). Préfixe **à choisir** : `FMT1` est pris sur une sœur.
+**Fin Jardin secret** (jumeau EJS*). Préfixe **à choisir** : `FJS3` est pris sur une sœur ;
+`FJS1` est déjà `fin_jungle_sud_v1`.
 
-Puis Jardin secret. Underground Lake / Mystifying Forest existent sur des sœurs
-non fusionnées.
+Underground Lake / Mystifying Forest existent sur des sœurs non fusionnées.
 
 ## Préfixes à ne plus prendre
 
 Série ici : ESN1, ESN2, ECN1, ERN1, EGN1, EBN1, EJN1, EWC1–3, EUL1, EMF1, EQS1,
 ESC1, ETC1, ECV1, EMT1, EJS1, EJS2, ECM1, FVS1, FCF1, FRP1, FGG1, FGG2, FBS1,
-FJS1, FWC1, FOC1, FSM1, FST1, FCT1, FVL1, AGM1–3, ATP1, CLR1, RAZ1–3, EAZ1, RAF1–3,
+FJS1, FWC1, FOC1, FSM1, FST1, FCT1, FVL1, FTM1, AGM1–3, ATP1, CLR1, RAZ1–3, EAZ1, RAF1–3,
 EAF1, RZD1, ZRV1, ZRV2.
 
 Sœurs (relevé 27–29 sept., non fusionnées) : EFF1, EFF2, EDP1, ECF1, ECC1, ECC2,

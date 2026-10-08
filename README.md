@@ -21,7 +21,7 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **[WORKFLOW.md](WORKFLOW.md)** | **Procédure de session** : ouvrir, copier le gabarit, générer, tester, documenter, commit |
 | **[GUIDE_CREATION_DE_MAP.md](GUIDE_CREATION_DE_MAP.md)** | **La méthode pas à pas**, du rendu généré au Ground importé dans PMDO |
 | **[METHODE_MAGENTA_ET_GENERATEUR.md](METHODE_MAGENTA_ET_GENERATEUR.md)** | **Comment ça marche** : générateur d'images → fond magenta → tuiles natives (formules, seuils, fidélité) |
-| **[source/methode_serie_sud_nord/](source/methode_serie_sud_nord/)** | Gabarit, ordre des lots, préfixes, **carte suivante (Fin Mt. Thunder)** |
+| **[source/methode_serie_sud_nord/](source/methode_serie_sud_nord/)** | Gabarit, ordre des lots, préfixes, **carte suivante (Fin Jardin secret)** |
 | [INDEX_METHODES.md](INDEX_METHODES.md) | Tableau des **208+ sous-projets** : générateur, tests, package, provenance, Ground/tileset, WORKFLOW |
 | [MANUEL_METHODE_PMDO.md](MANUEL_METHODE_PMDO.md) | Manuel de production : état des livraisons, contrat artistique, limites du moteur |
 | [AGENTS.md](AGENTS.md) | Méthode de production approuvée (Métano, textures canoniques, contrat d'import) |
