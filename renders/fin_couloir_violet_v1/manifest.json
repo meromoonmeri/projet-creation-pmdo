@@ -1,0 +1,415 @@
+{
+  "lot": "fin_couloir_violet_v1",
+  "prefix": "FVL1",
+  "format": "4:3 vaste",
+  "type": "fin de donjon",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (EWC1 pour les utilitaires, ECV1 pour la planche de poussiere) ; aucun emprunt aux branches soeurs",
+  "biome": "fin du couloir rocheux violet (biome de ECV1), biome et portee choisis par l agent (« bon travail continuons »), a confirmer",
+  "method": "textures canoniques = rendu genere REFERENCE : rip passe au generateur ; decor complet sans tunnel, sol complet genere au rip, planche poussiere ECV1 reutilisee",
+  "reference_da": {
+    "file": "large.S05P03A.png.301f7a1eadda348357be0801e81faa2a.png",
+    "sha256": "a4b168b07ecd76b154a79a6ea434bc67b8d1d6f6ad7a82ff0711a79a5cedbd94",
+    "titre": "Couloir rocheux violet (titre de l audit zones_bg_audit_v1 ; jeu et scene non confirmes)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "large.S05P03A.png.301f7a1eadda348357be0801e81faa2a.png"
+      ],
+      "prompt": "Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon purple rocky corridor): same mottled mauve-purple cave floor, same stacked rounded blue-violet boulders with light lilac highlights forming the walls, same dark navy background, same small dark round pebbles. Make a NEW, larger top-down map. WIDE LANDSCAPE 4:3, zoomed out. Layout: SOUTH a narrow floor corridor between boulder walls at the bottom edge center, opening into a LARGE round cave chamber (boss arena) with a few boulder clusters on the floor left and right; NORTH an alcove of stacked boulders, mauve floor to its foot, NO dark hole, NO tunnel. Boulder walls fill all edges. No characters, no text, no UI, no border, no magenta.",
+      "essais": "premier essai 1200 x 896 ; fidélité sol 2,7 roche 11,9 (seuil 35)"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "large.S05P03A.png.301f7a1eadda348357be0801e81faa2a.png"
+      ],
+      "prompt": "Fill the ENTIRE image edge to edge with only the mottled mauve-purple cave floor texture from the reference image: same pixel-art mottled pattern, same palette and contrast, keep the texture detail. No boulders, no rocks, no pebbles, no walls, no dark areas. Wide landscape 4:3.",
+      "essais": "premier essai ; distance 3,5 au sol du rip"
+    },
+    {
+      "file": "poussiere_poses.png",
+      "images": [
+        "large.S05P03A.png.301f7a1eadda348357be0801e81faa2a.png"
+      ],
+      "prompt": "REUTILISEE sans nouvelle generation : planche de l'entree ECV1 (source/entree_couloir_violet_sud_nord_v1/bruts/poussiere_poses.png, meme sha256), fenetres inchangees. Prompt d'origine : Pixel-art sprite sheet on magenta, dust puff clouds, mauve-purple and lilac greys from the reference.",
+      "essais": "copie de la planche ECV1 : aucune generation supplementaire"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_couloir_violet_v1/bruts/decor.png",
+      "sha256": "918bae714ea19df1038ad7413655da6a14ad15d3fe5ded84989b89c49b6f0530",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_couloir_violet_v1/bruts/sol_complet.png",
+      "sha256": "91743a499ce502b677434cd586d363f4fdbbebc4bf899d7c480b381209839d02",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_couloir_violet_v1/bruts/poussiere_poses.png",
+      "sha256": "362f36759b3e515a6a9ef411a4fcdb73c8bb24a66d592e83b5a248fe61091b1d",
+      "size": [
+        672,
+        1551
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "blocs": 4,
+    "gravillons": 27,
+    "ombres_lum": 53.8,
+    "sol_lum": 85.9
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
+    "brut": {
+      "sol": {
+        "rip_rgb": [
+          93.4,
+          79.5,
+          113.7
+        ],
+        "decor_rgb": [
+          91.4,
+          78.1,
+          112.5
+        ],
+        "distance": 2.7
+      },
+      "roche": {
+        "rip_rgb": [
+          69.2,
+          69.2,
+          119.4
+        ],
+        "decor_rgb": [
+          64.9,
+          64.0,
+          109.6
+        ],
+        "distance": 11.9
+      }
+    },
+    "calques_finaux": {
+      "sol": {
+        "matiere": "sol",
+        "rgb": [
+          91.2,
+          77.5,
+          109.5
+        ],
+        "distance_rip": 5.1
+      },
+      "rochers": {
+        "matiere": "roche",
+        "rgb": [
+          64.9,
+          63.8,
+          110.1
+        ],
+        "distance_rip": 11.6
+      },
+      "blocs": {
+        "matiere": "roche",
+        "rgb": [
+          67.5,
+          66.1,
+          112.5
+        ],
+        "distance_rip": 7.8
+      }
+    },
+    "sol_complet": 3.5,
+    "eboulis": "couleurs EXACTES du rip (test : sous-ensemble des couleurs du rip)"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "sol": {
+        "calques": [
+          "sol_complet",
+          "sol",
+          "ombres"
+        ],
+        "couleurs": 64
+      },
+      "roche": {
+        "calques": [
+          "gravillons",
+          "blocs",
+          "rochers"
+        ],
+        "couleurs": 96
+      },
+      "sombre": {
+        "calques": [
+          "vide"
+        ],
+        "couleurs": 16
+      }
+    }
+  },
+  "segmentation": "sol = r-g lissé 5 px >= 6 et lum lissée > 45, fermé/ouvert 2 px, plus grande composante (> 20000 px), trous bouchés ;\n    îlots = trous du sol : blocs >= 600 px, gravillons 12 à 600 px ; ombres = sol à lum lissée < 62 à <= 30 px d'une paroi ;\n    vide = lum lissée < 24 hors sol, ouvert 4 px, > 3000 px, relié au bord ; rochers = le reste. Pas de falaise striée\n    (0 px sur ce brut), pas de profondeur.",
+  "layers": [
+    {
+      "file": "calques/FVL1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_01_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_03_gravillons.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_04_blocs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_05_rochers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FVL1_06_vide.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/eboulis/FVL1_07_eboulis_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/poussiere/FVL1_08_poussiere_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "eboulis": {
+    "gravillons_rip": {
+      "petit": [
+        113,
+        136,
+        6,
+        7
+      ],
+      "moyen": [
+        131,
+        78,
+        7,
+        10
+      ],
+      "gros": [
+        130,
+        204,
+        12,
+        12
+      ]
+    },
+    "gravillons_source": "rip, composante de roche 8-connexe entierement entouree de sol ; pixels et couleurs EXACTS",
+    "chutes": [
+      [
+        194,
+        244,
+        "moyen",
+        0,
+        1
+      ],
+      [
+        583,
+        240,
+        "gros",
+        6,
+        -1
+      ],
+      [
+        215,
+        405,
+        "petit",
+        12,
+        1
+      ],
+      [
+        540,
+        389,
+        "moyen",
+        18,
+        -1
+      ]
+    ],
+    "cibles": [
+      [
+        180,
+        200,
+        "moyen",
+        0,
+        1
+      ],
+      [
+        580,
+        200,
+        "gros",
+        6,
+        -1
+      ],
+      [
+        220,
+        360,
+        "petit",
+        12,
+        1
+      ],
+      [
+        540,
+        350,
+        "moyen",
+        18,
+        -1
+      ]
+    ],
+    "chute_dy": [
+      -21,
+      -16,
+      -9,
+      0
+    ],
+    "rebond_dy": {
+      "4": -3,
+      "5": -1
+    },
+    "roulement_px": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "visible_phases": 20,
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "origine": "dessin EXACT du rip ; chute, rebond, roulement et placement crees par nous"
+  },
+  "poussiere": {
+    "fenetres": [
+      [
+        340,
+        410,
+        120
+      ],
+      [
+        335,
+        645,
+        200
+      ],
+      [
+        335,
+        890,
+        220
+      ],
+      [
+        335,
+        1130,
+        220
+      ]
+    ],
+    "planche": "source/entree_couloir_violet_sud_nord_v1/bruts/poussiere_poses.png",
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "origine": "dessin GENERE de ECV1 ; placement et cadence crees par nous"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      392,
+      560
+    ],
+    "boss_px": [
+      376,
+      296
+    ],
+    "objective_px": [
+      384,
+      184
+    ],
+    "path_found_16x16": true,
+    "path_to_boss": true,
+    "path_to_objective": true,
+    "cells_explored": 470,
+    "blocked_cells": 4191,
+    "total_cells": 6912,
+    "walkable_cells": 2721,
+    "rule": "case bloquee si > 25 % hors praticable (sol, ombres, gravillons relies au sud)",
+    "fin": "aucune sortie, aucun warp, pas de donjon_seuil"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fvl1_fin_couloir_violet",
+    "namespace": "fin_couloir_violet",
+    "tiles_per_bank": {
+      "FVL1_00_SOL": 6913,
+      "FVL1_01_SOL": 3028,
+      "FVL1_02_OMBRES": 407,
+      "FVL1_03_GRAVILLONS": 68,
+      "FVL1_04_BLOCS": 308,
+      "FVL1_05_ROCHERS": 3926,
+      "FVL1_06_VIDE": 283,
+      "FVL1_07_EBOULIS": 93,
+      "FVL1_08_POUSSIERE": 138
+    },
+    "banks": [
+      "FVL1_00_SOL",
+      "FVL1_01_SOL",
+      "FVL1_02_OMBRES",
+      "FVL1_03_GRAVILLONS",
+      "FVL1_04_BLOCS",
+      "FVL1_05_ROCHERS",
+      "FVL1_06_VIDE",
+      "FVL1_07_EBOULIS",
+      "FVL1_08_POUSSIERE"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

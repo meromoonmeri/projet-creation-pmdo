@@ -5,7 +5,7 @@ Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-p
 Chaque sous-projet est un **chantier de map autonome** : il contient son générateur, ses tests,
 sa documentation et, quand il existe, ses données PMDO natives (`.rsground`, `.tile`).
 
-Mise à jour du **8 octobre 2026** (ce dépôt) : `WORKFLOW.md` de session à la racine, chantier `source/methode_serie_sud_nord/`, `WORKFLOW.md` par lot de la série (outil `OUTILS/ecrire_workflows_lots.py`), carte suivante **FCT1** `source/fin_clairiere_tropicale_v1/` (méthode ouverte, pas de pixels).
+Mise à jour du **8 octobre 2026** (ce dépôt) : lots **FCT1** et **FVL1** livrés. Carte suivante **Fin Mt. Thunder** (`FMT1` pris sur une sœur).
 
 Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build, `verify` = vérification
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
@@ -52,6 +52,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
 | `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
 | `source/fin_clairiere_tropicale_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 7.6 |
+| `source/fin_couloir_violet_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 6.9 |
 
 ## Arènes — 12 projets · 61 fichiers extraits · 1 Mo
 

@@ -13,10 +13,10 @@ Livré ici :
   (ordre des lots, préfixes, carte suivante), WORKFLOW de relance.
 - `WORKFLOW.md` par chantier de la série (entrées, fins, arènes, zones), générés par
   `OUTILS/ecrire_workflows_lots.py` ; gabarit Jungle et FCT1 rédigés à la main.
-- Carte **livrée** : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`, préfixe **FCT1**).
-  11 tests PASS, fidélité herbe 11,1 · jungle 26,6 · dalles 14,8. Planche papillons ETC1 réutilisée.
-  `art_approved: false`.
-- Fins encore à faire : Couloir violet (`FCV1` pris), Mt. Thunder (`FMT1` pris), Jardin secret.
+- Cartes **livrées** : **Fin Clairière tropicale** (`FCT1`, 11 tests PASS) puis **Fin Couloir violet**
+  (`source/fin_couloir_violet_v1/`, préfixe **FVL1**, `FCV1` interdit). 12 tests PASS, fidélité
+  sol 2,7 · roche 11,9. Planche poussière ECV1 réutilisée. Gravillons exacts du rip. `art_approved: false`.
+- Fins encore à faire : Mt. Thunder (`FMT1` pris), Jardin secret.
 
 Aucune fusion de branche sœur. Aucun test moteur. `art_approved: false`.
 

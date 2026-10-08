@@ -7,6 +7,20 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Fin Couloir violet : arène fermée, FVL1 (8 octobre 2026)
+
+**Demande** : « bon travail continuons » (après FCT1). Jumeau de ECV1.
+Préfixe **FVL1** (`FCV1` pris sur une sœur).
+
+- Sorties : `renders/fin_couloir_violet_v1/`, aperçu `apercu_fin_couloir_violet_v1.html`,
+  build `source/fin_couloir_violet_v1/build.py`.
+- **Méthode** : rendu généré référencé sur `large.S05P03A…png`. Pas de tunnel, pas de bouche.
+- **Layout** : couloir au sud (`entrance`), grande salle (`boss`), alcôve de rochers au nord (`objectif`). Murs fermés.
+- **Calques** : sol complet, sol, ombres, gravillons, blocs, rochers, vide, éboulis (gravillons exacts du rip), poussière (planche ECV1, 24 × 5), Top vide.
+- **Fidélité** (seuil 35) : sol 2,7 · roche 11,9. Calques : sol 5,1 · rochers 11,6 · blocs 7,8.
+- **Contrôles** : 12 tests PASS. 2 721 cases praticables. Pas de runtime, `art_approved: false`.
+- Fins restantes ici : Mt. Thunder, Jardin secret.
+
 ## Fin Clairière tropicale : arène fermée, FCT1 (8 octobre 2026)
 
 **Demande** : « Vasy genere la prochaine map » (après ouverture de la méthode). Jumeau de ETC1.
@@ -19,7 +33,7 @@ Préfixe **FCT1** (`FTC1` pris sur une sœur).
 - **Calques** : sol complet, herbe, ombres, dalles, touffes, fleurs, jungle, palmiers, papillons (planche ETC1, 24 × 5), Top vide.
 - **Fidélité** (seuil 35) : herbe 11,1 · jungle 26,6 · dalles 14,8.
 - **Contrôles** : 11 tests PASS. Recalage (0, 0). 2 777 cases praticables. Pas de runtime, `art_approved: false`.
-- Fins restantes ici : Couloir violet, Mt. Thunder, Jardin secret.
+- Fins restantes ici (à cette date) : Couloir violet, Mt. Thunder, Jardin secret.
 
 ## Méthodes de création : WORKFLOW, série sud→nord, FCT1 ouvert (8 octobre 2026)
 
