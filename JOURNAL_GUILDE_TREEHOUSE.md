@@ -7,6 +7,20 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Fin Clairière tropicale : arène fermée, FCT1 (8 octobre 2026)
+
+**Demande** : « Vasy genere la prochaine map » (après ouverture de la méthode). Jumeau de ETC1.
+Préfixe **FCT1** (`FTC1` pris sur une sœur).
+
+- Sorties : `renders/fin_clairiere_tropicale_v1/`, aperçu `apercu_fin_clairiere_tropicale_v1.html`,
+  build `source/fin_clairiere_tropicale_v1/build.py`.
+- **Méthode** : rendu généré référencé sur `large.S01P03A…png`. Pas de mer, pas de ponton, pas de bouche.
+- **Layout** : sentier de dalles au sud (`entrance`), grande clairière (`boss`), tertre de hibiscus + palmier au nord (`objectif`). Jungle sur les quatre bords.
+- **Calques** : sol complet, herbe, ombres, dalles, touffes, fleurs, jungle, palmiers, papillons (planche ETC1, 24 × 5), Top vide.
+- **Fidélité** (seuil 35) : herbe 11,1 · jungle 26,6 · dalles 14,8.
+- **Contrôles** : 11 tests PASS. Recalage (0, 0). 2 777 cases praticables. Pas de runtime, `art_approved: false`.
+- Fins restantes ici : Couloir violet, Mt. Thunder, Jardin secret.
+
 ## Méthodes de création : WORKFLOW, série sud→nord, FCT1 ouvert (8 octobre 2026)
 
 **Demande** : « Regarde le projet on va poursuivre les map et les méthodes de création read me workflow etc »

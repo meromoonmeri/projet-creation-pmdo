@@ -2,14 +2,12 @@
 
 | | |
 |---|---|
-| Ouvert | 8 octobre 2026, dépôt `projet-creation-pmdo` |
-| Pixels / Ground / tests | **non produits** |
+| Livré | 8 octobre 2026 |
 | Préfixe | `FCT1` (`FTC1` interdit : sœur) |
-| Jumeau | ETC1 `entree_clairiere_tropicale_sud_nord_v1` |
+| Jumeau | ETC1 |
+| Tests | **11 PASS** (`test_build.py`) |
+| Fidélité | herbe 11,1 · jungle 26,6 · dalles 14,8 (seuil 35) |
 | `art_approved` | false |
 | `runtime_tested` | false |
-| À confirmer | biome, présence d’une canopée, animation des hibiscus |
 
-Prochaine action : récupérer le rip + la planche papillons ETC1, générer `decor.png`
-et `sol_complet.png`, mesurer `classify()`, écrire `build.py` / `test_build.py` / `package.py`
-d’après `fin_jungle_sud_v1`.
+Bruts 1200 × 896, Ground `fct1_fin_clairiere_tropicale`, aperçu `apercu_fin_clairiere_tropicale_v1.html`.

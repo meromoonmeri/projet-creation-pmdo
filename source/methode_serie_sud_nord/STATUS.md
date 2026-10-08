@@ -44,7 +44,7 @@ Toute nouvelle entrée de la série doit être ajoutée à `MAPS` dans `build_mo
 | FOC1 | `fin_ocean_kyogre_v1` | — | fait (hors ordre strict) |
 | FSM1 | `fin_sables_mouvants_v1` | EQS1 | fait |
 | FST1 | `fin_star_cave_v1` | ESC1 | fait — **dernier livré** |
-| **FCT1** | **`fin_clairiere_tropicale_v1`** | ETC1 | **suivant, méthode ouverte** |
+| **FCT1** | **`fin_clairiere_tropicale_v1`** | ETC1 | **fait (8 oct. 2026, 11 tests PASS)** |
 | — | Fin Couloir violet | ECV1 | à faire (`FCV1` pris sur sœur) |
 | — | Fin Mt. Thunder | EMT1 | à faire (`FMT1` pris sur sœur) |
 | — | Fin Jardin secret | EJS* | à faire |
@@ -52,14 +52,10 @@ Toute nouvelle entrée de la série doit être ajoutée à `MAPS` dans `build_mo
 
 ## Carte suivante
 
-**Fin Clairière tropicale**, slug `fin_clairiere_tropicale_v1`, préfixe **FCT1**
-(`FTC1` est un repère de branche sœur : ne pas le réutiliser).
+**Fin Couloir violet** (jumeau ECV1). Préfixe **à choisir** : `FCV1` est pris sur une sœur.
 
-- Rip : `large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png` (même que ETC1).
-- Layout de fin : pas de mer / ponton / bouche sombre ; clairière fermée par la jungle ;
-  `entrance` sud, `boss` centre, `objectif` nord (tertres de fleurs / grand palmier).
-- Réutiliser la planche de papillons ETC1 (même biome, mêmes poses).
-- Détail : `source/fin_clairiere_tropicale_v1/WORKFLOW.md`.
+Puis Mt. Thunder (`FMT1` pris) et Jardin secret. Underground Lake / Mystifying Forest
+existent sur des sœurs non fusionnées.
 
 ## Préfixes à ne plus prendre
 

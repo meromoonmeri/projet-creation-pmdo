@@ -51,9 +51,8 @@ Sans eux, `build.py` ne peut pas relancer un lot existant. Voir
 - Identifier le lot : `source/<slug>_vN/`, préfixe 4 lettres unique (`EJN1`, `FST1`, `FCT1`…).
 - **Ne jamais écraser** un lot antérieur : incrémenter `vN` ou changer le slug.
 
-Carte suivante prévue (29 sept. 2026, après FST1) : **Fin Clairière tropicale**,
-préfixe **FCT1** (`FTC1` est pris sur une branche sœur). Méthode déjà ouverte dans
-`source/fin_clairiere_tropicale_v1/`.
+Dernier lot livré ici : **FCT1 Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`).
+Carte suivante : **Fin Couloir violet** (préfixe à choisir, `FCV1` pris sur une sœur).
 
 ---
 

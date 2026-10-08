@@ -13,11 +13,10 @@ Livré ici :
   (ordre des lots, préfixes, carte suivante), WORKFLOW de relance.
 - `WORKFLOW.md` par chantier de la série (entrées, fins, arènes, zones), générés par
   `OUTILS/ecrire_workflows_lots.py` ; gabarit Jungle et FCT1 rédigés à la main.
-- Carte suivante **ouverte** : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`,
-  préfixe **FCT1**, `FTC1` interdit). Méthode + README_PACK + STATUS ; **pas de pixels**,
-  `build.py` volontairement absent tant que les bruts n’existent pas.
-- Fins encore à faire après FCT1 : Couloir violet (`FCV1` pris), Mt. Thunder (`FMT1` pris),
-  Jardin secret. Underground Lake / Mystifying Forest existent sur des sœurs non fusionnées.
+- Carte **livrée** : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`, préfixe **FCT1**).
+  11 tests PASS, fidélité herbe 11,1 · jungle 26,6 · dalles 14,8. Planche papillons ETC1 réutilisée.
+  `art_approved: false`.
+- Fins encore à faire : Couloir violet (`FCV1` pris), Mt. Thunder (`FMT1` pris), Jardin secret.
 
 Aucune fusion de branche sœur. Aucun test moteur. `art_approved: false`.
 

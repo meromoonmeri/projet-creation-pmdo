@@ -51,7 +51,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_star_cave_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.1 |
 | `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
 | `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer · WORKFLOW | 5/8 | 0.0 |
-| `source/fin_clairiere_tropicale_v1/` | PACK · WORKFLOW · STATUS | 3/3 | 0.0 |
+| `source/fin_clairiere_tropicale_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 7.6 |
 
 ## Arènes — 12 projets · 61 fichiers extraits · 1 Mo
 
