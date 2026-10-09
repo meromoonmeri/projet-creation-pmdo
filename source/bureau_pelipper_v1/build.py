@@ -1,12 +1,10 @@
 """Bureau Pelipper (PPO1) — grande salle intérieure 4:3 (768 x 576 px, 96 x 72 cases).
 
-Demande : « fait une plus grande salle de l'intérieur de peliper office améliorer la référence »
-(planche Spriters Resource 5416). Préfixe PPO1.
-Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ sur une reconstruction de la planche
-(intérieur seulement, sans les poses Pelipper).
-- decor.png : ovale agrandi, cour d'herbe au sud, plancher et comptoir au nord ;
-- temoin_sans_objets.png : sans foin, sacs ni objets du comptoir ;
-- sol_complet.png : herbe seule.
+Demande : grande salle spacieuse, textures canoniques de la planche TSR 5416. Préfixe PPO1.
+Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ sur la planche (salle seule, sans poses Pelipper).
+- decor.png : ovale spacieux, grande cour d'herbe au sud, comptoir / foin / sacs au nord ;
+- temoin_sans_objets.png : sans foin, sacs ni bûches ;
+- sol_complet.png : herbe GBA.
 Calques : sol complet, herbe, chemin, bois, foin, sacs, meubles, murs, fond. Pas d'animation.
 Marqueurs : entrance sud, comptoir nord de la cour. Aucun warp.
 Lancer : .venv/bin/python source/bureau_pelipper_v1/build.py
@@ -21,8 +19,8 @@ from scipy import ndimage as nd
 HERE = Path(__file__).resolve().parent
 R = HERE.parents[1]
 RAW = HERE / 'bruts'
-REF_NAME = 'pelipper_poste_interieur.png'
-REF = R / REF_NAME
+REF_NAME = 'source/bureau_pelipper_v1/bruts/planche_salle.png'
+REF = HERE / 'bruts/planche_salle.png'
 OUT = R / 'renders/bureau_pelipper_v1'
 STAGE = R / '.cache/bureau_pelipper_v1/bureau_pelipper'
 NAMESPACE = 'bureau_pelipper'
@@ -33,30 +31,25 @@ SRC = (1200, 896)
 LOT = 'source/bureau_pelipper_v1'
 GEN = [
     {'file': 'decor.png', 'images': [REF_NAME], 'prompt':
-     'Use EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon Pelipper '
-     'Post Office interior): same warm tan-orange wooden plank walls, same round windows with cyan-turquoise glass and '
-     'wooden cross frames, same bright yellow wooden floorboards, same bright lime-green grass, same beige dirt path, '
-     'same yellow haystacks, same grey-white tied sacks, same wooden railings, hanging lanterns, curved wooden counter '
-     'with bookshelves, jars and picture frames, same dark navy-purple outside. Make a NEW, larger top-down map. WIDE '
-     'LANDSCAPE 4:3, zoomed out so the interior feels vast. Layout: SOUTH a beige dirt path at the bottom edge center '
-     'entering a LARGE oval wooden post-office hall; a wide bright green grass courtyard occupies the whole lower half; '
-     'a long horizontal wooden beam/railing splits grass from the raised yellow plank platform above; NORTH a big curved '
-     'wooden service counter with shelves, books, jars, more round windows, more haystacks left and right, more sacks '
-     'along the walls. Wooden plank walls enclose the whole oval room. Dark navy-purple fills the corners outside the '
-     'building. No characters, no Pelipper, no text, no UI, no border, no magenta.',
-     'essais': 'premier essai 1200 x 896 ; fidélité herbe 15,2 chemin 11,9 bois 16,3 fond 18,1'},
+     'Pokemon Mystery Dungeon GBA pixel art. Use ONLY the textures from the reference Pelipper Post Office interior — '
+     'copy the same orange-tan wooden plank walls, same two pale rounded-square windows, same curved wooden counter and '
+     'shelves, same checkered board, same round fluffy golden hay mounds (not starbursts), same grey sacks, same brown '
+     'logs, same beige railing, same saturated GBA green grass (almost no blue), same beige dirt path, same purple-navy '
+     'outside. Make a LARGE spacious top-down oval hall, wide landscape 4:3, zoomed out. Layout: SOUTH a beige dirt path '
+     'at the bottom edge center into a WIDE empty green grass courtyard (lots of open walking space, few objects). NORTH '
+     'the wooden counter, shelves, two windows, a couple of hay mounds and sacks and logs — do not fill the courtyard '
+     'with hay. Keep chunky GBA pixels. No Pelipper, no characters, no text, no UI, no magenta.',
+     'essais': 'layout spacieux 1200 x 896 ; fidélité herbe 4,4 chemin 11,5 bois 13,2 fond 2,8'},
     {'file': 'temoin_sans_objets.png', 'images': [f'{LOT}/bruts/decor.png'], 'prompt':
-     'Same image, same framing and exact same pixel-art style. Remove every haystack, every grey sack, every book, jar, '
-     'picture frame and small object on the counter: replace them with the same yellow wooden floorboards or the same '
-     'empty wooden counter surface around them. Keep the wooden plank walls, round windows, hanging lanterns, railings, '
-     'the long horizontal beam, the curved empty counter, the green grass, the beige path and the dark navy-purple '
-     'outside exactly as they are. No text, no border.',
-     'essais': 'premier essai ; recale (0, 0), écart 8,76'},
+     'Same image, same framing, exact same GBA pixel textures. Remove every hay mound, every grey sack, and every log: '
+     'replace them with the same green grass that surrounds them. Keep the wooden walls, windows, curved counter, shelves, '
+     'railing, beige path, and dark outside exactly as they are. No text, no characters.',
+     'essais': 'recalage (0, 0), écart 3,84'},
     {'file': 'sol_complet.png', 'images': [f'{LOT}/bruts/decor.png'], 'prompt':
-     'Fill the ENTIRE image edge to edge with only the bright lime-green grass texture from the reference image (the '
-     'grassy courtyard of the Pelipper Post Office), same pixel-art style, same palette and contrast, keep the fine grass '
-     'texture. No wood, no path, no walls, no hay, no sacks, no dark areas. Wide landscape 4:3.',
-     'essais': 'premier essai ; distance 26,8 a l herbe du decor'},
+     'Fill the ENTIRE image edge to edge with only the saturated GBA green grass texture from the Pelipper Post Office '
+     'courtyard in the reference (RGB around 80 126 2, almost no blue), same chunky pixel grass with small darker green '
+     'tufts. No wood, no path, no objects, no dark areas. Wide landscape 4:3.',
+     'essais': 'distance 30,1 a l herbe du rip'},
 ]
 
 
@@ -94,11 +87,13 @@ def lum_of(a):
 
 
 def materials(a):
-    a = a.astype(float); r, g, b = a[..., 0], a[..., 1], a[..., 2]; lum = lum_of(a)
-    herbe = (g > 160) & (g > r + 40) & (g > b + 40)
-    return {'herbe': herbe, 'chemin': (r > 180) & (g > 140) & (b >= 80) & (r - b > 30) & ~herbe,
-            'bois': (r > 200) & (g > 170) & (b < 80) & ~herbe,
-            'fond': (lum < 55) & (b > r + 10)}
+    a = a.astype(float); r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    herbe = (g > 90) & (g > r + 15) & (b < 50)
+    bois = (r > 180) & (g > 110) & (b < 95) & ~herbe
+    return {'herbe': herbe,
+            'chemin': (r > 180) & (g > 140) & (b >= 95) & (np.abs(r - g) < 60) & ~herbe & ~bois,
+            'bois': bois,
+            'fond': (lum_of(a) < 40) | ((np.abs(r - 60) < 18) & (np.abs(g - 60) < 18) & (b > 70))}
 
 
 def fidelity(decor, ref):
@@ -120,27 +115,25 @@ def recalage(a, o, zone):
 
 
 def classify(a, t):
-    """Seuils mesurés sur le brut (1200 x 896) :
-    fond = lum témoin < 55 et b > r + 10, ouvert 3 px, relié au bord ; herbe = g > 160, g > r+40, g > b+40, > 8000 px ;
-    bois = r > 200, g > 170, b < 80 (plancher jaune) ; chemin = beige r > 180, g > 140, b >= 80, r-b > 30, > 1500 px ;
-    objets = écart décor / témoin lissé 3 px > 24, >= 30 px : foin = jaune r > 190 g > 150 b < 100 >= 150 px ;
-    sacs = gris b > 100 |r-g| < 45, 110 < r < 220 >= 80 px ; meubles = le reste des objets >= 80 px ;
-    murs = orange r-g > 25, r-b > 50, plus le reliquat."""
-    lt, la = lum_of(t), lum_of(a)
+    """Seuils mesurés sur le brut (1200 x 896) et la planche GBA :
+    fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;
+    bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;
+    objets = écart décor / témoin lissé 3 px > 20 : foin = jaune r > 190 g > 140 b < 100 ;
+    sacs = gris |r-g| < 40, 120 < r < 210, b > 100 ; meubles = le reste ; murs = reliquat orange."""
     r, g, b = a.transpose(2, 0, 1)
-    fond = keep_large(open_((lt < 55) & (t[..., 2] > t[..., 0] + 10), 3), 2000)
+    fond = (lum_of(t) < 40) | ((np.abs(t[..., 0] - 60) < 18) & (np.abs(t[..., 1] - 60) < 18) & (t[..., 2] > 70))
     lab, _ = nd.label(fond); e = np.unique(np.r_[lab[0], lab[-1], lab[:, 0], lab[:, -1]]); fond = np.isin(lab, e[e > 0])
-    herbe = keep_large((g > 160) & (g > r + 40) & (g > b + 40) & ~fond, 8000)
-    bois = (r > 200) & (g > 170) & (b < 80) & ~herbe & ~fond
-    chemin = (r > 180) & (g > 140) & (b >= 80) & (r - b > 30) & (np.abs(r - g) < 90) & ~herbe & ~fond & ~bois
-    chemin = keep_large(close_(chemin, 2), 1500)
+    herbe = keep_large((g > 90) & (g > r + 15) & (b < 50) & ~fond, 5000)
+    bois = (r > 180) & (g > 110) & (b < 95) & ~herbe & ~fond
+    chemin = (r > 180) & (g > 140) & (b >= 95) & (np.abs(r - g) < 60) & ~herbe & ~fond & ~bois
+    chemin = keep_large(close_(chemin, 2), 800)
     diff = nd.uniform_filter(np.abs(a - t).mean(2).astype(float), 3)
-    obj = keep_large(nd.binary_fill_holes(close_(diff > 24, 3)), 30) & ~fond & ~herbe
-    foin = keep_large(obj & (r > 190) & (g > 150) & (b < 100), 150)
-    sacs = keep_large(obj & (b > 100) & (np.abs(r - g) < 45) & (r > 110) & (r < 220), 80)
-    meubles = keep_large(obj & ~foin & ~sacs, 80)
+    obj = keep_large(nd.binary_fill_holes(close_(diff > 20, 2)), 20) & ~fond & ~herbe
+    foin = keep_large(obj & (r > 190) & (g > 140) & (b < 100), 80)
+    sacs = keep_large(obj & (b > 100) & (np.abs(r - g) < 40) & (r > 120) & (r < 210), 40)
+    meubles = keep_large(obj & ~foin & ~sacs, 40)
     bois = bois & ~obj
-    murs = (r > 140) & (g > 60) & (r - g > 25) & (r - b > 50) & ~bois & ~herbe & ~chemin & ~fond & ~obj
+    murs = (r > 140) & (g > 60) & (r - g > 20) & (r - b > 40) & ~bois & ~herbe & ~chemin & ~fond & ~obj
     rest = ~(fond | herbe | chemin | bois | murs | foin | sacs | meubles)
     murs = murs | rest
     masks = dict(herbe=herbe, chemin=chemin, bois=bois, foin=foin, sacs=sacs, meubles=meubles, murs=murs, fond=fond)
@@ -276,13 +269,28 @@ def build():
     pxs = np.nonzero(walk[H - 8])[0]; med = int(np.median(pxs)) // 8
     ecol = min((c for c in range(gw_ - 1) if not blocked[gh_ - 2:, c:c + 2].any()), key=lambda c: abs(c - med))
     entry_px = [ecol * 8, H - 16]
-    free = lambda cx, cy: 0 <= cx < gw_ - 1 and 0 <= cy < gh_ - 1 and not blocked[cy:cy + 2, cx:cx + 2].any()
+    start = (entry_px[1] // 8, entry_px[0] // 8)
     mid = W // 16
-    cands = [(cx, cy) for cy in range(gh_) for cx in range(mid - 12, mid + 12) if free(cx, cy)]
-    top = min(cy for _, cy in cands)
-    ctr = min((c for c in cands if c[1] <= top + 2), key=lambda c: abs(c[0] - mid))
+    # comptoir = case 16x16 libre la plus au nord, joignable depuis l'entrée
+    from collections import deque
+    ok = np.zeros_like(blocked)
+    for y in range(gh_ - 1):
+        for x in range(gw_ - 1):
+            ok[y, x] = not blocked[y:y + 2, x:x + 2].any()
+    seen = np.zeros_like(ok); q = deque([start]); seen[start] = True
+    reached = []
+    while q:
+        y, x = q.popleft(); reached.append((x, y))
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < gh_ and 0 <= nx < gw_ and ok[ny, nx] and not seen[ny, nx]:
+                seen[ny, nx] = True; q.append((ny, nx))
+    assert reached, 'pas de case 16x16 depuis l entree'
+    top = min(y for _, y in reached)
+    band = [(x, y) for x, y in reached if y <= top + 3 and abs(x - mid) <= 14]
+    ctr = min(band or reached, key=lambda c: (c[1], abs(c[0] - mid)))
     counter_px = [ctr[0] * 8, ctr[1] * 8]
-    reach, explored = v1.reachable(blocked, (entry_px[1] // 8, entry_px[0] // 8), (ctr[1], ctr[0]))
+    reach, explored = v1.reachable(blocked, start, (ctr[1], ctr[0]))
     assert reach, 'pas de chemin 16x16'
 
     def scene():

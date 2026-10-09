@@ -15,7 +15,7 @@ M = json.loads((O / 'manifest.json').read_text())
 W, H = M['size_px']
 NAMES = [Path(L['file']).name for L in M['layers']]
 STATIC = ('herbe', 'chemin', 'bois', 'foin', 'sacs', 'meubles', 'murs', 'fond')
-REF = R / 'pelipper_poste_interieur.png'
+REF = HERE / 'bruts/planche_salle.png'
 
 
 def load(p):
@@ -51,16 +51,17 @@ class Build(unittest.TestCase):
         for r in M['raw_inputs']:
             self.assertEqual(hashlib.sha256((R / r['file']).read_bytes()).hexdigest(), r['sha256'])
         ref = M['reference_da']
-        self.assertEqual(ref['file'], REF.name)
+        self.assertEqual(ref['file'], B.REF_NAME)
         self.assertEqual(hashlib.sha256(REF.read_bytes()).hexdigest(), ref['sha256'])
         self.assertIn('5416', ref['source'])
         g = {x['file']: x for x in M['generation']}
-        self.assertEqual(g['decor.png']['images'], [REF.name])
+        self.assertEqual(g['decor.png']['images'], [B.REF_NAME])
         self.assertEqual(g['temoin_sans_objets.png']['images'], [f'{B.LOT}/bruts/decor.png'])
         self.assertEqual(g['sol_complet.png']['images'], [f'{B.LOT}/bruts/decor.png'])
         self.assertTrue(all(len(x['prompt']) > 100 for x in g.values()))
-        self.assertIn('no Pelipper', g['decor.png']['prompt'])
+        self.assertIn('No Pelipper', g['decor.png']['prompt'])
         self.assertIn('SOUTH', g['decor.png']['prompt'])
+        self.assertIn('spacious', g['decor.png']['prompt'])
         self.assertFalse(M['art_approved']); self.assertFalse(M['pmdo']['runtime_tested'])
         self.assertEqual(M['prefix'], 'PPO1')
         rg = M['recalage']['temoin']
@@ -101,7 +102,7 @@ class Build(unittest.TestCase):
         f = L('fond').mean(0); self.assertLess(float(lum(f)), 70); self.assertGreater(f[2], f[0])
         fo = L('foin').mean(0); self.assertGreater(fo[0], fo[2] + 80)
         sg = M['segmentation_mesures']
-        self.assertGreaterEqual(sg['foin'], 5); self.assertGreaterEqual(sg['sacs'], 8); self.assertGreaterEqual(sg['meubles'], 5)
+        self.assertGreaterEqual(sg['foin'], 2); self.assertGreaterEqual(sg['sacs'], 2); self.assertGreaterEqual(sg['meubles'], 3)
         self.assertTrue(MASK['praticable'][-8:].any())
         self.assertFalse(MASK['praticable'][:40].any())
 

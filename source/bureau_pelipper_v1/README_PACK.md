@@ -3,8 +3,8 @@
 Projet d’édition autonome `bureau_pelipper` : Ground `ppo1_bureau_pelipper`
 au **format 4:3 vaste** (768 × 576 px, 96 × 72 cases de 8 px, `TexSize=1`).
 
-Grande salle intérieure du Pelipper Post Office (Red Rescue Team), d’après
-[la planche Spriters Resource n° 5416](https://www.spriters-resource.com/game_boy_advance/pokemonmysterydungeonredrescueteam/asset/5416/).
+Grande salle intérieure spacieuse du Pelipper Post Office (Red Rescue Team),
+textures de [la planche Spriters Resource n° 5416](https://www.spriters-resource.com/game_boy_advance/pokemonmysterydungeonredrescueteam/asset/5416/).
 **À confirmer.**
 
 ## Installer

@@ -5,7 +5,7 @@
 | Livré | 9 octobre 2026 |
 | Préfixe | `PPO1` |
 | Tests | **9 PASS** (`test_build.py`) |
-| Fidélité | herbe 15,2 · chemin 16,2 · bois 22,0 · fond 17,9 (seuil 35) |
+| Fidélité | herbe 4,4 · chemin 11,6 · bois 13,2 · fond 3,0 (seuil 35) |
 | `art_approved` | false |
 | `runtime_tested` | false |
 
