@@ -48,6 +48,7 @@ Toute nouvelle entrée de la série doit être ajoutée à `MAPS` dans `build_mo
 | FVL1 | `fin_couloir_violet_v1` | ECV1 | fait (8 oct. 2026, 12 tests PASS) |
 | FTM1 | `fin_mt_thunder_v1` | EMT1 | fait (8 oct. 2026, 10 tests PASS) |
 | **FSG1** | **`fin_jardin_secret_v1`** | EJS1 | **fait (9 oct. 2026, 11 tests PASS)** |
+| **PPO1** | **`bureau_pelipper_v1`** | — | **fait (9 oct. 2026, intérieur Pelipper)** |
 | FUL1, FMF1/2 | Underground Lake, Mystifying Forest | EUL1, EMF1 | **sœurs non fusionnées** |
 
 ## Carte suivante
@@ -60,7 +61,7 @@ sauf ces deux sœurs.
 
 Série ici : ESN1, ESN2, ECN1, ERN1, EGN1, EBN1, EJN1, EWC1–3, EUL1, EMF1, EQS1,
 ESC1, ETC1, ECV1, EMT1, EJS1, EJS2, ECM1, FVS1, FCF1, FRP1, FGG1, FGG2, FBS1,
-FJS1, FWC1, FOC1, FSM1, FST1, FCT1, FVL1, FTM1, FSG1, AGM1–3, ATP1, CLR1, RAZ1–3, EAZ1, RAF1–3,
+FJS1, FWC1, FOC1, FSM1, FST1, FCT1, FVL1, FTM1, FSG1, PPO1, AGM1–3, ATP1, CLR1, RAZ1–3, EAZ1, RAF1–3,
 EAF1, RZD1, ZRV1, ZRV2.
 
 Sœurs (relevé 27–29 sept., non fusionnées) : EFF1, EFF2, EDP1, ECF1, ECC1, ECC2,

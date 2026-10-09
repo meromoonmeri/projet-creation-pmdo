@@ -13,9 +13,8 @@ Livré ici :
   (ordre des lots, préfixes, carte suivante), WORKFLOW de relance.
 - `WORKFLOW.md` par chantier de la série (entrées, fins, arènes, zones), générés par
   `OUTILS/ecrire_workflows_lots.py` ; gabarit Jungle et FCT1 rédigés à la main.
-- Cartes **livrées** : FCT1, FVL1, FTM1, puis **Fin Jardin secret** (`source/fin_jardin_secret_v1/`,
-  préfixe **FSG1**, `FJS1` = jungle, `FJS3` interdit). 11 tests PASS, fidélité fond 5,6 · herbe 8,2.
-  Souche pleine, rayon et lucioles aux couleurs du rip. `art_approved: false`.
+- Cartes **livrées** : FCT1, FVL1, FTM1, **FSG1**, puis **Bureau Pelipper** (`source/bureau_pelipper_v1/`,
+  préfixe **PPO1**). Grande salle intérieure 4:3 d’après TSR 5416. `art_approved: false`.
 - Fins restantes ici : aucune (Underground Lake / Mystifying Forest = sœurs non fusionnées).
 
 Aucune fusion de branche sœur. Aucun test moteur. `art_approved: false`.

@@ -5,7 +5,7 @@ Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-p
 Chaque sous-projet est un **chantier de map autonome** : il contient son générateur, ses tests,
 sa documentation et, quand il existe, ses données PMDO natives (`.rsground`, `.tile`).
 
-Mise à jour du **9 octobre 2026** (ce dépôt) : lots **FCT1**, **FVL1**, **FTM1**, **FSG1** livrés. Plus de fin restante ici.
+Mise à jour du **9 octobre 2026** (ce dépôt) : lots **FCT1**, **FVL1**, **FTM1**, **FSG1**, **PPO1** livrés.
 
 Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build, `verify` = vérification
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
@@ -55,6 +55,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_couloir_violet_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 6.9 |
 | `source/fin_mt_thunder_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 3.1 |
 | `source/fin_jardin_secret_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 4.5 |
+| `source/bureau_pelipper_v1/` | build · package · test · PACK · viewer · WORKFLOW · STATUS | 8/8 | 0.1 |
 
 ## Arènes — 12 projets · 61 fichiers extraits · 1 Mo
 

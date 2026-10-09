@@ -7,6 +7,19 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Bureau Pelipper : intérieur ovale, PPO1 (9 octobre 2026)
+
+**Demande** : plus grande salle de l’intérieur du Pelipper Post Office, améliorer la référence TSR 5416.
+Préfixe **PPO1**.
+
+- Sorties : `renders/bureau_pelipper_v1/`, aperçu `apercu_bureau_pelipper_v1.html`,
+  build `source/bureau_pelipper_v1/build.py`.
+- **Méthode** : rendu généré référencé sur `pelipper_poste_interieur.png` (reconstruction de la planche, sans poses Pelipper).
+- **Layout** : allée au sud (`entrance`), cour d’herbe, plancher / foin / sacs / comptoir au nord (`comptoir`).
+- **Calques** : sol complet, herbe, chemin, bois, foin, sacs, meubles, murs, fond, Top vide.
+- **Fidélité** (seuil 35) : herbe 15,2 · chemin 16,2 · bois 22,0 · fond 17,9. Sol 26,8 vs herbe du décor.
+- **Contrôles** : tests `test_build.py`. 1 976 cases praticables. Pas de runtime, `art_approved: false`.
+
 ## Fin Jardin secret : prairie fermée, FSG1 (9 octobre 2026)
 
 **Demande** : « Lance toi » (après FTM1). Jumeau de EJS1.
