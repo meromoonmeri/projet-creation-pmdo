@@ -9,7 +9,7 @@ main{max-width:1180px;margin:auto}
 h1{font-size:30px;margin:0 0 6px}
 p{color:#b3c9d3;max-width:80ch}
 .wrap{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
-.stage{position:relative;background:#081116;overflow:auto;max-height:86vh;border:1px solid #29404c}
+.stage{position:relative;background:#000;overflow:auto;max-height:86vh;border:1px solid #29404c}
 canvas{display:block;image-rendering:pixelated}
 aside{flex:1;min-width:280px;max-width:420px}
 fieldset{border:1px solid #29404c;border-radius:8px;margin:0 0 14px;padding:10px 14px}
@@ -46,7 +46,8 @@ const L=D.stack.map(l=>({id:l.id,ticks:l.ticks,frames:l.frames.map(img)})),coll=
 const box=document.getElementById('layers'),checks={};
 L.forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id+(l.frames.length>1?' ('+l.frames.length+'×'+l.ticks+' ticks)':''));box.append(lab)});
 let zoom=1,tick=0,playing=true,last=performance.now();const STEP=2,MS=STEP*1000/60;
-function render(ctx){ctx.clearRect(0,0,W,H);L.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(l.frames[Math.floor(tick/l.ticks)%l.frames.length],0,0)});
+function keyMag(im){if(im._k)return im._k;const o=document.createElement('canvas');o.width=W;o.height=H;const g=o.getContext('2d');g.drawImage(im,0,0);const id=g.getImageData(0,0,W,H),d=id.data;for(let i=0;i<d.length;i+=4){if(d[i]>200&&d[i+1]<80&&d[i+2]>180)d[i+3]=0;}g.putImageData(id,0,0);im._k=o;return o;}
+function render(ctx){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);L.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(keyMag(l.frames[Math.floor(tick/l.ticks)%l.frames.length]),0,0)});
  if(document.getElementById('coll').checked)ctx.drawImage(coll,0,0);}
 function draw(){c.width=W*zoom;c.height=H*zoom;x.imageSmoothingEnabled=false;x.save();x.scale(zoom,zoom);render(x);x.restore();
  if(document.getElementById('grid').checked){x.strokeStyle='rgba(255,255,255,.18)';x.lineWidth=1;x.beginPath();

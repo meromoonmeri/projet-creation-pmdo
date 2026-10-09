@@ -240,6 +240,7 @@ def build():
     if mag.any():
         ex['fond'] = ex['fond'] | mag; ex['murs'] = ex['murs'] & ~mag
         cols['fond'][mag] = (255, 0, 255); cols['murs'][mag] = (0, 0, 0)
+    cols['fond'][ex['fond']] = (255, 0, 255)
     layers = {'sol_complet': rgba(down_full(f), np.ones((H, W), bool))}
     for k in STATIC:
         layers[k] = rgba(cols[k], ex[k])
@@ -253,6 +254,8 @@ def build():
         layers['fond'][mag] = (255, 0, 255, 255)
         layers['murs'][mag] = (0, 0, 0, 0)
         ex['fond'] = ex['fond'] | mag; ex['murs'] = ex['murs'] & ~mag
+    layers['sol_complet'][ex['fond']] = (255, 0, 255, 255)
+    layers['fond'][ex['fond']] = (255, 0, 255, 255)
     for k, v in ex.items():
         Image.fromarray((v * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_{k}.png')
     cand = ex['herbe'] | ex['chemin']

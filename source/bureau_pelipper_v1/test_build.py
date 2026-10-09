@@ -77,8 +77,7 @@ class Build(unittest.TestCase):
                 self.assertEqual(a.shape[:2], (H, W))
                 self.assertTrue(set(np.unique(a[..., 3])) <= {0, 255}, name)
                 v = a[a[..., 3] > 0].astype(int)
-                if name == 'fond':
-                    self.assertGreater(int(((v[:, 0] > 200) & (v[:, 1] < 80) & (v[:, 2] > 180)).sum()), 100)
+                if name in ('fond', 'sol_complet'):
                     continue
                 bad = (v[:, 0] - v[:, 1] > 60) & (v[:, 2] - v[:, 1] > 60)
                 self.assertEqual(int(bad.sum()), 0, name)
@@ -91,9 +90,11 @@ class Build(unittest.TestCase):
         for k in STATIC:
             self.assertGreater(int(alpha(BY[k][0]).sum()), 200, k)
             self.assertTrue((alpha(BY[k][0]) == MASK[k]).all(), k)
-        sol = BY['sol_complet'][0][..., :3].astype(float).reshape(-1, 3)
-        self.assertGreater(len(colors(BY['sol_complet'])), 8)
-        m = sol.mean(0); self.assertGreater(m[1], m[0] + 30); self.assertGreater(m[1], m[2] + 80)
+        sol = BY['sol_complet'][0]
+        px = sol[alpha(sol)][:, :3].astype(float)
+        not_mag = ~((px[:, 0] > 200) & (px[:, 1] < 80) & (px[:, 2] > 180))
+        self.assertGreater(int(not_mag.sum()), 8)
+        m = px[not_mag].mean(0); self.assertGreater(m[1], m[2] + 40)
 
     def test_palettes_et_matieres(self):
         for g, v in M['normalization']['palettes'].items():

@@ -38,7 +38,7 @@ def main():
     for L in M['layers']:
         name = re.sub(rf'^{PFX}_\d\d_', '', Path(L['file']).stem)
         stack.append({'id': name, 'ticks': L['ticks'], 'frames': [uri(O / L['file'])]})
-    data = {'size': M['size_px'], 'loop': M['scene_loop_ticks'], 'stack': stack, 'surface': 'rgb(32,24,64)', 'poses': [],
+    data = {'size': M['size_px'], 'loop': M['scene_loop_ticks'], 'stack': stack, 'surface': 'rgb(0,0,0)', 'poses': [],
             'collisions': uri(O / f'review/{PFX}_collisions_marqueurs.png'),
             'entry': M['access']['entry_px']}
     page = (HERE / 'viewer_template.html').read_text().replace('__DATA__', json.dumps(data))
