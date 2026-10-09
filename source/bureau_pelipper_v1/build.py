@@ -90,7 +90,7 @@ def materials(a):
     return {'herbe': herbe,
             'chemin': (r > 180) & (g > 140) & (b >= 95) & (np.abs(r - g) < 60) & ~herbe & ~bois,
             'bois': bois,
-            'fond': (lum_of(a) < 40) | ((np.abs(r - 60) < 18) & (np.abs(g - 60) < 18) & (b > 70))}
+            'fond': (r > 200) & (g < 80) & (b > 180)}
 
 
 def fidelity(decor, ref):
@@ -113,13 +113,13 @@ def recalage(a, o, zone):
 
 def classify(a, t):
     """Seuils mesurés sur le brut (1200 x 896) et la planche GBA :
-    fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;
+    fond = magenta PMDO (r > 200, g < 80, b > 180), relié au bord ; herbe = g > 90, g > r+15, b < 50 ;
     bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;
     salle vide : pas d'objets au sol. murs = reliquat orange / brun."""
     r, g, b = a.transpose(2, 0, 1)
-    fond = (lum_of(t) < 40) | ((np.abs(t[..., 0] - 60) < 18) & (np.abs(t[..., 1] - 60) < 18) & (t[..., 2] > 70))
+    fond = ((t[..., 0] > 180) & (t[..., 1] < 100) & (t[..., 2] > 150)) | ((a[..., 0] > 180) & (a[..., 1] < 100) & (a[..., 2] > 150))
     lab, _ = nd.label(fond); e = np.unique(np.r_[lab[0], lab[-1], lab[:, 0], lab[:, -1]]); fond = np.isin(lab, e[e > 0])
-    herbe = keep_large((g > 90) & (g > r + 15) & (b < 50) & ~fond, 5000)
+    herbe = keep_large((g > 90) & (g > r + 20) & (b < 40) & ~fond, 5000)
     bois = (r > 180) & (g > 110) & (b < 95) & ~herbe & ~fond
     chemin = (r > 180) & (g > 140) & (b >= 95) & (np.abs(r - g) < 60) & ~herbe & ~fond & ~bois
     chemin = keep_large(close_(chemin, 2), 800)
@@ -235,6 +235,11 @@ def build():
     reg = {'temoin': recalage(a, t, ~nd.binary_dilation(objs, iterations=4) if objs.any() else np.ones(a.shape[:2], bool))}
     order = ['chemin', 'herbe', 'bois', 'murs', 'fond']
     ex, cols = down_class(a, m, order)
+    mag = (cols['murs'][..., 0] > 160) & (cols['murs'][..., 1] < 120) & (cols['murs'][..., 2] > 140)
+    mag = mag & (cols['murs'][..., 2] > cols['murs'][..., 1] + 30) & ex['murs']
+    if mag.any():
+        ex['fond'] = ex['fond'] | mag; ex['murs'] = ex['murs'] & ~mag
+        cols['fond'][mag] = (255, 0, 255); cols['murs'][mag] = (0, 0, 0)
     layers = {'sol_complet': rgba(down_full(f), np.ones((H, W), bool))}
     for k in STATIC:
         layers[k] = rgba(cols[k], ex[k])
@@ -242,6 +247,12 @@ def build():
     for keys, n in PALETTE_GROUPS.values():
         q.update(quantize_group({k: layers[k] for k in keys}, n))
     layers = q
+    mv = layers['murs']
+    mag = (mv[..., 0].astype(int) - mv[..., 1].astype(int) > 60) & (mv[..., 2].astype(int) - mv[..., 1].astype(int) > 60) & (mv[..., 3] == 255)
+    if mag.any():
+        layers['fond'][mag] = (255, 0, 255, 255)
+        layers['murs'][mag] = (0, 0, 0, 0)
+        ex['fond'] = ex['fond'] | mag; ex['murs'] = ex['murs'] & ~mag
     for k, v in ex.items():
         Image.fromarray((v * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_{k}.png')
     cand = ex['herbe'] | ex['chemin']

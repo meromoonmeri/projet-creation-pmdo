@@ -50,7 +50,7 @@
   "raw_inputs": [
     {
       "file": "source/bureau_pelipper_v1/bruts/decor.png",
-      "sha256": "406e4f626580103c89e785baae6b5cbcc5e38f48e85c5f3e25437098c69f150f",
+      "sha256": "d45b4fde4a3ece7b30f9cb77eac97e515e050a97fa64c1b12ede6fc7415eebd5",
       "size": [
         1200,
         896
@@ -58,7 +58,7 @@
     },
     {
       "file": "source/bureau_pelipper_v1/bruts/temoin_sans_objets.png",
-      "sha256": "406e4f626580103c89e785baae6b5cbcc5e38f48e85c5f3e25437098c69f150f",
+      "sha256": "d45b4fde4a3ece7b30f9cb77eac97e515e050a97fa64c1b12ede6fc7415eebd5",
       "size": [
         1200,
         896
@@ -66,7 +66,7 @@
     },
     {
       "file": "source/bureau_pelipper_v1/bruts/sol_complet.png",
-      "sha256": "e7bd6d9479ee29406875ac80e8909e6dc8c2ad4d9f9cdb557cd2c9ea9db8ba7f",
+      "sha256": "bc829b354ae9f5193f95ef7b5f51c2993fd770454ccbe1a8ce2ca6caa4fd6b3d",
       "size": [
         1200,
         896
@@ -76,7 +76,7 @@
   "recalage": {
     "temoin": {
       "ecart_moyen": 0.0,
-      "ecart_decale_1px": 1.98
+      "ecart_decale_1px": 2.12
     },
     "zones": "temoin : hors objets dilates de 4 px"
   },
@@ -93,11 +93,11 @@
           1.7
         ],
         "decor_rgb": [
-          83.7,
-          125.9,
-          1.4
+          85.7,
+          124.2,
+          0.5
         ],
-        "distance": 6.3
+        "distance": 8.9
       },
       "chemin": {
         "rip_rgb": [
@@ -106,11 +106,11 @@
           152.4
         ],
         "decor_rgb": [
-          231.8,
-          210.5,
-          141.8
+          227.3,
+          200.8,
+          131.8
         ],
-        "distance": 18.5
+        "distance": 33.1
       },
       "bois": {
         "rip_rgb": [
@@ -119,65 +119,43 @@
           73.6
         ],
         "decor_rgb": [
-          234.8,
-          148.9,
-          48.7
+          235.1,
+          143.6,
+          41.7
         ],
-        "distance": 52.4
-      },
-      "fond": {
-        "rip_rgb": [
-          16.1,
-          15.8,
-          23.1
-        ],
-        "decor_rgb": [
-          17.7,
-          17.0,
-          23.5
-        ],
-        "distance": 2.0
+        "distance": 60.3
       }
     },
     "calques_finaux": {
       "herbe": {
         "matiere": "herbe",
         "rgb": [
-          81.9,
-          125.4,
-          0.9
+          84.2,
+          122.7,
+          1.2
         ],
-        "distance_rip": 5.3
+        "distance_rip": 8.7
       },
       "chemin": {
         "matiere": "chemin",
         "rgb": [
-          230.6,
-          209.8,
-          140.4
+          226.3,
+          199.4,
+          130.4
         ],
-        "distance_rip": 20.4
+        "distance_rip": 35.4
       },
       "bois": {
         "matiere": "bois",
         "rgb": [
-          233.4,
-          147.6,
-          47.8
+          233.9,
+          142.0,
+          39.9
         ],
-        "distance_rip": 54.0
-      },
-      "fond": {
-        "matiere": "fond",
-        "rgb": [
-          15.9,
-          15.7,
-          22.2
-        ],
-        "distance_rip": 0.9
+        "distance_rip": 62.7
       }
     },
-    "sol_complet": 7.5
+    "sol_complet": 31.6
   },
   "normalization": {
     "scale": 0.6428571428571429,
@@ -224,7 +202,7 @@
       }
     }
   },
-  "segmentation": "fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;\n    bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;\n    salle vide : pas d'objets au sol. murs = reliquat orange / brun.",
+  "segmentation": "fond = magenta PMDO (r > 200, g < 80, b > 180), relié au bord ; herbe = g > 90, g > r+15, b < 50 ;\n    bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;\n    salle vide : pas d'objets au sol. murs = reliquat orange / brun.",
   "layers": [
     {
       "file": "calques/PPO1_00_sol_complet.png",
@@ -264,14 +242,14 @@
       560
     ],
     "counter_px": [
-      376,
+      368,
       144
     ],
     "path_found_16x16": true,
-    "cells_explored": 2096,
-    "blocked_cells": 3876,
+    "cells_explored": 2220,
+    "blocked_cells": 3905,
     "total_cells": 6912,
-    "walkable_cells": 3036,
+    "walkable_cells": 3007,
     "rule": "case bloquee si > 25 % hors praticable (herbe et chemin relies au sud)",
     "fin": "aucun warp"
   },
@@ -280,12 +258,12 @@
     "asset": "ppo1_bureau_pelipper",
     "namespace": "bureau_pelipper",
     "tiles_per_bank": {
-      "PPO1_00_SOL": 6668,
-      "PPO1_01_HERBE": 2954,
-      "PPO1_02_CHEMIN": 253,
-      "PPO1_03_BOIS": 1874,
-      "PPO1_04_MURS": 1606,
-      "PPO1_05_FOND": 786
+      "PPO1_00_SOL": 6142,
+      "PPO1_01_HERBE": 2759,
+      "PPO1_02_CHEMIN": 382,
+      "PPO1_03_BOIS": 1939,
+      "PPO1_04_MURS": 1854,
+      "PPO1_05_FOND": 271
     },
     "banks": [
       "PPO1_00_SOL",

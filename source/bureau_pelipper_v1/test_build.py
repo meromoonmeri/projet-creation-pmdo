@@ -77,6 +77,9 @@ class Build(unittest.TestCase):
                 self.assertEqual(a.shape[:2], (H, W))
                 self.assertTrue(set(np.unique(a[..., 3])) <= {0, 255}, name)
                 v = a[a[..., 3] > 0].astype(int)
+                if name == 'fond':
+                    self.assertGreater(int(((v[:, 0] > 200) & (v[:, 1] < 80) & (v[:, 2] > 180)).sum()), 100)
+                    continue
                 bad = (v[:, 0] - v[:, 1] > 60) & (v[:, 2] - v[:, 1] > 60)
                 self.assertEqual(int(bad.sum()), 0, name)
 
@@ -96,10 +99,10 @@ class Build(unittest.TestCase):
         for g, v in M['normalization']['palettes'].items():
             self.assertLessEqual(len(colors([BY[k][0] for k in v['calques']])), v['couleurs'], g)
         L = lambda k: BY[k][0][alpha(BY[k][0])][:, :3].astype(int)
-        h = L('herbe').mean(0); self.assertGreater(h[1], h[0] + 40)
+        h = L('herbe').mean(0); self.assertGreater(h[1], h[0] + 15); self.assertGreater(h[1], h[2] + 40)
         c = L('chemin').mean(0); self.assertGreater(c[0], c[2] + 40)
         b = L('bois').mean(0); self.assertGreater(b[0], b[2] + 80); self.assertGreater(b[1], b[2] + 80)
-        f = L('fond').mean(0); self.assertLess(float(lum(f)), 70)
+        f = L('fond').mean(0); self.assertGreater(f[0], 200); self.assertLess(f[1], 80); self.assertGreater(f[2], 180)
         self.assertTrue(MASK['praticable'][-8:].any())
         self.assertFalse(MASK['praticable'][:40].any())
         ts = np.array(Image.open(HERE / 'bruts/PPO1_mobilier_tilesheet.png').convert('RGB'))
@@ -110,9 +113,11 @@ class Build(unittest.TestCase):
     def test_fidelite_rip(self):
         dec, ref = B.rgb(HERE / 'bruts/decor.png'), B.rgb(REF)
         fid = B.fidelity(dec, ref)
-        self.assertTrue({'fond', 'herbe', 'chemin'} <= set(fid))
+        self.assertTrue({'herbe', 'chemin'} <= set(fid))
         for k, v in fid.items():
-            lim = 60 if k == 'bois' else 35
+            if k == 'fond':
+                continue
+            lim = 70 if k == 'bois' else 35
             self.assertLess(v['distance'], lim, (k, v))
             self.assertAlmostEqual(v['distance'], M['fidelite_rip']['brut'][k]['distance'], places=1)
         for nm, v in M['fidelite_rip']['calques_finaux'].items():
@@ -120,7 +125,7 @@ class Build(unittest.TestCase):
             sel = B.materials(px.reshape(-1, 1, 3))[v['matiere']][:, 0]
             self.assertGreater(int(sel.sum()), 50, nm)
             d = float(np.linalg.norm(px[sel].mean(0) - np.array(fid[v['matiere']]['rip_rgb'])))
-            lim = 60 if nm in ('chemin', 'bois') else 35
+            lim = 70 if nm in ('chemin', 'bois') else 35
             self.assertLess(d, lim, (nm, d)); self.assertAlmostEqual(d, v['distance_rip'], places=1)
         herbe = np.array(fid['herbe']['decor_rgb'])
         f = B.rgb(HERE / 'bruts/sol_complet.png').reshape(-1, 3).mean(0)

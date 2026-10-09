@@ -23,7 +23,7 @@ ensuite dans PMDO (décorations / Top).
 | 02 | Chemin (terre, sud) | fixe |
 | 03 | Bois (murs planches) | fixe |
 | 04 | Murs (rebord, fenêtres) | fixe |
-| 05 | Fond (hors bâtiment) | fixe |
+| 05 | Fond magenta (hors bâtiment) | fixe |
 | 06 | vide, `Layer=4` (Top) | — |
 
 ## Tilesheet mobilier
