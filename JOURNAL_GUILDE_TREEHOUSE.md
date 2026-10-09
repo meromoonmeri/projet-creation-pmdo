@@ -7,6 +7,20 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Fin Jardin secret : prairie fermée, FSG1 (9 octobre 2026)
+
+**Demande** : « Lance toi » (après FTM1). Jumeau de EJS1.
+Préfixe **FSG1** (`FJS1` = jungle, `FJS3` pris sur une sœur).
+
+- Sorties : `renders/fin_jardin_secret_v1/`, aperçu `apercu_fin_jardin_secret_v1.html`,
+  build `source/fin_jardin_secret_v1/build.py`.
+- **Méthode** : rendu généré référencé sur `secretgarden.png`. Souche pleine, pas de trou.
+- **Layout** : allée au sud (`entrance`), prairie (`boss`), souche au nord (`objectif`). Haies tout autour.
+- **Calques** : sol complet, prairie, herbe, ombres, fleurs, rochers, arbres, haies, souche, fond, rayon (rampe exacte, 24 × 5), lucioles, Top vide.
+- **Fidélité** (seuil 35) : fond 5,6 · herbe claire 9,5 · herbe 8,2 · roche 12,0. Sol 32,5 (essai acide 59,3 écarté).
+- **Contrôles** : 11 tests PASS. 2 519 cases praticables. Pas de runtime, `art_approved: false`.
+- Fins restantes ici : aucune (Underground Lake / Mystifying Forest = sœurs).
+
 ## Fin Mt. Thunder : plateau fermé, FTM1 (8 octobre 2026)
 
 **Demande** : « oui go enchaines » (après FVL1). Jumeau de EMT1.
@@ -19,7 +33,7 @@ Préfixe **FTM1** (`FMT1` pris sur une sœur).
 - **Calques** : sol complet, sable, cailloux, pics, falaise, piton, ciel, nuages, lueurs + éclairs (sprites exacts, 48 × 5), Top vide.
 - **Fidélité** (seuil 35) : sable 2,9 · roche 10,3 · ciel 5,4 · nuages sombres 3,0 · nuages clairs 20,6.
 - **Contrôles** : 10 tests PASS. 2 726 cases praticables. Pas de runtime, `art_approved: false`.
-- Fins restantes ici : Jardin secret.
+- Fins restantes ici (à cette date) : Jardin secret.
 
 ## Fin Couloir violet : arène fermée, FVL1 (8 octobre 2026)
 
