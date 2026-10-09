@@ -11,7 +11,7 @@ R = HERE.parents[1]
 O = R / 'renders/bureau_pelipper_v1'
 S = R / '.cache/bureau_pelipper_v1/bureau_pelipper'
 PFX = 'PPO1'
-REVIEW = ['scene_t000.png', 'collisions_marqueurs.png']
+REVIEW = ['scene_t000.png', 'collisions_marqueurs.png', 'mobilier_tilesheet.png']
 
 
 def zipdir(path, items):

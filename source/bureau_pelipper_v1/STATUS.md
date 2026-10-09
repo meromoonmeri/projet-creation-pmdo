@@ -5,7 +5,8 @@
 | Livré | 9 octobre 2026 |
 | Préfixe | `PPO1` |
 | Tests | **9 PASS** (`test_build.py`) |
-| Fidélité | herbe 4,4 · chemin 11,6 · bois 13,2 · fond 3,0 (seuil 35) |
+| Fidélité | salle vide, textures TSR 5416 |
+| Mobilier | `PPO1_mobilier_tilesheet.png` (magenta, à placer) |
 | `art_approved` | false |
 | `runtime_tested` | false |
 

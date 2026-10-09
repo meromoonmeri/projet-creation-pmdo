@@ -27,30 +27,30 @@
       "images": [
         "source/bureau_pelipper_v1/bruts/planche_salle.png"
       ],
-      "prompt": "Pokemon Mystery Dungeon GBA pixel art. Use ONLY the textures from the reference Pelipper Post Office interior — copy the same orange-tan wooden plank walls, same two pale rounded-square windows, same curved wooden counter and shelves, same checkered board, same round fluffy golden hay mounds (not starbursts), same grey sacks, same brown logs, same beige railing, same saturated GBA green grass (almost no blue), same beige dirt path, same purple-navy outside. Make a LARGE spacious top-down oval hall, wide landscape 4:3, zoomed out. Layout: SOUTH a beige dirt path at the bottom edge center into a WIDE empty green grass courtyard (lots of open walking space, few objects). NORTH the wooden counter, shelves, two windows, a couple of hay mounds and sacks and logs — do not fill the courtyard with hay. Keep chunky GBA pixels. No Pelipper, no characters, no text, no UI, no magenta.",
-      "essais": "layout spacieux 1200 x 896 ; fidélité herbe 4,4 chemin 11,5 bois 13,2 fond 2,8"
+      "prompt": "Pokemon Mystery Dungeon GBA pixel art. Use ONLY the textures from the reference Pelipper Post Office interior — same orange-tan wooden plank walls, same two pale rounded-square windows, same saturated GBA green grass (almost no blue), same beige dirt path, same dark outside. Make a LARGE spacious EMPTY top-down oval hall, wide landscape 4:3. Layout: SOUTH a beige dirt path at the bottom edge center into a WIDE empty green grass courtyard. NORTH wooden walls with two windows. NO furniture: no counter, no hay, no sacks, no logs, no railing, no shelves. Keep chunky GBA pixels. No Pelipper, no characters, no text, no UI, no magenta.",
+      "essais": "salle vide spacieuse ; mobilier reporté sur tilesheet"
     },
     {
       "file": "temoin_sans_objets.png",
       "images": [
         "source/bureau_pelipper_v1/bruts/decor.png"
       ],
-      "prompt": "Same image, same framing, exact same GBA pixel textures. Remove every hay mound, every grey sack, and every log: replace them with the same green grass that surrounds them. Keep the wooden walls, windows, curved counter, shelves, railing, beige path, and dark outside exactly as they are. No text, no characters.",
-      "essais": "recalage (0, 0), écart 3,84"
+      "prompt": "Same empty Pelipper Post Office oval hall, same framing and GBA textures. The room already has no furniture. Keep the wooden walls, two windows, green grass courtyard, beige south path and dark outside exactly as they are. No text, no characters.",
+      "essais": "salle déjà vide, copie du décor"
     },
     {
       "file": "sol_complet.png",
       "images": [
         "source/bureau_pelipper_v1/bruts/decor.png"
       ],
-      "prompt": "Fill the ENTIRE image edge to edge with only the saturated GBA green grass texture from the Pelipper Post Office courtyard in the reference (RGB around 80 126 2, almost no blue), same chunky pixel grass with small darker green tufts. No wood, no path, no objects, no dark areas. Wide landscape 4:3.",
-      "essais": "distance 30,1 a l herbe du rip"
+      "prompt": "Fill the ENTIRE image edge to edge with only the saturated GBA green grass texture from the Pelipper Post Office courtyard in the reference (RGB around 80 126 2, almost no blue), same chunky pixel grass. No wood, no path, no objects, no dark areas. Wide landscape 4:3.",
+      "essais": "herbe extraite du décor vide"
     }
   ],
   "raw_inputs": [
     {
       "file": "source/bureau_pelipper_v1/bruts/decor.png",
-      "sha256": "8d02cfb40d2b53b2a6b51c50b6108ee649b90349c95e16cfe4293492f5cbf538",
+      "sha256": "406e4f626580103c89e785baae6b5cbcc5e38f48e85c5f3e25437098c69f150f",
       "size": [
         1200,
         896
@@ -58,7 +58,7 @@
     },
     {
       "file": "source/bureau_pelipper_v1/bruts/temoin_sans_objets.png",
-      "sha256": "de60dd0b573c40ae49a69ba95b58fe2c48042a3f03db93f0ca34b2dee2701087",
+      "sha256": "406e4f626580103c89e785baae6b5cbcc5e38f48e85c5f3e25437098c69f150f",
       "size": [
         1200,
         896
@@ -66,7 +66,7 @@
     },
     {
       "file": "source/bureau_pelipper_v1/bruts/sol_complet.png",
-      "sha256": "e48849f88171753586cd8b44efddbbf6173636e4be6e098b771b19230b0776b8",
+      "sha256": "e7bd6d9479ee29406875ac80e8909e6dc8c2ad4d9f9cdb557cd2c9ea9db8ba7f",
       "size": [
         1200,
         896
@@ -75,15 +75,13 @@
   ],
   "recalage": {
     "temoin": {
-      "ecart_moyen": 1.67,
-      "ecart_decale_1px": 2.23
+      "ecart_moyen": 0.0,
+      "ecart_decale_1px": 1.98
     },
     "zones": "temoin : hors objets dilates de 4 px"
   },
   "segmentation_mesures": {
-    "foin": 6,
-    "sacs": 4,
-    "meubles": 21
+    "composantes_herbe": 1
   },
   "fidelite_rip": {
     "methode": "moyenne RGB par matiere, meme classifieur pixel ; distance euclidienne ; seuil 35",
@@ -95,11 +93,11 @@
           1.7
         ],
         "decor_rgb": [
-          80.9,
-          125.8,
-          1.2
+          83.7,
+          125.9,
+          1.4
         ],
-        "distance": 4.4
+        "distance": 6.3
       },
       "chemin": {
         "rip_rgb": [
@@ -108,11 +106,11 @@
           152.4
         ],
         "decor_rgb": [
-          237.9,
-          217.4,
-          142.7
+          231.8,
+          210.5,
+          141.8
         ],
-        "distance": 11.6
+        "distance": 18.5
       },
       "bois": {
         "rip_rgb": [
@@ -121,11 +119,11 @@
           73.6
         ],
         "decor_rgb": [
-          241.1,
-          192.0,
-          60.7
+          234.8,
+          148.9,
+          48.7
         ],
-        "distance": 13.2
+        "distance": 52.4
       },
       "fond": {
         "rip_rgb": [
@@ -134,52 +132,52 @@
           23.1
         ],
         "decor_rgb": [
-          18.3,
-          17.5,
-          24.5
+          17.7,
+          17.0,
+          23.5
         ],
-        "distance": 3.0
+        "distance": 2.0
       }
     },
     "calques_finaux": {
       "herbe": {
         "matiere": "herbe",
         "rgb": [
-          79.9,
-          125.3,
-          1.0
+          81.9,
+          125.4,
+          0.9
         ],
-        "distance_rip": 4.3
+        "distance_rip": 5.3
       },
       "chemin": {
         "matiere": "chemin",
         "rgb": [
-          236.9,
-          216.3,
-          140.8
+          230.6,
+          209.8,
+          140.4
         ],
-        "distance_rip": 14.0
+        "distance_rip": 20.4
       },
       "bois": {
         "matiere": "bois",
         "rgb": [
-          240.2,
-          190.0,
-          59.3
+          233.4,
+          147.6,
+          47.8
         ],
-        "distance_rip": 15.0
+        "distance_rip": 54.0
       },
       "fond": {
         "matiere": "fond",
         "rgb": [
-          16.4,
-          16.2,
-          23.4
+          15.9,
+          15.7,
+          22.2
         ],
-        "distance_rip": 0.5
+        "distance_rip": 0.9
       }
     },
-    "sol_complet": 31.5
+    "sol_complet": 7.5
   },
   "normalization": {
     "scale": 0.6428571428571429,
@@ -208,17 +206,9 @@
       },
       "bois": {
         "calques": [
-          "bois",
-          "foin"
+          "bois"
         ],
         "couleurs": 48
-      },
-      "objets": {
-        "calques": [
-          "sacs",
-          "meubles"
-        ],
-        "couleurs": 64
       },
       "murs": {
         "calques": [
@@ -234,7 +224,7 @@
       }
     }
   },
-  "segmentation": "fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;\n    bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;\n    objets = écart décor / témoin lissé 3 px > 20 : foin = jaune r > 190 g > 140 b < 100 ;\n    sacs = gris |r-g| < 40, 120 < r < 210, b > 100 ; meubles = le reste ; murs = reliquat orange.",
+  "segmentation": "fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;\n    bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;\n    salle vide : pas d'objets au sol. murs = reliquat orange / brun.",
   "layers": [
     {
       "file": "calques/PPO1_00_sol_complet.png",
@@ -257,27 +247,12 @@
       "ticks": 60
     },
     {
-      "file": "calques/PPO1_04_foin.png",
+      "file": "calques/PPO1_04_murs.png",
       "phases": 1,
       "ticks": 60
     },
     {
-      "file": "calques/PPO1_05_sacs.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/PPO1_06_meubles.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/PPO1_07_murs.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/PPO1_08_fond.png",
+      "file": "calques/PPO1_05_fond.png",
       "phases": 1,
       "ticks": 60
     }
@@ -289,14 +264,14 @@
       560
     ],
     "counter_px": [
-      520,
-      160
+      376,
+      144
     ],
     "path_found_16x16": true,
-    "cells_explored": 2253,
-    "blocked_cells": 4244,
+    "cells_explored": 2096,
+    "blocked_cells": 3876,
     "total_cells": 6912,
-    "walkable_cells": 2668,
+    "walkable_cells": 3036,
     "rule": "case bloquee si > 25 % hors praticable (herbe et chemin relies au sud)",
     "fin": "aucun warp"
   },
@@ -305,26 +280,20 @@
     "asset": "ppo1_bureau_pelipper",
     "namespace": "bureau_pelipper",
     "tiles_per_bank": {
-      "PPO1_00_SOL": 6141,
-      "PPO1_01_HERBE": 2592,
-      "PPO1_02_CHEMIN": 571,
-      "PPO1_03_BOIS": 2038,
-      "PPO1_04_FOIN": 104,
-      "PPO1_05_SACS": 40,
-      "PPO1_06_MEUBLES": 249,
-      "PPO1_07_MURS": 1994,
-      "PPO1_08_FOND": 730
+      "PPO1_00_SOL": 6668,
+      "PPO1_01_HERBE": 2954,
+      "PPO1_02_CHEMIN": 253,
+      "PPO1_03_BOIS": 1874,
+      "PPO1_04_MURS": 1606,
+      "PPO1_05_FOND": 786
     },
     "banks": [
       "PPO1_00_SOL",
       "PPO1_01_HERBE",
       "PPO1_02_CHEMIN",
       "PPO1_03_BOIS",
-      "PPO1_04_FOIN",
-      "PPO1_05_SACS",
-      "PPO1_06_MEUBLES",
-      "PPO1_07_MURS",
-      "PPO1_08_FOND"
+      "PPO1_04_MURS",
+      "PPO1_05_FOND"
     ],
     "runtime_tested": false,
     "warp": "aucun"

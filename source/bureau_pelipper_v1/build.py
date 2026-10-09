@@ -1,12 +1,12 @@
 """Bureau Pelipper (PPO1) — grande salle intérieure 4:3 (768 x 576 px, 96 x 72 cases).
 
-Demande : grande salle spacieuse, textures canoniques de la planche TSR 5416. Préfixe PPO1.
-Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ sur la planche (salle seule, sans poses Pelipper).
-- decor.png : ovale spacieux, grande cour d'herbe au sud, comptoir / foin / sacs au nord ;
-- temoin_sans_objets.png : sans foin, sacs ni bûches ;
-- sol_complet.png : herbe GBA.
-Calques : sol complet, herbe, chemin, bois, foin, sacs, meubles, murs, fond. Pas d'animation.
-Marqueurs : entrance sud, comptoir nord de la cour. Aucun warp.
+Demande : grande salle spacieuse, textures canoniques TSR 5416 ; mobilier sur tilesheet à part.
+- decor.png : ovale vide (murs, fenêtres, herbe, chemin sud) — sans mobilier ;
+- temoin_sans_objets.png : identique (salle déjà vide) ;
+- sol_complet.png : herbe GBA ;
+- PPO1_mobilier_tilesheet.png : foin, sacs, bûches, comptoir, rayonnage, etc. fond magenta, à placer.
+Calques : sol complet, herbe, chemin, bois, murs, fond. Pas d'animation.
+Marqueurs : entrance sud, comptoir (nord de la cour). Aucun warp.
 Lancer : .venv/bin/python source/bureau_pelipper_v1/build.py
 """
 from pathlib import Path
@@ -32,24 +32,22 @@ LOT = 'source/bureau_pelipper_v1'
 GEN = [
     {'file': 'decor.png', 'images': [REF_NAME], 'prompt':
      'Pokemon Mystery Dungeon GBA pixel art. Use ONLY the textures from the reference Pelipper Post Office interior — '
-     'copy the same orange-tan wooden plank walls, same two pale rounded-square windows, same curved wooden counter and '
-     'shelves, same checkered board, same round fluffy golden hay mounds (not starbursts), same grey sacks, same brown '
-     'logs, same beige railing, same saturated GBA green grass (almost no blue), same beige dirt path, same purple-navy '
-     'outside. Make a LARGE spacious top-down oval hall, wide landscape 4:3, zoomed out. Layout: SOUTH a beige dirt path '
-     'at the bottom edge center into a WIDE empty green grass courtyard (lots of open walking space, few objects). NORTH '
-     'the wooden counter, shelves, two windows, a couple of hay mounds and sacks and logs — do not fill the courtyard '
-     'with hay. Keep chunky GBA pixels. No Pelipper, no characters, no text, no UI, no magenta.',
-     'essais': 'layout spacieux 1200 x 896 ; fidélité herbe 4,4 chemin 11,5 bois 13,2 fond 2,8'},
+     'same orange-tan wooden plank walls, same two pale rounded-square windows, same saturated GBA green grass (almost no '
+     'blue), same beige dirt path, same dark outside. Make a LARGE spacious EMPTY top-down oval hall, wide landscape 4:3. '
+     'Layout: SOUTH a beige dirt path at the bottom edge center into a WIDE empty green grass courtyard. NORTH wooden '
+     'walls with two windows. NO furniture: no counter, no hay, no sacks, no logs, no railing, no shelves. Keep chunky '
+     'GBA pixels. No Pelipper, no characters, no text, no UI, no magenta.',
+     'essais': 'salle vide spacieuse ; mobilier reporté sur tilesheet'},
     {'file': 'temoin_sans_objets.png', 'images': [f'{LOT}/bruts/decor.png'], 'prompt':
-     'Same image, same framing, exact same GBA pixel textures. Remove every hay mound, every grey sack, and every log: '
-     'replace them with the same green grass that surrounds them. Keep the wooden walls, windows, curved counter, shelves, '
-     'railing, beige path, and dark outside exactly as they are. No text, no characters.',
-     'essais': 'recalage (0, 0), écart 3,84'},
+     'Same empty Pelipper Post Office oval hall, same framing and GBA textures. The room already has no furniture. Keep '
+     'the wooden walls, two windows, green grass courtyard, beige south path and dark outside exactly as they are. No '
+     'text, no characters.',
+     'essais': 'salle déjà vide, copie du décor'},
     {'file': 'sol_complet.png', 'images': [f'{LOT}/bruts/decor.png'], 'prompt':
      'Fill the ENTIRE image edge to edge with only the saturated GBA green grass texture from the Pelipper Post Office '
-     'courtyard in the reference (RGB around 80 126 2, almost no blue), same chunky pixel grass with small darker green '
-     'tufts. No wood, no path, no objects, no dark areas. Wide landscape 4:3.',
-     'essais': 'distance 30,1 a l herbe du rip'},
+     'courtyard in the reference (RGB around 80 126 2, almost no blue), same chunky pixel grass. No wood, no path, no '
+     'objects, no dark areas. Wide landscape 4:3.',
+     'essais': 'herbe extraite du décor vide'},
 ]
 
 
@@ -64,9 +62,8 @@ assert (JM.W, JM.H, JM.SRC) == (W, H, SRC)
 keep_large, cell_grid, close_ = V1.keep_large, V1.cell_grid, V1.close_
 down_class, down_full, rgba, quantize_group = V1.down_class, V1.down_full, V1.rgba, V1.quantize_group
 PALETTE_GROUPS = {'herbe': (['sol_complet', 'herbe'], 48), 'chemin': (['chemin'], 48),
-                  'bois': (['bois', 'foin'], 48), 'objets': (['sacs', 'meubles'], 64),
-                  'murs': (['murs'], 64), 'fond': (['fond'], 16)}
-STATIC = ['herbe', 'chemin', 'bois', 'foin', 'sacs', 'meubles', 'murs', 'fond']
+                  'bois': (['bois'], 48), 'murs': (['murs'], 64), 'fond': (['fond'], 16)}
+STATIC = ['herbe', 'chemin', 'bois', 'murs', 'fond']
 
 
 def open_(m, it):
@@ -118,8 +115,7 @@ def classify(a, t):
     """Seuils mesurés sur le brut (1200 x 896) et la planche GBA :
     fond = violet TSR (r≈60 g≈60 b≈90), relié au bord ; herbe = g > 90, g > r+15, b < 50 (GBA [78,129,2]) ;
     bois = r > 180, g > 110, b < 95 ; chemin = beige r > 180, g > 140, b >= 95, > 800 px ;
-    objets = écart décor / témoin lissé 3 px > 20 : foin = jaune r > 190 g > 140 b < 100 ;
-    sacs = gris |r-g| < 40, 120 < r < 210, b > 100 ; meubles = le reste ; murs = reliquat orange."""
+    salle vide : pas d'objets au sol. murs = reliquat orange / brun."""
     r, g, b = a.transpose(2, 0, 1)
     fond = (lum_of(t) < 40) | ((np.abs(t[..., 0] - 60) < 18) & (np.abs(t[..., 1] - 60) < 18) & (t[..., 2] > 70))
     lab, _ = nd.label(fond); e = np.unique(np.r_[lab[0], lab[-1], lab[:, 0], lab[:, -1]]); fond = np.isin(lab, e[e > 0])
@@ -127,17 +123,11 @@ def classify(a, t):
     bois = (r > 180) & (g > 110) & (b < 95) & ~herbe & ~fond
     chemin = (r > 180) & (g > 140) & (b >= 95) & (np.abs(r - g) < 60) & ~herbe & ~fond & ~bois
     chemin = keep_large(close_(chemin, 2), 800)
-    diff = nd.uniform_filter(np.abs(a - t).mean(2).astype(float), 3)
-    obj = keep_large(nd.binary_fill_holes(close_(diff > 20, 2)), 20) & ~fond & ~herbe
-    foin = keep_large(obj & (r > 190) & (g > 140) & (b < 100), 80)
-    sacs = keep_large(obj & (b > 100) & (np.abs(r - g) < 40) & (r > 120) & (r < 210), 40)
-    meubles = keep_large(obj & ~foin & ~sacs, 40)
-    bois = bois & ~obj
-    murs = (r > 140) & (g > 60) & (r - g > 20) & (r - b > 40) & ~bois & ~herbe & ~chemin & ~fond & ~obj
-    rest = ~(fond | herbe | chemin | bois | murs | foin | sacs | meubles)
+    murs = (r > 140) & (g > 60) & (r - g > 20) & (r - b > 40) & ~bois & ~herbe & ~chemin & ~fond
+    rest = ~(fond | herbe | chemin | bois | murs)
     murs = murs | rest
-    masks = dict(herbe=herbe, chemin=chemin, bois=bois, foin=foin, sacs=sacs, meubles=meubles, murs=murs, fond=fond)
-    seg = {'foin': int(nd.label(foin)[1]), 'sacs': int(nd.label(sacs)[1]), 'meubles': int(nd.label(meubles)[1])}
+    masks = dict(herbe=herbe, chemin=chemin, bois=bois, murs=murs, fond=fond)
+    seg = {'composantes_herbe': int(nd.label(herbe)[1])}
     return masks, seg
 
 
@@ -241,9 +231,9 @@ def build():
     a, t, f, ref = rgb(RAW / 'decor.png'), rgb(RAW / 'temoin_sans_objets.png'), rgb(RAW / 'sol_complet.png'), rgb(REF)
     assert a.shape[:2] == t.shape[:2] == f.shape[:2] == (SRC[1], SRC[0])
     m, seg = classify(a, t)
-    objs = m['foin'] | m['sacs'] | m['meubles'] | (np.abs(a - t).mean(2) > 10)
-    reg = {'temoin': recalage(a, t, ~nd.binary_dilation(objs, iterations=4))}
-    order = ['foin', 'sacs', 'meubles', 'chemin', 'herbe', 'bois', 'murs', 'fond']
+    objs = np.abs(a - t).mean(2) > 10
+    reg = {'temoin': recalage(a, t, ~nd.binary_dilation(objs, iterations=4) if objs.any() else np.ones(a.shape[:2], bool))}
+    order = ['chemin', 'herbe', 'bois', 'murs', 'fond']
     ex, cols = down_class(a, m, order)
     layers = {'sol_complet': rgba(down_full(f), np.ones((H, W), bool))}
     for k in STATIC:
@@ -320,6 +310,9 @@ def build():
         final_fid[nm] = {'matiere': k, 'rgb': [round(float(v), 1) for v in px.mean(0)],
                          'distance_rip': round(float(np.linalg.norm(px.mean(0) - np.array(fid[k]['rip_rgb']))), 1)}
     shutil.copyfile(HERE / 'README_PACK.md', OUT / 'README.md')
+    shutil.copyfile(RAW / 'PPO1_mobilier_tilesheet.png', OUT / 'review' / 'PPO1_mobilier_tilesheet.png')
+    if (RAW / 'PPO1_mobilier_tilesheet.json').exists():
+        shutil.copyfile(RAW / 'PPO1_mobilier_tilesheet.json', OUT / 'review' / 'PPO1_mobilier_tilesheet.json')
     manifest = {
         'lot': 'bureau_pelipper_v1', 'prefix': PFX, 'format': '4:3 vaste', 'type': 'interieur',
         'size_px': [W, H], 'grid_8px': [W // 8, H // 8],
