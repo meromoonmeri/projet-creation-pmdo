@@ -222,3 +222,11 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Reprise documentaire (10 octobre 2026)
+
+Demande : reprendre les maps, les méthodes de création, le README et le workflow. Constat : 197 des 203 sous-projets de `source/` n'ont pas de `WORKFLOW.md` et plusieurs n'ont pas de `README.md`. Aucun workflow global n'existait à la racine.
+
+- Ajout de **`WORKFLOW.md`** à la racine : parcours opératoire d'une map (préparation, méthode A rendu généré référencé / B pixels natifs, composition, segmentation, calques, markers, exports, projet PMDO, tests, documentation du lot, livraison), avec checklist. Il renvoie aux guides existants sans les remplacer.
+- `README.md` : lien vers `WORKFLOW.md` dans « Par où commencer ».
+- Aucun nouveau lot de map produit dans cette reprise. Direction de la prochaine map à confirmer par l'utilisateur ; la seule capture libre restante de la racine reste `oldcastlepmd` (un intérieur).
