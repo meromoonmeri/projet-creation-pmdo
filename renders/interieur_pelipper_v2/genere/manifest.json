@@ -1,0 +1,69 @@
+{
+  "projet": "interieur_pelipper_v2",
+  "prefixe": "PPO2",
+  "methode": "rendu généré référencé (images=[capture PMD]) puis réduction uniforme par classe, multicalque",
+  "cible_taille": {
+    "source": "Palikadude/Halcyon, Data/Ground/post_office.rsground, commit da6c2130d641507447e6386a5e47a296e8cb4c71",
+    "grille_tuiles": [
+      16,
+      13
+    ],
+    "taille_tuile_px": 24,
+    "canevas_px": [
+      384,
+      312
+    ],
+    "cases_8px": [
+      48,
+      39
+    ],
+    "verification": "Layers[0].Tiles = 16 × 13 ; obstacles couvrent 0–384 × 0–312"
+  },
+  "brut": {
+    "fichier": "renders/interieur_pelipper_v2/bruts/decor_magenta_v2.png",
+    "sha256": "74b4e4d7566627217495b346a7d03a63da2e84b41282f7c11a01de351508e34e",
+    "taille_px": [
+      1200,
+      896
+    ]
+  },
+  "reference": {
+    "fichier": "source/interieur_pelipper_v1/reference/pelipper_post_office_interior_gba.png",
+    "sha256": "e35a28da3c4a93abfe1aab0a218e62cbe5718bb2698a06304c6ef3e692f49d69"
+  },
+  "salle": {
+    "boite_brut": [
+      0,
+      7,
+      1200,
+      896
+    ],
+    "taille_px": [
+      384,
+      284
+    ],
+    "marge_y_px": 14,
+    "facteur": [
+      3.125,
+      3.1303
+    ]
+  },
+  "palette": {
+    "couleurs_max": 96,
+    "methode": "MEDIANCUT, sans tramage"
+  },
+  "calques": [
+    "00_base",
+    "01_herbe",
+    "02_contour_brun",
+    "Top_vide"
+  ],
+  "fidelite_herbe": {
+    "distance": 6.2,
+    "seuil": 35,
+    "ok": true
+  },
+  "art_approved": false,
+  "runtime_tested": false,
+  "avertissement": "Pixels générés, non natifs : ne pas présenter comme tuiles canoniques. Taille = cible Halcyon, pas un test moteur."
+}
