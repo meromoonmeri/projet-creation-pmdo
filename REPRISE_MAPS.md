@@ -235,3 +235,5 @@ Demande : reprendre les maps, les méthodes de création, le README et le workfl
 ## Intérieur Pelipper Post Office (10 octobre 2026, PPO1)
 
 Capture 1× de *Red Rescue Team* fournie par l'utilisateur (`b867bf0`), déplacée de la racine vers `source/interieur_pelipper_v1/reference/`. Lot `renders/interieur_pelipper_v1/` (préfixe `PPO1`) : salle recadrée sur la grille 8 px, **368 × 296 px**, pixels identiques à la capture, bande de sprites et légende exclues. Méthode : capture recadrée, sans génération ni recoloration. **Ce n'est ni un rendu généré référencé ni une tuile native.** Un seul calque aplati ; marqueurs, collisions et Ground PMDO non produits. 6 tests PASS. Préfixe `PPO1` pris.
+
+PPO1 version généré (même jour) : rendu généré référencé `images=[capture]`, fond magenta, `source/interieur_pelipper_v1/build_genere.py`, 368 × 296, 96 couleurs, calques `00_base`, `01_herbe`, `02_contour_brun`, `Top` vide ; herbe 4,7 de la capture (seuil 35). Pixels générés, non natifs. 6 tests PASS (`test_genere`). Notice : `README_GENERE.md`.
