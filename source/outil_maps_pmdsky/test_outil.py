@@ -46,5 +46,30 @@ class Outil(unittest.TestCase):
         with Image.open(ROM / 'anim' / 'D17P11A.webp') as im:              # frames identiques successives fusionnées par WebP
             self.assertTrue(1 < im.n_frames <= M['D17P11A']['frames_gardees'])
 
+def _charge_recuperer():
+    spec = importlib.util.spec_from_file_location('recuperer_maps', HERE / 'recuperer_maps.py')
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+    return m
+
+
+class Spriters(unittest.TestCase):
+    """Analyse hors ligne des pages Spriters Resource (HTML fabriqué ; sélecteurs non vérifiés sur le site)."""
+    B = 'https://www.spriters-resource.com/ds_dsi/jeu/'
+
+    def test_liens_feuilles_sans_doublon(self):
+        m = _charge_recuperer()
+        t = ('<a href="/ds_dsi/jeu/asset/123/">a</a><a href="https://www.spriters-resource.com/ds_dsi/jeu/asset/456/">b</a>'
+             '<a href="/ds_dsi/jeu/asset/123/">dup</a><a href="/autre/page/">non</a>')
+        self.assertEqual(m.liens_assets_spriters(t, self.B),
+                         ['https://www.spriters-resource.com/ds_dsi/jeu/asset/123/',
+                          'https://www.spriters-resource.com/ds_dsi/jeu/asset/456/'])
+
+    def test_media_direct(self):
+        m = _charge_recuperer()
+        self.assertEqual(m.media_spriters('<a href="/media/assets/1/Dark%20Crater.png">dl</a>', self.B + 'asset/123/'),
+                         'https://www.spriters-resource.com/media/assets/1/Dark%20Crater.png')
+        self.assertIsNone(m.media_spriters('<p>rien</p>', self.B))
+
+
 if __name__ == '__main__':
     unittest.main()

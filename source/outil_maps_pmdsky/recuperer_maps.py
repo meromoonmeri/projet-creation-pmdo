@@ -287,6 +287,60 @@ def cmd_galerie(a):
     idx_p.write_text(json.dumps(index, ensure_ascii=False, indent=1))
     print(f"{sum(len(v['images']) for v in index['albums'].values())} images indexées -> {out}")
 
+SPRITERS = 'https://www.spriters-resource.com'
+
+
+def liens_assets_spriters(txt, base):
+    """Pages de feuilles (asset) listées sur une page de jeu Spriters Resource, sans doublon."""
+    found = re.findall(r'href="((?:https://www\.spriters-resource\.com)?/[^"#?]+/asset/\d+/?)"', txt)
+    out = []
+    for h in found:
+        u = urllib.parse.urljoin(base, h)
+        if u not in out:
+            out.append(u)
+    return out
+
+
+def media_spriters(txt, base):
+    """Lien direct du fichier image d'une feuille (/media/assets/...), ou None."""
+    m = re.search(r'href="([^"]*/media/assets/[^"#?]+\.(?:png|gif|webp|jpe?g))"', txt, re.I)
+    return urllib.parse.urljoin(base, m.group(1)) if m else None
+
+
+def cmd_spriters(a):
+    """Feuilles d'une page de jeu Spriters Resource, téléchargées lentement dans .cache (non versionné)."""
+    out = OUT / 'spriters'
+    out.mkdir(parents=True, exist_ok=True)
+    try:
+        page = get(a.url)
+    except RuntimeError as ex:
+        sys.exit(f'Spriters Resource injoignable ({ex}). Lancer depuis un poste ayant accès à {SPRITERS}.')
+    assets = liens_assets_spriters(page, a.url)[:a.max]
+    slug = a.url.rstrip('/').split('/')[-1] or 'jeu'
+    idx_p = out / 'index.json'
+    index = json.loads(idx_p.read_text()) if idx_p.exists() else {'source': 'spriters-resource', 'pages': {}}
+    print(f'{len(assets)} feuilles trouvées sur {a.url}', flush=True)
+    for au in assets:
+        entree = index['pages'].setdefault(slug, {'url': a.url, 'feuilles': {}})['feuilles']
+        if au in entree and entree[au].get('fichier') and (out / slug / entree[au]['fichier']).exists():
+            continue
+        try:
+            media = media_spriters(get(au), au)
+        except RuntimeError as ex:
+            entree[au] = {'fichier': None, 'erreur': str(ex)}; continue
+        if not media:
+            entree[au] = {'fichier': None, 'erreur': 'aucun fichier image trouvé'}; continue
+        fname = urllib.parse.unquote(media.split('/')[-1])
+        entree[au] = {'fichier': fname, 'url': media, 'licence': 'référence de travail, non redistribuée'}
+        print(f'  {fname}', flush=True)
+        if not a.dry_run:
+            (out / slug).mkdir(exist_ok=True)
+            (out / slug / fname).write_bytes(get(media, binary=True))
+        idx_p.write_text(json.dumps(index, ensure_ascii=False, indent=1))
+        time.sleep(a.delai)
+    idx_p.write_text(json.dumps(index, ensure_ascii=False, indent=1))
+    print(f'index : {idx_p}')
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -294,9 +348,11 @@ def main():
     r = sp.add_parser('rom'); r.add_argument('--max-frames', type=int, default=64); r.add_argument('--only'); r.add_argument('--force', action='store_true')
     g = sp.add_parser('galerie'); g.add_argument('--albums'); g.add_argument('--dry-run', action='store_true')
     c = sp.add_parser('cherche'); c.add_argument('terme')
+    sx = sp.add_parser('spriters'); sx.add_argument('url', help='page de jeu Spriters Resource (ex. .../ds_dsi/<jeu>/)')
+    sx.add_argument('--max', type=int, default=20); sx.add_argument('--delai', type=float, default=2.0); sx.add_argument('--dry-run', action='store_true')
     sp.add_parser('identifie')
     a = ap.parse_args()
-    {'rom': cmd_rom, 'galerie': cmd_galerie, 'cherche': cmd_cherche, 'identifie': cmd_identifie}[a.cmd](a)
+    {'rom': cmd_rom, 'galerie': cmd_galerie, 'cherche': cmd_cherche, 'identifie': cmd_identifie, 'spriters': cmd_spriters}[a.cmd](a)
 
 
 if __name__ == '__main__':

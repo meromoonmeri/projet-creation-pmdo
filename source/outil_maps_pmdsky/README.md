@@ -10,6 +10,7 @@
 | `galerie` | [galerie projectpokemon, catégorie 12](https://projectpokemon.org/home/gallery/category/12-pok%C3%A9mon-mystery-dungeon-explorers-of-sky/) : tilesets de donjon, fonds animés GIF/APNG, fonds de menu, fonds d'écran | images originales dans `.cache/maps_pmdsky/galerie/<album>/` avec `index.json` |
 | `identifie` | captures nommées à la racine du dépôt | nom de lieu attaché aux codes, avec l'écart mesuré comme preuve |
 | `cherche TERME` | `index_rom.json` | recherche par code, fichier ou capture |
+| `spriters URL` | page de jeu [Spriters Resource](https://www.spriters-resource.com/) (ex. `.../ds_dsi/<jeu>/`) : feuilles listées, puis fichier image de chaque feuille | `.cache/maps_pmdsky/spriters/<jeu>/` + `index.json` (URL source, nom, licence « référence de travail, non redistribuée ») |
 
 ```bash
 .venv/bin/python source/outil_maps_pmdsky/recuperer_maps.py rom --max-frames 64      # ~2,5 min, rendu complet
@@ -18,6 +19,17 @@
 .venv/bin/python source/outil_maps_pmdsky/recuperer_maps.py cherche D17
 .venv/bin/python -m unittest source.outil_maps_pmdsky.test_outil -v
 ```
+
+```bash
+.venv/bin/python source/outil_maps_pmdsky/recuperer_maps.py spriters https://www.spriters-resource.com/ds_dsi/<jeu>/ --dry-run
+.venv/bin/python source/outil_maps_pmdsky/recuperer_maps.py spriters https://www.spriters-resource.com/ds_dsi/<jeu>/ --max 20 --delai 2
+```
+
+`spriters` : pause `--delai` entre deux téléchargements, `--max` limite le nombre de feuilles, relance sans
+re-télécharger ce qui existe. **Limite** : la sandbox Arena ne peut pas joindre spriters-resource.com ; les
+sélecteurs HTML (`/asset/<id>/`, `/media/assets/…`) ont été écrits d'après la structure supposée du site et
+ne sont testés que sur HTML fabriqué (`test_outil.Spriters`). Le premier lancement réel doit être vérifié sur
+une page de jeu. Les images restent de la référence de travail : ne pas les redistribuer dans le dépôt.
 
 ## Sorties
 
