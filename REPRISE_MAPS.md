@@ -231,3 +231,7 @@ Demande : reprendre les maps, les méthodes de création, le README et le workfl
 - `README.md` : lien vers `WORKFLOW.md` dans « Par où commencer ».
 - Sur « suite de la série sud→nord » : **aucun lot produit**. Les rips PMD ne sont pas dans ce dépôt (exclus, 6 Go) et les rips libres de la racine sont pris. Demande de l'utilisateur : récupérer des références depuis Spriters Resource et la galerie projectpokemon. Ajout de la sous-commande `spriters` à `source/outil_maps_pmdsky/recuperer_maps.py` (tests hors ligne `test_outil.Spriters`) ; **non testée contre le site** (domaine injoignable depuis la sandbox). À lancer depuis un poste ayant accès au site, puis dire quelle référence utiliser.
 - Aucun nouveau lot de map produit dans cette reprise. Direction de la prochaine map à confirmer par l'utilisateur ; la seule capture libre restante de la racine reste `oldcastlepmd` (un intérieur).
+
+## Intérieur Pelipper Post Office (10 octobre 2026, PPO1)
+
+Capture 1× de *Red Rescue Team* fournie par l'utilisateur (`b867bf0`), déplacée de la racine vers `source/interieur_pelipper_v1/reference/`. Lot `renders/interieur_pelipper_v1/` (préfixe `PPO1`) : salle recadrée sur la grille 8 px, **368 × 296 px**, pixels identiques à la capture, bande de sprites et légende exclues. Méthode : capture recadrée, sans génération ni recoloration. **Ce n'est ni un rendu généré référencé ni une tuile native.** Un seul calque aplati ; marqueurs, collisions et Ground PMDO non produits. 6 tests PASS. Préfixe `PPO1` pris.
