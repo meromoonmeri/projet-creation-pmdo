@@ -222,3 +222,16 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Nouveaux lots livrés sur références ROM 100 % inédites (`D02`, `D27`, `D09`)
+
+Suite à la consigne utilisateur de passer aux prochaines zones inédites (en écartant Clairière tropicale, Couloir violet, Mt. Thunder et Jardin secret déjà traités), cinq cartes au format 4:3 vaste (`768 × 576 px`, `96 × 72` cellules de `8 × 8 px`, `TexSize=1`) ont été construites, testées et empaquetées à partir de références ROM *Explorers of Sky* (`source/outil_maps_pmdsky/index_rom.json`) absentes de `main` et de toutes les branches sœurs :
+
+| Lot | Préfixe | Référence ROM | Type | Calques (`AssetLayers`) | Animations en boucle fermée |
+|---|---|---|---|---|---|
+| `entree_falaise_trempee_sud_nord_v1` | `EFT1` | `D02P11A` (*Drenched Bluff*) | Entrée (`entrance` → `donjon_seuil`) | `sol`, `herbe_haute`, `rochers`, `seuil_entree`, `fleurs_mousse`, `embruns`, `Top` | `fleurs_mousse` (`4 × 16 = 64` ticks, cycle canonique `A B A C`), `embruns` (`8 × 8 = 64` ticks) |
+| `fin_falaise_trempee_source_v1` | `FFT1` | `D02P31A` + `D02P11A` (*Drenched Bluff End*) | Fin de donjon (`entrance` → `boss` → `objectif`) | `sol`, `herbe`, `rochers`, `vasque_pierre`, `source_animee`, `fleurs_mousse`, `Top` | `source_animee` (`5 × 12 = 60` ticks, 14 couleurs exactes extraites de `D02P31A.webp`), `fleurs_mousse` (`4 × 15 = 60` ticks) |
+| `entree_promontoire_nuages_sud_nord_v1` | `EPN1` | `D27P11A` (*Sky Peak Cliffside*) | Entrée (`entrance` → `donjon_seuil`) | `sol`, `nuages_animes`, `ilots_rocheux`, `falaises`, `seuil_entree`, `arbres`, `fleurs_animees`, `Top` | `nuages_animes` (`24 × 5 = 120` ticks, défilement horizontal sous les îlots rocheux), `fleurs_animees` (`4 × 30 = 120` ticks) |
+| `fin_promontoire_nuages_clairiere_v1` | `FPN1` | `D27P11A` (*Sky Peak Cliffside*) | Fin de donjon (`entrance` → `boss` → `objectif`) | `sol`, `nuages_animes`, `ilots_rocheux`, `falaises`, `autel`, `arbres`, `fleurs_animees`, `cristal_anime`, `Top` | `nuages_animes` (`24 × 5 = 120` ticks), `fleurs_animees` (`4 × 30 = 120` ticks), `cristal_anime` (`8 × 15 = 120` ticks) |
+| `entree_tourbiere_piliers_sud_nord_v1` | `ETB1` | `D09P11A` (*Rock Path Marsh*) | Entrée (`entrance` → `donjon_seuil`) | `sol`, `bassins_animes`, `piliers_rocheux`, `seuil_entree`, `buissons`, `bulles_marais`, `Top` | `bassins_animes` (`8 × 8 = 64` ticks, 7 couleurs exactes d'eau sans écume de `D09P11A.png`), `bulles_marais` (`8 × 8 = 64` ticks) |
+
