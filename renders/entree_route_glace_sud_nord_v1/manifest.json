@@ -1,0 +1,97 @@
+{
+  "lot": "entree_route_glace_sud_nord_v1",
+  "prefix": "ERG1",
+  "biome": "Route de Glace & Stalagmites (ref. iceroadpmdsky / pmdskyicearena)",
+  "kind": "entree",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/entree_route_glace_sud_nord_v1/reference/iceroadpmdsky.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_route_glace_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "f48569d470a45d814c373aea7e26e3673e1669a50f25d8769956dbdabfd56395",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_route_glace_sud_nord_v1/bruts/decor.png",
+      "sha256": "88fb6ed8436e15a1b5dffd0053755bcdb7f3d0206c6b446c9d97e79b782f97f9",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_route_glace_sud_nord_v1/bruts/decor_magenta.png",
+      "sha256": "7d86b0ff3bfac8286551f2964a362b7281583e5624fcd69a75f6d339e248f946",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/ERG1_00_sol.png",
+    "calques/ERG1_01_relief.png",
+    "calques/ERG1_02_couronnes.png",
+    "animation/animation/ERG1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "donjon_seuil": [
+        376,
+        184
+      ]
+    },
+    "chemins_16x16": {
+      "donjon_seuil": {
+        "ok": true,
+        "cases_explorees": 754
+      }
+    },
+    "blocked_cells": 5817,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "erg1_entree_route_glace_sud_nord",
+    "namespace": "entree_route_glace_sud_nord",
+    "tiles_per_bank": {
+      "ERG1_00_SOL": 3281,
+      "ERG1_01_RELIEF": 3864,
+      "ERG1_02_COURONNES": 2017,
+      "ERG1_03_ANIMATION": 61286
+    },
+    "banks": [
+      "ERG1_00_SOL",
+      "ERG1_01_RELIEF",
+      "ERG1_02_COURONNES",
+      "ERG1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
