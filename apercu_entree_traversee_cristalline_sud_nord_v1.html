@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Aperçu ETX1 — Entrée Traversée Cristalline (Canyon Strié) V1</title>
+<style>
+body { background:#181410; color:#efe8dc; font-family:system-ui,sans-serif; margin:24px; line-height:1.45; }
+h1, h2 { color:#7ad9f5; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:20px; margin-bottom:28px; }
+.card { background:#241e18; border:1px solid #3d3328; border-radius:8px; padding:14px; }
+img { image-rendering:pixelated; max-width:100%; height:auto; border:1px solid #4a3e31; background:#110e0b; }
+code, pre { background:#110e0b; padding:2px 6px; border-radius:4px; color:#9ce3f8; }
+pre { padding:12px; overflow:auto; max-height:360px; }
+</style>
+</head>
+<body>
+<h1>Entrée Traversée Cristalline — Canyon Strié sud → nord V1 (<code>ETX1</code>, 768×576)</h1>
+<p>Entrée de donjon référencée sur <code>D16P11A</code> (<em>Crystal Crossing</em>, Explorers of Sky) : arrivée au sud (<code>entrance</code>), esplanade de sable, rochers stratifiés et touffes épineuses, bouche de grotte sombre aux lueurs cristallines au nord (<code>donjon_seuil</code>).</p>
+<div class="grid">
+  <div class="card"><h2>Scène animée (WebP 120 ticks)</h2><img src="renders/entree_traversee_cristalline_sud_nord_v1/review/ETX1_scene_animee.webp" alt="Scène animée ETX1"></div>
+  <div class="card"><h2>Scène t=000 (PNG)</h2><img src="renders/entree_traversee_cristalline_sud_nord_v1/review/ETX1_scene_t000.png" alt="Scène t000 ETX1"></div>
+  <div class="card"><h2>Collisions et marqueurs (entrance, donjon_seuil)</h2><img src="renders/entree_traversee_cristalline_sud_nord_v1/review/ETX1_collisions_marqueurs.png" alt="Collisions ETX1"></div>
+  <div class="card"><h2>Planche de poses (rampe lueurs + scintillements)</h2><img src="renders/entree_traversee_cristalline_sud_nord_v1/review/ETX1_planche_poses.png" alt="Poses ETX1"></div>
+</div>
+<h2>Manifest JSON</h2>
+<pre>{
+  "lot": "entree_traversee_cristalline_sud_nord_v1",
+  "prefix": "ETX1",
+  "type_zone": "entree_de_donjon",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "reference_da": {
+    "file": "D16P11A.png",
+    "sha256": "7f79988ff4a1feecf36ef316d8e66f420c6d13f3ae3c152b633194ec37993240",
+    "code_rom": "D16P11A",
+    "frames_rom": 22
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/entree_traversee_cristalline_sud_nord_v1/reference/D16P11A.png"
+      ],
+      "prompt": "Top-down 2D pixel-art canyon dungeon entrance map (1200x896, wide 4:3) matching D16P11A (Crystal Crossing): south sandy pass between striated brown rock ledges; wide pale yellow-tan sandy canyon forecourt with layered brown boulder mounds, pebbles and spiky green desert bush tufts; north tall horizontally striated canyon cliff wall with dark arched cave entrance and 4 glowing cyan-blue light orbs inside.",
+      "essais": "premier essai ; conforme"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/entree_traversee_cristalline_sud_nord_v1/reference/D16P11A.png"
+      ],
+      "prompt": "Pale yellow-tan speckled sandy ground texture from D16P11A covering 100% of the canvas uniformly.",
+      "essais": "premier essai ; conforme"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_traversee_cristalline_sud_nord_v1/bruts/decor.png",
+      "sha256": "94add94b6f70bd545f6938763d391c9e645db9277512eb1b25d2dbad127b4dab",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_traversee_cristalline_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "8245e29f574559a230584e32d37454be53074ebb03361fe8183b9a5ba4d959d4",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "grotte_y": [
+      59,
+      231
+    ],
+    "grotte_x": [
+      479,
+      721
+    ],
+    "touffes": 6,
+    "blocs": 20,
+    "cailloux": 5
+  },
+  "fidelite_rip": {
+    "brut": {
+      "sable": {
+        "rip_rgb": [
+          224.9,
+          198.9,
+          136.6
+        ],
+        "decor_rgb": [
+          229.2,
+          198.6,
+          129.6
+        ],
+        "distance": 8.3
+      },
+      "roche": {
+        "rip_rgb": [
+          140.2,
+          120.1,
+          101.7
+        ],
+        "decor_rgb": [
+          140.5,
+          116.4,
+          95.3
+        ],
+        "distance": 7.4
+      },
+      "touffes": {
+        "rip_rgb": [
+          112.3,
+          148.9,
+          73.7
+        ],
+        "decor_rgb": [
+          100.1,
+          144.8,
+          58.4
+        ],
+        "distance": 20.0
+      },
+      "grotte": {
+        "rip_rgb": [
+          63.5,
+          73.2,
+          82.3
+        ],
+        "decor_rgb": [
+          58.1,
+          66.0,
+          74.8
+        ],
+        "distance": 11.7
+      }
+    },
+    "calques_finaux": {
+      "sable:sable": {
+        "calque": "sable",
+        "matiere": "sable",
+        "rgb": [
+          228.6,
+          198.4,
+          129.6
+        ],
+        "distance_rip": 7.9
+      },
+      "falaises:roche": {
+        "calque": "falaises",
+        "matiere": "roche",
+        "rgb": [
+          134.2,
+          111.4,
+          92.5
+        ],
+        "distance_rip": 14.1
+      },
+      "blocs:roche": {
+        "calque": "blocs",
+        "matiere": "roche",
+        "rgb": [
+          133.7,
+          109.4,
+          87.2
+        ],
+        "distance_rip": 19.2
+      },
+      "touffes:touffes": {
+        "calque": "touffes",
+        "matiere": "touffes",
+        "rgb": [
+          97.6,
+          142.2,
+          56.6
+        ],
+        "distance_rip": 23.5
+      }
+    }
+  },
+  "layers": [
+    {
+      "file": "calques/ETX1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_01_sable.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_03_seuil.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_04_cailloux.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_05_blocs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_06_touffes.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_07_rebords.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_08_falaises.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETX1_09_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/lueurs_grotte/ETX1_10_lueurs_grotte_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/scintillements/ETX1_11_scintillements_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "lueurs_grotte": {
+    "rampe": [
+      [
+        52,
+        65,
+        76
+      ],
+      [
+        57,
+        74,
+        87
+      ],
+      [
+        64,
+        86,
+        102
+      ],
+      [
+        69,
+        98,
+        118
+      ],
+      [
+        77,
+        114,
+        138
+      ],
+      [
+        85,
+        130,
+        158
+      ],
+      [
+        94,
+        148,
+        178
+      ],
+      [
+        112,
+        168,
+        198
+      ],
+      [
+        138,
+        192,
+        218
+      ],
+      [
+        168,
+        216,
+        236
+      ],
+      [
+        204,
+        240,
+        250
+      ]
+    ],
+    "orbes_px": 2896,
+    "phases": 24,
+    "frame_length_ticks": 5
+  },
+  "scintillements": {
+    "motes": [
+      [
+        360,
+        118,
+        0,
+        2
+      ],
+      [
+        384,
+        112,
+        4,
+        2
+      ],
+      [
+        408,
+        120,
+        8,
+        2
+      ],
+      [
+        342,
+        164,
+        12,
+        3
+      ],
+      [
+        426,
+        160,
+        16,
+        3
+      ],
+      [
+        372,
+        196,
+        20,
+        2
+      ],
+      [
+        220,
+        270,
+        3,
+        3
+      ],
+      [
+        548,
+        266,
+        9,
+        3
+      ],
+      [
+        260,
+        360,
+        15,
+        2
+      ],
+      [
+        508,
+        356,
+        21,
+        2
+      ]
+    ],
+    "phases": 24,
+    "frame_length_ticks": 5
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      376,
+      144
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 1010,
+    "blocked_cells": 4929,
+    "total_cells": 6912,
+    "walkable_cells": 1983
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "etx1_entree_traversee_cristalline",
+    "namespace": "entree_traversee_cristalline_sud_nord",
+    "tiles_per_bank": {
+      "ETX1_00_SOL": 6913,
+      "ETX1_01_SABLE": 2277,
+      "ETX1_02_OMBRES": 877,
+      "ETX1_03_SEUIL": 25,
+      "ETX1_04_CAILLOUX": 19,
+      "ETX1_05_BLOCS": 744,
+      "ETX1_06_TOUFFES": 179,
+      "ETX1_07_REBORDS": 1162,
+      "ETX1_08_FALAISES": 2972,
+      "ETX1_09_PROFONDEUR": 249,
+      "ETX1_10_LUEURS": 304,
+      "ETX1_11_SCINTILLEMENTS": 117
+    },
+    "banks": [
+      "ETX1_00_SOL",
+      "ETX1_01_SABLE",
+      "ETX1_02_OMBRES",
+      "ETX1_03_SEUIL",
+      "ETX1_04_CAILLOUX",
+      "ETX1_05_BLOCS",
+      "ETX1_06_TOUFFES",
+      "ETX1_07_REBORDS",
+      "ETX1_08_FALAISES",
+      "ETX1_09_PROFONDEUR",
+      "ETX1_10_LUEURS",
+      "ETX1_11_SCINTILLEMENTS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
+</pre>
+</body>
+</html>
