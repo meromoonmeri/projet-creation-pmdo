@@ -1,0 +1,97 @@
+{
+  "lot": "entree_foret_sombre_sud_nord_v1",
+  "prefix": "EFS1",
+  "biome": "Clairiere Sylvestre & Falaise Calcaire (ref. foret_sombre_pmdsky.png / P21P02A)",
+  "kind": "entree",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/entree_foret_sombre_sud_nord_v1/reference/foret_sombre_pmdsky.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_foret_sombre_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "92fcda2c23da6e3956aa24db318330fb54e2712c606872ca0b9e65d58b4f29c6",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_sombre_sud_nord_v1/bruts/decor.png",
+      "sha256": "d9df44cdfc203caa8656997bf6268a1d563e6d366807bae293748eb62a0dd694",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_sombre_sud_nord_v1/bruts/decor_magenta.png",
+      "sha256": "f540a534b3eb7574ca3318e7a78035e32e73b4cab200f67b377e8eb39c7614d9",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/EFS1_00_sol.png",
+    "calques/EFS1_01_relief.png",
+    "calques/EFS1_02_couronnes.png",
+    "animation/animation/EFS1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "donjon_seuil": [
+        376,
+        152
+      ]
+    },
+    "chemins_16x16": {
+      "donjon_seuil": {
+        "ok": true,
+        "cases_explorees": 879
+      }
+    },
+    "blocked_cells": 5582,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "efs1_entree_foret_sombre_sud_nord",
+    "namespace": "entree_foret_sombre_sud_nord",
+    "tiles_per_bank": {
+      "EFS1_00_SOL": 1634,
+      "EFS1_01_RELIEF": 3005,
+      "EFS1_02_COURONNES": 1915,
+      "EFS1_03_ANIMATION": 47719
+    },
+    "banks": [
+      "EFS1_00_SOL",
+      "EFS1_01_RELIEF",
+      "EFS1_02_COURONNES",
+      "EFS1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

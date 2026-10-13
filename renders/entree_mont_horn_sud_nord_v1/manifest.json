@@ -1,0 +1,97 @@
+{
+  "lot": "entree_mont_horn_sud_nord_v1",
+  "prefix": "EMH1",
+  "biome": "Corniche Rocheuse & Horizon Alpin (ref. Mt_Horn_entrance_Sky.png / D07P11A)",
+  "kind": "entree",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/entree_mont_horn_sud_nord_v1/reference/Mt_Horn_entrance_Sky.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_mont_horn_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "667d6742f4eeed9a40c69910e11ef9aef1879fcdfd5bb06317d99dba43df7c7a",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_mont_horn_sud_nord_v1/bruts/decor.png",
+      "sha256": "257e758c2c98a5094963af894e3a4b8f27afb8c961eb4d5ba69a0783ae2c6150",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_mont_horn_sud_nord_v1/bruts/decor_magenta.png",
+      "sha256": "19b787b6354f6b5bddc92b224f0f80cf4a0fa67a702320507e812c845019c466",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/EMH1_00_sol.png",
+    "calques/EMH1_01_relief.png",
+    "calques/EMH1_02_couronnes.png",
+    "animation/animation/EMH1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "donjon_seuil": [
+        376,
+        200
+      ]
+    },
+    "chemins_16x16": {
+      "donjon_seuil": {
+        "ok": true,
+        "cases_explorees": 700
+      }
+    },
+    "blocked_cells": 5717,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "emh1_entree_mont_horn_sud_nord",
+    "namespace": "entree_mont_horn_sud_nord",
+    "tiles_per_bank": {
+      "EMH1_00_SOL": 1636,
+      "EMH1_01_RELIEF": 3299,
+      "EMH1_02_COURONNES": 1629,
+      "EMH1_03_ANIMATION": 10119
+    },
+    "banks": [
+      "EMH1_00_SOL",
+      "EMH1_01_RELIEF",
+      "EMH1_02_COURONNES",
+      "EMH1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
