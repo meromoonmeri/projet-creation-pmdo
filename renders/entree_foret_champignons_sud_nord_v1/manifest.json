@@ -1,0 +1,97 @@
+{
+  "lot": "entree_foret_champignons_sud_nord_v1",
+  "prefix": "EFC1",
+  "biome": "Sous-bois Fongique & Champignons Geants (ref. Mushroom Forest GBA)",
+  "kind": "entree",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/entree_foret_champignons_sud_nord_v1/reference/mushroom_forest.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_foret_champignons_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "9a4f094978af12a8a3a3ecf03745360fb2364bd9db188fe06319e39dfb122252",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_champignons_sud_nord_v1/bruts/decor.png",
+      "sha256": "150ffba5e14c0674e80a832cce96dab7b5d6883373640df864686028d7883c14",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_champignons_sud_nord_v1/bruts/decor_magenta.png",
+      "sha256": "6c5e38d78ad92a1524e562ad39bf98921ef501d20cae7b93a9b29893d9ff44ac",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/EFC1_00_sol.png",
+    "calques/EFC1_01_relief.png",
+    "calques/EFC1_02_couronnes.png",
+    "animation/animation/EFC1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "donjon_seuil": [
+        376,
+        200
+      ]
+    },
+    "chemins_16x16": {
+      "donjon_seuil": {
+        "ok": true,
+        "cases_explorees": 736
+      }
+    },
+    "blocked_cells": 5784,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "efc1_entree_foret_champignons_sud_nord",
+    "namespace": "entree_foret_champignons_sud_nord",
+    "tiles_per_bank": {
+      "EFC1_00_SOL": 4175,
+      "EFC1_01_RELIEF": 3442,
+      "EFC1_02_COURONNES": 1749,
+      "EFC1_03_ANIMATION": 43868
+    },
+    "banks": [
+      "EFC1_00_SOL",
+      "EFC1_01_RELIEF",
+      "EFC1_02_COURONNES",
+      "EFC1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

@@ -1,0 +1,105 @@
+{
+  "lot": "fin_northern_range_sommet_v1",
+  "prefix": "FNR1",
+  "biome": "Crete Rocheuse Grise & Coucher de Soleil (ref. Northern Range GBA)",
+  "kind": "fin",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/fin_northern_range_sommet_v1/reference/northern_range.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_northern_range_sommet_v1/bruts/sol_complet.png",
+      "sha256": "a6d04806d66f4ace2f64c134d1f5eda6f04ebeaa406e0f2c4c124305bc3ff880",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_northern_range_sommet_v1/bruts/decor.png",
+      "sha256": "7a3f08048e880c212530550e3939c01c5ddefbddc1a03498d8380e2201b61410",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_northern_range_sommet_v1/bruts/decor_magenta.png",
+      "sha256": "3e5a52da660a94af817be4d216bdf32577aa5528b409fe4437dbc9037ddd8b1a",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/FNR1_00_sol.png",
+    "calques/FNR1_01_relief.png",
+    "calques/FNR1_02_couronnes.png",
+    "animation/animation/FNR1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "boss": [
+        376,
+        336
+      ],
+      "objectif": [
+        376,
+        184
+      ]
+    },
+    "chemins_16x16": {
+      "boss": {
+        "ok": true,
+        "cases_explorees": 416
+      },
+      "objectif": {
+        "ok": true,
+        "cases_explorees": 1071
+      }
+    },
+    "blocked_cells": 4921,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "fnr1_fin_northern_range_sommet",
+    "namespace": "fin_northern_range_sommet",
+    "tiles_per_bank": {
+      "FNR1_00_SOL": 5650,
+      "FNR1_01_RELIEF": 2812,
+      "FNR1_02_COURONNES": 2006,
+      "FNR1_03_ANIMATION": 14148
+    },
+    "banks": [
+      "FNR1_00_SOL",
+      "FNR1_01_RELIEF",
+      "FNR1_02_COURONNES",
+      "FNR1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

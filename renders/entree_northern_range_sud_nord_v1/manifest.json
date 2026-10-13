@@ -1,0 +1,97 @@
+{
+  "lot": "entree_northern_range_sud_nord_v1",
+  "prefix": "ENR1",
+  "biome": "Crete Rocheuse Grise & Coucher de Soleil (ref. Northern Range GBA)",
+  "kind": "entree",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "decor_pur_sans_artefact": true,
+  "reference_da": [
+    "source/entree_northern_range_sud_nord_v1/reference/northern_range.png"
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_northern_range_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "4db6bbc8a7f82e16484ad943a2792c44ff58529b6019b6015f0afed133cbcfb6",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_northern_range_sud_nord_v1/bruts/decor.png",
+      "sha256": "5d2fa6734d0cc74d6344f2e7d34ad103047807d33541eef465618b093feda6aa",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_northern_range_sud_nord_v1/bruts/decor_magenta.png",
+      "sha256": "f98e53a6cf4f6afd693ab61d927e55fd22817c6d6c43b3c4ebef594256127be7",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "calques/ENR1_00_sol.png",
+    "calques/ENR1_01_relief.png",
+    "calques/ENR1_02_couronnes.png",
+    "animation/animation/ENR1_03_animation_fNN.png"
+  ],
+  "animation": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "loop_ticks": 80
+  },
+  "scene_loop_ticks": 80,
+  "access": {
+    "markers": {
+      "entrance": [
+        376,
+        552
+      ],
+      "donjon_seuil": [
+        376,
+        224
+      ]
+    },
+    "chemins_16x16": {
+      "donjon_seuil": {
+        "ok": true,
+        "cases_explorees": 713
+      }
+    },
+    "blocked_cells": 5144,
+    "total_cells": 6912
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "asset": "enr1_entree_northern_range_sud_nord",
+    "namespace": "entree_northern_range_sud_nord",
+    "tiles_per_bank": {
+      "ENR1_00_SOL": 5325,
+      "ENR1_01_RELIEF": 3052,
+      "ENR1_02_COURONNES": 1941,
+      "ENR1_03_ANIMATION": 16376
+    },
+    "banks": [
+      "ENR1_00_SOL",
+      "ENR1_01_RELIEF",
+      "ENR1_02_COURONNES",
+      "ENR1_03_ANIMATION"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
