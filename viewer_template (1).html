@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Fin Vallon Fleuri — Sanctuaire de la Clairière V1 (FVF1, 4:3 — 768×576 px)</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 14px/1.5 system-ui, sans-serif; background: #0f160e; color: #ebf5e6; }
+  main { max-width: 1440px; margin: 0 auto; padding: 20px; }
+  h1 { margin: 0 0 4px; font-size: 21px; color: #c6ea70; }
+  h2 { margin: 22px 0 8px; font-size: 16px; border-bottom: 1px solid #3a562d; padding-bottom: 4px; color: #c6ea70; }
+  .meta { color: #a6be9b; font-size: 13px; margin-bottom: 14px; }
+  .warn { background: #192616; border: 1px solid #4d753b; padding: 10px 12px; border-radius: 6px; margin-bottom: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; background: #172115; padding: 10px; border-radius: 6px; }
+  label { display: inline-flex; align-items: center; gap: 4px; background: #22321e; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  button, select { background: #2c4226; color: #ebf5e6; border: 1px solid #57824a; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+  .stage { overflow: auto; background: #0a0f09; padding: 14px; border-radius: 6px; border: 1px solid #3a562d; text-align: center; }
+  canvas, .pix { image-rendering: pixelated; image-rendering: crisp-edges; border: 1px solid #3a562d; background: repeating-conic-gradient(#131c11 0 25%, #1b2818 0 50%) 50% / 16px 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: #172115; padding: 10px; border-radius: 6px; border: 1px solid #3a562d; }
+  .card h3 { margin: 0 0 6px; font-size: 13px; color: #c6ea70; }
+  .card img { width: 100%; height: auto; display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid #3a562d; padding: 6px 8px; text-align: left; }
+  th { background: #1e2d1a; }
+  code { color: #c6ea70; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fin Vallon Fleuri — Sanctuaire de la Clairière Fleurie V1 (FVF1, 768 × 576 px)</h1>
+  <div class="meta">Lot <code>fin_vallon_fleuri_sanctuaire_v1</code> · Préfixe <code>FVF1</code> · Entrée associée <code>EVF1</code> · Carte Ground <code>fvf1_fin_vallon_fleuri_sanctuaire</code> · Cible PMDO <code>0.8.12</code> · Réf. ROM <code>D73P11A</code></div>
+  <div class="warn">
+    <strong>Statut honnête :</strong> <code>art_approved = false</code>, <code>runtime_tested = false</code>.
+    <strong>Fin de donjon (<code>fin_*</code>) :</strong> clairière fermée au nord par l'autel floral de pierre moussue, 3 marqueurs <code>entrance</code> (jaune, sud), <code>boss</code> (rose, centre de la clairière) et <code>objectif</code> (cyan, autel floral au nord) ; aucune sortie, aucun warp. Ruisseau animé <strong>façon rivière Métano dans Halcyon / Palika</strong> (eau pure <code>(131,218,230)</code> <strong>sans écume blanche</strong> + scintillements natifs <code>Metano_Town_River_Sparkles.tile</code>), <strong>fleurs 7×7 Sky Peak canoniques</strong> (loi <code>A B A C</code>, <code>4 × 10 ticks</code>, <strong>sans aucun changement de couleur ni pétales blancs</strong>).
+  </div>
+
+  <div class="bar">
+    <strong>Calques :</strong>
+    <span id="toggles"></span>
+    <label><input type="checkbox" id="grid8"> Grille 8 px</label>
+    <label><input type="checkbox" id="coll"> Collisions + 3 marqueurs</label>
+    <button id="play">Pause</button>
+    <label>Zoom <select id="zoom"><option value="1" selected>1× (768×576)</option><option value="2">2× (1536×1152)</option></select></label>
+    <span id="tickinfo"></span>
+  </div>
+
+  <div class="stage"><canvas id="cv" width="768" height="576"></canvas></div>
+
+  <h2>Référence ROM · Bruts générés · Scène animée · Collisions · Zoom ruisseau &amp; fleurs</h2>
+  <div class="grid">
+    <div class="card"><h3>Référence ROM <code>D73P11A.png</code> (648×552)</h3><img class="pix" src="source/fin_vallon_fleuri_sanctuaire_v1/reference/D73P11A.png"></div>
+    <div class="card"><h3>Brut décor sur magenta (1200×896)</h3><img class="pix" src="source/fin_vallon_fleuri_sanctuaire_v1/bruts/decor_magenta.png"></div>
+    <div class="card"><h3>Brut sol prairie complet (1200×896)</h3><img class="pix" src="source/fin_vallon_fleuri_sanctuaire_v1/bruts/sol_complet.png"></div>
+    <div class="card"><h3>Scène animée (WebP sans perte, boucle 240 ticks = 4 s)</h3><img class="pix" src="renders/fin_vallon_fleuri_sanctuaire_v1/review/FVF1_scene_animee.webp"></div>
+    <div class="card"><h3>Collisions + <code>entrance</code> + <code>boss</code> + <code>objectif</code></h3><img class="pix" src="renders/fin_vallon_fleuri_sanctuaire_v1/review/FVF1_collisions_marqueurs.png"></div>
+    <div class="card"><h3>Zoom ×2 ruisseau Métano Halcyon &amp; fleurs Sky Peak</h3><img class="pix" src="renders/fin_vallon_fleuri_sanctuaire_v1/review/FVF1_zoom_riviere_fleurs.png"></div>
+  </div>
+
+  <h2>Contrôle de fidélité des matières au rip <code>D73P11A</code> (seuil &lt; 35)</h2>
+  <table>
+    <thead><tr><th>Matière</th><th>Moyenne RGB rip <code>D73P11A</code></th><th>Moyenne RGB brut généré</th><th>Distance euclidienne</th></tr></thead>
+    <tbody id="fidrows"></tbody>
+  </table>
+
+  <h2>Calques individuels (00 → 09, du bas vers le haut, plus <code>10 Top</code> vide dans le Ground)</h2>
+  <div class="grid" id="cards"></div>
+</main>
+<script>
+const SPEC = __SPEC_JSON__;
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const imgs = {}, state = { tick: 0, play: true };
+
+function loadImg(src) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+
+async function init() {
+  const fbody = document.getElementById('fidrows');
+  for (const [k, v] of Object.entries(SPEC.fidelite)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><code>${k}</code></td><td><code>[${v.rip_rgb.join(', ')}]</code></td><td><code>[${v.decor_rgb.join(', ')}]</code></td><td><strong>${v.distance}</strong> / ${SPEC.seuil}</td>`;
+    fbody.appendChild(tr);
+  }
+  const tog = document.getElementById('toggles'), cards = document.getElementById('cards');
+  for (const l of SPEC.layers) {
+    l.on = true;
+    const lb = document.createElement('label');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = true;
+    cb.onchange = () => { l.on = cb.checked; draw(); };
+    lb.append(cb, ' ' + l.label); tog.appendChild(lb);
+    imgs[l.id] = await Promise.all(l.srcs.map(loadImg));
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = `<h3>${l.label} (${l.srcs.length > 1 ? l.srcs.length + ' phases × ' + l.ticks + 't' : 'fixe'}) · <code>${l.tiles}</code> tuiles</h3><img class="pix" src="${l.srcs[0]}">`;
+    cards.appendChild(c);
+  }
+  document.getElementById('play').onclick = e => { state.play = !state.play; e.target.textContent = state.play ? 'Pause' : 'Lecture'; };
+  document.getElementById('zoom').onchange = e => { const z = +e.target.value; cv.style.width = (768 * z) + 'px'; cv.style.height = (576 * z) + 'px'; };
+  document.getElementById('grid8').onchange = draw;
+  document.getElementById('coll').onchange = draw;
+  setInterval(() => { if (state.play) { state.tick = (state.tick + 1) % SPEC.loop_ticks; draw(); } }, 1000 / 60);
+  draw();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, 768, 576);
+  for (const l of SPEC.layers) {
+    if (!l.on) continue;
+    const arr = imgs[l.id];
+    ctx.drawImage(arr[Math.floor(state.tick / l.ticks) % arr.length], 0, 0);
+  }
+  if (document.getElementById('coll').checked) {
+    ctx.fillStyle = 'rgba(220,40,40,0.35)';
+    for (const [x, y] of SPEC.blocked) ctx.fillRect(x * 8, y * 8, 8, 8);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#ffe628'; ctx.strokeRect(SPEC.markers.entrance[0] + 1, SPEC.markers.entrance[1] + 1, 14, 14);
+    ctx.strokeStyle = '#ff50c8'; ctx.strokeRect(SPEC.markers.boss[0] + 1, SPEC.markers.boss[1] + 1, 14, 14);
+    ctx.strokeStyle = '#3cdcff'; ctx.strokeRect(SPEC.markers.objectif[0] + 1, SPEC.markers.objectif[1] + 1, 14, 14);
+  }
+  if (document.getElementById('grid8').checked) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)'; ctx.lineWidth = 1;
+    for (let x = 0; x <= 768; x += 8) { ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, 576); ctx.stroke(); }
+    for (let y = 0; y <= 576; y += 8) { ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(768, y + 0.5); ctx.stroke(); }
+  }
+  document.getElementById('tickinfo').textContent =
+    `tick ${state.tick}/${SPEC.loop_ticks} · eau Métano Halcyon f${Math.floor(state.tick/10)%4} · fleurs Sky Peak A-B-A-C f${Math.floor(state.tick/10)%4} · scintillements Métano f${Math.floor(state.tick/10)%4} · pétales f${Math.floor(state.tick/10)%24}`;
+}
+init();
+</script>
+</body>
+</html>

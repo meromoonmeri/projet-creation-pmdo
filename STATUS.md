@@ -1,0 +1,11 @@
+# Statut du chantier `entree_tour_temporelle_sud_nord_v2` (`ETT2`)
+
+- **Lot** : `entree_tour_temporelle_sud_nord_v2` (V1 `ETT1` conservée intacte)
+- **Préfixe `.tile`** : `ETT2` (unique sur `main` et sur toutes les branches sœurs)
+- **Format** : `4:3` vaste (`768 × 576 px` = `96 × 72` cases de `8 × 8 px`, `TexSize = 1`)
+- **Fidélité aux cibles Noir & Or / Nuages Rouge-Noir (`seuil < 35`)** : `muraille_noire = 0.5`, `nuages_rouge_noir = 1.3`, `dalles_ardoise = 2.7`, `circuits_or = 3.5`, `roche_noire = 8.7`, `sol_complet = 10.1`
+- **Brèches de réalité** : `10` brèches (`5` nuages + `5` rochers), `0 px` sur le chemin praticable
+- **Chemin `16 × 16` (`BFS`)** : `entrance = [384, 560]` (sud) → `donjon_seuil = [376, 208]` (nord), `1067` cases praticables, `5845` cases bloquées
+- **Tests Python (`test_build.py` / `verify.py`)** : `14 / 14` vérifications passées
+- **`art_approved`** : `false`
+- **`runtime_tested`** : `false`
