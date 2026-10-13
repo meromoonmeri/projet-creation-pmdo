@@ -138,8 +138,11 @@ def make_layers_and_anim():
         star_disc = ((xx - 384)**2 + (yy - 288)**2 <= 76**2)
         walk_floor = walk_floor | star_disc
         detail_mask = (yy < 156) & (~walk_floor)
-    elif "monde_inverse_giratina" in LOT:
-        walk_floor = walk_floor | ((xx >= 352) & (xx <= 416) & (yy >= 168) & (yy <= 576))
+    elif LOT == "entree_monde_inverse_giratina_v1":
+        walk_floor = walk_floor | ((xx >= 352) & (xx <= 416) & (yy >= 184) & (yy <= 576))
+        detail_mask = (yy < 168) & (~walk_floor)
+    elif LOT == "fin_monde_inverse_giratina_v1":
+        walk_floor = walk_floor | ((xx >= 352) & (xx <= 416) & (yy >= 216) & (yy <= 576))
         detail_mask = (yy < 168) & (~walk_floor)
 
     lab, _ = nd.label(walk_floor)
@@ -203,27 +206,31 @@ def make_layers_and_anim():
             anim_frames.append(fr)
 
     elif "monde_inverse_giratina" in LOT:
-        void_mask = (~walk_zone) & (b_d > r_d + 15) & (b_d < 165) & (r_d < 45)
-        wf_mask = (~walk_zone) & (g_d > 155) & (b_d > 195) & (b_d > r_d + 45)
+        # Strict mask for cyan nebula swirls in the background void (excludes all slate-grey rocks)
+        nebula_mask = (~walk_zone) & (r_d < 18) & (g_d > 52) & (b_d > 90) & (b_d < 175) & (b_d - r_d > 75)
+        # Strict mask for bright cyan reverse waterfalls
+        wf_mask = (~walk_zone) & (g_d > 170) & (b_d > 205) & (b_d - r_d > 65)
         for f in range(ANIM_PHASES):
             fr = np.zeros((H, W, 4), dtype=np.uint8)
             theta = 2.0 * np.pi * f / ANIM_PHASES
-            # 1. Animated abyssal blue void currents in background
-            v_wave = np.sin(theta + xx * 0.045 + np.cos(yy * 0.045 - theta) * 2.2)
-            m_v1 = void_mask & (v_wave > 0.68)
-            m_v2 = void_mask & (v_wave < -0.72)
-            fr[m_v1] = (22, 92, 164, 255)
-            fr[m_v2] = (44, 144, 218, 255)
-            # 2. Reverse waterfalls flowing UPWARD (dy < 0 as f increases)
-            wf_wave = np.sin(theta + yy * 0.28 + np.sin(xx * 0.18) * 1.5)
-            m_w1 = wf_mask & (wf_wave > 0.38)
-            m_w2 = wf_mask & (wf_wave < -0.42)
-            fr[m_w1] = (225, 252, 255, 255)
-            fr[m_w2] = (28, 168, 232, 255)
-            # 3. Rising anti-gravity droplets ascending upward
-            yy_src = np.clip(yy + (f % 8) * 3, 0, H - 1)
-            drop = wf_mask[yy_src, xx] & (~wf_mask) & ((xx * 13 + yy * 7 + f * 5) % 29 == 0)
-            fr[drop] = (195, 248, 255, 255)
+            # 1. Smoothly pulsing & drifting abyssal blue nebula currents in background void
+            if nebula_mask.any():
+                v_wave = np.sin(theta - xx * 0.04 + yy * 0.05)[nebula_mask]
+                fr[nebula_mask, 0] = np.clip(r_d[nebula_mask] + v_wave * 8.0, 0, 255).astype(np.uint8)
+                fr[nebula_mask, 1] = np.clip(g_d[nebula_mask] + v_wave * 22.0, 0, 255).astype(np.uint8)
+                fr[nebula_mask, 2] = np.clip(b_d[nebula_mask] + v_wave * 30.0, 0, 255).astype(np.uint8)
+                fr[nebula_mask, 3] = 255
+            # 2. Reverse waterfalls flowing UPWARD (theta + yy * 0.24 moves crests toward smaller y as f increases)
+            if wf_mask.any():
+                wf_wave = np.sin(theta + yy * 0.24 + np.sin(xx * 0.25) * 1.2)[wf_mask]
+                fr[wf_mask, 0] = np.clip(r_d[wf_mask] + wf_wave * 32.0, 0, 255).astype(np.uint8)
+                fr[wf_mask, 1] = np.clip(g_d[wf_mask] + wf_wave * 24.0, 0, 255).astype(np.uint8)
+                fr[wf_mask, 2] = np.clip(b_d[wf_mask] + wf_wave * 16.0, 0, 255).astype(np.uint8)
+                fr[wf_mask, 3] = 255
+            # 3. Rising anti-gravity cyan droplets ascending upward along waterfall edges
+            yy_src = np.clip(yy + (f % 8) * 2, 0, H - 1)
+            drop = wf_mask[yy_src, xx] & (~wf_mask) & ((xx * 17 + yy * 11 + f * 3) % 47 == 0)
+            fr[drop] = (205, 250, 255, 255)
             anim_frames.append(fr)
 
     elif "glace" in LOT:
