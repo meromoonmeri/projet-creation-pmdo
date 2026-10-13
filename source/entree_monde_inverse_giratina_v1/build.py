@@ -177,74 +177,74 @@ def build_animation_frames(dec_raw, walk_floor):
     b_d = dec_raw[:, :, 2].astype(np.int16)
 
     if THEME == "distortion":
-        # 1) REVERSE WATERFALLS (cascades inversées qui coulent VERS LE HAUT: dy = +t * 3 dans la phase)
-        waterfall_mask = (b_d > 175) & (g_d > 145) & (b_d > r_d + 55) & (~walk_floor) & ((xx < 210) | (xx > 558))
-        # 2) ABYSSAL BLUE VOID SWIRLS (néant bleu abyssal animé en background)
-        void_swirl_mask = (b_d > 75) & (b_d > r_d + 35) & (~waterfall_mask) & (~walk_floor) & (r_d < 65)
+        # 1) Detect true bright cyan waterfalls (excluding the central vortex around x=200..568 in EMI)
+        if KIND == "entree":
+            wf_zone = (xx < 185) | (xx > 583)
+        else:
+            wf_zone = (yy < 490) & ((xx < 260) | (xx > 508) | (yy < 245))
+        waterfall_mask = (b_d > 185) & (g_d > 155) & (b_d > r_d + 70) & (~walk_floor) & wf_zone
+        waterfall_mask = nd.binary_opening(waterfall_mask, structure=np.ones((2, 2), dtype=bool))
 
-        # Anti-gravity rising droplets above/along waterfalls
+        # 2) Abyssal Blue Void Background (deep blue & cyan nebula outside islands and waterfalls)
+        void_swirl_mask = (b_d > 55) & (b_d > r_d + 25) & (r_d < 55) & (~waterfall_mask) & (~walk_floor)
+
         droplets = [
-            (36, 360), (44, 300), (52, 240), (148, 520), (156, 440), (164, 380),
-            (724, 360), (716, 300), (708, 240), (612, 520), (604, 440), (596, 380),
-            (228, 180), (236, 120), (284, 150), (532, 180), (524, 120), (476, 150),
+            (48, 380), (56, 310), (64, 240), (92, 420), (100, 340),
+            (720, 380), (712, 310), (704, 240), (676, 420), (668, 340),
+            (180, 260), (220, 190), (288, 160), (480, 160), (548, 190), (588, 260),
         ]
-        # Abyssal void energy motes drifting in background
         void_motes = [
-            (120, 220), (180, 140), (210, 440), (260, 500), (580, 220), (540, 140),
-            (550, 440), (500, 500), (96, 480), (672, 480), (300, 100), (468, 100),
+            (136, 200), (188, 128), (204, 456), (252, 512), (632, 200), (580, 128),
+            (564, 456), (516, 512), (112, 500), (656, 500), (312, 92), (456, 92),
         ]
 
         for t in range(ANIM_PHASES):
             fr = frames[t]
             angle = 2.0 * np.pi * t / ANIM_PHASES
 
-            # A. Reverse waterfalls flowing UPWARD (as t increases, crests move to smaller y!)
-            up_Band1 = ((yy + t * 4 + (xx // 4)) % 16) < 5
-            up_Band2 = ((yy + t * 4 + (xx // 4) + 8) % 16) < 3
-            m_wf1 = waterfall_mask & up_Band1
-            m_wf2 = waterfall_mask & up_Band2
+            shift1 = (t * 3) % 48
+            shift2 = (shift1 + 24) % 48
+            w1 = 0.5 + 0.5 * np.cos(2.0 * np.pi * shift1 / 48.0)
+            rolled1 = np.roll(dec_raw, shift=-shift1, axis=0)
+            rolled2 = np.roll(dec_raw, shift=-shift2, axis=0)
+            m1_ok = np.roll(waterfall_mask, shift=-shift1, axis=0)
+            m2_ok = np.roll(waterfall_mask, shift=-shift2, axis=0)
+            src1 = np.where(m1_ok[..., None], rolled1, dec_raw).astype(np.float32)
+            src2 = np.where(m2_ok[..., None], rolled2, dec_raw).astype(np.float32)
+            blended_wf = (w1 * src1 + (1.0 - w1) * src2).astype(np.uint8)
 
-            fr[m_wf1, 0] = np.clip(r_d[m_wf1] + 55, 0, 255).astype(np.uint8)
-            fr[m_wf1, 1] = np.clip(g_d[m_wf1] + 45, 0, 255).astype(np.uint8)
-            fr[m_wf1, 2] = 255
-            fr[m_wf1, 3] = 235
+            shimmer = (np.sin((yy + t * 3.0) * 0.35 + xx * 0.15) > 0.55) & waterfall_mask
+            fr[waterfall_mask, 0] = blended_wf[waterfall_mask, 0]
+            fr[waterfall_mask, 1] = blended_wf[waterfall_mask, 1]
+            fr[waterfall_mask, 2] = blended_wf[waterfall_mask, 2]
+            fr[waterfall_mask, 3] = 235
 
-            fr[m_wf2, 0] = 230
-            fr[m_wf2, 1] = 252
-            fr[m_wf2, 2] = 255
-            fr[m_wf2, 3] = 245
+            fr[shimmer, 0] = np.clip(blended_wf[shimmer, 0].astype(np.int16) + 28, 0, 255).astype(np.uint8)
+            fr[shimmer, 1] = np.clip(blended_wf[shimmer, 1].astype(np.int16) + 22, 0, 255).astype(np.uint8)
+            fr[shimmer, 2] = 255
+            fr[shimmer, 3] = 245
 
-            # B. Animated Abyssal Blue Void Background (ondes gravitationnelles du néant bleu)
-            wave = np.sin(xx * 0.045 - yy * 0.055 + angle) + np.cos(xx * 0.03 + yy * 0.04 - angle)
-            m_void_bright = void_swirl_mask & (wave > 0.65)
-            m_void_deep = void_swirl_mask & (wave < -0.65)
+            wave = np.sin(xx * 0.035 - yy * 0.045 + angle) + np.cos(xx * 0.025 + yy * 0.035 - angle)
+            m_void_bright = void_swirl_mask & (wave > 0.75)
+            fr[m_void_bright, 0] = np.clip(r_d[m_void_bright] + 10, 0, 255).astype(np.uint8)
+            fr[m_void_bright, 1] = np.clip(g_d[m_void_bright] + 22, 0, 255).astype(np.uint8)
+            fr[m_void_bright, 2] = np.clip(b_d[m_void_bright] + 32, 0, 255).astype(np.uint8)
+            fr[m_void_bright, 3] = 64
 
-            fr[m_void_bright, 0] = np.clip(r_d[m_void_bright] + 18, 0, 255).astype(np.uint8)
-            fr[m_void_bright, 1] = np.clip(g_d[m_void_bright] + 36, 0, 255).astype(np.uint8)
-            fr[m_void_bright, 2] = np.clip(b_d[m_void_bright] + 48, 0, 255).astype(np.uint8)
-            fr[m_void_bright, 3] = 95
-
-            fr[m_void_deep, 0] = np.clip(r_d[m_void_deep] - 8, 0, 255).astype(np.uint8)
-            fr[m_void_deep, 1] = np.clip(g_d[m_void_deep] + 12, 0, 255).astype(np.uint8)
-            fr[m_void_deep, 2] = np.clip(b_d[m_void_deep] + 24, 0, 255).astype(np.uint8)
-            fr[m_void_deep, 3] = 85
-
-            # C. Rising anti-gravity water droplets (gouttelettes ascendantes)
             for idx, (dx, dy0) in enumerate(droplets):
-                # Moves UPWARD (y decreases with t) in a closed 16-phase loop
                 dy = dy0 - ((t * 3 + idx * 5) % 48)
                 if 8 <= dy < H - 8 and 8 <= dx < W - 8 and not walk_floor[dy, dx]:
-                    fr[dy - 1:dy + 2, dx - 1:dx + 2] = [165, 242, 255, 235]
-                    fr[dy, dx] = [245, 255, 255, 255]
+                    fr[dy - 2:dy + 2, dx - 1:dx + 2] = [20, 110, 185, 220]
+                    fr[dy - 1:dy + 2, dx] = [110, 235, 255, 250]
+                    fr[dy - 1, dx] = [245, 255, 255, 255]
 
-            # D. Abyssal blue void cosmic motes
             for idx, (mx, my0) in enumerate(void_motes):
-                my = my0 - int(round(6.0 * np.sin(angle + idx * 0.8)))
-                mx_cur = mx + int(round(6.0 * np.cos(angle + idx * 0.8)))
+                my = my0 - int(round(5.0 * np.sin(angle + idx * 0.8)))
+                mx_cur = mx + int(round(5.0 * np.cos(angle + idx * 0.8)))
                 if 8 <= my < H - 8 and 8 <= mx_cur < W - 8 and not walk_floor[my, mx_cur]:
-                    fr[my - 1:my + 2, mx_cur] = [68, 205, 255, 220]
-                    fr[my, mx_cur - 1:mx_cur + 2] = [68, 205, 255, 220]
-                    fr[my, mx_cur] = [215, 250, 255, 255]
+                    fr[my - 1:my + 2, mx_cur] = [56, 190, 250, 210]
+                    fr[my, mx_cur - 1:mx_cur + 2] = [56, 190, 250, 210]
+                    fr[my, mx_cur] = [220, 252, 255, 255]
 
     else:
         # Ancient ruin natural clearing: swaying canopy leaves, puddle ripples & dust motes

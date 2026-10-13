@@ -1,15 +1,20 @@
-# WORKFLOW — Lots 4:3 (`768 × 576`, grille native `8 px`, PMDO `0.8.12.0`)
+# WORKFLOW — Biomes Apple Woods, Glace, Ruine Légendaire & Monde Inversé de Giratina (4:3, Pur Décor Sans Artefact ni Structure)
 
-Ce document résume le pipeline reproductible des **9 maps grand format 4:3 (`768 × 576 px = 96 × 72` cases `8 × 8`)** produites **exclusivement avec du décor naturel/architectural pur (sans aucun artefact, structure d'autel/stèle, coffre ni objet en fin de donjon)** :
+```
+source/<lot>/reference/ (PNG canoniques PMD2)
+   + source/<lot>/bruts/{sol_complet,decor,decor_magenta}.png
+   -> .venv/bin/python source/<lot>/build.py
+   -> .venv/bin/python source/<lot>/package.py
+   -> renders/<lot>/ + apercu_<lot>.html
+```
 
-| Code | Lot | Type | Biome & Références | Marqueurs (`16×16` BFS validé) |
-|---|---|---|---|---|
-| `EAW1` | `entree_apple_woods_sud_nord_v1` | Entrée | Apple Woods (`Apple_Woods_entrance_TDS.png`, `applewoods_arbres_decoupe_x2.png`) | `entrance=(376,552)` → `donjon_seuil=(376,184)` |
-| `FAW1` | `fin_apple_woods_clairiere_pommier_v1` | Fin (Arène) | Clairière des Pommiers (`Apple_Woods_entrance_TDS.png`) — pur décor sans panier/objet | `entrance=(376,552)` → `boss=(376,328)` → `objectif=(376,168)` |
-| `ERG1` | `entree_route_glace_sud_nord_v1` | Entrée | Route de Glace (`iceroadpmdsky.png`, `pmdskyicearena.png`) | `entrance=(376,552)` → `donjon_seuil=(376,184)` |
-| `FRG1` | `fin_route_glace_cirque_polaire_v1` | Fin (Arène) | Cirque Polaire (`pmdskyicearena.png`) — pur décor glaciaire sans cristal/artefact | `entrance=(376,552)` → `boss=(376,360)` → `objectif=(376,224)` |
-| `ERL1` | `entree_ruine_legendaire_sud_nord_v1` | Entrée | Ruine Légendaire (`D28P44A_decoupe_style_x2.png`, `D42P42A.png`) | `entrance=(376,552)` → `donjon_seuil=(376,192)` |
-| `FRL1` | `fin_ruine_legendaire_sanctuaire_v1` | Fin (Arène) | Cour Antique (`D28P44A_decoupe_style_x2.png`) — dalles pures sans sceau ni relique | `entrance=(376,552)` → `boss=(376,336)` → `objectif=(376,176)` |
-| `FRL2` | `fin_ruine_legendaire_sanctuaire_v2` | Fin (Arène V2) | Clairière Rocheuse Antique (`Sealed_Ruin_pit_TDS.png`, `D28P44A_decoupe_style_x2.png`) — 100% naturel sans structure ni pilier | `entrance=(376,552)` → `boss=(376,336)` → `objectif=(376,192)` |
-| `EMI1` | `entree_monde_inverse_giratina_v1` | Entrée | Monde Inversé de Giratina (`finalisland.png`, `Waterfall_Cave_ledge_TDS.png`, `D42P41A.png`) — îles flottantes à l'envers, cascades inversées ascendantes, néant bleu abyssal animé | `entrance=(376,552)` → `donjon_seuil=(376,184)` |
-| `FMI1` | `fin_monde_inverse_giratina_v1` | Fin (Arène) | Fin Monde Inversé de Giratina (`finalisland.png`, `Waterfall_Cave_ledge_TDS.png`, `D42P41A.png`) — archipel flottant à l'envers, cascades inversées, néant bleu abyssal animé, zéro structure/artefact | `entrance=(376,552)` → `boss=(376,328)` → `objectif=(376,216)` |
+## Lots livrés (`768 × 576 px`, `96 × 72` cases `8 × 8`, `TexSize=1`, 100 % décor naturel/architectural pur, zéro artefact/objet/structure en fin de donjon)
+
+1. **`entree_apple_woods_sud_nord_v1` (`EAW1`)** — Entrée Apple Woods Sud → Nord (`Apple_Woods_entrance_TDS.png` + `applewoods_arbres_decoupe_x2.png`).
+2. **`fin_apple_woods_clairiere_pommier_v1` (`FAW1`)** — Fin Apple Woods — Clairière des Pommiers (clairière naturelle entourée de pommiers, sans panier ni objet).
+3. **`entree_route_glace_sud_nord_v1` (`ERG1`)** — Entrée Route de Glace Sud → Nord (`iceroadpmdsky.png` + `pmdskyicearena.png`).
+4. **`fin_route_glace_cirque_polaire_v1` (`FRG1`)** — Fin Route de Glace — Cirque Polaire (amphithéâtre glaciaire et stalagmites de glace, sans piédestal ni cristal).
+5. **`entree_ruine_legendaire_sud_nord_v1` (`ERL1`)** — Entrée Ruine Légendaire Sud → Nord (`D28P44A_decoupe_style_x2.png`).
+6. **`fin_ruine_legendaire_sanctuaire_v1` (`FRL1`)** & **`fin_ruine_legendaire_sanctuaire_v2` (`FRL2`)** — Fin Ruine Légendaire — Fosse des Ruines Scellées (`Sealed_Ruin_pit_TDS.png` + dalles anciennes, 100 % roche naturelle et dalles brisées, sans sceau, sans autel ni structure).
+7. **`entree_monde_inverse_giratina_v1` (`EMI1`)** & **`entree_monde_inverse_giratina_v2` (`EMI2`)** — Entrée Monde Inversé de Giratina — Chemins à l'Envers & Cascades Inversées (`finalisland.png` + `Waterfall_Cave_ledge_TDS.png` + `D42P41A.png`, îles flottantes renversées dans le néant bleu abyssal animé, arbres la tête en bas, cascades qui coulent vers le haut, sans colonnes ni structures).
+8. **`fin_monde_inverse_giratina_v1` (`FMI1`)** & **`fin_monde_inverse_giratina_v2` (`FMI2`)** — Fin Monde Inversé de Giratina — Archipel du Néant Abyssal (`finalisland.png` + `Waterfall_Cave_ledge_TDS.png` + `Sealed_Ruin_pit_TDS.png` + `D42P41A.png`, chemin rocheux à l'envers menant à la grande île flottante entourée d'îles inversées et de cascades ascendantes dans le néant bleu abyssal animé, zéro structure et zéro artefact).
