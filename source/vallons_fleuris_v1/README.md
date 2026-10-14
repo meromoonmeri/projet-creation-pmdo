@@ -1,6 +1,6 @@
 # Vallons Fleuris — FVF1 + EVF1
 
-Recomposition reproductible des compositions complètes restaurées. Le build ne régénère ni ne remplace les deux décors : il repart des bruts exacts et de leur calque de sol séparé.
+Recomposition reproductible des compositions complètes restaurées. Le build repart des bruts exacts de décor et du calque de sol séparé ; il conserve les compositions, fonds, objets et effets restaurés, puis exporte les calques et les scènes assemblées. L’eau générée des essais précédents est rejetée et n’est pas utilisée.
 
 ## Génération
 
@@ -9,27 +9,26 @@ Recomposition reproductible des compositions complètes restaurées. Le build ne
 .venv/bin/python source/vallons_fleuris_v1/test_build.py
 ```
 
-Le script normalise uniformément les bruts `1200×896` vers `768×576` (`96×72` cases de `8 px`), détecte le masque magenta, puis exporte les calques, les quatre phases d’eau, les scintillements, les scènes complètes PNG/WebP, les ORA multicalques, les manifestes et `apercu_vallons_fleuris_v1.html`. Les répertoires source des autres lots — dont ETT2 — ne sont pas modifiés.
+Le script normalise uniformément les bruts `1200×896` vers `768×576` (`96×72` cases de `8 px`), détecte le masque magenta, puis exporte les calques, les quatre phases d’eau native, les scintillements, les scènes complètes PNG/WebP, les ORA multicalques, les manifestes et `apercu_vallons_fleuris_v1.html`. Les répertoires source des autres lots — dont ETT2 — ne sont pas modifiés.
 
-## Eau — génération complète, segmentation au masque magenta, référence Métano
+## Eau — frames natives Metano Town dans les masques magenta exacts
 
-- Source : Palikadude/Halcyon, carte `Data/Ground/metano_town.rsground`, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Les quatre planches `Metano_Town_River_Animation_1.tile` à `_4.tile` sont référencées par `source/eau_metano/animations_carte.json` ; cadence native : quatre phases de `10 ticks`.
-- Les `3200` entrées `River` ont été revérifiées une par une : `example_map_cell == TexLoc` pour les quatre phases et les `3200` coordonnées sont uniques. Le build reconstruit donc quatre calques complets `142×189` cases (`1136×1512 px`) en plaçant chaque cellule native `8×8` à ses coordonnées de carte d’origine. Les PNG de ces calques sont exportés sous `renders/metano_town_native_river/` et référencés dans chaque manifeste.
-- Les statistiques de la source restent documentées : `2365` cellules opaques de surface, `477` cellules opaques animées (`361` séquences distinctes), `750` cellules alpha-partielles de rive (`656` animées ; `566` séquences distinctes ; `278` empreintes alpha).
-- Le procédé suit le contrat magenta du dépôt : générer une image complète de la scène avec l’eau, puis segmenter les calques. Les propositions complètes archivées sous `generations/` ont été produites à partir des deux bruts magenta. Le build emploie leurs RGB **uniquement** dans le masque d’eau prélevé sur le brut original ; les pixels générés hors masque sont ignorés et le décor restauré reste inchangé. Les fichiers et empreintes sont documentés dans `generations/README.md` et chaque manifeste.
-- L’eau visible dans FVF1/EVF1 est donc une matière **générée façon Métano**, ajustée à la forme magenta ; ce ne sont ni des pixels ni des tuiles natives. Elle boucle en quatre phases de 10 ticks par déplacement nearest-neighbor déterministe de quelques pixels, masque fixe. Cette animation procédurale n’est pas l’animation native de la carte source.
-- Les quatre calques complets de la carte Metano Town sont toujours reconstruits exactement à leurs coordonnées originales et exportés séparément pour consultation. Ils ne sont pas redimensionnés, tournés ou collés dans les deux biomes ; aucun patch natif répété, composante entière réassignée ou appariement individuel des berges n’est utilisé pour leur eau générée.
-- Les scintillements restent les modules natifs distincts de `Metano_Town_River_Sparkles.tile`, sans recoloration ni transformation.
+- Source : Palikadude/Halcyon, carte `Data/Ground/metano_town.rsground`, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Les quatre planches `Metano_Town_River_Animation_1.tile` à `_4.tile` sont référencées par `source/eau_metano/animations_carte.json` ; cadence source : quatre phases de `10 ticks`.
+- Les `3200` entrées `River` ont été revérifiées : pour les quatre phases, `example_map_cell == TexLoc` et les coordonnées sont uniques. Le build reconstruit et exporte séparément les quatre calques complets de la carte native, `142×189` cases (`1136×1512 px`), à leurs coordonnées d’origine, sous `renders/metano_town_native_river/`.
+- Pour remplir FVF1 et EVF1, le build choisit dans chacune de ces cartes une seule fenêtre contiguë native de `96×72` cases (`768×576 px`), à l’échelle 1:1, selon le meilleur IoU d’occupation des cases avec le masque magenta correspondant. Il n’effectue ni rotation, ni miroir, ni redimensionnement, ni recoloration, ni mosaïque ou répétition de patches, ni appariement individuel des composantes ou des berges. **Cette fenêtre est un recadrage adapté au masque, pas la carte source complète et pas une conservation de son agencement complet dans le biome.** Ses coordonnées, son IoU et ses limites sont inscrits au manifeste.
+- Les pixels RGB du calque d’eau proviennent des frames natives dans cette fenêtre. Là où un pixel de la fenêtre source est transparent, sa couleur est prise au pixel natif opaque le plus proche, phase par phase ; l’alpha final est ensuite découpé exactement selon le masque magenta. Le bord et le contour du masque restent donc ceux des cartes FVF1/EVF1, tandis que la matière animée provient de Metano Town. Il ne s’agit ni d’eau générée, ni d’une prétention à conserver la carte source entière.
+- Les phases de sortie utilisent les quatre frames natives dans leur ordre et leur cadence source. Les scintillements restent des modules natifs distincts de `Metano_Town_River_Sparkles.tile`, sans recoloration ni transformation.
+- Les statistiques de la carte source complète restent documentées dans les manifestes : `2365` cellules opaques de surface, `477` cellules opaques animées (`361` séquences distinctes), `750` cellules alpha-partielles de rive (`656` animées ; `566` séquences distinctes ; `278` empreintes alpha).
 
-## Fleurs — animation officielle bloquée en attente des sources
+## Fleurs — animation officielle en attente des sources
 
 Les frames officielles Sky Peak attendues ne sont pas présentes dans ce checkout. La référence documentée est `2cwdrrs469f61.gif` (`504×504`, quatre frames de `200 ms`), avec les quatre images extraites attendues sous `source/sky_peak_v1/gif_0.png` à `gif_3.png`. Aucune ressource vérifiable n’a été fournie ici.
 
-En conséquence, le build **n’invente pas** de sprite, palette ou poses de substitution : les fleurs déjà peintes dans les décors générés restent intégralement statiques. Pour débloquer l’animation officielle, fournir `2cwdrrs469f61.gif` ou ses quatre frames Sky Peak originales.
+Le build n’invente pas de sprite, de palette ni de poses de substitution : les fleurs déjà peintes dans les décors restent statiques. Pour débloquer l’animation officielle, fournir `2cwdrrs469f61.gif` ou ses quatre frames Sky Peak originales.
 
 ## Statut et exports
 
 - Les pixels du décor restent attribués à l’art généré restauré ; ils ne sont jamais présentés comme des tuiles natives.
 - `art_approved`, `runtime_tested` et `canonical_flower_frames_verified` restent à `false`.
 - Les collisions du viewer sont indicatives ; ce n’est ni un build Ground ni une validation runtime.
-- Les livrables FVF1/EVF1 se trouvent sous `renders/fin_vallon_fleuri_sanctuaire_v1/` et `renders/entree_vallon_fleuri_sud_nord_v1/`. Les manifestes détaillent empreintes, provenance générée/native séparée, masque exact, cadence, calques et limites.
+- Les livrables FVF1/EVF1 se trouvent sous `renders/fin_vallon_fleuri_sanctuaire_v1/` et `renders/entree_vallon_fleuri_sud_nord_v1/`. Les manifestes séparent clairement la provenance native de l’eau, des scintillements et de la carte complète, documentent le crop, l’alpha exact, la cadence et les limites.

@@ -31,12 +31,12 @@
     },
     {
       "id": "water",
-      "label": "02 · Eau générée façon Métano, dans le masque magenta, 4 phases",
+      "label": "02 · Vraie eau Metano Town River, fenêtre native 1:1 clippée au masque, 4 phases",
       "srcs": [
-        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_1.png",
-        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_2.png",
-        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_3.png",
-        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_4.png"
+        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_1.png",
+        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_2.png",
+        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_3.png",
+        "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_4.png"
       ],
       "ticks": 10,
       "tiles": 794
@@ -14597,7 +14597,7 @@
     }
   ],
   "water": {
-    "source": "texture générée façon Métano, ajustée au masque magenta",
+    "source": "vraies frames natives Metano Town River, fenêtre source contiguë à 1:1",
     "source_map": "source/eau_metano/animations_carte.json",
     "source_repository": "https://github.com/Palikadude/Halcyon",
     "source_commit": "da6c2130d641507447e6386a5e47a296e8cb4c71",
@@ -14614,32 +14614,65 @@
     "source_active_river_cells": 3200,
     "source_map_cell_coordinates_match_texloc": true,
     "source_map_layout_reconstructed_exactly": true,
-    "canonical_map_placement_in_generated_maps": false,
-    "generated_fill_source": "source/vallons_fleuris_v1/generations/EVF1_water_fill_generated.png",
-    "generated_fill_sha256": "9b61fb56c9eeb7c6f081d1c7d947a8c9642ae0fd11f70211502f502bc969242d",
-    "generated_pixels_are_native": false,
-    "canonical_animation_used_for_output_water": false,
+    "canonical_map_layout_preserved_in_biome_maps": false,
+    "output_native_source_window": {
+      "source_window_xyxy_cells": [
+        38,
+        48,
+        134,
+        120
+      ],
+      "source_window_xyxy_px": [
+        304,
+        384,
+        1072,
+        960
+      ],
+      "source_window_size_cells": [
+        96,
+        72
+      ],
+      "source_window_size_px": [
+        768,
+        576
+      ],
+      "source_water_cells_in_window": 1164,
+      "target_mask_water_cells": 794,
+      "overlap_water_cells": 385,
+      "mask_vs_native_window_iou": 0.244755,
+      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and union of four native River alpha frames",
+      "native_scale": true,
+      "rotation_degrees": 0,
+      "mirror": false,
+      "resized": false,
+      "recolored": false
+    },
+    "native_frames_used_for_output_water": true,
+    "output_rgb_values_are_native_map_samples": true,
+    "output_rgb_values_are_generated_map_samples": false,
     "frame_count": 4,
     "frame_length_ticks": 10,
     "water_animation": {
-      "method": "déplacement nearest-neighbor d'une texture générée par champ sinusoïdal déterministe",
+      "source": "quatre frames Metano_Town_River natives, fenêtre cartographique contiguë",
       "phase_count": 4,
       "frame_length_ticks": 10,
-      "maximum_displacement_px": 3,
+      "native_frame_pixels_used": true,
+      "native_scale": true,
+      "rotation_mirror_resize_recolor": false,
+      "transparent_source_fill_rule": "échantillon RGB River non transparent le plus proche dans la même fenêtre source, séparément par phase",
       "mask_fixed_for_all_phases": true,
-      "uses_native_metano_water_pixels": false,
-      "canonical_animation_claim": false
+      "full_canonical_map_layout_retained_in_biome": false
     },
     "map_water_cells": 794,
     "changed_pixels_vs_phase_1": [
-      39194,
-      42487,
-      38971
+      11792,
+      13352,
+      10202
     ],
     "shoreline_changed_pixels_vs_phase_1": [
-      10714,
-      11312,
-      10268
+      3120,
+      3599,
+      3157
     ]
   },
   "flower_status": {
@@ -14668,5 +14701,5 @@
   "ora": "renders/entree_vallon_fleuri_sud_nord_v1/EVF1_entree_vallon_fleuri_sud_nord_v1_calques.ora",
   "manifest": "renders/entree_vallon_fleuri_sud_nord_v1/manifest.json",
   "viewer_link": "apercu_vallons_fleuris_v1.html?map=EVF1",
-  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau vient d'une génération pleine carte, découpée au masque magenta exact; sa boucle est une animation procédurale de texture, pas l'animation native Metano. Les quatre cartes natives Métano sont reconstruites séparément comme références, et les scintillements sont des modules natifs. Frames officielles Sky Peak absentes."
+  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau utilise les quatre frames natives Metano Town River, prises dans une seule fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; les RGB restent des échantillons natifs et les transparences sont remplies par le plus proche échantillon natif de la fenêtre. La carte source complète est exportée séparément; son layout entier ne tient pas dans le biome. Les scintillements sont également natifs. Fleurs officielles Sky Peak absentes."
 }

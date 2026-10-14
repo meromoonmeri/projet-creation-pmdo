@@ -72,21 +72,23 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertTrue(water["source_map_layout_reconstructed_exactly"])
                 self.assertEqual(water["source_component_count"], 5)
                 self.assertEqual(len(water["source_components"]), 5)
-                self.assertIn("generations/", water["generated_fill_source"])
-                self.assertEqual(len(water["generated_fill_sha256"]), 64)
+                window = water["output_native_source_window"]
+                self.assertEqual(window["source_window_size_cells"], [96, 72])
+                self.assertTrue(window["native_scale"])
+                self.assertTrue(water["output_animation"]["native_frame_pixels_used"])
                 self.assertTrue(water["output_animation"]["mask_fixed_for_all_phases"])
                 self.assertEqual(water["frame_count"], 4)
                 self.assertEqual(water["frame_length_ticks"], 10)
                 self.assertEqual(water["phase_order"], [1, 2, 3, 4])
                 self.assertTrue(water["canonical_source_map_reconstructed_exactly"])
-                self.assertFalse(water["canonical_map_placement_in_generated_maps"])
-                self.assertTrue(water["output_rgb_values_are_generated_map_samples"])
-                self.assertFalse(water["output_rgb_values_are_native_map_samples"])
+                self.assertFalse(water["canonical_map_layout_preserved_in_biome_maps"])
+                self.assertFalse(water["output_rgb_values_are_generated_map_samples"])
+                self.assertTrue(water["output_rgb_values_are_native_map_samples"])
                 self.assertFalse(water["output_map_coordinates_canonical"])
                 self.assertFalse(water["surface_patch_repeated_at_native_scale"])
                 self.assertFalse(water["individual_shoreline_tile_matching_used"])
                 self.assertTrue(water["mask_clip_applied"])
-                self.assertFalse(water["output_animation"]["canonical_animation_claim"])
+                self.assertFalse(water["output_animation"]["full_canonical_map_layout_retained_in_biome"])
                 self.assertEqual(len(water["canonical_source_map_frames_saved"]), 4)
                 self.assertEqual(len(water["source_map_frame_paths"]), 4)
 
@@ -98,7 +100,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertIn("2cwdrrs469f61.gif", flowers["request"])
                 self.assertEqual(flowers["animated_count"], 0)
 
-    def test_generated_water_frames_animate_inside_fixed_magenta_mask(self):
+    def test_native_water_frames_animate_inside_fixed_magenta_mask(self):
         for code in CASES:
             with self.subTest(code=code):
                 water_record = self.manifest(code)["water"]
@@ -109,7 +111,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 for rgba in frames:
                     self.assertEqual(rgba.shape, (576, 768, 4))
                     self.assertTrue(np.array_equal(rgba[:, :, 3] > 0, water))
-                    self.assertGreaterEqual(len(np.unique(rgba[water, :3], axis=0)), 12)
+                    self.assertGreaterEqual(len(np.unique(rgba[water, :3], axis=0)), 8)
                     self.assertFalse(np.any(rgba[~water, 3]))
                 differences = [int((np.any(frames[0] != frame, axis=2) & water).sum())
                                for frame in frames[1:]]
@@ -122,8 +124,9 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertEqual(animation["phase_count"], 4)
                 self.assertEqual(animation["frame_length_ticks"], 10)
                 self.assertTrue(animation["mask_fixed_for_all_phases"])
-                self.assertFalse(animation["uses_native_metano_water_pixels"])
-                self.assertFalse(animation["canonical_animation_claim"])
+                self.assertTrue(animation["native_frame_pixels_used"])
+                self.assertFalse(animation["full_canonical_map_layout_retained_in_biome"])
+                self.assertFalse(animation["rotation_mirror_resize_recolor"])
 
     def test_full_native_map_is_rebuilt_at_example_map_cell_equal_texloc(self):
         source_data = json.loads((ROOT / "source/eau_metano/animations_carte.json").read_text())
@@ -158,22 +161,29 @@ class VallonsFleurisBuildTest(unittest.TestCase):
             with Image.open(ROOT / path) as saved:
                 self.assertTrue(np.array_equal(np.asarray(saved), np.asarray(native_frames[phase])))
 
-    def test_generated_fill_is_sampled_only_inside_original_mask(self):
+    def test_native_map_crop_samples_real_frames_at_1to1(self):
         for code in CASES:
             with self.subTest(code=code):
                 record = self.manifest(code)["water"]
-                generated_path = ROOT / record["generated_fill_source"]
-                self.assertEqual(build_module.sha256(generated_path), record["generated_fill_sha256"])
-                generated = Image.open(generated_path).convert("RGB")
-                self.assertEqual(generated.size, (1200, 896))
                 water = np.asarray(self.load(code, "masks/masque_eau.png").convert("L")) > 0
-                expected = np.asarray(build_module.normalize_rgb(generated).convert("RGB"))
                 frames = [np.asarray(frame) for frame in self.water_frames(code)]
-                self.assertTrue(np.array_equal(frames[0][water, :3], expected[water]))
-                self.assertFalse(np.any(frames[0][~water, 3]))
-                rebuilt, _, _, _ = build_module.generated_water_frames(water, generated, code)
-                for phase in range(4):
-                    self.assertTrue(np.array_equal(frames[phase], np.asarray(rebuilt[phase])))
+                window = record["output_native_source_window"]
+                x0, y0, x1, y1 = window["source_window_xyxy_px"]
+                self.assertEqual([x1 - x0, y1 - y0], [768, 576])
+                self.assertEqual(window["source_window_size_cells"], [96, 72])
+                self.assertTrue(window["native_scale"])
+                self.assertFalse(window["resized"])
+                self.assertFalse(window["recolored"])
+                self.assertFalse(window["mirror"])
+                self.assertEqual(window["rotation_degrees"], 0)
+                self.assertGreater(window["mask_vs_native_window_iou"], 0.1)
+                for phase, source_frame in enumerate(self.river_assets["canonical_map_frames"]):
+                    source_rgba = np.asarray(source_frame.crop((x0, y0, x1, y1)))
+                    valid = source_rgba[:, :, 3] > 0
+                    _, nearest = nd.distance_transform_edt(~valid, return_indices=True)
+                    expected_rgb = source_rgba[nearest[0], nearest[1], :3]
+                    self.assertTrue(np.array_equal(frames[phase][water, :3], expected_rgb[water]))
+                    self.assertTrue(np.array_equal(frames[phase][:, :, 3] > 0, water))
 
     def test_original_decor_and_static_flower_art_are_preserved(self):
         for code in CASES:
@@ -230,7 +240,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 with Image.open(anim_path) as anim:
                     self.assertEqual(anim.size, (768, 576))
                     self.assertEqual(anim.n_frames, 24)
-                zoom = self.load(code, f"review/{code}_zoom_eau_generee.png")
+                zoom = self.load(code, f"review/{code}_zoom_eau_metano_native.png")
                 self.assertEqual(zoom.size, (432, 288))
 
     def test_multilayer_openraster_and_interactive_viewer(self):
@@ -255,7 +265,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                     stack = ET.fromstring(z.read("stack.xml"))
                     names = [layer.attrib["name"] for layer in stack.find("stack").findall("layer")]
                     self.assertEqual(len(names), 4)
-                    self.assertIn("02 Eau générée façon Métano · masque magenta exact · phase 1/4", names)
+                    self.assertIn("02 Metano Town River · fenêtre native 1:1 clippée au masque magenta · phase 1/4", names)
                     self.assertFalse(any("skypeak" in name.lower() or "sprite" in name.lower() for name in names))
                     merged = Image.open(__import__("io").BytesIO(z.read("mergedimage.png")))
                     self.assertEqual(merged.size, (768, 576))

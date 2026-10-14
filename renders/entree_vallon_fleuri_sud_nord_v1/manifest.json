@@ -10,7 +10,7 @@
     96,
     72
   ],
-  "method": "Les compositions restaurées sont normalisées uniformément; le masque magenta du brut délimite l'eau. Chaque image générée complète est segmentée : seuls ses pixels dans ce masque alimentent le calque d'eau, tandis que le décor restauré est conservé hors masque. La matière est animée par déplacement nearest-neighbor déterministe sur quatre phases de 10 ticks. Les quatre calques source Metano Town River sont reconstruits à leurs 3200 coordonnées example_map_cell == TexLoc et fournis comme références séparées; leurs pixels et animation ne sont pas revendiqués dans les calques d'eau générés.",
+  "method": "Les bruts de décor sont normalisés uniformément et le masque magenta définit exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu 96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, recoloration, patch répété ou appariement séparé des berges. Les transparences du recadrage prennent l'échantillon River natif non transparent le plus proche, phase par phase, puis sont clippées au masque magenta. Les quatre frames sont les phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les deux biomes.",
   "normalization": {
     "source_px": [
       1200,
@@ -47,16 +47,6 @@
         896
       ],
       "attribution": "ancien sol_complet (1).png, blob restauré sans retouche"
-    },
-    {
-      "role": "generated_water_fill",
-      "file": "source/vallons_fleuris_v1/generations/EVF1_water_fill_generated.png",
-      "sha256": "9b61fb56c9eeb7c6f081d1c7d947a8c9642ae0fd11f70211502f502bc969242d",
-      "size_px": [
-        1200,
-        896
-      ],
-      "attribution": "image générée à partir du décor magenta complet; seuls les pixels du masque d'eau sont utilisés"
     }
   ],
   "water": {
@@ -197,8 +187,8 @@
       3,
       4
     ],
-    "canonical_map_placement_in_generated_maps": false,
-    "composition_method": "calques sources complets reconstitués aux coordonnées example_map_cell == TexLoc; ils servent de référence native séparée. Les sorties FVF1/EVF1 proviennent d'images générées pleine carte et sont segmentées par le masque magenta original.",
+    "canonical_map_layout_preserved_in_biome_maps": false,
+    "composition_method": "calques sources complets reconstitués aux coordonnées example_map_cell == TexLoc; ils sont fournis séparément. Chaque sortie utilise une fenêtre native contiguë 96×72 choisie par IoU avec le masque magenta, sans transformation, puis découpée par ce masque.",
     "source_map_frame_paths": [
       "renders/metano_town_native_river/Metano_Town_River_native_map_phase_1.png",
       "renders/metano_town_native_river/Metano_Town_River_native_map_phase_2.png",
@@ -214,36 +204,64 @@
     "frame_count": 4,
     "frame_length_ticks": 10,
     "output_frame_paths": [
-      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_1.png",
-      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_2.png",
-      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_3.png",
-      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_generee_facon_metano/EVF1_eau_facon_metano_phase_4.png"
+      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_1.png",
+      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_2.png",
+      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_3.png",
+      "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_4.png"
     ],
     "output_water_cells": 794,
-    "generated_fill_source": "source/vallons_fleuris_v1/generations/EVF1_water_fill_generated.png",
-    "generated_fill_sha256": "9b61fb56c9eeb7c6f081d1c7d947a8c9642ae0fd11f70211502f502bc969242d",
-    "generated_fill_size_px": [
-      1200,
-      896
-    ],
     "output_phase_changed_pixels_vs_1": [
-      39194,
-      42487,
-      38971
+      11792,
+      13352,
+      10202
     ],
     "output_shoreline_phase_changed_pixels_vs_1": [
-      10714,
-      11312,
-      10268
+      3120,
+      3599,
+      3157
     ],
+    "output_native_source_window": {
+      "source_window_xyxy_cells": [
+        38,
+        48,
+        134,
+        120
+      ],
+      "source_window_xyxy_px": [
+        304,
+        384,
+        1072,
+        960
+      ],
+      "source_window_size_cells": [
+        96,
+        72
+      ],
+      "source_window_size_px": [
+        768,
+        576
+      ],
+      "source_water_cells_in_window": 1164,
+      "target_mask_water_cells": 794,
+      "overlap_water_cells": 385,
+      "mask_vs_native_window_iou": 0.244755,
+      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and union of four native River alpha frames",
+      "native_scale": true,
+      "rotation_degrees": 0,
+      "mirror": false,
+      "resized": false,
+      "recolored": false
+    },
     "output_animation": {
-      "method": "déplacement nearest-neighbor d'une texture générée par champ sinusoïdal déterministe",
+      "source": "quatre frames Metano_Town_River natives, fenêtre cartographique contiguë",
       "phase_count": 4,
       "frame_length_ticks": 10,
-      "maximum_displacement_px": 3,
+      "native_frame_pixels_used": true,
+      "native_scale": true,
+      "rotation_mirror_resize_recolor": false,
+      "transparent_source_fill_rule": "échantillon RGB River non transparent le plus proche dans la même fenêtre source, séparément par phase",
       "mask_fixed_for_all_phases": true,
-      "uses_native_metano_water_pixels": false,
-      "canonical_animation_claim": false
+      "full_canonical_map_layout_retained_in_biome": false
     },
     "canonical_source_map_frames_saved": [
       "renders/metano_town_native_river/Metano_Town_River_native_map_phase_1.png",
@@ -252,13 +270,13 @@
       "renders/metano_town_native_river/Metano_Town_River_native_map_phase_4.png"
     ],
     "canonical_source_map_reconstructed_exactly": true,
-    "output_rgb_values_are_generated_map_samples": true,
-    "output_rgb_values_are_native_map_samples": false,
+    "output_rgb_values_are_generated_map_samples": false,
+    "output_rgb_values_are_native_map_samples": true,
     "output_map_coordinates_canonical": false,
     "surface_patch_repeated_at_native_scale": false,
     "individual_shoreline_tile_matching_used": false,
     "mask_clip_applied": true,
-    "output_scope": "texture générée complète découpée par le masque magenta original; décor hors masque inchangé",
+    "output_scope": "échantillons RGB pris dans une fenêtre cartographique River native contiguë 96×72 à 1:1; transparences remplies par le voisin River opaque le plus proche, puis alpha clippé au masque magenta original",
     "mask_diagnostics": {
       "magenta_pixels_raw": 110403,
       "anti_aliased_edge_pixels_raw": 704,
@@ -759,7 +777,7 @@
   "layer_order_bottom_to_top": [
     "00 Sol complet · brut généré restauré",
     "01 Décor généré · magenta retiré, fleurs statiques",
-    "02 Eau générée façon Métano · masque magenta exact · phase 1/4",
+    "02 Metano Town River · fenêtre native 1:1 clippée au masque magenta · phase 1/4",
     "03 Scintillements natifs Metano River · phase 1/4"
   ],
   "collisions": {
@@ -793,7 +811,7 @@
     "webp_frames": 24,
     "webp_duration_ms_each": 167,
     "loop_ticks": 240,
-    "zoom": "review/EVF1_zoom_eau_generee.png"
+    "zoom": "review/EVF1_zoom_eau_metano_native.png"
   },
   "art_approved": false,
   "runtime_tested": false,
