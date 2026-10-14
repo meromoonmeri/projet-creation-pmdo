@@ -1,0 +1,1326 @@
+{
+  "lot": "entree_tour_temporelle_sud_nord_v2",
+  "prefix": "ETT2",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "main (b2c7112) ; V1 (ETT1) conservee intacte",
+  "biome": "entree de tour prismatique noir et or (veines et circuits en or), arche de cristal a reflets legerement arc-en-ciel, roche noire, mer de nuages rouge/noir et breches de realite hors du chemin",
+  "method": "rendu genere REFERENCE sur fond magenta d apres ETT1/D29P11A en palette Noir & Or Prismatique ; circuits d or animes sur 16 crans ; reflets arc-en-ciel pastel sur le cristal et les ogives ; 10 breches de realite s ouvrant et se fermant sur les rochers et les nuages (0 px sur le chemin)",
+  "reference_da": {
+    "code_rom_geometrie": "D29P11A",
+    "code_rom_distorsion": "D30P34A",
+    "file": "source/entree_tour_temporelle_sud_nord_v2/reference/D29P11A.png",
+    "sha256": null,
+    "present": false,
+    "file_distorsion": "source/entree_tour_temporelle_sud_nord_v2/reference/D30P34A.png",
+    "sha256_distorsion": null,
+    "present_distorsion": false,
+    "note": "Références nommées dans le build mais absentes du checkout ; aucune autre référence n’est substituée."
+  },
+  "generation": [
+    {
+      "file": "decor_magenta.png",
+      "images": [
+        "source/entree_tour_temporelle_sud_nord_v1/bruts/decor_magenta.png",
+        "source/entree_tour_temporelle_sud_nord_v1/reference/D29P11A.png"
+      ],
+      "prompt": "Keep the EXACT same top-down 4:3 map layout, geometry and pixel-art style as the first reference image, but change the color palette to a DARK PRISMATIC BLACK-AND-GOLD theme: 1) Tall gothic wall in deep obsidian black and dark charcoal-indigo with golden-prismatic arch rims. 2) ALL circuit lines on the wall and ALL branching energy veins inside the rocks in glowing MOLTEN GOLD (#F7C737, #FFE777, #B7871F), no red veins. 3) All rocky ledges, boulders, floating rocks and south causeway in shades of black basalt and obsidian. 4) Central paved platform and stairs in dark slate-obsidian slabs. 5) Spiky crystal portal arch in translucent prismatic white-cyan crystal with pastel rainbow iridescent facets. Pure #FF00FF magenta sky.",
+      "essais": "premier essai 1200x896 ; conforme (toutes distances < 35)"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/entree_tour_temporelle_sud_nord_v1/bruts/sol_complet.png"
+      ],
+      "prompt": "Keep the EXACT same top-down pixel-art rectangular stone brick floor pattern as the reference image, filling the entire image edge to edge, but recolored to dark slate-obsidian stone slabs (#3A3E4A, #4A505E, #2C303A mortar lines). Wide landscape 4:3 format.",
+      "essais": "premier essai 1200x896 ; conforme"
+    },
+    {
+      "file": "nuages_magenta.png",
+      "images": [
+        "source/entree_tour_temporelle_sud_nord_v1/bruts/nuages_magenta.png"
+      ],
+      "prompt": "Keep the EXACT same 4 horizontal bands of billowy scalloped pixel-art clouds on a flat pure solid magenta (#FF00FF) background, but recolor the clouds to a dramatic DARK CRIMSON RED AND INK BLACK storm cloud palette (#D72737, #7F1724, #280B12, #18080D). Wide landscape 4:3 format.",
+      "essais": "premier essai 1200x896 ; 4 bandes rouge/noir distinctes"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_tour_temporelle_sud_nord_v2/bruts/decor_magenta.png",
+      "sha256": "be6f767d833b10853e3c631f804f3b3f8473f6c33cf97ccc125e3551571412ef",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_tour_temporelle_sud_nord_v2/bruts/sol_complet.png",
+      "sha256": "bc0ad7ccc56c606b1bcc3270f5885edaafcaa42f1588c7f5e5116fc874e8295c",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_tour_temporelle_sud_nord_v2/bruts/nuages_magenta.png",
+      "sha256": "96397ef7106ab60a22126d5915d7436c9539b22e7843409074987a2ad5fd63fb",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "bouche_y": [
+      186,
+      315
+    ],
+    "bouche_x": [
+      563,
+      638
+    ],
+    "rochers_flottants_nb": 5,
+    "circuits_or_px_pleine_res": 51280
+  },
+  "fidelite_rip": {
+    "methode": "distance euclidienne des moyennes RGB aux cibles Noir & Or / Nuages Rouge-Noir ; seuil 35",
+    "seuil": 35,
+    "mesures": {
+      "dalles_ardoise": {
+        "cible_rgb": [
+          52.0,
+          56.0,
+          70.0
+        ],
+        "decor_rgb": [
+          53.8,
+          57.5,
+          71.3
+        ],
+        "distance": 2.7
+      },
+      "muraille_noire": {
+        "cible_rgb": [
+          28.0,
+          29.0,
+          38.0
+        ],
+        "decor_rgb": [
+          28.0,
+          28.6,
+          38.4
+        ],
+        "distance": 0.5
+      },
+      "roche_noire": {
+        "cible_rgb": [
+          32.0,
+          31.0,
+          36.0
+        ],
+        "decor_rgb": [
+          27.5,
+          26.7,
+          30.0
+        ],
+        "distance": 8.7
+      },
+      "circuits_or": {
+        "cible_rgb": [
+          165.0,
+          122.0,
+          50.0
+        ],
+        "decor_rgb": [
+          162.9,
+          120.7,
+          52.6
+        ],
+        "distance": 3.5
+      },
+      "nuages_rouge_noir": {
+        "cible_rgb": [
+          108.0,
+          18.0,
+          26.0
+        ],
+        "decor_rgb": [
+          109.2,
+          18.1,
+          26.6
+        ],
+        "distance": 1.3
+      },
+      "sol_complet": {
+        "cible_rgb": [
+          54.0,
+          60.0,
+          68.0
+        ],
+        "decor_rgb": [
+          58.4,
+          65.7,
+          75.0
+        ],
+        "distance": 10.1
+      }
+    }
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "dalles": {
+        "calques": [
+          "sol_complet",
+          "parvis_dalles"
+        ],
+        "couleurs": 48
+      },
+      "roche_noire": {
+        "calques": [
+          "chaussee_noire",
+          "parois_rocheuses"
+        ],
+        "couleurs": 64
+      },
+      "muraille": {
+        "calques": [
+          "muraille_gothique"
+        ],
+        "couleurs": 48
+      },
+      "portail": {
+        "calques": [
+          "portail_cristal"
+        ],
+        "couleurs": 32
+      },
+      "sombre": {
+        "calques": [
+          "profondeur"
+        ],
+        "couleurs": 8
+      }
+    }
+  },
+  "segmentation": "Seuils mesurés sur bruts/decor_magenta.png (1200 x 896, thème Noir & Or Prismatique) :\n    - void : magenta pur (R > 200, B > 200, G < 80) + liseré rosé relié aux bords, dilaté de 1 px ;\n    - rochers_flottants : 5 îlots de roche noire séparés de la plateforme principale (>= 80 px) ;\n    - profondeur : bouche sombre au nord-centre (lum < 22, y 180..330, x 545..655), dilatée de 2 px dans lum < 34 ;\n    - circuits_or : tracés de circuits sur la muraille noire et veines d'or dans la roche noire (R > B + 55,\n      G > B + 20, R > 105, composantes >= 6 px) — aucun pixel rouge ;\n    - portail_cristal : arche à pointes de cristal clair/irisé autour de la bouche (lum > 105, B > 125 ou R > 135) ;\n    - parvis_dalles : esplanade centrale, escaliers et terrasse haute en dalles d'ardoise sombre (lum > 41, B >= R + 4) ;\n    - chaussee_noire : chaussée praticable de basalte noir au sud (y >= 665, x 485..715, lum > 46) ;\n    - parois_rocheuses : flancs et corniches de roche d'obsidienne noire (y >= 245, B - R <= 7, fermé 3 px, >= 2000 px) ;\n    - muraille_gothique : haute muraille gothique noire à colonnes et ogives dorées/prismatiques au nord.",
+  "layer_order_bottom_to_top": [
+    "calques/ETT2_00_ciel.png",
+    "animation/nuages/ETT2_01_nuages_fNN.png",
+    "calques/ETT2_02_sol_complet.png",
+    "calques/ETT2_03_chaussee_noire.png",
+    "calques/ETT2_04_parvis_dalles.png",
+    "calques/ETT2_05_parois_rocheuses.png",
+    "calques/ETT2_06_muraille_gothique.png",
+    "calques/ETT2_07_portail_cristal.png",
+    "animation/reflets_arc_en_ciel/ETT2_08_reflets_arc_en_ciel_fNN.png",
+    "calques/ETT2_09_profondeur.png",
+    "animation/rochers_flottants/ETT2_10_rochers_flottants_fNN.png",
+    "animation/circuits_or/ETT2_11_circuits_or_fNN.png",
+    "animation/breches_realite/ETT2_12_breches_realite_fNN.png",
+    "animation/eclats_or_prisme/ETT2_13_eclats_or_prisme_fNN.png"
+  ],
+  "layers": [
+    {
+      "file": "calques/ETT2_00_ciel.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/nuages/ETT2_01_nuages_fNN.png",
+      "phases": 48,
+      "ticks": 5
+    },
+    {
+      "file": "calques/ETT2_02_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETT2_03_chaussee_noire.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETT2_04_parvis_dalles.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETT2_05_parois_rocheuses.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETT2_06_muraille_gothique.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/ETT2_07_portail_cristal.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/reflets_arc_en_ciel/ETT2_08_reflets_arc_en_ciel_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
+      "file": "calques/ETT2_09_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/rochers_flottants/ETT2_10_rochers_flottants_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
+      "file": "animation/circuits_or/ETT2_11_circuits_or_fNN.png",
+      "phases": 16,
+      "ticks": 5
+    },
+    {
+      "file": "animation/breches_realite/ETT2_12_breches_realite_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
+      "file": "animation/eclats_or_prisme/ETT2_13_eclats_or_prisme_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    }
+  ],
+  "ciel": {
+    "ton": [
+      28,
+      8,
+      13
+    ],
+    "origine": "ton rouge-noir d abime assorti a la base des nuages cramoisis"
+  },
+  "nuages": {
+    "phases": 48,
+    "frame_length_ticks": 5,
+    "pas_px": 8,
+    "periode_px": 384,
+    "echelle_brut": 0.37,
+    "fondu_px": 60,
+    "bandes_brut_lignes": [
+      [
+        16,
+        199
+      ],
+      [
+        244,
+        435
+      ],
+      [
+        488,
+        675
+      ],
+      [
+        731,
+        896
+      ]
+    ],
+    "hauteurs": [
+      96,
+      99,
+      97,
+      89
+    ],
+    "rangees": [
+      {
+        "haut": 228,
+        "bande": 0,
+        "decalage_x": 0
+      },
+      {
+        "haut": 288,
+        "bande": 1,
+        "decalage_x": 96
+      },
+      {
+        "haut": 348,
+        "bande": 2,
+        "decalage_x": 192
+      },
+      {
+        "haut": 408,
+        "bande": 3,
+        "decalage_x": 288
+      },
+      {
+        "haut": 468,
+        "bande": 0,
+        "decalage_x": 144
+      },
+      {
+        "haut": 520,
+        "bande": 1,
+        "decalage_x": 240
+      }
+    ],
+    "palette": [
+      [
+        215,
+        37,
+        47
+      ],
+      [
+        191,
+        30,
+        41
+      ],
+      [
+        156,
+        25,
+        35
+      ],
+      [
+        141,
+        19,
+        31
+      ],
+      [
+        121,
+        13,
+        26
+      ],
+      [
+        99,
+        11,
+        22
+      ],
+      [
+        57,
+        12,
+        18
+      ],
+      [
+        43,
+        12,
+        17
+      ],
+      [
+        42,
+        12,
+        17
+      ],
+      [
+        37,
+        11,
+        15
+      ],
+      [
+        31,
+        8,
+        11
+      ],
+      [
+        28,
+        8,
+        13
+      ],
+      [
+        28,
+        8,
+        11
+      ],
+      [
+        24,
+        8,
+        9
+      ],
+      [
+        19,
+        5,
+        7
+      ],
+      [
+        15,
+        5,
+        6
+      ]
+    ]
+  },
+  "reflets_arc_en_ciel": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "largeur_bande": 52,
+    "details": {
+      "portal_facet_px": 2589,
+      "tower_arch_prism_px": 4611,
+      "tones_cristal_arc_en_ciel": [
+        [
+          231,
+          199,
+          199
+        ],
+        [
+          231,
+          223,
+          199
+        ],
+        [
+          231,
+          239,
+          199
+        ],
+        [
+          207,
+          239,
+          199
+        ],
+        [
+          191,
+          239,
+          199
+        ],
+        [
+          191,
+          239,
+          223
+        ],
+        [
+          191,
+          239,
+          239
+        ],
+        [
+          191,
+          223,
+          239
+        ],
+        [
+          191,
+          199,
+          239
+        ],
+        [
+          207,
+          199,
+          239
+        ],
+        [
+          231,
+          199,
+          239
+        ],
+        [
+          231,
+          199,
+          223
+        ]
+      ],
+      "tones_ogives_prisme": [
+        [
+          183,
+          87,
+          87
+        ],
+        [
+          183,
+          135,
+          87
+        ],
+        [
+          183,
+          183,
+          87
+        ],
+        [
+          135,
+          183,
+          87
+        ],
+        [
+          87,
+          183,
+          87
+        ],
+        [
+          87,
+          183,
+          135
+        ],
+        [
+          87,
+          183,
+          183
+        ],
+        [
+          87,
+          135,
+          183
+        ],
+        [
+          87,
+          87,
+          183
+        ],
+        [
+          135,
+          87,
+          183
+        ],
+        [
+          183,
+          87,
+          183
+        ],
+        [
+          183,
+          87,
+          135
+        ]
+      ]
+    }
+  },
+  "rochers_flottants": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "liste": [
+      {
+        "id": 1,
+        "phase": 0,
+        "amp": 2,
+        "centre_xy": [
+          707,
+          382
+        ],
+        "pixels": 1142
+      },
+      {
+        "id": 2,
+        "phase": 5,
+        "amp": 1,
+        "centre_xy": [
+          69,
+          387
+        ],
+        "pixels": 291
+      },
+      {
+        "id": 3,
+        "phase": 10,
+        "amp": 2,
+        "centre_xy": [
+          37,
+          452
+        ],
+        "pixels": 286
+      },
+      {
+        "id": 4,
+        "phase": 15,
+        "amp": 1,
+        "centre_xy": [
+          667,
+          454
+        ],
+        "pixels": 284
+      },
+      {
+        "id": 5,
+        "phase": 20,
+        "amp": 2,
+        "centre_xy": [
+          110,
+          481
+        ],
+        "pixels": 1194
+      }
+    ]
+  },
+  "circuits_or": {
+    "phases": 16,
+    "frame_length_ticks": 5,
+    "rampes": {
+      "sombre": [
+        [
+          119,
+          79,
+          15
+        ],
+        [
+          135,
+          95,
+          15
+        ],
+        [
+          151,
+          103,
+          23
+        ],
+        [
+          167,
+          119,
+          23
+        ],
+        [
+          175,
+          127,
+          31
+        ],
+        [
+          183,
+          135,
+          31
+        ],
+        [
+          191,
+          143,
+          39
+        ],
+        [
+          207,
+          159,
+          47
+        ],
+        [
+          207,
+          159,
+          47
+        ],
+        [
+          191,
+          143,
+          39
+        ],
+        [
+          183,
+          135,
+          31
+        ],
+        [
+          175,
+          127,
+          31
+        ],
+        [
+          167,
+          119,
+          23
+        ],
+        [
+          151,
+          103,
+          23
+        ],
+        [
+          135,
+          95,
+          15
+        ],
+        [
+          119,
+          79,
+          15
+        ]
+      ],
+      "moyen": [
+        [
+          167,
+          119,
+          23
+        ],
+        [
+          183,
+          135,
+          31
+        ],
+        [
+          199,
+          151,
+          39
+        ],
+        [
+          207,
+          159,
+          47
+        ],
+        [
+          215,
+          175,
+          55
+        ],
+        [
+          223,
+          183,
+          63
+        ],
+        [
+          231,
+          199,
+          71
+        ],
+        [
+          239,
+          215,
+          87
+        ],
+        [
+          239,
+          215,
+          87
+        ],
+        [
+          231,
+          199,
+          71
+        ],
+        [
+          223,
+          183,
+          63
+        ],
+        [
+          215,
+          175,
+          55
+        ],
+        [
+          207,
+          159,
+          47
+        ],
+        [
+          199,
+          151,
+          39
+        ],
+        [
+          183,
+          135,
+          31
+        ],
+        [
+          167,
+          119,
+          23
+        ]
+      ],
+      "vif": [
+        [
+          215,
+          167,
+          39
+        ],
+        [
+          223,
+          175,
+          47
+        ],
+        [
+          231,
+          191,
+          63
+        ],
+        [
+          239,
+          207,
+          79
+        ],
+        [
+          247,
+          215,
+          95
+        ],
+        [
+          247,
+          223,
+          111
+        ],
+        [
+          255,
+          239,
+          135
+        ],
+        [
+          255,
+          247,
+          159
+        ],
+        [
+          255,
+          247,
+          159
+        ],
+        [
+          255,
+          239,
+          135
+        ],
+        [
+          247,
+          223,
+          111
+        ],
+        [
+          247,
+          215,
+          95
+        ],
+        [
+          239,
+          207,
+          79
+        ],
+        [
+          231,
+          191,
+          63
+        ],
+        [
+          223,
+          175,
+          47
+        ],
+        [
+          215,
+          167,
+          39
+        ]
+      ]
+    },
+    "tons_or": [
+      [
+        119,
+        79,
+        15
+      ],
+      [
+        135,
+        95,
+        15
+      ],
+      [
+        151,
+        103,
+        23
+      ],
+      [
+        167,
+        119,
+        23
+      ],
+      [
+        175,
+        127,
+        31
+      ],
+      [
+        183,
+        135,
+        31
+      ],
+      [
+        191,
+        143,
+        39
+      ],
+      [
+        199,
+        151,
+        39
+      ],
+      [
+        207,
+        159,
+        47
+      ],
+      [
+        215,
+        167,
+        39
+      ],
+      [
+        215,
+        175,
+        55
+      ],
+      [
+        223,
+        175,
+        47
+      ],
+      [
+        223,
+        183,
+        63
+      ],
+      [
+        231,
+        191,
+        63
+      ],
+      [
+        231,
+        199,
+        71
+      ],
+      [
+        239,
+        207,
+        79
+      ],
+      [
+        239,
+        215,
+        87
+      ],
+      [
+        247,
+        215,
+        95
+      ],
+      [
+        247,
+        223,
+        111
+      ],
+      [
+        255,
+        239,
+        135
+      ],
+      [
+        255,
+        247,
+        159
+      ]
+    ],
+    "pixels_par_rampe": {
+      "sombre": 8248,
+      "moyen": 8248,
+      "vif": 8248
+    }
+  },
+  "breches_realite": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "phases_ouvertes_par_cycle": 16,
+    "phases_fermees_par_cycle": 8,
+    "pixels_union_totale": 8154,
+    "pixels_sur_chemin_praticable": 0,
+    "liste": [
+      {
+        "id": 1,
+        "centre_xy": [
+          74,
+          384
+        ],
+        "demi_longueur_px": 30,
+        "demi_largeur_px": 8,
+        "angle_deg": -26,
+        "phase_offset": 0,
+        "zone": "nuages",
+        "cos": 0.898794046299167,
+        "sin": -0.4383711467890774
+      },
+      {
+        "id": 2,
+        "centre_xy": [
+          118,
+          514
+        ],
+        "demi_longueur_px": 32,
+        "demi_largeur_px": 8,
+        "angle_deg": 22,
+        "phase_offset": 5,
+        "zone": "nuages",
+        "cos": 0.9271838545667874,
+        "sin": 0.374606593415912
+      },
+      {
+        "id": 3,
+        "centre_xy": [
+          248,
+          526
+        ],
+        "demi_longueur_px": 26,
+        "demi_largeur_px": 7,
+        "angle_deg": -18,
+        "phase_offset": 10,
+        "zone": "nuages",
+        "cos": 0.9510565162951535,
+        "sin": -0.3090169943749474
+      },
+      {
+        "id": 4,
+        "centre_xy": [
+          690,
+          388
+        ],
+        "demi_longueur_px": 28,
+        "demi_largeur_px": 8,
+        "angle_deg": 24,
+        "phase_offset": 14,
+        "zone": "nuages",
+        "cos": 0.9135454576426009,
+        "sin": 0.4067366430758002
+      },
+      {
+        "id": 5,
+        "centre_xy": [
+          642,
+          512
+        ],
+        "demi_longueur_px": 32,
+        "demi_largeur_px": 8,
+        "angle_deg": -24,
+        "phase_offset": 19,
+        "zone": "nuages",
+        "cos": 0.9135454576426009,
+        "sin": -0.4067366430758002
+      },
+      {
+        "id": 6,
+        "centre_xy": [
+          116,
+          255
+        ],
+        "demi_longueur_px": 28,
+        "demi_largeur_px": 7,
+        "angle_deg": 30,
+        "phase_offset": 2,
+        "zone": "rochers",
+        "cos": 0.8660254037844387,
+        "sin": 0.49999999999999994
+      },
+      {
+        "id": 7,
+        "centre_xy": [
+          215,
+          424
+        ],
+        "demi_longueur_px": 26,
+        "demi_largeur_px": 7,
+        "angle_deg": -28,
+        "phase_offset": 7,
+        "zone": "rochers",
+        "cos": 0.882947592858927,
+        "sin": -0.4694715627858908
+      },
+      {
+        "id": 8,
+        "centre_xy": [
+          655,
+          255
+        ],
+        "demi_longueur_px": 28,
+        "demi_largeur_px": 7,
+        "angle_deg": -30,
+        "phase_offset": 12,
+        "zone": "rochers",
+        "cos": 0.8660254037844387,
+        "sin": -0.49999999999999994
+      },
+      {
+        "id": 9,
+        "centre_xy": [
+          554,
+          424
+        ],
+        "demi_longueur_px": 26,
+        "demi_largeur_px": 7,
+        "angle_deg": 26,
+        "phase_offset": 17,
+        "zone": "rochers",
+        "cos": 0.898794046299167,
+        "sin": 0.4383711467890774
+      },
+      {
+        "id": 10,
+        "centre_xy": [
+          244,
+          232
+        ],
+        "demi_longueur_px": 24,
+        "demi_largeur_px": 7,
+        "angle_deg": 20,
+        "phase_offset": 21,
+        "zone": "rochers",
+        "cos": 0.9396926207859084,
+        "sin": 0.3420201433256687
+      }
+    ]
+  },
+  "eclats_or_prisme": {
+    "phases": 24,
+    "frame_length_ticks": 10,
+    "liste": [
+      {
+        "x": 359,
+        "y": 205,
+        "phase": 0,
+        "famille": "prisme"
+      },
+      {
+        "x": 588,
+        "y": 392,
+        "phase": 3,
+        "famille": "or"
+      },
+      {
+        "x": 382,
+        "y": 86,
+        "phase": 6,
+        "famille": "prisme"
+      },
+      {
+        "x": 205,
+        "y": 389,
+        "phase": 9,
+        "famille": "or"
+      },
+      {
+        "x": 330,
+        "y": 158,
+        "phase": 12,
+        "famille": "prisme"
+      },
+      {
+        "x": 577,
+        "y": 392,
+        "phase": 15,
+        "famille": "or"
+      },
+      {
+        "x": 385,
+        "y": 100,
+        "phase": 18,
+        "famille": "prisme"
+      },
+      {
+        "x": 515,
+        "y": 418,
+        "phase": 21,
+        "famille": "or"
+      },
+      {
+        "x": 409,
+        "y": 141,
+        "phase": 0,
+        "famille": "prisme"
+      },
+      {
+        "x": 85,
+        "y": 219,
+        "phase": 3,
+        "famille": "or"
+      },
+      {
+        "x": 421,
+        "y": 131,
+        "phase": 6,
+        "famille": "prisme"
+      },
+      {
+        "x": 571,
+        "y": 219,
+        "phase": 9,
+        "famille": "or"
+      },
+      {
+        "x": 377,
+        "y": 121,
+        "phase": 12,
+        "famille": "prisme"
+      },
+      {
+        "x": 231,
+        "y": 390,
+        "phase": 15,
+        "famille": "or"
+      },
+      {
+        "x": 401,
+        "y": 129,
+        "phase": 18,
+        "famille": "prisme"
+      },
+      {
+        "x": 188,
+        "y": 361,
+        "phase": 21,
+        "famille": "or"
+      }
+    ]
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      376,
+      208
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 774,
+    "blocked_cells": 5845,
+    "total_cells": 6912,
+    "walkable_cells": 1067
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "ett2_entree_tour_temporelle_noire_or",
+    "namespace": "entree_tour_temporelle_sud_nord_v2",
+    "tiles_per_bank": {
+      "ETT2_00_CIEL": 2,
+      "ETT2_01_NUAGES": 1155,
+      "ETT2_02_SOL": 5521,
+      "ETT2_03_CHAUSSEE": 292,
+      "ETT2_04_PARVIS": 932,
+      "ETT2_05_PAROIS": 2266,
+      "ETT2_06_MURAILLE": 2524,
+      "ETT2_07_PORTAIL": 140,
+      "ETT2_08_REFLETS": 5435,
+      "ETT2_09_PROFONDEUR": 60,
+      "ETT2_10_ROCHERS": 381,
+      "ETT2_11_CIRCUITS": 11579,
+      "ETT2_12_BRECHES": 2544,
+      "ETT2_13_ECLATS": 254
+    },
+    "banks": [
+      "ETT2_00_CIEL",
+      "ETT2_01_NUAGES",
+      "ETT2_02_SOL",
+      "ETT2_03_CHAUSSEE",
+      "ETT2_04_PARVIS",
+      "ETT2_05_PAROIS",
+      "ETT2_06_MURAILLE",
+      "ETT2_07_PORTAIL",
+      "ETT2_08_REFLETS",
+      "ETT2_09_PROFONDEUR",
+      "ETT2_10_ROCHERS",
+      "ETT2_11_CIRCUITS",
+      "ETT2_12_BRECHES",
+      "ETT2_13_ECLATS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
