@@ -3,11 +3,11 @@
 
 Usage : .venv/bin/python source/vallons_fleuris_v1/build.py
 
-Les compositions de départ ne sont ni régénérées ni remplacées. Elles sont normalisées
-uniformément en 768×576 ; le magenta devient un masque. Les 3200 cellules River sont
-reconstruites à leurs coordonnées natives dans les quatre calques complets de Metano Town,
-puis des composantes cartographiques entières sont adaptées aux bassins générés. Aucun patch
-répété ni assortiment de tuiles de rive au pixel près.
+Les compositions restaurées sont normalisées uniformément en 768×576 ; le magenta devient
+le masque fixe de l'eau. Les images générées pleine carte sont segmentées à ce masque exact :
+seuls leurs pixels dans l'eau sont utilisés et le décor original reste intact hors masque.
+La matière générée est animée par un déplacement doux en quatre phases ; ce n'est pas l'animation
+native ni un calque de pixels canoniques. La carte River complète native est reconstruite à part.
 
 Limite de provenance : les quatre frames Sky Peak officielles attendues par
 source/sky_peak_v1/build_canonique.py (gif_0.png…gif_3.png, source `2cwdrrs469f61.gif`)
@@ -51,6 +51,7 @@ MAPS = {
         "title": "Fin Vallon Fleuri — Sanctuaire de la Clairière Fleurie",
         "decor_file": "decor_magenta.png",
         "soil_file": "sol_complet.png",
+        "water_fill_file": "generations/FVF1_water_fill_generated.png",
         "decor_attribution": "ancien decor_magenta (3).png, blob restauré sans retouche",
         "soil_attribution": "ancien sol_complet.png, blob restauré sans retouche",
         "markers": [
@@ -67,6 +68,7 @@ MAPS = {
         "title": "Entrée Vallon Fleuri — Sud vers Nord",
         "decor_file": "decor_magenta.png",
         "soil_file": "sol_complet.png",
+        "water_fill_file": "generations/EVF1_water_fill_generated.png",
         "decor_attribution": "ancien decor_magenta.png, blob restauré sans retouche",
         "soil_attribution": "ancien sol_complet (1).png, blob restauré sans retouche",
         "markers": [
@@ -350,9 +352,9 @@ def native_metano_river_tiles() -> dict:
         "phase_order": [1, 2, 3, 4],
         "canonical_map_placement_in_generated_maps": False,
         "composition_method": (
-            "calques complets reconstitués aux coordonnées example_map_cell == TexLoc; "
-            "composantes cartographiques natives entières sélectionnées et transformées comme unités "
-            "pour les bassins générés; aucun patch de surface répété ni appariement tuile-par-tuile"),
+            "calques sources complets reconstitués aux coordonnées example_map_cell == TexLoc; "
+            "ils servent de référence native séparée. Les sorties FVF1/EVF1 proviennent d'images "
+            "générées pleine carte et sont segmentées par le masque magenta original."),
     }
 
 
@@ -377,167 +379,81 @@ def official_sky_peak_flower_status() -> dict:
     }
 
 
-def native_water_frames(
-    water: np.ndarray, river_assets: dict,
-) -> tuple[list[Image.Image], list[dict], list[int], list[int]]:
-    """Texture chaque bassin avec une composante entière du calque cartographique natif.
+def generated_water_frames(
+    water: np.ndarray, generated_full_map: Image.Image, code: str,
+) -> tuple[list[Image.Image], dict, list[int], list[int]]:
+    """Découpe l'eau générée dans le masque magenta et anime sa matière sans toucher au bord.
 
-    Les composantes sont d'abord extraites de la carte Metano reconstruite aux coordonnées
-    d'origine, puis appariées aux bassins générés comme silhouettes entières. La texture
-    provient du même segment spatial natif sur toute la composante ; il n'y a ni patch répété
-    ni sélection tuile-par-tuile. Rotation et redimensionnement NEAREST sont consignés car
-    FVF1/EVF1 sont des biomes générés, pas la carte canonique de Métano.
+    La proposition générée est un rendu complet. Seuls ses pixels dans le masque tiré du brut
+    magenta sont utilisés ; hors de ce masque, le décor d'origine reste la seule source.
+    La boucle est un léger déplacement nearest-neighbor de la texture générée. Elle emprunte
+    la cadence Métano (4 × 10 ticks), mais n'est ni l'animation native ni une tuile canonique.
     """
-    source_frames = river_assets["canonical_map_frames"]
-    source_components = river_assets["source_components"]
-    source_labels = river_assets["source_component_labels"]
-    if len(source_frames) != PHASES or not source_components:
-        raise AssertionError("Les calques cartographiques River Metano manquent")
+    if code not in {"FVF1", "EVF1"}:
+        raise AssertionError(f"Code de biome inconnu pour l'animation d'eau : {code}")
+    if generated_full_map.size != (SRC_W, SRC_H):
+        raise AssertionError(
+            f"Génération d'eau {code} hors format {(SRC_W, SRC_H)} : {generated_full_map.size}")
+    if water.shape != (H, W) or not water.any():
+        raise AssertionError(f"Masque d'eau invalide pour {code}: {water.shape}")
 
-    target_labels, target_count = nd.label(water, structure=np.ones((3, 3), dtype=bool))
-    target_components = []
-    for label in range(1, target_count + 1):
-        ys, xs = np.nonzero(target_labels == label)
-        pixel_count = int(len(xs))
-        if pixel_count < 64:
-            continue
-        x0, x1 = int(xs.min()), int(xs.max()) + 1
-        y0, y1 = int(ys.min()), int(ys.max()) + 1
-        target_components.append({
-            "label": int(label),
-            "pixel_count": pixel_count,
-            "bbox_xyxy_px": [x0, y0, x1, y1],
-        })
-    target_components.sort(key=lambda component: (
-        component["bbox_xyxy_px"][0], component["bbox_xyxy_px"][1], component["bbox_xyxy_px"][3]))
-    if not target_components or len(source_components) < len(target_components):
-        raise AssertionError("Pas assez de composantes River natives pour les bassins FVF1/EVF1")
+    generated_rgb = np.asarray(normalize_rgb(generated_full_map).convert("RGB"), dtype=np.uint8)
+    # Pour déplacer la texture de quelques pixels, prolonge uniquement la matière d'eau par
+    # son plus proche échantillon généré. Cela évite de faire entrer terre/pierres dans le masque.
+    _, nearest = nd.distance_transform_edt(~water, return_indices=True)
+    texture_rgb = generated_rgb.copy()
+    texture_rgb[~water] = generated_rgb[nearest[0][~water], nearest[1][~water]]
+    pad = 3
+    padded = np.pad(texture_rgb, ((pad, pad), (pad, pad), (0, 0)), mode="reflect")
+    yy, xx = np.indices((H, W), dtype=np.float32)
 
-    candidate_options = {}
-    for target_index, target in enumerate(target_components):
-        x0, y0, x1, y1 = target["bbox_xyxy_px"]
-        target_mask = target_labels[y0:y1, x0:x1] == target["label"]
-        target_options = {}
-        for source_index, source in enumerate(source_components):
-            sx0, sy0, sx1, sy1 = source["source_bbox_xyxy_px"]
-            source_mask = (source_labels[sy0:sy1, sx0:sx1] == source["label"])
-            rotations = []
-            for quarter_turns in range(4):
-                rotated = np.rot90(source_mask, quarter_turns)
-                scale_x = (x1 - x0) / rotated.shape[1]
-                scale_y = (y1 - y0) / rotated.shape[0]
-                if not (0.25 <= scale_x <= 3.5 and 0.25 <= scale_y <= 3.5):
-                    continue
-                resized = Image.fromarray(rotated.astype(np.uint8) * 255, "L").resize(
-                    (x1 - x0, y1 - y0), Image.Resampling.NEAREST)
-                resized_mask = np.asarray(resized) > 0
-                intersection = int(np.logical_and(resized_mask, target_mask).sum())
-                union = int(np.logical_or(resized_mask, target_mask).sum())
-                iou = intersection / max(1, union)
-                scale_penalty = abs(math.log(scale_x)) + abs(math.log(scale_y))
-                cost = 1.0 - iou + 0.15 * scale_penalty
-                rotations.append({
-                    "cost": float(cost),
-                    "iou": float(iou),
-                    "quarter_turns": quarter_turns,
-                    "scale_x": float(scale_x),
-                    "scale_y": float(scale_y),
-                })
-            target_options[source_index] = min(
-                rotations,
-                key=lambda option: (option["cost"], option["quarter_turns"]),
-            ) if rotations else {"cost": float("inf")}
-        candidate_options[target_index] = target_options
-
-    best_assignment = None
-    best_key = None
-    for assignment in itertools.permutations(range(len(source_components)), len(target_components)):
-        if any(not math.isfinite(candidate_options[target_index][source_index]["cost"])
-               for target_index, source_index in enumerate(assignment)):
-            continue
-        total_cost = sum(candidate_options[target_index][source_index]["cost"]
-                         for target_index, source_index in enumerate(assignment))
-        key = (total_cost, assignment)
-        if best_key is None or key < best_key:
-            best_key = key
-            best_assignment = assignment
-    if best_assignment is None:
-        raise AssertionError("Aucun appariement cartographique stable pour les composantes River")
-
-    output_arrays = [np.zeros((H, W, 4), dtype=np.uint8) for _ in range(PHASES)]
-    placements = []
-    for target_index, source_index in enumerate(best_assignment):
-        target = target_components[target_index]
-        source = source_components[source_index]
-        option = candidate_options[target_index][source_index]
-        x0, y0, x1, y1 = target["bbox_xyxy_px"]
-        sx0, sy0, sx1, sy1 = source["source_bbox_xyxy_px"]
-        target_mask = target_labels[y0:y1, x0:x1] == target["label"]
-        quarter_turns = option["quarter_turns"]
-        placements.append({
-            "destination_component_index": target_index + 1,
-            "destination_bbox_xyxy_px": [x0, y0, x1, y1],
-            "destination_bbox_xyxy_cells": [x0 // TILE, y0 // TILE,
-                                            (x1 + TILE - 1) // TILE, (y1 + TILE - 1) // TILE],
-            "destination_water_pixels": target["pixel_count"],
-            "source_component_id": source["source_component_id"],
-            "source_component_bbox_xyxy_px": [sx0, sy0, sx1, sy1],
-            "source_component_bbox_xyxy_cells": source["source_bbox_xyxy_cells"],
-            "source_component_map_cells": source["source_map_cell_count"],
-            "source_component_native_pixels": source["source_native_pixel_count"],
-            "rotation_degrees_counterclockwise": quarter_turns * 90,
-            "nearest_neighbor_scale_xy": [round(option["scale_x"], 6), round(option["scale_y"], 6)],
-            "whole_component_silhouette_iou": round(option["iou"], 6),
-        })
-
-        component_source_mask = (source_labels[sy0:sy1, sx0:sx1] == source["label"])
-        for phase, source_frame in enumerate(source_frames):
-            source_rgba = np.asarray(source_frame.crop((sx0, sy0, sx1, sy1)), dtype=np.uint8)
-            valid = component_source_mask & (source_rgba[:, :, 3] > 0)
-            if not np.any(valid):
-                raise AssertionError(f"Composante source vide pendant la phase {phase + 1}: {source['source_component_id']}")
-            _, nearest = nd.distance_transform_edt(~valid, return_indices=True)
-            native_rgb = source_rgba[nearest[0], nearest[1], :3]
-            if quarter_turns:
-                native_rgb = np.rot90(native_rgb, quarter_turns)
-            texture = Image.fromarray(native_rgb.astype(np.uint8), "RGB").resize(
-                (x1 - x0, y1 - y0), Image.Resampling.NEAREST)
-            texture_array = np.asarray(texture, dtype=np.uint8)
-            destination = output_arrays[phase][y0:y1, x0:x1]
-            destination[target_mask, :3] = texture_array[target_mask]
-            destination[target_mask, 3] = 255
-
-    assigned = output_arrays[0][:, :, 3] > 0
-    missing = water & ~assigned
-    if np.any(missing):
-        if not np.any(assigned):
-            raise AssertionError("Aucune composante native n'a été composée dans le masque River")
-        _, nearest = nd.distance_transform_edt(~assigned, return_indices=True)
-        for array in output_arrays:
-            array[missing, :3] = array[nearest[0][missing], nearest[1][missing], :3]
+    if code == "EVF1":
+        # Le chenal est majoritairement horizontal : petites ondulations transversales.
+        flow = 2.0 * math.pi * yy / 32.0
+        cross = 2.0 * math.pi * xx / 48.0
+        amplitude_x, amplitude_y = 1.35, 0.55
+    else:
+        # Le cours d'eau encercle la clairière : déplacement doux à deux axes.
+        flow = 2.0 * math.pi * (xx + 0.78 * yy) / 38.0
+        cross = 2.0 * math.pi * (xx - 0.62 * yy) / 54.0
+        amplitude_x, amplitude_y = 1.10, 0.75
 
     frames = []
-    for array in output_arrays:
-        array[~water] = 0
-        array[:, :, 3] = water.astype(np.uint8) * 255
-        image = Image.fromarray(array, "RGBA")
-        if np.any((np.asarray(image)[:, :, 3] > 0) != water):
-            raise AssertionError("Le calque Metano doit couvrir exactement le masque d'eau généré")
-        frames.append(image)
+    for phase in range(PHASES):
+        angle = phase * math.pi / 2.0
+        dx = np.rint(amplitude_x * (np.sin(flow + angle) - np.sin(flow))).astype(np.int16)
+        dy = np.rint(amplitude_y * (np.sin(cross + angle) - np.sin(cross))).astype(np.int16)
+        sampled = padded[pad + yy.astype(np.int16) + dy,
+                         pad + xx.astype(np.int16) + dx]
+        rgba = np.zeros((H, W, 4), dtype=np.uint8)
+        rgba[water, :3] = sampled[water]
+        rgba[water, 3] = 255
+        frames.append(Image.fromarray(rgba, "RGBA"))
 
-    phase_differences = [int((np.any(np.asarray(frames[0]) != np.asarray(frame), axis=2) & water).sum())
-                         for frame in frames[1:]]
+    phase_differences = [
+        int((np.any(np.asarray(frames[0]) != np.asarray(frame), axis=2) & water).sum())
+        for frame in frames[1:]
+    ]
     shoreline_band = water & (nd.distance_transform_edt(water) <= TILE)
     shoreline_phase_differences = [
         int((np.any(np.asarray(frames[0]) != np.asarray(frame), axis=2) & shoreline_band).sum())
         for frame in frames[1:]
     ]
-    if not placements or min(phase_differences) < int(water.sum() * 0.01):
-        raise AssertionError(f"Animation issue des calques Metano insuffisamment visible: {phase_differences}")
-    if min(shoreline_phase_differences) < len(placements) * 5:
-        raise AssertionError(f"Animation des bords issue de Metano insuffisante: {shoreline_phase_differences}")
-    return frames, placements, phase_differences, shoreline_phase_differences
-
+    if min(phase_differences) < int(water.sum() * 0.01):
+        raise AssertionError(f"Animation générée insuffisamment visible pour {code}: {phase_differences}")
+    if min(shoreline_phase_differences) < 100:
+        raise AssertionError(
+            f"Animation générée trop faible dans la bordure d'eau de {code}: {shoreline_phase_differences}")
+    animation = {
+        "method": "déplacement nearest-neighbor d'une texture générée par champ sinusoïdal déterministe",
+        "phase_count": PHASES,
+        "frame_length_ticks": FRAME_TICKS,
+        "maximum_displacement_px": 3,
+        "mask_fixed_for_all_phases": True,
+        "uses_native_metano_water_pixels": False,
+        "canonical_animation_claim": False,
+    }
+    return frames, animation, phase_differences, shoreline_phase_differences
 
 def sparkle_positions(water: np.ndarray, assets: list[dict], seed: int, max_count: int = 18) -> list[dict]:
     """Place the unchanged 8×8 native sparkle modules wholly inside the water mask."""
@@ -685,8 +601,8 @@ main{max-width:1440px;width:calc(100% - 32px);margin:24px auto 60px}h1{font-size
 @media(max-width:850px){.scene-layout{grid-template-columns:1fr}.stage{min-height:220px}}@media(max-width:600px){main{width:calc(100% - 18px);margin-top:15px}.toolbar{gap:6px}.toolbar label{font-size:.85rem}.panel{padding:10px}}
 </style></head><body><main>
 <div class="eyebrow">Restitution des compositions Vallon Fleuri</div><h1>FVF1 · Sanctuaire &nbsp; / &nbsp; EVF1 · Entrée</h1>
-<p class="intro">Les deux compositions restaurées sont reconstruites depuis leurs bruts et leur sol séparé, en 768 × 576 px (96 × 72 cases de 8 px). Le calque River de Metano Town est reconstruit aux coordonnées originales de la carte Palika/Halcyon : 3200 cellules, quatre phases natives. Pour FVF1/EVF1, des composantes cartographiques entières sont adaptées aux bassins générés ; aucun patch répété ni assemblage de cellules de berge. Les fleurs peintes du décor restent statiques.</p>
-<div class="notice"><b>Eau :</b> la source canonique reconstituée mesure 142×189 cases ; chaque <code>example_map_cell</code> correspond à sa <code>TexLoc</code>. Les quatre calques complets sont téléchargeables. Dans les deux biomes, les zones d’eau sont texturées à partir de composantes natives entières (rotation/redimensionnement NEAREST documentés), pas avec un patch de 64×64 ni des tuiles de berge réassignées une à une. La silhouette du magenta généré demeure le masque de sortie : l’adaptation n’est pas une reproduction de toute la carte Métano dans FVF1/EVF1. Les scintillements natifs restent un calque distinct. <b>Fleurs :</b> animation officielle Sky Peak bloquée, car <code>2cwdrrs469f61.gif</code> et les quatre frames ne sont pas présents dans ce checkout. Les fleurs peintes d’origine restent intactes et statiques ; aucun substitut synthétique n’est créé. Merci de fournir le GIF officiel ou ses quatre frames pour débloquer l’animation. <code>art_approved=false</code>, <code>runtime_tested=false</code>.</div>
+<p class="intro">Les deux compositions restaurées sont reconstruites depuis leurs bruts et leur sol séparé, en 768 × 576 px (96 × 72 cases de 8 px). La génération complète de chaque carte est segmentée avec le masque magenta original : l’eau suit exactement ces formes, et les pixels générés hors masque ne sont jamais repris. Quatre phases de matière générée sont animées par déplacement subtil ; les scintillements restent natifs. Les fleurs peintes du décor restent statiques.</p>
+<div class="notice"><b>Eau :</b> le magenta original est le masque exact. Une génération complète de chaque scène fournit la texture, puis le build ne prélève ses pixels qu’à l’intérieur de ce masque ; hors masque, le décor restauré reste inchangé. L’eau générée est animée par quatre déplacements subtils de texture à 10 ticks ; c’est une animation procédurale façon Métano, pas l’animation native de la carte. La référence Metano Town River de la carte Palika/Halcyon est reconstruite en quatre calques complets séparés aux coordonnées originales 142×189 (<code>example_map_cell = TexLoc</code>) et téléchargeables comme références, mais ne sont pas collés ni présentés comme pixels de FVF1/EVF1. Les scintillements restent natifs et séparés. <b>Fleurs :</b> frames officielles Sky Peak absentes ; les fleurs originales restent statiques. <code>art_approved=false</code>, <code>runtime_tested=false</code>.</div>
 <div class="toolbar"><label>Carte <select id="map"></select></label><button id="play">Pause</button><label>Tick <input id="scrub" type="range" min="0" max="239" value="0"><span id="tick" class="status">0</span></label><label>Zoom <select id="zoom"><option value="1">1×</option><option value="2">2×</option></select></label><label><input type="checkbox" id="grid"> Grille 8 px</label><label><input type="checkbox" id="collision"> Collisions indicatives + marqueurs</label></div>
 <div class="scene-layout"><section class="stage"><canvas id="view" width="768" height="576" aria-label="Composition complète et animée du Vallon Fleuri"></canvas><div class="small" id="clock"></div></section><aside class="side"><div class="panel"><h3>Calques · bas → haut</h3><div class="layer-list" id="layers"></div></div><div class="panel"><h3>Contrôles et provenance</h3><div class="small" id="details"></div><div class="links" id="downloads"></div></div></aside></div>
 <h2>Compositions complètes, sources et exports</h2><div class="cards" id="mapcards"></div>
@@ -700,7 +616,7 @@ function markerColor(m){return m.color||'#fff'}
 async function preload(){for(const [id,m] of Object.entries(MAPS)){state.images[id]={};for(const l of m.layers){state.images[id][l.id]=await Promise.all(l.srcs.map(img))}}}
 function renderLayerToggles(){layerHost.replaceChildren();const m=MAPS[state.id];for(const l of m.layers){state.visible[l.id]=true;const label=document.createElement('label'),check=document.createElement('input');check.type='checkbox';check.checked=true;check.onchange=()=>{state.visible[l.id]=check.checked;draw()};label.append(check,document.createTextNode(l.label));layerHost.append(label)}}
 function renderCards(){cards.replaceChildren();for(const [id,m] of Object.entries(MAPS)){const card=document.createElement('article');card.className='card';card.innerHTML=`<h3><span class="label">${id}</span> ${m.title}</h3><img src="${m.review}" alt="Composition complète ${id}"><div class="links"><a href="${m.viewer_link}">Ouvrir cette carte dans le viewer</a><a href="${m.ora}">Télécharger l’ORA multicalque</a><a href="${m.manifest}">Manifeste</a></div><div class="small">Brut restauré : <a href="${m.raw_decor}">décor</a> · <a href="${m.raw_soil}">sol complet</a></div>`;cards.append(card)}}
-function selectMap(id){state.id=id;state.tick=0;$('#scrub').value='0';selector.value=id;renderLayerToggles();const m=MAPS[id];const flowerState=m.flower_status.missing_official_frames?'Bloquée : frames officielles Sky Peak absentes.':'Source officielle présente, animation en attente de validation.';$('#details').innerHTML=`<b>${m.title}</b><br>${m.note}<br><br><span class="water-swatch"></span> Eau ${m.water.source} · 4 phases natives / 10 ticks · carte source ${m.water.source_map_size_cells[0]}×${m.water.source_map_size_cells[1]} cases<br>3200 coordonnées source = TexLoc · composantes cartographiques entières adaptées : ${m.water.output_component_count}<br>Pixels modifiés en eau P1→P2/P3/P4 : ${m.water.changed_pixels_vs_phase_1.join(', ')}<br>Pixels animés dans la bordure : ${m.water.shoreline_changed_pixels_vs_phase_1.join(', ')}<br>Calques sources complets : ${m.water.source_map_frame_paths.map((src,i)=>'<a href="'+src+'">P'+(i+1)+'</a>').join(' · ')}<br>Fleurs : ${flowerState} Les fleurs peintes d’origine restent statiques ; aucun sprite synthétique.<br><span class="small">${m.flower_status.request}</span><br>Scintillements : ${m.sparkle_count} placements natifs · 4 phases / 10 ticks<br>Calques : ${m.layers.length} · taille ${m.size_px[0]}×${m.size_px[1]} · ${m.grid[0]}×${m.grid[1]} cellules<br><br><b>Référence :</b> ${m.source_ref}<br><span class="small">Les collisions superposées sont des indices visuels, pas un bake ni un test runtime.</span>`;$('#downloads').innerHTML=`<a href="${m.ora}">ORA multicalque</a><a href="${m.manifest}">Manifest JSON</a>`;draw()}
+function selectMap(id){state.id=id;state.tick=0;$('#scrub').value='0';selector.value=id;renderLayerToggles();const m=MAPS[id];const flowerState=m.flower_status.missing_official_frames?'Bloquée : frames officielles Sky Peak absentes.':'Source officielle présente, animation en attente de validation.';$('#details').innerHTML=`<b>${m.title}</b><br>${m.note}<br><br><span class="water-swatch"></span> Eau ${m.water.source} · 4 phases / 10 ticks · masque magenta exact<br>Texture complète : <a href="${m.water.generated_fill_source}">génération sauvegardée</a> · carte River canonique séparée ${m.water.source_map_size_cells[0]}×${m.water.source_map_size_cells[1]} · 3200 coordonnées = TexLoc<br>Pixels modifiés en eau P1→P2/P3/P4 : ${m.water.changed_pixels_vs_phase_1.join(', ')}<br>Pixels animés dans la bordure : ${m.water.shoreline_changed_pixels_vs_phase_1.join(', ')}<br>Calques sources complets : ${m.water.source_map_frame_paths.map((src,i)=>'<a href="'+src+'">P'+(i+1)+'</a>').join(' · ')}<br>Fleurs : ${flowerState} Les fleurs peintes d’origine restent statiques ; aucun sprite synthétique.<br><span class="small">${m.flower_status.request}</span><br>Scintillements : ${m.sparkle_count} placements natifs · 4 phases / 10 ticks<br>Calques : ${m.layers.length} · taille ${m.size_px[0]}×${m.size_px[1]} · ${m.grid[0]}×${m.grid[1]} cellules<br><br><b>Référence :</b> ${m.source_ref}<br><span class="small">Les collisions superposées sont des indices visuels, pas un bake ni un test runtime.</span>`;$('#downloads').innerHTML=`<a href="${m.ora}">ORA multicalque</a><a href="${m.manifest}">Manifest JSON</a>`;draw()}
 function draw(){const m=MAPS[state.id];ctx.clearRect(0,0,768,576);for(const l of m.layers){if(!state.visible[l.id])continue;const a=state.images[state.id][l.id];const idx=Math.floor(state.tick/l.ticks)%a.length;ctx.drawImage(a[idx],0,0)}if(state.collisions){ctx.fillStyle='rgba(220,40,40,.34)';for(const [x,y] of m.blocked)ctx.fillRect(x*8,y*8,8,8);for(const marker of m.markers){ctx.strokeStyle=markerColor(marker);ctx.lineWidth=2;ctx.strokeRect(marker.xy[0]+1,marker.xy[1]+1,14,14);ctx.fillStyle=markerColor(marker);ctx.font='12px system-ui';ctx.fillText(marker.name,marker.xy[0]+17,marker.xy[1]+12)}}if(state.grid){ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;for(let x=0;x<=768;x+=8){ctx.beginPath();ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,576);ctx.stroke()}for(let y=0;y<=576;y+=8){ctx.beginPath();ctx.moveTo(0,y+.5);ctx.lineTo(768,y+.5);ctx.stroke()}}$('#tick').textContent=state.tick;$('#clock').textContent=`${m.title} · tick ${state.tick}/${m.loop_ticks} · eau ${m.water.source} phase ${Math.floor(state.tick/10)%4+1}/4 · fleurs statiques (${m.flower_status.missing_official_frames?'frames officielles manquantes':'source à vérifier'}) · scintillements Métano phase ${Math.floor(state.tick/10)%4+1}/4`}
 selector.onchange=e=>selectMap(e.target.value);$('#play').onclick=e=>{state.playing=!state.playing;e.target.textContent=state.playing?'Pause':'Lecture'};$('#scrub').oninput=e=>{state.tick=+e.target.value;draw()};$('#zoom').onchange=e=>{state.zoom=+e.target.value;canvas.style.width=(768*state.zoom)+'px';canvas.style.height=(576*state.zoom)+'px'};$('#grid').onchange=e=>{state.grid=e.target.checked;draw()};$('#collision').onchange=e=>{state.collisions=e.target.checked;draw()};
 for(const [id,m] of Object.entries(MAPS))selector.add(new Option(id+' — '+m.title,id));
@@ -715,7 +631,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     decor_path = raw_dir / cfg["decor_file"]
     soil_path = raw_dir / cfg["soil_file"]
     out = ROOT / "renders" / cfg["slug"]
-    for folder in ("layers", "animation/eau_metano", "animation/scintillements", "masks", "review"):
+    for folder in ("layers", "animation/eau_generee_facon_metano", "animation/scintillements", "masks", "review"):
         (out / folder).mkdir(parents=True, exist_ok=True)
 
     # Remove only outputs from the rejected synthetic-flower/solid-water implementation.
@@ -767,8 +683,10 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     decor_layer = Image.fromarray(decor_arr, "RGBA")
     soil_layer = soil.convert("RGBA")
 
-    water_frames, component_placements, water_phase_differences, shoreline_phase_differences = (
-        native_water_frames(water, river_assets))
+    water_fill_path = HERE / cfg["water_fill_file"]
+    water_fill = Image.open(water_fill_path).convert("RGB")
+    water_frames, water_animation, water_phase_differences, shoreline_phase_differences = (
+        generated_water_frames(water, water_fill, code))
     water_grid = water.reshape(H // TILE, TILE, W // TILE, TILE).any(axis=(1, 3))
     water_grid_cells = int(water_grid.sum())
     sparkle_spots = sparkle_positions(water, sparkle_assets,
@@ -782,13 +700,13 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     water_frame_paths = []
     sparkle_frame_paths = []
     for phase in range(PHASES):
-        water_rel = f"renders/{cfg['slug']}/animation/eau_metano/{code}_eau_metano_phase_{phase + 1}.png"
+        water_rel = f"renders/{cfg['slug']}/animation/eau_generee_facon_metano/{code}_eau_facon_metano_phase_{phase + 1}.png"
         sparkle_rel = f"renders/{cfg['slug']}/animation/scintillements/{code}_scintillements_phase_{phase + 1}.png"
         water_frames[phase].save(ROOT / water_rel, optimize=True)
         sparkles_anim[phase].save(ROOT / sparkle_rel, optimize=True)
         water_frame_paths.append(water_rel)
         sparkle_frame_paths.append(sparkle_rel)
-    water_frames[0].save(out / "layers/02_eau_metano_phase_1.png", optimize=True)
+    water_frames[0].save(out / "layers/02_eau_facon_metano_phase_1.png", optimize=True)
 
     static = [
         ("00 Sol complet · brut généré restauré", soil_layer),
@@ -801,7 +719,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     scene_frames[0].save(out / f"review/{code}_scene_animee.webp", save_all=True,
                          append_images=scene_frames[1:], duration=167, loop=0, lossless=True, method=6)
 
-    # Show a close crop containing the largest amount of source-derived animated water.
+    # Show a close crop containing the largest amount of generated animated water.
     crop_w, crop_h = 144, 96
     best_window = None
     for y0 in range(0, H - crop_h + 1, TILE):
@@ -813,13 +731,13 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         _, x0, y0 = best_window
         zoom = composed.crop((x0, y0, x0 + crop_w, y0 + crop_h))
         zoom.resize((crop_w * 3, crop_h * 3), Image.Resampling.NEAREST).save(
-            out / f"review/{code}_zoom_eau_metano.png", optimize=True)
+            out / f"review/{code}_zoom_eau_generee.png", optimize=True)
 
     Image.fromarray(water.astype(np.uint8) * 255, "L").save(out / "masks/masque_eau.png", optimize=True)
     blocked = blocked_grid(decor, water)
     marker_data = cfg["markers"]
     layers_for_ora = static + [
-        ("02 Eau Metano Town River · composantes cartographiques natives · phase 1/4", water_frames[0]),
+        ("02 Eau générée façon Métano · masque magenta exact · phase 1/4", water_frames[0]),
         ("03 Scintillements natifs Metano River · phase 1/4", sparkles_anim[0]),
     ]
     ora_path = out / f"{code}_{cfg['slug']}_calques.ora"
@@ -832,7 +750,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         {"id": "decor", "label": "01 · décor généré restauré · fleurs d'origine statiques",
          "srcs": [f"renders/{cfg['slug']}/layers/01_decor_hors_eau_fleurs_statiques.png"],
          "ticks": LOOP_TICKS, "tiles": tile_count(decor_layer)},
-        {"id": "water", "label": "02 · Metano Town River · composantes cartographiques natives, 4 phases",
+        {"id": "water", "label": "02 · Eau générée façon Métano, dans le masque magenta, 4 phases",
          "srcs": water_frame_paths, "ticks": FRAME_TICKS,
          "tiles": sum(tile_count(frame) for frame in water_frames) // PHASES},
         {"id": "sparkles", "label": "03 · scintillements Métano natifs · 4 phases, 10 ticks/phase",
@@ -846,6 +764,13 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
             "role": role, "file": path.relative_to(ROOT).as_posix(), "sha256": sha256(path),
             "size_px": list(Image.open(path).size), "attribution": attribution,
         })
+    source_records.append({
+        "role": "generated_water_fill",
+        "file": water_fill_path.relative_to(ROOT).as_posix(),
+        "sha256": sha256(water_fill_path),
+        "size_px": list(water_fill.size),
+        "attribution": "image générée à partir du décor magenta complet; seuls les pixels du masque d'eau sont utilisés",
+    })
 
     flower_status = official_sky_peak_flower_status()
     water_manifest = {
@@ -857,23 +782,21 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "frame_length_ticks": FRAME_TICKS,
         "output_frame_paths": water_frame_paths,
         "output_water_cells": water_grid_cells,
-        "output_component_count": len(component_placements),
-        "output_component_assignments": component_placements,
+        "generated_fill_source": water_fill_path.relative_to(ROOT).as_posix(),
+        "generated_fill_sha256": sha256(water_fill_path),
+        "generated_fill_size_px": list(water_fill.size),
         "output_phase_changed_pixels_vs_1": water_phase_differences,
         "output_shoreline_phase_changed_pixels_vs_1": shoreline_phase_differences,
+        "output_animation": water_animation,
         "canonical_source_map_frames_saved": river_assets["source_map_frame_paths"],
         "canonical_source_map_reconstructed_exactly": True,
-        "output_rgb_values_are_native_map_samples": True,
-        "output_native_rgb_fill_rule": (
-            "pixels transparents de la fenêtre source remplis par le pixel River non transparent "
-            "le plus proche dans la même composante cartographique, avant transformation NEAREST"),
+        "output_rgb_values_are_generated_map_samples": True,
+        "output_rgb_values_are_native_map_samples": False,
         "output_map_coordinates_canonical": False,
         "surface_patch_repeated_at_native_scale": False,
         "individual_shoreline_tile_matching_used": False,
         "mask_clip_applied": True,
-        "placements_scope": (
-            "une composante entière de la carte River native par bassin généré; "
-            "rotation/redimensionnement NEAREST consignés, aucun placement tuile-par-tuile"),
+        "output_scope": "texture générée complète découpée par le masque magenta original; décor hors masque inchangé",
     })
     sparkle_manifest = {
         "source": "source/eau_metano/natifs/Metano_Town_River_Sparkles.tile",
@@ -892,7 +815,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "blocked": blocked,
         "markers": marker_data,
         "water": {
-            "source": "Metano Town River",
+            "source": "texture générée façon Métano, ajustée au masque magenta",
             "source_map": river_assets["source_map"],
             "source_repository": river_assets["source_repository"],
             "source_commit": river_assets["source_commit"],
@@ -901,15 +824,15 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
             "source_active_river_cells": river_assets["source_active_river_cells"],
             "source_map_cell_coordinates_match_texloc": True,
             "source_map_layout_reconstructed_exactly": True,
-            "source_components": river_assets["source_components"],
             "canonical_map_placement_in_generated_maps": False,
-            "output_component_count": len(component_placements),
-            "output_component_assignments": component_placements,
+            "generated_fill_source": water_fill_path.relative_to(ROOT).as_posix(),
+            "generated_fill_sha256": sha256(water_fill_path),
+            "generated_pixels_are_native": False,
+            "canonical_animation_used_for_output_water": False,
             "frame_count": PHASES,
             "frame_length_ticks": FRAME_TICKS,
-            "animated_native_opaque_water_cells": river_assets["source_animated_opaque_water_cells"],
-            "animated_native_shoreline_cells": river_assets["source_animated_shoreline_cells"],
-            "map_native_water_cells": water_grid_cells,
+            "water_animation": water_animation,
+            "map_water_cells": water_grid_cells,
             "changed_pixels_vs_phase_1": water_phase_differences,
             "shoreline_changed_pixels_vs_phase_1": shoreline_phase_differences,
         },
@@ -924,10 +847,10 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "manifest": f"renders/{cfg['slug']}/manifest.json",
         "viewer_link": f"apercu_vallons_fleuris_v1.html?map={code}",
         "note": ("Décor généré restauré et fleurs d'origine conservées statiques. "
-                 "L'eau provient de composantes entières du calque River natif de Metano Town, "
-                 "reconstruit aux positions de la carte source puis adapté aux bassins de ce biome; "
-                 "les transformations ne restituent pas toute la carte canonique dans le Vallon. "
-                 "Frames officielles Sky Peak absentes : aucune animation florale synthétique."),
+                 "L'eau vient d'une génération pleine carte, découpée au masque magenta exact; "
+                 "sa boucle est une animation procédurale de texture, pas l'animation native Metano. "
+                 "Les quatre cartes natives Métano sont reconstruites séparément comme références, "
+                 "et les scintillements sont des modules natifs. Frames officielles Sky Peak absentes."),
     }
 
     for frame in water_frames:
@@ -942,12 +865,14 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     manifest = {
         "lot": cfg["slug"], "code": code, "title": cfg["title"],
         "canvas_px": [W, H], "grid_8px": [W // TILE, H // TILE],
-        "method": ("Les quatre calques natifs Metano Town River sont reconstitués dans leur grille "
-                   "source 142×189 à partir des 3200 coordonnées example_map_cell == TexLoc. "
-                   "Pour FVF1/EVF1, des composantes cartographiques entières sont affectées aux bassins "
-                   "générés, transformées uniquement par rotation éventuelle et redimensionnement NEAREST, "
-                   "puis clippées au masque magenta. Aucun patch de surface répété ni assemblage de rives "
-                   "tuile-par-tuile; l'agencement final reste une adaptation du biome."),
+        "method": ("Les compositions restaurées sont normalisées uniformément; le masque magenta "
+                   "du brut délimite l'eau. Chaque image générée complète est segmentée : seuls ses "
+                   "pixels dans ce masque alimentent le calque d'eau, tandis que le décor restauré "
+                   "est conservé hors masque. La matière est animée par déplacement nearest-neighbor "
+                   "déterministe sur quatre phases de 10 ticks. Les quatre calques source Metano Town "
+                   "River sont reconstruits à leurs 3200 coordonnées example_map_cell == TexLoc et "
+                   "fournis comme références séparées; leurs pixels et animation ne sont pas revendiqués "
+                   "dans les calques d'eau générés."),
         "normalization": {"source_px": [SRC_W, SRC_H], "uniform_scale": SCALE,
                           "scaled_px": [SCALED_W, H],
                           "crop_x_left_right": [CROP_X, SCALED_W - W - CROP_X],
@@ -967,7 +892,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "review": {"still": f"review/{code}_scene_t000.png",
                    "webp": f"review/{code}_scene_animee.webp",
                    "webp_frames": len(scene_frames), "webp_duration_ms_each": 167,
-                   "loop_ticks": LOOP_TICKS, "zoom": f"review/{code}_zoom_eau_metano.png"},
+                   "loop_ticks": LOOP_TICKS, "zoom": f"review/{code}_zoom_eau_generee.png"},
         "art_approved": False, "runtime_tested": False,
         "canonical_flower_frames_verified": False,
     }
@@ -1006,7 +931,7 @@ def build() -> None:
     save_html(html_map)
     print(json.dumps({code: {
         "water_source": spec["water"]["source"],
-        "water_cells": spec["water"]["map_native_water_cells"],
+        "water_cells": spec["water"]["map_water_cells"],
         "water_changed_pixels": spec["water"]["changed_pixels_vs_phase_1"],
         "flowers": spec["flower_status"]["status"],
         "sparkles": spec["sparkle_count"],
