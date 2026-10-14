@@ -31,7 +31,7 @@
     },
     {
       "id": "water",
-      "label": "02 · Metano Town River · 4 phases natives, 10 ticks/phase",
+      "label": "02 · Metano Town River · surface + berges animées natives, 4 phases",
       "srcs": [
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/eau_metano/FVF1_eau_metano_phase_1.png",
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/eau_metano/FVF1_eau_metano_phase_2.png",
@@ -7641,13 +7641,48 @@
     "source": "Metano Town River",
     "frame_count": 4,
     "frame_length_ticks": 10,
-    "animated_native_tile_sequences": 477,
+    "animated_native_opaque_water_cells": 477,
+    "animated_native_shoreline_cells": 656,
     "map_native_water_cells": 789,
+    "shoreline_grid_cells": 261,
     "changed_pixels_vs_phase_1": [
-      8722,
-      9914,
-      8518
-    ]
+      2767,
+      3218,
+      2697
+    ],
+    "shoreline_changed_pixels_vs_phase_1": [
+      2707,
+      3152,
+      2584
+    ],
+    "surface_patch": {
+      "source_texloc_top_left_xy_cells": [
+        128,
+        4
+      ],
+      "source_grid_cells": [
+        8,
+        8
+      ],
+      "size_px": [
+        64,
+        64
+      ],
+      "repeat_scale": "1:1, sans redimensionnement; patch natif répété sur la surface générée",
+      "repeat_edge_mean_abs_rgb_difference_per_phase": [
+        0.41666666666666663,
+        0.0,
+        0.0,
+        1.8802083333333333
+      ],
+      "phase_changed_pixels_vs_1": [
+        4,
+        5,
+        11
+      ],
+      "native_pixels_unchanged": true,
+      "canonical_metano_layout_claim": false
+    }
   },
   "flower_status": {
     "status": "official_frames_missing",
@@ -7675,5 +7710,5 @@
   "ora": "renders/fin_vallon_fleuri_sanctuaire_v1/FVF1_fin_vallon_fleuri_sanctuaire_v1_calques.ora",
   "manifest": "renders/fin_vallon_fleuri_sanctuaire_v1/manifest.json",
   "viewer_link": "apercu_vallons_fleuris_v1.html?map=FVF1",
-  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau magenta est remplacée par les cellules des quatre phases natives River Métano. Frames officielles Sky Peak absentes : aucune animation florale synthétique."
+  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau magenta reçoit une surface native Metano Town River et des modules de rive animés ajustés au contour généré; l'agencement reste une adaptation, pas la carte canonique. Frames officielles Sky Peak absentes : aucune animation florale synthétique."
 }
