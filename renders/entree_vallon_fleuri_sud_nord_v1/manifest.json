@@ -10,7 +10,7 @@
     96,
     72
   ],
-  "method": "Recomposition depuis les deux bruts restaurés; surface River native contiguë 64×64 px répétée à 1:1, modules de berge natifs appariés aux cellules de contour 8×8, masque généré conservé; aucune recoloration, rotation, inversion ni mise à l'échelle.",
+  "method": "Les quatre calques natifs Metano Town River sont reconstitués dans leur grille source 142×189 à partir des 3200 coordonnées example_map_cell == TexLoc. Pour FVF1/EVF1, des composantes cartographiques entières sont affectées aux bassins générés, transformées uniquement par rotation éventuelle et redimensionnement NEAREST, puis clippées au masque magenta. Aucun patch de surface répété ni assemblage de rives tuile-par-tuile; l'agencement final reste une adaptation du biome.",
   "normalization": {
     "source_px": [
       1200,
@@ -50,6 +50,98 @@
     }
   ],
   "water": {
+    "source_components": [
+      {
+        "label": 1,
+        "source_component_id": "Metano-River-01",
+        "source_bbox_xyxy_px": [
+          844,
+          0,
+          1132,
+          533
+        ],
+        "source_bbox_xyxy_cells": [
+          105,
+          0,
+          142,
+          67
+        ],
+        "source_native_pixel_count": 78681,
+        "source_map_cell_count": 1355
+      },
+      {
+        "label": 2,
+        "source_component_id": "Metano-River-02",
+        "source_bbox_xyxy_px": [
+          956,
+          557,
+          1024,
+          601
+        ],
+        "source_bbox_xyxy_cells": [
+          119,
+          69,
+          128,
+          76
+        ],
+        "source_native_pixel_count": 2196,
+        "source_map_cell_count": 46
+      },
+      {
+        "label": 4,
+        "source_component_id": "Metano-River-03",
+        "source_bbox_xyxy_px": [
+          679,
+          648,
+          1012,
+          1132
+        ],
+        "source_bbox_xyxy_cells": [
+          84,
+          81,
+          127,
+          142
+        ],
+        "source_native_pixel_count": 34782,
+        "source_map_cell_count": 641
+      },
+      {
+        "label": 6,
+        "source_component_id": "Metano-River-04",
+        "source_bbox_xyxy_px": [
+          388,
+          729,
+          632,
+          1193
+        ],
+        "source_bbox_xyxy_cells": [
+          48,
+          91,
+          79,
+          150
+        ],
+        "source_native_pixel_count": 51683,
+        "source_map_cell_count": 909
+      },
+      {
+        "label": 8,
+        "source_component_id": "Metano-River-05",
+        "source_bbox_xyxy_px": [
+          364,
+          1240,
+          476,
+          1512
+        ],
+        "source_bbox_xyxy_cells": [
+          45,
+          155,
+          60,
+          189
+        ],
+        "source_native_pixel_count": 13233,
+        "source_map_cell_count": 249
+      }
+    ],
     "source_sheets": [
       "Metano_Town_River_Animation_1",
       "Metano_Town_River_Animation_2",
@@ -59,7 +151,25 @@
     "source_map": "source/eau_metano/animations_carte.json",
     "source_repository": "https://github.com/Palikadude/Halcyon",
     "source_commit": "da6c2130d641507447e6386a5e47a296e8cb4c71",
+    "source_map_git_blob": "38d178520e95d2b1f17d57c12682579d9e37bbae",
+    "source_map_sha256": "4feeb2809876b580cb840ba6e1c985ed4e25a947193162073225a54150eed47f",
     "source_active_river_cells": 3200,
+    "source_map_size_cells": [
+      142,
+      189
+    ],
+    "source_map_size_px": [
+      1136,
+      1512
+    ],
+    "source_map_bounds_xyxy_cells": [
+      45,
+      0,
+      141,
+      188
+    ],
+    "source_map_cell_coordinates_match_texloc": true,
+    "source_map_layout_reconstructed_exactly": true,
     "source_opaque_water_cells": 2365,
     "source_animated_opaque_water_cells": 477,
     "source_unique_animated_opaque_sequences": 361,
@@ -69,34 +179,7 @@
     "source_unique_shoreline_sequences": 566,
     "source_unique_animated_shoreline_sequences": 507,
     "source_unique_shoreline_alpha_patterns": 278,
-    "surface_patch": {
-      "source_texloc_top_left_xy_cells": [
-        128,
-        4
-      ],
-      "source_grid_cells": [
-        8,
-        8
-      ],
-      "size_px": [
-        64,
-        64
-      ],
-      "repeat_scale": "1:1, sans redimensionnement; patch natif répété sur la surface générée",
-      "repeat_edge_mean_abs_rgb_difference_per_phase": [
-        0.41666666666666663,
-        0.0,
-        0.0,
-        1.8802083333333333
-      ],
-      "phase_changed_pixels_vs_1": [
-        4,
-        5,
-        11
-      ],
-      "native_pixels_unchanged": true,
-      "canonical_metano_layout_claim": false
-    },
+    "source_component_count": 5,
     "source_frame_length_ticks": 10,
     "phase_order": [
       1,
@@ -104,9 +187,20 @@
       3,
       4
     ],
-    "native_water_rule": "surface: cellules opaques cyan/bleues; rive: modules River alpha-partiels et leurs quatre masques natifs conservés",
-    "composition_method": "patch natif contigu 64×64 px répété à 1:1 sous le masque généré; cellules River 8×8 alpha-partielles choisies par proximité de leur empreinte alpha au contour local et par voisinage TexLoc en cas d'égalité; aucune recoloration, rotation, inversion ni mise à l'échelle; adaptation non canonique",
-    "canonical_metano_layout_claim": false,
+    "canonical_map_placement_in_generated_maps": false,
+    "composition_method": "calques complets reconstitués aux coordonnées example_map_cell == TexLoc; composantes cartographiques natives entières sélectionnées et transformées comme unités pour les bassins générés; aucun patch de surface répété ni appariement tuile-par-tuile",
+    "source_map_frame_paths": [
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_1.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_2.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_3.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_4.png"
+    ],
+    "source_map_frame_sha256": [
+      "d3e5379cec7f955dfdde3770b66abcb25f866f1b14ccb0f0c497635cf0cb15b0",
+      "11e40b582fc6606078c80b5862e5c3fd17d8dccc699c00662bdfbadb31c0adcf",
+      "db8cc2c7686023d50bc70cb4c5999e6923bb8b2003f3af1fa01cbb51d500504f",
+      "f2702778fc583354ad3b6c51adff6f8d609fb2cfc3d12425890ca575257036a8"
+    ],
     "frame_count": 4,
     "frame_length_ticks": 10,
     "output_frame_paths": [
@@ -116,2339 +210,107 @@
       "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano/EVF1_eau_metano_phase_4.png"
     ],
     "output_water_cells": 794,
-    "output_shoreline_cells": 193,
-    "output_phase_changed_pixels_vs_1": [
-      3341,
-      3582,
-      3034
-    ],
-    "output_shoreline_phase_changed_pixels_vs_1": [
-      3292,
-      3524,
-      2922
-    ],
-    "native_pixels_unchanged": true,
-    "surface_patch_repeated_at_native_scale": true,
-    "mask_clip_applied": true,
-    "placements_scope": "cellules 8×8 de rive seulement; la surface utilise le patch natif contigu déclaré ci-dessus",
-    "placements": [
+    "output_component_count": 2,
+    "output_component_assignments": [
       {
-        "destination_xy_cells": [
+        "destination_component_index": 1,
+        "destination_bbox_xyxy_px": [
           0,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          1,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          2,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          3,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          4,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          5,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          6,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          7,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          8,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          9,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          10,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          70
-        ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          11,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          12,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          13,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          14,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          15,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          16,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          17,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          18,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          19,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          20,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          21,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          22,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          103,
-          125
-        ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 28
-      },
-      {
-        "destination_xy_cells": [
-          23,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          119,
-          104
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 4
-      },
-      {
-        "destination_xy_cells": [
-          73,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          54,
-          93
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 48
-      },
-      {
-        "destination_xy_cells": [
-          74,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          75,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          76,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          77,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          78,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          79,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          80,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          81,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          82,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          83,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          84,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          85,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          86,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          87,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          88,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          89,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          90,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          91,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          92,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          93,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          94,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          98,
-          129
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          95,
-          43
-        ],
-        "source_texloc_xy_cells": [
-          95,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          23,
-          44
-        ],
-        "source_texloc_xy_cells": [
-          55,
-          168
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 64
-      },
-      {
-        "destination_xy_cells": [
-          72,
-          44
-        ],
-        "source_texloc_xy_cells": [
-          49,
-          98
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 41
-      },
-      {
-        "destination_xy_cells": [
-          23,
-          45
-        ],
-        "source_texloc_xy_cells": [
-          55,
-          169
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 114
-      },
-      {
-        "destination_xy_cells": [
-          72,
-          45
-        ],
-        "source_texloc_xy_cells": [
-          49,
-          174
-        ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 90
-      },
-      {
-        "destination_xy_cells": [
-          24,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          103,
-          125
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 28
-      },
-      {
-        "destination_xy_cells": [
-          25,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          71,
-          132
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 7
-      },
-      {
-        "destination_xy_cells": [
-          26,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          27,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          28,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          29,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          30,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          31,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          32,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          33,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          34,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          35,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          36,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          37,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          38,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          39,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          70
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          56,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          57,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          58,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          59,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
+          345,
+          327,
+          441
+        ],
+        "destination_bbox_xyxy_cells": [
+          0,
+          43,
+          41,
+          56
+        ],
+        "destination_water_pixels": 22845,
+        "source_component_id": "Metano-River-05",
+        "source_component_bbox_xyxy_px": [
+          364,
+          1240,
+          476,
+          1512
+        ],
+        "source_component_bbox_xyxy_cells": [
+          45,
+          155,
           60,
-          46
+          189
         ],
-        "source_texloc_xy_cells": [
-          62,
-          138
+        "source_component_map_cells": 249,
+        "source_component_native_pixels": 13233,
+        "rotation_degrees_counterclockwise": 90,
+        "nearest_neighbor_scale_xy": [
+          1.202206,
+          0.857143
         ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
+        "whole_component_silhouette_iou": 0.581531
       },
       {
-        "destination_xy_cells": [
-          61,
-          46
+        "destination_component_index": 2,
+        "destination_bbox_xyxy_px": [
+          442,
+          345,
+          768,
+          441
         ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          62,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          63,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          64,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          65,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          66,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          67,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          68,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          69,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          135
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          70,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          62,
-          138
-        ],
-        "mean_alpha_mask_mismatch_px": 8.0,
-        "source_changed_pixels_vs_phase_1": 17
-      },
-      {
-        "destination_xy_cells": [
-          71,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          52,
-          163
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 54
-      },
-      {
-        "destination_xy_cells": [
-          72,
-          46
-        ],
-        "source_texloc_xy_cells": [
-          50,
-          172
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 63
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          47
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
+        "destination_bbox_xyxy_cells": [
           55,
-          47
+          43,
+          96,
+          56
         ],
-        "source_texloc_xy_cells": [
-          53,
-          161
+        "destination_water_pixels": 23249,
+        "source_component_id": "Metano-River-04",
+        "source_component_bbox_xyxy_px": [
+          388,
+          729,
+          632,
+          1193
         ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          48
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          48
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          2,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          123,
-          92
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 121
-      },
-      {
-        "destination_xy_cells": [
-          3,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          114
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 75
-      },
-      {
-        "destination_xy_cells": [
-          4,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          117,
-          36
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 73
-      },
-      {
-        "destination_xy_cells": [
-          5,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          54,
-          183
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 69
-      },
-      {
-        "destination_xy_cells": [
-          6,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          88,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          7,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          159
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 63
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
+        "source_component_bbox_xyxy_cells": [
+          48,
           91,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          130,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 77
-      },
-      {
-        "destination_xy_cells": [
-          92,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          54,
-          183
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 69
-      },
-      {
-        "destination_xy_cells": [
-          93,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          112,
-          101
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 73
-      },
-      {
-        "destination_xy_cells": [
-          94,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          130,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 77
-      },
-      {
-        "destination_xy_cells": [
-          95,
-          49
-        ],
-        "source_texloc_xy_cells": [
-          130,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 77
-      },
-      {
-        "destination_xy_cells": [
-          1,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          57,
-          164
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 67
-      },
-      {
-        "destination_xy_cells": [
-          2,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          122,
-          94
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 18
-      },
-      {
-        "destination_xy_cells": [
-          3,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          8
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 23
-      },
-      {
-        "destination_xy_cells": [
-          4,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          108,
-          27
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 2
-      },
-      {
-        "destination_xy_cells": [
-          7,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 33
-      },
-      {
-        "destination_xy_cells": [
-          8,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 107
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          90,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          135,
-          40
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 43
-      },
-      {
-        "destination_xy_cells": [
-          91,
-          50
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          90
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          0,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          56,
-          165
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 64
-      },
-      {
-        "destination_xy_cells": [
-          1,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          55,
-          183
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 3
-      },
-      {
-        "destination_xy_cells": [
-          8,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 33
-      },
-      {
-        "destination_xy_cells": [
-          9,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          41
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          89,
-          51
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          130
-        ],
-        "mean_alpha_mask_mismatch_px": 7.0,
-        "source_changed_pixels_vs_phase_1": 56
-      },
-      {
-        "destination_xy_cells": [
-          0,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          52,
-          186
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 6
-      },
-      {
-        "destination_xy_cells": [
-          9,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 33
-      },
-      {
-        "destination_xy_cells": [
-          10,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          128,
-          66
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 42
-      },
-      {
-        "destination_xy_cells": [
-          11,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          111,
-          28
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 37
-      },
-      {
-        "destination_xy_cells": [
-          12,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          101,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 37
-      },
-      {
-        "destination_xy_cells": [
-          13,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          68,
-          124
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 30
-      },
-      {
-        "destination_xy_cells": [
-          14,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          101,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 37
-      },
-      {
-        "destination_xy_cells": [
-          15,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          128,
-          66
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 42
-      },
-      {
-        "destination_xy_cells": [
-          16,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          102,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          17,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          111,
-          100
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          80,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          51,
-          186
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 62
-      },
-      {
-        "destination_xy_cells": [
-          81,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          100,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 39
-      },
-      {
-        "destination_xy_cells": [
-          82,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          102,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          83,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          68,
-          124
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 30
-      },
-      {
-        "destination_xy_cells": [
-          84,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          125,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 56
-      },
-      {
-        "destination_xy_cells": [
-          85,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          121,
-          8
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 30
-      },
-      {
-        "destination_xy_cells": [
-          86,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          101,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 37
-      },
-      {
-        "destination_xy_cells": [
-          87,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          128,
-          66
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 42
-      },
-      {
-        "destination_xy_cells": [
-          88,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          111,
-          28
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 37
-      },
-      {
-        "destination_xy_cells": [
-          89,
-          52
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          90
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          17,
-          53
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          100
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 2
-      },
-      {
-        "destination_xy_cells": [
-          18,
-          53
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          99
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          53
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          103
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 83
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          53
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          80,
-          53
-        ],
-        "source_texloc_xy_cells": [
-          59,
-          159
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 15
-      },
-      {
-        "destination_xy_cells": [
-          18,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          117,
-          37
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 13
-      },
-      {
-        "destination_xy_cells": [
-          19,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          50,
-          169
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 73
-      },
-      {
-        "destination_xy_cells": [
-          20,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          70,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 27
-      },
-      {
-        "destination_xy_cells": [
-          22,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          52,
-          185
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 75
-      },
-      {
-        "destination_xy_cells": [
-          23,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          117,
-          36
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 73
-      },
-      {
-        "destination_xy_cells": [
-          24,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          118,
-          7
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 25
-      },
-      {
-        "destination_xy_cells": [
-          25,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          27
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 78
-      },
-      {
-        "destination_xy_cells": [
-          27,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          129,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 113
-      },
-      {
-        "destination_xy_cells": [
-          28,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 107
-      },
-      {
-        "destination_xy_cells": [
-          29,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          137,
-          39
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 53
-      },
-      {
-        "destination_xy_cells": [
-          30,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          124,
-          41
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 81
-      },
-      {
-        "destination_xy_cells": [
-          32,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          70,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 27
-      },
-      {
-        "destination_xy_cells": [
-          34,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          123,
-          92
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 121
-      },
-      {
-        "destination_xy_cells": [
-          35,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          111,
-          100
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 79
-      },
-      {
-        "destination_xy_cells": [
-          37,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          88,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          39,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          134,
-          40
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 25
-      },
-      {
-        "destination_xy_cells": [
-          40,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          58,
-          163
-        ],
-        "mean_alpha_mask_mismatch_px": 6.0,
-        "source_changed_pixels_vs_phase_1": 58
-      },
-      {
-        "destination_xy_cells": [
-          55,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          53,
-          161
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 71
-      },
-      {
-        "destination_xy_cells": [
-          56,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          70,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 27
-      },
-      {
-        "destination_xy_cells": [
-          58,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          129,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 113
-      },
-      {
-        "destination_xy_cells": [
-          59,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 107
-      },
-      {
-        "destination_xy_cells": [
-          61,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          88,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 4.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          63,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          129,
-          64
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 113
-      },
-      {
-        "destination_xy_cells": [
-          64,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          126,
-          65
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 107
-      },
-      {
-        "destination_xy_cells": [
-          65,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          114,
-          8
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 117
-      },
-      {
-        "destination_xy_cells": [
-          66,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          27
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 78
-      },
-      {
-        "destination_xy_cells": [
-          68,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          70,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 27
-      },
-      {
-        "destination_xy_cells": [
-          70,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          52,
-          185
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 75
-      },
-      {
-        "destination_xy_cells": [
-          71,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          122
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 90
-      },
-      {
-        "destination_xy_cells": [
-          73,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          86,
-          136
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          75,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          57,
-          164
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 67
-      },
-      {
-        "destination_xy_cells": [
-          76,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          122
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 90
-      },
-      {
-        "destination_xy_cells": [
-          77,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          55,
-          171
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 90
-      },
-      {
-        "destination_xy_cells": [
-          78,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          65,
-          122
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 90
-      },
-      {
-        "destination_xy_cells": [
           79,
-          54
+          150
         ],
-        "source_texloc_xy_cells": [
-          69,
-          137
+        "source_component_map_cells": 909,
+        "source_component_native_pixels": 51683,
+        "rotation_degrees_counterclockwise": 270,
+        "nearest_neighbor_scale_xy": [
+          0.702586,
+          0.393443
         ],
-        "mean_alpha_mask_mismatch_px": 5.0,
-        "source_changed_pixels_vs_phase_1": 59
-      },
-      {
-        "destination_xy_cells": [
-          80,
-          54
-        ],
-        "source_texloc_xy_cells": [
-          86,
-          137
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          26,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          137,
-          40
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          27,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          129,
-          66
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 6
-      },
-      {
-        "destination_xy_cells": [
-          28,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          28
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 3
-      },
-      {
-        "destination_xy_cells": [
-          35,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          28
-        ],
-        "mean_alpha_mask_mismatch_px": 0.0,
-        "source_changed_pixels_vs_phase_1": 3
-      },
-      {
-        "destination_xy_cells": [
-          36,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          76,
-          96
-        ],
-        "mean_alpha_mask_mismatch_px": 3.0,
-        "source_changed_pixels_vs_phase_1": 1
-      },
-      {
-        "destination_xy_cells": [
-          39,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          125,
-          91
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 9
-      },
-      {
-        "destination_xy_cells": [
-          58,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          110,
-          28
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 3
-      },
-      {
-        "destination_xy_cells": [
-          64,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          108,
-          27
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 2
-      },
-      {
-        "destination_xy_cells": [
-          74,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          137,
-          40
-        ],
-        "mean_alpha_mask_mismatch_px": 1.0,
-        "source_changed_pixels_vs_phase_1": 0
-      },
-      {
-        "destination_xy_cells": [
-          77,
-          55
-        ],
-        "source_texloc_xy_cells": [
-          51,
-          163
-        ],
-        "mean_alpha_mask_mismatch_px": 2.0,
-        "source_changed_pixels_vs_phase_1": 2
+        "whole_component_silhouette_iou": 0.478682
       }
     ],
+    "output_phase_changed_pixels_vs_1": [
+      12970,
+      13415,
+      11223
+    ],
+    "output_shoreline_phase_changed_pixels_vs_1": [
+      4121,
+      4705,
+      3788
+    ],
+    "canonical_source_map_frames_saved": [
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_1.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_2.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_3.png",
+      "renders/metano_town_native_river/Metano_Town_River_native_map_phase_4.png"
+    ],
+    "canonical_source_map_reconstructed_exactly": true,
+    "output_rgb_values_are_native_map_samples": true,
+    "output_native_rgb_fill_rule": "pixels transparents de la fenêtre source remplis par le pixel River non transparent le plus proche dans la même composante cartographique, avant transformation NEAREST",
+    "output_map_coordinates_canonical": false,
+    "surface_patch_repeated_at_native_scale": false,
+    "individual_shoreline_tile_matching_used": false,
+    "mask_clip_applied": true,
+    "placements_scope": "une composante entière de la carte River native par bassin généré; rotation/redimensionnement NEAREST consignés, aucun placement tuile-par-tuile",
     "mask_diagnostics": {
       "magenta_pixels_raw": 110403,
       "anti_aliased_edge_pixels_raw": 704,
@@ -2949,7 +811,7 @@
   "layer_order_bottom_to_top": [
     "00 Sol complet · brut généré restauré",
     "01 Décor généré · magenta retiré, fleurs statiques",
-    "02 Eau + berges animées natives Metano Town River · phase 1/4",
+    "02 Eau Metano Town River · composantes cartographiques natives · phase 1/4",
     "03 Scintillements natifs Metano River · phase 1/4"
   ],
   "collisions": {

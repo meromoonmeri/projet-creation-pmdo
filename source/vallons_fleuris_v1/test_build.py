@@ -65,16 +65,25 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertEqual(water["source_unique_shoreline_sequences"], 566)
                 self.assertEqual(water["source_unique_animated_shoreline_sequences"], 507)
                 self.assertEqual(water["source_unique_shoreline_alpha_patterns"], 278)
-                self.assertEqual(water["surface_patch"]["source_texloc_top_left_xy_cells"], [128, 4])
-                self.assertEqual(water["surface_patch"]["source_grid_cells"], [8, 8])
-                self.assertEqual(water["surface_patch"]["size_px"], [64, 64])
-                self.assertEqual(water["surface_patch"]["phase_changed_pixels_vs_1"], [4, 5, 11])
-                self.assertLessEqual(max(water["surface_patch"]["repeat_edge_mean_abs_rgb_difference_per_phase"]), 2.0)
+                self.assertEqual(water["source_map_size_cells"], [142, 189])
+                self.assertEqual(water["source_map_size_px"], [1136, 1512])
+                self.assertEqual(water["source_map_bounds_xyxy_cells"], [45, 0, 141, 188])
+                self.assertTrue(water["source_map_cell_coordinates_match_texloc"])
+                self.assertTrue(water["source_map_layout_reconstructed_exactly"])
+                self.assertEqual(water["source_component_count"], 5)
+                self.assertEqual(len(water["source_components"]), 5)
+                self.assertIn("pixel River non transparent le plus proche", water["output_native_rgb_fill_rule"])
                 self.assertEqual(water["frame_count"], 4)
                 self.assertEqual(water["frame_length_ticks"], 10)
                 self.assertEqual(water["phase_order"], [1, 2, 3, 4])
-                self.assertTrue(water["native_pixels_unchanged"])
-                self.assertFalse(water["canonical_metano_layout_claim"])
+                self.assertTrue(water["canonical_source_map_reconstructed_exactly"])
+                self.assertFalse(water["canonical_map_placement_in_generated_maps"])
+                self.assertTrue(water["output_rgb_values_are_native_map_samples"])
+                self.assertFalse(water["output_map_coordinates_canonical"])
+                self.assertFalse(water["surface_patch_repeated_at_native_scale"])
+                self.assertFalse(water["individual_shoreline_tile_matching_used"])
+                self.assertEqual(len(water["canonical_source_map_frames_saved"]), 4)
+                self.assertEqual(len(water["source_map_frame_paths"]), 4)
 
                 flowers = manifest["flowers"]
                 self.assertEqual(flowers["status"], "official_frames_missing")
@@ -84,11 +93,10 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertIn("2cwdrrs469f61.gif", flowers["request"])
                 self.assertEqual(flowers["animated_count"], 0)
 
-    def test_native_water_frames_animate_both_surface_and_shoreline(self):
+    def test_native_water_frames_animate_source_map_components_and_borders(self):
         for code in CASES:
             with self.subTest(code=code):
-                manifest = self.manifest(code)
-                water_record = manifest["water"]
+                water_record = self.manifest(code)["water"]
                 water = np.asarray(self.load(code, "masks/masque_eau.png").convert("L")) > 0
                 frames = [np.asarray(frame) for frame in self.water_frames(code)]
                 self.assertEqual(len(frames), 4)
@@ -101,62 +109,92 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 differences = [int((np.any(frames[0] != frame, axis=2) & water).sum())
                                for frame in frames[1:]]
                 self.assertEqual(differences, water_record["output_phase_changed_pixels_vs_1"])
-                self.assertTrue(all(value > int(water.sum() * 0.05) for value in differences))
+                self.assertTrue(all(value > int(water.sum() * 0.01) for value in differences))
 
-                # The edge modules themselves must change in every transition, not just
-                # the repeated surface patch or the separate sparkle layer.
-                shoreline_differences = water_record["output_shoreline_phase_changed_pixels_vs_1"]
-                self.assertEqual(len(shoreline_differences), 3)
-                self.assertTrue(all(value > 2000 for value in shoreline_differences), shoreline_differences)
-                self.assertGreater(water_record["output_shoreline_cells"], 100)
+                edge_differences = water_record["output_shoreline_phase_changed_pixels_vs_1"]
+                self.assertEqual(len(edge_differences), 3)
+                self.assertTrue(all(value > 1000 for value in edge_differences), edge_differences)
+                placements = water_record["output_component_assignments"]
+                self.assertEqual(len(placements), water_record["output_component_count"])
+                self.assertGreaterEqual(len(placements), 2)
+                self.assertEqual(len({p["source_component_id"] for p in placements}), len(placements))
+                for placement in placements:
+                    self.assertIn(placement["rotation_degrees_counterclockwise"], [0, 90, 180, 270])
+                    self.assertTrue(all(0.25 <= value <= 3.5
+                                        for value in placement["nearest_neighbor_scale_xy"]))
+                    self.assertGreater(placement["whole_component_silhouette_iou"], 0.1)
 
-    def test_surface_patch_and_matched_native_shoreline_are_pixel_exact(self):
-        source_by_xy = {
-            tuple(entry["source_texloc_xy_cells"]): entry
-            for entry in self.river_assets["shoreline_tiles"]
-        }
-        patch_frames = [np.asarray(frame, dtype=np.uint8)
-                        for frame in self.river_assets["surface_patch_frames"]]
+    def test_full_native_map_is_rebuilt_at_example_map_cell_equal_texloc(self):
+        source_data = json.loads((ROOT / "source/eau_metano/animations_carte.json").read_text())
+        river_records = [record for record in source_data["animations"] if record.get("layer") == "River"]
+        self.assertEqual(len(river_records), 3200)
+        native_frames = self.river_assets["canonical_map_frames"]
+        self.assertEqual(len(native_frames), 4)
+        self.assertEqual([frame.size for frame in native_frames], [(1136, 1512)] * 4)
+        banks = [build_module.decode_native_tilebank(
+            ROOT / f"source/eau_metano/natifs/Metano_Town_River_Animation_{phase}.tile", 8)
+            for phase in range(1, 5)]
+        active_cells = set()
+        for record in river_records:
+            cell = tuple(record["example_map_cell"])
+            active_cells.add(cell)
+            for phase, frame_record in enumerate(record["animation"]["Frames"]):
+                texloc = (frame_record["TexLoc"]["X"], frame_record["TexLoc"]["Y"])
+                self.assertEqual(cell, texloc)
+                x, y = cell
+                actual = np.asarray(native_frames[phase].crop((x * 8, y * 8, (x + 1) * 8, (y + 1) * 8)))
+                expected = np.asarray(banks[phase][cell])
+                self.assertTrue(np.array_equal(actual, expected), (phase, cell))
+        alpha = np.asarray(native_frames[0].getchannel("A"))
+        for y in range(189):
+            for x in range(142):
+                if (x, y) not in active_cells:
+                    self.assertFalse(np.any(alpha[y * 8:(y + 1) * 8, x * 8:(x + 1) * 8]))
+
+        exported = self.manifest("FVF1")["water"]["canonical_source_map_frames_saved"]
+        self.assertEqual(len(exported), 4)
+        for phase, path in enumerate(exported):
+            with Image.open(ROOT / path) as saved:
+                self.assertTrue(np.array_equal(np.asarray(saved), np.asarray(native_frames[phase])))
+
+    def test_output_samples_whole_native_map_components(self):
         for code in CASES:
             with self.subTest(code=code):
-                manifest = self.manifest(code)
-                water_record = manifest["water"]
+                water_record = self.manifest(code)["water"]
                 water = np.asarray(self.load(code, "masks/masque_eau.png").convert("L")) > 0
+                labels, _ = nd.label(water, structure=np.ones((3, 3), dtype=bool))
+                target_components = []
+                for label in range(1, int(labels.max()) + 1):
+                    ys, xs = np.nonzero(labels == label)
+                    if len(xs) < 64:
+                        continue
+                    target_components.append((int(xs.min()), int(ys.min()),
+                                              int(xs.max()) + 1, int(ys.max()) + 1, label))
+                target_components.sort(key=lambda item: (item[0], item[1], item[3]))
                 output_frames = [np.asarray(frame) for frame in self.water_frames(code)]
-                placements = water_record["placements"]
-                expected_edge_cells = []
-                for y in range(72):
-                    for x in range(96):
-                        cell = water[y * 8:(y + 1) * 8, x * 8:(x + 1) * 8]
-                        if 0 < int(cell.sum()) < 64:
-                            expected_edge_cells.append((x, y))
-                self.assertEqual(len(placements), len(expected_edge_cells))
-                self.assertEqual(water_record["output_shoreline_cells"], len(expected_edge_cells))
-                self.assertEqual([tuple(p["destination_xy_cells"]) for p in placements], expected_edge_cells)
-
-                for phase in range(4):
-                    patch = patch_frames[phase]
-                    expected = np.tile(patch, (9, 12, 1))
-                    expected[~water] = 0
-                    for placement in placements:
-                        x, y = placement["destination_xy_cells"]
-                        source = source_by_xy[tuple(placement["source_texloc_xy_cells"])]
-                        target = water[y * 8:(y + 1) * 8, x * 8:(x + 1) * 8]
-                        source_masks = source["alpha_masks"]
-                        mean_mismatch = sum(int((np.asarray(mask, dtype=bool) ^ target).sum())
-                                             for mask in source_masks) / 4
-                        self.assertAlmostEqual(placement["mean_alpha_mask_mismatch_px"], mean_mismatch)
-                        native = np.asarray(source["frames"][phase], dtype=np.uint8)
-                        cell = expected[y * 8:(y + 1) * 8, x * 8:(x + 1) * 8].copy()
-                        visible = (native[:, :, 3] > 0) & target
-                        cell[visible] = native[visible]
-                        cell[:, :, 3] = target.astype(np.uint8) * 255
-                        expected[y * 8:(y + 1) * 8, x * 8:(x + 1) * 8] = cell
-                    expected[~water] = 0
-                    expected[:, :, 3] = water.astype(np.uint8) * 255
-                    self.assertTrue(np.array_equal(output_frames[phase], expected))
-
-                self.assertLessEqual(max(p["mean_alpha_mask_mismatch_px"] for p in placements), 11)
+                for placement in water_record["output_component_assignments"]:
+                    target_index = placement["destination_component_index"] - 1
+                    x0, y0, x1, y1, label = target_components[target_index]
+                    self.assertEqual(placement["destination_bbox_xyxy_px"], [x0, y0, x1, y1])
+                    target_mask = labels[y0:y1, x0:x1] == label
+                    source = next(component for component in self.river_assets["source_components"]
+                                  if component["source_component_id"] == placement["source_component_id"])
+                    sx0, sy0, sx1, sy1 = source["source_bbox_xyxy_px"]
+                    source_labels = self.river_assets["source_component_labels"][sy0:sy1, sx0:sx1]
+                    native_mask = source_labels == source["label"]
+                    for phase in range(4):
+                        source_rgba = np.asarray(self.river_assets["canonical_map_frames"][phase]
+                                                 .crop((sx0, sy0, sx1, sy1)))
+                        valid = native_mask & (source_rgba[:, :, 3] > 0)
+                        _, nearest = nd.distance_transform_edt(~valid, return_indices=True)
+                        rgb = source_rgba[nearest[0], nearest[1], :3]
+                        rotation = placement["rotation_degrees_counterclockwise"] // 90
+                        if rotation:
+                            rgb = np.rot90(rgb, rotation)
+                        texture = np.asarray(Image.fromarray(rgb.astype(np.uint8), "RGB").resize(
+                            (x1 - x0, y1 - y0), Image.Resampling.NEAREST))
+                        self.assertTrue(np.array_equal(output_frames[phase][y0:y1, x0:x1][target_mask, :3],
+                                                       texture[target_mask]))
 
     def test_original_decor_and_static_flower_art_are_preserved(self):
         for code in CASES:
@@ -222,6 +260,9 @@ class VallonsFleurisBuildTest(unittest.TestCase):
         self.assertIn("FVF1", html)
         self.assertIn("EVF1", html)
         self.assertIn("Metano Town River", html)
+        self.assertIn("example_map_cell", html)
+        self.assertIn("142×189", html)
+        self.assertIn("Calques sources complets", html)
         self.assertIn("2cwdrrs469f61.gif", html)
         self.assertNotIn("localhost", html.lower())
         self.assertNotIn("A‑B‑A‑C", html)
@@ -235,7 +276,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                     stack = ET.fromstring(z.read("stack.xml"))
                     names = [layer.attrib["name"] for layer in stack.find("stack").findall("layer")]
                     self.assertEqual(len(names), 4)
-                    self.assertIn("02 Eau + berges animées natives Metano Town River · phase 1/4", names)
+                    self.assertIn("02 Eau Metano Town River · composantes cartographiques natives · phase 1/4", names)
                     self.assertFalse(any("skypeak" in name.lower() or "sprite" in name.lower() for name in names))
                     merged = Image.open(__import__("io").BytesIO(z.read("mergedimage.png")))
                     self.assertEqual(merged.size, (768, 576))
