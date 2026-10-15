@@ -550,7 +550,82 @@ def native_map_crop_water_frames(
     }
     return frames, {"source_window": window, "animation": animation}, phase_differences, shoreline_phase_differences
 
-def sparkle_positions(water: np.ndarray, assets: list[dict], seed: int, max_count: int = 18) -> list[dict]:
+
+def native_shoreline_overlay_frames(
+    water: np.ndarray, river_assets: dict, source_window: dict, width_px: float = 1.5,
+) -> tuple[list[Image.Image], dict]:
+    """Échantillonne la rive bleue native dans un liseré intérieur du masque exact.
+
+    Les RGB viennent exclusivement de pixels opaques de cellules alpha-partielles River
+    (berges natives), filtrés sur la gamme bleu sombre du contour. Le liseré suit la limite
+    existante du masque cible; aucun composant ni tronçon de berge n'est apparié individuellement,
+    et aucun module n'est répété. La surface calme garde son propre filtre RGB modal −10.
+    """
+    if water.shape != (H, W) or width_px <= 0:
+        raise AssertionError("Masque ou largeur de rive invalide")
+    box = tuple(source_window["source_window_xyxy_px"])
+    if [box[2] - box[0], box[3] - box[1]] != [W, H]:
+        raise AssertionError(f"Fenêtre native incorrecte pour l'échantillonnage des rives: {box}")
+    inner_distance = nd.distance_transform_edt(water)
+    edge_ring = water & (inner_distance <= width_px)
+    if not np.any(edge_ring):
+        raise AssertionError("Le masque ne contient aucun liseré de rive")
+
+    frames = []
+    donor_counts = []
+    for phase, source_frame in enumerate(river_assets["canonical_map_frames"]):
+        source_rgba = np.asarray(source_frame.crop(box), dtype=np.uint8)
+        if source_rgba.shape != (H, W, 4):
+            raise AssertionError(f"Fenêtre native de rive mal découpée, phase {phase + 1}: {source_rgba.shape}")
+        alpha = source_rgba[:, :, 3]
+        coverage = (alpha > 0).reshape(H // TILE, TILE, W // TILE, TILE).sum(axis=(1, 3))
+        partial_cells = (coverage > 0) & (coverage < TILE * TILE)
+        partial_pixels = np.repeat(np.repeat(partial_cells, TILE, axis=0), TILE, axis=1)
+        rgb16 = source_rgba[:, :, :3].astype(np.int16)
+        # True native dark-blue bank pixels; excluding the cyan surface and bright falls.
+        bank_donors = (partial_pixels & (alpha == 255)
+                       & (rgb16[:, :, 0] < 110)
+                       & (rgb16[:, :, 1] < 160)
+                       & (rgb16[:, :, 2] >= 180)
+                       & (rgb16[:, :, 2] > rgb16[:, :, 1] * 1.15))
+        donor_count = int(bank_donors.sum())
+        if donor_count < 100:
+            raise AssertionError(f"Trop peu de pixels opaques de berge bleue native, phase {phase + 1}: {donor_count}")
+        _, nearest = nd.distance_transform_edt(~bank_donors, return_indices=True)
+        native_rgb = source_rgba[nearest[0], nearest[1], :3]
+        rgba = np.zeros((H, W, 4), dtype=np.uint8)
+        rgba[edge_ring, :3] = native_rgb[edge_ring]
+        rgba[edge_ring, 3] = 255
+        frames.append(Image.fromarray(rgba, "RGBA"))
+        donor_counts.append(donor_count)
+
+    output_arrays = [np.asarray(frame) for frame in frames]
+    phase_differences = [
+        int((np.any(output_arrays[0] != array, axis=2) & edge_ring).sum())
+        for array in output_arrays[1:]
+    ]
+    metadata = {
+        "source": "pixels opaques des cellules alpha-partielles des frames natives Metano Town River",
+        "source_window_xyxy_px": list(box),
+        "frame_count": PHASES,
+        "frame_length_ticks": FRAME_TICKS,
+        "edge_width_px": width_px,
+        "output_edge_pixels_per_frame": int(edge_ring.sum()),
+        "source_native_bank_donor_pixels_per_phase": donor_counts,
+        "changed_pixels_vs_phase_1": phase_differences,
+        "native_frame_pixels_used": True,
+        "native_rgb_unchanged": True,
+        "mask_fixed_for_all_phases": True,
+        "inner_edge_clipped_to_target_mask": True,
+        "surface_rgb_filter_applies_to_separate_calm_water_layer_only": True,
+        "individual_shoreline_tile_matching_used": False,
+        "repeated_patch_used": False,
+        "video_pixels_used": False,
+    }
+    return frames, metadata
+
+
+def sparkle_positions(water: np.ndarray, assets: list[dict], seed: int, max_count: int = 30) -> list[dict]:
     """Place the unchanged 8×8 native sparkle modules wholly inside the water mask."""
     water_labels, n = nd.label(water, structure=np.ones((3, 3), dtype=bool))
     sizes = np.bincount(water_labels.ravel())
@@ -584,7 +659,7 @@ def sparkle_positions(water: np.ndarray, assets: list[dict], seed: int, max_coun
         if not candidates:
             continue
         rng.shuffle(candidates)
-        quota = max(1, min(9, int(round(max_count * sizes[component] / max(1, sum(sizes[i] for i in components))))))
+        quota = max(1, min(15, int(round(max_count * sizes[component] / max(1, sum(sizes[i] for i in components))))))
         component_placements = []
         for x, y in candidates:
             if any((x - q["x"]) ** 2 + (y - q["y"]) ** 2 < 24 * 24 for q in placements + component_placements):
@@ -675,11 +750,17 @@ def write_ora(path: Path, layers: list[tuple[str, Image.Image]], merged: Image.I
         z.writestr("stack.xml", ET.tostring(root, encoding="utf-8"))
 
 
-def scene_frame(static: list[tuple[str, Image.Image]], water: list[Image.Image], sparkles: list[Image.Image], tick: int) -> Image.Image:
-    """Compose une phase River native et ses scintillements, sans animer les fleurs générées."""
-    water_phase = (tick // FRAME_TICKS) % PHASES
-    sparkle_phase = (tick // FRAME_TICKS) % PHASES
-    return compose(static + [("eau Métano", water[water_phase]), ("scintillements", sparkles[sparkle_phase])])
+def scene_frame(
+    static: list[tuple[str, Image.Image]], water: list[Image.Image],
+    shorelines: list[Image.Image], sparkles: list[Image.Image], tick: int,
+) -> Image.Image:
+    """Compose les frames natives d'eau, de rive et de scintillements."""
+    phase = (tick // FRAME_TICKS) % PHASES
+    return compose(static + [
+        ("eau calme Métano", water[phase]),
+        ("rive bleue native Métano", shorelines[phase]),
+        ("scintillements", sparkles[phase]),
+    ])
 
 
 def save_html(maps_spec: dict) -> None:
@@ -696,8 +777,8 @@ main{max-width:1440px;width:calc(100% - 32px);margin:24px auto 60px}h1{font-size
 @media(max-width:850px){.scene-layout{grid-template-columns:1fr}.stage{min-height:220px}}@media(max-width:600px){main{width:calc(100% - 18px);margin-top:15px}.toolbar{gap:6px}.toolbar label{font-size:.85rem}.panel{padding:10px}}
 </style></head><body><main>
 <div class="eyebrow">Restitution des compositions Vallon Fleuri</div><h1>FVF1 · Sanctuaire &nbsp; / &nbsp; EVF1 · Entrée</h1>
-<p class="intro">Les compositions FVF1/EVF1 sont reconstruites depuis les bruts restaurés et leur sol séparé, en 768 × 576 px (96 × 72 cases de 8 px). L’eau vient des frames natives Metano Town River : une fenêtre contiguë de la carte source est sélectionnée à 1:1 puis clippée au masque magenta exact. Pas d’eau générée, pas de mosaïque de patchs ; les scintillements restent natifs et les fleurs d’origine statiques.</p>
-<div class="notice"><b>Eau :</b> les pixels viennent des quatre frames natives Metano Town River (Palika/Halcyon), cadence 10 ticks. Le build choisit une unique fenêtre contiguë 96×72 cases dans la carte native, au meilleur recouvrement de silhouette avec le masque magenta, sans redimensionnement, rotation, miroir, recoloration, patch répété ni assemblage de berges. Les pixels transparents de cette fenêtre prennent le plus proche RGB River natif, phase par phase ; l’alpha final suit exactement le masque magenta. La carte source complète 142×189 (<code>example_map_cell = TexLoc</code>) reste reconstruite et liée séparément ; dans FVF1/EVF1, c’est une fenêtre native qui est utilisée, pas tout l’agencement source. Les scintillements sont natifs. <b>Fleurs :</b> frames officielles Sky Peak absentes ; les fleurs originales restent statiques. <code>art_approved=false</code>, <code>runtime_tested=false</code>.</div>
+<p class="intro">Les compositions FVF1/EVF1 sont reconstruites depuis les bruts restaurés et leur sol séparé, en 768 × 576 px (96 × 72 cases de 8 px). La surface cyan, les berges bleues et les scintillements viennent des frames/modules natifs Metano. Le contour est restitué dans un calque natif séparé, sans changer le masque magenta exact. Les fleurs d’origine restent statiques jusqu’au retour des frames Sky Peak officielles.</p>
+<div class="notice"><b>Eau et berges :</b> les pixels viennent des quatre frames natives Metano Town River (Palikadude/Halcyon), cadence 10 ticks. La surface calme utilise des donneurs opaques dont chaque canal est ≥ RGB modal natif −10. Un calque séparé copie les pixels bleu sombre des cellules alpha-partielles de rive dans un liseré intérieur de 1,5 px, toujours clippé au masque exact. Pas de fenêtre déformée, de patch répété, d’appariement individuel des berges ni de pixels vidéo. La carte source complète 142×189 (<code>example_map_cell = TexLoc</code>) reste reconstruite séparément ; le recadrage utilisé ne revendique pas son agencement complet. Les scintillements sont natifs. <b>Fleurs :</b> frames officielles Sky Peak absentes ; les fleurs originales restent statiques. <code>art_approved=false</code>, <code>runtime_tested=false</code>.</div>
 <div class="toolbar"><label>Carte <select id="map"></select></label><button id="play">Pause</button><label>Tick <input id="scrub" type="range" min="0" max="239" value="0"><span id="tick" class="status">0</span></label><label>Zoom <select id="zoom"><option value="1">1×</option><option value="2">2×</option></select></label><label><input type="checkbox" id="grid"> Grille 8 px</label><label><input type="checkbox" id="collision"> Collisions indicatives + marqueurs</label></div>
 <div class="scene-layout"><section class="stage"><canvas id="view" width="768" height="576" aria-label="Composition complète et animée du Vallon Fleuri"></canvas><div class="small" id="clock"></div></section><aside class="side"><div class="panel"><h3>Calques · bas → haut</h3><div class="layer-list" id="layers"></div></div><div class="panel"><h3>Contrôles et provenance</h3><div class="small" id="details"></div><div class="links" id="downloads"></div></div></aside></div>
 <h2>Compositions complètes, sources et exports</h2><div class="cards" id="mapcards"></div>
@@ -711,7 +792,7 @@ function markerColor(m){return m.color||'#fff'}
 async function preload(){for(const [id,m] of Object.entries(MAPS)){state.images[id]={};for(const l of m.layers){state.images[id][l.id]=await Promise.all(l.srcs.map(img))}}}
 function renderLayerToggles(){layerHost.replaceChildren();const m=MAPS[state.id];for(const l of m.layers){state.visible[l.id]=true;const label=document.createElement('label'),check=document.createElement('input');check.type='checkbox';check.checked=true;check.onchange=()=>{state.visible[l.id]=check.checked;draw()};label.append(check,document.createTextNode(l.label));layerHost.append(label)}}
 function renderCards(){cards.replaceChildren();for(const [id,m] of Object.entries(MAPS)){const card=document.createElement('article');card.className='card';card.innerHTML=`<h3><span class="label">${id}</span> ${m.title}</h3><img src="${m.review}" alt="Composition complète ${id}"><div class="links"><a href="${m.viewer_link}">Ouvrir cette carte dans le viewer</a><a href="${m.ora}">Télécharger l’ORA multicalque</a><a href="${m.manifest}">Manifeste</a></div><div class="small">Brut restauré : <a href="${m.raw_decor}">décor</a> · <a href="${m.raw_soil}">sol complet</a></div>`;cards.append(card)}}
-function selectMap(id){state.id=id;state.tick=0;$('#scrub').value='0';selector.value=id;renderLayerToggles();const m=MAPS[id];const flowerState=m.flower_status.missing_official_frames?'Bloquée : frames officielles Sky Peak absentes.':'Source officielle présente, animation en attente de validation.';$('#details').innerHTML=`<b>${m.title}</b><br>${m.note}<br><br><span class="water-swatch"></span> Eau ${m.water.source} · 4 phases / 10 ticks · masque magenta exact<br>Fenêtre native : ${m.water.output_native_source_window.source_window_xyxy_cells.join(', ')} cases · ${m.water.output_native_source_window.mask_vs_native_window_iou} IoU · carte complète ${m.water.source_map_size_cells[0]}×${m.water.source_map_size_cells[1]} séparée<br>Pixels modifiés en eau P1→P2/P3/P4 : ${m.water.changed_pixels_vs_phase_1.join(', ')}<br>Pixels animés dans la bordure : ${m.water.shoreline_changed_pixels_vs_phase_1.join(', ')}<br>Calques sources complets : ${m.water.source_map_frame_paths.map((src,i)=>'<a href="'+src+'">P'+(i+1)+'</a>').join(' · ')}<br>Fleurs : ${flowerState} Les fleurs peintes d’origine restent statiques ; aucun sprite synthétique.<br><span class="small">${m.flower_status.request}</span><br>Scintillements : ${m.sparkle_count} placements natifs · 4 phases / 10 ticks<br>Calques : ${m.layers.length} · taille ${m.size_px[0]}×${m.size_px[1]} · ${m.grid[0]}×${m.grid[1]} cellules<br><br><b>Référence :</b> ${m.source_ref}<br><span class="small">Les collisions superposées sont des indices visuels, pas un bake ni un test runtime.</span>`;$('#downloads').innerHTML=`<a href="${m.ora}">ORA multicalque</a><a href="${m.manifest}">Manifest JSON</a>`;draw()}
+function selectMap(id){state.id=id;state.tick=0;$('#scrub').value='0';selector.value=id;renderLayerToggles();const m=MAPS[id];const flowerState=m.flower_status.missing_official_frames?'Bloquée : frames officielles Sky Peak absentes.':'Source officielle présente, animation en attente de validation.';$('#details').innerHTML=`<b>${m.title}</b><br>${m.note}<br><br><span class="water-swatch"></span> Eau ${m.water.source} · 4 phases / 10 ticks · masque magenta exact<br>Fenêtre native : ${m.water.output_native_source_window.source_window_xyxy_cells.join(', ')} cases · ${m.water.output_native_source_window.mask_vs_native_window_iou} IoU · carte complète ${m.water.source_map_size_cells[0]}×${m.water.source_map_size_cells[1]} séparée<br>Pixels modifiés en eau P1→P2/P3/P4 : ${m.water.changed_pixels_vs_phase_1.join(', ')}<br>Rive bleue native : liseré ${m.shoreline.edge_width_px} px · ${m.shoreline.output_edge_pixels_per_frame} px/frame · animation ${m.shoreline.changed_pixels_vs_phase_1.join(', ')} pixels<br>Calques sources complets : ${m.water.source_map_frame_paths.map((src,i)=>'<a href="'+src+'">P'+(i+1)+'</a>').join(' · ')}<br>Fleurs : ${flowerState} Les fleurs peintes d’origine restent statiques ; aucun sprite synthétique.<br><span class="small">${m.flower_status.request}</span><br>Scintillements : ${m.sparkle_count} placements natifs · 4 phases / 10 ticks<br>Calques : ${m.layers.length} · taille ${m.size_px[0]}×${m.size_px[1]} · ${m.grid[0]}×${m.grid[1]} cellules<br><br><b>Référence :</b> ${m.source_ref}<br><span class="small">Les collisions superposées sont des indices visuels, pas un bake ni un test runtime.</span>`;$('#downloads').innerHTML=`<a href="${m.ora}">ORA multicalque</a><a href="${m.manifest}">Manifest JSON</a>`;draw()}
 function draw(){const m=MAPS[state.id];ctx.clearRect(0,0,768,576);for(const l of m.layers){if(!state.visible[l.id])continue;const a=state.images[state.id][l.id];const idx=Math.floor(state.tick/l.ticks)%a.length;ctx.drawImage(a[idx],0,0)}if(state.collisions){ctx.fillStyle='rgba(220,40,40,.34)';for(const [x,y] of m.blocked)ctx.fillRect(x*8,y*8,8,8);for(const marker of m.markers){ctx.strokeStyle=markerColor(marker);ctx.lineWidth=2;ctx.strokeRect(marker.xy[0]+1,marker.xy[1]+1,14,14);ctx.fillStyle=markerColor(marker);ctx.font='12px system-ui';ctx.fillText(marker.name,marker.xy[0]+17,marker.xy[1]+12)}}if(state.grid){ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;for(let x=0;x<=768;x+=8){ctx.beginPath();ctx.moveTo(x+.5,0);ctx.lineTo(x+.5,576);ctx.stroke()}for(let y=0;y<=576;y+=8){ctx.beginPath();ctx.moveTo(0,y+.5);ctx.lineTo(768,y+.5);ctx.stroke()}}$('#tick').textContent=state.tick;$('#clock').textContent=`${m.title} · tick ${state.tick}/${m.loop_ticks} · eau ${m.water.source} phase ${Math.floor(state.tick/10)%4+1}/4 · fleurs statiques (${m.flower_status.missing_official_frames?'frames officielles manquantes':'source à vérifier'}) · scintillements Métano phase ${Math.floor(state.tick/10)%4+1}/4`}
 selector.onchange=e=>selectMap(e.target.value);$('#play').onclick=e=>{state.playing=!state.playing;e.target.textContent=state.playing?'Pause':'Lecture'};$('#scrub').oninput=e=>{state.tick=+e.target.value;draw()};$('#zoom').onchange=e=>{state.zoom=+e.target.value;canvas.style.width=(768*state.zoom)+'px';canvas.style.height=(576*state.zoom)+'px'};$('#grid').onchange=e=>{state.grid=e.target.checked;draw()};$('#collision').onchange=e=>{state.collisions=e.target.checked;draw()};
 for(const [id,m] of Object.entries(MAPS))selector.add(new Option(id+' — '+m.title,id));
@@ -726,7 +807,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     decor_path = raw_dir / cfg["decor_file"]
     soil_path = raw_dir / cfg["soil_file"]
     out = ROOT / "renders" / cfg["slug"]
-    for folder in ("layers", "animation/eau_metano_native", "animation/scintillements", "masks", "review"):
+    for folder in ("layers", "animation/eau_metano_native", "animation/rives_metano_native", "animation/scintillements", "masks", "review"):
         (out / folder).mkdir(parents=True, exist_ok=True)
 
     # Remove only obsolete outputs from the rejected generated-water and synthetic-flower attempts.
@@ -791,6 +872,8 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
 
     water_frames, native_water_placement, water_phase_differences, shoreline_phase_differences = (
         native_map_crop_water_frames(water, river_assets, code))
+    shoreline_frames, shoreline_overlay = native_shoreline_overlay_frames(
+        water, river_assets, native_water_placement["source_window"])
     water_grid = water.reshape(H // TILE, TILE, W // TILE, TILE).any(axis=(1, 3))
     water_grid_cells = int(water_grid.sum())
     sparkle_spots = sparkle_positions(water, sparkle_assets,
@@ -802,23 +885,28 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     soil_layer.save(out / "layers/00_sol_complet.png", optimize=True)
     decor_layer.save(out / "layers/01_decor_hors_eau_fleurs_statiques.png", optimize=True)
     water_frame_paths = []
+    shoreline_frame_paths = []
     sparkle_frame_paths = []
     for phase in range(PHASES):
         water_rel = f"renders/{cfg['slug']}/animation/eau_metano_native/{code}_eau_metano_phase_{phase + 1}.png"
+        shoreline_rel = f"renders/{cfg['slug']}/animation/rives_metano_native/{code}_rive_metano_phase_{phase + 1}.png"
         sparkle_rel = f"renders/{cfg['slug']}/animation/scintillements/{code}_scintillements_phase_{phase + 1}.png"
         water_frames[phase].save(ROOT / water_rel, optimize=True)
+        shoreline_frames[phase].save(ROOT / shoreline_rel, optimize=True)
         sparkles_anim[phase].save(ROOT / sparkle_rel, optimize=True)
         water_frame_paths.append(water_rel)
+        shoreline_frame_paths.append(shoreline_rel)
         sparkle_frame_paths.append(sparkle_rel)
     water_frames[0].save(out / "layers/02_eau_metano_native_phase_1.png", optimize=True)
+    shoreline_frames[0].save(out / "layers/03_rive_metano_native_phase_1.png", optimize=True)
 
     static = [
         ("00 Sol complet · brut généré restauré", soil_layer),
         ("01 Décor généré · magenta retiré, fleurs statiques", decor_layer),
     ]
-    composed = scene_frame(static, water_frames, sparkles_anim, 0)
+    composed = scene_frame(static, water_frames, shoreline_frames, sparkles_anim, 0)
     composed.save(out / f"review/{code}_scene_t000.png", optimize=True)
-    scene_frames = [scene_frame(static, water_frames, sparkles_anim, tick)
+    scene_frames = [scene_frame(static, water_frames, shoreline_frames, sparkles_anim, tick)
                     for tick in range(0, LOOP_TICKS, FRAME_TICKS)]
     scene_frames[0].save(out / f"review/{code}_scene_animee.webp", save_all=True,
                          append_images=scene_frames[1:], duration=167, loop=0, lossless=True, method=6)
@@ -841,8 +929,9 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     blocked = blocked_grid(decor, water)
     marker_data = cfg["markers"]
     layers_for_ora = static + [
-        ("02 Metano Town River · fenêtre native 1:1 clippée au masque magenta · phase 1/4", water_frames[0]),
-        ("03 Scintillements natifs Metano River · phase 1/4", sparkles_anim[0]),
+        ("02 Surface calme native Metano · fenêtre 1:1 · phase 1/4", water_frames[0]),
+        ("03 Liseré de rive bleue native Metano · source alpha-partielle · phase 1/4", shoreline_frames[0]),
+        ("04 Scintillements natifs Metano River · phase 1/4", sparkles_anim[0]),
     ]
     ora_path = out / f"{code}_{cfg['slug']}_calques.ora"
     write_ora(ora_path, layers_for_ora, composed)
@@ -854,10 +943,13 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         {"id": "decor", "label": "01 · décor généré restauré · fleurs d'origine statiques",
          "srcs": [f"renders/{cfg['slug']}/layers/01_decor_hors_eau_fleurs_statiques.png"],
          "ticks": LOOP_TICKS, "tiles": tile_count(decor_layer)},
-        {"id": "water", "label": "02 · Vraie eau Metano Town River, fenêtre native 1:1 clippée au masque, 4 phases",
+        {"id": "water", "label": "02 · Surface calme native Metano Town River · filtre cyan · 4 phases",
          "srcs": water_frame_paths, "ticks": FRAME_TICKS,
          "tiles": sum(tile_count(frame) for frame in water_frames) // PHASES},
-        {"id": "sparkles", "label": "03 · scintillements Métano natifs · 4 phases, 10 ticks/phase",
+        {"id": "shoreline", "label": "03 · Rive bleue native Metano · pixels alpha-partiels · liseré 1,5 px · 4 phases",
+         "srcs": shoreline_frame_paths, "ticks": FRAME_TICKS,
+         "tiles": sum(tile_count(frame) for frame in shoreline_frames) // PHASES},
+        {"id": "sparkles", "label": "04 · scintillements Métano natifs · 4 phases, 10 ticks/phase",
          "srcs": sparkle_frame_paths, "ticks": FRAME_TICKS,
          "tiles": sum(tile_count(frame) for frame in sparkles_anim) // PHASES},
     ]
@@ -881,6 +973,8 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "output_water_cells": water_grid_cells,
         "output_phase_changed_pixels_vs_1": water_phase_differences,
         "output_shoreline_phase_changed_pixels_vs_1": shoreline_phase_differences,
+        "output_native_shoreline_frame_paths": shoreline_frame_paths,
+        "native_shoreline_overlay": shoreline_overlay,
         "output_native_source_window": native_water_placement["source_window"],
         "output_animation": native_water_placement["animation"],
         "canonical_source_map_frames_saved": river_assets["source_map_frame_paths"],
@@ -891,7 +985,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "surface_patch_repeated_at_native_scale": False,
         "individual_shoreline_tile_matching_used": False,
         "mask_clip_applied": True,
-        "output_scope": "échantillons RGB natifs 1:1 dans les cellules River dominées par l'eau calme; pixels donneurs opaques filtrés par phase (chaque canal >= RGB modal natif -10), ce qui garde la base cyan et les reflets clairs, pas les larges facettes bleu foncé. Rives/chutes exclues; alpha clippé au masque magenta original.",
+        "output_scope": "surface: échantillons RGB natifs 1:1 de cellules calmes opaques, chaque canal >= RGB modal natif -10; rive: calque séparé qui copie les pixels bleu sombre natifs des cellules alpha-partielles dans un liseré intérieur de 1,5 px, clippé au masque exact. La surface conserve sa base cyan et ses reflets sans étaler les facettes; les chutes restent exclues.",
         "native_surface_base_rgb": river_assets["source_calm_water_base_rgb_native"],
         "native_surface_min_channel_delta": -10,
         "visual_reference": "marvelousvalley.mp4",
@@ -939,6 +1033,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
             "changed_pixels_vs_phase_1": water_phase_differences,
             "shoreline_changed_pixels_vs_phase_1": shoreline_phase_differences,
         },
+        "shoreline": shoreline_overlay | {"output_frame_paths": shoreline_frame_paths},
         "flower_status": flower_status,
         "flower_animation_count": 0,
         "sparkle_count": len(sparkle_spots),
@@ -950,14 +1045,15 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "manifest": f"renders/{cfg['slug']}/manifest.json",
         "viewer_link": f"apercu_vallons_fleuris_v1.html?map={code}",
         "note": ("Décor généré restauré et fleurs d'origine conservées statiques. "
-                 "L'eau utilise les quatre frames natives Metano Town River, prises dans une seule "
-                 "fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; "
-                 "les RGB restent des échantillons natifs d'eau de surface (sans utiliser les rives, "
-                 "chutes ou pixels de la vidéo); les trous de la fenêtre prennent l'échantillon de "
-                 "surface le plus proche. La vidéo marvelousvalley.mp4 sert de référence visuelle, "
-                 "pas de source pixels. La carte source complète est exportée "
-                 "séparément; son layout entier ne tient pas dans le biome. Les scintillements sont "
-                 "également natifs. Fleurs officielles Sky Peak absentes."),
+                 "La surface d'eau utilise les quatre frames natives Metano Town River, prises dans "
+                 "une seule fenêtre contiguë 96×72 à 1:1; ses donneurs opaques restent limités aux "
+                 "pixels de surface calme dont chaque canal vaut au moins RGB modal natif −10. "
+                 "Un calque de rive séparé reprend les pixels bleu sombre des cellules alpha-partielles "
+                 "natives, sous forme d'un liseré intérieur de 1,5 px clippé au masque exact; aucune "
+                 "berge/composante n'est appariée individuellement. marvelousvalley.mp4 est une "
+                 "référence visuelle seulement, jamais une source de pixels. La carte native complète "
+                 "est exportée séparément; les scintillements sont aussi natifs. Les fleurs officielles "
+                 "Sky Peak manquent encore."),
     }
 
     for frame in water_frames:
@@ -972,25 +1068,25 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     manifest = {
         "lot": cfg["slug"], "code": code, "title": cfg["title"],
         "canvas_px": [W, H], "grid_8px": [W // TILE, H // TILE],
-        "method": ("Les bruts de décor sont normalisés uniformément et le masque magenta définit "
-                   "exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu "
-                   "96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; "
-                   "le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, "
-                   "recoloration, patch répété ou appariement séparé des berges. Seules les cellules "
-                   "de surface River entièrement opaques fournissent les couleurs RGB; rives, chutes "
-                   "et autres modules sont exclus. Les zones transparentes prennent l'échantillon de "
-                   "surface natif le plus proche, phase par phase, puis sont clippées au masque magenta. "
-                   "La vidéo marvelousvalley.mp4 sert de référence visuelle, sans fournir de pixels. "
-                   "Les quatre frames sont les "
-                   "phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi "
-                   "reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout "
-                   "complet n'est pas revendiqué dans les deux biomes."),
+        "method": ("Les bruts de décor sont normalisés uniformément et le masque magenta fixe "
+                   "la silhouette cible. Pour chaque biome, un recadrage contigu 96×72 cases des "
+                   "calques River natifs reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, "
+                   "recoloration, patch répété ni appariement individuel des berges. La surface cyan "
+                   "est alimentée uniquement par des pixels opaques de cellules calmes; chaque canal "
+                   "du donneur vaut au moins RGB modal natif −10. Un calque distinct de liseré intérieur "
+                   "de 1,5 px copie des pixels bleus natifs de cellules River alpha-partielles et suit le "
+                   "masque exact sans faire correspondre les composants. Les scintillements restent "
+                   "des modules natifs. marvelousvalley.mp4 sert de référence visuelle seulement, "
+                   "jamais de source de pixels. Les quatre phases natives durent 10 ticks. Les 3200 "
+                   "cellules de la carte complète sont aussi reconstruites séparément aux coordonnées "
+                   "example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les biomes."),
         "normalization": {"source_px": [SRC_W, SRC_H], "uniform_scale": SCALE,
                           "scaled_px": [SCALED_W, H],
                           "crop_x_left_right": [CROP_X, SCALED_W - W - CROP_X],
                           "method": "uniform LANCZOS RGB + masque NEAREST; aucun étirement"},
         "inputs": source_records,
         "water": water_manifest | {"mask_diagnostics": water_diagnostics, "foam_layer": False},
+        "shoreline": shoreline_overlay | {"output_frame_paths": shoreline_frame_paths},
         "flowers": flower_status | {
             "animated_count": 0,
             "scope": "Les fleurs déjà peintes dans le décor généré restent intactes et statiques; aucun sprite de remplacement n'est créé.",

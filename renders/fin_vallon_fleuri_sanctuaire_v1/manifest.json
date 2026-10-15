@@ -10,7 +10,7 @@
     96,
     72
   ],
-  "method": "Les bruts de décor sont normalisés uniformément et le masque magenta définit exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu 96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, recoloration, patch répété ou appariement séparé des berges. Seules les cellules de surface River entièrement opaques fournissent les couleurs RGB; rives, chutes et autres modules sont exclus. Les zones transparentes prennent l'échantillon de surface natif le plus proche, phase par phase, puis sont clippées au masque magenta. La vidéo marvelousvalley.mp4 sert de référence visuelle, sans fournir de pixels. Les quatre frames sont les phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les deux biomes.",
+  "method": "Les bruts de décor sont normalisés uniformément et le masque magenta fixe la silhouette cible. Pour chaque biome, un recadrage contigu 96×72 cases des calques River natifs reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, recoloration, patch répété ni appariement individuel des berges. La surface cyan est alimentée uniquement par des pixels opaques de cellules calmes; chaque canal du donneur vaut au moins RGB modal natif −10. Un calque distinct de liseré intérieur de 1,5 px copie des pixels bleus natifs de cellules River alpha-partielles et suit le masque exact sans faire correspondre les composants. Les scintillements restent des modules natifs. marvelousvalley.mp4 sert de référence visuelle seulement, jamais de source de pixels. Les quatre phases natives durent 10 ticks. Les 3200 cellules de la carte complète sont aussi reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les biomes.",
   "normalization": {
     "source_px": [
       1200,
@@ -227,6 +227,44 @@
       260,
       597
     ],
+    "output_native_shoreline_frame_paths": [
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_1.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_2.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_3.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_4.png"
+    ],
+    "native_shoreline_overlay": {
+      "source": "pixels opaques des cellules alpha-partielles des frames natives Metano Town River",
+      "source_window_xyxy_px": [
+        320,
+        456,
+        1088,
+        1032
+      ],
+      "frame_count": 4,
+      "frame_length_ticks": 10,
+      "edge_width_px": 1.5,
+      "output_edge_pixels_per_frame": 2509,
+      "source_native_bank_donor_pixels_per_phase": [
+        5535,
+        5428,
+        5317,
+        5604
+      ],
+      "changed_pixels_vs_phase_1": [
+        685,
+        821,
+        668
+      ],
+      "native_frame_pixels_used": true,
+      "native_rgb_unchanged": true,
+      "mask_fixed_for_all_phases": true,
+      "inner_edge_clipped_to_target_mask": true,
+      "surface_rgb_filter_applies_to_separate_calm_water_layer_only": true,
+      "individual_shoreline_tile_matching_used": false,
+      "repeated_patch_used": false,
+      "video_pixels_used": false
+    },
     "output_native_source_window": {
       "source_window_xyxy_cells": [
         40,
@@ -290,7 +328,7 @@
     "surface_patch_repeated_at_native_scale": false,
     "individual_shoreline_tile_matching_used": false,
     "mask_clip_applied": true,
-    "output_scope": "échantillons RGB natifs 1:1 dans les cellules River dominées par l'eau calme; pixels donneurs opaques filtrés par phase (chaque canal >= RGB modal natif -10), ce qui garde la base cyan et les reflets clairs, pas les larges facettes bleu foncé. Rives/chutes exclues; alpha clippé au masque magenta original.",
+    "output_scope": "surface: échantillons RGB natifs 1:1 de cellules calmes opaques, chaque canal >= RGB modal natif -10; rive: calque séparé qui copie les pixels bleu sombre natifs des cellules alpha-partielles dans un liseré intérieur de 1,5 px, clippé au masque exact. La surface conserve sa base cyan et ses reflets sans étaler les facettes; les chutes restent exclues.",
     "native_surface_base_rgb": [
       131,
       218,
@@ -310,6 +348,44 @@
       "edge_rule": "magenta or pink-tinted pixels within 3 px; no uniform dilation"
     },
     "foam_layer": false
+  },
+  "shoreline": {
+    "source": "pixels opaques des cellules alpha-partielles des frames natives Metano Town River",
+    "source_window_xyxy_px": [
+      320,
+      456,
+      1088,
+      1032
+    ],
+    "frame_count": 4,
+    "frame_length_ticks": 10,
+    "edge_width_px": 1.5,
+    "output_edge_pixels_per_frame": 2509,
+    "source_native_bank_donor_pixels_per_phase": [
+      5535,
+      5428,
+      5317,
+      5604
+    ],
+    "changed_pixels_vs_phase_1": [
+      685,
+      821,
+      668
+    ],
+    "native_frame_pixels_used": true,
+    "native_rgb_unchanged": true,
+    "mask_fixed_for_all_phases": true,
+    "inner_edge_clipped_to_target_mask": true,
+    "surface_rgb_filter_applies_to_separate_calm_water_layer_only": true,
+    "individual_shoreline_tile_matching_used": false,
+    "repeated_patch_used": false,
+    "video_pixels_used": false,
+    "output_frame_paths": [
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_1.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_2.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_3.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_4.png"
+    ]
   },
   "flowers": {
     "status": "official_frames_missing",
@@ -333,7 +409,7 @@
   "sparkles": {
     "source": "source/eau_metano/natifs/Metano_Town_River_Sparkles.tile",
     "animation_reference": "source/eau_metano/animations_carte.json",
-    "count": 18,
+    "count": 30,
     "phase_order": [
       1,
       2,
@@ -545,8 +621,8 @@
         "component": 2
       },
       {
-        "x": 624,
-        "y": 296,
+        "x": 240,
+        "y": 440,
         "asset_index": 8,
         "source_index": 3208,
         "source_texlocs": [
@@ -567,11 +643,11 @@
             6
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 632,
-        "y": 256,
+        "x": 304,
+        "y": 472,
         "asset_index": 9,
         "source_index": 3209,
         "source_texlocs": [
@@ -592,11 +668,11 @@
             7
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 496,
-        "y": 480,
+        "x": 208,
+        "y": 448,
         "asset_index": 10,
         "source_index": 3210,
         "source_texlocs": [
@@ -617,11 +693,11 @@
             6
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 536,
-        "y": 472,
+        "x": 152,
+        "y": 416,
         "asset_index": 11,
         "source_index": 3211,
         "source_texlocs": [
@@ -642,11 +718,11 @@
             7
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 640,
-        "y": 320,
+        "x": 104,
+        "y": 240,
         "asset_index": 12,
         "source_index": 3212,
         "source_texlocs": [
@@ -667,11 +743,11 @@
             24
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 472,
-        "y": 480,
+        "x": 144,
+        "y": 336,
         "asset_index": 13,
         "source_index": 3213,
         "source_texlocs": [
@@ -692,11 +768,11 @@
             25
           ]
         ],
-        "component": 3
+        "component": 2
       },
       {
-        "x": 472,
-        "y": 448,
+        "x": 624,
+        "y": 296,
         "asset_index": 14,
         "source_index": 3214,
         "source_texlocs": [
@@ -720,8 +796,8 @@
         "component": 3
       },
       {
-        "x": 440,
-        "y": 464,
+        "x": 632,
+        "y": 256,
         "asset_index": 15,
         "source_index": 3215,
         "source_texlocs": [
@@ -745,8 +821,8 @@
         "component": 3
       },
       {
-        "x": 616,
-        "y": 384,
+        "x": 496,
+        "y": 480,
         "asset_index": 16,
         "source_index": 3216,
         "source_texlocs": [
@@ -770,8 +846,8 @@
         "component": 3
       },
       {
-        "x": 704,
-        "y": 368,
+        "x": 536,
+        "y": 472,
         "asset_index": 17,
         "source_index": 3217,
         "source_texlocs": [
@@ -792,6 +868,306 @@
             25
           ]
         ],
+        "component": 3
+      },
+      {
+        "x": 640,
+        "y": 320,
+        "asset_index": 18,
+        "source_index": 3218,
+        "source_texlocs": [
+          [
+            1,
+            14
+          ],
+          [
+            1,
+            18
+          ],
+          [
+            1,
+            22
+          ],
+          [
+            1,
+            26
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 472,
+        "y": 480,
+        "asset_index": 19,
+        "source_index": 3219,
+        "source_texlocs": [
+          [
+            1,
+            15
+          ],
+          [
+            1,
+            19
+          ],
+          [
+            1,
+            23
+          ],
+          [
+            1,
+            27
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 472,
+        "y": 448,
+        "asset_index": 0,
+        "source_index": 3200,
+        "source_texlocs": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            9
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 440,
+        "y": 464,
+        "asset_index": 1,
+        "source_index": 3201,
+        "source_texlocs": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            10
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 616,
+        "y": 384,
+        "asset_index": 2,
+        "source_index": 3202,
+        "source_texlocs": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            0,
+            11
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 520,
+        "y": 448,
+        "asset_index": 3,
+        "source_index": 3203,
+        "source_texlocs": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            9
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 568,
+        "y": 456,
+        "asset_index": 4,
+        "source_index": 3204,
+        "source_texlocs": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            10
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 632,
+        "y": 344,
+        "asset_index": 5,
+        "source_index": 3205,
+        "source_texlocs": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            1,
+            11
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 568,
+        "y": 416,
+        "asset_index": 6,
+        "source_index": 3206,
+        "source_texlocs": [
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            6
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 624,
+        "y": 232,
+        "asset_index": 7,
+        "source_index": 3207,
+        "source_texlocs": [
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            7
+          ]
+        ],
+        "component": 3
+      },
+      {
+        "x": 704,
+        "y": 368,
+        "asset_index": 8,
+        "source_index": 3208,
+        "source_texlocs": [
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "component": 4
+      },
+      {
+        "x": 720,
+        "y": 344,
+        "asset_index": 9,
+        "source_index": 3209,
+        "source_texlocs": [
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            7
+          ]
+        ],
         "component": 4
       }
     ]
@@ -799,8 +1175,9 @@
   "layer_order_bottom_to_top": [
     "00 Sol complet · brut généré restauré",
     "01 Décor généré · magenta retiré, fleurs statiques",
-    "02 Metano Town River · fenêtre native 1:1 clippée au masque magenta · phase 1/4",
-    "03 Scintillements natifs Metano River · phase 1/4"
+    "02 Surface calme native Metano · fenêtre 1:1 · phase 1/4",
+    "03 Liseré de rive bleue native Metano · source alpha-partielle · phase 1/4",
+    "04 Scintillements natifs Metano River · phase 1/4"
   ],
   "collisions": {
     "blocked_cells": 1888,

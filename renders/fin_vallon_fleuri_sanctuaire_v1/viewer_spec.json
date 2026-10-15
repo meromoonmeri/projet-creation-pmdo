@@ -31,7 +31,7 @@
     },
     {
       "id": "water",
-      "label": "02 · Vraie eau Metano Town River, fenêtre native 1:1 clippée au masque, 4 phases",
+      "label": "02 · Surface calme native Metano Town River · filtre cyan · 4 phases",
       "srcs": [
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/eau_metano_native/FVF1_eau_metano_phase_1.png",
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/eau_metano_native/FVF1_eau_metano_phase_2.png",
@@ -42,8 +42,20 @@
       "tiles": 789
     },
     {
+      "id": "shoreline",
+      "label": "03 · Rive bleue native Metano · pixels alpha-partiels · liseré 1,5 px · 4 phases",
+      "srcs": [
+        "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_1.png",
+        "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_2.png",
+        "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_3.png",
+        "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_4.png"
+      ],
+      "ticks": 10,
+      "tiles": 302
+    },
+    {
       "id": "sparkles",
-      "label": "03 · scintillements Métano natifs · 4 phases, 10 ticks/phase",
+      "label": "04 · scintillements Métano natifs · 4 phases, 10 ticks/phase",
       "srcs": [
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/scintillements/FVF1_scintillements_phase_1.png",
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/scintillements/FVF1_scintillements_phase_2.png",
@@ -51,7 +63,7 @@
         "renders/fin_vallon_fleuri_sanctuaire_v1/animation/scintillements/FVF1_scintillements_phase_4.png"
       ],
       "ticks": 10,
-      "tiles": 18
+      "tiles": 30
     }
   ],
   "blocked": [
@@ -7731,6 +7743,44 @@
       597
     ]
   },
+  "shoreline": {
+    "source": "pixels opaques des cellules alpha-partielles des frames natives Metano Town River",
+    "source_window_xyxy_px": [
+      320,
+      456,
+      1088,
+      1032
+    ],
+    "frame_count": 4,
+    "frame_length_ticks": 10,
+    "edge_width_px": 1.5,
+    "output_edge_pixels_per_frame": 2509,
+    "source_native_bank_donor_pixels_per_phase": [
+      5535,
+      5428,
+      5317,
+      5604
+    ],
+    "changed_pixels_vs_phase_1": [
+      685,
+      821,
+      668
+    ],
+    "native_frame_pixels_used": true,
+    "native_rgb_unchanged": true,
+    "mask_fixed_for_all_phases": true,
+    "inner_edge_clipped_to_target_mask": true,
+    "surface_rgb_filter_applies_to_separate_calm_water_layer_only": true,
+    "individual_shoreline_tile_matching_used": false,
+    "repeated_patch_used": false,
+    "video_pixels_used": false,
+    "output_frame_paths": [
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_1.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_2.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_3.png",
+      "renders/fin_vallon_fleuri_sanctuaire_v1/animation/rives_metano_native/FVF1_rive_metano_phase_4.png"
+    ]
+  },
   "flower_status": {
     "status": "official_frames_missing",
     "animation_applied": false,
@@ -7749,7 +7799,7 @@
     "native_frame_claim": false
   },
   "flower_animation_count": 0,
-  "sparkle_count": 18,
+  "sparkle_count": 30,
   "source_ref": "D73P11A annoncée dans le gabarit mais absente du checkout",
   "raw_decor": "source/fin_vallon_fleuri_sanctuaire_v1/bruts/decor_magenta.png",
   "raw_soil": "source/fin_vallon_fleuri_sanctuaire_v1/bruts/sol_complet.png",
@@ -7757,5 +7807,5 @@
   "ora": "renders/fin_vallon_fleuri_sanctuaire_v1/FVF1_fin_vallon_fleuri_sanctuaire_v1_calques.ora",
   "manifest": "renders/fin_vallon_fleuri_sanctuaire_v1/manifest.json",
   "viewer_link": "apercu_vallons_fleuris_v1.html?map=FVF1",
-  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau utilise les quatre frames natives Metano Town River, prises dans une seule fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; les RGB restent des échantillons natifs d'eau de surface (sans utiliser les rives, chutes ou pixels de la vidéo); les trous de la fenêtre prennent l'échantillon de surface le plus proche. La vidéo marvelousvalley.mp4 sert de référence visuelle, pas de source pixels. La carte source complète est exportée séparément; son layout entier ne tient pas dans le biome. Les scintillements sont également natifs. Fleurs officielles Sky Peak absentes."
+  "note": "Décor généré restauré et fleurs d'origine conservées statiques. La surface d'eau utilise les quatre frames natives Metano Town River, prises dans une seule fenêtre contiguë 96×72 à 1:1; ses donneurs opaques restent limités aux pixels de surface calme dont chaque canal vaut au moins RGB modal natif −10. Un calque de rive séparé reprend les pixels bleu sombre des cellules alpha-partielles natives, sous forme d'un liseré intérieur de 1,5 px clippé au masque exact; aucune berge/composante n'est appariée individuellement. marvelousvalley.mp4 est une référence visuelle seulement, jamais une source de pixels. La carte native complète est exportée séparément; les scintillements sont aussi natifs. Les fleurs officielles Sky Peak manquent encore."
 }

@@ -129,6 +129,41 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertFalse(animation["full_canonical_map_layout_retained_in_biome"])
                 self.assertFalse(animation["rotation_mirror_resize_recolor"])
 
+    def test_native_blue_shoreline_layer_uses_opaque_metano_bank_pixels(self):
+        for code in CASES:
+            with self.subTest(code=code):
+                manifest = self.manifest(code)
+                record = manifest["shoreline"]
+                water_record = manifest["water"]
+                water = np.asarray(self.load(code, "masks/masque_eau.png").convert("L")) > 0
+                edge = water & (nd.distance_transform_edt(water) <= record["edge_width_px"])
+                self.assertEqual(record["frame_count"], 4)
+                self.assertEqual(record["output_edge_pixels_per_frame"], int(edge.sum()))
+                self.assertTrue(record["native_frame_pixels_used"])
+                self.assertTrue(record["native_rgb_unchanged"])
+                self.assertTrue(record["inner_edge_clipped_to_target_mask"])
+                self.assertFalse(record["individual_shoreline_tile_matching_used"])
+                self.assertFalse(record["repeated_patch_used"])
+                self.assertFalse(record["video_pixels_used"])
+                self.assertEqual(len(record["output_frame_paths"]), 4)
+                x0, y0, x1, y1 = water_record["output_native_source_window"]["source_window_xyxy_px"]
+                for phase, path in enumerate(record["output_frame_paths"]):
+                    output = np.asarray(Image.open(ROOT / path).convert("RGBA"))
+                    self.assertTrue(np.array_equal(output[:, :, 3] > 0, edge))
+                    source_rgba = np.asarray(self.river_assets["canonical_map_frames"][phase].crop((x0, y0, x1, y1)))
+                    alpha = source_rgba[:, :, 3]
+                    coverage = (alpha > 0).reshape(72, 8, 96, 8).sum(axis=(1, 3))
+                    partial_cells = (coverage > 0) & (coverage < 64)
+                    partial_pixels = np.repeat(np.repeat(partial_cells, 8, axis=0), 8, axis=1)
+                    rgb = source_rgba[:, :, :3].astype(np.int16)
+                    donors = (partial_pixels & (alpha == 255)
+                              & (rgb[:, :, 0] < 110) & (rgb[:, :, 1] < 160)
+                              & (rgb[:, :, 2] >= 180) & (rgb[:, :, 2] > rgb[:, :, 1] * 1.15))
+                    self.assertGreater(int(donors.sum()), 100)
+                    _, nearest = nd.distance_transform_edt(~donors, return_indices=True)
+                    expected_rgb = source_rgba[nearest[0], nearest[1], :3]
+                    self.assertTrue(np.array_equal(output[edge, :3], expected_rgb[edge]))
+
     def test_full_native_map_is_rebuilt_at_example_map_cell_equal_texloc(self):
         source_data = json.loads((ROOT / "source/eau_metano/animations_carte.json").read_text())
         river_records = [record for record in source_data["animations"] if record.get("layer") == "River"]
@@ -240,7 +275,7 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertEqual(manifest["sparkles"]["source"], "source/eau_metano/natifs/Metano_Town_River_Sparkles.tile")
                 self.assertTrue(manifest["sparkles"]["native_pixels_unchanged"])
                 self.assertEqual(manifest["sparkles"]["transformations"], [])
-                self.assertGreaterEqual(manifest["sparkles"]["count"], 2)
+                self.assertGreaterEqual(manifest["sparkles"]["count"], 25)
                 for i in range(1, 5):
                     layer = np.asarray(Image.open(ROOT / "renders" / slug / f"animation/scintillements/{code}_scintillements_phase_{i}.png").convert("RGBA"))
                     self.assertFalse(np.any((layer[:, :, 3] > 0) & ~water))
@@ -272,6 +307,8 @@ class VallonsFleurisBuildTest(unittest.TestCase):
         self.assertNotIn("A‑B‑A‑C", html)
         self.assertIn("marvelousvalley.mp4", html)
         self.assertIn("source_calm_water_base_rgb_native", html)
+        self.assertIn("Rive bleue native Metano", html)
+        self.assertIn("liseré intérieur de 1,5 px", html)
         for code in CASES:
             with self.subTest(code=code):
                 slug = CASES[code]
@@ -280,8 +317,10 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                     self.assertEqual(z.read("mimetype"), b"image/openraster")
                     stack = ET.fromstring(z.read("stack.xml"))
                     names = [layer.attrib["name"] for layer in stack.find("stack").findall("layer")]
-                    self.assertEqual(len(names), 4)
-                    self.assertIn("02 Metano Town River · fenêtre native 1:1 clippée au masque magenta · phase 1/4", names)
+                    self.assertEqual(len(names), 5)
+                    self.assertIn("02 Surface calme native Metano · fenêtre 1:1 · phase 1/4", names)
+                    self.assertIn("03 Liseré de rive bleue native Metano · source alpha-partielle · phase 1/4", names)
+                    self.assertIn("04 Scintillements natifs Metano River · phase 1/4", names)
                     self.assertFalse(any("skypeak" in name.lower() or "sprite" in name.lower() for name in names))
                     merged = Image.open(__import__("io").BytesIO(z.read("mergedimage.png")))
                     self.assertEqual(merged.size, (768, 576))
