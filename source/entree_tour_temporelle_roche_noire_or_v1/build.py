@@ -104,6 +104,9 @@ def make_layers_and_anim():
     decor = load_rgb(RAW / "decor.png")
     mag_im = load_rgb(RAW / "decor_magenta.png")
     sol_base = load_rgb(RAW / "sol_complet.png")
+    nl = loadmod("nuages_logiques", HERE / "nuages_logiques.py")
+    if True:
+        return nl.make_ett1_layers(decor, mag_im, sol_base, ANIM_PHASES)
 
     r_m, g_m, b_m = mag_im[:,:,0].astype(int), mag_im[:,:,1].astype(int), mag_im[:,:,2].astype(int)
     r_d, g_d, b_d = decor[:,:,0].astype(float), decor[:,:,1].astype(float), decor[:,:,2].astype(float)

@@ -260,18 +260,54 @@ def make_layers_and_anim():
             anim_frames.append(fr)
 
     elif "mont_horn" in LOT:
-        # Drifting white mountain clouds in the sky + sunlit ochre cliff shimmer
-        clouds = (~walk_zone) & (r_d > 210) & (g_d > 225) & (b_d > 235) & (yy < 320)
-        cliff_sun = (~walk_zone) & (r_d > 220) & (g_d > 170) & (b_d < 130) & ((xx + yy) % 13 == 0)
-        active = clouds | cliff_sun
+        # Logical horizontal cloud movement across the sky behind the distant mountain peaks and ochre cliffs
+        pano_zone = (~walk_zone) & (b_d > r_d + 12)
+        pure_sky = pano_zone & (r_d < 130) & (g_d > 175) & (b_d > 235)
+        cloud_seed = pano_zone & (r_d >= 172) & (g_d - r_d <= 34) & (yy < 330)
+        cloud_white = pano_zone & (r_d >= 195) & (g_d >= 225) & (b_d >= 238) & (yy < 330)
+        cloud_raw = cloud_seed.copy()
+        for _ in range(14):
+            up_dil = np.zeros_like(cloud_raw)
+            up_dil[:-1, :] = cloud_raw[1:, :]
+            up_dil[:, :-1] |= cloud_raw[:, 1:]
+            up_dil[:, 1:] |= cloud_raw[:, :-1]
+            cloud_raw = cloud_raw | (up_dil & cloud_white)
+        cloud_zone = nd.binary_fill_holes(nd.binary_closing(cloud_raw, iterations=2)) & pano_zone
+        cloud_zone = nd.binary_dilation(cloud_zone, iterations=1) & pano_zone
+        mtn_zone = pano_zone & (~pure_sky) & (~cloud_zone)
+        mtn_zone = nd.binary_opening(mtn_zone, iterations=1)
+        sky_window = pano_zone & (~mtn_zone)
+        sky_col = np.array([94, 189, 253], dtype=np.uint8)
+        cloud_canvas = np.broadcast_to(sky_col, (H, W, 3)).copy()
+        cloud_canvas[cloud_zone] = decor[cloud_zone]
+        rm_s = relief_mask & sky_window
+        dm_s = detail_mask & sky_window
+        relief_rgba[rm_s, :3] = sky_col
+        couronnes_rgba[dm_s, :3] = sky_col
+        cliff_sun = (~walk_zone) & (~pano_zone) & (r_d > 220) & (g_d > 170) & (b_d < 130) & ((xx + yy) % 13 == 0)
         for f in range(ANIM_PHASES):
             fr = np.zeros((H, W, 4), dtype=np.uint8)
             theta = 2.0 * np.pi * f / ANIM_PHASES
-            wave = np.sin(theta - xx * 0.08 + yy * 0.05)[active]
-            fr[active, 0] = np.clip(r_d[active] + wave * 16.0, 0, 255).astype(np.uint8)
-            fr[active, 1] = np.clip(g_d[active] + wave * 16.0, 0, 255).astype(np.uint8)
-            fr[active, 2] = np.clip(b_d[active] + wave * 14.0, 0, 255).astype(np.uint8)
-            fr[active, 3] = 255
+            dx = np.where(
+                yy < 65,
+                np.rint(12.0 * np.sin(theta)).astype(int),
+                np.where(
+                    yy < 150,
+                    np.rint(9.0 * np.sin(theta + 0.8) - 9.0 * np.sin(0.8)).astype(int),
+                    np.rint(7.0 * np.sin(theta + 1.6) - 7.0 * np.sin(1.6)).astype(int),
+                ),
+            )
+            src_x = np.clip(xx - dx, 0, W - 1)
+            moved_cloud = cloud_zone[yy, src_x] & sky_window
+            active_sky = (cloud_zone | moved_cloud) & sky_window
+            rgb_frame = np.where(moved_cloud[:, :, None], cloud_canvas[yy, src_x], sky_col[None, None, :])
+            fr[active_sky, :3] = rgb_frame[active_sky]
+            fr[active_sky, 3] = 255
+            wave = np.sin(theta - xx * 0.08 + yy * 0.05)[cliff_sun]
+            fr[cliff_sun, 0] = np.clip(r_d[cliff_sun] + wave * 12.0, 0, 255).astype(np.uint8)
+            fr[cliff_sun, 1] = np.clip(g_d[cliff_sun] + wave * 11.0, 0, 255).astype(np.uint8)
+            fr[cliff_sun, 2] = np.clip(b_d[cliff_sun] + wave * 9.0, 0, 255).astype(np.uint8)
+            fr[cliff_sun, 3] = 255
             anim_frames.append(fr)
 
     elif "foret_sombre" in LOT:
