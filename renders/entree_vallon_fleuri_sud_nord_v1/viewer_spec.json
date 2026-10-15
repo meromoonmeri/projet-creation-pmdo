@@ -14618,15 +14618,15 @@
     "output_native_source_window": {
       "source_window_xyxy_cells": [
         38,
-        48,
+        50,
         134,
-        120
+        122
       ],
       "source_window_xyxy_px": [
         304,
-        384,
+        400,
         1072,
-        960
+        976
       ],
       "source_window_size_cells": [
         96,
@@ -14636,17 +14636,32 @@
         768,
         576
       ],
-      "source_water_cells_in_window": 1164,
+      "source_calm_surface_cells_in_window": 750,
+      "source_river_alpha_cells_in_window": 1191,
       "target_mask_water_cells": 794,
-      "overlap_water_cells": 385,
-      "mask_vs_native_window_iou": 0.244755,
-      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and union of four native River alpha frames",
+      "overlap_calm_surface_cells": 293,
+      "mask_vs_native_surface_iou": 0.234213,
+      "native_calm_water_base_rgb": [
+        131,
+        218,
+        230
+      ],
+      "native_color_donor_min_channel_delta": -10,
+      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and native full-opaque River tiles dominated (at least 80% per phase) by the source's modal calm-water RGB; shorelines, waterfalls and strongly patterned cells excluded from RGB sampling",
       "native_scale": true,
       "rotation_degrees": 0,
       "mirror": false,
       "resized": false,
       "recolored": false
     },
+    "source_calm_water_base_rgb_native": [
+      131,
+      218,
+      230
+    ],
+    "native_color_donor_min_channel_delta": -10,
+    "visual_reference": "marvelousvalley.mp4",
+    "visual_reference_used_as_pixel_source": false,
     "native_frames_used_for_output_water": true,
     "output_rgb_values_are_native_map_samples": true,
     "output_rgb_values_are_generated_map_samples": false,
@@ -14659,20 +14674,20 @@
       "native_frame_pixels_used": true,
       "native_scale": true,
       "rotation_mirror_resize_recolor": false,
-      "transparent_source_fill_rule": "échantillon RGB River non transparent le plus proche dans la même fenêtre source, séparément par phase",
+      "transparent_source_fill_rule": "échantillon River natif de surface calme le plus proche; donneur opaque si chaque canal reste au moins à mode RGB natif -10 (donc base cyan et reflets plus clairs, pas les facettes bleu foncé), phase par phase; rives et chutes exclues",
       "mask_fixed_for_all_phases": true,
       "full_canonical_map_layout_retained_in_biome": false
     },
     "map_water_cells": 794,
     "changed_pixels_vs_phase_1": [
-      11792,
-      13352,
-      10202
+      669,
+      526,
+      671
     ],
     "shoreline_changed_pixels_vs_phase_1": [
-      3120,
-      3599,
-      3157
+      307,
+      343,
+      336
     ]
   },
   "flower_status": {
@@ -14701,5 +14716,5 @@
   "ora": "renders/entree_vallon_fleuri_sud_nord_v1/EVF1_entree_vallon_fleuri_sud_nord_v1_calques.ora",
   "manifest": "renders/entree_vallon_fleuri_sud_nord_v1/manifest.json",
   "viewer_link": "apercu_vallons_fleuris_v1.html?map=EVF1",
-  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau utilise les quatre frames natives Metano Town River, prises dans une seule fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; les RGB restent des échantillons natifs et les transparences sont remplies par le plus proche échantillon natif de la fenêtre. La carte source complète est exportée séparément; son layout entier ne tient pas dans le biome. Les scintillements sont également natifs. Fleurs officielles Sky Peak absentes."
+  "note": "Décor généré restauré et fleurs d'origine conservées statiques. L'eau utilise les quatre frames natives Metano Town River, prises dans une seule fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; les RGB restent des échantillons natifs d'eau de surface (sans utiliser les rives, chutes ou pixels de la vidéo); les trous de la fenêtre prennent l'échantillon de surface le plus proche. La vidéo marvelousvalley.mp4 sert de référence visuelle, pas de source pixels. La carte source complète est exportée séparément; son layout entier ne tient pas dans le biome. Les scintillements sont également natifs. Fleurs officielles Sky Peak absentes."
 }

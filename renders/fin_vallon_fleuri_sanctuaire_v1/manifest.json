@@ -10,7 +10,7 @@
     96,
     72
   ],
-  "method": "Les bruts de décor sont normalisés uniformément et le masque magenta définit exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu 96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, recoloration, patch répété ou appariement séparé des berges. Les transparences du recadrage prennent l'échantillon River natif non transparent le plus proche, phase par phase, puis sont clippées au masque magenta. Les quatre frames sont les phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les deux biomes.",
+  "method": "Les bruts de décor sont normalisés uniformément et le masque magenta définit exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu 96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, recoloration, patch répété ou appariement séparé des berges. Seules les cellules de surface River entièrement opaques fournissent les couleurs RGB; rives, chutes et autres modules sont exclus. Les zones transparentes prennent l'échantillon de surface natif le plus proche, phase par phase, puis sont clippées au masque magenta. La vidéo marvelousvalley.mp4 sert de référence visuelle, sans fournir de pixels. Les quatre frames sont les phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout complet n'est pas revendiqué dans les deux biomes.",
   "normalization": {
     "source_px": [
       1200,
@@ -171,6 +171,13 @@
     "source_map_cell_coordinates_match_texloc": true,
     "source_map_layout_reconstructed_exactly": true,
     "source_opaque_water_cells": 2365,
+    "source_calm_water_cells": 2063,
+    "source_animated_calm_water_cells": 179,
+    "source_calm_water_base_rgb_native": [
+      131,
+      218,
+      230
+    ],
     "source_animated_opaque_water_cells": 477,
     "source_unique_animated_opaque_sequences": 361,
     "source_opaque_non_surface_cells_excluded": 85,
@@ -211,27 +218,27 @@
     ],
     "output_water_cells": 789,
     "output_phase_changed_pixels_vs_1": [
-      9002,
-      12110,
-      11549
+      405,
+      788,
+      1119
     ],
     "output_shoreline_phase_changed_pixels_vs_1": [
-      3475,
-      4776,
-      4378
+      145,
+      260,
+      597
     ],
     "output_native_source_window": {
       "source_window_xyxy_cells": [
-        39,
-        59,
-        135,
-        131
+        40,
+        57,
+        136,
+        129
       ],
       "source_window_xyxy_px": [
-        312,
-        472,
-        1080,
-        1048
+        320,
+        456,
+        1088,
+        1032
       ],
       "source_window_size_cells": [
         96,
@@ -241,11 +248,18 @@
         768,
         576
       ],
-      "source_water_cells_in_window": 1315,
+      "source_calm_surface_cells_in_window": 790,
+      "source_river_alpha_cells_in_window": 1289,
       "target_mask_water_cells": 789,
-      "overlap_water_cells": 433,
-      "mask_vs_native_window_iou": 0.259126,
-      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and union of four native River alpha frames",
+      "overlap_calm_surface_cells": 321,
+      "mask_vs_native_surface_iou": 0.255167,
+      "native_calm_water_base_rgb": [
+        131,
+        218,
+        230
+      ],
+      "native_color_donor_min_channel_delta": -10,
+      "selection_rule": "max IoU of 8px-cell occupancy between target magenta and native full-opaque River tiles dominated (at least 80% per phase) by the source's modal calm-water RGB; shorelines, waterfalls and strongly patterned cells excluded from RGB sampling",
       "native_scale": true,
       "rotation_degrees": 0,
       "mirror": false,
@@ -259,7 +273,7 @@
       "native_frame_pixels_used": true,
       "native_scale": true,
       "rotation_mirror_resize_recolor": false,
-      "transparent_source_fill_rule": "échantillon RGB River non transparent le plus proche dans la même fenêtre source, séparément par phase",
+      "transparent_source_fill_rule": "échantillon River natif de surface calme le plus proche; donneur opaque si chaque canal reste au moins à mode RGB natif -10 (donc base cyan et reflets plus clairs, pas les facettes bleu foncé), phase par phase; rives et chutes exclues",
       "mask_fixed_for_all_phases": true,
       "full_canonical_map_layout_retained_in_biome": false
     },
@@ -276,7 +290,15 @@
     "surface_patch_repeated_at_native_scale": false,
     "individual_shoreline_tile_matching_used": false,
     "mask_clip_applied": true,
-    "output_scope": "échantillons RGB pris dans une fenêtre cartographique River native contiguë 96×72 à 1:1; transparences remplies par le voisin River opaque le plus proche, puis alpha clippé au masque magenta original",
+    "output_scope": "échantillons RGB natifs 1:1 dans les cellules River dominées par l'eau calme; pixels donneurs opaques filtrés par phase (chaque canal >= RGB modal natif -10), ce qui garde la base cyan et les reflets clairs, pas les larges facettes bleu foncé. Rives/chutes exclues; alpha clippé au masque magenta original.",
+    "native_surface_base_rgb": [
+      131,
+      218,
+      230
+    ],
+    "native_surface_min_channel_delta": -10,
+    "visual_reference": "marvelousvalley.mp4",
+    "visual_reference_used_as_pixel_source": false,
     "mask_diagnostics": {
       "magenta_pixels_raw": 94350,
       "anti_aliased_edge_pixels_raw": 2534,

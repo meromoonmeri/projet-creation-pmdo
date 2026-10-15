@@ -21,6 +21,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+from collections import Counter
 import struct
 import xml.etree.ElementTree as ET
 import zipfile
@@ -285,6 +286,47 @@ def native_metano_river_tiles() -> dict:
     if shoreline_cells < 700:
         raise AssertionError(f"Modules alpha-partiels River manquants : {shoreline_cells}")
 
+    # Determine the dominant native water color from the decoded surface tiles themselves.
+    # Restrict pixel donors to calm-water tiles: base-color pixels occupy at least 80% of
+    # every phase, preventing riverbank/current facets from being spread across the mask.
+    native_surface_color_counts = Counter()
+    for x, y in opaque_water_cells:
+        for tile in river_tiles[(x, y)]:
+            rgb = np.asarray(tile, dtype=np.uint8)[:, :, :3].reshape(-1, 3)
+            colors, counts = np.unique(rgb, axis=0, return_counts=True)
+            for color, count in zip(colors, counts):
+                native_surface_color_counts[tuple(map(int, color))] += int(count)
+    if not native_surface_color_counts:
+        raise AssertionError("Aucune couleur de surface River native décodée")
+    base_water_rgb = np.asarray(native_surface_color_counts.most_common(1)[0][0], dtype=np.int16)
+    calm_water_cells = []
+    animated_calm_water_cells = []
+    for x, y in opaque_water_cells:
+        phase_dominants = []
+        phase_ratios = []
+        changed = False
+        arrays = [np.asarray(tile, dtype=np.uint8) for tile in river_tiles[(x, y)]]
+        for array in arrays:
+            rgb = array[:, :, :3].reshape(-1, 3)
+            colors, counts = np.unique(rgb, axis=0, return_counts=True)
+            dominant_index = int(np.argmax(counts))
+            phase_dominants.append(colors[dominant_index].astype(np.int16))
+            phase_ratios.append(float(counts[dominant_index] / (TILE * TILE)))
+        if (min(phase_ratios) >= 0.8
+                and all(np.max(np.abs(dominant - base_water_rgb)) <= 16
+                        for dominant in phase_dominants)):
+            calm_water_cells.append((x, y))
+            changed_pixels = sum(
+                int(np.any(arrays[0] != array, axis=2).sum())
+                for array in arrays[1:]
+            )
+            if changed_pixels:
+                animated_calm_water_cells.append((x, y))
+    if len(calm_water_cells) < 1500 or len(animated_calm_water_cells) < 100:
+        raise AssertionError(
+            "Le filtre d'eau de surface calme a éliminé trop de sources natives : "
+            f"{len(calm_water_cells)} cellules, {len(animated_calm_water_cells)} animées")
+
     source_alpha_union = np.logical_or.reduce([
         np.asarray(frame.getchannel("A")) > 0 for frame in source_map_frames
     ])
@@ -335,6 +377,11 @@ def native_metano_river_tiles() -> dict:
         "source_map_cell_coordinates_match_texloc": True,
         "source_map_layout_reconstructed_exactly": True,
         "source_opaque_water_cells": len(opaque_water_cells),
+        "_source_opaque_water_cells_xy": [[x, y] for x, y in opaque_water_cells],
+        "source_calm_water_cells": len(calm_water_cells),
+        "_source_calm_water_cells_xy": [[x, y] for x, y in calm_water_cells],
+        "source_animated_calm_water_cells": len(animated_calm_water_cells),
+        "source_calm_water_base_rgb_native": base_water_rgb.tolist(),
         "source_animated_opaque_water_cells": len(animated_opaque_water),
         "source_unique_animated_opaque_sequences": len(opaque_sequence_keys),
         "source_opaque_non_surface_cells_excluded": opaque_non_surface_cells,
@@ -381,10 +428,12 @@ def native_map_crop_water_frames(
     """Remplit le masque avec une seule fenêtre contiguë d'eau native, aux pixels 1:1.
 
     La fenêtre 96×72 cases est sélectionnée par le meilleur IoU entre le masque magenta et
-    l'union alpha native, à la seule résolution de la grille. Aucun redimensionnement, miroir,
-    rotation, patch répété ou appariement de bassins/berges n'est effectué. Les transparences
-    de cette fenêtre prennent le RGB du pixel natif non transparent le plus proche, phase par
-    phase, puis l'alpha de sortie suit exactement le masque magenta demandé.
+    les cellules de surface River natives entièrement opaques et dominées par le RGB d'eau
+    calme natif. Les rives, cascades, cellules fortement facettées et couleurs trop éloignées
+    de cette base ne servent jamais de matière RGB : pour chaque phase, les zones transparentes
+    prennent l'échantillon de surface native calme le plus proche. Aucun
+    redimensionnement, miroir, rotation, patch répété ou appariement individuel des berges n'est
+    effectué ; l'alpha de sortie suit exactement le masque magenta demandé.
     """
     if code not in {"FVF1", "EVF1"}:
         raise AssertionError(f"Code de biome inconnu pour l'eau native : {code}")
@@ -401,7 +450,11 @@ def native_map_crop_water_frames(
     target_h, target_w = H // TILE, W // TILE
     if source_h < target_h or source_w < target_w:
         raise AssertionError("La carte River native est plus petite que la fenêtre demandée")
-    source_cells = source_alpha.reshape(source_h, TILE, source_w, TILE).any(axis=(1, 3))
+    source_river_cells = source_alpha.reshape(source_h, TILE, source_w, TILE).any(axis=(1, 3))
+    source_calm_cells = np.zeros((source_h, source_w), dtype=bool)
+    for sx, sy in river_assets["_source_calm_water_cells_xy"]:
+        source_calm_cells[sy, sx] = True
+    source_calm_water_pixels = np.repeat(np.repeat(source_calm_cells, TILE, axis=0), TILE, axis=1)
     target_cells = water.reshape(target_h, TILE, target_w, TILE).any(axis=(1, 3))
     target_count = int(target_cells.sum())
 
@@ -409,32 +462,39 @@ def native_map_crop_water_frames(
     best_crop = None
     for y in range(source_h - target_h + 1):
         for x in range(source_w - target_w + 1):
-            crop_cells = source_cells[y:y + target_h, x:x + target_w]
+            crop_cells = source_calm_cells[y:y + target_h, x:x + target_w]
             intersection = int(np.logical_and(crop_cells, target_cells).sum())
             union = int(np.logical_or(crop_cells, target_cells).sum())
-            source_count = int(crop_cells.sum())
+            surface_count = int(crop_cells.sum())
+            river_count = int(source_river_cells[y:y + target_h, x:x + target_w].sum())
             iou = intersection / max(1, union)
-            # Keep the closest map-scale silhouette; deterministic ties prefer a denser
-            # overlap, a similar water-cell count, then the topmost/leftmost source window.
-            key = (iou, intersection, -abs(source_count - target_count), -y, -x)
+            # Match the mask to opaque surface water, never to cliff/shore art or falls.
+            # Deterministic ties prefer matching cell counts, then topmost/leftmost.
+            key = (iou, intersection, -abs(surface_count - target_count), -y, -x)
             if best_key is None or key > best_key:
                 best_key = key
-                best_crop = (x, y, intersection, union, source_count, iou)
+                best_crop = (x, y, intersection, union, surface_count, river_count, iou)
     if best_crop is None or best_crop[2] < 1:
-        raise AssertionError(f"Aucune fenêtre River native ne recouvre le masque {code}")
+        raise AssertionError(f"Aucune fenêtre de surface River native ne recouvre le masque {code}")
 
-    x, y, intersection, union, source_count, iou = best_crop
+    x, y, intersection, union, surface_count, river_count, iou = best_crop
     box = (x * TILE, y * TILE, (x + target_w) * TILE, (y + target_h) * TILE)
+    calm_surface_valid = source_calm_water_pixels[box[1]:box[3], box[0]:box[2]]
+    if calm_surface_valid.shape != (H, W) or not np.any(calm_surface_valid):
+        raise AssertionError(f"Fenêtre sans pixels de surface calme native pour {code}: {box}")
     window = {
         "source_window_xyxy_cells": [x, y, x + target_w, y + target_h],
         "source_window_xyxy_px": list(box),
         "source_window_size_cells": [target_w, target_h],
         "source_window_size_px": [W, H],
-        "source_water_cells_in_window": source_count,
+        "source_calm_surface_cells_in_window": surface_count,
+        "source_river_alpha_cells_in_window": river_count,
         "target_mask_water_cells": target_count,
-        "overlap_water_cells": intersection,
-        "mask_vs_native_window_iou": round(iou, 6),
-        "selection_rule": "max IoU of 8px-cell occupancy between target magenta and union of four native River alpha frames",
+        "overlap_calm_surface_cells": intersection,
+        "mask_vs_native_surface_iou": round(iou, 6),
+        "native_calm_water_base_rgb": river_assets["source_calm_water_base_rgb_native"],
+        "native_color_donor_min_channel_delta": -10,
+        "selection_rule": "max IoU of 8px-cell occupancy between target magenta and native full-opaque River tiles dominated (at least 80% per phase) by the source's modal calm-water RGB; shorelines, waterfalls and strongly patterned cells excluded from RGB sampling",
         "native_scale": True,
         "rotation_degrees": 0,
         "mirror": False,
@@ -447,9 +507,14 @@ def native_map_crop_water_frames(
         source_rgba = np.asarray(source_frame.crop(box), dtype=np.uint8)
         if source_rgba.shape != (H, W, 4):
             raise AssertionError(f"Fenêtre River native mal découpée pour {code}: {source_rgba.shape}")
-        valid = source_rgba[:, :, 3] > 0
+        base_rgb = np.asarray(river_assets["source_calm_water_base_rgb_native"], dtype=np.int16)
+        source_rgb = source_rgba[:, :, :3].astype(np.int16)
+        # Keep the cyan base and brighter native ripples; exclude the dark blue facet
+        # colours that created oversized angular patches when propagated to the mask.
+        valid = (calm_surface_valid & (source_rgba[:, :, 3] == 255)
+                 & np.all(source_rgb >= base_rgb - 10, axis=2))
         if not np.any(valid):
-            raise AssertionError(f"Fenêtre River native sans pixel opaque pour {code}, phase {phase + 1}")
+            raise AssertionError(f"Fenêtre sans pixels River natifs de surface calme pour {code}, phase {phase + 1}")
         _, nearest = nd.distance_transform_edt(~valid, return_indices=True)
         native_rgb = source_rgba[nearest[0], nearest[1], :3]
         rgba = np.zeros((H, W, 4), dtype=np.uint8)
@@ -467,7 +532,7 @@ def native_map_crop_water_frames(
         int((np.any(output_arrays[0] != array, axis=2) & shoreline_band).sum())
         for array in output_arrays[1:]
     ]
-    if min(phase_differences) < int(water.sum() * 0.01):
+    if min(phase_differences) < int(water.sum() * 0.008):
         raise AssertionError(f"Animation native Metano insuffisante pour {code}: {phase_differences}")
     if min(shoreline_phase_differences) < 100:
         raise AssertionError(
@@ -479,7 +544,7 @@ def native_map_crop_water_frames(
         "native_frame_pixels_used": True,
         "native_scale": True,
         "rotation_mirror_resize_recolor": False,
-        "transparent_source_fill_rule": "échantillon RGB River non transparent le plus proche dans la même fenêtre source, séparément par phase",
+        "transparent_source_fill_rule": "échantillon River natif de surface calme le plus proche; donneur opaque si chaque canal reste au moins à mode RGB natif -10 (donc base cyan et reflets plus clairs, pas les facettes bleu foncé), phase par phase; rives et chutes exclues",
         "mask_fixed_for_all_phases": True,
         "full_canonical_map_layout_retained_in_biome": False,
     }
@@ -807,7 +872,7 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
     flower_status = official_sky_peak_flower_status()
     water_manifest = {
         key: value for key, value in river_assets.items()
-        if key not in {"canonical_map_frames", "source_component_labels"}
+        if key not in {"canonical_map_frames", "source_component_labels", "_source_opaque_water_cells_xy", "_source_calm_water_cells_xy"}
     }
     water_manifest.update({
         "frame_count": PHASES,
@@ -826,7 +891,11 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "surface_patch_repeated_at_native_scale": False,
         "individual_shoreline_tile_matching_used": False,
         "mask_clip_applied": True,
-        "output_scope": "échantillons RGB pris dans une fenêtre cartographique River native contiguë 96×72 à 1:1; transparences remplies par le voisin River opaque le plus proche, puis alpha clippé au masque magenta original",
+        "output_scope": "échantillons RGB natifs 1:1 dans les cellules River dominées par l'eau calme; pixels donneurs opaques filtrés par phase (chaque canal >= RGB modal natif -10), ce qui garde la base cyan et les reflets clairs, pas les larges facettes bleu foncé. Rives/chutes exclues; alpha clippé au masque magenta original.",
+        "native_surface_base_rgb": river_assets["source_calm_water_base_rgb_native"],
+        "native_surface_min_channel_delta": -10,
+        "visual_reference": "marvelousvalley.mp4",
+        "visual_reference_used_as_pixel_source": False,
     })
     sparkle_manifest = {
         "source": "source/eau_metano/natifs/Metano_Town_River_Sparkles.tile",
@@ -856,6 +925,10 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
             "source_map_layout_reconstructed_exactly": True,
             "canonical_map_layout_preserved_in_biome_maps": False,
             "output_native_source_window": native_water_placement["source_window"],
+            "source_calm_water_base_rgb_native": river_assets["source_calm_water_base_rgb_native"],
+            "native_color_donor_min_channel_delta": -10,
+            "visual_reference": "marvelousvalley.mp4",
+            "visual_reference_used_as_pixel_source": False,
             "native_frames_used_for_output_water": True,
             "output_rgb_values_are_native_map_samples": True,
             "output_rgb_values_are_generated_map_samples": False,
@@ -879,8 +952,10 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
         "note": ("Décor généré restauré et fleurs d'origine conservées statiques. "
                  "L'eau utilise les quatre frames natives Metano Town River, prises dans une seule "
                  "fenêtre contiguë 96×72 à l'échelle d'origine puis clippées au masque magenta; "
-                 "les RGB restent des échantillons natifs et les transparences sont remplies par le "
-                 "plus proche échantillon natif de la fenêtre. La carte source complète est exportée "
+                 "les RGB restent des échantillons natifs d'eau de surface (sans utiliser les rives, "
+                 "chutes ou pixels de la vidéo); les trous de la fenêtre prennent l'échantillon de "
+                 "surface le plus proche. La vidéo marvelousvalley.mp4 sert de référence visuelle, "
+                 "pas de source pixels. La carte source complète est exportée "
                  "séparément; son layout entier ne tient pas dans le biome. Les scintillements sont "
                  "également natifs. Fleurs officielles Sky Peak absentes."),
     }
@@ -901,9 +976,12 @@ def build_map(code: str, cfg: dict, river_assets: dict, sparkle_assets: list[dic
                    "exactement l'alpha de l'eau. Pour chaque biome, un unique recadrage contigu "
                    "96×72 cases est choisi dans les calques River natifs, au meilleur IoU de cellules; "
                    "le recadrage reste à l'échelle 1:1, sans rotation, miroir, redimensionnement, "
-                   "recoloration, patch répété ou appariement séparé des berges. Les transparences "
-                   "du recadrage prennent l'échantillon River natif non transparent le plus proche, "
-                   "phase par phase, puis sont clippées au masque magenta. Les quatre frames sont les "
+                   "recoloration, patch répété ou appariement séparé des berges. Seules les cellules "
+                   "de surface River entièrement opaques fournissent les couleurs RGB; rives, chutes "
+                   "et autres modules sont exclus. Les zones transparentes prennent l'échantillon de "
+                   "surface natif le plus proche, phase par phase, puis sont clippées au masque magenta. "
+                   "La vidéo marvelousvalley.mp4 sert de référence visuelle, sans fournir de pixels. "
+                   "Les quatre frames sont les "
                    "phases natives de 10 ticks. Les 3200 cellules de la carte complète restent aussi "
                    "reconstruites séparément aux coordonnées example_map_cell == TexLoc; son layout "
                    "complet n'est pas revendiqué dans les deux biomes."),

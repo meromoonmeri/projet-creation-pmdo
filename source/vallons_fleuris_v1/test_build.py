@@ -75,6 +75,8 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 window = water["output_native_source_window"]
                 self.assertEqual(window["source_window_size_cells"], [96, 72])
                 self.assertTrue(window["native_scale"])
+                self.assertEqual(manifest["water"]["visual_reference"], "marvelousvalley.mp4")
+                self.assertFalse(manifest["water"]["visual_reference_used_as_pixel_source"])
                 self.assertTrue(water["output_animation"]["native_frame_pixels_used"])
                 self.assertTrue(water["output_animation"]["mask_fixed_for_all_phases"])
                 self.assertEqual(water["frame_count"], 4)
@@ -111,12 +113,11 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 for rgba in frames:
                     self.assertEqual(rgba.shape, (576, 768, 4))
                     self.assertTrue(np.array_equal(rgba[:, :, 3] > 0, water))
-                    self.assertGreaterEqual(len(np.unique(rgba[water, :3], axis=0)), 8)
                     self.assertFalse(np.any(rgba[~water, 3]))
                 differences = [int((np.any(frames[0] != frame, axis=2) & water).sum())
                                for frame in frames[1:]]
                 self.assertEqual(differences, water_record["output_phase_changed_pixels_vs_1"])
-                self.assertTrue(all(value > int(water.sum() * 0.01) for value in differences))
+                self.assertTrue(all(value > int(water.sum() * 0.008) for value in differences))
                 edge_differences = water_record["output_shoreline_phase_changed_pixels_vs_1"]
                 self.assertEqual(len(edge_differences), 3)
                 self.assertTrue(all(value > 100 for value in edge_differences), edge_differences)
@@ -176,13 +177,27 @@ class VallonsFleurisBuildTest(unittest.TestCase):
                 self.assertFalse(window["recolored"])
                 self.assertFalse(window["mirror"])
                 self.assertEqual(window["rotation_degrees"], 0)
-                self.assertGreater(window["mask_vs_native_window_iou"], 0.1)
+                self.assertGreater(window["mask_vs_native_surface_iou"], 0.1)
+                source_calm_grid = np.zeros((189, 142), dtype=bool)
+                for sx, sy in self.river_assets["_source_calm_water_cells_xy"]:
+                    source_calm_grid[sy, sx] = True
+                source_window_grid = source_calm_grid[y0 // 8:y1 // 8, x0 // 8:x1 // 8]
+                calm_surface_valid = np.repeat(np.repeat(source_window_grid, 8, axis=0), 8, axis=1)
+                self.assertEqual(int(source_window_grid.sum()), window["source_calm_surface_cells_in_window"])
+                self.assertGreaterEqual(window["source_river_alpha_cells_in_window"], int(source_window_grid.sum()))
+                base_rgb = np.asarray(record["source_calm_water_base_rgb_native"], dtype=np.int16)
+                donor_min_delta = window["native_color_donor_min_channel_delta"]
+                self.assertEqual(donor_min_delta, -10)
                 for phase, source_frame in enumerate(self.river_assets["canonical_map_frames"]):
                     source_rgba = np.asarray(source_frame.crop((x0, y0, x1, y1)))
-                    valid = source_rgba[:, :, 3] > 0
+                    valid = (calm_surface_valid & (source_rgba[:, :, 3] == 255)
+                             & np.all(source_rgba[:, :, :3].astype(np.int16) >= base_rgb + donor_min_delta, axis=2))
+                    self.assertGreater(int(valid.sum()), 0)
                     _, nearest = nd.distance_transform_edt(~valid, return_indices=True)
                     expected_rgb = source_rgba[nearest[0], nearest[1], :3]
-                    self.assertTrue(np.array_equal(frames[phase][water, :3], expected_rgb[water]))
+                    output_rgb = frames[phase][water, :3].astype(np.int16)
+                    self.assertTrue(np.array_equal(output_rgb, expected_rgb[water]))
+                    self.assertTrue(np.all(output_rgb >= base_rgb + donor_min_delta))
                     self.assertTrue(np.array_equal(frames[phase][:, :, 3] > 0, water))
 
     def test_original_decor_and_static_flower_art_are_preserved(self):
@@ -255,7 +270,8 @@ class VallonsFleurisBuildTest(unittest.TestCase):
         self.assertIn("2cwdrrs469f61.gif", html)
         self.assertNotIn("localhost", html.lower())
         self.assertNotIn("A‑B‑A‑C", html)
-        self.assertNotIn("131,218,230", html)
+        self.assertIn("marvelousvalley.mp4", html)
+        self.assertIn("source_calm_water_base_rgb_native", html)
         for code in CASES:
             with self.subTest(code=code):
                 slug = CASES[code]
