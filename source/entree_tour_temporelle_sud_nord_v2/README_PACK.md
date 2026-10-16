@@ -1,7 +1,7 @@
 # Entrée Tour Temporelle sud → nord V2 — Noir & Or Prismatique (`ETT2`)
 
 Base d'édition pour **Pokémon Mystery Dungeon: Origins `0.8.12.0`**, au format **4:3 vaste** (`768 × 576 px` = `96 × 72` cases de `8 × 8 px`, `TexSize = 1`).
-La version 1 (`entree_tour_temporelle_sud_nord_v1`, `ETT1`) est intégralement conservée.
+La version 1 (`entree_tour_temporelle_sud_nord_v1`, `ETT1`) est un lot distinct et n’est pas modifiée par ce build. Ses sources et exports ne sont toutefois pas présents dans le checkout actuel : sa conservation complète ne peut donc pas être vérifiée ici.
 
 - **Espace de noms (`Namespace`)** : `entree_tour_temporelle_sud_nord_v2`
 - **Carte Ground (`AssetName`)** : `ett2_entree_tour_temporelle_noire_or`

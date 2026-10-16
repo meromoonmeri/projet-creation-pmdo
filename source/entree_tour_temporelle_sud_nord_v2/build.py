@@ -8,7 +8,7 @@ rouge) et le cristal et legerement arc en ciel en reflet / la roche et dans des 
 être rouge / noir avec des des breche de réalité dans le vide qui s'ouvre et se ferme a diverse endroit (jamais sur le
 chemin seulement sur les rocher et les nuage »
 
-- V1 (entree_tour_temporelle_sud_nord_v1, ETT1) conservée intacte.
+- ETT1 est un lot distinct. Ses sources et exports sont absents de ce checkout ; ce build n'écrit pas dans ses chemins et ne permet pas de vérifier sa conservation.
 - Préfixe ETT2 libre sur main et sur toutes les branches sœurs.
 - Bruts générés (1200 x 896) dans bruts/ :
   1. decor_magenta.png : tour gothique noire à ogives dorées/prismatiques, circuits de la muraille et veines des rochers
@@ -981,13 +981,21 @@ def build():
         'format': '4:3 vaste',
         'size_px': [W, H],
         'grid_8px': [W // 8, H // 8],
-        'base': 'main (b2c7112) ; V1 (ETT1) conservee intacte',
+        'base': 'bruts ETT2 restaurés du commit 934a1b4 ; sources ETT1 et références D29P11A/D30P34A absentes du checkout ; aucun fichier ETT1 réécrit',
+        'legacy_v1': {
+            'lot': 'entree_tour_temporelle_sud_nord_v1',
+            'source_present': (R / 'source/entree_tour_temporelle_sud_nord_v1').is_dir(),
+            'manifest_present': (R / 'renders/entree_tour_temporelle_sud_nord_v1/manifest.json').is_file(),
+            'preview_present': (R / 'apercu_entree_tour_temporelle_sud_nord_v1.html').is_file(),
+            'preservation_verified': False,
+            'note': 'ETT1 absent du checkout actuel ; non modifié par ce build, mais conservation complète non vérifiable ici.',
+        },
         'biome': (
             'entree de tour prismatique noir et or (veines et circuits en or), arche de cristal a reflets '
             'legerement arc-en-ciel, roche noire, mer de nuages rouge/noir et breches de realite hors du chemin'
         ),
         'method': (
-            'rendu genere REFERENCE sur fond magenta d apres ETT1/D29P11A en palette Noir & Or Prismatique ; '
+            'reconstruction a partir des bruts ETT2 restaurés ; palette Noir & Or Prismatique. Les références prévues ETT1/D29P11A/D30P34A sont absentes du checkout, non vérifiées et non remplacées ; '
             'circuits d or animes sur 16 crans ; reflets arc-en-ciel pastel sur le cristal et les ogives ; '
             '10 breches de realite s ouvrant et se fermant sur les rochers et les nuages (0 px sur le chemin)'
         ),

@@ -38,17 +38,28 @@ def main():
     assert m['size_px'] == [W, H] == [768, 576] and m['grid_8px'] == [96, 72]
     assert W * 3 == H * 4 and W % 8 == 0 and H % 8 == 0
 
-    # 1. V1 (ETT1) préservée intacte
-    assert (R / 'renders/entree_tour_temporelle_sud_nord_v1/manifest.json').exists()
-    assert (R / 'apercu_entree_tour_temporelle_sud_nord_v1.html').exists()
+    # 1. ETT1 reste hors du périmètre du build ; si elle manque, le manifeste doit l'indiquer sans prétendre l'avoir vérifiée.
+    v1_source = R / 'source/entree_tour_temporelle_sud_nord_v1'
+    v1_manifest = R / 'renders/entree_tour_temporelle_sud_nord_v1/manifest.json'
+    v1_preview = R / 'apercu_entree_tour_temporelle_sud_nord_v1.html'
+    legacy = m['legacy_v1']
+    assert legacy['source_present'] == v1_source.is_dir()
+    assert legacy['manifest_present'] == v1_manifest.is_file()
+    assert legacy['preview_present'] == v1_preview.is_file()
+    if not (v1_source.is_dir() and v1_manifest.is_file() and v1_preview.is_file()):
+        assert legacy['preservation_verified'] is False
 
-    # 2. Trois bruts générés (1200 x 896) + références DA
+    # 2. Trois bruts générés (1200 x 896) + état explicite des références DA absentes ou disponibles.
     assert len(m['raw_inputs']) == 3
     for r in m['raw_inputs']:
         p = R / r['file']
         assert p.exists() and B.sha(p) == r['sha256']
         assert list(Image.open(p).size) == [1200, 896]
-    assert B.REF_D29.exists() and B.REF_D30.exists()
+    refs = m['reference_da']
+    assert refs['present'] == B.REF_D29.is_file()
+    assert refs['present_distorsion'] == B.REF_D30.is_file()
+    assert (refs['sha256'] is not None) == refs['present']
+    assert (refs['sha256_distorsion'] is not None) == refs['present_distorsion']
 
     # 3. Fidélité aux cibles Noir / Or / Nuages Rouge-Noir (< 35)
     a_dec = B.rgb(B.RAW / 'decor_magenta.png')
@@ -179,7 +190,9 @@ def main():
 
     # 14. Statuts honnêtes exigés par AGENTS.md
     assert m['art_approved'] is False and m['pmdo']['runtime_tested'] is False
-    print('OK test_build entree_tour_temporelle_sud_nord_v2 (14 vérifications)')
+    print('OK test_build entree_tour_temporelle_sud_nord_v2 (14 vérifications de sortie)')
+    if not (legacy['source_present'] and refs['present'] and refs['present_distorsion']):
+        print('AVIS : ETT1 et/ou D29P11A/D30P34A absent(s) ; conservation V1 et fidélité canonique non vérifiables, art_approved reste false.')
 
 
 if __name__ == '__main__':
