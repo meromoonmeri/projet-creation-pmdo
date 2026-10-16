@@ -50,11 +50,12 @@ MAPS = [
     ('entree_jardin_secret_sud_nord_v2', 'EJS2', 'Jardin secret V2 (Celebi)', 'EJS2_scene_t000.png'),
     ('entree_grotte_vasques_sud_nord_v1', 'EGV1', 'Grotte aux vasques (D56P12A)', 'EGV1_scene_t000.png'),
     ('entree_crevasse_enneigee_sud_nord_v1', 'ECE1', 'Crevasse enneigée (D79P11A)', 'ECE1_scene_t000.png'),
+    ('entree_crevasse_enneigee_sud_nord_v2', 'ECE2', 'Crevasse enneigée (D79P11A)', 'ECE2_scene_t000.png'),
 ]
 N = len(MAPS)
 # Faites apres la validation du 27 septembre, a confirmer : EJS2 (temple de Celebi) ; EGV1 et ECE1 (biomes neufs du
 # 16 octobre, projet-creation-pmdo ; mod non reconstruit dans ce depot : les ZIP des lots precedents n'y sont pas).
-A_CONFIRMER = ['EJS2', 'EGV1', 'ECE1']
+A_CONFIRMER = ['EJS2', 'EGV1', 'ECE1', 'ECE2']
 VALIDATION = {'date': '2026-09-27', 'citation': 'BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE !',
               'portee': 'validation artistique de la serie par l utilisateur, sur les apercus ; aucun test en jeu PMDO',
               # Les 18 cartes montrees quand l utilisateur a valide ; les suivantes restent a confirmer.
