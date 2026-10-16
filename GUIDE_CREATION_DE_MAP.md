@@ -76,6 +76,12 @@ emplacements : pixels de même séquence de couleurs. Ramener ensuite l'eau gén
 plus proche luminance. Les pixels qui tombent sur une couleur animée reçoivent la séquence exacte du jeu,
 à sa cadence (ex. 32 frames × 2 ticks). Voir `AGENTS.md`, section EGV1.
 
+**Palette exacte du rip pour toute la carte** (lot ECE1) : quand le rip a peu de couleurs (`D79P11A` : 103) et que le
+décor généré en est proche (écart moyen 3,5), ramener chaque pixel de chaque calque, animations et poses comprises, à
+la couleur du rip la plus proche (RGB). Un test vérifie alors que toutes les couleurs sont des couleurs du rip. Si le
+générateur échoue sur le sol complet (neige presque blanche), le construire par le pipeline depuis le sol praticable
+du décor et consigner les essais écartés dans le manifeste. Voir `AGENTS.md`, section ECE1.
+
 ### Étape 2 — Reconstruction en tuiles natives
 
 Reconstruire avec de **vraies tuiles natives de 8 px** : sélection guidée par la composition, sans

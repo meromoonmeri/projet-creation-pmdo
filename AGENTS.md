@@ -1289,3 +1289,28 @@ Pas de runtime. Pas dans le mod unique.
   - fidélité à `D56P41A` : brut sable 6,1, eau 16,8, roche 14,0 ; calques sol 10,8, vasques 8,9, parois 16,2 ;
   - pas de runtime, `art_approved: false`.
 
+
+## Entrée Crevasse enneigée — ECE1 (16 octobre 2026), ajouts à la recette
+
+- **Demande et choix** : « … passe enuite au prochaine map ! », juste après FGV1. C'est une nouvelle entrée sud → nord, sur `D79P11A` : falaise de glace lavande avec une crevasse, inutilisée sur les deux dépôts. « Glace » figure dans les biomes demandés (« passer aux prochains biomes : Ruine Légendaire, Glace, Apple Woods, … »). Le biome est choisi par l'agent et reste **à confirmer**. `D79P21A` et `D79P41A` sont des gabarits vides. Le préfixe `FCE1` est réservé pour la fin.
+- **Générateur** :
+  - `decor.png` (`images=[D79P11A]`) et la planche (6 flocons et 6 phases d'éclat de givre sur magenta) sont obtenus au premier essai ;
+  - **sol complet d'une neige presque blanche : deux éditions du générateur ont échoué** (bruit et taches sombres, écart 13,4 ; grandes taches bleues, écart 22,7). Ne pas réessayer. Il est construit par le pipeline : neige praticable du décor, blanc du rip ailleurs. Les prompts écartés sont consignés dans `manifest.sol_complet.editions_generateur_ecartees`, et un test vérifie qu'aucun brut écarté n'est gardé.
+- **Palette exacte du rip pour TOUTE la carte** : le rip n'a que 103 couleurs, et le décor en est proche (écart moyen 3,5, q99 10 ; neige 0,7). Chaque pixel de chaque calque, animations et poses comprises, prend la couleur du rip la plus proche (`cKDTree`, RGB). Cela remplace les palettes MEDIANCUT. Test : couleurs de tous les calques et de toutes les phases ⊆ couleurs du rip.
+- **Segmentation de la neige : pièges et règles** :
+  - Les corniches séparent la neige en niveaux. Garder la plus grande composante n'en prenait qu'une clairière ; il faut garder **toutes** les composantes de plus de 3 000 px dont le centre est sous la falaise (y ≥ 430).
+  - Le bon discriminant est **b − r** : environ 25 pour la neige ombrée, 50 à 70 pour la roche. La neige est donc blanche, ou lavande claire même texturée (lum ≥ 185), avec b − r ≤ 45.
+  - Le **pied de falaise** ne se trouve ni au point le plus bas de la masse reliée au bord haut (les corniches s'y raccrochent par les bords des bancs), ni par une fenêtre de blancheur (la neige ombrée la casse). C'est le **premier pixel praticable de chaque colonne**, filtré par une médiane sur 15 colonnes.
+  - **Sol de la grotte** : c'est un dégradé (lum 45 → 210) entre la bouche et la neige. Le prendre comme un trapèze sous la bouche, qui s'élargit de 0,6 px par px de descente, avec un écart-type < 22, relié à la neige.
+  - **Boules de neige** : la plupart ont des contours clairs et ne se détectent pas de façon fiable. Il n'y a donc pas de calque « congères », qui aurait été incohérent. Elles restent peintes sur la neige, praticables. Les petits arcs sombres entourés de neige (≤ 900 px, ≤ 100 × 60, anneau praticable à ≥ 70 %) sont rendus aux ombres.
+- **Animations quand le BPL n'anime rien** :
+  - flocons : 72 émetteurs (graine 1979) ; vie de 40 phases sur 48, chute de 40 à 80 px selon la taille avec une ondulation de 3 px, puis un point posé 4 phases, **seulement sur la neige praticable** ;
+  - éclats : 16 émetteurs, séquence de 8 phases (point → étoile → point) puis extinction, décalages j × 48 / 16 mélangés ;
+  - placer les éclats sur la **glace de ton moyen (lum 150–215)**. Sur des facettes presque blanches, une étoile blanche disparaît : c'était le cas au premier essai.
+  - Tests : frames recalculées depuis la graine et le manifeste, boucle fermée (48 = 0), chute jamais vide.
+- **Mod** : ECE1 ajouté à `MAPS` (21 cartes) avec `A_CONFIRMER = ['EJS2', 'EGV1', 'ECE1']` ; mod non reconstruit ici.
+- **Résultats** :
+  - 13 tests PASS et 29 mutations détectées ; build reproductible (139 fichiers identiques, ORA compris) ;
+  - installeur en simulation : 10 fichiers, 8 tilesets ; page d'aperçu exécutée dans un DOM simulé (8 calques, 12 poses) ;
+  - fidélité à `D79P11A` : brut neige 0,2, ombre 1,3, roche 12,4 ; calques neige 1,4, ombres 6,6, falaises 10,0, corniches 30,3 ;
+  - pas de runtime, `art_approved: false`.

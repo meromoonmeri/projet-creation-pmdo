@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entrée Crevasse enneigée · sud → nord · 4:3</title>
+<style>
+body{background:#14152a;color:#ecebf7;font:15px/1.55 system-ui,sans-serif;margin:0;padding:24px}
+main{max-width:1240px;margin:auto}
+h1{font-size:30px;margin:0 0 6px}
+p{color:#cfd0ea;max-width:86ch}
+.wrap{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.stage{position:relative;background:#0c0d1c;overflow:auto;max-height:86vh;border:1px solid #3f4777}
+canvas{display:block;image-rendering:pixelated}
+aside{flex:1;min-width:280px;max-width:430px}
+fieldset{border:1px solid #3f4777;border-radius:8px;margin:0 0 14px;padding:10px 14px}
+legend{color:#c9c9ff;padding:0 6px}
+label{display:block;padding:3px 0;cursor:pointer}
+button{background:#dfe0f7;color:#1f2147;border:0;border-radius:6px;padding:8px 14px;margin:2px 4px 2px 0;cursor:pointer;font-weight:600}
+button.on{background:#b7b7df}
+.note{border-left:3px solid #b7b7df;padding-left:12px;font-size:14px}
+code{color:#d7d7ff}
+.refs{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.refs img{image-rendering:pixelated;border:1px solid #3f4777}
+table{border-collapse:collapse;font-size:14px}td,th{padding:2px 8px;border-bottom:1px solid #2c3157;text-align:left}
+</style>
+<main>
+<h1>Entrée Crevasse enneigée — sud → nord, format 4:3 vaste (768×576)</h1>
+<p>Rendu généré <strong>référencé sur une map de la ROM de PMD Explorers of Sky</strong> : <code>D79P11A</code>, une falaise de glace lavande et de la neige, rendue depuis la décompilation <code>pret/pmd-sky</code>. Aucune autre map de la série ne l'utilise. Le nom du lieu n'est pas identifié : « Crevasse enneigée » est un nom de travail, et le biome, choisi par l'agent, reste à confirmer. Le générateur a reçu le rip et a produit un <strong>décor 4:3 neuf</strong>, ainsi qu'une <strong>planche de flocons et d'éclats de givre</strong> sur fond magenta. Le <strong>sol complet</strong> est construit par le pipeline à partir de la neige du décor, car les deux éditions du générateur ont été écartées. Le pipeline natif découpe le tout en <strong>8 calques</strong> de 8 px, plus un calque Top vide dans le Ground. <strong>Toutes les couleurs de tous les calques sont des couleurs exactes du rip</strong> (<span id="ncol"></span> couleurs). L'arrivée est au sud. Un chemin de neige abaissé, entre deux bancs à corniches, mène à la crevasse au nord (<code>donjon_seuil</code>). La neige tombe, et des éclats de givre scintillent au pied des falaises. Aucun warp, aucune eau.</p>
+<div class="wrap">
+  <div class="stage" id="stage"><canvas id="c"></canvas></div>
+  <aside>
+    <fieldset><legend>Lecture</legend><button id="play">Pause</button><button id="step">+4 ticks</button><div id="phase"></div></fieldset>
+    <fieldset><legend>Affichage</legend>
+      <button data-zoom="1" class="on">1×</button><button data-zoom="2">2×</button><button data-zoom="3">3×</button>
+      <label><input type="checkbox" id="grid"> Grille 8 px</label>
+      <label><input type="checkbox" id="coll"> Collisions et marqueurs</label>
+      <label><input type="checkbox" id="view"> Cadre viewport PMDO ×1 (320×240) à l'arrivée</label>
+    </fieldset>
+    <fieldset><legend>Calques (bas → haut)</legend><div id="layers"></div><button id="solo">Tout afficher</button></fieldset>
+    <fieldset><legend>Poses générées (×4) : flocons, éclats de givre</legend><div id="poses" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"></div></fieldset>
+    <fieldset><legend>Fidélité au rip D79P11A (distance RGB, seuil 35)</legend><table id="fid"></table></fieldset>
+    <fieldset><legend>Export</legend><button id="png">PNG de la vue actuelle (1×)</button></fieldset>
+    <p class="note">Le terrain, les flocons et les éclats sont générés à partir du rip : ce ne sont pas des tuiles natives. Seules les couleurs sont exactes, chaque pixel prenant la couleur du rip la plus proche. La chute de neige et les scintillements sont créés par nous, car le rip n'anime rien. Marqueurs : jaune = <code>entrance</code>, cyan = <code>donjon_seuil</code>. Aucun test fait dans PMDO.</p>
+  </aside>
+</div>
+<h2>Référence ROM (taille réelle)</h2>
+<div class="refs"><figure><img id="rip" alt="D79P11A"><figcaption><code>D79P11A</code> (600×504, statique : son BPL n'anime rien)</figcaption></figure></div>
+</main>
+<script>
+const D=__DATA__;const [W,H]=D.size;const c=document.getElementById('c'),x=c.getContext('2d');
+function img(u){const i=new Image();i.src=u;return i}
+const L=D.stack.map(l=>({id:l.id,ticks:l.ticks,frames:l.frames.map(img)})),coll=img(D.collisions);
+const box=document.getElementById('layers'),checks={};
+L.forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id+(l.frames.length>1?' ('+l.frames.length+'×'+l.ticks+' ticks)':''));box.append(lab)});
+D.poses.forEach(p=>{const i=img(p.uri);i.width=p.w*4;i.height=p.h*4;i.title=p.id;i.style.cssText='image-rendering:pixelated;background:'+D.surface;document.getElementById('poses').append(i)});
+document.getElementById('ncol').textContent=D.ncol;
+const ft=document.getElementById('fid');ft.innerHTML='<tr><th>matière / calque</th><th>brut</th><th>calque final</th></tr>'+
+ [['neige','neige'],['ombre','ombres'],['roche','falaises'],['roche','corniches']].map(([m,k])=>'<tr><td>'+m+' / '+k+'</td><td>'+D.fid.brut[m]+'</td><td>'+D.fid.calques[k]+'</td></tr>').join('');
+const r1=document.getElementById('rip');r1.src=D.rip;r1.onload=()=>{r1.width=r1.naturalWidth};
+let zoom=1,tick=0,playing=true,last=performance.now();const STEP=4,MS=STEP*1000/60;
+function render(ctx){ctx.clearRect(0,0,W,H);L.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(l.frames[Math.floor(tick/l.ticks)%l.frames.length],0,0)});
+ if(document.getElementById('coll').checked)ctx.drawImage(coll,0,0);}
+function draw(){c.width=W*zoom;c.height=H*zoom;x.imageSmoothingEnabled=false;x.save();x.scale(zoom,zoom);render(x);x.restore();
+ if(document.getElementById('grid').checked){x.strokeStyle='rgba(60,60,120,.25)';x.lineWidth=1;x.beginPath();
+  for(let i=0;i<=W;i+=8){x.moveTo(i*zoom+.5,0);x.lineTo(i*zoom+.5,H*zoom)}for(let j=0;j<=H;j+=8){x.moveTo(0,j*zoom+.5);x.lineTo(W*zoom,j*zoom+.5)}x.stroke()}
+ if(document.getElementById('view').checked){const cx=Math.min(Math.max(D.entry[0]+8-160,0),W-320),cy=Math.min(Math.max(D.entry[1]+8-120,0),H-240);
+  x.strokeStyle='#ffe066';x.lineWidth=2;x.strokeRect(cx*zoom,cy*zoom,320*zoom,240*zoom)}
+ document.getElementById('phase').textContent='tick '+tick+' / '+D.loop;}
+function adv(){tick=(tick+STEP)%D.loop;draw()}
+function loop(t){if(playing&&t-last>=MS){last=t;adv()}requestAnimationFrame(loop)}
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Lecture'};
+document.getElementById('step').onclick=adv;
+document.querySelectorAll('[data-zoom]').forEach(b=>b.onclick=()=>{zoom=+b.dataset.zoom;document.querySelectorAll('[data-zoom]').forEach(o=>o.classList.toggle('on',o===b));draw()});
+['grid','coll','view'].forEach(id=>document.getElementById(id).onchange=draw);
+document.getElementById('solo').onclick=()=>{Object.values(checks).forEach(ch=>ch.checked=true);draw()};
+document.getElementById('png').onclick=()=>{const o=document.createElement('canvas');o.width=W;o.height=H;render(o.getContext('2d'));const a=document.createElement('a');a.download='ECE1_vue_tick'+String(tick).padStart(3,'0')+'.png';a.href=o.toDataURL('image/png');a.click()};
+Promise.all([...L.flatMap(l=>l.frames),coll].map(i=>i.decode())).then(()=>{draw();requestAnimationFrame(loop)});
+</script>
+</html>

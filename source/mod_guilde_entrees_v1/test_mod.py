@@ -1,4 +1,4 @@
-"""Tests du mod unique des 20 entrées sud -> nord (18 validées, EJS2 et EGV1 à confirmer).
+"""Tests du mod unique des 21 entrées sud -> nord (18 validées, EJS2, EGV1 et ECE1 à confirmer).
 .venv/bin/python -m unittest source.mod_guilde_entrees_v1.test_mod -v      (après build_mod.py)
 Contrôles de fichiers, d'index, de références de tuiles et d'installation : PAS un test du moteur PMDO.
 """
@@ -43,11 +43,11 @@ class Mod(unittest.TestCase):
     def test_toutes_les_cartes_de_la_serie(self):
         lots = sorted(p.parent.name for p in (R / 'renders').glob('entree_*_sud_nord_v*/*_projet_pmdo_0812.zip'))
         self.assertEqual(sorted(m[0] for m in B.MAPS), lots)                       # aucune carte oubliée
-        self.assertEqual((M['cartes'], len(M['maps'])), (20, 20))
-        self.assertEqual(len({m[1] for m in B.MAPS}), 20)
-        v = M['validation_utilisateur']                                            # EJS2, EGV1 : faites après la validation
-        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2', 'EGV1'])
-        self.assertEqual(set(v['cartes_validees']) | {'EJS2', 'EGV1'}, {m[1] for m in B.MAPS})
+        self.assertEqual((M['cartes'], len(M['maps'])), (21, 21))
+        self.assertEqual(len({m[1] for m in B.MAPS}), 21)
+        v = M['validation_utilisateur']                                            # EJS2, EGV1, ECE1 : faites après la validation
+        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2', 'EGV1', 'ECE1'])
+        self.assertEqual(set(v['cartes_validees']) | {'EJS2', 'EGV1', 'ECE1'}, {m[1] for m in B.MAPS})
         self.assertEqual(M['namespace'], NS); self.assertFalse(M['runtime_tested'])
         self.assertIn('JE VALIDE', M['validation_utilisateur']['citation'])
         self.assertEqual({n.split('/')[0] for n in zipfile.ZipFile(ZIP).namelist()}, {NS})

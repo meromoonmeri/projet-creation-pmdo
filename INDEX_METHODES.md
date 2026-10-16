@@ -1,4 +1,4 @@
-# Index des méthodes — 210 sous-projets de `source/` (208 extraits + 2 créés ici)
+# Index des méthodes — 211 sous-projets de `source/` (208 extraits + 3 créés ici)
 
 Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-pmdo) au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pmdo/commit/6cca4a09380211e510ab1bea454a1b1926ef4b5a) — 2026-10-01.
 
@@ -9,7 +9,7 @@ Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build,
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
 `provenance` = traçabilité des références, `Ground`/`tileset` = données natives PMDO présentes.
 
-## Entrées de donjon sud→nord — 21 projets · 116 fichiers · 7 Mo
+## Entrées de donjon sud→nord — 22 projets · 129 fichiers · 10 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
@@ -20,6 +20,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/entree_cratere_sud_nord_v1/` | build · package · test · PACK · viewer | 5/9 | 0.0 |
 | `source/entree_givre_sud_nord_v1/` | build · package · test · PACK · viewer | 6/9 | 0.1 |
 | `source/entree_grotte_vasques_sud_nord_v1/` | reference · build · test · mutations · package · provenance · PACK · viewer *(créé dans ce dépôt, 16/10/2026)* | 15/15 | 6.1 |
+| `source/entree_crevasse_enneigee_sud_nord_v1/` | reference · build · test · mutations · package · provenance · PACK · viewer *(créé dans ce dépôt, 16/10/2026 ; palette exacte du rip D79P11A pour tous les calques)* | 13/13 | 3.3 |
 | `source/entree_jardin_secret_sud_nord_v1/` | build · package · test · PACK · viewer | 5/10 | 0.1 |
 | `source/entree_jardin_secret_sud_nord_v2/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
 | `source/entree_jungle_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
@@ -35,7 +36,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/entree_waterfall_cave_sud_nord_v2/` | build · package · test · PACK · viewer | 5/5 | 0.1 |
 | `source/entree_waterfall_cave_sud_nord_v3/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
 
-## Fins de donjon / arènes de boss — 11 projets · 62 fichiers extraits · 1 Mo
+## Fins de donjon / arènes de boss — 12 projets · 70 fichiers · 6 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|

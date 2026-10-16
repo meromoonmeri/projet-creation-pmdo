@@ -35,8 +35,9 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 |---|---|---|---|
 | [Entrée Grotte aux vasques](renders/entree_grotte_vasques_sud_nord_v1/README.md) — sud → nord, 4:3 | `EGV1` | ROM PMD Sky `D56P12A` (+ `D56P41A`) | [`apercu_entree_grotte_vasques_sud_nord_v1.html`](apercu_entree_grotte_vasques_sud_nord_v1.html) |
 | [Fin Grotte aux vasques](renders/fin_grotte_vasques_v1/README.md) — zone de fin, 4:3 | `FGV1` | ROM PMD Sky `D56P41A` (+ décor EGV1) | [`apercu_fin_grotte_vasques_v1.html`](apercu_fin_grotte_vasques_v1.html) |
+| [Entrée Crevasse enneigée](renders/entree_crevasse_enneigee_sud_nord_v1/README.md) — sud → nord, 4:3 | `ECE1` | ROM PMD Sky `D79P11A` | [`apercu_entree_crevasse_enneigee_sud_nord_v1.html`](apercu_entree_crevasse_enneigee_sud_nord_v1.html) |
 
-Biome neuf choisi par l'agent le 16 octobre 2026 (à confirmer) : eau aux couleurs exactes du rip, reflets avec l'animation de palette exacte du jeu. EGV1 : 13 tests, 19 mutations. FGV1, la fin du même biome (décor seul, cascade de vasques) : 13 tests, 24 mutations. Aperçus servis dans la session par `python3 source/serveur_apercus/serve.py --port 8000`.
+Biome neuf choisi par l'agent le 16 octobre 2026 (à confirmer) : eau aux couleurs exactes du rip, reflets avec l'animation de palette exacte du jeu. EGV1 : 13 tests, 19 mutations. FGV1, la fin du même biome (décor seul, cascade de vasques) : 13 tests, 24 mutations. ECE1, entrée suivante sur un second biome neuf (falaise de glace et crevasse, « Glace », à confirmer) : toutes les couleurs sont celles du rip, chute de neige et éclats de givre animés ; 13 tests, 29 mutations. Aperçus servis dans la session par `python3 source/serveur_apercus/serve.py --port 8000`.
 
 ## La chaîne de production, en une phrase
 

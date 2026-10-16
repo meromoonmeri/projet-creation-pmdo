@@ -7,6 +7,26 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Entrée Crevasse enneigée : falaise de glace et crevasse, ECE1 (16 octobre 2026)
+
+**Demande** : « Fait la zone de fin et passe enuite au prochaine map ! ». Après la fin FGV1, c'est la carte suivante de la série sud → nord, sur un biome neuf choisi par l'agent (« Glace », **à confirmer**). Dépôt `projet-creation-pmdo`.
+
+- Sorties : `renders/entree_crevasse_enneigee_sud_nord_v1/`, aperçu `apercu_entree_crevasse_enneigee_sud_nord_v1.html`, build `source/entree_crevasse_enneigee_sud_nord_v1/build.py`.
+- **Référence** : map ROM `D79P11A` (falaise de glace lavande, neige, boules de neige), extraite par `reference.py` depuis `pret/pmd-sky`. Rendu généré référencé + pipeline natif ; ce ne sont pas des tuiles natives.
+- **Layout** :
+  - arrivée au sud sur un chemin de neige abaissé, entre deux bancs à corniches rocheuses ;
+  - clairières en terrasses sur les côtés, boules de neige ;
+  - au nord, une **falaise de glace** sur toute la largeur, fendue d'une **crevasse** au centre.
+
+  Marqueurs `entrance` et `donjon_seuil` (sur le pas de la crevasse) ; aucun warp, aucune eau.
+- **Calques** : sol complet, neige, ombres, corniches, falaises, profondeur, scintillements (48 × 4 ticks), flocons (48 × 4 ticks), plus un Top vide.
+- **Canonique** : **toutes les couleurs de tous les calques sont des couleurs exactes du rip** (103 couleurs). Flocons et éclats viennent d'une planche générée ; leur chronologie est créée par nous, car le rip est statique.
+- **Sol complet** : deux éditions du générateur ont été écartées (bruit, taches) ; il est construit par le pipeline et les échecs sont consignés.
+- **Fidélité** (seuil 35) :
+  - brut : neige 0,2, ombre 1,3, roche 12,4 ;
+  - calques : neige 1,4, ombres 6,6, falaises 10,0, corniches 30,3.
+- **Contrôles** : 13 tests PASS, 29 mutations détectées, build reproductible, installeur vérifié en simulation. Pas de runtime, `art_approved: false`. ECE1 est ajoutée au mod de la série (à confirmer). Suite naturelle : la fin FCE1.
+
 ## Fin Grotte aux vasques : cascade de vasques, FGV1 (16 octobre 2026)
 
 **Demande** : « Fait la zone de fin et passe enuite au prochaine map ! ». C'est la fin du biome de l'entrée EGV1 (biome neuf choisi par l'agent, **à confirmer**). Dépôt `projet-creation-pmdo`.

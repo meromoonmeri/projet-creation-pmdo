@@ -117,7 +117,17 @@ Les **lots ajoutés par les branches de `projet-pmdo` après l'extraction** util
 - **Contrôles** : 13 tests PASS, 24 mutations détectées, build reproductible à l'octet.
 - Pas dans le mod de la série, qui ne regroupe que des entrées.
 
-**Préfixes pris en plus** : EGV1, FGV1.
+**Lot livré : Entrée Crevasse enneigée** (`renders/entree_crevasse_enneigee_sud_nord_v1/`, préfixe `ECE1`, aperçu `apercu_entree_crevasse_enneigee_sud_nord_v1.html`, source `source/entree_crevasse_enneigee_sud_nord_v1/`). Demande : « … passe enuite au prochaine map ! ».
+
+- **Référence** : `D79P11A` de la ROM, une falaise de glace lavande avec de la neige ; aucune branche des deux dépôts ne l'utilise. Biome **choisi par l'agent, à confirmer** ; « Glace » figure dans les biomes demandés par l'utilisateur.
+- **Layout** : arrivée au sud sur un chemin de neige abaissé entre deux bancs à corniches et boules de neige, clairières en terrasses sur les côtés, falaise de glace sur tout le nord, crevasse au centre (`donjon_seuil` sur son pas). Aucune eau ; aucun warp.
+- **Canonique** : **toutes les couleurs de tous les calques sont des couleurs exactes du rip** (103 couleurs ; écart moyen du brut 3,5). Flocons et éclats de givre animés à partir d'une planche générée, puisque le rip est statique (48 × 4 ticks chacun).
+- **Sol complet** : deux éditions du générateur ont échoué sur une neige presque blanche (bruit, taches). Il est construit par le pipeline et les échecs sont consignés dans le manifeste.
+- **Contrôles** : 13 tests PASS, 29 mutations détectées, build reproductible à l'octet (139 fichiers), installeur vérifié en simulation.
+- **Mod** : ECE1 ajouté à `MAPS` du mod de la série (21 cartes), marqué à confirmer, mais mod non reconstruit (ZIP des lots précédents absents).
+- **Suite naturelle** : la fin `FCE1` (préfixe réservé), au fond de la crevasse. `D79P21A` et `D79P41A` sont des gabarits vides : il faudra repartir de `D79P11A`, ou d'une map de glace libre (`D46P11A`–`D53P41B`, `D53P41C`).
+
+**Préfixes pris en plus** : EGV1, FGV1, ECE1 (FCE1 réservé pour sa fin).
 
 **Références ROM « D » libres sur les deux dépôts** (relevé du 16 octobre ; 137 codes, dont beaucoup de gabarits vides à 456 × 456 ou 1440 × 960). Les plus intéressantes :
 
@@ -125,7 +135,7 @@ Les **lots ajoutés par les branches de `projet-pmdo` après l'extraction** util
 - `D06P11A` : falaise côtière avec grotte et mer à droite ;
 - `D22P11A`, `D23P11A`, `D49P41A` : forêt de pins grise, comme figée ;
 - `D43P31A` : couloir sombre de feuillages bleus, sol rose ;
-- `D79P11A` : falaise enneigée lavande avec une crevasse-grotte au nord ;
+- `D79P11A` : falaise enneigée lavande avec une crevasse-grotte au nord (**prise par ECE1**) ;
 - `D73P31A` : prairie fleurie au-dessus des nuages ;
 - `D36P41A` : corniche aride face aux montagnes ;
 - `D26P31A`, `D26P43A` : couloir rouge-brun à flaques ;
