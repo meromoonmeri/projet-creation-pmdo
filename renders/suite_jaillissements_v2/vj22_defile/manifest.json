@@ -1,0 +1,566 @@
+{
+  "lot": "vj22_defile",
+  "prefix": "VJ22",
+  "title": "Défilé des Scories",
+  "kind": "entrance",
+  "date": "2026-10-16",
+  "columns": [
+    {
+      "x": 95,
+      "y": 164,
+      "echelle": 0.16,
+      "miroir": false,
+      "decalage": 0,
+      "graine": 21,
+      "period_px": 120
+    },
+    {
+      "x": 672,
+      "y": 175,
+      "echelle": 0.16,
+      "miroir": true,
+      "decalage": 5,
+      "graine": 22,
+      "period_px": 120
+    },
+    {
+      "x": 726,
+      "y": 327,
+      "echelle": 0.23,
+      "miroir": true,
+      "decalage": 15,
+      "graine": 24,
+      "period_px": 173
+    },
+    {
+      "x": 47,
+      "y": 450,
+      "echelle": 0.23,
+      "miroir": false,
+      "decalage": 10,
+      "graine": 23,
+      "period_px": 173
+    }
+  ],
+  "column_sprite": {
+    "file": "source/suite_jaillissements_v2/shared/colonne_magenta.png",
+    "sha256": "3bbe9912520fefa1bd54de56be17c8ce342e11fd4d5d618d2927bb0ce144e19b"
+  },
+  "column_method": "nouveau sprite, preparation AGM3 immuable ; bande periodique ascendante, couronne translatee, gouttes paraboliques ; 24x5 ticks, aucun sommet visible",
+  "base_recipe_sha256": "dc1f66a505d51ee8c550d74f28f5686dee83b838ba3f01cf4a644d0bbcdf20ab",
+  "column_prep_sha256": "06aeeda8c4c97816a2e51f8048d1e3eb4b40dd0c391a6d0fd87fe932e4001b04",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/suite_jaillissements_v2/reference/D41P41A.png",
+    "sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/suite_jaillissements_v2/maps/vj22_defile/bruts/decor.png",
+      "sha256": "91efdb4717a8ea54d0eb711bbcfbd77e2bf5e345df82b2c5663da2c81e4ad2a6",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_terres_volcaniques_v1/bruts/sol_complet.png",
+      "sha256": "3ff8412b78a2d5eb0850c0fcc6869d779c4deda91bf300203fb55c677770dc74",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Diagnostic cendre/lave propre au biome, identique rip/brut/sortie, seuil 35 inchange. Cendre:65<R<160,abs(R-G)<18,abs(G-B)<20. Lave:R>200,65<G<245,B<140,R>G+5. Pas une preuve de textures officielles ou raccords. Non comparable aux indices forestiers.",
+  "config_sha256": "d1f485c9ee707e326503742dd36cb6245f9f4b9c4353016f5d1ee201bcc80f7f",
+  "generation": [
+    {
+      "file": "bruts/decor_initial.png",
+      "images": [
+        "../../reference/D41P41A.png"
+      ],
+      "prompt": "One NEW complete volcanic ground map in Pokemon Mystery Dungeon Explorers of Sky DS pixel art. The attached D41P41A ROM image is a reference for DS pixel clusters and ash/basalt/lava colours ONLY, not its arena layout, central Pokemon or symbol. Landscape 4:3, 1200 by 896 pixels, elevated top-down PMD ground camera, NO sky or horizon. Ash midtones RGB 90 84 79, dark layered brown-charcoal basalt, vivid cellular red-orange lava with winding yellow fissures, orange midtones RGB 250 160 40. Fine stippled ash texture, NOT brick paving. Complete rock top-face-foot volumes on low lateral crags. Full-frame immersion, ground and lava continue off ALL corners, no isolated diorama or floating island. IMPORTANT FOR LATER ANIMATED JETS: leave generous exposed LAVA ALONG THE FAR LEFT AND FAR RIGHT edges, including both TOP corners, with pools about a sixth of the frame width, available for tall foreground and background jets. Do not draw the jets yet; they will be animated independently. A safe broad grey ash approach enters SOUTH CENTRE, with generous movement space in the middle. Keep the central passage unobstructed by rocks or lava. Avoid a giant circular elevated plateau or arena ring, except the last final-clearing brief. No chosen boss or central object. NO cave mouth, black hole, portal, arch, bridge, building, ruins, altar, stairs, symbols, machines, Groudon, Pokemon, characters, items, text, UI, green plants, snow, fog or sun beams. Crisp small irregular DS pixel clusters, not painted fantasy art or smooth polygons. A NEW STAGGERED ASYMMETRIC DEFILE with diagonal short basalt outcrops on the sides, not a central raised circular platform. The wide ground route bends RIGHT low in the frame and LEFT high in the frame, continues openly through NORTH CENTRE. Unequal low scoria crags: larger on the LEFT upper side, broken lower ridges on RIGHT. Lava basins lie laterally, connected to continuous outer LEFT and RIGHT lava strips. Plenty of movement space at lower centre; no cliff across the approach. Single full-frame map.",
+      "attempts": 1,
+      "title": "Défilé des Scories",
+      "prefix": "VJ22",
+      "sha256": "a79d18bae483796e529543e96a1270a19f9fb80af3ba63c24ee17d098848a3cf",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+    },
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "bruts/decor_initial.png",
+        "../../reference/D41P41A.png"
+      ],
+      "prompt": "Edit the FIRST image, keeping its full-frame 1200x896 map layout and natural ash/rock/lava textures. Remove the TWO obvious constructed stone staircases on the RIGHT middle-lower rock shelf: replace their evenly spaced horizontal steps with irregular broken NATURAL BASALT faces and rubble on that same shelf, no architecture or new object. Keep the central passage empty and north/south open. The second attached original ROM image is only the texture/palette guide; do not add its Pokemon. No stairs, symbols, characters or central object. Keep all other geometry unchanged. Single full-frame map.",
+      "attempts": 1,
+      "operation": "correction generee, pas peinture procedurale",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "91efdb4717a8ea54d0eb711bbcfbd77e2bf5e345df82b2c5663da2c81e4ad2a6",
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        460,
+        0
+      ],
+      [
+        790,
+        0
+      ],
+      [
+        810,
+        170
+      ],
+      [
+        990,
+        240
+      ],
+      [
+        950,
+        350
+      ],
+      [
+        800,
+        455
+      ],
+      [
+        1030,
+        650
+      ],
+      [
+        1050,
+        895
+      ],
+      [
+        360,
+        895
+      ],
+      [
+        345,
+        780
+      ],
+      [
+        200,
+        675
+      ],
+      [
+        195,
+        525
+      ],
+      [
+        340,
+        425
+      ],
+      [
+        390,
+        325
+      ],
+      [
+        440,
+        290
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 80 dans le sol existant",
+    "rebords": "bande de 12 px bruts autour du sol, bloquante",
+    "details": "cendre, teintes sombres du sol, rebords, basalte, prolongement nord, lave separes ; zones d edition pas detourage parfait",
+    "lava_mask_raw": "fill_holes(R>175,G>30,R-B>100,G-B>10)",
+    "depth_mode": "drawn",
+    "depth_polygon_raw": [
+      [
+        420,
+        0
+      ],
+      [
+        790,
+        0
+      ],
+      [
+        800,
+        70
+      ],
+      [
+        760,
+        130
+      ],
+      [
+        450,
+        130
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "cendre": {
+        "distance": 4.19,
+        "rgb_lot": [
+          87.8,
+          81.15,
+          75.02
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 507859,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 17.91,
+        "rgb_lot": [
+          245.47,
+          146.97,
+          27.99
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 273100,
+        "pixels_rip": 159860
+      }
+    },
+    "sortie": {
+      "cendre": {
+        "distance": 7.81,
+        "rgb_lot": [
+          85.78,
+          79.01,
+          72.76
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 217052,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 17.02,
+        "rgb_lot": [
+          247.08,
+          149.91,
+          25.72
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 91961,
+        "pixels_rip": 159860
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/VJ22_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "cendre",
+      "file": "calques/VJ22_01_cendre.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/VJ22_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "rebords",
+      "file": "calques/VJ22_03_rebords.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "basalte",
+      "file": "calques/VJ22_04_basalte.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/VJ22_05_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "lave",
+      "file": "animation/VJ22_06_lave_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "braises",
+      "file": "animation/VJ22_07_braises_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "colonnes",
+      "file": "animation/VJ22_08_colonnes_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "jaillissements",
+      "file": "animation/VJ22_09_jaillissements_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "projections",
+      "file": "animation/VJ22_10_projections_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "label": "braises montantes calculees (deux pixels)",
+    "emitters": [
+      [
+        12,
+        29,
+        0
+      ],
+      [
+        53,
+        233,
+        1
+      ],
+      [
+        17,
+        135,
+        2
+      ],
+      [
+        107,
+        531,
+        3
+      ],
+      [
+        36,
+        389,
+        4
+      ],
+      [
+        2,
+        44,
+        5
+      ],
+      [
+        683,
+        127,
+        6
+      ],
+      [
+        4,
+        395,
+        7
+      ],
+      [
+        70,
+        317,
+        8
+      ],
+      [
+        731,
+        68,
+        9
+      ],
+      [
+        68,
+        483,
+        10
+      ],
+      [
+        725,
+        91,
+        11
+      ],
+      [
+        135,
+        530,
+        12
+      ],
+      [
+        66,
+        332,
+        13
+      ],
+      [
+        12,
+        360,
+        14
+      ],
+      [
+        71,
+        550,
+        15
+      ],
+      [
+        739,
+        289,
+        16
+      ],
+      [
+        733,
+        8,
+        17
+      ],
+      [
+        15,
+        289,
+        18
+      ],
+      [
+        72,
+        412,
+        19
+      ],
+      [
+        28,
+        433,
+        20
+      ],
+      [
+        15,
+        240,
+        21
+      ],
+      [
+        93,
+        563,
+        22
+      ],
+      [
+        61,
+        262,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        175,
+        39
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(3 sin(2 pi k/18)) ; y=y0-k+9 ; pixels (0,0),(0,-1) ; clip lave",
+    "origin": "calculee, couleurs exactes du rip ; pas une animation officielle"
+  },
+  "lava_animation": {
+    "law": "theta=2*pi*(t%24)/24 ; dx=rint(2*(sin(theta+y/19)-sin(y/19))) ; dy=rint(2*(cos(theta+x/23)-cos(x/23))) ; nearest source inside lave ; only erosion(lave,3) changes ; frame0 identity",
+    "origin": "deplacement periodique des pixels de lave generes, sans recoloration ; pas le BPL officiel",
+    "border_fixed_px": 3,
+    "phases": 24,
+    "ticks": 5
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        384,
+        88
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1846,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D41P41A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "suite_jaillissements_v2",
+    "asset": "vj22_defile",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "VJ22_00_SOL_COMPLET": 6913,
+      "VJ22_01_CENDRE": 2529,
+      "VJ22_02_OMBRES": 2044,
+      "VJ22_03_REBORDS": 843,
+      "VJ22_04_BASALTE": 2312,
+      "VJ22_05_PROFONDEUR": 324,
+      "VJ22_06_LAVE": 41165,
+      "VJ22_07_BRAISES": 193,
+      "VJ22_08_COLONNES": 4614,
+      "VJ22_09_JAILLISSEMENTS": 1368,
+      "VJ22_10_PROJECTIONS": 878
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

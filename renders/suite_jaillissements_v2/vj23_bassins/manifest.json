@@ -1,0 +1,562 @@
+{
+  "lot": "vj23_bassins",
+  "prefix": "VJ23",
+  "title": "Bassins Bouillonnants",
+  "kind": "entrance",
+  "date": "2026-10-16",
+  "columns": [
+    {
+      "x": 687,
+      "y": 177,
+      "echelle": 0.16,
+      "miroir": true,
+      "decalage": 5,
+      "graine": 22,
+      "period_px": 120
+    },
+    {
+      "x": 81,
+      "y": 180,
+      "echelle": 0.16,
+      "miroir": false,
+      "decalage": 0,
+      "graine": 21,
+      "period_px": 120
+    },
+    {
+      "x": 731,
+      "y": 440,
+      "echelle": 0.23,
+      "miroir": true,
+      "decalage": 15,
+      "graine": 24,
+      "period_px": 173
+    },
+    {
+      "x": 40,
+      "y": 450,
+      "echelle": 0.23,
+      "miroir": false,
+      "decalage": 10,
+      "graine": 23,
+      "period_px": 173
+    }
+  ],
+  "column_sprite": {
+    "file": "source/suite_jaillissements_v2/shared/colonne_magenta.png",
+    "sha256": "3bbe9912520fefa1bd54de56be17c8ce342e11fd4d5d618d2927bb0ce144e19b"
+  },
+  "column_method": "nouveau sprite, preparation AGM3 immuable ; bande periodique ascendante, couronne translatee, gouttes paraboliques ; 24x5 ticks, aucun sommet visible",
+  "base_recipe_sha256": "dc1f66a505d51ee8c550d74f28f5686dee83b838ba3f01cf4a644d0bbcdf20ab",
+  "column_prep_sha256": "06aeeda8c4c97816a2e51f8048d1e3eb4b40dd0c391a6d0fd87fe932e4001b04",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/suite_jaillissements_v2/reference/D41P41A.png",
+    "sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/suite_jaillissements_v2/maps/vj23_bassins/bruts/decor.png",
+      "sha256": "49aba21efce73a1abb70693c23c602fae572a786546a2910456c15170487cb02",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_terres_volcaniques_v1/bruts/sol_complet.png",
+      "sha256": "3ff8412b78a2d5eb0850c0fcc6869d779c4deda91bf300203fb55c677770dc74",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Diagnostic cendre/lave propre au biome, identique rip/brut/sortie, seuil 35 inchange. Cendre:65<R<160,abs(R-G)<18,abs(G-B)<20. Lave:R>200,65<G<245,B<140,R>G+5. Pas une preuve de textures officielles ou raccords. Non comparable aux indices forestiers.",
+  "config_sha256": "5ba9fb92f0c318ff388864c747931ca07cbb9bc74a4b49838b915684f34ea376",
+  "generation": [
+    {
+      "file": "bruts/decor_initial.png",
+      "images": [
+        "../../reference/D41P41A.png"
+      ],
+      "prompt": "One NEW complete volcanic ground map in Pokemon Mystery Dungeon Explorers of Sky DS pixel art. The attached D41P41A ROM image is a reference for DS pixel clusters and ash/basalt/lava colours ONLY, not its arena layout, central Pokemon or symbol. Landscape 4:3, 1200 by 896 pixels, elevated top-down PMD ground camera, NO sky or horizon. Ash midtones RGB 90 84 79, dark layered brown-charcoal basalt, vivid cellular red-orange lava with winding yellow fissures, orange midtones RGB 250 160 40. Fine stippled ash texture, NOT brick paving. Complete rock top-face-foot volumes on low lateral crags. Full-frame immersion, ground and lava continue off ALL corners, no isolated diorama or floating island. IMPORTANT FOR LATER ANIMATED JETS: leave generous exposed LAVA ALONG THE FAR LEFT AND FAR RIGHT edges, including both TOP corners, with pools about a sixth of the frame width, available for tall foreground and background jets. Do not draw the jets yet; they will be animated independently. A safe broad grey ash approach enters SOUTH CENTRE, with generous movement space in the middle. Keep the central passage unobstructed by rocks or lava. Avoid a giant circular elevated plateau or arena ring, except the last final-clearing brief. No chosen boss or central object. NO cave mouth, black hole, portal, arch, bridge, building, ruins, altar, stairs, symbols, machines, Groudon, Pokemon, characters, items, text, UI, green plants, snow, fog or sun beams. Crisp small irregular DS pixel clusters, not painted fantasy art or smooth polygons. A NEW BROAD LOW ASH PLAIN with three irregular SIDE LAVA BASINS separated by short low basalt shelves, not a round central island. The main open grey ground occupies at least the middle HALF of the frame width, broad straight approach from SOUTH and gentle rightward continuation through NORTH CENTRE. Two differently sized lava pockets on LEFT, one larger pool on RIGHT, all connect to the outer edge strips. Tiny red crust flakes on pool margins only, no rocks or objects in the open middle. No front-facing cliff across the centre or bottom. Single full-frame map.",
+      "attempts": 1,
+      "title": "Bassins Bouillonnants",
+      "prefix": "VJ23",
+      "sha256": "18990419cfa1c094edb0d4b136a974dc3a8cb98b9a2a0eb5a257a684e73e94f3",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+    },
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "bruts/decor_initial.png",
+        "../../reference/D41P41A.png"
+      ],
+      "prompt": "Edit the FIRST image. Preserve its full-frame 1200x896 volcanic ground layout, central ash passage and two lateral lava pockets. Remove ALL the face-like round symbols/Pokemon-like patterns inside the two small lava pockets: they must contain ONLY natural irregular red-orange molten cells and yellow fissures, like the lava in the SECOND image. Absolutely no faces, eyes, symbols, Pokemon or objects. Keep all rock boundaries and the empty central walkable space unchanged. No new architecture or text. Single full-frame map.",
+      "attempts": 1,
+      "operation": "correction generee, pas peinture procedurale",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "49aba21efce73a1abb70693c23c602fae572a786546a2910456c15170487cb02",
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        285,
+        0
+      ],
+      [
+        915,
+        0
+      ],
+      [
+        915,
+        120
+      ],
+      [
+        1025,
+        250
+      ],
+      [
+        1025,
+        565
+      ],
+      [
+        940,
+        650
+      ],
+      [
+        775,
+        750
+      ],
+      [
+        720,
+        895
+      ],
+      [
+        500,
+        895
+      ],
+      [
+        470,
+        780
+      ],
+      [
+        285,
+        700
+      ],
+      [
+        185,
+        570
+      ],
+      [
+        185,
+        260
+      ],
+      [
+        255,
+        150
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 80 dans le sol existant",
+    "rebords": "bande de 12 px bruts autour du sol, bloquante",
+    "details": "cendre, teintes sombres du sol, rebords, basalte, prolongement nord, lave separes ; zones d edition pas detourage parfait",
+    "lava_mask_raw": "fill_holes(R>175,G>30,R-B>100,G-B>10)",
+    "depth_mode": "drawn",
+    "depth_polygon_raw": [
+      [
+        260,
+        0
+      ],
+      [
+        935,
+        0
+      ],
+      [
+        945,
+        80
+      ],
+      [
+        910,
+        130
+      ],
+      [
+        275,
+        130
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "cendre": {
+        "distance": 3.62,
+        "rgb_lot": [
+          91.48,
+          85.73,
+          79.6
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 502610,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 22.53,
+        "rgb_lot": [
+          245.64,
+          144.0,
+          23.97
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 392799,
+        "pixels_rip": 159860
+      }
+    },
+    "sortie": {
+      "cendre": {
+        "distance": 1.39,
+        "rgb_lot": [
+          90.05,
+          84.18,
+          77.92
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 212087,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 23.86,
+        "rgb_lot": [
+          246.35,
+          142.94,
+          22.86
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 141300,
+        "pixels_rip": 159860
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/VJ23_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "cendre",
+      "file": "calques/VJ23_01_cendre.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/VJ23_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "rebords",
+      "file": "calques/VJ23_03_rebords.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "basalte",
+      "file": "calques/VJ23_04_basalte.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/VJ23_05_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "lave",
+      "file": "animation/VJ23_06_lave_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "braises",
+      "file": "animation/VJ23_07_braises_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "colonnes",
+      "file": "animation/VJ23_08_colonnes_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "jaillissements",
+      "file": "animation/VJ23_09_jaillissements_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "projections",
+      "file": "animation/VJ23_10_projections_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "label": "braises montantes calculees (deux pixels)",
+    "emitters": [
+      [
+        0,
+        34,
+        0
+      ],
+      [
+        740,
+        333,
+        1
+      ],
+      [
+        739,
+        220,
+        2
+      ],
+      [
+        742,
+        548,
+        3
+      ],
+      [
+        133,
+        510,
+        4
+      ],
+      [
+        692,
+        51,
+        5
+      ],
+      [
+        7,
+        204,
+        6
+      ],
+      [
+        162,
+        512,
+        7
+      ],
+      [
+        763,
+        481,
+        8
+      ],
+      [
+        13,
+        81,
+        9
+      ],
+      [
+        244,
+        535,
+        10
+      ],
+      [
+        767,
+        120,
+        11
+      ],
+      [
+        523,
+        548,
+        12
+      ],
+      [
+        37,
+        488,
+        13
+      ],
+      [
+        755,
+        498,
+        14
+      ],
+      [
+        35,
+        560,
+        15
+      ],
+      [
+        30,
+        453,
+        16
+      ],
+      [
+        78,
+        10,
+        17
+      ],
+      [
+        741,
+        451,
+        18
+      ],
+      [
+        617,
+        518,
+        19
+      ],
+      [
+        193,
+        524,
+        20
+      ],
+      [
+        26,
+        344,
+        21
+      ],
+      [
+        130,
+        568,
+        22
+      ],
+      [
+        757,
+        386,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        175,
+        39
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(3 sin(2 pi k/18)) ; y=y0-k+9 ; pixels (0,0),(0,-1) ; clip lave",
+    "origin": "calculee, couleurs exactes du rip ; pas une animation officielle"
+  },
+  "lava_animation": {
+    "law": "theta=2*pi*(t%24)/24 ; dx=rint(2*(sin(theta+y/19)-sin(y/19))) ; dy=rint(2*(cos(theta+x/23)-cos(x/23))) ; nearest source inside lave ; only erosion(lave,3) changes ; frame0 identity",
+    "origin": "deplacement periodique des pixels de lave generes, sans recoloration ; pas le BPL officiel",
+    "border_fixed_px": 3,
+    "phases": 24,
+    "ticks": 5
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        384,
+        88
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 2354,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D41P41A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "suite_jaillissements_v2",
+    "asset": "vj23_bassins",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "VJ23_00_SOL_COMPLET": 6913,
+      "VJ23_01_CENDRE": 2846,
+      "VJ23_02_OMBRES": 903,
+      "VJ23_03_REBORDS": 601,
+      "VJ23_04_BASALTE": 785,
+      "VJ23_05_PROFONDEUR": 602,
+      "VJ23_06_LAVE": 63566,
+      "VJ23_07_BRAISES": 187,
+      "VJ23_08_COLONNES": 5317,
+      "VJ23_09_JAILLISSEMENTS": 1348,
+      "VJ23_10_PROJECTIONS": 816
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

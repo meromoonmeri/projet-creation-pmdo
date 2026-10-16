@@ -37,3 +37,5 @@ FFA1 : fin assortie à EFA1, build dédié `source/fin_foret_automnale_v1/`, hui
 ECM1 : build dédié `source/entree_coniferes_moussus_v1/`, conifères inventés depuis D24P11A feuillu. Neuf calques + Top, profondeur dessinée, aiguilles calculées à deux pixels (loi testée indépendamment). Diagnostic sol/végétation et seuil 35 inchangés ; couverture du test 5%/10% déclarée pour ce sentier plus étroit. 14 tests, 32 reconstructions ; avis artistique/moteur en attente.
 
 ETV1 : build dédié `source/entree_terres_volcaniques_v1/`, biome volcanique choisi explicitement. Huit calques + Top ; lave du nouveau décor déplacée cycliquement sans recoloration, rives fixes, braises indépendantes (24×5ticks chacune). Nouveau diagnostic cendre/lave, seuil35, pas le BPL officiel. 17tests/54reconstructions, aucune approbation artistique/moteur.
+
+SVJ2 : `source/suite_jaillissements_v2/`, quatre nouvelles configurations et nouveau sprite de magma hors cadre ; recette ETV1 et préparation AGM3 chargées sans les modifier. Corps/gerbes/gouttes séparés, cinq pistes24×5ticks, projet4Ground/43banques. 47tests et503reconstructions, reproductibilité surVJ21seulement ; moteur/art non approuvés.

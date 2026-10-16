@@ -15,6 +15,7 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | Sous-projet | Méthode | État |
 |---|---|---|
+| [`source/suite_jaillissements_v2/`](source/suite_jaillissements_v2/STATUS.md) | build · columns · test · verify · package · viewer · provenance · reproductibilité | SVJ2, quatre maps et16jets générés hors cadre ;47PASS/503reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_terres_volcaniques_v1/`](source/entree_terres_volcaniques_v1/STATUS.md) | build · test · verify · package · bruts · provenance · extract_reference · viewer · reproductibilité | ETV1, choix volcanique, cendre/basalte et lave générée animée ; 17 tests PASS, 54 reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_coniferes_moussus_v1/`](source/entree_coniferes_moussus_v1/STATUS.md) | build · test · verify · package · bruts · provenance · viewer · reproductibilité | ECM1, conifères inventés depuis une référence de feuillus ; 14 tests PASS, 32 reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_defile_roches_grises_v1/`](source/entree_defile_roches_grises_v1/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EDR1, D46P11A, 4:3 vaste ; 16 tests PASS ; moteur non testé |

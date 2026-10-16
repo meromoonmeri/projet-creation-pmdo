@@ -1,0 +1,97 @@
+{
+  "prefix": "VJ23",
+  "namespace": "suite_jaillissements_v2",
+  "asset": "vj23_bassins",
+  "title": "Bassins Bouillonnants",
+  "reference_code": "D41P41A",
+  "kind": "entrance",
+  "material": "volcanic",
+  "decor_file": "decor.png",
+  "depth_mode": "drawn",
+  "shadow_luminance_max": 80,
+  "floor_polygon_raw": [
+    [
+      285,
+      0
+    ],
+    [
+      915,
+      0
+    ],
+    [
+      915,
+      120
+    ],
+    [
+      1025,
+      250
+    ],
+    [
+      1025,
+      565
+    ],
+    [
+      940,
+      650
+    ],
+    [
+      775,
+      750
+    ],
+    [
+      720,
+      895
+    ],
+    [
+      500,
+      895
+    ],
+    [
+      470,
+      780
+    ],
+    [
+      285,
+      700
+    ],
+    [
+      185,
+      570
+    ],
+    [
+      185,
+      260
+    ],
+    [
+      255,
+      150
+    ]
+  ],
+  "depth_polygon_raw": [
+    [
+      260,
+      0
+    ],
+    [
+      935,
+      0
+    ],
+    [
+      945,
+      80
+    ],
+    [
+      910,
+      130
+    ],
+    [
+      275,
+      130
+    ]
+  ],
+  "effect_law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(3 sin(2 pi k/18)) ; y=y0-k+9 ; pixels (0,0),(0,-1) ; clip lave",
+  "lava_law": "theta=2*pi*(t%24)/24 ; dx=rint(2*(sin(theta+y/19)-sin(y/19))) ; dy=rint(2*(cos(theta+x/23)-cos(x/23))) ; nearest source inside lave ; only erosion(lave,3) changes ; frame0 identity",
+  "palette_policy": "Diagnostic cendre/lave propre au biome, identique rip/brut/sortie, seuil 35 inchange. Cendre:65<R<160,abs(R-G)<18,abs(G-B)<20. Lave:R>200,65<G<245,B<140,R>G+5. Pas une preuve de textures officielles ou raccords. Non comparable aux indices forestiers.",
+  "notes": "Nouvelle carte generee de la suite de quatre ; support cendre ETV1 reutilise byte-identique, colonnes depuis nouveau sprite genere. Aucun warp/boss instancie.",
+  "floor_policy": "enveloppe relevee propre au decor, mediane luminance5px >=65 ; fermeture2px puis composante connectee principale ; erosion2px ; exclut lave et fond nord"
+}

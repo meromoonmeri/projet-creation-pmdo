@@ -1473,3 +1473,36 @@ n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile
 - Audit historique : ECM1 est aussi le préfixe de l'ancien Cratère magma ; ne pas fusionner
   conifères et ancien Cratère sans audit/renommage. Pas de réparation des anciens lots dans
   cette livraison ; ETV1 possède son propre préfixe/namespace.
+
+## Suite du 16 octobre 2026 — SVJ2, quatre maps et colonnes hors cadre
+
+- Demande explicite de « plein de map », colonnes flamme/magma qui montent sans sommet
+  visible et jaillissements depuis la lave ; puis « Fait d'autre map » après interruption.
+  Lot de quatre nouvelles compositions finalisé : VJ21Chenal, VJ22Défilé, VJ23Bassins,
+  VJ24Caldeira finale. Source `source/suite_jaillissements_v2/`. Aucun ancien lot modifié.
+- D41P41A/rip/provenance copiés d'ETV1. Quatre nouveaux décors1200×896 +nouveau sprite de
+  colonne784×1360 générés avec référence réelle. Corrections au générateur : marchesVJ22,
+  visagesVJ23, lave trop rougeVJ24 (deuxretouches, dernière guidée par crop canonique déclaré).
+  Étapes/bruts/prompts/hashes conservés. La cendre VJ24 est aussi devenue plus chaude,
+  ne pas prétendre les autres pixels conservés. Support cendre ETV1 réutilisé et déclaré.
+- Quatre jets par carte, matière ascendante sans marche arrière, deux poussées, corps
+  toujours coupés au bord haut ; bouches dans lave. Préparation AGM3 réutilisée isolément
+  avec NOUVEAU sprite, aucun ancien sprite repris. Corps/gerbes/projections séparés,
+  lave/braises aussi : cinq pistes24×5ticks. Pixels générés transformés, pas BPL/BPA officiel.
+- Projet unique,4Ground/43banques,768×576/grille8px ;11calques+Top sur traversées,10+Top sur
+  fin sans profondeur. Passages16×16, aucun warp/destination/boss instancié ; repère boss
+  non nommé sur fin seulement. Segmentation et enveloppes propres aux nouveaux décors.
+- **47tests PASS**,5mutations ; **503images reconstruites exactement**, lecteur indépendant.
+  Oracle scalaire montée, installateur fusion/sauvegarde/protection testés. Garde additionnelle
+  centre de chaque jet opaque jusqu'au haut sur384cas. Bord nord VJ23 corrigé après détection
+  par deux tests initiaux, assertions/seuils non affaiblis. Régression ETV1 :17PASS.
+- Reproductibilité **VJ21 seulement**,167fichiers/membresORA identiques ; ne pas l'étendre aux
+  trois autres. Même diagnostic cendre/lave qu'ETV1 et seuil35 ; scores finaux16,05/20,19,
+  7,81/17,02,1,39/23,86,19,87/19,23 ; pas certification de textures/volumes/raccords.
+- ZIP projet20,12Mo/55fichiers, PNG-ORA45,62Mo/566, planche d'aperçu4cartes ; CRC/caches et
+  contenu du projet contrôlés. Galerie relative de sélection/calques/phase/collisions,
+  syntaxeJS/données/503chemins contrôlés. Serveur0.0.0.0:8011, HTTP200 page/catalogue/ZIP.
+  Pas de test automatisé des interactions navigateur. Anciens helpers/assets inchangés.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false` ; ni chargeur, éditeur,
+  caméra/échelle, rendu ou déplacements PMDO testés. Avis artistique en attente, une demande
+  de suite ne l'accorde pas. Ne pas créer un warp/une aventure ou choisir un boss sans demande.

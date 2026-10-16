@@ -14,6 +14,17 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Les Fournaises — 4 nouvelles cartes et jets de magma SVJ2
+
+[SVJ2](source/suite_jaillissements_v2/README.md) livre **Chenal des Fournaises, Défilé des Scories,
+Bassins Bouillonnants et Caldeira des Éruptions** : quatre compositions générées distinctes,
+**16 colonnes de magma montantes sans sommet visible**, gerbes et gouttes sur pistes séparées.
+768×576, grille8px, trois traversées11calques+Top et une fin10+Top. Un projet avec quatre Ground,
+**47tests PASS, 503 reconstructions exactes depuis43banques** ; aucun warp/boss instancié.
+[Statut](source/suite_jaillissements_v2/STATUS.md) · [nouveau sprite généré](source/suite_jaillissements_v2/shared/colonne_magenta.png).
+Pixels générés, formats natifs seulement ; **avis artistique et vrai moteur en attente**.
+Reproductibilité rejouée sur VJ21 seulement. Anciens lots conservés.
+
 ## Nouveau biome — Terres volcaniques ETV1
 
 Après le choix **Terres volcaniques**, [ETV1](source/entree_terres_volcaniques_v1/README_PACK.md)
