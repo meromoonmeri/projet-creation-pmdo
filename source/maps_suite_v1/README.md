@@ -25,3 +25,5 @@ indépendant ; contrôle en jeu et avis artistique en attente. EAD1 est rejeté 
 FDR1 est maintenant finalisé techniquement : 13 tests dédiés dont cinq mutations, 29 images reconstruites, ZIP projet et calques/ORA. Avis artistique et test en jeu en attente.
 
 FAD1 : fin des Aiguilles dorées assortie à EAD2, matériau `gold`, `kind: end`, six calques + Top, poussière tombante 24×5 ticks. 13 tests dédiés et 29 reconstructions ; aucun changement du pipeline commun. Avis artistique et moteur en attente.
+
+EFF1 : `source/entree_foret_feuillus_v1/build.py` réutilise les helpers dans une instance isolée, mais possède sa partition forestière et son ordre de neuf calques. Utiliser son build dédié, pas la CLI minérale générique. 14 tests, 32 reconstructions, pas de validation artistique/moteur.

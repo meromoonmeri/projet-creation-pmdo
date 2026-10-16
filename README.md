@@ -14,6 +14,19 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouvelle direction forestière — EFF1
+
+Après le rejet des Schistes bleus et la demande « continue des biome forestier etc », nouvelle
+**[entrée de la Forêt de feuillus](source/entree_foret_feuillus_v1/README_PACK.md)**, référence D24P11A :
+canopée dense, clairière et chemin sinueux, sans grotte ni falaise ajoutée.
+**768×576, neuf calques + Top**, herbe/chemin et troncs/feuillage séparés, feuilles animées.
+**14 tests PASS**, 32 images reconstruites exactement, deux builds identiques.
+[Décor généré](source/entree_foret_feuillus_v1/bruts/decor.png) ·
+[statut détaillé](source/entree_foret_feuillus_v1/STATUS.md).
+**Avis artistique et moteur en attente.** Le terrain est généré référencé, pas extrait de la ROM.
+Les ZIP PMDO/PNG-ORA et l'aperçu se régénèrent avec build puis package.
+ESB1 est rejeté ; la proposition Col de sable est laissée de côté au profit de la forêt.
+
 ## Nouvelle fin — Aiguilles dorées FAD1
 
 La **[fin des Aiguilles dorées](source/fin_aiguilles_dorees_v1/README_PACK.md)** accompagne EAD2 :

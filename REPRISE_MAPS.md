@@ -303,3 +303,29 @@ n'est déduite du passage à la suite. Les PNG, ZIP et HTML se régénèrent via
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Pas de test du chargeur
   réel, de l'éditeur graphique, de l'échelle, du rendu ou du déplacement en jeu. Prochaine étape :
   avis visuel utilisateur puis contrôle dans PMDO. Aucun lot précédent modifié ou fusionné.
+
+## Direction du 16 octobre 2026 — forêt de feuillus EFF1
+
+- ESB1 (Schistes bleus) rejeté explicitement : « j'aime pas cette map », puis choix « Tout
+  reprendre ». Pas de motif artistique précis donné. Le col de sable proposé ensuite est
+  laissé de côté quand l'utilisateur demande « continue des biome forestier etc ».
+  **Priorité aux biomes forestiers**, ne pas reprendre les schistes ou le col par défaut.
+- Nouveau lot `source/entree_foret_feuillus_v1/`, EFF1, référence D24P11A 504×432. Rip réellement
+  fourni aux deux générations : décor complet et support d'herbe, 1200×896. Premier appel du
+  support sans image, reprise réussie ; prompts/empreintes/provenance conservés. Nom descriptif.
+- Forêt feuillue dense, clairière et chemin sinueux, aucune grotte ni construction. 768×576,
+  grille 8 px, neuf calques + Top : sol support, herbe, chemin, ombres existantes, sous-bois,
+  troncs/racines, feuillage, profondeur dessinée, feuilles calculées 24×5 ticks.
+  Petites fleurs/fougères au sol non isolées artificiellement. Pas d'animation officielle.
+- Build propre au lot : partition forestière et diagnostic sol/végétation, helpers communs
+  inchangés. Profondeur conservée dessinée, pas d'aplat noir. Seuls les formats sont natifs,
+  pas les pixels générés. Arrivée [384,560], seuil [384,160], accès 16×16, aucun warp ou boss.
+- Fidélité sortie : sol 34,23 (proche de 35, plus jaune/saturé que le rip), végétation 24,04.
+  **14 tests PASS**, cinq mutations rejetées ; **32 images reconstruites exactement**, neuf banques.
+  Installateur fusion/protection testé. Deux builds : 71 fichiers/membres ORA identiques ;
+  script `check_reproducibility.py` versionné. Régression EDR1 : build et 16 tests repassés.
+- ZIP projet 2,00 Mo/15 fichiers, PNG/ORA 5,08 Mo/51 fichiers, aperçu 2,58 Mo ; CRC contrôlés,
+  pas de caches Python. Serveur 0.0.0.0:8005, page et ZIP HTTP 200, syntaxe JavaScript contrôlée.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Pas de test du chargeur
+  réel, de l'éditeur, de l'échelle, du rendu ou des déplacements. Attendre le retour visuel,
+  sans déduire une approbation du simple fait de la demande de suite.

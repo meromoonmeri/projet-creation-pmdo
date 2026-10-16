@@ -23,6 +23,8 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | [`source/fin_aiguilles_dorees_v1/`](source/fin_aiguilles_dorees_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | FAD1, fin immersive D14P12A ; 13 tests PASS, 29 images reconstruites ; moteur non testé |
 
+| [`source/entree_foret_feuillus_v1/`](source/entree_foret_feuillus_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · reproductibilité | EFF1, forêt D24P11A ; 14 tests PASS, 32 reconstructions, neuf calques ; avis artistique/moteur en attente |
+
 Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
 Helpers de cette suite : [`source/maps_suite_v1/`](source/maps_suite_v1/README.md).
 
