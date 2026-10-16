@@ -17,7 +17,12 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 |---|---|---|
 | [`source/entree_defile_roches_grises_v1/`](source/entree_defile_roches_grises_v1/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EDR1, D46P11A, 4:3 vaste ; 16 tests PASS ; moteur non testé |
 
+| [`source/entree_aiguilles_dorees_v2/`](source/entree_aiguilles_dorees_v2/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EAD2, correction immersive D14P12A ; 8 tests PASS ; avis artistique et moteur en attente |
+| [`source/entree_aiguilles_dorees_v1/`](source/entree_aiguilles_dorees_v1/STATUS.md) | build · provenance · bruts · STATUS | EAD1, essai rejeté, remplacé par EAD2 ; pas de paquet final |
+| [`source/fin_defile_roches_grises_v1/`](source/fin_defile_roches_grises_v1/STATUS.md) | build · provenance · bruts · STATUS | FDR1, chantier interrompu ; tests et paquet non terminés |
+
 Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
+Helpers de cette suite : [`source/maps_suite_v1/`](source/maps_suite_v1/README.md).
 
 ## Entrées de donjon sud→nord — 20 projets · 101 fichiers extraits · 1 Mo
 

@@ -14,6 +14,14 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Correction en cours de validation — grotte immersive EAD2
+
+La [V2 des Aiguilles dorées](source/entree_aiguilles_dorees_v2/README_PACK.md) répond au retour
+« grotte trop petite, pas immersive » : nouveau layout plein cadre, grande voûte et profondeur
+intérieure dessinée, même format 768×576. **8 tests PASS**, 30 images reconstruites depuis les
+banques natives ; **avis artistique et test en jeu en attente**. L'essai EAD1 est rejeté ;
+la fin grise FDR1 reste un chantier non livré. Voir les `STATUS.md` de chaque lot.
+
 ## Reprise du 16 octobre 2026 — nouveau biome EDR1
 
 La nouvelle **[entrée du Défilé des Roches grises](source/entree_defile_roches_grises_v1/README_PACK.md)**

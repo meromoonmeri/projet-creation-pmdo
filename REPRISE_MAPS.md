@@ -245,3 +245,19 @@ Aperçu : `renders/entree_defile_roches_grises_v1/index.html`, serveur persistan
 0.0.0.0:8000 dans ce seul dossier. Les téléchargements sont relatifs au même hôte.
 Prochaine étape : retour visuel utilisateur puis contrôle dans PMDO ; ne pas annoncer cette
 intégration comme validée. Conserver le lot et sa référence pour une éventuelle fin assortie.
+
+## 16 octobre 2026 — retour artistique prioritaire : grotte trop petite, EAD2
+
+Le tour de suite avait préparé FDR1 et EAD1, puis l'utilisateur a interrompu pour demander
+une grande grotte immersive au lieu de la petite grotte en fond d'arène. EAD1 est rejeté.
+La correction **EAD2** est une nouvelle composition, pas une mise à l'échelle : voûte et masses
+plein cadre, premier plan large, intérieur réellement dessiné au lieu d'un aplat.
+
+Source `source/entree_aiguilles_dorees_v2/`, référence D14P12A, mode de profondeur dessinée.
+Sortie 768×576, sept calques + Top, poussière 24×5 ticks, arrivée sud/seuil nord, aucun warp.
+Fidélité sortie : sol 5,63, roche 7,37. 8 tests PASS dont 3 mutations ; 30 reconstructions natives
+exactes. Les 16 tests EDR1 repassent. Serveur d'aperçu EAD2 sur 8001.
+
+**Prochaine étape : retour visuel utilisateur sur EAD2 puis contrôle dans le vrai PMDO.**
+Aucune approbation ni validation de caméra/échelle en jeu n'est supposée. EAD1 reste rejeté,
+FDR1 reste un chantier dont les tests et paquets ne sont pas terminés ; lire leurs STATUS.

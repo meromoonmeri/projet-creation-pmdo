@@ -1245,3 +1245,19 @@ Sources : `source/entree_defile_roches_grises_v1/`. Documentation : `WORKFLOW.md
 Sorties régénérables dans `renders/entree_defile_roches_grises_v1/`, staging ignoré dans `.cache/`.
 **Terrain généré référencé, pas pixels canoniques extraits. `art_approved: false`,
 `runtime_tested: false`, `render_tested: false`.** Aucun ancien lot remplacé.
+
+## 16 octobre 2026 — EAD2, correction de la grotte de fond jugée trop petite
+
+L'utilisateur demande une carte grande et immersive ; la suite des cartes est interrompue pour
+corriger EAD1. Nouvelle génération avec D14P12A en référence : environnement plein cadre,
+grande voûte, piliers coupés par les limites, approche large et profondeur intérieure dessinée.
+Aucun agrandissement arbitraire : format 768×576 conservé. L'essai EAD1 reste à part, rejeté.
+
+EAD2 : sept calques + Top, poussière calculée 24×5 ticks, profondeur non remplacée par un aplat,
+marqueurs [384,560] et [400,224], accès 16×16, aucun warp. Fidélité sortie sol 5,63 / roche 7,37.
+8 tests PASS, trois mutations rejetées et 30 images reconstruites depuis le Ground et les .tile.
+Les 16 tests EDR1 repassent. ZIP PMDO et calques/ORA, aperçu autonome et serveur 8001 produits.
+
+Sources : `source/entree_aiguilles_dorees_v2/`. **Art non approuvé, moteur et échelle en jeu non testés.**
+FDR1 reste en cours, non livré ; EAD1 est conservé comme essai rejeté. Retour utilisateur attendu
+sur la nouvelle composition avant de généraliser ce type de grotte.

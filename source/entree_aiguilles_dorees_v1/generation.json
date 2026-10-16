@@ -1,0 +1,77 @@
+[
+  {
+    "file": "bruts/decor_magenta.png",
+    "images": [
+      "reference/D14P12A.png"
+    ],
+    "prompt": "ONE new complete Pokemon Mystery Dungeon Explorers of Sky ground map, strictly using the supplied D14P12A ROM reference image for the exact pale yellow ochre floor, dark olive-brown layered stalagmites, black-brown cave depth, hanging stalactites and native DS pixel-art scale. WIDE LANDSCAPE 4:3, ideally 1200 x 900, top-down PMD camera, zoomed out to show a vast new place. This is an ENTRANCE to a cavern of golden stone needles. A flat pale yellow sand floor enters from the SOUTH centre, expands into a large asymmetric open sandy forecourt and narrows toward one broad cave opening at NORTH centre. The left boundary is a dense forest of tall coherent layered limestone stalagmites; the right boundary is a lower curved rocky shelf with clusters of sharp stone needles. Across the NORTH, an overhanging dark olive rocky cave wall with many hanging stalactites, and the cave mouth centred underneath it. Paint ONLY the interior of this north cave mouth flat pure magenta #FF00FF for a separate depth layer; this mouth is wider than the south passage, no door frame. Keep the very large connected central pale yellow floor clear: no scattered big rocks in the middle. A few tiny stones and sparse grain marks against the rock edges only. Match the reference closely, especially dark olive-brown layered rock and pale yellow floor, not orange, not red, not bright green, not grey. Do not draw the reference's beams, glowing spheres or dangling light streaks, these will be separate effects. Fill all edges with rocky material except the south-centre floor entrance. Hard crisp pixel edges, limited DS palette, no blur. No characters, text, symbols, architecture, stairs, UI or water. One image, no sheet.",
+    "actual_size": [
+      1200,
+      896
+    ],
+    "note": "Les colonnes lumineuses officielles ne sont pas reproduites ; la livraison propose une poussiere calculee separee.",
+    "stage": "composition initiale, ensuite correction chromatique referencee ; intermediaire non conserve"
+  },
+  {
+    "file": null,
+    "images": [
+      "bruts/decor_magenta.png",
+      "reference/D14P12A.png"
+    ],
+    "prompt": "Edit the supplied pixel-art PMD golden cavern map into its FLOOR-ONLY layer. Keep the exact same framing, size, pale yellow sand colour and native DS grain texture. Replace ALL stalagmites, stalactites, olive-brown rocks, dark walls, magenta cave opening and all objects with the same continuous flat pale yellow sand as the original central floor, covering the entire image and every corner. Preserve the original central floor grain and pale-yellow colour. Sparse tiny grain marks only. No cliffs, no rocks, no magenta, no lights, no columns, no shadow silhouettes, no UI, no text. The whole rectangle must be sandy floor, one image.",
+    "actual_size": [
+      1376,
+      768
+    ],
+    "note": "Premier sol panoramique 1376x768 ; non retenu dans la livraison finale. Deux reprises 4:3 ont retourne no images.",
+    "stage": "premier sol support remplace apres correction chromatique"
+  },
+  {
+    "file": null,
+    "stage": "tentatives de sol 4:3 sans image",
+    "images": [
+      "bruts/decor_magenta.png",
+      "reference/D14P12A.png"
+    ],
+    "attempts": [
+      {
+        "prompt": "WIDE LANDSCAPE 4:3 image. Edit the FIRST supplied pixel-art golden cavern map, preserving its exact 1200 by 896 framing and pixel-art scale. This is a technical FLOOR-ONLY layer matching that map. Replace every rock, wall, stalactite and magenta opening with pale yellow sandy floor, identical to the existing central floor of the first image. The complete rectangle including corners must be the same flat pale yellow sand texture, subtle tiny grain, no rocks or objects. Keep the first image aspect ratio 4:3. Do not make a panoramic image. No holes, no magenta, no lights, no silhouettes, no text or UI. Single image of continuous sandy floor, Pokemon Mystery Dungeon DS style, referencing the supplied ROM image's floor material.",
+        "result": "no images"
+      },
+      {
+        "prompt": "Landscape 4:3 PMD pixel-art floor layer. Edit this map at the SAME framing: replace all rocks, walls, stalactites and the magenta opening with the pale yellow sandy floor from its centre. The entire 4:3 rectangle is continuous pale yellow sand, tiny grain texture. Preserve the exact floor colour and pixel scale. No objects, shadows, holes, text, lights, border or magenta. Do not make a panorama.",
+        "images": [
+          "bruts/decor_magenta.png"
+        ],
+        "result": "no images"
+      }
+    ]
+  },
+  {
+    "file": "bruts/decor_magenta.png",
+    "stage": "correction chromatique conservee",
+    "images": [
+      "composition initiale du decor, remplacee au meme chemin",
+      "reference/D14P12A.png"
+    ],
+    "prompt": "Edit the first supplied pixel-art cavern map with ONE colour correction: its sandy floor is too pale and too green-yellow. Make ONLY the sandy floor match the warmer, slightly darker ochre-yellow sand of the second supplied ROM reference D14P12A. Use the reference's sand pixels directly as the colour target, approximately medium pale ochre RGB 200,178,102, with its fine pixel grain. Preserve all geometry, exact framing, size and scale, stalagmites, stalactites and olive-brown rocks unchanged. Keep the north cave interior pure magenta #FF00FF. No new objects, lights, symbols or UI. Same complete map, landscape 4:3.",
+    "actual_size": [
+      1200,
+      896
+    ],
+    "reason": "La premiere sortie avait une distance sol de 37,59 (seuil 35). Correction au generateur, pas de recoloration algorithmique ni assouplissement du seuil."
+  },
+  {
+    "file": "bruts/sol_complet.png",
+    "stage": "sol final conserve",
+    "images": [
+      "bruts/decor_magenta.png",
+      "reference/D14P12A.png"
+    ],
+    "prompt": "Create the continuous FLOOR-ONLY layer for the supplied pixel-art cave map. Replace all rocks, stalactites, walls and magenta with the SAME warm ochre sandy floor from the centre of this map. Keep the exact floor colour and tiny pixel grain. One complete rectangle of continuous sandy floor. Landscape 4:3 framing preferred, no objects, no silhouettes, no magenta, no border, no text. It must match the first reference's warm ochre sand, not pale green-yellow.",
+    "actual_size": [
+      1200,
+      896
+    ]
+  }
+]

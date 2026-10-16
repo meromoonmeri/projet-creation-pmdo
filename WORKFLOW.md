@@ -100,3 +100,14 @@ python -m http.server 8000 --bind 0.0.0.0 --directory renders/entree_defile_roch
 
 En session Arena, lancer ce serveur avec l'outil de processus persistant. Les ZIP sont accessibles
 sur le même hôte, avec des URL relatives ; aucune URL navigateur ne pointe vers `localhost`.
+
+## Retour artistique — grande grotte immersive (EAD2)
+
+Pour la grotte corrigée le 16 octobre, ne pas reproduire le petit décor ovale sur fond uni de la V1.
+Concevoir l'environnement plein cadre : masses coupées aux limites, grande façade, approche large,
+profondeur réellement dessinée à l'intérieur. **Nouveau layout, pas agrandissement du PNG.**
+
+Si aucun élément du fond n'est à remplacer, conserver la profondeur dessinée et la découper par
+un masque mesuré ; ne pas imposer le magenta pour ensuite remplacer l'intérieur par un aplat noir.
+EAD2 utilise une palette propre pour ce calque. Ne pas revendiquer d'extraction de pixels natifs.
+Même avec des tests techniques PASS, attendre l'avis artistique et contrôler caméra/échelle en jeu.
