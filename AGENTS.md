@@ -1256,3 +1256,36 @@ Pas de runtime. Pas dans le mod unique.
   - fidélité : brut sable 6,5, eau 34,7, roche 2,4 ; calques sol 10,6, vasques 15,6, parois 2,5, flèches 5,3 ;
   - pas de runtime, `art_approved: false`.
 - **Suite naturelle** : la fin **FGV1** (préfixe libre au relevé), sur `D56P41A`. Cette grande salle bordée de vasques, avec ses 6 emplacements de palette (12 × 8 ticks), est déjà extraite dans `references/`.
+
+## Fin Grotte aux vasques — FGV1 (16 octobre 2026), ajouts à la recette
+
+- **Demande** : « Fait la zone de fin et passe enuite au prochaine map ! ». C'est la fin du biome EGV1, avec la consigne des fins : décor seul, sans artefact, objet ni structure.
+- **Générateur** :
+  - `decor.png` : `images=[D56P41A, décor EGV1]`, premier essai, 1200 × 896. Le prompt finit par « no characters, no objects, no altar, no crystals » et n'écrit ni « boss » ni « mouth » (consigne FST1).
+  - `sol_complet.png` : édité depuis le décor seul, avec la consigne de teinte d'EGV1 donnée d'emblée ; premier essai.
+  - **Planche de bulles réutilisée** : la fin lit `bruts/source_poses.png` d'EGV1 (même sha256, mêmes fenêtres et réductions). Les couleurs sont ramenées à l'eau de `D56P41A`. Un test compare les masques des poses à ceux de l'entrée.
+- **Marches de sable : piège et règle** :
+  - Les contremarches claires d'un escalier de sable ne passent ni la règle « sable ± 18 » ni la règle « ombre » (trop claires). Elles tombaient en parois et coupaient l'arène en deux. Le premier build échouait alors sur l'assertion « pas de chemin 16x16 ».
+  - Règle robuste : **le décor coïncide avec le sol complet recalé là où il y a du sol**. Écart médian 5 × 5 ≤ 12, à moins de 40 px du sable, hors eau et fond. Mesures : bande des marches à 5 en médiane et 9 au 95e centile ; parois ≥ 19 dans 95 % des cas.
+  - Ensuite, le clair (lum ≥ 128) va au sol et le sombre aux ombres. Tests : arène d'un seul tenant, obstacles du Ground égaux à `cell_grid(~praticable)`, chemins 16 × 16 **recalculés** par le test (pas lus dans le manifeste).
+- **Animation de palette de la fin** :
+  - BPL de `D56P41A`, palettes 10 et 11 : 6 emplacements, 12 frames × 8 ticks (le rendu skytemple de 24 frames = 2 cycles). Le calque `reflets_vasques` couvre 26 980 px, soit 65 % de l'eau, comme les grandes nappes du rip.
+  - Les bulles passent à 24 × 4 ticks pour boucler avec les reflets ; la scène boucle en 96 ticks.
+- **ORA reproductible à l'octet** : `zipfile.writestr(nom, ...)` horodate chaque entrée. Pour un ORA identique d'un build à l'autre, passer un `ZipInfo(nom, date_time=(1980, 1, 1, 0, 0, 0))` avec `compress_type` explicite, `mimetype` en premier et non compressé. L'ORA d'EGV1 ne diffère d'un build à l'autre que par ces dates ; il n'a pas été retouché (« ne touche plus aux maps déjà faites »).
+- **Mutations propres à une fin** :
+  - reflets à la cadence de l'entrée ;
+  - eau à la palette de l'entrée ;
+  - boss contre une paroi ;
+  - objectif hors colonne ;
+  - `donjon_seuil` ajouté au Ground ;
+  - marches bloquées dans le Ground ;
+  - masque des ombres vidé.
+
+  24 mutations, toutes détectées.
+- **Mod** : le mod `guilde_entrees_sud_nord` ne regroupe que des **entrées**. FGV1 n'y est donc pas ajoutée.
+- **Résultats** :
+  - 13 tests PASS et 24 mutations détectées ; build reproductible (80 fichiers identiques, ORA compris) ;
+  - installeur en simulation : 10 fichiers, 8 tilesets ;
+  - fidélité à `D56P41A` : brut sable 6,1, eau 16,8, roche 14,0 ; calques sol 10,8, vasques 8,9, parois 16,2 ;
+  - pas de runtime, `art_approved: false`.
+

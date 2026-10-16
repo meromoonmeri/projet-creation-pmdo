@@ -7,6 +7,29 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Fin Grotte aux vasques : cascade de vasques, FGV1 (16 octobre 2026)
+
+**Demande** : « Fait la zone de fin et passe enuite au prochaine map ! ». C'est la fin du biome de l'entrée EGV1 (biome neuf choisi par l'agent, **à confirmer**). Dépôt `projet-creation-pmdo`.
+
+- Sorties : `renders/fin_grotte_vasques_v1/`, aperçu `apercu_fin_grotte_vasques_v1.html`, build `source/fin_grotte_vasques_v1/build.py`.
+- **Référence** : map ROM `D56P41A` (grande salle bordée de vasques), déjà extraite pour EGV1, plus le décor d'EGV1 pour la continuité. Rendu généré référencé + pipeline natif ; ce ne sont pas des tuiles natives.
+- **Layout** :
+  - arrivée au sud par un couloir de sable ;
+  - grande arène traversée par trois marches courbes, entre deux pentes de blocs à vasques ;
+  - au nord, une **cascade de vasques en pyramide** contre la voûte.
+
+  Marqueurs `entrance`, `boss` (centre de l'arène) et `objectif` (pied de la cascade) ; aucune sortie, aucun warp. **Ni objet, ni autel, ni structure.**
+- **Calques** : sol complet, sol, ombres, vasques, parois, fond sarcelle, reflets (12 × 8 ticks), bulles de source (24 × 4 ticks), plus un Top vide.
+- **Canonique** :
+  - eau aux **14 couleurs exactes** de `D56P41A` ;
+  - reflets animés avec l'**animation de palette exacte de son BPL** (6 emplacements) ;
+  - poses des bulles reprises de la planche d'EGV1.
+- **Marches** : reconnues là où le décor coïncide avec le sol complet recalé. Sans cette règle, elles coupaient l'arène et le premier build ne trouvait pas de chemin.
+- **Fidélité** (seuil 35) :
+  - brut : sable 6,1, eau 16,8, roche 14,0 ;
+  - calques : sol 10,8, vasques 8,9, parois 16,2.
+- **Contrôles** : 13 tests PASS, 24 mutations détectées, build reproductible à l'octet, installeur vérifié en simulation. Pas de runtime, `art_approved: false`.
+
 ## Entrée Grotte aux vasques : grotte dorée à vasques turquoise, EGV1 (16 octobre 2026)
 
 **Demande** : « Poursuis le projet [...] méthode création de map pmd texture canonique ! Méthode de production des maps PMD (générateur + pipeline natif) ». Les quatre fins encore ouvertes sur `main` existent sur les branches sœurs, et l'utilisateur y a demandé les zones inédites : **biome neuf**, choisi par l'agent, **à confirmer**. Dépôt `projet-creation-pmdo`.

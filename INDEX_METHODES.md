@@ -1,4 +1,4 @@
-# Index des méthodes — 209 sous-projets de `source/` (208 extraits + 1 créé ici)
+# Index des méthodes — 210 sous-projets de `source/` (208 extraits + 2 créés ici)
 
 Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-pmdo) au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pmdo/commit/6cca4a09380211e510ab1bea454a1b1926ef4b5a) — 2026-10-01.
 
@@ -42,6 +42,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_bristle_sommet_v1/` | build · package · test · PACK · viewer | 6/8 | 0.1 |
 | `source/fin_cratere_fosse_v1/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
 | `source/fin_givre_aurore_v2/` | build · package · test · PACK · viewer | 7/10 | 0.1 |
+| `source/fin_grotte_vasques_v1/` | build · test · mutations · package · PACK · viewer *(créé dans ce dépôt, 16/10/2026 ; références et planche lues dans `entree_grotte_vasques_sud_nord_v1/`)* | 8/8 | 4.7 |
 | `source/fin_givre_grotte_v1/` | build · package · test · PACK · viewer | 6/8 | 0.1 |
 | `source/fin_jungle_sud_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 | `source/fin_ocean_kyogre_v1/` | build · package · test · PACK · viewer | 8/10 | 0.2 |

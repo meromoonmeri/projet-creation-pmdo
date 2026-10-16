@@ -109,7 +109,15 @@ Les **lots ajoutés par les branches de `projet-pmdo` après l'extraction** util
 - **Contrôles** : 13 tests PASS, 19 mutations détectées, build reproductible. Ground PMDO 0.8.12 sur le gabarit `cliffdaytest.rsground`, installeur vérifié en simulation. `art_approved` et `runtime_tested` restent false.
 - **Mod** : EGV1 ajouté à `MAPS` du mod de la série, marqué à confirmer, mais mod non reconstruit (ZIP des lots précédents absents de cette extraction).
 
-**Préfixes pris en plus** : EGV1. **FGV1** est libre au relevé et sert à la fin de ce biome.
+**Lot livré : Fin Grotte aux vasques** (`renders/fin_grotte_vasques_v1/`, préfixe `FGV1`, aperçu `apercu_fin_grotte_vasques_v1.html`, source `source/fin_grotte_vasques_v1/`). Demande : « Fait la zone de fin et passe enuite au prochaine map ! ».
+
+- **Référence** : `D56P41A` + décor EGV1.
+- **Layout** : arène de sable à trois marches courbes, pentes à vasques, cascade de vasques en pyramide au nord. Décor seul : ni objet, ni autel, ni structure. Marqueurs `entrance`, `boss` et `objectif` ; aucun warp.
+- **Canonique** : eau aux 14 couleurs exactes du rip ; reflets avec l'animation de palette exacte du BPL (6 emplacements, 12 × 8 ticks) ; poses des bulles d'EGV1.
+- **Contrôles** : 13 tests PASS, 24 mutations détectées, build reproductible à l'octet.
+- Pas dans le mod de la série, qui ne regroupe que des entrées.
+
+**Préfixes pris en plus** : EGV1, FGV1.
 
 **Références ROM « D » libres sur les deux dépôts** (relevé du 16 octobre ; 137 codes, dont beaucoup de gabarits vides à 456 × 456 ou 1440 × 960). Les plus intéressantes :
 
