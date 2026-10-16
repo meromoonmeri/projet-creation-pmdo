@@ -68,6 +68,14 @@ Conventions :
 Contrôle de fidélité : comparer les couleurs des zones clés au rip, **seuil ≈ 35** (distance de
 couleur) ; noter les valeurs dans le `README_PACK.md` (ex. « sol 6,8 · cristal 30,8 »).
 
+**Référence ROM et animation de palette exacte** (lot EGV1) : quand aucune capture n'est libre, prendre
+une map de la ROM avec l'outil `source/outil_maps_pmdsky/`. Appeler ses fonctions (`ensure_clone`, `bg_entries`,
+`render`) depuis un `reference.py` du lot, pour ne pas réécrire l'index versionné de l'outil. Noter le commit, les
+blobs et le SHA-256 des BMA/BPC/BPL. Si l'eau du rip est animée par palette (`bpl.animation_specs`), relever les
+emplacements : pixels de même séquence de couleurs. Ramener ensuite l'eau générée aux couleurs d'eau du rip, par
+plus proche luminance. Les pixels qui tombent sur une couleur animée reçoivent la séquence exacte du jeu,
+à sa cadence (ex. 32 frames × 2 ticks). Voir `AGENTS.md`, section EGV1.
+
 ### Étape 2 — Reconstruction en tuiles natives
 
 Reconstruire avec de **vraies tuiles natives de 8 px** : sélection guidée par la composition, sans
@@ -177,3 +185,9 @@ fragments de 8 px et colonnes d'ombre répétées **ne préserve pas les volumes
   identiques, horodatage différent) — comparer les membres, pas le fichier.
 - **Branches sœurs** : un lot peut exister sur une branche distante et pas sur `main` ; vérifier la
   branche de la session avant de conclure qu'un fichier manque.
+- **Réponse vide du générateur** : une édition avec décor + rip en `images=` peut revenir deux fois sans image ;
+  réessayer avec le décor seul. Toujours mesurer la teinte du sol complet (un sable « jaune saturé » est à écarter).
+- **Planche de poses trop riche** : le générateur peut rendre 4 rangées au lieu de 2 ; repérer les sprites par
+  composantes et écarter les traits d'un pixel, effacés par la réduction.
+- **Gabarit Ground absent** : dans ce dépôt, le ZIP Métano des anciens lots manque ; prendre `cliffdaytest.rsground`
+  (Ground PMDO 0.8.12 de l'utilisateur) comme gabarit.

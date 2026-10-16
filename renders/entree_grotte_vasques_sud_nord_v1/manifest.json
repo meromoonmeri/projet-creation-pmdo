@@ -1,0 +1,1503 @@
+{
+  "lot": "entree_grotte_vasques_sud_nord_v1",
+  "prefix": "EGV1",
+  "format": "4:3 vaste",
+  "type": "entree de donjon sud -> nord",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (main 8d2a5b8 : utilitaires EWC1/Jungle/Bristle, codec pmdo_cote) ; aucun emprunt aux branches soeurs",
+  "biome": "grotte doree a vasques turquoise (rip D56P12A), biome NEUF choisi par l agent apres le releve des branches (« Poursuis le projet », 16 octobre), a confirmer",
+  "method": "textures canoniques = rendu genere REFERENCE (rips D56P12A + D56P41A passes au generateur) + pipeline natif : decor complet, sol complet edite depuis le decor, planche de poses sur magenta ; reduction par classe, palettes, calques 8 px ; eau ramenee aux couleurs exactes du rip ; reflets = animation de palette exacte du BPL",
+  "reference_da": {
+    "file": "references/D56P12A.png",
+    "sha256": "f944cec3d566864cd95f55b4f9ddc73ce0fe014e13272e2874a95df75540c854",
+    "code_rom": "D56P12A",
+    "provenance": "references/provenance.json (pret/pmd-sky, commit, blobs, sha256)",
+    "seconde_reference": {
+      "file": "references/D56P41A.png",
+      "sha256": "6dbed2af82a9a8e613f4878b49ef215cf08910ecd30cdde53d91e6e86ce94be5",
+      "code_rom": "D56P41A"
+    },
+    "titre": "grotte doree a vasques turquoise en terrasses ; nom du lieu non identifie par une capture"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "references/D56P12A.png",
+        "references/D56P41A.png"
+      ],
+      "prompt": "Use the reference images' exact pixel-art style, palette and textures (Pokemon Mystery Dungeon Explorers of Sky, golden spring cave): flat golden-ochre sandy cave floor with fine speckled pixel texture; cave walls made of piled rounded golden sandstone boulders; cascading travertine terraces of small rounded turquoise water pools with scalloped pale-gold stone rims and bright cyan-white ripple highlights; small pale rock spires; stalactites hanging along the top cave wall. Create a NEW map, WIDE LANDSCAPE 4:3, zoomed out, top-down view (1200 x 896). The player arrives from the SOUTH edge on a wide sandy path between boulder walls, which opens into a large open golden-sand cave chamber. At the NORTH, in the middle of the back wall under the stalactites, a dark cave tunnel entrance; the sand floor leads right up to it, with no water in front of it. On the left and right sides of the chamber, big stepped terraces of turquoise travertine pools climb up between the boulder walls. Four small pale rock spires stand on the sand, away from the central path. Boulder walls fill the map corners and edges, no empty black void. IMPORTANT: no characters, no text, no UI, no border, no sparkles.",
+      "essais": "premier essai, 1200 x 896 du premier coup ; vasques sur les pentes de blocs comme dans le rip (pas de grandes terrasses separees) ; 6 fleches rocheuses au lieu de 4"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "bruts/decor.png"
+      ],
+      "prompt": "Edit this pixel-art cave map, same framing and same pixel style: remove everything except the sand floor. Fill the whole image, edge to edge, with exactly the same sand floor as in the middle of this image: the same muted, desaturated olive-ochre khaki colour (not bright yellow, not orange), the same small darker speckles and the same fine pixel texture, same brightness. Keep the floor that is already visible in the middle exactly where it is. No boulders, no pools, no rocks, no stalactites, no tunnel, no shadows, no border.",
+      "essais": "quatrieme essai : deux appels avec decor + rip D56P12A en images= sans image renvoyee (reponse vide du modele) ; un troisieme (decor seul, consigne courte) a rendu un sable jaune sature (moyenne 193,157,55 contre 162,147,82) : ecarte, non conserve ; le quatrieme (teinte imposee) est garde"
+    },
+    {
+      "file": "source_poses.png",
+      "images": [
+        "references/D56P12A.png"
+      ],
+      "prompt": "Pixel-art sprite sheet on a flat pure magenta #FF00FF background, same pixel style and palette as the reference image (the light cyan and near-white ripple highlights of its turquoise pools). Two rows of six separate small sprites, evenly spaced, each one centered in its own cell, wide magenta gaps between them. Top row: a spring bubble welling up from water, six poses: tiny dot, small bubble, round bubble, big bubble, bursting bubble with tiny droplets, small splash. Bottom row: ripple rings spreading on water, six poses: small ring, larger ring, two concentric rings, wider double ring, faint wide ring, last faint broken ring. Draw only the light cyan and white strokes of the bubbles and rings, with no water patch behind them. Hard pixel edges, no anti-aliasing, no glow, no text, no numbers, no grid lines.",
+      "essais": "premier essai ; 992 x 1068, quatre rangees (21 poses) au lieu de deux : 10 poses retenues (les 6 bulles, les 4 anneaux epais de la rangee 2) ; anneaux d un pixel ecartes (effaces par la reduction)"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_grotte_vasques_sud_nord_v1/bruts/decor.png",
+      "sha256": "1e2a50482426ac332a5461c6b93ee1b4bd01108059d424e42bdd9d5d0362cc0f",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_grotte_vasques_sud_nord_v1/bruts/sol_complet.png",
+      "sha256": "83de53df9cd8bda9d5634f744b8b05f53f36c98bec10d6e311d1e8153f3ce031",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_grotte_vasques_sud_nord_v1/bruts/source_poses.png",
+      "sha256": "9f27b868e7177b7595e51998c97c080143d60a7eaa7294df4a9d00800b579161",
+      "size": [
+        992,
+        1068
+      ]
+    }
+  ],
+  "sol_complet": {
+    "recalage_px": [
+      0,
+      0
+    ],
+    "ecart_moyen_sol": 3.1,
+    "ecart_decale_1px": 3.96,
+    "note": "sable seul bord a bord, teinte imposee (le premier essai garde etait trop jaune)"
+  },
+  "segmentation_mesures": {
+    "fleches_rocheuses": 5,
+    "mouchetures_rendues_au_sol": 1,
+    "bouche_px": 5250,
+    "fond_sarcelle_px": 23099,
+    "bouche_touche_ombres": false
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne",
+    "brut": {
+      "sable": {
+        "rip_rgb": [
+          166.0,
+          150.1,
+          89.8
+        ],
+        "decor_rgb": [
+          163.1,
+          147.9,
+          84.3
+        ],
+        "distance": 6.5
+      },
+      "eau": {
+        "rip_rgb": [
+          30.0,
+          177.6,
+          162.6
+        ],
+        "decor_rgb": [
+          63.4,
+          168.6,
+          160.0
+        ],
+        "distance": 34.7
+      },
+      "roche": {
+        "rip_rgb": [
+          110.3,
+          99.4,
+          71.9
+        ],
+        "decor_rgb": [
+          109.5,
+          100.9,
+          73.6
+        ],
+        "distance": 2.4
+      }
+    },
+    "brut_vs_D56P41A": {
+      "sable": {
+        "rip_rgb": [
+          165.7,
+          149.7,
+          84.6
+        ],
+        "decor_rgb": [
+          163.1,
+          147.9,
+          84.3
+        ],
+        "distance": 3.2
+      },
+      "eau": {
+        "rip_rgb": [
+          51.6,
+          169.6,
+          166.3
+        ],
+        "decor_rgb": [
+          63.4,
+          168.6,
+          160.0
+        ],
+        "distance": 13.4
+      },
+      "roche": {
+        "rip_rgb": [
+          117.1,
+          109.1,
+          78.4
+        ],
+        "decor_rgb": [
+          109.5,
+          100.9,
+          73.6
+        ],
+        "distance": 12.1
+      }
+    },
+    "calques_finaux": {
+      "sol": {
+        "matiere": "sable",
+        "rgb": [
+          160.8,
+          145.4,
+          81.8
+        ],
+        "distance_rip": 10.6
+      },
+      "vasques": {
+        "matiere": "eau",
+        "rgb": [
+          35.9,
+          189.9,
+          170.3
+        ],
+        "distance_rip": 15.6
+      },
+      "parois": {
+        "matiere": "roche",
+        "rgb": [
+          108.1,
+          99.5,
+          73.1
+        ],
+        "distance_rip": 2.5
+      },
+      "blocs": {
+        "matiere": "roche",
+        "rgb": [
+          113.1,
+          103.5,
+          73.7
+        ],
+        "distance_rip": 5.3
+      }
+    },
+    "eau_et_reflets": "couleurs EXACTES du rip (test : sous-ensemble des couleurs du rip)"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal ; eau et rebords reduits separement puis reunis dans le calque vasques",
+    "palettes": {
+      "terrain": {
+        "calques": [
+          "sol_complet",
+          "sol",
+          "ombres"
+        ],
+        "couleurs": 96
+      },
+      "roche": {
+        "calques": [
+          "parois",
+          "blocs",
+          "profondeur"
+        ],
+        "couleurs": 96
+      },
+      "rebords": {
+        "calques": [
+          "rebords"
+        ],
+        "couleurs": 64
+      }
+    },
+    "eau": {
+      "couleurs_rip": [
+        [
+          0,
+          103,
+          111
+        ],
+        [
+          0,
+          119,
+          119
+        ],
+        [
+          0,
+          135,
+          135
+        ],
+        [
+          0,
+          151,
+          143
+        ],
+        [
+          7,
+          167,
+          151
+        ],
+        [
+          7,
+          183,
+          159
+        ],
+        [
+          7,
+          199,
+          167
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          87,
+          231,
+          207
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          207,
+          247,
+          239
+        ]
+      ],
+      "pixels_rip": [
+        188,
+        298,
+        1112,
+        386,
+        494,
+        520,
+        330,
+        376,
+        406,
+        284,
+        194,
+        286
+      ],
+      "regle": "couleur d eau du rip de luminance la plus proche"
+    }
+  },
+  "segmentation": "sol = couleur du sable a +-18, ferme 3 px puis ouvert 2 px, grande composante, trous < 150 px rendus au sable ; fleches = trous >= 150 px hors ombres ; ombres = sable assombri contigu (<= 30 px, lum 60-140, ecart-type < 9) ; profondeur = bouche du tunnel (lum < 50 puis < 70) + fond sarcelle du haut ; eau = turquoise franc ; rebords = couronne de 6 px autour de l eau ; parois = le reste",
+  "layers": [
+    {
+      "file": "calques/EGV1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_01_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_03_vasques.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_04_parois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_05_blocs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EGV1_06_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/reflets_vasques/EGV1_07_reflets_vasques_fNN.png",
+      "phases": 32,
+      "ticks": 2
+    },
+    {
+      "file": "animation/bulles_source/EGV1_08_bulles_source_fNN.png",
+      "phases": 32,
+      "ticks": 4
+    }
+  ],
+  "reflets_vasques": {
+    "phases": 32,
+    "frame_length_ticks": 2,
+    "source": "BPL D56P12A, palette 13",
+    "emplacements": [
+      [
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          103,
+          231,
+          207
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          103,
+          231,
+          207
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          47,
+          223,
+          191
+        ]
+      ],
+      [
+        [
+          87,
+          231,
+          207
+        ],
+        [
+          103,
+          239,
+          207
+        ],
+        [
+          111,
+          239,
+          215
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          223
+        ],
+        [
+          143,
+          239,
+          223
+        ],
+        [
+          191,
+          247,
+          239
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          191,
+          247,
+          239
+        ],
+        [
+          143,
+          239,
+          223
+        ],
+        [
+          127,
+          239,
+          223
+        ],
+        [
+          119,
+          239,
+          215
+        ],
+        [
+          111,
+          239,
+          215
+        ],
+        [
+          111,
+          239,
+          215
+        ],
+        [
+          103,
+          239,
+          207
+        ],
+        [
+          87,
+          231,
+          207
+        ],
+        [
+          87,
+          231,
+          207
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          47,
+          223,
+          191
+        ],
+        [
+          87,
+          231,
+          207
+        ],
+        [
+          87,
+          231,
+          199
+        ]
+      ],
+      [
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          191,
+          247,
+          239
+        ],
+        [
+          207,
+          255,
+          247
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          207,
+          255,
+          247
+        ],
+        [
+          191,
+          247,
+          239
+        ],
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          7,
+          215,
+          175
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ]
+      ],
+      [
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          191,
+          255,
+          239
+        ],
+        [
+          207,
+          255,
+          247
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          255
+        ],
+        [
+          207,
+          255,
+          247
+        ],
+        [
+          207,
+          255,
+          247
+        ],
+        [
+          191,
+          255,
+          239
+        ],
+        [
+          167,
+          247,
+          231
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          71,
+          231,
+          199
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          167,
+          247,
+          231
+        ]
+      ],
+      [
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          231,
+          255,
+          247
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          247,
+          255,
+          255
+        ],
+        [
+          231,
+          255,
+          247
+        ],
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          127,
+          239,
+          215
+        ],
+        [
+          151,
+          247,
+          223
+        ],
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          207,
+          247,
+          239
+        ],
+        [
+          207,
+          247,
+          239
+        ]
+      ]
+    ],
+    "sequence_etats_distincts_rip": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      7,
+      7,
+      7,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      1,
+      0,
+      8,
+      9,
+      10,
+      11,
+      11,
+      11,
+      11,
+      11,
+      10,
+      9,
+      8,
+      12
+    ],
+    "pixels": 10653,
+    "pixels_par_emplacement": [
+      4251,
+      2545,
+      2101,
+      1442,
+      314
+    ],
+    "origine": "couleurs ET sequence EXACTES de l animation de palette du jeu ; seuls les pixels qui la portent (eau generee ramenee aux couleurs du rip) viennent du rendu genere"
+  },
+  "bulles_source": {
+    "poses": {
+      "bulle_0": [
+        138,
+        81,
+        24,
+        24
+      ],
+      "bulle_1": [
+        138,
+        246,
+        60,
+        60
+      ],
+      "bulle_2": [
+        138,
+        413,
+        84,
+        84
+      ],
+      "bulle_3": [
+        138,
+        578,
+        120,
+        120
+      ],
+      "bulle_4": [
+        110,
+        745,
+        180,
+        120
+      ],
+      "bulle_5": [
+        138,
+        915,
+        108,
+        132
+      ],
+      "anneau_0": [
+        401,
+        81,
+        64,
+        60
+      ],
+      "anneau_1": [
+        401,
+        246,
+        96,
+        100
+      ],
+      "anneau_2": [
+        401,
+        413,
+        112,
+        120
+      ],
+      "anneau_3": [
+        401,
+        579,
+        128,
+        140
+      ]
+    },
+    "reduction": {
+      "bulle_0": [
+        12,
+        12
+      ],
+      "bulle_1": [
+        12,
+        12
+      ],
+      "bulle_2": [
+        12,
+        12
+      ],
+      "bulle_3": [
+        12,
+        12
+      ],
+      "bulle_4": [
+        12,
+        12
+      ],
+      "bulle_5": [
+        12,
+        12
+      ],
+      "anneau_0": [
+        16,
+        10
+      ],
+      "anneau_1": [
+        16,
+        10
+      ],
+      "anneau_2": [
+        16,
+        10
+      ],
+      "anneau_3": [
+        16,
+        10
+      ]
+    },
+    "poses_ecartees": {
+      "rangee_2_poses_5_6": "anneaux d un pixel (944 a 2564 px) : effaces par la reduction",
+      "rangees_3_4": "poses supplementaires non demandees (11 anneaux), non utilisees"
+    },
+    "couverture_min": 0.25,
+    "pixels_teintes_ecartes": 3586,
+    "fond": "magenta pur et pixels teintes de magenta (r-g > 60 et b-g > 60), ni gardes ni recolores",
+    "couleurs": "ramenees a la couleur d eau du rip la plus proche (RGB)",
+    "emetteurs": [
+      [
+        689,
+        125,
+        0
+      ],
+      [
+        212,
+        203,
+        7
+      ],
+      [
+        663,
+        229,
+        14
+      ],
+      [
+        223,
+        312,
+        21
+      ],
+      [
+        688,
+        333,
+        28
+      ],
+      [
+        68,
+        364,
+        3
+      ],
+      [
+        249,
+        416,
+        10
+      ],
+      [
+        549,
+        416,
+        17
+      ],
+      [
+        137,
+        438,
+        24
+      ],
+      [
+        662,
+        438,
+        31
+      ]
+    ],
+    "sequence": [
+      "bulle_0",
+      "bulle_0",
+      "bulle_1",
+      "bulle_1",
+      "bulle_2",
+      "bulle_2",
+      "bulle_3",
+      "bulle_3",
+      "bulle_4",
+      "bulle_5",
+      "anneau_0",
+      "anneau_0",
+      "anneau_1",
+      "anneau_1",
+      "anneau_2",
+      "anneau_2",
+      "anneau_3",
+      "anneau_3",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "phases": 32,
+    "frame_length_ticks": 4,
+    "decoupe": "bulles sur la vasque (eau + rebord), anneaux sur l eau seule",
+    "origine": "dessin GENERE (planche) ; chronologie et placement crees par nous"
+  },
+  "shadows": "calque ombres = sable assombri du rendu genere (devant la bouche, contre les parois, ombres portees des fleches)",
+  "scene_loop_ticks": 128,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      376,
+      144
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 1280,
+    "blocked_cells": 5393,
+    "total_cells": 6912,
+    "walkable_cells": 1519,
+    "rule": "case bloquee si > 25 % hors sol (ombres comprises)",
+    "seuil": "premiere case 2 x 2 libre sous la bouche du tunnel",
+    "warp": "aucun (donjon_seuil = repere)"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "egv1_entree_grotte_vasques",
+    "namespace": "entree_grotte_vasques_sud_nord",
+    "tiles_per_bank": {
+      "EGV1_00_SOL": 6913,
+      "EGV1_01_SOL": 1737,
+      "EGV1_02_OMBRES": 26,
+      "EGV1_03_VASQUES": 1227,
+      "EGV1_04_PAROIS": 5017,
+      "EGV1_05_BLOCS": 96,
+      "EGV1_06_PROFONDEUR": 343,
+      "EGV1_07_REFLETS": 9028,
+      "EGV1_08_BULLES": 330
+    },
+    "banks": [
+      "EGV1_00_SOL",
+      "EGV1_01_SOL",
+      "EGV1_02_OMBRES",
+      "EGV1_03_VASQUES",
+      "EGV1_04_PAROIS",
+      "EGV1_05_BLOCS",
+      "EGV1_06_PROFONDEUR",
+      "EGV1_07_REFLETS",
+      "EGV1_08_BULLES"
+    ],
+    "template": {
+      "file": "cliffdaytest.rsground",
+      "sha256": "6567e19df7a073758d8d52ad1491460067a2dccc1c0d03aa0d1c72b5592e4d2f"
+    },
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

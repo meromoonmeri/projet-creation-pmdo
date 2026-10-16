@@ -1,4 +1,4 @@
-# Index des méthodes — 208 sous-projets de `source/`
+# Index des méthodes — 209 sous-projets de `source/` (208 extraits + 1 créé ici)
 
 Extrait de [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-pmdo) au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pmdo/commit/6cca4a09380211e510ab1bea454a1b1926ef4b5a) — 2026-10-01.
 
@@ -9,7 +9,7 @@ Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build,
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
 `provenance` = traçabilité des références, `Ground`/`tileset` = données natives PMDO présentes.
 
-## Entrées de donjon sud→nord — 20 projets · 101 fichiers extraits · 1 Mo
+## Entrées de donjon sud→nord — 21 projets · 116 fichiers · 7 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
@@ -19,6 +19,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/entree_cratere_magma_v1/` | build · package · test · PACK · viewer | 5/7 | 0.0 |
 | `source/entree_cratere_sud_nord_v1/` | build · package · test · PACK · viewer | 5/9 | 0.0 |
 | `source/entree_givre_sud_nord_v1/` | build · package · test · PACK · viewer | 6/9 | 0.1 |
+| `source/entree_grotte_vasques_sud_nord_v1/` | reference · build · test · mutations · package · provenance · PACK · viewer *(créé dans ce dépôt, 16/10/2026)* | 15/15 | 6.1 |
 | `source/entree_jardin_secret_sud_nord_v1/` | build · package · test · PACK · viewer | 5/10 | 0.1 |
 | `source/entree_jardin_secret_sud_nord_v2/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
 | `source/entree_jungle_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |

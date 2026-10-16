@@ -86,6 +86,51 @@ Même jour (29 septembre, session `arena/01a0ec9c`, branchée sur `311b0dd0`), s
 
 Même jour, suite (« bon travail continue la suite ! ») : lot **Fin Star Cave** (`renders/fin_star_cave_v1/`, préfixe `FST1`, réf. `starcavepmdsky.png`, aperçu `apercu_fin_star_cave_v1.html`, 13 tests PASS, 5 mutations). Prolonge ESC1, planche de poussière réutilisée. Biome et portée choisis par l'agent, **à confirmer**. Fins restantes ici : Clairière tropicale, Couloir violet, Mt. Thunder, Jardin secret. Préfixe pris en plus : FST1.
 
+## Reprise du 16 octobre 2026 — dépôt projet-creation-pmdo (session `arena/f9b9e04a`)
+
+**Demande** : « Poursuis le projet tu vas lire les read me agent et outil et methode création de map pmd texture canonique ! Méthode de production des maps PMD (générateur + pipeline natif) ». Lecture faite de `README.md`, `AGENTS.md`, `REPRISE_MAPS.md`, `GUIDE_CREATION_DE_MAP.md`, `METHODE_MAGENTA_ET_GENERATEUR.md`, `MANUEL_METHODE_PMDO.md` et du README de l'outil maps PMD Sky. La vidéo déposée sur `main` le 13 octobre (`ChaosTowerV1test (1).mp4`, 67 s) montre l'entrée Tour Temporelle noire et or d'une branche sœur (ETT).
+
+**Relevé des branches sœurs de ce dépôt** (toutes issues de `b2c7112`, `main~1`, et jamais fusionnées) :
+
+| Branche | Contenu |
+|---|---|
+| `01a10333` | FCT2 jour/nuit, FVF1/EVF1 Vallons fleuris (eau native Métano), ETT2 Tour Temporelle, panneau vidéo |
+| `52e6a9de` | EFT1/FFT1 (D02), EPN1/FPN1 (D27), ETB1 (D09), EAW1/FAW1, ERG1/FRG1, ERL1/FRL1/FRL2, EMI1-3/FMI1-3, EAP1/FAP1, EFB1/FFB1, EMH1/FMH1, EFS1/FFS1, EFC1/FFC1, ENR1/FNR1, ETT1/FTT1, ETX1/FTX1, ECL1, CLR2 |
+| `94f0168a` | FCT1, FVL1, FTM1, FSG1, PPO1, WORKFLOW.md |
+| `36da3b03`, `dec8688e`, `d0045c3b` | EOC1/FCC1 canyon cuivre (D55P11A), FCT1, FCV2, FCV3, EFM1 ; `d0045c3b` en plus : FMT2, FJR1, ZCR1, ZPO1, ZMA1, ZME1, VIL1, VIL2, MET1 |
+| `7c717e20` | PPO1/PPO2 intérieur Pelipper, WORKFLOW.md, sous-commande `spriters` |
+
+Les **lots ajoutés par les branches de `projet-pmdo` après l'extraction** utilisent les préfixes suivants : EMB1/2, FMB1/2, EBC1, FBC1, ZBC1, EAC1, FAC1, ELC1, FLC1, ZLC1, EIZ1, FIZ1, IFZ1, EPR1, FPR1, ZFB1, ZPR1, BMF1, CPL1, PVC1, EJS3, FJS4, FCO1/2, FVC1, FJA1, FTH1, FTN1, FMT3, FMF3, FUL2, IMW2. Les quatre fins encore ouvertes sur `main` existent toutes sur les branches sœurs, et l'utilisateur y a demandé les zones inédites : **biome neuf**.
+
+**Lot livré : Entrée Grotte aux vasques** (`renders/entree_grotte_vasques_sud_nord_v1/`, préfixe `EGV1`, aperçu `apercu_entree_grotte_vasques_sud_nord_v1.html`, source `source/entree_grotte_vasques_sud_nord_v1/`).
+
+- **Référence** : `D56P12A` de la ROM, une grotte dorée à vasques turquoise en terrasses (+ `D56P41A`). Elle n'est utilisée par aucune branche des deux dépôts. Nom du lieu non identifié ; biome **choisi par l'agent, à confirmer**.
+- **Méthode** : générateur + pipeline natif. Eau des vasques aux 12 couleurs exactes du rip. Reflets animés avec l'**animation de palette exacte du BPL** (5 emplacements, 32 × 2 ticks). Bulles de source générées (32 × 4 ticks).
+- **Contrôles** : 13 tests PASS, 19 mutations détectées, build reproductible. Ground PMDO 0.8.12 sur le gabarit `cliffdaytest.rsground`, installeur vérifié en simulation. `art_approved` et `runtime_tested` restent false.
+- **Mod** : EGV1 ajouté à `MAPS` du mod de la série, marqué à confirmer, mais mod non reconstruit (ZIP des lots précédents absents de cette extraction).
+
+**Préfixes pris en plus** : EGV1. **FGV1** est libre au relevé et sert à la fin de ce biome.
+
+**Références ROM « D » libres sur les deux dépôts** (relevé du 16 octobre ; 137 codes, dont beaucoup de gabarits vides à 456 × 456 ou 1440 × 960). Les plus intéressantes :
+
+- `D56P41A` : grande salle à vasques, la fin naturelle d'EGV1, déjà extraite ;
+- `D06P11A` : falaise côtière avec grotte et mer à droite ;
+- `D22P11A`, `D23P11A`, `D49P41A` : forêt de pins grise, comme figée ;
+- `D43P31A` : couloir sombre de feuillages bleus, sol rose ;
+- `D79P11A` : falaise enneigée lavande avec une crevasse-grotte au nord ;
+- `D73P31A` : prairie fleurie au-dessus des nuages ;
+- `D36P41A` : corniche aride face aux montagnes ;
+- `D26P31A`, `D26P43A` : couloir rouge-brun à flaques ;
+- `D55P41A` : grotte rose ;
+- `D56P11A` : grotte violette ;
+- `D44P31A` : salle ornée, 76 frames ;
+- `D45P42A` : grotte bleue ronde ;
+- `D46P11A`, `D47P11A`, `D48P11A`, `D50P11A` à `D53P41B` : monde gris figé (falaises, désert, tour, glaces) ;
+- `D53P41C` : sommet de glace bleu ;
+- `D57P41A` à `D57P44A` : champs de rochers, dont un de lave.
+
+Les planches de vignettes se régénèrent dans `.cache/` avec les fonctions de l'outil, sans réécrire son index (voir `source/entree_grotte_vasques_sud_nord_v1/reference.py`).
+
 ## Branches sœurs de la série (relevé du 27 septembre)
 
 Cinq sessions sont reparties de la même base que `arena/01a0dd03` (`95160e32`) ; `01a0e017` travaille sur un autre historique. Aucune n'a été fusionnée et rien n'en a été repris. Leurs têtes étaient identiques au démarrage et avant le commit d'EQS1.

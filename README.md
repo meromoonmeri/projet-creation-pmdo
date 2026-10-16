@@ -29,6 +29,14 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | [MANIFESTE_EXTRACTION.md](MANIFESTE_EXTRACTION.md) | Ce qui a été extrait, ce qui ne l'a pas été, comment récupérer le reste |
 | [INVENTAIRE_FICHIERS.txt](INVENTAIRE_FICHIERS.txt) | Liste exhaustive des 3 592 fichiers extraits |
 
+## Lots créés dans ce dépôt (branche de session)
+
+| Lot | Préfixe | Référence | Aperçu |
+|---|---|---|---|
+| [Entrée Grotte aux vasques](renders/entree_grotte_vasques_sud_nord_v1/README.md) — sud → nord, 4:3 | `EGV1` | ROM PMD Sky `D56P12A` (+ `D56P41A`) | [`apercu_entree_grotte_vasques_sud_nord_v1.html`](apercu_entree_grotte_vasques_sud_nord_v1.html) |
+
+Biome neuf choisi par l'agent le 16 octobre 2026 (à confirmer) : eau aux couleurs exactes du rip, reflets avec l'animation de palette exacte du jeu, 13 tests, 19 mutations. Aperçus servis dans la session par `python3 source/serveur_apercus/serve.py --port 8000`.
+
 ## La chaîne de production, en une phrase
 
 > Un **rendu généré** (image complète, sol sur magenta) sert de **composition** ; il est ensuite

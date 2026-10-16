@@ -1,4 +1,4 @@
-"""Mod PMDO 0.8.12 unique qui regroupe toutes les entrées de donjon sud -> nord de la série (19 Grounds : les 18 validées et EJS2, à confirmer).
+"""Mod PMDO 0.8.12 unique qui regroupe toutes les entrées de donjon sud -> nord de la série (20 Grounds : les 18 validées, puis EJS2 et EGV1, à confirmer).
 .venv/bin/python source/mod_guilde_entrees_v1/build_mod.py
 
 Demande : « BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE ! » (27 septembre).
@@ -48,12 +48,16 @@ MAPS = [
     ('entree_mt_thunder_sud_nord_v1', 'EMT1', 'Mt. Thunder', 'EMT1_scene_t000.png'),
     ('entree_jardin_secret_sud_nord_v1', 'EJS1', 'Jardin secret', 'EJS1_scene_t000.png'),
     ('entree_jardin_secret_sud_nord_v2', 'EJS2', 'Jardin secret V2 (Celebi)', 'EJS2_scene_t000.png'),
+    ('entree_grotte_vasques_sud_nord_v1', 'EGV1', 'Grotte aux vasques (D56P12A)', 'EGV1_scene_t000.png'),
 ]
 N = len(MAPS)
+# Faites apres la validation du 27 septembre, a confirmer : EJS2 (temple de Celebi) ; EGV1 (biome neuf du 16 octobre,
+# projet-creation-pmdo ; mod non reconstruit dans ce depot : les ZIP des lots precedents n'y sont pas).
+A_CONFIRMER = ['EJS2', 'EGV1']
 VALIDATION = {'date': '2026-09-27', 'citation': 'BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE !',
               'portee': 'validation artistique de la serie par l utilisateur, sur les apercus ; aucun test en jeu PMDO',
-              # Les 18 cartes montrees quand l utilisateur a valide ; EJS2 (temple de Celebi) a ete faite apres : a confirmer.
-              'cartes_validees': [m[1] for m in MAPS if m[1] != 'EJS2'], 'a_confirmer': ['EJS2']}
+              # Les 18 cartes montrees quand l utilisateur a valide ; les suivantes restent a confirmer.
+              'cartes_validees': [m[1] for m in MAPS if m[1] not in A_CONFIRMER], 'a_confirmer': A_CONFIRMER}
 
 
 def loadmod(name, path):
@@ -205,7 +209,7 @@ h1{{font-size:30px;margin:0 0 6px}}p{{color:#b3c9d3;max-width:90ch}}code{{color:
 <h1>Mod PMDO 0.8.12 — les {N} entrées de donjon sud → nord</h1>
 <p>Un seul mod, namespace <code>{NAMESPACE}</code> : <a href="renders/{LOT}/{ZIP.name}" style="color:#e7c77f">{ZIP.name}</a>.
 Chaque carte garde ses banques et son Ground octet pour octet ; l'index des tuiles est fusionné. Série validée par l'utilisateur le
-27 septembre 2026 (18 cartes ; EJS2, faite ensuite, reste à confirmer). Aucun test en jeu. Cliquer une carte pour ouvrir son aperçu animé.</p>
+27 septembre 2026 (18 cartes ; EJS2 et EGV1, faites ensuite, restent à confirmer). Aucun test en jeu. Cliquer une carte pour ouvrir son aperçu animé.</p>
 <div class="grid">
 {chr(10).join(cards)}
 </div>

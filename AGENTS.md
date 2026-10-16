@@ -1218,3 +1218,41 @@ Pas de runtime. Pas dans le mod unique.
 - **Mutations** vérifiées : boss déplacé sur une paroi (manifeste), pixel rouge dans le sol, poussière modifiée, marqueur `donjon_seuil` ajouté au Ground, masque de blocs modifié. Sauvegarder `renders/` et `.cache/` dans `/tmp` avant, restaurer après.
 - **Limite connue** : les cristaux de parois générés sont plus cyan que le rip (32,1 sur 35) et en motif répétitif ; une régénération ciblée des parois serait la première amélioration.
 
+## Entrée Grotte aux vasques — EGV1 (16 octobre 2026), ajouts à la recette
+
+- **Contexte** : dépôt `projet-creation-pmdo`, branche de session `arena/f9b9e04a`, issue de `main`. Les quatre fins encore ouvertes sur `main` (Clairière tropicale, Couloir violet, Mt. Thunder, Jardin secret) existent déjà sur les branches sœurs, et l'utilisateur y a demandé « les prochaines zones inédites ». Un **biome neuf** a donc été choisi par l'agent, à confirmer : rien n'a été fusionné, rien n'a été repris des branches sœurs.
+- **Relevé rapide et complet des branches** :
+  - `git clone --bare --filter=blob:limit=400k <dépôt> /tmp/x.git` coûte 79 Mo et 3 s, et donne toutes les têtes.
+  - Ensuite, `git grep -o -h -I -E '\b[DPSVHTGW][0-9]{2}P[0-9]{2}[A-Z]?\b' <tête> -- '*.py' '*.md' '*.json'` sur chaque tête liste les codes ROM utilisés. Exclure les `.html`, dont le base64 donne des faux positifs.
+  - Pour `projet-pmdo` (15 branches restantes), lister `source/` par l'API Git (`git/trees/<sha>`) et lire `PFX` dans chaque `build.py` nouveau.
+  - Résultat : 66 codes cités. En ajoutant les 30 captures identifiées, **137 maps « D » de la ROM restent libres**. La liste commentée est dans `REPRISE_MAPS.md`.
+- **Références ROM sans toucher à l'index de l'outil** : `reference.py` appelle `ensure_clone`, `bg_entries` et `render` de `recuperer_maps.py`, puis écrit dans `references/` :
+  - les PNG (frame 0) et les WebP animés ;
+  - `provenance.json` : commit, chemins, blobs Git et SHA-256 des BMA, BPC et BPL ;
+  - `palette_anim.json`.
+  
+  Le rendu est reproductible à l'octet.
+- **Animation de palette EXACTE** : `bpl.animation_specs` donne la durée par frame (D56P12A : palette 13, 32 frames × 2 ticks). Les pixels qui changent, regroupés par séquence de couleurs identique, donnent les **emplacements** : 5 pour D56P12A, 6 pour D56P41A. Pour l'appliquer à un rendu généré :
+  1. ramener l'eau générée aux 12 couleurs d'eau du rip, par plus proche luminance, en excluant la couleur verte du rebord (b < 0,8 g) ;
+  2. les pixels tombés sur une couleur de frame 0 d'un emplacement forment le calque de reflets ;
+  3. chaque frame t donne à chaque emplacement sa couleur t.
+  
+  Les tests comparent les frames, les emplacements, l'enchaînement des 13 états distincts et la frame 0 au calque fixe (pas de saut).
+- **Fidélité de l'eau** : le brut donnait 34,7 sur 35 (eau trop grise, R ≈ 63 contre 30). Le remappage la ramène à 15,6 sur le calque final, sans retoucher le dessin.
+- **Générateur** :
+  - **Sol complet** : deux réponses vides de suite en passant décor + rip ; avec le décor seul, cela passe. Le premier sol rendu était jaune saturé (193,157,55 contre 162,147,82) et a été écarté. L'imposer : « muted, desaturated olive-ochre khaki colour (not bright yellow, not orange) ».
+  - **Planche** : 2 rangées × 6 demandées, 4 rangées (21 poses) rendues. Repérer les sprites par composantes (dilatation 7 px) et garder les poses épaisses : les anneaux d'un pixel disparaissent à la réduction.
+  - **Réduction des poses** : bulles ×1/12 ; anneaux ×1/10 en largeur et ×1/16 en hauteur, pour suivre la perspective aplatie des vasques (40 × 20 px).
+- **Pièges de segmentation** :
+  - Le masque « fond sarcelle » attrapait l'eau sombre des vasques hautes. Le limiter aux composantes du bandeau supérieur (sommet y < 140), loin de l'eau claire.
+  - L'eau doit inclure ses traînées sombres (trous bouchés et teinte eau à 2 px), sinon elles tombent dans la classe des rebords et restent noires.
+  - Réduire **eau et rebords séparément**, puis les réunir dans le calque `vasques` : sinon les bords se mélangent en gris.
+- **Gabarit Ground** : le ZIP Métano des anciens lots n'est pas dans ce dépôt. Utiliser `cliffdaytest.rsground`, un Ground PMDO 0.8.12 de l'utilisateur, comme les lots récents des branches sœurs. Garder son fond `MapBG` vide, `BlankBG`, `rand` et `NoSwitching`.
+- **Mutations** : les PNG de `renders/` sont ignorés par Git ici. `mutations.py` sauvegarde donc chaque fichier avant la mutation et le restaure après, sans `git checkout`. 19 mutations, toutes détectées, et les tests sont de nouveau verts ensuite.
+- **Mod de la série** : EGV1 a été ajouté à `MAPS`, marqué **à confirmer** (`A_CONFIRMER = ['EJS2', 'EGV1']`), et `test_mod.py` a été aligné. Le mod n'a **pas** été reconstruit : les ZIP des 19 lots précédents ne sont pas dans cette extraction.
+- **Résultats** :
+  - 13 tests PASS et 19 mutations détectées ; build reproductible (95 fichiers identiques), en 26 s environ ;
+  - installeur en simulation : 11 fichiers, 9 tilesets ;
+  - fidélité : brut sable 6,5, eau 34,7, roche 2,4 ; calques sol 10,6, vasques 15,6, parois 2,5, flèches 5,3 ;
+  - pas de runtime, `art_approved: false`.
+- **Suite naturelle** : la fin **FGV1** (préfixe libre au relevé), sur `D56P41A`. Cette grande salle bordée de vasques, avec ses 6 emplacements de palette (12 × 8 ticks), est déjà extraite dans `references/`.

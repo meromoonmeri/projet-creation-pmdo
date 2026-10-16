@@ -7,6 +7,23 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Entrée Grotte aux vasques : grotte dorée à vasques turquoise, EGV1 (16 octobre 2026)
+
+**Demande** : « Poursuis le projet [...] méthode création de map pmd texture canonique ! Méthode de production des maps PMD (générateur + pipeline natif) ». Les quatre fins encore ouvertes sur `main` existent sur les branches sœurs, et l'utilisateur y a demandé les zones inédites : **biome neuf**, choisi par l'agent, **à confirmer**. Dépôt `projet-creation-pmdo`.
+
+- Sorties : `renders/entree_grotte_vasques_sud_nord_v1/`, aperçu `apercu_entree_grotte_vasques_sud_nord_v1.html`, build `source/entree_grotte_vasques_sud_nord_v1/build.py`.
+- **Référence** : map ROM `D56P12A` de PMD Explorers of Sky (+ `D56P41A`), rendue depuis `pret/pmd-sky` avec provenance complète (`reference.py`). Aucune branche des deux dépôts ne l'utilise. Nom du lieu non identifié.
+- **Méthode « textures canoniques »** : rendu généré référencé (rips passés au générateur) + pipeline natif. Ce ne sont pas des tuiles natives.
+- **Layout** : arrivée au sud, grande salle de sable entre deux pentes de blocs couvertes de vasques turquoise en terrasses, 5 flèches rocheuses, stalactites, bouche du tunnel au nord sans eau devant. Marqueurs `entrance` et `donjon_seuil` ; aucun warp.
+- **Calques** : sol complet, sol, ombres, vasques, parois, flèches, profondeur, reflets des vasques (32 × 2 ticks), bulles de source (32 × 4 ticks), plus un Top vide.
+- **Canonique** :
+  - eau aux **12 couleurs exactes** de l'eau du rip ;
+  - reflets animés avec l'**animation de palette exacte du BPL** (palette 13, 5 emplacements), même enchaînement d'états que la ROM.
+- **Fidélité** (seuil 35) :
+  - brut : sable 6,5, eau 34,7, roche 2,4 ;
+  - calques : sol 10,6, vasques 15,6, parois 2,5.
+- **Contrôles** : 13 tests PASS, 19 mutations détectées, build reproductible, installeur vérifié en simulation. Pas de runtime, `art_approved: false`. Suite naturelle : la fin FGV1 sur `D56P41A`.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.
