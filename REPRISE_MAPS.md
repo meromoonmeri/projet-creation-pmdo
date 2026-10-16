@@ -285,3 +285,16 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+
+**Lot livré : Entrée Crevasse enneigée V2** (`renders/entree_crevasse_enneigee_sud_nord_v2/`, préfixe `ECE2`, aperçu `apercu_entree_crevasse_enneigee_sud_nord_v2.html`, source `source/entree_crevasse_enneigee_sud_nord_v2/`). Demande : « je veux que l'entrée crevassse enneigé soit mieux travaillé et faut que ce soit seamless tu vois ce que je veux dire ? faut des arbre sapin tout enneigé frosty forest aussi ! ».
+
+- **Mod** : ECE2 ajouté à `MAPS` du mod de la série (22 cartes), marqué à confirmer, mod non reconstruit (ZIP du lot v2 créé).
+
+- **Préfixes pris en plus** : EGV1, FGV1, ECE1, ECE2 (FCE1 réservé pour sa fin).
+
+- **D79P11A** : falaise enneigée lavande avec une crevasse-grotte au nord (**prise par ECE2**) ; asymétrie des falaises, forêts de sapins des deux côtés.
+
+- **Method** : textures canoniques = rendu référence (rip D79P11A passe au generateur) + pipeline natif : decor complet et planche de poses générées ; réduction par classe, calques 8 px ; TOUTES les couleurs ramenées aux couleurs exactes du rip (plus proche RGB). Décor seamless : pas de miroir, pas de seams, tuiles répétables.
+
+- **Fidélité** : calques finaux neige 12,9, ombres 16,8, falaises 52,3, corniches 47,3.

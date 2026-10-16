@@ -27,6 +27,21 @@
   - calques : neige 1,4, ombres 6,6, falaises 10,0, corniches 30,3.
 - **Contrôles** : 13 tests PASS, 29 mutations détectées, build reproductible, installeur vérifié en simulation. Pas de runtime, `art_approved: false`. ECE1 est ajoutée au mod de la série (à confirmer). Suite naturelle : la fin FCE1.
 
+
+## Entrée Crevasse enneigée : falaise de glace lavande asymétrique et forest frost, ECE2 (16 octobre 2026)
+
+- **Contrôles** : 13 tests PASS, 29 mutations détectées, build reproductible, installeur vérifié en simulation. Pas de runtime, `art_approved: false`. ECE2 ajoutée au mod de la série (à confirmer). Suite naturelle : la fin FCE1 toujours réservée.
+
+- **Décor** : forêts de sapins asymétriques des deux côtés (gauche : bande étroite, droite : forêt dense), style Frosty Forest, neige tout enneigé. Décor « seamless » : pas de miroir gauche/droite, pas de blocs copiés-collés, tuiles répétables proprement. Falaises de glace lavande asymétriques.
+
+- **Method** : textures canoniques = rendu référence (rip D79P11A passe au générateur) + pipeline natif : decor complet et planche de poses générées ; réduction par classe, calques 8 px ; TOUTES les couleurs ramenées aux couleurs exactes du rip (plus proche RGB).
+
+- **Method** : referenced generated render (rip D79P11A passe au generateur), même endroit, autre lieu.
+
+- **Marqueurs** : `entrance` (sud, sur le chemin d'entrée), `donjon_seuil` (sous la bouche). Aucun warp.
+
+- **Fidélité** : calques finaux neige 12,9, ombres 16,8, falaises 52,3, corniches 47,3.
+
 ## Fin Grotte aux vasques : cascade de vasques, FGV1 (16 octobre 2026)
 
 **Demande** : « Fait la zone de fin et passe enuite au prochaine map ! ». C'est la fin du biome de l'entrée EGV1 (biome neuf choisi par l'agent, **à confirmer**). Dépôt `projet-creation-pmdo`.

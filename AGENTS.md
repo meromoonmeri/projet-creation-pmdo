@@ -1314,3 +1314,21 @@ Pas de runtime. Pas dans le mod unique.
   - installeur en simulation : 10 fichiers, 8 tilesets ; page d'aperçu exécutée dans un DOM simulé (8 calques, 12 poses) ;
   - fidélité à `D79P11A` : brut neige 0,2, ombre 1,3, roche 12,4 ; calques neige 1,4, ombres 6,6, falaises 10,0, corniches 30,3 ;
   - pas de runtime, `art_approved: false`.
+
+
+## Entrée Crevasse enneigée — ECE2 (16 octobre 2026), ajouts à la recette
+
+- **Mod** : ECE2 ajouté à `MAPS` (22 cartes) avec `A_CONFIRMER = ['EJS2', 'EGV1', 'ECE1', 'ECE2']` ; mod non reconstruit ici.
+
+- **Résultats** :
+  - 13 tests PASS et 29 mutations détectées ; build reproductible ; installeur en simulation : 10 fichiers, 8 tilesets ; page d'aperçu exécutée dans un DOM simulé (8 calques, 12 poses) ; scintillements et flocons générés par notre chronologie ;
+  - fidélité à `D79P11A` : brut neige 15,9, ombre 5,1, roche 53,8 ; calques finaux neige 12,9, ombres 16,8, falaises 52,3, corniches 47,3 ;
+  - pas de runtime, `art_approved: false`.
+
+- **Décor** : forêts de sapins asymétriques des deux côtés (gauche : bande étroite, droite : forêt dense), style Frosty Forest, neige tout enneigé. Décor « seamless » : pas de miroir gauche/droite, pas de blocs copiés-collés, tuiles répétables proprement. Falaises de glace lavande asymétriques.
+
+- **Method** : textures canoniques = rendu référence (rip D79P11A passe au générateur) + pipeline natif : decor complet et planche de poses générées ; réduction par classe, calques 8 px ; TOUTES les couleurs ramenées aux couleurs exactes du rip (plus proche RGB).
+
+- **Reference** : rip ROM D79P11A, une falaise de glace lavande avec de la neige et des boules de neige. Extraite depuis pret/pmd-sky (provenance et sha256 dans references/provenance.json). Aucune branche des deux dépôts n'utilise ce code.
+
+- **Biome** : falaise de glace lavande et crevasse-grotte, biome NEUF choisi par l agent (« passe a la prochaine map », 16 octobre ; « Glace » figure dans les biomes demandes), a confirmer.
