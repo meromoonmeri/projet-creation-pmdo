@@ -1,0 +1,664 @@
+{
+  "lot": "entree_marais_brumeux_v1",
+  "prefix": "EMB1",
+  "title": "Entrée des Marais brumeux",
+  "kind": "entrance",
+  "date": "2026-10-16",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM. Eau et brume inventees depuis une reference forestiere.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/entree_marais_brumeux_v1/reference/Murky_guide.png",
+    "sha256": "2bcd59f97d88541be779e2898ba207b672447b13042d6911a7c8e0e51f2e30ee"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_marais_brumeux_v1/bruts/decor.png",
+      "sha256": "a603ef92d9f91925638615dea9a52fc4180eda92849c87cb67aa7b559ff8b135",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_marais_brumeux_v1/bruts/sol_complet.png",
+      "sha256": "1ddfd81632005dc7ad016ab9058e89842f2a4fc109ea137fdb1b7e751aa938fd",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_marais_brumeux_v1/bruts/brume_magenta.png",
+      "sha256": "d06c0d6ee931d43b5a0f31dcf9d0d10dcbedd53fb225586c62b3bf46726faf74",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Diagnostic propre a la reference Murky, defini avant generation, seuil35. Vase:45<R<155,R>G+5,B>G+3,abs(R-B)<35. Feuillage:B>R+12,G>R+8,B>G+3,G>35. Memes classifieurs rip/brut/sortie. Eau et brume inventees, aucun score de conformite officielle de leur matiere. Pas comparable aux scores volcaniques ni preuve de textures/volumes/raccords. Ces familles de couleur ne detourent pas les objets ; le filtre bleu dit feuillage peut aussi inclure de l eau/reflets.",
+  "config_sha256": "8db97e0aaa64277f70e6f9d3851cc79d6b00e2751e4fb50d27559a4c528db183",
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "reference/Murky_guide.png"
+      ],
+      "offer_options": false,
+      "prompt": "Create ONE new expansive immersive swamp entrance ground map for a Pokemon Mystery Dungeon Explorers of Sky inspired game. This is a terrain asset in a larger native PMDO map project. Use the attached genuine Murky Forest rip ONLY as a strict material, palette, pixel texture and camera-scale reference; invent a completely new wetland layout. Landscape 4:3, ideally 1200 by 896. Straight game overhead view with visible south-facing tree trunks and low earthen banks, compact crisp DS pixel clusters, no illustration brushwork, no isometric camera. FULL-FRAME environment, not a little oval clearing floating on a flat background. Six enormous gnarled swamp trees and twisted exposed roots around the sides, their layered blue slate leaves and purplish bark matching the reference, huge cropped foliage masses entering all four image edges and corners. The bottom-left tree is particularly close to camera, cut by both edges. Several patches of reeds at the banks. TWO LARGE ASYMMETRICAL DARK TEAL stagnant water basins, occupying much of the left and right sides, irregular organic muddy shores with small still-water ripple textures. Water is visibly dark desaturated blue-green, approximately RGB 30,65,70, NOT fluorescent, NOT blue ocean, no waterfall. Left basin extends farther toward the middle at mid-height; right basin reaches lower into the foreground. Between them a broad CONTINUOUS DRY MUD peninsula winds gently from bottom center toward upper center, widening into an offset muddy open space around the middle. Purple-brown earth matching reference soil, approximately RGB 76,60,79, with subtle blue-grey worn soil patches, little gravel, no tiled walkway. At bottom center keep a wide dry arrival, about one fifth of image width. At mid-height provide at least one third image width of contiguous dry traversable ground, so it feels broad and spacious, not a thin bridge. At top center the trail continues deeper BETWEEN widely spaced trunks into DRAWN forest depth, not a hole; continuous textured ground and trees beyond the playable threshold. Trees and roots do NOT cross or block the central dry path. Water never cuts the south-to-north connection. One small natural dry islet in the side water is fine. Keep clear difference between horizontal mud, low shores, tree roots, foliage, deep forest and water for later layer segmentation. NO cave mouth, NO cave entrance, NO archway or portal, NO cliff arena, NO circular symmetrical clearing. NO fog, NO mist, NO smoke baked into this terrain; we add a separate generated mist layer later. No bridge, planks, stairs, building, ruin, torch, lantern, sign, characters, Pokemon, eyes, face shapes, items, writing, UI or frame. No magenta and no empty corners. Match the provided reference's muted blue foliage and violet-brown mud, not the previous volcanic biome. Generate only the complete map terrain.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "a603ef92d9f91925638615dea9a52fc4180eda92849c87cb67aa7b559ff8b135",
+      "reference_sha256": "2bcd59f97d88541be779e2898ba207b672447b13042d6911a7c8e0e51f2e30ee",
+      "date": "2026-10-16",
+      "status": "success"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "reference/Murky_guide.png",
+        "bruts/decor.png"
+      ],
+      "offer_options": false,
+      "prompt": "Generate ONE full-frame seamless-looking continuous wet mud ground texture plate for a Pokemon Mystery Dungeon Explorers of Sky swamp map, landscape 4:3 ideally 1200x896. Terrain ASSET in larger PMDO project, not an illustration. First reference is genuine Murky Forest rip for palette and pixel material; second reference is the new swamp map whose dry soil texture you must match. ONLY flat horizontal purple-brown mud approximately RGB76,60,79 with scattered muted blue-grey silt speckles, sparse tiny pebbles and natural subtle variation. Compact crisp DS pixel clusters, uniformly overhead, consistent native scale throughout. Soil continues to all four edges and all four corners. Absolutely NO trees, roots, leaves, shrubs, reeds, grass, water, banks, paths, clearings, elevation, holes, fog, characters, symbols, text, border or magenta. Not a new map composition, simply the complete dry ground support texture beneath separated layers. Do not draw a central object or gradient spotlight. Match the provided map's mud, not brown desert sand.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "1ddfd81632005dc7ad016ab9058e89842f2a4fc109ea137fdb1b7e751aa938fd",
+      "reference_sha256": "2bcd59f97d88541be779e2898ba207b672447b13042d6911a7c8e0e51f2e30ee",
+      "date": "2026-10-16",
+      "status": "success"
+    },
+    {
+      "file": "bruts/brume_magenta.png",
+      "images": [
+        "reference/Murky_guide.png",
+        "bruts/decor.png"
+      ],
+      "offer_options": false,
+      "prompt": "Create ONE cohesive low horizontal wisp of SWAMP GROUND MIST as a game overlay sprite, isolated on perfectly flat pure magenta RGB255,0,255. This is ONE terrain effects asset for a larger PMDO swamp map project, not a sprite sheet. Use attached Murky Forest game rip and new swamp map for muted blue slate / blue-green atmosphere and compact DS pixel-cluster style. A gently curved, long narrow mist ribbon with a few connected curls and tapering irregular edges, softly stippled and broken in places with small magenta openings. No outline around mist. Mist uses only subdued grey-teal and blue-grey shades, approximately RGB65,100,108 through RGB110,137,143, NOT bright white. Pixel art stippled edges, NOT a photorealistic smoke cloud, NOT blurred gradients. Entire mist silhouette visible with substantial magenta margin on every side, especially at both ends; width roughly three times height. No ground or landscape, no trees, no fire, no particles, no text, frames, symbols, characters or objects. ONE flowing ribbon, not multiple alternatives or animation frames, not a grid. Magenta background completely untextured. This will be keyed, reduced, sparsified and clipped over water only so the traversable ground stays visible.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "d06c0d6ee931d43b5a0f31dcf9d0d10dcbedd53fb225586c62b3bf46726faf74",
+      "reference_sha256": "2bcd59f97d88541be779e2898ba207b672447b13042d6911a7c8e0e51f2e30ee",
+      "date": "2026-10-16",
+      "status": "success"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        520,
+        185
+      ],
+      [
+        650,
+        185
+      ],
+      [
+        690,
+        230
+      ],
+      [
+        750,
+        270
+      ],
+      [
+        780,
+        320
+      ],
+      [
+        780,
+        390
+      ],
+      [
+        745,
+        435
+      ],
+      [
+        680,
+        465
+      ],
+      [
+        625,
+        510
+      ],
+      [
+        620,
+        560
+      ],
+      [
+        630,
+        605
+      ],
+      [
+        690,
+        645
+      ],
+      [
+        760,
+        670
+      ],
+      [
+        785,
+        720
+      ],
+      [
+        785,
+        755
+      ],
+      [
+        735,
+        795
+      ],
+      [
+        690,
+        835
+      ],
+      [
+        695,
+        895
+      ],
+      [
+        535,
+        895
+      ],
+      [
+        540,
+        850
+      ],
+      [
+        500,
+        805
+      ],
+      [
+        440,
+        790
+      ],
+      [
+        380,
+        780
+      ],
+      [
+        410,
+        755
+      ],
+      [
+        460,
+        710
+      ],
+      [
+        490,
+        680
+      ],
+      [
+        485,
+        630
+      ],
+      [
+        450,
+        595
+      ],
+      [
+        405,
+        565
+      ],
+      [
+        380,
+        535
+      ],
+      [
+        375,
+        480
+      ],
+      [
+        380,
+        435
+      ],
+      [
+        415,
+        390
+      ],
+      [
+        460,
+        350
+      ],
+      [
+        480,
+        310
+      ],
+      [
+        450,
+        285
+      ],
+      [
+        410,
+        280
+      ],
+      [
+        430,
+        245
+      ],
+      [
+        480,
+        215
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 69 dans le sol existant",
+    "berges": "bande de 12 px bruts autour du sol, bloquante",
+    "details": "vase, ombres, berges, racines, feuillage, profondeur, eau ; zones d edition pas detourage parfait",
+    "water_mask_raw": "zones explicites, composantes aux deux graines dans teintes teal, petits trous <1000px inclus, ilot preserve",
+    "depth_mode": "drawn",
+    "depth_polygon_raw": [
+      [
+        450,
+        0
+      ],
+      [
+        750,
+        0
+      ],
+      [
+        760,
+        120
+      ],
+      [
+        720,
+        185
+      ],
+      [
+        480,
+        185
+      ],
+      [
+        450,
+        110
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "vase": {
+        "distance": 11.42,
+        "rgb_lot": [
+          83.37,
+          64.81,
+          85.87
+        ],
+        "rgb_rip": [
+          76.04,
+          59.52,
+          78.88
+        ],
+        "pixels_lot": 297621,
+        "pixels_rip": 20901
+      },
+      "feuillage": {
+        "distance": 15.71,
+        "rgb_lot": [
+          45.93,
+          78.91,
+          98.78
+        ],
+        "rgb_rip": [
+          58.86,
+          82.86,
+          106.77
+        ],
+        "pixels_lot": 607848,
+        "pixels_rip": 22737
+      }
+    },
+    "sortie": {
+      "vase": {
+        "distance": 8.09,
+        "rgb_lot": [
+          82.09,
+          62.76,
+          83.16
+        ],
+        "rgb_rip": [
+          76.04,
+          59.52,
+          78.88
+        ],
+        "pixels_lot": 123295,
+        "pixels_rip": 20901
+      },
+      "feuillage": {
+        "distance": 16.54,
+        "rgb_lot": [
+          46.33,
+          78.12,
+          97.07
+        ],
+        "rgb_rip": [
+          58.86,
+          82.86,
+          106.77
+        ],
+        "pixels_lot": 262514,
+        "pixels_rip": 22737
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/EMB1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "vase",
+      "file": "calques/EMB1_01_vase.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/EMB1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "berges",
+      "file": "calques/EMB1_03_berges.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "racines",
+      "file": "calques/EMB1_04_racines.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "feuillage",
+      "file": "calques/EMB1_05_feuillage.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/EMB1_06_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "eau",
+      "file": "animation/EMB1_07_eau_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "brume",
+      "file": "animation/EMB1_08_brume_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "fog": {
+    "source": "bruts/brume_magenta.png",
+    "sha256": "d06c0d6ee931d43b5a0f31dcf9d0d10dcbedd53fb225586c62b3bf46726faf74",
+    "crop_raw": [
+      71,
+      318,
+      1131,
+      578
+    ],
+    "placements": [
+      [
+        175,
+        274,
+        190,
+        false
+      ],
+      [
+        616,
+        277,
+        210,
+        true
+      ],
+      [
+        265,
+        430,
+        150,
+        true
+      ],
+      [
+        623,
+        451,
+        175,
+        false
+      ]
+    ],
+    "colors": [
+      [
+        64,
+        91,
+        103
+      ],
+      [
+        66,
+        95,
+        106
+      ],
+      [
+        69,
+        98,
+        110
+      ],
+      [
+        71,
+        96,
+        110
+      ],
+      [
+        73,
+        103,
+        113
+      ],
+      [
+        81,
+        88,
+        116
+      ],
+      [
+        86,
+        113,
+        123
+      ],
+      [
+        88,
+        117,
+        126
+      ],
+      [
+        91,
+        118,
+        127
+      ],
+      [
+        91,
+        119,
+        127
+      ],
+      [
+        91,
+        121,
+        129
+      ],
+      [
+        93,
+        119,
+        129
+      ],
+      [
+        93,
+        122,
+        130
+      ],
+      [
+        96,
+        123,
+        131
+      ],
+      [
+        101,
+        113,
+        133
+      ],
+      [
+        106,
+        124,
+        139
+      ],
+      [
+        106,
+        134,
+        141
+      ],
+      [
+        111,
+        137,
+        146
+      ],
+      [
+        111,
+        139,
+        146
+      ],
+      [
+        113,
+        138,
+        147
+      ],
+      [
+        113,
+        140,
+        146
+      ],
+      [
+        113,
+        140,
+        149
+      ],
+      [
+        114,
+        139,
+        147
+      ],
+      [
+        114,
+        140,
+        147
+      ],
+      [
+        115,
+        141,
+        148
+      ],
+      [
+        116,
+        142,
+        149
+      ],
+      [
+        117,
+        138,
+        150
+      ],
+      [
+        118,
+        143,
+        150
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "Sprite genere sur magenta, clef puis reduction ponderee et palette32 ; trame alpha (x+2*y)%4==0 ; quatre placements. dx=round(6*sin(theta)),dy=round(2*(cos(theta)-1)), theta=2*pi*(t%24)/24 ; clip eau, sans wrap.",
+    "origin": "texture nouvellement generee, mouvement calcule et trame alpha binaire ; ni sprite ROM ni transparence moteur"
+  },
+  "water_animation": {
+    "law": "Recette ETV1 lava_frame reutilisee sans modification de helper, appliquee aux pixels EAU du nouveau decor ; theta=2*pi*(t%24)/24 ; dx=rint(2*(sin(theta+y/19)-sin(y/19))) ; dy=rint(2*(cos(theta+x/23)-cos(x/23))) ; plus proche pixel eau ; erosion3 seule change, phase0identite.",
+    "origin": "ondulation des pixels EAU du nouveau decor par helper ETV1 inchange ; ni recoloration ni BPL officiel",
+    "border_fixed_px": 3,
+    "phases": 24,
+    "ticks": 5
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        384,
+        120
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1044,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference Murky_guide",
+    "effects": "brume generee transformee, eau generee deplacee",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "entree_marais_brumeux_v1",
+    "asset": "emb1_entree_marais_brumeux",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "EMB1_00_SOL_COMPLET": 6157,
+      "EMB1_01_VASE": 1230,
+      "EMB1_02_OMBRES": 269,
+      "EMB1_03_BERGES": 271,
+      "EMB1_04_RACINES": 1856,
+      "EMB1_05_FEUILLAGE": 3601,
+      "EMB1_06_PROFONDEUR": 367,
+      "EMB1_07_EAU": 16204,
+      "EMB1_08_BRUME": 5919
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

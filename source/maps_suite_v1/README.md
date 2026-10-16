@@ -39,3 +39,5 @@ ECM1 : build dédié `source/entree_coniferes_moussus_v1/`, conifères inventés
 ETV1 : build dédié `source/entree_terres_volcaniques_v1/`, biome volcanique choisi explicitement. Huit calques + Top ; lave du nouveau décor déplacée cycliquement sans recoloration, rives fixes, braises indépendantes (24×5ticks chacune). Nouveau diagnostic cendre/lave, seuil35, pas le BPL officiel. 17tests/54reconstructions, aucune approbation artistique/moteur.
 
 SVJ2 : `source/suite_jaillissements_v2/`, quatre nouvelles configurations et nouveau sprite de magma hors cadre ; recette ETV1 et préparation AGM3 chargées sans les modifier. Corps/gerbes/gouttes séparés, cinq pistes24×5ticks, projet4Ground/43banques. 47tests et503reconstructions, reproductibilité surVJ21seulement ; moteur/art non approuvés.
+
+EMB1 : `source/entree_marais_brumeux_v1/`, marais choisi après volcans ; nouveau décor/support/brume générés avec rip Murky fourni. Eau par loi ETV1 inchangée, brume générée tramée/clippée sur eau, pistes séparées24×5ticks,9banques+Top.19tests/55reconstructions/repro94éléments0diff ; artistique/moteur non approuvés.

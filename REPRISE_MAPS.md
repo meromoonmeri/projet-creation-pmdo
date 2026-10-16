@@ -506,3 +506,38 @@ n'est déduite du passage à la suite. Les PNG, ZIP et HTML se régénèrent via
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false` ; ni chargeur, éditeur,
   caméra/échelle, rendu ou déplacements PMDO testés. Avis artistique en attente, une demande
   de suite ne l'accorde pas. Ne pas créer un warp/une aventure ou choisir un boss sans demande.
+
+## Nouveau biome choisi le16octobre2026 — Marais brumeux EMB1
+
+- Après « passe au prochain biome », choix utilisateur **marais**. Première grande entrée
+  indépendante livrée : `source/entree_marais_brumeux_v1/`,EMB1 ; pas d'approbation artistique
+  implicite de SVJ2/anciens lots. Anciens volcans conservés, aucune fusion de branche.
+- Dix branches distantes consultées, arbres non tronqués ; audit des noms, anciens Murky
+  déjà présents, pas preuve d'inédit absolu. Nouveau namespace/asset propres à ce lot.
+- Référence feuille Murky Forest &Armaldo House au blobb6a7b2c…/commit54d3731 de projet-pmdo,
+  SHA72d17b72… vérifiée, crop[0,0,400,312] pixel-identique au murky.png historique. Feuille
+  complète/crédits Haalfpack/Noctowl2000 conservés, pas nouvelle extraction ROM/cadence inférée.
+- Trois nouveaux bruts1200×896 générés avec rip réel en images= : décor, sol, brume sur magenta,
+  premier succès chacun. Prompts/hashes/dimensions. Marais inventé depuis référence forestière,
+  eau/brume non officielles ; ni ancienne forêt recolorée ni collage de bouts de maps.
+- 768×576/grille8/96×72/TexSize1, neuf calques+Top vide : support/vase/ombres/berges/racines/
+  feuillage/profondeur dessinée/eau/brume. BOX pondéré uniforme/crop3px, palettes96/32,
+  alpha binaire. Vase violette ≠ clef magenta saturée (R,B>170,G<100). Masques fonctionnels,
+  pas détourage parfait ; îlot préservé, eau par zones/graines et petits trous<1000px seulement.
+- Eau : loi d'ondulation ETV1 réutilisée inchangée sur nouveaux pixels d'eau, rives fixes3px,
+  phase0 identité ; aucune lave reprise. Brume : nouveau sprite réduit, tramé25%, quatre
+  placements/deux miroirs, oscillation ±6px/0..−4px, clip eau, pas opacité moteur. Deux pistes
+  indépendantes24×5ticks/boucle2s ; passage toujours visible. Arrivée[384,560],seuil[384,120],
+  accès16px, aucun warp/destination/objet/PNJ/boss instancié. Pas aventure raccordée.
+- **19tests PASS**,7mutations, **55reconstructions depuis9banques**, installateur fusion,
+  sauvegarde/idempotence/protection et deux lois testés. **Repro94éléments0diff**, deux builds
+  complets ; hors ZIP/HTML/rapports. **Régression ETV1 :17PASS**. Helpers/assets anciens inchangés.
+- Diagnostic couleur défini avant génération/seuil35 : brut11,42/15,71,sortie8,09/16,54.
+  Familles de couleur, filtre bleu pouvant aussi compter eau, pas détourage/score officiel
+  d'eau ni certification textures/volumes/raccords ; non comparable aux diagnostics volcaniques.
+- Projet2,20Mo/15membres,PNG-ORA6,44Mo/78,HTML3,42Mo ; CRC/caches/doublons/racines contrôlés,
+  syntaxeJS/données testées. Scène/collisions/sprite inspectés, serveur0.0.0.0:8012 et HTTP200
+  pour page/ZIP/PNG/WebP ; pas de test automatisé des interactions navigateur.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Ni vrai chargeur,
+  éditeur, caméra/échelle, rendu ou déplacements PMDO testés. Brume stylisée/tramée, eau sobre :
+  avis visuel attendu puis vrai PMDO avant certification ; suite assortie seulement si demandée.

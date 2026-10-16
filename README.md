@@ -14,6 +14,16 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouveau biome — Marais brumeux EMB1
+
+Après les volcans, choix utilisateur **marais** : [première entrée EMB1](source/entree_marais_brumeux_v1/README.md),
+grands arbres bleutés, racines, deux bassins et passage sec sud→nord. Nouveau décor généré avec
+rip Murky Forest réellement fourni ; **eau et brume animées séparément**, pas une forêt recolorée.
+768×576/grille8px, neuf calques+Top vide, aucun warp/boss instancié.
+**19tests PASS,55reconstructions exactes,94fichiers/membresORA reproductibles**.
+[Statut et limites](source/entree_marais_brumeux_v1/STATUS.md) · [décor source](source/entree_marais_brumeux_v1/bruts/decor.png).
+Pixels générés, formats natifs seulement ; avis artistique et vrai moteur en attente.
+
 ## Les Fournaises — 4 nouvelles cartes et jets de magma SVJ2
 
 [SVJ2](source/suite_jaillissements_v2/README.md) livre **Chenal des Fournaises, Défilé des Scories,

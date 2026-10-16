@@ -15,6 +15,7 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | Sous-projet | Méthode | État |
 |---|---|---|
+| [`source/entree_marais_brumeux_v1/`](source/entree_marais_brumeux_v1/STATUS.md) | build · test · verify · package · provenance · viewer · reproductibilité | EMB1, nouveau biome choisi marais ; eau/brume indépendantes,19PASS/55reconstructions ; avis artistique/moteur en attente |
 | [`source/suite_jaillissements_v2/`](source/suite_jaillissements_v2/STATUS.md) | build · columns · test · verify · package · viewer · provenance · reproductibilité | SVJ2, quatre maps et16jets générés hors cadre ;47PASS/503reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_terres_volcaniques_v1/`](source/entree_terres_volcaniques_v1/STATUS.md) | build · test · verify · package · bruts · provenance · extract_reference · viewer · reproductibilité | ETV1, choix volcanique, cendre/basalte et lave générée animée ; 17 tests PASS, 54 reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_coniferes_moussus_v1/`](source/entree_coniferes_moussus_v1/STATUS.md) | build · test · verify · package · bruts · provenance · viewer · reproductibilité | ECM1, conifères inventés depuis une référence de feuillus ; 14 tests PASS, 32 reconstructions ; avis artistique/moteur en attente |
