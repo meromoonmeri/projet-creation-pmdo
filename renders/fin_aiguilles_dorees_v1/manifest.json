@@ -1,0 +1,611 @@
+{
+  "lot": "fin_aiguilles_dorees_v1",
+  "prefix": "FAD1",
+  "title": "Fin des Aiguilles dorées",
+  "kind": "end",
+  "date": "2026-10-16",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/fin_aiguilles_dorees_v1/reference/D14P12A.png",
+    "sha256": "3e6e220b5b259a7684e2ca5c2cc244966d51b150964b0d9f62865b754774b8af"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_aiguilles_dorees_v1/bruts/decor.png",
+      "sha256": "bc7125f11a3ec4b2cdd61919f491651f304616d2778f3d20b7eb50413162f80d",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_aiguilles_dorees_v1/bruts/sol_complet.png",
+      "sha256": "42db68317cc5fb91a018743ca30fbc1ed57bf4df81066538d3d9a2cbd1fa00f1",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "config_sha256": "401c5457b0dea7bf6d17b9905afad1e8da746cb28d6180f8fe40876e1a603686",
+  "generation": [
+    {
+      "file": "bruts/essais/decor_marges_sombres.png",
+      "images": [
+        "reference/D14P12A.png",
+        "../entree_aiguilles_dorees_v2/bruts/decor.png"
+      ],
+      "prompt": "Create ONE new FULL FRAME Pokemon Mystery Dungeon Explorers of Sky ground-map composition: the END chamber of the Golden Needles cavern. Use the FIRST ROM D14P12A image as the canonical material and colour reference: warm pale ochre sand with tiny grain, layered dark olive-brown limestone stalagmites and dense hanging stalactites, native DS pixel scale and crisp edges. The second image is our large immersive ENTRANCE: match its material and sense of huge geological volume, but create a DIFFERENT layout for the FINAL chamber. WIDE LANDSCAPE 4:3, ideally 1200 x 896, PMD elevated top-down camera, zoomed out, not a side view. A vast open continuous sandy floor fills most of the centre and the broad south-centre foreground. At the NORTH a solid irregular natural wall of gigantic layered limestone masses and jagged stalagmites CLOSES the chamber; there is NO doorway, NO black tunnel opening and NO exit there. The tallest wall and hanging stalactites are cropped by the upper edge. On the LEFT, a deep uneven rocky shoulder with tall needles continuing off the left edge; on the RIGHT, a thinner jagged rock shelf with smaller needle clusters continuing off the right edge. Keep the central floor broadly clear for movement, with only tiny sparse grain marks. Two rock clusters only at the far side rims, never in the central path. A broad sandy approach enters only from SOUTH centre; the bottom side corners are rocky slopes cut off by the frame. The viewer is INSIDE a huge subterranean place: no visible full outer silhouette, no flat blank exterior margin, no tiny round diorama, no ring drawn around the floor. Match the reference's warm ochre floor, not green-yellow, not orange or red. Natural rocks only: no stairs, no platform, no altar, no seal, no artificial structure, no symbols, no light beams, no glowing orbs, no water, no characters, text or UI. Do not paint magical sparkles. No magenta is needed because all surfaces are solid. Single complete map.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "attempts": 1,
+      "scope": "nouveau layout de fin, coherence de matiere avec EAD2, aucune approbation artistique supposee",
+      "stage": "premier essai conserve, rejete par le controle de marges",
+      "rejection": "Coin haut-gauche trop uniforme : ecart-type 6,64 sur la fenetre de controle native, minimum requis >10.",
+      "secondary_reference_sha256": "4547627775ffa115dc4133a1a2000a18713f84844d5332d115c0ac888d3a481e"
+    },
+    {
+      "file": "bruts/decor.png",
+      "stage": "correction finale des marges",
+      "images": [
+        "bruts/essais/decor_marges_sombres.png",
+        "reference/D14P12A.png"
+      ],
+      "prompt": "Edit this supplied PMD pixel-art cavern map with a localized full-frame correction. Its UPPER LEFT CORNER contains an unwanted uniform black wedge and some exterior side margins look empty. Replace that ENTIRE empty upper-left wedge, and any plain exterior corner margin, with coherent large layered olive-brown limestone rock masses and stalactites continuing OFF THE FRAME. At the exact upper-left corner of the rectangle there must be textured shaded ROCK, not empty black. The rock's layered highlights and dark bands must remain visible, matching the second ROM reference. Likewise continue the lower corner rocky slopes outside the frame, not as an island against black. Keep ALL the existing large central sandy floor, its colour and grain, the north solid natural wall, its centre stalagmite group, the two side boulder clusters and south-centre arrival UNCHANGED. No change of camera or scale. Preserve the 1200 by 896 landscape framing and native DS pixel-art style. We are inside an immense cavern, not seeing its outside silhouette. No black cave opening, no exit at the north, no stairs, no dais, no altar, no seal, no symbols, no characters, no UI. One same map with filled rocky corner margins, no panorama.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "input_sha256": "741eff407d71f34214acaa8fddca284b354d0c3ff378948e7d3653f6e599da7d"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "../entree_aiguilles_dorees_v2/bruts/sol_complet.png"
+      ],
+      "method": "copie byte-identique du support genere de EAD2, meme biome ; aucune nouvelle generation de sol",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "note": "Support sous les masses uniquement ; sol visible issu du nouveau decor FAD1. Aucun recalage entre les deux layouts n'est revendique.",
+      "source_sha256": "42db68317cc5fb91a018743ca30fbc1ed57bf4df81066538d3d9a2cbd1fa00f1"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        490,
+        895
+      ],
+      [
+        444,
+        840
+      ],
+      [
+        409,
+        809
+      ],
+      [
+        339,
+        805
+      ],
+      [
+        274,
+        762
+      ],
+      [
+        238,
+        720
+      ],
+      [
+        182,
+        687
+      ],
+      [
+        176,
+        645
+      ],
+      [
+        228,
+        617
+      ],
+      [
+        235,
+        558
+      ],
+      [
+        232,
+        503
+      ],
+      [
+        261,
+        483
+      ],
+      [
+        310,
+        477
+      ],
+      [
+        351,
+        440
+      ],
+      [
+        380,
+        399
+      ],
+      [
+        394,
+        371
+      ],
+      [
+        411,
+        348
+      ],
+      [
+        464,
+        330
+      ],
+      [
+        482,
+        342
+      ],
+      [
+        516,
+        348
+      ],
+      [
+        559,
+        350
+      ],
+      [
+        604,
+        348
+      ],
+      [
+        649,
+        352
+      ],
+      [
+        700,
+        350
+      ],
+      [
+        732,
+        338
+      ],
+      [
+        770,
+        338
+      ],
+      [
+        802,
+        351
+      ],
+      [
+        825,
+        390
+      ],
+      [
+        832,
+        434
+      ],
+      [
+        838,
+        472
+      ],
+      [
+        878,
+        493
+      ],
+      [
+        947,
+        488
+      ],
+      [
+        997,
+        440
+      ],
+      [
+        1012,
+        392
+      ],
+      [
+        1050,
+        386
+      ],
+      [
+        1073,
+        416
+      ],
+      [
+        1060,
+        459
+      ],
+      [
+        1067,
+        504
+      ],
+      [
+        1082,
+        534
+      ],
+      [
+        1133,
+        554
+      ],
+      [
+        1117,
+        598
+      ],
+      [
+        1070,
+        646
+      ],
+      [
+        1026,
+        675
+      ],
+      [
+        1007,
+        716
+      ],
+      [
+        966,
+        749
+      ],
+      [
+        907,
+        778
+      ],
+      [
+        852,
+        812
+      ],
+      [
+        796,
+        827
+      ],
+      [
+        739,
+        856
+      ],
+      [
+        713,
+        895
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 155 dans le sol existant",
+    "talus": "bande de 24 px autour du sol, bloquante",
+    "details": "racines et aiguilles conservees avec les parois",
+    "depth_mode": "none",
+    "depth_polygon_raw": null
+  },
+  "fidelity": {
+    "brut": {
+      "sol": {
+        "distance": 15.4,
+        "rgb_lot": [
+          206.36,
+          187.53,
+          102.42
+        ],
+        "rgb_rip": [
+          197.12,
+          175.48,
+          99.82
+        ],
+        "pixels_lot": 439031,
+        "pixels_rip": 112758
+      },
+      "roche": {
+        "distance": 7.19,
+        "rgb_lot": [
+          87.13,
+          76.43,
+          48.71
+        ],
+        "rgb_rip": [
+          92.33,
+          79.76,
+          52.39
+        ],
+        "pixels_lot": 520227,
+        "pixels_rip": 113628
+      }
+    },
+    "sortie": {
+      "sol": {
+        "distance": 13.69,
+        "rgb_lot": [
+          205.36,
+          186.28,
+          101.55
+        ],
+        "rgb_rip": [
+          197.12,
+          175.48,
+          99.82
+        ],
+        "pixels_lot": 181023,
+        "pixels_rip": 112758
+      },
+      "roche": {
+        "distance": 13.04,
+        "rgb_lot": [
+          82.81,
+          72.88,
+          46.73
+        ],
+        "rgb_rip": [
+          92.33,
+          79.76,
+          52.39
+        ],
+        "pixels_lot": 214478,
+        "pixels_rip": 113628
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/FAD1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "sol",
+      "file": "calques/FAD1_01_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/FAD1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "talus",
+      "file": "calques/FAD1_03_talus.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "parois",
+      "file": "calques/FAD1_04_parois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "poussiere",
+      "file": "animation/FAD1_05_poussiere_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "emitters": [
+      [
+        319,
+        280,
+        0
+      ],
+      [
+        651,
+        392,
+        1
+      ],
+      [
+        540,
+        356,
+        2
+      ],
+      [
+        459,
+        488,
+        3
+      ],
+      [
+        399,
+        445,
+        4
+      ],
+      [
+        355,
+        293,
+        5
+      ],
+      [
+        650,
+        352,
+        6
+      ],
+      [
+        583,
+        446,
+        7
+      ],
+      [
+        364,
+        428,
+        8
+      ],
+      [
+        464,
+        313,
+        9
+      ],
+      [
+        565,
+        469,
+        10
+      ],
+      [
+        519,
+        331,
+        11
+      ],
+      [
+        270,
+        488,
+        12
+      ],
+      [
+        555,
+        431,
+        13
+      ],
+      [
+        264,
+        438,
+        14
+      ],
+      [
+        452,
+        511,
+        15
+      ],
+      [
+        229,
+        417,
+        16
+      ],
+      [
+        377,
+        261,
+        17
+      ],
+      [
+        533,
+        416,
+        18
+      ],
+      [
+        393,
+        451,
+        19
+      ],
+      [
+        570,
+        456,
+        20
+      ],
+      [
+        342,
+        395,
+        21
+      ],
+      [
+        446,
+        537,
+        22
+      ],
+      [
+        462,
+        404,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        151,
+        127,
+        63
+      ],
+      [
+        175,
+        159,
+        79
+      ],
+      [
+        207,
+        183,
+        95
+      ],
+      [
+        231,
+        223,
+        167
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(2 sin(2 pi k/18)) ; y=y0+k-9",
+    "origin": "calculee, couleurs exactes du rip ; pas une animation officielle"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        408,
+        360
+      ],
+      "objectif": [
+        384,
+        224
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 2145,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D14P12A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "fin_aiguilles_dorees",
+    "asset": "fad1_fin_aiguilles_dorees",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "FAD1_00_SOL_COMPLET": 6913,
+      "FAD1_01_SOL": 2376,
+      "FAD1_02_OMBRES": 118,
+      "FAD1_03_TALUS": 555,
+      "FAD1_04_PAROIS": 4297,
+      "FAD1_05_POUSSIERE": 174
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

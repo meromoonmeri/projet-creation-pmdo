@@ -1,0 +1,48 @@
+[
+  {
+    "file": "bruts/essais/decor_marges_sombres.png",
+    "images": [
+      "reference/D14P12A.png",
+      "../entree_aiguilles_dorees_v2/bruts/decor.png"
+    ],
+    "prompt": "Create ONE new FULL FRAME Pokemon Mystery Dungeon Explorers of Sky ground-map composition: the END chamber of the Golden Needles cavern. Use the FIRST ROM D14P12A image as the canonical material and colour reference: warm pale ochre sand with tiny grain, layered dark olive-brown limestone stalagmites and dense hanging stalactites, native DS pixel scale and crisp edges. The second image is our large immersive ENTRANCE: match its material and sense of huge geological volume, but create a DIFFERENT layout for the FINAL chamber. WIDE LANDSCAPE 4:3, ideally 1200 x 896, PMD elevated top-down camera, zoomed out, not a side view. A vast open continuous sandy floor fills most of the centre and the broad south-centre foreground. At the NORTH a solid irregular natural wall of gigantic layered limestone masses and jagged stalagmites CLOSES the chamber; there is NO doorway, NO black tunnel opening and NO exit there. The tallest wall and hanging stalactites are cropped by the upper edge. On the LEFT, a deep uneven rocky shoulder with tall needles continuing off the left edge; on the RIGHT, a thinner jagged rock shelf with smaller needle clusters continuing off the right edge. Keep the central floor broadly clear for movement, with only tiny sparse grain marks. Two rock clusters only at the far side rims, never in the central path. A broad sandy approach enters only from SOUTH centre; the bottom side corners are rocky slopes cut off by the frame. The viewer is INSIDE a huge subterranean place: no visible full outer silhouette, no flat blank exterior margin, no tiny round diorama, no ring drawn around the floor. Match the reference's warm ochre floor, not green-yellow, not orange or red. Natural rocks only: no stairs, no platform, no altar, no seal, no artificial structure, no symbols, no light beams, no glowing orbs, no water, no characters, text or UI. Do not paint magical sparkles. No magenta is needed because all surfaces are solid. Single complete map.",
+    "actual_size": [
+      1200,
+      896
+    ],
+    "attempts": 1,
+    "scope": "nouveau layout de fin, coherence de matiere avec EAD2, aucune approbation artistique supposee",
+    "stage": "premier essai conserve, rejete par le controle de marges",
+    "rejection": "Coin haut-gauche trop uniforme : ecart-type 6,64 sur la fenetre de controle native, minimum requis >10.",
+    "secondary_reference_sha256": "4547627775ffa115dc4133a1a2000a18713f84844d5332d115c0ac888d3a481e",
+    "secondary_reference_commit": "91e715e44c49b3f63b7857843eb48a08afe6f0b4"
+  },
+  {
+    "file": "bruts/decor.png",
+    "stage": "correction finale des marges",
+    "images": [
+      "bruts/essais/decor_marges_sombres.png",
+      "reference/D14P12A.png"
+    ],
+    "prompt": "Edit this supplied PMD pixel-art cavern map with a localized full-frame correction. Its UPPER LEFT CORNER contains an unwanted uniform black wedge and some exterior side margins look empty. Replace that ENTIRE empty upper-left wedge, and any plain exterior corner margin, with coherent large layered olive-brown limestone rock masses and stalactites continuing OFF THE FRAME. At the exact upper-left corner of the rectangle there must be textured shaded ROCK, not empty black. The rock's layered highlights and dark bands must remain visible, matching the second ROM reference. Likewise continue the lower corner rocky slopes outside the frame, not as an island against black. Keep ALL the existing large central sandy floor, its colour and grain, the north solid natural wall, its centre stalagmite group, the two side boulder clusters and south-centre arrival UNCHANGED. No change of camera or scale. Preserve the 1200 by 896 landscape framing and native DS pixel-art style. We are inside an immense cavern, not seeing its outside silhouette. No black cave opening, no exit at the north, no stairs, no dais, no altar, no seal, no symbols, no characters, no UI. One same map with filled rocky corner margins, no panorama.",
+    "actual_size": [
+      1200,
+      896
+    ],
+    "input_sha256": "741eff407d71f34214acaa8fddca284b354d0c3ff378948e7d3653f6e599da7d"
+  },
+  {
+    "file": "bruts/sol_complet.png",
+    "images": [
+      "../entree_aiguilles_dorees_v2/bruts/sol_complet.png"
+    ],
+    "method": "copie byte-identique du support genere de EAD2, meme biome ; aucune nouvelle generation de sol",
+    "actual_size": [
+      1200,
+      896
+    ],
+    "note": "Support sous les masses uniquement ; sol visible issu du nouveau decor FAD1. Aucun recalage entre les deux layouts n'est revendique.",
+    "source_sha256": "42db68317cc5fb91a018743ca30fbc1ed57bf4df81066538d3d9a2cbd1fa00f1",
+    "source_commit": "91e715e44c49b3f63b7857843eb48a08afe6f0b4"
+  }
+]

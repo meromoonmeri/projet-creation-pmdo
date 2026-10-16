@@ -13,7 +13,7 @@ Deux routes de profondeur :
 - `depth_mode: drawn` : profondeur déjà dessinée par le générateur, isolée par contour mesuré,
   quantifiée séparément sans remplacement par un aplat ; c'est la correction immersive EAD2.
 - Sinon, pour une entrée : clef magenta puis remplissage par une couleur du rip (prototype EAD1).
-- Une fin sèche n'a pas de calque de profondeur, pas de sortie ni warp (FDR1).
+- Une fin sèche n'a pas de calque de profondeur, pas de sortie ni warp (FDR1, FAD1).
 
 Les pixels restent générés ; seuls les formats et la grille sont natifs. Effets de poussière
 recalculés aux couleurs du rip, pas animations officielles. Aucune approbation artistique ni
@@ -23,3 +23,5 @@ pas des relayouts de tuiles natives.
 Lot terminé techniquement : **EAD2**, 8 tests dédiés et 30 images reconstruites par un lecteur
 indépendant ; contrôle en jeu et avis artistique en attente. EAD1 est rejeté artistiquement.
 FDR1 est maintenant finalisé techniquement : 13 tests dédiés dont cinq mutations, 29 images reconstruites, ZIP projet et calques/ORA. Avis artistique et test en jeu en attente.
+
+FAD1 : fin des Aiguilles dorées assortie à EAD2, matériau `gold`, `kind: end`, six calques + Top, poussière tombante 24×5 ticks. 13 tests dédiés et 29 reconstructions ; aucun changement du pipeline commun. Avis artistique et moteur en attente.

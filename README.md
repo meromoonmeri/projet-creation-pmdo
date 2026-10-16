@@ -14,6 +14,16 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouvelle fin — Aiguilles dorées FAD1
+
+La **[fin des Aiguilles dorées](source/fin_aiguilles_dorees_v1/README_PACK.md)** accompagne EAD2 :
+vaste chambre souterraine plein cadre, paroi nord fermée, sable ocre et aiguilles, sans porte,
+structure ni sortie ajoutée. Référence D14P12A, 768×576, six calques + Top, poussière indépendante.
+**13 tests PASS**, 29 images reconstruites, deux builds identiques ; ZIP PMDO et calques/ORA prêts.
+[Décor généré conservé](source/fin_aiguilles_dorees_v1/bruts/decor.png),
+[état détaillé](source/fin_aiguilles_dorees_v1/STATUS.md). **Avis artistique et moteur en attente**.
+Les sources et bruts sont versionnés ; les packs et l'aperçu se régénèrent avec build puis package.
+
 ## Correction en cours de validation — grotte immersive EAD2
 
 La [V2 des Aiguilles dorées](source/entree_aiguilles_dorees_v2/README_PACK.md) répond au retour

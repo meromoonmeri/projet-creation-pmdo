@@ -277,3 +277,29 @@ Aperçu `renders/fin_defile_roches_grises_v1/index.html`, serveur de session sur
 
 Prochaine étape : retour visuel et contrôle dans le vrai PMDO. Aucune approbation d'EAD2 ou FDR1
 n'est déduite du passage à la suite. Les PNG, ZIP et HTML se régénèrent via build puis package.
+
+## Suite du 16 octobre 2026 — FAD1, fin des Aiguilles dorées
+
+- Après « contonu », nouvelle fin assortie à EAD2 : immense chambre souterraine plein cadre,
+  paroi nord fermée, sable ocre et aiguilles ; pas de petite porte, structure, sortie ou boss nommé.
+  Le passage à la suite ne vaut pas approbation artistique de l'entrée ni de cette fin.
+- Référence ROM D14P12A (600×408), commit pret/pmd-sky c8073235 ; provenance copiée avec les blobs.
+  Rip et décor EAD2 réellement fournis au générateur. Premier essai conservé dans
+  `bruts/essais/decor_marges_sombres.png` : le coin haut-gauche échouait au test plein cadre
+  (écart-type 6,64 < minimum >10). Correction référencée des marges, sans assouplissement du test.
+  Prompts et empreintes dans `generation.json`. Sol support copié byte-à-byte d'EAD2, déclaré.
+- Source `source/fin_aiguilles_dorees_v1/`, namespace `fin_aiguilles_dorees`, Ground
+  `fad1_fin_aiguilles_dorees`. 768×576, grille 8 px, six calques + Top, poussière calcaire
+  tombante calculée 24×5 ticks. Pixels générés ; seuls les formats et la grille sont natifs.
+- Marqueurs : arrivée [384,560], boss [408,360], objectif [384,224] ; chemins 16×16 contrôlés,
+  centre éloigné des parois, pas de warp ni destination. Scène et collisions inspectées.
+- Fidélité sortie : sol 13,69 / roche 13,04, seuil 35. 13 tests PASS dont cinq mutations ;
+  29 images reconstruites exactement depuis six banques et le Ground. Installateur protecteur testé.
+  Deux builds : 59 fichiers/membres ORA identiques, hors horodatages ZIP et caches Python.
+  Régression des trois lots antérieurs : 37 tests repassés, soit 50 PASS avec FAD1.
+- ZIP projet 1,60 Mo (12 fichiers), ZIP calques/ORA 3,96 Mo, aperçu autonome 1,80 Mo.
+  Serveur 0.0.0.0:8003 : page et deux ZIP HTTP 200 ; CRC et syntaxe JavaScript contrôlés.
+  Sorties lourdes ignorées par Git, régénérables avec build puis package.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Pas de test du chargeur
+  réel, de l'éditeur graphique, de l'échelle, du rendu ou du déplacement en jeu. Prochaine étape :
+  avis visuel utilisateur puis contrôle dans PMDO. Aucun lot précédent modifié ou fusionné.

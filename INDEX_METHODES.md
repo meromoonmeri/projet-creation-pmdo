@@ -21,6 +21,8 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 | [`source/entree_aiguilles_dorees_v1/`](source/entree_aiguilles_dorees_v1/STATUS.md) | build · provenance · bruts · STATUS | EAD1, essai rejeté, remplacé par EAD2 ; pas de paquet final |
 | [`source/fin_defile_roches_grises_v1/`](source/fin_defile_roches_grises_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | FDR1, fin immersive ; 13 tests PASS, 29 images reconstruites ; moteur non testé |
 
+| [`source/fin_aiguilles_dorees_v1/`](source/fin_aiguilles_dorees_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | FAD1, fin immersive D14P12A ; 13 tests PASS, 29 images reconstruites ; moteur non testé |
+
 Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
 Helpers de cette suite : [`source/maps_suite_v1/`](source/maps_suite_v1/README.md).
 
