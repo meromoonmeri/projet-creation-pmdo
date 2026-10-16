@@ -15,6 +15,8 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | Sous-projet | Méthode | État |
 |---|---|---|
+| [`source/traversee_lac_glace_v1/`](source/traversee_lac_glace_v1/STATUS.md) | build · test · verify · package · provenance · viewer · reproductibilité | TLG1, nouvelle map, lac solide/reflets/neige ;17PASS/55reconstructions ; artistique/moteur en attente |
+| [`source/entree_col_glaciaire_v1/`](source/entree_col_glaciaire_v1/STATUS.md) | propositions générées · correction de textures · provenance | ECG1 suspendu après demande de map suivante ; brouillon, aucun build natif/ZIP/test moteur |
 | [`source/entree_marais_brumeux_v1/`](source/entree_marais_brumeux_v1/STATUS.md) | build · test · verify · package · provenance · viewer · reproductibilité | EMB1, nouveau biome choisi marais ; eau/brume indépendantes,19PASS/55reconstructions ; avis artistique/moteur en attente |
 | [`source/suite_jaillissements_v2/`](source/suite_jaillissements_v2/STATUS.md) | build · columns · test · verify · package · viewer · provenance · reproductibilité | SVJ2, quatre maps et16jets générés hors cadre ;47PASS/503reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_terres_volcaniques_v1/`](source/entree_terres_volcaniques_v1/STATUS.md) | build · test · verify · package · bruts · provenance · extract_reference · viewer · reproductibilité | ETV1, choix volcanique, cendre/basalte et lave générée animée ; 17 tests PASS, 54 reconstructions ; avis artistique/moteur en attente |

@@ -41,3 +41,5 @@ ETV1 : build dédié `source/entree_terres_volcaniques_v1/`, biome volcanique ch
 SVJ2 : `source/suite_jaillissements_v2/`, quatre nouvelles configurations et nouveau sprite de magma hors cadre ; recette ETV1 et préparation AGM3 chargées sans les modifier. Corps/gerbes/gouttes séparés, cinq pistes24×5ticks, projet4Ground/43banques. 47tests et503reconstructions, reproductibilité surVJ21seulement ; moteur/art non approuvés.
 
 EMB1 : `source/entree_marais_brumeux_v1/`, marais choisi après volcans ; nouveau décor/support/brume générés avec rip Murky fourni. Eau par loi ETV1 inchangée, brume générée tramée/clippée sur eau, pistes séparées24×5ticks,9banques+Top.19tests/55reconstructions/repro94éléments0diff ; artistique/moteur non approuvés.
+
+TLG1 : source/traversee_lac_glace_v1, nouvelle composition lac solide avec rips D53P11B/cropD52P11C réellement fournis.17PASS/55reconstructions/repro93éléments0diff, météo séparée testée ; artistique/moteur en attente. Col ECG1 reste brouillon suspendu, pas dépendance exécutable de TLG1.

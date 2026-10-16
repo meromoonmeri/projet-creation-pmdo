@@ -541,3 +541,39 @@ n'est déduite du passage à la suite. Les PNG, ZIP et HTML se régénèrent via
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Ni vrai chargeur,
   éditeur, caméra/échelle, rendu ou déplacements PMDO testés. Brume stylisée/tramée, eau sobre :
   avis visuel attendu puis vrai PMDO avant certification ; suite assortie seulement si demandée.
+
+## 17octobre2026 — Textures référencées clarifiées et nouvelle map TLG1
+
+- Après « change de biome passe a la prochaine map », neige/glace PROPOSÉE par l'assistant,
+  pas choix explicite du biome par utilisateur. Correction « je veux les texture canonique » :
+  il choisit dans la clarification **générateur beaucoup plus fidèle au rip**, PAS pixels officiels
+  exacts ni mosaïque de rips. Conserver cette interprétation pour la suite, sans prétendre
+  que les pixels générés sont officiels ou que leur fidélité artistique est certifiée.
+- Col ECG1 : plusieurs propositions/corrections conservées dans source/entree_col_glaciaire_v1,
+  deux corrections texture documentées. Dernière consigne « Passe a la prochaine map » :
+  col suspendu, pas de config complète/native/tests/ZIP ; build_draft.py=ébauche non livrable.
+  Ne pas le finir/retoucher par défaut. Aucun avis artistique implicite donné par une suite.
+- TLG1 `source/traversee_lac_glace_v1/` : nouvelle composition du biome glacé, grand lac SOLIDE
+  traversable et sortie nord-est, pas autre variante du canyon. Rips réels D53P11B et crop sol
+  D52P11C[15,220,490,282] non agrandi dans images= ; aucun ancien rendu généré fourni.
+  Deux nouveaux bruts1200×896 (décor/support), prompts/hashes. Lac inventé, pas lac extrait.
+  Références pret/pmd-sky c8073235,2couches,0BPA,1image,sans animation palette chacune,
+  provenance BMA/BPC/BPL/table/blob conservée. Dix branches consultées par noms, pas preuve
+  d'inédit absolu ; aucune fusion. Anciens helpers/assets livrés non modifiés.
+- 768×576/grille8/96×72/TexSize1,9calques+Top : support/neige/ombres/berges/reliefs/lac gelé/
+  profondeur/reflets/flocons. BOX pondéré uniforme/crop3px/palette96/alpha binaire. Masques
+  fonctionnels, pas détourage parfait. Lac solide inclus dans praticable, pas eau liquide.
+  Deux pistes calculées24×5ticks/reflets28positions et neige64émetteurs/couleurs du rip,
+  pas cycle officiel ni recoloration du terrain. Arrivée[384,560],seuil[696,40],accès16px,
+  aucun warp/destination/objet/PNJ/boss ajouté. Pas aventure raccordée.
+- **17PASS/6mutations/55reconstructions exactes/9banques**, installateur fusion/protection,
+  oracles indépendants des deux effets, crop/ORA/WebP vérifiés. **Repro93éléments0diff** après
+  correction du contour sud du lac (recherche24px+teintes, pas repeinture ; trois points gardés).
+  **Régression EMB1 marais19PASS**. Seuil diagnostic35,neige/roche brut14,84/15,62,sortie14,75/19,16,
+  familles nouvelles adaptées au lot, non comparables à celles d'autres biomes ; pas preuve
+  de conformité officielle, textures du lac, grain, volumes ou raccords.
+- ZIP projet1,58Mo/15membres,PNG-ORA4,16Mo/79,HTML1,89Mo ; CRC/comptes/racines/caches et
+  JS/données55images contrôlés. Scène/collisions inspectées, serveur0.0.0.0:8013,HTTP200 page,
+  ZIP,PNG,WebP ; pas test automatisé des interactions navigateur.
+- art_approved/runtime_tested/render_tested=false. Ni vrai chargeur, éditeur, caméra/échelle,
+  rendu ou déplacements PMDO exécutés. Avis visuel et test réel attendus, pas validation implicite.

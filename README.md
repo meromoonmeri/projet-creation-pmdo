@@ -14,6 +14,16 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Prochaine map — Lac des Roches givrées TLG1
+
+[Nouvelle traversée glacée](source/traversee_lac_glace_v1/README.md), pas une retouche du col :
+grand lac solide traversable, rives irrégulières, reflets et flocons sur pistes séparées.
+Méthode clarifiée : **générateur plus fidèle avec rips réels**, pas pixels officiels exacts.
+768×576/grille8px,9calques+Top,17tests PASS/55reconstructions/repro93éléments0diff.
+[Statut](source/traversee_lac_glace_v1/STATUS.md) · [décor source](source/traversee_lac_glace_v1/bruts/decor.png).
+Le [col](source/entree_col_glaciaire_v1/STATUS.md) reste une proposition suspendue, sans pack PMDO.
+Avis artistique et vrai moteur en attente ; anciens lots conservés.
+
 ## Nouveau biome — Marais brumeux EMB1
 
 Après les volcans, choix utilisateur **marais** : [première entrée EMB1](source/entree_marais_brumeux_v1/README.md),

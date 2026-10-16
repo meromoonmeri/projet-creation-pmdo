@@ -1,0 +1,970 @@
+{
+  "lot": "traversee_lac_glace_v1",
+  "prefix": "TLG1",
+  "title": "Lac des Roches givrées",
+  "kind": "entrance",
+  "date": "2026-10-17",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Nouveau rendu genere avec rip fourni, segmentation puis reduction et formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/traversee_lac_glace_v1/reference/D53P11B.png",
+    "sha256": "afc6704b6a25c1b13529aa7d696a4f41581e8d44b53213be433c1a5703886d26"
+  },
+  "extra_references": [
+    {
+      "file": "source/traversee_lac_glace_v1/reference/D52P11C.png",
+      "sha256": "e4ed2b59f9f20b055b3c025b15c4e272425b1d5870b7900a1e8fd56c3c587883"
+    },
+    {
+      "file": "source/traversee_lac_glace_v1/reference/D52P11C_sol_crop.png",
+      "sha256": "a4faa4ce12fef8bcc73a0621cc1d85f008a798013c18cbedcecc915cd8b78c1d"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/traversee_lac_glace_v1/bruts/decor.png",
+      "sha256": "9b6fd57485d112ec918850469a48eeafd73b3ea8b0f43602c9ac412209f29645",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/traversee_lac_glace_v1/bruts/sol_complet.png",
+      "sha256": "1c8264c4509f095c9030b497576e0f1b6318a31350306076421272601afff657",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Diagnostic familles de couleur neige/roche, meme filtre rip/brut/sortie, seuil35. Neige R>190,G>210,B>230 ; roche30<R<150,60<G<160,100<B<220,G>R+10,B>G+10. PlafondG du filtre roche exclut une grande partie du lac bleu clair invente ; familles pas masques d objets ni certification artistique ou de textures. Lac/referenceD52 non presentes comme eau officielle reproduite. Non comparable aux autres biomes.",
+  "config_sha256": "ac379f9233897d455b792530d69cd979daa4bdf4bb7bd30ae4e66f06b0061360",
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "reference/D53P11B.png",
+        "reference/D52P11C_sol_crop.png"
+      ],
+      "offer_options": false,
+      "prompt": "Create ONE NEW traversable FROZEN LAKE game map for a native PMDO project, 4:3 landscape ideally1200x896. This is the NEXT MAP, NOT another version of a mountain corridor. The user specifically wants the referenced generator much MORE FAITHFUL to the canonical PMD textures. IMAGE1 is genuine Explorers of Sky D53P11B for actual original snow and rough blue-grey rock material, native bitmap shading and camera scale. IMAGE2 is an unscaled original blue-snow ground crop from D52P11C for the pale-blue surface color, NOT a crystal-layout reference. Use ONLY these authentic material references, no earlier generated image. Match the original game's fine, subtly mottled hand-pixelled texture and nuanced blue-grey ramps, NOT generic modern pixel art, not a vector drawing, not large smooth geometric crystal facets. Organic irregular snow-capped rocks with tiny granular blue shading, layered chipped surfaces and uneven dark-blue contours like IMAGE1. Avoid thick uniform black cartoon outlines and large checkerboard shading. New composition: an EXPANSIVE IRREGULAR FROZEN LAKE occupies the center, slightly diagonal from upper-left to lower-right, about half the map area. The thick SAFE solid opaque blue ice is walkable from the snowy arrival at bottom center to a wide snowy continuation at upper-right, keeping at least a quarter-image-width clear traversable route. The lake is NOT liquid water, has no open holes or broken stepping floes; draw delicate hairline frost cracks, faint white frost feathering and subtle cloudy blue ice grain, not a single flat cyan fill. No giant object in the center. Snowy shores wrap unevenly around it. Northwest: substantial organically craggy snow-covered rocky escarpment entering top and left edges, many irregular small rock forms making one continuous mass. East: lower broken rock ledges and snow hummocks, with a broad obvious exit between ridges near upper-right, not a cave, arch or portal. Foreground: a close rocky snow-covered shore cut by bottom-left edge, broad snow approach at bottom center and a few small rocks at bottom-right. Match reference rock scale of many small crags, not enlarged faceted prisms. Immersive FULL-FRAME ground environment reaching every edge and corner; no sky, horizon, rectangular border or empty colored margin. Classic overhead game view with visible south-facing bank height. Asymmetric natural shoreline, NOT a circular boss arena, NOT the previous S-shaped canyon. Muted icy pale blues and snow colors of the supplied rips, no neon teal or turquoise. NO trees, vegetation, marsh, liquid river, waterfall, fog, baked snowfall or sparkles; later animated effects belong on separate layers. No giant crystals, gem clusters, cave mouth, buildings, stairs, bridge, torch, sign, Pokemon, character, item, writing or UI. Do not paste copied map fragments: generate ONE coherent NEW landscape, using only the genuine rips as surface-material references.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "9b6fd57485d112ec918850469a48eeafd73b3ea8b0f43602c9ac412209f29645",
+      "image_hashes": {
+        "reference/D53P11B.png": "afc6704b6a25c1b13529aa7d696a4f41581e8d44b53213be433c1a5703886d26",
+        "reference/D52P11C_sol_crop.png": "a4faa4ce12fef8bcc73a0621cc1d85f008a798013c18cbedcecc915cd8b78c1d"
+      },
+      "date": "2026-10-17"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "reference/D53P11B.png",
+        "bruts/decor.png"
+      ],
+      "offer_options": false,
+      "prompt": "Generate ONE continuous full-frame pale blue SNOW GROUND support texture for a PMDO frozen-lake map, ideally1200x896 landscape4:3. IMAGE1 is genuine PMD Explorers of Sky D53P11B, use its actual fine-grained snow material and nuanced pale-blue color, not generic cartoon pixel art. IMAGE2 is our NEW frozen-lake map, match its snowy SHORE ground, NOT the lake itself. Compact original-game hand-pixelled fine texture with very subtle blue-grey wind-scoured patches and sparse tiny frost grains. Approximately RGB195,228,247; natural soft mottling made of little pixel clusters, no broad flat vector shapes or comic hatching. ONLY horizontal snow ground reaching every corner and edge, uniform overhead scale. No composition: no lake, water, ice face, cliff, shore edge, rocks, boulders, trees, roots, vegetation, path, hole, sky, fog, falling flakes, sparkles, buildings, objects, characters, Pokemon, text, frame or magenta. This is the complete texture underlay beneath independently segmented visible terrain, not a second map. Do not paste reference fragments.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "1c8264c4509f095c9030b497576e0f1b6318a31350306076421272601afff657",
+      "image_hashes": {
+        "reference/D53P11B.png": "afc6704b6a25c1b13529aa7d696a4f41581e8d44b53213be433c1a5703886d26",
+        "bruts/decor.png": "9b6fd57485d112ec918850469a48eeafd73b3ea8b0f43602c9ac412209f29645"
+      },
+      "date": "2026-10-17"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "Nouveau support de neige non aligne sous partition complete, pas une seconde composition."
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        690,
+        140
+      ],
+      [
+        825,
+        155
+      ],
+      [
+        925,
+        150
+      ],
+      [
+        1010,
+        90
+      ],
+      [
+        1090,
+        40
+      ],
+      [
+        1190,
+        40
+      ],
+      [
+        1190,
+        150
+      ],
+      [
+        1080,
+        230
+      ],
+      [
+        1030,
+        280
+      ],
+      [
+        1050,
+        330
+      ],
+      [
+        1030,
+        425
+      ],
+      [
+        1080,
+        475
+      ],
+      [
+        1120,
+        600
+      ],
+      [
+        1130,
+        670
+      ],
+      [
+        1090,
+        730
+      ],
+      [
+        1070,
+        780
+      ],
+      [
+        1000,
+        830
+      ],
+      [
+        850,
+        830
+      ],
+      [
+        780,
+        860
+      ],
+      [
+        760,
+        895
+      ],
+      [
+        500,
+        895
+      ],
+      [
+        500,
+        830
+      ],
+      [
+        450,
+        800
+      ],
+      [
+        330,
+        780
+      ],
+      [
+        240,
+        740
+      ],
+      [
+        160,
+        715
+      ],
+      [
+        90,
+        650
+      ],
+      [
+        75,
+        600
+      ],
+      [
+        70,
+        500
+      ],
+      [
+        80,
+        430
+      ],
+      [
+        150,
+        370
+      ],
+      [
+        210,
+        320
+      ],
+      [
+        300,
+        270
+      ],
+      [
+        380,
+        250
+      ],
+      [
+        470,
+        215
+      ],
+      [
+        570,
+        190
+      ],
+      [
+        620,
+        140
+      ]
+    ],
+    "depth_polygon_raw": [
+      [
+        1080,
+        0
+      ],
+      [
+        1199,
+        0
+      ],
+      [
+        1199,
+        55
+      ],
+      [
+        1080,
+        55
+      ]
+    ],
+    "walk": "lac gele SOLIDE et neige, enveloppes propres au decor, mediane R5px>160 hors lac ; pas pont/chemin repeint",
+    "shadows": "luminance moyenne5px sous seuil config, pixels existants",
+    "berges": "bande12px bruts, bloquante",
+    "lac_gele": "enveloppe relevee, composante bleue, trous combles ; glace pleine traversable, pas eau liquide",
+    "depth_mode": "drawn",
+    "limits": "zones fonctionnelles, pas detourage parfait des objets ; les reliefs gardent aussi leurs caps de neige"
+  },
+  "fidelity": {
+    "brut": {
+      "neige": {
+        "distance": 14.84,
+        "rgb_lot": [
+          223.22,
+          237.07,
+          251.6
+        ],
+        "rgb_rip": [
+          208.49,
+          237.55,
+          253.36
+        ],
+        "pixels_lot": 525678,
+        "pixels_rip": 38297
+      },
+      "roche": {
+        "distance": 15.62,
+        "rgb_lot": [
+          72.92,
+          121.67,
+          157.05
+        ],
+        "rgb_rip": [
+          60.29,
+          123.41,
+          166.07
+        ],
+        "pixels_lot": 122512,
+        "pixels_rip": 47060
+      }
+    },
+    "sortie": {
+      "neige": {
+        "distance": 14.75,
+        "rgb_lot": [
+          222.75,
+          236.7,
+          249.66
+        ],
+        "rgb_rip": [
+          208.49,
+          237.55,
+          253.36
+        ],
+        "pixels_lot": 211395,
+        "pixels_rip": 38297
+      },
+      "roche": {
+        "distance": 19.16,
+        "rgb_lot": [
+          71.79,
+          119.46,
+          151.26
+        ],
+        "rgb_rip": [
+          60.29,
+          123.41,
+          166.07
+        ],
+        "pixels_lot": 50562,
+        "pixels_rip": 47060
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/TLG1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "neige",
+      "file": "calques/TLG1_01_neige.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/TLG1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "berges",
+      "file": "calques/TLG1_03_berges.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "reliefs",
+      "file": "calques/TLG1_04_reliefs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "lac_gele",
+      "file": "calques/TLG1_05_lac_gele.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/TLG1_06_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "scintillements",
+      "file": "animation/TLG1_07_scintillements_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "flocons",
+      "file": "animation/TLG1_08_flocons_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "snow": {
+    "emitters": [
+      [
+        501,
+        486,
+        0
+      ],
+      [
+        49,
+        252,
+        7
+      ],
+      [
+        143,
+        429,
+        14
+      ],
+      [
+        508,
+        185,
+        21
+      ],
+      [
+        124,
+        486,
+        4
+      ],
+      [
+        373,
+        185,
+        11
+      ],
+      [
+        468,
+        468,
+        18
+      ],
+      [
+        721,
+        150,
+        1
+      ],
+      [
+        348,
+        335,
+        8
+      ],
+      [
+        431,
+        324,
+        15
+      ],
+      [
+        252,
+        159,
+        22
+      ],
+      [
+        218,
+        509,
+        5
+      ],
+      [
+        751,
+        370,
+        12
+      ],
+      [
+        292,
+        459,
+        19
+      ],
+      [
+        348,
+        299,
+        2
+      ],
+      [
+        400,
+        192,
+        9
+      ],
+      [
+        395,
+        370,
+        16
+      ],
+      [
+        264,
+        535,
+        23
+      ],
+      [
+        22,
+        314,
+        6
+      ],
+      [
+        740,
+        463,
+        13
+      ],
+      [
+        479,
+        305,
+        20
+      ],
+      [
+        547,
+        373,
+        3
+      ],
+      [
+        416,
+        145,
+        10
+      ],
+      [
+        701,
+        259,
+        17
+      ],
+      [
+        601,
+        517,
+        0
+      ],
+      [
+        121,
+        337,
+        7
+      ],
+      [
+        170,
+        426,
+        14
+      ],
+      [
+        297,
+        20,
+        21
+      ],
+      [
+        341,
+        167,
+        4
+      ],
+      [
+        219,
+        170,
+        11
+      ],
+      [
+        220,
+        480,
+        18
+      ],
+      [
+        433,
+        204,
+        1
+      ],
+      [
+        458,
+        162,
+        8
+      ],
+      [
+        278,
+        362,
+        15
+      ],
+      [
+        160,
+        48,
+        22
+      ],
+      [
+        520,
+        108,
+        5
+      ],
+      [
+        22,
+        413,
+        12
+      ],
+      [
+        495,
+        332,
+        19
+      ],
+      [
+        251,
+        453,
+        2
+      ],
+      [
+        354,
+        120,
+        9
+      ],
+      [
+        528,
+        432,
+        16
+      ],
+      [
+        477,
+        382,
+        23
+      ],
+      [
+        281,
+        274,
+        6
+      ],
+      [
+        660,
+        333,
+        13
+      ],
+      [
+        203,
+        40,
+        20
+      ],
+      [
+        747,
+        98,
+        3
+      ],
+      [
+        266,
+        237,
+        10
+      ],
+      [
+        716,
+        276,
+        17
+      ],
+      [
+        210,
+        37,
+        0
+      ],
+      [
+        673,
+        227,
+        7
+      ],
+      [
+        692,
+        167,
+        14
+      ],
+      [
+        441,
+        301,
+        21
+      ],
+      [
+        484,
+        433,
+        4
+      ],
+      [
+        231,
+        375,
+        11
+      ],
+      [
+        662,
+        90,
+        18
+      ],
+      [
+        120,
+        20,
+        1
+      ],
+      [
+        244,
+        401,
+        8
+      ],
+      [
+        451,
+        433,
+        15
+      ],
+      [
+        214,
+        215,
+        22
+      ],
+      [
+        465,
+        179,
+        5
+      ],
+      [
+        648,
+        301,
+        12
+      ],
+      [
+        717,
+        91,
+        19
+      ],
+      [
+        737,
+        27,
+        2
+      ],
+      [
+        148,
+        501,
+        9
+      ]
+    ],
+    "colors": [
+      [
+        183,
+        215,
+        239
+      ],
+      [
+        199,
+        231,
+        247
+      ],
+      [
+        223,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "64emetteurs graine171026 ; k=(t+phase)%24 ; visiblek<18 ; x=x0+round(4sin(2pi*k/18)),y=y0+2k ; 2pixels verticaux ; couleurs[min(k,17-k,3)] ; reset durant6phases invisibles.",
+    "origin": "particules calculees deux pixels, couleurs exactes du rip ; pas sprites/BPA officiels"
+  },
+  "glints": {
+    "emitters": [
+      [
+        463,
+        86,
+        0
+      ],
+      [
+        538,
+        137,
+        5
+      ],
+      [
+        611,
+        162,
+        10
+      ],
+      [
+        560,
+        182,
+        15
+      ],
+      [
+        453,
+        200,
+        20
+      ],
+      [
+        312,
+        215,
+        1
+      ],
+      [
+        342,
+        229,
+        6
+      ],
+      [
+        363,
+        242,
+        11
+      ],
+      [
+        570,
+        254,
+        16
+      ],
+      [
+        267,
+        267,
+        21
+      ],
+      [
+        457,
+        279,
+        2
+      ],
+      [
+        503,
+        291,
+        7
+      ],
+      [
+        366,
+        303,
+        12
+      ],
+      [
+        169,
+        315,
+        17
+      ],
+      [
+        372,
+        326,
+        22
+      ],
+      [
+        473,
+        337,
+        3
+      ],
+      [
+        470,
+        348,
+        8
+      ],
+      [
+        400,
+        359,
+        13
+      ],
+      [
+        272,
+        370,
+        18
+      ],
+      [
+        682,
+        380,
+        23
+      ],
+      [
+        503,
+        391,
+        4
+      ],
+      [
+        378,
+        402,
+        9
+      ],
+      [
+        402,
+        413,
+        14
+      ],
+      [
+        583,
+        424,
+        19
+      ],
+      [
+        608,
+        436,
+        0
+      ],
+      [
+        602,
+        449,
+        5
+      ],
+      [
+        577,
+        464,
+        10
+      ],
+      [
+        528,
+        522,
+        15
+      ]
+    ],
+    "colors": [
+      [
+        183,
+        215,
+        239
+      ],
+      [
+        199,
+        231,
+        247
+      ],
+      [
+        223,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "28positions sur erosion(lac_gele,3) ; k=(t+phase)%24 ; visiblek<8 ; niveau=min(k,7-k,3), croix5pixels seulement niveau3 sinon1pixel ; clip lac gele.",
+    "origin": "reflets ponctuels calcules, clips sur le lac gele statique ; pas animation officielle"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        696,
+        40
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 3554,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere references D53P11B et crop sol D52P11C, lac invente",
+    "effects": "calcules aux couleurs du rip, pas images du jeu animees",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "traversee_lac_glace_v1",
+    "asset": "tlg1_traversee_lac_glace",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "TLG1_00_SOL_COMPLET": 6792,
+      "TLG1_01_NEIGE": 1423,
+      "TLG1_02_OMBRES": 381,
+      "TLG1_03_BERGES": 765,
+      "TLG1_04_RELIEFS": 2754,
+      "TLG1_05_LAC_GELE": 2842,
+      "TLG1_06_PROFONDEUR": 51,
+      "TLG1_07_SCINTILLEMENTS": 110,
+      "TLG1_08_FLOCONS": 257
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}
