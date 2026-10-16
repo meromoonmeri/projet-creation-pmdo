@@ -222,3 +222,26 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## 16 octobre 2026 — nouveau biome EDR1, suite autonome depuis cette extraction
+
+Après lecture des méthodes et relevé des huit branches distantes de ce dépôt, l'utilisateur choisit
+**Nouveau biome**. Entrée du **Défilé des Roches grises**, référence ROM **D46P11A**, nouveau nom
+descriptif (pas une identification du donjon d'origine). Aucun lot des autres branches n'est fusionné.
+
+Sources complètes : `source/entree_defile_roches_grises_v1/` ; recette consolidée : `WORKFLOW.md`.
+Deux bruts générés avec référence (décor magenta + sol), segmentation pleine résolution, réduction
+par classe, 768×576, 7 calques + Top, poussière calculée aux couleurs du rip (24×5 ticks).
+Entrée `[384,560]`, seuil `[384,192]`, passage 16×16 vérifié, aucun warp/destination.
+Fidélité sortie : sol 6,81 ; roche 5,50, seuil 35. Terrain généré, formats natifs — pas pixels ROM.
+
+**16 tests PASS**, 5 mutations rejetées ; **30 reconstructions exactes depuis les banques .tile
+et le Ground** ; installateur testé en simulation, fusion, réinstallation et conflit.
+Pas de moteur réel, pas d'approbation artistique. Les PNG de rendu, ZIP et HTML sont ignorés ;
+relancer build puis package pour restaurer l'aperçu après une reprise sans caches.
+Le build utilise un gabarit 0.8.12 déjà versionné, pas le ZIP historique manquant.
+
+Aperçu : `renders/entree_defile_roches_grises_v1/index.html`, serveur persistant de session sur
+0.0.0.0:8000 dans ce seul dossier. Les téléchargements sont relatifs au même hôte.
+Prochaine étape : retour visuel utilisateur puis contrôle dans PMDO ; ne pas annoncer cette
+intégration comme validée. Conserver le lot et sa référence pour une éventuelle fin assortie.

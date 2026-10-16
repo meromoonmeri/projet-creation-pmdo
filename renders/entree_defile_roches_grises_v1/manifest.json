@@ -1,0 +1,480 @@
+{
+  "lot": "entree_defile_roches_grises_v1",
+  "prefix": "EDR1",
+  "date": "2026-10-16",
+  "biome": "Defile des Roches grises (nom descriptif, non officiel)",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference ; calques reduits par classe puis banques natives 8 px. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/entree_defile_roches_grises_v1/reference/D46P11A.png",
+    "sha256": "ef0f75c2ca785a09ca2665dc00205752bf370de80391f3721a468e1aa4ad3f62"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_defile_roches_grises_v1/bruts/decor_magenta.png",
+      "sha256": "4eabffdc554fc9e2aaabf12d7016897bb37853dbdef430658f54a358c5cc3b98",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_defile_roches_grises_v1/bruts/sol_complet.png",
+      "sha256": "5723ca71837f895ff8a62f5af9b5e148fd3882b655f99b811f072a586da3919c",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "generation": [
+    {
+      "file": "bruts/decor_magenta.png",
+      "images": [
+        "reference/D46P11A.png"
+      ],
+      "prompt": "Create ONE new Pokemon Mystery Dungeon Explorers of Sky ground-map composition, strictly referencing the supplied ROM image D46P11A for its exact muted greys, charcoal rock textures, small grey gravel, cracked light-grey flat ground, dark outlines and DS pixel-art scale. WIDE LANDSCAPE 4:3, top-down PMD camera, zoomed out to show a vast area, ideally 1200 by 900 pixels. This is a NEW PLACE in the same dry grey rocky biome, not a stretched copy. A broad continuous light-grey cracked stone path enters at the SOUTH centre, widens into an asymmetric gravel clearing, then narrows between tall charcoal rock walls towards a narrow DARK vertical cleft at the NORTH centre. Tall coherent jagged rock masses on both sides, natural stacked boulders, a few bare dead roots against the sides, small stone rubble against the walls, no scattered large obstacles in the central path. Keep the floor colour and the dark/light rock volumes very close to the reference, not blue, brown or green. Flat stone ground, no stairs, no structure, no altar, no seal, no symbols, no characters, no text, no UI. Paint ONLY the narrow interior of the north cleft in perfectly flat pure magenta #FF00FF, for later separate depth layer; no other magenta. Fill the edges with rock, except the south-centre entrance path. Hard pixel edges, limited native DS palette, no blur, no painted illustration.",
+      "attempts": 1,
+      "actual_size": [
+        1200,
+        896
+      ],
+      "role": "composition et matiere generees, pas des pixels canoniques extraits"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "bruts/decor_magenta.png",
+        "reference/D46P11A.png"
+      ],
+      "prompt": "Edit the supplied generated grey-rock PMD map into its FLOOR-ONLY layer. Same exact framing, same size and same pixel-art scale. Remove ALL cliffs, boulders, dead roots, magenta cleft and rock walls, replacing them with a continuous light-grey flat stone floor matching the existing broad centre floor and the ROM reference: medium light neutral grey, a few faint cracks, small gravel marks. Fill the ENTIRE rectangle with this floor, including every corner. Preserve the original centre floor texture and exact shade. No magenta, no holes, no rock walls, no roots, no large objects, no border, no text, no UI. This is a single floor layer, not a sprite sheet.",
+      "attempts": 1,
+      "actual_size": [
+        1200,
+        896
+      ],
+      "role": "sol continu sous le decor ; le sol visible garde les pixels du decor"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither"
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        493,
+        895
+      ],
+      [
+        483,
+        800
+      ],
+      [
+        431,
+        753
+      ],
+      [
+        340,
+        711
+      ],
+      [
+        286,
+        664
+      ],
+      [
+        284,
+        584
+      ],
+      [
+        316,
+        509
+      ],
+      [
+        366,
+        443
+      ],
+      [
+        446,
+        398
+      ],
+      [
+        503,
+        350
+      ],
+      [
+        558,
+        308
+      ],
+      [
+        602,
+        294
+      ],
+      [
+        646,
+        313
+      ],
+      [
+        687,
+        355
+      ],
+      [
+        730,
+        393
+      ],
+      [
+        811,
+        440
+      ],
+      [
+        860,
+        496
+      ],
+      [
+        903,
+        564
+      ],
+      [
+        917,
+        638
+      ],
+      [
+        864,
+        696
+      ],
+      [
+        788,
+        742
+      ],
+      [
+        725,
+        797
+      ],
+      [
+        695,
+        895
+      ]
+    ],
+    "shadows": "luminance lissee 5 px <125 dans le sol ; ombres existantes, non inventees",
+    "talus": "bande de 24 px autour du sol ; comprend gravats et pieds de rochers, non praticable",
+    "roots": "racines conservees dans les parois : aucune separation inventee"
+  },
+  "fidelity": {
+    "brut": {
+      "sol": {
+        "distance": 8.05,
+        "rgb_lot": [
+          151.98,
+          151.93,
+          151.85
+        ],
+        "rgb_rip": [
+          147.27,
+          147.27,
+          147.27
+        ],
+        "pixels_lot": 317301,
+        "pixels_rip": 84923
+      },
+      "roche": {
+        "distance": 4.41,
+        "rgb_lot": [
+          79.53,
+          79.41,
+          79.39
+        ],
+        "rgb_rip": [
+          81.99,
+          81.99,
+          81.99
+        ],
+        "pixels_lot": 715762,
+        "pixels_rip": 96442
+      }
+    },
+    "sortie": {
+      "sol": {
+        "distance": 6.81,
+        "rgb_lot": [
+          151.27,
+          151.16,
+          151.17
+        ],
+        "rgb_rip": [
+          147.27,
+          147.27,
+          147.27
+        ],
+        "pixels_lot": 125704,
+        "pixels_rip": 84923
+      },
+      "roche": {
+        "distance": 5.5,
+        "rgb_lot": [
+          78.91,
+          78.77,
+          78.77
+        ],
+        "rgb_rip": [
+          81.99,
+          81.99,
+          81.99
+        ],
+        "pixels_lot": 299898,
+        "pixels_rip": 96442
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/EDR1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "sol",
+      "file": "calques/EDR1_01_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/EDR1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "talus",
+      "file": "calques/EDR1_03_talus.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "parois",
+      "file": "calques/EDR1_04_parois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/EDR1_05_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "poussiere",
+      "file": "animation/EDR1_06_poussiere_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": [
+    23,
+    31,
+    47
+  ],
+  "dust": {
+    "emitters": [
+      [
+        366,
+        275,
+        0
+      ],
+      [
+        436,
+        380,
+        1
+      ],
+      [
+        265,
+        344,
+        2
+      ],
+      [
+        383,
+        481,
+        3
+      ],
+      [
+        321,
+        429,
+        4
+      ],
+      [
+        427,
+        288,
+        5
+      ],
+      [
+        273,
+        340,
+        6
+      ],
+      [
+        435,
+        430,
+        7
+      ],
+      [
+        227,
+        413,
+        8
+      ],
+      [
+        366,
+        305,
+        9
+      ],
+      [
+        468,
+        455,
+        10
+      ],
+      [
+        410,
+        319,
+        11
+      ],
+      [
+        398,
+        480,
+        12
+      ],
+      [
+        296,
+        416,
+        13
+      ],
+      [
+        310,
+        422,
+        14
+      ],
+      [
+        392,
+        513,
+        15
+      ],
+      [
+        456,
+        402,
+        16
+      ],
+      [
+        345,
+        249,
+        17
+      ],
+      [
+        349,
+        402,
+        18
+      ],
+      [
+        308,
+        435,
+        19
+      ],
+      [
+        481,
+        440,
+        20
+      ],
+      [
+        518,
+        382,
+        21
+      ],
+      [
+        423,
+        542,
+        22
+      ],
+      [
+        363,
+        391,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        111,
+        111,
+        111
+      ],
+      [
+        119,
+        119,
+        119
+      ],
+      [
+        127,
+        127,
+        127
+      ],
+      [
+        143,
+        143,
+        143
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "origin": "calculee, couleurs exactes du rip ; reference statique, pas une animation officielle",
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+k-9 ; y=y0+round(2 sin(2 pi k/18))"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        384,
+        192
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1428,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D46P11A",
+    "depth": "recalcule, couleur exacte du rip",
+    "dust": "recalcule, couleurs exactes du rip",
+    "native": "format .tile et .rsground seulement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "entree_defile_roches_grises",
+    "asset": "edr1_entree_defile_roches_grises",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "EDR1_00_SOL_COMPLET": 6743,
+      "EDR1_01_SOL": 1044,
+      "EDR1_02_OMBRES": 624,
+      "EDR1_03_TALUS": 392,
+      "EDR1_04_PAROIS": 4969,
+      "EDR1_05_PROFONDEUR": 45,
+      "EDR1_06_POUSSIERE": 224
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

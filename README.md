@@ -14,6 +14,20 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Reprise du 16 octobre 2026 — nouveau biome EDR1
+
+La nouvelle **[entrée du Défilé des Roches grises](source/entree_defile_roches_grises_v1/README_PACK.md)**
+utilise la référence ROM **D46P11A** : décor généré référencé, sol séparé, 7 calques + Top,
+poussière au vent, collisions et marqueurs sud → nord, projet PMDO 0.8.12.
+**16 tests PASS**, dont 5 mutations ; **30 images reconstruites depuis les banques natives**.
+Ni le chargeur réel ni le rendu en jeu n'ont été testés pour ce nouveau lot.
+Les sources et bruts sont présents ; les sorties lourdes se régénèrent localement.
+
+La synthèse actuelle est dans **[WORKFLOW.md — générateur + pipeline natif](WORKFLOW.md)**.
+Elle précise les deux routes : **pixels générés référencés**, encodés au format natif pour la
+série des nouveaux biomes, ou **pixels natifs exacts** pour les demandes qui l'exigent (Métano).
+Ne pas confondre les deux sens de « natif » dans les descriptions historiques ci-dessous.
+
 ## Par où commencer
 
 | Document | Rôle |

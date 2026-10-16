@@ -1225,3 +1225,23 @@ Voir [les références et limites](source/layouts_commit_3bc185b/README.md). **C
 ## Soleil animé et Luminous Spring
 
 [Nouveau pack PNG multicouche](renders/soleil_spring_v1/README.md) — [aperçu autonome](apercu_soleil_spring_v1.html). Soleil subtil 64 phases, grands nuages traversants, variante du Spring Halcyon avec cycles natifs 3/13 phases préservés.
+
+## 16 octobre 2026 — EDR1, entrée du Défilé des Roches grises
+
+Demande de poursuite avec lecture des méthodes, puis choix utilisateur **Nouveau biome**.
+L'agent choisit une entrée minérale sur D46P11A (nom descriptif, pas officiel), sans fusion des
+branches distantes. Deux générations référencées conservées : décor à faille magenta et sol complet.
+
+- Format 4:3 vaste 768×576, 96×72 cases 8 px. Sept calques par fonction et Top vide.
+- Poussière au vent 24×5 ticks, calculée avec les couleurs exactes du rip statique ; pas d'animation officielle.
+- Marqueurs sud → nord et chemin de dégagement 16×16 vérifiés. Aucun warp ni destination liée.
+- Fidélité de couleur (seuil 35) : sortie sol **6,81**, roche **5,50**.
+- **16 tests PASS**, dont **5 mutations rejetées** ; vérificateur autonome : **30 images reconstruites
+  exactement depuis le Ground et les .tile**. Installateur : dry-run, fusion d'index, sauvegarde,
+  idempotence, refus d'écrasement d'une carte modifiée.
+- Projet PMDO 0.8.12, ZIP calques/ORA, aperçu HTML autonome et serveur local de session livrés.
+
+Sources : `source/entree_defile_roches_grises_v1/`. Documentation : `WORKFLOW.md` et notice du lot.
+Sorties régénérables dans `renders/entree_defile_roches_grises_v1/`, staging ignoré dans `.cache/`.
+**Terrain généré référencé, pas pixels canoniques extraits. `art_approved: false`,
+`runtime_tested: false`, `render_tested: false`.** Aucun ancien lot remplacé.

@@ -9,6 +9,16 @@ Colonne **Méthode** : `build` = générateur du rendu, `test` = tests de build,
 aveugle des sorties, `package` = fabrication du pack importable, `installer` = installation dans un mod,
 `provenance` = traçabilité des références, `Ground`/`tileset` = données natives PMDO présentes.
 
+## Ajouts après l'extraction
+
+Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas ces nouveaux lots.
+
+| Sous-projet | Méthode | État |
+|---|---|---|
+| [`source/entree_defile_roches_grises_v1/`](source/entree_defile_roches_grises_v1/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EDR1, D46P11A, 4:3 vaste ; 16 tests PASS ; moteur non testé |
+
+Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
+
 ## Entrées de donjon sud→nord — 20 projets · 101 fichiers extraits · 1 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
