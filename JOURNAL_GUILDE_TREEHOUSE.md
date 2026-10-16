@@ -1354,3 +1354,27 @@ n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false` : pas de vrai chargeur,
   éditeur, rendu, caméra/échelle ou déplacements testés. Priorité forestière maintenue ;
   ne pas reprendre ESB1 rejeté ou le Col de sable écarté comme suite par défaut.
+
+## Suite du 16 octobre 2026 — EFA1, entrée de forêt automnale
+
+- Après « LA SUITE », poursuivre la priorité forestière : nouvelle entrée automnale EFA1,
+  `source/entree_foret_automnale_v1/`. Préfixe vérifié localement et dans l'arbre distant 52e6
+  non tronqué ; branches consultées, aucune fusion. Aucun ancien lot écrasé.
+- Référence D24P11A et provenance copiées d'EFF1. Deux générations nouvelles 1200×896 avec le
+  rip réellement en `images=` : décor et support de litière. Prompts exacts et hashes conservés.
+  **Le rip reste vert : l'automne est inventé**, ni feuillage automnal officiel ni recoloration scriptée.
+- Le diagnostic RGB porte sur deux familles chaudes du bois/sol du rip, pas sur une fidélité
+  des feuilles automnales. Clairs 27,48 / sombres 32,15, seuil 35, non comparables directement
+  aux indices sol/végétation d'EFF1. Politique explicite dans config, manifeste, viewer et README.
+- Bois et feuillage bruns ne se séparent plus par RGB : sept zones de troncs/racines mesurées,
+  test contre l'absorption de la canopée. Pas de détourage parfait promis. 768×576, grille 8 px,
+  neuf calques + Top, profondeur dessinée sans aplat ; feuilles calculées 24×5 ticks, couleurs
+  bois/terre du rip, pas des pixels de feuilles ROM. Arrivée [384,560], seuil [384,160], aucun warp.
+- **15 tests PASS**, cinq mutations, **32 images reconstruites exactement** depuis neuf banques.
+  Installateur protecteur testé. Deux builds identiques : 71 fichiers/membres ORA ; script
+  versionné. Régression EFF1/FFF1 : 28 PASS (43 au total). Aucun ancien helper/asset modifié.
+- ZIP projet 1,74 Mo/15 fichiers, PNG-ORA 4,84 Mo/51 fichiers, aperçu 2,19 Mo ; CRC, caches,
+  syntaxe JS et données intégrées contrôlés. Serveur 0.0.0.0:8007, page et ZIP HTTP 200.
+- Avis artistique et vrai moteur non validés : `art_approved=false`, `runtime_tested=false`,
+  `render_tested=false`. Pas de test d'éditeur, caméra/échelle, rendu ou déplacements. Ne pas
+  reprendre ESB1 rejeté ou le Col de sable écarté par défaut ; priorité forestière maintenue.

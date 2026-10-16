@@ -14,6 +14,16 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouvelle entrée — Forêt automnale EFA1
+
+La **[Forêt automnale](source/entree_foret_automnale_v1/README_PACK.md)** poursuit les biomes forestiers :
+feuillages cuivrés, mousse olive, litière et chemin sinueux. **Saison inventée par génération
+référencée**, pas un décor automnal officiel ni une recoloration scriptée de la forêt précédente.
+**768×576, neuf calques + Top**, feuilles animées indépendantes, **15 tests PASS**, 32 reconstructions.
+[Décor généré](source/entree_foret_automnale_v1/bruts/decor.png) ·
+[statut](source/entree_foret_automnale_v1/STATUS.md).
+Projet PMDO, PNG-ORA et aperçu régénérables ; **avis artistique et moteur en attente**.
+
 ## Forêt de feuillus — entrée EFF1 et fin FFF1
 
 Après le rejet des Schistes bleus et la demande « continue des biome forestier etc », nouvelle

@@ -29,3 +29,5 @@ FAD1 : fin des Aiguilles dorées assortie à EAD2, matériau `gold`, `kind: end`
 EFF1 : `source/entree_foret_feuillus_v1/build.py` réutilise les helpers dans une instance isolée, mais possède sa partition forestière et son ordre de neuf calques. Utiliser son build dédié, pas la CLI minérale générique. 14 tests, 32 reconstructions, pas de validation artistique/moteur.
 
 FFF1 : `source/fin_foret_feuillus_v1/build.py` est la fin forestière assortie à EFF1, huit calques + Top sans profondeur. Même diagnostic couleur et loi de feuilles, support EFF1 réutilisé et déclaré. 14 tests, 31 reconstructions, avis artistique/moteur en attente.
+
+EFA1 : build dédié sous `source/entree_foret_automnale_v1/`, neuf calques + Top, saison automnale inventée depuis D24P11A vert. Troncs/racines relevés par zones, pas par couleur brune. Diagnostic limité aux tons bois/sol, pas au feuillage officiel. 15 tests, 32 reconstructions ; aucun helper commun modifié.
