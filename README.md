@@ -14,6 +14,16 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouvelle entrée — Conifères moussus ECM1
+
+La **[Forêt de conifères moussus](source/entree_coniferes_moussus_v1/README_PACK.md)** poursuit la
+série forestière : arbres étagés, clairière moussue et sentier en S. **Conifères inventés**
+à partir du style/couleurs du rip de feuillus D24P11A, pas des tuiles officielles de sapins.
+**768×576, neuf calques + Top**, aiguilles animées indépendantes, **14 tests PASS**, 32 images
+reconstruites exactement et reproductibilité vérifiée. [Décor généré](source/entree_coniferes_moussus_v1/bruts/decor.png) ·
+[statut](source/entree_coniferes_moussus_v1/STATUS.md). Projet PMDO, PNG-ORA et aperçu régénérables ;
+**avis artistique et vrai moteur en attente**. Les lots précédents sont conservés.
+
 ## Forêt automnale — entrée EFA1 et fin FFA1
 
 La **[Forêt automnale](source/entree_foret_automnale_v1/README_PACK.md)** poursuit les biomes forestiers :

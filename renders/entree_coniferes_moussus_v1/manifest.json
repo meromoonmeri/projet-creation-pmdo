@@ -1,0 +1,842 @@
+{
+  "lot": "entree_coniferes_moussus_v1",
+  "prefix": "ECM1",
+  "title": "Entrée de la Forêt de conifères moussus",
+  "kind": "entrance",
+  "date": "2026-10-16",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/entree_coniferes_moussus_v1/reference/D24P11A.png",
+    "sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_coniferes_moussus_v1/bruts/decor.png",
+      "sha256": "141ce827dd4c99489ec52d7c204395cbdea61cf49c32d259b3025569bb95a53d",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_coniferes_moussus_v1/bruts/sol_complet.png",
+      "sha256": "690ab4e47b527dde17e1008a0374cc8bf095f73797321c1d7b61c8f3340dc9af",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Meme diagnostic RGB sol/vegetation et seuil 35 que EFF1, sans recoloration. Ne certifie ni des coniferes officiels, ni les textures, volumes ou raccords. Test de couverture minimal : sol 5% (sentier etroit), vegetation 10% ; cette couverture n est pas un seuil de fidelite.",
+  "config_sha256": "9c9861d5f1a2a4c9dbe344f28972f798af5cee23b6f74314ee99bffe641c39c6",
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "reference/D24P11A.png"
+      ],
+      "prompt": "Create one complete NEW MOSSY CONIFER FOREST entrance map in Pokemon Mystery Dungeon Explorers of Sky DS pixel art. Use the supplied original D24P11A forest image for pixel-cluster density, roots, grass and warm soil/green colour family. Invent the CONIFER silhouettes: the supplied reference itself has deciduous trees, do not pretend these are official pine tiles. Landscape 4:3, 1200 by 896 pixels. Elevated top-down PMD ground-map camera, NO sky or horizon. Immersive full-frame evergreen woodland continuing off every corner, no diorama border. Many medium-scale natural FIR and SPRUCE trees with irregular layered drooping needle boughs, soft jagged rounded branch edges, small textured needle clusters and visible brown rooted trunks at the lower sides. NOT pointed geometric triangles or smooth flat Christmas-tree icons, no black cartoon outlines. Lush deep OLIVE and FERN green needles with lighter moss-green tips, restrained saturation, green foliage midtones near RGB 75 115 35. Cool shady woodland mood, but not blue or turquoise. Ochre brown soil path midtones near RGB 170 135 55, fine pine-needle litter, uneven moss, tiny grass blades and a few ferns. A generous open mossy clearing occupies the lower and middle map, at least a third of the image available as open ground. Broad arrival at SOUTH centre, a clearly walkable irregular earth trail curves gently toward the RIGHT through the lower middle then back LEFT to upper centre, and continues through the NORTH edge between receding staggered conifers. Keep the approach wide and free of obstacles; no tree, stump or object in its centre. Side roots and small ferns only. No dead ends at the north, no cave mouth, black hole, arch or portal. The distant north trail must stay TEXTURED and framed by trees, not a flat black band. No geometric mountains, cliffs, rock walls, water, snow, buildings, ruins, bridges, stairs, altar, shrine, symbols, crystals, lamps, magical glow, sun beams, fog overlay, Pokemon, characters, items, text or UI. This is a NEW conifer composition, not a collage or copy of the reference's straight corridor. Fine crisp shaded DS pixel art, not painterly high-resolution forest or voxel shapes. Single full-frame map.",
+      "attempts": 1,
+      "actual_size": [
+        1200,
+        896
+      ],
+      "reference_sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+      "sha256": "141ce827dd4c99489ec52d7c204395cbdea61cf49c32d259b3025569bb95a53d",
+      "method": "Nouvelle generation referencee ; le rip de feuillus ne fournit pas des sprites de coniferes officiels.",
+      "note": "Coniferes plus stylises que le rip, mousse assez unie et chemin encore un peu dalle ; pas de validation artistique supposee."
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "reference/D24P11A.png"
+      ],
+      "prompt": "One standalone seamless-looking ground TEXTURE SUPPORT for a mossy conifer forest in PMD Explorers of Sky DS pixel art. Use the attached D24P11A for the small pixel-cluster texture and olive green/ochre brown colour family, but invent fine pine-needle litter and moss. Landscape rectangle 4:3, 1200 by 896 pixels, uniformly overhead, filled edge to edge. Mostly muted olive green moss with fine tiny brown needle litter and occasional small earthy flecks, moss greens near RGB 75 115 35, ochre dirt near RGB 170 135 55. Moderate contrast, tiny irregular pixel clusters, consistent ground scale across the entire image. No scene or composition, no trees, roots, bushes, flowers, mushrooms, stones, path, horizon, border, black or magenta areas, characters, text, glow or bands of shadow. This is an independent hidden floor-support texture, not another map.",
+      "attempts": 1,
+      "actual_size": [
+        1200,
+        896
+      ],
+      "reference_sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+      "sha256": "690ab4e47b527dde17e1008a0374cc8bf095f73797321c1d7b61c8f3340dc9af",
+      "method": "Nouvelle generation referencee ; le rip de feuillus ne fournit pas des sprites de coniferes officiels."
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        555,
+        255
+      ],
+      [
+        550,
+        280
+      ],
+      [
+        550,
+        315
+      ],
+      [
+        555,
+        340
+      ],
+      [
+        548,
+        365
+      ],
+      [
+        549,
+        394
+      ],
+      [
+        567,
+        414
+      ],
+      [
+        583,
+        435
+      ],
+      [
+        603,
+        450
+      ],
+      [
+        614,
+        465
+      ],
+      [
+        603,
+        487
+      ],
+      [
+        581,
+        494
+      ],
+      [
+        560,
+        486
+      ],
+      [
+        539,
+        472
+      ],
+      [
+        521,
+        460
+      ],
+      [
+        512,
+        487
+      ],
+      [
+        484,
+        492
+      ],
+      [
+        465,
+        484
+      ],
+      [
+        454,
+        494
+      ],
+      [
+        460,
+        517
+      ],
+      [
+        451,
+        530
+      ],
+      [
+        430,
+        534
+      ],
+      [
+        405,
+        520
+      ],
+      [
+        392,
+        519
+      ],
+      [
+        383,
+        537
+      ],
+      [
+        393,
+        557
+      ],
+      [
+        383,
+        571
+      ],
+      [
+        360,
+        566
+      ],
+      [
+        347,
+        550
+      ],
+      [
+        331,
+        545
+      ],
+      [
+        317,
+        541
+      ],
+      [
+        311,
+        525
+      ],
+      [
+        280,
+        532
+      ],
+      [
+        260,
+        525
+      ],
+      [
+        249,
+        543
+      ],
+      [
+        230,
+        552
+      ],
+      [
+        229,
+        574
+      ],
+      [
+        243,
+        598
+      ],
+      [
+        245,
+        627
+      ],
+      [
+        258,
+        648
+      ],
+      [
+        256,
+        675
+      ],
+      [
+        272,
+        696
+      ],
+      [
+        284,
+        718
+      ],
+      [
+        303,
+        734
+      ],
+      [
+        318,
+        751
+      ],
+      [
+        344,
+        760
+      ],
+      [
+        368,
+        768
+      ],
+      [
+        386,
+        785
+      ],
+      [
+        402,
+        804
+      ],
+      [
+        419,
+        826
+      ],
+      [
+        432,
+        851
+      ],
+      [
+        454,
+        875
+      ],
+      [
+        464,
+        895
+      ],
+      [
+        776,
+        895
+      ],
+      [
+        776,
+        871
+      ],
+      [
+        790,
+        846
+      ],
+      [
+        803,
+        825
+      ],
+      [
+        825,
+        807
+      ],
+      [
+        847,
+        783
+      ],
+      [
+        873,
+        765
+      ],
+      [
+        900,
+        748
+      ],
+      [
+        919,
+        720
+      ],
+      [
+        937,
+        698
+      ],
+      [
+        950,
+        674
+      ],
+      [
+        969,
+        647
+      ],
+      [
+        983,
+        628
+      ],
+      [
+        994,
+        602
+      ],
+      [
+        1016,
+        581
+      ],
+      [
+        1025,
+        555
+      ],
+      [
+        1015,
+        537
+      ],
+      [
+        996,
+        536
+      ],
+      [
+        978,
+        541
+      ],
+      [
+        963,
+        530
+      ],
+      [
+        958,
+        514
+      ],
+      [
+        940,
+        512
+      ],
+      [
+        925,
+        521
+      ],
+      [
+        905,
+        517
+      ],
+      [
+        899,
+        496
+      ],
+      [
+        875,
+        492
+      ],
+      [
+        859,
+        501
+      ],
+      [
+        842,
+        485
+      ],
+      [
+        839,
+        469
+      ],
+      [
+        820,
+        455
+      ],
+      [
+        802,
+        447
+      ],
+      [
+        788,
+        435
+      ],
+      [
+        764,
+        423
+      ],
+      [
+        747,
+        409
+      ],
+      [
+        736,
+        386
+      ],
+      [
+        718,
+        386
+      ],
+      [
+        706,
+        371
+      ],
+      [
+        695,
+        365
+      ],
+      [
+        678,
+        351
+      ],
+      [
+        675,
+        330
+      ],
+      [
+        676,
+        307
+      ],
+      [
+        658,
+        292
+      ],
+      [
+        656,
+        270
+      ],
+      [
+        653,
+        255
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 65 dans le sol existant",
+    "sous_bois": "bande de 24 px autour du sol, bloquante",
+    "details": "mousse, chemin, ombres, sous-bois, troncs et feuillage separes ; petites fougeres au sol conservees avec mousse/ombres",
+    "depth_mode": "drawn",
+    "depth_polygon_raw": [
+      [
+        500,
+        0
+      ],
+      [
+        724,
+        0
+      ],
+      [
+        713,
+        70
+      ],
+      [
+        700,
+        140
+      ],
+      [
+        685,
+        200
+      ],
+      [
+        663,
+        255
+      ],
+      [
+        548,
+        255
+      ],
+      [
+        533,
+        190
+      ],
+      [
+        515,
+        110
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "sol": {
+        "distance": 23.54,
+        "rgb_lot": [
+          153.43,
+          123.37,
+          63.81
+        ],
+        "rgb_rip": [
+          161.54,
+          125.52,
+          41.81
+        ],
+        "pixels_lot": 92817,
+        "pixels_rip": 19513
+      },
+      "vegetation": {
+        "distance": 27.09,
+        "rgb_lot": [
+          60.18,
+          99.06,
+          45.21
+        ],
+        "rgb_rip": [
+          72.74,
+          122.65,
+          40.75
+        ],
+        "pixels_lot": 852218,
+        "pixels_rip": 173406
+      }
+    },
+    "sortie": {
+      "sol": {
+        "distance": 21.22,
+        "rgb_lot": [
+          152.56,
+          123.57,
+          60.95
+        ],
+        "rgb_rip": [
+          161.54,
+          125.52,
+          41.81
+        ],
+        "pixels_lot": 38150,
+        "pixels_rip": 19513
+      },
+      "vegetation": {
+        "distance": 28.13,
+        "rgb_lot": [
+          59.43,
+          98.15,
+          44.49
+        ],
+        "rgb_rip": [
+          72.74,
+          122.65,
+          40.75
+        ],
+        "pixels_lot": 345739,
+        "pixels_rip": 173406
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/ECM1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "herbe",
+      "file": "calques/ECM1_01_herbe.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "chemin",
+      "file": "calques/ECM1_02_chemin.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/ECM1_03_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "sous_bois",
+      "file": "calques/ECM1_04_sous_bois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "troncs",
+      "file": "calques/ECM1_05_troncs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "feuillage",
+      "file": "calques/ECM1_06_feuillage.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/ECM1_07_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "aiguilles",
+      "file": "animation/ECM1_08_aiguilles_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "label": "aiguilles calculees (deux pixels)",
+    "emitters": [
+      [
+        457,
+        317,
+        0
+      ],
+      [
+        334,
+        422,
+        1
+      ],
+      [
+        274,
+        391,
+        2
+      ],
+      [
+        360,
+        519,
+        3
+      ],
+      [
+        448,
+        470,
+        4
+      ],
+      [
+        484,
+        338,
+        5
+      ],
+      [
+        503,
+        387,
+        6
+      ],
+      [
+        308,
+        472,
+        7
+      ],
+      [
+        466,
+        453,
+        8
+      ],
+      [
+        532,
+        356,
+        9
+      ],
+      [
+        480,
+        497,
+        10
+      ],
+      [
+        406,
+        370,
+        11
+      ],
+      [
+        423,
+        518,
+        12
+      ],
+      [
+        550,
+        456,
+        13
+      ],
+      [
+        284,
+        463,
+        14
+      ],
+      [
+        473,
+        539,
+        15
+      ],
+      [
+        334,
+        443,
+        16
+      ],
+      [
+        405,
+        255,
+        17
+      ],
+      [
+        221,
+        443,
+        18
+      ],
+      [
+        292,
+        477,
+        19
+      ],
+      [
+        299,
+        483,
+        20
+      ],
+      [
+        356,
+        424,
+        21
+      ],
+      [
+        419,
+        557,
+        22
+      ],
+      [
+        356,
+        432,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        23,
+        87,
+        47
+      ],
+      [
+        55,
+        103,
+        55
+      ],
+      [
+        71,
+        127,
+        39
+      ],
+      [
+        119,
+        143,
+        71
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(4 sin(2 pi k/18)) ; y=y0+k-9 ; aiguille en (0,0),(1,1)",
+    "origin": "calculee, couleurs exactes du rip ; pas une animation officielle"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        384,
+        168
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1582,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D24P11A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "entree_coniferes_moussus_v1",
+    "asset": "ecm1_entree_coniferes_moussus",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "ECM1_00_SOL_COMPLET": 6913,
+      "ECM1_01_HERBE": 1408,
+      "ECM1_02_CHEMIN": 659,
+      "ECM1_03_OMBRES": 131,
+      "ECM1_04_SOUS_BOIS": 499,
+      "ECM1_05_TRONCS": 561,
+      "ECM1_06_FEUILLAGE": 4554,
+      "ECM1_07_PROFONDEUR": 323,
+      "ECM1_08_AIGUILLES": 220
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

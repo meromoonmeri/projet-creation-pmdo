@@ -15,6 +15,7 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | Sous-projet | Méthode | État |
 |---|---|---|
+| [`source/entree_coniferes_moussus_v1/`](source/entree_coniferes_moussus_v1/STATUS.md) | build · test · verify · package · bruts · provenance · viewer · reproductibilité | ECM1, conifères inventés depuis une référence de feuillus ; 14 tests PASS, 32 reconstructions ; avis artistique/moteur en attente |
 | [`source/entree_defile_roches_grises_v1/`](source/entree_defile_roches_grises_v1/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EDR1, D46P11A, 4:3 vaste ; 16 tests PASS ; moteur non testé |
 
 | [`source/entree_aiguilles_dorees_v2/`](source/entree_aiguilles_dorees_v2/README_PACK.md) | build · test · verify · package · provenance · bruts · viewer · STATUS | EAD2, correction immersive D14P12A ; 8 tests PASS ; avis artistique et moteur en attente |

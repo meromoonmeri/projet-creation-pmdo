@@ -33,3 +33,5 @@ FFF1 : `source/fin_foret_feuillus_v1/build.py` est la fin forestière assortie �
 EFA1 : build dédié sous `source/entree_foret_automnale_v1/`, neuf calques + Top, saison automnale inventée depuis D24P11A vert. Troncs/racines relevés par zones, pas par couleur brune. Diagnostic limité aux tons bois/sol, pas au feuillage officiel. 15 tests, 32 reconstructions ; aucun helper commun modifié.
 
 FFA1 : fin assortie à EFA1, build dédié `source/fin_foret_automnale_v1/`, huit calques + Top sans profondeur. Nouvelles zones de troncs mesurées ; même diagnostic chaud limité et loi de feuilles, support réutilisé déclaré. 15 tests, 31 reconstructions ; aucune approbation artistique/moteur.
+
+ECM1 : build dédié `source/entree_coniferes_moussus_v1/`, conifères inventés depuis D24P11A feuillu. Neuf calques + Top, profondeur dessinée, aiguilles calculées à deux pixels (loi testée indépendamment). Diagnostic sol/végétation et seuil 35 inchangés ; couverture du test 5%/10% déclarée pour ce sentier plus étroit. 14 tests, 32 reconstructions ; avis artistique/moteur en attente.

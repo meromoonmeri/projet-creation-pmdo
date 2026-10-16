@@ -1404,3 +1404,35 @@ n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false` ; pas de vrai chargeur,
   éditeur, caméra/échelle, rendu ou déplacements testés. La demande de suite ne vaut pas
   approbation. Priorité forestière maintenue, pas de reprise par défaut d'ESB1 ou du Col de sable.
+
+## Suite du 16 octobre 2026 — ECM1, conifères moussus
+
+- Après « continue » suivant FFA1, nouvelle entrée forestière choisie :
+  `source/entree_coniferes_moussus_v1/`, ECM1. Neuf branches de travail + main consultées via
+  leurs arbres API non tronqués ; aucune fusion/changement de branche, anciens lots conservés.
+- D24P11A et provenance copiés d'EFF1. **Le rip montre des feuillus : les conifères sont
+  inventés**, nom descriptif, pas des sprites officiels de sapins. Deux nouveaux bruts 1200×896,
+  décor et support mousse/litière, chacun réussi au premier appel avec rip réellement en
+  `images=`. Prompts exacts, dimensions et empreintes dans generation.json.
+- 768×576, grille 8 px, neuf calques + Top vide : support, mousse/herbe, terre/chemin,
+  ombres, sous-bois, troncs/racines, feuillage, profondeur dessinée, aiguilles calculées.
+  Conifères étagés, grand espace ouvert centre/sud, chemin en S, aucun objet central, grotte,
+  structure ou warp. Pas de bouche noire au nord : prolongement texturé dans les arbres.
+- Contours propres au nouveau brut ; bois par tons chauds, pas reprise des polygones automnaux.
+  Même diagnostic sol/végétation qu'EFF1 et seuil 35 inchangé : sortie **21,22/28,13**.
+  Test de représentativité adapté explicitement à 5 % sol / 10 % végétation, car le sentier
+  représente 8,63 % du brut avec ces mêmes masques ; pas de changement du seuil de fidélité.
+  Cette mesure ne certifie ni silhouettes de conifères ni textures/raccords/volumes.
+- Aiguilles calculées 24×5 ticks, deux pixels diagonaux, et non les trois pixels EFF1 ; couleurs
+  vertes du rip. Loi reconstruite indépendamment. Entrée [384,560], seuil [384,168], chemin
+  16×16 ; prolongement nord décoratif bloquant, aucun boss/Pokémon/PNJ/destination raccordée.
+- **14 tests PASS**, cinq mutations, **32 reconstructions exactes**, neuf banques. Installateur
+  fusion/protection testé. Deux builds identiques : **71 fichiers/membres ORA**, rapport/script
+  versionnés. Régression FFA1 : build + 15 PASS, soit 29 tests avec ECM1 ; helpers/assets inchangés.
+- Scène, support et collisions inspectés. ZIP projet 1,66 Mo/15 fichiers, PNG-ORA 4,27 Mo/51,
+  HTML 2,08 Mo. CRC/caches/doublons contrôlés ; JS syntaxe/données contrôlés. Serveur 0.0.0.0:8009,
+  page et deux ZIP HTTP 200 ; pas de test automatisé des interactions navigateur.
+- Conifères plus stylisés que le rip, mousse assez unie, terre un peu dallée. Avis artistique
+  et vrai moteur en attente : `art_approved=false`, `runtime_tested=false`, `render_tested=false`.
+  Ni chargeur, éditeur, caméra/échelle, rendu ou déplacements exécutés. Une suite n'est pas
+  une approbation. ESB1 rejeté et col de sable écarté ne sont pas repris par défaut.
