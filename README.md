@@ -14,7 +14,7 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
-## Nouvelle entrée — Forêt automnale EFA1
+## Forêt automnale — entrée EFA1 et fin FFA1
 
 La **[Forêt automnale](source/entree_foret_automnale_v1/README_PACK.md)** poursuit les biomes forestiers :
 feuillages cuivrés, mousse olive, litière et chemin sinueux. **Saison inventée par génération
@@ -23,6 +23,12 @@ référencée**, pas un décor automnal officiel ni une recoloration scriptée d
 [Décor généré](source/entree_foret_automnale_v1/bruts/decor.png) ·
 [statut](source/entree_foret_automnale_v1/STATUS.md).
 Projet PMDO, PNG-ORA et aperçu régénérables ; **avis artistique et moteur en attente**.
+
+La **[clairière finale FFA1](source/fin_foret_automnale_v1/README_PACK.md)** accompagne EFA1 :
+clairière ouverte, nouvelle lisière fermée et tronc fourchu en bordure, sans passage nord ni structure.
+**Huit calques + Top, 15 tests PASS, 31 reconstructions exactes** ; support et loi de feuilles
+assortis à l'entrée. [Décor généré](source/fin_foret_automnale_v1/bruts/decor.png) ·
+[statut](source/fin_foret_automnale_v1/STATUS.md). Avis artistique et vrai moteur non validés.
 
 ## Forêt de feuillus — entrée EFF1 et fin FFF1
 

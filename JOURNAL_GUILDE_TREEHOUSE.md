@@ -1378,3 +1378,29 @@ n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile
 - Avis artistique et vrai moteur non validés : `art_approved=false`, `runtime_tested=false`,
   `render_tested=false`. Pas de test d'éditeur, caméra/échelle, rendu ou déplacements. Ne pas
   reprendre ESB1 rejeté ou le Col de sable écarté par défaut ; priorité forestière maintenue.
+
+## Suite du 16 octobre 2026 — FFA1, clairière finale automnale
+
+- Demande « la suite go » : fin assortie à EFA1, nouvelle disposition de clairière ouverte,
+  tronc fourchu au bord nord-ouest et lisière nord fermée, aucune structure ou passage nord.
+  Source `source/fin_foret_automnale_v1/`, préfixe FFA1 vérifié localement et sur l'arbre distant
+  52e6 non tronqué ; branches consultées sans fusion ni changement de branche.
+- Un nouveau décor généré 1200×896 avec D24P11A et décor EFA1 réellement en `images=`, premier
+  essai réussi. Support de litière EFA1 copié à l'identique, déclaré et vérifié. Prompts/hashes
+  et commits dans `generation.json`. Rip/provenance copiés, nom forestier descriptif.
+- **L'automne reste inventé ; le rip est vert**. Diagnostic inchangé des tons bois/sol chauds,
+  clairs 31,33 / sombres 31,57, seuil 35 ; aucune attestation de feuillage automnal officiel,
+  de raccords ou de volumes. Terre nue encore dallée par endroits, sans conformité parfaite promise.
+- 768×576, grille 8 px, huit calques + Top, aucune profondeur sur une fin. Bois et canopée
+  bruns séparés par huit zones de troncs/racines nouvellement relevées, pas par RGB ; fourche
+  comprise, sans détourage parfait promis. Feuilles calculées 24×5 ticks, mêmes loi/couleurs EFA1.
+- Arrivée [384,560], repère boss [448,328], objectif [384,160], accès 16×16, aucun boss
+  instancié, seuil de donjon, warp, PNJ ou destination. Scène et collisions inspectées.
+- **15 tests PASS**, cinq mutations, **31 images reconstruites exactement**, huit banques ;
+  installateur protecteur testé. Deux builds : 67 fichiers/membres ORA identiques, script
+  versionné. Régression EFA1/EFF1/FFF1 : 43 PASS (58 avec FFA1), aucun ancien helper/asset modifié.
+- ZIP projet 1,71 Mo/14 fichiers, PNG-ORA 4,75 Mo/49 fichiers, aperçu 2,16 Mo ; CRC/caches,
+  syntaxe JS et données intégrées contrôlés. Serveur 0.0.0.0:8008, page et ZIP HTTP 200.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false` ; pas de vrai chargeur,
+  éditeur, caméra/échelle, rendu ou déplacements testés. La demande de suite ne vaut pas
+  approbation. Priorité forestière maintenue, pas de reprise par défaut d'ESB1 ou du Col de sable.

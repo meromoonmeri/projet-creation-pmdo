@@ -47,3 +47,9 @@ Retour visuel, puis contrôle dans PMDO 0.8.12. `art_approved: false`, `runtime_
 exécutés. Les tests Python ne remplacent pas la validation en jeu.
 Sources/bruts versionnés ; sorties lourdes régénérables via build puis package dans
 `renders/entree_foret_automnale_v1/`. Voir `README_PACK.md` pour commandes, méthode et installation.
+
+## Suite demandée
+
+Après « la suite go », la fin FFA1 est proposée séparément dans `source/fin_foret_automnale_v1/`.
+Aucun asset/helper d'EFA1 modifié. Cette suite ne constitue ni un avis artistique positif ni
+un test moteur de l'entrée.

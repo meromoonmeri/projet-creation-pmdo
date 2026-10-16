@@ -1,0 +1,1048 @@
+{
+  "lot": "fin_foret_automnale_v1",
+  "prefix": "FFA1",
+  "title": "Clairière finale de la Forêt automnale",
+  "kind": "end",
+  "date": "2026-10-16",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/fin_foret_automnale_v1/reference/D24P11A.png",
+    "sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_foret_automnale_v1/bruts/decor.png",
+      "sha256": "2b31753697b33309fd30822769f4f81223c1cb9016a5fe2e4d59a3dfccf8277e",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_foret_automnale_v1/bruts/sol_complet.png",
+      "sha256": "de813fdb41ec4350c63a0966922138b0ce772005c1b8a0ad9940ff734d95c24a",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "config_sha256": "df1cb579905f6ab5f52cc014107697e93fd1f87451c7a8043b41f78a3e5db1db",
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "reference/D24P11A.png",
+        "../entree_foret_automnale_v1/bruts/decor.png"
+      ],
+      "prompt": "Generate ONE new FINAL CLEARING ground map for an autumn woodland in Pokemon Mystery Dungeon Explorers of Sky DS pixel-art style. Landscape 4:3, 1200 x 896 pixels, elevated top-down game camera. Image ONE is the original green ROM D24P11A, for small native-scale leaf clusters, roots and natural forest texture. Image TWO is our invented autumn ENTRANCE, for its muted copper-brown foliage, olive moss, warm leaf litter and ochre-brown ground. Autumn is an invented seasonal interpretation, NOT an official ROM palette. Create a DIFFERENT tree arrangement and floor layout, not the entrance with its winding path erased. A very large OPEN connected clearing occupies the centre and lower-right middle. At NORTH a closed uneven line of leafy trees, roots and undergrowth slopes diagonally from upper-left towards upper-right; no trail or opening through the north trees. One wider forked trunk belongs at the NORTHWEST RIM only, never in the central floor. The LEFT edge has deeper overlapping medium-sized trees, the RIGHT edge thinner irregular fern borders with several trees. A broad grassy and earthy approach enters ONLY from SOUTH centre, at least a third of the bottom width. Ground is textured olive short grass, subtle fine fallen brown leaves and a few small irregular subdued ochre-brown bare-earth patches merging naturally, NOT one large flat brown blob or a circular arena marking. Keep the central movement area clear of trees, stumps, rocks, flowers, logs or other landmarks. Tiny ferns and mushrooms may appear near side roots only. Forest and treetops continue OFF all four corners, no blank margins, no floating island silhouette, no symmetrical tree ring. Subdued warm bronze and copper midtones like image two, leaf midtones near RGB 160 125 45, dark brown shadows and olive moss, not brilliant orange, vivid red or glowing gold. Crisp native DS pixel clusters, not huge smooth tree blobs, thick black ink contours or high-resolution fantasy painting. No sky, horizon, cliffs, cave, water, architecture, stairs, altar, shrine, symbol, magical effects, sun beams, Pokemon, characters, text or UI. Single full-frame map.",
+      "actual_size": [
+        1200,
+        896
+      ],
+      "attempts": 1,
+      "secondary_reference_commit": "89bc489ac4af524e3cce760bcafa6de63ce38685",
+      "palette_note": "Saison automnale inventee depuis un rip vert, pas un feuillage officiel. Nouvelle composition avec tronc fourchu en bordure nord-ouest et clairiere plus ouverte ; terre nue conserve un aspect dalle par endroits. Aucune approbation artistique supposee.",
+      "reference_sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+      "secondary_reference_sha256": "64fb6675ad829680c0c9a5b2f3ae2ac51864e6d69d514950b7a60798a0dc37df"
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "../entree_foret_automnale_v1/bruts/sol_complet.png"
+      ],
+      "actual_size": [
+        1200,
+        896
+      ],
+      "method": "copie byte-identique du support genere EFA1 ; pas une nouvelle generation. Support independant non aligne sous les objets, sol visible issu du nouveau decor de fin",
+      "source_commit": "89bc489ac4af524e3cce760bcafa6de63ce38685",
+      "reference_sha256": "06399b45633e8dcf1979aabf9a5d693bcf5ba74885c91e943bea9de2caa6ce27",
+      "source_sha256": "de813fdb41ec4350c63a0966922138b0ce772005c1b8a0ad9940ff734d95c24a"
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        445,
+        895
+      ],
+      [
+        451,
+        855
+      ],
+      [
+        445,
+        820
+      ],
+      [
+        458,
+        792
+      ],
+      [
+        456,
+        757
+      ],
+      [
+        432,
+        728
+      ],
+      [
+        412,
+        708
+      ],
+      [
+        395,
+        677
+      ],
+      [
+        380,
+        651
+      ],
+      [
+        368,
+        622
+      ],
+      [
+        354,
+        593
+      ],
+      [
+        355,
+        567
+      ],
+      [
+        376,
+        542
+      ],
+      [
+        404,
+        521
+      ],
+      [
+        435,
+        503
+      ],
+      [
+        462,
+        490
+      ],
+      [
+        493,
+        479
+      ],
+      [
+        502,
+        452
+      ],
+      [
+        493,
+        425
+      ],
+      [
+        470,
+        400
+      ],
+      [
+        444,
+        381
+      ],
+      [
+        438,
+        356
+      ],
+      [
+        444,
+        333
+      ],
+      [
+        462,
+        311
+      ],
+      [
+        485,
+        291
+      ],
+      [
+        516,
+        277
+      ],
+      [
+        554,
+        264
+      ],
+      [
+        589,
+        251
+      ],
+      [
+        625,
+        247
+      ],
+      [
+        664,
+        252
+      ],
+      [
+        705,
+        258
+      ],
+      [
+        745,
+        271
+      ],
+      [
+        777,
+        293
+      ],
+      [
+        813,
+        313
+      ],
+      [
+        843,
+        323
+      ],
+      [
+        871,
+        314
+      ],
+      [
+        897,
+        296
+      ],
+      [
+        924,
+        282
+      ],
+      [
+        956,
+        284
+      ],
+      [
+        991,
+        307
+      ],
+      [
+        1013,
+        340
+      ],
+      [
+        1024,
+        372
+      ],
+      [
+        1033,
+        408
+      ],
+      [
+        1023,
+        443
+      ],
+      [
+        1006,
+        478
+      ],
+      [
+        1000,
+        514
+      ],
+      [
+        1007,
+        544
+      ],
+      [
+        1001,
+        566
+      ],
+      [
+        974,
+        593
+      ],
+      [
+        951,
+        615
+      ],
+      [
+        930,
+        643
+      ],
+      [
+        923,
+        671
+      ],
+      [
+        924,
+        698
+      ],
+      [
+        909,
+        727
+      ],
+      [
+        890,
+        752
+      ],
+      [
+        860,
+        775
+      ],
+      [
+        840,
+        803
+      ],
+      [
+        817,
+        837
+      ],
+      [
+        806,
+        867
+      ],
+      [
+        800,
+        895
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 65 dans le sol existant",
+    "sous_bois": "bande de 24 px autour du sol, bloquante",
+    "details": "herbe, terre nue, ombres, sous-bois, troncs et feuillage separes ; fleurs et petites fougeres au sol conservees avec herbe/ombres",
+    "depth_mode": "none",
+    "depth_polygon_raw": null,
+    "trunk_polygons_raw": [
+      [
+        [
+          302,
+          100
+        ],
+        [
+          329,
+          91
+        ],
+        [
+          373,
+          146
+        ],
+        [
+          393,
+          171
+        ],
+        [
+          410,
+          155
+        ],
+        [
+          433,
+          119
+        ],
+        [
+          456,
+          111
+        ],
+        [
+          431,
+          180
+        ],
+        [
+          418,
+          208
+        ],
+        [
+          412,
+          253
+        ],
+        [
+          383,
+          269
+        ],
+        [
+          353,
+          245
+        ],
+        [
+          355,
+          207
+        ],
+        [
+          336,
+          167
+        ]
+      ],
+      [
+        [
+          445,
+          183
+        ],
+        [
+          489,
+          191
+        ],
+        [
+          516,
+          216
+        ],
+        [
+          528,
+          219
+        ],
+        [
+          546,
+          245
+        ],
+        [
+          528,
+          276
+        ],
+        [
+          482,
+          286
+        ],
+        [
+          450,
+          260
+        ]
+      ],
+      [
+        [
+          806,
+          88
+        ],
+        [
+          861,
+          85
+        ],
+        [
+          891,
+          131
+        ],
+        [
+          887,
+          175
+        ],
+        [
+          919,
+          198
+        ],
+        [
+          950,
+          218
+        ],
+        [
+          958,
+          260
+        ],
+        [
+          928,
+          288
+        ],
+        [
+          890,
+          300
+        ],
+        [
+          849,
+          284
+        ],
+        [
+          815,
+          264
+        ],
+        [
+          788,
+          229
+        ],
+        [
+          783,
+          177
+        ]
+      ],
+      [
+        [
+          0,
+          365
+        ],
+        [
+          60,
+          360
+        ],
+        [
+          72,
+          415
+        ],
+        [
+          128,
+          442
+        ],
+        [
+          145,
+          471
+        ],
+        [
+          130,
+          493
+        ],
+        [
+          62,
+          512
+        ],
+        [
+          0,
+          485
+        ]
+      ],
+      [
+        [
+          182,
+          349
+        ],
+        [
+          232,
+          340
+        ],
+        [
+          267,
+          370
+        ],
+        [
+          290,
+          411
+        ],
+        [
+          333,
+          422
+        ],
+        [
+          384,
+          438
+        ],
+        [
+          423,
+          447
+        ],
+        [
+          474,
+          459
+        ],
+        [
+          501,
+          480
+        ],
+        [
+          478,
+          511
+        ],
+        [
+          422,
+          526
+        ],
+        [
+          370,
+          548
+        ],
+        [
+          311,
+          551
+        ],
+        [
+          270,
+          531
+        ],
+        [
+          230,
+          500
+        ],
+        [
+          195,
+          454
+        ]
+      ],
+      [
+        [
+          1080,
+          349
+        ],
+        [
+          1135,
+          347
+        ],
+        [
+          1160,
+          374
+        ],
+        [
+          1168,
+          421
+        ],
+        [
+          1199,
+          443
+        ],
+        [
+          1199,
+          487
+        ],
+        [
+          1170,
+          508
+        ],
+        [
+          1122,
+          489
+        ],
+        [
+          1088,
+          463
+        ],
+        [
+          1060,
+          413
+        ]
+      ],
+      [
+        [
+          170,
+          707
+        ],
+        [
+          219,
+          695
+        ],
+        [
+          250,
+          719
+        ],
+        [
+          279,
+          741
+        ],
+        [
+          330,
+          743
+        ],
+        [
+          360,
+          770
+        ],
+        [
+          403,
+          784
+        ],
+        [
+          455,
+          813
+        ],
+        [
+          444,
+          843
+        ],
+        [
+          390,
+          863
+        ],
+        [
+          340,
+          863
+        ],
+        [
+          273,
+          866
+        ],
+        [
+          239,
+          836
+        ],
+        [
+          200,
+          804
+        ]
+      ],
+      [
+        [
+          1101,
+          663
+        ],
+        [
+          1142,
+          654
+        ],
+        [
+          1171,
+          680
+        ],
+        [
+          1177,
+          721
+        ],
+        [
+          1199,
+          751
+        ],
+        [
+          1199,
+          807
+        ],
+        [
+          1167,
+          827
+        ],
+        [
+          1121,
+          816
+        ],
+        [
+          1085,
+          798
+        ],
+        [
+          1068,
+          766
+        ],
+        [
+          1083,
+          724
+        ]
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "chauds_clairs": {
+        "distance": 27.63,
+        "rgb_lot": [
+          148.59,
+          103.56,
+          31.14
+        ],
+        "rgb_rip": [
+          161.54,
+          125.52,
+          41.81
+        ],
+        "pixels_lot": 183534,
+        "pixels_rip": 19513
+      },
+      "chauds_sombres": {
+        "distance": 30.45,
+        "rgb_lot": [
+          87.2,
+          58.89,
+          13.55
+        ],
+        "rgb_rip": [
+          99.47,
+          82.82,
+          27.84
+        ],
+        "pixels_lot": 841182,
+        "pixels_rip": 20061
+      }
+    },
+    "sortie": {
+      "chauds_clairs": {
+        "distance": 31.33,
+        "rgb_lot": [
+          145.32,
+          100.78,
+          31.48
+        ],
+        "rgb_rip": [
+          161.54,
+          125.52,
+          41.81
+        ],
+        "pixels_lot": 76978,
+        "pixels_rip": 19513
+      },
+      "chauds_sombres": {
+        "distance": 31.57,
+        "rgb_lot": [
+          86.33,
+          57.97,
+          13.47
+        ],
+        "rgb_rip": [
+          99.47,
+          82.82,
+          27.84
+        ],
+        "pixels_lot": 345683,
+        "pixels_rip": 20061
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/FFA1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "herbe",
+      "file": "calques/FFA1_01_herbe.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "terre",
+      "file": "calques/FFA1_02_terre.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/FFA1_03_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "sous_bois",
+      "file": "calques/FFA1_04_sous_bois.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "troncs",
+      "file": "calques/FFA1_05_troncs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "feuillage",
+      "file": "calques/FFA1_06_feuillage.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "feuilles",
+      "file": "animation/FFA1_07_feuilles_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "label": "feuilles calculees",
+    "emitters": [
+      [
+        395,
+        229,
+        0
+      ],
+      [
+        387,
+        365,
+        1
+      ],
+      [
+        595,
+        309,
+        2
+      ],
+      [
+        350,
+        507,
+        3
+      ],
+      [
+        441,
+        439,
+        4
+      ],
+      [
+        611,
+        239,
+        5
+      ],
+      [
+        535,
+        303,
+        6
+      ],
+      [
+        467,
+        441,
+        7
+      ],
+      [
+        341,
+        414,
+        8
+      ],
+      [
+        479,
+        256,
+        9
+      ],
+      [
+        362,
+        477,
+        10
+      ],
+      [
+        624,
+        273,
+        11
+      ],
+      [
+        365,
+        506,
+        12
+      ],
+      [
+        363,
+        419,
+        13
+      ],
+      [
+        495,
+        428,
+        14
+      ],
+      [
+        374,
+        534,
+        15
+      ],
+      [
+        552,
+        397,
+        16
+      ],
+      [
+        347,
+        209,
+        17
+      ],
+      [
+        401,
+        397,
+        18
+      ],
+      [
+        408,
+        448,
+        19
+      ],
+      [
+        459,
+        456,
+        20
+      ],
+      [
+        447,
+        368,
+        21
+      ],
+      [
+        375,
+        555,
+        22
+      ],
+      [
+        537,
+        380,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        127,
+        103,
+        23
+      ],
+      [
+        159,
+        119,
+        23
+      ],
+      [
+        167,
+        143,
+        55
+      ],
+      [
+        199,
+        159,
+        71
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(4 sin(2 pi k/18)) ; y=y0+k-9 ; feuille en (0,0),(1,0),(1,1)",
+    "origin": "calculee, couleurs bois/terre du rip ; ni animation ni feuillage automnal officiels"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        448,
+        328
+      ],
+      "objectif": [
+        384,
+        160
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1901,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D24P11A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "fin_foret_automnale_v1",
+    "asset": "ffa1_fin_foret_automnale",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "FFA1_00_SOL_COMPLET": 6878,
+      "FFA1_01_HERBE": 748,
+      "FFA1_02_TERRE": 2135,
+      "FFA1_03_OMBRES": 190,
+      "FFA1_04_SOUS_BOIS": 452,
+      "FFA1_05_TRONCS": 1094,
+      "FFA1_06_FEUILLAGE": 3923,
+      "FFA1_07_FEUILLES": 204
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  },
+  "palette_policy": "Saison automnale inventee par generation referencee. Diagnostic RGB sur deux familles de tons chauds du bois/sol disponibles dans D24P11A, pas une comparaison des feuillages avec la vegetation verte officielle. Feuilles animees aux couleurs bois/terre du rip, pas des feuilles ROM."
+}

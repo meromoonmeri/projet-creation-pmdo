@@ -29,6 +29,8 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | [`source/entree_foret_automnale_v1/`](source/entree_foret_automnale_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · reproductibilité | EFA1, saison automnale inventée référencée D24P11A ; 15 tests PASS, 32 reconstructions ; avis artistique/moteur en attente |
 
+| [`source/fin_foret_automnale_v1/`](source/fin_foret_automnale_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · reproductibilité | FFA1, clairière automnale inventée assortie à EFA1 ; 15 tests PASS, 31 reconstructions ; avis artistique/moteur en attente |
+
 Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
 Helpers de cette suite : [`source/maps_suite_v1/`](source/maps_suite_v1/README.md).
 
