@@ -25,6 +25,8 @@ Les comptes historiques ci-dessous décrivent l'extraction du 1er octobre, pas c
 
 | [`source/entree_foret_feuillus_v1/`](source/entree_foret_feuillus_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · reproductibilité | EFF1, forêt D24P11A ; 14 tests PASS, 32 reconstructions, neuf calques ; avis artistique/moteur en attente |
 
+| [`source/fin_foret_feuillus_v1/`](source/fin_foret_feuillus_v1/STATUS.md) | build · test · verify · package · provenance · bruts · viewer · reproductibilité | FFF1, clairière finale assortie à EFF1 ; 14 tests PASS, 31 reconstructions, huit calques ; avis artistique/moteur en attente |
+
 Voir [WORKFLOW.md](WORKFLOW.md) pour la recette actuelle « générateur + pipeline natif ».
 Helpers de cette suite : [`source/maps_suite_v1/`](source/maps_suite_v1/README.md).
 

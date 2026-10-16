@@ -42,3 +42,9 @@ l'intention du prompt. Ne pas présenter la proposition comme une validation art
 Prochaine étape : retour visuel sur cette direction forestière, puis contrôle dans PMDO 0.8.12.
 Ne pas reprendre ESB1 ou le col de sable comme prochaine livraison par défaut.
 Régénérer sorties, packs et aperçu selon `README_PACK.md` ; médias lourds ignorés par Git.
+
+## Suite demandée
+
+Après « passe a la suite », FFF1 — clairière finale assortie — est proposée séparément dans
+`source/fin_foret_feuillus_v1/`. Le décor, le support et le code d'EFF1 restent inchangés.
+La poursuite ne constitue pas une approbation artistique d'EFF1 ni un test moteur.

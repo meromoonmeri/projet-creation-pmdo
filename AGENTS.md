@@ -1304,3 +1304,28 @@ Pas de runtime. Pas dans le mod unique.
 - `art_approved=false`, `runtime_tested=false`, `render_tested=false`. Pas de test du chargeur
   réel, de l'éditeur, de l'échelle, du rendu ou des déplacements. Attendre le retour visuel,
   sans déduire une approbation du simple fait de la demande de suite.
+
+## Suite forestière du 16 octobre 2026 — FFF1, clairière finale
+
+- Après « passe a la suite », fin assortie à EFF1, sans supposer d'approbation artistique.
+  Nouveau décor généré avec D24P11A et décor EFF1 en `images=` : clairière ouverte, terre nue
+  centrale, lisière nord bloquante ; aucune grotte, construction, sortie ou boss choisi.
+  Premier appel sans image, reprise réussie ; prompts exacts et hashes conservés.
+- Source `source/fin_foret_feuillus_v1/`, préfixe FFF1. Vérification du préfixe local et du nom
+  sur l'arbre distant 52e6 (non tronqué), branches consultées sans fusion ni changement de branche.
+  Rip/provenance et support d'herbe copiés d'EFF1, réutilisation déclarée et vérifiée.
+- 768×576, grille 8 px, huit calques + Top : support, herbe, terre nue, ombres existantes,
+  sous-bois, troncs/racines, feuillage, feuilles calculées 24×5 ticks. Pas de profondeur sur une fin.
+  Même diagnostic couleur et loi de feuilles qu'EFF1, testés ; pixels générés, formats natifs seulement.
+- Arrivée [384,560], repère boss [424,344], objectif [384,192] ; accès 16×16, centre à distance
+  des bords, aucun warp, seuil de donjon, PNJ ou destination. Scène et collisions inspectées.
+- Fidélité finale : sol 6,17 / végétation 19,95, seuil 35. La couleur n'atteste ni les raccords,
+  ni les volumes ; sol/herbe peu texturés par endroits. **14 tests PASS**, cinq mutations,
+  **31 images reconstruites exactement** depuis huit banques. Installateur protecteur testé.
+- Deux builds identiques : **67 fichiers/membres ORA**, script de comparaison versionné.
+  Régression EFF1 : build et 14 tests repassés (28 PASS au total). Aucun helper ou asset ancien modifié.
+- Projet ZIP 1,96 Mo/14 fichiers, calques-ORA 4,97 Mo/49 fichiers, aperçu 2,54 Mo ; CRC, absence
+  de caches, syntaxe JS et données intégrées contrôlés. Serveur 0.0.0.0:8006, page et ZIP HTTP 200.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false` : pas de vrai chargeur,
+  éditeur, rendu, caméra/échelle ou déplacements testés. Priorité forestière maintenue ;
+  ne pas reprendre ESB1 rejeté ou le Col de sable écarté comme suite par défaut.

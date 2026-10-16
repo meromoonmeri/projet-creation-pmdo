@@ -27,3 +27,5 @@ FDR1 est maintenant finalisé techniquement : 13 tests dédiés dont cinq mutati
 FAD1 : fin des Aiguilles dorées assortie à EAD2, matériau `gold`, `kind: end`, six calques + Top, poussière tombante 24×5 ticks. 13 tests dédiés et 29 reconstructions ; aucun changement du pipeline commun. Avis artistique et moteur en attente.
 
 EFF1 : `source/entree_foret_feuillus_v1/build.py` réutilise les helpers dans une instance isolée, mais possède sa partition forestière et son ordre de neuf calques. Utiliser son build dédié, pas la CLI minérale générique. 14 tests, 32 reconstructions, pas de validation artistique/moteur.
+
+FFF1 : `source/fin_foret_feuillus_v1/build.py` est la fin forestière assortie à EFF1, huit calques + Top sans profondeur. Même diagnostic couleur et loi de feuilles, support EFF1 réutilisé et déclaré. 14 tests, 31 reconstructions, avis artistique/moteur en attente.
