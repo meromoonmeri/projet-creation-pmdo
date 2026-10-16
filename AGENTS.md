@@ -1359,7 +1359,7 @@ Pas de runtime. Pas dans le mod unique.
 - Demande « la suite go » : fin assortie à EFA1, nouvelle disposition de clairière ouverte,
   tronc fourchu au bord nord-ouest et lisière nord fermée, aucune structure ou passage nord.
   Source `source/fin_foret_automnale_v1/`, préfixe FFA1 vérifié localement et sur l'arbre distant
-  52e6 non tronqué ; branches consultées sans fusion ni changement de branche.
+  c2d77959d87bf334e9603b47df012bc4f1e3dd7a non tronqué ; branches consultées sans fusion ni changement de branche.
 - Un nouveau décor généré 1200×896 avec D24P11A et décor EFA1 réellement en `images=`, premier
   essai réussi. Support de litière EFA1 copié à l'identique, déclaré et vérifié. Prompts/hashes
   et commits dans `generation.json`. Rip/provenance copiés, nom forestier descriptif.
