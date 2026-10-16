@@ -1261,3 +1261,19 @@ Les 16 tests EDR1 repassent. ZIP PMDO et calques/ORA, aperçu autonome et serveu
 Sources : `source/entree_aiguilles_dorees_v2/`. **Art non approuvé, moteur et échelle en jeu non testés.**
 FDR1 reste en cours, non livré ; EAD1 est conservé comme essai rejeté. Retour utilisateur attendu
 sur la nouvelle composition avant de généraliser ce type de grotte.
+
+## 16 octobre 2026 — FDR1 finalisée, fin du Défilé des Roches grises
+
+Après « passe au prochaine map », reprise du lot commencé avant la correction de grotte.
+Prolongement généré des falaises jusqu'aux bords, sans petites marges de diorama, en gardant
+le grand sol central : 768×576, six calques + Top, poussière 24×5 ticks, aucun warp ni sortie.
+Référence D46P41A et matière D46P11A ; pixels générés, pas extraction canonique.
+
+Fidélité sortie (seuil 35) : sol 12,65 ; roche 2,09. 13 tests PASS dont cinq mutations rejetées ;
+29 images reconstruites depuis les .tile et le Ground. Installateur protecteur testé ; deux
+builds donnent 59 fichiers/membres ORA identiques hors horodatages d'archive et caches Python.
+Les 24 tests EAD2/EDR1 repassent. ZIP PMDO et ZIP calques/ORA + aperçu autonome et serveur 8002.
+
+FDR1 est maintenant finalisé techniquement, contrairement à son statut historique interrompu.
+**Art non approuvé, vrai moteur et rendu en jeu non testés.** La demande de passer à la suite
+n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile_roches_grises_v1/`.

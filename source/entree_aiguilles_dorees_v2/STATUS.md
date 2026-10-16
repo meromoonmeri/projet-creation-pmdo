@@ -30,5 +30,4 @@ La grande façade peut encore nécessiter un ajustement de caméra/échelle apr�
 
 ## Lots provisoires conservés
 
-EAD1 reste l'essai rejeté. FDR1 a été construit avant le retour utilisateur, mais ses tests et
-son paquet ne sont pas terminés : il n'est pas déclaré livré. La priorité est EAD2.
+EAD1 reste l'essai rejeté. FDR1 a été construit avant le retour utilisateur puis finalisé au tour suivant, après « passe au prochaine map » : voir son STATUS actuel. Aucune approbation artistique d'EAD2 n'est déduite de ce passage à la suite.

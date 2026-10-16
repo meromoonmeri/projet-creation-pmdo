@@ -1,9 +1,8 @@
 # FDR1 — Fin du Défilé des Roches grises
 
-> **CHANTIER EN COURS : build produit, mais tests dédiés, vérificateur et packaging non terminés. Voir STATUS.md ; les commandes ci-dessous sont la cible, pas une livraison certifiée.**
 
 Projet d'édition **PMDO 0.8.12**, **768 × 576 px**, 4:3 vaste, 96 × 72 cases de **8 px** (`TexSize=1`).
-Namespace `fin_defile_roches_grises`, Ground `fdr1_fin_defile_roches_grises`. Nouveau lot indépendant, aucun ancien lot écrasé.
+Namespace `fin_defile_roches_grises`, Ground `fdr1_fin_defile_roches_grises`. Lot indépendant, aucun ancien lot écrasé. Finalisé techniquement après la demande « passe au prochaine map ».
 
 ## Intention et référence
 
@@ -12,7 +11,7 @@ Fin assortie a EDR1 ; arene naturelle fermee, arrivee sud, boss central non nomm
 Référence ROM **D46P41A**, rendue avec skytemple-files 1.8.5 depuis `pret/pmd-sky`, commit
 `c8073235b39746a7ee74e6cea16c730bd91a1e67`. Les fichiers source, blobs Git et SHA-256 sont
 consignés dans `reference/provenance.json`. Le nom de la carte est descriptif, **pas un nom officiel
-déduit du code Dnn**. Les images ROM ont réellement été fournies au générateur.
+déduit du code Dnn**. Les images ROM ont réellement été fournies au générateur. La passe finale prolonge les falaises hors cadre pour remplacer les anciennes marges grises unies ; ce n’est pas un agrandissement du PNG.
 
 La référence principale donne la matière du défilé ; D46P11A est aussi passée au générateur pour rester cohérent avec EDR1. Le rendu de D46P41A renvoyé par l’outil contient une seule frame (malgré le drapeau BPL d’animation de palette). La première proposition contenait une estrade indésirable : elle a été supprimée par édition générée locale, sans sortie nord ni artefact. L’image intermédiaire rejetée n’est pas conservée ; les prompts le signalent.
 
@@ -23,7 +22,7 @@ Segmentation sur le brut, contour de sol relevé et documenté dans `config.json
 séparées par luminance. Talus et pied de parois isolés dans une bande de 24 px, non praticables.
 Réduction BOX pondérée par classe, vote maximal, facteur uniforme 576/896, largeur arrondie 771
 puis recadrage centré à 768. Palette commune 96 sans dither. Le sol visible conserve le décor ;
-le sol complet assure un support continu sous les masses. Les racines/aiguilles restent dans les parois.
+le sol complet antérieur est conservé comme support continu sous les masses (pas de nouvelle génération ni de recalage revendiqués). Les racines/aiguilles restent dans les parois.
 
 **Terrain généré référencé**, pas extraction de pixels officiels. « Natif » désigne les formats
 `.tile`, `index.idx`, `.rsground` et la grille 8 px. Les effets sont recalculés avec des couleurs exactes du rip.
@@ -70,6 +69,14 @@ Code commun : `source/maps_suite_v1/`. Helpers bas niveau chargés dans une inst
 restent `source/pmdo_cote/`. Aucun ZIP historique absent n'est requis.
 Les tests relisent les vrais octets des banques générées et reconstruisent les images via le Ground.
 Ce n'est pas le chargeur du moteur. Les mutations sont effectuées dans des copies temporaires.
+
+## Vérifications
+
+**13 tests PASS**, dont cinq mutations rejetées (pixel, marqueur, animation copiée, sortie interdite, masque de collisions).
+Le vérificateur relit les banques et reconstruit **29 images exactes** depuis le Ground : cinq calques fixes et 24 phases de poussière.
+Les quatre coins sont contrôlés contre une régression vers des marges unies. L’installateur est testé en simulation,
+fusion d’index, sauvegarde, réinstallation idempotente et refus d’écrasement d’une carte modifiée.
+Ces résultats ne constituent pas une validation du vrai moteur.
 
 ## Livraison et import
 

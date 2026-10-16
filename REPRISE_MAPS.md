@@ -261,3 +261,19 @@ exactes. Les 16 tests EDR1 repassent. Serveur d'aperçu EAD2 sur 8001.
 **Prochaine étape : retour visuel utilisateur sur EAD2 puis contrôle dans le vrai PMDO.**
 Aucune approbation ni validation de caméra/échelle en jeu n'est supposée. EAD1 reste rejeté,
 FDR1 reste un chantier dont les tests et paquets ne sont pas terminés ; lire leurs STATUS.
+
+## 16 octobre 2026 — FDR1 finalisée après « passe au prochaine map »
+
+FDR1 n'est plus le chantier interrompu des notes précédentes : tests dédiés, vérificateur,
+paquets et aperçu ont été terminés. La passe générée finale prolonge les falaises hors du cadre,
+remplaçant les coins gris unis sans agrandir le PNG. Référence D46P41A ; mêmes marqueurs au sud,
+au centre et au pied de paroi nord ; aucune sortie, aucun warp, pas de boss nommé.
+
+Six calques + Top, poussière calculée 24×5 ticks, 768×576. Fidélité sortie sol 12,65 / roche 2,09.
+13 tests PASS, cinq mutations rejetées, 29 images reconstruites depuis les six banques et le Ground.
+Installateur testé et deux builds identiques (59 fichiers/membres ORA hors horodatages/caches).
+EAD2 et EDR1 : leurs 24 tests repassent. Source `source/fin_defile_roches_grises_v1/`.
+Aperçu `renders/fin_defile_roches_grises_v1/index.html`, serveur de session sur 8002.
+
+Prochaine étape : retour visuel et contrôle dans le vrai PMDO. Aucune approbation d'EAD2 ou FDR1
+n'est déduite du passage à la suite. Les PNG, ZIP et HTML se régénèrent via build puis package.
