@@ -1,0 +1,706 @@
+{
+  "lot": "entree_terres_volcaniques_v1",
+  "prefix": "ETV1",
+  "title": "Entrée des Terres volcaniques",
+  "kind": "entrance",
+  "date": "2026-10-16",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "format": "4:3 vaste",
+  "method": "Rendu genere reference, reduction par classe puis formats natifs. Pas des pixels ROM.",
+  "art_approved": false,
+  "reference": {
+    "file": "source/entree_terres_volcaniques_v1/reference/D41P41A.png",
+    "sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_terres_volcaniques_v1/bruts/decor.png",
+      "sha256": "193512e6e1daa2d682a5dad12262bd9f0341010cf707a5b57adf7a030e1254c7",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_terres_volcaniques_v1/bruts/sol_complet.png",
+      "sha256": "3ff8412b78a2d5eb0850c0fcc6869d779c4deda91bf300203fb55c677770dc74",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "palette_policy": "Diagnostic cendre/lave propre au biome, identique rip/brut/sortie, seuil 35 inchange. Cendre:65<R<160,abs(R-G)<18,abs(G-B)<20. Lave:R>200,65<G<245,B<140,R>G+5. Pas une preuve de textures officielles ou raccords. Non comparable aux indices forestiers.",
+  "config_sha256": "561b82e4cdcf1f169adf7bc22361810f0def34a5f92c1e37d14b0fba7befb5a4",
+  "generation": [
+    {
+      "file": "bruts/decor.png",
+      "images": [
+        "reference/D41P41A.png"
+      ],
+      "prompt": "One NEW complete VOLCANIC WILDERNESS ENTRANCE ground map in Pokemon Mystery Dungeon Explorers of Sky DS pixel art. Use the attached original D41P41A ROM image ONLY as reference for the small DS pixel clusters, textured grey ash, layered dark basalt and glowing cellular lava palette. Do NOT copy its enclosed island arena layout, the central Pokemon or any symbol. Create a completely different OPEN volcanic terrain composition. Landscape 4:3, 1200 by 896 pixels, elevated top-down PMD map camera, NO sky or horizon. A broad continuous grey-black ash and basalt land corridor enters at SOUTH CENTRE, opens into a very generous irregular rocky plateau occupying the central and lower half, then curves gently to the LEFT and continues through the NORTH edge between staggered low basalt outcrops. Native-scale shaded volcanic crags occupy the LEFT and RIGHT sides, varied broken rock ledges with complete top-face-foot volumes, not huge smooth polygons or repetitive columns. Keep at least 45 percent of the image as broad safe ash ground. Ash ground midtones around RGB 90 84 79, finely stippled curved volcanic texture, a few gravel flecks, not a flat dark rectangle and not regular brick paving. Dark charcoal/brown-grey basalt with warm ember-lit side edges. On BOTH sides, clearly defined irregular pools and short channels of intensely HOT LAVA, with red-orange cells and small winding bright yellow fissures, near RGB 250 160 40 in the orange midtones. Pools continue OFF the LEFT and RIGHT frame edges. Lava is lateral, never cuts across or blocks the central approach. Fine yellow-orange ripples, no large white glowing areas. Ground and crags continue beyond all four corners: no arena ring, floating island, isolated diorama, exterior void or symmetrical circular border. No central landmark, no chosen boss. This is open volcanic wilderness, not a cave entrance: NO cave mouth, arch, portal or black hole at the north, the ash trail continues visibly into the distance. No waterfall, lava fountain, tall lava column, bridge, stairs, ruins, altar, building, signage, machine, statue, Groudon, Pokemon, characters, objects, text, symbols, green vegetation, snow, sky, magical glow, fog overlay, sun beams or UI. Crisp shaded DS pixel art with small irregular clusters, no thick black comic outline or painted fantasy illustration. Single full-frame map.",
+      "attempts": 1,
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "193512e6e1daa2d682a5dad12262bd9f0341010cf707a5b57adf7a030e1254c7",
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95",
+      "method": "Nouvelle generation referencee. Pas de pixels ROM exacts.",
+      "note": "Plateau central encore assez frontal avec de grandes corniches. Le fond reste ouvert et sans bouche de grotte, aucun objet central ; conformite artistique au prompt non certifiee."
+    },
+    {
+      "file": "bruts/sol_complet.png",
+      "images": [
+        "reference/D41P41A.png",
+        "bruts/decor.png"
+      ],
+      "prompt": "Dessine une seule texture de sol volcanique en pixel art Nintendo DS, un grand rectangle horizontal 4:3 de 1200 par 896 pixels. Inspire-toi uniquement du sol gris cendré texturé des deux images jointes. Tout le rectangle est couvert de cendre gris-brun avec de minuscules stries irrégulières et quelques grains de gravier. Couleur moyenne gris chaud proche de RGB 90 84 79. Vue parfaitement de dessus, même échelle de texture partout, contraste modéré. Il n'y a aucun décor : pas de lave, falaise, arbre, Pokémon, objet, personnage, symbole, texte ou bordure. Seulement une matière de sol continue, détaillée et irrégulière, sans aplat ni bande sombre.",
+      "attempts": 3,
+      "failed_attempts": [
+        {
+          "attempt": 1,
+          "prompt": "One independent ASH GROUND TEXTURE SUPPORT for a PMD Explorers of Sky volcanic ground map. Use the attached D41P41A original for its grey stippled ash-floor pixel clusters and restrained DS texture scale, not its map layout. Full rectangular landscape 4:3, 1200 by 896 pixels, uniformly overhead, edge-to-edge charcoal grey ash with fine slightly curved stippled marks and sparse tiny gravel flecks. Midtones near RGB 90 84 79, subtly warm grey, no blue cast, moderate spatial variation, fine crisp shaded DS pixel art. No scene, path, cliff, ledge, rocks, lava, red fissures, embers, object, symbol, Pokemon, character, border, magenta or black area, text or shadow bands. This is a hidden independent complete floor support, not another map.",
+          "images": [
+            "reference/D41P41A.png"
+          ],
+          "reason": "Response contains no images (finishReason NONE, 0 parts)."
+        },
+        {
+          "attempt": 2,
+          "prompt": "One independent ASH GROUND TEXTURE SUPPORT for a PMD Explorers of Sky volcanic ground map. Use the attached D41P41A original for its grey stippled ash-floor pixel clusters and restrained DS texture scale, not its map layout. Full rectangular landscape 4:3, 1200 by 896 pixels, uniformly overhead, edge-to-edge charcoal grey ash with fine slightly curved stippled marks and sparse tiny gravel flecks. Midtones near RGB 90 84 79, subtly warm grey, no blue cast, moderate spatial variation, fine crisp shaded DS pixel art. No scene, path, cliff, ledge, rocks, lava, red fissures, embers, object, symbol, Pokemon, character, border, magenta or black area, text or shadow bands. This is a hidden independent complete floor support, not another map.",
+          "images": [
+            "reference/D41P41A.png"
+          ],
+          "reason": "Response contains no images (finishReason NONE, 0 parts)."
+        }
+      ],
+      "actual_size": [
+        1200,
+        896
+      ],
+      "sha256": "3ff8412b78a2d5eb0850c0fcc6869d779c4deda91bf300203fb55c677770dc74",
+      "reference_sha256": "b467d05910cb7500fb59c54bd034bdfde724f378625a7e38319dad68e8e0cd95",
+      "method": "Nouvelle generation referencee. Pas de pixels ROM exacts."
+    }
+  ],
+  "normalization": {
+    "scale_xy": 0.6428571428571429,
+    "scaled_width": 771,
+    "crop_left": 1,
+    "method": "BOX pondéré par classe, vote maximal, palette commune 96, sans dither",
+    "floor_support": {
+      "source_size": [
+        1200,
+        896
+      ],
+      "scale_xy": 0.6428571428571429,
+      "scaled_width": 771,
+      "crop_left": 1,
+      "note": "support texture indépendant, non aligné ; sol visible issu du décor"
+    }
+  },
+  "segmentation": {
+    "floor_polygon_raw": [
+      [
+        520,
+        160
+      ],
+      [
+        680,
+        160
+      ],
+      [
+        700,
+        185
+      ],
+      [
+        760,
+        190
+      ],
+      [
+        785,
+        215
+      ],
+      [
+        810,
+        230
+      ],
+      [
+        818,
+        260
+      ],
+      [
+        819,
+        290
+      ],
+      [
+        824,
+        320
+      ],
+      [
+        838,
+        350
+      ],
+      [
+        840,
+        380
+      ],
+      [
+        840,
+        420
+      ],
+      [
+        870,
+        450
+      ],
+      [
+        875,
+        500
+      ],
+      [
+        860,
+        525
+      ],
+      [
+        822,
+        545
+      ],
+      [
+        814,
+        575
+      ],
+      [
+        785,
+        600
+      ],
+      [
+        750,
+        620
+      ],
+      [
+        710,
+        640
+      ],
+      [
+        686,
+        670
+      ],
+      [
+        666,
+        700
+      ],
+      [
+        649,
+        730
+      ],
+      [
+        659,
+        780
+      ],
+      [
+        668,
+        830
+      ],
+      [
+        680,
+        895
+      ],
+      [
+        516,
+        895
+      ],
+      [
+        510,
+        850
+      ],
+      [
+        500,
+        805
+      ],
+      [
+        500,
+        785
+      ],
+      [
+        490,
+        750
+      ],
+      [
+        475,
+        715
+      ],
+      [
+        460,
+        685
+      ],
+      [
+        438,
+        662
+      ],
+      [
+        420,
+        643
+      ],
+      [
+        400,
+        625
+      ],
+      [
+        383,
+        602
+      ],
+      [
+        365,
+        582
+      ],
+      [
+        350,
+        560
+      ],
+      [
+        334,
+        548
+      ],
+      [
+        320,
+        535
+      ],
+      [
+        303,
+        510
+      ],
+      [
+        294,
+        480
+      ],
+      [
+        285,
+        455
+      ],
+      [
+        284,
+        429
+      ],
+      [
+        292,
+        401
+      ],
+      [
+        304,
+        380
+      ],
+      [
+        321,
+        355
+      ],
+      [
+        339,
+        332
+      ],
+      [
+        350,
+        310
+      ],
+      [
+        354,
+        286
+      ],
+      [
+        362,
+        260
+      ],
+      [
+        382,
+        241
+      ],
+      [
+        407,
+        222
+      ],
+      [
+        430,
+        209
+      ],
+      [
+        449,
+        201
+      ],
+      [
+        472,
+        194
+      ],
+      [
+        490,
+        181
+      ],
+      [
+        514,
+        167
+      ]
+    ],
+    "shadows": "luminance lissee 5 px < 80 dans le sol existant",
+    "rebords": "bande de 12 px bruts autour du sol, bloquante",
+    "details": "cendre, teintes sombres du sol, rebords, basalte, prolongement nord, lave separes ; zones d edition pas detourage parfait",
+    "lava_mask_raw": "fill_holes(R>175,G>30,R-B>100,G-B>10)",
+    "depth_mode": "drawn",
+    "depth_polygon_raw": [
+      [
+        490,
+        0
+      ],
+      [
+        710,
+        0
+      ],
+      [
+        715,
+        100
+      ],
+      [
+        711,
+        135
+      ],
+      [
+        695,
+        160
+      ],
+      [
+        690,
+        180
+      ],
+      [
+        520,
+        180
+      ],
+      [
+        500,
+        130
+      ]
+    ]
+  },
+  "fidelity": {
+    "brut": {
+      "cendre": {
+        "distance": 1.11,
+        "rgb_lot": [
+          88.63,
+          83.0,
+          77.49
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 674533,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 12.86,
+        "rgb_lot": [
+          244.74,
+          149.6,
+          35.27
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 184875,
+        "pixels_rip": 159860
+      }
+    },
+    "sortie": {
+      "cendre": {
+        "distance": 5.87,
+        "rgb_lot": [
+          86.32,
+          80.24,
+          74.23
+        ],
+        "rgb_rip": [
+          89.25,
+          83.14,
+          78.4
+        ],
+        "pixels_lot": 293750,
+        "pixels_rip": 82335
+      },
+      "lave": {
+        "distance": 9.94,
+        "rgb_lot": [
+          244.08,
+          154.21,
+          35.38
+        ],
+        "rgb_rip": [
+          251.4,
+          160.06,
+          38.68
+        ],
+        "pixels_lot": 71254,
+        "pixels_rip": 159860
+      }
+    }
+  },
+  "fidelity_max": 35,
+  "layers": [
+    {
+      "name": "sol_complet",
+      "file": "calques/ETV1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "cendre",
+      "file": "calques/ETV1_01_cendre.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "ombres",
+      "file": "calques/ETV1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "rebords",
+      "file": "calques/ETV1_03_rebords.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "basalte",
+      "file": "calques/ETV1_04_basalte.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "profondeur",
+      "file": "calques/ETV1_05_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "lave",
+      "file": "animation/ETV1_06_lave_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "name": "braises",
+      "file": "animation/ETV1_07_braises_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "depth_color": null,
+  "dust": {
+    "label": "braises montantes calculees (deux pixels)",
+    "emitters": [
+      [
+        36,
+        106,
+        0
+      ],
+      [
+        729,
+        198,
+        1
+      ],
+      [
+        723,
+        161,
+        2
+      ],
+      [
+        727,
+        437,
+        3
+      ],
+      [
+        43,
+        408,
+        4
+      ],
+      [
+        730,
+        116,
+        5
+      ],
+      [
+        692,
+        158,
+        6
+      ],
+      [
+        54,
+        409,
+        7
+      ],
+      [
+        697,
+        393,
+        8
+      ],
+      [
+        700,
+        130,
+        9
+      ],
+      [
+        87,
+        425,
+        10
+      ],
+      [
+        766,
+        141,
+        11
+      ],
+      [
+        64,
+        437,
+        12
+      ],
+      [
+        744,
+        396,
+        13
+      ],
+      [
+        672,
+        402,
+        14
+      ],
+      [
+        3,
+        449,
+        15
+      ],
+      [
+        732,
+        381,
+        16
+      ],
+      [
+        0,
+        91,
+        17
+      ],
+      [
+        53,
+        381,
+        18
+      ],
+      [
+        699,
+        412,
+        19
+      ],
+      [
+        677,
+        416,
+        20
+      ],
+      [
+        728,
+        202,
+        21
+      ],
+      [
+        755,
+        458,
+        22
+      ],
+      [
+        752,
+        218,
+        23
+      ]
+    ],
+    "colors": [
+      [
+        247,
+        95,
+        31
+      ],
+      [
+        247,
+        135,
+        31
+      ],
+      [
+        255,
+        175,
+        39
+      ],
+      [
+        255,
+        255,
+        47
+      ]
+    ],
+    "phases": 24,
+    "ticks": 5,
+    "law": "k=(t+phase)%24 ; visible k<18 ; x=x0+round(3 sin(2 pi k/18)) ; y=y0-k+9 ; pixels (0,0),(0,-1) ; clip lave",
+    "origin": "calculee, couleurs exactes du rip ; pas une animation officielle"
+  },
+  "lava_animation": {
+    "law": "theta=2*pi*(t%24)/24 ; dx=rint(2*(sin(theta+y/19)-sin(y/19))) ; dy=rint(2*(cos(theta+x/23)-cos(x/23))) ; nearest source inside lave ; only erosion(lave,3) changes ; frame0 identity",
+    "origin": "deplacement periodique des pixels de lave generes, sans recoloration ; pas le BPL officiel",
+    "border_fixed_px": 3,
+    "phases": 24,
+    "ticks": 5
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "donjon_seuil": [
+        320,
+        112
+      ]
+    },
+    "reachable_16px": true,
+    "reachable_positions": 1582,
+    "warp": false,
+    "destination_linked": false
+  },
+  "origins": {
+    "terrain": "genere reference D41P41A",
+    "effects": "recalcules, couleurs du rip",
+    "native": "formats et grille uniquement"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "namespace": "entree_terres_volcaniques_v1",
+    "asset": "etv1_entree_terres_volcaniques",
+    "template": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+    "template_sha256": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+    "tile_counts": {
+      "ETV1_00_SOL_COMPLET": 6913,
+      "ETV1_01_CENDRE": 1779,
+      "ETV1_02_OMBRES": 1014,
+      "ETV1_03_REBORDS": 293,
+      "ETV1_04_BASALTE": 3749,
+      "ETV1_05_PROFONDEUR": 270,
+      "ETV1_06_LAVE": 27380,
+      "ETV1_07_BRAISES": 181
+    },
+    "runtime_tested": false,
+    "render_tested": false
+  }
+}

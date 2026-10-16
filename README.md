@@ -14,6 +14,17 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Nouveau biome — Terres volcaniques ETV1
+
+Après le choix **Terres volcaniques**, [ETV1](source/entree_terres_volcaniques_v1/README_PACK.md)
+quitte les forêts : cendre grise, corniches de basalte et lave latérale animée séparément des
+braises. **768×576, huit calques + Top**, passage sud/nord sans grotte, structure ou warp.
+**17 tests PASS, 54 reconstructions exactes**, reproductibilité vérifiée. Nouveau rip D41P41A
+fourni au générateur ; pixels générés, animations recalculées, pas le BPL officiel.
+[Décor généré](source/entree_terres_volcaniques_v1/bruts/decor.png) ·
+[statut](source/entree_terres_volcaniques_v1/STATUS.md). Projet PMDO, PNG-ORA et aperçu régénérables ;
+**avis artistique et vrai moteur en attente**. Anciens lots conservés.
+
 ## Nouvelle entrée — Conifères moussus ECM1
 
 La **[Forêt de conifères moussus](source/entree_coniferes_moussus_v1/README_PACK.md)** poursuit la

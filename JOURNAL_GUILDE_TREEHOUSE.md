@@ -1436,3 +1436,40 @@ n'est pas une validation implicite d'EAD2. Sources et état : `source/fin_defile
   et vrai moteur en attente : `art_approved=false`, `runtime_tested=false`, `render_tested=false`.
   Ni chargeur, éditeur, caméra/échelle, rendu ou déplacements exécutés. Une suite n'est pas
   une approbation. ESB1 rejeté et col de sable écarté ne sont pas repris par défaut.
+
+## Nouveau biome du 16 octobre 2026 — ETV1, Terres volcaniques
+
+- L'utilisateur demande « fait d'autre biome mtn », puis choisit explicitement **Terres volcaniques**.
+  Cette suite quitte donc la priorité forestière précédente, sans reprendre ESB1 ou le Col de sable.
+  Nouveau lot `source/entree_terres_volcaniques_v1/`, ETV1 ; neuf branches de travail + main
+  consultées (arbres API non tronqués, noms de chemins), aucune fusion/changement de branche.
+- Référence **D41P41A 552×576**, nouvellement extraite de pret/pmd-sky c8073235, bg_list index 103,
+  une couche, aucun BPA, animation de palette : rendu outil 26 images, frame 0 seule conservée.
+  Ce nombre n'atteste pas une cadence/durée BPL. Provenance/hashes et extracteur optionnel fournis.
+  Rip d'arène avec un Pokémon utilisé pour les matières/couleurs, pas le layout ou le boss.
+- Nouveau décor1200×896, premier appel réussi ; support cendre de même taille, deux appels
+  sans image puis succès avec prompt simplifié + décor en seconde référence. Rip réellement
+  en `images=` à chaque appel, prompts/échecs/hashes consignés. Pas de collage ou recoloration.
+- 768×576, huit calques + Top vide : support, cendre, teintes sombres, rebords, basalte,
+  profondeur dessinée, lave et braises animées indépendamment. Passage central sud/nord,
+  lave latérale, aucun objet central, grotte, construction, warp ou boss. Plateau encore
+  frontal, corniches marquées et approche sud plus étroite ; aucune perfection artistique promise.
+- Contours propres au nouveau brut, lave par teintes chaudes/fill_holes, passage excluant
+  la lave ; bordures bloquantes12px bruts. Diagnostic cendre/lave défini avant génération,
+  mêmes masques et seuil35 : brut1,11/12,86, sortie **5,87/9,94**. Pas de comparaison directe
+  aux indices forestiers ni preuve de textures officielles/volumes/raccords.
+- Surface de lave générée déplacée cycliquement sans recoloration, rive fixe3px, alpha fixe,
+  phase0identité, 24×5ticks. Ondulation sur place, pas un écoulement net ou le BPL officiel.
+  Braises deux pixels, 24×5ticks, couleurs chaudes du rip ; lois testées indépendamment.
+  Entrée[384,560], seuil[320,112], chemin16×16 ; fond nord décoratif bloquant, pas de destination.
+- **17 tests PASS**, six mutations, **54 reconstructions exactes**, huit banques ; installateur
+  fusion/protection testé. Deux builds identiques **90 fichiers/membres ORA**, script/rapport
+  versionnés. Régression conifères : build +14PASS, soit31 avec ETV1 ; helpers/assets inchangés.
+- Scène/collisions/support inspectés. Projet3,23Mo/14fichiers, PNG-ORA6,99Mo/72, HTML4,61Mo.
+  CRC/caches/doublons/racine contrôlés, JS syntaxe/données et métriques vérifiés. Serveur
+  0.0.0.0:8010, page et deux ZIP HTTP200 ; pas de test des interactions navigateur.
+- `art_approved=false`, `runtime_tested=false`, `render_tested=false` : pas de vrai chargeur,
+  éditeur, caméra/échelle, rendu ou déplacements PMDO. Attendre avis visuel et test moteur.
+- Audit historique : ECM1 est aussi le préfixe de l'ancien Cratère magma ; ne pas fusionner
+  conifères et ancien Cratère sans audit/renommage. Pas de réparation des anciens lots dans
+  cette livraison ; ETV1 possède son propre préfixe/namespace.
