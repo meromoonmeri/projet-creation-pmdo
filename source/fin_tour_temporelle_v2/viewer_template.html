@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Fin Tour Temporelle V2 — Arène du prisme temporel (FTT2, 4:3 — 768×576 px)</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 14px/1.5 system-ui, sans-serif; background: #100c14; color: #f4eef8; }
+  main { max-width: 1440px; margin: 0 auto; padding: 20px; }
+  h1 { margin: 0 0 4px; font-size: 21px; color: #f7d56e; }
+  h2 { margin: 22px 0 8px; font-size: 16px; border-bottom: 1px solid #3c2938; padding-bottom: 4px; color: #f2cf7e; }
+  .meta { color: #c8b8d0; font-size: 13px; margin-bottom: 14px; }
+  .warn { background: #261420; border: 1px solid #9e2d48; padding: 10px 12px; border-radius: 6px; margin-bottom: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; background: #1a1320; padding: 10px; border-radius: 6px; }
+  label { display: inline-flex; align-items: center; gap: 4px; background: #281d30; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  button, select { background: #3b2844; color: #f4eef8; border: 1px solid #6b4878; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+  .stage { overflow: auto; background: #0a070d; padding: 14px; border-radius: 6px; border: 1px solid #3c2938; text-align: center; }
+  canvas, .pix { image-rendering: pixelated; image-rendering: crisp-edges; border: 1px solid #4d3548; background: repeating-conic-gradient(#17111d 0 25%, #211829 0 50%) 50% / 16px 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: #1a1320; padding: 10px; border-radius: 6px; border: 1px solid #3c2938; }
+  .card h3 { margin: 0 0 6px; font-size: 13px; color: #f7d56e; }
+  .card img { width: 100%; height: auto; display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid #3c2938; padding: 6px 8px; text-align: left; }
+  th { background: #24192c; }
+  code { color: #f7d56e; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fin Tour Temporelle V2 — Arène du prisme temporel : Noir &amp; Or Prismatique, Nuages Rouge/Noir &amp; Brèches de Réalité (768 × 576 px)</h1>
+  <div class="meta">Lot <code>fin_tour_temporelle_v2</code> · Préfixe <code>FTT2</code> · Carte Ground <code>ftt2_fin_tour_temporelle_noire_or</code> · Cible PMDO <code>0.8.12</code> · Fin de donjon prolongeant l'entrée <code>ETT2</code> (intacte) · Marqueurs <code>entrance</code> / <code>boss</code> / <code>objectif</code>, aucune sortie</div>
+  <div class="warn">
+    <strong>Statut honnête :</strong> <code>art_approved = false</code>, <code>runtime_tested = false</code>.
+    <strong>Direction artistique V2 :</strong> tour gothique prismatique <strong>noir &amp; or</strong>, circuits et veines rocheuses en <strong>or incandescent</strong> (0 veine rouge), portail de cristal à <strong>reflets légèrement arc-en-ciel</strong>, roche en <strong>nuances de noir</strong>, mer de <strong>nuages rouge / noir</strong> en dérive et <strong>10 brèches de réalité</strong> qui s'ouvrent et se ferment sur les rochers et les nuages (<strong>0 pixel sur le chemin praticable</strong>).
+  </div>
+
+  <div class="bar">
+    <strong>Calques :</strong>
+    <span id="toggles"></span>
+    <label><input type="checkbox" id="grid8"> Grille 8 px</label>
+    <label><input type="checkbox" id="coll"> Collisions + marqueurs</label>
+    <button id="play">Pause</button>
+    <label>Zoom <select id="zoom"><option value="1" selected>1× (768×576)</option><option value="2">2× (1536×1152)</option></select></label>
+    <span id="tickinfo"></span>
+  </div>
+
+  <div class="stage"><canvas id="cv" width="768" height="576"></canvas></div>
+
+  <h2>Bruts générés V2 · Scène animée · Collisions · Zoom sur les brèches de réalité</h2>
+  <div class="grid">
+    <div class="card"><h3>Brut décor Noir &amp; Or sur magenta (1200×896)</h3><img class="pix" src="source/entree_tour_temporelle_sud_nord_v2/bruts/decor_magenta.png"></div>
+    <div class="card"><h3>Brut sol d'ardoise noire complet (1200×896)</h3><img class="pix" src="source/entree_tour_temporelle_sud_nord_v2/bruts/sol_complet.png"></div>
+    <div class="card"><h3>Brut nuages rouge / noir sur magenta (1200×896)</h3><img class="pix" src="source/entree_tour_temporelle_sud_nord_v2/bruts/nuages_magenta.png"></div>
+    <div class="card"><h3>Scène animée V2 (WebP sans perte, boucle 240 ticks = 4 s)</h3><img class="pix" src="renders/fin_tour_temporelle_v2/review/FTT2_scene_animee.webp"></div>
+    <div class="card"><h3>Collisions (rouge) + <code>entrance</code> (jaune) + <code>boss</code> (orange) + <code>objectif</code> (cyan)</h3><img class="pix" src="renders/fin_tour_temporelle_v2/review/FTT2_collisions_marqueurs.png"></div>
+    <div class="card"><h3>Zoom prisme temporel, reflets &amp; circuits d'or (ticks 0, 50, 100, 150)</h3><img class="pix" src="renders/fin_tour_temporelle_v2/review/FTT2_zoom_prisme_breches.png"></div>
+  </div>
+
+  <h2>Contrôle de fidélité des matières V2 (seuil &lt; 35)</h2>
+  <table>
+    <thead><tr><th>Matière</th><th>Cible RGB V2</th><th>Moyenne RGB brut généré</th><th>Distance euclidienne</th></tr></thead>
+    <tbody id="fidrows"></tbody>
+  </table>
+
+  <h2>Calques individuels (00 → 13, du bas vers le haut, plus <code>14 Top</code> vide dans le Ground)</h2>
+  <div class="grid" id="cards"></div>
+</main>
+<script>
+const SPEC = __SPEC_JSON__;
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const imgs = {}, state = { tick: 0, play: true };
+
+function loadImg(src) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+
+async function init() {
+  const fbody = document.getElementById('fidrows');
+  for (const [k, v] of Object.entries(SPEC.fidelite)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><code>${k}</code></td><td><code>[${v.cible_rgb.join(', ')}]</code></td><td><code>[${v.decor_rgb.join(', ')}]</code></td><td><strong>${v.distance}</strong> / ${SPEC.seuil}</td>`;
+    fbody.appendChild(tr);
+  }
+  const tog = document.getElementById('toggles'), cards = document.getElementById('cards');
+  for (const l of SPEC.layers) {
+    l.on = true;
+    const lb = document.createElement('label');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = true;
+    cb.onchange = () => { l.on = cb.checked; draw(); };
+    lb.append(cb, ' ' + l.label); tog.appendChild(lb);
+    imgs[l.id] = await Promise.all(l.srcs.map(loadImg));
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = `<h3>${l.label} (${l.srcs.length > 1 ? l.srcs.length + ' phases × ' + l.ticks + 't' : 'fixe'}) · <code>${l.tiles}</code> tuiles</h3><img class="pix" src="${l.srcs[0]}">`;
+    cards.appendChild(c);
+  }
+  document.getElementById('play').onclick = e => { state.play = !state.play; e.target.textContent = state.play ? 'Pause' : 'Lecture'; };
+  document.getElementById('zoom').onchange = e => { const z = +e.target.value; cv.style.width = (768 * z) + 'px'; cv.style.height = (576 * z) + 'px'; };
+  document.getElementById('grid8').onchange = draw;
+  document.getElementById('coll').onchange = draw;
+  setInterval(() => { if (state.play) { state.tick = (state.tick + 1) % SPEC.loop_ticks; draw(); } }, 1000 / 60);
+  draw();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, 768, 576);
+  for (const l of SPEC.layers) {
+    if (!l.on) continue;
+    const arr = imgs[l.id];
+    ctx.drawImage(arr[Math.floor(state.tick / l.ticks) % arr.length], 0, 0);
+  }
+  if (document.getElementById('coll').checked) {
+    ctx.fillStyle = 'rgba(220,40,40,0.35)';
+    for (const [x, y] of SPEC.blocked) ctx.fillRect(x * 8, y * 8, 8, 8);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#ffe628'; ctx.strokeRect(SPEC.entry[0] + 1, SPEC.entry[1] + 1, 14, 14);
+    ctx.strokeStyle = '#ff5a3c'; ctx.strokeRect(SPEC.boss[0] + 1, SPEC.boss[1] + 1, 14, 14);
+    ctx.strokeStyle = '#3cdcff'; ctx.strokeRect(SPEC.objectif[0] + 1, SPEC.objectif[1] + 1, 14, 14);
+  }
+  if (document.getElementById('grid8').checked) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)'; ctx.lineWidth = 1;
+    for (let x = 0; x <= 768; x += 8) { ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, 576); ctx.stroke(); }
+    for (let y = 0; y <= 576; y += 8) { ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(768, y + 0.5); ctx.stroke(); }
+  }
+  document.getElementById('tickinfo').textContent =
+    `tick ${state.tick}/${SPEC.loop_ticks} · nuages f${Math.floor(state.tick/5)%48} · reflets f${Math.floor(state.tick/10)%24} · circuits or f${Math.floor(state.tick/5)%16} · brèches f${Math.floor(state.tick/10)%24}`;
+}
+init();
+</script>
+</body>
+</html>
