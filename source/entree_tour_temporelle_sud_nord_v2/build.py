@@ -221,7 +221,13 @@ def sha(p):
 
 
 def rgb(p):
-    return np.array(Image.open(p).convert('RGB')).astype(int)
+    with Image.open(p) as im:
+        return np.array(im.convert('RGB')).astype(int)
+
+
+def image_size(p):
+    with Image.open(p) as im:
+        return list(im.size)
 
 
 def lum_of(a):
@@ -655,10 +661,13 @@ def mote_frames(ex_portal, ex_circuit):
     return frames, motes
 
 
-# ---------------------------------------------------------------- contrôle de fidélité de la palette Noir / Or / Rouge-Noir
-def compute_fidelity(a_decor, a_sol, a_nuages, masks):
-    """Vérifie que chaque matière du brut V2 respecte la cible Noir & Or / Nuages Rouge-Noir (< 35)
-    et qu'aucun pixel de circuit rouge ne subsiste.
+# ---------------------------------------------------------------- contrôle de palette par rapport aux cibles RGB du brief
+
+def compute_palette_control(a_decor, a_sol, a_nuages, masks):
+    """Compare les matières du brut V2 aux cibles RGB déclarées dans le brief (< 35).
+
+    Cette mesure ne compare pas les pixels aux références ROM D29P11A/D30P34A et ne
+    constitue donc pas une validation de fidélité canonique.
     """
     mapping = {
         'dalles_ardoise': a_decor[masks['parvis_dalles']].mean(0),
@@ -832,8 +841,8 @@ def build():
     assert a.shape[:2] == f.shape[:2] == nua.shape[:2] == (SRC[1], SRC[0])
 
     m, seg = classify(a)
-    fid = compute_fidelity(a, f, nua, m)
-    for k, v in fid.items():
+    palette_control = compute_palette_control(a, f, nua, m)
+    for k, v in palette_control.items():
         assert v['distance'] < FIDELITY_MAX, (k, v)
 
     order = [
@@ -1015,15 +1024,15 @@ def build():
             {
                 'file': f'source/{LOT}/bruts/{g["file"]}',
                 'sha256': sha(RAW / g['file']),
-                'size': list(Image.open(RAW / g['file']).size),
+                'size': image_size(RAW / g['file']),
             }
             for g in GEN
         ],
         'segmentation_mesures': seg,
-        'fidelite_rip': {
-            'methode': 'distance euclidienne des moyennes RGB aux cibles Noir & Or / Nuages Rouge-Noir ; seuil 35',
+        'controle_palette': {
+            'methode': 'distance euclidienne des moyennes RGB aux cibles du brief Noir & Or / Nuages Rouge-Noir ; seuil 35. Ne compare pas aux références ROM et ne prouve pas la fidélité canonique.',
             'seuil': FIDELITY_MAX,
-            'mesures': fid,
+            'mesures': palette_control,
         },
         'normalization': {
             'scale': SCALE,
@@ -1108,7 +1117,7 @@ def build():
         'threshold': threshold_px,
         'blocked': int(blocked.sum()),
         'walkable': int((~blocked).sum()),
-        'fidelite': {k: v['distance'] for k, v in fid.items()},
+        'controle_palette_rgb': {k: v['distance'] for k, v in palette_control.items()},
         'circuits_or_px': cir_counts,
         'breches_union_px': int(rift_union.sum()),
         'breches_sur_chemin_px': int((rift_union & walk).sum()),

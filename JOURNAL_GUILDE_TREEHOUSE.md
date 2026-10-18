@@ -7,6 +7,17 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## ETT2 — Entrée Tour Temporelle V2 : reprise et paquetage (18 octobre 2026)
+
+**Demande** : reprendre le projet, relire la méthode de création de map et terminer le pipeline commencé. La composition Noir & Or V2 restaurée a été reconstruite telle quelle, sans nouvelle génération d’image ni substitution des bruts.
+
+- **Sorties** : `renders/entree_tour_temporelle_sud_nord_v2/`, aperçu interactif `apercu_entree_tour_temporelle_sud_nord_v2.html`, ORA et deux archives : `ETT2_projet_pmdo_0812.zip` + `ETT2_calques_png_8px.zip`.
+- **Carte** : 768 × 576 px, grille 8 px, 14 calques dessinés / 15 calques Ground avec le Top vide ; 14 banques `.tile` générées depuis la composition. Ce ne sont pas des pixels natifs PMD certifiés.
+- **Animations** : nuages, reflets arc-en-ciel, rochers flottants, circuits d’or, 10 brèches de réalité et éclats prismatiques ; boucle de scène 240 ticks. Les brèches ont 0 pixel sur le chemin praticable.
+- **Accès et contrôles** : `entrance` sud → `donjon_seuil` nord, chemin 16 × 16 accessible ; 1067 cases praticables, 5845 bloquées. Distances RGB mesurées vers les cibles du brief, pas vers un rip ROM : dalles 2,7 · muraille 0,5 · roche 8,7 · or 3,5 · nuages 1,3 · sol 10,1 (seuil 35).
+- **Tests** : 1 test `unittest` découvert, 14 contrôles de sortie ; `verify.py` et le packager PASS. L’ORA a 18 membres au contenu identique au fichier suivi ; le seul écart était les horodatages ZIP internes, donc il a été restauré sans changement binaire.
+- **Limites** : sources/exports ETT1 et références ROM D29P11A/D30P34A absents du checkout. Conservation complète de V1 et fidélité canonique non vérifiables ; `art_approved: false`, `runtime_tested: false`. Le viewer utilise les sorties ignorées dans `renders/`, à recréer via `build.py` après un checkout frais.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.
@@ -1225,3 +1236,11 @@ Voir [les références et limites](source/layouts_commit_3bc185b/README.md). **C
 ## Soleil animé et Luminous Spring
 
 [Nouveau pack PNG multicouche](renders/soleil_spring_v1/README.md) — [aperçu autonome](apercu_soleil_spring_v1.html). Soleil subtil 64 phases, grands nuages traversants, variante du Spring Halcyon avec cycles natifs 3/13 phases préservés.
+
+## 18 octobre 2026 — FTT1, sommet de la Tour Temporelle
+
+À la suite d'ETT2, la demande de passer à une zone de fin a été interprétée comme une fin de la Tour Temporelle. Décor suspendu avec arrivée sud, arène centrale, autel nord, circuits d'or, nuages rouge-noir et cristal animé. C'est une proposition générée référencée par le seul échantillon de style ETT2 ; Dialga est une hypothèse et reste un simple marqueur. D29P11A/D30P34A ont été consultées, mais les noms des lieux ne sont pas vérifiés et les références n'ont pas été envoyées au générateur. Aucun asset canonique n'est revendiqué.
+
+- Source et méthode : `source/fin_tour_temporelle_v1/`.
+- Livrables : `renders/fin_tour_temporelle_v1/FTT1_projet_pmdo_0812.zip`, `FTT1_calques_png_8px.zip`, ORA ; aperçu : `apercu_fin_tour_temporelle_v1.html`.
+- Build réussi, 10 tests PASS, archives et JS contrôlés. `art_approved=false`, `runtime_tested=false` ; pas de validation artistique ou moteur.

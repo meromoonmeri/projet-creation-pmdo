@@ -1,0 +1,753 @@
+{
+  "lot": "fin_tour_temporelle_v1",
+  "prefix": "FTT1",
+  "serie": "fins de donjon",
+  "interpretation": "Suite inférée du contexte ETT2 : fin de la Tour Temporelle / sommet, non explicitement nommée dans la dernière demande.",
+  "boss": {
+    "hypothese": "Dialga (contexte de la Tour Temporelle)",
+    "marqueur": [
+      384,
+      344
+    ],
+    "sprite_place": false,
+    "acteur_place": false
+  },
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "composition générée référencée (échantillon de style ETT2), recomposée en calques; références D29P11A/D30P34A consultées visuellement, pas fournies au générateur; pas de pixels natifs revendiqués",
+  "references": {
+    "D29P11A": {
+      "fichier": "source/fin_tour_temporelle_v1/reference/D29P11A.png",
+      "sha256": "d042bbe6256d2c9a3ef814b52341906045a7520ae9f90c5f62cff43b81f2385e",
+      "taille_px": [
+        600,
+        552
+      ],
+      "source": "pret/pmd-sky c8073235 + skytemple-files 1.8.5, rendu MAP_BG sans collision",
+      "identification_du_lieu": "non vérifiée ; le code MAP_BG est documenté, le nom du lieu ne l’est pas ici"
+    },
+    "D30P34A": {
+      "fichier": "source/fin_tour_temporelle_v1/reference/D30P34A.png",
+      "sha256": "d6343e88244aefc68e3e54c8af94596e8ed2608db57bc8766e51cd3a75641616",
+      "taille_px": [
+        552,
+        576
+      ],
+      "source": "pret/pmd-sky c8073235 + skytemple-files 1.8.5, rendu MAP_BG sans collision",
+      "identification_du_lieu": "non vérifiée ; le code MAP_BG est documenté, le nom du lieu ne l’est pas ici"
+    }
+  },
+  "reference_style": {
+    "fichier": "source/fin_tour_temporelle_v1/reference/ETT2_style_swatch.png",
+    "origine": "découpe 300×370 de source/entree_tour_temporelle_sud_nord_v2/bruts/decor_magenta.png ; style uniquement"
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_tour_temporelle_v1/bruts/decor_magenta.png",
+      "sha256": "5fdb86e19c1d3092d82a6080f175600fa67ecf65a9f83178d522fbd6322f4906",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_tour_temporelle_v1/reference/ETT2_style_swatch.png"
+      ],
+      "utilise": true,
+      "origine": "génération référencée : style/palette ETT2, composition décrite séparément"
+    },
+    {
+      "file": "source/fin_tour_temporelle_v1/bruts/sol_complet.png",
+      "sha256": "6e6478ba39479a944ee2271ff9c6c8365a6fc27a50b58b7ef722f273b813070c",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_tour_temporelle_v1/bruts/decor_magenta.png"
+      ],
+      "utilise": true,
+      "origine": "génération référencée : dalle dédiée reprenant l’empreinte et les anneaux de la scène"
+    }
+  ],
+  "nuages_reutilises": {
+    "fichier": "source/fin_tour_temporelle_v1/reference/ETT2_nuages_magenta.png",
+    "sha256": "96397ef7106ab60a22126d5915d7436c9539b22e7843409074987a2ad5fd63fb",
+    "origine": "texture générée ETT2 réutilisée comme repère de continuité; la couche FTT1 animée est extraite du brut décor FTT1"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "crop_x": 1,
+    "reduction": "BOX pondérée par classe; palette statique commune 96 couleurs; anims en rampes dédiées"
+  },
+  "segmentation": {
+    "magenta": "R,B > 200, G < 85, |R-B| < 70 puis dilatation 1 px limitée aux pixels magenta proches",
+    "sol_arene": "distance RGB < 27 du ton ardoise (54,56,69), saturation < 42, lissage 9 px, ROI et réseau relié au sud",
+    "sol_complet": "brut dédié masqué par le sol principal; pixels magenta neutralisés; circuits or retirés de la texture de fond",
+    "décor": "complément du magenta, des nuages rouges animés et des pixels de base du sol dans la ROI",
+    "circuits": "R>105, G>62, R>1.16G, G>1.38B, B<145",
+    "nuages": "composantes rouge/noir de la scène isolées par teinte rouge (le dessous sombre reste dans le décor fixe)",
+    "cristal": "cyan dans la boîte brute [520, 180, 680, 315], composant le plus proche du sommet central"
+  },
+  "animation": {
+    "scene_loop_ticks": 240,
+    "nuages_rouge_noir": {
+      "phases": 24,
+      "ticks_par_phase": 10,
+      "loi": "pulsation de luminance diagonale douce; géométrie des nuages stable"
+    },
+    "circuits_temporels": {
+      "phases": 24,
+      "ticks_par_phase": 10,
+      "loi": "front lumineux radial sur les lignes or depuis le centre de l’arène; traîne éteinte au raccord",
+      "centre_xy": [
+        385,
+        345
+      ],
+      "rayon_max_px": 393.6,
+      "rampe": [
+        [
+          174,
+          94,
+          26
+        ],
+        [
+          218,
+          137,
+          43
+        ],
+        [
+          255,
+          194,
+          78
+        ],
+        [
+          255,
+          240,
+          174
+        ]
+      ]
+    },
+    "cristal_temporel": {
+      "phases": 16,
+      "ticks_par_phase": 15,
+      "centre_xy": [
+        383.43,
+        159.54
+      ],
+      "couleur_halo": [
+        106,
+        224,
+        238
+      ],
+      "loi": "halo cyan pulsé et éclat orbital court autour du cristal"
+    },
+    "poussieres_temporelles": {
+      "phases": 48,
+      "ticks_par_phase": 5,
+      "nombre": 38,
+      "particules": [
+        {
+          "xy": [
+            19,
+            389
+          ],
+          "phase": 47,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            8,
+            273
+          ],
+          "phase": 0,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            307,
+            389
+          ],
+          "phase": 26,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            26,
+            206
+          ],
+          "phase": 2,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            195,
+            455
+          ],
+          "phase": 18,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            338,
+            308
+          ],
+          "phase": 4,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            11,
+            191
+          ],
+          "phase": 34,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            557,
+            430
+          ],
+          "phase": 1,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            123,
+            383
+          ],
+          "phase": 12,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            185,
+            183
+          ],
+          "phase": 47,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            382,
+            292
+          ],
+          "phase": 0,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            23,
+            393
+          ],
+          "phase": 17,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            635,
+            224
+          ],
+          "phase": 9,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            426,
+            475
+          ],
+          "phase": 23,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            634,
+            124
+          ],
+          "phase": 6,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            707,
+            162
+          ],
+          "phase": 18,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            216,
+            384
+          ],
+          "phase": 12,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            260,
+            276
+          ],
+          "phase": 11,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            265,
+            409
+          ],
+          "phase": 21,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            335,
+            298
+          ],
+          "phase": 16,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            35,
+            429
+          ],
+          "phase": 4,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            635,
+            281
+          ],
+          "phase": 31,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            23,
+            418
+          ],
+          "phase": 24,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            581,
+            132
+          ],
+          "phase": 26,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            15,
+            145
+          ],
+          "phase": 6,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            198,
+            453
+          ],
+          "phase": 23,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            331,
+            432
+          ],
+          "phase": 3,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            329,
+            264
+          ],
+          "phase": 27,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            322,
+            269
+          ],
+          "phase": 24,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 2
+        },
+        {
+          "xy": [
+            9,
+            154
+          ],
+          "phase": 41,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            123,
+            78
+          ],
+          "phase": 13,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            30,
+            357
+          ],
+          "phase": 23,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            538,
+            379
+          ],
+          "phase": 12,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            211,
+            374
+          ],
+          "phase": 18,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            231,
+            401
+          ],
+          "phase": 27,
+          "teinte": [
+            244,
+            239,
+            218
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            583,
+            303
+          ],
+          "phase": 10,
+          "teinte": [
+            255,
+            221,
+            132
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            358,
+            472
+          ],
+          "phase": 33,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        },
+        {
+          "xy": [
+            180,
+            458
+          ],
+          "phase": 13,
+          "teinte": [
+            145,
+            236,
+            246
+          ],
+          "taille": 1
+        }
+      ],
+      "loi": "éclats pixelisés en montée courte, scintillement puis extinction; positions déterministes"
+    }
+  },
+  "layers": [
+    {
+      "name": "CIEL_ABYSSE",
+      "file": "calques/FTT1_00_ciel_abysse.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "SOL_COMPLET",
+      "file": "calques/FTT1_01_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "NUAGES_ROUGE_NOIR",
+      "file": "animation/nuages_rouge_noir/FTT1_02_nuages_rouge_noir_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
+      "name": "DECOR_SOMMET",
+      "file": "calques/FTT1_03_decor_sommet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "CIRCUITS_TEMPORELS",
+      "file": "animation/circuits_temporels/FTT1_04_circuits_temporels_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
+      "name": "CRISTAL_TEMPOREL",
+      "file": "animation/cristal_temporel/FTT1_05_cristal_temporel_fNN.png",
+      "phases": 16,
+      "ticks": 15
+    },
+    {
+      "name": "POUSSIERES_TEMPORELLES",
+      "file": "animation/poussieres_temporelles/FTT1_06_poussieres_temporelles_fNN.png",
+      "phases": 48,
+      "ticks": 5
+    }
+  ],
+  "layer_order_bottom_to_top": [
+    "CIEL_ABYSSE",
+    "SOL_COMPLET",
+    "NUAGES_ROUGE_NOIR",
+    "DECOR_SOMMET",
+    "CIRCUITS_TEMPORELS",
+    "CRISTAL_TEMPOREL",
+    "POUSSIERES_TEMPORELLES"
+  ],
+  "access": {
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss_dialga": [
+        384,
+        344
+      ]
+    },
+    "chemin_16x16": {
+      "ok": true,
+      "cases_explorees": 387
+    },
+    "blocked_cells": 5199,
+    "total_cells": 6912,
+    "rule": "case bloquée si >25 % de la surface 8×8 n’est pas dans la dalle praticable"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "ftt1_sommet_tour_temporelle",
+    "namespace": "fin_tour_temporelle",
+    "tiles_per_bank": {
+      "FTT1_00_CIEL_ABYSSE": 602,
+      "FTT1_01_SOL_COMPLET": 1921,
+      "FTT1_02_NUAGES_ROUGE_NOIR": 28708,
+      "FTT1_03_DECOR_SOMMET": 4280,
+      "FTT1_04_CIRCUITS_TEMPORELS": 3206,
+      "FTT1_05_CRISTAL_TEMPOREL": 237,
+      "FTT1_06_POUSSIERES_TEMPORELLES": 784
+    },
+    "banks": [
+      "FTT1_00_CIEL_ABYSSE",
+      "FTT1_01_SOL_COMPLET",
+      "FTT1_02_NUAGES_ROUGE_NOIR",
+      "FTT1_03_DECOR_SOMMET",
+      "FTT1_04_CIRCUITS_TEMPORELS",
+      "FTT1_05_CRISTAL_TEMPOREL",
+      "FTT1_06_POUSSIERES_TEMPORELLES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false,
+  "runtime_tested": false
+}

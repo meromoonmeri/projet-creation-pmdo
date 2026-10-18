@@ -3,7 +3,7 @@
 .venv/bin/python source/entree_tour_temporelle_sud_nord_v2/test_build.py
 """
 from pathlib import Path
-import importlib.util, json, subprocess, sys, tempfile, zipfile
+import importlib.util, json, subprocess, sys, tempfile, unittest, zipfile
 
 import numpy as np
 from PIL import Image
@@ -29,7 +29,8 @@ W, H = B.W, B.H
 
 
 def load(rel):
-    return np.array(Image.open(OUT / rel))
+    with Image.open(OUT / rel) as im:
+        return np.array(im)
 
 
 def main():
@@ -54,7 +55,8 @@ def main():
     for r in m['raw_inputs']:
         p = R / r['file']
         assert p.exists() and B.sha(p) == r['sha256']
-        assert list(Image.open(p).size) == [1200, 896]
+        with Image.open(p) as raw:
+            assert list(raw.size) == [1200, 896]
     refs = m['reference_da']
     assert refs['present'] == B.REF_D29.is_file()
     assert refs['present_distorsion'] == B.REF_D30.is_file()
@@ -66,10 +68,10 @@ def main():
     a_sol = B.rgb(B.RAW / 'sol_complet.png')
     a_nua = B.rgb(B.RAW / 'nuages_magenta.png')
     masks_full, _ = B.classify(a_dec)
-    fid = B.compute_fidelity(a_dec, a_sol, a_nua, masks_full)
+    palette_control = B.compute_palette_control(a_dec, a_sol, a_nua, masks_full)
     for k in ('dalles_ardoise', 'muraille_noire', 'roche_noire', 'circuits_or', 'nuages_rouge_noir', 'sol_complet'):
-        assert fid[k]['distance'] < B.FIDELITY_MAX, (k, fid[k])
-        assert fid[k] == m['fidelite_rip']['mesures'][k]
+        assert palette_control[k]['distance'] < B.FIDELITY_MAX, (k, palette_control[k])
+        assert palette_control[k] == m['controle_palette']['mesures'][k]
 
     # 4. Partition exclusive sur la plateforme : chaque pixel hors (void U rochers_flottants) est couvert exactement
     #    par (chaussee_noire | parvis_dalles | parois_rocheuses | muraille_gothique | portail_cristal | profondeur | circuits_or)
@@ -93,7 +95,8 @@ def main():
     all_pngs = list((OUT / 'calques').glob('*.png')) + list((OUT / 'animation').rglob('*.png'))
     assert len(all_pngs) == 8 + (48 + 24 + 24 + 16 + 24 + 24)
     for p in all_pngs:
-        a = np.array(Image.open(p))
+        with Image.open(p) as im:
+            a = np.array(im)
         op = a[..., 3] > 0
         if op.any():
             r, g, b = a[op, 0].astype(int), a[op, 1].astype(int), a[op, 2].astype(int)
@@ -117,7 +120,7 @@ def main():
         op = f[..., 3] == 255
         assert not (op & ~(portal_m | wall_m)).any()
         assert (op & portal_m).any()
-    assert not np.array_equal(rf_arc[0], rf[6] if False else rf_arc[6])
+    assert not np.array_equal(rf_arc[0], rf_arc[6])
 
     # 8. Circuits et veines d'OR : 16 phases x 5 ticks = 80 ticks, 100 % tons d'or (R > G > B), aucun ton rouge pur
     cf = [load(f'animation/circuits_or/ETT2_11_circuits_or_f{t:02d}.png') for t in range(B.CIRCUIT_PHASES)]
@@ -193,6 +196,11 @@ def main():
     print('OK test_build entree_tour_temporelle_sud_nord_v2 (14 vérifications de sortie)')
     if not (legacy['source_present'] and refs['present'] and refs['present_distorsion']):
         print('AVIS : ETT1 et/ou D29P11A/D30P34A absent(s) ; conservation V1 et fidélité canonique non vérifiables, art_approved reste false.')
+
+
+class TestETT2Build(unittest.TestCase):
+    def test_generated_map_pipeline_outputs(self):
+        main()
 
 
 if __name__ == '__main__':

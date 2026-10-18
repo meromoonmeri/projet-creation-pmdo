@@ -1062,6 +1062,15 @@ Pas de runtime. Pas dans le mod unique.
 - **Algues** : cisaillement dx = A ((base − y) / h)^1,4 sin(…), base fixe. Remplir la paroi sous les algues avec le pixel de paroi le plus proche (`distance_transform_edt`, indices).
 - **Scintillements rapprochés** : imposer 7 px de distance (Tchebychev) entre étoiles, sinon un bras recouvre le centre d'une voisine et le test de phase échoue.
 
+## FTT1 — fin de la Tour Temporelle, ajouts à la recette
+
+- **Interprétation et références** : la demande disait seulement de passer à une zone de fin après ETT2. « Fin de la Tour Temporelle » et Dialga restent des hypothèses de travail. D29P11A/D30P34A sont des codes MAP_BG consultés visuellement, leurs noms de lieux ne sont pas établis ; ne pas leur attribuer une identité canonique ni les fournir au générateur pour créer une vraie salle de fin.
+- **Généré référencé, pas natif** : seul un recadrage de style ETT2 a servi de référence au générateur. Garder cette distinction dans le README, le manifeste et l'aperçu ; pas de revendication de pixels ROM, tuiles natives, fidélité canonique ou validation artistique.
+- **Masques à échelle moteur** : segmenter les bruts 1200 × 896 avant réduction à 768 × 576 ; exporter aussi les masques à la taille cible. Tester le magenta résiduel sur les calques finaux, pas seulement sur les bruts.
+- **Onde radiale sur circuits** : le premier et le dernier frame peuvent être éteints pour fermer la traîne ; le test vérifie les phases actives, la rampe or et l'union spatiale, sans exiger que chaque phase éclaire des pixels.
+- **Cristal temporel** : un halo sinusoïdal seul produit des états symétriques répétés. L'éclat orbital court donne des phases distinctes ; documenter ses 16 phases et le PPCM de 240 ticks avec nuages, circuits et poussières.
+- **Ground d'édition** : `boss_dialga` est un marqueur d'édition seulement. Le calque Top vide et l'installateur n'ajoutent ni warp, ni acteur, ni rencontre jouable ; garder `art_approved=false`, `runtime_tested=false` jusqu'aux validations séparées.
+
 ## AGM2 (arène de Groudon V2), ajouts à la recette
 
 - **Retirer un élément d'un brut validé** (le dais) : éditer le brut précédent avec lui-même en image, avec un seul changement demandé. Mesurer l'écart hors de la zone changée (somme RVB moyenne < 20, moins de 1 % de pixels à plus de 60) et l'inscrire dans le manifeste. Si le brut édité est ré-encodé, il n'a plus de plage de sol propre : réutiliser le `sol_complet` du lot précédent, avec un test d'égalité à `make_sol(brut précédent)`.

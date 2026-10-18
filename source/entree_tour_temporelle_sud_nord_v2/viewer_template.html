@@ -29,9 +29,9 @@
 <body>
 <main>
   <h1>Entrée Tour Temporelle — sud → nord V2 : Noir &amp; Or Prismatique, Nuages Rouge/Noir &amp; Brèches de Réalité (768 × 576 px)</h1>
-  <div class="meta">Lot <code>entree_tour_temporelle_sud_nord_v2</code> · Préfixe <code>ETT2</code> · Carte Ground <code>ett2_entree_tour_temporelle_noire_or</code> · Cible PMDO <code>0.8.12</code> · V1 (<code>ETT1</code>) conservée intacte</div>
+  <div class="meta">Lot <code>entree_tour_temporelle_sud_nord_v2</code> · Préfixe <code>ETT2</code> · Carte Ground <code>ett2_entree_tour_temporelle_noire_or</code> · Cible PMDO <code>0.8.12</code> · ETT1 non modifiée par ce build, mais sa conservation n’est pas vérifiable depuis ce checkout</div>
   <div class="warn">
-    <strong>Statut honnête :</strong> <code>art_approved = false</code>, <code>runtime_tested = false</code>.
+    <strong>Statut honnête :</strong> <code>art_approved = false</code>, <code>runtime_tested = false</code>. Les références ROM <code>D29P11A</code>/<code>D30P34A</code> et les sources ETT1 sont absentes du checkout ; les distances ci-dessous comparent les bruts aux cibles RGB du brief, pas aux références canoniques.
     <strong>Direction artistique V2 :</strong> tour gothique prismatique <strong>noir &amp; or</strong>, circuits et veines rocheuses en <strong>or incandescent</strong> (0 veine rouge), portail de cristal à <strong>reflets légèrement arc-en-ciel</strong>, roche en <strong>nuances de noir</strong>, mer de <strong>nuages rouge / noir</strong> en dérive et <strong>10 brèches de réalité</strong> qui s'ouvrent et se ferment sur les rochers et les nuages (<strong>0 pixel sur le chemin praticable</strong>).
   </div>
 
@@ -57,9 +57,9 @@
     <div class="card"><h3>Zoom ×2 veines d'or &amp; brèches de réalité (ticks 0, 50, 100, 150)</h3><img class="pix" src="renders/entree_tour_temporelle_sud_nord_v2/review/ETT2_zoom_portail_breches.png"></div>
   </div>
 
-  <h2>Contrôle de fidélité des matières V2 (seuil &lt; 35)</h2>
+  <h2>Contrôle de palette par rapport aux cibles RGB du brief (seuil &lt; 35, pas une validation canonique)</h2>
   <table>
-    <thead><tr><th>Matière</th><th>Cible RGB V2</th><th>Moyenne RGB brut généré</th><th>Distance euclidienne</th></tr></thead>
+    <thead><tr><th>Matière</th><th>Cible RGB déclarée</th><th>Moyenne RGB du brut généré</th><th>Écart euclidien</th></tr></thead>
     <tbody id="fidrows"></tbody>
   </table>
 
@@ -77,9 +77,9 @@ function loadImg(src) {
 
 async function init() {
   const fbody = document.getElementById('fidrows');
-  for (const [k, v] of Object.entries(SPEC.fidelite)) {
+  for (const [k, v] of Object.entries(SPEC.palette)) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><code>${k}</code></td><td><code>[${v.cible_rgb.join(', ')}]</code></td><td><code>[${v.decor_rgb.join(', ')}]</code></td><td><strong>${v.distance}</strong> / ${SPEC.seuil}</td>`;
+    tr.innerHTML = `<td><code>${k}</code></td><td><code>[${v.cible_rgb.join(', ')}]</code></td><td><code>[${v.decor_rgb.join(', ')}]</code></td><td><strong>${v.distance}</strong> / ${SPEC.palette_threshold}</td>`;
     fbody.appendChild(tr);
   }
   const tog = document.getElementById('toggles'), cards = document.getElementById('cards');

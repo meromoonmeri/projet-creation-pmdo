@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTT1 — Fin de la Tour Temporelle</title>
+<style>
+:root{color-scheme:dark;--bg:#111019;--panel:#1c1b27;--edge:#38374a;--ink:#f4f1ea;--muted:#b6b4c4;--gold:#e1b95d;--cyan:#69dce9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#30202c 0,var(--bg) 60%);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1320px;margin:auto;padding:24px}h1{font-size:clamp(1.5rem,3vw,2.4rem);margin:0 0 5px;letter-spacing:.01em}p{margin:.4em 0;color:var(--muted)}.badge{display:inline-flex;border:1px solid #806b3f;color:#f4d98d;padding:3px 9px;border-radius:99px;font-size:.8rem;margin:8px 6px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;margin-top:18px}.stage,.panel{background:linear-gradient(160deg,#201f2d,#171722);border:1px solid var(--edge);border-radius:14px;box-shadow:0 16px 48px #0006}.stage{padding:12px;display:flex;flex-direction:column;align-items:center;min-width:0}.screen{width:100%;max-width:1024px;aspect-ratio:4/3;background:#100611;border-radius:8px;overflow:hidden;display:grid;place-items:center;position:relative}canvas{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;image-rendering:crisp-edges}.toolbar{width:100%;max-width:1024px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:12px}.toolbar button{background:#292837;color:var(--ink);border:1px solid #4a485b;border-radius:8px;padding:8px 12px;cursor:pointer}.toolbar button:hover{border-color:var(--gold)}input[type=range]{flex:1;min-width:130px;accent-color:var(--gold)}.tick{color:var(--muted);font-variant-numeric:tabular-nums;min-width:100px;text-align:right}.panel{padding:16px}.panel h2{font-size:1.05rem;margin:0 0 9px;color:#f1d487}.panel h3{font-size:.9rem;margin:18px 0 8px}.layers{display:grid;gap:7px}.layers label{display:flex;gap:8px;align-items:flex-start;color:#dfdce8;font-size:.88rem}.layers input{accent-color:var(--gold);margin-top:4px}.control{display:flex;align-items:center;gap:8px;color:#dfdce8;font-size:.9rem;margin:8px 0}.control input{accent-color:var(--cyan)}.note{font-size:.82rem;color:#aaa8ba;border-top:1px solid var(--edge);padding-top:12px;margin-top:14px}.legend{color:#b8b5c6;font-size:.82rem;margin-top:10px}.error{color:#ff9b9b}.footer{margin-top:14px;font-size:.83rem;color:#a9a7b4}.footer strong{color:#efe7cf}
+@media(max-width:900px){main{padding:14px}.grid{grid-template-columns:1fr}.panel{order:-1}.layers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Fin de la Tour Temporelle — sommet, arène de boss</h1>
+  <p>FTT1 · 768 × 576 px · grille 8 px · projet d’édition PMDO 0.8.12</p>
+  <div><span class="badge">décor généré référencé</span><span class="badge">4 calques animés · boucle 4 s</span><span class="badge">marqueur Dialga, aucun sprite</span></div>
+  <div class="grid">
+    <section class="stage">
+      <div class="screen"><canvas id="scene" width="768" height="576" aria-label="Aperçu animé FTT1"></canvas></div>
+      <div class="toolbar">
+        <button id="play">Pause</button><button id="back">−1 phase</button><button id="forward">+1 phase</button>
+        <input id="time" type="range" min="0" max="239" value="0" aria-label="Temps de la boucle">
+        <span class="tick" id="tick">0 / 240 ticks</span>
+      </div>
+      <div class="legend">Les lignes or s’éveillent depuis le cœur de l’arène ; les nuages respirent et le cristal pulse. Aperçu calculé à partir des PNG de calques, sans exécution du moteur.</div>
+    </section>
+    <aside class="panel">
+      <h2>Calques visibles</h2><div class="layers" id="layers"></div>
+      <h3>Repères</h3>
+      <label class="control"><input id="collisions" type="checkbox"> Afficher collisions et marqueurs</label>
+      <div class="note"><strong>Choix de travail :</strong> fin de la Tour Temporelle déduite du contexte de l’entrée ETT2 ; Dialga est une hypothèse de boss, pas une consigne explicitement nommée.</div>
+      <div class="note">MAP_BG D29P11A et D30P34A ont été consultées comme références visuelles, mais leur identification de lieu n’est pas vérifiée dans l’index. La composition FTT1 est générée, non native/canonique certifiée.</div>
+    </aside>
+  </div>
+  <p class="footer"><strong>Validation :</strong> art_approved = false · runtime_tested = false. Le marqueur boss_dialga ne place ni sprite, ni acteur, ni événement.</p>
+  <p id="load-status" class="footer">Chargement des calques…</p>
+</main>
+<script>
+const D=__DATA__;
+const canvas=document.getElementById('scene'),ctx=canvas.getContext('2d');
+ctx.imageSmoothingEnabled=false;
+let tick=0,playing=true,showCollision=false;
+const images=D.stack.map(layer=>layer.frames.map(src=>{const im=new Image();im.src=src;return im;}));
+const collision=new Image();collision.src=D.collisions;
+const layers=document.getElementById('layers');
+D.stack.forEach((layer,i)=>{const label=document.createElement('label'),box=document.createElement('input'),span=document.createElement('span');box.type='checkbox';box.checked=true;box.dataset.index=i;span.textContent=layer.id.replaceAll('_',' ');label.append(box,span);layers.append(label);box.addEventListener('change',draw);});
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#160811';ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<D.stack.length;i++){
+    const box=layers.querySelector(`input[data-index="${i}"]`);if(!box||!box.checked)continue;
+    const layer=D.stack[i],frame=Math.floor(tick/layer.ticks)%layer.frames.length,im=images[i][frame];
+    if(im.complete&&im.naturalWidth)ctx.drawImage(im,0,0);
+  }
+  if(showCollision&&collision.complete&&collision.naturalWidth)ctx.drawImage(collision,0,0);
+  document.getElementById('tick').textContent=`${tick} / ${D.loop} ticks`;
+  document.getElementById('time').value=tick;
+}
+function step(){tick=(tick+5)%D.loop;draw();}
+let timer=setInterval(()=>{if(playing)step();},100);
+document.getElementById('play').addEventListener('click',e=>{playing=!playing;e.currentTarget.textContent=playing?'Pause':'Lecture';});
+document.getElementById('back').addEventListener('click',()=>{tick=(tick-5+D.loop)%D.loop;draw();});
+document.getElementById('forward').addEventListener('click',step);
+document.getElementById('time').addEventListener('input',e=>{tick=Number(e.target.value);draw();});
+document.getElementById('collisions').addEventListener('change',e=>{showCollision=e.target.checked;draw();});
+Promise.all(images.flat().map(im=>im.decode().catch(()=>{})).concat([collision.decode().catch(()=>{})])).then(()=>{
+ document.getElementById('load-status').textContent=`Calques chargés · ${D.stack.length} feuilles · boucle ${D.loop} ticks · accès ${D.entry.join(', ')} → boss ${D.boss.join(', ')}.`;draw();
+}).catch(err=>{document.getElementById('load-status').textContent='Une ou plusieurs images ne se sont pas chargées.';document.getElementById('load-status').classList.add('error');console.error(err);});
+draw();
+</script>
+</body>
+</html>
