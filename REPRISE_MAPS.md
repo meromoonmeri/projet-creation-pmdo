@@ -234,3 +234,26 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Chantier `fin_tour_temporelle_noire_or_v2` (`FTN2`, Sommet Noir & Or Prismatique)
+
+- **Lot construit** : `source/fin_tour_temporelle_noire_or_v2/` (`FTN2`, `ftn2_fin_tour_temporelle_noire_or`, `768 × 576 px`, `TexSize = 1`, boucle `240` ticks), appairé à l’entrée `source/entree_tour_temporelle_sud_nord_v2/` (`ETT2`).
+- **Exigences appliquées** :
+  1. **Même chemin que l’entrée `ETT2` vers la zone du boss** : chaussée sud en basalte noir naturel (avec ses deux veines d’or), escalier sud, large esplanade octogonale ouverte en dalles d’ardoise sombre sans piliers bloquants, et escalier nord menant au pied du sanctuaire.
+  2. **Veines d’or aux reflets arc-en-ciel** (`10_circuits_or` + `11_reflets_arc_en_ciel`) parcourant les parois d’obsidienne noire, la chaussée sud et l’arche gothique centrale.
+  3. **Fond Trou Noir cosmique et nuages rouges/noirs plein cadre (zéro interstice, zéro flou) en 10 frames pixel-art nettes** (`01_trou_noir_spirale`, `10` frames × `24` ticks = `240` ticks, brut plein cadre `bruts/fond_trou_noir_spirale.png`, WebP `FTN2_trou_noir_spirale_10frames.webp`, planche 2×5 `review/FTN2_planche_10_frames_trou_noir.png`, carte indexée 16 couleurs `animation/trou_noir_spirale_indexee.png` + `animation/palettes_spirale_10frames.json`) directement derrière le cadran temporel circulaire (`09_cadran_temporel`) et le reliquaire de cristal (`08_reliquaire_cristal`).
+- **Aperçu interactif** : `apercu_fin_tour_temporelle_noire_or_v2.html` et `renders/fin_tour_temporelle_noire_or_v2/viewer.html` (servis par `source/serveur_apercus/serve.py`).
+- **Statut honnête** : art généré, `art_approved = false`, `runtime_tested = false`.
+
+## Chantiers `fin_mystifying_forest_clairiere_v1` (`FMF3`) et `fin_underground_lake_sanctuaire_v1` (`FUL2`)
+
+- **`fin_mystifying_forest_clairiere_v1` (`FMF3`, `fmf3_fin_mystifying_forest`, `768 × 576 px`, boucle `240` ticks)** :
+  - Fin de donjon appairée à l’entrée `entree_mystifying_forest_sud_nord_v1` (`EMF1`), référencée sur les maps ROM canoniques `D31P31A.png` (Clairière de la Forêt Trompeuse), `D31P11A.png` (Entrée) et `D31P41A.png` (Source Lumineuse).
+  - 12 calques RGBA + calque `Top` (`Layer = 4`) vide : mares latérales façon rivière Métano sans liseré clair (`00_eau`, `4 × 10` ticks), scintillements Métano natifs (`01_scintillements`), Source Lumineuse nord-centre animée aux **8 tons dorés NDS 5 bits exacts** de `D31P41A.png` (`02_source_lumineuse`, `12 × 20` ticks), `03_sol_complet`, `04_herbe`, `05_chemin`, `06_herbes_hautes`, `07_rochers`, `08_vasque`, `09_arbres`, feuilles tombantes (`10_feuilles`, `48 × 5` ticks) et lucioles dorées (`11_lucioles`, `48 × 5` ticks).
+  - Fidélité calques finaux (`seuil < 20`) : `feuillage_sombre = 0.8`, `chemin = 9.5`, `herbe = 10.5`, `roche_racines = 17.2`. Tests : `14 / 14` OK (`apercu_fin_mystifying_forest_clairiere_v1.html`).
+- **`fin_underground_lake_sanctuaire_v1` (`FUL2`, `ful2_fin_underground_lake`, `768 × 576 px`, boucle `120` ticks)** :
+  - Fin de donjon appairée à l’entrée `entree_underground_lake_sud_nord_v1` (`EUL1`), référencée sur la map ROM canonique `D15P41A.png` (*Underground Lake*, `69` couleurs exactes).
+  - 10 calques RGBA + calque `Top` (`Layer = 4`) vide : lac souterrain façon rivière Métano aux **3 couleurs d’eau exactes** de `D15P41A.png` sans liseré clair (`00_eau`, `4 × 10` ticks), lueur bioluminescente aux **9 couleurs cyan-turquoise exactes** de `D15P41A.png` (`01_lueur`, `12 × 10` ticks), scintillements Métano natifs sur le cœur de la lueur (`02_scintillements`), gouttes et ronds d’onde (`03_gouttes`, `24 × 5` ticks), `04_sol_complet`, `05_sable`, `06_ombres`, `07_berge`, `08_roche`, `09_piliers`.
+  - Fidélité calques finaux (`seuil < 15`) : `piliers = 6.9`, `sable = 9.3`, `roche = 10.4`. Tests : `12 / 12` OK (`apercu_fin_underground_lake_sanctuaire_v1.html`).
+- **Statut honnête** : art généré référencé, `art_approved = false`, `runtime_tested = false`.
+

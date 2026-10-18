@@ -1,0 +1,480 @@
+{
+  "lot": "fin_jardin_secret_sanctuaire_v1",
+  "prefix": "FJS4",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "biome": "jardin secret (clairière sanctuaire intérieure de Celebi, souche dorée et autel sous faisceau lumineux)",
+  "method": "textures canoniques = rendu généré référencé sur secretgarden.png ; rayon, emblème et lucioles sur la rampe EXACTE des 22 verts du rip",
+  "reference_da": {
+    "file": "source/fin_jardin_secret_sanctuaire_v1/reference/secretgarden.png",
+    "sha256": "e5a41562745c6fbfd3bb9edceed054810bbb07adf2f1b2a74e7ece8e19a2164f",
+    "titre": "Jardin secret (Explorers of Sky, secretgarden.png)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/fin_jardin_secret_sanctuaire_v1/reference/secretgarden.png"
+      ],
+      "prompt": "Generate a top-down 2D pixel-art dungeon boss sanctuary map in wide 4:3 format (1200x896) using the exact same textures, palette, and pixel-art style as the reference image (Pokemon Mystery Dungeon Secret Garden): same light yellow-green central meadow grass with small grass tufts, same medium green surrounding grass, same rounded bushy green hedge borders, same round leafy green trees with brown trunks and soft dark green ground shadows, same tan-brown boulders, same small white, yellow, and pink 5-petal flowers, same big golden-brown tree stump with wooden steps at the front, same vertical bright green light beam falling from the top center onto the stump, and same dark green background outside the hedges. Layout: at the SOUTH (bottom center), a light yellow-green grass path between bushy hedges leads north into a wide circular-octagonal sanctuary meadow glade (boss arena) ringed by bushy hedges, 4 round leafy trees, several tan-brown boulders, and flower patches. At the NORTH center of the glade (around y 14% to 28%) stands the big golden tree stump with wooden front steps leading down to the meadow, and atop the flat golden stump stands a small carved stone shrine pedestal with a glowing light-green Celebi leaf-crest emblem, bathed in the vertical bright green light beam falling from the top edge. Crisp pixel art, no characters, no text, no UI."
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_jardin_secret_sanctuaire_v1/reference/secretgarden.png"
+      ],
+      "prompt": "Generate an image: fill the ENTIRE 4:3 (1200x896) canvas edge to edge with the medium green meadow grass texture from the reference image (the medium green grass around the flowers and trees, around RGB 118, 174, 58, with its subtle pixel-art grass texture and small darker green tufts). Crisp pixel-art grass ground texture filling the whole canvas."
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_jardin_secret_sanctuaire_v1/bruts/decor.png",
+      "sha256": "bee9bda54e1668dd1ff82201a7222aaf17c4646f856d6f04915a820da25f6196",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_jardin_secret_sanctuaire_v1/bruts/sol_complet.png",
+      "sha256": "c9b31958a863503899f987ffa4e021355b393b9ce26d1f91c239a937083b502e",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "autel_y": [
+      170,
+      264
+    ],
+    "autel_x": [
+      570,
+      629
+    ],
+    "souche_y": [
+      202,
+      340
+    ],
+    "fleurs": 67,
+    "rochers": 10,
+    "arbres": 5
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matière (fond, herbe_claire, herbe, roche), distance euclidienne < 35",
+    "brut": {
+      "fond": {
+        "rip_rgb": [
+          47.5,
+          87.9,
+          53.9
+        ],
+        "decor_rgb": [
+          44.3,
+          87.1,
+          51.2
+        ],
+        "distance": 4.3
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          152.7,
+          206.3,
+          74.1
+        ],
+        "decor_rgb": [
+          155.8,
+          208.8,
+          59.6
+        ],
+        "distance": 15.0
+      },
+      "herbe": {
+        "rip_rgb": [
+          115.0,
+          166.1,
+          53.1
+        ],
+        "decor_rgb": [
+          110.6,
+          170.0,
+          60.0
+        ],
+        "distance": 9.1
+      },
+      "roche": {
+        "rip_rgb": [
+          137.2,
+          129.6,
+          68.4
+        ],
+        "decor_rgb": [
+          152.4,
+          138.0,
+          76.7
+        ],
+        "distance": 19.3
+      }
+    },
+    "calques_finaux": {
+      "prairie": {
+        "calque": "prairie",
+        "matiere": "herbe_claire",
+        "rgb": [
+          159.2,
+          207.5,
+          55.9
+        ],
+        "distance_rip": 19.3
+      },
+      "herbe": {
+        "calque": "herbe",
+        "matiere": "herbe",
+        "rgb": [
+          123.3,
+          174.7,
+          62.3
+        ],
+        "distance_rip": 15.1
+      },
+      "rochers": {
+        "calque": "rochers",
+        "matiere": "roche",
+        "rgb": [
+          154.2,
+          137.3,
+          81.0
+        ],
+        "distance_rip": 22.5
+      },
+      "fond": {
+        "calque": "fond",
+        "matiere": "fond",
+        "rgb": [
+          45.1,
+          86.1,
+          53.3
+        ],
+        "distance_rip": 3.1
+      }
+    },
+    "sol_complet": 5.8,
+    "seuil": 35.0
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "palettes": {
+      "herbe": {
+        "calques": [
+          "sol_complet",
+          "prairie",
+          "herbe",
+          "ombres"
+        ],
+        "couleurs": 64
+      },
+      "fleurs": {
+        "calques": [
+          "fleurs"
+        ],
+        "couleurs": 24
+      },
+      "rochers": {
+        "calques": [
+          "rochers"
+        ],
+        "couleurs": 32
+      },
+      "vegetation": {
+        "calques": [
+          "arbres",
+          "haies"
+        ],
+        "couleurs": 96
+      },
+      "souche_autel": {
+        "calques": [
+          "souche",
+          "marches",
+          "autel"
+        ],
+        "couleurs": 64
+      },
+      "fond": {
+        "calques": [
+          "fond"
+        ],
+        "couleurs": 8
+      }
+    }
+  },
+  "layers": [
+    {
+      "file": "calques/FJS4_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_01_prairie.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_02_herbe.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_03_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_04_fleurs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_05_rochers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_06_arbres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_07_haies.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_08_souche.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_09_marches.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_10_autel.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FJS4_11_fond.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/embleme/FJS4_12_embleme_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/rayon/FJS4_13_rayon_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/lucioles/FJS4_14_lucioles_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "animations": {
+    "rampe_22_verts_rip": [
+      [
+        47,
+        95,
+        55
+      ],
+      [
+        47,
+        103,
+        55
+      ],
+      [
+        55,
+        119,
+        55
+      ],
+      [
+        63,
+        135,
+        55
+      ],
+      [
+        63,
+        151,
+        55
+      ],
+      [
+        63,
+        167,
+        55
+      ],
+      [
+        71,
+        183,
+        63
+      ],
+      [
+        79,
+        199,
+        71
+      ],
+      [
+        79,
+        215,
+        71
+      ],
+      [
+        87,
+        223,
+        71
+      ],
+      [
+        95,
+        231,
+        71
+      ],
+      [
+        95,
+        239,
+        71
+      ],
+      [
+        103,
+        247,
+        79
+      ],
+      [
+        111,
+        255,
+        87
+      ],
+      [
+        127,
+        255,
+        95
+      ],
+      [
+        151,
+        255,
+        111
+      ],
+      [
+        175,
+        255,
+        127
+      ],
+      [
+        191,
+        255,
+        135
+      ],
+      [
+        207,
+        255,
+        151
+      ],
+      [
+        231,
+        255,
+        199
+      ],
+      [
+        239,
+        255,
+        223
+      ],
+      [
+        255,
+        255,
+        255
+      ]
+    ],
+    "embleme_crans": 3,
+    "rayon_amplitude": 2,
+    "lucioles": 10
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      384,
+      360
+    ],
+    "goal_px": [
+      384,
+      184
+    ],
+    "walkable_cells": 1929,
+    "blocked_cells": 4983,
+    "path_found_16x16": true
+  },
+  "pmdo": {
+    "target_version": "0.8.12.0",
+    "ground": "fjs4_fin_jardin_secret_sanctuaire.rsground",
+    "banks": [
+      "FJS4_00_SOL_COMPLET",
+      "FJS4_01_PRAIRIE",
+      "FJS4_02_HERBE",
+      "FJS4_03_OMBRES",
+      "FJS4_04_FLEURS",
+      "FJS4_05_ROCHERS",
+      "FJS4_06_ARBRES",
+      "FJS4_07_HAIES",
+      "FJS4_08_SOUCHE",
+      "FJS4_09_MARCHES",
+      "FJS4_10_AUTEL",
+      "FJS4_11_FOND",
+      "FJS4_12_EMBLEME",
+      "FJS4_13_RAYON",
+      "FJS4_14_LUCIOLES"
+    ],
+    "tiles_per_bank": {
+      "FJS4_00_SOL_COMPLET": 6913,
+      "FJS4_01_PRAIRIE": 1147,
+      "FJS4_02_HERBE": 1057,
+      "FJS4_03_OMBRES": 103,
+      "FJS4_04_FLEURS": 225,
+      "FJS4_05_ROCHERS": 314,
+      "FJS4_06_ARBRES": 996,
+      "FJS4_07_HAIES": 2266,
+      "FJS4_08_SOUCHE": 108,
+      "FJS4_09_MARCHES": 25,
+      "FJS4_10_AUTEL": 50,
+      "FJS4_11_FOND": 2194,
+      "FJS4_12_EMBLEME": 33,
+      "FJS4_13_RAYON": 873,
+      "FJS4_14_LUCIOLES": 86
+    },
+    "total_tiles": 16390,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

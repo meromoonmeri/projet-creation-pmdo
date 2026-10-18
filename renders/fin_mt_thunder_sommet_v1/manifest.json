@@ -1,0 +1,468 @@
+{
+  "lot": "fin_mt_thunder_sommet_v1",
+  "prefix": "FMT3",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "biome": "sommet d'orage au-dessus des nuages (arène finale du boss couronnée par les pitons rocheux foudroyés)",
+  "method": "textures canoniques = rendu généré référencé sur mt_thunder.png ; éclairs et arc Flash copiés au pixel près de la planche GBA",
+  "reference_da": {
+    "file": "source/fin_mt_thunder_sommet_v1/reference/mt_thunder.png",
+    "sha256": "6f1dc6a9a907fff7e3e8f57ea3a97a3e0a5de36312ce7939d7834f6d407da416",
+    "scene_rows": [
+      0,
+      352
+    ],
+    "titre": "Mt. Thunder Peak, salle du boss (Red Rescue Team, GBA)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/fin_mt_thunder_sommet_v1/reference/mt_thunder.png"
+      ],
+      "prompt": "Generate a top-down 2D pixel-art dungeon boss summit map in wide 4:3 format (1200x896) using the exact same textures, palette, and pixel-art style as the top part of the reference image (Pokemon Mystery Dungeon Mt. Thunder Peak): same pale yellow sandy summit ground with tiny grey pebbles and small mossy green-grey stones, same brown rocky cliff edges with cracks, same pointed tan rock spikes, same scalloped storm clouds in grey-purple tones (darker purple-grey clouds higher up, light grey and white scalloped clouds along the bottom edge), and same dark grey storm sky at the top. Layout: at the SOUTH (bottom center), a sandy ridge path emerges from the white lower clouds and opens into a wide rounded-trapezoid sandy summit boss arena plateau in the center, bordered on the left and right by brown rocky cliff walls and a few pointed tan rock spikes and pebbles. At the NORTH edge of the sandy plateau (top center, y around 15% to 24%), instead of a dark cave hole, place an imposing cluster of tall pointed tan-and-brown rocky thunder spires/monoliths resting on the northern cliff rim, with open pale yellow sand right in front of the spires so the player can walk up to them. Sea of scalloped grey-purple storm clouds on the left, right, and behind the northern cliff; dark grey storm sky at the top. Crisp pixel art, no lightning bolts, no characters, no text, no UI."
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_mt_thunder_sommet_v1/reference/mt_thunder.png"
+      ],
+      "prompt": "Generate an image: fill the ENTIRE 4:3 (1200x896) canvas edge to edge with the pale yellow sandy ground texture from the reference image's summit plateau: same pale yellow sand color (around RGB 231, 222, 156), same subtle pixel-art speckle texture and faint darker sand patches across the entire frame. Crisp pixel-art ground texture filling the whole canvas."
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_mt_thunder_sommet_v1/bruts/decor.png",
+      "sha256": "8ca9dab000746de1b35e478fcd76b46b5200d8e4a330a4910b244cafa26b9880",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_mt_thunder_sommet_v1/bruts/sol_complet.png",
+      "sha256": "d9a16266d828d3360bcd0956f9600514f32e300a9f1abd82423930b1fe78125a",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "piton_foudre_y": [
+      18,
+      337
+    ],
+    "piton_foudre_x": [
+      381,
+      839
+    ],
+    "pics": 12,
+    "cailloux": 36
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matière (sable, roche, ciel, nuages_sombres, nuages_clairs), distance euclidienne < 35",
+    "brut": {
+      "sable": {
+        "rip_rgb": [
+          231.5,
+          222.3,
+          156.5
+        ],
+        "decor_rgb": [
+          230.6,
+          220.5,
+          153.8
+        ],
+        "distance": 3.3
+      },
+      "roche": {
+        "rip_rgb": [
+          166.1,
+          141.3,
+          115.7
+        ],
+        "decor_rgb": [
+          161.4,
+          134.9,
+          108.8
+        ],
+        "distance": 10.5
+      },
+      "ciel": {
+        "rip_rgb": [
+          64.2,
+          56.2,
+          64.1
+        ],
+        "decor_rgb": [
+          60.7,
+          53.3,
+          61.0
+        ],
+        "distance": 5.4
+      },
+      "nuages_sombres": {
+        "rip_rgb": [
+          127.7,
+          119.7,
+          127.7
+        ],
+        "decor_rgb": [
+          124.2,
+          116.1,
+          123.9
+        ],
+        "distance": 6.3
+      },
+      "nuages_clairs": {
+        "rip_rgb": [
+          219.3,
+          219.2,
+          219.2
+        ],
+        "decor_rgb": [
+          217.8,
+          217.6,
+          217.3
+        ],
+        "distance": 2.9
+      }
+    },
+    "calques_finaux": {
+      "sable:sable": {
+        "calque": "sable",
+        "matiere": "sable",
+        "rgb": [
+          231.1,
+          221.0,
+          153.9
+        ],
+        "distance_rip": 2.9
+      },
+      "falaise:roche": {
+        "calque": "falaise",
+        "matiere": "roche",
+        "rgb": [
+          173.8,
+          150.5,
+          124.7
+        ],
+        "distance_rip": 15.1
+      },
+      "piton_foudre:roche": {
+        "calque": "piton_foudre",
+        "matiere": "roche",
+        "rgb": [
+          160.6,
+          134.8,
+          108.3
+        ],
+        "distance_rip": 11.3
+      },
+      "ciel:ciel": {
+        "calque": "ciel",
+        "matiere": "ciel",
+        "rgb": [
+          60.7,
+          53.4,
+          61.3
+        ],
+        "distance_rip": 5.3
+      },
+      "nuages:nuages_sombres": {
+        "calque": "nuages",
+        "matiere": "nuages_sombres",
+        "rgb": [
+          124.0,
+          116.2,
+          124.1
+        ],
+        "distance_rip": 6.2
+      },
+      "nuages:nuages_clairs": {
+        "calque": "nuages",
+        "matiere": "nuages_clairs",
+        "rgb": [
+          218.1,
+          218.0,
+          217.9
+        ],
+        "distance_rip": 2.2
+      }
+    },
+    "sol_complet": 2.3,
+    "seuil": 35.0
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "palettes": {
+      "sable": {
+        "calques": [
+          "sol_complet",
+          "sable"
+        ],
+        "couleurs": 32
+      },
+      "roche": {
+        "calques": [
+          "cailloux",
+          "pics",
+          "falaise",
+          "piton_foudre"
+        ],
+        "couleurs": 96
+      },
+      "orage": {
+        "calques": [
+          "ciel",
+          "nuages"
+        ],
+        "couleurs": 32
+      }
+    }
+  },
+  "layers": [
+    {
+      "file": "calques/FMT3_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_01_sable.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_02_cailloux.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_03_pics.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_04_falaise.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_05_piton_foudre.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_06_ciel.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FMT3_07_nuages.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/lueurs/FMT3_08_lueurs_fNN.png",
+      "phases": 48,
+      "ticks": 5
+    },
+    {
+      "file": "animation/eclairs/FMT3_09_eclairs_fNN.png",
+      "phases": 48,
+      "ticks": 5
+    },
+    {
+      "file": "animation/lueur_piton/FMT3_10_lueur_piton_fNN.png",
+      "phases": 48,
+      "ticks": 5
+    }
+  ],
+  "eclairs": {
+    "boites_rip": {
+      "1": [
+        372,
+        443,
+        121,
+        129
+      ],
+      "2": [
+        372,
+        436,
+        169,
+        185
+      ],
+      "3": [
+        372,
+        498,
+        219,
+        243
+      ],
+      "4": [
+        372,
+        475,
+        284,
+        307
+      ]
+    },
+    "flash_rip": [
+      393,
+      401,
+      15,
+      55
+    ],
+    "pastilles": {
+      "normal": [
+        [
+          240,
+          240,
+          128
+        ],
+        [
+          240,
+          240,
+          0
+        ]
+      ],
+      "fading": [
+        [
+          184,
+          176,
+          120
+        ],
+        [
+          160,
+          152,
+          32
+        ]
+      ]
+    },
+    "durees_phases": {
+      "normal": 2,
+      "fading": 2
+    },
+    "frappes": [
+      {
+        "eclair": 1,
+        "miroir": false,
+        "x": 48,
+        "y": 78,
+        "flash_x": 31,
+        "flash_y": 146,
+        "phase_debut": 0
+      },
+      {
+        "eclair": 3,
+        "miroir": true,
+        "x": 676,
+        "y": 52,
+        "flash_x": 657,
+        "flash_y": 175,
+        "phase_debut": 8
+      },
+      {
+        "eclair": 2,
+        "miroir": false,
+        "x": 82,
+        "y": 174,
+        "flash_x": 68,
+        "flash_y": 235,
+        "phase_debut": 16
+      },
+      {
+        "eclair": 4,
+        "miroir": true,
+        "x": 696,
+        "y": 132,
+        "flash_x": 678,
+        "flash_y": 232,
+        "phase_debut": 24
+      },
+      {
+        "eclair": 3,
+        "miroir": false,
+        "x": 24,
+        "y": 42,
+        "flash_x": 26,
+        "flash_y": 165,
+        "phase_debut": 32
+      },
+      {
+        "eclair": 2,
+        "miroir": true,
+        "x": 684,
+        "y": 182,
+        "flash_x": 673,
+        "flash_y": 243,
+        "phase_debut": 40
+      }
+    ]
+  },
+  "scene_loop_ticks": 240,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      384,
+      344
+    ],
+    "goal_px": [
+      384,
+      192
+    ],
+    "walkable_cells": 2160,
+    "blocked_cells": 4752,
+    "path_found_16x16": true
+  },
+  "pmdo": {
+    "target_version": "0.8.12.0",
+    "ground": "fmt3_fin_mt_thunder_sommet.rsground",
+    "banks": [
+      "FMT3_00_SOL_COMPLET",
+      "FMT3_01_SABLE",
+      "FMT3_02_CAILLOUX",
+      "FMT3_03_PICS",
+      "FMT3_04_FALAISE",
+      "FMT3_05_PITON_FOUDRE",
+      "FMT3_06_CIEL",
+      "FMT3_07_NUAGES",
+      "FMT3_08_LUEURS",
+      "FMT3_09_ECLAIRS",
+      "FMT3_10_LUEUR_PITON"
+    ],
+    "tiles_per_bank": {
+      "FMT3_00_SOL_COMPLET": 6890,
+      "FMT3_01_SABLE": 2453,
+      "FMT3_02_CAILLOUX": 85,
+      "FMT3_03_PICS": 126,
+      "FMT3_04_FALAISE": 778,
+      "FMT3_05_PITON_FOUDRE": 507,
+      "FMT3_06_CIEL": 1281,
+      "FMT3_07_NUAGES": 2404,
+      "FMT3_08_LUEURS": 99,
+      "FMT3_09_ECLAIRS": 263,
+      "FMT3_10_LUEUR_PITON": 553
+    },
+    "total_tiles": 15439,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

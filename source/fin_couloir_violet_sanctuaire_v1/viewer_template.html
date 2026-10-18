@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Fin du Couloir Violet — Sanctuaire de la Stèle V1 (FCV4, 4:3 — 768×576 px)</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 14px/1.5 system-ui, sans-serif; background: #120f1a; color: #f0ecf8; }
+  main { max-width: 1400px; margin: 0 auto; padding: 20px; }
+  h1 { margin: 0 0 4px; font-size: 21px; color: #d5b8ff; }
+  h2 { margin: 22px 0 8px; font-size: 16px; border-bottom: 1px solid #352b48; padding-bottom: 4px; color: #c8a8f8; }
+  .meta { color: #b8a8d0; font-size: 13px; margin-bottom: 14px; }
+  .warn { background: #1e162c; border: 1px solid #6b4c9a; padding: 10px 12px; border-radius: 6px; margin-bottom: 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; background: #1a1426; padding: 10px; border-radius: 6px; }
+  label { display: inline-flex; align-items: center; gap: 4px; background: #261e38; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  button, select { background: #362850; color: #f0ecf8; border: 1px solid #6b5098; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+  .stage { overflow: auto; background: #0c0912; padding: 14px; border-radius: 6px; border: 1px solid #352b48; text-align: center; }
+  canvas, .pix { image-rendering: pixelated; image-rendering: crisp-edges; border: 1px solid #483864; background: repeating-conic-gradient(#161122 0 25%, #201830 0 50%) 50% / 16px 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: #1a1426; padding: 10px; border-radius: 6px; border: 1px solid #352b48; }
+  .card h3 { margin: 0 0 6px; font-size: 13px; color: #d5b8ff; }
+  .card img { width: 100%; height: auto; display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid #352b48; padding: 6px 8px; text-align: left; }
+  th { background: #221a34; }
+  code { color: #d5b8ff; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fin du Couloir Violet — Sanctuaire de la Stèle V1 (FCV4, 768 × 576 px)</h1>
+  <div class="meta">Lot <code>fin_couloir_violet_sanctuaire_v1</code> · Préfixe <code>FCV4</code> · Carte Ground <code>fcv4_fin_couloir_violet</code> · Cible PMDO <code>0.8.12</code> · Appairée à l'entrée <code>ECV1</code></div>
+  <div class="warn">
+    <strong>Statut honnête :</strong> <code>art_approved = false</code>, <code>runtime_tested = false</code>.<br>
+    <strong>Référence canonique ROM :</strong> <code>S05P03A.png</code> (<em>Couloir rocheux violet</em>, 34 couleurs NDS 5 bits exactes) · Gravillons des éboulis et rampe lilas-violet de la stèle aux couleurs exactes du rip.
+  </div>
+
+  <div class="bar">
+    <strong>Calques :</strong>
+    <span id="toggles"></span>
+    <label><input type="checkbox" id="grid8"> Grille 8 px</label>
+    <label><input type="checkbox" id="coll"> Collisions + marqueurs (entrance / boss / objectif)</label>
+    <button id="play">Pause</button>
+    <label>Zoom <select id="zoom"><option value="1" selected>1× (768×576)</option><option value="2">2× (1536×1152)</option></select></label>
+    <span id="tickinfo"></span>
+  </div>
+
+  <div class="stage"><canvas id="cv" width="768" height="576"></canvas></div>
+
+  <h2>Référence ROM &amp; Bruts Générés · Scène Animée · Collisions &amp; Poses</h2>
+  <div class="grid">
+    <div class="card"><h3>Référence canonique ROM <code>S05P03A.png</code> (312×720)</h3><img class="pix" src="source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png"></div>
+    <div class="card"><h3>Brut décor Sanctuaire &amp; Stèle (1200×896)</h3><img class="pix" src="source/fin_couloir_violet_sanctuaire_v1/bruts/decor_magenta.png"></div>
+    <div class="card"><h3>Brut sol complet mauve marbré (1200×896)</h3><img class="pix" src="source/fin_couloir_violet_sanctuaire_v1/bruts/sol_complet.png"></div>
+    <div class="card"><h3>Scène complète animée (WebP sans perte, boucle 120 ticks = 2 s)</h3><img class="pix" src="renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_scene_animee.webp"></div>
+    <div class="card"><h3>Collisions &amp; marqueurs (entrance / boss / objectif)</h3><img class="pix" src="renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_collisions_marqueurs.png"></div>
+    <div class="card"><h3>Planche des gravillons exacts du rip &amp; nuages de poussière</h3><img class="pix" src="renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_planche_poses.png"></div>
+  </div>
+
+  <h2>Contrôle de fidélité au rip <code>S05P03A.png</code> (seuil &lt; 35)</h2>
+  <table>
+    <thead><tr><th>Calque</th><th>Matière</th><th>Moyenne RGB couche</th><th>Distance au rip</th></tr></thead>
+    <tbody id="fidrows"></tbody>
+  </table>
+
+  <h2>Calques individuels (00 → 11, plus <code>12 Top</code> vide dans le Ground)</h2>
+  <div class="grid" id="cards"></div>
+</main>
+<script>
+const SPEC = __SPEC_JSON__;
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const imgs = {}, state = { tick: 0, play: true };
+
+function loadImg(src) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+
+async function init() {
+  const fbody = document.getElementById('fidrows');
+  for (const [k, v] of Object.entries(SPEC.fidelite)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><code>${k}</code></td><td><code>${v.matiere}</code></td><td><code>[${v.rgb.join(', ')}]</code></td><td><strong>${v.distance_rip}</strong> / ${SPEC.seuil}</td>`;
+    fbody.appendChild(tr);
+  }
+  const tog = document.getElementById('toggles'), cards = document.getElementById('cards');
+  for (const l of SPEC.layers) {
+    l.on = true;
+    const lb = document.createElement('label');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = true;
+    cb.onchange = () => { l.on = cb.checked; draw(); };
+    lb.append(cb, ' ' + l.label); tog.appendChild(lb);
+    imgs[l.id] = await Promise.all(l.srcs.map(loadImg));
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = `<h3>${l.label} (${l.srcs.length > 1 ? l.srcs.length + ' frames × ' + l.ticks + 't' : 'fixe'}) · <code>${l.tiles}</code> tuiles</h3><img class="pix" src="${l.srcs[0]}">`;
+    cards.appendChild(c);
+  }
+  document.getElementById('play').onclick = e => { state.play = !state.play; e.target.textContent = state.play ? 'Pause' : 'Lecture'; };
+  document.getElementById('zoom').onchange = e => { const z = +e.target.value; cv.style.width = (768 * z) + 'px'; cv.style.height = (576 * z) + 'px'; };
+  document.getElementById('grid8').onchange = draw;
+  document.getElementById('coll').onchange = draw;
+  setInterval(() => { if (state.play) { state.tick = (state.tick + 1) % SPEC.loop_ticks; draw(); } }, 1000 / 60);
+  draw();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, 768, 576);
+  for (const l of SPEC.layers) {
+    if (!l.on) continue;
+    const arr = imgs[l.id];
+    ctx.drawImage(arr[Math.floor(state.tick / l.ticks) % arr.length], 0, 0);
+  }
+  if (document.getElementById('coll').checked) {
+    ctx.fillStyle = 'rgba(220,40,40,0.35)';
+    for (const [x, y] of SPEC.blocked) ctx.fillRect(x * 8, y * 8, 8, 8);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#3cdcff'; ctx.strokeRect(SPEC.entry[0] - 7, SPEC.entry[1] - 7, 15, 15);
+    if (SPEC.boss) {
+      ctx.strokeStyle = '#ff4860'; ctx.strokeRect(SPEC.boss[0] - 7, SPEC.boss[1] - 7, 15, 15);
+    }
+    ctx.strokeStyle = '#ffe628'; ctx.strokeRect(SPEC.threshold[0] - 7, SPEC.threshold[1] - 7, 15, 15);
+  }
+  if (document.getElementById('grid8').checked) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x <= 768; x += 8) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, 576); }
+    for (let y = 0; y <= 576; y += 8) { ctx.moveTo(0, y + 0.5); ctx.lineTo(768, y + 0.5); }
+    ctx.stroke();
+  }
+  document.getElementById('tickinfo').textContent = `Tick ${String(state.tick).padStart(3, '0')} / ${SPEC.loop_ticks} (phase ${Math.floor(state.tick / 5) % 24 + 1}/24)`;
+}
+init();
+</script>
+</body>
+</html>

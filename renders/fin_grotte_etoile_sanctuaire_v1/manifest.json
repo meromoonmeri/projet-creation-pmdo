@@ -1,0 +1,270 @@
+{
+  "lot": "fin_grotte_etoile_sanctuaire_v1",
+  "prefix": "FGE1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "scene_loop_ticks": 60,
+  "grid_8px": [
+    96,
+    72
+  ],
+  "biome": "grotte étoile (Star Cave, épisode spécial 1 — Le Vœu de Keunotor) — salle du vœu de Jirachi, rip D42P42A",
+  "method": "textures canoniques = rendu généré référencé (rip D42P42A passé au générateur en images=), segmenté à pleine résolution, réduit par classe, quantifié en palettes 64/32/96",
+  "reference_da": {
+    "file": "source/fin_grotte_etoile_sanctuaire_v1/reference/D42P42A.png",
+    "sha256": "179e04bed8943e7db0ea66b18e2fe6cbc06bf50a3b2325e83c229c009a5a16be",
+    "titre": "Star Cave / Grotte Étoile — rip canonique D42P42A, salle du vœu de Jirachi (pret/pmd-sky)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "source/fin_grotte_etoile_sanctuaire_v1/reference/D42P42A.png"
+      ],
+      "prompt": "Generate an image: fill the ENTIRE 4:3 (1200x896) canvas edge to edge with a top-down 2D pixel art boss sanctuary map in the exact style and palette of the reference image (Pokemon Mystery Dungeon Explorers of Sky, Star Cave Jirachi Wish Chamber D42P42A): a large circular ring of deep sapphire-blue cavern rock with pale ice-green and ice-blue highlighted inner faces, studded with tiny star sparkles, enclosing a luminous sky-blue circular floor (#5090d0, #6ca8e4) with a few small circular floor rings; in the EXACT center of the floor one single soft glowing pale-blue five-pointed star emblem (Jirachi's star) with a gentle radiant halo, painted in the soft glowing style of the reference — NO concentric circles around the star, NO neon white line art, NO outline circle; an open walkable stone entrance passage at the bottom-center (south) widening from the bottom edge through a gap in the ring to the floor. Dark navy void (#141c24) outside the ring only. Crisp pixel art, no characters, no UI."
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_grotte_etoile_sanctuaire_v1/reference/D42P42A.png"
+      ],
+      "prompt": "Generate an image: fill the ENTIRE 4:3 (1200x896) canvas edge to edge with a plain top-down 2D pixel art cavern floor texture in the exact style and palette of the reference image (Pokemon Mystery Dungeon Explorers of Sky, Star Cave D42P42A): a luminous sky-blue stone floor (#5090d0, #6ca8e4) with subtle darker blue cracked stone lines and tiny faint star glints scattered evenly, completely uniform and edge to edge, no star emblem, no rock walls, no characters, no UI. Crisp pixel art."
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_grotte_etoile_sanctuaire_v1/bruts/decor.png",
+      "sha256": "975b7c0a7693f4eb19f3925e0e8ef6997368bb9db22aaad420a1b6f342a0dcc3",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_grotte_etoile_sanctuaire_v1/bruts/sol_complet.png",
+      "sha256": "80bea6002430ff71ee340a4e62ca1da6f160aa5d2682433e3596e0b1b7580e30",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "px": {
+      "vide": 572490,
+      "parois_sombres": 263309,
+      "cristaux": 23359,
+      "sol": 198049,
+      "etoile": 17993
+    },
+    "etoile_px": 17993,
+    "etoile_centre": [
+      599,
+      459
+    ],
+    "sol_touche_bord_sud": true
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matière (sol, étoile, paroi, fond), même classifieur sur le rip et sur le brut, distance euclidienne < 35",
+    "brut": {
+      "sol": {
+        "rip_rgb": [
+          89.6,
+          147.4,
+          196.2
+        ],
+        "decor_rgb": [
+          84.1,
+          140.6,
+          189.5
+        ],
+        "distance": 11.0
+      },
+      "etoile": {
+        "rip_rgb": [
+          176.5,
+          192.8,
+          149.2
+        ],
+        "decor_rgb": [
+          160.2,
+          203.6,
+          155.1
+        ],
+        "distance": 20.4
+      },
+      "paroi": {
+        "rip_rgb": [
+          54.2,
+          85.2,
+          110.0
+        ],
+        "decor_rgb": [
+          54.2,
+          83.2,
+          105.9
+        ],
+        "distance": 4.5
+      },
+      "fond": {
+        "rip_rgb": [
+          23.0,
+          31.7,
+          32.8
+        ],
+        "decor_rgb": [
+          20.8,
+          30.0,
+          33.6
+        ],
+        "distance": 2.8
+      }
+    },
+    "calques_finaux": {
+      "sol": {
+        "calque": "sol",
+        "matiere": "sol",
+        "rgb": [
+          84.8,
+          145.4,
+          199.5
+        ],
+        "distance_rip": 6.2
+      },
+      "parois_sombres": {
+        "calque": "parois_sombres",
+        "matiere": "paroi",
+        "rgb": [
+          48.6,
+          76.3,
+          100.5
+        ],
+        "distance_rip": 14.1
+      },
+      "etoile": {
+        "calque": "etoile",
+        "matiere": "etoile",
+        "rgb": [
+          157.7,
+          204.7,
+          154.2
+        ],
+        "distance_rip": 22.8
+      }
+    },
+    "sol_complet": 16.8,
+    "seuil": 35.0
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne pondérée par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "sol": {
+        "calques": [
+          "sol_complet",
+          "sol"
+        ],
+        "couleurs": 64
+      },
+      "etoile": {
+        "calques": [
+          "etoile"
+        ],
+        "couleurs": 32
+      },
+      "paroi": {
+        "calques": [
+          "vide",
+          "parois_sombres",
+          "cristaux"
+        ],
+        "couleurs": 96
+      }
+    }
+  },
+  "segmentation": "vide (marge sombre, L5 < 32, ouvert 2 px, > 1500 px, reliée au bord),\n    sol = plancher lisse bleu (95 < lum < 200, b > g + 8, g > r + 8, sdev 9 px < 16) :\n    plus grande composante 8-connexe TOUCHANT LE BORD INFÉRIEUR (le passage sud),\n    ouvert 1 / fermé 2 px, puis la composante retenue fermée 2 px, trous bouchés ;\n    etoile = cœur de l'emblème (la > 178, teinte verte-blanchâtre, dans l'ellipse de centre (600, 448))\n    et rayons (240, 230), plus grande composante >= 400 px, trous bouchés, soustraite du sol ;\n    parois = le reste (voûte facetée) ; cristaux = parois à L5 > 125 (hautes lumières) ;\n    parois_sombres = le reste.",
+  "layers": [
+    {
+      "file": "calques/FGE1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FGE1_01_vide.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FGE1_02_parois_sombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FGE1_03_cristaux.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FGE1_04_sol.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FGE1_05_etoile.png",
+      "phases": 1,
+      "ticks": 60
+    }
+  ],
+  "provenance": "Généré (réf. rip D42P42A) — aucun pixel natif",
+  "access": {
+    "entry_px": [
+      384,
+      568
+    ],
+    "boss_px": [
+      384,
+      288
+    ],
+    "goal_px": [
+      384,
+      168
+    ],
+    "walkable_cells": 1341,
+    "blocked_cells": 5571,
+    "path_found_16x16": true
+  },
+  "pmdo": {
+    "target_version": "0.8.12.0",
+    "ground": "fge1_fin_grotte_etoile.rsground",
+    "banks": [
+      "FGE1_00_SOL_COMPLET",
+      "FGE1_01_VIDE",
+      "FGE1_02_PAROIS_SOMBRES",
+      "FGE1_03_CRISTAUX",
+      "FGE1_04_SOL",
+      "FGE1_05_ETOILE"
+    ],
+    "tiles_per_bank": {
+      "FGE1_00_SOL_COMPLET": 6901,
+      "FGE1_01_VIDE": 3924,
+      "FGE1_02_PAROIS_SOMBRES": 2281,
+      "FGE1_03_CRISTAUX": 494,
+      "FGE1_04_SOL": 1387,
+      "FGE1_05_ETOILE": 141
+    },
+    "total_tiles": 15128,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

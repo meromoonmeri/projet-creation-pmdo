@@ -93,6 +93,282 @@ RESTORED_MAPS = [
             ('Notice du pack', 'source/entree_tour_temporelle_sud_nord_v2/README_PACK.md'),
         ],
     },
+    {
+        'code': 'FTN2 · FIN DE DONJON · V2',
+        'title': 'Fin de la Tour Temporelle V2 — Sommet Noir & Or, Trou Noir Indépendant & Nébuleuses Spatiales en 10 Frames',
+        'note': ('Fin de donjon appairée à ETT2 : même chemin en basalte noir et esplanade octogonale ouverte sans piliers, '
+                 'veines d’or aux reflets arc-en-ciel (11_circuits_or + 12_reflets_arc_en_ciel), et deux couches de fond '
+                 'animées 100 % indépendantes en 10 frames (10 × 12 = 120 ticks) derrière le cadran : '
+                 '01_nuages_orage_rouges (nébuleuses spatiales cosmiques multi-plans avec onde d’ionisation chromatique, voile de gaz stellaire en parallaxe et étoiles scintillantes) et '
+                 '02_trou_noir_spirale (Trou Noir et vortex spiralé RGBA indépendant en rotation continue + accrétion). '
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FTN2 · Trou Noir indépendant + nébuleuses spatiales · boucle 4 s',
+                     'renders/fin_tour_temporelle_noire_or_v2/review/FTN2_scene_animee.webp'),
+        'art': ('Décor brut sommet noir-or + veines arc-en-ciel · FTN2',
+                'source/fin_tour_temporelle_noire_or_v2/bruts/decor_magenta.png'),
+        'materials': [
+            ('Planche comparative : Couche 01 (nébuleuses spatiales) / Couche 02 (Trou Noir RGBA) / Composite · FTN2',
+             'renders/fin_tour_temporelle_noire_or_v2/review/FTN2_planche_couches_fond_independantes.png'),
+            ('Couche 01 seule : Nébuleuses spatiales cosmiques animées (10 frames WebP) · FTN2',
+             'renders/fin_tour_temporelle_noire_or_v2/FTN2_nuages_orage_rouges_10frames.webp'),
+            ('Couche 02 seule : Trou Noir & vortex spiralé indépendant RGBA (10 frames WebP) · FTN2',
+             'renders/fin_tour_temporelle_noire_or_v2/FTN2_trou_noir_seul_10frames.webp'),
+            ('Planche 2×5 des 10 frames du fond combiné (01 + 02) · FTN2',
+             'renders/fin_tour_temporelle_noire_or_v2/review/FTN2_planche_10_frames_trou_noir.png'),
+            ('Zoom ×2 Trou Noir, anneau d’accrétion pixel-art, reliquaire & cadran · FTN2',
+             'renders/fin_tour_temporelle_noire_or_v2/review/FTN2_zoom_reliquaire_cadran.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FTN2', 'apercu_fin_tour_temporelle_noire_or_v2.html'),
+            ('Télécharger l’ORA multicalque · FTN2', 'renders/fin_tour_temporelle_noire_or_v2/FTN2_fin_tour_temporelle_noire_or_v2_calques.ora'),
+            ('Manifest de build · FTN2', 'renders/fin_tour_temporelle_noire_or_v2/manifest.json'),
+            ('Note de récupération', 'source/fin_tour_temporelle_noire_or_v2/RECUPERATION.md'),
+            ('Notice du pack', 'source/fin_tour_temporelle_noire_or_v2/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FCV4 · FIN DE DONJON · V1',
+        'title': 'Fin du Couloir Violet — Sanctuaire de la Stèle V1 (FCV4)',
+        'note': ('Fin de donjon appairée à ECV1 (référence canonique ROM S05P03A.png) : vaste chambre souterraine octogonale '
+                 'au sol mauve marbré, alcôve nord abritant la Stèle ancienne aux runes lilas-violet pulsantes (09_lueurs_stele), '
+                 'chutes de gravillons aux pixels et couleurs exacts du rip (10_eboulis) et nuages de poussière générés (11_poussiere). '
+                 'Fidélité au rip : 5,5 à 8,6 (< 35). Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FCV4 · stèle, éboulis exacts du rip & poussière · boucle 2 s',
+                     'renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_scene_animee.webp'),
+        'art': ('Décor brut sur magenta · FCV4',
+                'source/fin_couloir_violet_sanctuaire_v1/bruts/decor_magenta.png'),
+        'materials': [
+            ('Référence canonique ROM S05P03A.png · FCV4',
+             'source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png'),
+            ('Collisions & marqueurs (entrance / boss / objectif) · FCV4',
+             'renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_collisions_marqueurs.png'),
+            ('Planche des gravillons exacts du rip & poses de poussière · FCV4',
+             'renders/fin_couloir_violet_sanctuaire_v1/review/FCV4_planche_poses.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FCV4', 'apercu_fin_couloir_violet_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FCV4', 'renders/fin_couloir_violet_sanctuaire_v1/FCV4_fin_couloir_violet_calques.ora'),
+            ('Manifest de build · FCV4', 'renders/fin_couloir_violet_sanctuaire_v1/manifest.json'),
+            ('Build reproductible · FCV4', 'source/fin_couloir_violet_sanctuaire_v1/build.py'),
+            ('Notice du pack · FCV4', 'source/fin_couloir_violet_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FMT3 · FIN DE DONJON · V1',
+        'title': 'Fin de Mt. Thunder — Sommet Foudroyant V1 (FMT3)',
+        'note': ('Fin de donjon appairée à EMT1 (référence canonique GBA mt_thunder.png) : arène finale du sommet de sable '
+                 'jaune pâle au-dessus de la mer de nuages d’orage, couronnée au nord par les grands pitons rocheux foudroyés '
+                 '(05_piton_foudre), avec les 4 éclairs et l’arc Flash copiés au pixel près de la planche GBA (08_lueurs + 09_eclairs) '
+                 'et pulsation électrique sur les crêtes du piton (10_lueur_piton). Fidélité au rip : 2,9 à 10,5 (< 35). '
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FMT3 · éclairs & arcs Flash exacts GBA · boucle 4 s',
+                     'renders/fin_mt_thunder_sommet_v1/review/FMT3_scene_animee.webp'),
+        'art': ('Décor brut du sommet · FMT3',
+                'source/fin_mt_thunder_sommet_v1/bruts/decor.png'),
+        'materials': [
+            ('Référence canonique GBA mt_thunder.png · FMT3',
+             'source/fin_mt_thunder_sommet_v1/reference/mt_thunder.png'),
+            ('Collisions & marqueurs (entrance / boss / piton_foudre) · FMT3',
+             'renders/fin_mt_thunder_sommet_v1/review/FMT3_collisions_marqueurs.png'),
+            ('Planche des 4 éclairs & arcs Flash exacts du rip · FMT3',
+             'renders/fin_mt_thunder_sommet_v1/review/FMT3_planche_poses.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FMT3', 'apercu_fin_mt_thunder_sommet_v1.html'),
+            ('Télécharger l’ORA multicalque · FMT3', 'renders/fin_mt_thunder_sommet_v1/FMT3_fin_mt_thunder_calques.ora'),
+            ('Manifest de build · FMT3', 'renders/fin_mt_thunder_sommet_v1/manifest.json'),
+            ('Build reproductible · FMT3', 'source/fin_mt_thunder_sommet_v1/build.py'),
+            ('Notice du pack · FMT3', 'source/fin_mt_thunder_sommet_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FJS4 · FIN DE DONJON · V1',
+        'title': 'Fin du Jardin Secret — Sanctuaire de Celebi V1 (FJS4)',
+        'note': ('Fin de donjon appairée à EJS1 et EJS2 (référence canonique secretgarden.png) : clairière sanctuaire intérieure '
+                 'entourée de haies buissonneuses, de 4 grands arbres feuillus, de rochers beiges et de parterres fleuris, '
+                 'dominée au nord par la grande souche dorée portant l’autel de pierre et l’emblème lumineux de Celebi '
+                 '(12_embleme) sous le faisceau vertical de lumière verte (13_rayon) et 10 lucioles montantes (14_lucioles) '
+                 'sur la rampe exacte des 22 verts du rip. Fidélité au rip : 4,3 à 19,3 (< 35). '
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FJS4 · emblème, rayon & lucioles sur la rampe exacte du rip · boucle 2 s',
+                     'renders/fin_jardin_secret_sanctuaire_v1/review/FJS4_scene_animee.webp'),
+        'art': ('Décor brut du sanctuaire · FJS4',
+                'source/fin_jardin_secret_sanctuaire_v1/bruts/decor.png'),
+        'materials': [
+            ('Référence canonique secretgarden.png · FJS4',
+             'source/fin_jardin_secret_sanctuaire_v1/reference/secretgarden.png'),
+            ('Collisions & marqueurs (entrance / boss / autel_celebi) · FJS4',
+             'renders/fin_jardin_secret_sanctuaire_v1/review/FJS4_collisions_marqueurs.png'),
+            ('Rampe des 22 verts du rip & poses des lucioles · FJS4',
+             'renders/fin_jardin_secret_sanctuaire_v1/review/FJS4_planche_poses.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FJS4', 'apercu_fin_jardin_secret_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FJS4', 'renders/fin_jardin_secret_sanctuaire_v1/FJS4_fin_jardin_secret_calques.ora'),
+            ('Manifest de build · FJS4', 'renders/fin_jardin_secret_sanctuaire_v1/manifest.json'),
+            ('Build reproductible · FJS4', 'source/fin_jardin_secret_sanctuaire_v1/build.py'),
+            ('Notice du pack · FJS4', 'source/fin_jardin_secret_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FMF3 · FIN DE DONJON · V1',
+        'title': 'Fin Mystifying Forest — Clairière de la Source Lumineuse',
+        'note': ('Fin de donjon appairée à EMF1, référencée sur les maps ROM canoniques D31P31A, D31P11A et D31P41A : '
+                 'clairière d’herbe émeraude encadrée par les grands arbres à racines tordues et rochers moussus, '
+                 'Source Lumineuse nord-centre animée aux 8 tons dorés NDS 5 bits exacts de D31P41A (12 × 20 ticks), '
+                 'deux mares latérales façon rivière Métano sans liseré clair + scintillements natifs (4 × 10 ticks), '
+                 'feuilles tombantes et lucioles dorées (48 × 5 ticks). Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FMF3 · Source Lumineuse, mares Métano, feuilles & lucioles · boucle 4 s',
+                     'renders/fin_mystifying_forest_clairiere_v1/review/FMF3_scene_animee.webp'),
+        'art': ('Décor brut sur magenta · FMF3',
+                'source/fin_mystifying_forest_clairiere_v1/bruts/decor_magenta.png'),
+        'materials': [
+            ('Sol complet d’herbe émeraude · FMF3',
+             'source/fin_mystifying_forest_clairiere_v1/bruts/sol_complet.png'),
+            ('Planche des poses réduites (feuilles et lucioles) · FMF3',
+             'renders/fin_mystifying_forest_clairiere_v1/review/FMF3_planche_poses.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, objectif) · FMF3',
+             'renders/fin_mystifying_forest_clairiere_v1/review/FMF3_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FMF3', 'apercu_fin_mystifying_forest_clairiere_v1.html'),
+            ('Télécharger l’ORA multicalque · FMF3', 'renders/fin_mystifying_forest_clairiere_v1/FMF3_fin_mystifying_forest_calques.ora'),
+            ('Manifest de build · FMF3', 'renders/fin_mystifying_forest_clairiere_v1/manifest.json'),
+            ('Notice du pack', 'source/fin_mystifying_forest_clairiere_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FUL2 · FIN DE DONJON · V1',
+        'title': 'Fin Underground Lake — Sanctuaire Bioluminescent',
+        'note': ('Fin de donjon appairée à EUL1, référencée sur la map ROM canonique D15P41A (Underground Lake) : '
+                 'promontoire central de sable jaune pâle entre parois bosselées olive-kaki, vaste lac souterrain '
+                 'aux 3 couleurs d’eau exactes du rip sans liseré clair (4 × 10 ticks), lueur bioluminescente '
+                 'aux 9 couleurs cyan-turquoise exactes du rip (12 × 10 ticks), scintillements Métano natifs, '
+                 'piliers rocheux, stalagmites, gouttes d’eau et ronds d’onde (24 × 5 ticks). Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète animée · FUL2 · lac souterrain, lueur cyan-turquoise, scintillements & gouttes · boucle 2 s',
+                     'renders/fin_underground_lake_sanctuaire_v1/review/FUL2_scene_animee.webp'),
+        'art': ('Décor brut sur magenta · FUL2',
+                'source/fin_underground_lake_sanctuaire_v1/bruts/decor_magenta.png'),
+        'materials': [
+            ('Sol complet et témoin des parois · FUL2',
+             'source/fin_underground_lake_sanctuaire_v1/bruts/sol_complet.png'),
+            ('Planche des poses réduites (gouttes et ronds d’onde) · FUL2',
+             'renders/fin_underground_lake_sanctuaire_v1/review/FUL2_planche_poses.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, objectif) · FUL2',
+             'renders/fin_underground_lake_sanctuaire_v1/review/FUL2_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FUL2', 'apercu_fin_underground_lake_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FUL2', 'renders/fin_underground_lake_sanctuaire_v1/FUL2_fin_underground_lake_calques.ora'),
+            ('Manifest de build · FUL2', 'renders/fin_underground_lake_sanctuaire_v1/manifest.json'),
+            ('Notice du pack', 'source/fin_underground_lake_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'EBC1 · ENTRÉE SUD → NORD',
+        'title': 'Entrée Caverne Saline — Couloir du Brine Cave',
+        'note': ('Entrée de donjon appairée à FBC1, canonique sur le rip D26P31A (Brine Cave, pret/pmd-sky) : '\
+                 'couloir sablonneux de galets sud vers nord bordé de calcaire brun-rouge strié, crêtes claires en saillie, '\
+                 'flaques turquoise et ombres de paroi. 6 calques statiques 8 px, 15 549 tuiles. '\
+                 'Fidélité brute au rip (seuil 35) : sol 3.3, roche sombre 5.0, eau 3.5, vide 2.5, roche 17.0. '\
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · EBC1 · t000',
+                     'renders/entree_caverne_saline_sud_nord_v1/review/EBC1_scene_t000.png'),
+        'art': ('Décor brut · EBC1',
+                'source/entree_caverne_saline_sud_nord_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet · EBC1', 'source/entree_caverne_saline_sud_nord_v1/bruts/sol_complet.png'),
+            ('Rip canonique D26P31A (référence) · EBC1', 'source/entree_caverne_saline_sud_nord_v1/reference/D26P31A.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, donjon_seuil) · EBC1',
+             'renders/entree_caverne_saline_sud_nord_v1/review/EBC1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · EBC1', 'apercu_entree_caverne_saline_sud_nord_v1.html'),
+            ('Télécharger l’ORA multicalque · EBC1', 'renders/entree_caverne_saline_sud_nord_v1/EBC1_entree_caverne_saline_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · EBC1', 'renders/entree_caverne_saline_sud_nord_v1/EBC1_projet_pmdo_0812.zip'),
+            ('Manifest de build · EBC1', 'renders/entree_caverne_saline_sud_nord_v1/manifest.json'),
+            ('Notice du pack', 'source/entree_caverne_saline_sud_nord_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FBC1 · FIN DE DONJON',
+        'title': 'Fin Caverne Saline — Sanctuaire de l’Arène',
+        'note': ('Fin de donjon appairée à EBC1, canonique sur le rip D26P43A (Brine Cave, pret/pmd-sky) : '\
+                 'arène sablonneuse entourée de calcaire, arche de pierre nord vers le sanctuaire, amas de blocs à l’entrée sud, '\
+                 'flaques turquoise. 6 calques statiques 8 px, 16 070 tuiles. '\
+                 'Fidélité brute au rip (seuil 35) : sol 3.5, roche 8.3, eau 3.2, vide 3.0. '\
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · FBC1 · t000',
+                     'renders/fin_caverne_saline_sanctuaire_v1/review/FBC1_scene_t000.png'),
+        'art': ('Décor brut · FBC1',
+                'source/fin_caverne_saline_sanctuaire_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet · FBC1', 'source/fin_caverne_saline_sanctuaire_v1/bruts/sol_complet.png'),
+            ('Rip canonique D26P43A (référence) · FBC1', 'source/fin_caverne_saline_sanctuaire_v1/reference/D26P43A.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, reliquaire) · FBC1',
+             'renders/fin_caverne_saline_sanctuaire_v1/review/FBC1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FBC1', 'apercu_fin_caverne_saline_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FBC1', 'renders/fin_caverne_saline_sanctuaire_v1/FBC1_fin_caverne_saline_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · FBC1', 'renders/fin_caverne_saline_sanctuaire_v1/FBC1_projet_pmdo_0812.zip'),
+            ('Manifest de build · FBC1', 'renders/fin_caverne_saline_sanctuaire_v1/manifest.json'),
+            ('Notice du pack', 'source/fin_caverne_saline_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'EGE1 · ENTRÉE SUD → NORD',
+        'title': 'Entrée Grotte Étoile — Voûte Cristalline',
+        'note': ('Entrée de donjon appairée à FGE1, canonique sur la moitié droite du rip D42P31A (Star Cave, pret/pmd-sky) : '\
+                 'plancher de pierre bleue lisse, voûte de roches sombres crêpelées, grappes de cristaux verts scintillants, '\
+                 'tunnel de départ au nord (objectif seuil_tunnel). 5 calques statiques 8 px, 14 720 tuiles. '\
+                 'Fidélité brute au rip (seuil 35) : sol 6.6, paroi 1.9, fond 1.3. '\
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · EGE1 · t000',
+                     'renders/entree_grotte_etoile_sud_nord_v1/review/EGE1_scene_t000.png'),
+        'art': ('Décor brut · EGE1',
+                'source/entree_grotte_etoile_sud_nord_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet · EGE1', 'source/entree_grotte_etoile_sud_nord_v1/bruts/sol_complet.png'),
+            ('Rip canonique D42P31A moitié droite (référence) · EGE1', 'source/entree_grotte_etoile_sud_nord_v1/reference/D42P31A.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, seuil_tunnel) · EGE1',
+             'renders/entree_grotte_etoile_sud_nord_v1/review/EGE1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · EGE1', 'apercu_entree_grotte_etoile_sud_nord_v1.html'),
+            ('Télécharger l’ORA multicalque · EGE1', 'renders/entree_grotte_etoile_sud_nord_v1/EGE1_entree_grotte_etoile_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · EGE1', 'renders/entree_grotte_etoile_sud_nord_v1/EGE1_projet_pmdo_0812.zip'),
+            ('Manifest de build · EGE1', 'renders/entree_grotte_etoile_sud_nord_v1/manifest.json'),
+            ('Notice du pack', 'source/entree_grotte_etoile_sud_nord_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FGE1 · FIN DE DONJON',
+        'title': 'Fin Grotte Étoile — Sanctuaire de l’Étoile',
+        'note': ('Fin de donjon appairée à EGE1, canonique sur le rip D42P42A (Star Cave, pret/pmd-sky) : '\
+                 'arène circulaire de pierre bleue, emblème étoile centrale à lueur verte-blanchâtre (recolorisé du brut '\
+                 'pour rejoindre la teinte du rip, distance 20.4), grappes de cristaux, voie de pierre de l’entrée sud '\
+                 '(objectif autel_jirachi). 5 calques statiques 8 px, 15 128 tuiles. '\
+                 'Fidélité brute au rip (seuil 35) : sol 11.0, étoile 20.4, paroi 4.5, fond 2.8. '\
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · FGE1 · t000',
+                     'renders/fin_grotte_etoile_sanctuaire_v1/review/FGE1_scene_t000.png'),
+        'art': ('Décor brut (étoile recolorisée) · FGE1',
+                'source/fin_grotte_etoile_sanctuaire_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet · FGE1', 'source/fin_grotte_etoile_sanctuaire_v1/bruts/sol_complet.png'),
+            ('Rip canonique D42P42A (référence) · FGE1', 'source/fin_grotte_etoile_sanctuaire_v1/reference/D42P42A.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, autel_jirachi) · FGE1',
+             'renders/fin_grotte_etoile_sanctuaire_v1/review/FGE1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FGE1', 'apercu_fin_grotte_etoile_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FGE1', 'renders/fin_grotte_etoile_sanctuaire_v1/FGE1_fin_grotte_etoile_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · FGE1', 'renders/fin_grotte_etoile_sanctuaire_v1/FGE1_projet_pmdo_0812.zip'),
+            ('Manifest de build · FGE1', 'renders/fin_grotte_etoile_sanctuaire_v1/manifest.json'),
+            ('Notice du pack', 'source/fin_grotte_etoile_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
 ]
 
 

@@ -1,0 +1,526 @@
+{
+  "lot": "fin_couloir_violet_sanctuaire_v1",
+  "prefix": "FCV4",
+  "paired_entrance": "entree_couloir_violet_sud_nord_v1 (ECV1)",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "biome": "sanctuaire et salle de fin du couloir rocheux violet avec stele sculptee au nord, appaire a ECV1",
+  "method": "textures canoniques = rendu genere REFERENCE : rip S05P03A.png passe au generateur ; decor complet, sol complet et planche de poussiere generes avec le rip en reference",
+  "reference_da": {
+    "file": "source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png",
+    "sha256": "96b073db0f03852e5dbb5fe9cf536642f3b8fe38ed72df7d32cdcc56b35de4ce",
+    "titre": "S05P03A.png — Couloir rocheux violet cul-de-sac (extrait de pret/pmd-sky)"
+  },
+  "generation": [
+    {
+      "file": "decor_magenta.png",
+      "images": [
+        "source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png"
+      ],
+      "prompt": "Generate an image: use EXACTLY the same textures, palette and Nintendo DS 16-bit pixel-art style as the reference image S05P03A.png (Pokemon Mystery Dungeon Explorers of Sky purple rocky corridor cul-de-sac): same mottled mauve-purple stone floor, same stacked rounded blue-violet boulders with pale lilac highlights forming the walls, same dark blue-indigo striated outer rock cliffs along the outer edges, same small dark round pebbles on the floor near the walls, and same very dark navy-black outer void at the extreme corners. Make a NEW, larger top-down dungeon-end boss chamber map in WIDE LANDSCAPE 4:3 (1200x896), zoomed out so the sanctuary feels vast: narrow mauve-purple floor corridor at SOUTH, wide semicircular/octagonal boss chamber in CENTER, and closed semicircular sanctuary alcove of tall stacked blue-violet boulders framing a carved monolith boulder at NORTH.",
+      "essais": "premier essai ; conforme (sol < 10, roche < 10 ; seuil 35)"
+    },
+    {
+      "file": "sol_complet.png",
+      "images": [
+        "source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png"
+      ],
+      "prompt": "Generate an image: fill the ENTIRE 4:3 (1200x896) image edge to edge with the mottled mauve-purple cave stone floor texture from the central corridor of the reference image S05P03A.png: same pixel-art mottled mauve-purple stone pattern, same palette and contrast, keeping the crisp pixel-art texture detail across the whole canvas. Wide landscape 4:3.",
+      "essais": "premier essai nettoyé des gravillons isolés ; distance < 10 au sol du rip"
+    },
+    {
+      "file": "poussiere_poses.png",
+      "images": [
+        "source/fin_couloir_violet_sanctuaire_v1/reference/S05P03A.png"
+      ],
+      "prompt": "Generate an image: a 4:3 (1200x896) pixel-art sprite sheet on a flat pure magenta (#FF00FF) background showing 4 animation poses of a small cave dust puff cloud rising when a pebble hits a stone floor, arranged in 4 separate quadrants with wide pure #FF00FF magenta margins around each puff: from a small compact puff to a medium expanding puff to a wider ring puff to faint dispersing wisps. Use ONLY mauve-purple and pale lilac-grey colors taken from the reference image floor and rock highlights.",
+      "essais": "premier essai ; 4 quadrants nets sur fond #FF00FF"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_couloir_violet_sanctuaire_v1/bruts/decor_magenta.png",
+      "sha256": "d49daeaa6073131b908e07e44a6e8821c99bf2e990d738ccf9821a00bbf326a5",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_couloir_violet_sanctuaire_v1/bruts/sol_complet.png",
+      "sha256": "ed9716a74bc79f1bbfa0cad87ff1eb7d23a039449e6adf6b7a7edf0c5332ec7c",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_couloir_violet_sanctuaire_v1/bruts/poussiere_poses.png",
+      "sha256": "de7d5e735d22137d9c81e2304298ab76869183454352b6ceb1f09123c777140d",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "segmentation_mesures": {
+    "stele_y": [
+      92,
+      207
+    ],
+    "stele_x": [
+      548,
+      648
+    ],
+    "blocs": 7,
+    "gravillons": 25,
+    "ombres_lum": 53.4,
+    "sol_lum": 85.1
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
+    "seuil": 35.0,
+    "brut": {
+      "sol": {
+        "rip_rgb": [
+          93.4,
+          79.5,
+          113.7
+        ],
+        "decor_rgb": [
+          93.3,
+          76.5,
+          109.1
+        ],
+        "distance": 5.5
+      },
+      "roche": {
+        "rip_rgb": [
+          69.2,
+          69.2,
+          119.4
+        ],
+        "decor_rgb": [
+          66.7,
+          66.4,
+          111.8
+        ],
+        "distance": 8.6
+      }
+    },
+    "calques_finaux": {
+      "sol": {
+        "matiere": "sol",
+        "rgb": [
+          91.6,
+          75.5,
+          107.6
+        ],
+        "distance_rip": 7.5
+      },
+      "rochers": {
+        "matiere": "roche",
+        "rgb": [
+          67.3,
+          66.6,
+          112.7
+        ],
+        "distance_rip": 7.4
+      },
+      "blocs": {
+        "matiere": "roche",
+        "rgb": [
+          68.0,
+          67.0,
+          112.4
+        ],
+        "distance_rip": 7.4
+      },
+      "stele": {
+        "matiere": "roche",
+        "rgb": [
+          67.5,
+          67.3,
+          114.2
+        ],
+        "distance_rip": 5.8
+      }
+    },
+    "sol_complet": 7.5,
+    "eboulis": "couleurs EXACTES de S05P03A.png",
+    "lueurs_stele": "6 couleurs lilas-violet EXACTES de S05P03A.png"
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "sol": {
+        "calques": [
+          "sol_complet",
+          "sol",
+          "ombres"
+        ],
+        "couleurs": 64
+      },
+      "roche": {
+        "calques": [
+          "gravillons",
+          "blocs",
+          "rochers",
+          "falaise",
+          "stele"
+        ],
+        "couleurs": 96
+      },
+      "sombre": {
+        "calques": [
+          "vide"
+        ],
+        "couleurs": 16
+      }
+    }
+  },
+  "layers": [
+    {
+      "file": "calques/FCV4_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_01_sol.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_02_ombres.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_03_gravillons.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_04_blocs.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_05_rochers.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_06_falaise.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_07_vide.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "calques/FCV4_08_stele.png",
+      "phases": 1,
+      "ticks": 120
+    },
+    {
+      "file": "animation/lueurs_stele/FCV4_09_lueurs_stele_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/eboulis/FCV4_10_eboulis_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/poussiere/FCV4_11_poussiere_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "lueurs_stele": {
+    "palette_rip_exacte": [
+      [
+        95,
+        95,
+        159
+      ],
+      [
+        111,
+        95,
+        135
+      ],
+      [
+        103,
+        95,
+        159
+      ],
+      [
+        103,
+        103,
+        175
+      ],
+      [
+        111,
+        111,
+        183
+      ],
+      [
+        119,
+        119,
+        199
+      ]
+    ],
+    "phases": 24,
+    "frame_length_ticks": 5
+  },
+  "eboulis": {
+    "gravillons_rip": {
+      "petit": [
+        113,
+        136,
+        6,
+        7
+      ],
+      "moyen": [
+        131,
+        78,
+        7,
+        10
+      ],
+      "gros": [
+        130,
+        204,
+        12,
+        12
+      ]
+    },
+    "gravillons_source": "S05P03A.png, composante de roche 8-connexe entierement entouree de sol ; pixels et couleurs EXACTS",
+    "chutes": [
+      [
+        189,
+        137,
+        "moyen",
+        0,
+        1
+      ],
+      [
+        578,
+        137,
+        "gros",
+        6,
+        -1
+      ],
+      [
+        87,
+        194,
+        "petit",
+        12,
+        1
+      ],
+      [
+        657,
+        252,
+        "moyen",
+        18,
+        -1
+      ]
+    ],
+    "cibles": [
+      [
+        210,
+        156,
+        "moyen",
+        0,
+        1
+      ],
+      [
+        556,
+        156,
+        "gros",
+        6,
+        -1
+      ],
+      [
+        156,
+        260,
+        "petit",
+        12,
+        1
+      ],
+      [
+        610,
+        260,
+        "moyen",
+        18,
+        -1
+      ]
+    ],
+    "chute_dy": [
+      -21,
+      -16,
+      -9,
+      0
+    ],
+    "rebond_dy": {
+      "4": -3,
+      "5": -1
+    },
+    "roulement_px": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "visible_phases": 20,
+    "phases": 24,
+    "frame_length_ticks": 5
+  },
+  "poussiere": {
+    "fenetres": [
+      [
+        296,
+        222,
+        192
+      ],
+      [
+        896,
+        228,
+        312
+      ],
+      [
+        300,
+        676,
+        384
+      ],
+      [
+        896,
+        660,
+        384
+      ]
+    ],
+    "reduction": "x1/12",
+    "couverture_min": 0.3,
+    "palette": [
+      [
+        201,
+        182,
+        211
+      ],
+      [
+        199,
+        180,
+        210
+      ],
+      [
+        169,
+        134,
+        175
+      ],
+      [
+        147,
+        104,
+        150
+      ],
+      [
+        143,
+        103,
+        147
+      ],
+      [
+        107,
+        70,
+        112
+      ]
+    ],
+    "phase_vers_pose": {
+      "3": 0,
+      "4": 1,
+      "5": 2,
+      "6": 3
+    }
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      312
+    ],
+    "goal_px": [
+      376,
+      136
+    ],
+    "threshold_px": [
+      376,
+      136
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 1049,
+    "blocked_cells": 3757,
+    "total_cells": 6912,
+    "walkable_cells": 3155
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fcv4_fin_couloir_violet",
+    "namespace": "fin_couloir_violet_sanctuaire",
+    "tiles_per_bank": {
+      "FCV4_00_SOL": 6913,
+      "FCV4_01_SOL": 3360,
+      "FCV4_02_OMBRES": 498,
+      "FCV4_03_GRAVILLONS": 89,
+      "FCV4_04_BLOCS": 331,
+      "FCV4_05_ROCHERS": 1703,
+      "FCV4_06_FALAISE": 612,
+      "FCV4_07_VIDE": 1715,
+      "FCV4_08_STELE": 84,
+      "FCV4_09_LUEURS": 1206,
+      "FCV4_10_EBOULIS": 92,
+      "FCV4_11_POUSSIERE": 190
+    },
+    "banks": [
+      "FCV4_00_SOL",
+      "FCV4_01_SOL",
+      "FCV4_02_OMBRES",
+      "FCV4_03_GRAVILLONS",
+      "FCV4_04_BLOCS",
+      "FCV4_05_ROCHERS",
+      "FCV4_06_FALAISE",
+      "FCV4_07_VIDE",
+      "FCV4_08_STELE",
+      "FCV4_09_LUEURS",
+      "FCV4_10_EBOULIS",
+      "FCV4_11_POUSSIERE"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}
