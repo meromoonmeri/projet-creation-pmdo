@@ -179,3 +179,34 @@
 - **Tests Python (`test_build.py`)** : `7 / 7` vérifications passées
 - **`art_approved`** : `false`
 - **`runtime_tested`** : `false`
+
+---
+
+# Statut du chantier `entree_grotte_givre_sud_nord_v1` (`EGI1`, Entrée Grotte de Givre)
+
+- **Lot** : `source/entree_grotte_givre_sud_nord_v1/` (entrée de donjon appairée à la fin `FGI1`)
+- **Préfixe `.tile`** : `EGI1` (unique sur `main` et sur toutes les branches sœurs `arena/*`)
+- **Format** : `4:3` vaste (`768 × 576 px` = `96 × 72` cases de `8 × 8 px`, `TexSize = 1`)
+- **Référence canonique ROM (`pret/pmd-sky`)** : `D53P11B.png` (*Icicle Cavern / Grotte de Givre*, « iceroad », `1200 × 896 px`)
+- **Fidélité au rip (seuil 35)** : brut (`sol = 9.3`, `roche = 5.8`, `ciel = 8.2`) ; calques finaux quantifiés (`sol = 6.7`, `rochers = 6.8`, `sol_complet = 5.1`)
+- **Segmentation** : plaine de glace lisse et chaussée sud → nord (praticables), croupes de blocs de glace et crête de montagnes (roc), fissures et retraits sur la glace, arche sombre de roc givré au nord (objectif `seuil_arche`), bande de ciel bleu profond ; glace praticable garantie jusqu'au bord sud (bande d'entrée)
+- **Marqueurs Ground & connectivité (`16 × 16`)** : `entrance = [384, 568]` → `boss_center = [384, 296]` → `seuil_arche = [400, 232]`, `1178` cases praticables, `18963` tuiles
+- **Tests Python (`test_build.py`)** : `7 / 7` vérifications passées
+- **`art_approved`** : `false`
+- **`runtime_tested`** : `false`
+
+---
+
+# Statut du chantier `fin_grotte_givre_sanctuaire_v1` (`FGI1`, Sanctuaire de la Glacière)
+
+- **Lot** : `source/fin_grotte_givre_sanctuaire_v1/` (fin de donjon appairée à l'entrée `EGI1`)
+- **Préfixe `.tile`** : `FGI1` (unique sur `main` et sur toutes les branches sœurs `arena/*`)
+- **Format** : `4:3` vaste (`768 × 576 px` = `96 × 72` cases de `8 × 8 px`, `TexSize = 1`)
+- **Référence canonique ROM (`pret/pmd-sky`)** : `D53P41C.png` (*Icicle Cavern / Grotte de Givre*, sommet glaciaire, `1200 × 896 px`)
+- **Fidélité au rip (seuil 35)** : brut (`plateau = 16.2`, `roc = 6.2`, `ciel = 2.0`) ; calques finaux quantifiés (`plateau = 17.4`, `roc_givre = 11.1`, `sol_complet = 11.2`)
+- **Recolorisation canonique** : les bruts générés étaient trop froids/bleus ; décalages déterministes zone par zone (fond → blanc chaud du rip, roc → teinte du rip, plateau → gris-bleu pâle du rip) appliqués à `decor.png` et `sol_complet.png` pour rester sous le seuil de fidélité
+- **Segmentation** : plateau sommital de glace claire (praticable, composante connectée depuis le centre, le fond clair est coupé du plateau par le sanctuaire), strates en gradins du flanc sud (praticables jusqu'au bord, ombres entre marches incluses), versants texturés et silhouettes de montagnes, sanctuaire de cristal (objectif `autel_glaciere`), fond clair lisse
+- **Marqueurs Ground & connectivité (`16 × 16`)** : `entrance = [384, 568]` → `boss_center = [384, 288]` → `autel_glaciere = [384, 240]`, `1752` cases praticables, `17127` tuiles
+- **Tests Python (`test_build.py`)** : `7 / 7` vérifications passées
+- **`art_approved`** : `false`
+- **`runtime_tested`** : `false`

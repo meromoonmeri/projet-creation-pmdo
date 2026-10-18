@@ -369,6 +369,60 @@ RESTORED_MAPS = [
             ('Notice du pack', 'source/fin_grotte_etoile_sanctuaire_v1/README_PACK.md'),
         ],
     },
+    {
+        'code': 'EGI1 · ENTRÉE SUD → NORD',
+        'title': 'Entrée Grotte de Givre — Chaussée de Glace',
+        'note': ('Entrée de donjon appairée à FGI1, canonique sur le rip D53P11B (Icicle Cavern, pret/pmd-sky) : '
+                 'plaine de glace lisse à fissures, chaussée sud → nord entre des croupes de blocs de glace, '
+                 'crête de montagnes et ciel bleu profond, arche sombre de roc givré au nord (objectif seuil_arche). '
+                 '5 calques statiques 8 px, 18 963 tuiles. '
+                 'Fidélité brute au rip (seuil 35) : sol 9.3, roche 5.8, ciel 8.2. '
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · EGI1 · t000',
+                     'renders/entree_grotte_givre_sud_nord_v1/review/EGI1_scene_t000.png'),
+        'art': ('Décor brut · EGI1',
+                'source/entree_grotte_givre_sud_nord_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet · EGI1', 'source/entree_grotte_givre_sud_nord_v1/bruts/sol_complet.png'),
+            ('Rip canonique D53P11B (référence) · EGI1', 'source/entree_grotte_givre_sud_nord_v1/reference/D53P11B.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, seuil_arche) · EGI1',
+             'renders/entree_grotte_givre_sud_nord_v1/review/EGI1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · EGI1', 'apercu_entree_grotte_givre_sud_nord_v1.html'),
+            ('Télécharger l’ORA multicalque · EGI1', 'renders/entree_grotte_givre_sud_nord_v1/EGI1_entree_grotte_givre_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · EGI1', 'renders/entree_grotte_givre_sud_nord_v1/EGI1_projet_pmdo_0812.zip'),
+            ('Manifest de build · EGI1', 'renders/entree_grotte_givre_sud_nord_v1/manifest.json'),
+            ('Notice du pack', 'source/entree_grotte_givre_sud_nord_v1/README_PACK.md'),
+        ],
+    },
+    {
+        'code': 'FGI1 · FIN DE DONJON',
+        'title': 'Fin Grotte de Givre — Sanctuaire de la Glacière',
+        'note': ('Fin de donjon appairée à EGI1, canonique sur le rip D53P41C (Icicle Cavern, pret/pmd-sky) : '
+                 'sommet glaciaire aux strates en gradins, plateau sommital de glace claire (recolorisé au canon : '
+                 'fond blanc chaud, roc et plateau à la teinte du rip), silhouettes de montagnes en halo, '
+                 'sanctuaire de cristal au centre nord (objectif autel_glaciere). 5 calques statiques 8 px, 17 127 tuiles. '
+                 'Fidélité brute au rip (seuil 35) : plateau 16.2, roc 6.2, ciel 2.0. '
+                 'Art généré, art_approved=false, runtime_tested=false.'),
+        'complete': ('Scène complète · FGI1 · t000',
+                     'renders/fin_grotte_givre_sanctuaire_v1/review/FGI1_scene_t000.png'),
+        'art': ('Décor brut (recolorisé au canon) · FGI1',
+                'source/fin_grotte_givre_sanctuaire_v1/bruts/decor.png'),
+        'materials': [
+            ('Sol complet (recolorisé) · FGI1', 'source/fin_grotte_givre_sanctuaire_v1/bruts/sol_complet.png'),
+            ('Rip canonique D53P41C (référence) · FGI1', 'source/fin_grotte_givre_sanctuaire_v1/reference/D53P41C.png'),
+            ('Collisions 8×8 et marqueurs (entrance, boss, autel_glaciere) · FGI1',
+             'renders/fin_grotte_givre_sanctuaire_v1/review/FGI1_collisions_marqueurs.png'),
+        ],
+        'links': [
+            ('Ouvrir l’aperçu interactif complet · calques + animations · FGI1', 'apercu_fin_grotte_givre_sanctuaire_v1.html'),
+            ('Télécharger l’ORA multicalque · FGI1', 'renders/fin_grotte_givre_sanctuaire_v1/FGI1_fin_grotte_givre_calques.ora'),
+            ('Télécharger le pack PMDO 0.8.12 · FGI1', 'renders/fin_grotte_givre_sanctuaire_v1/FGI1_projet_pmdo_0812.zip'),
+            ('Manifest de build · FGI1', 'renders/fin_grotte_givre_sanctuaire_v1/manifest.json'),
+            ('Notice du pack', 'source/fin_grotte_givre_sanctuaire_v1/README_PACK.md'),
+        ],
+    },
 ]
 
 
