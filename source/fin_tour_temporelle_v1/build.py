@@ -27,7 +27,7 @@ W, H = 768, 576
 GW, GH = W // 8, H // 8
 LOOP = 40                                     # 4 phases x 10 ticks
 TICKS = 10
-MARK = {'entrance': (384, 544), 'boss': (384, 330), 'objectif': (384, 200)}   # (x, y) en px, coin supérieur de 16 × 16
+MARK = {'entrance': (368, 440), 'boss': (368, 264), 'objectif': (376, 200)}   # (x, y) en px, coin supérieur de 16 × 16
 PAS = 16
 
 # Palette : or des circuits et des fissures (cycle : base, clair, vif, clair).
