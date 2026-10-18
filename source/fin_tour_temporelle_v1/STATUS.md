@@ -1,13 +1,14 @@
 # État — FTT1, Fin de la Tour Temporelle
 
-Mise à jour : 18 octobre 2026.
+Mise à jour : 19 octobre 2026.
 
 ## Livrable vérifié
 
-- Build de `source/fin_tour_temporelle_v1/build.py` réussi : map 768 × 576 px, grille 8 px, sept calques d’image, `Top` vide réservé dans Ground PMDO, boucle de 240 ticks (4 s).
-- Bruts magenta segmentés avant réduction ; tous les masques sont exportés à 768 × 576 px. Entrée `[384,560]`, marqueur `boss_dialga` `[384,344]`, 118 939 pixels praticables et 5 199 cases bloquées dans la revue.
-- **10 tests `unittest` PASS** après le dernier build : dimensions/provenance, calques et boucle, masques sans magenta résiduel, effets, chemin BFS, schéma Ground et installateur non-destructif.
-- Packager exécuté : ZIP projet PMDO 0.8.12 (15 fichiers), ZIP calques/masques/animations/ORA/sources/état (134 fichiers) et aperçu autonome. Les deux archives passent `ZipFile.testzip()` sans membre corrompu ; 116 images PNG sont intégrées à l’aperçu, sans ressource distante.
+- Build de `source/fin_tour_temporelle_v1/build.py` réussi : map 768 × 576 px, grille 8 px, neuf calques d’image, `Top` vide réservé dans Ground PMDO, boucle de 240 ticks (4 s).
+- Fond en trois plans : ciel d’espace presque noir, nébuleuse rouge-noir générée à partir du seul échantillon de style ETT2, puis pulsations lumineuses diagonales/spiralées en 24 phases. Les pulsations restent derrière le sol et l’architecture.
+- Décor et sol magenta segmentés avant réduction ; le fond nébuleux, non magenta, est normalisé séparément. Tous les masques exportés sont à 768 × 576 px. Entrée `[384,560]`, marqueur `boss_dialga` `[384,344]`, 118 939 pixels praticables et 5 199 cases bloquées.
+- **11 tests `unittest` PASS** après le dernier build, dont un test dédié à la couverture rouge-noir, au centre noir et aux phases animées.
+- Packager exécuté : ZIP projet PMDO 0.8.12, ZIP calques/masques/5 animations/ORA/sources/état et aperçu autonome. Les archives passent `ZipFile.testzip()` sans membre corrompu ; l’aperçu est autonome, sans ressource distante.
 - Le JavaScript de l’aperçu passe `node --check`; `git diff --check` passe.
 
 ## Statut et limites

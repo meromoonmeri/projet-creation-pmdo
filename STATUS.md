@@ -14,6 +14,6 @@
 ## Suite — FTT1, fin de la Tour Temporelle
 
 - Nouveau lot `source/fin_tour_temporelle_v1/`, choisi comme interprétation de « passer à une zone de fin » ; Dialga reste une hypothèse et un marqueur, sans sprite/acteur.
-- Build final réussi en `768 × 576`, masques à la taille cible, sept calques d'image et boucle 240 ticks ; 10 tests passent. Projet Ground, ZIP de calques et aperçu autonome générés et contrôlés par le packager.
+- Fond mis à jour selon la demande : espace noir, nébuleuse rouge-noir générée, pulsations diagonales/spiralées animées en profondeur. Build final réussi en `768 × 576`, masques à la taille cible, neuf calques d'image et cinq animations dans la boucle 240 ticks ; 11 tests passent. Projet Ground, ZIP de calques et aperçu autonome contrôlés par le packager.
 - D29P11A/D30P34A consultées comme références visuelles ; noms de lieux non établis. Le générateur n'a reçu que l'échantillon de style ETT2. Pas de pixels natifs/canoniques certifiés.
 - Détails et commandes : [`source/fin_tour_temporelle_v1/STATUS.md`](source/fin_tour_temporelle_v1/STATUS.md). `art_approved=false`, `runtime_tested=false`.

@@ -5,7 +5,8 @@
 ## Direction et composition
 
 - Plateforme suspendue en obsidienne/ardoise, bordure brisée, accès unique au sud, grande arène dégagée au centre, autel temporel fermé au nord, colonnes rompues et mer de nuages rouge-noir.
-- Le décor est **généré et référencé** : un échantillon de style extrait du brut ETT2 informe la palette et le traitement des pixels ; la composition FTT1 est nouvelle. Le sol a un brut dédié. Les références MAP_BG D29P11A et D30P34A ont été rendues et consultées visuellement, mais **leur nom de lieu n’est pas vérifié** dans l’index du dépôt et elles n’ont pas été envoyées au générateur.
+- Le fond comprend un vide quasi noir, une nébuleuse rouge-noir générée et une couche distincte de pulsations lumineuses diagonales et spiralées. Le masque laisse le centre noir respirer ; les pulsations glissent derrière le sol, les nuages et l’architecture.
+- Le décor et la nébuleuse sont **générés et référencés** : un échantillon de style extrait du brut ETT2 informe le rendu ; la composition FTT1 est nouvelle. Le sol a un brut dédié. Les références MAP_BG D29P11A et D30P34A ont été rendues et consultées visuellement, mais **leur nom de lieu n’est pas vérifié** dans l’index du dépôt et elles n’ont pas été envoyées au générateur.
 - Ce n’est ni un relayout natif ni un rip de tuiles PMD. **Aucune tuile native/canonique certifiée n’est revendiquée.**
 - Le boss est interprété comme Dialga d’après le contexte de la Tour Temporelle. `boss_dialga` est un simple marqueur d’édition : aucun sprite, acteur ou événement de boss n’est placé.
 
@@ -13,13 +14,15 @@
 
 | Calque | Contenu | Boucle |
 |---|---|---:|
-| `FTT1_00_CIEL_ABYSSE` | Fond sombre rouge-noir, poussières discrètes | fixe |
-| `FTT1_01_SOL_COMPLET` | Dalle ardoise générée, limitée à la surface principale | fixe |
-| `FTT1_02_NUAGES_ROUGE_NOIR` | Nuages du décor FTT1, pulsation diagonale douce | 24 × 10 ticks = 240 |
-| `FTT1_03_DECOR_SOMMET` | Autel, portail, colonnes, roches, reliefs et lignes d’or | fixe |
-| `FTT1_04_CIRCUITS_TEMPORELS` | Onde lumineuse sur les tracés d’or | 24 × 10 = 240 |
-| `FTT1_05_CRISTAL_TEMPOREL` | Halo cyan pulsé et éclat en orbite courte autour du cristal nord | 16 × 15 = 240 |
-| `FTT1_06_POUSSIERES_TEMPORELLES` | Éclats pixelisés en montée courte | 48 × 5 = 240 |
+| `FTT1_00_CIEL_ABYSSE` | Espace presque noir, étoiles rouge sombre | fixe |
+| `FTT1_01_NEBULEUSE_FOND` | Nébuleuse générée, semi-transparente, avec vide noir central | fixe |
+| `FTT1_02_NEBULEUSE_ROUGE_NOIR` | Pulsations diagonales et spiralées sur les filaments rouge sombre | 24 × 10 ticks = 240 |
+| `FTT1_03_SOL_COMPLET` | Dalle ardoise générée, limitée à la surface principale | fixe |
+| `FTT1_04_NUAGES_ROUGE_NOIR` | Nuages du décor FTT1, pulsation diagonale douce | 24 × 10 ticks = 240 |
+| `FTT1_05_DECOR_SOMMET` | Autel, portail, colonnes, roches, reliefs et lignes d’or | fixe |
+| `FTT1_06_CIRCUITS_TEMPORELS` | Onde lumineuse sur les tracés d’or | 24 × 10 = 240 |
+| `FTT1_07_CRISTAL_TEMPOREL` | Halo cyan pulsé et éclat en orbite courte autour du cristal nord | 16 × 15 = 240 |
+| `FTT1_08_POUSSIERES_TEMPORELLES` | Éclats pixelisés en montée courte | 48 × 5 = 240 |
 | `Top` | Calque PMDO vide réservé à l’édition | — |
 
 Une boucle complète vaut **240 ticks (4 s)**. Les PNG par phase sont fournis dans le ZIP de calques ; les scènes de revue servent à contrôler le rendu, pas le moteur PMDO.

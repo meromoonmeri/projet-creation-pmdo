@@ -34,6 +34,7 @@ CLOUD_PHASES, CLOUD_TICKS = 24, 10
 RING_PHASES, RING_TICKS = 24, 10
 CRYSTAL_PHASES, CRYSTAL_TICKS = 16, 15
 SPARK_PHASES, SPARK_TICKS = 48, 5
+NEBULA_PHASES, NEBULA_TICKS = 24, 10
 
 
 def loadmod(name, path):
@@ -186,26 +187,77 @@ def classify(main):
 
 
 def make_sky():
-    """Ciel de fond discret sous les nuages rouges : plein cadre, sans prétendre à une texture ROM."""
+    """Vide d'espace presque noir, sous la nébuleuse générée et ses pulsations."""
     yy, xx = np.mgrid[:H, :W]
     dx = (xx - W * 0.5) / (W * 0.72)
     dy = (yy - H * 0.48) / (H * 0.85)
     radial = np.clip(np.sqrt(dx * dx + dy * dy), 0, 1.2)
-    band = 0.5 + 0.5 * np.sin(yy / 73.0 + 0.35 * np.sin(xx / 97.0))
-    red = 13 + 11 * radial + 4 * band
-    green = 5 + 2 * band
-    blue = 16 + 7 * radial + 2 * band
-    a = np.stack([red, green, blue], -1).clip(0, 255).astype('uint8')
+    band = 0.5 + 0.5 * np.sin(yy / 91.0 + 0.25 * np.sin(xx / 121.0))
+    red = 3 + 4 * radial + 1.2 * band
+    green = 2 + 0.4 * band
+    blue = 4 + 2 * radial + 0.6 * band
     out = np.zeros((H, W, 4), 'uint8')
-    out[..., :3] = a
+    out[..., :3] = np.stack([red, green, blue], -1).clip(0, 255).astype('uint8')
     out[..., 3] = 255
-    # Peu de poussières froides, discrètes et statiques dans le vide.
-    rng = np.random.default_rng(181026)
-    for _ in range(42):
+    # Quelques étoiles rouge sombre, presque éteintes pour laisser dominer la nébuleuse.
+    rng = np.random.default_rng(191026)
+    for _ in range(36):
         x = int(rng.integers(8, W - 8)); y = int(rng.integers(8, H - 8))
-        c = (48, 27, 43, 255) if rng.random() < .7 else (40, 48, 62, 255)
-        out[y, x] = c
+        out[y, x] = (36, 7, 14, 255) if rng.random() < .72 else (19, 12, 17, 255)
     return out
+
+
+def nebula_base():
+    """Réduit le fond généré sans l'étirer; le vide noir reste translucide."""
+    path = RAW / 'nebuleuse_rouge_noir.png'
+    with Image.open(path) as im:
+        src = im.convert('RGB').resize((round(SRC[0] * SCALE), H), Image.Resampling.BOX)
+    colors = np.asarray(src, dtype='uint8')[:, CROP_X:CROP_X + W]
+    # Palette indépendante pour que l'image d'arrière-plan ne recolore pas le terrain.
+    paletted = Image.fromarray(colors).quantize(
+        colors=64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    colors = np.asarray(paletted.convert('RGB'), dtype='uint8')
+    r, g, b = colors.astype(float).transpose(2, 0, 1)
+    redness = np.clip((r - 6) / 62, 0, 1)
+    chroma = np.clip((r - g + 2) / 18, 0, 1) * np.clip((r - b + 7) / 20, 0, 1)
+    alpha = np.rint(np.clip(redness * chroma, 0, 0.92) * 255).astype('uint8')
+    out = np.zeros((H, W, 4), 'uint8')
+    out[..., :3] = colors
+    out[..., 3] = alpha
+    out[alpha == 0] = 0
+    return out, alpha > 12
+
+
+def nebula_frames(base, support):
+    """Vagues de lumière rouge qui serpentent sur les filaments du fond en boucle."""
+    yy, xx = np.mgrid[:H, :W]
+    nx = (xx - W * 0.5) / (W * 0.5)
+    ny = (yy - H * 0.5) / (H * 0.5)
+    radius = np.sqrt(nx * nx + ny * ny)
+    angle = np.arctan2(ny, nx)
+    source = base[..., :3].astype(float)
+    opacity = base[..., 3].astype(float) / 255.0
+    frames = []
+    for t in range(NEBULA_PHASES):
+        phase = 2 * np.pi * t / NEBULA_PHASES
+        diagonal = 0.5 + 0.5 * np.sin(
+            2 * np.pi * (xx / 226.0 + yy / 318.0 + 0.08 * np.sin(xx / 91.0 + yy / 127.0)) - phase)
+        spiral = 0.5 + 0.5 * np.sin(2 * np.pi * (radius * 1.75 - angle * 0.11) + phase * 0.72)
+        wave = 0.62 * diagonal + 0.38 * spiral
+        glow = np.clip((wave - 0.57) / 0.43, 0, 1)
+        # L'onde n'éclaire que les filaments les plus lisibles, pas toute la vapeur :
+        # cela garde un fond respirant et un tileset Ground compact. Cinq crans d'alpha.
+        alpha = np.rint(glow * opacity * 176 / 32).clip(0, 5) * 32
+        alpha = alpha.astype('uint8')
+        alpha[~(support & (base[..., 3] >= 96))] = 0
+        f = np.zeros((H, W, 4), 'uint8')
+        f[..., 0] = np.clip(source[..., 0] + 46, 0, 150).astype('uint8')
+        f[..., 1] = np.clip(source[..., 1] * 0.72 + 2, 0, 30).astype('uint8')
+        f[..., 2] = np.clip(source[..., 2] * 0.76 + 2, 0, 40).astype('uint8')
+        f[..., 3] = alpha
+        f[alpha == 0] = 0
+        frames.append(f)
+    return frames
 
 
 def cloud_frames(base, mask):
@@ -486,8 +538,10 @@ def build():
     else:
         crystal_center = (round(600 * SCALE) - CROP_X, round(244 * SCALE))
 
-    # Fond d'abîme, palette éditable, sans référence ROM ni rendu généré revendiqué.
+    # Arrière-plan en profondeur : espace noir, nébuleuse générée semi-transparente,
+    # puis pulsations rouge-brun animées avant le sol. La palette de fond reste indépendante.
     sky = make_sky()
+    nebula_layer, nebula_support = nebula_base()
     fixed = BM.quantize_layers({
         'ciel': sky,
         'sol_complet': floor_layer,
@@ -498,6 +552,7 @@ def build():
         fixed['ciel'], fixed['sol_complet'], fixed['nuages_base'], fixed['decors_sommet'])
     cloud_mask = cloud_base[..., 3] == 255
 
+    nebula_anim = nebula_frames(nebula_layer, nebula_support)
     cloud_anim = cloud_frames(cloud_base, cloud_mask)
     centre = (round(ARENA_CENTER_RAW[0] * SCALE) - CROP_X,
               round(ARENA_CENTER_RAW[1] * SCALE))
@@ -516,6 +571,8 @@ def build():
 
     stack = [
         ('CIEL_ABYSSE', [sky], 60),
+        ('NEBULEUSE_FOND', [nebula_layer], 60),
+        ('NEBULEUSE_ROUGE_NOIR', nebula_anim, NEBULA_TICKS),
         ('SOL_COMPLET', [floor_layer], 60),
         ('NUAGES_ROUGE_NOIR', cloud_anim, CLOUD_TICKS),
         ('DECOR_SOMMET', [decor_layer], 60),
@@ -553,6 +610,8 @@ def build():
         out_mask = down_mask(mask, threshold)
         Image.fromarray(out_mask.astype('uint8') * 255).save(
             OUT / f'masques/{PFX}_masque_{key}.png', optimize=True)
+    Image.fromarray(nebula_support.astype('uint8') * 255).save(
+        OUT / f'masques/{PFX}_masque_nebuleuse.png', optimize=True)
 
     # Vérification de l'accès entrée sud -> marqueur du boss, avec clearance PMDO 16×16.
     ok, explored = V1.reachable(blocked, (entry[1] // 8, entry[0] // 8),
@@ -596,6 +655,10 @@ def build():
         {'file': f'source/{LOT}/bruts/sol_complet.png', 'sha256': sha(RAW / 'sol_complet.png'),
          'size': list(SRC), 'images': [f'source/{LOT}/bruts/decor_magenta.png'],
          'utilise': True, 'origine': 'génération référencée : dalle dédiée reprenant l’empreinte et les anneaux de la scène'},
+        {'file': f'source/{LOT}/bruts/nebuleuse_rouge_noir.png', 'sha256': sha(RAW / 'nebuleuse_rouge_noir.png'),
+         'size': list(SRC),
+         'images': [f'source/{LOT}/reference/ETT2_style_swatch.png'], 'utilise': True,
+         'origine': 'génération référencée : fond seul de nébuleuse rouge-noir, échantillon ETT2 fourni pour le style'},
     ]
     manifest = {
         'lot': LOT, 'prefix': PFX, 'serie': 'fins de donjon',
@@ -603,7 +666,7 @@ def build():
         'boss': {'hypothese': 'Dialga (contexte de la Tour Temporelle)', 'marqueur': markers['boss_dialga'],
                  'sprite_place': False, 'acteur_place': False},
         'format': '4:3 vaste', 'size_px': [W, H], 'grid_8px': [W // 8, H // 8],
-        'method': 'composition générée référencée (échantillon de style ETT2), recomposée en calques; références D29P11A/D30P34A consultées visuellement, pas fournies au générateur; pas de pixels natifs revendiqués',
+        'method': 'composition et fond nébuleuse générés/référencés par l’échantillon de style ETT2, recomposés en calques; références D29P11A/D30P34A consultées visuellement, pas fournies au générateur; pas de pixels natifs revendiqués',
         'references': ref_meta,
         'reference_style': {'fichier': 'source/fin_tour_temporelle_v1/reference/ETT2_style_swatch.png',
                            'origine': 'découpe 300×370 de source/entree_tour_temporelle_sud_nord_v2/bruts/decor_magenta.png ; style uniquement'},
@@ -620,9 +683,12 @@ def build():
             'circuits': 'R>105, G>62, R>1.16G, G>1.38B, B<145',
             'nuages': 'composantes rouge/noir de la scène isolées par teinte rouge (le dessous sombre reste dans le décor fixe)',
             'cristal': f'cyan dans la boîte brute {list(CRYSTAL_BOX_RAW)}, composant le plus proche du sommet central',
+            'nebuleuse': 'fond plein cadre normalisé à 768×576; alpha calculé selon luminosité et dominance rouge pour laisser respirer le vide noir',
         },
         'animation': {
             'scene_loop_ticks': LOOP_TICKS,
+            'nebuleuse_rouge_noir': {'phases': NEBULA_PHASES, 'ticks_par_phase': NEBULA_TICKS,
+                                      'loi': 'pulsations diagonales et spiralées qui glissent sur les filaments rouges; animation calculée, non issue de la ROM'},
             'nuages_rouge_noir': {'phases': CLOUD_PHASES, 'ticks_par_phase': CLOUD_TICKS, 'loi': 'pulsation de luminance diagonale douce; géométrie des nuages stable'},
             'circuits_temporels': {'phases': RING_PHASES, 'ticks_par_phase': RING_TICKS, 'loi': 'front lumineux radial sur les lignes or depuis le centre de l’arène; traîne éteinte au raccord', **ring_info,
                                    'rampe': [list(c) for c in GOLD_RAMP]},

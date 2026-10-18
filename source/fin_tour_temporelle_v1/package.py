@@ -16,7 +16,7 @@ STAGE = ROOT / '.cache' / LOT / 'fin_tour_temporelle'
 PROJECT_ZIP = OUT / 'FTT1_projet_pmdo_0812.zip'
 LAYERS_ZIP = OUT / 'FTT1_calques_png_8px.zip'
 HTML = ROOT / f'apercu_{LOT}.html'
-ANIM_DIRS = ('nuages_rouge_noir', 'circuits_temporels', 'cristal_temporel', 'poussieres_temporelles')
+ANIM_DIRS = ('nebuleuse_rouge_noir', 'nuages_rouge_noir', 'circuits_temporels', 'cristal_temporel', 'poussieres_temporelles')
 REVIEW = ('review/FTT1_scene_t000.png', 'review/FTT1_scene_animee.webp',
           'review/FTT1_collisions_marqueurs.png')
 
@@ -43,7 +43,7 @@ def make_project_zip():
         }
         missing = required - names
         assert not missing, f'fichiers absents du ZIP PMDO : {sorted(missing)}'
-        assert len([n for n in names if n.endswith('.tile')]) == 7
+        assert len([n for n in names if n.endswith('.tile')]) == 9
         assert z.testzip() is None, 'archive projet PMDO corrompue'
 
 
@@ -64,6 +64,7 @@ def make_layers_zip():
     ])
     source_files = [
         HERE / 'bruts/decor_magenta.png', HERE / 'bruts/sol_complet.png',
+        HERE / 'bruts/nebuleuse_rouge_noir.png',
         HERE / 'reference/D29P11A.png', HERE / 'reference/D30P34A.png',
         HERE / 'reference/ETT2_style_swatch.png', HERE / 'reference/ETT2_nuages_magenta.png',
     ]

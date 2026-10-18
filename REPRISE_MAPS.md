@@ -241,14 +241,16 @@ Réserves relevées dans V16 :
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
 
-## Suite d'ETT2 — FTT1 (18 octobre 2026)
+## Suite d'ETT2 — FTT1 (18–19 octobre 2026)
 
 Sur la demande de passer à une zone de fin, création du lot autonome **FTT1 — Fin de la Tour Temporelle**, interprétation de contexte explicitement documentée, pas une appellation fournie par l'utilisateur. Le sommet suspendu comprend un accès sud, une arène centrale, un autel/portail nord, des circuits dorés, des nuages rouge-noir et un cristal animé. Dialga est une hypothèse seulement : le Ground n'instancie ni sprite, ni acteur, ni warp.
 
+Sur la demande de renforcer le background, une nébuleuse rouge-noir a été générée avec l'échantillon de style ETT2 seul. Un calque semi-transparent laisse le vide central presque noir ; un second calque calcule 24 phases de pulsations diagonales et spiralées, derrière le terrain. Ce fond est généré et non canonique ; il ne réutilise pas les deux rips MAP_BG.
+
 - Sources de travail : `source/fin_tour_temporelle_v1/` ; statut et limites : `source/fin_tour_temporelle_v1/STATUS.md`.
 - Bruts décor/sol générés à 1200 × 896 sur magenta ; composition générée à partir d'un échantillon de style ETT2 uniquement. Les MAP_BG `D29P11A` et `D30P34A` ont été rendues depuis `pret/pmd-sky` au commit épinglé et consultées visuellement. **Leurs noms de lieu ne sont pas établis ici** et les rips n'ont pas été donnés au générateur. Aucun pixel de ROM, tile natif ou décor canonique n'est revendiqué.
-- Build exécuté après l'export des masques à `768 × 576` ; 7 calques d'image, `Top` vide, boucle 240 ticks, entrée `[384,560]`, marqueur de boss `[384,344]`, chemin vérifié par BFS.
-- 10 tests `unittest` PASS. Le packager a rejoué les tests, créé le ZIP Ground PMDO `renders/fin_tour_temporelle_v1/FTT1_projet_pmdo_0812.zip`, le ZIP calques `FTT1_calques_png_8px.zip`, l'ORA et `apercu_fin_tour_temporelle_v1.html`. Les ZIP passent le contrôle d'intégrité, l'aperçu contient ses images en base64 et son JS passe `node --check`.
+- Build exécuté avec les masques à `768 × 576` ; 9 calques d'image, `Top` vide, boucle 240 ticks, entrée `[384,560]`, marqueur de boss `[384,344]`, chemin vérifié par BFS.
+- 11 tests `unittest` PASS. Le packager rejoue les tests et fabrique le ZIP Ground PMDO `renders/fin_tour_temporelle_v1/FTT1_projet_pmdo_0812.zip`, le ZIP calques `FTT1_calques_png_8px.zip`, l'ORA et `apercu_fin_tour_temporelle_v1.html`. Les ZIP passent le contrôle d'intégrité ; l'aperçu est autonome et son JS passe `node --check`.
 - `art_approved=false`, `runtime_tested=false`. L'import visuel en PMDO, l'animation moteur, les collisions en jeu et la qualité artistique restent à valider séparément.
 
 Le dépôt ne contient toujours pas les sources/exports ETT1 ; leur conservation complète reste invérifiable.

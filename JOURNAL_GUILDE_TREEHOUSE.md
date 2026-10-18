@@ -1237,10 +1237,12 @@ Voir [les références et limites](source/layouts_commit_3bc185b/README.md). **C
 
 [Nouveau pack PNG multicouche](renders/soleil_spring_v1/README.md) — [aperçu autonome](apercu_soleil_spring_v1.html). Soleil subtil 64 phases, grands nuages traversants, variante du Spring Halcyon avec cycles natifs 3/13 phases préservés.
 
-## 18 octobre 2026 — FTT1, sommet de la Tour Temporelle
+## 18–19 octobre 2026 — FTT1, sommet de la Tour Temporelle
 
 À la suite d'ETT2, la demande de passer à une zone de fin a été interprétée comme une fin de la Tour Temporelle. Décor suspendu avec arrivée sud, arène centrale, autel nord, circuits d'or, nuages rouge-noir et cristal animé. C'est une proposition générée référencée par le seul échantillon de style ETT2 ; Dialga est une hypothèse et reste un simple marqueur. D29P11A/D30P34A ont été consultées, mais les noms des lieux ne sont pas vérifiés et les références n'ont pas été envoyées au générateur. Aucun asset canonique n'est revendiqué.
 
+Sur la demande de reprise du fond, ajout d'une nébuleuse rouge-noir générée, avec vide central noir, sur un calque séparé et derrière le terrain. Une seconde couche de pulsations diagonales/spiralées (24 phases) anime les filaments sans déplacer toute l'image. Elle a son propre brut et sa provenance ; elle ne provient pas d'une capture ROM.
+
 - Source et méthode : `source/fin_tour_temporelle_v1/`.
 - Livrables : `renders/fin_tour_temporelle_v1/FTT1_projet_pmdo_0812.zip`, `FTT1_calques_png_8px.zip`, ORA ; aperçu : `apercu_fin_tour_temporelle_v1.html`.
-- Build réussi, 10 tests PASS, archives et JS contrôlés. `art_approved=false`, `runtime_tested=false` ; pas de validation artistique ou moteur.
+- Build réussi, 11 tests PASS, archives et JS contrôlés. `art_approved=false`, `runtime_tested=false` ; pas de validation artistique ou moteur.

@@ -21,7 +21,7 @@
     96,
     72
   ],
-  "method": "composition générée référencée (échantillon de style ETT2), recomposée en calques; références D29P11A/D30P34A consultées visuellement, pas fournies au générateur; pas de pixels natifs revendiqués",
+  "method": "composition et fond nébuleuse générés/référencés par l’échantillon de style ETT2, recomposés en calques; références D29P11A/D30P34A consultées visuellement, pas fournies au générateur; pas de pixels natifs revendiqués",
   "references": {
     "D29P11A": {
       "fichier": "source/fin_tour_temporelle_v1/reference/D29P11A.png",
@@ -74,6 +74,19 @@
       ],
       "utilise": true,
       "origine": "génération référencée : dalle dédiée reprenant l’empreinte et les anneaux de la scène"
+    },
+    {
+      "file": "source/fin_tour_temporelle_v1/bruts/nebuleuse_rouge_noir.png",
+      "sha256": "26b946ed22381b4c5d9cb031a033bc2d370e70d7fc6e56df681f72d1764f4814",
+      "size": [
+        1200,
+        896
+      ],
+      "images": [
+        "source/fin_tour_temporelle_v1/reference/ETT2_style_swatch.png"
+      ],
+      "utilise": true,
+      "origine": "génération référencée : fond seul de nébuleuse rouge-noir, échantillon ETT2 fourni pour le style"
     }
   ],
   "nuages_reutilises": {
@@ -93,10 +106,16 @@
     "décor": "complément du magenta, des nuages rouges animés et des pixels de base du sol dans la ROI",
     "circuits": "R>105, G>62, R>1.16G, G>1.38B, B<145",
     "nuages": "composantes rouge/noir de la scène isolées par teinte rouge (le dessous sombre reste dans le décor fixe)",
-    "cristal": "cyan dans la boîte brute [520, 180, 680, 315], composant le plus proche du sommet central"
+    "cristal": "cyan dans la boîte brute [520, 180, 680, 315], composant le plus proche du sommet central",
+    "nebuleuse": "fond plein cadre normalisé à 768×576; alpha calculé selon luminosité et dominance rouge pour laisser respirer le vide noir"
   },
   "animation": {
     "scene_loop_ticks": 240,
+    "nebuleuse_rouge_noir": {
+      "phases": 24,
+      "ticks_par_phase": 10,
+      "loi": "pulsations diagonales et spiralées qui glissent sur les filaments rouges; animation calculée, non issue de la ROM"
+    },
     "nuages_rouge_noir": {
       "phases": 24,
       "ticks_par_phase": 10,
@@ -659,44 +678,58 @@
       "ticks": 60
     },
     {
+      "name": "NEBULEUSE_FOND",
+      "file": "calques/FTT1_01_nebuleuse_fond.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "name": "NEBULEUSE_ROUGE_NOIR",
+      "file": "animation/nebuleuse_rouge_noir/FTT1_02_nebuleuse_rouge_noir_fNN.png",
+      "phases": 24,
+      "ticks": 10
+    },
+    {
       "name": "SOL_COMPLET",
-      "file": "calques/FTT1_01_sol_complet.png",
+      "file": "calques/FTT1_03_sol_complet.png",
       "phases": 1,
       "ticks": 60
     },
     {
       "name": "NUAGES_ROUGE_NOIR",
-      "file": "animation/nuages_rouge_noir/FTT1_02_nuages_rouge_noir_fNN.png",
+      "file": "animation/nuages_rouge_noir/FTT1_04_nuages_rouge_noir_fNN.png",
       "phases": 24,
       "ticks": 10
     },
     {
       "name": "DECOR_SOMMET",
-      "file": "calques/FTT1_03_decor_sommet.png",
+      "file": "calques/FTT1_05_decor_sommet.png",
       "phases": 1,
       "ticks": 60
     },
     {
       "name": "CIRCUITS_TEMPORELS",
-      "file": "animation/circuits_temporels/FTT1_04_circuits_temporels_fNN.png",
+      "file": "animation/circuits_temporels/FTT1_06_circuits_temporels_fNN.png",
       "phases": 24,
       "ticks": 10
     },
     {
       "name": "CRISTAL_TEMPOREL",
-      "file": "animation/cristal_temporel/FTT1_05_cristal_temporel_fNN.png",
+      "file": "animation/cristal_temporel/FTT1_07_cristal_temporel_fNN.png",
       "phases": 16,
       "ticks": 15
     },
     {
       "name": "POUSSIERES_TEMPORELLES",
-      "file": "animation/poussieres_temporelles/FTT1_06_poussieres_temporelles_fNN.png",
+      "file": "animation/poussieres_temporelles/FTT1_08_poussieres_temporelles_fNN.png",
       "phases": 48,
       "ticks": 5
     }
   ],
   "layer_order_bottom_to_top": [
     "CIEL_ABYSSE",
+    "NEBULEUSE_FOND",
+    "NEBULEUSE_ROUGE_NOIR",
     "SOL_COMPLET",
     "NUAGES_ROUGE_NOIR",
     "DECOR_SOMMET",
@@ -728,22 +761,26 @@
     "asset": "ftt1_sommet_tour_temporelle",
     "namespace": "fin_tour_temporelle",
     "tiles_per_bank": {
-      "FTT1_00_CIEL_ABYSSE": 602,
-      "FTT1_01_SOL_COMPLET": 1921,
-      "FTT1_02_NUAGES_ROUGE_NOIR": 28708,
-      "FTT1_03_DECOR_SOMMET": 4280,
-      "FTT1_04_CIRCUITS_TEMPORELS": 3206,
-      "FTT1_05_CRISTAL_TEMPOREL": 237,
-      "FTT1_06_POUSSIERES_TEMPORELLES": 784
+      "FTT1_00_CIEL_ABYSSE": 93,
+      "FTT1_01_NEBULEUSE_FOND": 5997,
+      "FTT1_02_NEBULEUSE_ROUGE_NOIR": 28456,
+      "FTT1_03_SOL_COMPLET": 2032,
+      "FTT1_04_NUAGES_ROUGE_NOIR": 29554,
+      "FTT1_05_DECOR_SOMMET": 4295,
+      "FTT1_06_CIRCUITS_TEMPORELS": 3206,
+      "FTT1_07_CRISTAL_TEMPOREL": 237,
+      "FTT1_08_POUSSIERES_TEMPORELLES": 784
     },
     "banks": [
       "FTT1_00_CIEL_ABYSSE",
-      "FTT1_01_SOL_COMPLET",
-      "FTT1_02_NUAGES_ROUGE_NOIR",
-      "FTT1_03_DECOR_SOMMET",
-      "FTT1_04_CIRCUITS_TEMPORELS",
-      "FTT1_05_CRISTAL_TEMPOREL",
-      "FTT1_06_POUSSIERES_TEMPORELLES"
+      "FTT1_01_NEBULEUSE_FOND",
+      "FTT1_02_NEBULEUSE_ROUGE_NOIR",
+      "FTT1_03_SOL_COMPLET",
+      "FTT1_04_NUAGES_ROUGE_NOIR",
+      "FTT1_05_DECOR_SOMMET",
+      "FTT1_06_CIRCUITS_TEMPORELS",
+      "FTT1_07_CRISTAL_TEMPOREL",
+      "FTT1_08_POUSSIERES_TEMPORELLES"
     ],
     "runtime_tested": false,
     "warp": "aucun"

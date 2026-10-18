@@ -56,6 +56,10 @@ def load_stack():
     return stack
 
 
+def layer_frames(name):
+    return next(frames for title, frames, _ in load_stack() if title == name)
+
+
 class TestFinTourTemporelle(unittest.TestCase):
     def test_format_sources_and_provenance(self):
         self.assertEqual(M['lot'], 'fin_tour_temporelle_v1')
@@ -107,10 +111,12 @@ class TestFinTourTemporelle(unittest.TestCase):
 
     def test_layer_order_and_full_loop(self):
         self.assertEqual(M['layer_order_bottom_to_top'], [
-            'CIEL_ABYSSE', 'SOL_COMPLET', 'NUAGES_ROUGE_NOIR', 'DECOR_SOMMET',
-            'CIRCUITS_TEMPORELS', 'CRISTAL_TEMPOREL', 'POUSSIERES_TEMPORELLES'])
+            'CIEL_ABYSSE', 'NEBULEUSE_FOND', 'NEBULEUSE_ROUGE_NOIR', 'SOL_COMPLET',
+            'NUAGES_ROUGE_NOIR', 'DECOR_SOMMET', 'CIRCUITS_TEMPORELS',
+            'CRISTAL_TEMPOREL', 'POUSSIERES_TEMPORELLES'])
         self.assertEqual(M['animation']['scene_loop_ticks'], 240)
-        expected = {'CIEL_ABYSSE': (1, 60), 'SOL_COMPLET': (1, 60),
+        expected = {'CIEL_ABYSSE': (1, 60), 'NEBULEUSE_FOND': (1, 60),
+                    'NEBULEUSE_ROUGE_NOIR': (24, 10), 'SOL_COMPLET': (1, 60),
                     'NUAGES_ROUGE_NOIR': (24, 10), 'DECOR_SOMMET': (1, 60),
                     'CIRCUITS_TEMPORELS': (24, 10), 'CRISTAL_TEMPOREL': (16, 15),
                     'POUSSIERES_TEMPORELLES': (48, 5)}
@@ -121,13 +127,38 @@ class TestFinTourTemporelle(unittest.TestCase):
         self.assertTrue(np.array_equal(B.compose(stack, 0), B.compose(stack, 240)))
         with zipfile.ZipFile(OUT / 'FTT1_fin_tour_temporelle_calques.ora') as z:
             self.assertEqual(z.read('mimetype'), b'image/openraster')
-            self.assertEqual(len([n for n in z.namelist() if n.startswith('data/layer')]), 7)
+            self.assertEqual(len([n for n in z.namelist() if n.startswith('data/layer')]), 9)
             merged = np.asarray(Image.open(io.BytesIO(z.read('mergedimage.png'))).convert('RGBA'))
         self.assertTrue(np.array_equal(merged, B.compose(stack, 0)))
         self.assertTrue(np.array_equal(merged, read_image(OUT / 'review/FTT1_scene_t000.png')))
 
+    def test_generated_nebula_backdrop_and_moving_pulses(self):
+        base = layer_frames('NEBULEUSE_FOND')[0]
+        frames = layer_frames('NEBULEUSE_ROUGE_NOIR')
+        support = read_mask('nebuleuse')
+        self.assertEqual(len(frames), 24)
+        self.assertTrue(np.array_equal(base[..., 3] > 12, support))
+        self.assertGreater(float(support.mean()), .20)
+        self.assertLess(float(support.mean()), .90)
+        self.assertEqual(int(base[B.H // 2, B.W // 2, 3]), 0)  # vide noir central
+        samples = base[support][:, :3]
+        self.assertGreater(float(np.mean((samples[:, 0] > samples[:, 1] * 1.3) &
+                                         (samples[:, 0] > samples[:, 2] * 1.1))), .95)
+        counts = []
+        for frame in frames:
+            active = frame[..., 3] > 0
+            counts.append(int(active.sum()))
+            self.assertTrue(active.any())
+            self.assertLessEqual(int(frame[..., 3].max()), 164)
+            rgb = frame[active][:, :3]
+            self.assertTrue(np.all(rgb[:, 0] > rgb[:, 1] * 1.5))
+        self.assertGreater(min(counts), 3000)
+        self.assertLess(max(counts), int(support.sum()))
+        self.assertGreater(len({frame.tobytes() for frame in frames}), 20)
+        self.assertFalse(np.array_equal(frames[0], frames[12]))
+
     def test_cloud_pulse_is_phaseful_and_stays_on_clouds(self):
-        frames = load_stack()[2][1]
+        frames = layer_frames('NUAGES_ROUGE_NOIR')
         masks = [f[..., 3] > 0 for f in frames]
         self.assertTrue(all(np.array_equal(masks[0], m) for m in masks[1:]))
         self.assertGreater(int(masks[0].sum()), 15000)
@@ -137,7 +168,7 @@ class TestFinTourTemporelle(unittest.TestCase):
         self.assertFalse(np.array_equal(frames[0], frames[12]))
 
     def test_circuit_wave_uses_gold_ramp_only(self):
-        frames = load_stack()[4][1]
+        frames = layer_frames('CIRCUITS_TEMPORELS')
         gold = read_mask('circuits_or')
         allowed = {tuple(c) for c in B.GOLD_RAMP}
         union = np.zeros_like(gold)
@@ -157,13 +188,13 @@ class TestFinTourTemporelle(unittest.TestCase):
         self.assertGreater(len({frame.tobytes() for frame in frames}), 18)
 
     def test_crystal_glow_and_temporal_sparks(self):
-        crystal = load_stack()[5][1]
+        crystal = layer_frames('CRISTAL_TEMPOREL')
         self.assertEqual(len(crystal), 16)
         self.assertGreater(len({frame.tobytes() for frame in crystal}), 12)
         alphas = np.concatenate([frame[..., 3].ravel() for frame in crystal])
         self.assertTrue(np.any((alphas > 0) & (alphas < 255)))
         self.assertTrue(np.any(alphas == 255))
-        sparks = load_stack()[6][1]
+        sparks = layer_frames('POUSSIERES_TEMPORELLES')
         self.assertEqual(len(sparks), 48)
         self.assertGreater(len({frame.tobytes() for frame in sparks}), 36)
         self.assertTrue(all(int((frame[..., 3] > 0).sum()) > 0 for frame in sparks))
