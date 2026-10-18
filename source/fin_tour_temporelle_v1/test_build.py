@@ -69,5 +69,57 @@ class FinTourTemporelleTests(unittest.TestCase):
         self.assertFalse(self.manifest['runtime_tested'])
 
 
+class FinTourTemporelleGroundTests(unittest.TestCase):
+    """Ground natif : fonds de nébuleuse défilants, calques, marqueurs, collisions. Lance le packaging."""
+    @classmethod
+    def setUpClass(cls):
+        cls.b = _load()
+        cls.manifest = cls.b.build()
+        sp = importlib.util.spec_from_file_location('ftt1_pkg', HERE / 'package_pmdo.py')
+        cls.pkg = importlib.util.module_from_spec(sp); sp.loader.exec_module(cls.pkg)
+        cls.zip = cls.pkg.build()
+        cls.stage = cls.pkg.STAGE
+        cls.obj = json.loads((cls.stage / 'Data/Ground/ftt1_fin_tour_temporelle.rsground').read_text())['Object']
+
+    def test_two_scrolling_nebula_backgrounds(self):
+        bgs = self.obj['Background']['Layers']
+        self.assertEqual(len(bgs), 2)
+        for layer in bgs:
+            self.assertTrue(layer['BG']['RepeatX'])
+            self.assertFalse(layer['BG']['RepeatY'])
+            self.assertNotEqual(layer['BG']['BGMovement']['X'], 0)
+        self.assertNotEqual(bgs[0]['BG']['BGMovement']['X'], bgs[1]['BG']['BGMovement']['X'])
+        for name in [self.pkg.NEB_LOIN, self.pkg.NEB_PROCHE]:
+            self.assertTrue((self.stage / f'Content/BG/{name}.dir').exists())
+
+    def test_nebula_is_horizontally_periodic(self):
+        img = self.pkg.nebula_images()[self.pkg.NEB_LOIN].astype(float)
+        self.assertEqual(img.shape[:2], (576, 768))
+        seam = np.abs(img[:, 0] - img[:, -1]).mean()
+        cols = np.abs(img[:, 1:] - img[:, :-1]).mean(axis=(0, 2))
+        self.assertLess(seam, np.percentile(cols, 99.5) + 1)
+
+    def test_layers_and_gold_animation(self):
+        names = [l['Name'] for l in self.obj['Layers']]
+        self.assertEqual(len(names), 6)
+        gold = self.obj['Layers'][3]['Tiles']
+        frames = [len(t['Layers'][0]['Frames']) for col in gold for t in col if t['Layers']]
+        self.assertTrue(frames)
+        self.assertEqual(set(frames), {4})
+
+    def test_markers_and_collisions(self):
+        names = [m['EntName'] for m in self.obj['Entities'][0]['Markers']]
+        self.assertEqual(names, ['entrance', 'boss', 'objectif'])
+        blocked = sum(c['Tags'] for col in self.obj['obstacles'] for c in col)
+        self.assertEqual(blocked, self.manifest['cases_bloquees'])
+
+    def test_pack_zip_contents(self):
+        with zipfile.ZipFile(self.zip) as z:
+            names = z.namelist()
+        for n in ['Data/Ground/ftt1_fin_tour_temporelle.rsground', 'Content/Tile/index.idx', 'Mod.xml',
+                  'Content/BG/FTT1_NEBULEUSE_LOIN.dir', 'Content/BG/FTT1_NEBULEUSE_PROCHE.dir']:
+            self.assertIn(n, names)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -21,3 +21,13 @@ question sur la prochaine map (18 octobre 2026). Format 4:3 : 768 × 576 px, soi
 - **Pas d'export Ground** : le gabarit `mod_metano_expeditions_pmdo_0812.zip` n'est pas présent dans ce dépôt ; l'export Ground des autres fins ne peut donc pas être rejoué ici.
 - **Animation** : seul le circuit d'or est animé (palette cyclique créée par le script). Pas d'animation officielle.
 - **Tests** : 8 tests PASS (`.venv/bin/python -m unittest source.fin_tour_temporelle_v1.test_build -v`). `art_approved` et `runtime_tested` restent à `false`. Aucun test dans PMDO.
+
+## Ground PMD natif avec nébuleuse (`package_pmdo.py`)
+
+- `FTT1_pmdo_pack.zip` (dans `renders/fin_tour_temporelle_v1/`) : `Data/Ground/ftt1_fin_tour_temporelle.rsground`, banques `.tile` et `index.idx`, `Content/BG/*.dir`, `Mod.xml`.
+- **Fond** : deux nébuleuses natives (`MapBG`, `RepeatX`) qui défilent en boucle : `FTT1_NEBULEUSE_LOIN` à −6 px/s, opaque, et `FTT1_NEBULEUSE_PROCHE` à −16 px/s, alpha 150. Chaque image est rendue raccordable horizontalement (fondu sur la demi-largeur).
+- **Nébuleuse** : régénérée dans un style plus proche de PMD Sky (palette limitée, bandes nettes). Première version jugée trop bruitée et retirée.
+- **Calques** : sol complet (fond magenta transparent), sol praticable, murs et rochers, circuits d'or (4 phases, `FrameLength` = 10), vos calques vides.
+- **Marqueurs** : `entrance`, `boss`, `objectif`. **Collisions** : grille praticable, `Tags = 1` sur les cases bloquées.
+
+Limites : le schéma suit `source/pmdo_cote` (version 0.7.15.1), sans gabarit Métano. Non ouvert dans PMDO. Le raccord horizontal de la nébuleuse est vérifié numériquement, pas encore à l'œil en jeu. Le paramètre d'alpha du second fond est à confirmer dans le moteur.

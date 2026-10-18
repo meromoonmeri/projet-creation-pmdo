@@ -129,13 +129,13 @@ def write_ora(path, layers):
 
 
 def build():
-    if OUT.exists():
-        shutil.rmtree(OUT)
-    (OUT / 'calques').mkdir(parents=True)
-    (OUT / 'animation').mkdir()
+    for sub in ['calques', 'animation']:           # seuls les sous-dossiers générés sont remplacés
+        shutil.rmtree(OUT / sub, ignore_errors=True)
+    (OUT / 'calques').mkdir(parents=True, exist_ok=True)
+    (OUT / 'animation').mkdir(exist_ok=True)
     a = load_decor()
     m = classify(a)
-    sol_full = rgba(a, np.ones((H, W), bool))
+    sol_full = rgba(a, ~m['mag'])          # le fond magenta reste transparent : la nébuleuse passe derrière
     layers = {
         'sol_complet': sol_full,
         'sol': rgba(a, m['sol']),
