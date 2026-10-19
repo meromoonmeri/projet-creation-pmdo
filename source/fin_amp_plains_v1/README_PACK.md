@@ -22,8 +22,8 @@ Le biome reprend l'esthétique de la Plaine Électrik (`Amp_Plains_entrance_TD.p
 | 06 | Autel / monolithe de foudre au nord-centre | fixe |
 | 07 | Falaises claires d'ardoise (enceinte fermée) | fixe |
 | 08 | Falaises sombres et crevasses | fixe |
-| 09 | Foudre sur l'autel et les arbres morts | 24 × 5 ticks |
-| 10 | Étincelles statiques dérivant au-dessus de l'arène | 24 × 5 ticks |
+| 09 | Foudre sur l'autel et les arbres morts : éclairs fourchus, arches et couronnes générés (`electricite_poses.png`) | 24 × 5 ticks |
+| 10 | Étincelles statiques : étoiles d'étincelles en 6 poses générées (`electricite_poses.png`) | 24 × 5 ticks |
 | 11 | Vide, `Layer=4` (Top) | — |
 
 La scène complète boucle en 120 ticks (2 s). Tous les calques sont opaques ou transparents, sans alpha intermédiaire.
@@ -35,6 +35,6 @@ La scène complète boucle en 120 ticks (2 s). Tous les calques sont opaques ou 
 
 ## Limites
 
-- **Terrain, monolithe, rochers et arbres morts** : dessins générés à partir de la capture `Amp_Plains_entrance_TD.png`.
-- **Animations** : les arcs de foudre et étincelles statiques sont créés par programme. Ce ne sont pas des animations officielles.
+- **Terrain, monolithe, rochers, arbres morts et électricité** : dessins générés à partir des captures `Amp_Plains_entrance_TD.png` et `Mt. Thunder` (`electricite_poses.png` sur fond magenta pur `#FF00FF`). Ce ne sont pas des tuiles natives.
+- **Animations** : les éclairs fourchus, arches/couronnes d'autel et étincelles utilisent les poses générées sur fond magenta et sont animés par programme. Ce ne sont pas des animations officielles.
 - **Tests** : aucun test fait dans PMDO.

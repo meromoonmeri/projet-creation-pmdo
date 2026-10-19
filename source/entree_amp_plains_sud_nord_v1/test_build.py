@@ -61,10 +61,12 @@ class Build(unittest.TestCase):
         self.assertEqual(ref['file'], REF.name)
         self.assertEqual(hashlib.sha256(REF.read_bytes()).hexdigest(), ref['sha256'])
         g = M['generation']
-        self.assertEqual([x['file'] for x in g], ['decor.png', 'temoin_sans_objets.png'])
+        self.assertEqual([x['file'] for x in g], ['decor.png', 'temoin_sans_objets.png', 'electricite_poses.png'])
         self.assertTrue(all(x['images'] and len(x['prompt']) > 100 for x in g))
         self.assertIn(REF.name, g[0]['images'])
         self.assertTrue(g[1]['images'][0].endswith('bruts/decor.png'))
+        self.assertIn(REF.name, g[2]['images'])
+        self.assertIn('pure magenta #FF00FF', g[2]['prompt'])
         self.assertFalse(M['art_approved']); self.assertFalse(M['pmdo']['runtime_tested'])
 
     def test_recalage_temoin(self):
@@ -121,15 +123,27 @@ class Build(unittest.TestCase):
             self.assertLess(d, 35, (nm, d)); self.assertAlmostEqual(d, v['distance_rip'], places=1)
 
     def test_animations_boucles_fermees(self):
-        pal = {tuple(c) for c in B.ELEC_PALETTE}
+        ps = {k: load(O / f'poses/EAM1_{k}.png') for k in B.POSE_BOXES}
+        for k, p in ps.items():
+            self.assertGreater(int(alpha(p).sum()), 3, k)
+            v = p[alpha(p)].astype(int)
+            bad = (v[:, 0] - v[:, 1] > 60) & (v[:, 2] - v[:, 1] > 60)
+            self.assertEqual(int(bad.sum()), 0, k)
+        pal = {tuple(int(v) for v in c) for c in M['arcs_electriques']['palette']}
+        self.assertLessEqual(len(pal), 12)
         for nm in ('arcs_electriques', 'etincelles'):
             fr = BY[nm]
             self.assertEqual(len(fr), 24)
             self.assertTrue(colors(fr) <= pal, nm)
             for t, a in enumerate(fr):
                 self.assertGreater(int(alpha(a).sum()), 15, (nm, t))
-        self.assertTrue((B.arcs_frames(ts=[24])[0] == BY['arcs_electriques'][0]).all())
-        self.assertTrue((B.etincelles_frames(ts=[24])[0] == BY['etincelles'][0]).all())
+        calc_a = B.arcs_frames(ps)
+        calc_e = B.etincelles_frames(ps)
+        for t in range(24):
+            self.assertTrue((BY['arcs_electriques'][t] == calc_a[t]).all(), t)
+            self.assertTrue((BY['etincelles'][t] == calc_e[t]).all(), t)
+        self.assertTrue((B.arcs_frames(ps, ts=[24])[0] == BY['arcs_electriques'][0]).all())
+        self.assertTrue((B.etincelles_frames(ps, ts=[24])[0] == BY['etincelles'][0]).all())
 
     def test_ora_and_scene(self):
         with zipfile.ZipFile(O / 'EAM1_entree_amp_plains_calques.ora') as z:

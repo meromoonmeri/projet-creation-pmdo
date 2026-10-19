@@ -9,11 +9,15 @@ Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ (rip passé au
   jaune-olive ponctuée de 4 arbres morts foudroyés, 17 rochers gris-ardoise et petits cailloux sur les flancs, et
   gorge rocheuse étroite au nord-centre encadrée de falaises d'ardoise fracturées ;
 - temoin_sans_objets.png : même scène sans les 4 arbres morts ni les rochers et cailloux isolés de la clairière
-  (recalé (0, 0)).
+  (recalé (0, 0)) ;
+- electricite_poses.png : planche de poses d'électricité style PMD (éclairs ramifiés, arcs et couronnes électriques au
+  sol, étoiles d'étincelles en 6 phases) générée sur fond magenta pur #FF00FF avec la planche d'éclairs de Mt. Thunder
+  et Amp_Plains_entrance_TD.png en référence.
 Calques : sol complet, herbe, herbe sombre, cailloux, rochers, arbres morts, falaises claires, falaises sombres.
 Animations, chacune sur son calque, boucles fermées, 24 x 5 = 120 ticks :
-- arcs_electriques : arcs électriques crépitants entre les branches des 4 arbres morts et les parois de la gorge nord ;
-- etincelles : étincelles statiques dérivant au-dessus de la savane.
+- arcs_electriques : éclairs ramifiés et arcs/couronnes électriques générés (poses de electricite_poses.png) qui
+  frappent et crépitent autour des 4 arbres morts, des rochers d'ardoise et de la gorge nord ;
+- etincelles : étoiles d'étincelles statiques générées (6 poses de electricite_poses.png) qui éclatent au-dessus de la savane.
 Scène : PPCM(120, 120) = 120 ticks = 2 s.
 Lancer : .venv/bin/python source/entree_amp_plains_sud_nord_v1/build.py
 """
@@ -60,15 +64,43 @@ GEN = [
      'walls on the north, south, left and right and the grass clearing at the exact same pixel positions. No '
      'characters, no text, no UI, no border.',
      'essais': 'premier essai ; recalage (0, 0) ecart 7.76'},
+    {'file': 'electricite_poses.png',
+     'images': ['Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Mt. Thunder.png', REF_NAME],
+     'prompt':
+     'Pixel-art sprite sheet on a flat solid pure magenta #FF00FF background, in the EXACT pixel-art style and palette '
+     'of Pokemon Mystery Dungeon (Red Rescue Team Mt. Thunder lightning sheet and Explorers of Sky Amp Plains): crisp '
+     'hard 1-pixel edges, no anti-aliasing, no glow blur, no magenta halos. Arrange 18 well-separated electric effect '
+     'sprites in a clean 3 rows by 6 columns grid on pure #FF00FF magenta: Row 1 (top, 6 sprites): jagged branching '
+     'vertical and diagonal yellow lightning bolts (#F8F800 bright yellow, #F8F898 pale yellow-white core, #989820 '
+     'olive-gold fading edge, 1-2 pixel thick jagged branches like the 1-2-3-4 lightning bolts in the first reference). '
+     'Row 2 (middle, 6 sprites): curved horizontal electric ground flash arcs and crackling static electricity arcs '
+     'that hug the ground or wrap around a rock base (bright yellow #F8F800 and pale yellow-white #F8F898). Row 3 '
+     '(bottom, 6 sprites): small electric spark bursts and 4-point static electricity stars in 6 animation stages from '
+     'tiny spark to crackling star burst to split fading sparks. Well spaced, nothing touching, no background scenery, '
+     'no text, no numbers, no border.',
+     'essais': 'premier essai ; 17 poses extraites sur fond magenta (6 eclairs, 5 arcs/couronnes au sol, 6 poses d etincelles)'},
 ]
 
-ELEC_PALETTE = [
-    (112, 168, 224),
-    (168, 216, 248),
-    (216, 240, 255),
-    (248, 248, 176),
-    (255, 255, 232),
-]
+# Fenêtres (y0, y1, x0, x1, facteur de réduction k) sur electricite_poses.png (960 x 1107).
+POSE_BOXES = {
+    'eclair_0': (12, 372, 32, 128, 4),
+    'eclair_1': (12, 372, 192, 296, 4),
+    'eclair_2': (12, 372, 352, 456, 4),
+    'eclair_3': (12, 372, 508, 612, 4),
+    'eclair_4': (12, 372, 668, 772, 4),
+    'eclair_5': (12, 372, 824, 928, 4),
+    'arc_0': (416, 496, 52, 276, 4),
+    'arc_1': (404, 504, 352, 616, 4),
+    'arc_2': (544, 668, 20, 300, 4),
+    'arc_3': (720, 904, 20, 300, 4),
+    'arc_4': (736, 884, 336, 620, 4),
+    'etincelle_0': (950, 1105, 15, 150, 5),
+    'etincelle_1': (950, 1105, 170, 310, 5),
+    'etincelle_2': (950, 1105, 325, 475, 5),
+    'etincelle_3': (950, 1105, 490, 630, 5),
+    'etincelle_4': (950, 1105, 650, 790, 5),
+    'etincelle_5': (950, 1105, 810, 950, 5),
+}
 
 PALETTE_GROUPS = {
     'herbe': (['sol_complet', 'herbe', 'herbe_sombres'], 96),
@@ -197,72 +229,123 @@ def classify(a, t):
     return m, seg
 
 
-# Arcs électriques entre les branches des 4 arbres morts et les parois de la gorge nord :
-ARC_CHAINS = [
-    # (x0, y0, x1, y1, phase_offset)
-    (156, 198, 178, 224, 0),
-    (240, 250, 264, 278, 5),
-    (466, 166, 492, 194, 10),
-    (616, 304, 642, 332, 15),
-    (360, 48, 408, 52, 20),
+# Impacts et arcs électriques (24 phases, 6 sites décalés de 4 phases : arbres morts, gorge nord et rochers).
+# Chaque site : (cx, cy_base, eclair_vif, eclair_fade, arc_vif, arc_couronne, miroir, phase_offset)
+ARC_STRIKES = [
+    (163, 252, 'eclair_2', 'eclair_3', 'arc_1', 'arc_3', False, 0),
+    (481, 214, 'eclair_4', 'eclair_5', 'arc_2', 'arc_4', True, 4),
+    (245, 304, 'eclair_0', 'eclair_3', 'arc_0', 'arc_3', False, 8),
+    (630, 356, 'eclair_2', 'eclair_5', 'arc_2', 'arc_4', True, 12),
+    (384, 62, 'eclair_4', 'eclair_3', 'arc_1', 'arc_0', False, 16),
+    (142, 418, 'eclair_1', 'eclair_5', 'arc_4', 'arc_2', True, 20),
 ]
 
-SPARK_FLIGHTS = [
-    # (cx, cy, ax, ay, phase_offset)
-    (210, 220, 24, 12, 0),
-    (540, 215, 26, 14, 4),
-    (290, 340, 22, 10, 8),
-    (490, 350, 24, 12, 12),
-    (230, 430, 20, 12, 16),
-    (550, 425, 22, 10, 20),
+SPARK_SITES = [
+    # (cx, cy, phase_offset, mirror)
+    (210, 218, 0, False),
+    (538, 212, 2, True),
+    (292, 338, 4, False),
+    (488, 348, 6, True),
+    (228, 432, 8, False),
+    (552, 424, 10, True),
+    (348, 168, 12, False),
+    (430, 272, 14, True),
+    (158, 346, 16, False),
+    (612, 254, 18, True),
+    (382, 466, 20, False),
+    (386, 118, 22, True),
 ]
 
 
-def arcs_frames(ts=range(PHASES)):
-    """Arcs électriques crépitants (24 x 5 ticks, boucle fermée)."""
+def elec_mask(crop):
+    """Masque des pixels d'électricité jaune / blanc-doré / or-olive sur fond magenta (exclut le fond magenta, les
+    traits de grille noirs et les rochers gris)."""
+    r, g, b = crop.transpose(2, 0, 1)
+    return (r > 105) & (g > 95) & (b < g + 20) & ((r - b > 35) | ((r > 210) & (g > 210) & (b > 120)))
+
+
+def sheet_poses(path):
+    """Extrait et réduit les 17 poses d'électricité PMD depuis electricite_poses.png, quantifiées sur 12 couleurs."""
+    src = rgb(path)
+    all_px = []
+    for box in POSE_BOXES.values():
+        y0, y1, x0, x1, k = box
+        crop = src[y0:y1, x0:x1]
+        m = elec_mask(crop)
+        all_px.append(crop[m])
+    px = np.concatenate(all_px, axis=0)
+    q = Image.fromarray(px.reshape(-1, 1, 3).astype('uint8')).quantize(colors=12, method=Image.Quantize.MEDIANCUT)
+    pal = np.array(q.getpalette()[:36], float).reshape(-1, 3)
+    poses = {}
+    for name, (y0, y1, x0, x1, k) in POSE_BOXES.items():
+        h = ((y1 - y0) // k) * k
+        w = ((x1 - x0) // k) * k
+        crop = src[y0:y0 + h, x0:x0 + w]
+        fg = elec_mask(crop)
+        nh, nw = h // k, w // k
+        cov = fg.reshape(nh, k, nw, k).mean((1, 3))
+        cov_min = 0.10 if name.startswith('etincelle') else 0.16
+        keep = cov >= cov_min
+        out = np.zeros((nh, nw, 4), 'uint8')
+        for y in range(nh):
+            for x in range(nw):
+                if keep[y, x]:
+                    sub_fg = fg[y * k:(y + 1) * k, x * k:(x + 1) * k]
+                    sub_px = crop[y * k:(y + 1) * k, x * k:(x + 1) * k][sub_fg]
+                    med = np.median(sub_px, axis=0)
+                    idx = int(np.argmin(np.linalg.norm(pal - med, axis=1)))
+                    out[y, x, :3] = pal[idx].round().astype('uint8')
+                    out[y, x, 3] = 255
+        poses[name] = out
+    return poses, pal.round().astype(int)
+
+
+def paste_center(dst, spr, cx, cy, mirror=False):
+    s = spr[:, ::-1] if mirror else spr
+    sh, sw = s.shape[:2]
+    y0, x0 = int(cy) - sh // 2, int(cx) - sw // 2
+    sy0, sx0 = max(0, -y0), max(0, -x0)
+    sy1, sx1 = min(sh, H - y0), min(sw, W - x0)
+    if sy0 >= sy1 or sx0 >= sx1:
+        return
+    sub = s[sy0:sy1, sx0:sx1]
+    m = sub[..., 3] == 255
+    reg = dst[y0 + sy0:y0 + sy1, x0 + sx0:x0 + sx1]
+    reg[m] = sub[m]
+
+
+def arcs_frames(poses, ts=range(PHASES)):
+    """Éclairs ramifiés et arcs/couronnes électriques générés (24 x 5 ticks, boucle fermée)."""
     frames = []
     for t in ts:
         fr = np.zeros((H, W, 4), 'uint8')
         tm = t % PHASES
-        for x0, y0, x1, y1, p0 in ARC_CHAINS:
+        for cx, cy, b_vif, b_fade, a_vif, a_cor, mir, p0 in ARC_STRIKES:
             dt = (tm - p0) % PHASES
-            if dt >= 8:
-                continue
-            steps = 16
-            for s in range(steps + 1):
-                u = s / float(steps)
-                zig = np.sin(u * np.pi * 3 + dt * 1.3) * 3.5 * np.sin(u * np.pi)
-                px = int(round(x0 + (x1 - x0) * u - zig * 0.6))
-                py = int(round(y0 + (y1 - y0) * u + zig))
-                if 0 <= py < H and 0 <= px < W:
-                    fr[py, px] = (*ELEC_PALETTE[4 if dt in (2, 3, 4) else 3], 255)
-                    for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-                        ny, nx = py + dy, px + dx
-                        if 0 <= ny < H and 0 <= nx < W and fr[ny, nx, 3] == 0:
-                            fr[ny, nx] = (*ELEC_PALETTE[1 if dt >= 5 else 2], 255)
+            if dt in (0, 1):
+                paste_center(fr, poses[a_vif], cx, cy + 6, mir)
+                paste_center(fr, poses[b_vif], cx, cy - poses[b_vif].shape[0] // 2 + 10, mir)
+            elif dt in (2, 3):
+                paste_center(fr, poses[a_cor], cx, cy + 4, mir)
+                paste_center(fr, poses[b_fade], cx, cy - poses[b_fade].shape[0] // 2 + 10, mir)
+            elif dt in (4, 5):
+                paste_center(fr, poses[a_cor], cx, cy + 4, not mir)
+            elif dt in (6, 7):
+                paste_center(fr, poses['arc_0'], cx, cy + 8, mir)
         frames.append(fr)
     return frames
 
 
-def etincelles_frames(ts=range(PHASES)):
-    """Étincelles statiques dérivant en huit fermé (24 x 5 ticks)."""
+def etincelles_frames(poses, ts=range(PHASES)):
+    """Étoiles d'étincelles statiques générées en 6 poses (24 x 5 ticks, boucle fermée)."""
     frames = []
     for t in ts:
         fr = np.zeros((H, W, 4), 'uint8')
         tm = t % PHASES
-        for cx, cy, ax, ay, p0 in SPARK_FLIGHTS:
-            ang = 2 * np.pi * ((tm + p0) % PHASES) / PHASES
-            px = int(round(cx + ax * np.sin(ang)))
-            py = int(round(cy + ay * np.sin(2 * ang)))
-            pulse = ((tm + p0) % 6)
-            c_main = ELEC_PALETTE[4 if pulse < 3 else 3]
-            c_halo = ELEC_PALETTE[2 if pulse < 3 else 0]
-            if 0 <= py < H and 0 <= px < W:
-                fr[py, px] = (*c_main, 255)
-            for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-                ny, nx = py + dy, px + dx
-                if 0 <= ny < H and 0 <= nx < W:
-                    fr[ny, nx] = (*c_halo, 255)
+        for cx, cy, p0, mir in SPARK_SITES:
+            dt = (tm - p0) % 12
+            if dt < 6:
+                paste_center(fr, poses[f'etincelle_{dt}'], cx, cy, mir)
         frames.append(fr)
     return frames
 
@@ -358,9 +441,9 @@ def build():
     tools = loadmod('index_tools', R / 'source/pmdo_cote/INSTALLER.py')
     v1 = loadmod('esn1', R / 'source/entree_sud_nord_generee_v1/build.py')
     if OUT.exists():
-        for d in ['calques', 'animation', 'masques', 'review']:
+        for d in ['calques', 'animation', 'poses', 'masques', 'review']:
             shutil.rmtree(OUT / d, ignore_errors=True)
-    for d in ['calques', 'masques', 'review'] + [f'animation/{x}' for x in ANIMS]:
+    for d in ['calques', 'poses', 'masques', 'review'] + [f'animation/{x}' for x in ANIMS]:
         (OUT / d).mkdir(parents=True, exist_ok=True)
     STAGE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -387,7 +470,10 @@ def build():
     walk = np.isin(cl, np.unique(seed[seed > 0]))
     Image.fromarray((walk * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_praticable.png')
 
-    anim = {'arcs_electriques': arcs_frames(), 'etincelles': etincelles_frames()}
+    poses, pose_pal = sheet_poses(RAW / 'electricite_poses.png')
+    for name, p in poses.items():
+        Image.fromarray(p).save(OUT / 'poses' / f'{PFX}_{name}.png')
+    anim = {'arcs_electriques': arcs_frames(poses), 'etincelles': etincelles_frames(poses)}
 
     order_names = ['sol_complet'] + STATIC + ANIMS
     stack_named, layer_list = [], []
@@ -434,6 +520,17 @@ def build():
         dr.rectangle([qx, qy, qx + 15, qy + 15], outline=c, width=2)
     col.alpha_composite(ov); col.save(OUT / 'review' / f'{PFX}_collisions_marqueurs.png')
 
+    # Planche de revue des poses d'électricité PMD générées :
+    names = list(POSE_BOXES)
+    cw, ch = 150, 200
+    sheet = Image.new('RGBA', (6 * cw + 8, 3 * ch + 8), (62, 68, 76, 255))
+    for i, nm in enumerate(names):
+        im = Image.fromarray(poses[nm])
+        im = im.resize((im.width * 2, im.height * 2), Image.Resampling.NEAREST)
+        cx0, cy0 = 8 + (i % 6) * cw, 8 + (i // 6) * ch
+        sheet.alpha_composite(im, (cx0 + max(0, (cw - 8 - im.width) // 2), cy0 + max(0, (ch - 8 - im.height) // 2)))
+    sheet.save(OUT / 'review' / f'{PFX}_planche_poses.png')
+
     write_ora(OUT / f'{PFX}_entree_amp_plains_calques.ora',
               {f'{i:02d}_{t}' + ('_f00' if len(fr) > 1 else ''): fr[0] for i, (t, fr, _) in enumerate(stack_named)})
     counts = ground_project([(t.replace('_', ' ') + (f' {len(fr)} phases' if len(fr) > 1 else ''), fr, tk)
@@ -468,12 +565,16 @@ def build():
                           'palettes': {g: {'calques': k, 'couleurs': n} for g, (k, n) in PALETTE_GROUPS.items()}},
         'segmentation': classify.__doc__.split('\n', 1)[1].strip(),
         'layers': layer_list,
-        'arcs_electriques': {'phases': PHASES, 'frame_length_ticks': TICKS, 'palette': [list(c) for c in ELEC_PALETTE],
-                             'chaines': [list(c) for c in ARC_CHAINS],
-                             'origine': 'arcs electriques crees par programme entre les arbres morts et la gorge nord'},
-        'etincelles': {'phases': PHASES, 'frame_length_ticks': TICKS, 'palette': [list(c) for c in ELEC_PALETTE],
-                       'vols': [list(f) for f in SPARK_FLIGHTS],
-                       'origine': 'etincelles statiques creees par programme au-dessus de la savane'},
+        'arcs_electriques': {'phases': PHASES, 'frame_length_ticks': TICKS,
+                             'poses': {k: list(v) for k, v in POSE_BOXES.items() if not k.startswith('etincelle')},
+                             'palette': [[int(v) for v in c] for c in pose_pal],
+                             'impacts': [list(c) for c in ARC_STRIKES],
+                             'origine': 'eclairs ramifies et arcs/couronnes electriques style PMD generes sur fond magenta (electricite_poses.png, ref. Mt. Thunder et Amp Plains)'},
+        'etincelles': {'phases': PHASES, 'frame_length_ticks': TICKS,
+                       'poses': {k: list(v) for k, v in POSE_BOXES.items() if k.startswith('etincelle')},
+                       'palette': [[int(v) for v in c] for c in pose_pal],
+                       'sites': [list(f) for f in SPARK_SITES],
+                       'origine': 'etoiles d etincelles statiques style PMD en 6 poses generees sur fond magenta (electricite_poses.png)'},
         'scene_loop_ticks': LOOP_TICKS,
         'access': {'entry_px': entry_px, 'threshold_px': threshold_px, 'path_found_16x16': reach, 'cells_explored': explored,
                    'blocked_cells': int(blocked.sum()), 'total_cells': int(blocked.size), 'walkable_cells': int((~blocked).sum()),

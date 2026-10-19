@@ -26,7 +26,7 @@ Ce dossier est un mod d'édition autonome, namespace `guilde_fins_donjons`. Il r
 | 11 | `fmf3_fin_mystifying_forest` | Mystifying Forest (Clairière) | 768 × 576 | 12 | 4 × 10, 48 × 5 | `entrance` (376, 560), `boss` (376, 304), `objectif` (376, 232) |
 | 12 | `fsm1_fin_sables_mouvants` | Sables mouvants (Fosse) | 768 × 576 | 10 | 12 × 10, 24 × 5 | `entrance` (376, 560), `boss` (384, 440), `objectif` (352, 160) |
 | 13 | `fst1_fin_star_cave` | Star Cave (Caverne étoilée) | 768 × 576 | 9 | 24 × 5 | `entrance` (384, 560), `boss` (384, 320), `objectif` (384, 152) |
-| 14 | `fct3_fin_clairiere_tropicale` | Clairière tropicale (Sanctuaire) | 768 × 576 | 13 | 24 × 5 | `entrance` (368, 560), `boss` (376, 360), `objectif` (384, 208) |
+| 14 | `fct3_fin_clairiere_tropicale` | Clairière tropicale (Sanctuaire) | 768 × 576 | 14 | 24 × 5 | `entrance` (368, 560), `boss` (376, 360), `objectif` (384, 208) |
 | 15 | `fcv5_fin_couloir_violet` | Couloir violet (Chambre du cristal) | 768 × 576 | 12 | 24 × 5 | `entrance` (384, 560), `boss` (384, 368), `objectif` (376, 216) |
 | 16 | `fmt4_fin_mt_thunder` | Mt. Thunder (Pic d'orage) | 768 × 576 | 13 | 48 × 5 | `entrance` (384, 560), `boss` (384, 288), `objectif` (376, 168) |
 | 17 | `fjs5_fin_jardin_secret` | Jardin secret (Sanctuaire) | 768 × 576 | 16 | 24 × 5 | `entrance` (384, 560), `boss` (384, 304), `objectif` (376, 128) |

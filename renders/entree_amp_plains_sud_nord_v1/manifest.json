@@ -34,6 +34,15 @@
       ],
       "prompt": "Same image, same framing and pixel-art style (1200x896), but remove all 4 dark gnarled dead trees and all isolated slate-grey boulders and small pebbles sitting inside the olive-yellow grass clearing, replacing them seamlessly with the surrounding olive-yellow savanna grass (#8A916E); keep the outer slate-grey rock cliff walls on the north, south, left and right and the grass clearing at the exact same pixel positions. No characters, no text, no UI, no border.",
       "essais": "premier essai ; recalage (0, 0) ecart 7.76"
+    },
+    {
+      "file": "electricite_poses.png",
+      "images": [
+        "Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Mt. Thunder.png",
+        "Amp_Plains_entrance_TD.png"
+      ],
+      "prompt": "Pixel-art sprite sheet on a flat solid pure magenta #FF00FF background, in the EXACT pixel-art style and palette of Pokemon Mystery Dungeon (Red Rescue Team Mt. Thunder lightning sheet and Explorers of Sky Amp Plains): crisp hard 1-pixel edges, no anti-aliasing, no glow blur, no magenta halos. Arrange 18 well-separated electric effect sprites in a clean 3 rows by 6 columns grid on pure #FF00FF magenta: Row 1 (top, 6 sprites): jagged branching vertical and diagonal yellow lightning bolts (#F8F800 bright yellow, #F8F898 pale yellow-white core, #989820 olive-gold fading edge, 1-2 pixel thick jagged branches like the 1-2-3-4 lightning bolts in the first reference). Row 2 (middle, 6 sprites): curved horizontal electric ground flash arcs and crackling static electricity arcs that hug the ground or wrap around a rock base (bright yellow #F8F800 and pale yellow-white #F8F898). Row 3 (bottom, 6 sprites): small electric spark bursts and 4-point static electricity stars in 6 animation stages from tiny spark to crackling star burst to split fading sparks. Well spaced, nothing touching, no background scenery, no text, no numbers, no border.",
+      "essais": "premier essai ; 17 poses extraites sur fond magenta (6 eclairs, 5 arcs/couronnes au sol, 6 poses d etincelles)"
     }
   ],
   "raw_inputs": [
@@ -52,6 +61,15 @@
       "size": [
         1200,
         896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/entree_amp_plains_sud_nord_v1/bruts/electricite_poses.png",
+      "sha256": "4cc45e38e1ad731f1a4e101ef4d01556d2886b8bc6debeef90873cef9a5f5a5a",
+      "size": [
+        960,
+        1107
       ],
       "ecarte": false
     }
@@ -246,147 +264,395 @@
   "arcs_electriques": {
     "phases": 24,
     "frame_length_ticks": 5,
+    "poses": {
+      "eclair_0": [
+        12,
+        372,
+        32,
+        128,
+        4
+      ],
+      "eclair_1": [
+        12,
+        372,
+        192,
+        296,
+        4
+      ],
+      "eclair_2": [
+        12,
+        372,
+        352,
+        456,
+        4
+      ],
+      "eclair_3": [
+        12,
+        372,
+        508,
+        612,
+        4
+      ],
+      "eclair_4": [
+        12,
+        372,
+        668,
+        772,
+        4
+      ],
+      "eclair_5": [
+        12,
+        372,
+        824,
+        928,
+        4
+      ],
+      "arc_0": [
+        416,
+        496,
+        52,
+        276,
+        4
+      ],
+      "arc_1": [
+        404,
+        504,
+        352,
+        616,
+        4
+      ],
+      "arc_2": [
+        544,
+        668,
+        20,
+        300,
+        4
+      ],
+      "arc_3": [
+        720,
+        904,
+        20,
+        300,
+        4
+      ],
+      "arc_4": [
+        736,
+        884,
+        336,
+        620,
+        4
+      ]
+    },
     "palette": [
       [
-        112,
-        168,
-        224
+        251,
+        250,
+        168
       ],
       [
-        168,
-        216,
-        248
+        250,
+        245,
+        172
       ],
       [
-        216,
-        240,
-        255
+        252,
+        249,
+        134
+      ],
+      [
+        252,
+        250,
+        67
+      ],
+      [
+        252,
+        251,
+        16
       ],
       [
         248,
-        248,
-        176
+        239,
+        45
       ],
       [
-        255,
-        255,
-        232
+        251,
+        221,
+        114
+      ],
+      [
+        229,
+        219,
+        38
+      ],
+      [
+        212,
+        184,
+        59
+      ],
+      [
+        200,
+        152,
+        58
+      ],
+      [
+        189,
+        116,
+        70
+      ],
+      [
+        150,
+        123,
+        15
       ]
     ],
-    "chaines": [
+    "impacts": [
       [
-        156,
-        198,
-        178,
-        224,
+        163,
+        252,
+        "eclair_2",
+        "eclair_3",
+        "arc_1",
+        "arc_3",
+        false,
         0
       ],
       [
-        240,
-        250,
-        264,
-        278,
-        5
+        481,
+        214,
+        "eclair_4",
+        "eclair_5",
+        "arc_2",
+        "arc_4",
+        true,
+        4
       ],
       [
-        466,
-        166,
-        492,
-        194,
-        10
-      ],
-      [
-        616,
+        245,
         304,
-        642,
-        332,
-        15
+        "eclair_0",
+        "eclair_3",
+        "arc_0",
+        "arc_3",
+        false,
+        8
       ],
       [
-        360,
-        48,
-        408,
-        52,
+        630,
+        356,
+        "eclair_2",
+        "eclair_5",
+        "arc_2",
+        "arc_4",
+        true,
+        12
+      ],
+      [
+        384,
+        62,
+        "eclair_4",
+        "eclair_3",
+        "arc_1",
+        "arc_0",
+        false,
+        16
+      ],
+      [
+        142,
+        418,
+        "eclair_1",
+        "eclair_5",
+        "arc_4",
+        "arc_2",
+        true,
         20
       ]
     ],
-    "origine": "arcs electriques crees par programme entre les arbres morts et la gorge nord"
+    "origine": "eclairs ramifies et arcs/couronnes electriques style PMD generes sur fond magenta (electricite_poses.png, ref. Mt. Thunder et Amp Plains)"
   },
   "etincelles": {
     "phases": 24,
     "frame_length_ticks": 5,
+    "poses": {
+      "etincelle_0": [
+        950,
+        1105,
+        15,
+        150,
+        5
+      ],
+      "etincelle_1": [
+        950,
+        1105,
+        170,
+        310,
+        5
+      ],
+      "etincelle_2": [
+        950,
+        1105,
+        325,
+        475,
+        5
+      ],
+      "etincelle_3": [
+        950,
+        1105,
+        490,
+        630,
+        5
+      ],
+      "etincelle_4": [
+        950,
+        1105,
+        650,
+        790,
+        5
+      ],
+      "etincelle_5": [
+        950,
+        1105,
+        810,
+        950,
+        5
+      ]
+    },
     "palette": [
       [
-        112,
-        168,
-        224
+        251,
+        250,
+        168
       ],
       [
-        168,
-        216,
-        248
+        250,
+        245,
+        172
       ],
       [
-        216,
-        240,
-        255
+        252,
+        249,
+        134
       ],
       [
-        248,
-        248,
-        176
+        252,
+        250,
+        67
       ],
       [
-        255,
-        255,
-        232
-      ]
-    ],
-    "vols": [
-      [
-        210,
-        220,
-        24,
-        12,
-        0
-      ],
-      [
-        540,
-        215,
-        26,
-        14,
-        4
-      ],
-      [
-        290,
-        340,
-        22,
-        10,
-        8
-      ],
-      [
-        490,
-        350,
-        24,
-        12,
-        12
-      ],
-      [
-        230,
-        430,
-        20,
-        12,
+        252,
+        251,
         16
       ],
       [
-        550,
-        425,
-        22,
-        10,
-        20
+        248,
+        239,
+        45
+      ],
+      [
+        251,
+        221,
+        114
+      ],
+      [
+        229,
+        219,
+        38
+      ],
+      [
+        212,
+        184,
+        59
+      ],
+      [
+        200,
+        152,
+        58
+      ],
+      [
+        189,
+        116,
+        70
+      ],
+      [
+        150,
+        123,
+        15
       ]
     ],
-    "origine": "etincelles statiques creees par programme au-dessus de la savane"
+    "sites": [
+      [
+        210,
+        218,
+        0,
+        false
+      ],
+      [
+        538,
+        212,
+        2,
+        true
+      ],
+      [
+        292,
+        338,
+        4,
+        false
+      ],
+      [
+        488,
+        348,
+        6,
+        true
+      ],
+      [
+        228,
+        432,
+        8,
+        false
+      ],
+      [
+        552,
+        424,
+        10,
+        true
+      ],
+      [
+        348,
+        168,
+        12,
+        false
+      ],
+      [
+        430,
+        272,
+        14,
+        true
+      ],
+      [
+        158,
+        346,
+        16,
+        false
+      ],
+      [
+        612,
+        254,
+        18,
+        true
+      ],
+      [
+        382,
+        466,
+        20,
+        false
+      ],
+      [
+        386,
+        118,
+        22,
+        true
+      ]
+    ],
+    "origine": "etoiles d etincelles statiques style PMD en 6 poses generees sur fond magenta (electricite_poses.png)"
   },
   "scene_loop_ticks": 120,
   "access": {
@@ -419,8 +685,8 @@
       "EAM1_05_ARBRES": 331,
       "EAM1_06_FALAISES": 3162,
       "EAM1_07_FALAISES": 2370,
-      "EAM1_08_ARCS": 307,
-      "EAM1_09_ETINCELLES": 117
+      "EAM1_08_ARCS": 736,
+      "EAM1_09_ETINCELLES": 422
     },
     "banks": [
       "EAM1_00_SOL",

@@ -21,8 +21,8 @@ Le biome reprend l'esthétique de la Plaine Électrik (`Amp_Plains_entrance_TD.p
 | 05 | Arbres morts foudroyés (4 arbres) | fixe |
 | 06 | Falaises claires d'ardoise | fixe |
 | 07 | Falaises sombres et crevasses | fixe |
-| 08 | Arcs électriques entre les arbres morts et la gorge nord | 24 × 5 ticks |
-| 09 | Étincelles statiques dérivant au-dessus de la savane | 24 × 5 ticks |
+| 08 | Arcs électriques : éclairs ramifiés et arcs/couronnes au sol générés (style PMD, `electricite_poses.png`) | 24 × 5 ticks |
+| 09 | Étincelles statiques : étoiles d'étincelles en 6 poses générées (`electricite_poses.png`) | 24 × 5 ticks |
 | 10 | Vide, `Layer=4` (Top) | — |
 
 La scène complète boucle en 120 ticks (2 s). Tous les calques sont opaques ou transparents, sans alpha intermédiaire.
@@ -34,6 +34,6 @@ La scène complète boucle en 120 ticks (2 s). Tous les calques sont opaques ou 
 
 ## Limites
 
-- **Terrain, rochers et arbres morts** : dessins générés à partir de la capture `Amp_Plains_entrance_TD.png`.
-- **Animations** : les arcs électriques et étincelles statiques sont créés par programme. Ce ne sont pas des animations officielles.
+- **Terrain, rochers, arbres morts et électricité** : dessins générés à partir des captures `Amp_Plains_entrance_TD.png` et `Mt. Thunder` (`electricite_poses.png` sur fond magenta pur `#FF00FF`). Ce ne sont pas des tuiles natives.
+- **Animations** : les éclairs, arcs et étincelles utilisent les poses générées sur fond magenta et sont animés par programme. Ce ne sont pas des animations officielles.
 - **Tests** : aucun test fait dans PMDO.

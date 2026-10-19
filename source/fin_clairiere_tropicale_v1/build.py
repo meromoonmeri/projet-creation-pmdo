@@ -11,9 +11,12 @@ Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ (rip passé au
 Calques : sol complet, herbe, ombres (l'herbe s'assombrit au pied du tertre), dalles, touffes et cailloux, fleurs,
 jungle, palmiers, tertre sanctuaire, rive. Pas de profondeur (pas de bouche sombre), pas de seuil, pas de ponton.
 Animations, chacune sur son calque, boucles fermées, 24 x 5 ticks, avec les fonctions, profil/crête et couleurs
-EXACTES du rip de l'entrée ETC1 :
-- mer : vagues du rip (profil de 48 px et crête relevés pixel par pixel, couleurs EXACTES) ; contre la terre, uniquement
-  la bande sombre du rip (pas de liseré clair) ;
+EXACTES du rip `S01P03A` :
+- mer : vagues du rip (profil de 48 px et crête relevés pixel par pixel, couleurs EXACTES) qui descendent de 2 px par
+  phase vers le sud (vers la rive de sable) ; contre la terre, uniquement la bande sombre du rip sur le calque de fond ;
+- rive_eau : ressac et écume de rive animés (24 phases x 5 ticks, synchronisés sur les vagues de la mer) qui montent
+  sur le sable de la rive et se retirent en mouillant le sable, aux couleurs EXACTES du rip (écume, eau peu profonde et
+  sable mouillé relevés sur la rive de S01P03A) ;
 - papillons : poses de l'entrée ETC1 ; battement 8 phases, vol en huit fermé sur 24 phases.
 Scène : PPCM(120, 120) = 120 ticks = 2 s.
 Marqueurs : `entrance` (sud), `boss` (centre de la clairière), `objectif` (pied du tertre au nord). Aucune sortie, aucun warp.
@@ -56,11 +59,21 @@ keep_large, cell_grid, close_, open_ = ETC.keep_large, ETC.cell_grid, ETC.close_
 down_class, down_full, rgba, quantize_group = ETC.down_class, ETC.down_full, ETC.rgba, ETC.quantize_group
 sha, rgb, lum_of, materials, fidelity, recalage, flower_px = (
     ETC.sha, ETC.rgb, ETC.lum_of, ETC.materials, ETC.fidelity, ETC.recalage, ETC.flower_px)
-wave_model, sea_frames, sheet_poses, reduce_pose, paste, flight_pos, butterfly_frames = (
-    ETC.wave_model, ETC.sea_frames, ETC.sheet_poses, ETC.reduce_pose, ETC.paste, ETC.flight_pos, ETC.butterfly_frames)
+wave_model, sheet_poses, reduce_pose, paste, flight_pos, butterfly_frames = (
+    ETC.wave_model, ETC.sheet_poses, ETC.reduce_pose, ETC.paste, ETC.flight_pos, ETC.butterfly_frames)
 WAVE_COL, WAVE_Y0, WAVE_P, CREST_X, WAVE_STEP = ETC.WAVE_COL, ETC.WAVE_Y0, ETC.WAVE_P, ETC.CREST_X, ETC.WAVE_STEP
 BANDE, CALME, SHORE_BAND, SHORE_CALM = ETC.BANDE, ETC.CALME, ETC.SHORE_BAND, ETC.SHORE_CALM
 POSE_K, POSE_COV, POSE_WIN, FLAP = ETC.POSE_K, ETC.POSE_COV, ETC.POSE_WIN, ETC.FLAP
+
+# Couleurs exactes de la rive et du ressac relevées sur S01P03A (y = 328..343, x = 50).
+SURF_CREST = (215, 231, 247)
+SURF_FOAM = (167, 207, 239)
+SURF_LIGHT = (119, 183, 231)
+SURF_MID = (71, 151, 215)
+SURF_CALM = (63, 143, 215)
+SURF_DEEP = (47, 127, 207)
+WET_SAND_DARK = (127, 103, 79)
+WET_SAND_MID = (151, 119, 87)
 
 FLIGHTS = [
     ('orange', 220, 250, 42, 16, 0), ('jaune', 548, 245, 40, 18, 7),
@@ -117,7 +130,92 @@ PALETTE_GROUPS = {
     'terre': (['tertre', 'rive'], 64),
 }
 STATIC = ['herbe', 'ombres', 'dalles', 'touffes', 'fleurs', 'jungle', 'palmiers', 'tertre', 'rive']
-ANIMS = ['mer', 'papillons']
+ANIMS = ['mer', 'rive_eau', 'papillons']
+
+
+def sea_frames(water, prof, crest, ts=range(PHASES)):
+    """Vagues du rip qui descendent de 2 px par phase vers le sud (vers la rive de sable, 48 px en 24 phases : boucle
+    fermée). La mer étant au nord et la rive au sud, le profil et le sens de propagation sont orientés vers +y :
+    k = (c - yy + WAVE_STEP * t) % WAVE_P. Distance à la terre avec les bords de l'image comptés comme de l'eau.
+    d <= 2 : BANDE ; d <= 8 : les couleurs claires deviennent CALME sur le calque de fond de la mer."""
+    d = nd.distance_transform_edt(np.pad(water, 1, constant_values=True))[1:-1, 1:-1]
+    yy, xx = np.mgrid[:H, :W]; c = np.array(crest)[xx % len(crest)]
+    P = np.array(prof, 'uint8'); lums = lum_of(P.astype(float))
+    light = lums >= lum_of(np.array([119, 183, 231], float))
+    frames = []
+    for t in ts:
+        k = (c - yy + WAVE_STEP * t) % WAVE_P
+        a = np.zeros((H, W, 4), 'uint8'); a[..., :3] = P[k]; a[..., 3] = 255
+        a[(d <= SHORE_CALM) & light[k]] = (*CALME, 255)
+        a[d <= SHORE_BAND] = (*BANDE, 255)
+        a[~water] = 0
+        frames.append(a)
+    return frames, d
+
+
+def rive_eau_frames(water, rive, tertre, crest, ts=range(PHASES)):
+    """Animation de rive d'eau qui touche et recouvre le sable (rive) au rythme des vagues qui arrivent du nord (24
+    phases x 5 ticks). Utilise uniquement les couleurs exactes de la rive de S01P03A : écume (215,231,247) et
+    (167,207,239), eau peu profonde (119,183,231), (71,151,215), (63,143,215) et (47,127,207), et sable mouillé
+    (127,103,79) et (151,119,87) lorsque la vague se retire du sable."""
+    d_sand = nd.distance_transform_edt(~water)
+    d_water = nd.distance_transform_edt(np.pad(water, 1, constant_values=True))[1:-1, 1:-1]
+    yy, xx = np.mgrid[:H, :W]
+    c = np.array(crest)[xx % len(crest)]
+    # Position y de la ligne de rivage par colonne (dernier pixel d'eau avant la terre), lissée sur 9 colonnes.
+    y_shore = np.zeros(W, float)
+    for x in range(W):
+        wy = np.nonzero(water[:, x])[0]
+        y_shore[x] = float(wy.max()) if len(wy) else 95.0
+    y_shore = nd.uniform_filter1d(y_shore, 9, mode='nearest')[None, :]
+    # Ondulation fine le long de la rive pour épouser les festons des vagues du rip.
+    feston = 1.2 * np.sin(2.0 * np.pi * xx / 36.0) + 0.6 * np.cos(2.0 * np.pi * xx / 18.0)
+    # Coordonnée signée s : s > 0 sur le sable de la rive (distance à la mer), s <= 0 dans l'eau près de la rive.
+    s = np.where(~water, d_sand, -d_water + 0.5)
+    near_tertre = nd.distance_transform_edt(~tertre) <= 3
+    active_sand = rive & (d_sand >= 1) & (d_sand <= 7)
+    active_tertre = tertre & (d_sand >= 1) & (d_sand <= 2)
+    active_water = water & (d_water >= 1) & (d_water <= 9)
+    zone = active_sand | active_tertre | active_water
+    frames = []
+    for t in ts:
+        phase_k = (c - y_shore + WAVE_STEP * t) % WAVE_P
+        theta = 2.0 * np.pi * phase_k / WAVE_P
+        # Avancée du ressac sur le sable : de -0.5 px à +5.5 px sur la rive de sable (et +0..2 px au pied du tertre).
+        swash = np.where(near_tertre & ~rive, 0.8 + 1.2 * np.sin(theta), 2.5 + 3.0 * np.sin(theta) + 0.5 * feston)
+        rel = s - swash
+        # Seconde onde de ressac décalée d'une demi-période dans l'eau peu profonde (d_water <= 9).
+        swash2 = np.where(near_tertre & ~rive, -2.5 + 1.0 * np.sin(theta + np.pi), -2.0 + 2.5 * np.sin(theta + np.pi) + 0.4 * feston)
+        rel2 = s - swash2
+        a = np.zeros((H, W, 4), 'uint8')
+        # 1. Sable mouillé laissé sur la rive quand la vague redescend (rel > 0 sur rive, jusqu'à la portée max 6 px).
+        wet_zone = active_sand & (rel > 0.0) & (s <= 5.8 + 0.5 * feston)
+        wet_dark = wet_zone & (rel <= 1.6)
+        wet_mid = wet_zone & (rel > 1.6) & (rel <= 3.2)
+        a[wet_mid] = (*WET_SAND_MID, 255)
+        a[wet_dark] = (*WET_SAND_DARK, 255)
+        # 2. Nappe d'eau peu profonde et écume qui montent sur le sable et bordent la rive (rel <= 0).
+        trail = zone & (rel >= -7.5) & (rel < -5.2) & active_water
+        calm = zone & (rel >= -5.2) & (rel < -3.4)
+        mid = zone & (rel >= -3.4) & (rel < -2.0)
+        light = zone & (rel >= -2.0) & (rel < -0.9)
+        foam = zone & (rel >= -0.9) & (rel <= 0.0)
+        crest_m = foam & (np.sin(theta) >= -0.35)
+        foam_m = foam & ~crest_m
+        a[trail] = (*SURF_DEEP, 255)
+        a[calm] = (*SURF_CALM, 255)
+        a[mid] = (*SURF_MID, 255)
+        a[light] = (*SURF_LIGHT, 255)
+        a[foam_m] = (*SURF_FOAM, 255)
+        a[crest_m] = (*SURF_CREST, 255)
+        # 3. Crête secondaire de ressac dans l'eau peu profonde contre la rive.
+        foam2 = active_water & (rel2 >= -0.8) & (rel2 <= 0.0) & (rel < -2.2)
+        light2 = active_water & (rel2 >= -1.8) & (rel2 < -0.8) & (rel < -2.6)
+        a[light2] = (*SURF_LIGHT, 255)
+        a[foam2] = (*SURF_FOAM, 255)
+        a[foam2 & (np.sin(theta + np.pi) >= 0.0)] = (*SURF_CREST, 255)
+        frames.append(a)
+    return frames
 
 
 def clean_sol(f):
@@ -312,11 +410,12 @@ def build():
     Image.fromarray((walk * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_praticable.png')
     prof, crest = wave_model(ref)
     mer, _ = sea_frames(water, prof, crest)
+    rive_eau = rive_eau_frames(water, ex['rive'], ex['tertre'], crest)
     poses, pose_pal = sheet_poses(RAW / 'papillons_poses.png')
     for name, p in poses.items():
         Image.fromarray(p).save(OUT / 'poses' / f'{PFX}_{name}.png')
     papillons = butterfly_frames(poses, FLIGHTS)
-    anim = {'mer': mer, 'papillons': papillons}
+    anim = {'mer': mer, 'rive_eau': rive_eau, 'papillons': papillons}
     order_names = ['sol_complet'] + STATIC + ANIMS
     stack_named, layer_list = [], []
     for i, nm in enumerate(order_names):
@@ -413,10 +512,14 @@ def build():
         'mer': {'phases': PHASES, 'frame_length_ticks': TICKS, 'profil': [list(c) for c in prof], 'periode_px': WAVE_P,
                 'profil_source': f'rip, colonne x = {WAVE_COL}, rangees {WAVE_Y0}..{WAVE_Y0 + WAVE_P - 1}',
                 'crete': crest, 'crete_source': f'rip, premiere rangee (215,231,247) par colonne, x = {CREST_X[0]}..{CREST_X[1] - 1}',
-                'pas_px': WAVE_STEP, 'sens': 'vers le nord', 'bande_rive': list(BANDE), 'calme': list(CALME),
+                'pas_px': WAVE_STEP, 'sens': 'vers le sud (vers la rive de sable)', 'bande_rive': list(BANDE), 'calme': list(CALME),
                 'rive_px': {'bande': SHORE_BAND, 'calme': SHORE_CALM},
-                'liseré': 'aucun : seule la couleur la plus sombre du rip touche la terre',
-                'origine': 'profil, crete et couleurs EXACTS du rip (meme loi que ETC1)'},
+                'liseré': 'aucun sur le calque de fond mer : seule la couleur la plus sombre du rip touche la terre ; le ressac animé est sur son propre calque rive_eau',
+                'origine': 'profil, crete et couleurs EXACTS du rip, orientés vers le sud (vers la rive)'},
+        'rive_eau': {'phases': PHASES, 'frame_length_ticks': TICKS,
+                     'couleurs': [list(c) for c in (SURF_CREST, SURF_FOAM, SURF_LIGHT, SURF_MID, SURF_CALM, SURF_DEEP, WET_SAND_DARK, WET_SAND_MID)],
+                     'portee_sable_px': [1, 6], 'portee_eau_px': [1, 7],
+                     'origine': 'ressac et eau peu profonde qui montent sur le sable de la rive et se retirent en mouillant le sable, aux couleurs EXACTES de la rive de S01P03A'},
         'papillons': {'poses': {k: list(v) for k, v in POSE_WIN.items()}, 'reduction': f'x1/{POSE_K}', 'couverture_min': POSE_COV,
                       'fond': 'magenta pur et pixels teintes de magenta (r-g > 60 et b-g > 60), ni gardes ni recolores ; '
                               'chaque fenetre ne garde que la composante qui contient son centre (voisins exclus)',

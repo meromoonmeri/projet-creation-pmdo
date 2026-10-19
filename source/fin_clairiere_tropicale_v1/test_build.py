@@ -113,7 +113,7 @@ class Build(unittest.TestCase):
                     self.assertEqual(int(bad.sum()), 0, name)
 
     def test_multicalque_full_coverage_and_order(self):
-        self.assertEqual(ORDER, ['sol_complet', *STATIC, 'mer', 'papillons'])
+        self.assertEqual(ORDER, ['sol_complet', *STATIC, 'mer', 'rive_eau', 'papillons'])
         self.assertNotIn('profondeur', BY); self.assertNotIn('ponton', BY)  # fin : ni bouche sombre ni ponton
         self.assertTrue(alpha(BY['sol_complet'][0]).all())
         fixed = [alpha(BY[k][0]) for k in STATIC] + [alpha(BY['mer'][0])]
@@ -156,6 +156,7 @@ class Build(unittest.TestCase):
     def test_mer_profil_du_rip_boucle_et_rive_sans_liseré(self):
         Mr = M['mer']; fr = BY['mer']; water = MASK['mer']
         self.assertEqual((len(fr), Mr['frame_length_ticks'], Mr['pas_px'] * len(fr)), (24, 5, Mr['periode_px']))
+        self.assertEqual(Mr['sens'], 'vers le sud (vers la rive de sable)')
         ref = B.rgb(REF); prof, crest = B.wave_model(ref)
         self.assertEqual([list(c) for c in prof], Mr['profil']); self.assertEqual(crest, Mr['crete'])
         self.assertTrue(colors(fr) <= rip_colors())
@@ -166,7 +167,8 @@ class Build(unittest.TestCase):
         far = water & (d > 12)
         far2 = far[:-2] & far[2:]
         for t in range(24):
-            self.assertTrue((fr[(t + 1) % 24][:-2][far2] == fr[t][2:][far2]).all(), t)
+            # La mer est au nord et la rive au sud : chaque vague descend de +2 px vers le sud (vers la rive) par phase.
+            self.assertTrue((fr[(t + 1) % 24][2:][far2] == fr[t][:-2][far2]).all(), t)
         land = ~water; touch = water & (nd.binary_dilation(land, structure=nd.generate_binary_structure(2, 1)))
         self.assertGreater(int(touch.sum()), 200)
         light = {tuple(c) for c in prof if lum(np.array(c, float)) >= lum(np.array([119, 183, 231], float))}
@@ -174,6 +176,24 @@ class Build(unittest.TestCase):
             self.assertTrue((a[touch][:, :3] == Mr['bande_rive']).all())
             near = a[water & (d <= Mr['rive_px']['calme'])][:, :3]
             self.assertFalse(any(tuple(int(v) for v in c) in light for c in np.unique(near, axis=0)))
+        # Rive d'eau animée qui touche et recouvre le sable (rive) au rythme des vagues.
+        Rv = M['rive_eau']; rfr = BY['rive_eau']
+        self.assertEqual((len(rfr), Rv['frame_length_ticks']), (24, 5))
+        self.assertTrue(colors(rfr) <= rip_colors())
+        rcalc = B.rive_eau_frames(water, MASK['rive'], MASK['tertre'], crest)
+        for t, a in enumerate(rfr):
+            self.assertTrue((a == rcalc[t]).all(), t)
+            self.assertGreater(int((alpha(a) & MASK['rive']).sum()), 400, t)
+            self.assertGreater(int((alpha(a) & MASK['mer']).sum()), 400, t)
+        self.assertTrue((B.rive_eau_frames(water, MASK['rive'], MASK['tertre'], crest, ts=[24])[0] == rfr[0]).all())
+        # La nappe d'eau (hors sable mouillé) qui monte sur le sable varie au cours du cycle des vagues.
+        surf_cols = {B.SURF_CREST, B.SURF_FOAM, B.SURF_LIGHT, B.SURF_MID, B.SURF_CALM}
+        on_sand = []
+        for a in rfr:
+            m = alpha(a) & MASK['rive']
+            c = a[m][:, :3]
+            on_sand.append(int(sum(((c[:, 0] == r) & (c[:, 1] == g) & (c[:, 2] == b)).sum() for r, g, b in surf_cols)))
+        self.assertGreater(max(on_sand) - min(on_sand), 500)
 
     def test_papillons_boucle_fermee(self):
         P = M['papillons']; fr = BY['papillons']; ps = poses()

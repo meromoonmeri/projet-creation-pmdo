@@ -306,7 +306,12 @@
       "ticks": 5
     },
     {
-      "file": "animation/papillons/FCT3_11_papillons_fNN.png",
+      "file": "animation/rive_eau/FCT3_11_rive_eau_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/papillons/FCT3_12_papillons_fNN.png",
       "phases": 24,
       "ticks": 5
     }
@@ -634,7 +639,7 @@
     ],
     "crete_source": "rip, premiere rangee (215,231,247) par colonne, x = 0..71",
     "pas_px": 2,
-    "sens": "vers le nord",
+    "sens": "vers le sud (vers la rive de sable)",
     "bande_rive": [
       15,
       95,
@@ -649,8 +654,63 @@
       "bande": 2,
       "calme": 8
     },
-    "liseré": "aucun : seule la couleur la plus sombre du rip touche la terre",
-    "origine": "profil, crete et couleurs EXACTS du rip (meme loi que ETC1)"
+    "liseré": "aucun sur le calque de fond mer : seule la couleur la plus sombre du rip touche la terre ; le ressac animé est sur son propre calque rive_eau",
+    "origine": "profil, crete et couleurs EXACTS du rip, orientés vers le sud (vers la rive)"
+  },
+  "rive_eau": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "couleurs": [
+      [
+        215,
+        231,
+        247
+      ],
+      [
+        167,
+        207,
+        239
+      ],
+      [
+        119,
+        183,
+        231
+      ],
+      [
+        71,
+        151,
+        215
+      ],
+      [
+        63,
+        143,
+        215
+      ],
+      [
+        47,
+        127,
+        207
+      ],
+      [
+        127,
+        103,
+        79
+      ],
+      [
+        151,
+        119,
+        87
+      ]
+    ],
+    "portee_sable_px": [
+      1,
+      6
+    ],
+    "portee_eau_px": [
+      1,
+      7
+    ],
+    "origine": "ressac et eau peu profonde qui montent sur le sable de la rive et se retirent en mouillant le sable, aux couleurs EXACTES de la rive de S01P03A"
   },
   "papillons": {
     "poses": {
@@ -859,8 +919,9 @@
       "FCT3_07_PALMIERS": 479,
       "FCT3_08_TERTRE": 299,
       "FCT3_09_RIVE": 309,
-      "FCT3_10_MER": 2642,
-      "FCT3_11_PAPILLONS": 340
+      "FCT3_10_MER": 2671,
+      "FCT3_11_RIVE": 4526,
+      "FCT3_12_PAPILLONS": 340
     },
     "banks": [
       "FCT3_00_SOL",
@@ -874,7 +935,8 @@
       "FCT3_08_TERTRE",
       "FCT3_09_RIVE",
       "FCT3_10_MER",
-      "FCT3_11_PAPILLONS"
+      "FCT3_11_RIVE",
+      "FCT3_12_PAPILLONS"
     ],
     "runtime_tested": false,
     "warp": "aucun"

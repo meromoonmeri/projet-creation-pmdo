@@ -22,10 +22,11 @@ Cette zone de fin de donjon prolonge l'entrée `ETC1` (`entree_clairiere_tropica
 | 06 | Jungle dense | fixe |
 | 07 | Palmiers | fixe |
 | 08 | Tertre sanctuaire de terre et de roche au nord | fixe |
-| 09 | Rive de terre le long de la mer | fixe |
-| 10 | Mer : vagues de la capture qui montent vers la rive ; seule une bande sombre touche la terre | 24 × 5 ticks |
-| 11 | Papillons (planche de l'entrée ETC1 réutilisée), vol en huit | 24 × 5 ticks |
-| 12 | Vide, `Layer=4` (Top) | — |
+| 09 | Rive de terre et de sable le long de la mer | fixe |
+| 10 | Mer : vagues de la capture qui descendent vers le sud (vers la rive) ; bande sombre sur le calque de fond | 24 × 5 ticks |
+| 11 | Rive d'eau : ressac et écume qui montent sur le sable de la rive et se retirent en mouillant le sable | 24 × 5 ticks |
+| 12 | Papillons (planche de l'entrée ETC1 réutilisée), vol en huit | 24 × 5 ticks |
+| 13 | Vide, `Layer=4` (Top) | — |
 
 La scène complète boucle en 120 ticks (2 s). Tous les calques sont opaques ou transparents, sans alpha intermédiaire.
 

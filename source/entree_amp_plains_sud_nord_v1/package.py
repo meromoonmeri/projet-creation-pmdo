@@ -10,7 +10,7 @@ O = R / 'renders/entree_amp_plains_sud_nord_v1'
 S = R / '.cache/entree_amp_plains_sud_nord_v1/entree_amp_plains_sud_nord'
 PFX = 'EAM1'
 ANIMS = ['arcs_electriques', 'etincelles']
-REVIEW = ['scene_t000.png', 'scene_animee.webp', 'collisions_marqueurs.png']
+REVIEW = ['scene_t000.png', 'scene_animee.webp', 'collisions_marqueurs.png', 'planche_poses.png']
 
 
 def zipdir(path, items):
@@ -27,6 +27,7 @@ def main():
     items = [(p, 'calques/' + p.name) for p in sorted((O / 'calques').glob('*.png'))]
     for sub in ANIMS:
         items += [(p, f'animation/{sub}/' + p.name) for p in sorted((O / 'animation' / sub).glob('*.png'))]
+    items += [(p, 'poses/' + p.name) for p in sorted((O / 'poses').glob('*.png'))]
     items += [(p, 'masques/' + p.name) for p in sorted((O / 'masques').glob('*.png'))]
     items += [(O / f'{PFX}_entree_amp_plains_calques.ora', f'{PFX}_entree_amp_plains_calques.ora'),
               (O / 'manifest.json', 'manifest.json'), (O / 'README.md', 'README.md')]

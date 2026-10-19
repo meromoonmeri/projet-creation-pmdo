@@ -14,8 +14,8 @@
 ### 1. Fin Clairière tropicale : sanctuaire de pierre, FCT3
 - Sorties : `renders/fin_clairiere_tropicale_v1/`, aperçu `apercu_fin_clairiere_tropicale_v1.html`, build `source/fin_clairiere_tropicale_v1/build.py`.
 - **Méthode « textures canoniques »** = rendu généré référencé sur `large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png` (`S01P03A`). Ce ne sont pas des tuiles natives.
-- **Layout** : arrivée au sud par un ponton sur la mer (`entrance` à `(368, 560)`), grande arène sur les dalles grises (`boss` à `(376, 360)`), sanctuaire de pierre fermé au nord (`objectif` à `(384, 208)`) ; aucune sortie, aucun warp.
-- **Calques** : 15 calques + `Top` vide (`mer` 12 × 10 ticks sans liseré clair, `sol_complet`, `ponton`, `herbe`, `ombres`, `dalles`, `bordure`, `rochers`, `jungle`, `buissons`, `sanctuaire`, `troncs`, `hibiscus`, `couronnes`, `papillons` 24 × 5 ticks).
+- **Layout** : arrivée au sud (`entrance` à `(368, 560)`), grande arène sur les dalles grises (`boss` à `(376, 360)`), tertre rocheux au nord (`objectif` à `(384, 208)`) bordé par la plage de sable (`rive`) et la mer turquoise (`mer`) ; aucune sortie, aucun warp.
+- **Calques** : 13 calques + `Top` vide (`sol_complet`, `herbe`, `ombres`, `dalles`, `touffes`, `fleurs`, `jungle`, `palmiers`, `tertre`, `rive`, `mer` 24 × 5 ticks dont les vagues roulent du nord vers la rive sud à `+2 px/phase` sans liseré clair, `rive_eau` 24 × 5 ticks pour le ressac d'écume et le sable mouillé aux couleurs exactes de `S01P03A`, `papillons` 24 × 5 ticks).
 - **Fidélité** (seuil 35) : brut herbe 2,0, jungle 6,7, dalles 7,5 ; calques finaux herbe 3,0, jungle 7,5, dalles 12,3.
 - **Contrôles** : 12 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
@@ -79,7 +79,7 @@
 - Sorties : `renders/entree_amp_plains_sud_nord_v1/`, aperçu `apercu_entree_amp_plains_sud_nord_v1.html`, build `source/entree_amp_plains_sud_nord_v1/build.py`.
 - **Méthode « textures canoniques »** = rendu généré référencé sur `Amp_Plains_entrance_TD.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
 - **Layout** : goulet sud entre falaises d'ardoise (`entrance` à `(384, 560)`), savane jaune-olive ponctuée de 4 arbres morts foudroyés, 17 rochers d'ardoise et 39 petits cailloux praticables, et goulet rocheux au nord (`donjon_seuil` à `(376, 16)`) ; aucun warp.
-- **Calques** : 10 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `falaises_claires`, `falaises_sombres`, `arcs_electriques` 24 × 5 ticks, `etincelles` 24 × 5 ticks).
+- **Calques** : 10 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `falaises_claires`, `falaises_sombres`, `arcs_electriques` 24 × 5 ticks et `etincelles` 24 × 5 ticks utilisant 17 poses d'électricité style PMD générées sur fond magenta `#FF00FF` dans `bruts/electricite_poses.png`).
 - **Fidélité** (seuil 35) : brut herbe 13,7, roche claire 5,6, roche sombre 3,9 ; calques finaux herbe 2,1, falaises claires 6,5, falaises sombres 2,4.
 - **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
@@ -87,13 +87,13 @@
 - Sorties : `renders/fin_amp_plains_v1/`, aperçu `apercu_fin_amp_plains_v1.html`, build `source/fin_amp_plains_v1/build.py`.
 - **Méthode « textures canoniques »** = rendu généré référencé sur `Amp_Plains_entrance_TD.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
 - **Layout** : goulet sud (`entrance` à `(384, 560)`), vaste arène circulaire de savane ceinturée de falaises d'ardoise fermant le nord et les côtés (`boss` à `(376, 288)`), 2 arbres morts foudroyés, 11 rochers d'ardoise et monolithe / autel de foudre à degrés au nord-centre (`objectif` à `(376, 184)`) ; aucune sortie, aucun warp.
-- **Calques** : 11 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `autel_foudre`, `falaises_claires`, `falaises_sombres`, `foudre_autel` 24 × 5 ticks, `etincelles` 24 × 5 ticks).
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `autel_foudre`, `falaises_claires`, `falaises_sombres`, `foudre_autel` 24 × 5 ticks et `etincelles` 24 × 5 ticks utilisant 19 poses d'électricité style PMD générées sur fond magenta `#FF00FF` dans `bruts/electricite_poses.png`).
 - **Fidélité** (seuil 35) : brut herbe 1,6, roche claire 8,1, roche sombre 10,2 ; calques finaux herbe 2,6, falaises claires 9,2, falaises sombres 8,8.
 - **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
 ### 11. Mod PMDO 0.8.12 unifié des 19 fins de donjon (`guilde_fins_donjons`)
-- Sorties : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (31,8 Mo), `renders/mod_guilde_fins_v1/planche_cartes.png`, galerie `apercu_mod_guilde_fins_v1.html`, build `source/mod_guilde_fins_v1/build_mod.py`.
-- Regroupe octet pour octet les 19 salles de fin de donjon (`FVS1`, `FCF1`, `FRP1`, `FGG1`, `FGG2`, `FBS1`, `FJS1`, `FOC1`, `FWC1`, `FUL2`, `FMF3`, `FSM1`, `FST1`, `FCT3`, `FCV5`, `FMT4`, `FJS5`, `FOC2`, `FAM1`), soit **19 Grounds `.rsground`** et **184 banques `.tile`** avec `Content/Tile/index.idx` fusionné et `INSTALLER.py`.
+- Sorties : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (32,1 Mo), `renders/mod_guilde_fins_v1/planche_cartes.png`, galerie `apercu_mod_guilde_fins_v1.html`, build `source/mod_guilde_fins_v1/build_mod.py`.
+- Regroupe octet pour octet les 19 salles de fin de donjon (`FVS1`, `FCF1`, `FRP1`, `FGG1`, `FGG2`, `FBS1`, `FJS1`, `FOC1`, `FWC1`, `FUL2`, `FMF3`, `FSM1`, `FST1`, `FCT3`, `FCV5`, `FMT4`, `FJS5`, `FOC2`, `FAM1`), soit **19 Grounds `.rsground`** et **185 banques `.tile`** avec `Content/Tile/index.idx` fusionné et `INSTALLER.py`.
 - **Contrôles** : 6 tests PASS (`source.mod_guilde_fins_v1.test_mod`). Pas de runtime, `art_approved: false`.
 
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
