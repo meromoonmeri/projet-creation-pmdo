@@ -34,7 +34,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/entree_waterfall_cave_sud_nord_v2/` | build · package · test · PACK · viewer | 5/5 | 0.1 |
 | `source/entree_waterfall_cave_sud_nord_v3/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
 
-## Fins de donjon / arènes de boss — 15 projets · 82 fichiers extraits · 1 Mo
+## Fins de donjon / arènes de boss — 17 projets · 92 fichiers extraits · 1 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
@@ -47,10 +47,12 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_jardin_secret_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/fin_jungle_sud_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 | `source/fin_mt_thunder_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
+| `source/fin_mystifying_forest_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/fin_ocean_kyogre_v1/` | build · package · test · PACK · viewer | 8/10 | 0.2 |
 | `source/fin_ruine_puits_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 | `source/fin_sables_mouvants_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/fin_star_cave_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
+| `source/fin_underground_lake_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 | `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 

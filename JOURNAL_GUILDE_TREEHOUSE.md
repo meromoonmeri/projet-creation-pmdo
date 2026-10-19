@@ -43,6 +43,22 @@
 - **Fidélité** (seuil 35) : brut fond 3,4, herbe claire 10,2, herbe 14,1, roche 12,3 ; calques finaux fond 4,0, prairie 21,0, herbe 10,1, ombres 21,9, rochers 14,7.
 - **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
+### 5. Fin Underground Lake : rive du lac souterrain, FUL2
+- Sorties : `renders/fin_underground_lake_v1/`, aperçu `apercu_fin_underground_lake_v1.html`, build `source/fin_underground_lake_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Underground_Lake_shore_TDS.png`. Ce ne sont pas des tuiles natives.
+- **Layout** : couloir de sable au sud (`entrance` à `(384, 560)`), promontoire de sable en arène (`boss` à `(376, 320)`), rive nord face au lac souterrain entre deux grands piliers et 12 stalagmites (`objectif` à `(376, 248)`) ; aucune sortie, aucun warp.
+- **Calques** : 10 calques + `Top` vide (`eau` 4 × 10 ticks aux couleurs exactes du rip sans liseré clair, `lueur` 12 × 10 ticks aux 9 couleurs exactes du rip, `scintillements` Métano natifs 4 × 10 ticks, `gouttes` 24 × 5 ticks, `sol_complet`, `sable`, `ombres`, `berge`, `roche`, `piliers`).
+- **Fidélité** (seuil 20) : brut sable 9,5, roche 2,4 ; calques finaux sable 3,9, roche 7,2, piliers 12,0.
+- **Contrôles** : 14 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 6. Fin Mystifying Forest : clairière de la source, FMF3
+- Sorties : `renders/fin_mystifying_forest_v1/`, aperçu `apercu_fin_mystifying_forest_v1.html`, build `source/fin_mystifying_forest_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Mystifying_Forest_entrance_TDS.png`. Ce ne sont pas des tuiles natives.
+- **Layout** : chemin au sud (`entrance` à `(376, 560)`), grande arène centrale de terre et d'herbe (`boss` à `(376, 304)`), stèle moussue devant la mare sacrée au nord fermée par un hémicycle de grands arbres (`objectif` à `(376, 232)`) ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`eau` Métano 4 × 10 ticks sans liseré clair, `scintillements` Métano natifs 4 × 10 ticks, `sol_complet`, `herbe`, `chemin`, `herbes_hautes`, `rochers`, `arbres`, `stele`, `feuilles` 48 × 5 ticks, `lucioles` 48 × 5 ticks).
+- **Fidélité** (seuil 20) : brut herbe 6,0, chemin 5,3, feuillage sombre 4,7, roche/racines 18,5 ; calques finaux herbe 5,0, chemin 4,0, feuillage sombre 2,7, roche/racines 2,6.
+- **Contrôles** : 12 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.
