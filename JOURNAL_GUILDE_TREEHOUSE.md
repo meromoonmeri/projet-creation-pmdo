@@ -7,6 +7,42 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Suite des fins de donjon : FCT3, FCV5, FMT4 et FJS5 (19 octobre 2026)
+
+**Demande** : « Poursuis le projet tu vas lire les read me agent et outil et methode creation de map pmd texture canonique », puis confirmation utilisateur de poursuivre la série des quatre fins de donjon restantes de `main` dans l'ordre du mod (`FCT3`, `FCV5`, `FMT4`, `FJS5`).
+
+### 1. Fin Clairière tropicale : sanctuaire de pierre, FCT3
+- Sorties : `renders/fin_clairiere_tropicale_v1/`, aperçu `apercu_fin_clairiere_tropicale_v1.html`, build `source/fin_clairiere_tropicale_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png` (`S01P03A`). Ce ne sont pas des tuiles natives.
+- **Layout** : arrivée au sud par un ponton sur la mer (`entrance` à `(368, 560)`), grande arène sur les dalles grises (`boss` à `(376, 360)`), sanctuaire de pierre fermé au nord (`objectif` à `(384, 208)`) ; aucune sortie, aucun warp.
+- **Calques** : 15 calques + `Top` vide (`mer` 12 × 10 ticks sans liseré clair, `sol_complet`, `ponton`, `herbe`, `ombres`, `dalles`, `bordure`, `rochers`, `jungle`, `buissons`, `sanctuaire`, `troncs`, `hibiscus`, `couronnes`, `papillons` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut herbe 2,0, jungle 6,7, dalles 7,5 ; calques finaux herbe 3,0, jungle 7,5, dalles 12,3.
+- **Contrôles** : 12 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 2. Fin Couloir violet : autel monolithique sous arche, FCV5
+- Sorties : `renders/fin_couloir_violet_v1/`, aperçu `apercu_fin_couloir_violet_v1.html`, build `source/fin_couloir_violet_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `large.S05P03A.png.301f7a1eadda348357be0801e81faa2a.png` (`S05P03A`). Ce ne sont pas des tuiles natives.
+- **Layout** : arrivée au sud (`entrance` à `(384, 560)`), salle d'arène rocheuse violette (`boss` à `(384, 368)`), autel monolithique sous arche rocheuse fermée au nord (`objectif` à `(376, 216)`) ; aucune sortie, aucun warp.
+- **Calques** : 10 calques + `Top` vide (`sol_complet`, `sol`, `ombres`, `bordures`, `blocs`, `rochers`, `autel`, `arche`, `eboulis` 24 × 5 ticks avec gravillons exacts de la capture, `poussiere` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut sol 7,6, roche 12,1 ; calques finaux sol 10,7, rochers 12,4, blocs 6,1, autel 6,8.
+- **Contrôles** : 12 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 3. Fin Mt. Thunder : arène du sommet, FMT4
+- Sorties : `renders/fin_mt_thunder_v1/`, aperçu `apercu_fin_mt_thunder_v1.html`, build `source/fin_mt_thunder_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Mt. Thunder.png` (`y < 352`). Ce ne sont pas des tuiles natives.
+- **Layout** : crête de sable sortant des nuages au sud (`entrance` à `(384, 560)`), esplanade du sommet à deux degrés (`boss` à `(384, 288)`), piton rocheux fermé au nord (`objectif` à `(376, 168)`) ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`ciel`, `nuages`, `sol_complet`, `sable`, `esplanade`, `ombres`, `degres`, `rebords`, `falaise`, `piton`, `eclairs` 24 × 5 ticks copiés de la planche `y >= 352` aux couleurs Normal/Fading exactes).
+- **Brut écarté** : 1er essai archivé dans `source/fin_mt_thunder_v1/bruts/ecartes/decor_essai1_roche_trop_sombre.png` (`roche` à 68,3 > 35). 2e essai retenu : sable 1,7, roche 10,2, ciel 6,6, nuages sombres 5,8, nuages clairs 15,0.
+- **Contrôles** : 10 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 4. Fin Jardin secret : sanctuaire de Celebi, FJS5
+- Sorties : `renders/fin_jardin_secret_v1/`, aperçu `apercu_fin_jardin_secret_v1.html`, build `source/fin_jardin_secret_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `secretgarden.png`. Ce ne sont pas des tuiles natives.
+- **Layout** : allée entre deux haies au sud (`entrance` à `(384, 560)`), grande prairie centrale fleurie (`boss` à `(384, 304)`), souche dorée à marches au nord portant l'autel de pierre claire à l'emblème de Celebi (`objectif` à `(376, 128)`) ; aucune sortie, aucun warp.
+- **Calques** : 15 calques + `Top` vide (`fond`, `sol_complet`, `prairie`, `herbe`, `ombres`, `fleurs`, `marches`, `souche`, `rochers`, `haies`, `arbres`, `autel`, `embleme` 24 × 5 ticks, `rayon` 24 × 5 ticks sur la rampe exacte du rip, `lucioles` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut fond 3,4, herbe claire 10,2, herbe 14,1, roche 12,3 ; calques finaux fond 4,0, prairie 21,0, herbe 10,1, ombres 21,9, rochers 14,7.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.
