@@ -231,3 +231,20 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Suite de la série sur `arena/d87422d0-projet-creation-pmdo` (19 octobre 2026)
+
+Dix nouveaux lots et le mod unifié des 19 fins de donjon ont été produits et vérifiés sur cette branche :
+
+1. `FCT3` — `source/fin_clairiere_tropicale_v1/` (`renders/fin_clairiere_tropicale_v1/`, `apercu_fin_clairiere_tropicale_v1.html`) : 12/12 tests unitaires + 6/6 mutations.
+2. `FCV5` — `source/fin_couloir_violet_v1/` (`renders/fin_couloir_violet_v1/`, `apercu_fin_couloir_violet_v1.html`) : 12/12 tests unitaires + 6/6 mutations.
+3. `FMT4` — `source/fin_mt_thunder_v1/` (`renders/fin_mt_thunder_v1/`, `apercu_fin_mt_thunder_v1.html`) : 10/10 tests unitaires + 6/6 mutations.
+4. `FJS5` — `source/fin_jardin_secret_v1/` (`renders/fin_jardin_secret_v1/`, `apercu_fin_jardin_secret_v1.html`) : 11/11 tests unitaires + 6/6 mutations.
+5. `FUL2` — `source/fin_underground_lake_v1/` (`renders/fin_underground_lake_v1/`, `apercu_fin_underground_lake_v1.html`) : 14/14 tests unitaires + 6/6 mutations.
+6. `FMF3` — `source/fin_mystifying_forest_v1/` (`renders/fin_mystifying_forest_v1/`, `apercu_fin_mystifying_forest_v1.html`) : 12/12 tests unitaires + 6/6 mutations.
+7. `EOC2` — `source/entree_old_castle_sud_nord_v1/` (`renders/entree_old_castle_sud_nord_v1/`, `apercu_entree_old_castle_sud_nord_v1.html`) : 11/11 tests unitaires + 6/6 mutations.
+8. `FOC2` — `source/fin_old_castle_v1/` (`renders/fin_old_castle_v1/`, `apercu_fin_old_castle_v1.html`) : 11/11 tests unitaires + 6/6 mutations.
+9. `EAM1` — `source/entree_amp_plains_sud_nord_v1/` (`renders/entree_amp_plains_sud_nord_v1/`, `apercu_entree_amp_plains_sud_nord_v1.html`) : 11/11 tests unitaires + 6/6 mutations.
+10. `FAM1` — `source/fin_amp_plains_v1/` (`renders/fin_amp_plains_v1/`, `apercu_fin_amp_plains_v1.html`) : 11/11 tests unitaires + 6/6 mutations.
+11. `guilde_fins_donjons` — `source/mod_guilde_fins_v1/` (`renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip`, `apercu_mod_guilde_fins_v1.html`) : 19 Grounds, 184 banques `.tile`, 6/6 tests unitaires.
+

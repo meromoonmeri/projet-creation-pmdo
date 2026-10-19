@@ -59,6 +59,43 @@
 - **Fidélité** (seuil 20) : brut herbe 6,0, chemin 5,3, feuillage sombre 4,7, roche/racines 18,5 ; calques finaux herbe 5,0, chemin 4,0, feuillage sombre 2,7, roche/racines 2,6.
 - **Contrôles** : 12 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
+### 7. Entrée Old Castle (Chambre Dorée) : allée des balustrades et arche dorée, EOC2
+- Sorties : `renders/entree_old_castle_sud_nord_v1/`, aperçu `apercu_entree_old_castle_sud_nord_v1.html`, build `source/entree_old_castle_sud_nord_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `oldcastlepmd.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : arrivée au sud entre deux balustrades à volutes et quatre colonnes à sphère d'or (`entrance` à `(384, 560)`), vaste salle aux dalles dorées avec rosace circulaire sculptée au centre, deux ailes latérales courbes de 10 coffres chacune (20 coffres), et arche dorée au nord encadrée de deux colonnes (`donjon_seuil` à `(376, 80)`) ; aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `dalles_claires`, `dalles`, `rosace`, `dalles_sombres`, `murs_bordure`, `colonnes_balustrades`, `arche_seuil`, `coffres`, `lueur_portail` 24 × 5 ticks et `eclats_or` 24 × 5 ticks aux couleurs exactes du rip).
+- **Fidélité** (seuil 35) : brut dalles claires 3,5, dalles 4,2, bronze 9,5, coffres 8,2 ; calques finaux dalles claires 7,1, dalles 6,8, dalles sombres 13,8, coffres 16,6.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 8. Fin Old Castle (Chambre Dorée) : salle du trésor et autel royal, FOC2
+- Sorties : `renders/fin_old_castle_v1/`, aperçu `apercu_fin_old_castle_v1.html`, build `source/fin_old_castle_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `oldcastlepmd.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : arrivée au sud entre balustrades et colonnes (`entrance` à `(384, 560)`), grande rosace centrale (`boss` à `(376, 288)`), double arc semi-circulaire de 22 coffres encadrant la rosace, et autel royal doré au nord-centre (`objectif` à `(376, 160)`) devant le mur nord fermé ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `dalles_claires`, `dalles`, `rosace`, `dalles_sombres`, `murs_bordure`, `colonnes_balustrades`, `autel`, `coffres`, `lueur_autel` 24 × 5 ticks et `eclats_or` 24 × 5 ticks aux couleurs exactes du rip).
+- **Fidélité** (seuil 35) : brut dalles claires 7,5, dalles 4,5, bronze 5,2, coffres 7,1 ; calques finaux dalles claires 1,5, dalles 2,4, dalles sombres 20,7, coffres 5,3.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 9. Entrée Amp Plains (Plaine Électrik) : savane et arbres foudroyés, EAM1
+- Sorties : `renders/entree_amp_plains_sud_nord_v1/`, aperçu `apercu_entree_amp_plains_sud_nord_v1.html`, build `source/entree_amp_plains_sud_nord_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Amp_Plains_entrance_TD.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : goulet sud entre falaises d'ardoise (`entrance` à `(384, 560)`), savane jaune-olive ponctuée de 4 arbres morts foudroyés, 17 rochers d'ardoise et 39 petits cailloux praticables, et goulet rocheux au nord (`donjon_seuil` à `(376, 16)`) ; aucun warp.
+- **Calques** : 10 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `falaises_claires`, `falaises_sombres`, `arcs_electriques` 24 × 5 ticks, `etincelles` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut herbe 13,7, roche claire 5,6, roche sombre 3,9 ; calques finaux herbe 2,1, falaises claires 6,5, falaises sombres 2,4.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 10. Fin Amp Plains (Plaine Électrik) : arène et monolithe de foudre, FAM1
+- Sorties : `renders/fin_amp_plains_v1/`, aperçu `apercu_fin_amp_plains_v1.html`, build `source/fin_amp_plains_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Amp_Plains_entrance_TD.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : goulet sud (`entrance` à `(384, 560)`), vaste arène circulaire de savane ceinturée de falaises d'ardoise fermant le nord et les côtés (`boss` à `(376, 288)`), 2 arbres morts foudroyés, 11 rochers d'ardoise et monolithe / autel de foudre à degrés au nord-centre (`objectif` à `(376, 184)`) ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_sombres`, `cailloux`, `rochers`, `arbres_morts`, `autel_foudre`, `falaises_claires`, `falaises_sombres`, `foudre_autel` 24 × 5 ticks, `etincelles` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut herbe 1,6, roche claire 8,1, roche sombre 10,2 ; calques finaux herbe 2,6, falaises claires 9,2, falaises sombres 8,8.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 11. Mod PMDO 0.8.12 unifié des 19 fins de donjon (`guilde_fins_donjons`)
+- Sorties : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (31,8 Mo), `renders/mod_guilde_fins_v1/planche_cartes.png`, galerie `apercu_mod_guilde_fins_v1.html`, build `source/mod_guilde_fins_v1/build_mod.py`.
+- Regroupe octet pour octet les 19 salles de fin de donjon (`FVS1`, `FCF1`, `FRP1`, `FGG1`, `FGG2`, `FBS1`, `FJS1`, `FOC1`, `FWC1`, `FUL2`, `FMF3`, `FSM1`, `FST1`, `FCT3`, `FCV5`, `FMT4`, `FJS5`, `FOC2`, `FAM1`), soit **19 Grounds `.rsground`** et **184 banques `.tile`** avec `Content/Tile/index.idx` fusionné et `INSTALLER.py`.
+- **Contrôles** : 6 tests PASS (`source.mod_guilde_fins_v1.test_mod`). Pas de runtime, `art_approved: false`.
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.

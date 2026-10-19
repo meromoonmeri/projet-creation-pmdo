@@ -33,6 +33,8 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/entree_waterfall_cave_sud_nord_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/entree_waterfall_cave_sud_nord_v2/` | build · package · test · PACK · viewer | 5/5 | 0.1 |
 | `source/entree_waterfall_cave_sud_nord_v3/` | build · package · test · PACK · viewer | 5/6 | 0.1 |
+| `source/entree_old_castle_sud_nord_v1/` | build · package · test · PACK · viewer · **Ground** · **tileset** · réf. | 7/7 | 4.4 |
+| `source/entree_amp_plains_sud_nord_v1/` | build · package · test · PACK · viewer · **Ground** · **tileset** · réf. | 7/7 | 4.6 |
 
 ## Fins de donjon / arènes de boss — 17 projets · 92 fichiers extraits · 1 Mo
 
@@ -55,6 +57,9 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/fin_underground_lake_v1/` | build · package · test · PACK · viewer | 5/8 | 0.1 |
 | `source/fin_vapeur_sommet_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
 | `source/fin_waterfall_cave_v1/` | build · package · test · PACK · viewer | 5/8 | 0.0 |
+| `source/fin_old_castle_v1/` | build · package · test · PACK · viewer · **Ground** · **tileset** · réf. | 7/7 | 4.5 |
+| `source/fin_amp_plains_v1/` | build · package · test · PACK · viewer · **Ground** · **tileset** · réf. | 7/7 | 4.5 |
+| `source/mod_guilde_fins_v1/` | build_mod · test_mod · **Ground** · **tileset** | 2/2 | 31.8 |
 
 ## Arènes — 12 projets · 61 fichiers extraits · 1 Mo
 
