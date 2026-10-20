@@ -238,3 +238,5 @@ Même jour, sur « continue ! les arbre de fin jardin secret doit animée son fe
 Même jour, sur « refait avec les arbre statique et passe au prochaine map ! je veux pas d'embleme sur le temple de celebi » : **FSE1 refaite** — arbres statiques, temple sans emblème (versions précédentes gardées dans `bruts/ecartes/`), 12 tests PASS, commit séparé. Map suivante dans l'ordre du mod : **Fin Underground Lake** (depuis EUL1).
 
 Même jour : map suivante, **Fin Underground Lake** (`source/fin_underground_lake_v1/`, préfixe `FLU1`, aperçu `apercu_fin_underground_lake_v1.html`, 15 tests PASS, 1 mutation vérifiée). Arène de sable, lac Métano au nord, chaussée vers la rive nord fermée sans tunnel. Voir `AGENTS.md` section FLU1. Fin restante ici : Mystifying Forest.
+
+Même jour, sur « Poursuis ! » : **Fin Mystifying Forest** (`source/fin_mystifying_forest_v1/`, préfixe `FMY1`, aperçu `apercu_fin_mystifying_forest_v1.html`, 13 tests PASS, 1 mutation vérifiée). Clai­rière-arène, mare Métano, clairière sombre fermée au nord. Voir `AGENTS.md` section FMY1. **Toutes les entrées de cette branche ont leur fin.**

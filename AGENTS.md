@@ -1270,3 +1270,10 @@ Pas de runtime. Pas dans le mod unique.
 - **Fin construite depuis l'entrée EUL1** : décor neuf (arène de sable centrale, lac au nord, chaussée vers une **rive nord rocheuse fermée, sans tunnel**) ; le calque `profondeur` et la détection de bouche sont supprimés (`opening = zeros` dans le classify de ce lot), marqueurs `entrance`/`boss`/`objectif`. Planche gouttes/ronds **réutilisée d'EUL1** (même biome, fichier récupéré du dépôt source, déclaré dans le manifeste). Sol complet régénéré depuis le décor de fin.
 - Accès (384,560) / (384,376) / (368,152) ; 1334 praticables / 5578 bloquées. Fidélité : brut sable 4,8 / roche 1,8 ; calques ≤ 21,9 (piliers). Pas de runtime PMDO.
 - **Fins restantes ici** (entrées sans fin sur cette branche) : Mystifying Forest (FMF1/FMF2 sœurs non repris). Les autres entrées ont leur fin.
+
+## Fin Mystifying Forest — FMY1, dernière fin de la série (20 octobre 2026)
+
+- **Lot** `source/fin_mystifying_forest_v1/`, préfixe `FMY1` (`FMF1`/`FMF2` pris sur les branches sœurs, non repris), aperçu `apercu_fin_mystifying_forest_v1.html`, 13 tests PASS, 1 mutation vérifiée. Construite depuis EMF1 : clairière-arène centrale, **clairière sombre fermée au nord** (`opening = zeros`, pas de calque `profondeur`), marqueurs `entrance`/`boss`/`objectif` (384,560) / (376,376) / (344,184) ; 1892 praticables / 5020 bloquées.
+- Sol complet : le générateur peut rendre une **réponse sans image** (2 fois ici, comme les 3 d'EMF1) — réessayer en reformulant. `repair_ground` d'EMF1 suppose une bande sombre : le sol de fin est propre, la réparation est devenue conditionnelle (`bande_haut_rangees: 0`).
+- Planche feuilles/lucioles réutilisée d'EMF1. Fidélité brut ≤ 16,9, calques ≤ 25,8 (seuil 35). Pas de runtime PMDO.
+- **Toutes les entrées de cette branche ont désormais leur fin** (série des fins complète ici).
