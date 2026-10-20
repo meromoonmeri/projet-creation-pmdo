@@ -29,7 +29,8 @@ BRUTS = HERE / 'bruts'
 SPINDA = ROOT / 'renders/cafe_spinda_revisite_v7/salles'
 OUT = ROOT / 'renders/reseau_metano_normal_v1'
 NEUTRAL = (58, 48, 40)
-W, H = 600, 448
+W, H = 800, 600  # 100x75 tuiles : calibre sur les interieurs de guilde Halcyon (lobby 100x56, 2e etage 84x56)
+TW, TH = W // 8, H // 8
 
 ROOMS = ['accueil', 'cafe', 'salon_haut', 'casino', 'salon_bas']
 FLOORS = {'accueil': 0, 'cafe': 1, 'salon_haut': 1, 'casino': -1, 'salon_bas': -1}
@@ -138,9 +139,9 @@ def encode_tile(path, tiles, cols=48):
 def build_ground(rid, im, ref_ground):
     a = np.array(im)
     tiles, index = [], {}
-    grid = [[None] * 56 for _ in range(75)]
-    for cx in range(75):
-        for cy in range(56):
+    grid = [[None] * TH for _ in range(TW)]
+    for cx in range(TW):
+        for cy in range(TH):
             cell = a[cy * 8:(cy + 1) * 8, cx * 8:(cx + 1) * 8]
             if (cell[..., 3] > 0).mean() < 0.4:
                 continue
@@ -161,9 +162,9 @@ def build_ground(rid, im, ref_ground):
         if isinstance(obj.get(k), list):
             obj[k] = []
     tiles_json = []
-    for cx in range(75):
+    for cx in range(TW):
         col = []
-        for cy in range(56):
+        for cy in range(TH):
             idx = grid[cx][cy]
             if idx is None:
                 col.append({'AutoTileset': '', 'Associates': [], 'Layers': [], 'NeighborCode': -1})
@@ -206,8 +207,7 @@ def main():
     previews = {}
     for rid in ROOMS:
         spinda = Image.open(SPINDA / f'SpindaV7_{rid}_sans_magenta.png').convert('RGBA')
-        assert spinda.size == (W, H)
-        mask = np.array(spinda)[..., 3]
+        mask = np.array(spinda.resize((W, H), Image.Resampling.NEAREST))[..., 3]
         brut = segment_magenta(Image.open(BRUTS / f'{rid}.png'))
         room = cover_to_mask(brut, mask)
         room = purge_magenta(room)
@@ -225,7 +225,7 @@ def main():
                                   'ground': f'grounds/metano_gen_{rid}.rsground',
                                   'tileset': f'tilesheets/MetanoGen_{rid}.tile',
                                   'tuiles_uniques': ntiles, 'residu_pourpre_bord_px': resid,
-                                  'acces': ACCESS[rid]})
+                                  'acces': {k: (round(x * W / 600), round(y * H / 448)) for k, (x, y) in ACCESS[rid].items()}})
         print(rid, 'ok, tuiles:', ntiles, 'residu pourpre:', resid)
     (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding='utf-8')
 
