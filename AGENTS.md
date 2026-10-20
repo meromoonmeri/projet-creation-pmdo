@@ -1277,3 +1277,10 @@ Pas de runtime. Pas dans le mod unique.
 - Sol complet : le générateur peut rendre une **réponse sans image** (2 fois ici, comme les 3 d'EMF1) — réessayer en reformulant. `repair_ground` d'EMF1 suppose une bande sombre : le sol de fin est propre, la réparation est devenue conditionnelle (`bande_haut_rangees: 0`).
 - Planche feuilles/lucioles réutilisée d'EMF1. Fidélité brut ≤ 16,9, calques ≤ 25,8 (seuil 35). Pas de runtime PMDO.
 - **Toutes les entrées de cette branche ont désormais leur fin** (série des fins complète ici).
+
+## Réseau café Spinda au propre, sans fond magenta (20 octobre 2026)
+
+- **Lot** `source/cafe_spinda_reseau_propre_v1/` : dérivé propre de V4 (préservée, aperçus magenta compris), à la demande de l'utilisateur. Salles 600×448 en PNG **transparents** ; aucun pixel magenta opaque (salles ni calques, assertions dans `verify.py`).
+- Les calques WebP/PNG de V4 n'étaient pas dans ce dépôt allégé : pack `SpindaV4_pack.zip` récupéré du dépôt source @ `6cca4a0` et conservé dans le lot comme entrée (sha256 au manifeste).
+- **Frange de détourage** : le fond magenta laisse une frange teintée (r,b > g+40) à ≤2 px de la transparence sur les bordures rocheuses ; recolorée par plus proche voisin propre du même calque (alpha/silhouette inchangées). Le vérificateur prouve que l'écart avec le pack V4 se limite à ces pixels.
+- Fond neutre chaud (58,48,40) uniquement dans les aperçus `*_sur_fond_neutre.png` ; ne jamais le confondre avec un fond de salle.

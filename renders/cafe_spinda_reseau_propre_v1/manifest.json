@@ -1,0 +1,407 @@
+{
+  "lot": "cafe_spinda_reseau_propre_v1",
+  "title": "Café & Casino Spinda · réseau au propre (sans fond magenta)",
+  "demande": "« je veux que tu me fasse le réseau café au propre sans le fond majenta stp » (20 octobre 2026)",
+  "source": {
+    "lot": "cafe_spinda_reseau_v4 (préservé, inchangé)",
+    "pack": {
+      "file": "source/cafe_spinda_reseau_propre_v1/SpindaV4_pack.zip",
+      "sha256": "3a250ebdb6a104c7f1815e93cd08e091e6a2e57f568317868fc8884642feda29",
+      "provenance": "meromoonmeri/projet-pmdo @ 6cca4a09380211e510ab1bea454a1b1926ef4b5a, renders/cafe_spinda_reseau_v4/SpindaV4_pack.zip"
+    }
+  },
+  "fond": "TRANSPARENT dans toutes les salles et tous les calques (alpha 0 hors salle) ; fond neutre chaud (58,48,40) uniquement dans les aperçus *_sur_fond_neutre.png ; aucun pixel magenta, vérifié",
+  "rooms": [
+    {
+      "id": "accueil",
+      "title": "Accueil de Spinda",
+      "level": 0,
+      "size": [
+        600,
+        448
+      ],
+      "file": "salles/CafePropre_accueil_transparent.png",
+      "preview": "apercus/CafePropre_accueil_sur_fond_neutre.png",
+      "layers": [
+        {
+          "id": "sol",
+          "title": "Plancher (sous les lumières)",
+          "file": "calques/accueil/SpindaV4_accueil_sol.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "lumieres",
+          "title": "Spirales et lumières statiques",
+          "file": "calques/accueil/SpindaV4_accueil_lumieres.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "parois",
+          "title": "Boiseries et bordure arrière",
+          "file": "calques/accueil/SpindaV4_accueil_parois.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "bordures",
+          "title": "Bordures latérales / avant et seuil",
+          "file": "calques/accueil/SpindaV4_accueil_bordures.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "escaliers",
+          "title": "Escaliers natifs proposés (option)",
+          "file": "calques/accueil/SpindaV4_accueil_escaliers_proposes.png",
+          "default": false,
+          "role": "native_stair_proposals"
+        }
+      ],
+      "frange_magenta_recoloree_px": 1082,
+      "ports": {
+        "sortie": {
+          "point": [
+            300,
+            378
+          ],
+          "kind": "exterior"
+        },
+        "descente": {
+          "point": [
+            176,
+            232
+          ],
+          "kind": "stair_proposal",
+          "target": "casino",
+          "target_port": "retour"
+        },
+        "montee": {
+          "point": [
+            424,
+            232
+          ],
+          "kind": "stair_proposal",
+          "target": "cafe",
+          "target_port": "retour"
+        }
+      }
+    },
+    {
+      "id": "casino",
+      "title": "Casino souterrain",
+      "level": -1,
+      "size": [
+        600,
+        448
+      ],
+      "file": "salles/CafePropre_casino_transparent.png",
+      "preview": "apercus/CafePropre_casino_sur_fond_neutre.png",
+      "layers": [
+        {
+          "id": "sol",
+          "title": "Plancher (sous les lumières)",
+          "file": "calques/casino/SpindaV4_casino_sol.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "lumieres",
+          "title": "Spirales et lumières statiques",
+          "file": "calques/casino/SpindaV4_casino_lumieres.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "parois",
+          "title": "Boiseries et bordure arrière",
+          "file": "calques/casino/SpindaV4_casino_parois.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "bordures",
+          "title": "Bordures latérales / avant et seuil",
+          "file": "calques/casino/SpindaV4_casino_bordures.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "escaliers",
+          "title": "Escaliers natifs proposés (option)",
+          "file": "calques/casino/SpindaV4_casino_escaliers_proposes.png",
+          "default": false,
+          "role": "native_stair_proposals"
+        }
+      ],
+      "frange_magenta_recoloree_px": 853,
+      "ports": {
+        "E": {
+          "point": [
+            584,
+            232
+          ],
+          "kind": "door",
+          "edge_interval": [
+            219,
+            244
+          ],
+          "target": "salon_bas",
+          "target_port": "W"
+        },
+        "retour": {
+          "point": [
+            176,
+            232
+          ],
+          "kind": "stair_proposal",
+          "target": "accueil",
+          "target_port": "descente"
+        }
+      }
+    },
+    {
+      "id": "salon_bas",
+      "title": "Salon des jeux",
+      "level": -1,
+      "size": [
+        600,
+        448
+      ],
+      "file": "salles/CafePropre_salon_bas_transparent.png",
+      "preview": "apercus/CafePropre_salon_bas_sur_fond_neutre.png",
+      "layers": [
+        {
+          "id": "sol",
+          "title": "Plancher (sous les lumières)",
+          "file": "calques/salon_bas/SpindaV4_salon_bas_sol.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "lumieres",
+          "title": "Spirales et lumières statiques",
+          "file": "calques/salon_bas/SpindaV4_salon_bas_lumieres.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "parois",
+          "title": "Boiseries et bordure arrière",
+          "file": "calques/salon_bas/SpindaV4_salon_bas_parois.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "bordures",
+          "title": "Bordures latérales / avant et seuil",
+          "file": "calques/salon_bas/SpindaV4_salon_bas_bordures.png",
+          "default": true,
+          "role": "generated_terrain"
+        }
+      ],
+      "frange_magenta_recoloree_px": 623,
+      "ports": {
+        "W": {
+          "point": [
+            16,
+            392
+          ],
+          "kind": "door",
+          "edge_interval": [
+            372,
+            409
+          ],
+          "target": "casino",
+          "target_port": "E"
+        }
+      }
+    },
+    {
+      "id": "cafe",
+      "title": "Café à l’étage",
+      "level": 1,
+      "size": [
+        600,
+        448
+      ],
+      "file": "salles/CafePropre_cafe_transparent.png",
+      "preview": "apercus/CafePropre_cafe_sur_fond_neutre.png",
+      "layers": [
+        {
+          "id": "sol",
+          "title": "Plancher (sous les lumières)",
+          "file": "calques/cafe/SpindaV4_cafe_sol.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "lumieres",
+          "title": "Spirales et lumières statiques",
+          "file": "calques/cafe/SpindaV4_cafe_lumieres.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "parois",
+          "title": "Boiseries et bordure arrière",
+          "file": "calques/cafe/SpindaV4_cafe_parois.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "bordures",
+          "title": "Bordures latérales / avant et seuil",
+          "file": "calques/cafe/SpindaV4_cafe_bordures.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "fenetres",
+          "title": "Fenêtres natives à croisillons",
+          "file": "calques/cafe/SpindaV4_cafe_fenetres.png",
+          "default": true,
+          "role": "native_windows"
+        },
+        {
+          "id": "escaliers",
+          "title": "Escaliers natifs proposés (option)",
+          "file": "calques/cafe/SpindaV4_cafe_escaliers_proposes.png",
+          "default": false,
+          "role": "native_stair_proposals"
+        }
+      ],
+      "frange_magenta_recoloree_px": 934,
+      "ports": {
+        "E": {
+          "point": [
+            584,
+            232
+          ],
+          "kind": "door",
+          "edge_interval": [
+            219,
+            244
+          ],
+          "target": "salon_haut",
+          "target_port": "W"
+        },
+        "retour": {
+          "point": [
+            176,
+            232
+          ],
+          "kind": "stair_proposal",
+          "target": "accueil",
+          "target_port": "montee"
+        }
+      }
+    },
+    {
+      "id": "salon_haut",
+      "title": "Salon des croisillons",
+      "level": 1,
+      "size": [
+        600,
+        448
+      ],
+      "file": "salles/CafePropre_salon_haut_transparent.png",
+      "preview": "apercus/CafePropre_salon_haut_sur_fond_neutre.png",
+      "layers": [
+        {
+          "id": "sol",
+          "title": "Plancher (sous les lumières)",
+          "file": "calques/salon_haut/SpindaV4_salon_haut_sol.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "lumieres",
+          "title": "Spirales et lumières statiques",
+          "file": "calques/salon_haut/SpindaV4_salon_haut_lumieres.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "parois",
+          "title": "Boiseries et bordure arrière",
+          "file": "calques/salon_haut/SpindaV4_salon_haut_parois.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "bordures",
+          "title": "Bordures latérales / avant et seuil",
+          "file": "calques/salon_haut/SpindaV4_salon_haut_bordures.png",
+          "default": true,
+          "role": "generated_terrain"
+        },
+        {
+          "id": "fenetres",
+          "title": "Fenêtres natives à croisillons",
+          "file": "calques/salon_haut/SpindaV4_salon_haut_fenetres.png",
+          "default": true,
+          "role": "native_windows"
+        }
+      ],
+      "frange_magenta_recoloree_px": 888,
+      "ports": {
+        "W": {
+          "point": [
+            16,
+            232
+          ],
+          "kind": "door",
+          "edge_interval": [
+            219,
+            244
+          ],
+          "target": "cafe",
+          "target_port": "E"
+        }
+      }
+    }
+  ],
+  "links": [
+    [
+      "accueil",
+      "descente",
+      "casino",
+      "retour"
+    ],
+    [
+      "casino",
+      "E",
+      "salon_bas",
+      "W"
+    ],
+    [
+      "accueil",
+      "montee",
+      "cafe",
+      "retour"
+    ],
+    [
+      "cafe",
+      "E",
+      "salon_haut",
+      "W"
+    ]
+  ],
+  "levels": {
+    "0": "accueil",
+    "-1": [
+      "casino",
+      "salon_bas"
+    ],
+    "1": [
+      "café",
+      "salon_haut"
+    ]
+  },
+  "grid": 8,
+  "runtime_PMDO": "NOT TESTED",
+  "links_status": "Reciprocal design/placement guides, no engine warps, collisions or native Ground installed. Side rooms use discrete transitions, not a seamless tile mosaic.",
+  "preserved": "V4 et ses aperçus magenta sont conservés tels quels ; cette livraison est un dérivé propre, pas un remplacement."
+}
