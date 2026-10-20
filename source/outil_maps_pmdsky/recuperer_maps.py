@@ -90,6 +90,11 @@ def bg_entries(mapbg):
 
 
 def render(mapbg, ent, max_frames):
+    import PIL.Image
+    _orig_putpalette = PIL.Image.Image.putpalette
+    def _safe_putpalette(self, data, rawmode='RGB'):
+        return _orig_putpalette(self, list(data) if not isinstance(data, (bytes, bytearray, list, tuple)) else data, rawmode)
+    PIL.Image.Image.putpalette = _safe_putpalette
     from skytemple_files.common.types.file_types import FileType
     ld = lambda n, ext: (mapbg / f'{n.lower()}.{ext}').read_bytes()
     bma = FileType.BMA.deserialize(ld(ent['bma'], 'bma'))
@@ -97,7 +102,7 @@ def render(mapbg, ent, max_frames):
     bpl = FileType.BPL.deserialize(ld(ent['bpl'], 'bpl'))
     bpas = [FileType.BPA.deserialize(ld(b, 'bpa')) if b and (mapbg / f'{b.lower()}.bpa').exists() else None for b in ent['bpa']]
     with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-        frames = bma.to_pil(bpc, bpl, bpas, include_collision=False, include_unknown_data_block=False)
+        frames = list(bma.to_pil(bpc, bpl, bpas, include_collision=False, include_unknown_data_block=False))
     n_all = len(frames)
     info = {'taille_px': list(frames[0].size), 'frames': n_all, 'frames_gardees': min(n_all, max_frames),
             'bpa_charges': sum(b is not None for b in bpas), 'couches': bma.number_of_layers,
