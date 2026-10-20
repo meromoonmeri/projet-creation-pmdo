@@ -1,164 +1,82 @@
 {
-  "provenance": "compose depuis SpindaV7_complet.zip (calques par defaut, acces et fenetres inclus), aucun pixel modifie",
+  "provenance": "compose depuis SpindaV7_complet.zip (calques par defaut, acces et fenetres inclus)",
+  "nettoyage": "frange magenta (r > g+20 et b > g+10, <= 2 px de la transparence) recoloree par plus proche pixel propre du meme calque ; alpha et silhouette inchangées ; aucun pixel magenta, verifie",
+  "fond_apercu": "neutre chaud (58,48,40), uniquement dans apercus/*_fond_neutre.png et l apercu HTML ; les salles salles/*_sans_magenta.png restent transparentes",
   "rooms": [
     {
       "id": "accueil",
       "title": "Accueil de Spinda",
       "level": 0,
-      "file": "salles/SpindaV7_accueil_composee.png",
-      "ports": {
-        "N": {
-          "point": [
-            304,
-            88
-          ],
-          "arrival_spawn": [
-            304,
-            200
-          ],
-          "arrival_facing": "S",
-          "kind": "stairs_up",
-          "action": "montee",
-          "target": "cafe",
-          "target_port": "S"
-        },
-        "S": {
-          "point": [
-            304,
-            384
-          ],
-          "arrival_spawn": [
-            304,
-            280
-          ],
-          "arrival_facing": "N",
-          "kind": "stairs_down",
-          "action": "descente",
-          "target": "casino",
-          "target_port": "N"
-        }
+      "file": "salles/SpindaV7_accueil_sans_magenta.png",
+      "preview": "apercus/SpindaV7_accueil_fond_neutre.png",
+      "frange_recoloree_px": 1625,
+      "frange_par_calque": {
+        "sol": 0,
+        "lumieres": 0,
+        "parois": 663,
+        "bordures": 615,
+        "acces_N": 168,
+        "acces_S": 179
       }
     },
     {
       "id": "casino",
       "title": "Casino souterrain",
       "level": -1,
-      "file": "salles/SpindaV7_casino_composee.png",
-      "ports": {
-        "N": {
-          "point": [
-            304,
-            88
-          ],
-          "arrival_spawn": [
-            304,
-            200
-          ],
-          "arrival_facing": "S",
-          "kind": "stairs_up",
-          "action": "montee",
-          "target": "accueil",
-          "target_port": "S"
-        },
-        "E": {
-          "point": [
-            584,
-            176
-          ],
-          "arrival_spawn": [
-            528,
-            176
-          ],
-          "kind": "level_door",
-          "edge_interval": [
-            161,
-            200
-          ],
-          "target": "salon_bas",
-          "target_port": "W"
-        }
+      "file": "salles/SpindaV7_casino_sans_magenta.png",
+      "preview": "apercus/SpindaV7_casino_fond_neutre.png",
+      "frange_recoloree_px": 1414,
+      "frange_par_calque": {
+        "sol": 3,
+        "lumieres": 0,
+        "parois": 618,
+        "bordures": 625,
+        "acces_N": 168
       }
     },
     {
       "id": "salon_bas",
       "title": "Salon des jeux",
       "level": -1,
-      "file": "salles/SpindaV7_salon_bas_composee.png",
-      "ports": {
-        "W": {
-          "point": [
-            16,
-            392
-          ],
-          "kind": "door",
-          "edge_interval": [
-            372,
-            409
-          ],
-          "target": "casino",
-          "target_port": "E"
-        }
+      "file": "salles/SpindaV7_salon_bas_sans_magenta.png",
+      "preview": "apercus/SpindaV7_salon_bas_fond_neutre.png",
+      "frange_recoloree_px": 1316,
+      "frange_par_calque": {
+        "sol": 0,
+        "lumieres": 0,
+        "parois": 589,
+        "bordures": 727
       }
     },
     {
       "id": "cafe",
       "title": "Café à l’étage",
       "level": 1,
-      "file": "salles/SpindaV7_cafe_composee.png",
-      "ports": {
-        "S": {
-          "point": [
-            304,
-            384
-          ],
-          "arrival_spawn": [
-            304,
-            280
-          ],
-          "arrival_facing": "N",
-          "kind": "stairs_down",
-          "action": "descente",
-          "target": "accueil",
-          "target_port": "N"
-        },
-        "E": {
-          "point": [
-            584,
-            184
-          ],
-          "arrival_spawn": [
-            528,
-            184
-          ],
-          "kind": "level_door",
-          "edge_interval": [
-            161,
-            201
-          ],
-          "target": "salon_haut",
-          "target_port": "W"
-        }
+      "file": "salles/SpindaV7_cafe_sans_magenta.png",
+      "preview": "apercus/SpindaV7_cafe_fond_neutre.png",
+      "frange_recoloree_px": 1574,
+      "frange_par_calque": {
+        "sol": 14,
+        "lumieres": 0,
+        "parois": 844,
+        "bordures": 566,
+        "acces_S": 140,
+        "fenetres": 10
       }
     },
     {
       "id": "salon_haut",
       "title": "Salon des croisillons",
       "level": 1,
-      "file": "salles/SpindaV7_salon_haut_composee.png",
-      "ports": {
-        "W": {
-          "point": [
-            16,
-            232
-          ],
-          "kind": "door",
-          "edge_interval": [
-            219,
-            244
-          ],
-          "target": "cafe",
-          "target_port": "E"
-        }
+      "file": "salles/SpindaV7_salon_haut_sans_magenta.png",
+      "preview": "apercus/SpindaV7_salon_haut_fond_neutre.png",
+      "frange_recoloree_px": 1934,
+      "frange_par_calque": {
+        "sol": 0,
+        "lumieres": 0,
+        "parois": 1014,
+        "bordures": 905,
+        "fenetres": 15
       }
     }
   ],
