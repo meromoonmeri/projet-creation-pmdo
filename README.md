@@ -96,3 +96,5 @@ Voir [MANIFESTE_EXTRACTION.md](MANIFESTE_EXTRACTION.md) et `OUTILS/extraire_depu
 
 *Dépôt d'origine : `meromoonmeri/projet-pmdo`. Dépôt de travail : `meromoonmeri/projet-creation-pmdo`.*
 *Extraction du 2026-10-01, reproductible via `OUTILS/extraire_depuis_projet-pmdo.py`.*
+*Derniers lots ajoutés sur cette branche (2026-10-21) : paire complète **Caverne Cristal** (`EKR1` `source/entree_caverne_cristal_sud_nord_v1/` réf. ROM `D16P11A` + `FKR1` `source/fin_caverne_cristal_v1/` réf. ROM `D16P31A`, aperçus `apercu_entree_caverne_cristal_sud_nord_v1.html` et `apercu_fin_caverne_cristal_v1.html`, non approuvés artistiquement et non testés runtime PMDO).*
+
