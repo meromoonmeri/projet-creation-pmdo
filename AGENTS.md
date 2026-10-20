@@ -1218,3 +1218,14 @@ Pas de runtime. Pas dans le mod unique.
 - **Mutations** vérifiées : boss déplacé sur une paroi (manifeste), pixel rouge dans le sol, poussière modifiée, marqueur `donjon_seuil` ajouté au Ground, masque de blocs modifié. Sauvegarder `renders/` et `.cache/` dans `/tmp` avant, restaurer après.
 - **Limite connue** : les cristaux de parois générés sont plus cyan que le rip (32,1 sur 35) et en motif répétitif ; une régénération ciblée des parois serait la première amélioration.
 
+
+## Fin Clairière tropicale — FCT1, ajouts à la recette (20 octobre 2026)
+
+- **Lot** `source/fin_clairiere_tropicale_v1/`, préfixe `FCT1` (`FTC1` est déjà un repère de la branche sœur `01a0eaca`, non reprise), aperçu `apercu_fin_clairiere_tropicale_v1.html`, 13 tests PASS, 1 mutation vérifiée (phase de papillons 23 = 10 détectée, restaurée).
+- **Reprise dans ce dépôt allégé** : les bruts et le gabarit Ground ne sont pas dans l'extraction. La référence `large.S01P03A…png` (sha vérifié contre le manifeste ETC1) et `mod_metano_expeditions_pmdo_0812.zip` ont été récupérés fichier par fichier depuis `meromoonmeri/projet-pmdo@6cca4a0` via `gh api -H "Accept: application/vnd.github.raw"` (raw.githubusercontent.com échoue en TLS ici). Les deux sont ignorés par Git (voir `.gitignore`) : les récupérer avant tout build d'un lot de la série.
+- **Fin construite depuis l'entrée ETC1** : copie du lot puis adaptation. Le décor généré (rip en référence) a donné du premier coup une arène centrale vide, un ponton sud et une plateforme de sable au pied d'un tertre fleuri au nord — aucun trou sombre, donc pas de calque `profondeur` et pas de `donjon_seuil`.
+- **Plateforme = seuil** : grande composante beige (≥ 4000 px, y < 340) au pied du tertre. Le masque de la plateforme ne doit figurer qu'**une fois** dans l'ordre exclusif de `down_class` (le doublon `plateforme`/`seuil` vidait le calque réduit).
+- **Objectif au pied, pas sur la dalle** : la plateforme est entourée de tertre en cases 2 × 2 libres isolées (composante libre distincte de l'arrivée). L'`objectif` est la case libre **reliée à l'arrivée** la plus proche de son bord sud ; un test vérifie la distance à la plateforme (< 24 px) et les chemins 16 × 16 `entrance → boss` et `entrance → objectif`.
+- **Ombres presque absentes** : ce décor n'a que 129 px d'ombre séparable après réduction (au pied du tertre). Le test vérifie le sens (plus sombre que l'herbe, herbe seulement), pas un volume arbitraire.
+- Fidélité au rip : brut herbe 6,8 / jungle 12,8 / dalles 17,3 ; calques 7,9 / 12,5 / 15,7 (seuil 35). Mer et papillons repris d'ETC1 (profil, crête et couleurs exacts ; planche réutilisée sans génération). Pas de runtime PMDO.
+- **Fins restantes dans l'ordre du mod** : Couloir violet, Mt. Thunder, Jardin secret.

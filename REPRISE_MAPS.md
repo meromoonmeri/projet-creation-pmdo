@@ -222,3 +222,9 @@ Réserves relevées dans V16 :
 - L’alignement sur 8 px et le nommage Halcyon ne prouvent pas un import moteur.
 
 Les succès de chargement PMDO cités dans les anciens rapports restent historiques ; aucun lancement PMDO, rendu GPU ou test de gameplay n’a été effectué dans cette reprise.
+
+## Reprise du 20 octobre 2026 — Fin Clairière tropicale (FCT1)
+
+Session `arena/ea12f8dd` (dépôt allégé `projet-creation-pmdo`), sur « on va poursuivre le projet, toutes les maps du projet » : l'utilisateur a choisi de **finir les 4 fins de donjon restantes**, **une map à la fois avec validation entre chaque**, et le **serveur d'aperçus relancé** (`python3 source/serveur_apercus/serve.py --port 8000`).
+
+Premier lot : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`, préfixe `FCT1`, aperçu `apercu_fin_clairiere_tropicale_v1.html`, 13 tests PASS, 1 mutation vérifiée). Détails et pièges dans `AGENTS.md` (section FCT1). Fins restantes, dans l'ordre du mod : **Couloir violet, Mt. Thunder, Jardin secret**.
