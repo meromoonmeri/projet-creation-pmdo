@@ -1284,3 +1284,12 @@ Pas de runtime. Pas dans le mod unique.
 - Les calques WebP/PNG de V4 n'étaient pas dans ce dépôt allégé : pack `SpindaV4_pack.zip` récupéré du dépôt source @ `6cca4a0` et conservé dans le lot comme entrée (sha256 au manifeste).
 - **Frange de détourage** : le fond magenta laisse une frange teintée (r,b > g+40) à ≤2 px de la transparence sur les bordures rocheuses ; recolorée par plus proche voisin propre du même calque (alpha/silhouette inchangées). Le vérificateur prouve que l'écart avec le pack V4 se limite à ces pixels.
 - Fond neutre chaud (58,48,40) uniquement dans les aperçus `*_sur_fond_neutre.png` ; ne jamais le confondre avec un fond de salle.
+
+## Entrée Old Castle — EOC1 (20 octobre 2026)
+
+- **Lot** `source/entree_old_castle_sud_nord_v1/`, préfixe `EOC1` (vérifié libre partout, comme la référence), aperçu `apercu_entree_old_castle_sud_nord_v1.html`, **10 tests PASS, 1 mutation vérifiée** (pixel magenta dans une frame de scintillement : 3 tests en échec, rebuild restaure OK).
+- **Référence** `oldcastlepmd.png` (salle au trésor, 408×408) : seule capture de la racine libre sur toutes les branches (relevés du 27 septembre). Entrée suivante de la série sud→nord après la complétion des fins ; décor généré référencé validé par l'utilisateur avant build.
+- **Build adapté d'ECV1** (utilitaires ESN1/EWC1 inchangés). Classification mesurée sur le brut : magenta = vide (recoloré **noir**, jamais magenta dans les calques) ; sol lum lissée > 168 ; Alcôve = boîte mesurée (460,60,740,290) ; médaillon = disque mesuré (600,392,r=118) ; trésor = or saturé (écart > 85, r > b+30) + coffres de la boîte ; îlots touchant le bord = parois, intérieurs = éboulis (l'or des statues est capté par `tresor` : pas de calque `piliers` séparé, il sortait vide).
+- **Marqueurs** : `entrance` au point de sol le plus bas (couloir sud, le mur sud épais empêche le bord d'image : graine du praticable = composante du pixel praticable le plus bas, marqueurs recalés sur fenêtre 16×16 entièrement praticable par `marker16`) ; `donjon_seuil` au sud de l'Alcôve. Accès (416,504) / (368,192) ; 2515 praticables / 4397 bloquées.
+- **Animation** `scintillement` : éclats en croix créés (couleurs dorées du décor), 28 points sur l'or (centroïdes **recollés au pixel d'or le plus proche** : un centroïde de composante concave peut tomber hors masque), 24 phases × 5 ticks.
+- **Fidélité** : brut pierre 5,2 / or 24,6 ; calques ≤ 32,6 ; sol complet 22,0 après 3 essais (trop orange, trop blanc, teinte ciblée (230,224,182)). Pas de runtime PMDO.
