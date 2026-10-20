@@ -37,25 +37,60 @@ PREVIEW_OUT = D / 'apercus'
 NEUTRAL = (58, 48, 40, 255)
 
 
-def contaminated(a):
-    return (a[..., 3] == 255) & (a[..., 0] > a[..., 1] + 20) & (a[..., 2] > a[..., 1] + 10)   # teinte magenta, meme faible
+def purple(a):
+    """Teinte magenta/violette : le bleu n est pas sous le vert (un rocher brun a b << g)."""
+    return (a[..., 3] == 255) & (a[..., 2] >= a[..., 1]) & (a[..., 0] > a[..., 1] + 10)
 
 
 def fringe_of(a):
-    return contaminated(a) & nd.binary_dilation(a[..., 3] != 255, iterations=2)
+    """Pourpre a <= 3 px du bord exterieur (les creux des rochers vont plus profond que 2 px)."""
+    inside = nd.distance_transform_edt(a[..., 3] == 255)
+    return purple(a) & (inside <= 3)
+
+
+def red_edge(a):
+    inside = nd.distance_transform_edt(a[..., 3] == 255)
+    lum = a[..., :3] @ [.299, .587, .114]
+    return (inside <= 2) & (a[..., 0] - a[..., 1] > 25) & (lum < 110) & (a[..., 3] == 255)
 
 
 def clean_fringe(im):
-    """Recolore la frange magenta d'un calque par le plus proche pixel propre. Alpha inchangée."""
+    """Deux passes, alpha inchangée :
+    1. frange pourpre (b >= g) a <= 3 px du bord -> plus proche pixel brun (b < g, r > b + 20) ;
+    2. restes rougeatres sombres au contact du fond (dist <= 2, lum < 110, r - g > 25) ->
+       plus proche pixel non rougeatre (b < g, r - g < 30) ; a defaut, rouge plafonne a g + 20.
+    Retourne (image, nb de pixels touches)."""
+    orig_alpha = np.array(im)[..., 3]
     a = np.array(im).astype(int)
+    touched = np.zeros(a.shape[:2], bool)
+
     fringe = fringe_of(a)
-    n = int(fringe.sum())
-    if n:
-        clean = (a[..., 3] == 255) & ~contaminated(a)
-        idx = nd.distance_transform_edt(~clean, return_distances=False, return_indices=True)
+    if fringe.any():
+        donor = (a[..., 3] == 255) & (a[..., 2] < a[..., 1]) & (a[..., 0] > a[..., 2] + 20)
+        idx = nd.distance_transform_edt(~donor, return_distances=False, return_indices=True)
         a[fringe] = a[tuple(idx[:, fringe])]
-        a[..., 3] = np.array(im)[..., 3]
-    return Image.fromarray(a.astype('uint8')), n
+        touched |= fringe
+
+    red = red_edge(a)
+    if red.any():
+        donor = (a[..., 3] == 255) & (a[..., 2] < a[..., 1]) & ((a[..., 0] - a[..., 1]) < 30) & (a[..., 0] > a[..., 2] + 10)
+        if donor.any():
+            idx = nd.distance_transform_edt(~donor, return_distances=False, return_indices=True)
+            a[red] = a[tuple(idx[:, red])]
+        rest = red_edge(a)
+        a[rest, 0] = a[rest, 1] + 20                       # plafonnement du rouge, ombrage conserve
+        touched |= red
+    # Passe 3 : l anneau le plus externe (dist == 1) prend la couleur du pixel a dist >= 2.
+    # Aucune teinte propre au bord ne survit, quelle que soit sa nature.
+    inside = nd.distance_transform_edt(a[..., 3] == 255)
+    edge1 = inside == 1
+    donor = inside >= 2
+    if edge1.any() and donor.any():
+        idx = nd.distance_transform_edt(~donor, return_distances=False, return_indices=True)
+        a[edge1] = a[tuple(idx[:, edge1])]
+        touched |= edge1
+    a[..., 3] = orig_alpha
+    return Image.fromarray(a.astype('uint8')), int(touched.sum())
 
 
 def main():
@@ -77,7 +112,7 @@ def main():
                     continue
                 raw = load(layer.get('png', layer['file']))
                 original.alpha_composite(raw)
-                union_fringe |= fringe_of(np.array(raw).astype(int))
+                _ra = np.array(raw).astype(int); union_fringe |= fringe_of(_ra) | red_edge(_ra) | (nd.distance_transform_edt(_ra[..., 3] == 255) == 1)
                 im, n = clean_fringe(raw)
                 cleaned_total += n
                 per_layer[layer['id']] = n
@@ -85,10 +120,14 @@ def main():
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 im.save(dst, optimize=True)
                 comp.alpha_composite(im)
+            comp, n_salle = clean_fringe(comp)      # 2e passe sur la salle composee : un pixel visible
+            cleaned_total += n_salle                # peut venir d un calque ou il etait interieur
+            per_layer['__salle_composee__'] = n_salle
             a = np.array(comp).astype(int)
             assert not ((a[..., :3] == (255, 0, 255)).all(-1) & (a[..., 3] == 255)).any(), room['id']
             assert not fringe_of(a).any(), (room['id'], int(fringe_of(a).sum()))
             orig = np.array(original).astype(int)
+            union_fringe |= nd.distance_transform_edt(orig[..., 3] == 255) == 1   # passe 3 (anneau externe)
             diff = (a != orig).any(-1)
             assert not (diff & ~union_fringe).any(), (room['id'], 'écart hors frange des calques')
             p = OUT / f"SpindaV7_{room['id']}_sans_magenta.png"
@@ -103,7 +142,7 @@ def main():
                           'uri': 'data:image/png;base64,' + base64.b64encode(preview.read_bytes()).decode()})
     (D / 'salles_manifest.json').write_text(json.dumps(
         {'provenance': 'compose depuis SpindaV7_complet.zip (calques par defaut, acces et fenetres inclus)',
-         'nettoyage': 'frange magenta (r > g+20 et b > g+10, <= 2 px de la transparence) recoloree par plus proche pixel '
+         'nettoyage': 'frange pourpre (b >= g et r > g+10, <= 3 px du bord) recoloree par plus proche pixel strictement brun (r > b+20) ; '
                       'propre du meme calque ; alpha et silhouette inchangées ; aucun pixel magenta, verifie',
          'fond_apercu': 'neutre chaud (58,48,40), uniquement dans apercus/*_fond_neutre.png et l apercu HTML ; '
                         'les salles salles/*_sans_magenta.png restent transparentes',
@@ -137,7 +176,7 @@ const D=__DATA__;const app=document.getElementById('app');
  const sec=document.createElement('section');sec.className='floor';sec.innerHTML='<h2>'+name+'</h2>';
  const row=document.createElement('div');row.className='row';
  D.rooms.filter(r=>r.level===lv).forEach(r=>{const f=document.createElement('figure');
-  f.innerHTML='<img src="'+r.uri+'"><figcaption><strong>'+r.title+'</strong><br><small>frange recolorée : '+r.frange_recoloree_px+' px</small></figcaption>';row.append(f);});
+  f.innerHTML='<img src="'+r.uri+'"><figcaption><strong>'+r.title+'</strong><br><small>pixels nettoyés au bord : '+r.frange_recoloree_px+' px</small></figcaption>';row.append(f);});
  sec.append(row);app.append(sec);});
 </script></html>
 """
