@@ -1229,3 +1229,13 @@ Pas de runtime. Pas dans le mod unique.
 - **Ombres presque absentes** : ce décor n'a que 129 px d'ombre séparable après réduction (au pied du tertre). Le test vérifie le sens (plus sombre que l'herbe, herbe seulement), pas un volume arbitraire.
 - Fidélité au rip : brut herbe 6,8 / jungle 12,8 / dalles 17,3 ; calques 7,9 / 12,5 / 15,7 (seuil 35). Mer et papillons repris d'ETC1 (profil, crête et couleurs exacts ; planche réutilisée sans génération). Pas de runtime PMDO.
 - **Fins restantes dans l'ordre du mod** : Couloir violet, Mt. Thunder, Jardin secret.
+
+## Fin Couloir violet — FVC1, ajouts à la recette (20 octobre 2026)
+
+- **Lot** `source/fin_couloir_violet_v1/`, préfixe `FVC1` (`FCV1` est déjà un repère de la branche sœur `01a0eaca`, non reprise), aperçu `apercu_fin_couloir_violet_v1.html`, 12 tests PASS, 1 mutation vérifiée (phase d'éboulis 23 = 10 détectée, restaurée).
+- **Fin construite depuis l'entrée ECV1** : copie du lot puis adaptation. Aucune bouche : le `classify` garde `mouth = zeros`, le calque `profondeur` et le marqueur `donjon_seuil` disparaissent ; `boss` = centre de gravité du praticable, `objectif` = case libre reliée la plus haute dans la colonne centrale (± 64 px), au pied du mur nord.
+- **Bruts repris d'ECV1** (même biome, aucune génération économisée en silence : c'est écrit dans les prompts du manifeste) : `sol_complet.png` (fond plein, jamais recalé) et `poussiere_poses.png`, même sha256. Le décor d'arène est la seule génération nouvelle, conforme du premier coup.
+- **Éboulis pendant la chute** : le gravillon tombe le long de la paroi et la recouvre partiellement ; un test « tout pixel animé est praticable » est donc faux par construction. Tester à la place les points de chute (sol + paroi à 8 et 20 px au-dessus, déjà dans ECV1) et que tout pixel animé reste à moins de 32 px d'un point de chute.
+- **Volumes de ce décor** : 4 blocs et 9 gravillons (contre 6 et 15 supposés par les tests d'ECV1) ; seuils adaptés aux mesures, pas au décor de l'entrée.
+- Fidélité au rip : brut sol 2,8 / roche 12,9 ; calques 5,4 / 12,2 / 13,6 (seuil 35). Pas de runtime PMDO.
+- **Fins restantes dans l'ordre du mod** : Mt. Thunder, Jardin secret.
