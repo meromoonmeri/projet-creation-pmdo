@@ -8,8 +8,8 @@ Pièces LARGES et COMPLÈTEMENT VIDES (aucun mobilier), disposition Spinda :
 accueil RDC escaliers N/S centrés, café + salon_haut au +1, casino +
 salon_bas au -1, salons à l'est.
 
-Traitement : détourage magenta, silhouette recalée EXACTEMENT sur le
-masque alpha de la salle Spinda correspondante, nettoyage de frange
+Traitement : détourage magenta, AUCUNE retouche manuelle de forme
+(la silhouette est celle produite par le générateur), nettoyage de frange
 pourpre (recoloration depuis l'intérieur, résidu mesuré = 0), réduction
 à 600x448, export PNG transparent + aperçu fond neutre + tileset .tile
 et Ground PMDO construits depuis les tuiles 8 px du rendu réduit.
@@ -55,29 +55,17 @@ def segment_magenta(im):
     return Image.fromarray(out, 'RGBA')
 
 
-def cover_to_mask(brut, mask_alpha):
-    """Recale le brut (RGBA détouré) sur la silhouette Spinda (masque 600x448)."""
+def fit_to_canvas(brut):
+    """Place le rendu GENERE tel quel (sa propre silhouette), centre, dans le canevas."""
     a = np.array(brut)
     ys, xs = np.where(a[..., 3] > 0)
-    bx0, bx1, by0, by1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
-    crop = brut.crop((bx0, by0, bx1, by1))
-    ys, xs = np.where(mask_alpha > 0)
-    mx0, mx1, my0, my1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
-    mw, mh = mx1 - mx0, my1 - my0
-    scale = max(mw / crop.width, mh / crop.height) * 1.03
+    crop = brut.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+    scale = min(W / crop.width, H / crop.height)
     resized = crop.resize((round(crop.width * scale), round(crop.height * scale)),
                           Image.Resampling.LANCZOS)
     canvas = Image.new('RGBA', (W, H))
-    canvas.alpha_composite(resized, (mx0 + (mw - resized.width) // 2,
-                                     my0 + (mh - resized.height) // 2))
-    ca = np.array(canvas)
-    # comble les éventuels trous intérieurs au masque par le plus proche opaque
-    hole = (mask_alpha > 0) & (ca[..., 3] == 0)
-    if hole.any():
-        _, inds = nd.distance_transform_edt(ca[..., 3] == 0, return_indices=True)
-        ca[hole] = ca[tuple(i[hole] for i in inds)]
-    ca[..., 3] = mask_alpha
-    return Image.fromarray(ca, 'RGBA')
+    canvas.alpha_composite(resized, ((W - resized.width) // 2, (H - resized.height) // 2))
+    return canvas
 
 
 def purge_magenta(im):
@@ -195,8 +183,8 @@ def main():
     manifest = {
         'lot': 'reseau_metano_normal_v1',
         'methode': 'generateur d images reference (rendu Halcyon metano_normal_home + salle '
-                   'Cafe Spinda V7 correspondante pour la forme), detourage magenta, silhouette '
-                   'recalee sur le masque Spinda, reduction 600x448, frange pourpre nettoyee.',
+                   'Cafe Spinda V7 correspondante pour la forme, hall de guilde Halcyon pour l echelle), '
+                   'detourage magenta, reduction 800x600, frange pourpre nettoyee. Aucune retouche manuelle.',
         'disposition': 'identique au reseau Cafe Spinda V7 (formes des salles Spinda conservees) : '
                        'accueil RDC escaliers N/S centres, cafe et salon_haut au +1, casino et '
                        'salon_bas au -1, salons a l est. Pieces larges et completement vides.',
@@ -206,15 +194,12 @@ def main():
     }
     previews = {}
     for rid in ROOMS:
-        spinda = Image.open(SPINDA / f'SpindaV7_{rid}_sans_magenta.png').convert('RGBA')
-        mask = np.array(spinda.resize((W, H), Image.Resampling.NEAREST))[..., 3]
         brut = segment_magenta(Image.open(BRUTS / f'{rid}.png'))
-        room = cover_to_mask(brut, mask)
+        room = fit_to_canvas(brut)
         room = purge_magenta(room)
         room, resid = clean_fringe(room)
         a = np.array(room).astype(int)
         assert not ((a[..., 0] > 200) & (a[..., 1] < 80) & (a[..., 2] > 200) & (a[..., 3] > 0)).any(), rid
-        assert (np.array(room)[..., 3] == mask).all(), (rid, 'silhouette != Spinda')
         room.save(OUT / f'salles/MetanoNormal_{rid}.png')
         bg = Image.new('RGBA', (W, H), NEUTRAL + (255,)); bg.alpha_composite(room)
         previews[rid] = bg.convert('RGB')
