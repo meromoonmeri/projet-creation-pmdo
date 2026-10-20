@@ -1239,3 +1239,12 @@ Pas de runtime. Pas dans le mod unique.
 - **Volumes de ce décor** : 4 blocs et 9 gravillons (contre 6 et 15 supposés par les tests d'ECV1) ; seuils adaptés aux mesures, pas au décor de l'entrée.
 - Fidélité au rip : brut sol 2,8 / roche 12,9 ; calques 5,4 / 12,2 / 13,6 (seuil 35). Pas de runtime PMDO.
 - **Fins restantes dans l'ordre du mod** : Mt. Thunder, Jardin secret.
+
+## Fin Mt. Thunder — FTH1, ajouts à la recette (20 octobre 2026)
+
+- **Lot** `source/fin_mt_thunder_v1/`, préfixe `FTH1` (`FMT1` est déjà un repère de la branche sœur `01a0eaca`, non reprise), aperçu `apercu_fin_mt_thunder_v1.html`, 10 tests PASS, 1 mutation vérifiée (phase d'éclairs 47 = 10 détectée, restaurée).
+- **Fin construite depuis l'entrée EMT1** : copie du lot puis adaptation. Piton nord **sans grotte** : `mouth = zeros`, calques `seuil` et `profondeur` et marqueur `donjon_seuil` supprimés ; `objectif` = case libre reliée la plus haute dans la colonne centrale, au pied du piton.
+- **Frappes d'éclairs à repositionner sur le nouveau décor** : les coordonnées d'EMT1 ne conviennent pas tel quel. Deux frappes de droite chevauchaient le bord du plateau (recouvrement mesuré pixel par pixel contre le relief dilaté de 2 px) ; la frappe 3 a dû passer à x = 718 pour que son arc Flash (40 px, centré sous le bas de l'éclair) reste aussi hors du relief. Tester éclairs **et** lueurs contre le relief dilaté, pas seulement les éclairs.
+- **Sol complet repris d'EMT1** sans nouvelle génération (même biome, écrit dans le manifeste).
+- Fidélité à la planche du rip : brut sable 2,0 / roche 13,2 / ciel 5,8 / nuages sombres 2,3 / nuages clairs 13,4 ; calques ≤ 16,6 (seuil 35). Pas de runtime PMDO.
+- **Fin restante dans l'ordre du mod** : Jardin secret (EJS1/EJS2). Ce sera la dernière de la série des fins.

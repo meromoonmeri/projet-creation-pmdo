@@ -230,3 +230,5 @@ Session `arena/ea12f8dd` (dépôt allégé `projet-creation-pmdo`), sur « on va
 Premier lot : **Fin Clairière tropicale** (`source/fin_clairiere_tropicale_v1/`, préfixe `FCT1`, aperçu `apercu_fin_clairiere_tropicale_v1.html`, 13 tests PASS, 1 mutation vérifiée). Détails et pièges dans `AGENTS.md` (section FCT1). Fins restantes, dans l'ordre du mod : **Couloir violet, Mt. Thunder, Jardin secret**.
 
 Même jour, sur « j'aimerais que tu passe a la suite » : deuxième fin, **Fin Couloir violet** (`source/fin_couloir_violet_v1/`, préfixe `FVC1`, aperçu `apercu_fin_couloir_violet_v1.html`, 12 tests PASS, 1 mutation vérifiée). Voir `AGENTS.md` section FVC1. Fins restantes : **Mt. Thunder, Jardin secret**.
+
+Même jour, sur « beau travail continue ! » : troisième fin, **Fin Mt. Thunder** (`source/fin_mt_thunder_v1/`, préfixe `FTH1`, aperçu `apercu_fin_mt_thunder_v1.html`, 10 tests PASS, 1 mutation vérifiée). Voir `AGENTS.md` section FTH1. Fin restante : **Jardin secret**.
