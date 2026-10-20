@@ -1,0 +1,108 @@
+{
+ "lot": "reseau_metano_normal_v1",
+ "disposition": "identique au reseau Cafe Spinda V7 : accueil central (RDC) avec escalier au nord vers le +1 et escalier au sud vers le -1 ; cafe et salon_haut au +1 ; casino et salon_bas au -1 ; salons a l est.",
+ "texture": "Halcyon (Palikadude/Halcyon, master) : Metano_Town_Normal_Home_Base + Metano_Town_Normal_Home_Objects, variante normale ; tuiles natives 8 px copiees par reference (sheet, TexLoc) depuis metano_normal_home.rsground.",
+ "liens": [
+  [
+   "accueil",
+   "escalier_N",
+   "cafe",
+   "porte_S"
+  ],
+  [
+   "accueil",
+   "escalier_S",
+   "casino",
+   "porte_N"
+  ],
+  [
+   "casino",
+   "porte_E",
+   "salon_bas",
+   "porte_W"
+  ],
+  [
+   "cafe",
+   "porte_E",
+   "salon_haut",
+   "porte_W"
+  ]
+ ],
+ "rooms": [
+  {
+   "id": "accueil",
+   "etage": 0,
+   "file": "salles/MetanoNormal_accueil.png",
+   "ground": "grounds/metano_reseau_accueil.rsground",
+   "acces": {
+    "escalier_N_vers_cafe": [
+     304,
+     88
+    ],
+    "escalier_S_vers_casino": [
+     304,
+     384
+    ]
+   }
+  },
+  {
+   "id": "cafe",
+   "etage": 1,
+   "file": "salles/MetanoNormal_cafe.png",
+   "ground": "grounds/metano_reseau_cafe.rsground",
+   "acces": {
+    "porte_S_vers_accueil": [
+     300,
+     404
+    ],
+    "porte_E_vers_salon_haut": [
+     548,
+     268
+    ]
+   }
+  },
+  {
+   "id": "salon_haut",
+   "etage": 1,
+   "file": "salles/MetanoNormal_salon_haut.png",
+   "ground": "grounds/metano_reseau_salon_haut.rsground",
+   "acces": {
+    "porte_W_vers_cafe": [
+     52,
+     268
+    ]
+   }
+  },
+  {
+   "id": "casino",
+   "etage": -1,
+   "file": "salles/MetanoNormal_casino.png",
+   "ground": "grounds/metano_reseau_casino.rsground",
+   "acces": {
+    "porte_N_vers_accueil": [
+     300,
+     76
+    ],
+    "porte_E_vers_salon_bas": [
+     548,
+     268
+    ]
+   }
+  },
+  {
+   "id": "salon_bas",
+   "etage": -1,
+   "file": "salles/MetanoNormal_salon_bas.png",
+   "ground": "grounds/metano_reseau_salon_bas.rsground",
+   "acces": {
+    "porte_W_vers_casino": [
+     52,
+     268
+    ]
+   }
+  }
+ ],
+ "art_approved": false,
+ "runtime_tested": false,
+ "runtime_PMDO": "NOT TESTED"
+}
