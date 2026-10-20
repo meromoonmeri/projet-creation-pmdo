@@ -24,8 +24,8 @@
       "images": [
         "secretgarden.png"
       ],
-      "prompt": "DUNGEON END in EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon secret garden): same light yellow-green meadow grass, rounded bushy hedges, round leafy trees, tan boulders, small white yellow and pink flowers, big golden tree stump, vertical bright green light beam, dark green background. NEW larger top-down 4:3 map, a dungeon END with no exit: player arrives at the SOUTH on a grass path between hedges; the path opens into a VERY LARGE wide open meadow, a boss arena, in the centre; at the NORTH the big golden stump carrying a small Celebi temple (stone base, wooden pillars, green leaf roof, dark doorway, small Celebi emblem, wooden steps up the stump), the green light beam falling onto it, flowers around it, grass leading right up to the steps. Enclosed garden, no exit anywhere else. No characters, no text, no UI, no border.",
-      "essais": "premier essai ; conforme (temple de Celebi sur la souche au nord, arene centrale, allee sud)"
+      "prompt": "DUNGEON END in EXACTLY the same textures, palette and pixel-art style as the reference image (Pokemon Mystery Dungeon secret garden): same light yellow-green meadow grass, rounded bushy hedges, round leafy trees, tan boulders, small white yellow and pink flowers, big golden tree stump, vertical bright green light beam, dark green background. NEW larger top-down 4:3 map, a dungeon END with no exit: player arrives at the SOUTH on a grass path between hedges; the path opens into a VERY LARGE wide open meadow, a boss arena, in the centre; at the NORTH the big golden stump carrying a small Celebi temple (stone base, wooden pillars, green leaf roof, dark doorway - NO emblem, NO symbol above the door (demande de l utilisateur) - wooden steps up the stump), the green light beam falling onto it, flowers around it, grass leading right up to the steps. Enclosed garden, no exit anywhere else. No characters, no text, no UI, no border.",
+      "essais": "premier essai avec embleme ECARTE par l utilisateur ; version retenue : decor edite sans embleme (ecartes/decor_avec_embleme_v1.png garde), temple nu au-dessus de la porte"
     },
     {
       "file": "temoin_sans_objets.png",
@@ -104,7 +104,7 @@
   "raw_inputs": [
     {
       "file": "source/fin_jardin_secret_v1/bruts/decor.png",
-      "sha256": "9dafe92e49d375154e4284918c709e45a43cac38153bff2171c4edcdc61214af",
+      "sha256": "33f3b8d34c16edd3c22128791c9c0761279005fa18ad5a532f46c4b57ab9933e",
       "size": [
         1200,
         896
@@ -113,7 +113,7 @@
     },
     {
       "file": "source/fin_jardin_secret_v1/bruts/temoin_sans_objets.png",
-      "sha256": "cb25b2b4ac1ddd2a18ea9feb7f809615e8a057e2bc3f0828eb92fa077cde4f63",
+      "sha256": "c87ef6404541a06eb9f2e8933dd91e715aa9eb9c9524171b0220c839155337dc",
       "size": [
         1200,
         896
@@ -186,32 +186,32 @@
   ],
   "recalage": {
     "temoin": {
-      "ecart_moyen": 2.79,
-      "ecart_decale_1px": 3.05
+      "ecart_moyen": 2.78,
+      "ecart_decale_1px": 3.19
     },
     "zones": "temoin : hors objets (ecart > 10) dilates de 4 px"
   },
   "segmentation_mesures": {
-    "objets": 86,
-    "fleurs": 57,
+    "objets": 97,
+    "fleurs": 58,
     "rochers": 7,
-    "arbres": 8,
-    "miettes_rendues_a_l_herbe_px": 1123,
+    "arbres": 9,
+    "miettes_rendues_a_l_herbe_px": 1540,
     "trou_y": [
       168,
-      195
+      196
     ],
     "trou_x": [
       586,
       612
     ],
     "souche_y": [
-      130,
+      131,
       279
     ],
-    "ombres_lum": 99.9,
-    "herbe_lum": 171.3,
-    "prairie_b": 98.4
+    "ombres_lum": 101.0,
+    "herbe_lum": 169.9,
+    "prairie_b": 90.1
   },
   "fidelite_rip": {
     "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
@@ -224,10 +224,10 @@
         ],
         "decor_rgb": [
           49.3,
-          88.8,
-          53.4
+          88.9,
+          51.1
         ],
-        "distance": 2.1
+        "distance": 3.5
       },
       "herbe_claire": {
         "rip_rgb": [
@@ -236,11 +236,11 @@
           74.1
         ],
         "decor_rgb": [
-          148.8,
-          202.0,
-          82.8
+          148.1,
+          201.3,
+          78.5
         ],
-        "distance": 10.5
+        "distance": 8.2
       },
       "herbe": {
         "rip_rgb": [
@@ -249,11 +249,11 @@
           53.1
         ],
         "decor_rgb": [
-          103.6,
-          164.2,
-          55.3
+          103.8,
+          164.0,
+          51.7
         ],
-        "distance": 11.8
+        "distance": 11.5
       },
       "roche": {
         "rip_rgb": [
@@ -262,58 +262,58 @@
           68.4
         ],
         "decor_rgb": [
-          147.2,
-          141.6,
-          73.6
+          148.8,
+          143.1,
+          70.4
         ],
-        "distance": 16.4
+        "distance": 17.9
       }
     },
     "calques_finaux": {
       "prairie": {
         "matiere": "herbe_claire",
         "rgb": [
-          169.8,
-          207.8,
-          85.4
+          149.0,
+          200.0,
+          78.0
         ],
-        "distance_rip": 20.6
+        "distance_rip": 8.3
       },
       "ombres": {
         "matiere": "herbe",
         "rgb": [
-          104.3,
-          164.2,
-          53.3
+          113.4,
+          170.9,
+          58.7
         ],
-        "distance_rip": 10.9
+        "distance_rip": 7.6
       },
       "herbe": {
         "matiere": "herbe_claire",
         "rgb": [
-          148.0,
-          201.2,
-          81.9
+          149.0,
+          201.0,
+          78.0
         ],
-        "distance_rip": 10.4
+        "distance_rip": 7.6
       },
       "rochers": {
         "matiere": "roche",
         "rgb": [
-          138.1,
-          132.9,
-          80.6
+          137.9,
+          132.1,
+          77.1
         ],
-        "distance_rip": 12.7
+        "distance_rip": 9.1
       },
       "fond": {
         "matiere": "fond",
         "rgb": [
-          49.1,
+          49.0,
           88.8,
-          53.6
+          52.3
         ],
-        "distance_rip": 1.9
+        "distance_rip": 2.4
       }
     },
     "sol_complet": 31.6,
@@ -362,8 +362,7 @@
       },
       "vegetation": {
         "calques": [
-          "troncs",
-          "feuillage",
+          "arbres",
           "haies"
         ],
         "couleurs": 96
@@ -418,47 +417,42 @@
       "ticks": 60
     },
     {
-      "file": "calques/FSE1_06_troncs.png",
+      "file": "calques/FSE1_06_arbres.png",
       "phases": 1,
       "ticks": 60
     },
     {
-      "file": "animation/feuillage/FSE1_07_feuillage_fNN.png",
+      "file": "calques/FSE1_07_haies.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FSE1_08_souche.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FSE1_09_marches.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FSE1_10_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FSE1_11_fond.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/rayon/FSE1_12_rayon_fNN.png",
       "phases": 24,
       "ticks": 5
     },
     {
-      "file": "calques/FSE1_08_haies.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/FSE1_09_souche.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/FSE1_10_marches.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/FSE1_11_profondeur.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "calques/FSE1_12_fond.png",
-      "phases": 1,
-      "ticks": 60
-    },
-    {
-      "file": "animation/rayon/FSE1_13_rayon_fNN.png",
-      "phases": 24,
-      "ticks": 5
-    },
-    {
-      "file": "animation/lucioles/FSE1_14_lucioles_fNN.png",
+      "file": "animation/lucioles/FSE1_13_lucioles_fNN.png",
       "phases": 24,
       "ticks": 5
     }
@@ -584,134 +578,9 @@
     "loi": "cran = clip(cran0 + round(2 sin(2 pi t / 24)) x min(1, cran0 / 6))",
     "origine": "forme du rayon GENEREE ; couleurs EXACTES du rip ; souffle cree par nous"
   },
-  "feuillage": {
-    "composantes": [
-      {
-        "index": 1,
-        "y_min": 80,
-        "y_max": 171,
-        "phase": 0,
-        "pixels": 2877
-      },
-      {
-        "index": 2,
-        "y_min": 87,
-        "y_max": 172,
-        "phase": 3,
-        "pixels": 2606
-      },
-      {
-        "index": 3,
-        "y_min": 103,
-        "y_max": 129,
-        "phase": 6,
-        "pixels": 266
-      },
-      {
-        "index": 4,
-        "y_min": 116,
-        "y_max": 224,
-        "phase": 9,
-        "pixels": 4424
-      },
-      {
-        "index": 5,
-        "y_min": 124,
-        "y_max": 129,
-        "phase": 12,
-        "pixels": 13
-      },
-      {
-        "index": 6,
-        "y_min": 142,
-        "y_max": 257,
-        "phase": 15,
-        "pixels": 5465
-      },
-      {
-        "index": 7,
-        "y_min": 148,
-        "y_max": 157,
-        "phase": 18,
-        "pixels": 19
-      },
-      {
-        "index": 8,
-        "y_min": 173,
-        "y_max": 173,
-        "phase": 21,
-        "pixels": 1
-      },
-      {
-        "index": 9,
-        "y_min": 185,
-        "y_max": 185,
-        "phase": 0,
-        "pixels": 2
-      },
-      {
-        "index": 10,
-        "y_min": 187,
-        "y_max": 187,
-        "phase": 3,
-        "pixels": 1
-      },
-      {
-        "index": 11,
-        "y_min": 190,
-        "y_max": 192,
-        "phase": 6,
-        "pixels": 4
-      },
-      {
-        "index": 12,
-        "y_min": 310,
-        "y_max": 415,
-        "phase": 9,
-        "pixels": 5177
-      },
-      {
-        "index": 13,
-        "y_min": 310,
-        "y_max": 482,
-        "phase": 12,
-        "pixels": 10625
-      },
-      {
-        "index": 14,
-        "y_min": 392,
-        "y_max": 393,
-        "phase": 15,
-        "pixels": 5
-      },
-      {
-        "index": 15,
-        "y_min": 427,
-        "y_max": 460,
-        "phase": 18,
-        "pixels": 234
-      },
-      {
-        "index": 16,
-        "y_min": 445,
-        "y_max": 449,
-        "phase": 21,
-        "pixels": 5
-      },
-      {
-        "index": 17,
-        "y_min": 455,
-        "y_max": 455,
-        "phase": 0,
-        "pixels": 1
-      }
-    ],
-    "amplitude_px": 3,
-    "phases": 24,
-    "frame_length_ticks": 5,
-    "loi": "cisaillement horizontal par houppier : dx = round(3 x (y_max-y)/(y_max-y_min) x sin(2 pi (t+phase_arbre)/24)) ; base du houppier fixe, troncs sur calque statique separe ; composantes < 300 px statiques (toit-feuille du temple)",
-    "base": "poses/FSE1_feuillage_base.png",
-    "demande": "demande explicite de l utilisateur (20 octobre 2026) : feuillage des arbres anime"
+  "arbres": {
+    "statiques": true,
+    "note": "feuillage anime de la premiere version RETIRE a la demande de l utilisateur (20 octobre 2026) ; arbres sur un seul calque statique, troncs et houppiers ensemble"
   },
   "lucioles": {
     "lucioles": [
@@ -802,11 +671,11 @@
   "scene_loop_ticks": 120,
   "access": {
     "entry_px": [
-      384,
+      376,
       560
     ],
     "boss_px": [
-      392,
+      384,
       296
     ],
     "objectif_px": [
@@ -814,10 +683,10 @@
       176
     ],
     "path_found_16x16": true,
-    "cells_explored": 398,
-    "blocked_cells": 4708,
+    "cells_explored": 396,
+    "blocked_cells": 4722,
     "total_cells": 6912,
-    "walkable_cells": 2204,
+    "walkable_cells": 2190,
     "rule": "case bloquee si > 25 % hors praticable (prairie, herbe, ombres, fleurs, marches relies au bord sud)",
     "objectif": "case 2 x 2 libre reliee la plus haute dans la colonne centrale (pied du temple)",
     "boss": "case 2 x 2 libre la plus proche du centre de gravite du praticable"
@@ -828,20 +697,19 @@
     "namespace": "fin_jardin_secret",
     "tiles_per_bank": {
       "FSE1_00_SOL": 6875,
-      "FSE1_01_PRAIRIE": 2133,
-      "FSE1_02_HERBE": 769,
-      "FSE1_03_OMBRES": 635,
-      "FSE1_04_FLEURS": 193,
-      "FSE1_05_ROCHERS": 249,
-      "FSE1_06_TRONCS": 138,
-      "FSE1_07_FEUILLAGE": 4109,
-      "FSE1_08_HAIES": 1556,
-      "FSE1_09_SOUCHE": 113,
-      "FSE1_10_MARCHES": 33,
-      "FSE1_11_PROFONDEUR": 12,
-      "FSE1_12_FOND": 2268,
-      "FSE1_13_RAYON": 530,
-      "FSE1_14_LUCIOLES": 73
+      "FSE1_01_PRAIRIE": 2336,
+      "FSE1_02_HERBE": 730,
+      "FSE1_03_OMBRES": 621,
+      "FSE1_04_FLEURS": 197,
+      "FSE1_05_ROCHERS": 251,
+      "FSE1_06_ARBRES": 815,
+      "FSE1_07_HAIES": 1526,
+      "FSE1_08_SOUCHE": 112,
+      "FSE1_09_MARCHES": 33,
+      "FSE1_10_PROFONDEUR": 11,
+      "FSE1_11_FOND": 2494,
+      "FSE1_12_RAYON": 705,
+      "FSE1_13_LUCIOLES": 73
     },
     "banks": [
       "FSE1_00_SOL",
@@ -850,15 +718,14 @@
       "FSE1_03_OMBRES",
       "FSE1_04_FLEURS",
       "FSE1_05_ROCHERS",
-      "FSE1_06_TRONCS",
-      "FSE1_07_FEUILLAGE",
-      "FSE1_08_HAIES",
-      "FSE1_09_SOUCHE",
-      "FSE1_10_MARCHES",
-      "FSE1_11_PROFONDEUR",
-      "FSE1_12_FOND",
-      "FSE1_13_RAYON",
-      "FSE1_14_LUCIOLES"
+      "FSE1_06_ARBRES",
+      "FSE1_07_HAIES",
+      "FSE1_08_SOUCHE",
+      "FSE1_09_MARCHES",
+      "FSE1_10_PROFONDEUR",
+      "FSE1_11_FOND",
+      "FSE1_12_RAYON",
+      "FSE1_13_LUCIOLES"
     ],
     "runtime_tested": false,
     "warp": "aucun"

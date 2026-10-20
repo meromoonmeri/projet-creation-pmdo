@@ -1257,3 +1257,9 @@ Pas de runtime. Pas dans le mod unique.
 - **Arène claire pâle** : la prairie du rendu de fin est jaune très pâle (b ≈ 98), le critère EJS1 `b < 50` la manquait ; ajouter `lum lissée > 185`. Fidélité finale prairie 20,6 (seuil 35).
 - **Sol complet : 7 essais**. Le générateur sur-corrige (pâle 48,5 → sombre 43,5 → acide 87,2). L'essai conforme en couleur (33,4) est sorti en 1376×768 : écarté pour format. Retenu : double référence (témoin + rip), (88,6, 150,4, 45,6), distance 31,6. Six écartés gardés dans `bruts/ecartes/`, jamais retouchés.
 - Fidélité au rip : brut fond 2,1 / herbe claire 10,5 / herbe 11,8 / roche 16,4 ; calques ≤ 20,6 (seuil 35). Pas de runtime PMDO. **Série des 4 fins terminée** (FCT1, FVC1, FTH1, FSE1), en attente de validation de l'utilisateur.
+
+## Fin Jardin secret — FSE1 refaite : arbres statiques, temple sans emblème (20 octobre 2026)
+
+- **Correction de l'utilisateur** : « refait avec les arbre statique [...] je veux pas d'embleme sur le temple de celebi ». Le décor a été édité sans emblème (l'original avec emblème est gardé dans `bruts/ecartes/decor_avec_embleme_v1.png`, témoin régénéré), et l'animation de feuillage est **retirée** : retour au calque unique statique `arbres` (14 calques + Top). La section FSE1 précédente (feuillage animé) est donc **historique, ne plus l'appliquer**.
+- Résultat : 12 tests PASS, mutation vérifiée (frame de rayon), fidélité brut ≤ 17,9, calques ≤ 9,1. Accès (376,560) / (384,296) / (360,176), 2190 praticables / 4722 bloquées.
+- **Map suivante dans l'ordre du mod** : Fin Underground Lake (entrée EUL1 ; FUL1/FMF des branches sœurs non repris).

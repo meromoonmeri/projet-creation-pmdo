@@ -1,4 +1,4 @@
-"""Tests dédiés — Fin Jardin secret V1 (FSE1, 4:3 vaste) : feuillage des arbres ANIME.
+"""Tests dédiés — Fin Jardin secret V1 (FSE1, 4:3 vaste) : arbres STATIQUES, temple sans embleme.
 .venv/bin/python -m unittest source.fin_jardin_secret_v1.test_build -v
 Contrôles d'images, de formats, de palettes, de fidélité au rip, de cadence et de grille : PAS un test du moteur PMDO.
 """
@@ -15,7 +15,7 @@ S = R / '.cache/fin_jardin_secret_v1/fin_jardin_secret'
 M = json.loads((O / 'manifest.json').read_text())
 W, H = M['size_px']
 NAMES = [Path(L['file']).name.replace('_fNN', '') for L in M['layers']]
-STATIC = ('prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'troncs', 'haies', 'souche', 'marches', 'profondeur', 'fond')
+STATIC = ('prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'arbres', 'haies', 'souche', 'marches', 'profondeur', 'fond')
 REF = R / 'secretgarden.png'
 
 
@@ -37,7 +37,7 @@ def expand(L):
 STACK = [expand(L) for L in M['layers']]
 BY = {re.sub(r'^FSE1_\d\d_', '', Path(n).stem): fr for n, fr in zip(NAMES, STACK)}
 ORDER = list(BY)
-MASK = {k: np.array(Image.open(O / f'masques/FSE1_masque_{k}.png')) > 0 for k in (*STATIC, 'feuillage', 'arbres', 'rayon', 'praticable')}
+MASK = {k: np.array(Image.open(O / f'masques/FSE1_masque_{k}.png')) > 0 for k in (*STATIC, 'rayon', 'praticable')}
 B = loadmod('fse1_build', HERE / 'build.py')
 
 
@@ -94,9 +94,9 @@ class Build(unittest.TestCase):
                 self.assertEqual(int(bad.sum()), 0, name)
 
     def test_multicalque_full_coverage_and_order(self):
-        self.assertEqual(ORDER, ['sol_complet', 'prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'troncs', 'feuillage', 'haies', 'souche', 'marches', 'profondeur', 'fond', 'rayon', 'lucioles'])
+        self.assertEqual(ORDER, ['sol_complet', *STATIC, 'rayon', 'lucioles'])
         self.assertTrue(alpha(BY['sol_complet'][0]).all())
-        fixed = [alpha(BY[k][0]) for k in STATIC] + [MASK['feuillage'], MASK['rayon']]   # feuillage a sa base (poses)
+        fixed = [alpha(BY[k][0]) for k in STATIC] + [MASK['rayon']]
         self.assertTrue((np.sum(fixed, 0) == 1).all())                      # calques fixes + rayon : partition exacte
         for k in STATIC:
             self.assertGreater(int(alpha(BY[k][0]).sum()), 200, k)
@@ -122,7 +122,7 @@ class Build(unittest.TestCase):
         self.assertGreater(float(L('prairie')[:, 2].mean()), float(L('herbe')[:, 2].mean()))   # arene pale : bleu plus haut que l herbe moyenne
         r = L('rochers').mean(0); self.assertLess(abs(r[0] - r[1]), 30); self.assertGreater(r[0], r[2] + 25)  # roche beige
         sg = M['segmentation_mesures']
-        self.assertGreaterEqual(sg['fleurs'], 40); self.assertGreaterEqual(sg['rochers'], 5); self.assertEqual(sg['arbres'], 8)
+        self.assertGreaterEqual(sg['fleurs'], 40); self.assertGreaterEqual(sg['rochers'], 5); self.assertGreaterEqual(sg['arbres'], 8)
         lab, n = nd.label(MASK['rochers']); self.assertGreaterEqual(n, 5)
         # La souche : trou dans la souche, marches juste dessous qui touchent le trou et l'herbe.
         self.assertTrue((nd.binary_dilation(MASK['profondeur'], iterations=2) & MASK['souche']).any())
@@ -199,35 +199,15 @@ class Build(unittest.TestCase):
         self.assertTrue(all(u[i][1] == u[i - 1][1] - 2 for i in range(1, 24)))            # montée de 2 px par phase
 
 
-    def test_feuillage_anime_cisaillement_boucle(self):
-        # Demande explicite : le feuillage des arbres est anime, les troncs restent fixes.
-        base = load(O / f'poses/FSE1_feuillage_base.png'); tronc = load(O / 'poses/FSE1_troncs_base.png')
-        self.assertTrue((BY['troncs'][0] == tronc).all()); self.assertEqual(len(BY['troncs']), 1)
-        self.assertTrue(((alpha(base) | alpha(tronc)) == MASK['arbres']).all())          # troncs + feuillage = arbres
-        self.assertFalse((alpha(base) & alpha(tronc)).any())
-        fr = BY['feuillage']; self.assertEqual((len(fr), M['layers'][7]['ticks']), (24, 5))
-        want, comps = B.foliage_frames(base)
-        self.assertEqual(comps, M['feuillage']['composantes'])
-        for t in range(24):
-            self.assertTrue((fr[t] == want[t]).all(), t)                                  # recalcul exact, poses exportees
-        self.assertEqual(colors(fr), colors([base]))                                      # aucune couleur inventee
-        big = [c for c in comps if c['pixels'] >= 300]
-        self.assertGreaterEqual(len(big), 6)                                              # les vrais houppiers
-        moved = max(int((alpha(fr[t]) != alpha(fr[0])).sum()) for t in range(24))
-        self.assertGreater(moved, 500)                                                    # ca bouge vraiment
-        lab, _ = nd.label(alpha(base), structure=np.ones((3, 3), int))
-        for c in big:                                                                     # base de chaque houppier fixe
-            ys, xs = np.nonzero(lab == c['index']); bot = ys.max()
-            row0 = set(xs[ys == bot].tolist())
-            for t in range(24):
-                ys2, xs2 = np.nonzero(alpha(fr[t]) & (np.arange(H)[:, None] == bot))
-                self.assertTrue(row0 <= set(xs2.tolist()), (c['index'], t))
-        small = [c for c in comps if c['pixels'] < 300]                                   # toit-feuille du temple : statique
-        self.assertTrue(small)
-        for c in small:
-            ys, xs = np.nonzero(lab == c['index'])
-            for t in range(24):
-                self.assertTrue((fr[t][ys, xs] == base[ys, xs]).all(), (c['index'], t))
+    def test_arbres_statiques_sans_embleme(self):
+        # Demande de l utilisateur : arbres statiques (le feuillage anime de la v1 est retire), temple sans embleme.
+        self.assertNotIn('feuillage', BY); self.assertNotIn('troncs', BY)
+        self.assertEqual(len(BY['arbres']), 1)                                            # une seule frame : statique
+        self.assertTrue(M['arbres']['statiques'])
+        self.assertFalse(any(L['phases'] > 1 and 'arbre' in L['file'] for L in M['layers']))
+        g = {x['file']: x for x in M['generation']}
+        self.assertIn('NO emblem', g['decor.png']['prompt'])
+        self.assertTrue((HERE / 'bruts/ecartes/decor_avec_embleme_v1.png').exists())      # v1 avec embleme gardee
 
     def test_ora_and_scene(self):
         with zipfile.ZipFile(O / 'FSE1_fin_jardin_secret_calques.ora') as z:
@@ -255,12 +235,12 @@ class Build(unittest.TestCase):
         self.assertGreater(a['walkable_cells'], 1500)
         doc = json.loads((S / f"Data/Ground/{M['pmdo']['asset']}.rsground").read_text())
         blocked = np.array([[c['Tags'] for c in col] for col in doc['Object']['obstacles']]).T.astype(bool)
-        for k in ('profondeur', 'souche', 'rochers', 'troncs', 'feuillage', 'haies', 'fond', 'rayon'):
+        for k in ('profondeur', 'souche', 'rochers', 'arbres', 'haies', 'fond', 'rayon'):
             cells = MASK[k].reshape(H // 8, 8, W // 8, 8).mean((1, 3)) > 0.5
             self.assertTrue(blocked[cells].all(), k)
         cells = MASK['praticable'].reshape(H // 8, 8, W // 8, 8).mean((1, 3)) == 1
         self.assertFalse(blocked[cells].any())
-        for k in ('rochers', 'troncs', 'feuillage', 'haies', 'fond', 'rayon', 'souche', 'profondeur'):
+        for k in ('rochers', 'arbres', 'haies', 'fond', 'rayon', 'souche', 'profondeur'):
             self.assertFalse((MASK['praticable'] & MASK[k]).any(), k)
         self.assertGreater(float(MASK['praticable'][MASK['prairie']].mean()), 0.95)   # l'arène est praticable
         self.assertGreater(float(MASK['praticable'][MASK['herbe']].mean()), 0.5)       # bandes périphériques entre haies et fond exclues

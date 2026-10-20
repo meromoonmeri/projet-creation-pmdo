@@ -53,9 +53,9 @@ GEN = [
      'green background. NEW larger top-down 4:3 map, a dungeon END with no exit: player arrives at the SOUTH on a '
      'grass path between hedges; the path opens into a VERY LARGE wide open meadow, a boss arena, in the centre; at '
      'the NORTH the big golden stump carrying a small Celebi temple (stone base, wooden pillars, green leaf roof, '
-     'dark doorway, small Celebi emblem, wooden steps up the stump), the green light beam falling onto it, flowers '
+     'dark doorway - NO emblem, NO symbol above the door (demande de l utilisateur) - wooden steps up the stump), the green light beam falling onto it, flowers '
      'around it, grass leading right up to the steps. Enclosed garden, no exit anywhere else. No characters, no text, no UI, no border.',
-     'essais': 'premier essai ; conforme (temple de Celebi sur la souche au nord, arene centrale, allee sud)'},
+     'essais': 'premier essai avec embleme ECARTE par l utilisateur ; version retenue : decor edite sans embleme (ecartes/decor_avec_embleme_v1.png garde), temple nu au-dessus de la porte'},
     {'file': 'temoin_sans_objets.png', 'images': [f'{LOT}/bruts/decor.png'], 'prompt':
      'Same image, same framing and exact same pixel-art style. Remove every round leafy tree (with its trunk and '
      'shadow), every boulder and rock, and every small flower: replace them with the same meadow grass around them. '
@@ -121,11 +121,10 @@ assert (JM.W, JM.H, JM.SRC) == (W, H, SRC)
 keep_large, cell_grid, close_ = V1.keep_large, V1.cell_grid, V1.close_
 down_class, down_full, rgba, quantize_group = V1.down_class, V1.down_full, V1.rgba, V1.quantize_group
 PALETTE_GROUPS = {'herbe': (['sol_complet', 'prairie', 'herbe', 'ombres'], 64), 'fleurs': (['fleurs'], 24),
-                  'rochers': (['rochers'], 32), 'vegetation': (['troncs', 'feuillage', 'haies'], 96),
+                  'rochers': (['rochers'], 32), 'vegetation': (['arbres', 'haies'], 96),
                   'souche': (['souche', 'marches', 'profondeur'], 48), 'fond': (['fond'], 8)}
-STATIC = ['prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'troncs', 'haies', 'souche', 'marches', 'profondeur', 'fond']
-ANIMS = ['feuillage', 'rayon', 'lucioles']
-FEUILLAGE_AMP = 3
+STATIC = ['prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'arbres', 'haies', 'souche', 'marches', 'profondeur', 'fond']
+ANIMS = ['rayon', 'lucioles']
 
 
 def open_(m, it):
@@ -301,44 +300,6 @@ def mote_frames(motes, ts=range(PHASES)):
     return frames
 
 
-# ---------------------------------------------------------------- feuillage anime (demande explicite)
-def split_trees(layer):
-    """Troncs statiques (bruns) / feuillage (verts dominants) depuis le calque arbres quantifie."""
-    a = layer.astype(int); al = a[..., 3] == 255
-    feuil = al & (a[..., 1] > a[..., 0] + 15)
-    tr = np.zeros_like(layer); tr[al & ~feuil] = layer[al & ~feuil]
-    fe = np.zeros_like(layer); fe[feuil] = layer[feuil]
-    return tr, fe
-
-
-def foliage_frames(base):
-    """Cisaillement horizontal par houppier : base fixe, haut mobile (<= FEUILLAGE_AMP px), phase par arbre.
-    Boucle fermee 24 phases ; chaque pixel garde sa couleur, seul son x bouge dans son houppier."""
-    mask = base[..., 3] == 255
-    lab, n = nd.label(mask, structure=np.ones((3, 3), int))
-    comps = []
-    for i, sl in enumerate(nd.find_objects(lab)):
-        ys = sl[0]; comps.append({'index': i + 1, 'y_min': int(ys.start), 'y_max': int(ys.stop) - 1,
-                                  'phase': (i * 3) % PHASES, 'pixels': int((lab[sl] == i + 1).sum())})
-    frames = []
-    for t in range(PHASES):
-        out = np.zeros_like(base)
-        for c in comps:
-            sl = nd.find_objects(lab)[c['index'] - 1]
-            sub_lab = lab[sl] == c['index']; sub = base[sl]
-            hgt = max(1, c['y_max'] - c['y_min'])
-            for r in range(sub.shape[0]):
-                y = sl[0].start + r
-                factor = (c['y_max'] - y) / hgt
-                dx = 0 if c['pixels'] < 300 else int(round(FEUILLAGE_AMP * factor * np.sin(2 * np.pi * (t + c['phase']) / PHASES)))  # fragments < 300 px (toit-feuille du temple, debris) : statiques
-                row = sub[r][sub_lab[r]]
-                xs = np.nonzero(sub_lab[r])[0] + sl[1].start + dx
-                ok = (xs >= 0) & (xs < W)
-                out[y, xs[ok]] = row[ok]
-        frames.append(out)
-    return frames, comps
-
-
 def write_ora(path, layers):
     import xml.etree.ElementTree as ET
     root = ET.Element('image', w=str(W), h=str(H), name='Fin Jardin secret V1 (FSE1)')
@@ -386,7 +347,7 @@ def ground_project(stack, blocked, entry_px, boss_px, objectif_px, gfx, tools):
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
              Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Jardin secret ; rayon anime (rampe exacte '
-                     'du rip), lucioles aux couleurs du rip, feuillage des arbres anime. Collisions de base a verifier. Aucun warp : fin de donjon. '
+                     'du rip), lucioles aux couleurs du rip, arbres statiques. Collisions de base a verifier. Aucun warp : fin de donjon. '
                      'Biome choisi par l agent.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -409,7 +370,7 @@ def ground_project(stack, blocked, entry_px, boss_px, objectif_px, gfx, tools):
 <Header>
   <Name>Fin Jardin secret 4:3 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : fin de donjon : allee au sud, grande arene centrale, temple de Celebi sur la souche au nord sous un rayon de lumiere, generee au format 4:3 (ref. rip Jardin secret), rayon, lucioles et feuillage des arbres animes. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : fin de donjon : allee au sud, grande arene centrale, temple de Celebi sur la souche au nord sous un rayon de lumiere, generee au format 4:3 (ref. rip Jardin secret), rayon et lucioles animes, arbres statiques. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>
@@ -435,7 +396,7 @@ def build():
     if OUT.exists():
         for d in ['calques', 'animation', 'masques', 'review']:
             shutil.rmtree(OUT / d, ignore_errors=True)
-    for d in ['calques', 'poses', 'masques', 'review'] + [f'animation/{x}' for x in ANIMS]:
+    for d in ['calques', 'masques', 'review'] + [f'animation/{x}' for x in ANIMS]:
         (OUT / d).mkdir(parents=True, exist_ok=True)
     STAGE.parent.mkdir(parents=True, exist_ok=True)
     a, t, f, ref = rgb(RAW / 'decor.png'), rgb(RAW / 'temoin_sans_objets.png'), rgb(RAW / 'sol_complet.png'), rgb(REF)
@@ -449,15 +410,10 @@ def build():
     layers = {'sol_complet': rgba(down_full(f), np.ones((H, W), bool))}
     for k in cols:
         layers[k] = rgba(cols[k], ex[k])
-    layers['troncs'], layers['feuillage'] = split_trees(layers.pop('arbres'))
     q = {}
     for keys, n in PALETTE_GROUPS.values():
         q.update(quantize_group({k: layers[k] for k in keys}, n))
     layers = q
-    Image.fromarray(layers['feuillage']).save(OUT / 'poses' / f'{PFX}_feuillage_base.png')
-    Image.fromarray(layers['troncs']).save(OUT / 'poses' / f'{PFX}_troncs_base.png')
-    for nm in ('troncs', 'feuillage'):
-        Image.fromarray(((layers[nm][..., 3] == 255) * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_{nm}.png')
     for k, v in ex.items():
         Image.fromarray((v * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_{k}.png')
     mouth = ex['profondeur']
@@ -469,9 +425,8 @@ def build():
     Image.fromarray(np.where(ex['rayon'], base_idx * 11, 0).astype('uint8')).save(OUT / 'masques' / f'{PFX}_rayon_crans.png')
     rayon = beam_frames(base_idx, ex['rayon'])
     lucioles = mote_frames(MOTES)
-    feuillage, foliage_comps = foliage_frames(layers['feuillage'])
-    anim = {'feuillage': feuillage, 'rayon': rayon, 'lucioles': lucioles}
-    order_names = ['sol_complet', 'prairie', 'herbe', 'ombres', 'fleurs', 'rochers', 'troncs', 'feuillage', 'haies', 'souche', 'marches', 'profondeur', 'fond', 'rayon', 'lucioles']
+    anim = {'rayon': rayon, 'lucioles': lucioles}
+    order_names = ['sol_complet'] + STATIC + ANIMS
     stack_named, layer_list = [], []
     for i, nm in enumerate(order_names):
         if nm in anim:
@@ -581,9 +536,7 @@ def build():
                   'souffle_crans': BREATH, 'bords_attenues_crans': EDGE_STEPS, 'phases': PHASES, 'frame_length_ticks': TICKS,
                   'loi': 'cran = clip(cran0 + round(2 sin(2 pi t / 24)) x min(1, cran0 / 6))',
                   'origine': 'forme du rayon GENEREE ; couleurs EXACTES du rip ; souffle cree par nous'},
-        'feuillage': {'composantes': foliage_comps, 'amplitude_px': FEUILLAGE_AMP, 'phases': PHASES, 'frame_length_ticks': TICKS,
-                      'loi': 'cisaillement horizontal par houppier : dx = round(3 x (y_max-y)/(y_max-y_min) x sin(2 pi (t+phase_arbre)/24)) ; base du houppier fixe, troncs sur calque statique separe ; composantes < 300 px statiques (toit-feuille du temple)',
-                      'base': f'poses/{PFX}_feuillage_base.png', 'demande': 'demande explicite de l utilisateur (20 octobre 2026) : feuillage des arbres anime'},
+        'arbres': {'statiques': True, 'note': 'feuillage anime de la premiere version RETIRE a la demande de l utilisateur (20 octobre 2026) ; arbres sur un seul calque statique, troncs et houppiers ensemble'},
         'lucioles': {'lucioles': [list(mo) for mo in MOTES], 'montee_px_par_phase': MOTE_RISE, 'couleurs': [list(DOT), list(GLOW), list(CORE)],
                      'formes': 'point 1 px (phases 0-2, 21-23 et 2 phases sur 4), croix 3 x 3 (2 phases sur 4)',
                      'phases': PHASES, 'frame_length_ticks': TICKS,
@@ -599,7 +552,7 @@ def build():
     }
     (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     shutil.copyfile(OUT / 'manifest.json', STAGE / 'manifest.json')
-    print(json.dumps({'entry': entry_px, 'boss': boss_px, 'objectif': objectif_px, 'feuillage_composantes': len(foliage_comps), 'blocked': int(blocked.sum()),
+    print(json.dumps({'entry': entry_px, 'boss': boss_px, 'objectif': objectif_px, 'blocked': int(blocked.sum()),
                       'walkable': int((~blocked).sum()), 'seg': seg, 'reg': reg,
                       'px': {k: int(v.sum()) for k, v in ex.items()},
                       'fidelite': {k: v['distance'] for k, v in fid.items()},

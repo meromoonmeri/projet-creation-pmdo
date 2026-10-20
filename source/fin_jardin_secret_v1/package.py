@@ -11,7 +11,7 @@ R = HERE.parents[1]
 O = R / 'renders/fin_jardin_secret_v1'
 S = R / '.cache/fin_jardin_secret_v1/fin_jardin_secret'
 PFX = 'FSE1'
-ANIMS = ['feuillage', 'rayon', 'lucioles']
+ANIMS = ['rayon', 'lucioles']
 REVIEW = ['scene_t000.png', 'scene_animee.webp', 'collisions_marqueurs.png', 'planche_poses.png']
 
 
@@ -29,7 +29,6 @@ def main():
     items = [(p, 'calques/' + p.name) for p in sorted((O / 'calques').glob('*.png'))]
     for sub in ANIMS:
         items += [(p, f'animation/{sub}/' + p.name) for p in sorted((O / 'animation' / sub).glob('*.png'))]
-    items += [(p, 'poses/' + p.name) for p in sorted((O / 'poses').glob('*.png'))]
     items += [(p, 'masques/' + p.name) for p in sorted((O / 'masques').glob('*.png'))]
     items += [(O / f'{PFX}_fin_jardin_secret_calques.ora', f'{PFX}_fin_jardin_secret_calques.ora'),
               (O / 'manifest.json', 'manifest.json'), (O / 'README.md', 'README.md')]
