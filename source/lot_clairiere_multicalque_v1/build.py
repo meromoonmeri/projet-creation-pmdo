@@ -100,6 +100,63 @@ def write_ora(path, layers, name):
         z.writestr('stack.xml', ET.tostring(root, encoding='utf-8', xml_declaration=True))
 
 
+# Animation de l'eau : l'écume (cases claires de la mer) se décale d'une case à la fois, en aller-retour
+# 0 -> 1 -> 2 -> 3 -> 2 -> 1 -> 0 (6 phases, boucle fermée sans saut), 8 ticks par phase = 48 ticks.
+PING_PONG = [0, 1, 2, 3, 2, 1]
+TICKS_PER_PHASE = 8
+
+
+def animate_eau(code, slug, d, cell, rgb, layers):
+    import json
+    eau = CLASSES.index('eau')
+    eau_cells = cell == eau
+    # Pour chaque case de mer : couleur moyenne des pixels (fond ou écume), et écume majoritaire ou non.
+    full_eau = np.kron(eau_cells, np.ones((8, 8), bool))
+    lum = rgb.astype(int).mean(-1)
+    mn = rgb.min(-1).astype(int)
+    foam_px = (mn >= 170) & full_eau
+    foam_cells = foam_px.reshape(H // 8, 8, W // 8, 8).transpose(0, 2, 1, 3).reshape(H // 8, W // 8, 64).sum(-1) >= 16
+    foam_cells &= eau_cells
+    base = np.zeros((H // 8, W // 8, 3), np.uint8)
+    pale = np.zeros((H // 8, W // 8, 3), np.uint8)
+    for gy, gx in zip(*np.nonzero(eau_cells)):
+        blk = rgb[gy * 8:gy * 8 + 8, gx * 8:gx * 8 + 8].reshape(-1, 3)
+        base[gy, gx] = np.median(blk[blk.min(-1) < 170] if (blk.min(-1) < 170).any() else blk, axis=0)
+        fb = blk[blk.min(-1) >= 170]
+        pale[gy, gx] = fb.mean(0).astype(np.uint8) if len(fb) else base[gy, gx]
+    (d / 'animation' / 'eau').mkdir(parents=True, exist_ok=True)
+    frames_full = []
+    for k, sh in enumerate(PING_PONG):
+        fc = np.roll(foam_cells, sh, axis=1) & eau_cells
+        col = np.where(fc[..., None], pale, base)
+        full = np.kron(col, np.ones((8, 8, 1), np.uint8))
+        a = np.zeros((H, W, 4), np.uint8)
+        a[..., :3] = full
+        a[..., 3] = np.where(full_eau, 255, 0)
+        Image.fromarray(a).save(d / 'animation' / 'eau' / f'{code}_eau_f{k:02d}.png')
+        frames_full.append(a)
+    # Image composée par phase : calques statiques par-dessus l'eau (sauf eau elle-même), dans l'ordre.
+    # Ordre de superposition : sol, chemin, eau (animée), roches, végétation, fleurs, grotte.
+    below = ['sol', 'chemin']
+    above = ['roche', 'vegetation', 'fleurs', 'grotte']
+    prev_frames = []
+    for eau_a in frames_full:
+        comp = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+        for nm in below:
+            comp.alpha_composite(Image.fromarray(layers[nm]))
+        comp.alpha_composite(Image.fromarray(eau_a))
+        for nm in above:
+            comp.alpha_composite(Image.fromarray(layers[nm]))
+        prev_frames.append(comp.convert('RGB'))
+    prev_frames[0].save(d / f'{code}_apercu_anime.gif', save_all=True, append_images=prev_frames[1:],
+                        duration=TICKS_PER_PHASE * 1000 // 30, loop=0)
+    prev_frames[0].save(d / f'{code}_apercu_f00.png')
+    json.dump({'phases': PING_PONG, 'ticks_per_phase': TICKS_PER_PHASE,
+               'boucle': '0-1-2-3-2-1 (6 phases, 48 ticks), ping-pong sans saut',
+               'calque': 'eau (écume décalée d une case)', 'verifie': False},
+              open(d / 'animation' / 'eau' / 'cadence.json', 'w'), ensure_ascii=False, indent=2)
+
+
 def build():
     (OUT).mkdir(parents=True, exist_ok=True)
     manifest = {'lot': 'LCM1', 'format': '4:3, 768 x 576 px, 96 x 72 cases de 8 px', 'maps': []}
@@ -115,6 +172,7 @@ def build():
             Image.fromarray(layers[nm]).save(d / 'calques' / f'{code}_{i:02d}_{nm}.png')
         write_ora(d / f'{code}_{slug}.ora', {f'{i:02d} {nm}': layers[nm] for i, nm in enumerate(CLASSES)}, f'{code} {title}')
         Image.fromarray(rgb).save(d / f'{code}_recomposition_source.png')
+        animate_eau(code, slug, d, cell, rgb, layers)
         shares = {nm: round(float((cell == i).mean()), 3) for i, nm in enumerate(CLASSES)}
         manifest['maps'].append({'code': code, 'slug': slug, 'titre': title, 'source': f'bruts/{src}',
                                  'part_des_cases': shares, 'calques': CLASSES})
