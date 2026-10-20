@@ -42,8 +42,8 @@ class Mod(unittest.TestCase):
     def test_toutes_les_cartes_de_la_serie(self):
         lots = sorted(p.parent.name for p in (R / 'renders').glob('fin_*/*_projet_pmdo_0812.zip'))
         self.assertEqual(sorted(m[0] for m in B.MAPS), lots)
-        self.assertEqual((M['cartes'], len(M['maps'])), (19, 19))
-        self.assertEqual(len({m[1] for m in B.MAPS}), 19)
+        self.assertEqual((M['cartes'], len(M['maps'])), (21, 21))
+        self.assertEqual(len({m[1] for m in B.MAPS}), 21)
         self.assertEqual(M['namespace'], NS); self.assertFalse(M['runtime_tested']); self.assertFalse(M['art_approved'])
         self.assertEqual({n.split('/')[0] for n in zipfile.ZipFile(ZIP).namelist()}, {NS})
 

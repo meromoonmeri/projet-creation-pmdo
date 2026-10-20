@@ -91,10 +91,42 @@
 - **Fidélité** (seuil 35) : brut herbe 1,6, roche claire 8,1, roche sombre 10,2 ; calques finaux herbe 2,6, falaises claires 9,2, falaises sombres 8,8.
 - **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
 
-### 11. Mod PMDO 0.8.12 unifié des 19 fins de donjon (`guilde_fins_donjons`)
-- Sorties : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (32,1 Mo), `renders/mod_guilde_fins_v1/planche_cartes.png`, galerie `apercu_mod_guilde_fins_v1.html`, build `source/mod_guilde_fins_v1/build_mod.py`.
-- Regroupe octet pour octet les 19 salles de fin de donjon (`FVS1`, `FCF1`, `FRP1`, `FGG1`, `FGG2`, `FBS1`, `FJS1`, `FOC1`, `FWC1`, `FUL2`, `FMF3`, `FSM1`, `FST1`, `FCT3`, `FCV5`, `FMT4`, `FJS5`, `FOC2`, `FAM1`), soit **19 Grounds `.rsground`** et **185 banques `.tile`** avec `Content/Tile/index.idx` fusionné et `INSTALLER.py`.
-- **Contrôles** : 6 tests PASS (`source.mod_guilde_fins_v1.test_mod`). Pas de runtime, `art_approved: false`.
+### 11. Entrée Apple Woods (Bois aux Pommes) : allée des pommiers et arche forestière, EAW1
+- Sorties : `renders/entree_apple_woods_sud_nord_v1/`, aperçu `apercu_entree_apple_woods_sud_nord_v1.html`, build `source/entree_apple_woods_sud_nord_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Apple_Woods_entrance_TDS.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : chemin de terre ocre sud → nord (`entrance` à `(384, 560)`), clairière centrale entourée de pommiers chargés de pommes rouges, touffes de fleurs lavande, 4 arbres ronds isolés et 12 rochers moussus, menant à l'arche forestière nord (`donjon_seuil` à `(376, 16)`) ; aucun warp.
+- **Calques** : 10 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_claire`, `chemin`, `fleurs`, `rochers`, `arbres_isoles`, `pommiers_lisiere`, `chute_pommes` 24 × 5 ticks et `feuilles_vent` 24 × 5 ticks utilisant 17 poses générées sur fond magenta `#FF00FF` dans `bruts/pommes_feuilles_poses.png`).
+- **Fidélité** (seuil 35) : brut chemin 18,3, herbe claire 8,8, herbe/feuillage 7,3, pommes 11,0 ; calques finaux chemin 21,4, herbe claire 26,6, herbe 13,1, pommiers 9,3.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 12. Fin Apple Woods (Bois aux Pommes) : sanctuaire du Grand Pommier Doré, FAW1
+- Sorties : `renders/fin_apple_woods_v1/`, aperçu `apercu_fin_apple_woods_v1.html`, build `source/fin_apple_woods_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `Apple_Woods_entrance_TDS.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : allée ocre au sud (`entrance` à `(384, 560)`), arène centrale (`boss` à `(376, 304)`), et Grand Pommier Ancestral aux pommes dorées avec souche-autel au nord-centre (`objectif` à `(376, 256)`) devant la lisière nord fermée ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `herbe`, `herbe_claire`, `chemin`, `fleurs`, `rochers`, `arbres_isoles`, `pommiers_lisiere`, `autel_pommier`, `chute_pommes` 24 × 5 ticks et `feuilles_vent` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut chemin 8,2, herbe claire 4,8, herbe/feuillage 8,0, pommes 11,1 ; calques finaux chemin 11,8, herbe claire 25,9, herbe 14,3, pommiers 15,4.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 13. Entrée Lac Cristal (Crystal Lake) : chaussée hexagonale et arche de cristal, ELC1
+- Sorties : `renders/entree_lac_cristal_sud_nord_v1/`, aperçu `apercu_entree_lac_cristal_sud_nord_v1.html`, build `source/entree_lac_cristal_sud_nord_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `lakecrystalpmdsky.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : chaussée de dalles hexagonales cyan lumineuses traversant le lac de cristal du sud (`entrance` à `(384, 560)`) au nord (`donjon_seuil` à `(376, 16)`) via une place centrale, bordée de cristaux prismatiques et de piliers hexagonaux, avec 33 îlots cristallins sur l'eau et une arche de cristal au nord ; aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `eau`, `ilots_cristal`, `dalles_cristal`, `dalles_claires`, `cristaux_rive`, `piliers_cristal`, `arche_cristal`, `reflets_eau` 24 × 5 ticks sans liseré clair, `lueur_arche` 24 × 5 ticks et `eclats_cristal` 24 × 5 ticks utilisant 18 poses générées sur fond magenta `#FF00FF` dans `bruts/cristal_eclats_poses.png`).
+- **Fidélité** (seuil 35) : brut eau 4,1, dalles cristal 6,9, dalles claires 5,9, cristaux 11,8 ; calques finaux eau 3,5, dalles cristal 2,4, dalles claires 15,6, cristaux 4,9.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 14. Fin Lac Cristal (Crystal Lake) : sanctuaire du Prisme Souverain, FLC1
+- Sorties : `renders/fin_lac_cristal_v1/`, aperçu `apercu_fin_lac_cristal_v1.html`, build `source/fin_lac_cristal_v1/build.py`.
+- **Méthode « textures canoniques »** = rendu généré référencé sur `lakecrystalpmdsky.png` (*Explorateurs du Ciel*). Ce ne sont pas des tuiles natives.
+- **Layout** : chaussée sud (`entrance` à `(384, 560)`), vaste presqu'île hexagonale centrale entourée par les eaux profondes du lac (`boss` à `(376, 288)`), et autel hexagonal à degrés portant le Prisme Souverain au nord-centre (`objectif` à `(376, 200)`), couronné d'un hémicycle de colonnes de cristal fermant le nord ; aucune sortie, aucun warp.
+- **Calques** : 11 calques + `Top` vide (`sol_complet`, `eau`, `ilots_cristal`, `dalles_cristal`, `dalles_claires`, `cristaux_rive`, `piliers_cristal`, `autel_cristal`, `reflets_eau` 24 × 5 ticks, `lueur_autel` 24 × 5 ticks et `eclats_cristal` 24 × 5 ticks).
+- **Fidélité** (seuil 35) : brut eau 4,4, dalles cristal 7,3, dalles claires 6,9, cristaux 8,3 ; calques finaux eau 4,0, dalles cristal 2,7, dalles claires 16,9, cristaux 5,7.
+- **Contrôles** : 11 tests PASS, 6 mutations détectées. Pas de runtime, `art_approved: false`.
+
+### 15. Mods PMDO 0.8.12 unifiés (`guilde_entrees_sud_nord` — 23 entrées & `guilde_fins_donjons` — 21 fins)
+- **Entrées (`guilde_entrees_sud_nord`)** : `renders/mod_guilde_entrees_v1/guilde_entrees_sud_nord_pmdo_0812.zip` (34,0 Mo), `renders/mod_guilde_entrees_v1/planche_cartes.png`, galerie `apercu_mod_guilde_entrees_v1.html`, build `source/mod_guilde_entrees_v1/build_mod.py`. Regroupe octet pour octet les **23 entrées sud → nord** (`ESN1`, `ESN2`, `ECN1`, `ERN1`, `EGN1`, `EBN1`, `EJN1`, `EWC1`, `EWC2`, `EWC3`, `EUL1`, `EMF1`, `EQS1`, `ESC1`, `ETC1`, `ECV1`, `EMT1`, `EJS1`, `EJS2`, `EOC2`, `EAM1`, `EAW1`, `ELC1`), soit **23 Grounds `.rsground`** et **277 banques `.tile`** (6 tests PASS).
+- **Fins (`guilde_fins_donjons`)** : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (36,1 Mo), `renders/mod_guilde_fins_v1/planche_cartes.png`, galerie `apercu_mod_guilde_fins_v1.html`, build `source/mod_guilde_fins_v1/build_mod.py`. Regroupe octet pour octet les **21 salles de fin de donjon** (`FVS1`, `FCF1`, `FRP1`, `FGG1`, `FGG2`, `FBS1`, `FJS1`, `FOC1`, `FWC1`, `FUL2`, `FMF3`, `FSM1`, `FST1`, `FCT3`, `FCV5`, `FMT4`, `FJS5`, `FOC2`, `FAM1`, `FAW1`, `FLC1`), soit **21 Grounds `.rsground`** et **207 banques `.tile`** (6 tests PASS).
+- Pas de runtime, `art_approved: false`.
 
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 

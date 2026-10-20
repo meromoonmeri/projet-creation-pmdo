@@ -1,0 +1,761 @@
+{
+  "lot": "entree_apple_woods_sud_nord_v1",
+  "prefix": "EAW1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (EWC1 et ESN1 pour les utilitaires) ; aucun emprunt aux branches soeurs",
+  "biome": "Apple Woods / Bois aux Pommes (Explorateurs du Ciel), sentier sablonneux ocre, herbe emeraude et verger de pommiers",
+  "method": "textures canoniques = rendu genere REFERENCE : rip Apple_Woods_entrance_TDS.png passe au generateur ; decor complet et temoin sans objets edites et recales (0, 0)",
+  "reference_da": {
+    "file": "Apple_Woods_entrance_TDS.png",
+    "sha256": "cb37d8b5705cbc1fd169415c46a824a956f35acf5f994204ac95219b552d69fd",
+    "titre": "Apple Woods / Bois aux Pommes (Pokemon Donjon Mystere : Explorateurs du Ciel, Apple_Woods_entrance_TDS.png)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "Apple_Woods_entrance_TDS.png"
+      ],
+      "prompt": "WIDE LANDSCAPE 4:3 (1200x896), zoomed out, top-down 3/4 Nintendo DS Pokemon Mystery Dungeon Explorers of Sky pixel art environment map of Apple Woods entrance (South to North passage), strictly matching the exact colors, pixel art textures, and palette of the reference image Apple_Woods_entrance_TDS.png. A warm sandy-ochre dirt path (#F1BC74) enters at the bottom center (south), widens into an oval central clearing in the middle, and continues straight north to exit at the top center (north) between dense apple trees. Along both edges of the sandy path is a wavy border of light yellow-green grass (#78BB47) dotted with tiny pink-purple flower bushes and 4 small tan boulders (#C89858) at the clearing corners. Surrounding the path on the left and right flanks are deep emerald-green grassy meadows (#426F2C) with round green broadleaf trees in the lower half and dense orchard groves of apple trees loaded with bright red apples (#C53E1F) in the upper half framing the northern passage. Crisp DS pixel art, no characters, no UI, no text, no water.",
+      "essais": "premier essai ; conforme (chemin 18.3, herbe_claire 8.8, herbe_feuillage 7.3, pommes 11.0)"
+    },
+    {
+      "file": "temoin_sans_objets.png",
+      "images": [
+        "source/entree_apple_woods_sud_nord_v1/bruts/decor.png",
+        "Apple_Woods_entrance_TDS.png"
+      ],
+      "prompt": "Exact same 1200x896 top-down Nintendo DS Pokemon Mystery Dungeon Apple Woods entrance map as the first reference image, keeping the exact same sandy-ochre dirt path (#F1BC74), wavy light yellow-green grass border (#78BB47), and deep emerald-green meadow grass (#426F2C) in the exact same pixel positions, but with ALL trees, apple trees, boulders, flower bushes, and tree shadows completely removed and replaced seamlessly by the underlying emerald-green meadow grass (#426F2C) and light yellow-green border grass (#78BB47). Flat clean ground-only witness image, no trees, no boulders, no flowers, no characters.",
+      "essais": "premier essai ; recalage (0, 0) ecart 3.26"
+    },
+    {
+      "file": "pommes_feuilles_poses.png",
+      "images": [
+        "Apple_Woods_entrance_TDS.png"
+      ],
+      "prompt": "2D Nintendo DS Pokemon Mystery Dungeon Explorers of Sky pixel-art sprite sheet on a solid, uniform, flat pure magenta #FF00FF background (RGB 255, 0, 255) with NO anti-aliasing against the magenta background and NO magenta inside the sprites. Contains 18 well-separated orchard animation sprites inspired by Apple_Woods_entrance_TDS.png arranged in 3 clean rows with generous #FF00FF spacing: Row 1 (6 poses): bright red PMD apples (#D83820, #F86040, highlight #F8C8A8, green leaf #68C840, dark brown stem #583820) — upright whole apple, tilted falling apple left, tilted falling apple right, slightly squashed landing apple, apple with small dust puff, and golden Perfect Apple (#F8C838, #D89818). Row 2 (6 poses): fluttering emerald and lime orchard leaves (#488830, #78C048, #A8E068) — horizontal leaf, tilted 45 deg left, vertical spinning leaf, tilted 45 deg right, curled leaf, and twin small leaves. Row 3 (6 poses): small pink-white blossom petals and golden pollen sparkles (#F8B8D8, #F8E898) from tiny dot to 4-point star sparkle. Crisp 1-pixel stepped edges, no text, no grid lines.",
+      "essais": "premier essai ; 18 poses extraites sur fond magenta (6 pommes, 6 feuilles, 6 petales/eclats)"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/entree_apple_woods_sud_nord_v1/bruts/decor.png",
+      "sha256": "4e98e3f5199c1fc63f237f43c50f8dc6e9cec3b924f36d2e429128e2abfb5010",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/entree_apple_woods_sud_nord_v1/bruts/temoin_sans_objets.png",
+      "sha256": "8451179d318f82cf8cd4d9084036ed972eb832e6dc55870467593f61bb36df2b",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/entree_apple_woods_sud_nord_v1/bruts/pommes_feuilles_poses.png",
+      "sha256": "d3391c7af92ad628ffb82dada92a8dbcb48976e17282c853c0c310c51a80f28b",
+      "size": [
+        1191,
+        880
+      ],
+      "ecarte": false
+    }
+  ],
+  "recalage": {
+    "temoin_sans_objets": {
+      "ecart_moyen": 3.18,
+      "ecart_decale_1px": 4.15
+    },
+    "zones": "temoin sans objets : chemin et herbe erodes de 6 px"
+  },
+  "segmentation_mesures": {
+    "pommiers_px_1200x896": 325589,
+    "arbres_px_1200x896": 168094,
+    "rochers_px_1200x896": 24859,
+    "fleurs_px_1200x896": 3725,
+    "chemin_px_1200x896": 136815,
+    "herbe_claire_px_1200x896": 85473,
+    "herbe_px_1200x896": 330645,
+    "nb_rochers": 8,
+    "nb_fleurs": 19,
+    "nb_arbres": 8,
+    "nb_pommiers": 2
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
+    "brut": {
+      "chemin": {
+        "rip_rgb": [
+          240.9,
+          187.9,
+          115.9
+        ],
+        "decor_rgb": [
+          239.1,
+          180.9,
+          99.1
+        ],
+        "distance": 18.3
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          120.4,
+          187.4,
+          71.1
+        ],
+        "decor_rgb": [
+          122.1,
+          179.5,
+          74.7
+        ],
+        "distance": 8.8
+      },
+      "herbe_feuillage": {
+        "rip_rgb": [
+          65.6,
+          110.5,
+          44.3
+        ],
+        "decor_rgb": [
+          62.6,
+          108.7,
+          37.8
+        ],
+        "distance": 7.3
+      },
+      "pommes": {
+        "rip_rgb": [
+          197.4,
+          61.8,
+          31.0
+        ],
+        "decor_rgb": [
+          203.8,
+          57.0,
+          23.4
+        ],
+        "distance": 11.0
+      }
+    },
+    "calques_finaux": {
+      "chemin": {
+        "matiere": "chemin",
+        "rgb": [
+          238.7,
+          179.8,
+          96.2
+        ],
+        "distance_rip": 21.4
+      },
+      "herbe_claire": {
+        "matiere": "herbe_claire",
+        "rgb": [
+          121.1,
+          163.5,
+          82.8
+        ],
+        "distance_rip": 26.6
+      },
+      "herbe": {
+        "matiere": "herbe_feuillage",
+        "rgb": [
+          72.6,
+          118.4,
+          52.1
+        ],
+        "distance_rip": 13.1
+      },
+      "pommiers": {
+        "matiere": "pommes",
+        "rgb": [
+          189.6,
+          65.4,
+          27.5
+        ],
+        "distance_rip": 9.3
+      }
+    }
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "terrain": {
+        "calques": [
+          "sol_complet",
+          "herbe",
+          "herbe_claire",
+          "chemin"
+        ],
+        "couleurs": 96
+      },
+      "fleurs_rochers": {
+        "calques": [
+          "fleurs",
+          "rochers"
+        ],
+        "couleurs": 64
+      },
+      "arbres": {
+        "calques": [
+          "arbres"
+        ],
+        "couleurs": 64
+      },
+      "pommiers": {
+        "calques": [
+          "pommiers"
+        ],
+        "couleurs": 96
+      }
+    }
+  },
+  "segmentation": "- chemin : sentier sablonneux ocre chaud du témoin (hors rochers et fleurs) ;\n    - herbe_claire : bordure d'herbe vert-jaune clair le long du sentier (hors objets) ;\n    - rochers : les rochers ocre bordant la clairière centrale, bloqués ;\n    - fleurs : touffes de fleurs mauves et roses en bordure de sentier, praticables ;\n    - pommiers : verger de pommiers chargés de pommes rouges encadrant le nord, bloqués ;\n    - arbres : arbres feuillus verts et buissons de la moitié sud, bloqués ;\n    - herbe : prairie d'herbe vert émeraude praticable.",
+  "layers": [
+    {
+      "file": "calques/EAW1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_01_herbe.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_02_herbe_claire.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_03_chemin.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_04_fleurs.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_05_rochers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_06_arbres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/EAW1_07_pommiers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/chute_pommes/EAW1_08_chute_pommes_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/feuilles_eclats/EAW1_09_feuilles_eclats_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "chute_pommes": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "poses": {
+      "pomme_0": [
+        56,
+        224,
+        32,
+        168,
+        8
+      ],
+      "pomme_1": [
+        56,
+        224,
+        204,
+        364,
+        8
+      ],
+      "pomme_2": [
+        56,
+        224,
+        428,
+        572,
+        8
+      ],
+      "pomme_3": [
+        56,
+        224,
+        628,
+        764,
+        8
+      ],
+      "pomme_4": [
+        56,
+        224,
+        808,
+        1000,
+        8
+      ],
+      "pomme_5": [
+        56,
+        224,
+        1028,
+        1164,
+        8
+      ]
+    },
+    "palette": [
+      [
+        250,
+        218,
+        158
+      ],
+      [
+        244,
+        188,
+        110
+      ],
+      [
+        144,
+        212,
+        73
+      ],
+      [
+        105,
+        194,
+        66
+      ],
+      [
+        229,
+        127,
+        95
+      ],
+      [
+        96,
+        154,
+        58
+      ],
+      [
+        57,
+        149,
+        61
+      ],
+      [
+        44,
+        121,
+        54
+      ],
+      [
+        242,
+        90,
+        58
+      ],
+      [
+        228,
+        75,
+        46
+      ],
+      [
+        216,
+        61,
+        36
+      ],
+      [
+        189,
+        46,
+        31
+      ],
+      [
+        135,
+        57,
+        40
+      ],
+      [
+        37,
+        62,
+        34
+      ],
+      [
+        115,
+        27,
+        32
+      ],
+      [
+        66,
+        27,
+        29
+      ]
+    ],
+    "chutes": [
+      [
+        248,
+        142,
+        214,
+        false,
+        0
+      ],
+      [
+        524,
+        138,
+        210,
+        false,
+        6
+      ],
+      [
+        176,
+        172,
+        236,
+        true,
+        12
+      ],
+      [
+        592,
+        168,
+        232,
+        false,
+        18
+      ]
+    ],
+    "origine": "pommes rouges et Pomme Parfaite doree style PMD generees sur fond magenta (pommes_feuilles_poses.png)"
+  },
+  "feuilles_eclats": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "poses": {
+      "feuille_0": [
+        360,
+        520,
+        16,
+        184,
+        10
+      ],
+      "feuille_1": [
+        360,
+        520,
+        224,
+        364,
+        10
+      ],
+      "feuille_2": [
+        360,
+        520,
+        456,
+        546,
+        10
+      ],
+      "feuille_3": [
+        360,
+        520,
+        628,
+        768,
+        10
+      ],
+      "feuille_4": [
+        360,
+        520,
+        844,
+        964,
+        10
+      ],
+      "feuille_5": [
+        360,
+        520,
+        1028,
+        1168,
+        10
+      ],
+      "eclat_0": [
+        650,
+        820,
+        72,
+        122,
+        10
+      ],
+      "eclat_1": [
+        650,
+        820,
+        256,
+        346,
+        10
+      ],
+      "eclat_2": [
+        650,
+        820,
+        444,
+        554,
+        10
+      ],
+      "eclat_3": [
+        650,
+        820,
+        624,
+        774,
+        10
+      ],
+      "eclat_4": [
+        650,
+        820,
+        820,
+        980,
+        10
+      ],
+      "eclat_5": [
+        650,
+        820,
+        1024,
+        1174,
+        10
+      ]
+    },
+    "palette": [
+      [
+        250,
+        218,
+        158
+      ],
+      [
+        244,
+        188,
+        110
+      ],
+      [
+        144,
+        212,
+        73
+      ],
+      [
+        105,
+        194,
+        66
+      ],
+      [
+        229,
+        127,
+        95
+      ],
+      [
+        96,
+        154,
+        58
+      ],
+      [
+        57,
+        149,
+        61
+      ],
+      [
+        44,
+        121,
+        54
+      ],
+      [
+        242,
+        90,
+        58
+      ],
+      [
+        228,
+        75,
+        46
+      ],
+      [
+        216,
+        61,
+        36
+      ],
+      [
+        189,
+        46,
+        31
+      ],
+      [
+        135,
+        57,
+        40
+      ],
+      [
+        37,
+        62,
+        34
+      ],
+      [
+        115,
+        27,
+        32
+      ],
+      [
+        66,
+        27,
+        29
+      ]
+    ],
+    "feuilles": [
+      [
+        216,
+        108,
+        6,
+        3,
+        0
+      ],
+      [
+        548,
+        114,
+        -6,
+        3,
+        4
+      ],
+      [
+        312,
+        192,
+        5,
+        2,
+        8
+      ],
+      [
+        462,
+        206,
+        -5,
+        2,
+        12
+      ],
+      [
+        228,
+        352,
+        6,
+        2,
+        16
+      ],
+      [
+        540,
+        362,
+        -6,
+        2,
+        20
+      ],
+      [
+        376,
+        276,
+        4,
+        2,
+        2
+      ],
+      [
+        392,
+        432,
+        -4,
+        2,
+        10
+      ]
+    ],
+    "eclats": [
+      [
+        330,
+        88,
+        0
+      ],
+      [
+        442,
+        152,
+        4
+      ],
+      [
+        326,
+        296,
+        8
+      ],
+      [
+        446,
+        304,
+        12
+      ],
+      [
+        332,
+        412,
+        16
+      ],
+      [
+        438,
+        488,
+        20
+      ]
+    ],
+    "origine": "feuilles de pommier voletantes et eclats de pollen dore generes sur fond magenta (pommes_feuilles_poses.png)"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      376,
+      16
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 2432,
+    "blocked_cells": 3613,
+    "total_cells": 6912,
+    "walkable_cells": 3299,
+    "rule": "case bloquee si > 25 % hors praticable (chemin, herbe_claire, herbe, fleurs)",
+    "seuil": "case 2 x 2 libre dans le sentier nord entre les pommiers"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "eaw1_entree_apple_woods",
+    "namespace": "entree_apple_woods_sud_nord",
+    "tiles_per_bank": {
+      "EAW1_00_SOL": 6911,
+      "EAW1_01_HERBE": 2915,
+      "EAW1_02_HERBE": 1106,
+      "EAW1_03_CHEMIN": 985,
+      "EAW1_04_FLEURS": 89,
+      "EAW1_05_ROCHERS": 309,
+      "EAW1_06_ARBRES": 1319,
+      "EAW1_07_POMMIERS": 2273,
+      "EAW1_08_CHUTE": 396,
+      "EAW1_09_FEUILLES": 510
+    },
+    "banks": [
+      "EAW1_00_SOL",
+      "EAW1_01_HERBE",
+      "EAW1_02_HERBE",
+      "EAW1_03_CHEMIN",
+      "EAW1_04_FLEURS",
+      "EAW1_05_ROCHERS",
+      "EAW1_06_ARBRES",
+      "EAW1_07_POMMIERS",
+      "EAW1_08_CHUTE",
+      "EAW1_09_FEUILLES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

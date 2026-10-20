@@ -48,12 +48,17 @@ MAPS = [
     ('entree_mt_thunder_sud_nord_v1', 'EMT1', 'Mt. Thunder', 'EMT1_scene_t000.png'),
     ('entree_jardin_secret_sud_nord_v1', 'EJS1', 'Jardin secret', 'EJS1_scene_t000.png'),
     ('entree_jardin_secret_sud_nord_v2', 'EJS2', 'Jardin secret V2 (Celebi)', 'EJS2_scene_t000.png'),
+    ('entree_old_castle_sud_nord_v1', 'EOC2', 'Old Castle (Château Ancien)', 'EOC2_scene_t000.png'),
+    ('entree_amp_plains_sud_nord_v1', 'EAM1', 'Amp Plains (Plaine Électrique)', 'EAM1_scene_t000.png'),
+    ('entree_apple_woods_sud_nord_v1', 'EAW1', 'Apple Woods (Bois aux Pommes)', 'EAW1_scene_t000.png'),
+    ('entree_lac_cristal_sud_nord_v1', 'ELC1', 'Lac Cristal (Crystal Lake)', 'ELC1_scene_t000.png'),
 ]
 N = len(MAPS)
+A_CONFIRMER = ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1']
 VALIDATION = {'date': '2026-09-27', 'citation': 'BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE !',
               'portee': 'validation artistique de la serie par l utilisateur, sur les apercus ; aucun test en jeu PMDO',
-              # Les 18 cartes montrees quand l utilisateur a valide ; EJS2 (temple de Celebi) a ete faite apres : a confirmer.
-              'cartes_validees': [m[1] for m in MAPS if m[1] != 'EJS2'], 'a_confirmer': ['EJS2']}
+              # Les 18 cartes montrees quand l utilisateur a valide ; les suivantes ont ete faites apres : a confirmer.
+              'cartes_validees': [m[1] for m in MAPS if m[1] not in A_CONFIRMER], 'a_confirmer': A_CONFIRMER}
 
 
 def loadmod(name, path):
@@ -184,10 +189,17 @@ def planche(rows):
 
 
 def gallery(rows):
+    import base64
     cards = []
     for r in rows:
-        g = r['ground']; img = f"renders/{r['lot']}/review/{r['image']}"
-        cards.append(f'<a class="card" href="{r["apercu"]}"><img src="{img}" loading="lazy" alt="{r["prefixe"]}">'
+        g = r['ground']
+        img_path = R / 'renders' / r['lot'] / 'review' / r['image']
+        im = Image.open(img_path).convert('RGB')
+        im.thumbnail((384, 288), Image.Resampling.LANCZOS)
+        buf = io.BytesIO(); im.save(buf, format='PNG')
+        uri = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+        href = r['apercu'] if (R / r['apercu']).is_file() else f"renders/{r['lot']}/review/{r['image']}"
+        cards.append(f'<a class="card" href="{href}"><img src="{uri}" loading="lazy" alt="{r["prefixe"]}">'
                      f'<b>{r["prefixe"]} — {r["titre"]}</b><span>{g["taille_px"][0]}×{g["taille_px"][1]} · {g["calques"]} calques · '
                      f'<code>{r["asset"]}</code></span></a>')
     return f'''<!doctype html>

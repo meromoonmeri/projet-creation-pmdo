@@ -1,6 +1,6 @@
-# Guilde Treehouse — fins de donjon (19 salles de boss / trésor) — mod PMDO 0.8.12
+# Guilde Treehouse — fins de donjon (21 salles de boss / trésor) — mod PMDO 0.8.12
 
-Ce dossier est un mod d'édition autonome, namespace `guilde_fins_donjons`. Il regroupe les **19 salles de fin de donjon** de la série (les 15 biomes de `guilde_entrees_sud_nord`, avec les deux variantes de Givre, plus Océan Kyogre et Old Castle / Chambre Dorée). Chaque carte est un Ground animé au format 4:3 vaste (`768 × 576 px`, `96 × 72` cases de `8 px`), avec ses collisions, ses bords nord/côtés fermés et trois marqueurs : `entrance` (arrivée au sud), le marqueur central d'arène (`boss` / `arene` / `kyogre`) et le marqueur d'objectif au nord (`objectif` / `source` / `embleme` / `cle_de_voute` / `cristal` / `belvedere` / `azurill` / `sceau` / `joyau`). **Aucune sortie, aucun `donjon_seuil`, aucun warp** : c'est une base d'édition, pas une aventure jouable.
+Ce dossier est un mod d'édition autonome, namespace `guilde_fins_donjons`. Il regroupe les **21 salles de fin de donjon** de la série (les 15 biomes de `guilde_entrees_sud_nord`, avec les deux variantes de Givre, plus Océan Kyogre et Old Castle / Chambre Dorée). Chaque carte est un Ground animé au format 4:3 vaste (`768 × 576 px`, `96 × 72` cases de `8 px`), avec ses collisions, ses bords nord/côtés fermés et trois marqueurs : `entrance` (arrivée au sud), le marqueur central d'arène (`boss` / `arene` / `kyogre`) et le marqueur d'objectif au nord (`objectif` / `source` / `embleme` / `cle_de_voute` / `cristal` / `belvedere` / `azurill` / `sceau` / `joyau`). **Aucune sortie, aucun `donjon_seuil`, aucun warp** : c'est une base d'édition, pas une aventure jouable.
 
 **Aucune carte n'a encore été testée dans PMDO.**
 
@@ -32,8 +32,10 @@ Ce dossier est un mod d'édition autonome, namespace `guilde_fins_donjons`. Il r
 | 17 | `fjs5_fin_jardin_secret` | Jardin secret (Sanctuaire) | 768 × 576 | 16 | 24 × 5 | `entrance` (384, 560), `boss` (384, 304), `objectif` (376, 128) |
 | 18 | `foc2_fin_old_castle` | Old Castle (Chambre Dorée) | 768 × 576 | 12 | 24 × 5 | `entrance` (384, 560), `boss` (376, 288), `objectif` (376, 160) |
 | 19 | `fam1_fin_amp_plains` | Amp Plains (Arène de foudre) | 768 × 576 | 12 | 24 × 5 | `entrance` (384, 560), `boss` (376, 288), `objectif` (376, 184) |
+| 20 | `faw1_fin_apple_woods` | Apple Woods (Grand Pommier Doré) | 768 × 576 | 12 | 24 × 5 | `entrance` (384, 560), `boss` (376, 304), `objectif` (376, 256) |
+| 21 | `flc1_fin_lac_cristal` | Lac Cristal (Sanctuaire du Prisme) | 768 × 576 | 12 | 24 × 5 | `entrance` (384, 560), `boss` (376, 288), `objectif` (376, 200) |
 
-Toutes les 19 cartes sont au format 4:3 vaste 768 × 576 px et ont un calque Top vide (`Layer=4`) en dernier.
+Toutes les 21 cartes sont au format 4:3 vaste 768 × 576 px et ont un calque Top vide (`Layer=4`) en dernier.
 
 ## Scripts
 

@@ -1,0 +1,746 @@
+{
+  "lot": "fin_lac_cristal_v1",
+  "prefix": "FLC1",
+  "format": "4:3 vaste",
+  "type": "fin_de_donjon",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "base": "branche de session (ELC1, EWC1 et ESN1 pour les utilitaires) ; aucun emprunt aux branches soeurs",
+  "biome": "Lac Cristal / Crystal Lake (Explorateurs du Ciel), peninsule de cristal cyan, Autel de Cristal et Prisme Souverain sur lac bleu azur",
+  "method": "textures canoniques = rendu genere REFERENCE : rip lakecrystalpmdsky.png passe au generateur ; decor complet et temoin sans objets edites et recales (0, 0)",
+  "reference_da": {
+    "file": "lakecrystalpmdsky.png",
+    "sha256": "160aba8a222ae914d493385087795c1723c7dbf6f9fa2d6b460915b492a42c96",
+    "titre": "Lac Cristal / Crystal Lake (Pokemon Donjon Mystere : Explorateurs du Ciel, lakecrystalpmdsky.png)"
+  },
+  "generation": [
+    {
+      "file": "decor.png",
+      "images": [
+        "lakecrystalpmdsky.png"
+      ],
+      "prompt": "WIDE LANDSCAPE 4:3 (1200x896), zoomed out, top-down 3/4 Nintendo DS Pokemon Mystery Dungeon Explorers of Sky pixel art environment map of the Crystal Lake Sanctuary peninsula (closed northern cul-de-sac), strictly matching the exact colors, pixel art textures, and palette of the reference image lakecrystalpmdsky.png. Deep azure rippling lake water (#33739C with #245A80 and #4A8EB8 caustic net pattern) surrounds the entire northern, eastern, and western sides of the map — NO northern exit bridge. A luminous cyan-blue hexagonal crystal causeway (#86E4F8 and #B8F4FF glowing crystal tiles) enters from the bottom center (south) between sharp ice-blue crystal clusters (#59A6CB) and opens into a large circular glowing cyan-blue crystal peninsula in the center. The northern rim of the peninsula is completely closed by a grand crescent crown of tall hexagonal ice-blue crystal pillars (#59A6CB, #C8F8FF) and a central raised hexagonal Crystal Altar / Sovereign Prism at the north-center edge overlooking the deep blue lake, with small detached crystal islets floating in the water beyond the northern rim. Crisp DS pixel art, no characters, no UI, no text.",
+      "essais": "premier essai ; conforme (eau 4.4, dalles_cristal 8.4, dalles_claires 6.1, cristaux_piliers 8.8)"
+    },
+    {
+      "file": "temoin_sans_objets.png",
+      "images": [
+        "source/fin_lac_cristal_v1/bruts/decor.png",
+        "lakecrystalpmdsky.png"
+      ],
+      "prompt": "Exact same 1200x896 top-down Nintendo DS Pokemon Mystery Dungeon Crystal Lake sanctuary peninsula map as the first reference image, keeping the exact same deep azure rippling lake water (#33739C) and the exact same glowing cyan-blue hexagonal crystal floor causeway and central circular peninsula (#86E4F8, #B8F4FF) in the exact same pixel positions, but with ALL raised crystal clusters, northern hexagonal crystal pillars, central stepped crystal altar, and floating lake crystal islets completely removed and replaced seamlessly by the flat glowing cyan-blue hexagonal crystal floor tiles (#86E4F8) on the peninsula and deep azure lake water (#33739C) in the lake. Flat clean ground-and-water witness image, no altar, no pillars, no crystal clusters.",
+      "essais": "premier essai ; recalage (0, 0) ecart 4.10"
+    },
+    {
+      "file": "cristal_eclats_poses.png",
+      "images": [
+        "lakecrystalpmdsky.png"
+      ],
+      "prompt": "2D Nintendo DS Pokemon Mystery Dungeon Explorers of Sky pixel-art sprite sheet on a solid, uniform, flat pure magenta #FF00FF background (RGB 255, 0, 255) with NO anti-aliasing against the magenta background and NO magenta inside the sprites. Contains 18 well-separated cyan-blue and ice-white crystal light & sparkle animation sprites inspired by lakecrystalpmdsky.png arranged in 3 clean rows with generous #FF00FF spacing: Row 1 (6 poses): 4-point and 8-point PMD crystal star sparkles growing from a tiny cyan-white diamond dot (#78E0F8, #C8F8FF, #FFFFFF) to a bright 8-point crystal star burst and dissipating into 4 tiny ice motes. Row 2 (6 poses): hexagonal cyan-blue crystal floor light rings / energy ripples (#58C8F0, #98ECF8, #E0FFFF) expanding from a small hexagon to a wide thin hexagonal light crown. Row 3 (6 poses): floating vertical crystal shards / ice prisms glinting in cyan and white. Crisp 1-pixel stepped edges, no text, no grid lines.",
+      "essais": "premier essai ; 18 poses extraites sur fond magenta (6 etoiles, 6 anneaux hexagonaux, 6 prismes)"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "file": "source/fin_lac_cristal_v1/bruts/decor.png",
+      "sha256": "410ae8d2afc05bf0db71a3ec3dd6823ea0de7f591c0ade8fba839a727c343b69",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/fin_lac_cristal_v1/bruts/temoin_sans_objets.png",
+      "sha256": "5ebb06d9fa6c5f9c8dd96d5ac4556dedc4d120d14a9ea594e88de5e3138bf482",
+      "size": [
+        1200,
+        896
+      ],
+      "ecarte": false
+    },
+    {
+      "file": "source/fin_lac_cristal_v1/bruts/cristal_eclats_poses.png",
+      "sha256": "0eda86c6ea1b0728f0ff4a5641c063c8fc33e53e3d0400ad255b66bf6837240c",
+      "size": [
+        1114,
+        960
+      ],
+      "ecarte": false
+    }
+  ],
+  "recalage": {
+    "temoin_sans_objets": {
+      "ecart_moyen": 3.93,
+      "ecart_decale_1px": 4.44
+    },
+    "zones": "temoin sans objets : eau et dalles_cristal erodees de 6 px"
+  },
+  "segmentation_mesures": {
+    "autel_cristal_px_1200x896": 32301,
+    "piliers_px_1200x896": 43885,
+    "cristaux_px_1200x896": 126179,
+    "ilots_cristal_px_1200x896": 26401,
+    "dalles_claires_px_1200x896": 50171,
+    "dalles_cristal_px_1200x896": 138371,
+    "eau_px_1200x896": 657892,
+    "nb_ilots": 19,
+    "nb_piliers": 37,
+    "nb_cristaux": 91
+  },
+  "fidelite_rip": {
+    "methode": "moyenne RGB par matiere, meme classifieur pixel sur le rip et sur le brut ; distance euclidienne ; seuil 35",
+    "brut": {
+      "eau": {
+        "rip_rgb": [
+          51.3,
+          114.6,
+          156.5
+        ],
+        "decor_rgb": [
+          53.8,
+          118.2,
+          156.5
+        ],
+        "distance": 4.4
+      },
+      "dalles_cristal": {
+        "rip_rgb": [
+          104.6,
+          209.0,
+          239.8
+        ],
+        "decor_rgb": [
+          109.3,
+          206.6,
+          234.8
+        ],
+        "distance": 7.3
+      },
+      "dalles_claires": {
+        "rip_rgb": [
+          166.0,
+          246.3,
+          254.4
+        ],
+        "decor_rgb": [
+          167.7,
+          242.0,
+          249.3
+        ],
+        "distance": 6.9
+      },
+      "cristaux_piliers": {
+        "rip_rgb": [
+          83.6,
+          158.5,
+          198.1
+        ],
+        "decor_rgb": [
+          78.6,
+          156.2,
+          191.9
+        ],
+        "distance": 8.3
+      }
+    },
+    "calques_finaux": {
+      "eau": {
+        "matiere": "eau",
+        "rgb": [
+          53.2,
+          118.1,
+          156.1
+        ],
+        "distance_rip": 4.0
+      },
+      "dalles_cristal": {
+        "matiere": "dalles_cristal",
+        "rgb": [
+          103.8,
+          207.7,
+          237.6
+        ],
+        "distance_rip": 2.7
+      },
+      "dalles_claires": {
+        "matiere": "dalles_claires",
+        "rgb": [
+          150.4,
+          241.7,
+          249.8
+        ],
+        "distance_rip": 16.9
+      },
+      "cristaux": {
+        "matiere": "cristaux_piliers",
+        "rgb": [
+          83.6,
+          157.2,
+          192.6
+        ],
+        "distance_rip": 5.7
+      }
+    }
+  },
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive par poids maximal",
+    "palettes": {
+      "eau": {
+        "calques": [
+          "sol_complet",
+          "eau"
+        ],
+        "couleurs": 96
+      },
+      "dalles": {
+        "calques": [
+          "dalles_cristal",
+          "dalles_claires"
+        ],
+        "couleurs": 96
+      },
+      "ilots_cristaux": {
+        "calques": [
+          "ilots_cristal",
+          "cristaux"
+        ],
+        "couleurs": 96
+      },
+      "piliers_autel": {
+        "calques": [
+          "piliers",
+          "autel_cristal"
+        ],
+        "couleurs": 96
+      }
+    }
+  },
+  "segmentation": "- eau : lac bleu azur entourant la chaussée et la péninsule (hors îlots et cristaux de rive), bloqué ;\n    - ilots_cristal : îlots de cristal détachés flottant sur le lac au nord et sur les flancs, bloqués ;\n    - autel_cristal : Autel de Cristal hexagonal à degrés et Prisme Souverain au nord-centre, bloqué ;\n    - piliers : couronne nord de colonnes hexagonales de cristal bleu-glace, bloquées ;\n    - cristaux : amas de cristaux taillés bordant la chaussée et la péninsule, bloqués ;\n    - dalles_claires : cœurs hexagonaux cyan-blanc très lumineux du sol de cristal, praticables ;\n    - dalles_cristal : dalles hexagonales cyan du sol de cristal, praticables.",
+  "layers": [
+    {
+      "file": "calques/FLC1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_01_eau.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_02_ilots_cristal.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_03_dalles_cristal.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_04_dalles_claires.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_05_cristaux.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_06_piliers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "calques/FLC1_07_autel_cristal.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "file": "animation/reflets_eau/FLC1_08_reflets_eau_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/lueur_cristal/FLC1_09_lueur_cristal_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    },
+    {
+      "file": "animation/eclats_cristal/FLC1_10_eclats_cristal_fNN.png",
+      "phases": 24,
+      "ticks": 5
+    }
+  ],
+  "reflets_eau": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "palette": [
+      [
+        44,
+        108,
+        150
+      ],
+      [
+        56,
+        124,
+        166
+      ],
+      [
+        68,
+        140,
+        182
+      ],
+      [
+        82,
+        154,
+        194
+      ]
+    ],
+    "origine": "ondulation des caustiques bleu azur a l interieur de l eau (sans lisere clair en berge)"
+  },
+  "lueur_cristal": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "poses": {
+      "anneau_0": [
+        260,
+        368,
+        44,
+        140,
+        5
+      ],
+      "anneau_1": [
+        260,
+        368,
+        228,
+        330,
+        5
+      ],
+      "anneau_2": [
+        260,
+        368,
+        392,
+        538,
+        5
+      ],
+      "anneau_3": [
+        260,
+        368,
+        564,
+        740,
+        5
+      ],
+      "anneau_4": [
+        260,
+        368,
+        748,
+        930,
+        5
+      ],
+      "anneau_5": [
+        260,
+        368,
+        938,
+        1110,
+        5
+      ]
+    },
+    "palette": [
+      [
+        233,
+        254,
+        254
+      ],
+      [
+        204,
+        253,
+        254
+      ],
+      [
+        173,
+        252,
+        253
+      ],
+      [
+        146,
+        252,
+        253
+      ],
+      [
+        153,
+        244,
+        251
+      ],
+      [
+        134,
+        223,
+        246
+      ],
+      [
+        100,
+        226,
+        245
+      ],
+      [
+        76,
+        219,
+        244
+      ],
+      [
+        76,
+        207,
+        236
+      ],
+      [
+        72,
+        190,
+        225
+      ],
+      [
+        48,
+        188,
+        221
+      ],
+      [
+        42,
+        161,
+        202
+      ]
+    ],
+    "sites": [
+      [
+        384,
+        156,
+        0
+      ],
+      [
+        384,
+        212,
+        4
+      ],
+      [
+        326,
+        268,
+        8
+      ],
+      [
+        442,
+        268,
+        12
+      ],
+      [
+        384,
+        336,
+        16
+      ],
+      [
+        384,
+        464,
+        20
+      ]
+    ],
+    "origine": "anneaux hexagonaux de lumiere cyan style PMD generes sur fond magenta (cristal_eclats_poses.png)"
+  },
+  "eclats_cristal": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "poses": {
+      "etoile_0": [
+        16,
+        188,
+        60,
+        124,
+        6
+      ],
+      "etoile_1": [
+        16,
+        188,
+        232,
+        322,
+        6
+      ],
+      "etoile_2": [
+        16,
+        188,
+        412,
+        514,
+        6
+      ],
+      "etoile_3": [
+        16,
+        188,
+        564,
+        738,
+        6
+      ],
+      "etoile_4": [
+        16,
+        188,
+        776,
+        902,
+        6
+      ],
+      "etoile_5": [
+        56,
+        160,
+        976,
+        1072,
+        6
+      ],
+      "prisme_0": [
+        476,
+        636,
+        66,
+        120,
+        7
+      ],
+      "prisme_1": [
+        476,
+        636,
+        246,
+        310,
+        7
+      ],
+      "prisme_2": [
+        476,
+        636,
+        418,
+        512,
+        7
+      ],
+      "prisme_3": [
+        456,
+        654,
+        610,
+        694,
+        7
+      ],
+      "prisme_4": [
+        476,
+        636,
+        802,
+        878,
+        7
+      ],
+      "prisme_5": [
+        476,
+        636,
+        992,
+        1060,
+        7
+      ]
+    },
+    "palette": [
+      [
+        233,
+        254,
+        254
+      ],
+      [
+        204,
+        253,
+        254
+      ],
+      [
+        173,
+        252,
+        253
+      ],
+      [
+        146,
+        252,
+        253
+      ],
+      [
+        153,
+        244,
+        251
+      ],
+      [
+        134,
+        223,
+        246
+      ],
+      [
+        100,
+        226,
+        245
+      ],
+      [
+        76,
+        219,
+        244
+      ],
+      [
+        76,
+        207,
+        236
+      ],
+      [
+        72,
+        190,
+        225
+      ],
+      [
+        48,
+        188,
+        221
+      ],
+      [
+        42,
+        161,
+        202
+      ]
+    ],
+    "sites": [
+      [
+        384,
+        96,
+        0,
+        false
+      ],
+      [
+        352,
+        136,
+        2,
+        true
+      ],
+      [
+        416,
+        136,
+        4,
+        true
+      ],
+      [
+        268,
+        176,
+        6,
+        false
+      ],
+      [
+        500,
+        176,
+        8,
+        false
+      ],
+      [
+        216,
+        264,
+        10,
+        true
+      ],
+      [
+        552,
+        264,
+        12,
+        true
+      ],
+      [
+        264,
+        356,
+        14,
+        false
+      ],
+      [
+        504,
+        356,
+        16,
+        false
+      ],
+      [
+        112,
+        208,
+        18,
+        false
+      ],
+      [
+        656,
+        208,
+        20,
+        false
+      ],
+      [
+        384,
+        248,
+        22,
+        false
+      ]
+    ],
+    "origine": "etoiles cristallines et prismes de glace style PMD generes sur fond magenta (cristal_eclats_poses.png)"
+  },
+  "scene_loop_ticks": 120,
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      288
+    ],
+    "objectif_px": [
+      376,
+      200
+    ],
+    "path_found_16x16": true,
+    "cells_explored": 376,
+    "blocked_cells": 5759,
+    "total_cells": 6912,
+    "walkable_cells": 1153,
+    "rule": "case bloquee si > 25 % hors praticable (dalles_cristal, dalles_claires)",
+    "boss": "case 2 x 2 libre au centre de la peninsule de cristal cyan",
+    "objectif": "case 2 x 2 libre au pied de l Autel de Cristal et du Prisme Souverain au nord"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "flc1_fin_lac_cristal",
+    "namespace": "fin_lac_cristal",
+    "tiles_per_bank": {
+      "FLC1_00_SOL": 6911,
+      "FLC1_01_EAU": 4532,
+      "FLC1_02_ILOTS": 317,
+      "FLC1_03_DALLES": 1271,
+      "FLC1_04_DALLES": 655,
+      "FLC1_05_CRISTAUX": 1053,
+      "FLC1_06_PILIERS": 428,
+      "FLC1_07_AUTEL": 254,
+      "FLC1_08_REFLETS": 3591,
+      "FLC1_09_LUEUR": 273,
+      "FLC1_10_ECLATS": 159
+    },
+    "banks": [
+      "FLC1_00_SOL",
+      "FLC1_01_EAU",
+      "FLC1_02_ILOTS",
+      "FLC1_03_DALLES",
+      "FLC1_04_DALLES",
+      "FLC1_05_CRISTAUX",
+      "FLC1_06_PILIERS",
+      "FLC1_07_AUTEL",
+      "FLC1_08_REFLETS",
+      "FLC1_09_LUEUR",
+      "FLC1_10_ECLATS"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun"
+  },
+  "art_approved": false
+}

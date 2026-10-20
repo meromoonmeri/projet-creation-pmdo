@@ -1,6 +1,6 @@
-# Guilde Treehouse — entrées de donjon sud → nord (19 cartes) — mod PMDO 0.8.12
+# Guilde Treehouse — entrées de donjon sud → nord (23 cartes) — mod PMDO 0.8.12
 
-Ce dossier est un mod d'édition autonome, namespace `guilde_entrees_sud_nord`. Il regroupe les **19 entrées de donjon sud → nord** de la série. Chaque carte est un Ground animé, avec ses collisions et deux marqueurs : `entrance` (arrivée, au sud) et `donjon_seuil` (au pied de l'entrée, au nord). **Aucun warp** : c'est une base d'édition, pas une aventure jouable.
+Ce dossier est un mod d'édition autonome, namespace `guilde_entrees_sud_nord`. Il regroupe les **23 entrées de donjon sud → nord** de la série. Chaque carte est un Ground animé, avec ses collisions et deux marqueurs : `entrance` (arrivée, au sud) et `donjon_seuil` (au pied de l'entrée, au nord). **Aucun warp** : c'est une base d'édition, pas une aventure jouable.
 
 Série validée par l'utilisateur le 27 septembre 2026 (« BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE ! ») pour les 18 cartes montrées alors. **EJS2** (jardin secret avec le temple miniature de Celebi) a été faite ensuite : **elle reste à confirmer**. **Aucune carte n'a encore été testée dans PMDO.**
 
@@ -32,8 +32,12 @@ Série validée par l'utilisateur le 27 septembre 2026 (« BEAU TRAVAIL JE VALID
 | 17 | `emt1_entree_mt_thunder` | Mt. Thunder | 768 × 576 | 13 | 48 × 5 | (384, 560) | (376, 96) |
 | 18 | `ejs1_entree_jardin_secret` | Jardin secret | 768 × 576 | 15 | 24 × 5 | (384, 560) | (376, 128) |
 | 19 | `ejs2_entree_jardin_secret_temple` | Jardin secret V2 (Celebi) | 768 × 576 | 17 | 24 × 5 | (384, 560) | (376, 120) |
+| 20 | `eoc2_entree_old_castle` | Old Castle (Château Ancien) | 768 × 576 | 12 | 24 × 5 | (384, 560) | (376, 80) |
+| 21 | `eam1_entree_amp_plains` | Amp Plains (Plaine Électrique) | 768 × 576 | 11 | 24 × 5 | (384, 560) | (376, 16) |
+| 22 | `eaw1_entree_apple_woods` | Apple Woods (Bois aux Pommes) | 768 × 576 | 11 | 24 × 5 | (384, 560) | (376, 16) |
+| 23 | `elc1_entree_lac_cristal` | Lac Cristal (Crystal Lake) | 768 × 576 | 12 | 24 × 5 | (384, 560) | (376, 16) |
 
-6 cartes sont au format portrait 424 × 632 (ESN1, ESN2, ECN1, ERN1, EGN1, EBN1) ; les 13 autres au format 4:3 vaste 768 × 576. Chaque carte a un calque Top vide (`Layer=4`) en dernier.
+6 cartes sont au format portrait 424 × 632 (ESN1, ESN2, ECN1, ERN1, EGN1, EBN1) ; les 17 autres au format 4:3 vaste 768 × 576. Chaque carte a un calque Top vide (`Layer=4`) en dernier.
 
 ## Scripts
 

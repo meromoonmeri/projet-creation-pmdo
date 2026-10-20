@@ -48,6 +48,8 @@ MAPS = [
     ('fin_jardin_secret_v1', 'FJS5', 'Jardin secret (Sanctuaire)', 'FJS5_scene_t000.png'),
     ('fin_old_castle_v1', 'FOC2', 'Old Castle (Chambre Dorée)', 'FOC2_scene_t000.png'),
     ('fin_amp_plains_v1', 'FAM1', 'Amp Plains (Arène de foudre)', 'FAM1_scene_t000.png'),
+    ('fin_apple_woods_v1', 'FAW1', 'Apple Woods (Grand Pommier Doré)', 'FAW1_scene_t000.png'),
+    ('fin_lac_cristal_v1', 'FLC1', 'Lac Cristal (Sanctuaire du Prisme)', 'FLC1_scene_t000.png'),
 ]
 N = len(MAPS)
 

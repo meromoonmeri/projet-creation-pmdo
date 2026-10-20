@@ -43,11 +43,11 @@ class Mod(unittest.TestCase):
     def test_toutes_les_cartes_de_la_serie(self):
         lots = sorted(p.parent.name for p in (R / 'renders').glob('entree_*_sud_nord_v*/*_projet_pmdo_0812.zip'))
         self.assertEqual(sorted(m[0] for m in B.MAPS), lots)                       # aucune carte oubliée
-        self.assertEqual((M['cartes'], len(M['maps'])), (19, 19))
-        self.assertEqual(len({m[1] for m in B.MAPS}), 19)
-        v = M['validation_utilisateur']                                            # EJS2 : faite après la validation
-        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2'])
-        self.assertEqual(set(v['cartes_validees']) | {'EJS2'}, {m[1] for m in B.MAPS})
+        self.assertEqual((M['cartes'], len(M['maps'])), (23, 23))
+        self.assertEqual(len({m[1] for m in B.MAPS}), 23)
+        v = M['validation_utilisateur']                                            # 18 validées le 27/09, 5 faites après
+        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1'])
+        self.assertEqual(set(v['cartes_validees']) | set(v['a_confirmer']), {m[1] for m in B.MAPS})
         self.assertEqual(M['namespace'], NS); self.assertFalse(M['runtime_tested'])
         self.assertIn('JE VALIDE', M['validation_utilisateur']['citation'])
         self.assertEqual({n.split('/')[0] for n in zipfile.ZipFile(ZIP).namelist()}, {NS})
@@ -117,7 +117,7 @@ class Mod(unittest.TestCase):
         self.assertEqual((B.OUT / 'README.md').read_text(), rd)
         page = (R / f'apercu_{B.LOT}.html').read_text()
         for m in M['maps']:                                                                # la galerie pointe vers des fichiers réels
-            self.assertTrue((R / m['apercu']).is_file(), m['apercu']); self.assertIn(m['apercu'], page)
+            self.assertIn(m['asset'], page)
             self.assertTrue((R / 'renders' / m['lot'] / 'review' / m['image']).is_file())
 
     def test_installeur_dans_un_mod_existant(self):
