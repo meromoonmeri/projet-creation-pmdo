@@ -1,0 +1,175 @@
+{
+  "id": "kiosque_kirlia_spinda_v1",
+  "prefix": "KKR1",
+  "title": "Kiosque Kirlia — Café Spinda (HD + Ground 1x jour/nuit + plans arrière/avant)",
+  "nature": "Objet généré référencé sur le prototype kiosque PMD, le comptoir natif Spinda EoSO et le portrait Kirlia #0281 ; détouré sans aucun magenta ni noir dans le guichet, comptoir nu sans feuille ni café/tasse. Pas un sprite natif certifié.",
+  "art_approved": false,
+  "raw_inputs": [
+    {
+      "file": "source/kiosque_kirlia_spinda_v1/bruts/kiosque_kirlia.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "6a34b0675235ae85295637ffd7b909605425687b23fb9b54a111a356db6be000",
+      "role": "Brut retenu édité : intérieur du guichet en #FF00FF pur (sans noir), comptoir bois nu (sans feuille ni café)."
+    },
+    {
+      "file": "source/kiosque_kirlia_spinda_v1/bruts/ecartes/kiosque_kirlia_v1_avec_noir_feuille_tasse.png",
+      "size": [
+        2816,
+        1536
+      ],
+      "sha256": "9736d8a6a41db82efcefc310c77e59adabd35f611caccd570226fb0a8bb8f611",
+      "role": "Essai V1 archivé (choisi par l utilisateur sur la silhouette, écarté car fond de guichet noir + feuille et tasse sur le comptoir)."
+    }
+  ],
+  "references": [
+    {
+      "file": "source/kiosque_kirlia_spinda_v1/references/kiosque_arcanin_ref.png",
+      "sha256": "58ee30f266206dfc5aa4e3df7dabbce3590d8405c72a4150e278a9024d93e875"
+    },
+    {
+      "file": "source/kiosque_kirlia_spinda_v1/references/SpindaV7_comptoir_spinda_1x.png",
+      "sha256": "753fe4b132a7338b3c355af7a2589097c972dee45c244fe4297f47870d19ff0b"
+    },
+    {
+      "file": "source/kiosque_kirlia_spinda_v1/references/kirlia_0281_portrait_1x.png",
+      "sha256": "c6cdf41c00d4e191774f0ad3b37b96551d2b2a55b9612410e97da0f445b9957a"
+    }
+  ],
+  "detourage": {
+    "recolored_edge_pixels_hd": 18793,
+    "residual_purple_fringe_hd": 0,
+    "window_hole_area_hd_px": 71876,
+    "side_cutout_areas_hd_px": [
+      595,
+      574
+    ],
+    "window_bbox_hd": [
+      300,
+      536,
+      723,
+      731
+    ]
+  },
+  "normalization_1x": {
+    "canvas_size": [
+      112,
+      120
+    ],
+    "visible_size": [
+      106,
+      112
+    ],
+    "offset_in_canvas": [
+      3,
+      4
+    ],
+    "source_crop_hd": [
+      80,
+      56,
+      943,
+      968
+    ],
+    "window_open_bbox_1x": [
+      30,
+      63,
+      82,
+      87
+    ],
+    "window_open_area_1x_px": 1092,
+    "counter_split_y_1x": 87,
+    "npc_feet_local_px": [
+      56,
+      101
+    ],
+    "customer_marker_local_px": [
+      56,
+      128
+    ],
+    "counter_collision_local_px": [
+      15,
+      87,
+      82,
+      29
+    ]
+  },
+  "tilesheets": {
+    "jour": {
+      "file": "tilesheets/Spinda_kirlia_kiosque_jour.png",
+      "rects": [
+        {
+          "id": "kirlia_kiosque_complet",
+          "rect": [
+            8,
+            8,
+            112,
+            120
+          ]
+        },
+        {
+          "id": "kirlia_kiosque_arriere",
+          "rect": [
+            128,
+            8,
+            112,
+            120
+          ]
+        },
+        {
+          "id": "kirlia_kiosque_avant",
+          "rect": [
+            248,
+            8,
+            112,
+            120
+          ]
+        }
+      ]
+    },
+    "nuit": {
+      "file": "tilesheets/Spinda_kirlia_kiosque_nuit.png",
+      "rects": [
+        {
+          "id": "kirlia_kiosque_nuit_complet",
+          "rect": [
+            8,
+            8,
+            112,
+            120
+          ]
+        },
+        {
+          "id": "kirlia_kiosque_nuit_arriere",
+          "rect": [
+            128,
+            8,
+            112,
+            120
+          ]
+        },
+        {
+          "id": "kirlia_kiosque_nuit_avant",
+          "rect": [
+            248,
+            8,
+            112,
+            120
+          ]
+        }
+      ]
+    }
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "runtime_tested": false,
+    "namespace": "kiosque_kirlia_spinda",
+    "tiles_per_bank": {
+      "KKR1_00_ARRIERE": 128,
+      "KKR1_01_AVANT": 50,
+      "KKR1_02_COMPLET": 174,
+      "KKR1_03_NUIT": 174
+    }
+  }
+}
