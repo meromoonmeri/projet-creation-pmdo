@@ -50,6 +50,11 @@ MAPS = [
     ('fin_amp_plains_v1', 'FAM1', 'Amp Plains (Arène de foudre)', 'FAM1_scene_t000.png'),
     ('fin_apple_woods_v1', 'FAW1', 'Apple Woods (Grand Pommier Doré)', 'FAW1_scene_t000.png'),
     ('fin_lac_cristal_v1', 'FLC1', 'Lac Cristal (Sanctuaire du Prisme)', 'FLC1_scene_t000.png'),
+    ('fin_mt_horn_v1', 'FMH1', 'Mt. Horn (Monolithe Cornu)', 'FMH1_scene_t000.png'),
+    ('fin_foggy_forest_v1', 'FFF1', 'Foggy Forest (Stèle de Brume)', 'FFF1_scene_t000.png'),
+    ('fin_northern_range_v1', 'FNR1', 'Northern Range (Belvédère Couchant)', 'FNR1_scene_t000.png'),
+    ('fin_foret_champignon_v1', 'FFC1', 'Forêt Champignon (Champignon Souverain)', 'FFC1_scene_t000.png'),
+    ('fin_bassin_chauffant_v1', 'FBH1', 'Bassin Chauffant (Grand Geyser)', 'FBH1_scene_t000.png'),
 ]
 N = len(MAPS)
 

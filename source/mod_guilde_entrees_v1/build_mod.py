@@ -52,9 +52,14 @@ MAPS = [
     ('entree_amp_plains_sud_nord_v1', 'EAM1', 'Amp Plains (Plaine Électrique)', 'EAM1_scene_t000.png'),
     ('entree_apple_woods_sud_nord_v1', 'EAW1', 'Apple Woods (Bois aux Pommes)', 'EAW1_scene_t000.png'),
     ('entree_lac_cristal_sud_nord_v1', 'ELC1', 'Lac Cristal (Crystal Lake)', 'ELC1_scene_t000.png'),
+    ('entree_mt_horn_sud_nord_v1', 'EMH1', 'Mt. Horn (Mont Cornu)', 'EMH1_scene_t000.png'),
+    ('entree_foggy_forest_sud_nord_v1', 'EFF1', 'Foggy Forest (Forêt Brumeuse)', 'EFF1_scene_t000.png'),
+    ('entree_northern_range_sud_nord_v1', 'ENR1', 'Northern Range (Chaîne Nordique)', 'ENR1_scene_t000.png'),
+    ('entree_foret_champignon_sud_nord_v1', 'EFC1', 'Forêt Champignon (Mushroom Forest)', 'EFC1_scene_t000.png'),
+    ('entree_bassin_chauffant_sud_nord_v1', 'EBH1', 'Bassin Chauffant (Source Thermale)', 'EBH1_scene_t000.png'),
 ]
 N = len(MAPS)
-A_CONFIRMER = ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1']
+A_CONFIRMER = ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1', 'EMH1', 'EFF1', 'ENR1', 'EFC1', 'EBH1']
 VALIDATION = {'date': '2026-09-27', 'citation': 'BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE !',
               'portee': 'validation artistique de la serie par l utilisateur, sur les apercus ; aucun test en jeu PMDO',
               # Les 18 cartes montrees quand l utilisateur a valide ; les suivantes ont ete faites apres : a confirmer.

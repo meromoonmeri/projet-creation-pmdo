@@ -1,0 +1,239 @@
+{
+  "lot": "source/entree_foggy_forest_sud_nord_v1",
+  "prefix": "EFF1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "sud -> nord",
+  "method": "rendu genere reference sur Foggy_Forest_Base_Camp_TDS.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Foggy_Forest_Base_Camp_TDS.png",
+    "sha256": "2d83b7f3fa48015a9e6eec5adeeadd284787ee266e5537ba3302bc9adc3e51d7",
+    "size": [
+      600,
+      792
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_foggy_forest_sud_nord_v1/bruts/decor.png",
+      "images": [
+        "Foggy_Forest_Base_Camp_TDS.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon entrance map for Foggy Forest Base Camp (PMD Explorers of Sky), south-to-north grey-taupe dirt path, pale sage-green clearing, 2 pink Wigglytuff guild tents, 4 freestanding round green trees, small rocks and flowers, dark forest tunnel mouth at north.",
+      "essais": "premier essai retenu (chemin_terre 3.5, herbe_claire 2.9, herbe_foret 4.9 ; seuil < 35)",
+      "sha256": "e49c7ff4ee1873cf026817f9c49c363a1ef6bcdf7aa53ad6d76c10adc30570ee",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foggy_forest_sud_nord_v1/bruts/feuilles_lucioles_poses.png",
+      "images": [
+        "Mystifying_Forest_entrance_TDS.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): drifting forest leaves and glowing motes (shared from EMF1).",
+      "essais": "planche partagee avec EMF1 (18 poses extraites)",
+      "sha256": "e1a55e4c8f83300f74e7efd2432a8b838793f2cc3aa94cee2315bf1efb855925",
+      "size": [
+        1124,
+        944
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche de l herbe claire du rip",
+    "plage_y0_y1_x0_x1": [
+      416,
+      512,
+      336,
+      432
+    ],
+    "ecart_au_rip": 5.01
+  },
+  "segmentation": {
+    "herbe_claire_px_1200x896": 261142,
+    "chemin_terre_px_1200x896": 49163,
+    "fleurs_px_1200x896": 21,
+    "rochers_px_1200x896": 1985,
+    "tentes_guilde_px_1200x896": 19205,
+    "arbres_isoles_px_1200x896": 29298,
+    "arbres_lisiere_px_1200x896": 714386,
+    "nb_arbres_isoles": 61,
+    "nb_rochers": 14
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "chemin_terre": {
+        "rip_rgb": [
+          164.0,
+          153.4,
+          122.4
+        ],
+        "decor_rgb": [
+          160.9,
+          151.9,
+          122.0
+        ],
+        "distance": 3.5
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          137.2,
+          183.0,
+          116.6
+        ],
+        "decor_rgb": [
+          138.0,
+          180.2,
+          117.4
+        ],
+        "distance": 2.9
+      },
+      "herbe_foret": {
+        "rip_rgb": [
+          79.0,
+          120.4,
+          72.7
+        ],
+        "decor_rgb": [
+          83.9,
+          120.5,
+          72.3
+        ],
+        "distance": 4.9
+      }
+    },
+    "calques_finaux": {
+      "chemin_terre": {
+        "rip_rgb": [
+          164.0,
+          153.4,
+          122.4
+        ],
+        "calque_rgb": [
+          161.4,
+          153.2,
+          123.7
+        ],
+        "distance": 2.9
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          137.2,
+          183.0,
+          116.6
+        ],
+        "calque_rgb": [
+          137.0,
+          177.4,
+          117.5
+        ],
+        "distance": 5.6
+      },
+      "herbe_foret": {
+        "rip_rgb": [
+          79.0,
+          120.4,
+          72.7
+        ],
+        "calque_rgb": [
+          82.1,
+          119.0,
+          71.3
+        ],
+        "distance": 3.7
+      }
+    }
+  },
+  "palettes": {
+    "herbe": {
+      "couleurs": 44,
+      "max": 48
+    },
+    "chemin": {
+      "couleurs": 42,
+      "max": 48
+    },
+    "tentes_fleurs": {
+      "couleurs": 48,
+      "max": 48
+    },
+    "foret": {
+      "couleurs": 64,
+      "max": 64
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/EFF1_00_sol_complet.png",
+    "calques/EFF1_01_herbe_claire.png",
+    "calques/EFF1_02_chemin_terre.png",
+    "calques/EFF1_03_fleurs.png",
+    "calques/EFF1_04_rochers.png",
+    "calques/EFF1_05_tentes_guilde.png",
+    "calques/EFF1_06_arbres_isoles.png",
+    "calques/EFF1_07_arbres_lisiere.png",
+    "animation/feuilles_vent/EFF1_08_feuilles_vent_f00..f23.png",
+    "animation/lucioles_brume/EFF1_09_lucioles_brume_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "feuilles_vent": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 6
+      },
+      "lucioles_brume": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 12
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      384,
+      88
+    ],
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 1306,
+    "blocked_cells": 5017,
+    "walkable_cells": 1895
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "entree_foggy_forest_sud_nord",
+    "asset": "eff1_entree_foggy_forest_sud_nord",
+    "tiles_per_bank": {
+      "EFF1_00_SOL_COMPLET": 6913,
+      "EFF1_01_HERBE_CLAIRE": 2089,
+      "EFF1_02_CHEMIN_TERRE": 490,
+      "EFF1_03_FLEURS": 3,
+      "EFF1_04_ROCHERS": 56,
+      "EFF1_05_TENTES_GUILDE": 192,
+      "EFF1_06_ARBRES_ISOLES": 375,
+      "EFF1_07_ARBRES_LISIERE": 4728,
+      "EFF1_08_FEUILLES_VENT": 620,
+      "EFF1_09_LUCIOLES_BRUME": 282
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

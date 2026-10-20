@@ -1,0 +1,281 @@
+{
+  "lot": "source/fin_mt_horn_v1",
+  "prefix": "FMH1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "cul-de-sac (entree sud -> boss central -> objectif nord)",
+  "method": "rendu genere reference sur Mt_Horn_entrance_Sky.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Mt_Horn_entrance_Sky.png",
+    "sha256": "ceae26ab79d160e5f7106e93c817ac581ec7ab654db2eed0bdb1ee7fd7964a46",
+    "size": [
+      552,
+      360
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_mt_horn_v1/bruts/decor.png",
+      "images": [
+        "Mt_Horn_entrance_Sky.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon boss arena map for Mt. Horn (PMD Explorers of Sky), south entrance, circular cracked orange-tan summit arena, 6 freestanding rock spires, stepped Horn Monolith Shrine at north-center backed by closed layered ochre-yellow mesa cliffs.",
+      "essais": "premier essai retenu (chemin_sable 10.4, roche_ocre 5.1, roche_sombre 4.1, ciel_montagnes 15.9 ; seuil < 35)",
+      "sha256": "72a4730f0bd62f8ce2d93acc44bb4b6dad59c3f532dc338ae74c96b984f80986",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_mt_horn_v1/bruts/touffes_vent_poses.png",
+      "images": [
+        "Mt_Bristle_entrance_TD.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): windblown dust wisps and scrub tufts (shared from EBN1).",
+      "essais": "planche partagee avec EMH1/EBN1 (18 poses extraites)",
+      "sha256": "42c6b81d8ab2c50c7007954f0d59c81c132cdd32709b69c19eb6b4297adc8742",
+      "size": [
+        1104,
+        960
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du chemin du rip",
+    "plage_y0_y1_x0_x1": [
+      344,
+      440,
+      512,
+      608
+    ],
+    "ecart_au_rip": 13.9
+  },
+  "segmentation": {
+    "ciel_montagnes_px_1200x896": 62710,
+    "chemin_sable_px_1200x896": 259234,
+    "cailloux_px_1200x896": 21550,
+    "piliers_roche_px_1200x896": 1944,
+    "falaise_ocre_px_1200x896": 361910,
+    "falaise_sombre_px_1200x896": 261601,
+    "autel_corne_px_1200x896": 106251,
+    "nb_piliers": 4
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "chemin_sable": {
+        "rip_rgb": [
+          234.8,
+          179.2,
+          110.7
+        ],
+        "decor_rgb": [
+          232.7,
+          174.2,
+          101.8
+        ],
+        "distance": 10.4
+      },
+      "roche_ocre": {
+        "rip_rgb": [
+          190.0,
+          147.0,
+          77.3
+        ],
+        "decor_rgb": [
+          190.9,
+          143.4,
+          74.0
+        ],
+        "distance": 5.1
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          112.8,
+          89.0,
+          47.5
+        ],
+        "decor_rgb": [
+          116.7,
+          90.1,
+          47.5
+        ],
+        "distance": 4.1
+      },
+      "ciel_montagnes": {
+        "rip_rgb": [
+          115.3,
+          196.9,
+          247.6
+        ],
+        "decor_rgb": [
+          113.3,
+          189.0,
+          233.9
+        ],
+        "distance": 15.9
+      }
+    },
+    "calques_finaux": {
+      "chemin_sable": {
+        "rip_rgb": [
+          234.8,
+          179.2,
+          110.7
+        ],
+        "calque_rgb": [
+          233.6,
+          169.5,
+          99.1
+        ],
+        "distance": 15.1
+      },
+      "roche_ocre": {
+        "rip_rgb": [
+          190.0,
+          147.0,
+          77.3
+        ],
+        "calque_rgb": [
+          181.2,
+          138.1,
+          70.8
+        ],
+        "distance": 14.1
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          112.8,
+          89.0,
+          47.5
+        ],
+        "calque_rgb": [
+          113.9,
+          88.3,
+          45.5
+        ],
+        "distance": 2.4
+      },
+      "ciel_montagnes": {
+        "rip_rgb": [
+          115.3,
+          196.9,
+          247.6
+        ],
+        "calque_rgb": [
+          115.5,
+          189.4,
+          232.7
+        ],
+        "distance": 16.6
+      }
+    }
+  },
+  "palettes": {
+    "sable": {
+      "couleurs": 43,
+      "max": 48
+    },
+    "roche_ocre": {
+      "couleurs": 64,
+      "max": 64
+    },
+    "roche_sombre": {
+      "couleurs": 48,
+      "max": 48
+    },
+    "ciel": {
+      "couleurs": 24,
+      "max": 32
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FMH1_00_sol_complet.png",
+    "calques/FMH1_01_ciel_montagnes.png",
+    "calques/FMH1_02_chemin_sable.png",
+    "calques/FMH1_03_cailloux.png",
+    "calques/FMH1_04_piliers_roche.png",
+    "calques/FMH1_05_falaise_ocre.png",
+    "calques/FMH1_06_falaise_sombre.png",
+    "calques/FMH1_07_autel_corne.png",
+    "animation/vent_sable/FMH1_08_vent_sable_f00..f23.png",
+    "animation/lueur_autel/FMH1_09_lueur_autel_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "vent_sable": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 18
+      },
+      "lueur_autel": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      336
+    ],
+    "objectif_px": [
+      376,
+      232
+    ],
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        336
+      ],
+      "objectif": [
+        376,
+        232
+      ]
+    },
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 392,
+    "blocked_cells": 5201,
+    "walkable_cells": 1711
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "fin_mt_horn",
+    "asset": "fmh1_fin_mt_horn",
+    "tiles_per_bank": {
+      "FMH1_00_SOL_COMPLET": 6913,
+      "FMH1_01_CIEL_MONTAGNES": 406,
+      "FMH1_02_CHEMIN_SABLE": 2041,
+      "FMH1_03_CAILLOUX": 770,
+      "FMH1_04_PILIERS_ROCHE": 39,
+      "FMH1_05_FALAISE_OCRE": 3748,
+      "FMH1_06_FALAISE_SOMBRE": 3163,
+      "FMH1_07_AUTEL_CORNE": 748,
+      "FMH1_08_VENT_SABLE": 900,
+      "FMH1_09_LUEUR_AUTEL": 512
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

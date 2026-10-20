@@ -1,0 +1,282 @@
+{
+  "lot": "source/fin_foret_champignon_v1",
+  "prefix": "FFC1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "cul-de-sac (entree sud -> boss central -> objectif nord)",
+  "method": "rendu genere reference sur Mushroom_Forest_scene_RRT.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Mushroom_Forest_scene_RRT.png",
+    "sha256": "948e328e9e15187d3266d5bdb0fa771c5bddf36d21ebeff84f264e176b5658c4",
+    "size": [
+      456,
+      336
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_foret_champignon_v1/bruts/decor.png",
+      "images": [
+        "Mushroom_Forest_scene_RRT.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon boss arena map for Mushroom Forest (PMD Red Rescue Team), south entrance path, circular glowing mint-teal grass arena, 4 mossy fallen logs, small red/white toadstools, stepped Spore Altar backed by a colossal Sovereign Mushroom and closed northern mushroom canopy.",
+      "essais": "premier essai retenu (sol_menthe 7.5, ombre_bleue 3.7, champignons_rouges 8.8, champignons_violets 5.9 ; seuil < 35)",
+      "sha256": "c627651ab854ea018ab97d864f41feed3763d7217b489166628635967d680c2d",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_foret_champignon_v1/bruts/papillons_poses.png",
+      "images": [
+        "large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): fluttering PMD forest butterflies (shared from ETC1/FCT3).",
+      "essais": "planche partagee avec EFC1/ETC1 (12 poses extraites)",
+      "sha256": "e7f0926c31f695ab06b143ca9598875ba9dffa0193b25c97f76c20c14c632c51",
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du sol menthe du rip",
+    "plage_y0_y1_x0_x1": [
+      416,
+      512,
+      576,
+      672
+    ],
+    "ecart_au_rip": 7.5
+  },
+  "segmentation": {
+    "sol_menthe_px_1200x896": 274466,
+    "ombre_bleue_px_1200x896": 226204,
+    "petits_champignons_px_1200x896": 9952,
+    "troncs_moussus_px_1200x896": 30014,
+    "champignons_rouges_px_1200x896": 96322,
+    "champignons_violets_px_1200x896": 332586,
+    "autel_spores_px_1200x896": 105656,
+    "nb_troncs": 4,
+    "nb_petits_champignons": 15
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "sol_menthe": {
+        "rip_rgb": [
+          151.3,
+          239.2,
+          208.8
+        ],
+        "decor_rgb": [
+          147.9,
+          237.1,
+          202.4
+        ],
+        "distance": 7.5
+      },
+      "ombre_bleue": {
+        "rip_rgb": [
+          55.4,
+          88.1,
+          154.3
+        ],
+        "decor_rgb": [
+          57.1,
+          88.0,
+          151.0
+        ],
+        "distance": 3.7
+      },
+      "champignons_rouges": {
+        "rip_rgb": [
+          235.3,
+          81.6,
+          146.3
+        ],
+        "decor_rgb": [
+          227.6,
+          84.1,
+          143.0
+        ],
+        "distance": 8.8
+      },
+      "champignons_violets": {
+        "rip_rgb": [
+          149.5,
+          106.4,
+          208.6
+        ],
+        "decor_rgb": [
+          145.7,
+          103.2,
+          205.5
+        ],
+        "distance": 5.9
+      }
+    },
+    "calques_finaux": {
+      "sol_menthe": {
+        "rip_rgb": [
+          151.3,
+          239.2,
+          208.8
+        ],
+        "calque_rgb": [
+          147.1,
+          235.7,
+          200.7
+        ],
+        "distance": 9.7
+      },
+      "ombre_bleue": {
+        "rip_rgb": [
+          55.4,
+          88.1,
+          154.3
+        ],
+        "calque_rgb": [
+          56.3,
+          85.9,
+          150.2
+        ],
+        "distance": 4.7
+      },
+      "champignons_rouges": {
+        "rip_rgb": [
+          235.3,
+          81.6,
+          146.3
+        ],
+        "calque_rgb": [
+          230.6,
+          98.9,
+          149.0
+        ],
+        "distance": 18.1
+      },
+      "champignons_violets": {
+        "rip_rgb": [
+          149.5,
+          106.4,
+          208.6
+        ],
+        "calque_rgb": [
+          142.3,
+          104.0,
+          210.9
+        ],
+        "distance": 7.9
+      }
+    }
+  },
+  "palettes": {
+    "sol": {
+      "couleurs": 16,
+      "max": 32
+    },
+    "ombre": {
+      "couleurs": 44,
+      "max": 48
+    },
+    "champignons_rouges": {
+      "couleurs": 64,
+      "max": 64
+    },
+    "champignons_violets": {
+      "couleurs": 64,
+      "max": 64
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FFC1_00_sol_complet.png",
+    "calques/FFC1_01_sol_menthe.png",
+    "calques/FFC1_02_ombre_bleue.png",
+    "calques/FFC1_03_petits_champignons.png",
+    "calques/FFC1_04_troncs_moussus.png",
+    "calques/FFC1_05_champignons_rouges.png",
+    "calques/FFC1_06_champignons_violets.png",
+    "calques/FFC1_07_autel_spores.png",
+    "animation/lueur_autel/FFC1_08_lueur_autel_f00..f23.png",
+    "animation/spores_papillons/FFC1_09_spores_papillons_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "lueur_autel": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "spores_papillons": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 12
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      344
+    ],
+    "objectif_px": [
+      376,
+      256
+    ],
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        344
+      ],
+      "objectif": [
+        376,
+        256
+      ]
+    },
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 374,
+    "blocked_cells": 5229,
+    "walkable_cells": 1683
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "fin_foret_champignon",
+    "asset": "ffc1_fin_foret_champignon",
+    "tiles_per_bank": {
+      "FFC1_00_SOL_COMPLET": 1397,
+      "FFC1_01_SOL_MENTHE": 1652,
+      "FFC1_02_OMBRE_BLEUE": 2424,
+      "FFC1_03_PETITS_CHAMPIGNONS": 128,
+      "FFC1_04_TRONCS_MOUSSUS": 264,
+      "FFC1_05_CHAMPIGNONS_ROUGES": 1248,
+      "FFC1_06_CHAMPIGNONS_VIOLETS": 3301,
+      "FFC1_07_AUTEL_SPORES": 686,
+      "FFC1_08_LUEUR_AUTEL": 216,
+      "FFC1_09_SPORES_PAPILLONS": 1043
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

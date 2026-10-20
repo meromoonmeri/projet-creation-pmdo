@@ -1,0 +1,264 @@
+{
+  "lot": "source/entree_foret_champignon_sud_nord_v1",
+  "prefix": "EFC1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "sud -> nord",
+  "method": "rendu genere reference sur Mushroom_Forest_scene_RRT.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Mushroom_Forest_scene_RRT.png",
+    "sha256": "948e328e9e15187d3266d5bdb0fa771c5bddf36d21ebeff84f264e176b5658c4",
+    "size": [
+      456,
+      336
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_foret_champignon_sud_nord_v1/bruts/decor.png",
+      "images": [
+        "Mushroom_Forest_scene_RRT.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon entrance map for Mushroom Forest (PMD Red Rescue Team), south-to-north glowing mint-teal grass clearing, dark slate-blue shadowed grass border, 2 mossy purple-pink fallen logs, 8 small red/white toadstool clusters, giant colorful spotted mushrooms framing the sides, dark mushroom-archway tunnel entrance at north.",
+      "essais": "premier essai retenu (sol_menthe 5.9, ombre_bleue 5.1, champignons_rouges 13.6, champignons_violets 7.8 ; seuil < 35)",
+      "sha256": "5315a363438d530ae8c239565a2e11e3548374c577760a99ade21d4844a0eb1f",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_foret_champignon_sud_nord_v1/bruts/papillons_poses.png",
+      "images": [
+        "large.S01P03A.png.84e22fb77c4061e77b0f546545fed2c7.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): fluttering PMD forest butterflies (shared from ETC1/FCT3).",
+      "essais": "planche partagee avec ETC1/FCT3 (12 poses extraites)",
+      "sha256": "e7f0926c31f695ab06b143ca9598875ba9dffa0193b25c97f76c20c14c632c51",
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du sol menthe du rip",
+    "plage_y0_y1_x0_x1": [
+      568,
+      664,
+      552,
+      648
+    ],
+    "ecart_au_rip": 4.64
+  },
+  "segmentation": {
+    "sol_menthe_px_1200x896": 201872,
+    "ombre_bleue_px_1200x896": 333975,
+    "petits_champignons_px_1200x896": 2560,
+    "troncs_moussus_px_1200x896": 0,
+    "champignons_rouges_px_1200x896": 120484,
+    "champignons_violets_px_1200x896": 344503,
+    "arche_seuil_px_1200x896": 71806,
+    "nb_troncs": 0,
+    "nb_petits_champignons": 7
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "sol_menthe": {
+        "rip_rgb": [
+          151.3,
+          239.2,
+          208.8
+        ],
+        "decor_rgb": [
+          148.3,
+          236.8,
+          204.3
+        ],
+        "distance": 5.9
+      },
+      "ombre_bleue": {
+        "rip_rgb": [
+          55.4,
+          88.1,
+          154.3
+        ],
+        "decor_rgb": [
+          56.0,
+          85.5,
+          149.9
+        ],
+        "distance": 5.1
+      },
+      "champignons_rouges": {
+        "rip_rgb": [
+          235.3,
+          81.6,
+          146.3
+        ],
+        "decor_rgb": [
+          224.0,
+          83.2,
+          138.9
+        ],
+        "distance": 13.6
+      },
+      "champignons_violets": {
+        "rip_rgb": [
+          149.5,
+          106.4,
+          208.6
+        ],
+        "decor_rgb": [
+          142.5,
+          107.3,
+          205.4
+        ],
+        "distance": 7.8
+      }
+    },
+    "calques_finaux": {
+      "sol_menthe": {
+        "rip_rgb": [
+          151.3,
+          239.2,
+          208.8
+        ],
+        "calque_rgb": [
+          149.5,
+          236.3,
+          202.8
+        ],
+        "distance": 6.8
+      },
+      "ombre_bleue": {
+        "rip_rgb": [
+          55.4,
+          88.1,
+          154.3
+        ],
+        "calque_rgb": [
+          55.6,
+          84.5,
+          148.7
+        ],
+        "distance": 6.6
+      },
+      "champignons_rouges": {
+        "rip_rgb": [
+          235.3,
+          81.6,
+          146.3
+        ],
+        "calque_rgb": [
+          221.9,
+          83.8,
+          141.0
+        ],
+        "distance": 14.6
+      },
+      "champignons_violets": {
+        "rip_rgb": [
+          149.5,
+          106.4,
+          208.6
+        ],
+        "calque_rgb": [
+          135.3,
+          102.2,
+          201.3
+        ],
+        "distance": 16.5
+      }
+    }
+  },
+  "palettes": {
+    "sol": {
+      "couleurs": 18,
+      "max": 32
+    },
+    "ombre": {
+      "couleurs": 46,
+      "max": 48
+    },
+    "champignons_rouges": {
+      "couleurs": 64,
+      "max": 64
+    },
+    "champignons_violets": {
+      "couleurs": 64,
+      "max": 64
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/EFC1_00_sol_complet.png",
+    "calques/EFC1_01_sol_menthe.png",
+    "calques/EFC1_02_ombre_bleue.png",
+    "calques/EFC1_03_petits_champignons.png",
+    "calques/EFC1_04_troncs_moussus.png",
+    "calques/EFC1_05_champignons_rouges.png",
+    "calques/EFC1_06_champignons_violets.png",
+    "calques/EFC1_07_arche_seuil.png",
+    "animation/spores_lumineux/EFC1_08_spores_lumineux_f00..f23.png",
+    "animation/papillons_foret/EFC1_09_papillons_foret_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "spores_lumineux": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "papillons_foret": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 12
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      384,
+      176
+    ],
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 861,
+    "blocked_cells": 5689,
+    "walkable_cells": 1223
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "entree_foret_champignon_sud_nord",
+    "asset": "efc1_entree_foret_champignon_sud_nord",
+    "tiles_per_bank": {
+      "EFC1_00_SOL_COMPLET": 5530,
+      "EFC1_01_SOL_MENTHE": 1459,
+      "EFC1_02_OMBRE_BLEUE": 3101,
+      "EFC1_03_PETITS_CHAMPIGNONS": 36,
+      "EFC1_04_TRONCS_MOUSSUS": 1,
+      "EFC1_05_CHAMPIGNONS_ROUGES": 1485,
+      "EFC1_06_CHAMPIGNONS_VIOLETS": 3439,
+      "EFC1_07_ARCHE_SEUIL": 466,
+      "EFC1_08_SPORES_LUMINEUX": 129,
+      "EFC1_09_PAPILLONS_FORET": 915
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

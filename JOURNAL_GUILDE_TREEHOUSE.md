@@ -1346,3 +1346,15 @@ Voir [les références et limites](source/layouts_commit_3bc185b/README.md). **C
 ## Soleil animé et Luminous Spring
 
 [Nouveau pack PNG multicouche](renders/soleil_spring_v1/README.md) — [aperçu autonome](apercu_soleil_spring_v1.html). Soleil subtil 64 phases, grands nuages traversants, variante du Spring Halcyon avec cycles natifs 3/13 phases préservés.
+
+## Série Guilde Treehouse — 28 entrées sud → nord et 26 fins de donjon (PMDO 0.8.12)
+
+Ajout des 10 nouvelles cartes (`EMH1`, `FMH1`, `EFF1`, `FFF1`, `ENR1`, `FNR1`, `EFC1`, `FFC1`, `EBH1`, `FBH1`) au format 4:3 vaste (`768 × 576 px`, `96 × 72` cases de `8 px`, `TexSize=1`) et mise à jour des deux mods unifiés PMDO 0.8.12 :
+
+- **Mt. Horn / Mont Cornu (`Mt_Horn_entrance_Sky.png`)** : `EMH1` (`apercu_entree_mt_horn_sud_nord_v1.html`) et `FMH1` (`apercu_fin_mt_horn_v1.html`).
+- **Foggy Forest / Forêt Brumeuse (`Foggy_Forest_Base_Camp_TDS.png`)** : `EFF1` (`apercu_entree_foggy_forest_sud_nord_v1.html`) et `FFF1` (`apercu_fin_foggy_forest_v1.html`).
+- **Northern Range / Chaîne Nordique (`Northern Range.png`)** : `ENR1` (`apercu_entree_northern_range_sud_nord_v1.html`) et `FNR1` (`apercu_fin_northern_range_v1.html`).
+- **Forêt Champignon / Mushroom Forest (`Mushroom_Forest_scene_RRT.png`)** : `EFC1` (`apercu_entree_foret_champignon_sud_nord_v1.html`) et `FFC1` (`apercu_fin_foret_champignon_v1.html`).
+- **Bassin Chauffant / Source Thermale (`bassinchauffantpmdsky.png`)** : `EBH1` (`apercu_entree_bassin_chauffant_sud_nord_v1.html`) et `FBH1` (`apercu_fin_bassin_chauffant_v1.html`).
+- **Mod unique des 28 entrées (`guilde_entrees_sud_nord`)** : `renders/mod_guilde_entrees_v1/guilde_entrees_sud_nord_pmdo_0812.zip` (`42,3 Mo`, 326 banques) et `apercu_mod_guilde_entrees_v1.html`.
+- **Mod unique des 26 fins de donjon (`guilde_fins_donjons`)** : `renders/mod_guilde_fins_v1/guilde_fins_donjons_pmdo_0812.zip` (`41,3 Mo`, 256 banques) et `apercu_mod_guilde_fins_v1.html`.

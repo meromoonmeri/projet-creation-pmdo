@@ -1,0 +1,256 @@
+{
+  "lot": "source/fin_foggy_forest_v1",
+  "prefix": "FFF1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "cul-de-sac (entree sud -> boss central -> objectif nord)",
+  "method": "rendu genere reference sur Foggy_Forest_Base_Camp_TDS.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Foggy_Forest_Base_Camp_TDS.png",
+    "sha256": "2d83b7f3fa48015a9e6eec5adeeadd284787ee266e5537ba3302bc9adc3e51d7",
+    "size": [
+      600,
+      792
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_foggy_forest_v1/bruts/decor.png",
+      "images": [
+        "Foggy_Forest_Base_Camp_TDS.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon boss arena map for Foggy Forest (PMD Explorers of Sky), south entrance path, circular pale sage-green clearing, 4 freestanding round green trees, small rocks and flowers, stepped mossy stone Fog Shrine surrounded by glowing runes and roots at north-center backed by closed forest canopy.",
+      "essais": "premier essai retenu (chemin_terre 6.4, herbe_claire 7.3, herbe_foret 14.7 ; seuil < 35)",
+      "sha256": "3d967b7310c932064a6d1fcc2308b83bd66295336309bb741edb3610b2c96ae8",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_foggy_forest_v1/bruts/feuilles_lucioles_poses.png",
+      "images": [
+        "Mystifying_Forest_entrance_TDS.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): drifting forest leaves and glowing motes (shared from EMF1).",
+      "essais": "planche partagee avec EFF1/EMF1 (18 poses extraites)",
+      "sha256": "e1a55e4c8f83300f74e7efd2432a8b838793f2cc3aa94cee2315bf1efb855925",
+      "size": [
+        1124,
+        944
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche de l herbe claire du rip",
+    "plage_y0_y1_x0_x1": [
+      424,
+      520,
+      776,
+      872
+    ],
+    "ecart_au_rip": 4.96
+  },
+  "segmentation": {
+    "herbe_claire_px_1200x896": 308229,
+    "chemin_terre_px_1200x896": 14919,
+    "fleurs_px_1200x896": 1770,
+    "rochers_px_1200x896": 3789,
+    "arbres_isoles_px_1200x896": 32806,
+    "arbres_lisiere_px_1200x896": 638136,
+    "autel_brume_px_1200x896": 75551,
+    "nb_arbres_isoles": 32,
+    "nb_rochers": 9
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "chemin_terre": {
+        "rip_rgb": [
+          164.0,
+          153.4,
+          122.4
+        ],
+        "decor_rgb": [
+          159.3,
+          149.1,
+          122.3
+        ],
+        "distance": 6.4
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          137.2,
+          183.0,
+          116.6
+        ],
+        "decor_rgb": [
+          139.3,
+          177.8,
+          121.4
+        ],
+        "distance": 7.3
+      },
+      "herbe_foret": {
+        "rip_rgb": [
+          79.0,
+          120.4,
+          72.7
+        ],
+        "decor_rgb": [
+          88.2,
+          127.7,
+          81.6
+        ],
+        "distance": 14.7
+      }
+    },
+    "calques_finaux": {
+      "chemin_terre": {
+        "rip_rgb": [
+          164.0,
+          153.4,
+          122.4
+        ],
+        "calque_rgb": [
+          161.6,
+          153.6,
+          123.3
+        ],
+        "distance": 2.6
+      },
+      "herbe_claire": {
+        "rip_rgb": [
+          137.2,
+          183.0,
+          116.6
+        ],
+        "calque_rgb": [
+          139.1,
+          178.0,
+          119.9
+        ],
+        "distance": 6.2
+      },
+      "herbe_foret": {
+        "rip_rgb": [
+          79.0,
+          120.4,
+          72.7
+        ],
+        "calque_rgb": [
+          86.6,
+          127.3,
+          81.1
+        ],
+        "distance": 13.2
+      }
+    }
+  },
+  "palettes": {
+    "herbe": {
+      "couleurs": 42,
+      "max": 48
+    },
+    "chemin": {
+      "couleurs": 63,
+      "max": 64
+    },
+    "fleurs": {
+      "couleurs": 32,
+      "max": 32
+    },
+    "foret": {
+      "couleurs": 64,
+      "max": 64
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FFF1_00_sol_complet.png",
+    "calques/FFF1_01_herbe_claire.png",
+    "calques/FFF1_02_chemin_terre.png",
+    "calques/FFF1_03_fleurs.png",
+    "calques/FFF1_04_rochers.png",
+    "calques/FFF1_05_arbres_isoles.png",
+    "calques/FFF1_06_arbres_lisiere.png",
+    "calques/FFF1_07_autel_brume.png",
+    "animation/lueur_runes/FFF1_08_lueur_runes_f00..f23.png",
+    "animation/feuilles_lucioles/FFF1_09_feuilles_lucioles_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "lueur_runes": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "feuilles_lucioles": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 18
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      320
+    ],
+    "objectif_px": [
+      376,
+      224
+    ],
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        320
+      ],
+      "objectif": [
+        376,
+        224
+      ]
+    },
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 334,
+    "blocked_cells": 4920,
+    "walkable_cells": 1992
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "fin_foggy_forest",
+    "asset": "fff1_fin_foggy_forest",
+    "tiles_per_bank": {
+      "FFF1_00_SOL_COMPLET": 6913,
+      "FFF1_01_HERBE_CLAIRE": 2312,
+      "FFF1_02_CHEMIN_TERRE": 130,
+      "FFF1_03_FLEURS": 41,
+      "FFF1_04_ROCHERS": 59,
+      "FFF1_05_ARBRES_ISOLES": 376,
+      "FFF1_06_ARBRES_LISIERE": 4241,
+      "FFF1_07_AUTEL_BRUME": 526,
+      "FFF1_08_LUEUR_RUNES": 517,
+      "FFF1_09_FEUILLES_LUCIOLES": 901
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

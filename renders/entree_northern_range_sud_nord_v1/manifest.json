@@ -1,0 +1,260 @@
+{
+  "lot": "source/entree_northern_range_sud_nord_v1",
+  "prefix": "ENR1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "sud -> nord",
+  "method": "rendu genere reference sur Northern Range (RRT) ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Northern Range.png",
+    "sha256": "9f48864a94bb0290e8b2b9b42cae9758bf75afe9885dfbd955be995851dd164f",
+    "size": [
+      456,
+      432
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_northern_range_sud_nord_v1/bruts/decor.png",
+      "images": [
+        "Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Northern Range.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon entrance map for Northern Range (PMD Red Rescue Team), south-to-north cracked medium-grey stone plateau, jagged sunlit grey-olive mountain crags, dark chasm shadows, golden-yellow sunset sky on upper horizon, dark cave pass between twin northern peaks.",
+      "essais": "premier essai retenu (plateau_gris 6.5, roche_claire 31.2, roche_sombre 5.9, ciel_couchant 11.5 ; seuil < 35)",
+      "sha256": "6010bb808d30316713c8a8acc4b0ec50e6339d006e71830be88eb32169e59fcc",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_northern_range_sud_nord_v1/bruts/flocons_poses.png",
+      "images": [
+        "iceroadpmdsky.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): high-altitude wind gusts and frost crystals (shared from EGN1).",
+      "essais": "planche partagee avec EGN1 (12 poses extraites)",
+      "sha256": "f1c816309f9219a3b257636ca2a1ce186840b5b5b87aaded25dfb91d1c0eebc7",
+      "size": [
+        1717,
+        916
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du plateau gris du rip",
+    "plage_y0_y1_x0_x1": [
+      448,
+      544,
+      568,
+      664
+    ],
+    "ecart_au_rip": 4.9
+  },
+  "segmentation": {
+    "ciel_couchant_px_1200x896": 123308,
+    "plateau_gris_px_1200x896": 369527,
+    "pics_roche_px_1200x896": 64934,
+    "falaise_claire_px_1200x896": 54209,
+    "falaise_sombre_px_1200x896": 432283,
+    "col_seuil_px_1200x896": 30939,
+    "nb_pics": 7
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "plateau_gris": {
+        "rip_rgb": [
+          157.5,
+          157.8,
+          157.3
+        ],
+        "decor_rgb": [
+          153.9,
+          153.9,
+          153.6
+        ],
+        "distance": 6.5
+      },
+      "roche_claire": {
+        "rip_rgb": [
+          178.3,
+          177.0,
+          151.5
+        ],
+        "decor_rgb": [
+          164.1,
+          160.2,
+          129.4
+        ],
+        "distance": 31.2
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          77.0,
+          76.9,
+          78.0
+        ],
+        "decor_rgb": [
+          78.7,
+          76.6,
+          72.4
+        ],
+        "distance": 5.9
+      },
+      "ciel_couchant": {
+        "rip_rgb": [
+          247.2,
+          208.2,
+          96.8
+        ],
+        "decor_rgb": [
+          248.5,
+          199.4,
+          89.6
+        ],
+        "distance": 11.5
+      }
+    },
+    "calques_finaux": {
+      "plateau_gris": {
+        "rip_rgb": [
+          157.5,
+          157.8,
+          157.3
+        ],
+        "calque_rgb": [
+          153.3,
+          153.3,
+          152.3
+        ],
+        "distance": 7.9
+      },
+      "roche_claire": {
+        "rip_rgb": [
+          178.3,
+          177.0,
+          151.5
+        ],
+        "calque_rgb": [
+          163.0,
+          159.0,
+          126.0
+        ],
+        "distance": 34.8
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          77.0,
+          76.9,
+          78.0
+        ],
+        "calque_rgb": [
+          73.4,
+          71.6,
+          68.8
+        ],
+        "distance": 11.2
+      },
+      "ciel_couchant": {
+        "rip_rgb": [
+          247.2,
+          208.2,
+          96.8
+        ],
+        "calque_rgb": [
+          247.4,
+          198.8,
+          90.3
+        ],
+        "distance": 11.4
+      }
+    }
+  },
+  "palettes": {
+    "plateau": {
+      "couleurs": 14,
+      "max": 32
+    },
+    "roche_claire": {
+      "couleurs": 64,
+      "max": 64
+    },
+    "roche_sombre": {
+      "couleurs": 48,
+      "max": 48
+    },
+    "ciel": {
+      "couleurs": 31,
+      "max": 32
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/ENR1_00_sol_complet.png",
+    "calques/ENR1_01_ciel_couchant.png",
+    "calques/ENR1_02_plateau_gris.png",
+    "calques/ENR1_03_pics_roche.png",
+    "calques/ENR1_04_falaise_claire.png",
+    "calques/ENR1_05_falaise_sombre.png",
+    "calques/ENR1_06_col_seuil.png",
+    "animation/lueur_couchant/ENR1_07_lueur_couchant_f00..f23.png",
+    "animation/vent_cime/ENR1_08_vent_cime_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "lueur_couchant": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "vent_cime": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 12
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      384,
+      152
+    ],
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 1378,
+    "blocked_cells": 4647,
+    "walkable_cells": 2265
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "entree_northern_range_sud_nord",
+    "asset": "enr1_entree_northern_range_sud_nord",
+    "tiles_per_bank": {
+      "ENR1_00_SOL_COMPLET": 6413,
+      "ENR1_01_CIEL_COUCHANT": 864,
+      "ENR1_02_PLATEAU_GRIS": 1664,
+      "ENR1_03_PICS_ROCHE": 581,
+      "ENR1_04_FALAISE_CLAIRE": 805,
+      "ENR1_05_FALAISE_SOMBRE": 2826,
+      "ENR1_06_COL_SEUIL": 185,
+      "ENR1_07_LUEUR_COUCHANT": 337,
+      "ENR1_08_VENT_CIME": 975
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

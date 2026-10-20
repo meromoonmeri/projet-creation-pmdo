@@ -1,0 +1,262 @@
+{
+  "lot": "source/entree_bassin_chauffant_sud_nord_v1",
+  "prefix": "EBH1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "sud -> nord",
+  "method": "rendu genere reference sur bassinchauffantpmdsky.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "bassinchauffantpmdsky.png",
+    "sha256": "fd0ef212c388e67c35ba9da413b94d570c9651af41c2903da8308102399ab628",
+    "size": [
+      504,
+      408
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_bassin_chauffant_sud_nord_v1/bruts/decor.png",
+      "images": [
+        "bassinchauffantpmdsky.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon entrance map for Hot Spring / Bassin Chauffant (PMD Explorers of Sky), south sandy-ochre path with stepping stones and wooden fence posts, central stone causeway between two warm golden-olive mineral hot spring pools edged with tan boulders and 4 steaming fumarole mounds, stone steps rising to a volcanic cavern mouth at north.",
+      "essais": "premier essai retenu (eau_thermale 22.2, chemin_sable 12.0, roche_brune 14.3, herbe_arbres 7.0 ; seuil < 35)",
+      "sha256": "c8735fbc8de6ccb55eba308ca433fbcf6ae5f6452fc2a49b17715b8de77bf62d",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_bassin_chauffant_sud_nord_v1/bruts/vapeur_poses.png",
+      "images": [
+        "Steam_Cave_Peak_TDS.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): rising steam plumes (shared from FVS1).",
+      "essais": "planche partagee avec FVS1 (4 poses de vapeur extraites)",
+      "sha256": "17323bf1e40203018d586bd9b5acfbb0c6e57e0387cd51e9142d637f993b0c2e",
+      "size": [
+        1047,
+        1008
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du chemin sable du rip",
+    "plage_y0_y1_x0_x1": [
+      560,
+      656,
+      176,
+      272
+    ],
+    "ecart_au_rip": 6.63
+  },
+  "segmentation": {
+    "eau_thermale_px_1200x896": 87078,
+    "chemin_sable_px_1200x896": 125200,
+    "dalles_pierre_px_1200x896": 77676,
+    "rochers_rive_px_1200x896": 33218,
+    "fumerolles_px_1200x896": 332305,
+    "herbe_arbres_px_1200x896": 404545,
+    "grotte_seuil_px_1200x896": 15178
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "eau_thermale": {
+        "rip_rgb": [
+          193.8,
+          166.7,
+          65.8
+        ],
+        "decor_rgb": [
+          178.0,
+          156.3,
+          54.4
+        ],
+        "distance": 22.1
+      },
+      "chemin_sable": {
+        "rip_rgb": [
+          231.2,
+          182.2,
+          125.6
+        ],
+        "decor_rgb": [
+          230.3,
+          180.1,
+          113.7
+        ],
+        "distance": 12.1
+      },
+      "roche_brune": {
+        "rip_rgb": [
+          165.1,
+          126.0,
+          93.4
+        ],
+        "decor_rgb": [
+          171.1,
+          127.6,
+          95.6
+        ],
+        "distance": 6.6
+      },
+      "herbe_arbres": {
+        "rip_rgb": [
+          75.4,
+          123.8,
+          42.7
+        ],
+        "decor_rgb": [
+          77.4,
+          117.2,
+          41.5
+        ],
+        "distance": 7.0
+      }
+    },
+    "calques_finaux": {
+      "eau_thermale": {
+        "rip_rgb": [
+          193.8,
+          166.7,
+          65.8
+        ],
+        "calque_rgb": [
+          176.2,
+          155.0,
+          51.4
+        ],
+        "distance": 25.5
+      },
+      "chemin_sable": {
+        "rip_rgb": [
+          231.2,
+          182.2,
+          125.6
+        ],
+        "calque_rgb": [
+          232.3,
+          182.5,
+          108.9
+        ],
+        "distance": 16.7
+      },
+      "roche_brune": {
+        "rip_rgb": [
+          165.1,
+          126.0,
+          93.4
+        ],
+        "calque_rgb": [
+          168.6,
+          126.2,
+          95.8
+        ],
+        "distance": 4.3
+      },
+      "herbe_arbres": {
+        "rip_rgb": [
+          75.4,
+          123.8,
+          42.7
+        ],
+        "calque_rgb": [
+          75.3,
+          114.5,
+          41.2
+        ],
+        "distance": 9.5
+      }
+    }
+  },
+  "palettes": {
+    "sable": {
+      "couleurs": 46,
+      "max": 48
+    },
+    "eau": {
+      "couleurs": 18,
+      "max": 32
+    },
+    "roche": {
+      "couleurs": 63,
+      "max": 64
+    },
+    "foret": {
+      "couleurs": 64,
+      "max": 64
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/EBH1_00_sol_complet.png",
+    "calques/EBH1_01_eau_thermale.png",
+    "calques/EBH1_02_chemin_sable.png",
+    "calques/EBH1_03_dalles_pierre.png",
+    "calques/EBH1_04_rochers_rive.png",
+    "calques/EBH1_05_fumerolles.png",
+    "calques/EBH1_06_herbe_arbres.png",
+    "calques/EBH1_07_grotte_seuil.png",
+    "animation/onde_thermale/EBH1_08_onde_thermale_f00..f23.png",
+    "animation/vapeur_fumerolles/EBH1_09_vapeur_fumerolles_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "onde_thermale": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "vapeur_fumerolles": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 8
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      384,
+      168
+    ],
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 573,
+    "blocked_cells": 5779,
+    "walkable_cells": 1133
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "entree_bassin_chauffant_sud_nord",
+    "asset": "ebh1_entree_bassin_chauffant_sud_nord",
+    "tiles_per_bank": {
+      "EBH1_00_SOL_COMPLET": 6861,
+      "EBH1_01_EAU_THERMALE": 644,
+      "EBH1_02_CHEMIN_SABLE": 1377,
+      "EBH1_03_DALLES_PIERRE": 520,
+      "EBH1_04_ROCHERS_RIVE": 413,
+      "EBH1_05_FUMEROLLES": 3115,
+      "EBH1_06_HERBE_ARBRES": 2942,
+      "EBH1_07_GROTTE_SEUIL": 116,
+      "EBH1_08_ONDE_THERMALE": 386,
+      "EBH1_09_VAPEUR_FUMEROLLES": 1425
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

@@ -43,10 +43,10 @@ class Mod(unittest.TestCase):
     def test_toutes_les_cartes_de_la_serie(self):
         lots = sorted(p.parent.name for p in (R / 'renders').glob('entree_*_sud_nord_v*/*_projet_pmdo_0812.zip'))
         self.assertEqual(sorted(m[0] for m in B.MAPS), lots)                       # aucune carte oubliée
-        self.assertEqual((M['cartes'], len(M['maps'])), (23, 23))
-        self.assertEqual(len({m[1] for m in B.MAPS}), 23)
-        v = M['validation_utilisateur']                                            # 18 validées le 27/09, 5 faites après
-        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1'])
+        self.assertEqual((M['cartes'], len(M['maps'])), (28, 28))
+        self.assertEqual(len({m[1] for m in B.MAPS}), 28)
+        v = M['validation_utilisateur']                                            # 18 validées le 27/09, 10 faites après
+        self.assertEqual(len(v['cartes_validees']), 18); self.assertEqual(v['a_confirmer'], ['EJS2', 'EOC2', 'EAM1', 'EAW1', 'ELC1', 'EMH1', 'EFF1', 'ENR1', 'EFC1', 'EBH1'])
         self.assertEqual(set(v['cartes_validees']) | set(v['a_confirmer']), {m[1] for m in B.MAPS})
         self.assertEqual(M['namespace'], NS); self.assertFalse(M['runtime_tested'])
         self.assertIn('JE VALIDE', M['validation_utilisateur']['citation'])

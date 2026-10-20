@@ -1,0 +1,278 @@
+{
+  "lot": "source/fin_northern_range_v1",
+  "prefix": "FNR1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "cul-de-sac (entree sud -> boss central -> objectif nord)",
+  "method": "rendu genere reference sur Northern Range (RRT) ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Northern Range.png",
+    "sha256": "9f48864a94bb0290e8b2b9b42cae9758bf75afe9885dfbd955be995851dd164f",
+    "size": [
+      456,
+      432
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/fin_northern_range_v1/bruts/decor.png",
+      "images": [
+        "Game Boy Advance - Pokemon Mystery Dungeon_ Red Rescue Team - Dungeon Boss Rooms - Northern Range.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon boss arena map for Northern Range (PMD Red Rescue Team), south stone bridge, circular cracked grey stone summit arena, 6 freestanding jagged rock spires, stepped grey stone Wind Altar at north-center framed by twin mountain peaks and blazing setting sun.",
+      "essais": "premier essai retenu (plateau_gris 4.4, roche_claire 24.5, roche_sombre 2.4, ciel_couchant 6.7 ; seuil < 35)",
+      "sha256": "fe42f9e187e2bdf4f493c27d3ed20a695c0370b573bd0b961f1ba469e2e29bde",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_northern_range_v1/bruts/flocons_poses.png",
+      "images": [
+        "iceroadpmdsky.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): high-altitude wind gusts and frost crystals (shared from EGN1).",
+      "essais": "planche partagee avec ENR1/EGN1 (12 poses extraites)",
+      "sha256": "f1c816309f9219a3b257636ca2a1ce186840b5b5b87aaded25dfb91d1c0eebc7",
+      "size": [
+        1717,
+        916
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du plateau gris du rip",
+    "plage_y0_y1_x0_x1": [
+      440,
+      536,
+      576,
+      672
+    ],
+    "ecart_au_rip": 1.75
+  },
+  "segmentation": {
+    "ciel_couchant_px_1200x896": 162456,
+    "plateau_gris_px_1200x896": 266897,
+    "pics_roche_px_1200x896": 18678,
+    "falaise_claire_px_1200x896": 67118,
+    "falaise_sombre_px_1200x896": 539357,
+    "autel_vent_px_1200x896": 20694,
+    "nb_pics": 4
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "plateau_gris": {
+        "rip_rgb": [
+          157.5,
+          157.8,
+          157.3
+        ],
+        "decor_rgb": [
+          155.0,
+          155.1,
+          154.9
+        ],
+        "distance": 4.4
+      },
+      "roche_claire": {
+        "rip_rgb": [
+          178.3,
+          177.0,
+          151.5
+        ],
+        "decor_rgb": [
+          164.9,
+          162.0,
+          137.6
+        ],
+        "distance": 24.5
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          77.0,
+          76.9,
+          78.0
+        ],
+        "decor_rgb": [
+          78.3,
+          77.7,
+          76.2
+        ],
+        "distance": 2.4
+      },
+      "ciel_couchant": {
+        "rip_rgb": [
+          247.2,
+          208.2,
+          96.8
+        ],
+        "decor_rgb": [
+          247.5,
+          201.9,
+          94.6
+        ],
+        "distance": 6.7
+      }
+    },
+    "calques_finaux": {
+      "plateau_gris": {
+        "rip_rgb": [
+          157.5,
+          157.8,
+          157.3
+        ],
+        "calque_rgb": [
+          153.8,
+          153.9,
+          153.7
+        ],
+        "distance": 6.5
+      },
+      "roche_claire": {
+        "rip_rgb": [
+          178.3,
+          177.0,
+          151.5
+        ],
+        "calque_rgb": [
+          162.4,
+          159.7,
+          134.5
+        ],
+        "distance": 29.0
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          77.0,
+          76.9,
+          78.0
+        ],
+        "calque_rgb": [
+          75.8,
+          75.1,
+          74.0
+        ],
+        "distance": 4.6
+      },
+      "ciel_couchant": {
+        "rip_rgb": [
+          247.2,
+          208.2,
+          96.8
+        ],
+        "calque_rgb": [
+          246.8,
+          201.4,
+          94.3
+        ],
+        "distance": 7.3
+      }
+    }
+  },
+  "palettes": {
+    "plateau": {
+      "couleurs": 19,
+      "max": 48
+    },
+    "roche_claire": {
+      "couleurs": 63,
+      "max": 64
+    },
+    "roche_sombre": {
+      "couleurs": 40,
+      "max": 48
+    },
+    "ciel": {
+      "couleurs": 42,
+      "max": 48
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/FNR1_00_sol_complet.png",
+    "calques/FNR1_01_ciel_couchant.png",
+    "calques/FNR1_02_plateau_gris.png",
+    "calques/FNR1_03_pics_roche.png",
+    "calques/FNR1_04_falaise_claire.png",
+    "calques/FNR1_05_falaise_sombre.png",
+    "calques/FNR1_06_autel_vent.png",
+    "animation/halo_soleil/FNR1_07_halo_soleil_f00..f23.png",
+    "animation/vent_cime/FNR1_08_vent_cime_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "halo_soleil": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      },
+      "vent_cime": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 12
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "boss_px": [
+      376,
+      336
+    ],
+    "objectif_px": [
+      376,
+      240
+    ],
+    "markers": {
+      "entrance": [
+        384,
+        560
+      ],
+      "boss": [
+        376,
+        336
+      ],
+      "objectif": [
+        376,
+        240
+      ]
+    },
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 367,
+    "blocked_cells": 5265,
+    "walkable_cells": 1647
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "fin_northern_range",
+    "asset": "fnr1_fin_northern_range",
+    "tiles_per_bank": {
+      "FNR1_00_SOL_COMPLET": 5165,
+      "FNR1_01_CIEL_COUCHANT": 1067,
+      "FNR1_02_PLATEAU_GRIS": 1882,
+      "FNR1_03_PICS_ROCHE": 177,
+      "FNR1_04_FALAISE_CLAIRE": 983,
+      "FNR1_05_FALAISE_SOMBRE": 2916,
+      "FNR1_06_AUTEL_VENT": 129,
+      "FNR1_07_HALO_SOLEIL": 660,
+      "FNR1_08_VENT_CIME": 975
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}

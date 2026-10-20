@@ -1,0 +1,264 @@
+{
+  "lot": "source/entree_mt_horn_sud_nord_v1",
+  "prefix": "EMH1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "cell_px": 8,
+  "orientation": "sud -> nord",
+  "method": "rendu genere reference sur Mt_Horn_entrance_Sky.png ; sol_complet = plage 96x96 du brut en miroir ; decoupe multicalque native 8 px",
+  "reference_rip": {
+    "file": "Mt_Horn_entrance_Sky.png",
+    "sha256": "ceae26ab79d160e5f7106e93c817ac581ec7ab654db2eed0bdb1ee7fd7964a46",
+    "size": [
+      552,
+      360
+    ]
+  },
+  "raw_inputs": [
+    {
+      "file": "source/entree_mt_horn_sud_nord_v1/bruts/decor.png",
+      "images": [
+        "Mt_Horn_entrance_Sky.png"
+      ],
+      "prompt": "Wide 4:3 (1200x896) top-down dungeon entrance map for Mt. Horn (PMD Explorers of Sky), south-to-north cracked orange-tan trail, layered ochre-yellow mesa cliffs, freestanding boulders, distant blue sky and snowy cyan peaks on upper sides, dark cave mouth in the northern cliff.",
+      "essais": "premier essai retenu (chemin_sable 10.6, roche_ocre 8.4, roche_sombre 1.6, ciel_montagnes 1.6 ; seuil < 35)",
+      "sha256": "15fcd3c62718848b81609cc1d7330fa0f18ef49bde41771fc7ece467ac8692cb",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/entree_mt_horn_sud_nord_v1/bruts/touffes_vent_poses.png",
+      "images": [
+        "Mt_Bristle_entrance_TD.png"
+      ],
+      "prompt": "Sprite sheet on pure magenta (#FF00FF): windblown dust wisps and scrub tufts (shared from EBN1).",
+      "essais": "planche partagee avec EBN1 (18 poses extraites)",
+      "sha256": "42c6b81d8ab2c50c7007954f0d59c81c132cdd32709b69c19eb6b4297adc8742",
+      "size": [
+        1104,
+        960
+      ]
+    }
+  ],
+  "sol_complet": {
+    "methode": "plage 96x96 du brut en miroir la plus proche du chemin du rip",
+    "plage_y0_y1_x0_x1": [
+      568,
+      664,
+      512,
+      608
+    ],
+    "ecart_au_rip": 14.87
+  },
+  "segmentation": {
+    "ciel_montagnes_px_1200x896": 103147,
+    "chemin_sable_px_1200x896": 294699,
+    "cailloux_px_1200x896": 21795,
+    "rochers_px_1200x896": 21644,
+    "falaise_ocre_px_1200x896": 301862,
+    "falaise_sombre_px_1200x896": 286816,
+    "grotte_seuil_px_1200x896": 45237,
+    "nb_rochers": 5,
+    "nb_cailloux": 271
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "chemin_sable": {
+        "rip_rgb": [
+          234.8,
+          179.2,
+          110.7
+        ],
+        "decor_rgb": [
+          236.6,
+          174.1,
+          101.6
+        ],
+        "distance": 10.6
+      },
+      "roche_ocre": {
+        "rip_rgb": [
+          190.0,
+          147.0,
+          77.3
+        ],
+        "decor_rgb": [
+          198.0,
+          147.4,
+          75.1
+        ],
+        "distance": 8.4
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          112.8,
+          89.0,
+          47.5
+        ],
+        "decor_rgb": [
+          113.8,
+          88.4,
+          46.4
+        ],
+        "distance": 1.6
+      },
+      "ciel_montagnes": {
+        "rip_rgb": [
+          115.3,
+          196.9,
+          247.6
+        ],
+        "decor_rgb": [
+          114.9,
+          198.4,
+          247.8
+        ],
+        "distance": 1.6
+      }
+    },
+    "calques_finaux": {
+      "chemin_sable": {
+        "rip_rgb": [
+          234.8,
+          179.2,
+          110.7
+        ],
+        "calque_rgb": [
+          238.3,
+          169.6,
+          98.2
+        ],
+        "distance": 16.1
+      },
+      "roche_ocre": {
+        "rip_rgb": [
+          190.0,
+          147.0,
+          77.3
+        ],
+        "calque_rgb": [
+          181.4,
+          138.6,
+          68.8
+        ],
+        "distance": 14.7
+      },
+      "roche_sombre": {
+        "rip_rgb": [
+          112.8,
+          89.0,
+          47.5
+        ],
+        "calque_rgb": [
+          112.4,
+          87.5,
+          45.2
+        ],
+        "distance": 2.8
+      },
+      "ciel_montagnes": {
+        "rip_rgb": [
+          115.3,
+          196.9,
+          247.6
+        ],
+        "calque_rgb": [
+          115.5,
+          198.3,
+          247.2
+        ],
+        "distance": 1.5
+      }
+    }
+  },
+  "palettes": {
+    "sable": {
+      "couleurs": 43,
+      "max": 48
+    },
+    "roche_ocre": {
+      "couleurs": 64,
+      "max": 64
+    },
+    "roche_sombre": {
+      "couleurs": 48,
+      "max": 48
+    },
+    "ciel": {
+      "couleurs": 28,
+      "max": 32
+    }
+  },
+  "layer_order_bottom_to_top": [
+    "calques/EMH1_00_sol_complet.png",
+    "calques/EMH1_01_ciel_montagnes.png",
+    "calques/EMH1_02_chemin_sable.png",
+    "calques/EMH1_03_cailloux.png",
+    "calques/EMH1_04_rochers.png",
+    "calques/EMH1_05_falaise_ocre.png",
+    "calques/EMH1_06_falaise_sombre.png",
+    "calques/EMH1_07_grotte_seuil.png",
+    "animation/vent_sable/EMH1_08_vent_sable_f00..f23.png",
+    "animation/eboulis_ocre/EMH1_09_eboulis_ocre_f00..f23.png"
+  ],
+  "animations": {
+    "scene_loop_ticks": 120,
+    "tracks": {
+      "vent_sable": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120,
+        "poses": 18
+      },
+      "eboulis_ocre": {
+        "frames": 24,
+        "frame_length_ticks": 5,
+        "loop_ticks": 120
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      384,
+      560
+    ],
+    "threshold_px": [
+      384,
+      200
+    ],
+    "path_16x16_found": true,
+    "walkable_16x16_states_explored": 885,
+    "blocked_cells": 4977,
+    "walkable_cells": 1935
+  },
+  "pmdo": {
+    "target": "0.8.12.0",
+    "namespace": "entree_mt_horn_sud_nord",
+    "asset": "emh1_entree_mt_horn_sud_nord",
+    "tiles_per_bank": {
+      "EMH1_00_SOL_COMPLET": 6913,
+      "EMH1_01_CIEL_MONTAGNES": 613,
+      "EMH1_02_CHEMIN_SABLE": 2328,
+      "EMH1_03_CAILLOUX": 732,
+      "EMH1_04_ROCHERS": 216,
+      "EMH1_05_FALAISE_OCRE": 3377,
+      "EMH1_06_FALAISE_SOMBRE": 3192,
+      "EMH1_07_GROTTE_SEUIL": 345,
+      "EMH1_08_VENT_SABLE": 900,
+      "EMH1_09_EBOULIS_OCRE": 66
+    },
+    "top_layer_empty": true,
+    "runtime_tested": false
+  },
+  "art_approved": false
+}
