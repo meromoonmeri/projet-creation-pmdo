@@ -1263,3 +1263,10 @@ Pas de runtime. Pas dans le mod unique.
 - **Correction de l'utilisateur** : « refait avec les arbre statique [...] je veux pas d'embleme sur le temple de celebi ». Le décor a été édité sans emblème (l'original avec emblème est gardé dans `bruts/ecartes/decor_avec_embleme_v1.png`, témoin régénéré), et l'animation de feuillage est **retirée** : retour au calque unique statique `arbres` (14 calques + Top). La section FSE1 précédente (feuillage animé) est donc **historique, ne plus l'appliquer**.
 - Résultat : 12 tests PASS, mutation vérifiée (frame de rayon), fidélité brut ≤ 17,9, calques ≤ 9,1. Accès (376,560) / (384,296) / (360,176), 2190 praticables / 4722 bloquées.
 - **Map suivante dans l'ordre du mod** : Fin Underground Lake (entrée EUL1 ; FUL1/FMF des branches sœurs non repris).
+
+## Fin Underground Lake — FLU1, ajouts à la recette (20 octobre 2026)
+
+- **Lot** `source/fin_underground_lake_v1/`, préfixe `FLU1` (`FUL1` est pris sur les branches sœurs, non repris), aperçu `apercu_fin_underground_lake_v1.html`, 15 tests PASS, 1 mutation vérifiée (pixel magenta dans une frame d'eau : détecté, restauré par rebuild). Map suivante de la série des fins **dans l'ordre du mod** après FWC1 (qui annonçait « Fin suivante : Underground Lake »).
+- **Fin construite depuis l'entrée EUL1** : décor neuf (arène de sable centrale, lac au nord, chaussée vers une **rive nord rocheuse fermée, sans tunnel**) ; le calque `profondeur` et la détection de bouche sont supprimés (`opening = zeros` dans le classify de ce lot), marqueurs `entrance`/`boss`/`objectif`. Planche gouttes/ronds **réutilisée d'EUL1** (même biome, fichier récupéré du dépôt source, déclaré dans le manifeste). Sol complet régénéré depuis le décor de fin.
+- Accès (384,560) / (384,376) / (368,152) ; 1334 praticables / 5578 bloquées. Fidélité : brut sable 4,8 / roche 1,8 ; calques ≤ 21,9 (piliers). Pas de runtime PMDO.
+- **Fins restantes ici** (entrées sans fin sur cette branche) : Mystifying Forest (FMF1/FMF2 sœurs non repris). Les autres entrées ont leur fin.
