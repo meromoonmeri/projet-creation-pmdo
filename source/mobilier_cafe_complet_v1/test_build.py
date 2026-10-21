@@ -1,4 +1,4 @@
-"""Tests dédiés — Collection Complète Mobilier Café & Estrade Rideaux Rouges sans fond (KMC1)."""
+"""Tests dédiés — Collection Complète Mobilier Café & Scène Spinda Troubadour sans fond (KMC1)."""
 import hashlib, importlib.util, json, unittest
 from pathlib import Path
 
@@ -35,22 +35,28 @@ class TestMobilierCafeComplet(unittest.TestCase):
         self.assertEqual(m['prefix'], 'KMC1')
         self.assertFalse(m['art_approved'])
         self.assertFalse(m['pmdo']['runtime_tested'])
-        self.assertEqual(len(m['objects']), 7)
+        self.assertEqual(len(m['objects']), 12)
         for o in m['objects']:
             self.assertEqual(hashlib.sha256((R / o['raw_file']).read_bytes()).hexdigest(), o['raw_sha256'])
 
-    def test_all_7_hd_sans_fond_and_mutation(self):
-        for o in self.m['objects']:
+    def test_all_12_hd_sans_fond_and_open_stage_arch(self):
+        for i, o in enumerate(self.m['objects']):
             hd = rgba(OUT / o['hd_sans_fond'])
             self.assertEqual(set(np.unique(hd[..., 3])), {0, 255}, o['id'])
             for cy, cx in [(0, 0), (0, -1), (-1, 0), (-1, -1)]:
                 self.assertEqual(int(hd[cy, cx, 3]), 0, o['id'])
             self.assertEqual(int(self.b.boundary_magenta_fringe(hd, max_dist=6.0).sum()), 0, o['id'])
+            if i == 0:
+                mut = hd.copy()
+                by, bx = np.argwhere((hd[..., 3] == 255) & (nd.distance_transform_edt(hd[..., 3] == 255) <= 2.0))[0]
+                mut[by, bx] = [215, 95, 205, 255]
+                self.assertGreater(int(self.b.boundary_magenta_fringe(mut, max_dist=6.0).sum()), 0)
 
-            mut = hd.copy()
-            by, bx = np.argwhere((hd[..., 3] == 255) & (nd.distance_transform_edt(hd[..., 3] == 255) <= 2.0))[0]
-            mut[by, bx] = [215, 95, 205, 255]
-            self.assertGreater(int(self.b.boundary_magenta_fringe(mut, max_dist=6.0).sum()), 0)
+        # L'estrade principale Spinda Troubadour doit avoir une vraie ouverture centrale `alpha == 0` sous le lambrequin !
+        est = rgba(OUT / 'assets_1x/Estrade_Spinda_Troubadour_1x_complet.png')
+        fg = est[..., 3] == 255
+        enclosed = nd.binary_fill_holes(fg) & (~fg)
+        self.assertGreater(int(enclosed.sum()), 1200, 'La scène Spinda Troubadour doit être largement ouverte au centre !')
 
     def test_all_1x_grids_splits_and_night_variants(self):
         for o in self.m['objects']:
@@ -68,19 +74,20 @@ class TestMobilierCafeComplet(unittest.TestCase):
                 recomp = np.where(front[..., 3:4] > 0, front, back)
                 self.assertTrue(np.array_equal(recomp, comp), o['id'])
 
-    def test_binary_tile_roundtrip_all_14_banks(self):
+    def test_binary_tile_roundtrip_all_20_banks(self):
         nr = loadmod('native_reader_kmc1', R / 'source/cote_v5_expeditions/audit_references.py')
         tools = loadmod('index_tools_kmc1_t', R / 'source/pmdo_cote/INSTALLER.py')
         banks = {p.stem: nr.tiles(p)[1] for p in (STAGE / 'Content/Tile').glob('*.tile')}
-        self.assertEqual(len(banks), 14)
+        self.assertEqual(len(banks), 20)
         self.assertEqual(set(tools.read_index(STAGE / 'Content/Tile/index.idx')), set(banks))
 
         for bname, fn in [
+            ('EST1_02_COMPLET', 'assets_1x/Estrade_Spinda_Troubadour_1x_complet.png'),
+            ('EST2_02_COMPLET', 'assets_1x/Estrade_Fond_Ferme_Spinda_Troubadour_1x_complet.png'),
+            ('STR1_00_MODULES_JOUR', 'tilesheets/Tilesheet_Scene_Spinda_Troubadour_Modules_Jour_1x.png'),
             ('KKB1_02_COMPLET', 'assets_1x/Kirlia_Comptoir_1x_complet.png'),
             ('KCM1_02_COMPLET', 'assets_1x/Charmilly_Comptoir_1x_complet.png'),
-            ('EST1_02_COMPLET', 'assets_1x/Estrade_Rideaux_Rouges_1x_complet.png'),
             ('ACC1_00_JOUR', 'tilesheets/Tilesheet_Accessoires_Cabaret_Jour_1x.png'),
-            ('ACC1_01_NUIT', 'tilesheets/Tilesheet_Accessoires_Cabaret_Nuit_1x.png'),
         ]:
             target = rgba(OUT / fn)
             rec = np.zeros_like(target)

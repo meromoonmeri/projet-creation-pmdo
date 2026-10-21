@@ -118,32 +118,34 @@ def main() -> None:
         })
 
     rooms = []
-    if HALCYON_CAFE.exists():
-        with Image.open(HALCYON_CAFE) as im:
-            rw, rh = im.size
-        rooms.append({
-            'id': 'halcyon_grand_cafe',
-            'label': 'Grand Café Métano · Halcyon (840×576 — Salle complète 10 objets)',
-            'w': rw,
-            'h': rh,
-            'uri': uri(HALCYON_CAFE),
-            'defaults': {
-                'estrade': [312, 32],
-                'piano': [224, 128],
-                'jukebox': [536, 120],
-                'spinda': [80, 128],
-                'sucreine': [608, 112],
-                'kirlia': [80, 280],
-                'charmilly': [608, 280],
-                'qulbutoke': [80, 416],
-                'table_cabaret': [344, 264],
-                'banquette_velours': [432, 264],
-            },
-        })
-    for rid, rlabel in [
-        ('cafe', 'Café Spinda V7 (+1 · 600×448)'),
-        ('salon_haut', 'Salon haut Cabaret Spinda V7 (+1 · 600×448)'),
-        ('salon_bas', 'Salon des jeux Spinda V7 (−1 · 600×448)'),
+    for rid, rlabel, defs in [
+        ('cafe', 'Café Spinda V7 existant (+1 · 600×448 — Estrade & Arche Ouverte Spinda Troubadour)', {
+            'estrade': [196, 80],
+            'piano': [112, 168],
+            'jukebox': [424, 160],
+            'spinda': [80, 248],
+            'charmilly': [376, 248],
+            'table_cabaret': [248, 296],
+            'banquette_velours': [304, 296],
+        }),
+        ('salon_haut', 'Salon haut Cabaret Spinda V7 (+1 · 600×448 — Plateau + 2 Rideaux Gauche/Droit séparés)', {
+            'estrade_plateau': [200, 144],
+            'rideau_gauche_spinda': [176, 88],
+            'rideau_droit_spinda': [316, 88],
+            'piano': [104, 168],
+            'jukebox': [432, 160],
+            'kirlia': [72, 248],
+            'sucreine': [384, 248],
+            'table_cabaret': [240, 296],
+            'banquette_velours': [296, 296],
+        }),
+        ('salon_bas', 'Salon des jeux Spinda V7 (−1 · 600×448)', {
+            'estrade': [196, 84],
+            'qulbutoke': [80, 256],
+            'spinda': [376, 256],
+            'table_cabaret': [240, 312],
+            'banquette_velours': [296, 312],
+        }),
     ]:
         rp = V7_ROOMS_DIR / f'SpindaV7_{rid}_sans_magenta.png'
         if rp.exists():
@@ -155,19 +157,30 @@ def main() -> None:
                 'w': rw,
                 'h': rh,
                 'uri': uri(rp),
-                'defaults': {
-                    'estrade': [192, 32],
-                    'piano': [112, 128],
-                    'jukebox': [416, 120],
-                    'kirlia': [64, 240],
-                    'charmilly': [392, 240],
-                    'spinda': [64, 344],
-                    'sucreine': [392, 344],
-                    'qulbutoke': [224, 344],
-                    'table_cabaret': [248, 248],
-                    'banquette_velours': [304, 248],
-                },
+                'defaults': defs,
             })
+    if HALCYON_CAFE.exists():
+        with Image.open(HALCYON_CAFE) as im:
+            rw, rh = im.size
+        rooms.append({
+            'id': 'halcyon_grand_cafe',
+            'label': 'Grand Café Métano · Halcyon (840×576 — Salle complète)',
+            'w': rw,
+            'h': rh,
+            'uri': uri(HALCYON_CAFE),
+            'defaults': {
+                'estrade': [312, 24],
+                'piano': [224, 128],
+                'jukebox': [536, 120],
+                'spinda': [80, 128],
+                'sucreine': [608, 112],
+                'kirlia': [80, 280],
+                'charmilly': [608, 280],
+                'qulbutoke': [80, 416],
+                'table_cabaret': [344, 264],
+                'banquette_velours': [432, 264],
+            },
+        })
 
     data = {
         'manifest': M,
@@ -257,7 +270,12 @@ document.getElementById('dlSheetMain').href=D.sheet_day;
 document.getElementById('dlSheetAcc').href=D.sheet_acc;
 
 let bg='#3a3028',mode='1x',roomIdx=0,pos={},animTick=0;
-function resetPositions(){pos=JSON.parse(JSON.stringify(ROOMS[roomIdx].defaults));CARDS.forEach(c=>c.visible=true);syncToggle()}
+function resetPositions(){
+  const defs=ROOMS[roomIdx].defaults;
+  pos={};
+  CARDS.forEach(c=>{pos[c.id]=defs[c.id]?defs[c.id].slice():[192,120];c.visible=!!defs[c.id]});
+  syncToggle();
+}
 const objSel=document.getElementById('activeObj');
 CARDS.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;objSel.append(o)});
 function syncToggle(){const c=CARDS.find(x=>x.id===objSel.value);if(c)document.getElementById('toggleActive').checked=c.visible}
