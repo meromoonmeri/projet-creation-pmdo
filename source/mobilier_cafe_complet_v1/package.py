@@ -214,15 +214,14 @@ code{color:#f8d488}
 
 <section class="card">
   <div class="toolbar">
-    <strong>1. Catalogue des 10 objets détourés sans fond :</strong>
-    Fond :
-    <button data-bg="#3a3028" class="on">Neutre chaud (#3a3028)</button>
-    <button data-bg="checker">Damier alpha (preuve sans fond)</button>
+    <strong>1. Catalogue des 10 objets détourés sans fond (vraies balises <code>&lt;img&gt;</code> RGBA <code>alpha = 0</code> — Clic droit → Enregistrer sous…) :</strong>
+    Fond de la carte :
+    <button data-bg="#3a3028" class="on">Bois neutre (#3a3028)</button>
     <button data-bg="#141820">Nuit sombre</button>
     <button data-bg="#ede5d4">Crème clair</button>
     <span style="margin-left:8px">Échelle :</span>
-    <button data-mode="hd" class="on">Master HD sans fond</button>
-    <button data-mode="1x">Ground 1× (zoom 2×)</button>
+    <button data-mode="1x" class="on">PMDO 1× (grille 8 px)</button>
+    <button data-mode="hd">Master HD sans fond</button>
     <label style="cursor:pointer;margin-left:6px"><input type="checkbox" id="galNight"> Mode Nuit V8</label>
     <a class="btn" id="dlSheetMain" download="Tilesheet_Mobilier_Cafe_Jour_1x.png">Tilesheet 1× Comptoirs &amp; Estrade</a>
     <a class="btn" id="dlSheetAcc" download="Tilesheet_Accessoires_Cabaret_Jour_1x.png">Tilesheet 1× Accessoires Cabaret</a>
@@ -257,7 +256,7 @@ const ROOMS=D.rooms.map(r=>({...r,im:mk(r.uri)}));
 document.getElementById('dlSheetMain').href=D.sheet_day;
 document.getElementById('dlSheetAcc').href=D.sheet_acc;
 
-let bg='#3a3028',mode='hd',roomIdx=0,pos={},animTick=0;
+let bg='#3a3028',mode='1x',roomIdx=0,pos={},animTick=0;
 function resetPositions(){pos=JSON.parse(JSON.stringify(ROOMS[roomIdx].defaults));CARDS.forEach(c=>c.visible=true);syncToggle()}
 const objSel=document.getElementById('activeObj');
 CARDS.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.label;objSel.append(o)});
@@ -265,36 +264,32 @@ function syncToggle(){const c=CARDS.find(x=>x.id===objSel.value);if(c)document.g
 objSel.onchange=syncToggle;
 document.getElementById('toggleActive').onchange=e=>{const c=CARDS.find(x=>x.id===objSel.value);if(c){c.visible=e.target.checked;drawScene()}};
 
-const wrap=document.getElementById('cardsWrap'),cardCv={};
+const wrap=document.getElementById('cardsWrap'),cardBox={};
 CARDS.forEach(c=>{
   const el=document.createElement('div');el.className='subcard';
   el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
     <strong style="font-size:15.5px;color:#f8d488">${c.label}</strong>
     <span class="badge">${c.group==='new'?'NOUVEAU · '+c.pfx:c.pfx}</span>
   </div>
-  <div style="font-size:12px;color:#cbbba6;margin-bottom:6px">HD ${c.hd_size[0]}×${c.hd_size[1]} · Ground 1× ${c.norm.canvas_size[0]}×${c.norm.canvas_size[1]} px</div>
-  <canvas width="300" height="250"></canvas>
+  <div style="font-size:12px;color:#cbbba6;margin-bottom:6px">Ground 1× ${c.norm.canvas_size[0]}×${c.norm.canvas_size[1]} px · HD ${c.hd_size[0]}×${c.hd_size[1]}</div>
+  <div class="imgstage" style="background:#3a3028;border:1px solid #5c493b;border-radius:7px;height:240px;display:flex;align-items:center;justify-content:center;padding:8px">
+    <img style="image-rendering:pixelated;max-width:280px;max-height:224px" alt="${c.stem}_sans_fond.png" title="VRAI PNG TRANSPARENT (alpha=0) — Clic droit → Enregistrer l'image sous…">
+  </div>
   <div style="margin-top:8px">
-    <a class="btn" href="${c.hd}" download="${c.stem}_HD_sans_fond.png">PNG HD sans fond</a>
-    <a class="btn" href="${c.day_full}" download="${c.stem}_1x_complet.png">PNG 1× sans fond</a>
-    ${c.day_front?`<a class="btn" href="${c.day_back}" download="${c.stem}_1x_arriere.png">1× Arrière</a><a class="btn" href="${c.day_front}" download="${c.stem}_1x_avant.png">1× Avant</a>`:''}
+    <a class="btn" href="${c.day_full}" download="${c.stem}_1x_complet.png">⬇ PNG 1× PMDO</a>
+    ${c.day_front?`<a class="btn" href="${c.day_back}" download="${c.stem}_1x_arriere.png">⬇ 1× Arrière</a><a class="btn" href="${c.day_front}" download="${c.stem}_1x_avant.png">⬇ 1× Avant</a>`:''}
+    <a class="btn" href="${c.hd}" download="${c.stem}_HD_sans_fond.png">⬇ PNG HD</a>
   </div>`;
-  wrap.append(el);cardCv[c.id]=el.querySelector('canvas');
+  wrap.append(el);cardBox[c.id]={stage:el.querySelector('.imgstage'),img:el.querySelector('img')};
 });
 
-function paintBg(ctx,W,H){
-  if(bg==='checker'){for(let y=0;y<H;y+=16)for(let x=0;x<W;x+=16){ctx.fillStyle=((x+y)/16)%2?'#544940':'#362f29';ctx.fillRect(x,y,16,16)}}
-  else{ctx.fillStyle=bg;ctx.fillRect(0,0,W,H)}
-}
 function drawGallery(){
   const night=document.getElementById('galNight').checked;
   CARDS.forEach(c=>{
-    const cv=cardCv[c.id],ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-    ctx.imageSmoothingEnabled=false;paintBg(ctx,W,H);
-    const im=mode==='hd'?c.im.hd:(night?c.im.night_full:c.im.day_full);
-    const sc=mode==='hd'?Math.min((W-20)/im.width,(H-20)/im.height):Math.min(2.0,(W-16)/im.width,(H-16)/im.height);
-    const dw=Math.round(im.width*sc),dh=Math.round(im.height*sc);
-    ctx.drawImage(im,Math.round((W-dw)/2),Math.round((H-dh)/2),dw,dh);
+    const {stage,img}=cardBox[c.id];
+    stage.style.background=bg;
+    img.src=mode==='hd'?c.hd:(night?c.night_full:c.day_full);
+    img.style.width=mode==='hd'?'auto':Math.min(280,c.norm.canvas_size[0]*2)+'px';
   });
 }
 document.querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{bg=b.dataset.bg;document.querySelectorAll('[data-bg]').forEach(x=>x.classList.toggle('on',x===b));drawGallery()});
