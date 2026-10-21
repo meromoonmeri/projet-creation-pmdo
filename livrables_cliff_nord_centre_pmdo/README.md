@@ -1,20 +1,26 @@
-# Cliff Nord Centrée — Grass Métano Multicalque (PMDO 0.8.12, Jour & Nuit Animés)
+# Pack 10 Falaises Nord Centrées Nues — Grass Métano · Multicalque · Mer 8 Phases · Jour & Nuit (PMDO 0.8.12)
 
-## Contenu du pack (`100 % textures natives Halcyon / Chunsoft — 0 % génération IA`)
-- **Dimensions** : `1200 × 880 px` (`150 × 110` tuiles `8×8`, `TexSize = 8`), promontoire **parfaitement centré sur `X = 600 px`** entouré par la mer animée à l'**Ouest**, au **Nord** et à l'**Est**, avec **isthme piéton centré au Sud (`X = 484..716, Y = 880`)**.
-- **4 cartes `.rsground` prêtes pour PMDO `0.8.12`** dans `MOD_CLIFF_NORD_CENTRE_PMDO/Data/Ground/` :
-  1. `cliff_nord_centre_jour.rsground` — **Jour complet animé** (`8` calques `MapLayer` + `4` couches `LayeredBG`)
-  2. `cliff_nord_centre_nuit.rsground` — **Nuit étoilée animée** (`8` calques `MapLayer` + `5` couches `LayeredBG` avec lune & étoiles)
-  3. `cliff_nord_centre_nue_jour.rsground` — **Plateau Nu Jour prêt à bâtir** (Ciel/Nuages + Mer 8 phases + Parois Falaise + Plateau Grass Métano + 3 calques vierges)
-  4. `cliff_nord_centre_nue_nuit.rsground` — **Plateau Nu Nuit prêt à bâtir**
-- **Calques séparés `PNG 1×` sans perte** (`Jour` & `Nuit`) dans `calques_1x_separes/` et rendus complets dans `png_1x/`.
+## Les 10 Versions Incluses (`20` cartes `.rsground` = `10 Jour` + `10 Nuit`, `1200 × 880 px` = `150 × 110` tuiles)
+1. **01 — Le Grand Cap Panoramique** (`cliff_centre_01_grand_cap_panoramique_jour` / `_nuit`)
+2. **02 — L’Éperon Nord Effilé** (`cliff_centre_02_eperon_nord_effile_jour` / `_nuit`)
+3. **03 — La Double Terrasse Centrale** (`cliff_centre_03_double_terrasse_centrale_jour` / `_nuit`)
+4. **04 — La Grande Esplanade Royale** (`cliff_centre_04_grande_esplanade_royale_jour` / `_nuit`)
+5. **05 — Le Cap aux Deux Ailes** (`cliff_centre_05_cap_anse_jumelle_jour` / `_nuit`)
+6. **06 — La Presqu’île à Isthme Étroit** (`cliff_centre_06_presquile_isthme_etroit_jour` / `_nuit`)
+7. **07 — Le Cap Vent d’Ouest** (`cliff_centre_07_cap_asymetrique_ouest_jour` / `_nuit`)
+8. **08 — Le Cap du Levant** (`cliff_centre_08_cap_asymetrique_est_jour` / `_nuit`)
+9. **09 — Les Trois Paliers Ascendants** (`cliff_centre_09_trois_paliers_sacres_jour` / `_nuit`)
+10. **10 — Le Bastion Circulaire** (`cliff_centre_10_bastion_circulaire_jour` / `_nuit`)
 
-## Installation dans votre projet PMDO existant (sans écraser votre `index.idx`)
-```bash
-python INSTALLER.py "CHEMIN/VERS/PMDO/MODS/TON_MOD" --dry-run
-python INSTALLER.py "CHEMIN/VERS/PMDO/MODS/TON_MOD"
-```
+## Architecture Multicalque
+- `BG 00` : Ciel velouté sans bande (`Jour` / `Nuit`)
+- `BG 01` : Lune croissante & étoiles (`Nuit`)
+- `BG 02..04` : 3 plans de nuages animés en parallaxe continue (`RepeatX = true`)
+- `L00` : Mer Chunsoft animée en 8 phases (`FrameLength = 10`)
+- `L01` : Parois & piliers rocheux de falaise Métano (calque roche transparent séparé)
+- `L02` : Plateau nu `Grass Métano` + liseré de falaise dentelé ocre-doré (calque herbe transparent séparé)
+- `L03..05` : 3 calques vides prêts à éditer dans PMDO (`03_Vos_Chemins_Sols`, `04_Vos_Structures_Base`, `05_Votre_Canopee_Avant_Plan` `Draw.Top`)
 
-## Crédits & Statut honnête
-- **Crédits artistiques** : **Palikadude** (*PMD: Halcyon* — `Metano_Town_Base`, `Metano_Town_Cliffs`, `Metano_Town_Objects`, `Metano_Town_Animation_Tileset` et variantes `_Night`) & **Chunsoft / Nintendo / The Pokémon Company** (*PMD: Explorateurs du Ciel*).
-- **Statut de vérification** : `art_approved: false`, `runtime_tested: false` (vérifié mathématiquement sur la structure binaire `.tile` / `.dir` / `index.idx` / `.rsground` ; à ouvrir dans l'éditeur Ground de PMDO `0.8.12` pour validation finale en jeu).
+## Crédits & Statut
+- Références graphiques : **Spike Chunsoft** (*Pokémon Mystery Dungeon: Explorers*) & **Palikadude** (*PMDO Halcyon — Metano Town*).
+- Statut : bordures et raccords sculptés au générateur spriter + intérieur `Metano_Town_Base`, `art_approved: false`, `runtime_tested: false`.

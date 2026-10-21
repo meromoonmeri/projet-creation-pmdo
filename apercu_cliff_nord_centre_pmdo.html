@@ -3,36 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Falaise Nord Centrée — Grass Métano · Multicalque · Mer 8 Phases · Ciel Jour/Nuit (PMDO 0.8.12)</title>
+<title>10 Falaises Nord Centrées Nues — Grass Métano · Multicalque · Mer 8 Phases · Jour/Nuit (PMDO 0.8.12)</title>
 <style>
   :root {
     --bg: #161b26;
     --panel: #1d2433;
-    --panel2: #232c3f;
-    --border: #32405c;
+    --panel2: #242e42;
+    --border: #334260;
     --text: #eef2ff;
     --muted: #9aa8c7;
     --accent: #38bdf8;
     --gold: #f4c152;
-    --green: #4ade80;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    padding: 20px 16px 48px;
+    padding: 20px 16px 52px;
     background: var(--bg);
     color: var(--text);
     font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   }
-  .wrap { max-width: 1320px; margin: 0 auto; }
+  .wrap { max-width: 1340px; margin: 0 auto; }
   .toplink { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 13px; }
   h1 { margin: 8px 0 6px; font-size: 22px; line-height: 1.25; }
-  .sub { color: var(--muted); margin: 0 0 16px; max-width: 1020px; }
+  .sub { color: var(--muted); margin: 0 0 14px; max-width: 1080px; }
+
   .dlbar {
-    display: flex; flex-wrap: wrap; gap: 8px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
     background: var(--panel); border: 1.5px solid var(--accent);
-    border-radius: 12px; padding: 12px 14px; margin-bottom: 16px;
-    align-items: center;
+    border-radius: 12px; padding: 12px 14px; margin-bottom: 14px;
   }
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
@@ -41,21 +40,46 @@
     font-size: 13px; text-decoration: none; user-select: none;
   }
   .btn:hover { border-color: var(--accent); }
-  .btn.active { background: var(--accent); color: #091524; border-color: var(--accent); }
-  .btn.gold { background: var(--gold); color: #1a1204; border-color: var(--gold); }
-  .btn.night.active { background: #818cf8; color: #0d1026; border-color: #818cf8; }
+  .btn.active { background: var(--accent); color: #081526; border-color: var(--accent); }
+  .btn.gold { background: var(--gold); color: #1b1304; border-color: var(--gold); }
+  .btn.night.active { background: #818cf8; color: #0e1129; border-color: #818cf8; }
+
+  .zone-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+  .ztab {
+    text-align: left;
+    background: var(--panel);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 11px;
+    cursor: pointer;
+    font: inherit;
+  }
+  .ztab:hover { border-color: var(--accent); }
+  .ztab.active {
+    background: #1a314d;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent) inset;
+  }
+  .ztab strong { display: block; font-size: 13px; color: #fff; }
+  .ztab small { display: block; font-size: 11.5px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
 
   .controls {
-    display: grid; grid-template-columns: 1fr; gap: 12px;
+    display: grid; grid-template-columns: 1fr; gap: 11px;
     background: var(--panel); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px; margin-bottom: 16px;
+    border-radius: 12px; padding: 14px; margin-bottom: 14px;
   }
   .ctrl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .ctrl-label { font-weight: 700; color: var(--gold); margin-right: 4px; font-size: 13px; }
 
   .layers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 7px;
   }
   .layer-chip {
@@ -66,6 +90,13 @@
   .layer-chip input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; margin: 0; }
   .layer-chip code { color: var(--accent); font-size: 11.5px; }
 
+  .stage-header {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 10px; margin-bottom: 10px;
+  }
+  .stage-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .stage-sub { font-size: 12.5px; color: var(--muted); }
+
   .stage-shell {
     background: #111622;
     border: 1.5px solid var(--border);
@@ -73,21 +104,20 @@
     padding: 14px;
     overflow: auto;
   }
+  .stage-sizer {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+  }
   .stage {
     position: relative;
     width: 1200px;
     height: 880px;
-    margin: 0 auto;
     overflow: hidden;
     background: #161b26;
     transform-origin: top left;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-  }
-  .stage-sizer {
-    position: relative;
-    margin: 0 auto;
-    overflow: hidden;
   }
   .stage img.lyr {
     position: absolute;
@@ -110,26 +140,30 @@
     pointer-events: none;
   }
 
+  h2.gal-title { margin: 28px 0 12px; font-size: 18px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 14px;
-    margin-top: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
   }
   .card {
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 11px;
+    padding: 10px;
+    cursor: pointer;
+    transition: border-color .12s;
   }
-  .card h3 { margin: 0 0 8px; font-size: 15px; }
+  .card:hover { border-color: var(--accent); }
+  .card h3 { margin: 0 0 4px; font-size: 13.5px; }
+  .card p { margin: 0 0 8px; font-size: 11.5px; color: var(--muted); }
   .card img {
     width: 100%; height: auto; display: block;
-    border-radius: 8px; background: #161b26;
+    border-radius: 7px; background: #161b26;
     image-rendering: pixelated; image-rendering: crisp-edges;
   }
   .meta {
-    margin-top: 20px; background: var(--panel); border: 1px solid var(--border);
+    margin-top: 22px; background: var(--panel); border: 1px solid var(--border);
     border-radius: 12px; padding: 14px 18px; color: var(--muted); font-size: 13px;
   }
   .meta strong { color: var(--text); }
@@ -138,37 +172,38 @@
 <body>
 <div class="wrap">
   <a class="toplink" href="./">← Retour à tous les aperçus PMDO</a>
-  <h1>Falaise Nord Centrée — Grass Métano · Multicalque · Mer 8 Phases · Ciel Jour / Nuit</h1>
+  <h1>10 Versions de Falaise Nord Centrée Nue — Grass Métano · Multicalque · Mer 8 Phases · Jour / Nuit</h1>
   <p class="sub">
-    100 % assemblée à partir des vraies textures pixel-art natives <strong>Halcyon / Métano</strong> (<code>Metano_Town_Base</code>, <code>Metano_Town_Cliffs</code>, <code>Metano_Town_Objects</code>, <code>Metano_Town_Animation_Tileset</code> + variantes <code>_Night</code> officielles) — <strong>zéro génération IA</strong>. Promontoire central <code>1200 × 880 px</code> (<code>150 × 110</code> tuiles PMDO <code>8×8</code>) entouré par la mer animée 8 phases à l’Ouest, au Nord et à l’Est, avec large accès d’herbe <code>Grass Métano</code> au Sud.
+    <strong>10 architectures distinctes de promontoires côtiers centrés</strong> à <strong>plateau 100 % nu <code>Grass Métano</code></strong> (zéro arbre, zéro bâtiment, zéro chemin — prêts à mapper dans PMDO <code>0.8.12</code>), dont les <strong>bordures dentelées dorées-ocres et raccords de piliers rocheux</strong> ont été sculptés par passe spriter puis unifiés sur le grain canonique <code>Metano_Town_Base</code> et la colorimétrie nocturne <code>Halcyon</code> (<strong>20 cartes <code>.rsground</code></strong> au total : <code>10 Jour</code> + <code>10 Nuit</code>).
   </p>
 
   <div class="dlbar">
-    <a class="btn gold" href="livrables_cliff_nord_centre_pmdo/PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip?dl=1">⬇ Télécharger PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip (2,66 Mio — .rsground + .tile + .dir + calques PNG + INSTALLER.py)</a>
-    <a class="btn" href="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_jour.png?dl=1">⬇ PNG 1× Jour (Complet)</a>
-    <a class="btn" href="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nuit.png?dl=1">⬇ PNG 1× Nuit (Complet)</a>
-    <a class="btn" href="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nue_jour.png?dl=1">⬇ PNG 1× Plateau Nu (Jour)</a>
-    <a class="btn" href="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nue_nuit.png?dl=1">⬇ PNG 1× Plateau Nu (Nuit)</a>
+    <a class="btn gold" href="livrables_cliff_nord_centre_pmdo/PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip?dl=1">⬇ Télécharger PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip (5,88 Mio — les 20 cartes .rsground + .tile + .dir + INSTALLER.py)</a>
+    <a class="btn" id="dl-png-jour" href="#">⬇ PNG 1× Jour (carte active)</a>
+    <a class="btn" id="dl-png-nuit" href="#">⬇ PNG 1× Nuit (carte active)</a>
+    <a class="btn" id="dl-rock" href="#">⬇ Calque L01 Parois Rocheuses seul</a>
+    <a class="btn" id="dl-grass" href="#">⬇ Calque L02 Plateau Grass Métano seul</a>
     <a class="btn" href="livrables_cliff_nord_centre_pmdo/animations_1x/cliff_nord_centre_jour_anime.gif?dl=1">⬇ GIF Animé Jour</a>
     <a class="btn" href="livrables_cliff_nord_centre_pmdo/animations_1x/cliff_nord_centre_nuit_anime.gif?dl=1">⬇ GIF Animé Nuit</a>
   </div>
 
+  <div class="zone-tabs" id="zone-tabs"></div>
+
   <div class="controls">
     <div class="ctrl-row">
-      <span class="ctrl-label">Éclairage :</span>
+      <button class="btn" id="btn-prev" type="button">◀ Version précédente</button>
+      <button class="btn" id="btn-next" type="button">Version suivante ▶</button>
+
+      <span class="ctrl-label" style="margin-left:10px">Éclairage :</span>
       <button class="btn active" id="btn-jour" type="button">☀️ Ciel &amp; Palette Jour</button>
       <button class="btn night" id="btn-nuit" type="button">🌙 Ciel Étoilé &amp; Palette Nuit</button>
 
-      <span class="ctrl-label" style="margin-left:12px">Variante :</span>
-      <button class="btn active" id="btn-complet" type="button">🏡 Cap Complet (Village + Chemins + Cascade)</button>
-      <button class="btn" id="btn-nu" type="button">🌿 Plateau Nu (Grass Métano Pur)</button>
-
-      <span class="ctrl-label" style="margin-left:12px">Zoom :</span>
+      <span class="ctrl-label" style="margin-left:10px">Zoom :</span>
       <button class="btn" data-zoom="0.75" type="button">0,75×</button>
       <button class="btn active" data-zoom="1" type="button">1× Natif (1200×880)</button>
       <button class="btn" data-zoom="2" type="button">2× Pixel-Art</button>
 
-      <span class="ctrl-label" style="margin-left:12px">Animation :</span>
+      <span class="ctrl-label" style="margin-left:10px">Animation :</span>
       <button class="btn active" data-speed="1" type="button">▶ Temps Réel PMDO (60 FPS)</button>
       <button class="btn" data-speed="2.5" type="button">⏩ ×2,5</button>
       <button class="btn" data-speed="0" type="button">⏸ Pause</button>
@@ -176,168 +211,176 @@
 
     <div>
       <div class="ctrl-row" style="margin-bottom:8px">
-        <span class="ctrl-label">Calques séparés interactifs (11 plans PMDO 0.8.12) :</span>
-        <button class="btn" id="btn-all-on" type="button" style="padding:4px 10px;font-size:12px">Tout afficher</button>
-        <button class="btn" id="btn-terrain-only" type="button" style="padding:4px 10px;font-size:12px">Terrain + Mer + Ciel seuls</button>
+        <span class="ctrl-label">Visibilité individuelle des 8 calques animés / séparés :</span>
       </div>
       <div class="layers-grid" id="layers-grid"></div>
     </div>
   </div>
 
   <div class="stage-shell">
+    <div class="stage-header">
+      <div>
+        <div class="stage-title" id="stage-title"></div>
+        <div class="stage-sub" id="stage-sub"></div>
+      </div>
+      <div class="stage-sub">Touches clavier : <code>←</code> / <code>→</code> changer de version · <code>N</code> basculer Jour / Nuit</div>
+    </div>
     <div class="stage-sizer" id="stage-sizer" style="width:1200px;height:880px">
       <div class="stage" id="stage">
-        <img class="lyr" id="lyr-sky" alt="Ciel">
+        <img class="lyr" id="lyr-sky" alt="Ciel velouté">
         <img class="lyr" id="lyr-stars" alt="Lune et étoiles">
-        <div class="cloud-band" id="lyr-cloud-hi"></div>
-        <div class="cloud-band" id="lyr-cloud-mid"></div>
-        <div class="cloud-band" id="lyr-cloud-hor"></div>
+        <div class="cloud-band" id="lyr-cloud-hor" style="top:232px"></div>
+        <div class="cloud-band" id="lyr-cloud-mid" style="top:118px"></div>
+        <div class="cloud-band" id="lyr-cloud-hi" style="top:18px"></div>
         <img class="lyr" id="lyr-sea" alt="Mer Chunsoft 8 phases">
-        <img class="lyr" id="lyr-rock" alt="Parois rocheuses de falaise Métano">
-        <img class="lyr" id="lyr-grass" alt="Plateau Grass Métano">
-        <img class="lyr" id="lyr-paths" alt="Chemins de sable et place pavée Métano">
-        <img class="lyr" id="lyr-anim" alt="Cascade, source, étang, moulin, bannières, éoliennes et fleurs animés">
-        <img class="lyr" id="lyr-objs" alt="Arbres et village Métano">
-        <img class="lyr" id="lyr-top" alt="Canopée avant-plan Draw.Top">
+        <img class="lyr" id="lyr-rock" alt="L01 Parois rocheuses Métano">
+        <img class="lyr" id="lyr-grass" alt="L02 Plateau nu Grass Métano">
       </div>
     </div>
   </div>
 
-  <div class="cards">
-    <div class="card">
-      <h3>☀️ Cap Central Complet — Jour (1200 × 880 px)</h3>
-      <img src="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_jour.png" alt="Cap Central Jour">
-    </div>
-    <div class="card">
-      <h3>🌙 Cap Central Complet — Nuit Étoilée (1200 × 880 px)</h3>
-      <img src="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nuit.png" alt="Cap Central Nuit">
-    </div>
-    <div class="card">
-      <h3>🌿 Variante Plateau Nu — Grass Métano Jour (prêt à mapper)</h3>
-      <img src="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nue_jour.png" alt="Plateau Nu Jour">
-    </div>
-    <div class="card">
-      <h3>🌌 Variante Plateau Nu — Grass Métano Nuit (prêt à mapper)</h3>
-      <img src="livrables_cliff_nord_centre_pmdo/png_1x/cliff_nord_centre_nue_nuit.png" alt="Plateau Nu Nuit">
-    </div>
-  </div>
+  <h2 class="gal-title">Galerie complète des 10 versions — Jour ☀️ (cliquer une carte pour l’animer ci-dessus)</h2>
+  <div class="cards" id="cards-jour"></div>
+
+  <h2 class="gal-title">Galerie complète des 10 versions — Nuit Étoilée 🌙 (cliquer une carte pour l’animer ci-dessus)</h2>
+  <div class="cards" id="cards-nuit"></div>
 
   <div class="meta">
-    <strong>Spécifications techniques PMDO 0.8.12 &amp; Crédits :</strong><br>
-    • <strong>Cartes incluses dans le mod</strong> : <code>cliff_nord_centre_jour.rsground</code>, <code>cliff_nord_centre_nuit.rsground</code>, <code>cliff_nord_centre_nue_jour.rsground</code>, <code>cliff_nord_centre_nue_nuit.rsground</code> (<code>150 × 110</code> tuiles <code>8×8</code> = <code>1200 × 880 px</code>, incluant aussi un calque vide <code>06_Objets_Perso</code> prêt à éditer dans l’éditeur PMDO).<br>
-    • <strong>Animations natives</strong> : Nuages 3 plans en parallaxe continue (<code>LayeredBG</code> + <code>RepeatX = true</code> via <code>Content/BG/cliff_centre_nuages_*.dir</code>) · Mer Chunsoft 8 phases (<code>FrameLength = 10</code>, cycle <code>1,33 s</code>) · Cascade, source rocheuse, étang, moulin, bannières, éoliennes et fleurs en 4 phases (<code>FrameLength = 12</code>).<br>
-    • <strong>Crédits artistiques</strong> : Sprites et tuiles originaux par <strong>Spike Chunsoft</strong> (<em>Pokémon Mystery Dungeon: Explorers of Time / Darkness / Sky</em>) et <strong>Palikadude</strong> (projet <em>PMDO Halcyon</em> — <code>Metano Town</code>). Assemblage multicalque natif sans aucune génération IA (<code>art_approved: false</code>, <code>runtime_tested: false</code>).
+    <strong>Transparence méthodologique, compatibilité PMDO 0.8.12 &amp; crédits :</strong><br>
+    • <strong>20 cartes <code>.rsground</code> incluses</strong> : <code>cliff_centre_01_grand_cap_panoramique_{jour,nuit}.rsground</code> jusqu’à <code>cliff_centre_10_bastion_circulaire_{jour,nuit}.rsground</code> (<code>150 × 110</code> tuiles <code>8×8</code> = <code>1200 × 880 px</code>, grille de collisions <code>obstacles</code> précalculée + marqueur <code>Entrance_Sud</code> + 3 calques vides <code>03_Vos_Chemins_Sols</code>, <code>04_Vos_Structures_Base</code>, <code>05_Votre_Canopee_Avant_Plan</code>).<br>
+    • <strong>Méthode</strong> : silhouettes et raccords rocheux/bordures générés et réparés par passe spriter sur base native Métano, intérieur des plateaux unifié sur la tuile canonique <code>Metano_Town_Base</code> (les pixels de roche et de rebord générés ne constituent pas des tuiles canoniques certifiées du jeu d’origine ; limite de 10 générations/tour atteinte lors d’une passe secondaire optionnelle, les ajustements d’ouverture Sud ayant été finalisés chirurgicalement en Python).<br>
+    • <strong>Crédits</strong> : <strong>Spike Chunsoft</strong> (<em>Pokémon Donjon Mystère : Explorateurs</em>) &amp; <strong>Palikadude</strong> (<em>PMDO Halcyon — Metano Town</em>). Statut : <code>art_approved: false</code>, <code>runtime_tested: false</code>.
   </div>
 </div>
 
 <script>
 (() => {
-  const BASE = "livrables_cliff_nord_centre_pmdo/viewer_layers_1x/";
-  const LAYERS = [
-    { id: "lyr-sky",       code: "BG00", label: "Ciel velouté (Jour / Nuit)", on: true },
-    { id: "lyr-stars",     code: "BG01", label: "Lune croissante & Étoiles (Nuit)", on: true },
-    { id: "lyr-cloud-hi",  code: "BG02", label: "Nuages hauts (parallaxe lente)", on: true },
-    { id: "lyr-cloud-mid", code: "BG03", label: "Nuages médians (parallaxe moyenne)", on: true },
-    { id: "lyr-cloud-hor", code: "BG04", label: "Nuages d’horizon (parallaxe douce)", on: true },
-    { id: "lyr-sea",       code: "L00",  label: "Mer Chunsoft animée (8 phases)", on: true },
-    { id: "lyr-rock",      code: "L01",  label: "Parois rocheuses Falaise Métano", on: true },
-    { id: "lyr-grass",     code: "L02",  label: "Plateau central Grass Métano", on: true },
-    { id: "lyr-paths",     code: "L03",  label: "Chemins de sable & place pavée", on: true, decor: true },
-    { id: "lyr-anim",      code: "L04",  label: "Cascade, étang, moulin & fleurs (4 phases)", on: true, decor: true },
-    { id: "lyr-objs",      code: "L05",  label: "Arbres & village Métano (bases)", on: true, decor: true },
-    { id: "lyr-top",       code: "L07",  label: "Canopée avant-plan (Draw.Top)", on: true, decor: true }
+  const ROOT_BASE = "livrables_cliff_nord_centre_pmdo/";
+  const WEB = ROOT_BASE + "viewer_layers_1x/";
+  const PNG = ROOT_BASE + "png_1x/";
+
+  const ZONES = [
+    { id: "01_grand_cap_panoramique",   title: "01 — Le Grand Cap Panoramique",   sub: "Promontoire central arrondi style cliffdaytest centré, piliers rosés/ocres étagés et large entrée Sud" },
+    { id: "02_eperon_nord_effile",      title: "02 — L’Éperon Nord Effilé",       sub: "Pointe côtière élancée vers l’horizon marin Nord, flancs abrupts sculptés et chaussée herbeuse Sud" },
+    { id: "03_double_terrasse_centrale",title: "03 — La Double Terrasse Centrale",sub: "Esplanade basse et belvédère Nord surélevé reliés par une rampe naturelle en Grass Métano" },
+    { id: "04_grande_esplanade_royale", title: "04 — La Grande Esplanade Royale", sub: "Vaste plateau central festonné à bastions rocheux latéraux, idéal pour un village ou une guilde" },
+    { id: "05_cap_anse_jumelle",        title: "05 — Le Cap aux Deux Ailes",      sub: "Double avancée Nord-Ouest / Nord-Est encadrant une douce anse marine panoramique" },
+    { id: "06_presquile_isthme_etroit", title: "06 — La Presqu’île à Isthme Étroit", sub: "Large tête de cap arrondie reliée au continent Sud par un pont naturel d’herbe bordé de falaises" },
+    { id: "07_cap_asymetrique_ouest",   title: "07 — Le Cap Vent d’Ouest",        sub: "Silhouette côtière asymétrique s’étirant vers le Nord-Ouest avec crique incurvée et contreforts" },
+    { id: "08_cap_asymetrique_est",     title: "08 — Le Cap du Levant",           sub: "Corniche organique orientée Nord-Est à flanc Ouest escarpé et large ouverture herbeuse Sud" },
+    { id: "09_trois_paliers_sacres",    title: "09 — Les Trois Paliers Ascendants", sub: "Triple terrasse étagée Sud → Nord avec rampes centrales continues jusqu’au sommet marin" },
+    { id: "10_bastion_circulaire",      title: "10 — Le Bastion Circulaire",      sub: "Médaillon panoramique quasi circulaire ceinturé d’une couronne de piliers rocheux Métano" }
   ];
 
+  const LAYERS = [
+    { id: "lyr-sky",       code: "BG00", label: "Ciel velouté sans bande (Jour / Nuit)", on: true },
+    { id: "lyr-stars",     code: "BG01", label: "Croissant de lune & étoiles (Nuit)", on: true },
+    { id: "lyr-cloud-hi",  code: "BG02", label: "Nuages hauts (parallaxe rapide RepeatX)", on: true },
+    { id: "lyr-cloud-mid", code: "BG03", label: "Nuages médians (parallaxe moyenne RepeatX)", on: true },
+    { id: "lyr-cloud-hor", code: "BG04", label: "Nuages d’horizon (parallaxe douce RepeatX)", on: true },
+    { id: "lyr-sea",       code: "L00",  label: "Mer Chunsoft animée (8 phases)", on: true },
+    { id: "lyr-rock",      code: "L01",  label: "Parois & piliers rocheux Métano (calque séparé)", on: true },
+    { id: "lyr-grass",     code: "L02",  label: "Plateau nu Grass Métano + rebord dentelé", on: true }
+  ];
+
+  let zIdx = 0;
   let mode = "jour";
   let speed = 1;
   let seaIdx = 0;
-  let animIdx = 0;
-  let seaFrames = { jour: [], nuit: [] };
-  let animFrames = { jour: [], nuit: [] };
 
+  const seaFrames = { jour: [], nuit: [] };
   for (const m of ["jour", "nuit"]) {
-    for (let i = 0; i < 8; i++) {
+    for (let k = 0; k < 8; k++) {
       const im = new Image();
-      im.src = `${BASE}${m}_L00_mer_0${i}.png`;
+      im.src = `${WEB}${m}_L00_mer_0${k}.png`;
       seaFrames[m].push(im.src);
-    }
-    for (let i = 0; i < 4; i++) {
-      const im = new Image();
-      im.src = `${BASE}${m}_L04_cascade_etang_fleurs_0${i}.png`;
-      animFrames[m].push(im.src);
     }
   }
 
-  const grid = document.getElementById("layers-grid");
-  const checks = {};
+  const tabsEl = document.getElementById("zone-tabs");
+  const tabBtns = ZONES.map((z, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "ztab";
+    b.innerHTML = `<strong>${z.title}</strong><small>${z.sub}</small>`;
+    b.addEventListener("click", () => { zIdx = i; renderState(); });
+    tabsEl.appendChild(b);
+    return b;
+  });
+
+  const gridEl = document.getElementById("layers-grid");
   for (const l of LAYERS) {
     const lab = document.createElement("label");
     lab.className = "layer-chip";
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = l.on;
-    cb.addEventListener("change", () => {
-      l.on = cb.checked;
-      syncVisibility();
-    });
-    checks[l.id] = cb;
-    const txt = document.createElement("span");
-    txt.innerHTML = `<code>${l.code}</code> ${l.label}`;
+    cb.addEventListener("change", () => { l.on = cb.checked; syncVisibility(); });
+    const sp = document.createElement("span");
+    sp.innerHTML = `<code>${l.code}</code> ${l.label}`;
     lab.appendChild(cb);
-    lab.appendChild(txt);
-    grid.appendChild(lab);
+    lab.appendChild(sp);
+    gridEl.appendChild(lab);
+  }
+
+  for (const [m, cid] of [["jour", "cards-jour"], ["nuit", "cards-nuit"]]) {
+    const box = document.getElementById(cid);
+    ZONES.forEach((z, i) => {
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<h3>${z.title} (${m === "jour" ? "Jour" : "Nuit"})</h3><p>${z.sub}</p><img loading="lazy" src="${PNG}cliff_centre_${z.id}_${m}.png" alt="${z.title}">`;
+      c.addEventListener("click", () => {
+        zIdx = i;
+        mode = m;
+        renderState();
+        document.getElementById("stage-sizer").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      box.appendChild(c);
+    });
   }
 
   function syncVisibility() {
     for (const l of LAYERS) {
       const el = document.getElementById(l.id);
-      if (l.id === "lyr-stars") {
-        el.style.display = (l.on && mode === "nuit") ? "block" : "none";
-      } else {
-        el.style.display = l.on ? "block" : "none";
-      }
+      el.style.display = (l.id === "lyr-stars") ? ((l.on && mode === "nuit") ? "block" : "none") : (l.on ? "block" : "none");
     }
   }
 
-  function applyTheme() {
-    document.getElementById("lyr-sky").src = `${BASE}${mode}_BG00_ciel.png`;
-    document.getElementById("lyr-stars").src = `${BASE}nuit_BG01_astres.png`;
-    document.getElementById("lyr-cloud-hi").style.backgroundImage = `url("${BASE}${mode}_nuages_haut_1440.png")`;
-    document.getElementById("lyr-cloud-mid").style.backgroundImage = `url("${BASE}${mode}_nuages_milieu_1440.png")`;
-    document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${BASE}${mode}_nuages_horizon_1440.png")`;
+  function renderState() {
+    const z = ZONES[zIdx];
+    tabBtns.forEach((b, i) => b.classList.toggle("active", i === zIdx));
+    document.getElementById("stage-title").textContent = `${z.title} — Mode ${mode === "jour" ? "Jour ☀️" : "Nuit Étoilée 🌙"} (cliff_centre_${z.id}_${mode}.rsground)`;
+    document.getElementById("stage-sub").textContent = z.sub;
+
+    document.getElementById("lyr-sky").src = `${WEB}${mode}_BG00_ciel.png`;
+    document.getElementById("lyr-stars").src = `${WEB}nuit_BG01_astres.png`;
+    document.getElementById("lyr-cloud-hi").style.backgroundImage = `url("${WEB}${mode}_nuages_haut_1440.png")`;
+    document.getElementById("lyr-cloud-mid").style.backgroundImage = `url("${WEB}${mode}_nuages_milieu_1440.png")`;
+    document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${WEB}${mode}_nuages_horizon_1440.png")`;
     document.getElementById("lyr-sea").src = seaFrames[mode][seaIdx];
-    document.getElementById("lyr-rock").src = `${BASE}${mode}_L01_falaise_parois_metano.png`;
-    document.getElementById("lyr-grass").src = `${BASE}${mode}_L02_plateau_grass_metano.png`;
-    document.getElementById("lyr-paths").src = `${BASE}${mode}_L03_chemins_sable_metano.png`;
-    document.getElementById("lyr-anim").src = animFrames[mode][animIdx];
-    document.getElementById("lyr-objs").src = `${BASE}${mode}_L05_arbres_village_metano.png`;
-    document.getElementById("lyr-top").src = `${BASE}${mode}_L07_canopee_avant_plan.png`;
+    document.getElementById("lyr-rock").src = `${WEB}${z.id}_${mode}_L01_roche.png`;
+    document.getElementById("lyr-grass").src = `${WEB}${z.id}_${mode}_L02_plateau_grass_metano.png`;
+
+    document.getElementById("dl-png-jour").href = `${PNG}cliff_centre_${z.id}_jour.png?dl=1`;
+    document.getElementById("dl-png-nuit").href = `${PNG}cliff_centre_${z.id}_nuit.png?dl=1`;
+    document.getElementById("dl-rock").href = `${WEB}${z.id}_${mode}_L01_roche.png?dl=1`;
+    document.getElementById("dl-grass").href = `${WEB}${z.id}_${mode}_L02_plateau_grass_metano.png?dl=1`;
+
     document.getElementById("btn-jour").classList.toggle("active", mode === "jour");
     document.getElementById("btn-nuit").classList.toggle("active", mode === "nuit");
     syncVisibility();
   }
 
-  document.getElementById("btn-jour").addEventListener("click", () => { mode = "jour"; applyTheme(); });
-  document.getElementById("btn-nuit").addEventListener("click", () => { mode = "nuit"; applyTheme(); });
+  document.getElementById("btn-prev").addEventListener("click", () => { zIdx = (zIdx + ZONES.length - 1) % ZONES.length; renderState(); });
+  document.getElementById("btn-next").addEventListener("click", () => { zIdx = (zIdx + 1) % ZONES.length; renderState(); });
+  document.getElementById("btn-jour").addEventListener("click", () => { mode = "jour"; renderState(); });
+  document.getElementById("btn-nuit").addEventListener("click", () => { mode = "nuit"; renderState(); });
 
-  function setPreset(decorOn) {
-    for (const l of LAYERS) {
-      if (l.decor) {
-        l.on = decorOn;
-        checks[l.id].checked = decorOn;
-      } else {
-        l.on = true;
-        checks[l.id].checked = true;
-      }
-    }
-    document.getElementById("btn-complet").classList.toggle("active", decorOn);
-    document.getElementById("btn-nu").classList.toggle("active", !decorOn);
-    syncVisibility();
-  }
-  document.getElementById("btn-complet").addEventListener("click", () => setPreset(true));
-  document.getElementById("btn-nu").addEventListener("click", () => setPreset(false));
-  document.getElementById("btn-all-on").addEventListener("click", () => setPreset(true));
-  document.getElementById("btn-terrain-only").addEventListener("click", () => setPreset(false));
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") { zIdx = (zIdx + ZONES.length - 1) % ZONES.length; renderState(); }
+    if (e.key === "ArrowRight") { zIdx = (zIdx + 1) % ZONES.length; renderState(); }
+    if (e.key === "n" || e.key === "N") { mode = (mode === "jour" ? "nuit" : "jour"); renderState(); }
+  });
 
   const stage = document.getElementById("stage");
   const sizer = document.getElementById("stage-sizer");
@@ -359,21 +402,19 @@
   });
 
   let lastTs = performance.now();
-  let seaAcc = 0, animAcc = 0;
-  let offHi = 0, offMid = 0, offHor = 0;
+  let seaAcc = 0, offHi = 0, offMid = 0, offHor = 0;
   const elHi = document.getElementById("lyr-cloud-hi");
   const elMid = document.getElementById("lyr-cloud-mid");
   const elHor = document.getElementById("lyr-cloud-hor");
   const elSea = document.getElementById("lyr-sea");
-  const elAnim = document.getElementById("lyr-anim");
 
   function tick(now) {
     const dt = Math.min(0.1, (now - lastTs) / 1000) * speed;
     lastTs = now;
     if (dt > 0) {
-      offHi = (offHi + dt * 14.0) % 1440;
-      offMid = (offMid + dt * 9.0) % 1440;
-      offHor = (offHor + dt * 5.0) % 1440;
+      offHi = (offHi - dt * 16.0) % 1440;
+      offMid = (offMid - dt * 10.0) % 1440;
+      offHor = (offHor - dt * 5.5) % 1440;
       elHi.style.backgroundPosition = `${offHi.toFixed(1)}px 0px`;
       elMid.style.backgroundPosition = `${offMid.toFixed(1)}px 0px`;
       elHor.style.backgroundPosition = `${offHor.toFixed(1)}px 0px`;
@@ -384,17 +425,11 @@
         seaIdx = (seaIdx + 1) % 8;
         elSea.src = seaFrames[mode][seaIdx];
       }
-      animAcc += dt;
-      if (animAcc >= 12 / 60) {
-        animAcc %= (12 / 60);
-        animIdx = (animIdx + 1) % 4;
-        elAnim.src = animFrames[mode][animIdx];
-      }
     }
     requestAnimationFrame(tick);
   }
 
-  applyTheme();
+  renderState();
   requestAnimationFrame(tick);
 })();
 </script>

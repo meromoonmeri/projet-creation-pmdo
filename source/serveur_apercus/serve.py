@@ -60,9 +60,9 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:5px 0}}.new{{background:#2c7a5b;
 h2{{border-bottom:1px solid #303f5c;padding-bottom:5px;margin-top:26px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
 <div class="dlbox" style="border-color:#38bdf8;background:#17253b">
-  <strong style="font-size:17px;color:#eef8ff">NOUVEAU — Falaise Nord Centrée (Style <code>cliffdaytest</code> Centré) · Grass Métano · Multicalque · Mer 8 Phases · Ciel Jour / Nuit (PMDO 0.8.12 · 100 % Natif Sans IA)</strong><br>
-  <a class="dlbtn" style="background:#38bdf8;color:#081626" href="apercu_cliff_nord_centre_pmdo.html">🌊☀️🌙 Ouvrir le visualiseur multicalque interactif (Jour/Nuit + 11 calques + Nuages 3 plans + Mer 8 phases)</a>
-  <a class="dlbtn" href="livrables_cliff_nord_centre_pmdo/PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip?dl=1">⬇ Pack Complet PMDO 0.8.12 (.ZIP — 4 .rsground + .tile + .dir + calques PNG + INSTALLER.py)</a>
+  <strong style="font-size:17px;color:#eef8ff">NOUVEAU — Pack des 10 Falaises Nord Centrées Nues · Grass Métano · Multicalque · Mer 8 Phases · Ciel Jour / Nuit (20 Cartes PMDO 0.8.12)</strong><br>
+  <a class="dlbtn" style="background:#38bdf8;color:#081626" href="apercu_cliff_nord_centre_pmdo.html">🌊☀️🌙 Ouvrir le visualiseur interactif des 10 versions (Jour/Nuit + 8 calques + Mer 8 phases + Nuages 3 plans)</a>
+  <a class="dlbtn" href="livrables_cliff_nord_centre_pmdo/PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip?dl=1">⬇ Pack Complet 20 Cartes PMDO 0.8.12 (.ZIP — 5,88 Mio)</a>
 </div>
 <div class="dlbox" style="border-color:#818cf8;background:#19213a">
   <strong style="font-size:17px;color:#eef2ff">NOUVEAU — Cliff Nord en Nuit (<code>cliffdaytest</code> &amp; <code>cliffnordouesttest1</code>) · Nuages 3 Plans &amp; Mer 8 Phases Animés (PMDO 0.8.12 · Zéro Génération IA)</strong><br>

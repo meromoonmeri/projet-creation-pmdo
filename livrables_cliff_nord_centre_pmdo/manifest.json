@@ -1,11 +1,8 @@
 {
-  "title": "Cliff Nord Centrée — Grass Métano Multicalque (Jour & Nuit Animés)",
-  "pmdo_version": "0.8.12",
-  "serialization_version": "0.8.12.0",
-  "art_approved": false,
-  "runtime_tested": false,
-  "ai_generated_pixels": 0,
-  "day_terrain_out_of_native_palette_pixels": 0,
+  "title": "Pack 10 Falaises Nord Centrées Nues — Grass Métano Multicalque Jour & Nuit (PMDO 0.8.12)",
+  "pmdo_version": "0.8.12.0",
+  "zones_count": 10,
+  "maps_rsground_count": 20,
   "dimensions_px": [
     1200,
     880
@@ -14,181 +11,298 @@
     150,
     110
   ],
-  "horizon_y_px": 296,
-  "symmetry_center_x_px": 600,
-  "south_walkable_isthmus_x_px": [
-    484,
-    716
-  ],
+  "bare_plateau": true,
+  "sea_phases": 8,
+  "cloud_planes": 3,
+  "terrain_pipeline": "10 passes spriter generate_image sur base native Metano + intérieur unifié Metano_Town_Base + découpe multicalque L01 roche / L02 plateau Grass Métano + table nocturne Halcyon exacte",
+  "art_approved": false,
+  "runtime_tested": false,
   "credits": [
-    "Palikadude / projet Pokémon Mystery Dungeon: Halcyon (planches Metano_Town_Base, Metano_Town_Cliffs, Metano_Town_Objects, Metano_Town_Animation_Tileset et variantes _Night)",
-    "Chunsoft / Spike Chunsoft / Nintendo / The Pokémon Company (sprites originaux PMD Explorateurs du Ciel : océan 8 phases, nuages et astres)"
+    "Spike Chunsoft (Pokémon Mystery Dungeon: Explorers of Time / Darkness / Sky)",
+    "Palikadude & contributeurs (PMDO Halcyon — Metano Town)"
   ],
-  "maps": [
+  "tile_banks": [
     {
-      "asset": "cliff_nord_centre_jour",
-      "mode": "jour",
-      "variant": "complet",
-      "size_px": [
-        1200,
-        880
-      ],
-      "grid_tiles": [
-        150,
-        110
-      ],
-      "layer_count": 8,
-      "bytes": 5113043
-    },
-    {
-      "asset": "cliff_nord_centre_nue_jour",
-      "mode": "jour",
-      "variant": "nue",
-      "size_px": [
-        1200,
-        880
-      ],
-      "grid_tiles": [
-        150,
-        110
-      ],
-      "layer_count": 6,
-      "bytes": 4330354
-    },
-    {
-      "asset": "cliff_nord_centre_nuit",
-      "mode": "nuit",
-      "variant": "complet",
-      "size_px": [
-        1200,
-        880
-      ],
-      "grid_tiles": [
-        150,
-        110
-      ],
-      "layer_count": 8,
-      "bytes": 5113329
-    },
-    {
-      "asset": "cliff_nord_centre_nue_nuit",
-      "mode": "nuit",
-      "variant": "nue",
-      "size_px": [
-        1200,
-        880
-      ],
-      "grid_tiles": [
-        150,
-        110
-      ],
-      "layer_count": 6,
-      "bytes": 4330620
-    }
-  ],
-  "tilesets": [
-    {
-      "sheet": "CliffCentre_Jour",
-      "tile_count": 3953,
+      "sheet": "CliffCentre10_Jour",
+      "tile_count": 39323,
       "grid": [
         64,
-        62
+        615
       ],
-      "bytes": 624967,
-      "sha256": "26fd98d63cfd31534978f75f32341288aa9caa2490b0fd42595d0024e8acc586"
+      "bytes": 6154583,
+      "sha256": "9dbb9e0091fbee917c1eec269fa1f321896f431e328b5acc62bb52d5980301bf"
     },
     {
-      "sheet": "CliffCentre_Nuit",
-      "tile_count": 3925,
+      "sheet": "CliffCentre10_Nuit",
+      "tile_count": 39323,
       "grid": [
         64,
-        62
+        615
       ],
-      "bytes": 616456,
-      "sha256": "3f82ba0d05a95d859f860c124cc7f6649e5a458dfea7bfb5dbca004674eed089"
+      "bytes": 6151350,
+      "sha256": "e1be60efad0d581698de29620c567233ea56fb2aa381d94ba6da626637dd8178"
     }
   ],
-  "bg_dirs": [
+  "zones": [
     {
-      "name": "CLIFF_CENTRE_JOUR_CIEL",
-      "size": [
+      "num": 1,
+      "id": "01_grand_cap_panoramique",
+      "title": "01 — Le Grand Cap Panoramique",
+      "subtitle": "Promontoire central arrondi style cliffdaytest centré, piliers rosés/ocres étagés et large entrée Sud",
+      "size_px": [
         1200,
         880
       ],
-      "bytes": 10272,
-      "sha256": "bae2240729a0b0b2dce01f4d75ccc14c7ea6243339f84c00c1edb77b0c4bd70a"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_01_grand_cap_panoramique_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_01_grand_cap_panoramique_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_01_grand_cap_panoramique_jour.png",
+      "png_nuit": "png_1x/cliff_centre_01_grand_cap_panoramique_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/01_grand_cap_panoramique_jour_L01_roche.png",
+        "viewer_layers_1x/01_grand_cap_panoramique_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/01_grand_cap_panoramique_nuit_L01_roche.png",
+        "viewer_layers_1x/01_grand_cap_panoramique_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_NUIT_CIEL",
-      "size": [
+      "num": 2,
+      "id": "02_eperon_nord_effile",
+      "title": "02 — L’Éperon Nord Effilé",
+      "subtitle": "Pointe côtière élancée vers l’horizon marin Nord, flancs abrupts sculptés et chaussée herbeuse Sud",
+      "size_px": [
         1200,
         880
       ],
-      "bytes": 10242,
-      "sha256": "75668120c1f900cd2d7e324ef56e6d9de716c2498a8706ec9738c7e186a5384b"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_02_eperon_nord_effile_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_02_eperon_nord_effile_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_02_eperon_nord_effile_jour.png",
+      "png_nuit": "png_1x/cliff_centre_02_eperon_nord_effile_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/02_eperon_nord_effile_jour_L01_roche.png",
+        "viewer_layers_1x/02_eperon_nord_effile_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/02_eperon_nord_effile_nuit_L01_roche.png",
+        "viewer_layers_1x/02_eperon_nord_effile_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_NUIT_ASTRES",
-      "size": [
+      "num": 3,
+      "id": "03_double_terrasse_centrale",
+      "title": "03 — La Double Terrasse Centrale",
+      "subtitle": "Esplanade basse et belvédère Nord surélevé reliés par une rampe naturelle en Grass Métano",
+      "size_px": [
         1200,
         880
       ],
-      "bytes": 6214,
-      "sha256": "87344215d8f71ecb519e645d26498b1c5efa51985704ad87b8030c57b83cffe9"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_03_double_terrasse_centrale_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_03_double_terrasse_centrale_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_03_double_terrasse_centrale_jour.png",
+      "png_nuit": "png_1x/cliff_centre_03_double_terrasse_centrale_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/03_double_terrasse_centrale_jour_L01_roche.png",
+        "viewer_layers_1x/03_double_terrasse_centrale_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/03_double_terrasse_centrale_nuit_L01_roche.png",
+        "viewer_layers_1x/03_double_terrasse_centrale_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_JOUR_NUAGES_HORIZON",
-      "size": [
-        1440,
-        64
+      "num": 4,
+      "id": "04_grande_esplanade_royale",
+      "title": "04 — La Grande Esplanade Royale",
+      "subtitle": "Vaste plateau central festonné à bastions rocheux latéraux, idéal pour un village ou une guilde",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 16860,
-      "sha256": "e6986b79f23ab5455b2e9fcf11c9939961a59f668e92f5dd3c76fff9e46d9a82"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_04_grande_esplanade_royale_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_04_grande_esplanade_royale_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_04_grande_esplanade_royale_jour.png",
+      "png_nuit": "png_1x/cliff_centre_04_grande_esplanade_royale_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/04_grande_esplanade_royale_jour_L01_roche.png",
+        "viewer_layers_1x/04_grande_esplanade_royale_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/04_grande_esplanade_royale_nuit_L01_roche.png",
+        "viewer_layers_1x/04_grande_esplanade_royale_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_JOUR_NUAGES_MILIEU",
-      "size": [
-        1440,
-        96
+      "num": 5,
+      "id": "05_cap_anse_jumelle",
+      "title": "05 — Le Cap aux Deux Ailes",
+      "subtitle": "Double avancée Nord-Ouest / Nord-Est encadrant une douce anse marine panoramique",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 17522,
-      "sha256": "3a9ccf0715154d23db333dd8cb5a28244c3a18cfdd41def36aca62ce57a59966"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_05_cap_anse_jumelle_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_05_cap_anse_jumelle_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_05_cap_anse_jumelle_jour.png",
+      "png_nuit": "png_1x/cliff_centre_05_cap_anse_jumelle_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/05_cap_anse_jumelle_jour_L01_roche.png",
+        "viewer_layers_1x/05_cap_anse_jumelle_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/05_cap_anse_jumelle_nuit_L01_roche.png",
+        "viewer_layers_1x/05_cap_anse_jumelle_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_JOUR_NUAGES_HAUT",
-      "size": [
-        1440,
-        96
+      "num": 6,
+      "id": "06_presquile_isthme_etroit",
+      "title": "06 — La Presqu’île à Isthme Étroit",
+      "subtitle": "Large tête de cap arrondie reliée au continent Sud par un pont naturel d’herbe bordé de falaises",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 17438,
-      "sha256": "8b5b826b7628cf14b4c25a4d1114c7a829634d083e1c747377135e829ee8753c"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_06_presquile_isthme_etroit_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_06_presquile_isthme_etroit_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_06_presquile_isthme_etroit_jour.png",
+      "png_nuit": "png_1x/cliff_centre_06_presquile_isthme_etroit_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/06_presquile_isthme_etroit_jour_L01_roche.png",
+        "viewer_layers_1x/06_presquile_isthme_etroit_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/06_presquile_isthme_etroit_nuit_L01_roche.png",
+        "viewer_layers_1x/06_presquile_isthme_etroit_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_NUIT_NUAGES_HORIZON",
-      "size": [
-        1440,
-        64
+      "num": 7,
+      "id": "07_cap_asymetrique_ouest",
+      "title": "07 — Le Cap Vent d’Ouest",
+      "subtitle": "Silhouette côtière asymétrique s’étirant vers le Nord-Ouest avec crique incurvée et contreforts",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 14289,
-      "sha256": "6f438e951f991797b021aeabdcbb610973a44f97b8a6af6c1169c1f0a13780b2"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_07_cap_asymetrique_ouest_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_07_cap_asymetrique_ouest_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_07_cap_asymetrique_ouest_jour.png",
+      "png_nuit": "png_1x/cliff_centre_07_cap_asymetrique_ouest_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/07_cap_asymetrique_ouest_jour_L01_roche.png",
+        "viewer_layers_1x/07_cap_asymetrique_ouest_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/07_cap_asymetrique_ouest_nuit_L01_roche.png",
+        "viewer_layers_1x/07_cap_asymetrique_ouest_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_NUIT_NUAGES_MILIEU",
-      "size": [
-        1440,
-        96
+      "num": 8,
+      "id": "08_cap_asymetrique_est",
+      "title": "08 — Le Cap du Levant",
+      "subtitle": "Corniche organique orientée Nord-Est à flanc Ouest escarpé et large ouverture herbeuse Sud",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 15299,
-      "sha256": "011023bfc13837e02451a3c44229533c4e6d737696f806c02f5f1884f82abf89"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_08_cap_asymetrique_est_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_08_cap_asymetrique_est_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_08_cap_asymetrique_est_jour.png",
+      "png_nuit": "png_1x/cliff_centre_08_cap_asymetrique_est_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/08_cap_asymetrique_est_jour_L01_roche.png",
+        "viewer_layers_1x/08_cap_asymetrique_est_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/08_cap_asymetrique_est_nuit_L01_roche.png",
+        "viewer_layers_1x/08_cap_asymetrique_est_nuit_L02_plateau_grass_metano.png"
+      ]
     },
     {
-      "name": "CLIFF_CENTRE_NUIT_NUAGES_HAUT",
-      "size": [
-        1440,
-        96
+      "num": 9,
+      "id": "09_trois_paliers_sacres",
+      "title": "09 — Les Trois Paliers Ascendants",
+      "subtitle": "Triple terrasse étagée Sud → Nord avec rampes centrales continues jusqu’au sommet marin",
+      "size_px": [
+        1200,
+        880
       ],
-      "bytes": 15765,
-      "sha256": "4c0bc3f1cca04361f8b953934f85e1547dbfdb90051fed12659632379909ae42"
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_09_trois_paliers_sacres_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_09_trois_paliers_sacres_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_09_trois_paliers_sacres_jour.png",
+      "png_nuit": "png_1x/cliff_centre_09_trois_paliers_sacres_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/09_trois_paliers_sacres_jour_L01_roche.png",
+        "viewer_layers_1x/09_trois_paliers_sacres_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/09_trois_paliers_sacres_nuit_L01_roche.png",
+        "viewer_layers_1x/09_trois_paliers_sacres_nuit_L02_plateau_grass_metano.png"
+      ]
+    },
+    {
+      "num": 10,
+      "id": "10_bastion_circulaire",
+      "title": "10 — Le Bastion Circulaire",
+      "subtitle": "Médaillon panoramique quasi circulaire ceinturé d’une couronne de piliers rocheux Métano",
+      "size_px": [
+        1200,
+        880
+      ],
+      "grid_tiles": [
+        150,
+        110
+      ],
+      "rsground_jour": "Data/Ground/cliff_centre_10_bastion_circulaire_jour.rsground",
+      "rsground_nuit": "Data/Ground/cliff_centre_10_bastion_circulaire_nuit.rsground",
+      "png_jour": "png_1x/cliff_centre_10_bastion_circulaire_jour.png",
+      "png_nuit": "png_1x/cliff_centre_10_bastion_circulaire_nuit.png",
+      "layers_jour": [
+        "viewer_layers_1x/10_bastion_circulaire_jour_L01_roche.png",
+        "viewer_layers_1x/10_bastion_circulaire_jour_L02_plateau_grass_metano.png"
+      ],
+      "layers_nuit": [
+        "viewer_layers_1x/10_bastion_circulaire_nuit_L01_roche.png",
+        "viewer_layers_1x/10_bastion_circulaire_nuit_L02_plateau_grass_metano.png"
+      ]
     }
   ]
 }
