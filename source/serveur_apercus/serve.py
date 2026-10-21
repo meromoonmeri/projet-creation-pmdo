@@ -63,9 +63,9 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;col
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
 <div class="dlbox" style="border-color:#d95d56;background:#2e2421">
-  <strong style="font-size:17px;color:#f5ead4">NOUVEAU — Pack Spinda Café (#0327 · Style Officiel « Dojo Makuhita » PMD · Sans Panneau Devant · Sans Lanterne d’Entrée · Sans Fond RGBA)</strong><br>
-  <a class="dlbtn" style="background:#d95d56;color:#fff" href="apercu_spinda_cafe_dojo_pmdo.html">Ouvrir l’aperçu &amp; téléchargements PNG / .tile (SPC1–SPC6 Jour/Nuit/Calques/HD)</a>
-  <a class="dlbtn" href="livrables_spinda_cafe_dojo_pmdo/Spinda_Cafe_Style_DojoMakuhita_PMDO.zip?dl=1">Télécharger le Pack Complet ZIP Spinda Café × Dojo Makuhita (.tile + 1× + HD)</a>
+  <strong style="font-size:17px;color:#f5ead4">NOUVEAU — Les 8 Spinda Cafés (#0327 · Style Officiel « Dojo Makuhita » PMD · 8 Architectures Distinctes · Sans Panneau ni Lanterne · Sans Fond RGBA)</strong><br>
+  <a class="dlbtn" style="background:#d95d56;color:#fff" href="apercu_spinda_cafe_dojo_pmdo.html">Ouvrir la galerie interactive &amp; téléchargements PNG / .tile (SPC1–SPC8 Jour/Nuit/Calques/HD)</a>
+  <a class="dlbtn" href="livrables_spinda_cafe_dojo_pmdo/Spinda_Cafe_Style_DojoMakuhita_PMDO.zip?dl=1">Télécharger le Pack Complet ZIP des 8 Spinda Cafés (.tile + 1× + HD)</a>
 </div>
 <div class="dlbox" style="border-color:#d99f66;background:#2d241c">
   <strong style="font-size:17px;color:#f6ecd6">NOUVEAU — Pack Tentes &amp; Kiosques Évoli (#0133 · Style Bourg-Trésor PMD Explorateurs du Ciel · Croisillons · Sans Bouche ni Museau · Sans Fond RGBA)</strong><br>

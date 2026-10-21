@@ -40,7 +40,7 @@ class TestSpindaCafeDojoPMDO(unittest.TestCase):
         cls.manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
 
     def test_01_alpha_strictement_binaire_et_dimensions_8px(self) -> None:
-        self.assertEqual(len(self.manifest["assets"]), 6)
+        self.assertEqual(len(self.manifest["assets"]), 8)
         self.assertTrue(self.manifest["no_front_signboard"])
         self.assertTrue(self.manifest["no_entrance_lantern"])
         self.assertFalse(self.manifest["art_approved"])

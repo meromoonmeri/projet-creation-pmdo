@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """
-Pipeline de construction PMDO 0.8.12 / Halcyon — Pack Spinda Café × Dojo Makuhita (#0327 Spinda)
+Pipeline de construction PMDO 0.8.12 / Halcyon — Pack Complet des 8 Spinda Cafés (#0327 Spinda)
 Inspiration officielle Pokémon Donjon Mystère (Équipe de Secours Rouge/Bleue — Dojo Makuhita).
 
-Contraintes artistiques & techniques validées :
-- Architecture asymétrique officielle en deux ailes du Dojo Makuhita (pavillon gauche + aile droite à toit incurvé)
-- ZÉRO panneau posé devant la façade et ZÉRO lanterne suspendue dans l'entrée sur 100 % des modèles
-- ZÉRO visage / bouche / museau sur les murs, motifs Spinda (taches corail asymétriques, volutes spirales, oreilles, croisillons)
-- Détourage flood-fill extérieur strict préservant 100 % des bouteilles colorées du bar à jus (SPC3),
-  alpha binaire strict {0, 255}, 0 px de frange verte externe, grille exacte 8x8 px
-- Banques natives .tile RogueEssence / Halcyon (SPC1..SPC6, Jour & Nuit) + .tsj Tiled
+8 architectures extérieures distinctes dans la même charte pixel-art Chunsoft GBA/DS :
+- SPC1 : Dojo Classique Spinda Café (Dôme à gauche + Aile Dojo japonaise à droite — 224×96 px)
+- SPC2 : Dojo Inversé & Grand Comptoir Bar à Jus Ouvert + Tabourets (Aile gauche + Dôme bar à droite — 224×120 px)
+- SPC3 : Grande Maison de Thé à 2 Étages & Balustrade Bois (Pagode Dojo + Belvédère Spinda — 224×112 px)
+- SPC4 : Grand Palais Triptyque Symétrique (Tour Rotonde Centrale Spinda + 2 Ailes Dojo — 224×136 px)
+- SPC5 : Salon de Thé Dojo & Terrasse Engawa Extérieure (Tables Chabudai & Coussins Zabuton — 240×128 px)
+- SPC6 : Grande Boutique Ronde / Kiosque à Jus & Recyclage (Volets Bois & Bouteilles — 192×120 px)
+- SPC7 : Complexe Double Pavillon « Bar à Smoothies + Tour Rotonde Conique » (232×112 px)
+- SPC8 : Petit Pavillon Compact Symétrique Portail Dojo (1 Aile — 160×128 px)
+
+Contraintes validées sur 8/8 modèles :
+- ZÉRO panneau posé devant la façade et ZÉRO lanterne suspendue
+- ZÉRO visage / yeux / bouche vivants sur les murs
+- Alpha binaire strict {0, 255}, 0 px de frange verte externe, grille exacte 8×8 px
 - Galerie HTML pure <img> RGBA alpha=0 (zéro <canvas>, zéro damier)
 """
 
@@ -46,69 +53,91 @@ ZIP_PATH = OUT_DIR / "Spinda_Cafe_Style_DojoMakuhita_PMDO.zip"
 SPECS = [
     {
         "prefix": "SPC1",
-        "id": "01_Spinda_Cafe_Dojo_Classique_Oreilles_Pompons",
+        "id": "01_Spinda_Cafe_Dojo_Classique_Gauche",
         "raw": "spc_01_dojo_spinda_oreilles_pompons",
-        "title": "Spinda Café — Modèle Classique Dojo Makuhita (Oreilles Spirales & Pompons)",
-        "category": "Édifice Complet 2 Ailes (Fidèle 1:1 Dojo Makuhita)",
+        "title": "1. Spinda Café — Modèle Classique « Dojo Makuhita » (Dôme à Gauche)",
+        "category": "Dojo Classique 2 Ailes (28×12 tuiles)",
         "target_1x": (224, 96),
         "has_green_props": False,
         "split_row_ratio": 0.62,
-        "desc": "Adaptation fidèle 1:1 du Dojo Makuhita de PMD : pavillon gauche crépi crème à taches corail, 4 fenêtres à croisillons et dôme coiffé des grandes oreilles spiralées à pompons de Spinda ; aile droite à toit japonais incurvé rouge-corail, portail cintré à doubles volutes tourbillon, rideau noren (sans panneau devant ni lanterne d'entrée).",
+        "desc": "Adaptation fidèle 1:1 du Dojo Makuhita de PMD : pavillon gauche crépi crème à taches corail, 4 fenêtres à croisillons et dôme coiffé des oreilles spiralées à pompons de Spinda ; aile droite japonaise à toit incurvé corail, portail tourbillon et rideau noren.",
     },
     {
         "prefix": "SPC2",
-        "id": "02_Spinda_Cafe_Dojo_Oreilles_Rondes_Grilles",
-        "raw": "spc_02_dojo_spinda_oreilles_rondes",
-        "title": "Spinda Café — Variante Dojo Makuhita (Oreilles Courtes & Shoji Croisés)",
-        "category": "Édifice Complet 2 Ailes (Style Salon de Thé PMD)",
-        "target_1x": (224, 96),
-        "has_green_props": False,
-        "split_row_ratio": 0.62,
-        "desc": "Variante à oreilles spiralées arrondies sans pompons noirs, grilles de fenêtres shoji fines, grandes volutes tourbillon sur le portail et rideau noren corail (sans panneau ni lanterne dans l'entrée).",
+        "id": "02_Spinda_Cafe_Dojo_Inverse_Comptoir_Bar_Jus",
+        "raw": "spc_02_dojo_inverse_bar_jus",
+        "title": "2. Spinda Café — Aile Dojo Inversée & Grand Comptoir Bar à Jus",
+        "category": "Bar à Smoothies & Tabourets (28×15 tuiles)",
+        "target_1x": (224, 120),
+        "has_green_props": True,
+        "split_row_ratio": 0.60,
+        "desc": "Disposition asymétrique inversée : longue aile Dojo japonaise à corne relevée à gauche, et grand pavillon dôme Spinda à droite ouvert en comptoir de smoothies avec fioles multicolores sur étagères, 3 tabourets ronds en bois et tonneaux.",
     },
     {
         "prefix": "SPC3",
-        "id": "03_Spinda_Cafe_Dojo_Bar_Jus_Ouvert",
-        "raw": "spc_03_dojo_spinda_bar_jus_ouvert",
-        "title": "Spinda Café — Variante Comptoir Bar à Jus Ouvert & Tabourets",
-        "category": "Édifice Complet 2 Ailes (Comptoir Smoothies & Tonneaux)",
-        "target_1x": (224, 96),
-        "has_green_props": True,
-        "split_row_ratio": 0.62,
-        "desc": "Pavillon gauche transformé en comptoir extérieur de jus de baies avec bouteilles multicolores et 3 tabourets en bois sous le dôme d'oreilles Spinda, relié à l'aile droite à médaillons tourbillon, rideau crème et tonneaux d'angle (sans panneau ni lanterne d'entrée).",
+        "id": "03_Spinda_Cafe_Maison_The_2_Etages_Balustrade",
+        "raw": "spc_03_maison_the_2_etages_balustrade",
+        "title": "3. Spinda Café — Grande Maison de Thé à Étage & Balustrade Bois",
+        "category": "Pagode Salon de Thé 2 Niveaux (28×14 tuiles)",
+        "target_1x": (224, 112),
+        "has_green_props": False,
+        "split_row_ratio": 0.64,
+        "desc": "Architecture japonaise à deux niveaux : rez-de-chaussée Dojo à doubles cornes de toit relevées, fenêtres shoji et portail tourbillon, surmonté d'un étage belvédère en dôme Spinda entouré d'une balustrade en bois sombre.",
     },
     {
         "prefix": "SPC4",
-        "id": "04_Spinda_Cafe_Dojo_Finial_Tourbillon_Sans_Oreilles",
-        "raw": "spc_04_dojo_spinda_lanterne_sans_oreilles",
-        "title": "Spinda Café — Architecture Pure Sans Oreilles (Épi Tourbillon)",
-        "category": "Édifice Complet 2 Ailes (100 % Architecture Pure)",
-        "target_1x": (224, 96),
-        "has_green_props": True,
-        "split_row_ratio": 0.62,
-        "desc": "Version 100 % architecture japonaise sans oreilles : dôme étagé crème à pois corail surmonté d'un épi en bois sculpté en spirale, aile droite à toit courbé corail, volutes tourbillon et entrée sombre entièrement dégagée (sans lanterne d'entrée ni panneau).",
+        "id": "04_Spinda_Cafe_Grand_Palais_Triptyque_Central",
+        "raw": "spc_04_grand_palais_triptyque_dojo",
+        "title": "4. Spinda Café — Grand Palais Triptyque Symétrique (Tour Centrale)",
+        "category": "Édifice Monumental 3 Corps (28×17 tuiles)",
+        "target_1x": (224, 136),
+        "has_green_props": False,
+        "split_row_ratio": 0.65,
+        "desc": "Composition monumentale symétrique : haute rotonde centrale tachetée coiffée du dôme à oreilles spiralées avec portail d'honneur central à volutes tourbillon, encadrée de part et d'autre par deux ailes Dojo japonaises à toits courbés.",
     },
     {
         "prefix": "SPC5",
-        "id": "05_Spinda_Cafe_Dojo_Rotonde_Salon_The",
-        "raw": "spc_05_dojo_spinda_rotonde_salon",
-        "title": "Spinda Café — Grande Rotonde Panoramique & Aile Dojo",
-        "category": "Édifice Complet 2 Ailes (Rotonde Salon de Thé)",
-        "target_1x": (224, 104),
+        "id": "05_Spinda_Cafe_Dojo_Terrasse_Engawa_Chabudai",
+        "raw": "spc_05_dojo_terrasse_engawa_chabudai",
+        "title": "5. Spinda Café — Salon Dojo & Terrasse Engawa Extérieure (Tables Chabudai)",
+        "category": "Café avec Terrasse Bois & Coussins (30×16 tuiles)",
+        "target_1x": (240, 128),
         "has_green_props": False,
         "split_row_ratio": 0.62,
-        "desc": "Pavillon gauche en haute rotonde cylindrique tachetée à baie vitrée panoramique à croisillons, associé à l'aile droite à grandes volutes tourbillon et entrée sombre dégagée (sans lanterne ni panneau).",
+        "desc": "Pavillon octogonal boisé à dôme Spinda à gauche et entrée Dojo à toit karahafu au centre, prolongés à droite par une terrasse japonaise sur pilotis (engawa) sous pergola avec tables basses rondes chabudai et coussins zabuton.",
     },
     {
         "prefix": "SPC6",
-        "id": "06_Spinda_Cafe_Pavillon_Compact_Portail_Dojo",
-        "raw": "spc_06_pavillon_spinda_portail_dojo",
-        "title": "Pavillon Compact « Spinda Café » (Aile Portail Symétrique)",
-        "category": "Pavillon Compact Symétrique (Petits Terrains PMDO)",
-        "target_1x": (160, 136),
+        "id": "06_Spinda_Cafe_Boutique_Ronde_Volets_Jus",
+        "raw": "spc_06_kiosque_rond_boutique_baies",
+        "title": "6. Spinda Café — Grande Boutique Ronde « Bar à Recyclage & Jus »",
+        "category": "Kiosque Circulaire Bourg-Trésor × Dojo (24×15 tuiles)",
+        "target_1x": (192, 120),
+        "has_green_props": True,
+        "split_row_ratio": 0.60,
+        "desc": "Pavillon rond autonome entouré d'un auvent circulaire de tuiles rouges à cornes relevées sous dôme Spinda : guichet à volets bois battants exposant les fioles de jus de baies à gauche, portail tourbillon à rideau corail à droite et tonneaux.",
+    },
+    {
+        "prefix": "SPC7",
+        "id": "07_Spinda_Cafe_Complexe_Double_Pavillon_Rotonde",
+        "raw": "spc_07_complexe_double_dome_rotonde",
+        "title": "7. Spinda Café — Complexe Double Pavillon (Comptoir Jus + Tour Conique)",
+        "category": "Complexe Taverne & Salon Rotonde (29×14 tuiles)",
+        "target_1x": (232, 112),
+        "has_green_props": True,
+        "split_row_ratio": 0.62,
+        "desc": "Complexe réunissant trois volumes : pavillon comptoir de jus sous store rayé et dôme Spinda à gauche, galerie Dojo centrale à portail tourbillon, et tour rotonde tachetée à toit conique de tuiles rouges et baie vitrée à droite.",
+    },
+    {
+        "prefix": "SPC8",
+        "id": "08_Spinda_Cafe_Petit_Pavillon_Compact_Dojo",
+        "raw": "spc_08_petit_pavillon_compact_dojo",
+        "title": "8. Spinda Café — Petit Pavillon Symétrique Compact (1 Aile)",
+        "category": "Pavillon Compact Petits Terrains (20×16 tuiles)",
+        "target_1x": (160, 128),
         "has_green_props": False,
         "split_row_ratio": 0.65,
-        "desc": "Version compacte symétrique à 1 aile (toit incurvé à double corne relevée, oreilles spiralées de Spinda, fronton à volutes tourbillon, rideau noren crème et fenêtres à barreaux bois, sans panneau devant ni lanterne).",
+        "desc": "Version compacte symétrique à 1 aile pour les petites parcelles de village PMDO : toit incurvé à double corne relevée, oreilles spiralées de Spinda, fronton tourbillon et rideau noren crème.",
     },
 ]
 
@@ -198,6 +227,17 @@ def resize_clean_rgba(src_rgba: Image.Image, target_wh: Tuple[int, int], margin:
 
     rgb_sharp = np.array(ImageEnhance.Sharpness(Image.fromarray(rgb_out, "RGB")).enhance(1.25), dtype=np.uint8)
 
+    # Extra rim despill right after resize so no subpixel green edge forms along transparent border
+    trans_r = ~a_out
+    ring_r = (
+        np.pad(trans_r[1:, :], ((0, 1), (0, 0)), constant_values=True)
+        | np.pad(trans_r[:-1, :], ((1, 0), (0, 0)), constant_values=True)
+        | np.pad(trans_r[:, 1:], ((0, 0), (0, 1)), constant_values=True)
+        | np.pad(trans_r[:, :-1], ((0, 0), (1, 0)), constant_values=True)
+    ) & a_out
+    max_rb_r = np.maximum(rgb_sharp[:, :, 0], rgb_sharp[:, :, 2])
+    rgb_sharp[:, :, 1] = np.where(ring_r & (rgb_sharp[:, :, 1] > max_rb_r), max_rb_r, rgb_sharp[:, :, 1])
+
     canvas = np.zeros((th, tw, 4), dtype=np.uint8)
     ox = (tw - nw) // 2
     oy = th - margin - nh
@@ -235,6 +275,20 @@ def save_binary_indexed_png(im_rgba: Image.Image, path: Path, clamp_green: bool 
     pal = np.array(q.getpalette()[: 255 * 3], dtype=np.int32).reshape(255, 3)
     if clamp_green:
         pal[:, 1] = np.minimum(pal[:, 1], np.maximum(pal[:, 0], pal[:, 2]))
+    else:
+        # Ensure palette indices that touch the 1px transparent contour never exceed max(R, B) + 6
+        trans = ~mask
+        ring = (
+            np.pad(trans[1:, :], ((0, 1), (0, 0)), constant_values=True)
+            | np.pad(trans[:-1, :], ((1, 0), (0, 0)), constant_values=True)
+            | np.pad(trans[:, 1:], ((0, 0), (0, 1)), constant_values=True)
+            | np.pad(trans[:, :-1], ((0, 0), (1, 0)), constant_values=True)
+        ) & mask
+        for idx_val in np.unique(q_idx[ring]):
+            if idx_val > 0:
+                p_i = idx_val - 1
+                pal[p_i, 1] = min(pal[p_i, 1], max(pal[p_i, 0], pal[p_i, 2]))
+
     full_pal = [0, 0, 0] + np.clip(pal, 0, 255).astype(np.uint8).ravel().tolist()
     out_p = Image.fromarray(q_idx, mode="P")
     out_p.putpalette(full_pal)
@@ -324,7 +378,7 @@ def build_html_gallery(records: List[Dict], sheet_jour: Path, sheet_nuit: Path) 
             </figure>
           </div>
           <div class="meta-bar">
-            <span class="badge accent">Sans panneau devant · Sans lanterne d’entrée</span>
+            <span class="badge accent">Sans panneau devant · Sans lanterne · Sans visage</span>
             <span class="badge">Tuiles uniques : {rec["unique_tiles"]} / {rec["total_tiles"]}</span>
           </div>
         </article>"""
@@ -339,7 +393,7 @@ def build_html_gallery(records: List[Dict], sheet_jour: Path, sheet_nuit: Path) 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spinda Café × Dojo Makuhita (#0327) — Pack PMDO Sans Fond</title>
+  <title>Les 8 Spinda Cafés × Dojo Makuhita (#0327) — Pack Complet PMDO Sans Fond</title>
   <style>
     :root {{
       --bg: #221b19;
@@ -435,7 +489,7 @@ def build_html_gallery(records: List[Dict], sheet_jour: Path, sheet_nuit: Path) 
       max-width: 100%;
       height: auto;
     }}
-    img.hd-view {{ max-height: 240px; width: auto; }}
+    img.hd-view {{ max-height: 260px; width: auto; }}
     .meta-bar {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }}
     .badge {{
       font-size: 0.76rem;
@@ -450,11 +504,12 @@ def build_html_gallery(records: List[Dict], sheet_jour: Path, sheet_nuit: Path) 
 </head>
 <body>
   <header>
-    <h1>Spinda Café — Inspiration Officielle « Dojo Makuhita » (Pokémon Donjon Mystère)</h1>
+    <h1>Les 8 Spinda Cafés — Inspiration « Dojo Makuhita » (Pokémon Donjon Mystère)</h1>
     <p>
-      6 variantes pixel-art 2D style Chunsoft GBA/DS basées sur l’architecture exacte en deux ailes du <strong>Dojo Makuhita</strong>
-      (pavillon gauche dôme/rotonde tacheté + longue aile japonaise à toit incurvé rouge-corail et portail à volutes tourbillon),
-      <strong>sans aucun panneau devant la façade et sans aucune lanterne dans l’entrée</strong>.
+      <strong>8 architectures complètes et distinctes</strong> générées dans la même direction artistique pixel-art 2D Chunsoft GBA/DS :
+      Dojo classique, Bar à Jus inversé à tabourets, Maison de Thé à étage avec balustrade, Grand Palais triptyque central,
+      Salon Dojo avec terrasse <em>engawa</em> &amp; tables <em>chabudai</em>, Boutique ronde à volets, Complexe double pavillon &amp; tour conique,
+      et Petit Pavillon compact — <strong>tous sans panneau devant la façade et sans aucune lanterne</strong>.
     </p>
     <p>
       <strong>Zéro damier et zéro &lt;canvas&gt;</strong> : chaque image est une vraie balise <code>&lt;img&gt;</code> PNG <code>RGBA</code>
@@ -465,19 +520,19 @@ def build_html_gallery(records: List[Dict], sheet_jour: Path, sheet_nuit: Path) 
       <a href="/">← Accueil des aperçus</a>
       <a href="apercu_tente_evoli_pmdo.html">Voir aussi : Tentes &amp; Kiosques Évoli (EVT1–EVT6)</a>
       <a href="apercu_maison_forgelina_pmdo.html">Voir aussi : Maison / Monument Forgelina Style Kangourex (FGK1–FGK6)</a>
-      <a href="livrables_spinda_cafe_dojo_pmdo/Spinda_Cafe_Style_DojoMakuhita_PMDO.zip">Télécharger le ZIP complet PMDO (.tile + 1x + HD)</a>
+      <a href="livrables_spinda_cafe_dojo_pmdo/Spinda_Cafe_Style_DojoMakuhita_PMDO.zip">Télécharger le ZIP complet des 8 Spinda Cafés (.tile + 1x + HD)</a>
     </nav>
   </header>
 
   <section class="sheet-box">
-    <h2>Planches Tileset Complètes 1× PMDO (Grille exacte 8×8 px — {sj_im.width}×{sj_im.height} px — Jour &amp; Nuit)</h2>
+    <h2>Planches Tileset Complètes des 8 Spinda Cafés 1× PMDO (Grille exacte 8×8 px — {sj_im.width}×{sj_im.height} px — Jour &amp; Nuit)</h2>
     <div class="sheet-grid">
       <figure class="stage">
-        <img class="pixel" src="{sj_uri}" width="{sj_im.width}" height="{sj_im.height}" alt="Planche complète Spinda Café Dojo Makuhita Jour 1x" />
+        <img class="pixel" src="{sj_uri}" width="{sj_im.width}" height="{sj_im.height}" alt="Planche complète des 8 Spinda Cafés Jour 1x" />
         <figcaption>Planche_Complete_Spinda_Cafe_Dojo_PMDO_1x_Jour.png ({sj_im.width}×{sj_im.height} px — vrai RGBA alpha=0)</figcaption>
       </figure>
       <figure class="stage night">
-        <img class="pixel" src="{sn_uri}" width="{sj_im.width}" height="{sj_im.height}" alt="Planche complète Spinda Café Dojo Makuhita Nuit 1x" />
+        <img class="pixel" src="{sn_uri}" width="{sj_im.width}" height="{sj_im.height}" alt="Planche complète des 8 Spinda Cafés Nuit 1x" />
         <figcaption>Planche_Complete_Spinda_Cafe_Dojo_PMDO_1x_Nuit.png ({sj_im.width}×{sj_im.height} px — vrai RGBA alpha=0)</figcaption>
       </figure>
     </div>
@@ -588,24 +643,32 @@ def main() -> None:
     save_binary_indexed_png(build_atlas(day_sprites), sheet_jour, clamp_green=False)
     save_binary_indexed_png(build_atlas(night_sprites), sheet_nuit, clamp_green=False)
 
-    readme_txt = """PACK SPINDA CAFÉ — INSPIRATION DOJO MAKUHITA (POKÉMON DONJON MYSTÈRE)
-=====================================================================
+    readme_txt = """PACK DES 8 SPINDA CAFÉS — INSPIRATION DOJO MAKUHITA (POKÉMON DONJON MYSTÈRE)
+===========================================================================
 
 Contenu :
-- 1x_PMDO_8px_sans_fond/ : Sprites 1x exacts sur grille 8x8 px (Jour, Nuit, Arriere_Under, Avant_Base + Planches complètes)
-- PMDO_tiles/            : Banques natives .tile RogueEssence / Halcyon 0.8.12 (SPC1 à SPC6, Jour & Nuit) + .tsj Tiled
+- 1x_PMDO_8px_sans_fond/ : 8 bâtiments complets 1x sur grille exacte 8x8 px (Jour, Nuit, Arriere_Under, Avant_Base + Planches complètes)
+- PMDO_tiles/            : Banques natives .tile RogueEssence / Halcyon 0.8.12 (SPC1 à SPC8, Jour & Nuit) + .tsj Tiled
 - HD_sans_fond/          : PNG haute définition sans fond (alpha binaire strict {0, 255}, 0 px de frange verte)
 - manifest.json          : Métadonnées techniques et état d'homologation honnête
 
-Règles artistiques & techniques validées :
-- Architecture exacte à 2 ailes du Dojo Makuhita (SPC1 à SPC5, 224x96 / 224x104 px = 28x12 / 28x13 tuiles) + pavillon compact 1 aile (SPC6, 160x136 px).
-- Aucun panneau devant la façade et aucune lanterne dans l'entrée.
-- Arriere_Under / Avant_Base : découpe stricte des surfaces visibles sans reconstruction spéculative des zones occultées.
+8 variantes architecturales incluses :
+- SPC1 : Dojo Classique Spinda Café (224x96 px — 28x12 tuiles)
+- SPC2 : Dojo Inversé & Grand Comptoir Bar à Jus + Tabourets (224x120 px — 28x15 tuiles)
+- SPC3 : Grande Maison de Thé à 2 Étages & Balustrade Bois (224x112 px — 28x14 tuiles)
+- SPC4 : Grand Palais Triptyque Symétrique Tour Centrale (224x136 px — 28x17 tuiles)
+- SPC5 : Salon Dojo & Terrasse Engawa Extérieure Chabudai (240x128 px — 30x16 tuiles)
+- SPC6 : Grande Boutique Ronde / Kiosque à Volets & Jus (192x120 px — 24x15 tuiles)
+- SPC7 : Complexe Double Pavillon Comptoir + Rotonde Conique (232x112 px — 29x14 tuiles)
+- SPC8 : Petit Pavillon Compact Symétrique Portail Dojo (160x128 px — 20x16 tuiles)
+
+Aucun panneau devant la façade et aucune lanterne sur 8/8 modèles.
+Arriere_Under / Avant_Base : découpe stricte des surfaces visibles sans reconstruction spéculative des zones occultées.
 """
     (OUT_DIR / "LISEZ_MOI_IMPORT_PMDO.txt").write_text(readme_txt, encoding="utf-8")
 
     manifest = {
-        "pack_id": "spinda_cafe_dojo_makuhita_pmdo_v1",
+        "pack_id": "spinda_cafe_dojo_makuhita_pmdo_v2_8_architectures",
         "inspiration": "Pokémon Mystery Dungeon (Red/Blue Rescue Team — Makuhita Dojo) × Spinda Café (#0327)",
         "tile_size_px": 8,
         "tile_prefixes": [s["prefix"] for s in SPECS],
