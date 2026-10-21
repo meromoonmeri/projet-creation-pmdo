@@ -51,7 +51,7 @@ STRUCTURES_SPEC = [
         "Arbre-QG monumental à racines moussues et rochers gréseux doux du Jardin Secret, portail d'entrée sous feuilles géantes recourbées, escalier hélicoïdal, balcon circulaire et deux chambres-cocons sphériques reliées par un pont suspendu fleuri.",
         4,
         "01_js_qg.webp",
-        (352, 352),
+        (280, 288),
         0.74,
     ),
     (
@@ -62,7 +62,7 @@ STRUCTURES_SPEC = [
         "Triple houppier fleuri du Jardin Secret (grappes corail, lilas et dorées), double escalier courbe menant à deux huttes rondes à dôme de feuilles souples, longue passerelle suspendue fleurie et plateforme ronde panoramique.",
         3,
         "02_js_pont.webp",
-        (448, 224),
+        (360, 184),
         0.72,
     ),
     (
@@ -73,7 +73,7 @@ STRUCTURES_SPEC = [
         "Sanctuaire d'archives et d'herboristerie logé dans une chambre-gland galbée coiffée d'une coupole de feuilles rondes, grande rosace florale dorée, monte-charge à panier tressé, escalier courbe et arche racinaire de pierre.",
         3,
         "03_js_sanctuaire.webp",
-        (384, 240),
+        (304, 216),
         0.74,
     ),
     (
@@ -84,7 +84,7 @@ STRUCTURES_SPEC = [
         "Arbre-tour vertical du Jardin Secret à escalier en colimaçon fleuri sur 4 niveaux, hublots ronds à croisillons, cocon-dortoir suspendu sous feuilles courbes et belvédère circulaire ouvert au sommet.",
         4,
         "04_js_observatoire.webp",
-        (280, 352),
+        (232, 288),
         0.76,
     ),
     (
@@ -95,7 +95,7 @@ STRUCTURES_SPEC = [
         "Arbre-QG d'altitude aux rochers alpins gris-bleutés ciselés et feuillage menthe-émeraude constellé de Gracidées rose corail à 5 pétales, escalier hélicoïdal, balcon rond et cocons sphériques coiffés de feuilles courbes.",
         4,
         "05_sp_qg.webp",
-        (352, 352),
+        (280, 288),
         0.74,
     ),
     (
@@ -106,7 +106,7 @@ STRUCTURES_SPEC = [
         "Large arbre-relais de haute montagne à triple couronne menthe-émeraude et Gracidées, escaliers jumeaux, deux pavillons sphériques à coupole végétale, pont suspendu orné de rubans blancs du ciel et terrasse d'observation.",
         3,
         "06_sp_pont.webp",
-        (432, 248),
+        (352, 200),
         0.72,
     ),
     (
@@ -117,7 +117,7 @@ STRUCTURES_SPEC = [
         "Relais d'expédition du Pic Céleste combinant galerie cylindrique vitrée dans le tronc, deux dômes habitables en pierre claire et feuilles courbes, et une pergola plate en bois fleurie de Gracidées.",
         3,
         "07_sp_pergola.webp",
-        (352, 352),
+        (280, 288),
         0.74,
     ),
     (
@@ -128,7 +128,7 @@ STRUCTURES_SPEC = [
         "Tour-observatoire céleste à escalier en colimaçon longeant l'écorce sur 4 paliers, cocon suspendu sous feuille courbe, rubans d'altitude flottant au vent et plateforme ronde ouverte sous les Gracidées.",
         4,
         "08_sp_observatoire.webp",
-        (272, 352),
+        (224, 288),
         0.76,
     ),
 ]
@@ -240,7 +240,11 @@ def extract_clean_hd_rgba(raw_rgb: np.ndarray) -> Image.Image:
     out = np.zeros((H, W, 4), dtype=np.uint8)
     out[mask, :3] = q_rgb[mask]
     out[mask, 3] = 255
-    return Image.fromarray(out, mode="RGBA")
+    im_hd = Image.fromarray(out, mode="RGBA")
+    hd_scale = min(640.0 / im_hd.width, 640.0 / im_hd.height, 1.0)
+    if hd_scale < 1.0:
+        im_hd = im_hd.resize((max(8, round(im_hd.width * hd_scale)), max(8, round(im_hd.height * hd_scale))), NN)
+    return im_hd
 
 
 def assert_clean_rgba(im: Image.Image, label_name: str) -> None:
@@ -313,8 +317,10 @@ def make_night_glowing(im: Image.Image, biome: str) -> Image.Image:
     g = arr[:, :, 1].astype(np.float32)
     b = arr[:, :, 2].astype(np.float32)
 
-    # 1. Sources déjà lumineuses (uniquement vitrail doré chaud type rosace : R>232, G>192, B<155 — jamais fleurs ni feuilles!)
-    existing_lamp = opaque & (r > 232) & (g > 192) & (b < 155) & ((r - b) > 85) & ((r - g) >= -6)
+    # 1. Sources déjà lumineuses (uniquement vitrail doré hors feuillage vert : exclut les fleurs jaunes du houppier!)
+    green_foliage = opaque & ((g - r) > 22) & (g > 110)
+    near_foliage = dilate_mask(green_foliage, 4)
+    existing_lamp = opaque & (~near_foliage) & (r > 224) & (g > 184) & (b < 165) & ((r - b) > 70) & ((r - g) >= -6)
     cavities = detect_window_cavities_for_night(im)
     all_lamps = existing_lamp | cavities
 
@@ -1038,11 +1044,20 @@ def main() -> None:
         unique_j = write_pmdo_tile(im_1x_jour, p_tile_jour)
         unique_n = write_pmdo_tile(im_1x_nuit, p_tile_nuit)
 
-        # PNG compagnons & descripteurs Tiled .tsj dans Mod_PMDO_Tile_Pret_A_Importer/Content/Tile/
-        save_compact_rgba_png(im_1x_jour, OUT_MOD_TILE / f"{pfx}_Jour.png")
-        save_compact_rgba_png(im_1x_nuit, OUT_MOD_TILE / f"{pfx}_Nuit.png")
-        write_tsj(f"{pfx}_Jour.png", im_1x_jour.width, im_1x_jour.height, f"{pfx}_Jour", OUT_MOD_TILE / f"{pfx}_Jour.tsj")
-        write_tsj(f"{pfx}_Nuit.png", im_1x_nuit.width, im_1x_nuit.height, f"{pfx}_Nuit", OUT_MOD_TILE / f"{pfx}_Nuit.tsj")
+        write_tsj(
+            f"../../../1x_PMDO_8px_sans_fond/{slug}_1x_jour.png",
+            im_1x_jour.width,
+            im_1x_jour.height,
+            f"{pfx}_Jour",
+            OUT_MOD_TILE / f"{pfx}_Jour.tsj",
+        )
+        write_tsj(
+            f"../../../1x_PMDO_8px_sans_fond/{slug}_1x_nuit.png",
+            im_1x_nuit.width,
+            im_1x_nuit.height,
+            f"{pfx}_Nuit",
+            OUT_MOD_TILE / f"{pfx}_Nuit.tsj",
+        )
 
         items_meta.append(
             {
@@ -1062,10 +1077,10 @@ def main() -> None:
                 "runtime_tested": False,
                 "occluded_pixels_reconstructed": False,
                 "data_uris": {
-                    "1x_jour": b64_png(p_1x_jour),
-                    "1x_nuit": b64_png(p_1x_nuit),
-                    "1x_avant": b64_png(p_1x_avant),
-                    "1x_arriere": b64_png(p_1x_arriere),
+                    "1x_jour": p_1x_jour.relative_to(R).as_posix(),
+                    "1x_nuit": p_1x_nuit.relative_to(R).as_posix(),
+                    "1x_avant": p_1x_avant.relative_to(R).as_posix(),
+                    "1x_arriere": p_1x_arriere.relative_to(R).as_posix(),
                 },
                 "downloads_rel": {
                     "hd_jour": p_hd_jour.relative_to(R).as_posix(),
@@ -1116,7 +1131,9 @@ def main() -> None:
     if OUT_ZIP.exists():
         OUT_ZIP.unlink()
     files_to_zip = sorted(
-        p for p in OUT_DIR.rglob("*") if p.is_file() and p.resolve() != OUT_ZIP.resolve()
+        p
+        for p in OUT_DIR.rglob("*")
+        if p.is_file() and p.resolve() != OUT_ZIP.resolve() and not p.name.endswith("_HD_nuit.png")
     )
     with zipfile.ZipFile(OUT_ZIP, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         for p in files_to_zip:
@@ -1125,8 +1142,8 @@ def main() -> None:
     sha256_zip = hashlib.sha256(OUT_ZIP.read_bytes()).hexdigest()
     html_text = build_html_gallery(
         items=items_meta,
-        sheet_jour_uri=b64_png(p_sheet_jour),
-        sheet_nuit_uri=b64_png(p_sheet_nuit),
+        sheet_jour_uri=p_sheet_jour.relative_to(R).as_posix(),
+        sheet_nuit_uri=p_sheet_nuit.relative_to(R).as_posix(),
         sheet_jour_rel=p_sheet_jour.relative_to(R).as_posix(),
         sheet_nuit_rel=p_sheet_nuit.relative_to(R).as_posix(),
         zip_rel=OUT_ZIP.relative_to(R).as_posix(),

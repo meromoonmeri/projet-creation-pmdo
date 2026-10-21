@@ -115,7 +115,7 @@ def main() -> None:
         assert zf.testzip() is None
         names = set(zf.namelist())
         assert "README.md" in names and "manifest.json" in names
-        assert len(names) >= 80
+        assert len(names) >= 70
 
     html = OUT_HTML.read_text(encoding="utf-8")
     assert "<canvas" not in html.lower(), "Balise <canvas> interdite dans l'aperçu HTML!"

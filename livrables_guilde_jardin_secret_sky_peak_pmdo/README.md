@@ -12,11 +12,11 @@
 
 | Code `.tile` | Biome | Structure | Étages | Dimensions 1× PMDO (`8×8`) | Dimensions HD |
 |---|---|---|---:|---:|---:|
-| `GJS1` | Jardin Secret | Grande Arbre-Guilde QG — Arche de Feuilles, Escalier Spirale & Cocons | 4 | `360×368 px` (`45×46` tuiles) | `974×995 px` |
-| `GJS2` | Jardin Secret | Grand Arbre Multi-Branches — Dômes Feuillus, Pont Fleuri & Belvédère | 3 | `456×232 px` (`57×29` tuiles) | `1538×718 px` |
-| `GJS3` | Jardin Secret | Arbre-Sanctuaire Botanique — Chambre-Gland à Rosace Dorée & Poulie | 3 | `352×256 px` (`44×32` tuiles) | `1077×759 px` |
-| `GJS4` | Jardin Secret | Arbre-Observatoire Hélicoïdal — 4 Paliers Fleuris, Cocon Suspendu & Vigie | 4 | `288×352 px` (`36×44` tuiles) | `831×980 px` |
-| `GSP1` | Sky Peak (Pic Céleste) | Grande Citadelle-Arbre QG — Cocons Tressés & Gracidées du Pic Céleste | 4 | `352×368 px` (`44×46` tuiles) | `973×995 px` |
-| `GSP2` | Sky Peak (Pic Céleste) | Grand Arbre des Nuages — Dômes de Feuilles & Pont aux Rubans Célestes | 3 | `440×256 px` (`55×32` tuiles) | `1370×759 px` |
-| `GSP3` | Sky Peak (Pic Céleste) | Grand Arbre-Relais Panoramique — Galerie Ronde, Dômes & Pergola Fleurie | 3 | `360×368 px` (`45×46` tuiles) | `950×965 px` |
-| `GSP4` | Sky Peak (Pic Céleste) | Arbre-Observatoire des Cimes — Escalier Spirale, Cocon & Rubans du Ciel | 4 | `280×360 px` (`35×45` tuiles) | `789×996 px` |
+| `GJS1` | Jardin Secret | Grande Arbre-Guilde QG — Arche de Feuilles, Escalier Spirale & Cocons | 4 | `288×304 px` (`36×38` tuiles) | `627×640 px` |
+| `GJS2` | Jardin Secret | Grand Arbre Multi-Branches — Dômes Feuillus, Pont Fleuri & Belvédère | 3 | `368×184 px` (`46×23` tuiles) | `640×298 px` |
+| `GJS3` | Jardin Secret | Arbre-Sanctuaire Botanique — Chambre-Gland à Rosace Dorée & Poulie | 3 | `312×232 px` (`39×29` tuiles) | `547×386 px` |
+| `GJS4` | Jardin Secret | Arbre-Observatoire Hélicoïdal — 4 Paliers Fleuris, Cocon Suspendu & Vigie | 4 | `240×288 px` (`30×36` tuiles) | `546×640 px` |
+| `GSP1` | Sky Peak (Pic Céleste) | Grande Citadelle-Arbre QG — Cocons Tressés & Gracidées du Pic Céleste | 4 | `288×304 px` (`36×38` tuiles) | `626×640 px` |
+| `GSP2` | Sky Peak (Pic Céleste) | Grand Arbre des Nuages — Dômes de Feuilles & Pont aux Rubans Célestes | 3 | `360×216 px` (`45×27` tuiles) | `640×355 px` |
+| `GSP3` | Sky Peak (Pic Céleste) | Grand Arbre-Relais Panoramique — Galerie Ronde, Dômes & Pergola Fleurie | 3 | `288×304 px` (`36×38` tuiles) | `630×640 px` |
+| `GSP4` | Sky Peak (Pic Céleste) | Arbre-Observatoire des Cimes — Escalier Spirale, Cocon & Rubans du Ciel | 4 | `232×304 px` (`29×38` tuiles) | `507×640 px` |
