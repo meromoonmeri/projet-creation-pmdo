@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cliff Nord en Nuit (Zéro Génération IA) — cliffdaytest & cliffnordouesttest1 — PMDO 0.8.12</title>
+  <title>Cliff Nord en Nuit — Nuages 3 Plans &amp; Mer 8 Phases Animés (PMDO 0.8.12 · Zéro Génération IA)</title>
   <style>
     :root {
       --bg: #0d111a;
@@ -28,7 +28,7 @@
       border-bottom: 1px solid var(--border);
       padding: 28px 20px 24px;
     }
-    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 18px; }
+    .wrap { max-width: 1500px; margin: 0 auto; padding: 0 18px; }
     h1 { margin: 0 0 8px; font-size: 27px; color: #fff; }
     h2 { margin: 34px 0 12px; font-size: 21px; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
     h3 { margin: 0 0 6px; font-size: 16px; color: #fff; }
@@ -52,15 +52,22 @@
       padding: 18px; margin-top: 16px;
     }
     .toolbar {
-      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px;
     }
     .toolbar button {
       background: #222d44; color: var(--text); border: 1px solid #384a6e;
-      padding: 7px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 13px;
+      padding: 7px 13px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 13px;
     }
     .toolbar button.active {
       background: var(--gold); color: #141720; border-color: var(--gold);
     }
+    .toggles {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+      margin-bottom: 12px; padding: 8px 12px; background: #131926;
+      border: 1px solid #26334d; border-radius: 8px; font-size: 13px; color: var(--text);
+    }
+    .toggles label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+    .toggles input { accent-color: var(--gold); cursor: pointer; }
     .stage {
       background: #161b26;
       border: 1px solid #29354f;
@@ -78,8 +85,68 @@
       max-width: 100%;
       height: auto;
     }
+    /* Scène PMDO 0.8.12 multi-calques temps réel en balises DOM pures (100 % net au pixel près) */
+    .pmdo-viewport-wrap {
+      position: relative;
+      flex: 0 0 auto;
+      overflow: hidden;
+      background: #161b26;
+    }
+    .pmdo-scene {
+      position: relative;
+      transform-origin: top left;
+      overflow: hidden;
+      background: #161b26;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .pmdo-scene .lyr {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .pmdo-scene .lyr-cloud-64 {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background-repeat: repeat-x;
+      background-size: 1440px 64px;
+      pointer-events: none;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      will-change: background-position;
+    }
+    .pmdo-scene .lyr-cloud-96 {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 96px;
+      background-repeat: repeat-x;
+      background-size: 1440px 96px;
+      pointer-events: none;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      will-change: background-position;
+    }
+    .telemetry {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12.5px;
+      color: #9ee6c9;
+      background: #10241e;
+      border: 1px solid #215747;
+      padding: 5px 11px;
+      border-radius: 7px;
+      margin-top: 10px;
+      display: inline-block;
+    }
     .meta {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: 12.5px; color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted);
     }
     .meta span {
       background: #131824; padding: 3px 9px; border-radius: 6px; border: 1px solid #26324a;
@@ -103,21 +170,23 @@
 <body>
 <header>
   <div class="wrap">
-    <h1>Conversion Nuit Exacte (Zéro Génération IA) — <code>cliffdaytest</code> & <code>cliffnordouesttest1</code></h1>
+    <h1><code>cliffdaytest</code> &amp; <code>cliffnordouesttest1</code> en Nuit — Nuages 3 Plans &amp; Mer 8 Phases Animés (PMDO 0.8.12)</h1>
     <p>
-      Passage strictement fidèle en palette nocturne Halcyon / PMD2 de vos deux maps existantes
-      <strong>sans aucune génération d'image</strong> : chaque arbre, maison Baie Ceriz, tente, moulin, bannière, chemin, étang, cascade, nuage, collision (<code>obstacles</code>) et entité (<code>Entities</code>) conserve ses coordonnées au pixel près.
+      Animation native <strong>PMDO 0.8.12 (RogueEssence)</strong> sans aucune génération IA :
+      <strong>3 plans de nuages nocturnes en défilement continu horizontal sans couture</strong> (<code>LayeredBG</code> · <code>RepeatX = true</code> · <code>Content/BG/*.dir</code>, incluant le banc de cumulus posé pile sur l’horizon marin)
+      + <strong>mer nocturne lunaire animée sur ses 8 phases complètes</strong> (<code>TileLayer.Frames</code> · <code>FrameLength = 10</code> à 60 Hz = <code>166,67 ms/phase</code>)
+      + <strong>cascades, étangs &amp; fleurs animés en 4 phases</strong>, avec 100 % des collisions (<code>obstacles</code>) et entités (<code>Entities</code>) préservées.
     </p>
     <div class="badges">
-      <span class="badge ok">0 Pixel Généré par IA · 100 % Pixels & Placements d'Origine</span>
-      <span class="badge night">Palette Nuit Officielle Halcyon Metano_Town_*_Night (MAE = 0.0000 px)</span>
-      <span class="badge ok">Collisions obstacles & Entities 100 % Préservées</span>
-      <span class="badge night">Mer, Étang, Fleurs & Cascade Animés (PMDO 0.8.12)</span>
-      <span class="badge">PNG RGBA Sans Perte · Fond Ardoise #161b26</span>
+      <span class="badge ok">Nuages Animés 3 Plans de Parallaxe (Horizon -5 · Milieu -9 · Haut -14 px/s)</span>
+      <span class="badge night">Mer Nocturne Lunaire Animée 8 Phases (FrameLength = 10 · 60 Hz)</span>
+      <span class="badge ok">Cascades, Étang &amp; Fleurs Animés 4 Phases (Nord-Est &amp; Nord-Ouest)</span>
+      <span class="badge night">0 Pixel Généré par IA · 100 % Placements &amp; Collisions d'Origine</span>
+      <span class="badge">Fond Ardoise #161b26 · 100 % Net Pixel-Art</span>
     </div>
     <div class="actions">
       <a class="btn btn-primary" href="livrables_cliff_nord_nuit_pmdo/PACK_CLIFF_NORD_NUIT_PMDO_0812.zip" download>
-        ⬇ Télécharger le Pack Complet PMDO 0.8.12 (.ZIP — .rsground + .tile + Calques PNG 1×)
+        ⬇ Pack Complet PMDO 0.8.12 (.ZIP — .rsground + .dir + .tile + INSTALLER.py + GIF/PNG)
       </a>
       <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/MOD_CLIFF_NORD_NUIT_PMDO/Data/Ground/cliffdaytest_nuit.rsground" download>
         ⬇ cliffdaytest_nuit.rsground
@@ -125,113 +194,176 @@
       <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/MOD_CLIFF_NORD_NUIT_PMDO/Data/Ground/cliffnordouesttest1_nuit.rsground" download>
         ⬇ cliffnordouesttest1_nuit.rsground
       </a>
-      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_nuit.png" download>
-        ⬇ PNG 1× Cliff Nord-Est Nuit (984×792)
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/animations_1x/cliffdaytest_nuit_mer_et_nuages.gif" download>
+        ⬇ GIF Animé 1× Cliff Nord-Est Nuit (984×792)
       </a>
-      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_nuit.png" download>
-        ⬇ PNG 1× Cliff Nord-Ouest Nuit (1104×784)
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/animations_1x/cliffnordouesttest1_nuit_mer_et_nuages.gif" download>
+        ⬇ GIF Animé 1× Cliff Nord-Ouest Nuit (1104×784)
       </a>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <h2>1. <code>cliffdaytest_nuit.rsground</code> — Cliff Reverie Town Nord-Est (984 × 792 px · 123 × 99 tuiles · 6 calques)</h2>
-  <div class="map-block" data-prefix="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest" data-w="984">
+  <!-- ==================== CARTE 1 : CLIFF NORD-EST ==================== -->
+  <h2>1. <code>cliffdaytest_nuit.rsground</code> — Cliff Reverie Town Nord-Est (984 × 792 px · 123 × 99 tuiles)</h2>
+  <div class="map-block"
+       data-stem="cliffdaytest_nuit"
+       data-w="984"
+       data-h="792">
     <div class="toolbar">
-      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (4 frames)</button>
-      <button type="button" class="mode-btn" data-mode="nuit_fixe">🌙 Nuit Fixe (Frame 0)</button>
-      <button type="button" class="mode-btn" data-mode="jour">☀️ Référence Jour d'origine (Comparaison 1:1)</button>
-      <span style="margin-left:12px;color:var(--muted);font-size:13px">Zoom :</span>
+      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (Nuages 3 plans + Mer 8 phases)</button>
+      <button type="button" class="mode-btn" data-mode="jour_anim">☀️ Jour Animé (Nuages 3 plans + Mer 8 phases)</button>
+      <button type="button" class="mode-btn" data-mode="jour_orig">☀️ Jour d'origine statique (Réf. 1:1)</button>
+      <button type="button" class="play-btn">⏸ Pause</button>
+      <span style="margin-left:8px;color:var(--muted);font-size:13px">Vent nuages :</span>
+      <button type="button" class="wind-btn" data-wind="1">PMDO 1× (-5/-9/-14 px/s)</button>
+      <button type="button" class="wind-btn active" data-wind="2.2">Brise 2.2× (aperçu vif)</button>
+      <span style="margin-left:8px;color:var(--muted);font-size:13px">Zoom :</span>
       <button type="button" class="zoom-btn active" data-z="1">1×</button>
-      <button type="button" class="zoom-btn" data-z="1.5">1.5×</button>
+      <button type="button" class="zoom-btn" data-z="1.4">1.4×</button>
     </div>
+
+    <div class="toggles">
+      <strong style="color:var(--gold)">Calques actifs :</strong>
+      <label><input type="checkbox" data-layer="sky" checked> Ciel &amp; Lune/Étoiles</label>
+      <label><input type="checkbox" data-layer="clouds" checked> Nuages animés (3 plans parallaxe)</label>
+      <label><input type="checkbox" data-layer="sea" checked> Mer animée (8 phases)</label>
+      <label><input type="checkbox" data-layer="terrain" checked> Falaises, Village &amp; Étang animé</label>
+      <label><input type="checkbox" data-layer="canopy" checked> Canopée avant-plan (Layer=4)</label>
+    </div>
+
     <div class="stage">
-      <img class="map-img" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_nuit_frame_0.png" alt="cliffdaytest_nuit" width="984" height="792">
+      <div class="pmdo-viewport-wrap" style="width:984px;height:792px">
+        <div class="pmdo-scene" style="width:984px;height:792px">
+          <img class="lyr lyr-sky" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffdaytest_nuit_sky.png" alt="Ciel">
+          <div class="lyr-cloud-64 lyr-cloud-horizon" style="top:240px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_horizon_1440.png')"></div>
+          <div class="lyr-cloud-96 lyr-cloud-milieu" style="top:134px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_milieu_1440.png')"></div>
+          <div class="lyr-cloud-96 lyr-cloud-haut" style="top:26px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_haut_1440.png')"></div>
+          <img class="lyr lyr-sea" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffdaytest_nuit_sea_nuit_0.png" alt="Mer 8 phases">
+          <img class="lyr lyr-terrain" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffdaytest_nuit_terrain_nuit_0.png" alt="Terrain et étang animé">
+          <img class="lyr lyr-canopy" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffdaytest_nuit_canopy_nuit.png" alt="Canopée">
+          <img class="lyr lyr-dayorig" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_jour_ref.png" alt="Jour origine" style="display:none">
+        </div>
+      </div>
     </div>
+
+    <div class="telemetry">▶ En cours · Mer phase 1/8 · Nuages hauts 0 px · milieu 0 px · horizon 0 px</div>
     <div class="meta">
-      <span>Source : <code>./cliffdaytest.rsground</code></span>
-      <span>Ground Nuit : <code>Data/Ground/cliffdaytest_nuit.rsground</code></span>
-      <span>Tilesheet Nuit : <code>Content/Tile/CliffDay_NordEst_Nuit.tile</code></span>
-      <span>6 calques intacts + animations eau/étang/fleurs/mer</span>
+      <span>Ground : <code>Data/Ground/cliffdaytest_nuit.rsground</code></span>
+      <span>BG animés : <code>CLIFF_NE_NUIT_CIEL/ASTRES.dir</code> + <code>CLIFF_NUIT_NUAGES_{HORIZON,MILIEU,HAUT}.dir</code></span>
+      <span>Tilesheet : <code>Content/Tile/CliffNE_Nuit.tile</code></span>
+      <span><a class="dl" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_nuit.png" download>⬇ PNG 1× sans perte</a> · <a class="dl" href="livrables_cliff_nord_nuit_pmdo/animations_1x/cliffdaytest_nuit_mer_et_nuages.gif" download>⬇ GIF animé 1×</a></span>
     </div>
 
     <h3 style="margin-top:18px">Calques séparés Nuit 1× (PNG RGBA transparents)</h3>
     <div class="layers-grid">
       <div class="layer-card">
-        <h3>Calque 00 · Ciel nocturne étoilé</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L00_new_layer.png" alt="L00"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L00_new_layer.png" download>⬇ Télécharger PNG 1×</a>
+        <h3>BG 00 · Ciel nocturne velouté, Lune &amp; Étoiles</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_BG00_ciel_et_astres.png" alt="BG00"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_BG00_ciel_et_astres.png" download>⬇ Télécharger PNG 1×</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 01 · Mer nocturne</h3>
+        <h3>BG 01 · Nuages animés (3 Plans 1440 px)</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_BG01_nuages_animes_wrap.png" alt="BG01"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_BG01_nuages_animes_wrap.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 01 · Mer lunaire animée (8 phases)</h3>
         <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L01_layer_2.png" alt="L01"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L01_layer_2.png" download>⬇ Télécharger PNG 1×</a>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L01_layer_2.png" download>⬇ Télécharger Phase 0 PNG</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 02 · Falaise, herbe & chemin</h3>
+        <h3>Calque 02 · Falaise, herbe &amp; chemin</h3>
         <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L02_layer_2.png" alt="L02"></div>
         <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L02_layer_2.png" download>⬇ Télécharger PNG 1×</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 03 · Arbres, hutte, tentes & objets</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L03_layer_4.png" alt="L03"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L03_layer_4.png" download>⬇ Télécharger PNG 1×</a>
+        <h3>Calques 03–04 · Village, Étang &amp; Fleurs animés</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffdaytest_nuit_terrain_nuit_0.png" alt="L03-04"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L03_layer_4.png" download>⬇ Objets PNG</a> ·
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L04_layer_3.png" download>⬇ Eau/Fleurs PNG</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 04 · Étang, fleurs & eau animés</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L04_layer_3.png" alt="L04"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L04_layer_3.png" download>⬇ Télécharger PNG 1×</a>
-      </div>
-      <div class="layer-card">
-        <h3>Calque 05 · Nuages nocturnes & cimes</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_cloud_nuage.png" alt="L05"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_cloud_nuage.png" download>⬇ Télécharger PNG 1×</a>
+        <h3>Calque 05 · Canopée avant-plan (Layer=4)</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_canopee_avant_plan.png" alt="L05"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_canopee_avant_plan.png" download>⬇ Télécharger PNG 1×</a>
       </div>
     </div>
   </div>
 
-  <h2>2. <code>cliffnordouesttest1_nuit.rsground</code> — Cliff Nord-Ouest (1104 × 784 px · 138 × 98 tuiles · 4 calques)</h2>
-  <div class="map-block" data-prefix="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1" data-w="1104">
+  <!-- ==================== CARTE 2 : CLIFF NORD-OUEST ==================== -->
+  <h2>2. <code>cliffnordouesttest1_nuit.rsground</code> — Cliff Nord-Ouest (1104 × 784 px · 138 × 98 tuiles)</h2>
+  <div class="map-block"
+       data-stem="cliffnordouesttest1_nuit"
+       data-w="1104"
+       data-h="784">
     <div class="toolbar">
-      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (Mer & Cascade 4 frames)</button>
-      <button type="button" class="mode-btn" data-mode="nuit_fixe">🌙 Nuit Fixe (Frame 0)</button>
-      <button type="button" class="mode-btn" data-mode="jour">☀️ Référence Jour d'origine (Comparaison 1:1)</button>
-      <span style="margin-left:12px;color:var(--muted);font-size:13px">Zoom :</span>
+      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (Nuages 3 plans + Mer 8 phases + Cascade)</button>
+      <button type="button" class="mode-btn" data-mode="jour_anim">☀️ Jour Animé (Nuages 3 plans + Mer 8 phases + Cascade)</button>
+      <button type="button" class="mode-btn" data-mode="jour_orig">☀️ Jour d'origine statique (Réf. 1:1)</button>
+      <button type="button" class="play-btn">⏸ Pause</button>
+      <span style="margin-left:8px;color:var(--muted);font-size:13px">Vent nuages :</span>
+      <button type="button" class="wind-btn" data-wind="1">PMDO 1× (-5/-9/-14 px/s)</button>
+      <button type="button" class="wind-btn active" data-wind="2.2">Brise 2.2× (aperçu vif)</button>
+      <span style="margin-left:8px;color:var(--muted);font-size:13px">Zoom :</span>
       <button type="button" class="zoom-btn active" data-z="1">1×</button>
-      <button type="button" class="zoom-btn" data-z="1.5">1.5×</button>
+      <button type="button" class="zoom-btn" data-z="1.4">1.4×</button>
     </div>
+
+    <div class="toggles">
+      <strong style="color:var(--gold)">Calques actifs :</strong>
+      <label><input type="checkbox" data-layer="sky" checked> Ciel &amp; Lune/Étoiles</label>
+      <label><input type="checkbox" data-layer="clouds" checked> Nuages animés (3 plans parallaxe)</label>
+      <label><input type="checkbox" data-layer="sea" checked> Mer animée (8 phases)</label>
+      <label><input type="checkbox" data-layer="terrain" checked> Falaises, Chemin &amp; Cascade animée</label>
+    </div>
+
     <div class="stage">
-      <img class="map-img" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_nuit_frame_0.png" alt="cliffnordouesttest1_nuit" width="1104" height="784">
+      <div class="pmdo-viewport-wrap" style="width:1104px;height:784px">
+        <div class="pmdo-scene" style="width:1104px;height:784px">
+          <img class="lyr lyr-sky" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffnordouesttest1_nuit_sky.png" alt="Ciel">
+          <div class="lyr-cloud-64 lyr-cloud-horizon" style="top:360px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_horizon_1440.png')"></div>
+          <div class="lyr-cloud-96 lyr-cloud-milieu" style="top:198px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_milieu_1440.png')"></div>
+          <div class="lyr-cloud-96 lyr-cloud-haut" style="top:38px;background-image:url('livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/nuages_nuit_haut_1440.png')"></div>
+          <img class="lyr lyr-sea" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffnordouesttest1_nuit_sea_nuit_0.png" alt="Mer 8 phases">
+          <img class="lyr lyr-terrain" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffnordouesttest1_nuit_terrain_nuit_0.png" alt="Terrain et cascade animée">
+          <img class="lyr lyr-canopy" src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffnordouesttest1_nuit_canopy_nuit.png" alt="Canopée" style="display:none">
+          <img class="lyr lyr-dayorig" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_jour_ref.png" alt="Jour origine" style="display:none">
+        </div>
+      </div>
     </div>
+
+    <div class="telemetry">▶ En cours · Mer phase 1/8 · Nuages hauts 0 px · milieu 0 px · horizon 0 px</div>
     <div class="meta">
-      <span>Source : <code>./cliffnordouesttest1.rsground</code></span>
-      <span>Ground Nuit : <code>Data/Ground/cliffnordouesttest1_nuit.rsground</code></span>
-      <span>Tilesheet Nuit : <code>Content/Tile/CliffNordOuest_Nuit.tile</code></span>
-      <span>4 calques intacts + cascade sud & mer nocturne animées</span>
+      <span>Ground : <code>Data/Ground/cliffnordouesttest1_nuit.rsground</code></span>
+      <span>BG animés : <code>CLIFF_NW_NUIT_CIEL/ASTRES.dir</code> + <code>CLIFF_NUIT_NUAGES_{HORIZON,MILIEU,HAUT}.dir</code></span>
+      <span>Tilesheet : <code>Content/Tile/CliffNW_Nuit.tile</code></span>
+      <span><a class="dl" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_nuit.png" download>⬇ PNG 1× sans perte</a> · <a class="dl" href="livrables_cliff_nord_nuit_pmdo/animations_1x/cliffnordouesttest1_nuit_mer_et_nuages.gif" download>⬇ GIF animé 1×</a></span>
     </div>
 
     <h3 style="margin-top:18px">Calques séparés Nuit 1× (PNG RGBA transparents)</h3>
     <div class="layers-grid">
       <div class="layer-card">
-        <h3>Calque 00 · Ciel nocturne étoilé complet</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L00_layer_2.png" alt="L00"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L00_layer_2.png" download>⬇ Télécharger PNG 1×</a>
+        <h3>BG 00 · Ciel nocturne velouté, Lune &amp; Étoiles</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_BG00_ciel_et_astres.png" alt="BG00"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_BG00_ciel_et_astres.png" download>⬇ Télécharger PNG 1×</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 01 · Mer nocturne</h3>
+        <h3>BG 01 · Nuages animés (3 Plans 1440 px)</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_BG01_nuages_animes_wrap.png" alt="BG01"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_BG01_nuages_animes_wrap.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 01 · Mer lunaire animée (8 phases)</h3>
         <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L01_layer_1.png" alt="L01"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L01_layer_1.png" download>⬇ Télécharger PNG 1×</a>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L01_layer_1.png" download>⬇ Télécharger Phase 0 PNG</a>
       </div>
       <div class="layer-card">
-        <h3>Calque 02 · Falaise rocheuse & plateau</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L02_new_layer.png" alt="L02"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L02_new_layer.png" download>⬇ Télécharger PNG 1×</a>
-      </div>
-      <div class="layer-card">
-        <h3>Calque 03 · Sentier & Cascade Sud</h3>
-        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L03_layer_3.png" alt="L03"></div>
-        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L03_layer_3.png" download>⬇ Télécharger PNG 1×</a>
+        <h3>Calques 02–03 · Falaises, Chemin &amp; Cascade animée</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/viewer_layers_1x/cliffnordouesttest1_nuit_terrain_nuit_0.png" alt="L02-03"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L02_new_layer.png" download>⬇ Falaises PNG</a> ·
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L03_layer_3.png" download>⬇ Chemin &amp; Cascade PNG</a>
       </div>
     </div>
   </div>
@@ -239,52 +371,174 @@
 
 <footer>
   <div class="wrap">
-    Crédits : assemblages originaux <code>cliffdaytest.rsground</code> & <code>cliffnordouesttest1.rsground</code> (<strong>meromoonmeri</strong>),
-    tilesheets officiels Jour/Nuit <code>Metano_Town_*</code> (<strong>Palikadude / Halcyon</strong>) et artistes d'origine <strong>Pokémon Mystery Dungeon</strong>.
-    Statut : <code>0</code> pixel généré par IA, <code>art_approved: false</code>, <code>runtime_tested: false</code> (décodage et recomposition moteur vérifiés bit-à-bit par tests automatisés).
+    Crédits artistiques : <strong>Palikadude</strong> (Halcyon — Metano Town &amp; Altere Pond),
+    <strong>Chunsoft / Spike Chunsoft</strong> (Pokémon Mystery Dungeon Explorers — cycle marin 8 phases &amp; nuages),
+    et <strong>meromoonmeri</strong> (cartes <code>cliffdaytest.rsground</code> &amp; <code>cliffnordouesttest1.rsground</code>).
+    Statuts dans <code>manifest.json</code> : <code>art_approved: false</code>, <code>runtime_tested: false</code>.
   </div>
 </footer>
 
 <script>
-  const blocks = Array.from(document.querySelectorAll('.map-block')).map(el => ({
-    el,
-    img: el.querySelector('.map-img'),
-    prefix: el.dataset.prefix,
-    baseW: parseInt(el.dataset.w, 10),
-    mode: 'nuit_anim',
-  }));
+(() => {
+  const BASE = 'livrables_cliff_nord_nuit_pmdo/viewer_layers_1x';
+  const controllers = [];
 
-  let tick = 0;
-  setInterval(() => {
-    tick = (tick + 1) % 4;
-    for (const b of blocks) {
-      if (b.mode === 'nuit_anim') {
-        b.img.src = `${b.prefix}_nuit_frame_${tick}.png`;
+  document.querySelectorAll('.map-block').forEach((block) => {
+    const stem = block.dataset.stem;
+    const baseW = Number(block.dataset.w);
+    const baseH = Number(block.dataset.h);
+    const wrap = block.querySelector('.pmdo-viewport-wrap');
+    const scene = block.querySelector('.pmdo-scene');
+    const skyEl = block.querySelector('.lyr-sky');
+    const cloudHorizonEl = block.querySelector('.lyr-cloud-horizon');
+    const cloudMilieuEl = block.querySelector('.lyr-cloud-milieu');
+    const cloudHautEl = block.querySelector('.lyr-cloud-haut');
+    const seaEl = block.querySelector('.lyr-sea');
+    const terrainEl = block.querySelector('.lyr-terrain');
+    const canopyEl = block.querySelector('.lyr-canopy');
+    const dayOrigEl = block.querySelector('.lyr-dayorig');
+    const playBtn = block.querySelector('.play-btn');
+    const telemEl = block.querySelector('.telemetry');
+
+    ['nuit', 'jour'].forEach((pal) => {
+      for (let p = 0; p < 8; p++) {
+        const im = new Image();
+        im.src = `${BASE}/${stem}_sea_${pal}_${p}.png`;
+      }
+      for (let k = 0; k < 4; k++) {
+        const im = new Image();
+        im.src = `${BASE}/${stem}_terrain_${pal}_${k}.png`;
+      }
+    });
+
+    const state = {
+      mode: 'nuit_anim',
+      playing: true,
+      windMult: 2.2,
+      elapsedSec: 0,
+      lastSeaPhase: -1,
+      lastHautPx: -1,
+      lastMilieuPx: -1,
+      lastHorizonPx: -1,
+      vis: { sky: true, clouds: true, sea: true, terrain: true, canopy: true },
+    };
+
+    function applyPaletteAndVisibility() {
+      const isOrig = state.mode === 'jour_orig';
+      const pal = state.mode === 'jour_anim' ? 'jour' : 'nuit';
+      dayOrigEl.style.display = isOrig ? 'block' : 'none';
+      skyEl.style.display = (!isOrig && state.vis.sky) ? 'block' : 'none';
+      const showClouds = !isOrig && state.vis.clouds;
+      cloudHorizonEl.style.display = showClouds ? 'block' : 'none';
+      cloudMilieuEl.style.display = showClouds ? 'block' : 'none';
+      cloudHautEl.style.display = showClouds ? 'block' : 'none';
+      seaEl.style.display = (!isOrig && state.vis.sea) ? 'block' : 'none';
+      terrainEl.style.display = (!isOrig && state.vis.terrain) ? 'block' : 'none';
+      if (stem === 'cliffdaytest_nuit') {
+        canopyEl.style.display = (!isOrig && state.vis.canopy) ? 'block' : 'none';
+      }
+      if (!isOrig) {
+        skyEl.src = `${BASE}/${stem}_sky${pal === 'jour' ? '_jour' : ''}.png`;
+        cloudHorizonEl.style.backgroundImage = `url('${BASE}/nuages_${pal}_horizon_1440.png')`;
+        cloudMilieuEl.style.backgroundImage = `url('${BASE}/nuages_${pal}_milieu_1440.png')`;
+        cloudHautEl.style.backgroundImage = `url('${BASE}/nuages_${pal}_haut_1440.png')`;
+        canopyEl.src = `${BASE}/${stem}_canopy_${pal}.png`;
+        state.lastSeaPhase = -1;
       }
     }
-  }, 240);
 
-  for (const b of blocks) {
-    b.el.querySelectorAll('.mode-btn').forEach(btn => {
+    function updateFrame() {
+      if (state.mode === 'jour_orig') {
+        telemEl.textContent = 'Référence Jour d’origine statique (avant animation des nuages et des 8 phases de mer)';
+        return;
+      }
+      const pal = state.mode === 'jour_anim' ? 'jour' : 'nuit';
+      const seaPhase = Math.floor(state.elapsedSec * 6) % 8;
+      if (seaPhase !== state.lastSeaPhase) {
+        seaEl.src = `${BASE}/${stem}_sea_${pal}_${seaPhase}.png`;
+        terrainEl.src = `${BASE}/${stem}_terrain_${pal}_${seaPhase % 4}.png`;
+        state.lastSeaPhase = seaPhase;
+      }
+      const hautPx = Math.floor(state.elapsedSec * 14 * state.windMult) % 1440;
+      const milieuPx = Math.floor(state.elapsedSec * 9 * state.windMult) % 1440;
+      const horizonPx = Math.floor(state.elapsedSec * 5 * state.windMult) % 1440;
+      if (hautPx !== state.lastHautPx) {
+        cloudHautEl.style.backgroundPosition = `${-hautPx}px 0px`;
+        state.lastHautPx = hautPx;
+      }
+      if (milieuPx !== state.lastMilieuPx) {
+        cloudMilieuEl.style.backgroundPosition = `${-milieuPx}px 0px`;
+        state.lastMilieuPx = milieuPx;
+      }
+      if (horizonPx !== state.lastHorizonPx) {
+        cloudHorizonEl.style.backgroundPosition = `${-horizonPx}px 0px`;
+        state.lastHorizonPx = horizonPx;
+      }
+      telemEl.textContent =
+        `${state.playing ? '▶ En cours' : '⏸ Pause'} · Mer phase ${seaPhase + 1}/8 (FrameLength=10 · 60 Hz) ` +
+        `· Nuages hauts -${hautPx} px · milieu -${milieuPx} px · horizon -${horizonPx}/1440 px`;
+    }
+
+    block.querySelectorAll('.mode-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        b.el.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+        block.querySelectorAll('.mode-btn').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        b.mode = btn.dataset.mode;
-        if (b.mode === 'jour') b.img.src = `${b.prefix}_jour_ref.png`;
-        else if (b.mode === 'nuit_fixe') b.img.src = `${b.prefix}_nuit.png`;
-        else b.img.src = `${b.prefix}_nuit_frame_${tick}.png`;
+        state.mode = btn.dataset.mode;
+        applyPaletteAndVisibility();
+        updateFrame();
       });
     });
-    b.el.querySelectorAll('.zoom-btn').forEach(btn => {
+
+    playBtn.addEventListener('click', () => {
+      state.playing = !state.playing;
+      playBtn.textContent = state.playing ? '⏸ Pause' : '▶ Lecture';
+      updateFrame();
+    });
+
+    block.querySelectorAll('.wind-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        b.el.querySelectorAll('.zoom-btn').forEach(x => x.classList.remove('active'));
+        block.querySelectorAll('.wind-btn').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        const z = parseFloat(btn.dataset.z || '1');
-        b.img.style.width = Math.round(b.baseW * z) + 'px';
-        b.img.style.maxWidth = z === 1 ? '100%' : 'none';
+        state.windMult = Number(btn.dataset.wind);
+        updateFrame();
       });
     });
+
+    block.querySelectorAll('.zoom-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        block.querySelectorAll('.zoom-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const z = Number(btn.dataset.z);
+        scene.style.transform = `scale(${z})`;
+        wrap.style.width = `${Math.round(baseW * z)}px`;
+        wrap.style.height = `${Math.round(baseH * z)}px`;
+      });
+    });
+
+    block.querySelectorAll('input[data-layer]').forEach((chk) => {
+      chk.addEventListener('change', () => {
+        state.vis[chk.dataset.layer] = chk.checked;
+        applyPaletteAndVisibility();
+      });
+    });
+
+    applyPaletteAndVisibility();
+    updateFrame();
+    controllers.push({ state, updateFrame });
+  });
+
+  let lastTs = null;
+  function tick(ts) {
+    const dt = lastTs === null ? 0 : Math.min((ts - lastTs) / 1000, 0.1);
+    lastTs = ts;
+    controllers.forEach((c) => {
+      if (c.state.playing) c.state.elapsedSec += dt;
+      c.updateFrame();
+    });
+    requestAnimationFrame(tick);
   }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
