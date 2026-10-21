@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>10 Falaises Nord Centrées Nues — 100 % Textures Canoniques Métano · Multicalque · Mer 8 Phases · Jour/Nuit (PMDO 0.8.12)</title>
+<title>10 Falaises au Premier Plan (Style cliffdaytest Centré Sans Roche) — 100 % Textures Canoniques Métano · Jour/Nuit (PMDO 0.8.12)</title>
 <style>
   :root {
     --bg: #161b26;
@@ -34,7 +34,7 @@
   }
   .badge.info { background: #1a2d47; color: var(--accent); border-color: #2c5282; }
   h1 { margin: 6px 0 6px; font-size: 22px; line-height: 1.25; }
-  .sub { color: var(--muted); margin: 0 0 14px; max-width: 1120px; }
+  .sub { color: var(--muted); margin: 0 0 14px; max-width: 1140px; }
 
   .dlbar {
     display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
@@ -181,22 +181,22 @@
 <div class="wrap">
   <a class="toplink" href="./">← Retour à tous les aperçus PMDO</a>
   <div class="badge-row">
+    <span class="badge">✓ FALAISE AU PREMIER PLAN COMME cliffdaytest (0 px DE ROCHE TOMBANTE)</span>
     <span class="badge">✓ 100 % TEXTURES CANONIQUES MÉTANO (generated_terrain_rgb_pixels = 0)</span>
-    <span class="badge">✓ 100 / 100 CALQUES RECONSTRUITS BIT-À-BIT (4 773 tampons 8 px vérifiés)</span>
-    <span class="badge info">PMDO 0.8.12 · 10 Zones × Jour/Nuit = 20 cartes .rsground (2,79 Mio)</span>
+    <span class="badge info">PMDO 0.8.12 · 10 Versions Centrées × Jour/Nuit = 20 cartes .rsground (2,37 Mio)</span>
   </div>
-  <h1>10 Versions de Falaise Nord Centrée Nue — 100 % Textures Canoniques Halcyon Métano · Jour &amp; Nuit</h1>
+  <h1>10 Falaises Côtières Centrées au Premier Plan — Plateau Nu <code>Grass Métano</code> · Bordure Nord Seule · Jour &amp; Nuit</h1>
   <p class="sub">
-    <strong>Zéro pixel RGB généré dans les 10 terrains</strong> : chaque carte est reconstruite <strong>exclusivement par tampons alignés <code>8 px</code></strong> depuis les planches natives officielles <strong>Halcyon</strong> (<code>Metano_Town_Base.tile</code> &amp; <code>Metano_Town_Cliffs.tile</code> — grès doré Chunsoft torique <code>32×32</code> sans raccord, biseaux marins Ouest/Est, couronnes dorées verrouillées en phase et pieds de falaise), avec <strong>plateau 100 % nu <code>Grass Métano</code></strong>, <strong>mer Chunsoft animée 8 phases</strong>, <strong>3 plans de nuages <code>RepeatX</code></strong> et <strong>filtre nocturne exact <code>Abyss V4</code></strong> certifié bit-identique à <code>Metano_Town_*_Night.tile</code>.
+    <strong>Exactement comme <code>cliffdaytest</code> mais centrée au premier plan</strong> : dès l’arrivée par le Sud (<code>Entrance_Sud</code>), le joueur marche sur un <strong>vaste plateau herbeux 100 % nu <code>Grass Métano</code> au premier plan</strong>, <strong>sans aucune paroi rocheuse verticale</strong> (<code>vertical_rock_face_pixels = 0</code>), bordé uniquement par <strong>la fine bordure nordique canonique de crête</strong> (<code>Metano_Town_Cliffs.tile</code>) donnant directement sur l’océan Chunsoft animé en <strong>8 phases</strong> et le ciel <strong>Jour / Nuit Abyss V4</strong> à <strong>3 plans de nuages <code>RepeatX</code></strong>.
   </p>
 
   <div class="dlbar">
-    <a class="btn gold" id="dl-zip" href="#">⬇ Télécharger PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip (2,79 Mio — 20 cartes .rsground + .tile + .dir + INSTALLER.py)</a>
+    <a class="btn gold" id="dl-zip" href="#">⬇ Télécharger PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip (2,37 Mio — 20 cartes .rsground + .tile + .dir + INSTALLER.py)</a>
     <a class="btn" id="dl-png-jour" href="#">⬇ PNG 1× Jour</a>
     <a class="btn" id="dl-png-nuit" href="#">⬇ PNG 1× Nuit</a>
-    <a class="btn" id="dl-l01" href="#">⬇ L01 Herbe Native</a>
-    <a class="btn" id="dl-l02" href="#">⬇ L02 Faces Grès</a>
-    <a class="btn" id="dl-l04" href="#">⬇ L04 Couronnes</a>
+    <a class="btn" id="dl-l01" href="#">⬇ L01 Plateau Herbe seul</a>
+    <a class="btn" id="dl-l02" href="#">⬇ L02 Brins natifs seuls</a>
+    <a class="btn" id="dl-l03" href="#">⬇ L03 Bordure Nord seule</a>
     <a class="btn" id="dl-gif-jour" href="#">⬇ GIF Jour</a>
     <a class="btn" id="dl-gif-nuit" href="#">⬇ GIF Nuit</a>
     <a class="btn" id="dl-verif" href="#">✓ verification_canonique.json</a>
@@ -210,8 +210,8 @@
       <button class="btn" id="btn-next" type="button">Version suivante ▶</button>
 
       <span class="ctrl-label" style="margin-left:10px">Éclairage :</span>
-      <button class="btn active" id="btn-jour" type="button">☀️ Ciel &amp; Tuiles Canoniques Jour</button>
-      <button class="btn night" id="btn-nuit" type="button">🌙 Ciel Étoilé &amp; Tuiles Canoniques Nuit (Abyss V4)</button>
+      <button class="btn active" id="btn-jour" type="button">☀️ Ciel &amp; Palette Canonique Jour</button>
+      <button class="btn night" id="btn-nuit" type="button">🌙 Ciel Étoilé &amp; Palette Canonique Nuit (Abyss V4)</button>
 
       <span class="ctrl-label" style="margin-left:10px">Zoom :</span>
       <button class="btn" data-zoom="0.75" type="button">0,75×</button>
@@ -226,7 +226,7 @@
 
     <div>
       <div class="ctrl-row" style="margin-bottom:8px">
-        <span class="ctrl-label">Visibilité individuelle des 11 plans séparés (5 fonds/océan animés + 5 calques natifs Métano) :</span>
+        <span class="ctrl-label">Visibilité individuelle des 9 calques séparés (5 plans ciel/nuages + Mer 8 phases + 3 calques terrain canoniques) :</span>
       </div>
       <div class="layers-grid" id="layers-grid"></div>
     </div>
@@ -248,25 +248,23 @@
         <div class="cloud-band" id="lyr-cloud-mid" style="top:118px;height:96px"></div>
         <div class="cloud-band" id="lyr-cloud-hi" style="top:18px;height:96px"></div>
         <img class="lyr" id="lyr-sea" alt="Mer Chunsoft 8 phases">
-        <img class="lyr" id="lyr-l01" alt="L01 Herbe Métano Native">
-        <img class="lyr" id="lyr-l02" alt="L02 Faces Grès Doré Métano Natives">
-        <img class="lyr" id="lyr-l03" alt="L03 Retours Rocheux Marins Natifs">
-        <img class="lyr" id="lyr-l04" alt="L04 Couronnes Dorées Métano Natives">
-        <img class="lyr" id="lyr-l05" alt="L05 Pieds de Falaise Métano Natifs">
+        <img class="lyr" id="lyr-l01" alt="L01 Plateau Herbe Métano Native au premier plan">
+        <img class="lyr" id="lyr-l02" alt="L02 Brins d'herbe Métano Natifs">
+        <img class="lyr" id="lyr-l03" alt="L03 Bordure Nord Métano Native seule">
       </div>
     </div>
   </div>
 
-  <h2 class="gal-title">Galerie complète des 10 versions — Jour Canonique ☀️ (cliquer une carte pour l’animer ci-dessus)</h2>
+  <h2 class="gal-title">Galerie complète des 10 versions au Premier Plan — Jour Canonique ☀️ (cliquer pour animer)</h2>
   <div class="cards" id="cards-jour"></div>
 
-  <h2 class="gal-title">Galerie complète des 10 versions — Nuit Canonique 🌙 (cliquer une carte pour l’animer ci-dessus)</h2>
+  <h2 class="gal-title">Galerie complète des 10 versions au Premier Plan — Nuit Canonique 🌙 (cliquer pour animer)</h2>
   <div class="cards" id="cards-nuit"></div>
 
   <div class="meta">
     <strong>Preuve mathématique des matériaux canoniques (<code>verify_canonique.py</code> → <code>status: "PASS"</code>), compatibilité PMDO 0.8.12 &amp; crédits :</strong><br>
-    • <strong><code>generated_terrain_rgb_pixels = 0</code></strong> : les silhouettes organiques des 10 caps proviennent uniquement des masques alpha <code>provenance_canonique/*_mask_{land,grass}.png</code> ; <strong>100 % des pixels RGB</strong> des 100 calques terrain (<code>50 Jour</code> + <code>50 Nuit</code>) sont reconstruits au bit près par <code>4 773</code> tampons alignés <code>8×8</code> issus exclusivement de <code>Metano_Town_Base.tile</code> (<code>herbe (0,640,128,768)</code>, <code>brin1 (16,776,32,792)</code>, <code>brin2 (48,792,64,808)</code>) et <code>Metano_Town_Cliffs.tile</code> (<code>face (1064,464,1192,528)</code> torique <code>32×32</code> à raccord exact <code>0.000</code>, <code>retour_w (456,240,480,304)</code>, <code>retour_e (1456,352,1480,416)</code>, <code>cour_00..15 (1064..1192,448..464)</code>, <code>pied_00..15 (1064..1192,520..544)</code>).<br>
-    • <strong>20 cartes <code>.rsground</code> multicalques prêtes à mapper</strong> : <code>cliff_centre_01_grand_cap_panoramique_{jour,nuit}.rsground</code> à <code>cliff_centre_10_bastion_circulaire_{jour,nuit}.rsground</code> (<code>150 × 110</code> tuiles <code>8×8</code> = <code>1200 × 880 px</code>, seulement <code>10 995</code> tuiles uniques partagées pour les 10 cartes réunies soit <code>1,80 Mio</code> par banque <code>.tile</code>, collisions <code>obstacles</code> précalculées + <code>Entrance_Sud</code> + 3 calques libres <code>06_Vos_Chemins_et_Sols</code>, <code>07_Vos_Structures_Base</code>, <code>08_Votre_Canopee_Avant_Plan</code>).<br>
+    • <strong><code>vertical_rock_face_pixels = 0</code> &amp; <code>generated_terrain_rgb_pixels = 0</code></strong> : les `60` calques terrain (`30 Jour` + `30 Nuit`) sont reconstruits au bit près exclusivement depuis <code>Metano_Town_Base.tile</code> (<code>herbe (0,640,128,768)</code>, <code>brin1 (16,776,32,792)</code>, <code>brin2 (48,792,64,808)</code>) et la lèvre de crête côtière haute sans roche de <code>Metano_Town_Cliffs.tile</code> (<code>(518,18,534,34)</code> &amp; <code>(456,164,472,180)</code>), avec filtre Nuit exact <code>Abyss V4</code> certifié bit-identique à <code>Metano_Town_*_Night.tile</code>.<br>
+    • <strong>20 cartes <code>.rsground</code> ultra-légères prêtes à mapper</strong> : seulement <strong><code>4 878</code> tuiles <code>8×8</code> uniques</strong> pour les 10 cartes réunies (<code>951 Kio</code> par banque <code>.tile</code>, archive complète <strong><code>2,37 Mio</code></strong>), collisions <code>obstacles</code> précalculées, marqueur d’arrivée <code>Entrance_Sud</code> au premier plan Sud (<code>X=592, Y=816</code>) et 3 calques libres (<code>04_Vos_Chemins_et_Sols</code>, <code>05_Vos_Structures_Base</code>, <code>06_Votre_Canopee_Avant_Plan</code>).<br>
     • <strong>Crédits</strong> : <strong>Palikadude</strong> &amp; contributeurs (<em>PMDO Halcyon — Metano_Town_Base.tile &amp; Metano_Town_Cliffs.tile</em>), <strong>Abyss to Ascension</strong> (filtre nocturne exact <code>Metano_Town_*_Night.tile</code>) &amp; <strong>Spike Chunsoft</strong> (<em>Pokémon Donjon Mystère : Explorateurs</em>). Statut : <code>art_approved: false</code>, <code>runtime_tested: false</code>.
   </div>
 </div>
@@ -286,16 +284,16 @@
   document.getElementById("dl-verif").href = ROOT_BASE + "verification_canonique.json";
 
   const ZONES = [
-    { id: "01_grand_cap_panoramique",    title: "01 — Le Grand Cap Panoramique",      sub: "Promontoire central arrondi style cliffdaytest centré — 100 % tuiles canoniques Métano" },
-    { id: "02_eperon_nord_effile",       title: "02 — L’Éperon Nord Effilé",          sub: "Pointe côtière élancée vers l’horizon marin Nord — 100 % tuiles canoniques Métano" },
-    { id: "03_double_terrasse_centrale", title: "03 — La Double Terrasse Centrale",   sub: "Esplanade basse et belvédère Nord surélevé avec rampe centrale — 100 % tuiles canoniques Métano" },
-    { id: "04_grande_esplanade_royale",  title: "04 — La Grande Esplanade Royale",    sub: "Vaste plateau central festonné à bastions rocheux latéraux — 100 % tuiles canoniques Métano" },
-    { id: "05_cap_anse_jumelle",         title: "05 — Le Cap aux Deux Ailes",         sub: "Double avancée Nord-Ouest / Nord-Est encadrant une douce anse marine — 100 % tuiles canoniques Métano" },
-    { id: "06_presquile_isthme_etroit",  title: "06 — La Presqu’île à Isthme Étroit", sub: "Large tête de cap arrondie reliée au Sud par un isthme d’herbe Métano — 100 % canonique" },
-    { id: "07_cap_asymetrique_ouest",    title: "07 — Le Cap Vent d’Ouest",           sub: "Silhouette côtière asymétrique s’étirant vers le Nord-Ouest — 100 % tuiles canoniques Métano" },
-    { id: "08_cap_asymetrique_est",      title: "08 — Le Cap du Levant",              sub: "Corniche organique orientée Nord-Est à flanc Ouest escarpé — 100 % tuiles canoniques Métano" },
-    { id: "09_trois_paliers_sacres",     title: "09 — Les Trois Paliers Ascendants",  sub: "Triple terrasse étagée Sud → Nord avec rampes centrales continues — 100 % canonique" },
-    { id: "10_bastion_circulaire",       title: "10 — Le Bastion Circulaire",         sub: "Médaillon panoramique quasi circulaire ceinturé de grès doré Métano — 100 % canonique" }
+    { id: "01_grand_cap_panoramique",    title: "01 — Le Grand Cap Panoramique (cliffdaytest Centré)", sub: "Falaise herbeuse au premier plan style cliffdaytest centré — zéro roche, bordure Nord canonique Métano" },
+    { id: "02_eperon_nord_effile",       title: "02 — La Pointe du Belvédère Nord",                    sub: "Large prairie au premier plan s’avançant en pointe centrale vers l’horizon marin — 100 % canonique" },
+    { id: "03_double_terrasse_centrale", title: "03 — La Grande Esplanade Village",                    sub: "Vaste plateau de premier plan à large corniche Nord pour village ou guilde — zéro roche" },
+    { id: "04_grande_esplanade_royale",  title: "04 — Le Double Belvédère à Anse Centrale",            sub: "Deux avancées herbeuses symétriques encadrant une anse marine centrale — premier plan nu" },
+    { id: "05_cap_anse_jumelle",         title: "05 — Le Promontoire en Dôme au Premier Plan",         sub: "Cap arrondi central prolongeant la pelouse de premier plan face au grand large — zéro roche" },
+    { id: "06_presquile_isthme_etroit",  title: "06 — La Haute Corniche Panoramique Plein Nord",       sub: "Grande crête côtière traversante d’Ouest en Est surplombant toute la mer animée — 100 % canonique" },
+    { id: "07_cap_asymetrique_ouest",    title: "07 — Le Cap Brise d’Ouest",                           sub: "Courbe côtière asymétrique au premier plan culminant au Nord-Ouest avec épaulement doux à l’Est" },
+    { id: "08_cap_asymetrique_est",      title: "08 — Le Cap du Levant",                               sub: "Prairie côtière de premier plan montant vers un belvédère central-est face au croissant de lune" },
+    { id: "09_trois_paliers_sacres",     title: "09 — Le Promontoire à Triple Épaulement",             sub: "Silhouette côtière à trois redans latéraux symétriques convergeant vers le sommet Nord — zéro roche" },
+    { id: "10_bastion_circulaire",       title: "10 — Le Belvédère Intime face à l’Océan",            sub: "Avancée centrale épurée au premier plan ouvrant un immense panorama marin Nord-Ouest / Nord-Est" }
   ];
 
   const LAYERS = [
@@ -305,11 +303,9 @@
     { id: "lyr-cloud-mid", code: "BG03", label: "Nuages médians (parallaxe moyenne RepeatX)", on: true },
     { id: "lyr-cloud-hor", code: "BG04", label: "Nuages d’horizon (parallaxe douce RepeatX)", on: true },
     { id: "lyr-sea",       code: "L00",  label: "Mer Chunsoft animée (8 phases, FrameLength=10)", on: true },
-    { id: "lyr-l01",       code: "L01",  label: "Herbe Métano Native (Metano_Town_Base)", on: true },
-    { id: "lyr-l02",       code: "L02",  label: "Faces Grès Doré Natives (Cliffs 1064,464)", on: true },
-    { id: "lyr-l03",       code: "L03",  label: "Retours Marins Ouest/Est Natifs (Cliffs)", on: true },
-    { id: "lyr-l04",       code: "L04",  label: "Couronnes Dorées Natives (Cliffs 1064,448)", on: true },
-    { id: "lyr-l05",       code: "L05",  label: "Pieds de Falaise Natifs (Cliffs 1064,520)", on: true }
+    { id: "lyr-l01",       code: "L01",  label: "Plateau premier plan Grass Métano (Metano_Town_Base)", on: true },
+    { id: "lyr-l02",       code: "L02",  label: "Brins d’herbe natifs Métano (calque séparé)", on: true },
+    { id: "lyr-l03",       code: "L03",  label: "Bordure Nord canonique seule (sans roche)", on: true }
   ];
 
   let zIdx = 0;
@@ -388,16 +384,14 @@
     document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${WEB}${mode}_nuages_horizon_1440.png")`;
     document.getElementById("lyr-sea").src = seaFrames[mode][seaIdx];
     document.getElementById("lyr-l01").src = `${WEB}${z.id}_${mode}_L01_herbe_native.png`;
-    document.getElementById("lyr-l02").src = `${WEB}${z.id}_${mode}_L02_faces_natives.png`;
-    document.getElementById("lyr-l03").src = `${WEB}${z.id}_${mode}_L03_retours_natifs.png`;
-    document.getElementById("lyr-l04").src = `${WEB}${z.id}_${mode}_L04_couronnes_natives.png`;
-    document.getElementById("lyr-l05").src = `${WEB}${z.id}_${mode}_L05_pieds_natifs.png`;
+    document.getElementById("lyr-l02").src = `${WEB}${z.id}_${mode}_L02_brins_natifs.png`;
+    document.getElementById("lyr-l03").src = `${WEB}${z.id}_${mode}_L03_bordure_nord_native.png`;
 
     document.getElementById("dl-png-jour").href = `${PNG}cliff_centre_${z.id}_jour.png?dl=1`;
     document.getElementById("dl-png-nuit").href = `${PNG}cliff_centre_${z.id}_nuit.png?dl=1`;
     document.getElementById("dl-l01").href = `${WEB}${z.id}_${mode}_L01_herbe_native.png?dl=1`;
-    document.getElementById("dl-l02").href = `${WEB}${z.id}_${mode}_L02_faces_natives.png?dl=1`;
-    document.getElementById("dl-l04").href = `${WEB}${z.id}_${mode}_L04_couronnes_natives.png?dl=1`;
+    document.getElementById("dl-l02").href = `${WEB}${z.id}_${mode}_L02_brins_natifs.png?dl=1`;
+    document.getElementById("dl-l03").href = `${WEB}${z.id}_${mode}_L03_bordure_nord_native.png?dl=1`;
 
     document.getElementById("btn-jour").classList.toggle("active", mode === "jour");
     document.getElementById("btn-nuit").classList.toggle("active", mode === "nuit");
