@@ -295,7 +295,7 @@
 
     <div>
       <div class="ctrl-row" style="margin-bottom:8px">
-        <span class="ctrl-label">Visibilité individuelle des 9 calques séparés (Ciel · Étoiles 12 phases · Lune/Soleil · 2 plans Cumulus RepeatX · Mer &amp; Reflet 12 phases · 3 calques Terrain Canoniques) :</span>
+        <span class="ctrl-label">Visibilité individuelle des 10 calques séparés (Ciel · Étoiles · Lune/Soleil · 3 plans Nuages Chunsoft RepeatX · Mer &amp; Reflet 12 phases · 3 calques Terrain Canoniques) :</span>
       </div>
       <div class="layers-grid" id="layers-grid"></div>
     </div>
@@ -314,8 +314,9 @@
         <img class="lyr" id="lyr-sky" alt="Dégradé de ciel PMD Sky">
         <div id="lyr-stars" style="position:absolute;left:0;top:0;width:1200px;height:880px;pointer-events:none"></div>
         <img class="lyr-skytop" id="lyr-astre" alt="Pleine Lune / Soleil Levant / Soleil Couchant">
-        <div class="cloud-band" id="lyr-cloud-hi" style="top:188px;height:108px"></div>
-        <div class="cloud-band" id="lyr-cloud-hor" style="top:206px;height:90px"></div>
+        <div class="cloud-band" id="lyr-cloud-hor" style="top:232px;height:64px"></div>
+        <div class="cloud-band" id="lyr-cloud-mid" style="top:118px;height:96px"></div>
+        <div class="cloud-band" id="lyr-cloud-hi" style="top:18px;height:96px"></div>
         <div id="lyr-sea" style="position:absolute;left:0;top:0;width:1200px;height:880px;pointer-events:none"></div>
         <img class="lyr" id="lyr-l01" alt="L01 Plateau Herbe Métano Native au premier plan">
         <img class="lyr" id="lyr-l02" alt="L02 Brins d'herbe Métano Natifs">
@@ -346,7 +347,7 @@
 
 <script>
 (() => {
-  const VER = "v=reveil4_v2";
+  const VER = "v=reveil4_oldclouds";
   const MODES = ["nuit", "aube", "crepuscule", "jour"];
   const MODE_META = {
     nuit:       { label: "Nuit — Scène du Réveil (Pleine Lune) 🌕", short: "Nuit Lune" },
@@ -458,10 +459,11 @@
 
   const LAYERS = [
     { id: "lyr-sky",       code: "BG00", label: "Dégradé de ciel Scène du Réveil (Nuit / Aube / Crépuscule / Jour)", on: true },
-    { id: "lyr-stars",     code: "BG01", label: "58 étoiles scintillantes animées (12 phases, Nuit)", on: true },
+    { id: "lyr-stars",     code: "BG01", label: "Étoiles scintillantes animées (12 phases, Nuit)", on: true },
     { id: "lyr-astre",     code: "BG02", label: "Pleine Lune cratérisée / Soleil levant / Soleil couchant", on: true },
-    { id: "lyr-cloud-hi",  code: "BG03", label: "Cumulus lointains d’horizon (parallaxe lente RepeatX)", on: true },
-    { id: "lyr-cloud-hor", code: "BG04", label: "Banc principal de cumulus d’horizon (parallaxe RepeatX)", on: true },
+    { id: "lyr-cloud-hi",  code: "BG03", label: "Nuages hauts Chunsoft (parallaxe rapide RepeatX)", on: true },
+    { id: "lyr-cloud-mid", code: "BG04", label: "Nuages médians Chunsoft (parallaxe moyenne RepeatX)", on: true },
+    { id: "lyr-cloud-hor", code: "BG05", label: "Nuages d’horizon Chunsoft (parallaxe douce RepeatX)", on: true },
     { id: "lyr-sea",       code: "L00",  label: "Mer V24P04A + Colonne de reflet Lune/Soleil (12 phases)", on: true },
     { id: "lyr-l01",       code: "L01",  label: "Plateau premier plan Grass Métano (100 % rempli)", on: true },
     { id: "lyr-l02",       code: "L02",  label: "Brins d’herbe natifs Métano (calque séparé)", on: true },
@@ -612,6 +614,7 @@
       document.getElementById("lyr-astre").src = `${WEB}${mode}_BG02_astre.png?${VER}`;
     }
     document.getElementById("lyr-cloud-hi").style.backgroundImage = `url("${WEB}${mode}_nuages_haut_1440.png?${VER}")`;
+    document.getElementById("lyr-cloud-mid").style.backgroundImage = `url("${WEB}${mode}_nuages_milieu_1440.png?${VER}")`;
     document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${WEB}${mode}_nuages_horizon_1440.png?${VER}")`;
     updateAnimVisibility();
     document.getElementById("lyr-l01").src = `${WEB}${z.id}_${mode}_L01_plateau_canon.png?${VER}`;
@@ -677,17 +680,20 @@
   });
 
   let lastTs = performance.now();
-  let seaAcc = 0, starAcc = 0, offHi = 0, offHor = 0;
+  let seaAcc = 0, starAcc = 0, offHi = 0, offMid = 0, offHor = 0;
   const elHi = document.getElementById("lyr-cloud-hi");
+  const elMid = document.getElementById("lyr-cloud-mid");
   const elHor = document.getElementById("lyr-cloud-hor");
 
   function tick(now) {
     const dt = Math.min(0.1, (now - lastTs) / 1000) * speed;
     lastTs = now;
     if (dt > 0) {
-      offHi = (offHi - dt * 4.5) % 1440;
-      offHor = (offHor - dt * 10.5) % 1440;
+      offHi = (offHi - dt * 16.0) % 1440;
+      offMid = (offMid - dt * 10.0) % 1440;
+      offHor = (offHor - dt * 5.5) % 1440;
       elHi.style.backgroundPosition = `${offHi.toFixed(1)}px 0px`;
+      elMid.style.backgroundPosition = `${offMid.toFixed(1)}px 0px`;
       elHor.style.backgroundPosition = `${offHor.toFixed(1)}px 0px`;
 
       let changed = false;
