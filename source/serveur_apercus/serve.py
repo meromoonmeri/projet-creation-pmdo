@@ -66,7 +66,7 @@ h2{{border-bottom:1px solid #303f5c;padding-bottom:5px;margin-top:26px}}</style>
 </div>
 <div class="dlbox" style="border-color:#34d399;background:#162925">
   <strong style="font-size:17px;color:#ecfdf5">NOUVEAU — Réseau Complet des Salles Vides de la Guilde Halcyon (13 Maps Connectées · Sans Lit ni Meuble · Sans Spinda Sign · PMDO 0.8.12)</strong><br>
-  <a class="dlbtn" style="background:#34d399;color:#092118" href="apercu_guilde_reseau_vide_et_cliffnorth_pmdo.html">🏰 Ouvrir le réseau des salles vides de la Guilde</a>
+  <a class="dlbtn" style="background:#34d399;color:#092118" href="apercu_guilde_reseau_vide_et_cliffnorth.html">🏰 Ouvrir le réseau des salles vides de la Guilde</a>
   <a class="dlbtn" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/PACK_GUILDE_RESEAU_VIDE_ET_CLIFFNORTH_PMDO.zip?dl=1">⬇ Pack Guilde Salles Vides (.ZIP)</a>
 </div>
 <div class="dlbox" style="border-color:#b2ef63;background:#1a2822">
