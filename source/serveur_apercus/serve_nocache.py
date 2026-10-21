@@ -108,7 +108,26 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
                     _send_blob(self, zf.read(target), fname, send_body)
                     return True
 
-        # 2) Pack 4 ambiances d'une falaise `MOD_<slug>_PMDO_0812.zip` (pur `.rsground` town02 !)
+        # 2) Pack 40 falaises `PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip` assemblé à la volée depuis `TOUTES_MAPS_TOWN02_RSGROUND.zip`
+        if clean_path == "livrables_cliff_nord_centre_pmdo/PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip" and not PACK_ZIP.is_file() and MASTER_TOWN02_ZIP.exists():
+            with _MOD_LOCK:
+                payload = _MOD_CACHE.get("__PACK40__")
+                if payload is None:
+                    buf = io.BytesIO()
+                    with zipfile.ZipFile(MASTER_TOWN02_ZIP, "r") as zin, zipfile.ZipFile(
+                        buf, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6
+                    ) as zout:
+                        if "LISEZ_MOI_IMPORTANT_TOWN02.md" in zin.namelist():
+                            zout.writestr("LISEZ_MOI_IMPORTANT_TOWN02.md", zin.read("LISEZ_MOI_IMPORTANT_TOWN02.md"))
+                        for n in sorted(zin.namelist()):
+                            if n.startswith("Data/Ground/cliff_centre_") and n.endswith(".rsground"):
+                                zout.writestr(n, zin.read(n))
+                    payload = buf.getvalue()
+                    _MOD_CACHE["__PACK40__"] = payload
+            _send_blob(self, payload, "PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip", send_body)
+            return True
+
+        # 3) Pack 4 ambiances d'une falaise `MOD_<slug>_PMDO_0812.zip` (pur `.rsground` town02 !)
         if clean_path.startswith("livrables_cliff_nord_centre_pmdo/mods_individuels/MOD_") and clean_path.endswith(
             "_PMDO_0812.zip"
         ):
