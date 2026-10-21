@@ -375,28 +375,68 @@ def build_sky_and_clouds() -> Tuple[Dict[str, Image.Image], Image.Image, Dict[st
 
 def build_ocean_8phases() -> Dict[str, List[Image.Image]]:
     sea_h = H - HORIZON_Y  # 584 px : du lointain bleu royal (y_src=144) aux vagues turquoise proches (y_src=728)
-    j_raw = [Image.open(REFS_CENTRE / f'jour_mer_{k:02d}.png').convert('RGBA').crop((0, 144, W, 144 + sea_h)) for k in range(8)]
-    n_raw = [Image.open(REFS_CENTRE / f'nuit_mer_{k:02d}.png').convert('RGBA').crop((0, 144, W, 144 + sea_h)) for k in range(8)]
+    j_raw = [
+        np.asarray(Image.open(REFS_CENTRE / f'jour_mer_{k:02d}.png').convert('RGBA').crop((0, 144, W, 144 + sea_h)), dtype=np.float32)
+        for k in range(8)
+    ]
+    n_raw = [
+        np.asarray(Image.open(REFS_CENTRE / f'nuit_mer_{k:02d}.png').convert('RGBA').crop((0, 144, W, 144 + sea_h)), dtype=np.float32)
+        for k in range(8)
+    ]
 
-    j_stack = np.stack([np.array(im, dtype=np.float32) for im in j_raw], axis=0)
-    n_stack = np.stack([np.array(im, dtype=np.float32) for im in n_raw], axis=0)
-    j_min_g = j_stack[..., 1].min(axis=0, keepdims=True)
-    s = np.clip((j_stack[..., 1] - j_min_g) / 80.0, 0.0, 1.0)[..., None]
-    moon_crest = np.array([104.0, 178.0, 236.0], dtype=np.float32)[None, None, None, :]
-    blend = 0.58 * (s ** 1.15)
-    n_rgb = np.clip(np.round(n_stack[..., :3] * (1.0 - blend) + moon_crest * blend), 0, 255).astype(np.uint8)
+    # Dégradé marin Chunsoft 1:1 pur + houle côtière animée en continu sur les 8 phases (0..7) sur toute la hauteur (y=296..880)
+    base_j = np.median(np.stack(j_raw, axis=0), axis=0)
+    base_n = np.median(np.stack(n_raw, axis=0), axis=0)
+    j_min_g = np.minimum.reduce([a[..., 1] for a in j_raw])
+    moon_crest = np.array([104.0, 178.0, 236.0], dtype=np.float32)
 
-    out = {'jour': [], 'nuit': []}
+    yy = np.arange(sea_h)[:, None]
+    xx = np.arange(W)[None, :]
+    psi_fg = 10.0 * ((np.maximum(0.0, yy - 108.0) / (sea_h - 108.0)) ** 0.78)
+    fade_in = np.clip((yy - 114.0) / 18.0, 0.0, 1.0)
+    in_fg = yy >= 116
+
+    out: Dict[str, List[Image.Image]] = {'jour': [], 'nuit': []}
     for k in range(8):
+        frame_j = j_raw[k].copy()
+        frame_n = n_raw[k].copy()
+        frame_j[116:] = base_j[116:]
+        frame_n[116:] = base_n[116:]
+
+        x_shift = (xx + k * 8) % 64
+        wobble = 0.018 * np.sin(2.0 * np.pi * x_shift / 64.0) + 0.010 * np.cos(2.0 * np.pi * ((xx - k * 8) % 32) / 32.0)
+        ph = (psi_fg - k / 8.0 + wobble) % 1.0
+
+        dash = ((x_shift // 2 + (yy // 3)) % 8) != 0
+        glint = ((x_shift % 16) < 3) & (((yy + k * 3) % 5) == 0)
+
+        crest_hi = in_fg & (ph < 0.045) & dash
+        crest_mid = in_fg & (ph >= 0.045) & (ph < 0.115)
+        trough_lo = in_fg & (ph >= 0.115) & (ph < 0.175)
+        sparkle = in_fg & (ph < 0.030) & glint
+
+        frame_j[..., :3] += (crest_mid * fade_in)[..., None] * np.array([14.0, 24.0, 10.0])
+        frame_j[..., :3] += (crest_hi * fade_in)[..., None] * np.array([42.0, 52.0, 14.0])
+        frame_j[..., :3] += (sparkle * fade_in)[..., None] * np.array([95.0, 62.0, 15.0])
+        frame_j[..., :3] -= (trough_lo * fade_in)[..., None] * np.array([8.0, 18.0, 10.0])
+        frame_j[..., 3] = 255.0
+
+        s_top = np.clip((j_raw[k][..., 1] - j_min_g) / 80.0, 0.0, 1.0)[..., None]
+        top_blend = 0.58 * (s_top ** 1.15)
+        frame_n[:120, :, :3] = n_raw[k][:120, :, :3] * (1.0 - top_blend[:120]) + moon_crest * top_blend[:120]
+
+        frame_n[..., :3] += (crest_mid * fade_in)[..., None] * np.array([16.0, 32.0, 44.0])
+        frame_n[..., :3] += (crest_hi * fade_in)[..., None] * np.array([48.0, 82.0, 104.0])
+        frame_n[..., :3] += (sparkle * fade_in)[..., None] * np.array([92.0, 118.0, 128.0])
+        frame_n[..., :3] -= (trough_lo * fade_in)[..., None] * np.array([5.0, 11.0, 18.0])
+        frame_n[..., 3] = 255.0
+
         dj = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        dj.paste(j_raw[k], (0, HORIZON_Y))
+        dj.paste(Image.fromarray(np.clip(np.round(frame_j), 0, 255).astype(np.uint8), 'RGBA'), (0, HORIZON_Y))
         out['jour'].append(dj)
 
         dn = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        arr_n = np.zeros((sea_h, W, 4), dtype=np.uint8)
-        arr_n[..., :3] = n_rgb[k]
-        arr_n[..., 3] = 255
-        dn.paste(Image.fromarray(arr_n, 'RGBA'), (0, HORIZON_Y))
+        dn.paste(Image.fromarray(np.clip(np.round(frame_n), 0, 255).astype(np.uint8), 'RGBA'), (0, HORIZON_Y))
         out['nuit'].append(dn)
     return out
 

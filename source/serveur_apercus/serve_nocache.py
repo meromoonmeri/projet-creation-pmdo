@@ -49,12 +49,15 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def end_headers(self) -> None:
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
-        self.send_header("Pragma", "no-cache")
-        self.send_header("Expires", "0")
-        self.send_header("Access-Control-Allow-Origin", "*")
         parts = urlsplit(self.path)
         qs = parse_qs(parts.query)
+        if "v" in qs and "dl" not in qs:
+            self.send_header("Cache-Control", "public, max-age=3600, immutable")
+        else:
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
+        self.send_header("Access-Control-Allow-Origin", "*")
         clean_path = unquote(parts.path)
         fname = posixpath.basename(clean_path)
         if fname and ("dl" in qs or fname.lower().endswith(FORCE_DOWNLOAD_EXTS)):

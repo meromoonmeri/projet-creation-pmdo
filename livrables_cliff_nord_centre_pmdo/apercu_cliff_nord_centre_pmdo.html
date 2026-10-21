@@ -224,11 +224,11 @@
   <div class="import-panel">
     <div class="import-title" id="import-heading">📦 Importer la carte sélectionnée localement dans PMDO 0.8.12</div>
     <div class="dlbar">
-      <a class="btn emerald" id="dl-indiv-mod" href="#">⬇ Mod autonome de CETTE carte seule (Jour + Nuit + .tile + .dir — 352 Kio)</a>
+      <a class="btn emerald" id="dl-indiv-mod" href="#">⬇ Mod autonome de CETTE carte seule (Jour + Nuit + mer animée 8 phases — 603 Kio)</a>
       <button class="btn gold" id="dl-rsg-jour" type="button">⬇ Télécharger .rsground JOUR seul</button>
       <button class="btn gold" id="dl-rsg-nuit" type="button">⬇ Télécharger .rsground NUIT seul</button>
-      <a class="btn" id="dl-deps" href="#">⬇ Banques .tile + .dir requises (724 Kio)</a>
-      <a class="btn" id="dl-zip" href="#">⬇ Pack complet des 10 cartes (20 .rsground — 2,37 Mio)</a>
+      <a class="btn" id="dl-deps" href="#">⬇ Banques .tile + .dir requises (820 Kio)</a>
+      <a class="btn" id="dl-zip" href="#">⬇ Pack complet des 10 cartes (20 .rsground — 3,98 Mio)</a>
     </div>
     <div class="dlbar" style="margin-bottom:8px">
       <a class="btn sm" id="dl-png-jour" href="#">⬇ PNG 1× Jour</a>
@@ -293,7 +293,7 @@
         <div class="cloud-band" id="lyr-cloud-hor" style="top:240px;height:64px"></div>
         <div class="cloud-band" id="lyr-cloud-mid" style="top:118px;height:96px"></div>
         <div class="cloud-band" id="lyr-cloud-hi" style="top:18px;height:96px"></div>
-        <img class="lyr" id="lyr-sea" alt="Mer Chunsoft 8 phases">
+        <div id="lyr-sea" style="position:absolute;left:0;top:0;width:1200px;height:880px;pointer-events:none"></div>
         <img class="lyr" id="lyr-l01" alt="L01 Plateau Herbe Métano Native au premier plan">
         <img class="lyr" id="lyr-l02" alt="L02 Brins d'herbe Métano Natifs">
         <img class="lyr" id="lyr-l03" alt="L03 Bordure Nord Métano Native seule">
@@ -316,7 +316,7 @@
 
 <script>
 (() => {
-  const VER = "v=fg51_canon";
+  const VER = "v=fg53_sea";
   const ROOT_BASE = location.pathname.includes("/livrables_cliff_nord_centre_pmdo/")
     ? "./"
     : "livrables_cliff_nord_centre_pmdo/";
@@ -333,16 +333,16 @@
   document.getElementById("dl-verif").href = `${ROOT_BASE}verification_canonique.json?${VER}`;
 
   const ZONES = [
-    { id: "01_grand_cap_panoramique",    kib: "352", title: "01 — Le Grand Cap Panoramique (cliffdaytest Centré)", sub: "Falaise herbeuse au premier plan style cliffdaytest centré — zéro roche, bordure Nord canonique Métano" },
-    { id: "02_eperon_nord_effile",       kib: "355", title: "02 — La Pointe du Belvédère Nord",                    sub: "Large prairie au premier plan s’avançant en pointe centrale vers l’horizon marin — 100 % canonique" },
-    { id: "03_double_terrasse_centrale", kib: "351", title: "03 — La Grande Esplanade Village",                    sub: "Vaste plateau de premier plan à large corniche Nord pour village ou guilde — zéro roche" },
-    { id: "04_grande_esplanade_royale",  kib: "353", title: "04 — Le Double Belvédère à Anse Centrale",            sub: "Deux avancées herbeuses symétriques encadrant une anse marine centrale — premier plan nu" },
-    { id: "05_cap_anse_jumelle",         kib: "356", title: "05 — Le Promontoire en Dôme au Premier Plan",         sub: "Cap arrondi central prolongeant la pelouse de premier plan face au grand large — zéro roche" },
-    { id: "06_presquile_isthme_etroit",  kib: "342", title: "06 — La Haute Corniche Panoramique Plein Nord",       sub: "Grande crête côtière traversante d’Ouest en Est surplombant toute la mer animée — 100 % canonique" },
-    { id: "07_cap_asymetrique_ouest",    kib: "352", title: "07 — Le Cap Brise d’Ouest",                           sub: "Courbe côtière asymétrique au premier plan culminant au Nord-Ouest avec épaulement doux à l’Est" },
-    { id: "08_cap_asymetrique_est",      kib: "352", title: "08 — Le Cap du Levant",                               sub: "Prairie côtière de premier plan montant vers un belvédère central-est face au croissant de lune" },
-    { id: "09_trois_paliers_sacres",     kib: "352", title: "09 — Le Promontoire à Triple Épaulement",             sub: "Silhouette côtière à trois redans latéraux symétriques convergeant vers le sommet Nord — zéro roche" },
-    { id: "10_bastion_circulaire",       kib: "352", title: "10 — Le Belvédère Intime face à l’Océan",            sub: "Avancée centrale épurée au premier plan ouvrant un immense panorama marin Nord-Ouest / Nord-Est" }
+    { id: "01_grand_cap_panoramique",    kib: "603", title: "01 — Le Grand Cap Panoramique (cliffdaytest Centré)", sub: "Falaise herbeuse au premier plan style cliffdaytest centré — mer animée 8 phases + bordure Nord canonique" },
+    { id: "02_eperon_nord_effile",       kib: "605", title: "02 — La Pointe du Belvédère Nord",                    sub: "Large prairie au premier plan s’avançant en pointe centrale vers l’océan animé — 100 % canonique" },
+    { id: "03_double_terrasse_centrale", kib: "601", title: "03 — La Grande Esplanade Village",                    sub: "Vaste plateau de premier plan à large corniche Nord pour village ou guilde — mer animée 8 phases" },
+    { id: "04_grande_esplanade_royale",  kib: "604", title: "04 — Le Double Belvédère à Anse Centrale",            sub: "Deux avancées herbeuses symétriques encadrant une anse marine animée — premier plan nu" },
+    { id: "05_cap_anse_jumelle",         kib: "606", title: "05 — Le Promontoire en Dôme au Premier Plan",         sub: "Cap arrondi central prolongeant la pelouse de premier plan face aux vagues animées — zéro roche" },
+    { id: "06_presquile_isthme_etroit",  kib: "592", title: "06 — La Haute Corniche Panoramique Plein Nord",       sub: "Grande crête côtière traversante d’Ouest en Est surplombant toute la mer animée — 100 % canonique" },
+    { id: "07_cap_asymetrique_ouest",    kib: "602", title: "07 — Le Cap Brise d’Ouest",                           sub: "Courbe côtière asymétrique au premier plan culminant au Nord-Ouest avec épaulement doux à l’Est" },
+    { id: "08_cap_asymetrique_est",      kib: "602", title: "08 — Le Cap du Levant",                               sub: "Prairie côtière de premier plan montant vers un belvédère central-est face au croissant de lune" },
+    { id: "09_trois_paliers_sacres",     kib: "602", title: "09 — Le Promontoire à Triple Épaulement",             sub: "Silhouette côtière à trois redans latéraux symétriques convergeant vers le sommet Nord — zéro roche" },
+    { id: "10_bastion_circulaire",       kib: "601", title: "10 — Le Belvédère Intime face à l’Océan",            sub: "Avancée centrale épurée au premier plan ouvrant un immense panorama marin Nord-Ouest / Nord-Est" }
   ];
 
   // Extracteur ZIP natif navigateur (fonctionne même hors serveur Python ou dans une iframe cross-origin)
@@ -431,12 +431,26 @@
   let speed = 1;
   let seaIdx = 0;
 
-  const seaFrames = { jour: [], nuit: [] };
+  const seaContainer = document.getElementById("lyr-sea");
+  const seaImgs = { jour: [], nuit: [] };
   for (const m of ["jour", "nuit"]) {
     for (let k = 0; k < 8; k++) {
-      const im = new Image();
+      const im = document.createElement("img");
+      im.className = "lyr";
+      im.alt = `Mer ${m} phase ${k}`;
+      im.decoding = "sync";
       im.src = `${WEB}${m}_L00_mer_0${k}.png?${VER}`;
-      seaFrames[m].push(im.src);
+      im.style.visibility = "hidden";
+      seaContainer.appendChild(im);
+      seaImgs[m].push(im);
+    }
+  }
+  function updateSeaVisibility() {
+    for (const m of ["jour", "nuit"]) {
+      const arr = seaImgs[m];
+      for (let k = 0; k < 8; k++) {
+        arr[k].style.visibility = (m === mode && k === seaIdx) ? "visible" : "hidden";
+      }
     }
   }
 
@@ -531,7 +545,7 @@
     document.getElementById("lyr-cloud-hi").style.backgroundImage = `url("${WEB}${mode}_nuages_haut_1440.png?${VER}")`;
     document.getElementById("lyr-cloud-mid").style.backgroundImage = `url("${WEB}${mode}_nuages_milieu_1440.png?${VER}")`;
     document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${WEB}${mode}_nuages_horizon_1440.png?${VER}")`;
-    document.getElementById("lyr-sea").src = seaFrames[mode][seaIdx];
+    updateSeaVisibility();
     document.getElementById("lyr-l01").src = `${WEB}${z.id}_${mode}_L01_plateau_canon.png?${VER}`;
     document.getElementById("lyr-l02").src = `${WEB}${z.id}_${mode}_L02_brins_natifs.png?${VER}`;
     document.getElementById("lyr-l03").src = `${WEB}${z.id}_${mode}_L03_bordure_nord_native.png?${VER}`;
@@ -593,7 +607,6 @@
   const elHi = document.getElementById("lyr-cloud-hi");
   const elMid = document.getElementById("lyr-cloud-mid");
   const elHor = document.getElementById("lyr-cloud-hor");
-  const elSea = document.getElementById("lyr-sea");
 
   function tick(now) {
     const dt = Math.min(0.1, (now - lastTs) / 1000) * speed;
@@ -610,7 +623,7 @@
       if (seaAcc >= 10 / 60) {
         seaAcc %= (10 / 60);
         seaIdx = (seaIdx + 1) % 8;
-        elSea.src = seaFrames[mode][seaIdx];
+        updateSeaVisibility();
       }
     }
     requestAnimationFrame(tick);
