@@ -62,8 +62,13 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;col
 .dlbtn{{display:inline-block;background:#f2b84b;color:#1b1308;font-weight:700;padding:8px 14px;border-radius:7px;text-decoration:none;margin:6px 8px 2px 0}}
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
+<div class="dlbox" style="border-color:#dd4d98;background:#2a2024">
+  <strong style="font-size:17px;color:#f4ced7">NOUVEAU — Pack Tentes, Huttes &amp; Kiosques Forgelina (#0959 Tinkaton · Modèle exact « Arcanine Hut » · 100 % SANS FOND RGBA)</strong><br>
+  <a class="dlbtn" style="background:#dd4d98;color:#fff" href="apercu_tentes_huttes_forgelina_pmdo.html">Ouvrir la galerie interactive &amp; comparatif Arcanine Hut (8 éléments Jour/Nuit/Calques/HD)</a>
+  <a class="dlbtn" href="livrables_forgelina_pmdo/Forgelina_Tentes_Huttes_ArcanineStyle_PMDO.zip?dl=1">Télécharger le Pack Complet ZIP Forgelina (.tile + 1× + HD)</a>
+</div>
 <div class="dlbox">
-  <strong style="font-size:17px;color:#a9e39e">NOUVEAU — Grandes Treehouses Monumentales de Guilde (3–4 étages, feuillage ciselé, 100 % SANS FOND RGBA)</strong><br>
+  <strong style="font-size:17px;color:#a9e39e">Grandes Treehouses Monumentales de Guilde (3–4 étages, feuillage ciselé, 100 % SANS FOND RGBA)</strong><br>
   <a class="dlbtn" href="apercu_treehouses_guilde_monumentales_v2.html">Ouvrir la galerie interactive &amp; téléchargements (9 structures Jour/Nuit/Calques/HD)</a>
   <a class="dlbtn" href="livrables_treehouses_guilde_pmdo/PACK_TREEHOUSES_GUILDE_PMDO_SANS_FOND.zip?dl=1">Télécharger le Pack Complet ZIP Treehouses Guilde (.tile + 1× + HD)</a>
 </div>
