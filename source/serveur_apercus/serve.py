@@ -62,6 +62,11 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;col
 .dlbtn{{display:inline-block;background:#f2b84b;color:#1b1308;font-weight:700;padding:8px 14px;border-radius:7px;text-decoration:none;margin:6px 8px 2px 0}}
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
+<div class="dlbox" style="border-color:#6ef0a3;background:#192530">
+  <strong style="font-size:17px;color:#e8fff2">NOUVEAU — Treehouses Monumentales de Guilde · Styles « Jardin Secret » &amp; « Sky Peak » (8 Structures Organiques SANS Toiture Pyramidale · GJS1–GJS4 &amp; GSP1–GSP4 · 100 % RGBA Sans Fond)</strong><br>
+  <a class="dlbtn" style="background:#6ef0a3;color:#0b1c14" href="apercu_guilde_jardin_secret_sky_peak.html">Ouvrir la galerie interactive &amp; téléchargements PNG / .tile (Jour, Nuit illuminée, Calques, HD)</a>
+  <a class="dlbtn" href="livrables_guilde_jardin_secret_sky_peak_pmdo/PACK_GUILDE_JARDIN_SECRET_SKY_PEAK_PMDO.zip?dl=1">Télécharger le Pack Complet ZIP Jardin Secret + Sky Peak (.tile + 1× + HD)</a>
+</div>
 <div class="dlbox" style="border-color:#e4b659;background:#2c2320">
   <strong style="font-size:17px;color:#f7ebd2">NOUVEAU — Les 8 Spinda Cafés Monumentaux (#0327 · Style Officiel « Dojo Makuhita » PMD · 100 % Architecture Pure SANS DEVANTURE · Sans Panneau ni Lanterne · Sans Fond RGBA)</strong><br>
   <a class="dlbtn" style="background:#d95d56;color:#fff" href="apercu_spinda_cafe_dojo_pmdo.html">Ouvrir la galerie interactive &amp; téléchargements PNG / .tile (SPC1–SPC8 Jour/Nuit/Calques/HD)</a>
