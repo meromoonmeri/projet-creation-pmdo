@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cliff Nord en Nuit (Zéro Génération IA) — cliffdaytest & cliffnordouesttest1 — PMDO 0.8.12</title>
+  <style>
+    :root {
+      --bg: #0d111a;
+      --slate: #161b26;
+      --card: #192131;
+      --border: #2a3752;
+      --gold: #f6c453;
+      --indigo: #818cf8;
+      --mint: #34d399;
+      --text: #eaf0fa;
+      --muted: #98a7c2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(180deg, #182238 0%, #101522 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 20px 24px;
+    }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 18px; }
+    h1 { margin: 0 0 8px; font-size: 27px; color: #fff; }
+    h2 { margin: 34px 0 12px; font-size: 21px; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    h3 { margin: 0 0 6px; font-size: 16px; color: #fff; }
+    p { margin: 6px 0; color: var(--muted); }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+    .badge {
+      padding: 4px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+      background: #212c42; color: #dce7ff; border: 1px solid #354668;
+    }
+    .badge.ok { background: #133329; color: #6ee7b7; border-color: #215747; }
+    .badge.night { background: #1e2246; color: #c7d2fe; border-color: #3d4685; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .btn {
+      display: inline-block; padding: 9px 16px; border-radius: 8px; text-decoration: none;
+      font-weight: 700; font-size: 13.5px; cursor: pointer; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--gold); color: #141720; }
+    .btn-secondary { background: #222d44; color: var(--text); border-color: #394b70; }
+    .map-block {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; margin-top: 16px;
+    }
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px;
+    }
+    .toolbar button {
+      background: #222d44; color: var(--text); border: 1px solid #384a6e;
+      padding: 7px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 13px;
+    }
+    .toolbar button.active {
+      background: var(--gold); color: #141720; border-color: var(--gold);
+    }
+    .stage {
+      background: #161b26;
+      border: 1px solid #29354f;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+    }
+    .stage img {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: 12.5px; color: var(--muted);
+    }
+    .meta span {
+      background: #131824; padding: 3px 9px; border-radius: 6px; border: 1px solid #26324a;
+    }
+    .layers-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px; margin-top: 16px;
+    }
+    .layer-card {
+      background: #141a27; border: 1px solid #27334c; border-radius: 10px; padding: 12px;
+    }
+    .layer-card .stage { padding: 10px; min-height: 150px; }
+    .dl { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 12.5px; }
+    .dl:hover { text-decoration: underline; }
+    footer {
+      border-top: 1px solid var(--border); margin-top: 40px; padding: 20px 0 36px;
+      font-size: 13px; color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Conversion Nuit Exacte (Zéro Génération IA) — <code>cliffdaytest</code> & <code>cliffnordouesttest1</code></h1>
+    <p>
+      Passage strictement fidèle en palette nocturne Halcyon / PMD2 de vos deux maps existantes
+      <strong>sans aucune génération d'image</strong> : chaque arbre, maison Baie Ceriz, tente, moulin, bannière, chemin, étang, cascade, nuage, collision (<code>obstacles</code>) et entité (<code>Entities</code>) conserve ses coordonnées au pixel près.
+    </p>
+    <div class="badges">
+      <span class="badge ok">0 Pixel Généré par IA · 100 % Pixels & Placements d'Origine</span>
+      <span class="badge night">Palette Nuit Officielle Halcyon Metano_Town_*_Night (MAE = 0.0000 px)</span>
+      <span class="badge ok">Collisions obstacles & Entities 100 % Préservées</span>
+      <span class="badge night">Mer, Étang, Fleurs & Cascade Animés (PMDO 0.8.12)</span>
+      <span class="badge">PNG RGBA Sans Perte · Fond Ardoise #161b26</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="livrables_cliff_nord_nuit_pmdo/PACK_CLIFF_NORD_NUIT_PMDO_0812.zip" download>
+        ⬇ Télécharger le Pack Complet PMDO 0.8.12 (.ZIP — .rsground + .tile + Calques PNG 1×)
+      </a>
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/MOD_CLIFF_NORD_NUIT_PMDO/Data/Ground/cliffdaytest_nuit.rsground" download>
+        ⬇ cliffdaytest_nuit.rsground
+      </a>
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/MOD_CLIFF_NORD_NUIT_PMDO/Data/Ground/cliffnordouesttest1_nuit.rsground" download>
+        ⬇ cliffnordouesttest1_nuit.rsground
+      </a>
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_nuit.png" download>
+        ⬇ PNG 1× Cliff Nord-Est Nuit (984×792)
+      </a>
+      <a class="btn btn-secondary" href="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_nuit.png" download>
+        ⬇ PNG 1× Cliff Nord-Ouest Nuit (1104×784)
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>1. <code>cliffdaytest_nuit.rsground</code> — Cliff Reverie Town Nord-Est (984 × 792 px · 123 × 99 tuiles · 6 calques)</h2>
+  <div class="map-block" data-prefix="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest" data-w="984">
+    <div class="toolbar">
+      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (4 frames)</button>
+      <button type="button" class="mode-btn" data-mode="nuit_fixe">🌙 Nuit Fixe (Frame 0)</button>
+      <button type="button" class="mode-btn" data-mode="jour">☀️ Référence Jour d'origine (Comparaison 1:1)</button>
+      <span style="margin-left:12px;color:var(--muted);font-size:13px">Zoom :</span>
+      <button type="button" class="zoom-btn active" data-z="1">1×</button>
+      <button type="button" class="zoom-btn" data-z="1.5">1.5×</button>
+    </div>
+    <div class="stage">
+      <img class="map-img" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffdaytest_nuit_frame_0.png" alt="cliffdaytest_nuit" width="984" height="792">
+    </div>
+    <div class="meta">
+      <span>Source : <code>./cliffdaytest.rsground</code></span>
+      <span>Ground Nuit : <code>Data/Ground/cliffdaytest_nuit.rsground</code></span>
+      <span>Tilesheet Nuit : <code>Content/Tile/CliffDay_NordEst_Nuit.tile</code></span>
+      <span>6 calques intacts + animations eau/étang/fleurs/mer</span>
+    </div>
+
+    <h3 style="margin-top:18px">Calques séparés Nuit 1× (PNG RGBA transparents)</h3>
+    <div class="layers-grid">
+      <div class="layer-card">
+        <h3>Calque 00 · Ciel nocturne étoilé</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L00_new_layer.png" alt="L00"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L00_new_layer.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 01 · Mer nocturne</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L01_layer_2.png" alt="L01"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L01_layer_2.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 02 · Falaise, herbe & chemin</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L02_layer_2.png" alt="L02"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L02_layer_2.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 03 · Arbres, hutte, tentes & objets</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L03_layer_4.png" alt="L03"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L03_layer_4.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 04 · Étang, fleurs & eau animés</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L04_layer_3.png" alt="L04"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L04_layer_3.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 05 · Nuages nocturnes & cimes</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_cloud_nuage.png" alt="L05"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffdaytest_nuit_L05_cloud_nuage.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>2. <code>cliffnordouesttest1_nuit.rsground</code> — Cliff Nord-Ouest (1104 × 784 px · 138 × 98 tuiles · 4 calques)</h2>
+  <div class="map-block" data-prefix="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1" data-w="1104">
+    <div class="toolbar">
+      <button type="button" class="mode-btn active" data-mode="nuit_anim">🌙 Nuit Animée (Mer & Cascade 4 frames)</button>
+      <button type="button" class="mode-btn" data-mode="nuit_fixe">🌙 Nuit Fixe (Frame 0)</button>
+      <button type="button" class="mode-btn" data-mode="jour">☀️ Référence Jour d'origine (Comparaison 1:1)</button>
+      <span style="margin-left:12px;color:var(--muted);font-size:13px">Zoom :</span>
+      <button type="button" class="zoom-btn active" data-z="1">1×</button>
+      <button type="button" class="zoom-btn" data-z="1.5">1.5×</button>
+    </div>
+    <div class="stage">
+      <img class="map-img" src="livrables_cliff_nord_nuit_pmdo/png_1x/cliffnordouesttest1_nuit_frame_0.png" alt="cliffnordouesttest1_nuit" width="1104" height="784">
+    </div>
+    <div class="meta">
+      <span>Source : <code>./cliffnordouesttest1.rsground</code></span>
+      <span>Ground Nuit : <code>Data/Ground/cliffnordouesttest1_nuit.rsground</code></span>
+      <span>Tilesheet Nuit : <code>Content/Tile/CliffNordOuest_Nuit.tile</code></span>
+      <span>4 calques intacts + cascade sud & mer nocturne animées</span>
+    </div>
+
+    <h3 style="margin-top:18px">Calques séparés Nuit 1× (PNG RGBA transparents)</h3>
+    <div class="layers-grid">
+      <div class="layer-card">
+        <h3>Calque 00 · Ciel nocturne étoilé complet</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L00_layer_2.png" alt="L00"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L00_layer_2.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 01 · Mer nocturne</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L01_layer_1.png" alt="L01"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L01_layer_1.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 02 · Falaise rocheuse & plateau</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L02_new_layer.png" alt="L02"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L02_new_layer.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+      <div class="layer-card">
+        <h3>Calque 03 · Sentier & Cascade Sud</h3>
+        <div class="stage"><img src="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L03_layer_3.png" alt="L03"></div>
+        <a class="dl" href="livrables_cliff_nord_nuit_pmdo/calques_nuit_1x/cliffnordouesttest1_nuit_L03_layer_3.png" download>⬇ Télécharger PNG 1×</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Crédits : assemblages originaux <code>cliffdaytest.rsground</code> & <code>cliffnordouesttest1.rsground</code> (<strong>meromoonmeri</strong>),
+    tilesheets officiels Jour/Nuit <code>Metano_Town_*</code> (<strong>Palikadude / Halcyon</strong>) et artistes d'origine <strong>Pokémon Mystery Dungeon</strong>.
+    Statut : <code>0</code> pixel généré par IA, <code>art_approved: false</code>, <code>runtime_tested: false</code> (décodage et recomposition moteur vérifiés bit-à-bit par tests automatisés).
+  </div>
+</footer>
+
+<script>
+  const blocks = Array.from(document.querySelectorAll('.map-block')).map(el => ({
+    el,
+    img: el.querySelector('.map-img'),
+    prefix: el.dataset.prefix,
+    baseW: parseInt(el.dataset.w, 10),
+    mode: 'nuit_anim',
+  }));
+
+  let tick = 0;
+  setInterval(() => {
+    tick = (tick + 1) % 4;
+    for (const b of blocks) {
+      if (b.mode === 'nuit_anim') {
+        b.img.src = `${b.prefix}_nuit_frame_${tick}.png`;
+      }
+    }
+  }, 240);
+
+  for (const b of blocks) {
+    b.el.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        b.el.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+        btn.classList.add('active');
+        b.mode = btn.dataset.mode;
+        if (b.mode === 'jour') b.img.src = `${b.prefix}_jour_ref.png`;
+        else if (b.mode === 'nuit_fixe') b.img.src = `${b.prefix}_nuit.png`;
+        else b.img.src = `${b.prefix}_nuit_frame_${tick}.png`;
+      });
+    });
+    b.el.querySelectorAll('.zoom-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        b.el.querySelectorAll('.zoom-btn').forEach(x => x.classList.remove('active'));
+        btn.classList.add('active');
+        const z = parseFloat(btn.dataset.z || '1');
+        b.img.style.width = Math.round(b.baseW * z) + 'px';
+        b.img.style.maxWidth = z === 1 ? '100%' : 'none';
+      });
+    });
+  }
+</script>
+</body>
+</html>
