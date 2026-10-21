@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>10 Falaises au Premier Plan (Style cliffdaytest Centré Sans Roche) — Jour/Nuit + Import Local PMDO 0.8.12</title>
+<title>10 Falaises au Premier Plan — 4 Ambiances Scène du Réveil (Nuit Lune · Aube · Crépuscule · Jour) — PMDO 0.8.12</title>
 <style>
   :root {
     --bg: #161b26;
@@ -17,6 +17,8 @@
     --muted: #9aa8c7;
     --accent: #38bdf8;
     --gold: #f4c152;
+    --dawn: #f9a8d4;
+    --dusk: #fb923c;
     --ok: #34d399;
   }
   * { box-sizing: border-box; }
@@ -27,7 +29,7 @@
     color: var(--text);
     font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   }
-  .wrap { max-width: 1340px; margin: 0 auto; }
+  .wrap { max-width: 1360px; margin: 0 auto; }
   .toplink { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 13px; }
   .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
   .badge {
@@ -36,8 +38,9 @@
     background: #14332a; color: var(--ok); border: 1px solid #25634f;
   }
   .badge.info { background: #1a2d47; color: var(--accent); border-color: #2c5282; }
+  .badge.moon { background: #1e1b4b; color: #c7d2fe; border-color: #4f46e5; }
   h1 { margin: 6px 0 6px; font-size: 22px; line-height: 1.25; }
-  .sub { color: var(--muted); margin: 0 0 14px; max-width: 1160px; }
+  .sub { color: var(--muted); margin: 0 0 14px; max-width: 1220px; }
 
   .import-panel {
     background: linear-gradient(180deg, #1b273b 0%, #172030 100%);
@@ -75,15 +78,17 @@
     font-size: 13px; text-decoration: none; user-select: none; font-family: inherit;
   }
   .btn:hover { border-color: var(--accent); }
-  .btn.active { background: var(--accent); color: #081526; border-color: var(--accent); }
+  .btn.active { background: var(--accent); color: #081526; border-color: var(--accent); font-weight: 700; }
   .btn.gold { background: var(--gold); color: #1b1304; border-color: var(--gold); font-weight: 700; }
   .btn.emerald { background: var(--ok); color: #062118; border-color: var(--ok); font-weight: 700; }
-  .btn.night.active { background: #818cf8; color: #0e1129; border-color: #818cf8; }
+  .btn.mode-nuit.active { background: #818cf8; color: #0c0e28; border-color: #818cf8; }
+  .btn.mode-aube.active { background: var(--dawn); color: #2b0b1e; border-color: var(--dawn); }
+  .btn.mode-crep.active { background: var(--dusk); color: #260d02; border-color: var(--dusk); }
   .btn.sm { padding: 4px 9px; font-size: 11.5px; }
 
   .zone-tabs {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
     gap: 7px;
     margin-bottom: 14px;
   }
@@ -166,9 +171,19 @@
     user-select: none;
     display: block;
   }
-  .stage div.cloud-band {
+  .stage img.lyr-skytop {
     position: absolute;
     left: 0; top: 0;
+    width: 1200px; height: 296px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    pointer-events: none;
+    user-select: none;
+    display: block;
+  }
+  .stage div.cloud-band {
+    position: absolute;
+    left: 0;
     width: 1200px;
     background-repeat: repeat-x;
     background-position: 0px 0px;
@@ -180,7 +195,7 @@
   h2.gal-title { margin: 28px 0 12px; font-size: 18px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
     gap: 12px;
   }
   .card {
@@ -212,39 +227,43 @@
 <div class="wrap">
   <a class="toplink" href="./">← Retour à tous les aperçus PMDO</a>
   <div class="badge-row">
-    <span class="badge">✓ JOUR &amp; NUIT ALIGNÉS AU PIXEL PRÈS (0 px DE GRASS HORS BORDURE · 100 % PLATEAU REMPLI)</span>
-    <span class="badge">✓ 100 % TEXTURES CANONIQUES MÉTANO (generated_terrain_rgb_pixels = 0)</span>
-    <span class="badge info">PMDO 0.8.12 · Téléchargement direct .rsground + Mod autonome par carte</span>
+    <span class="badge moon">🌕 NUIT SCÈNE DU RÉVEIL : PLEINE LUNE · 58 ÉTOILES SCINTILLANTES · COLONNE DE REFLET LUNAIRE ONDULANTE SUR LA MER</span>
+    <span class="badge">🌅 AUBE · 🌇 CRÉPUSCULE · ☀️ JOUR V24P04A (12 PHASES SYNCHRONISÉES)</span>
+    <span class="badge info">40 GROUNDS PMDO 0.8.12 (10 FALAISES × 4 AMBIANCES) · 100 % TEXTURES CANONIQUES MÉTANO</span>
   </div>
-  <h1>10 Falaises Côtières Centrées au Premier Plan — Plateau Nu <code>Grass Métano</code> · Jour &amp; Nuit</h1>
+  <h1>10 Falaises Côtières au Premier Plan — Les 4 Ambiances de <code>La Scène du Réveil</code> (<code>Nuit</code> · <code>Aube</code> · <code>Crépuscule</code> · <code>Jour</code>)</h1>
   <p class="sub">
-    <strong>01 — Le Grand Cap Panoramique (Jour &amp; Nuit)</strong> et les 9 autres variantes ont un alignement <strong>100 % identique au pixel près entre Jour et Nuit</strong> (<code>492 614 px</code> de plateau <code>Grass Métano</code> rempli jusqu’en bas de l’écran, <code>0 px</code> dépassant la bordure Nord canonique <code>Metano_Town_Cliffs.tile</code>, zéro paroi rocheuse). Utilisez le panneau ci-dessous pour <strong>télécharger directement le <code>.rsground</code></strong> ou le <strong>Mod autonome prêt à importer dans PMDO 0.8.12</strong>.
+    Reprise fidèle des <strong>4 ambiances célestes &amp; effets marins de <code>la map scène du réveil</code> (<code>zone_reveil_prairie_horizon_v2</code> / <code>V24P04A</code>)</strong> sur les <strong>10 promontoires côtiers <code>Grass Métano</code> au premier plan sans roche</strong> :
+    <strong>🌕 Nuit</strong> (ciel bleu nuit PMD Sky, <code>58</code> étoiles scintillantes animées, grande Pleine Lune cratérisée, nuages nocturnes éclairés par la lune, colonne de reflet argent-ivoire ondulant sur <code>12</code> crans &amp; crêtes illuminées d’argent au passage sous la lune),
+    <strong>🌅 Aube</strong> (ciel violet→rose-pêche, Soleil levant doré &amp; colonne de reflet doré),
+    <strong>🌇 Crépuscule</strong> (ciel violet profond→orange ardent, Soleil couchant derrière les cumulus &amp; colonne de reflet vermillon) et
+    <strong>☀️ Jour <code>V24P04A</code></strong>.
   </p>
 
   <div class="import-panel">
-    <div class="import-title" id="import-heading">📦 Importer la carte sélectionnée localement dans PMDO 0.8.12</div>
+    <div class="import-title" id="import-heading">📦 Importer la carte sélectionnée localement dans PMDO 0.8.12 (40 Grounds disponibles)</div>
     <div class="dlbar">
-      <a class="btn emerald" id="dl-indiv-mod" href="#">⬇ Mod autonome de CETTE carte seule (Jour + Nuit + mer animée 8 phases — 603 Kio)</a>
-      <button class="btn gold" id="dl-rsg-jour" type="button">⬇ Télécharger .rsground JOUR seul</button>
-      <button class="btn gold" id="dl-rsg-nuit" type="button">⬇ Télécharger .rsground NUIT seul</button>
-      <a class="btn" id="dl-deps" href="#">⬇ Banques .tile + .dir requises (820 Kio)</a>
-      <a class="btn" id="dl-zip" href="#">⬇ Pack complet des 10 cartes (20 .rsground — 3,98 Mio)</a>
+      <a class="btn emerald" id="dl-indiv-mod" href="#">⬇ Mod autonome 4 ambiances de CETTE falaise (Nuit + Aube + Crépuscule + Jour — 2,77 Mio)</a>
+      <button class="btn gold" id="dl-rsg-nuit" type="button">🌕 .rsground NUIT (Scène du Réveil)</button>
+      <button class="btn gold" id="dl-rsg-aube" type="button">🌅 .rsground AUBE</button>
+      <button class="btn gold" id="dl-rsg-crep" type="button">🌇 .rsground CRÉPUSCULE</button>
+      <button class="btn gold" id="dl-rsg-jour" type="button">☀️ .rsground JOUR</button>
     </div>
     <div class="dlbar" style="margin-bottom:8px">
-      <a class="btn sm" id="dl-png-jour" href="#">⬇ PNG 1× Jour</a>
-      <a class="btn sm" id="dl-png-nuit" href="#">⬇ PNG 1× Nuit</a>
-      <a class="btn sm" id="dl-l01" href="#">⬇ L01 Plateau Herbe seul</a>
-      <a class="btn sm" id="dl-l02" href="#">⬇ L02 Brins natifs seuls</a>
-      <a class="btn sm" id="dl-l03" href="#">⬇ L03 Bordure Nord seule</a>
-      <a class="btn sm" id="dl-gif-jour" href="#">⬇ GIF Jour</a>
-      <a class="btn sm" id="dl-gif-nuit" href="#">⬇ GIF Nuit</a>
+      <a class="btn sm" id="dl-zip" href="#">📦 Pack complet 10 falaises × 4 ambiances (40 .rsground — 10,17 Mio)</a>
+      <a class="btn sm" id="dl-deps" href="#">🧩 Banques .tile + .dir requises (1,96 Mio)</a>
+      <a class="btn sm" id="dl-gif-nuit" href="#">🎞 GIF Nuit Lune</a>
+      <a class="btn sm" id="dl-gif-aube" href="#">🎞 GIF Aube</a>
+      <a class="btn sm" id="dl-gif-crep" href="#">🎞 GIF Crépuscule</a>
+      <a class="btn sm" id="dl-gif-jour" href="#">🎞 GIF Jour</a>
+      <a class="btn sm" id="dl-png-cur" href="#">🖼 PNG 1× ambiance active</a>
       <a class="btn sm" id="dl-verif" href="#">✓ verification_canonique.json</a>
       <span id="dl-status" style="font-size:12px;color:var(--ok);font-weight:700"></span>
     </div>
     <div class="steps">
-      <strong>Mode d’emploi rapide pour ouvrir le Ground dans votre PMDO 0.8.12 local :</strong><br>
-      • <strong>Option 1 — Import direct 1 clic sans aucune tuile manquante (recommandé) :</strong> cliquez sur <strong>« ⬇ Mod autonome de CETTE carte seule »</strong> (ex. <code>MOD_01_grand_cap_panoramique_PMDO_0812.zip</code>), décompressez le dossier dans <code>PMDO/MODS/</code>, lancez <code>RogueEssence.exe -dev</code> → onglet <strong>Mods</strong> (activez le mod) → <strong>Edit Ground / Map Editor → Open → <code>cliff_centre_01_grand_cap_panoramique_jour</code></strong> (ou <code>_nuit</code>).<br>
-      • <strong>Option 2 — Import du fichier <code>.rsground</code> brut dans votre propre mod existant :</strong> copiez une seule fois le contenu de <strong>« Banques .tile + .dir requises »</strong> (<code>Content/Tile/*.tile</code> + <code>Content/BG/*.dir</code>) dans votre mod (puis <strong>Dev Mode → Constants / Re-Index Tiles</strong> si vous fusionnez avec vos autres <code>.tile</code>), et déposez directement <code>cliff_centre_01_grand_cap_panoramique_jour.rsground</code> / <code>_nuit.rsground</code> dans <code>MODS/VotreMod/Data/Ground/</code> !
+      <strong>Import direct dans votre PMDO 0.8.12 local :</strong><br>
+      • <strong>Option 1 — 1 clic prêt à jouer :</strong> téléchargez <strong>« Mod autonome 4 ambiances de CETTE falaise »</strong> (ou le <strong>Pack complet 40 .rsground</strong>), décompressez dans <code>PMDO/MODS/</code>, lancez <code>RogueEssence.exe -dev</code> → <strong>Mods</strong> → activez le mod → <strong>Edit Ground → Open → <code>cliff_centre_01_grand_cap_panoramique_nuit</code></strong> (ou <code>_aube</code>, <code>_crepuscule</code>, <code>_jour</code>).<br>
+      • <strong>Option 2 — Import d’un fichier <code>.rsground</code> individuel dans votre mod existant :</strong> copiez une seule fois <strong>« Banques .tile + .dir requises »</strong> dans votre mod (puis <strong>Dev Mode → Constants / Re-Index Tiles</strong>), et placez n’importe lequel des <code>40</code> fichiers <code>.rsground</code> dans <code>MODS/VotreMod/Data/Ground/</code> !
     </div>
   </div>
 
@@ -252,27 +271,31 @@
 
   <div class="controls">
     <div class="ctrl-row">
-      <button class="btn" id="btn-prev" type="button">◀ Version précédente</button>
-      <button class="btn" id="btn-next" type="button">Version suivante ▶</button>
+      <button class="btn" id="btn-prev" type="button">◀ Falaise préc.</button>
+      <button class="btn" id="btn-next" type="button">Falaise suiv. ▶</button>
 
-      <span class="ctrl-label" style="margin-left:10px">Éclairage :</span>
-      <button class="btn active" id="btn-jour" type="button">☀️ Ciel &amp; Palette Canonique Jour</button>
-      <button class="btn night" id="btn-nuit" type="button">🌙 Ciel Étoilé &amp; Palette Canonique Nuit (Abyss V4)</button>
+      <span class="ctrl-label" style="margin-left:8px">Ambiance Scène du Réveil :</span>
+      <button class="btn mode-nuit active" data-mode="nuit" type="button">🌕 Nuit — Pleine Lune &amp; Reflets</button>
+      <button class="btn mode-aube" data-mode="aube" type="button">🌅 Aube — Soleil Levant</button>
+      <button class="btn mode-crep" data-mode="crepuscule" type="button">🌇 Crépuscule — Soleil Couchant</button>
+      <button class="btn" data-mode="jour" type="button">☀️ Jour — V24P04A</button>
+    </div>
 
-      <span class="ctrl-label" style="margin-left:10px">Zoom :</span>
+    <div class="ctrl-row">
+      <span class="ctrl-label">Zoom :</span>
       <button class="btn" data-zoom="0.75" type="button">0,75×</button>
       <button class="btn active" data-zoom="1" type="button">1× Natif (1200×880)</button>
       <button class="btn" data-zoom="2" type="button">2× Pixel-Art</button>
 
-      <span class="ctrl-label" style="margin-left:10px">Animation :</span>
-      <button class="btn active" data-speed="1" type="button">▶ Temps Réel PMDO (60 FPS)</button>
-      <button class="btn" data-speed="2.5" type="button">⏩ ×2,5</button>
+      <span class="ctrl-label" style="margin-left:12px">Cadence d’animation :</span>
+      <button class="btn active" data-speed="1" type="button">▶ Temps Réel ROM V24P04A (12 × 10 ticks @ 60 FPS)</button>
+      <button class="btn" data-speed="2.2" type="button">⏩ ×2,2</button>
       <button class="btn" data-speed="0" type="button">⏸ Pause</button>
     </div>
 
     <div>
       <div class="ctrl-row" style="margin-bottom:8px">
-        <span class="ctrl-label">Visibilité individuelle des 9 calques séparés (5 plans ciel/nuages + Mer 8 phases + 3 calques terrain canoniques) :</span>
+        <span class="ctrl-label">Visibilité individuelle des 9 calques séparés (Ciel · Étoiles 12 phases · Lune/Soleil · 2 plans Cumulus RepeatX · Mer &amp; Reflet 12 phases · 3 calques Terrain Canoniques) :</span>
       </div>
       <div class="layers-grid" id="layers-grid"></div>
     </div>
@@ -284,15 +307,15 @@
         <div class="stage-title" id="stage-title"></div>
         <div class="stage-sub" id="stage-sub"></div>
       </div>
-      <div class="stage-sub">Clavier : <code>←</code> / <code>→</code> changer de version · <code>N</code> basculer Jour / Nuit</div>
+      <div class="stage-sub">Clavier : <code>←</code> / <code>→</code> changer de falaise · <code>1</code> Nuit · <code>2</code> Aube · <code>3</code> Crépuscule · <code>4</code> Jour · <code>N</code> suivante</div>
     </div>
     <div class="stage-sizer" id="stage-sizer" style="width:1200px;height:880px">
       <div class="stage" id="stage">
-        <img class="lyr" id="lyr-sky" alt="Ciel velouté">
-        <img class="lyr" id="lyr-stars" alt="Lune et étoiles">
-        <div class="cloud-band" id="lyr-cloud-hor" style="top:240px;height:64px"></div>
-        <div class="cloud-band" id="lyr-cloud-mid" style="top:118px;height:96px"></div>
-        <div class="cloud-band" id="lyr-cloud-hi" style="top:18px;height:96px"></div>
+        <img class="lyr" id="lyr-sky" alt="Dégradé de ciel PMD Sky">
+        <div id="lyr-stars" style="position:absolute;left:0;top:0;width:1200px;height:880px;pointer-events:none"></div>
+        <img class="lyr-skytop" id="lyr-astre" alt="Pleine Lune / Soleil Levant / Soleil Couchant">
+        <div class="cloud-band" id="lyr-cloud-hi" style="top:188px;height:108px"></div>
+        <div class="cloud-band" id="lyr-cloud-hor" style="top:206px;height:90px"></div>
         <div id="lyr-sea" style="position:absolute;left:0;top:0;width:1200px;height:880px;pointer-events:none"></div>
         <img class="lyr" id="lyr-l01" alt="L01 Plateau Herbe Métano Native au premier plan">
         <img class="lyr" id="lyr-l02" alt="L02 Brins d'herbe Métano Natifs">
@@ -301,22 +324,37 @@
     </div>
   </div>
 
-  <h2 class="gal-title">Galerie complète des 10 versions au Premier Plan — Jour Canonique ☀️ (aperçu + téléchargement direct .rsground / Mod .zip)</h2>
-  <div class="cards" id="cards-jour"></div>
-
-  <h2 class="gal-title">Galerie complète des 10 versions au Premier Plan — Nuit Canonique 🌙 (aperçu + téléchargement direct .rsground / Mod .zip)</h2>
+  <h2 class="gal-title">🌕 Galerie Nuit — Scène du Réveil (Pleine Lune, 58 étoiles scintillantes &amp; colonne de reflet lunaire sur la mer)</h2>
   <div class="cards" id="cards-nuit"></div>
 
+  <h2 class="gal-title">🌅 Galerie Aube — Scène du Réveil (Soleil levant doré, cumulus rosés &amp; colonne de reflet doré sur la mer)</h2>
+  <div class="cards" id="cards-aube"></div>
+
+  <h2 class="gal-title">🌇 Galerie Crépuscule — Scène du Réveil (Soleil couchant rouge-orangé dans les nuages &amp; reflet vermillon)</h2>
+  <div class="cards" id="cards-crepuscule"></div>
+
+  <h2 class="gal-title">☀️ Galerie Jour — V24P04A Canonique (Ciel azur Chunsoft, mer 12 phases &amp; Grass Métano natif)</h2>
+  <div class="cards" id="cards-jour"></div>
+
   <div class="meta">
-    <strong>Preuve mathématique des matériaux canoniques (<code>verify_canonique.py</code> → <code>status: "PASS"</code>), compatibilité PMDO 0.8.12 &amp; crédits :</strong><br>
-    • <strong><code>vertical_rock_face_pixels = 0</code> &amp; <code>generated_terrain_rgb_pixels = 0</code></strong> : les <code>60</code> calques terrain (<code>30 Jour</code> + <code>30 Nuit</code>) sont reconstruits au bit près exclusivement depuis <code>Metano_Town_Base.tile</code> (<code>herbe (0,640,128,768)</code>, <code>brin1 (16,776,32,792)</code>, <code>brin2 (48,792,64,808)</code>) et la lèvre de crête côtière haute sans roche de <code>Metano_Town_Cliffs.tile</code> (<code>(518,18,534,34)</code> &amp; <code>(456,164,472,180)</code>), avec filtre Nuit exact <code>Abyss V4</code> certifié bit-identique à <code>Metano_Town_*_Night.tile</code>.<br>
-    • <strong>Crédits</strong> : <strong>Palikadude</strong> &amp; contributeurs (<em>PMDO Halcyon — Metano_Town_Base.tile &amp; Metano_Town_Cliffs.tile</em>), <strong>Abyss to Ascension</strong> (filtre nocturne exact <code>Metano_Town_*_Night.tile</code>) &amp; <strong>Spike Chunsoft</strong> (<em>Pokémon Donjon Mystère : Explorateurs</em>). Statut : <code>art_approved: false</code>, <code>runtime_tested: false</code>.
+    <strong>Preuve mathématique des matériaux canoniques (<code>verify_canonique.py</code> → <code>status: "PASS"</code>), fidélité <code>Scène du Réveil V2</code> &amp; crédits :</strong><br>
+    • <strong>Ambiances &amp; effets marins <code>Scène du Réveil V2</code> (<code>zone_reveil_prairie_horizon_v2</code>) :</strong> houle quadratique <code>V24P04A</code> en <code>12</code> crans (<code>FrameLength = 10</code>, période <code>96 px</code>), crêtes d’écume à double bosse avec ligne sombre continue de <code>1 px</code>, ondes en orbite elliptique, scintillement d’horizon, <code>58</code> étoiles nocturnes scintillant selon la loi à 5 états (<code>éteint → cœur → plein → cœur → éteint</code>), Pleine Lune cratérisée / Soleil levant / Soleil couchant, colonnes de reflets ondulantes sur l’eau et illumination progressive des crêtes traversant le faisceau.<br>
+    • <strong><code>vertical_rock_face_pixels = 0</code> &amp; <code>generated_terrain_rgb_pixels = 0</code> :</strong> plateau nu <code>Grass Métano</code> 100 % reconstruit depuis <code>Metano_Town_Base.tile</code> &amp; <code>Metano_Town_Cliffs.tile</code>.<br>
+    • <strong>Crédits :</strong> <strong>Palikadude</strong> &amp; contributeurs (<em>PMDO Halcyon — Metano_Town_Base.tile &amp; Metano_Town_Cliffs.tile</em>), <strong>Abyss to Ascension</strong> (filtre nocturne exact <code>Metano_Town_*_Night.tile</code>) &amp; <strong>Spike Chunsoft</strong> (<em>Pokémon Donjon Mystère : Explorateurs du Ciel — V24P04A &amp; Scène du Réveil</em>). Statut : <code>art_approved: false</code>, <code>runtime_tested: false</code>.
   </div>
 </div>
 
 <script>
 (() => {
-  const VER = "v=fg53_sea";
+  const VER = "v=reveil4_v2";
+  const MODES = ["nuit", "aube", "crepuscule", "jour"];
+  const MODE_META = {
+    nuit:       { label: "Nuit — Scène du Réveil (Pleine Lune) 🌕", short: "Nuit Lune" },
+    aube:       { label: "Aube — Soleil Levant 🌅",                  short: "Aube" },
+    crepuscule: { label: "Crépuscule — Soleil Couchant 🌇",          short: "Crépuscule" },
+    jour:       { label: "Jour — V24P04A Canonique ☀️",              short: "Jour" }
+  };
+
   const ROOT_BASE = location.pathname.includes("/livrables_cliff_nord_centre_pmdo/")
     ? "./"
     : "livrables_cliff_nord_centre_pmdo/";
@@ -328,32 +366,48 @@
 
   document.getElementById("dl-zip").href = `${PACK_URL}?dl=1&${VER}`;
   document.getElementById("dl-deps").href = `${ROOT_BASE}TILES_ET_CIELS_REQUIS_PMDO_0812.zip?dl=1&${VER}`;
-  document.getElementById("dl-gif-jour").href = `${ANIM}cliff_nord_centre_jour_anime.gif?dl=1&${VER}`;
   document.getElementById("dl-gif-nuit").href = `${ANIM}cliff_nord_centre_nuit_anime.gif?dl=1&${VER}`;
+  document.getElementById("dl-gif-aube").href = `${ANIM}cliff_nord_centre_aube_anime.gif?dl=1&${VER}`;
+  document.getElementById("dl-gif-crep").href = `${ANIM}cliff_nord_centre_crepuscule_anime.gif?dl=1&${VER}`;
+  document.getElementById("dl-gif-jour").href = `${ANIM}cliff_nord_centre_jour_anime.gif?dl=1&${VER}`;
   document.getElementById("dl-verif").href = `${ROOT_BASE}verification_canonique.json?${VER}`;
 
   const ZONES = [
-    { id: "01_grand_cap_panoramique",    kib: "603", title: "01 — Le Grand Cap Panoramique (cliffdaytest Centré)", sub: "Falaise herbeuse au premier plan style cliffdaytest centré — mer animée 8 phases + bordure Nord canonique" },
-    { id: "02_eperon_nord_effile",       kib: "605", title: "02 — La Pointe du Belvédère Nord",                    sub: "Large prairie au premier plan s’avançant en pointe centrale vers l’océan animé — 100 % canonique" },
-    { id: "03_double_terrasse_centrale", kib: "601", title: "03 — La Grande Esplanade Village",                    sub: "Vaste plateau de premier plan à large corniche Nord pour village ou guilde — mer animée 8 phases" },
-    { id: "04_grande_esplanade_royale",  kib: "604", title: "04 — Le Double Belvédère à Anse Centrale",            sub: "Deux avancées herbeuses symétriques encadrant une anse marine animée — premier plan nu" },
-    { id: "05_cap_anse_jumelle",         kib: "606", title: "05 — Le Promontoire en Dôme au Premier Plan",         sub: "Cap arrondi central prolongeant la pelouse de premier plan face aux vagues animées — zéro roche" },
-    { id: "06_presquile_isthme_etroit",  kib: "592", title: "06 — La Haute Corniche Panoramique Plein Nord",       sub: "Grande crête côtière traversante d’Ouest en Est surplombant toute la mer animée — 100 % canonique" },
-    { id: "07_cap_asymetrique_ouest",    kib: "602", title: "07 — Le Cap Brise d’Ouest",                           sub: "Courbe côtière asymétrique au premier plan culminant au Nord-Ouest avec épaulement doux à l’Est" },
-    { id: "08_cap_asymetrique_est",      kib: "602", title: "08 — Le Cap du Levant",                               sub: "Prairie côtière de premier plan montant vers un belvédère central-est face au croissant de lune" },
-    { id: "09_trois_paliers_sacres",     kib: "602", title: "09 — Le Promontoire à Triple Épaulement",             sub: "Silhouette côtière à trois redans latéraux symétriques convergeant vers le sommet Nord — zéro roche" },
-    { id: "10_bastion_circulaire",       kib: "601", title: "10 — Le Belvédère Intime face à l’Océan",            sub: "Avancée centrale épurée au premier plan ouvrant un immense panorama marin Nord-Ouest / Nord-Est" }
+    { id: "01_grand_cap_panoramique",    title: "01 — Le Grand Cap Panoramique (cliffdaytest Centré)", sub: "Falaise herbeuse au premier plan — Pleine Lune / Aube / Crépuscule / Jour & reflets marins 12 phases" },
+    { id: "02_eperon_nord_effile",       title: "02 — La Pointe du Belvédère Nord",                    sub: "Large prairie au premier plan s’avançant en pointe centrale vers l’océan et la colonne de lune" },
+    { id: "03_double_terrasse_centrale", title: "03 — La Grande Esplanade Village",                    sub: "Vaste plateau de premier plan à large corniche Nord pour village ou guilde — 4 ambiances animées" },
+    { id: "04_grande_esplanade_royale",  title: "04 — Le Double Belvédère à Anse Centrale",            sub: "Deux avancées herbeuses symétriques encadrant une anse marine animée — premier plan nu" },
+    { id: "05_cap_anse_jumelle",         title: "05 — Le Promontoire en Dôme au Premier Plan",         sub: "Cap arrondi central ouvrant deux vastes golfes marins sous le Soleil levant et la Pleine Lune" },
+    { id: "06_presquile_isthme_etroit",  title: "06 — La Haute Corniche Panoramique Plein Nord",       sub: "Grande crête côtière traversante d’Ouest en Est surplombant toute la mer animée — 100 % canonique" },
+    { id: "07_cap_asymetrique_ouest",    title: "07 — Le Cap Brise d’Ouest",                           sub: "Courbe côtière asymétrique au premier plan dégageant un immense panorama marin à l’Est sous la Lune" },
+    { id: "08_cap_asymetrique_est",      title: "08 — Le Cap du Levant",                               sub: "Prairie côtière de premier plan dégageant le grand golfe Ouest face au Soleil levant de l’Aube" },
+    { id: "09_trois_paliers_sacres",     title: "09 — Le Promontoire à Triple Épaulement",             sub: "Silhouette côtière à trois redans symétriques convergeant vers le sommet Nord — zéro roche" },
+    { id: "10_bastion_circulaire",       title: "10 — Le Belvédère Intime face à l’Océan",            sub: "Avancée centrale épurée offrant l’ouverture marine maximale sur toute la colonne de reflet lunaire" }
   ];
 
-  // Extracteur ZIP natif navigateur (fonctionne même hors serveur Python ou dans une iframe cross-origin)
+  // Extracteur ZIP natif navigateur avec repli direct sur streaming HTTP `grounds_rsground/`
   let cachedZipBuf = null;
   async function downloadSingleRsground(slug, m) {
     const statusEl = document.getElementById("dl-status");
     const outName = `cliff_centre_${slug}_${m}.rsground`;
     try {
-      statusEl.textContent = `Extraction de ${outName}...`;
+      statusEl.textContent = `Téléchargement de ${outName}...`;
+      const directResp = await fetch(`${ROOT_BASE}grounds_rsground/${outName}?dl=1&${VER}`);
+      if (directResp.ok) {
+        const blob = await directResp.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = outName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+        statusEl.textContent = `✓ ${outName} téléchargé !`;
+        return;
+      }
       if (!cachedZipBuf) {
-        const resp = await fetch(`${PACK_URL}?${VER}`, { cache: "no-store" });
+        const resp = await fetch(`${PACK_URL}?${VER}`);
         if (!resp.ok) throw new Error("HTTP " + resp.status);
         cachedZipBuf = await resp.arrayBuffer();
       }
@@ -361,17 +415,12 @@
       const dv = new DataView(cachedZipBuf);
       const target = `MOD_CLIFF_NORD_CENTRE_PMDO/Data/Ground/${outName}`;
       const dec = new TextDecoder();
-
-      // Localisation de l'End of Central Directory (EOCD)
       let eocd = -1;
       for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65558); i--) {
         if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
       }
-      if (eocd < 0) throw new Error("Archive ZIP invalide");
       const cdCount = dv.getUint16(eocd + 10, true);
       let ptr = dv.getUint32(eocd + 16, true);
-      let foundBlob = null;
-
       for (let e = 0; e < cdCount; e++) {
         if (dv.getUint32(ptr, true) !== 0x02014b50) break;
         const method = dv.getUint16(ptr + 10, true);
@@ -386,71 +435,83 @@
           const lExtraLen = dv.getUint16(lfhOff + 28, true);
           const dataStart = lfhOff + 30 + lNameLen + lExtraLen;
           const rawSlice = bytes.subarray(dataStart, dataStart + compSize);
-          if (method === 0) {
-            foundBlob = new Blob([rawSlice], { type: "application/octet-stream" });
-          } else if (method === 8) {
-            const ds = new DecompressionStream("deflate-raw");
-            const stream = new Blob([rawSlice]).stream().pipeThrough(ds);
-            foundBlob = await new Response(stream).blob();
-          }
-          break;
+          const foundBlob = method === 0
+            ? new Blob([rawSlice], { type: "application/octet-stream" })
+            : await new Response(new Blob([rawSlice]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).blob();
+          const url = URL.createObjectURL(foundBlob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = outName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 5000);
+          statusEl.textContent = `✓ ${outName} téléchargé !`;
+          return;
         }
         ptr += 46 + nameLen + extraLen + commLen;
       }
-      if (!foundBlob) throw new Error("Entrée introuvable : " + target);
-
-      const url = URL.createObjectURL(foundBlob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = outName;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 5000);
-      statusEl.textContent = `✓ ${outName} téléchargé !`;
     } catch (err) {
-      statusEl.textContent = "";
       window.location.href = `${ROOT_BASE}grounds_rsground/${outName}?dl=1&${VER}`;
     }
   }
 
   const LAYERS = [
-    { id: "lyr-sky",       code: "BG00", label: "Ciel velouté sans bande (Jour / Nuit)", on: true },
-    { id: "lyr-stars",     code: "BG01", label: "Croissant de lune & étoiles (Nuit)", on: true },
-    { id: "lyr-cloud-hi",  code: "BG02", label: "Nuages hauts (parallaxe rapide RepeatX)", on: true },
-    { id: "lyr-cloud-mid", code: "BG03", label: "Nuages médians (parallaxe moyenne RepeatX)", on: true },
-    { id: "lyr-cloud-hor", code: "BG04", label: "Nuages d’horizon (parallaxe douce RepeatX)", on: true },
-    { id: "lyr-sea",       code: "L00",  label: "Mer Chunsoft animée (8 phases, FrameLength=10)", on: true },
+    { id: "lyr-sky",       code: "BG00", label: "Dégradé de ciel Scène du Réveil (Nuit / Aube / Crépuscule / Jour)", on: true },
+    { id: "lyr-stars",     code: "BG01", label: "58 étoiles scintillantes animées (12 phases, Nuit)", on: true },
+    { id: "lyr-astre",     code: "BG02", label: "Pleine Lune cratérisée / Soleil levant / Soleil couchant", on: true },
+    { id: "lyr-cloud-hi",  code: "BG03", label: "Cumulus lointains d’horizon (parallaxe lente RepeatX)", on: true },
+    { id: "lyr-cloud-hor", code: "BG04", label: "Banc principal de cumulus d’horizon (parallaxe RepeatX)", on: true },
+    { id: "lyr-sea",       code: "L00",  label: "Mer V24P04A + Colonne de reflet Lune/Soleil (12 phases)", on: true },
     { id: "lyr-l01",       code: "L01",  label: "Plateau premier plan Grass Métano (100 % rempli)", on: true },
     { id: "lyr-l02",       code: "L02",  label: "Brins d’herbe natifs Métano (calque séparé)", on: true },
     { id: "lyr-l03",       code: "L03",  label: "Bordure Nord canonique seule (sans roche)", on: true }
   ];
 
   let zIdx = 0;
-  let mode = "jour";
+  let mode = "nuit"; // Ouverture directe sur la Nuit Scène du Réveil demandée (Pleine Lune + reflets sur la mer) !
   let speed = 1;
   let seaIdx = 0;
+  let starIdx = 0;
 
+  // Pré-montage DOM des 48 frames d'océan (`4 ambiances × 12 phases`) + 12 frames d'étoiles : zéro `.src` muté en boucle !
   const seaContainer = document.getElementById("lyr-sea");
-  const seaImgs = { jour: [], nuit: [] };
-  for (const m of ["jour", "nuit"]) {
-    for (let k = 0; k < 8; k++) {
+  const seaImgs = { jour: [], aube: [], crepuscule: [], nuit: [] };
+  for (const m of MODES) {
+    for (let k = 0; k < 12; k++) {
       const im = document.createElement("img");
       im.className = "lyr";
       im.alt = `Mer ${m} phase ${k}`;
-      im.decoding = "sync";
-      im.src = `${WEB}${m}_L00_mer_0${k}.png?${VER}`;
+      im.decoding = "async";
+      im.src = `${WEB}${m}_L00_mer_${String(k).padStart(2, "0")}.png?${VER}`;
       im.style.visibility = "hidden";
       seaContainer.appendChild(im);
       seaImgs[m].push(im);
     }
   }
-  function updateSeaVisibility() {
-    for (const m of ["jour", "nuit"]) {
+
+  const starContainer = document.getElementById("lyr-stars");
+  const starImgs = [];
+  for (let k = 0; k < 12; k++) {
+    const im = document.createElement("img");
+    im.className = "lyr";
+    im.alt = `Étoiles phase ${k}`;
+    im.decoding = "async";
+    im.src = `${WEB}nuit_BG01_etoiles_${String(k).padStart(2, "0")}.png?${VER}`;
+    im.style.visibility = "hidden";
+    starContainer.appendChild(im);
+    starImgs.push(im);
+  }
+
+  function updateAnimVisibility() {
+    for (const m of MODES) {
       const arr = seaImgs[m];
-      for (let k = 0; k < 8; k++) {
+      for (let k = 0; k < 12; k++) {
         arr[k].style.visibility = (m === mode && k === seaIdx) ? "visible" : "hidden";
       }
+    }
+    for (let k = 0; k < 12; k++) {
+      starImgs[k].style.visibility = (mode === "nuit" && k === starIdx) ? "visible" : "hidden";
     }
   }
 
@@ -480,19 +541,19 @@
     gridEl.appendChild(lab);
   }
 
-  for (const [m, cid] of [["jour", "cards-jour"], ["nuit", "cards-nuit"]]) {
-    const box = document.getElementById(cid);
+  for (const m of MODES) {
+    const box = document.getElementById(`cards-${m}`);
     ZONES.forEach((z, i) => {
       const c = document.createElement("div");
       c.className = "card";
       const h3 = document.createElement("h3");
-      h3.textContent = `${z.title} (${m === "jour" ? "Jour" : "Nuit"})`;
+      h3.textContent = `${z.title} (${MODE_META[m].short})`;
       const p = document.createElement("p");
       p.textContent = z.sub;
       const img = document.createElement("img");
       img.loading = "lazy";
       img.src = `${PNG}cliff_centre_${z.id}_${m}.png?${VER}`;
-      img.alt = z.title;
+      img.alt = `${z.title} ${m}`;
       const selectCard = () => {
         zIdx = i;
         mode = m;
@@ -507,14 +568,14 @@
       const bRsg = document.createElement("button");
       bRsg.type = "button";
       bRsg.className = "btn sm gold";
-      bRsg.textContent = `⬇ .rsground (${m})`;
+      bRsg.textContent = `⬇ .rsground (${MODE_META[m].short})`;
       bRsg.addEventListener("click", () => downloadSingleRsground(z.id, m));
 
       const aMod = document.createElement("a");
       aMod.className = "btn sm emerald";
       aMod.href = `${INDIV}MOD_${z.id}_PMDO_0812.zip?dl=1&${VER}`;
       aMod.download = `MOD_${z.id}_PMDO_0812.zip`;
-      aMod.textContent = `⬇ Mod autonome (${z.kib} Kio)`;
+      aMod.textContent = `⬇ Mod 4 ambiances (.zip)`;
 
       acts.appendChild(bRsg);
       acts.appendChild(aMod);
@@ -529,23 +590,30 @@
   function syncVisibility() {
     for (const l of LAYERS) {
       const el = document.getElementById(l.id);
-      el.style.display = (l.id === "lyr-stars") ? ((l.on && mode === "nuit") ? "block" : "none") : (l.on ? "block" : "none");
+      if (l.id === "lyr-stars") {
+        el.style.display = (l.on && mode === "nuit") ? "block" : "none";
+      } else if (l.id === "lyr-astre") {
+        el.style.display = (l.on && mode !== "jour") ? "block" : "none";
+      } else {
+        el.style.display = l.on ? "block" : "none";
+      }
     }
   }
 
   function renderState() {
     const z = ZONES[zIdx];
     tabBtns.forEach((b, i) => b.classList.toggle("active", i === zIdx));
-    document.getElementById("import-heading").textContent = `📦 Importer « ${z.title} » localement dans PMDO 0.8.12`;
-    document.getElementById("stage-title").textContent = `${z.title} — Mode ${mode === "jour" ? "Jour Canonique ☀️" : "Nuit Canonique 🌙"} (cliff_centre_${z.id}_${mode}.rsground)`;
+    document.getElementById("import-heading").textContent = `📦 Importer « ${z.title} » dans PMDO 0.8.12 (4 ambiances : Nuit Lune · Aube · Crépuscule · Jour)`;
+    document.getElementById("stage-title").textContent = `${z.title} — ${MODE_META[mode].label} (cliff_centre_${z.id}_${mode}.rsground)`;
     document.getElementById("stage-sub").textContent = z.sub;
 
     document.getElementById("lyr-sky").src = `${WEB}${mode}_BG00_ciel.png?${VER}`;
-    document.getElementById("lyr-stars").src = `${WEB}nuit_BG01_astres.png?${VER}`;
+    if (mode !== "jour") {
+      document.getElementById("lyr-astre").src = `${WEB}${mode}_BG02_astre.png?${VER}`;
+    }
     document.getElementById("lyr-cloud-hi").style.backgroundImage = `url("${WEB}${mode}_nuages_haut_1440.png?${VER}")`;
-    document.getElementById("lyr-cloud-mid").style.backgroundImage = `url("${WEB}${mode}_nuages_milieu_1440.png?${VER}")`;
     document.getElementById("lyr-cloud-hor").style.backgroundImage = `url("${WEB}${mode}_nuages_horizon_1440.png?${VER}")`;
-    updateSeaVisibility();
+    updateAnimVisibility();
     document.getElementById("lyr-l01").src = `${WEB}${z.id}_${mode}_L01_plateau_canon.png?${VER}`;
     document.getElementById("lyr-l02").src = `${WEB}${z.id}_${mode}_L02_brins_natifs.png?${VER}`;
     document.getElementById("lyr-l03").src = `${WEB}${z.id}_${mode}_L03_bordure_nord_native.png?${VER}`;
@@ -553,34 +621,40 @@
     const indivEl = document.getElementById("dl-indiv-mod");
     indivEl.href = `${INDIV}MOD_${z.id}_PMDO_0812.zip?dl=1&${VER}`;
     indivEl.download = `MOD_${z.id}_PMDO_0812.zip`;
-    indivEl.textContent = `⬇ Mod autonome « ${z.id} » (Jour + Nuit + .tile + .dir — ${z.kib} Kio)`;
+    indivEl.textContent = `⬇ Mod autonome « ${z.id} » (4 ambiances : Nuit + Aube + Crépuscule + Jour)`;
 
-    document.getElementById("dl-rsg-jour").textContent = `⬇ cliff_centre_${z.id}_jour.rsground`;
-    document.getElementById("dl-rsg-nuit").textContent = `⬇ cliff_centre_${z.id}_nuit.rsground`;
+    document.getElementById("dl-rsg-nuit").textContent = `🌕 cliff_centre_${z.id}_nuit.rsground`;
+    document.getElementById("dl-rsg-aube").textContent = `🌅 cliff_centre_${z.id}_aube.rsground`;
+    document.getElementById("dl-rsg-crep").textContent = `🌇 cliff_centre_${z.id}_crepuscule.rsground`;
+    document.getElementById("dl-rsg-jour").textContent = `☀️ cliff_centre_${z.id}_jour.rsground`;
+    document.getElementById("dl-png-cur").href = `${PNG}cliff_centre_${z.id}_${mode}.png?dl=1&${VER}`;
 
-    document.getElementById("dl-png-jour").href = `${PNG}cliff_centre_${z.id}_jour.png?dl=1&${VER}`;
-    document.getElementById("dl-png-nuit").href = `${PNG}cliff_centre_${z.id}_nuit.png?dl=1&${VER}`;
-    document.getElementById("dl-l01").href = `${WEB}${z.id}_${mode}_L01_plateau_canon.png?dl=1&${VER}`;
-    document.getElementById("dl-l02").href = `${WEB}${z.id}_${mode}_L02_brins_natifs.png?dl=1&${VER}`;
-    document.getElementById("dl-l03").href = `${WEB}${z.id}_${mode}_L03_bordure_nord_native.png?dl=1&${VER}`;
-
-    document.getElementById("btn-jour").classList.toggle("active", mode === "jour");
-    document.getElementById("btn-nuit").classList.toggle("active", mode === "nuit");
+    document.querySelectorAll("[data-mode]").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
     syncVisibility();
   }
 
-  document.getElementById("dl-rsg-jour").addEventListener("click", () => downloadSingleRsground(ZONES[zIdx].id, "jour"));
   document.getElementById("dl-rsg-nuit").addEventListener("click", () => downloadSingleRsground(ZONES[zIdx].id, "nuit"));
+  document.getElementById("dl-rsg-aube").addEventListener("click", () => downloadSingleRsground(ZONES[zIdx].id, "aube"));
+  document.getElementById("dl-rsg-crep").addEventListener("click", () => downloadSingleRsground(ZONES[zIdx].id, "crepuscule"));
+  document.getElementById("dl-rsg-jour").addEventListener("click", () => downloadSingleRsground(ZONES[zIdx].id, "jour"));
 
   document.getElementById("btn-prev").addEventListener("click", () => { zIdx = (zIdx + ZONES.length - 1) % ZONES.length; renderState(); });
   document.getElementById("btn-next").addEventListener("click", () => { zIdx = (zIdx + 1) % ZONES.length; renderState(); });
-  document.getElementById("btn-jour").addEventListener("click", () => { mode = "jour"; renderState(); });
-  document.getElementById("btn-nuit").addEventListener("click", () => { mode = "nuit"; renderState(); });
+  document.querySelectorAll("[data-mode]").forEach(btn => {
+    btn.addEventListener("click", () => { mode = btn.dataset.mode; renderState(); });
+  });
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") { zIdx = (zIdx + ZONES.length - 1) % ZONES.length; renderState(); }
     if (e.key === "ArrowRight") { zIdx = (zIdx + 1) % ZONES.length; renderState(); }
-    if (e.key === "n" || e.key === "N") { mode = (mode === "jour" ? "nuit" : "jour"); renderState(); }
+    if (e.key === "1") { mode = "nuit"; renderState(); }
+    if (e.key === "2") { mode = "aube"; renderState(); }
+    if (e.key === "3") { mode = "crepuscule"; renderState(); }
+    if (e.key === "4") { mode = "jour"; renderState(); }
+    if (e.key === "n" || e.key === "N") {
+      mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+      renderState();
+    }
   });
 
   const stage = document.getElementById("stage");
@@ -603,28 +677,33 @@
   });
 
   let lastTs = performance.now();
-  let seaAcc = 0, offHi = 0, offMid = 0, offHor = 0;
+  let seaAcc = 0, starAcc = 0, offHi = 0, offHor = 0;
   const elHi = document.getElementById("lyr-cloud-hi");
-  const elMid = document.getElementById("lyr-cloud-mid");
   const elHor = document.getElementById("lyr-cloud-hor");
 
   function tick(now) {
     const dt = Math.min(0.1, (now - lastTs) / 1000) * speed;
     lastTs = now;
     if (dt > 0) {
-      offHi = (offHi - dt * 16.0) % 1440;
-      offMid = (offMid - dt * 10.0) % 1440;
-      offHor = (offHor - dt * 5.5) % 1440;
+      offHi = (offHi - dt * 4.5) % 1440;
+      offHor = (offHor - dt * 10.5) % 1440;
       elHi.style.backgroundPosition = `${offHi.toFixed(1)}px 0px`;
-      elMid.style.backgroundPosition = `${offMid.toFixed(1)}px 0px`;
       elHor.style.backgroundPosition = `${offHor.toFixed(1)}px 0px`;
 
+      let changed = false;
       seaAcc += dt;
       if (seaAcc >= 10 / 60) {
         seaAcc %= (10 / 60);
-        seaIdx = (seaIdx + 1) % 8;
-        updateSeaVisibility();
+        seaIdx = (seaIdx + 1) % 12;
+        changed = true;
       }
+      starAcc += dt;
+      if (starAcc >= 12 / 60) {
+        starAcc %= (12 / 60);
+        starIdx = (starIdx + 1) % 12;
+        changed = true;
+      }
+      if (changed) updateAnimVisibility();
     }
     requestAnimationFrame(tick);
   }

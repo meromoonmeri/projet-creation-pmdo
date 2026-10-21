@@ -1,13 +1,10 @@
-# Pack 10 Falaises Nord Centrées au Premier Plan (Style `cliffdaytest` Sans Roche) — 100 % Textures Canoniques Métano (PMDO 0.8.12)
+# Pack 10 Falaises Nord Centrées au Premier Plan — 4 Ambiances `Scène du Réveil V2` (`Jour` · `Aube` · `Crépuscule` · `Nuit`) (PMDO `0.8.12`)
 
-## Architecture demandée : Falaise au Premier Plan (`cliffdaytest` centré) · Zéro Paroi Rocheuse · 100 % Textures Canoniques
-- **Falaise au premier plan à l’arrivée (`Entrance_Sud`)** : dans les 10 versions (`01` à `10`), le plateau herbeux nu **`Grass Métano`** occupe tout l’avant-plan Sud et s’avance vers le centre-Nord surplombant le paysage marin et céleste.
-- **Aucune paroi rocheuse verticale (`vertical_rock_face_pixels = 0`)** : on ne voit **que la fine bordure nordique canonique** (`Metano_Town_Cliffs.tile` `(518..534, 18..34)` & `(456..472, 164..180)`) donnant directement sur la mer animée Chunsoft (8 phases) et le ciel Jour/Nuit à 3 plans de nuages `RepeatX`.
-- **3 calques de terrain canoniques séparés (`generated_terrain_rgb_pixels == 0`)** :
-  1. `01_Herbe_Metano_Native` (`L01_herbe_native.png`) — `Metano_Town_Base.tile` `(0,640,128,768)`
-  2. `02_Brins_Metano_Natifs` (`L02_brins_natifs.png`) — `Metano_Town_Base.tile` `(16,776,32,792)` & `(48,792,64,808)`
-  3. `03_Bordure_Nord_Metano_Native` (`L03_bordure_nord_native.png`) — `Metano_Town_Cliffs.tile` lèvre de crête côtière native
-- **Audit mathématique indépendant** : `python3 source/cliff_nord_centre_v1/verify_canonique.py` reconstruit bit-à-bit les `60` calques (`30 Jour` + `30 Nuit`) depuis les planches officielles certifiées SHA-256.
+## Les 4 Ambiances & Effets Marins de `La Scène du Réveil` (`zone_reveil_prairie_horizon_v2`) sur les 10 Falaises (`40` cartes `.rsground`)
+- **🌕 `Nuit` (`Scène du Réveil`)** : Ciel bleu nuit profond PMD Sky, **58 étoiles scintillantes animées** (`12` phases, loi à 5 états), **grande Pleine Lune cratérisée jaune-ivoire**, nuages nocturnes gris-bleu éclairés par la lune (`RepeatX`), mer saphir-outremer `V24P04A` (`12 × 10 ticks`), **grande colonne de reflet lunaire argent-ivoire ondulant au rythme des vagues** + **illumination argentée des crêtes traversant le rayon de lune**, et plateau nu `Grass Métano` Nuit canonique.
+- **🌅 `Aube`** : Ciel violet → rose-pêche doré, **grand Soleil levant doré**, nuages rosés-dorés, mer nacrée mauve-rosée `12` phases, **colonne de reflet doré ondulante + crêtes dorées**, et plateau `Grass Métano` baigné de lumière matinale.
+- **🌇 `Crépuscule`** : Ciel violet profond → orange-vermillon, **grand Soleil couchant rouge-orangé** effleuré par les cumulus cuivrés, mer pourpre-indigo `12` phases, **colonne de reflet orange ardent + crêtes embrasées**, et plateau `Grass Métano` lumière du soir.
+- **☀️ `Jour`** : Ciel azur `V24P04A`, cumulus blancs d'horizon, mer `V24P04A` `12` phases (houle, crêtes à double bosse, ligne sombre continue `1 px`, ondes en orbite, étincelles d'horizon), et plateau `Grass Métano` canonique.
 
 ## Crédits & Statut
 - **Palikadude** & contributeurs (*PMDO Halcyon*), **Abyss to Ascension**, **Spike Chunsoft**.
