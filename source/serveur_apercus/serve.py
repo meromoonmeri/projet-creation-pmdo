@@ -63,8 +63,13 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;col
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
 <div class="dlbox">
+  <strong style="font-size:17px;color:#a9e39e">NOUVEAU — Grandes Treehouses Monumentales de Guilde (3–4 étages, feuillage ciselé, 100 % SANS FOND RGBA)</strong><br>
+  <a class="dlbtn" href="apercu_treehouses_guilde_monumentales_v2.html">Ouvrir la galerie interactive &amp; téléchargements (9 structures Jour/Nuit/Calques/HD)</a>
+  <a class="dlbtn" href="livrables_treehouses_guilde_pmdo/PACK_TREEHOUSES_GUILDE_PMDO_SANS_FOND.zip?dl=1">Télécharger le Pack Complet ZIP Treehouses Guilde (.tile + 1× + HD)</a>
+</div>
+<div class="dlbox">
   <strong style="font-size:17px;color:#ffd76a">Téléchargement direct — Objets Café &amp; Estrade 100 % SANS FOND (prêts pour PMDO 0.8.12)</strong><br>
-  <a class="dlbtn" href="telecharger_objets_cafe_pmdo.html">Ouvrir la page de téléchargement (11 objets sans fond)</a>
+  <a class="dlbtn" href="telecharger_objets_cafe_pmdo.html">Ouvrir la page de téléchargement (16 objets sans fond)</a>
   <a class="dlbtn" href="livrables_pmdo_sans_fond/PACK_PMDO_1X_ET_MOD_0812_SANS_FOND.zip?dl=1">Télécharger le ZIP PMDO 1× + Mod .tile (2 Mo)</a>
 </div>
 <p>{len(rows)} aperçus autonomes. Chaque page contient ses calques, ses animations et ses liens de téléchargement.</p>
