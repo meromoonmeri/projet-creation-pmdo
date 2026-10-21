@@ -62,6 +62,11 @@ a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;col
 .dlbtn{{display:inline-block;background:#f2b84b;color:#1b1308;font-weight:700;padding:8px 14px;border-radius:7px;text-decoration:none;margin:6px 8px 2px 0}}
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus &amp; Téléchargements PMDO</h1>
+<div class="dlbox" style="border-color:#d99f66;background:#2d241c">
+  <strong style="font-size:17px;color:#f6ecd6">NOUVEAU — Pack Tentes &amp; Kiosques Évoli (#0133 · Style Bourg-Trésor PMD Explorateurs du Ciel · Croisillons · Sans Bouche ni Museau · Sans Fond RGBA)</strong><br>
+  <a class="dlbtn" style="background:#d99f66;color:#1b1209" href="apercu_tente_evoli_pmdo.html">Ouvrir l’aperçu &amp; téléchargements PNG / .tile (EVT1–EVT6 Jour/Nuit/Baie α=0/HD)</a>
+  <a class="dlbtn" href="livrables_tente_evoli_pmdo/Evoli_Tentes_BourgTresor_PMDO.zip?dl=1">Télécharger le Pack Complet ZIP Tentes Évoli (.tile + 1× + HD)</a>
+</div>
 <div class="dlbox" style="border-color:#f4ced7;background:#2f2228">
   <strong style="font-size:17px;color:#ffd9e6">NOUVEAU — Maison / Monument Forgelina (Modèle Validé Style « Réserve Kangourex » PMD · 100 % Sans Visage · Sans Fond RGBA)</strong><br>
   <a class="dlbtn" style="background:#e88eb4;color:#1b1015" href="apercu_maison_forgelina_pmdo.html">Ouvrir l’aperçu &amp; téléchargements PNG / .tile (FGK1–FGK6 Jour/Nuit/Baie α=0/HD)</a>
