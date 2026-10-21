@@ -40,7 +40,7 @@ class TestForgelinaArcanineHuts(unittest.TestCase):
 
     def test_01_alpha_binary_and_zero_green_fringe(self):
         pngs = list((LIV / 'HD_sans_fond').glob('*.png')) + list((LIV / '1x_PMDO_8px_sans_fond').glob('*.png'))
-        self.assertEqual(len(pngs), 46)
+        self.assertEqual(len(pngs), 53)
         for p in pngs:
             arr = np.array(Image.open(p).convert('RGBA'))
             uniques = set(np.unique(arr[:, :, 3]).tolist())
@@ -88,7 +88,7 @@ class TestForgelinaArcanineHuts(unittest.TestCase):
                 expected = np.array(Image.open(png_p).convert('RGBA'))
                 decoded = decode_tile_bank_rgba(tp, tw, th)
                 np.testing.assert_array_equal(decoded, expected)
-        self.assertEqual(len(prefixes), 8)
+        self.assertEqual(len(prefixes), 9)
 
     def test_04_html_gallery_pure_img_no_canvas_no_checkerboard_and_honest_flags(self):
         self.assertFalse(self.manifest['art_approved'])

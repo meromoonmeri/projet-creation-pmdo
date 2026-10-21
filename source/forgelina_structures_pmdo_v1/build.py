@@ -6,7 +6,7 @@ Reproduit fidèlement l'architecture exacte du kit « Arcanine Hut Tileset » pr
 à Forgelina (Tinkaton, #0959) avec détourage alpha binaire strict (`alpha in {0, 255}`),
 ouverture centrale / guichet 100 % transparente (`alpha = 0`, zéro rectangle noir),
 comptoir nu et propre, versions Jour & Nuit, découpe `arriere` (Under) + `avant` (Over) disjointe,
-et banques binaires PMDO `.tile` (`FGH1`..`FGH8`) + `.tsj`.
+et banques binaires PMDO `.tile` (`FGH1`..`FGH9`) + `.tsj`.
 
 Usage : .venv/bin/python source/forgelina_structures_pmdo_v1/build.py
 """
@@ -39,127 +39,143 @@ NEUTRAL_BG = (58, 48, 40, 255)
 ITEMS = [
     {
         'num': '01',
-        'slug': 'forgelina_kiosque_tente_boutique',
-        'file_stem': '01_Forgelina_Kiosque_Tente_Boutique',
-        'label': 'Kiosque-Tente Boutique Forgelina — Couettes & Rubans',
-        'subtitle': 'Modèle Arcanine Hut Assemblé (#8) · Guichet central 100 % transparent (alpha = 0) & comptoir nu',
-        'arcanine_equiv': 'Pièce #8 — Kiosque-Tente Boutique Complet (Arcanine Hut)',
+        'slug': 'forgelina_tente_boutique_arcanine',
+        'file_stem': '01_Forgelina_Tente_Boutique_ArcanineStyle',
+        'label': 'Tente-Boutique Forgelina — Modèle Exact « Arcanine Hut »',
+        'subtitle': 'Tête peluchée Forgelina à grandes couettes spiralées, rideaux drapés sur trépieds bois, guichet 100 % ouvert (alpha = 0), comptoir & tapis',
+        'arcanine_equiv': 'Pièce #8 (Bas-Gauche) — Kiosque-Tente Pokémon Complet Assemblé',
         'category': 'kiosque_boutique',
         'bank_pfx': 'FGH1',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_03_kiosque_tente_classique.png',
-        'target_vis_w': 132,
+        'raw': 'bruts/arcan_fg_03_kiosque_tente_classique.webp',
+        'target_vis_w': 136,
         'canvas_w': 144,
         'split_mode': 'counter_aisle',
         'split_frac': 0.72,
     },
     {
         'num': '02',
-        'slug': 'forgelina_kiosque_tente_marteau',
-        'file_stem': '02_Forgelina_Kiosque_Tente_Marteau',
-        'label': 'Kiosque-Tente Forge Forgelina — Blason & Marteau d’Acier',
-        'subtitle': 'Variante Forgeronne Arcanine Hut · Guichet ouvert alpha = 0, comptoir riveté & marteau posé',
-        'arcanine_equiv': 'Pièce #8 (Variante Forge) — Kiosque-Tente avec Marteau d’Acier',
-        'category': 'kiosque_boutique',
+        'slug': 'forgelina_hutte_peluche_arcanine',
+        'file_stem': '02_Forgelina_Hutte_Peluche_ArcanineStyle',
+        'label': 'Hutte-Tente Peluchée Forgelina — Modèle « Arcanine Hut » Haut',
+        'subtitle': 'Tête ronde de Forgelina à couettes bouclées, pans de toile rose/acier tendus sur 4 piquets de bois & entrée ombragée',
+        'arcanine_equiv': 'Pièces #1–#2 (Haut) — Hutte-Tente Tête Pokémon sur Piquets',
+        'category': 'hutte_tente',
         'bank_pfx': 'FGH2',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_04_kiosque_tente_marteau.png',
+        'raw': 'bruts/arcan_fg_09_hutte_peluche_forgelina.webp',
+        'target_vis_w': 116,
+        'canvas_w': 128,
+        'split_mode': 'canopy_hut',
+        'split_frac': 0.65,
+    },
+    {
+        'num': '03',
+        'slug': 'forgelina_kiosque_tente_marteau',
+        'file_stem': '03_Forgelina_Kiosque_Tente_Marteau',
+        'label': 'Kiosque-Tente Forge Forgelina — Blason & Marteau d’Acier',
+        'subtitle': 'Variante Forgeronne à guichet central 100 % ouvert (alpha = 0), comptoir bois riveté & marteau de Forgelina appuyé',
+        'arcanine_equiv': 'Pièce #8 (Variante Forge) — Kiosque-Tente avec Marteau d’Acier',
+        'category': 'kiosque_boutique',
+        'bank_pfx': 'FGH3',
+        'dex': '0959',
+        'raw': 'bruts/arcan_fg_04_kiosque_tente_marteau.webp',
         'target_vis_w': 132,
         'canvas_w': 144,
         'split_mode': 'counter_aisle',
         'split_frac': 0.72,
     },
     {
-        'num': '03',
+        'num': '04',
         'slug': 'forgelina_hutte_tente_fermee',
-        'file_stem': '03_Forgelina_Hutte_Tente_Fermee',
-        'label': 'Hutte-Tente Ronde Forgelina — Campement Fermé',
-        'subtitle': 'Modèle Arcanine Hut (#1) · Dôme cousu rose framboise, doubles couettes bouclées & piquets tendeurs',
-        'arcanine_equiv': 'Pièce #1 — Hutte-Tente Ronde Fermée à Piquets',
+        'file_stem': '04_Forgelina_Hutte_Tente_Fermee',
+        'label': 'Hutte-Tente Ronde Cousue Forgelina — Campement Fermé',
+        'subtitle': 'Dôme cousu rose framboise à collerette d’acier rivetée, doubles couettes bouclées & cordages tendeurs sur piquets',
+        'arcanine_equiv': 'Variante Dôme Cousu — Hutte-Tente Fermée de Village',
         'category': 'hutte_tente',
-        'bank_pfx': 'FGH3',
+        'bank_pfx': 'FGH4',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_01_hutte_tente_fermee.png',
+        'raw': 'bruts/arcan_fg_01_hutte_tente_fermee.webp',
         'target_vis_w': 104,
         'canvas_w': 112,
         'split_mode': 'canopy_hut',
         'split_frac': 0.65,
     },
     {
-        'num': '04',
+        'num': '05',
         'slug': 'forgelina_hutte_tente_entree_enclume',
-        'file_stem': '04_Forgelina_Hutte_Tente_Entree_Enclume',
+        'file_stem': '05_Forgelina_Hutte_Tente_Entree_Enclume',
         'label': 'Hutte-Tente d’Entrée Forgelina — Porte Drapée & Enclume',
-        'subtitle': 'Variante Hutte-Tente Village · Entrée arquée à rideaux relevés, piquets & mini-enclume latérale',
-        'arcanine_equiv': 'Pièce #1 (Variante Entrée Ouverte & Enclume)',
+        'subtitle': 'Dôme cousu à porte arquée ouverte, couettes spiralées, piquets tendeurs & enclume + marteau posés à droite',
+        'arcanine_equiv': 'Variante Atelier Village — Hutte-Tente à Entrée & Enclume',
         'category': 'hutte_tente',
-        'bank_pfx': 'FGH4',
+        'bank_pfx': 'FGH5',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_08_hutte_tente_entree_enclume.png',
+        'raw': 'bruts/arcan_fg_08_hutte_tente_entree_enclume.webp',
         'target_vis_w': 112,
         'canvas_w': 120,
         'split_mode': 'canopy_hut',
         'split_frac': 0.65,
     },
     {
-        'num': '05',
+        'num': '06',
         'slug': 'forgelina_toit_tente_auvent',
-        'file_stem': '05_Forgelina_Toit_Tente_Auvent',
+        'file_stem': '06_Forgelina_Toit_Tente_Auvent',
         'label': 'Toit-Tente / Auvent Modulaire Forgelina',
-        'subtitle': 'Modèle Arcanine Hut (#2) · Auvent sur poteaux latéraux et piquets, passage inférieur 100 % ouvert',
-        'arcanine_equiv': 'Pièce #2 — Toit-Tente / Auvent Ouvert Modulaire',
+        'subtitle': 'Auvent de toile cousue sur poteaux latéraux et piquets, passage inférieur 100 % ouvert',
+        'arcanine_equiv': 'Pièce #2 — Auvent / Tonnelle Ouverte Modulaire',
         'category': 'module_tente',
-        'bank_pfx': 'FGH5',
+        'bank_pfx': 'FGH6',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_02_toit_tente_auvent.png',
+        'raw': 'bruts/arcan_fg_02_toit_tente_auvent.webp',
         'target_vis_w': 108,
         'canvas_w': 120,
         'split_mode': 'open_awning',
         'split_frac': 0.66,
     },
     {
-        'num': '06',
+        'num': '07',
         'slug': 'forgelina_comptoir_courbe_seul',
-        'file_stem': '06_Forgelina_Comptoir_Courbe_Seul',
+        'file_stem': '07_Forgelina_Comptoir_Courbe_Seul',
         'label': 'Comptoir Courbe en U Modulaire Forgelina',
-        'subtitle': 'Modèle Arcanine Hut (#4) · Comptoir bois, toile cousue rose & coins acier rivetés (ouvert en haut)',
+        'subtitle': 'Modèle exact Pièce #4 d’Arcanine Hut : comptoir bois en U ouvert en haut, panneaux roses & coins acier rivetés',
         'arcanine_equiv': 'Pièce #4 — Comptoir Courbe Modulaire en U',
         'category': 'module_tente',
-        'bank_pfx': 'FGH6',
+        'bank_pfx': 'FGH7',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_05_comptoir_seul.png',
+        'raw': 'bruts/arcan_fg_05_comptoir_seul.webp',
         'target_vis_w': 84,
         'canvas_w': 96,
         'split_mode': None,
         'split_frac': None,
     },
     {
-        'num': '07',
+        'num': '08',
         'slug': 'forgelina_tapis_tisse',
-        'file_stem': '07_Forgelina_Tapis_Tisse',
+        'file_stem': '08_Forgelina_Tapis_Tisse',
         'label': 'Tapis d’Accueil Tissé Forgelina',
-        'subtitle': 'Modèle Arcanine Hut (#3) · Tapis de sol PMD rose sakura, framboise & bordure acier à franges',
+        'subtitle': 'Modèle exact Pièce #3 d’Arcanine Hut : tapis rose sakura, framboise & acier à franges et blason marteau',
         'arcanine_equiv': 'Pièce #3 — Tapis d’Accueil Tissé Assorti',
         'category': 'accessoire_tente',
-        'bank_pfx': 'FGH7',
+        'bank_pfx': 'FGH8',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_06_tapis_accueil.png',
+        'raw': 'bruts/arcan_fg_06_tapis_accueil.webp',
         'target_vis_w': 68,
         'canvas_w': 80,
         'split_mode': None,
         'split_frac': None,
     },
     {
-        'num': '08',
+        'num': '09',
         'slug': 'forgelina_banniere_poteau',
-        'file_stem': '08_Forgelina_Banniere_Poteau',
+        'file_stem': '09_Forgelina_Banniere_Poteau',
         'label': 'Bannière Fanion sur Poteau Forgelina',
-        'subtitle': 'Modèle Arcanine Hut (#5–#7) · Mât en bois à rubans bouclés & fanion suspendu au blason marteau',
+        'subtitle': 'Modèle exact Pièces #5–#7 d’Arcanine Hut : poteau en bois à boucles roses & fanion suspendu au marteau',
         'arcanine_equiv': 'Pièces #5–#7 — Bannière Verticale sur Poteau Bois',
         'category': 'accessoire_tente',
-        'bank_pfx': 'FGH8',
+        'bank_pfx': 'FGH9',
         'dex': '0959',
-        'raw': 'bruts/arcan_fg_07_banniere_poteau.png',
+        'raw': 'bruts/arcan_fg_07_banniere_poteau.webp',
         'target_vis_w': 38,
         'canvas_w': 48,
         'split_mode': None,
@@ -184,25 +200,16 @@ def sha256_file(p: Path) -> str:
 
 
 def extract_clean_hd_from_green(raw_path: Path) -> tuple[Image.Image, dict]:
-    """Détourage strict sur fond vert chroma #00FF00 (extérieur + guichet interne alpha=0).
-
-    Garantit :
-    - `alpha in {0, 255}` binaire strict sans demi-transparence,
-    - `0 px` de frange verte résiduelle (`G - max(R, B) > 20`),
-    - Ouverture centrale des kiosques / auvents / comptoirs en U intégralement transparente (`alpha = 0`),
-    - Préservation à 100 % des roses sakura (`#F4CED7`), framboise (`#DD4D98`), aciers (`#434B64`) et bois.
-    """
+    """Détourage strict sur fond vert chroma #00FF00 (extérieur + guichet interne alpha=0)."""
     im = Image.open(raw_path).convert('RGBA')
     arr = np.array(im)
     r = arr[:, :, 0].astype(np.int32)
     g = arr[:, :, 1].astype(np.int32)
     b = arr[:, :, 2].astype(np.int32)
 
-    # Masque vert chroma primaire (extérieur + intérieur des ouvertures/guichets)
     bg = (g > 135) & ((g - np.maximum(r, b)) > 36)
     fg = ~bg
 
-    # Conserve uniquement les composantes connexes significatives (supprime poussières isolées)
     lbl, n = nd.label(fg, structure=np.ones((3, 3)))
     if n > 0:
         counts = np.bincount(lbl.ravel())
@@ -211,7 +218,6 @@ def extract_clean_hd_from_green(raw_path: Path) -> tuple[Image.Image, dict]:
         keep = counts >= max(64, int(main_sz * 0.002))
         fg = keep[lbl]
 
-    # Érosion fine des pixels de bordure contaminés par l'anti-aliasing vert sur fond #00FF00
     for _ in range(3):
         border = fg & nd.binary_dilation(~fg, structure=np.ones((3, 3)))
         green_edge = border & ((g - np.maximum(r, b)) > 8)
@@ -219,7 +225,6 @@ def extract_clean_hd_from_green(raw_path: Path) -> tuple[Image.Image, dict]:
             break
         fg = fg & (~green_edge)
 
-    # Despill strict sur tout pixel restant où G excède légèrement max(R, B) (aucun vert voulu sur Forgelina)
     despill = fg & (g > np.maximum(r, b))
     if np.any(despill):
         arr[:, :, 1] = np.where(despill, np.maximum(r, b), g).astype(np.uint8)
@@ -232,14 +237,12 @@ def extract_clean_hd_from_green(raw_path: Path) -> tuple[Image.Image, dict]:
     x0, y0, x1, y1 = int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
     crop = out[y0:y1, x0:x1].copy()
 
-    # Vérification stricte de frange verte résiduelle = 0 px
     cr = crop[:, :, 0].astype(np.int32)
     cg = crop[:, :, 1].astype(np.int32)
     cb = crop[:, :, 2].astype(np.int32)
     ca = crop[:, :, 3]
     residual_fringe = int(np.sum((ca == 255) & ((cg - np.maximum(cr, cb)) > 18)))
 
-    # Mesure des trous intérieurs transparents (guichet de service)
     fg_crop = ca == 255
     interior_holes = nd.binary_fill_holes(fg_crop) & (~fg_crop)
     hole_px = int(interior_holes.sum())
@@ -256,10 +259,8 @@ def extract_clean_hd_from_green(raw_path: Path) -> tuple[Image.Image, dict]:
 
 
 def clean_1x_sprite(arr: np.ndarray) -> np.ndarray:
-    """Nettoie les pixels orphelins à 1x et garantit `alpha in {0, 255}` + `0 px` de frange."""
     out = arr.copy()
     fg = out[:, :, 3] >= 128
-    # Retire micro-îlots isolés < 3 pixels dus au rééchantillonnage
     lbl, n = nd.label(fg, structure=np.ones((3, 3)))
     if n > 0:
         counts = np.bincount(lbl.ravel())
@@ -275,7 +276,6 @@ def clean_1x_sprite(arr: np.ndarray) -> np.ndarray:
 
 
 def apply_night_grade(arr: np.ndarray) -> np.ndarray:
-    """Étalonnage nocturne PMDO standard `[0.42, 0.35, 0.40]` préservant `alpha` exact."""
     out = arr.copy()
     fg = out[:, :, 3] == 255
     rgb = out[:, :, :3].astype(float) * NIGHT_FACTORS[None, None, :]
@@ -285,7 +285,6 @@ def apply_night_grade(arr: np.ndarray) -> np.ndarray:
 
 
 def split_layers_1x(arr: np.ndarray, mode: str | None, split_frac: float | None, py0: int, nh: int):
-    """Découpe visible stricte et disjointe `arriere` (Under) + `avant` (Over) (`Under | Over == Complet`)."""
     th, tw, _ = arr.shape
     if mode is None:
         return None, None, None, None
@@ -343,21 +342,19 @@ def write_tile_bank_and_tsj(gfx, bank_name: str, img_arr: np.ndarray, tile_out: 
 
 
 def build_tileset_overview_sheet(built_1x: dict[str, np.ndarray], night: bool = False) -> Image.Image:
-    """Assemble la planche complète « Forgelina Hut Tileset » à la manière d'Arcanine Hut Tileset."""
-    # Agencement inspiré directement de la planche Arcanine Hut :
-    # Haut : [05 Auvent]  [03 Hutte Fermée]  [07 Tapis + 06 Comptoir + 08 Bannière]
-    # Bas  : [01 Kiosque Boutique]  [02 Kiosque Marteau]  [04 Hutte Entrée Enclume]
-    pad = 16
+    """Planche d'ensemble « Forgelina Hut Tileset » structurée exactement comme Arcanine Hut Tileset."""
+    pad = 14
     top_row = [
+        built_1x['forgelina_hutte_peluche_arcanine'],
         built_1x['forgelina_toit_tente_auvent'],
-        built_1x['forgelina_hutte_tente_fermee'],
         built_1x['forgelina_comptoir_courbe_seul'],
         built_1x['forgelina_tapis_tisse'],
         built_1x['forgelina_banniere_poteau'],
     ]
     bot_row = [
-        built_1x['forgelina_kiosque_tente_boutique'],
+        built_1x['forgelina_tente_boutique_arcanine'],
         built_1x['forgelina_kiosque_tente_marteau'],
+        built_1x['forgelina_hutte_tente_fermee'],
         built_1x['forgelina_hutte_tente_entree_enclume'],
     ]
     if night:
@@ -388,18 +385,12 @@ def build_tileset_overview_sheet(built_1x: dict[str, np.ndarray], night: bool = 
     return sheet
 
 
-def png_to_b64(img: Image.Image) -> str:
-    buf = io.BytesIO()
-    img.save(buf, format='PNG', optimize=True)
-    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode('ascii')
-
-
 def file_to_b64(p: Path) -> str:
     return 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode('ascii')
 
 
 def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, sheet_night_p: Path, arc_ref_p: Path):
-    """Génère la galerie HTML autonome 100 % `<img>` PNG RGBA (`alpha = 0` réel, ZÉRO `<canvas>`, ZÉRO damier)."""
+    """Galerie HTML légère (< 1.2 Mo) et 100 % `<img>` PNG RGBA (`alpha = 0` réel, ZÉRO `<canvas>`, ZÉRO damier)."""
     arc_b64 = file_to_b64(arc_ref_p)
     sheet_day_b64 = file_to_b64(sheet_day_p)
     sheet_night_b64 = file_to_b64(sheet_night_p)
@@ -407,18 +398,14 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
     cards_html = []
     for item in manifest['items']:
         stem = item['file_stem']
-        hd_p = LIV / 'HD_sans_fond' / f'{stem}_HD_sans_fond.png'
+        hd_rel = f'livrables_forgelina_pmdo/HD_sans_fond/{stem}_HD_sans_fond.png'
         d1_p = LIV / '1x_PMDO_8px_sans_fond' / f'{stem}_1x_complet.png'
         n1_p = LIV / '1x_PMDO_8px_sans_fond' / f'{stem}_1x_nuit_complet.png'
-        hd_b64 = file_to_b64(hd_p)
         d1_b64 = file_to_b64(d1_p)
         n1_b64 = file_to_b64(n1_p)
 
         has_split = item['normalization_1x']['split_mode'] is not None
-        arr_b64 = ''
-        avt_b64 = ''
         arr_dl = ''
-        avt_dl = ''
         if has_split:
             arr_p = LIV / '1x_PMDO_8px_sans_fond' / f'{stem}_1x_arriere.png'
             avt_p = LIV / '1x_PMDO_8px_sans_fond' / f'{stem}_1x_avant.png'
@@ -428,32 +415,30 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
                 f'<a class="dl-btn sub" href="{arr_b64}" download="{stem}_1x_arriere.png">⬇ 1× Arrière (Under)</a>'
                 f'<a class="dl-btn sub" href="{avt_b64}" download="{stem}_1x_avant.png">⬇ 1× Avant (Over)</a>'
             )
-
-        cw, ch = item['normalization_1x']['canvas_size']
-        hdw, hdh = item['hd_tight_size']
-        tiles_u = item['unique_tiles_jour']
-        hole_badge = (
-            '<span class="tag ok">Guichet alpha = 0 ouvert</span>'
-            if item['detourage']['transparent_interior_hole_px'] > 1000
-            else '<span class="tag">PNG RGBA alpha = 0</span>'
-        )
-        split_tabs = ''
-        if has_split:
             split_tabs = f'''
             <div class="layer-bar">
               <button type="button" class="mini-btn active" onclick="setView(this, '{d1_b64}')">1× Complet</button>
               <button type="button" class="mini-btn" onclick="setView(this, '{arr_b64}')">Arrière (Under)</button>
               <button type="button" class="mini-btn" onclick="setView(this, '{avt_b64}')">Avant (Over)</button>
               <button type="button" class="mini-btn" onclick="setView(this, '{n1_b64}')">1× Nuit</button>
-              <button type="button" class="mini-btn" onclick="setView(this, '{hd_b64}')">HD Détouré</button>
+              <button type="button" class="mini-btn" onclick="setView(this, '{hd_rel}')">HD Détouré</button>
             </div>'''
         else:
             split_tabs = f'''
             <div class="layer-bar">
               <button type="button" class="mini-btn active" onclick="setView(this, '{d1_b64}')">1× Jour</button>
               <button type="button" class="mini-btn" onclick="setView(this, '{n1_b64}')">1× Nuit</button>
-              <button type="button" class="mini-btn" onclick="setView(this, '{hd_b64}')">HD Détouré</button>
+              <button type="button" class="mini-btn" onclick="setView(this, '{hd_rel}')">HD Détouré</button>
             </div>'''
+
+        cw, ch = item['normalization_1x']['canvas_size']
+        hdw, hdh = item['hd_tight_size']
+        tiles_u = item['unique_tiles_jour']
+        hole_badge = (
+            '<span class="tag ok">Guichet alpha = 0 ouvert</span>'
+            if item['detourage']['transparent_interior_hole_px'] > 2000
+            else '<span class="tag">PNG RGBA alpha = 0</span>'
+        )
 
         cards_html.append(f'''
         <article class="card" data-day="{d1_b64}" data-night="{n1_b64}">
@@ -475,7 +460,7 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
           </div>
           <div class="dl-row">
             <a class="dl-btn primary" href="{d1_b64}" download="{stem}_1x_complet.png">⬇ PNG 1× PMDO ({cw}×{ch})</a>
-            <a class="dl-btn" href="{hd_b64}" download="{stem}_HD_sans_fond.png">⬇ PNG HD ({hdw}×{hdh})</a>
+            <a class="dl-btn" href="{hd_rel}" download="{stem}_HD_sans_fond.png">⬇ PNG HD ({hdw}×{hdh})</a>
             <a class="dl-btn sub" href="{n1_b64}" download="{stem}_1x_nuit_complet.png">⬇ 1× Nuit</a>
             {arr_dl}
           </div>
@@ -566,7 +551,7 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
     margin: 16px auto 24px;
     padding: 0 24px;
     display: grid;
-    grid-template-columns: 1fr 1.6fr;
+    grid-template-columns: 0.9fr 1.6fr;
     gap: 18px;
   }}
   @media (max-width: 960px) {{
@@ -722,9 +707,9 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
   <p class="lead">
     Conçu directement d’après la planche de référence <strong>Arcanine Hut</strong> présente dans le dépôt
     (<code>source/casino_bois_v1/references/arcanine_reference_thumbnail.png</code>) :
-    dômes de toile cousue rose framboise &amp; sakura à doubles couettes bouclées, cordages et piquets en bois,
-    <strong>guichets centraux 100 % ouverts en vraie transparence (<code>alpha = 0</code>, aucun fond noir)</strong>,
-    comptoirs nus prêts à accueillir un PNJ en jeu (<code>arriere</code> + <code>avant</code>), tapis tissé et bannière sur poteau.
+    tête peluchée de Forgelina à grandes couettes spiralées, rideaux drapés sur trépieds &amp; piquets en bois,
+    dômes cousus rose framboise &amp; acier riveté, <strong>guichets centraux 100 % ouverts en vraie transparence (<code>alpha = 0</code>, aucun fond noir)</strong>,
+    comptoir courbe en U, tapis tissé et bannière sur poteau.
   </p>
   <div class="toolbar">
     <button type="button" class="tool-btn active" id="btnDay" onclick="setGlobalTime('day')">☀ Mode Jour (PMDO)</button>
@@ -740,14 +725,14 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
 <section class="compare-wrap">
   <div class="box">
     <h2>Modèle de référence du dépôt — « Arcanine Hut »</h2>
-    <p>Référence <code>arcanine_reference_thumbnail.png</code> (253×200 RGBA — crédit motif de référence : GeoisEvil) : hutte fermée, auvent à piquets, kiosque à guichet ouvert, comptoir en U, tapis et bannières.</p>
+    <p>Référence <code>arcanine_reference_thumbnail.png</code> (253×200 RGBA — crédit motif de référence : GeoisEvil) : hutte tête Pokémon, rideaux sur trépieds bois, comptoir en U, tapis et bannières.</p>
     <div class="stage neutral-bg">
       <img class="pixel-preview" src="{arc_b64}" alt="Référence Arcanine Hut du dépôt" width="506" height="400">
     </div>
   </div>
   <div class="box">
-    <h2>Planche Assemblée — « Forgelina Hut Tileset » (Vrai Sans Fond alpha = 0)</h2>
-    <p>Les 8 éléments Forgelina réunis en vraie transparence PNG RGBA (<code>alpha ∈ {{0, 255}}</code>, <code>0 px</code> de frange, guichets 100 % vides <code>alpha = 0</code>).</p>
+    <h2>Planche Assemblée — « Forgelina Hut Tileset » (9 Éléments · Vrai Sans Fond alpha = 0)</h2>
+    <p>Les 9 éléments Forgelina réunis en vraie transparence PNG RGBA (<code>alpha ∈ {{0, 255}}</code>, <code>0 px</code> de frange, guichets 100 % vides <code>alpha = 0</code>).</p>
     <div class="stage neutral-bg">
       <img id="sheetPreview" class="pixel-preview" src="{sheet_day_b64}" data-day="{sheet_day_b64}" data-night="{sheet_night_b64}" alt="Planche complète Forgelina Hut Tileset sans fond">
     </div>
@@ -760,7 +745,7 @@ def generate_html_gallery(manifest: dict, html_out: Path, sheet_day_p: Path, she
 
 <footer>
   Statut honnête du pack : assets pixel-art générés et détourés sur transparence binaire stricte (<code>alpha ∈ {{0, 255}}</code>, <code>0 px</code> de frange verte),
-  banques binaires Halcyon <code>FGH1..FGH8</code> vérifiées par relecture exacte. <code>art_approved: false</code>, <code>runtime_tested: false</code> ;
+  banques binaires Halcyon <code>FGH1..FGH9</code> vérifiées par relecture exacte. <code>art_approved: false</code>, <code>runtime_tested: false</code> ;
   les découpes de calques <code>arriere</code> / <code>avant</code> sont des partitions disjointes de la surface visible (<code>Under | Over == Complet</code>) sans reconstruction de pixels occultés.
 </footer>
 
@@ -829,7 +814,6 @@ def main():
             arr, it['split_mode'], it['split_frac'], py0, nh
         )
 
-        # Export HD sans fond + aperçu neutre
         hd_out = OUT / 'hd' / f'{stem}_HD_sans_fond.png'
         crop_hd.save(hd_out, optimize=True)
         shutil.copy2(hd_out, LIV / 'HD_sans_fond' / hd_out.name)
@@ -838,7 +822,6 @@ def main():
         prev.alpha_composite(crop_hd, (24, 24))
         prev.convert('RGB').save(OUT / 'apercus' / f'{stem}_HD_fond_neutre.png', optimize=True)
 
-        # Export PNG 1x Jour / Nuit / Arrière / Avant
         saved_1x = {
             f'{stem}_1x_complet.png': arr,
             f'{stem}_1x_nuit_complet.png': arr_n,
@@ -854,7 +837,6 @@ def main():
             Image.fromarray(a1).save(p_a1, optimize=True)
             shutil.copy2(p_a1, LIV / '1x_PMDO_8px_sans_fond' / fn)
 
-        # Banques binaires PMDO .tile + .tsj (Jour + Nuit)
         pfx = it['bank_pfx']
         u_day = write_tile_bank_and_tsj(
             gfx,
@@ -907,7 +889,6 @@ def main():
             f"| hole={hd_stats['transparent_interior_hole_px']}px | fringe={hd_stats['residual_green_fringe_px']}px"
         )
 
-    # Planche d'ensemble style « Arcanine Hut Tileset » (Jour + Nuit, vrai sans fond alpha = 0)
     sheet_day = build_tileset_overview_sheet(built_1x, night=False)
     sheet_night = build_tileset_overview_sheet(built_1x, night=True)
     sheet_day_p = OUT / 'tilesheets' / 'Planche_Complete_Forgelina_Hut_Tileset_1x_Jour.png'
@@ -938,18 +919,16 @@ def main():
     manifest_p.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
     shutil.copy2(manifest_p, LIV / 'manifest.json')
 
-    # Archive ZIP complète prête au téléchargement direct
     zip_p = LIV / 'Forgelina_Tentes_Huttes_ArcanineStyle_PMDO.zip'
     with zipfile.ZipFile(zip_p, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
         for fp in sorted(LIV.rglob('*')):
             if fp.is_file() and fp != zip_p:
                 zf.write(fp, fp.relative_to(LIV).as_posix())
 
-    # Galerie HTML autonome sans <canvas> ni damier
     html_out = R / 'apercu_tentes_huttes_forgelina_pmdo.html'
     arc_ref_p = R / 'source/casino_bois_v1/references/arcanine_reference_thumbnail.png'
     generate_html_gallery(manifest, html_out, sheet_day_p, sheet_night_p, arc_ref_p)
-    print(f"OK Planche ensemble: {sheet_day.size} | ZIP={zip_p.stat().st_size // 1024} KiB | HTML={html_out.name}")
+    print(f"OK Planche ensemble: {sheet_day.size} | ZIP={zip_p.stat().st_size // 1024} KiB | HTML={html_out.stat().st_size // 1024} KiB")
 
 
 if __name__ == '__main__':
