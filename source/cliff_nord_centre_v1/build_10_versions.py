@@ -1,42 +1,37 @@
 #!/usr/bin/env python3
-"""Construit le pack complet des 10 versions de Falaise Nord Centrée Nue
-(`01` à `10` — Jour & Nuit = 20 cartes `.rsground` PMDO 0.8.12 + calques PNG 1x séparés + GIFs) :
-  - Bordures dentelées dorées-ocres & piliers rocheux rosés/dorés sculptés via la passe spriter
-    `generate_image` (`/tmp/work_cliff10/gen_01..gen_10.png`)
-  - Zéro halo magenta, découpe binaire nette `alpha in {0, 255}`
-  - Intérieur des plateaux 100 % nu unifié en vraie texture native `Metano_Town_Base` (Grass Métano)
-  - Ouverture Sud herbeuse praticable garantie sur 100 % des 10 cartes (`y = 880`)
-  - Grille de collisions `obstacles` calculée au pixel/tuile `8×8` près (plateau marchable `0`, mer `2`, parois `1`)
-  - Séparation multicalque exacte :
-      BG00 Ciel Jour/Nuit · BG01 Astres Nuit · BG02..BG04 Nuages 3 plans RepeatX
-      L00 Mer animée 8 phases · L01 Parois rocheuses Métano · L02 Plateau nu Grass Métano
-      L03..L05 Calques vides prêts à éditer dans PMDO 0.8.12 (Sols, Objets Base, Canopée Top)
-  - Colorimétrie Nuit apprise sur les paires officielles `Metano_Town_Base[_Night].tile` & `Metano_Town_Cliffs[_Night].tile`.
+"""Construit les 10 versions de Falaise Nord Centrée Nue (`01` à `10`, Jour & Nuit = 20 `.rsground`)
+avec **100 % DE TEXTURES CANONIQUES MÉTANO VÉRIFIÉES (`generated_terrain_rgb_pixels == 0`)** :
+  - Silhouettes organiques des 10 promontoires centrés issues de `spriter_bruts/gen_01..gen_10.png`
+  - Reconstruction 100 % native sur grille `8 px` exclusivement depuis les modules officiels Halcyon :
+      * `01_Herbe_Metano_Native`     : `Metano_Town_Base.tile` `(0, 640, 128, 768)` + brins `(16, 776, 32, 792)` / `(48, 792, 64, 808)`
+      * `02_Faces_Metano_Natives`    : `Metano_Town_Cliffs.tile` `(1064, 464, 1192, 528)` (assise grès doré Chunsoft torique `32×32` sans couture X/Y)
+      * `03_Retours_Metano_Natifs`   : `Metano_Town_Cliffs.tile` `(456, 240, 480, 304)` Ouest & `(1456, 352, 1480, 416)` Est
+      * `04_Couronnes_Metano_Natives`: `Metano_Town_Cliffs.tile` `(1064..1192, 448..464)` (tranches `8×16` verrouillées en phase)
+      * `05_Pieds_Metano_Natifs`     : `Metano_Town_Cliffs.tile` `(1064..1192, 520..544)` (tranches `8×24` verrouillées en phase)
+  - Filtre Nuit exact `Abyss V4` (`source/cote_v4_abyss/night.py`), prouvé bit-identique à 100 % sur
+    `Metano_Town_Base_Night.tile`, `Metano_Town_Cliffs_Night.tile` et `Metano_Town_Fringe_Night.tile`
+  - Enregistrement complet `placements.json` par zone + contrôle indépendant `verify_canonique.py`.
 """
 from __future__ import annotations
 
 import copy
+import hashlib
+import io
 import json
 import shutil
 import sys
 import uuid
 import zipfile
 from pathlib import Path
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 import numpy as np
 from PIL import Image
-from scipy.ndimage import (
-    binary_dilation,
-    binary_erosion,
-    binary_fill_holes,
-    distance_transform_edt,
-    label,
-)
-from scipy.spatial import cKDTree
+from scipy.ndimage import binary_fill_holes, distance_transform_edt, gaussian_filter1d, label
 
 ROOT = Path("/home/user/projet-creation-pmdo")
-NATIFS_V4 = ROOT / "source/cote_v4_abyss/natifs"
+ABYSS_DIR = ROOT / "source/cote_v4_abyss"
+NATIFS_V4 = ABYSS_DIR / "natifs"
 INSTALLER_SRC = ROOT / "source/pmdo_cote/INSTALLER.py"
 WORK_GEN = ROOT / "source/cliff_nord_centre_v1/spriter_bruts"
 
@@ -44,7 +39,13 @@ OUT_DIR = ROOT / "livrables_cliff_nord_centre_pmdo"
 WEB_DIR = OUT_DIR / "viewer_layers_1x"
 PNG_DIR = OUT_DIR / "png_1x"
 ANIM_DIR = OUT_DIR / "animations_1x"
-STAGE_DIR = Path("/tmp/stage_10_cliffs_pmdo")
+PROV_DIR = OUT_DIR / "provenance_canonique"
+STAGE_DIR = Path("/tmp/stage_10_cliffs_canon_pmdo")
+
+sys.path.insert(0, str(ABYSS_DIR))
+from sample import decode as decode_abyss
+from night import night as abyss_night
+import tile_night_reference as abyss_ref
 
 sys.path.insert(0, str(ROOT / "source/cliff_nord_centre_v1"))
 from build import (
@@ -56,121 +57,107 @@ from build import (
     CompactTileBank,
     build_ocean_8phases,
     build_sky_and_clouds,
-    decode_tile_straight,
     encode_layer_from_frames,
     load_template_ground,
     make_empty_layer,
     make_map_bg,
     make_obstacles_grid,
     render_scene_frame,
-    save_png,
     write_dir_sheet,
     write_tile_index_idx,
 )
+
+PLANE_FILES = [
+    "L01_herbe_native.png",
+    "L02_faces_natives.png",
+    "L03_retours_natifs.png",
+    "L04_couronnes_natives.png",
+    "L05_pieds_natifs.png",
+]
+PLANE_NAMES_PMDO = [
+    "01_Herbe_Metano_Native",
+    "02_Faces_Metano_Natives",
+    "03_Retours_Metano_Natifs",
+    "04_Couronnes_Metano_Natives",
+    "05_Pieds_Metano_Natifs",
+]
+
+MODULES: Dict[str, Tuple[str, Tuple[int, int, int, int]]] = {
+    "herbe":    ("Base",   (0,    640, 128,  768)),
+    "brin1":    ("Base",   (16,   776, 32,   792)),
+    "brin2":    ("Base",   (48,   792, 64,   808)),
+    "face":     ("Cliffs", (1064, 464, 1192, 528)),
+    "retour_w": ("Cliffs", (456,  240, 480,  304)),
+    "retour_e": ("Cliffs", (1456, 352, 1480, 416)),
+    **{f"cour_{k:02d}": ("Cliffs", (1064 + 8 * k, 448, 1064 + 8 * k + 8, 464)) for k in range(16)},
+    **{f"pied_{k:02d}": ("Cliffs", (1064 + 8 * k, 520, 1064 + 8 * k + 8, 544)) for k in range(16)},
+}
 
 ZONES: List[Tuple[str, str, str, Tuple[int, int] | None]] = [
     (
         "01_grand_cap_panoramique",
         "01 — Le Grand Cap Panoramique",
-        "Promontoire central arrondi style cliffdaytest centré, piliers rosés/ocres étagés et large entrée Sud",
+        "Promontoire central arrondi style cliffdaytest centré — 100 % tuiles canoniques Métano",
         None,
     ),
     (
         "02_eperon_nord_effile",
         "02 — L’Éperon Nord Effilé",
-        "Pointe côtière élancée vers l’horizon marin Nord, flancs abrupts sculptés et chaussée herbeuse Sud",
+        "Pointe côtière élancée vers l’horizon marin Nord — 100 % tuiles canoniques Métano",
         None,
     ),
     (
         "03_double_terrasse_centrale",
         "03 — La Double Terrasse Centrale",
-        "Esplanade basse et belvédère Nord surélevé reliés par une rampe naturelle en Grass Métano",
+        "Esplanade basse et belvédère Nord surélevé avec rampe centrale — 100 % tuiles canoniques Métano",
         (92, 684),
     ),
     (
         "04_grande_esplanade_royale",
         "04 — La Grande Esplanade Royale",
-        "Vaste plateau central festonné à bastions rocheux latéraux, idéal pour un village ou une guilde",
+        "Vaste plateau central festonné à bastions rocheux latéraux — 100 % tuiles canoniques Métano",
         (168, 726),
     ),
     (
         "05_cap_anse_jumelle",
         "05 — Le Cap aux Deux Ailes",
-        "Double avancée Nord-Ouest / Nord-Est encadrant une douce anse marine panoramique",
+        "Double avancée Nord-Ouest / Nord-Est encadrant une douce anse marine — 100 % tuiles canoniques Métano",
         None,
     ),
     (
         "06_presquile_isthme_etroit",
         "06 — La Presqu’île à Isthme Étroit",
-        "Large tête de cap arrondie reliée au continent Sud par un pont naturel d’herbe bordé de falaises",
+        "Large tête de cap arrondie reliée au Sud par un isthme étroit — 100 % tuiles canoniques Métano",
         None,
     ),
     (
         "07_cap_asymetrique_ouest",
         "07 — Le Cap Vent d’Ouest",
-        "Silhouette côtière asymétrique s’étirant vers le Nord-Ouest avec crique incurvée et contreforts",
+        "Silhouette côtière asymétrique s’étirant vers le Nord-Ouest — 100 % tuiles canoniques Métano",
         (132, 706),
     ),
     (
         "08_cap_asymetrique_est",
         "08 — Le Cap du Levant",
-        "Corniche organique orientée Nord-Est à flanc Ouest escarpé et large ouverture herbeuse Sud",
+        "Corniche organique orientée Nord-Est à flanc Ouest escarpé — 100 % tuiles canoniques Métano",
         None,
     ),
     (
         "09_trois_paliers_sacres",
         "09 — Les Trois Paliers Ascendants",
-        "Triple terrasse étagée Sud → Nord avec rampes centrales continues jusqu’au sommet marin",
+        "Triple terrasse étagée Sud → Nord avec rampes centrales continues — 100 % tuiles canoniques Métano",
         (78, 720),
     ),
     (
         "10_bastion_circulaire",
         "10 — Le Bastion Circulaire",
-        "Médaillon panoramique quasi circulaire ceinturé d’une couronne de piliers rocheux Métano",
+        "Médaillon panoramique quasi circulaire ceinturé de piliers rocheux — 100 % tuiles canoniques Métano",
         None,
     ),
 ]
 
 
-def build_night_color_lut() -> Tuple[cKDTree, np.ndarray]:
-    pairs_d, pairs_n = [], []
-    for stem in ("Metano_Town_Base", "Metano_Town_Cliffs"):
-        im_d = np.array(decode_tile_straight(NATIFS_V4 / f"{stem}.tile").convert("RGBA"))
-        im_n = np.array(decode_tile_straight(NATIFS_V4 / f"{stem}_Night.tile").convert("RGBA"))
-        m = (im_d[..., 3] == 255) & (im_n[..., 3] == 255)
-        pairs_d.append(im_d[m][:, :3])
-        pairs_n.append(im_n[m][:, :3])
-
-    all_d = np.concatenate(pairs_d, axis=0)
-    all_n = np.concatenate(pairs_n, axis=0)
-    packed = (all_d[:, 0].astype(np.int32) << 16) | (all_d[:, 1].astype(np.int32) << 8) | all_d[:, 2].astype(np.int32)
-    uniq_p, inv = np.unique(packed, return_inverse=True)
-    n_u = len(uniq_p)
-    src_rgb = np.stack([(uniq_p >> 16) & 255, (uniq_p >> 8) & 255, uniq_p & 255], axis=1).astype(np.float32)
-    dst_rgb = np.zeros((n_u, 3), dtype=np.float64)
-    counts = np.bincount(inv, minlength=n_u).astype(np.float64)[:, None]
-    np.add.at(dst_rgb, inv, all_n.astype(np.float64))
-    dst_u8 = np.clip(np.rint(dst_rgb / np.maximum(counts, 1.0)), 0, 255).astype(np.uint8)
-    return cKDTree(src_rgb), dst_u8
-
-
-def apply_native_night_lut(day_rgba: np.ndarray, tree: cKDTree, dst_u8: np.ndarray) -> np.ndarray:
-    out = np.zeros_like(day_rgba)
-    m = day_rgba[..., 3] > 0
-    if not np.any(m):
-        return out
-    px = day_rgba[m][:, :3].astype(np.float32)
-    _, idx = tree.query(px, k=1)
-    matched_day = tree.data[idx]
-    matched_night = dst_u8[idx].astype(np.float32)
-    delta = (px - matched_day) * np.array([0.42, 0.44, 0.56], dtype=np.float32)
-    out[m, :3] = np.clip(np.rint(matched_night + delta), 0, 255).astype(np.uint8)
-    out[m, 3] = day_rgba[m, 3]
-    return out
-
-
-def save_png_compact(im: Image.Image, path: Path) -> None:
-    """Sauvegarde PNG 100 % sans perte bit-à-bit : utilise PNG-8 indexé exact si <= 256 couleurs RGBA."""
+def save_png_lossless(im: Image.Image, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rgba = im.convert("RGBA")
     arr = np.asarray(rgba)
@@ -186,189 +173,222 @@ def save_png_compact(im: Image.Image, path: Path) -> None:
         rgba.save(path, format="PNG", optimize=True, compress_level=9)
 
 
-def build_shared_rock_palette() -> cKDTree:
-    """Extrait une palette commune de 28 couleurs de roche/rebord sur `gen_01` pour maximiser la cohérence et la déduplication `.tile`."""
-    ref = np.array(Image.open(WORK_GEN / "gen_01_grand_cap_panoramique.png").convert("RGB"))
-    r, g, b = ref[..., 0].astype(int), ref[..., 1].astype(int), ref[..., 2].astype(int)
-    rockish = ~(((b - g) > 80) & (r > 130)) & ~((g > r * 0.88) & ((g - b) > 45))
-    sample = ref[rockish].reshape(-1, 1, 3)
-    q = Image.fromarray(sample, "RGB").quantize(colors=28, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).convert("RGB")
-    cols = np.unique(np.asarray(q).reshape(-1, 3), axis=0).astype(np.float32)
-    return cKDTree(cols)
+def runs(row: np.ndarray, gap: int = 0) -> List[Tuple[int, int]]:
+    ids = np.flatnonzero(row)
+    if not len(ids):
+        return []
+    return [(int(g[0]), int(g[-1]) + 1) for g in np.split(ids, np.flatnonzero(np.diff(ids) > gap + 1) + 1)]
 
 
-SHARED_ROCK_TREE: cKDTree | None = None
-
-
-def make_native_grass_field(seed: int, base_d: np.ndarray) -> np.ndarray:
-    grass_patch = base_d[640:768, 0:128, :4].copy()
-    field = np.zeros((H, W, 4), dtype=np.uint8)
-    rolled = np.roll(np.roll(grass_patch, (seed * 16) % 128, axis=0), (seed * 24) % 128, axis=1)
-    for y in range(0, H, 128):
-        for x in range(0, W, 128):
-            ph, pw = min(128, H - y), min(128, W - x)
-            field[y : y + ph, x : x + pw] = rolled[:ph, :pw]
-
-    tuft1 = base_d[776:792, 16:32].copy()
-    tuft2 = base_d[792:808, 48:64].copy()
-    rng = np.random.default_rng(1000 + seed * 37)
-    for _ in range(34):
-        tx = int(rng.integers(64, W - 80))
-        ty = int(rng.integers(320, H - 24))
-        t = tuft1 if rng.random() < 0.5 else tuft2
-        m = t[..., 3] == 255
-        field[ty : ty + 16, tx : tx + 16][m] = t[m]
-    return field
-
-
-def process_spriter_zone(
+def build_canonical_zone(
     raw_path: Path,
     seed: int,
-    south_open_spec: Tuple[int, int] | None,
-    base_d: np.ndarray,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Retourne `(rock_day, grass_day, walkable_mask)`."""
-    gen_im = Image.open(raw_path).convert("RGBA").resize((W, H - 320), Image.Resampling.NEAREST)
-    sub = np.array(gen_im, dtype=np.uint8)
+    south_spec: Tuple[int, int] | None,
+    sheets: Dict[str, np.ndarray],
+) -> Tuple[List[np.ndarray], np.ndarray, np.ndarray, List[dict]]:
+    """Extrait les masques alpha `land` et `grass` de la silhouette spriter, puis reconstruit
+    100 % des pixels exclusivement par tampons alignés `8 px` sur `Metano_Town_{Base,Cliffs}.tile`
+    (`generated_terrain_rgb_pixels == 0`)."""
+    sub = np.array(Image.open(raw_path).convert("RGBA"), dtype=np.uint8)
+    assert sub.shape[:2] == (H - 320, W)
 
-    r = sub[..., 0].astype(np.int16)
-    g = sub[..., 1].astype(np.int16)
-    b = sub[..., 2].astype(np.int16)
-
-    is_magenta = ((b - g) > 80) & (r > 130) & (b > 115)
-    fg = ~is_magenta
-    lbl, n_lbl = label(fg)
-    if n_lbl > 1:
-        counts = np.bincount(lbl.ravel())
-        counts[0] = 0
-        fg = lbl == int(counts.argmax())
+    r, g, b = sub[..., 0].astype(np.int16), sub[..., 1].astype(np.int16), sub[..., 2].astype(np.int16)
+    fg = ~(((b - g) > 80) & (r > 130) & (b > 115))
+    lbl, n_l = label(fg)
+    if n_l > 1:
+        cnt = np.bincount(lbl.ravel())
+        cnt[0] = 0
+        fg = lbl == int(cnt.argmax())
     fg = binary_fill_holes(fg)
 
-    pure_fg = fg & ((b - g) <= 22)
-    if np.any(pure_fg) and np.any(fg & ~pure_fg):
-        _, nearest_idx = distance_transform_edt(~pure_fg, return_indices=True)
-        spill = fg & ~pure_fg
-        sub[spill, :3] = sub[nearest_idx[0][spill], nearest_idx[1][spill], :3]
+    full_rgb = np.zeros((H, W, 3), dtype=np.uint8)
+    full_rgb[320:H] = sub[..., :3]
+    land = np.zeros((H, W), dtype=bool)
+    land[320:H] = fg
 
-    sub[~fg] = 0
-    sub[fg, 3] = 255
+    for x in np.flatnonzero(land[H - 10 : H].any(axis=0)):
+        ys_c = np.flatnonzero(land[H - 12 : H, x])
+        if len(ys_c) > 0 and ys_c[-1] < 11:
+            ly = (H - 12) + int(ys_c[-1])
+            land[ly + 1 : H, x] = True
+            full_rgb[ly + 1 : H, x] = full_rgb[ly, x]
 
-    full = np.zeros((H, W, 4), dtype=np.uint8)
-    full[320:H, :, :] = sub
-    fg_full = full[..., 3] == 255
+    rf, gf, bf = full_rgb[..., 0].astype(np.float32), full_rgb[..., 1].astype(np.float32), full_rgb[..., 2].astype(np.float32)
+    raw_grass = land & (gf > rf * 0.84) & ((gf - bf) > 42.0) & (gf > 105.0)
 
-    # Contact franc avec le bord inférieur y = H-1
-    bottom_occ = np.flatnonzero(fg_full[H - 10 : H, :].any(axis=0))
-    for x in bottom_occ:
-        ys_col = np.flatnonzero(fg_full[H - 12 : H, x])
-        if len(ys_col) > 0 and ys_col[-1] < 11:
-            last_y = (H - 12) + int(ys_col[-1])
-            full[last_y + 1 : H, x] = full[last_y, x]
-    fg_full = full[..., 3] == 255
+    # 1) Élimine toute petite tache de mousse isolée (< 5000 px²) dans les flancs rocheux !
+    lbl_g, n_g = label(raw_grass)
+    clean_grass = np.zeros_like(raw_grass)
+    if n_g > 0:
+        ga = np.bincount(lbl_g.ravel())
+        keep_g = np.where(ga >= 5000)[0]
+        keep_g = keep_g[keep_g > 0]
+        clean_grass = np.isin(lbl_g, keep_g)
 
-    rf = full[..., 0].astype(np.float32)
-    gf = full[..., 1].astype(np.float32)
-    bf = full[..., 2].astype(np.float32)
-
-    raw_grass = fg_full & (gf > rf * 0.84) & ((gf - bf) > 42.0) & (gf > 105.0)
-    # Ne bouche QUE les petites touffes/taches internes (< 900 px²), JAMAIS les murs de paliers intérieurs (zones 03 & 09) !
-    inv_grass = ~raw_grass
-    lbl_h, n_h = label(inv_grass)
-    grass_closed = raw_grass.copy()
+    # 2) Bouche uniquement les micro-touffes internes (< 900 px²), jamais les parois rocheuses de paliers !
+    lbl_h, n_h = label(~clean_grass)
+    grass = clean_grass.copy()
     if n_h > 0:
-        h_areas = np.bincount(lbl_h.ravel())
-        small_holes = np.isin(lbl_h, np.where((h_areas > 0) & (h_areas < 900))[0])
-        grass_closed |= small_holes
-    grass_closed &= fg_full
+        ha = np.bincount(lbl_h.ravel())
+        grass |= np.isin(lbl_h, np.where((ha > 0) & (ha < 900))[0])
+    grass &= land
 
-    native_grass = make_native_grass_field(seed, base_d)
-    yy, xx = np.mgrid[:H, :W]
+    if south_spec is not None:
+        yy, xx = np.mgrid[:H, :W]
+        ho, yt_r = south_spec
+        xl = (W / 2.0 - ho) + 4.5 * np.sin(yy * 0.09 + seed) + 2.5 * np.cos(yy * 0.21)
+        xr = (W / 2.0 + ho) + 4.5 * np.sin(yy * 0.085 + seed + 1.7) + 2.5 * np.cos(yy * 0.19 + 0.8)
+        corr = (yy >= yt_r) & (xx >= xl) & (xx <= xr)
+        sd = np.minimum(xx - xl, xr - xx)
+        grass = grass | (corr & (sd >= 8.0))
+        land = land | corr
 
-    if south_open_spec is not None:
-        half_open, y_top_reach = south_open_spec
-        wob_l = 4.5 * np.sin(yy * 0.09 + seed) + 2.5 * np.cos(yy * 0.21)
-        wob_r = 4.5 * np.sin(yy * 0.085 + seed + 1.7) + 2.5 * np.cos(yy * 0.19 + 0.8)
-        xl_curve = (W / 2.0 - half_open) + wob_l
-        xr_curve = (W / 2.0 + half_open) + wob_r
+    # Liseré rocheux périphérique d'au moins 10 px sur tout le pourtour marin (Nord, Ouest, Est) !
+    padded_land = np.vstack([land, np.tile(land[-1:], (16, 1))])
+    dist_land_edge = distance_transform_edt(padded_land)[:H]
+    grass = grass & (dist_land_edge >= 10.0)
+    rock = land & (~grass)
 
-        corridor = (yy >= y_top_reach) & (xx >= xl_curve) & (xx <= xr_curve)
-        side_dist = np.minimum(xx - xl_curve, xr_curve - xx)
-        in_wall_zone = corridor & (~grass_closed)
+    # Chaînes horizontales de colonnes 8 px et lissage Gaussien des crêtes `top` (zéro créneau +-8 px !)
+    col_runs: List[List[Tuple[int, int]]] = []
+    for x in range(0, W, 8):
+        col_r = rock[:, x : x + 8].mean(axis=1) > 0.35
+        col_runs.append([(top, bottom) for top, bottom in runs(col_r, gap=6) if bottom - top >= 5])
 
-        OUTLINE_DARK = np.array([104, 72, 40, 255], dtype=np.uint8)
-        LIP_SHADOW   = np.array([148, 104, 54, 255], dtype=np.uint8)
-        LIP_OCHRE    = np.array([196, 150, 78, 255], dtype=np.uint8)
-        LIP_GOLD     = np.array([220, 184, 102, 255], dtype=np.uint8)
-        GRASS_SHADE  = np.array([176, 200, 58, 255], dtype=np.uint8)
+    visited = set()
+    smoothed_tops: Dict[Tuple[int, int], int] = {}
+    for ci in range(len(col_runs)):
+        for ri in range(len(col_runs[ci])):
+            if (ci, ri) in visited:
+                continue
+            chain = [(ci, ri)]
+            visited.add((ci, ri))
+            cur_c, cur_top = ci, col_runs[ci][ri][0]
+            while cur_c + 1 < len(col_runs):
+                best = None
+                for rj, (t2, _b2) in enumerate(col_runs[cur_c + 1]):
+                    if (cur_c + 1, rj) not in visited and abs(t2 - cur_top) <= 24:
+                        if best is None or abs(t2 - cur_top) < abs(best[1] - cur_top):
+                            best = (rj, t2)
+                if best is None:
+                    break
+                visited.add((cur_c + 1, best[0]))
+                chain.append((cur_c + 1, best[0]))
+                cur_c, cur_top = cur_c + 1, best[1]
+            raw_t = np.array([col_runs[c][r][0] for c, r in chain], dtype=np.float32)
+            sm_t = gaussian_filter1d(raw_t, sigma=2.2, mode="nearest") if len(raw_t) >= 4 else raw_t
+            for (c, r), val in zip(chain, sm_t):
+                smoothed_tops[(c, r)] = int(round((val - 6.0) / 8.0)) * 8
 
-        full[in_wall_zone] = native_grass[in_wall_zone]
-        sd = side_dist + 1.1 * np.sin(yy * 0.37 + xx * 0.23 + seed)
-        full[in_wall_zone & (sd < 9.0)] = GRASS_SHADE
-        full[in_wall_zone & (sd < 6.8)] = LIP_GOLD
-        full[in_wall_zone & (sd < 4.6)] = LIP_OCHRE
-        full[in_wall_zone & (sd < 2.5)] = LIP_SHADOW
-        full[in_wall_zone & (sd < 1.3)] = OUTLINE_DARK
+    grass_render = grass.copy()
+    rock_render = rock.copy()
+    for ci, x in enumerate(range(0, W, 8)):
+        for ri, (top, bottom) in enumerate(col_runs[ci]):
+            cy = smoothed_tops[(ci, ri)]
+            y_cut = max(0, min(H, cy + 8))
+            if top > y_cut:
+                rock_render[y_cut:top, x : x + 8] |= land[y_cut:top, x : x + 8]
+                grass_render[y_cut:top, x : x + 8] = False
+            elif y_cut > top:
+                grass_render[top : min(bottom, y_cut), x : x + 8] |= land[top : min(bottom, y_cut), x : x + 8]
+                rock_render[top : min(bottom, y_cut), x : x + 8] = False
 
-        grass_closed = grass_closed | (corridor & (sd >= 6.8))
-        fg_full = full[..., 3] == 255
+    # Aucun pixel vert en contact direct avec l'océan : couronne rocheuse continue sur tout le rivage !
+    grass_render &= dist_land_edge >= 8.0
+    rock_render = land & (~grass_render)
 
-    padded_grass = np.vstack([grass_closed, np.tile(grass_closed[-1:], (18, 1))])
-    dist_inside_grass = distance_transform_edt(padded_grass)[:H]
+    mask_map = {"grass": grass_render, "rock": rock_render, "land": land}
+    arrays = [np.zeros((H, W, 4), dtype=np.uint8) for _ in range(5)]
+    placements: List[dict] = []
 
-    blend_w = np.clip((dist_inside_grass - 3.0) / 8.0, 0.0, 1.0)[..., None]
-    blended_rgb = np.rint(
-        full[..., :3].astype(np.float32) * (1.0 - blend_w)
-        + native_grass[..., :3].astype(np.float32) * blend_w
-    ).astype(np.uint8)
+    def stamp(layer: int, module: str, x: int, y: int, mask_name: str) -> None:
+        assert x % 8 == 0 and y % 8 == 0
+        bank, (sx, sy, ex, ey) = MODULES[module]
+        mw, mh = ex - sx, ey - sy
+        l, t, r_, b_ = max(0, x), max(0, y), min(W, x + mw), min(H, y + mh)
+        if r_ <= l or b_ <= t:
+            return
+        src = sheets[bank][sy + t - y : sy + b_ - y, sx + l - x : sx + r_ - x]
+        sel = mask_map[mask_name][t:b_, l:r_] & (src[..., 3] == 255)
+        if module.startswith("cour_") or module.startswith("retour_"):
+            c = src.astype(np.int16)
+            sel &= ~((c[..., 1] > c[..., 0] - 8) & (c[..., 1] - c[..., 2] > 58))
+        if not sel.any():
+            return
+        arrays[layer][t:b_, l:r_][sel] = src[sel]
+        placements.append({"layer": layer, "module": module, "dest": [x, y], "mask": mask_name})
 
-    replace_mask = grass_closed & (dist_inside_grass > 3.0)
-    full[replace_mask, :3] = blended_rgb[replace_mask]
+    # Plan 0 : Herbe canonique `Metano_Town_Base` + brins natifs sur grille 8 px
+    for y in range(0, H, 128):
+        for x in range(0, W, 128):
+            stamp(0, "herbe", x, y, "grass")
+    rng = np.random.default_rng(700 + seed)
+    for _ in range(44):
+        tx = int(rng.integers(10, W // 8 - 12)) * 8
+        ty = int(rng.integers(42, H // 8 - 4)) * 8
+        stamp(0, "brin1" if rng.random() < 0.5 else "brin2", tx, ty, "grass")
 
-    grass_pal = np.array(
-        [[184, 208, 64], [200, 216, 80], [216, 224, 104], [176, 200, 58], [162, 188, 52]],
-        dtype=np.float32,
-    )
-    trans_zone = grass_closed & (dist_inside_grass > 3.0) & (dist_inside_grass < 11.5)
-    if np.any(trans_zone):
-        gtree = cKDTree(grass_pal)
-        _, gidx = gtree.query(full[trans_zone, :3].astype(np.float32), k=1)
-        full[trans_zone, :3] = grass_pal[gidx].astype(np.uint8)
+    # Plan 1 : Assises grès doré Chunsoft canoniques `Metano_Town_Cliffs` (128x64 torique 32x32 sans aucun raccord !)
+    for y in range(0, H, 64):
+        for x in range(0, W, 128):
+            stamp(1, "face", x, y, "rock")
 
-    global SHARED_ROCK_TREE
-    if SHARED_ROCK_TREE is None:
-        SHARED_ROCK_TREE = build_shared_rock_palette()
-    non_pure_grass = fg_full & (~(grass_closed & (dist_inside_grass >= 11.5)))
-    if np.any(non_pure_grass):
-        _, r_idx = SHARED_ROCK_TREE.query(full[non_pure_grass, :3].astype(np.float32), k=1)
-        full[non_pure_grass, :3] = SHARED_ROCK_TREE.data[r_idx].astype(np.uint8)
+    # Plan 2 : Biseaux rocheux extérieurs Ouest et Est `Metano_Town_Cliffs` uniquement en bord marin
+    for y in range(320, H, 64):
+        band = land[y : min(H, y + 64)]
+        for left, right in runs(band.mean(axis=0) > 0.35, gap=12):
+            if right - left < 48:
+                continue
+            stamp(2, "retour_w", (left // 8) * 8, y, "rock")
+            stamp(2, "retour_e", ((right - 16) // 8) * 8, y, "rock")
 
-    plateau_with_lip = binary_dilation(grass_closed, iterations=10) & fg_full
-    rock_mask = fg_full & (~plateau_with_lip)
-    rock_under_tuck = binary_dilation(rock_mask, iterations=4) & fg_full
+    # Plan 3 & Plan 4 : Couronnes dorées verrouillées en phase 8 px + ponts continus sur rampes diagonales + Pieds
+    for ci, x in enumerate(range(0, W, 8)):
+        k = ci % 16
+        for ri, (top, bottom) in enumerate(col_runs[ci]):
+            cy = smoothed_tops[(ci, ri)]
+            stamp(3, f"cour_{k:02d}", x, cy, "land")
+            for nci in (ci - 1, ci + 1):
+                if 0 <= nci < len(col_runs):
+                    near = [smoothed_tops[(nci, nri)] for nri in range(len(col_runs[nci])) if abs(smoothed_tops[(nci, nri)] - cy) <= 96]
+                    if near:
+                        ncy = min(near, key=lambda v: abs(v - cy))
+                        if ncy > cy + 8:
+                            for by in range(cy + 8, min(bottom, ncy + 8), 8):
+                                stamp(3, f"cour_{k:02d}", x, by, "land")
+                    else:
+                        nx = nci * 8
+                        g_ys = np.flatnonzero(grass_render[max(0, cy) : min(H, bottom), nx : nx + 8].any(axis=1))
+                        if len(g_ys) > 8:
+                            for by in range(cy + 8, min(bottom - 8, cy + int(g_ys[-1])), 8):
+                                stamp(3, f"cour_{k:02d}", x, by, "rock")
+            if bottom - top >= 26 and bottom < H:
+                py = ((bottom + 4) // 8) * 8 - 24
+                stamp(4, f"pied_{k:02d}", x, py, "rock")
 
-    grass_layer = np.zeros((H, W, 4), dtype=np.uint8)
-    grass_layer[plateau_with_lip] = full[plateau_with_lip]
-
-    rock_layer = np.zeros((H, W, 4), dtype=np.uint8)
-    rock_layer[rock_under_tuck] = full[rock_under_tuck]
-
-    recomp = Image.alpha_composite(Image.fromarray(rock_layer), Image.fromarray(grass_layer))
-    assert np.array_equal(np.array(recomp), full), "Recomposition L01 + L02 non identique !"
-    return rock_layer, grass_layer, grass_closed
+    return arrays, land, grass_render, placements
 
 
 def main() -> None:
-    print("1/5 Apprentissage de la correspondance exacte Jour -> Nuit Halcyon Métano...", flush=True)
-    base_d = np.array(decode_tile_straight(NATIFS_V4 / "Metano_Town_Base.tile").convert("RGBA"))
-    night_tree, night_dst = build_night_color_lut()
+    print("1/5 Décodage et audit SHA/Nuit exact des 3 planches canoniques Halcyon Métano...", flush=True)
+    sheets = {name: decode_abyss(NATIFS_V4 / f"Metano_Town_{name}.tile") for name in ("Base", "Cliffs", "Fringe")}
+    colors = np.unique(np.concatenate([v.reshape(-1, 4) for v in sheets.values()]), axis=0)
+    swatch = Image.fromarray(colors.reshape(1, -1, 4))
+    buf = io.BytesIO()
+    swatch.save(buf, format="PNG")
+    assert abyss_night(swatch).tobytes() == Image.open(io.BytesIO(abyss_ref.to_night(buf.getvalue()))).convert("RGBA").tobytes()
+    for name, day in sheets.items():
+        actual_n = decode_abyss(NATIFS_V4 / f"Metano_Town_{name}_Night.tile")
+        assert np.array_equal(np.array(abyss_night(Image.fromarray(day))), actual_n), name
+
+    canonical_rgb_set = set(map(tuple, colors[colors[:, 3] == 255][:, :3]))
     tpl_doc = load_template_ground()
 
     for d in (OUT_DIR, STAGE_DIR):
         if d.exists():
             shutil.rmtree(d)
-    WEB_DIR.mkdir(parents=True, exist_ok=True)
-    PNG_DIR.mkdir(parents=True, exist_ok=True)
-    ANIM_DIR.mkdir(parents=True, exist_ok=True)
+    for d in (WEB_DIR, PNG_DIR, ANIM_DIR, PROV_DIR):
+        d.mkdir(parents=True, exist_ok=True)
 
     mod_root = STAGE_DIR / "MOD_CLIFF_NORD_CENTRE_PMDO"
     bg_dir = mod_root / "Content/BG"
@@ -384,27 +404,26 @@ def main() -> None:
     write_dir_sheet(bg_dir / "CLIFF_CENTRE_JOUR_CIEL.dir", skies["jour"])
     write_dir_sheet(bg_dir / "CLIFF_CENTRE_NUIT_CIEL.dir", skies["nuit"])
     write_dir_sheet(bg_dir / "CLIFF_CENTRE_NUIT_ASTRES.dir", astres_nuit)
-    save_png(skies["jour"], WEB_DIR / "jour_BG00_ciel.png")
-    save_png(skies["nuit"], WEB_DIR / "nuit_BG00_ciel.png")
-    save_png(astres_nuit, WEB_DIR / "nuit_BG01_astres.png")
+    save_png_lossless(skies["jour"], WEB_DIR / "jour_BG00_ciel.png")
+    save_png_lossless(skies["nuit"], WEB_DIR / "nuit_BG00_ciel.png")
+    save_png_lossless(astres_nuit, WEB_DIR / "nuit_BG01_astres.png")
 
     for mode in ("jour", "nuit"):
         for tkey in ("horizon", "milieu", "haut"):
             dname = f"CLIFF_CENTRE_{mode.upper()}_NUAGES_{tkey.upper()}"
             write_dir_sheet(bg_dir / f"{dname}.dir", clouds[mode][tkey])
-            save_png(clouds[mode][tkey], WEB_DIR / f"{mode}_nuages_{tkey}_1440.png")
+            save_png_lossless(clouds[mode][tkey], WEB_DIR / f"{mode}_nuages_{tkey}_1440.png")
         for k in range(8):
-            save_png(ocean[mode][k], WEB_DIR / f"{mode}_L00_mer_{k:02d}.png")
+            save_png_lossless(ocean[mode][k], WEB_DIR / f"{mode}_L00_mer_{k:02d}.png")
 
     banks = {
-        "jour": CompactTileBank("CliffCentre10_Jour"),
-        "nuit": CompactTileBank("CliffCentre10_Nuit"),
+        "jour": CompactTileBank("CliffCentre10_Canon_Jour"),
+        "nuit": CompactTileBank("CliffCentre10_Canon_Nuit"),
     }
     shared_sea_layers = {
         mode: encode_layer_from_frames("00_Mer_Animee_8Phases", 0, ocean[mode], banks[mode], frame_length=10)
         for mode in ("jour", "nuit")
     }
-
     bg_layers_by_mode = {}
     for mode in ("jour", "nuit"):
         bgs = [make_map_bg(f"CLIFF_CENTRE_{mode.upper()}_CIEL", y_offset=0, move_x=0, repeat_x=False)]
@@ -414,47 +433,65 @@ def main() -> None:
             bgs.append(make_map_bg(f"CLIFF_CENTRE_{mode.upper()}_NUAGES_{tkey.upper()}", y_offset=yoff, move_x=spd, repeat_x=True))
         bg_layers_by_mode[mode] = bgs
 
-    print("3/5 Finalisation spriter + séparation multicalque des 10 falaises centrées nues (20 cartes .rsground)...", flush=True)
+    print("3/5 Reconstruction 100 % CANONIQUE MÉTANO (5 calques natifs x 10 zones x Jour/Nuit = 20 .rsground)...", flush=True)
     manifest_zones = []
 
     for idx, (slug, title_fr, subtitle_fr, south_spec) in enumerate(ZONES, start=1):
-        raw_p = WORK_GEN / f"gen_{slug}.png"
-        rock_d, grass_d, walk_mask = process_spriter_zone(raw_p, seed=idx, south_open_spec=south_spec, base_d=base_d)
-        rock_n = apply_native_night_lut(rock_d, night_tree, night_dst)
-        grass_n = apply_native_night_lut(grass_d, night_tree, night_dst)
+        arrays_d, land, grass, placements = build_canonical_zone(
+            WORK_GEN / f"gen_{slug}.png", seed=idx, south_spec=south_spec, sheets=sheets
+        )
+        # Vérification stricte : 0 pixel hors palette canonique Halcyon Métano !
+        for li, arr in enumerate(arrays_d):
+            op = arr[..., 3] > 0
+            if np.any(op):
+                used_cols = set(map(tuple, np.unique(arr[op][:, :3], axis=0)))
+                outside = used_cols - canonical_rgb_set
+                assert len(outside) == 0, f"Pixels non canoniques détectés dans {slug} plan {li}: {outside}"
 
-        rk_ims = {"jour": Image.fromarray(rock_d, "RGBA"), "nuit": Image.fromarray(rock_n, "RGBA")}
-        gr_ims = {"jour": Image.fromarray(grass_d, "RGBA"), "nuit": Image.fromarray(grass_n, "RGBA")}
-        obs_grid = make_obstacles_grid(walk_mask)
+        ims_by_mode = {
+            "jour": [Image.fromarray(a, "RGBA") for a in arrays_d],
+            "nuit": [abyss_night(Image.fromarray(a, "RGBA")) for a in arrays_d],
+        }
+
+        merged_d = Image.new("RGBA", (W, H))
+        for im in ims_by_mode["jour"]:
+            merged_d = Image.alpha_composite(merged_d, im)
+        assert np.array_equal(np.asarray(merged_d)[..., 3] > 0, land), f"Masque alpha incomplet sur {slug}"
+
+        # Sauvegarde des masques & placements pour reconstruction indépendante (`verify_canonique.py`)
+        save_png_lossless(Image.fromarray((land.astype(np.uint8) * 255)), PROV_DIR / f"{slug}_mask_land.png")
+        save_png_lossless(Image.fromarray((grass.astype(np.uint8) * 255)), PROV_DIR / f"{slug}_mask_grass.png")
+        (PROV_DIR / f"{slug}_placements.json").write_text(json.dumps(placements, separators=(",", ":")), encoding="utf-8")
+
+        obs_grid = make_obstacles_grid(grass)
 
         for mode in ("jour", "nuit"):
-            save_png_compact(rk_ims[mode], WEB_DIR / f"{slug}_{mode}_L01_roche.png")
-            save_png_compact(gr_ims[mode], WEB_DIR / f"{slug}_{mode}_L02_plateau_grass_metano.png")
+            plane_ims = ims_by_mode[mode]
+            for pf, im in zip(PLANE_FILES, plane_ims):
+                save_png_lossless(im, WEB_DIR / f"{slug}_{mode}_{pf}")
 
             ast = astres_nuit if mode == "nuit" else None
-            comp = render_scene_frame(
-                skies[mode], ast, clouds[mode], ocean[mode],
-                [rk_ims[mode], gr_ims[mode]], None, None, frame_idx=0, total_frames=16,
-            )
-            save_png_compact(comp, PNG_DIR / f"cliff_centre_{slug}_{mode}.png")
+            comp = render_scene_frame(skies[mode], ast, clouds[mode], ocean[mode], plane_ims, None, None, frame_idx=0, total_frames=16)
+            save_png_lossless(comp, PNG_DIR / f"cliff_centre_{slug}_{mode}.png")
 
             asset_name = f"cliff_centre_{slug}_{mode}"
-            layers_list = [
-                copy.deepcopy(shared_sea_layers[mode]),
-                encode_layer_from_frames("01_Falaise_Parois_Metano", 0, [rk_ims[mode]], banks[mode]),
-                encode_layer_from_frames("02_Plateau_Nu_Grass_Metano", 0, [gr_ims[mode]], banks[mode]),
-                make_empty_layer("03_Vos_Chemins_Sols", 0),
-                make_empty_layer("04_Vos_Structures_Base", 0),
-                make_empty_layer("05_Votre_Canopee_Avant_Plan", 4),
-            ]
+            layers_list = [copy.deepcopy(shared_sea_layers[mode])]
+            for pname, im in zip(PLANE_NAMES_PMDO, plane_ims):
+                layers_list.append(encode_layer_from_frames(pname, 0, [im], banks[mode]))
+            layers_list.extend([
+                make_empty_layer("06_Vos_Chemins_et_Sols", 0),
+                make_empty_layer("07_Vos_Structures_Base", 0),
+                make_empty_layer("08_Votre_Canopee_Avant_Plan", 4),
+            ])
+
             doc = copy.deepcopy(tpl_doc)
             doc["Version"] = "0.8.12.0"
             obj = doc["Object"]
             obj["AssetName"] = asset_name
             obj["Name"]["DefaultText"] = f"{title_fr} ({mode.capitalize()})"
             obj["Comment"] = (
-                f"PMDO 0.8.12 — {title_fr} ({mode}) : plateau nu Grass Métano, bordures et raccords "
-                f"corrigés au spriter + mer 8 phases + ciel & 3 nuages animés."
+                f"PMDO 0.8.12 — {title_fr} ({mode}) : 100 % modules canoniques Halcyon Metano_Town_Base/Cliffs "
+                f"(generated_rgb_pixels=0) + filtre Nuit Abyss exact + Mer 8 phases + 3 nuages RepeatX."
             )
             obj["Background"] = {
                 "$type": "RogueEssence.Dungeon.LayeredBG, RogueEssence",
@@ -478,7 +515,7 @@ def main() -> None:
             ):
                 ns_dir.mkdir(parents=True, exist_ok=True)
                 (ns_dir / "init.lua").write_text(
-                    f"-- {asset_name} : animations ciel/mer 100 % natives PMDO 0.8.12\n"
+                    f"-- {asset_name} : 100 % modules canoniques Métano + animations natives PMDO 0.8.12\n"
                     f"local {asset_name} = {{}}\nfunction {asset_name}.Init(map)\n  COMMON.RespawnAllies()\nend\n"
                     f"return {asset_name}\n",
                     encoding="utf-8",
@@ -491,22 +528,19 @@ def main() -> None:
             "subtitle": subtitle_fr,
             "size_px": [W, H],
             "grid_tiles": [GW, GH],
+            "generated_terrain_rgb_pixels": 0,
+            "native_module_placements": len(placements),
+            "terrain_sha256": hashlib.sha256(merged_d.tobytes()).hexdigest(),
             "rsground_jour": f"Data/Ground/cliff_centre_{slug}_jour.rsground",
             "rsground_nuit": f"Data/Ground/cliff_centre_{slug}_nuit.rsground",
             "png_jour": f"png_1x/cliff_centre_{slug}_jour.png",
             "png_nuit": f"png_1x/cliff_centre_{slug}_nuit.png",
-            "layers_jour": [
-                f"viewer_layers_1x/{slug}_jour_L01_roche.png",
-                f"viewer_layers_1x/{slug}_jour_L02_plateau_grass_metano.png",
-            ],
-            "layers_nuit": [
-                f"viewer_layers_1x/{slug}_nuit_L01_roche.png",
-                f"viewer_layers_1x/{slug}_nuit_L02_plateau_grass_metano.png",
-            ],
+            "layers_jour": [f"viewer_layers_1x/{slug}_jour_{pf}" for pf in PLANE_FILES],
+            "layers_nuit": [f"viewer_layers_1x/{slug}_nuit_{pf}" for pf in PLANE_FILES],
         })
-        print(f"  [{idx:02d}/10] OK {slug}", flush=True)
+        print(f"  [{idx:02d}/10] PASS CANONIQUE {slug} ({len(placements)} modules natifs, 0 px généré)", flush=True)
 
-    print("4/5 Écriture des banques `.tile` dédupliquées, `index.idx`, `Mod.xml` & `INSTALLER.py`...", flush=True)
+    print("4/5 Écriture des banques `.tile` canoniques ultra-compactes, `index.idx`, `Mod.xml` & `INSTALLER.py`...", flush=True)
     tile_stats, tile_paths = [], []
     for mode in ("jour", "nuit"):
         tp = tile_dir / f"{banks[mode].sheet_name}.tile"
@@ -514,16 +548,16 @@ def main() -> None:
         tile_paths.append(tp)
     write_tile_index_idx(tile_dir / "index.idx", tile_paths)
 
-    ident = uuid.uuid5(uuid.NAMESPACE_URL, "https://github.com/meromoonmeri/projet-creation-pmdo/cliff_nord_centre_10_nues")
+    ident = uuid.uuid5(uuid.NAMESPACE_URL, "https://github.com/meromoonmeri/projet-creation-pmdo/cliff_nord_centre_10_canoniques")
     (mod_root / "Mod.xml").write_text(
         f"""<?xml version="1.0" encoding="utf-8"?>
 <Header>
-  <Name>10 Falaises Nord Centrees Nues - Grass Metano Jour et Nuit (0.8.12)</Name>
+  <Name>10 Falaises Nord Centrees Nues - Textures Canoniques Metano (0.8.12)</Name>
   <Author>meromoonmeri</Author>
-  <Description>10 versions de falaises cotieres centrees a plateau nu Grass Metano (20 cartes .rsground Jour et Nuit), multicalques, mer animee 8 phases et ciel/nuages en parallaxe.</Description>
+  <Description>10 falaises cotieres centrees a plateau nu 100% textures canoniques Metano_Town_Base et Metano_Town_Cliffs (generated_rgb_pixels=0, 5 plans natifs, Jour et Nuit Abyss exact, mer 8 phases, 3 nuages en parallaxe).</Description>
   <Namespace>cliff_nord_centre_pmdo</Namespace>
   <UUID>{ident}</UUID>
-  <Version>2.0.0.0</Version>
+  <Version>3.0.0.0</Version>
   <GameVersion>0.8.12.0</GameVersion>
   <ModType>Quest</ModType>
   <Relationships />
@@ -544,11 +578,10 @@ def main() -> None:
     # GIFs animés 1x (version 01 Jour & Nuit)
     for mode in ("jour", "nuit"):
         ast = astres_nuit if mode == "nuit" else None
-        rk0 = Image.open(WEB_DIR / f"01_grand_cap_panoramique_{mode}_L01_roche.png").convert("RGBA")
-        gr0 = Image.open(WEB_DIR / f"01_grand_cap_panoramique_{mode}_L02_plateau_grass_metano.png").convert("RGBA")
+        p_ims = [Image.open(WEB_DIR / f"01_grand_cap_panoramique_{mode}_{pf}").convert("RGBA") for pf in PLANE_FILES]
         gframes = []
         for fi in range(8):
-            fr = render_scene_frame(skies[mode], ast, clouds[mode], ocean[mode], [rk0, gr0], None, None, fi, total_frames=8)
+            fr = render_scene_frame(skies[mode], ast, clouds[mode], ocean[mode], p_ims, None, None, fi, total_frames=8)
             gframes.append(fr.convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT))
         gframes[0].save(
             ANIM_DIR / f"cliff_nord_centre_{mode}_anime.gif",
@@ -560,21 +593,25 @@ def main() -> None:
         )
 
     manifest = {
-        "title": "Pack 10 Falaises Nord Centrées Nues — Grass Métano Multicalque Jour & Nuit (PMDO 0.8.12)",
+        "title": "Pack 10 Falaises Nord Centrées Nues — 100 % Textures Canoniques Métano Jour & Nuit (PMDO 0.8.12)",
         "pmdo_version": "0.8.12.0",
         "zones_count": 10,
         "maps_rsground_count": 20,
         "dimensions_px": [W, H],
         "grid_tiles_8px": [GW, GH],
-        "bare_plateau": True,
+        "generated_terrain_rgb_pixels": 0,
+        "canonical_metano_modules": MODULES,
+        "night_filter": "Exact Abyss V4 tools/tile_night.py (blob 438383f4), bit-identical to Metano_Town_{Base,Cliffs,Fringe}_Night.tile",
+        "entire_base_cliffs_fringe_night_sheets_equal": True,
         "sea_phases": 8,
         "cloud_planes": 3,
-        "terrain_pipeline": "10 passes spriter generate_image sur base native Metano + intérieur unifié Metano_Town_Base + découpe multicalque L01 roche / L02 plateau Grass Métano + table nocturne Halcyon exacte",
+        "terrain_planes": PLANE_FILES,
         "art_approved": False,
         "runtime_tested": False,
         "credits": [
+            "Palikadude & contributeurs (PMDO Halcyon — Metano_Town_Base.tile, Metano_Town_Cliffs.tile)",
+            "Abyss to Ascension (filtre nocturne exact Metano_Town_*_Night.tile)",
             "Spike Chunsoft (Pokémon Mystery Dungeon: Explorers of Time / Darkness / Sky)",
-            "Palikadude & contributeurs (PMDO Halcyon — Metano Town)",
         ],
         "tile_banks": tile_stats,
         "zones": manifest_zones,
@@ -582,32 +619,22 @@ def main() -> None:
     (OUT_DIR / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     (OUT_DIR / "README.md").write_text(
-        """# Pack 10 Falaises Nord Centrées Nues — Grass Métano · Multicalque · Mer 8 Phases · Jour & Nuit (PMDO 0.8.12)
+        """# Pack 10 Falaises Nord Centrées Nues — 100 % Textures Canoniques Métano · Multicalque · Mer 8 Phases · Jour & Nuit (PMDO 0.8.12)
 
-## Les 10 Versions Incluses (`20` cartes `.rsground` = `10 Jour` + `10 Nuit`, `1200 × 880 px` = `150 × 110` tuiles)
-1. **01 — Le Grand Cap Panoramique** (`cliff_centre_01_grand_cap_panoramique_jour` / `_nuit`)
-2. **02 — L’Éperon Nord Effilé** (`cliff_centre_02_eperon_nord_effile_jour` / `_nuit`)
-3. **03 — La Double Terrasse Centrale** (`cliff_centre_03_double_terrasse_centrale_jour` / `_nuit`)
-4. **04 — La Grande Esplanade Royale** (`cliff_centre_04_grande_esplanade_royale_jour` / `_nuit`)
-5. **05 — Le Cap aux Deux Ailes** (`cliff_centre_05_cap_anse_jumelle_jour` / `_nuit`)
-6. **06 — La Presqu’île à Isthme Étroit** (`cliff_centre_06_presquile_isthme_etroit_jour` / `_nuit`)
-7. **07 — Le Cap Vent d’Ouest** (`cliff_centre_07_cap_asymetrique_ouest_jour` / `_nuit`)
-8. **08 — Le Cap du Levant** (`cliff_centre_08_cap_asymetrique_est_jour` / `_nuit`)
-9. **09 — Les Trois Paliers Ascendants** (`cliff_centre_09_trois_paliers_sacres_jour` / `_nuit`)
-10. **10 — Le Bastion Circulaire** (`cliff_centre_10_bastion_circulaire_jour` / `_nuit`)
-
-## Architecture Multicalque
-- `BG 00` : Ciel velouté sans bande (`Jour` / `Nuit`)
-- `BG 01` : Lune croissante & étoiles (`Nuit`)
-- `BG 02..04` : 3 plans de nuages animés en parallaxe continue (`RepeatX = true`)
-- `L00` : Mer Chunsoft animée en 8 phases (`FrameLength = 10`)
-- `L01` : Parois & piliers rocheux de falaise Métano (calque roche transparent séparé)
-- `L02` : Plateau nu `Grass Métano` + liseré de falaise dentelé ocre-doré (calque herbe transparent séparé)
-- `L03..05` : 3 calques vides prêts à éditer dans PMDO (`03_Vos_Chemins_Sols`, `04_Vos_Structures_Base`, `05_Votre_Canopee_Avant_Plan` `Draw.Top`)
+## Garantie Matière 100 % Canonique (`generated_terrain_rgb_pixels == 0`)
+- **0 pixel RGB généré** dans les 10 terrains : chaque calque de chaque carte est reconstruit **exclusivement par tampons alignés sur la grille `8 px`** depuis les planches natives officielles **Halcyon** (`Metano_Town_Base.tile` et `Metano_Town_Cliffs.tile`), découpés selon les 10 silhouettes organiques centrées.
+- **5 calques de terrain canoniques séparés par carte** :
+  1. `01_Herbe_Metano_Native` (`Metano_Town_Base` `(0,640,128,768)` + brins `(16,776,32,792)` / `(48,792,64,808)`)
+  2. `02_Faces_Metano_Natives` (`Metano_Town_Cliffs` `(1064,464,1192,528)` — grès doré Chunsoft torique `32×32` sans raccord X/Y)
+  3. `03_Retours_Metano_Natifs` (`Metano_Town_Cliffs` `(456,240,480,304)` Ouest & `(1456,352,1480,416)` Est)
+  4. `04_Couronnes_Metano_Natives` (`Metano_Town_Cliffs` `(1064..1192,448..464)` — tranches `8×16` verrouillées en phase)
+  5. `05_Pieds_Metano_Natifs` (`Metano_Town_Cliffs` `(1064..1192,520..544)` — tranches `8×24` verrouillées en phase)
+- **Nuit exacte `Abyss V4`** (`source/cote_v4_abyss/night.py`), vérifiée bit-à-bit identique à 100 % sur `Metano_Town_Base_Night.tile`, `Metano_Town_Cliffs_Night.tile` et `Metano_Town_Fringe_Night.tile`.
+- **Audit indépendant** : exécuter `python3 source/cliff_nord_centre_v1/verify_canonique.py` pour reconstruire les 100 calques depuis `provenance_canonique/*_placements.json` et vérifier l’égalité au bit près.
 
 ## Crédits & Statut
-- Références graphiques : **Spike Chunsoft** (*Pokémon Mystery Dungeon: Explorers*) & **Palikadude** (*PMDO Halcyon — Metano Town*).
-- Statut : bordures et raccords sculptés au générateur spriter + intérieur `Metano_Town_Base`, `art_approved: false`, `runtime_tested: false`.
+- **Palikadude** & contributeurs (*PMDO Halcyon*), **Abyss to Ascension**, **Spike Chunsoft**.
+- Statut : `art_approved: false`, `runtime_tested: false`.
 """,
         encoding="utf-8",
     )
@@ -620,9 +647,11 @@ def main() -> None:
                 zf.write(p, p.relative_to(STAGE_DIR).as_posix())
         zf.write(OUT_DIR / "README.md", "README.md")
         zf.write(OUT_DIR / "manifest.json", "manifest.json")
+        for p in sorted(PROV_DIR.glob("*")):
+            zf.write(p, f"provenance_canonique/{p.name}")
 
     print(
-        f"SUCCÈS : {zip_path} ({zip_path.stat().st_size / 1048576:.2f} MiB) | stats={tile_stats}",
+        f"SUCCÈS CANONIQUE : {zip_path} ({zip_path.stat().st_size / 1048576:.2f} MiB) | stats={tile_stats}",
         flush=True,
     )
 

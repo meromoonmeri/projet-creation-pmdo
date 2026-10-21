@@ -1,26 +1,16 @@
-# Pack 10 Falaises Nord Centrées Nues — Grass Métano · Multicalque · Mer 8 Phases · Jour & Nuit (PMDO 0.8.12)
+# Pack 10 Falaises Nord Centrées Nues — 100 % Textures Canoniques Métano · Multicalque · Mer 8 Phases · Jour & Nuit (PMDO 0.8.12)
 
-## Les 10 Versions Incluses (`20` cartes `.rsground` = `10 Jour` + `10 Nuit`, `1200 × 880 px` = `150 × 110` tuiles)
-1. **01 — Le Grand Cap Panoramique** (`cliff_centre_01_grand_cap_panoramique_jour` / `_nuit`)
-2. **02 — L’Éperon Nord Effilé** (`cliff_centre_02_eperon_nord_effile_jour` / `_nuit`)
-3. **03 — La Double Terrasse Centrale** (`cliff_centre_03_double_terrasse_centrale_jour` / `_nuit`)
-4. **04 — La Grande Esplanade Royale** (`cliff_centre_04_grande_esplanade_royale_jour` / `_nuit`)
-5. **05 — Le Cap aux Deux Ailes** (`cliff_centre_05_cap_anse_jumelle_jour` / `_nuit`)
-6. **06 — La Presqu’île à Isthme Étroit** (`cliff_centre_06_presquile_isthme_etroit_jour` / `_nuit`)
-7. **07 — Le Cap Vent d’Ouest** (`cliff_centre_07_cap_asymetrique_ouest_jour` / `_nuit`)
-8. **08 — Le Cap du Levant** (`cliff_centre_08_cap_asymetrique_est_jour` / `_nuit`)
-9. **09 — Les Trois Paliers Ascendants** (`cliff_centre_09_trois_paliers_sacres_jour` / `_nuit`)
-10. **10 — Le Bastion Circulaire** (`cliff_centre_10_bastion_circulaire_jour` / `_nuit`)
-
-## Architecture Multicalque
-- `BG 00` : Ciel velouté sans bande (`Jour` / `Nuit`)
-- `BG 01` : Lune croissante & étoiles (`Nuit`)
-- `BG 02..04` : 3 plans de nuages animés en parallaxe continue (`RepeatX = true`)
-- `L00` : Mer Chunsoft animée en 8 phases (`FrameLength = 10`)
-- `L01` : Parois & piliers rocheux de falaise Métano (calque roche transparent séparé)
-- `L02` : Plateau nu `Grass Métano` + liseré de falaise dentelé ocre-doré (calque herbe transparent séparé)
-- `L03..05` : 3 calques vides prêts à éditer dans PMDO (`03_Vos_Chemins_Sols`, `04_Vos_Structures_Base`, `05_Votre_Canopee_Avant_Plan` `Draw.Top`)
+## Garantie Matière 100 % Canonique (`generated_terrain_rgb_pixels == 0`)
+- **0 pixel RGB généré** dans les 10 terrains : chaque calque de chaque carte est reconstruit **exclusivement par tampons alignés sur la grille `8 px`** depuis les planches natives officielles **Halcyon** (`Metano_Town_Base.tile` et `Metano_Town_Cliffs.tile`), découpés selon les 10 silhouettes organiques centrées.
+- **5 calques de terrain canoniques séparés par carte** :
+  1. `01_Herbe_Metano_Native` (`Metano_Town_Base` `(0,640,128,768)` + brins `(16,776,32,792)` / `(48,792,64,808)`)
+  2. `02_Faces_Metano_Natives` (`Metano_Town_Cliffs` `(1064,464,1192,528)` — grès doré Chunsoft torique `32×32` sans raccord X/Y)
+  3. `03_Retours_Metano_Natifs` (`Metano_Town_Cliffs` `(456,240,480,304)` Ouest & `(1456,352,1480,416)` Est)
+  4. `04_Couronnes_Metano_Natives` (`Metano_Town_Cliffs` `(1064..1192,448..464)` — tranches `8×16` verrouillées en phase)
+  5. `05_Pieds_Metano_Natifs` (`Metano_Town_Cliffs` `(1064..1192,520..544)` — tranches `8×24` verrouillées en phase)
+- **Nuit exacte `Abyss V4`** (`source/cote_v4_abyss/night.py`), vérifiée bit-à-bit identique à 100 % sur `Metano_Town_Base_Night.tile`, `Metano_Town_Cliffs_Night.tile` et `Metano_Town_Fringe_Night.tile`.
+- **Audit indépendant** : exécuter `python3 source/cliff_nord_centre_v1/verify_canonique.py` pour reconstruire les 100 calques depuis `provenance_canonique/*_placements.json` et vérifier l’égalité au bit près.
 
 ## Crédits & Statut
-- Références graphiques : **Spike Chunsoft** (*Pokémon Mystery Dungeon: Explorers*) & **Palikadude** (*PMDO Halcyon — Metano Town*).
-- Statut : bordures et raccords sculptés au générateur spriter + intérieur `Metano_Town_Base`, `art_approved: false`, `runtime_tested: false`.
+- **Palikadude** & contributeurs (*PMDO Halcyon*), **Abyss to Ascension**, **Spike Chunsoft**.
+- Statut : `art_approved: false`, `runtime_tested: false`.
