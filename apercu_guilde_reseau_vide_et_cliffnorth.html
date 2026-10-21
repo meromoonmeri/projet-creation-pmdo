@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guilde Métano (Réseau 13 Salles Vides sans Spinda) & Zone Cliff North — Pack PMDO 0.8.12</title>
+  <style>
+    :root {
+      --bg: #0f131c;
+      --slate: #161b26;
+      --card: #1b2232;
+      --border: #2c3852;
+      --gold: #f6c453;
+      --mint: #34d399;
+      --sky: #38bdf8;
+      --text: #e8eef7;
+      --muted: #9aa8c2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(180deg, #1b2436 0%, #121724 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px 24px;
+    }
+    .wrap { max-width: 1560px; margin: 0 auto; padding: 0 20px; }
+    h1 { margin: 0 0 8px; font-size: 28px; color: #fff; letter-spacing: -0.01em; }
+    h2 { margin: 36px 0 12px; font-size: 22px; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    h3 { margin: 0 0 6px; font-size: 16px; color: #fff; }
+    p { margin: 6px 0; color: var(--muted); }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+    .badge {
+      display: inline-block; padding: 4px 10px; border-radius: 999px;
+      font-size: 12.5px; font-weight: 600; background: #232d42; color: #dbe7ff; border: 1px solid #354566;
+    }
+    .badge.ok { background: #14332a; color: #6ee7b7; border-color: #215747; }
+    .badge.sky { background: #132c42; color: #7dd3fc; border-color: #224d73; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; align-items: center; }
+    .btn {
+      display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none;
+      font-weight: 700; font-size: 14px; cursor: pointer; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--gold); color: #16181f; }
+    .btn-secondary { background: #243047; color: var(--text); border-color: #3a4c70; }
+    .hero-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; margin-top: 18px;
+    }
+    .stage {
+      background: #161b26;
+      border: 1px solid #28334a;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+    }
+    .stage img {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .controls-bar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0;
+    }
+    .controls-bar button {
+      background: #222c40; color: var(--text); border: 1px solid #364666;
+      padding: 6px 13px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 13px;
+    }
+    .controls-bar button.active { background: var(--gold); color: #141820; border-color: var(--gold); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+      gap: 18px;
+      margin-bottom: 42px;
+    }
+    .room-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .room-card .stage { min-height: 270px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; color: var(--muted); }
+    .meta span { background: #141925; padding: 2px 8px; border-radius: 5px; border: 1px solid #263147; }
+    .conns { font-size: 12.5px; color: #c7d4eb; }
+    .dl-link { font-size: 12.5px; color: var(--gold); text-decoration: none; font-weight: 600; }
+    .dl-link:hover { text-decoration: underline; }
+    footer {
+      border-top: 1px solid var(--border); padding: 22px 0 40px; color: var(--muted); font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1> Zone <code>Cliff North</code> (Métano) & Réseau Complet des 13 Salles Vides de la Guilde</h1>
+    <p>
+      Refonte sans couture de <code>./cliffnordouesttest1.rsground</code> (<strong>138 × 98 tuiles = 1104 × 784 px</strong>, collisions originales préservées + cascade animée 4 frames)
+      <strong>et</strong> réseau interconnecté complet des <strong>12 salles souterraines + vestibule RDC</strong> aux formes fidèles de la Guilde Halcyon et textures bois/écorce/mousse/lianes de Métano.
+    </p>
+    <div class="badges">
+      <span class="badge ok">0 Signe Spinda / 0 Spirale au sol</span>
+      <span class="badge ok">0 Lit · 0 Table · 100 % Salles Vides</span>
+      <span class="badge sky">Cliff North : 1104 × 784 px (138 × 98 tuiles 8 px)</span>
+      <span class="badge sky">14 Grounds .rsground + 2 Banques .tile PMDO 0.8.12</span>
+      <span class="badge">Fond ardoise uni #161b26 · PNG RGBA alpha=0</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/PACK_GUILDE_RESEAU_VIDE_ET_CLIFFNORTH_PMDO.zip" download>
+        ⬇ Télécharger le Pack Complet PMDO 0.8.12 (.ZIP — 14 .rsground + 2 .tile + PNG 1×)
+      </a>
+      <a class="btn btn-secondary" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/cliff_north_metano.png" download>
+        ⬇ PNG 1× Cliff North (1104×784)
+      </a>
+      <a class="btn btn-secondary" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/reseau_complet_13_salles_guilde.png" download>
+        ⬇ Carte Synoptique du Réseau Complet (PNG)
+      </a>
+      <a class="btn btn-secondary" href="apercu_guilde_sans_escalier_jardin_skypeak.html">
+        Voir aussi : QG & Annexes Guilde sans escalier (Jardin Secret & Sky Peak) →
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>1. Zone Extérieure « Cliff North » — Refonte Métano de <code>cliffnordouesttest1.rsground</code> (1104 × 784 px)</h2>
+  <p>
+    Reprise exacte de l'implantation de <code>cliffnordouesttest1.rsground</code> (138 × 98 cases de 8 px) sans coutures de découpe :
+    ciel diurne azur et nuages PMD, horizon marin et mer scintillante autour du cap ouest, parois rocheuses stratifiées continues, plateau herbeux fleuri,
+    arbres feuillus de Métano hors zone de marche, grand sentier/esplanade sableux est→ouest entièrement libre et cascade sud animée sur 4 frames.
+  </p>
+  <div class="hero-card">
+    <div class="stage">
+      <img src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/cliff_north_metano.png" alt="Cliff North Metano 1104x784" width="1104" height="784">
+    </div>
+    <div class="meta" style="margin-top:12px">
+      <span>Ground : <code>Data/Ground/cliff_north_metano.rsground</code></span>
+      <span>Tilesheet : <code>Content/Tile/Cliff_North_Metano_8px.tile</code></span>
+      <span>Dimensions : <code>1104 × 784 px</code> (<code>138 × 98</code> tuiles)</span>
+      <span>Collisions <code>obstacles</code> 138×98 : conservées à 100 %</span>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/cliff_north_metano.png" download>Télécharger le PNG 1×</a>
+    </div>
+  </div>
+
+  <h2>2. Plan Synoptique du Réseau Interconnecté des Salles de la Guilde (12 Salles Souterraines + Entrée RDC)</h2>
+  <p>
+    Vue d'ensemble des liaisons spatiales Nord / Sud / Est / Ouest et escaliers reliant l'entrée RDC (<code>00</code>), le Grand Hall <code>-1</code> (<code>01</code>),
+    le Carrefour Central <code>-2</code> (<code>02</code>), la Salle du Maître au Nord (<code>03</code>), l'Aile Ouest Réfectoire & Réserve (<code>04–06</code>) et l'Aile Est des Dortoirs & Chambre du Héros (<code>07–12</code>).
+  </p>
+  <div class="hero-card">
+    <div class="stage">
+      <img src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/reseau_complet_13_salles_guilde.png" alt="Réseau complet des 13 salles vides de la Guilde">
+    </div>
+  </div>
+
+  <h2>3. Catalogue Individuel 1× des 13 Salles Vides (0 Meuble · 0 Lit · 0 Signe Spinda)</h2>
+  <div class="controls-bar">
+    <span>Zoom pixel-art :</span>
+    <button type="button" class="zbtn active" data-zoom="1">1× Natif</button>
+    <button type="button" class="zbtn" data-zoom="1.5">1.5×</button>
+    <button type="button" class="zbtn" data-zoom="2">2× Loupe Pixel</button>
+  </div>
+
+  <div class="grid" id="roomsGrid">
+    <article class="room-card">
+      <h3>00 · Entrée RDC — Tronc Creux & Rampe</h3>
+      <div class="stage"><img class="zimg" data-w="320" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/00_guild_first_floor.png" alt="00_guild_first_floor"></div>
+      <div class="meta"><span>320 × 240 px (40×30 t)</span><span><code>guilde_vide_guild_first_floor.rsground</code></span></div>
+      <div class="conns">Accès : Sud ↔ Extérieur Guilde · Rampe ↔ <strong>01 Grand Hall (-1)</strong></div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/00_guild_first_floor.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>01 · Sous-sol -1 — Grand Hall d'Accueil</h3>
+      <div class="stage"><img class="zimg" data-w="672" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/01_guild_second_floor.png" alt="01_guild_second_floor"></div>
+      <div class="meta"><span>672 × 448 px (84×56 t)</span><span><code>guilde_vide_guild_second_floor.rsground</code></span></div>
+      <div class="conns">Accès : Escalier Est ↔ <strong>00 RDC</strong> · Puits hélicoïdal Ouest ↔ <strong>02 Carrefour Central (-2)</strong></div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/01_guild_second_floor.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>02 · Sous-sol -2 — Carrefour Central de la Guilde</h3>
+      <div class="stage"><img class="zimg" data-w="800" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/02_guild_third_floor_lobby.png" alt="02_guild_third_floor_lobby"></div>
+      <div class="meta"><span>800 × 448 px (100×56 t)</span><span><code>guilde_vide_guild_third_floor_lobby.rsground</code></span></div>
+      <div class="conns">Accès : Tour NE ↔ <strong>01</strong> · Arche Nord ↔ <strong>03 Maître</strong> · Ouest ↔ <strong>05 Couloir Réserve</strong> · Est ↔ <strong>07 Couloir Dortoirs</strong></div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/02_guild_third_floor_lobby.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>03 · Sous-sol -2 Nord — Grande Salle du Maître</h3>
+      <div class="stage"><img class="zimg" data-w="384" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/03_guild_guildmasters_room.png" alt="03_guild_guildmasters_room"></div>
+      <div class="meta"><span>384 × 384 px (48×48 t)</span><span><code>guilde_vide_guild_guildmasters_room.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Sud ↔ <strong>02 Arche Nord du Carrefour Central</strong> (0 lit · 0 meuble)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/03_guild_guildmasters_room.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>04 · Sous-sol -2 Ouest — Grand Réfectoire</h3>
+      <div class="stage"><img class="zimg" data-w="448" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/04_guild_dining_room.png" alt="04_guild_dining_room"></div>
+      <div class="meta"><span>448 × 288 px (56×36 t)</span><span><code>guilde_vide_guild_dining_room.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Est ↔ <strong>05 Couloir Ouest</strong> (0 table · 0 tabouret · 0 tapis)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/04_guild_dining_room.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>05 · Aile Ouest — Couloir de la Réserve (T inversé)</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/05_guild_storage_hallway.png" alt="05_guild_storage_hallway"></div>
+      <div class="meta"><span>352 × 384 px (44×48 t)</span><span><code>guilde_vide_guild_storage_hallway.rsground</code></span></div>
+      <div class="conns">Accès : Ouest ↔ <strong>04 Réfectoire</strong> · Nord ↔ <strong>06 Réserve</strong> · Est ↔ <strong>02 Carrefour Central</strong></div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/05_guild_storage_hallway.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>06 · Aile Ouest — Salle de Réserve</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/06_guild_storage_room.png" alt="06_guild_storage_room"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_storage_room.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Ouest ↔ <strong>05 Couloir de la Réserve</strong> (0 caisse · 0 coffre)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/06_guild_storage_room.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>07 · Aile Est — Couloir des Dortoirs (Double Croix H)</h3>
+      <div class="stage"><img class="zimg" data-w="480" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/07_guild_bedroom_hallway.png" alt="07_guild_bedroom_hallway"></div>
+      <div class="meta"><span>480 × 256 px (60×32 t)</span><span><code>guilde_vide_guild_bedroom_hallway.rsground</code></span></div>
+      <div class="conns">Accès : Ouest ↔ <strong>02</strong> · Est ↔ <strong>08 Héros</strong> · Nord ↔ <strong>09 & 10</strong> · Sud ↔ <strong>11 & 12</strong></div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/07_guild_bedroom_hallway.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>08 · Aile Est — Chambre du Héros</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/08_guild_heros_room.png" alt="08_guild_heros_room"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_heros_room.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Ouest ↔ <strong>07 Couloir des Dortoirs</strong> (0 lit · 0 tapis)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/08_guild_heros_room.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>09 · Dortoir Nord-Ouest</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/09_guild_top_left_bedroom.png" alt="09_guild_top_left_bedroom"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_top_left_bedroom.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Sud ↔ <strong>07 Passage Nord-Gauche</strong> (0 lit · 0 meuble)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/09_guild_top_left_bedroom.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>10 · Dortoir Nord-Est</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/10_guild_top_right_bedroom.png" alt="10_guild_top_right_bedroom"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_top_right_bedroom.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Sud ↔ <strong>07 Passage Nord-Droit</strong> (0 lit · 0 meuble)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/10_guild_top_right_bedroom.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>11 · Dortoir Sud-Ouest</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/11_guild_bottom_left_bedroom.png" alt="11_guild_bottom_left_bedroom"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_bottom_left_bedroom.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Nord ↔ <strong>07 Passage Sud-Gauche</strong> (0 lit · 0 meuble)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/11_guild_bottom_left_bedroom.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+
+    <article class="room-card">
+      <h3>12 · Dortoir Sud-Est</h3>
+      <div class="stage"><img class="zimg" data-w="352" src="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/12_guild_bottom_right_bedroom.png" alt="12_guild_bottom_right_bedroom"></div>
+      <div class="meta"><span>352 × 352 px (44×44 t)</span><span><code>guilde_vide_guild_bottom_right_bedroom.rsground</code></span></div>
+      <div class="conns">Accès : Couloir Nord ↔ <strong>07 Passage Sud-Droit</strong> (0 lit · 0 meuble)</div>
+      <a class="dl-link" href="livrables_guilde_reseau_vide_et_cliffnorth_pmdo/png_1x/12_guild_bottom_right_bedroom.png" download>⬇ Télécharger PNG RGBA 1×</a>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Crédits des layouts et références canoniques : <strong>Palikadude / Halcyon</strong> (<code>guild_*.rsground</code>, <code>Metano_*</code>) et artistes d'origine <strong>Pokémon Mystery Dungeon</strong>.
+    Rendus générés par IA référencée convertis en tuiles 8×8 PMDO 0.8.12 (<code>art_approved: false</code>, <code>runtime_tested: false</code> — vérifié par tests automatisés hors moteur).
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.zbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.zbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const z = parseFloat(btn.dataset.zoom || '1');
+      document.querySelectorAll('.zimg').forEach(img => {
+        const baseW = parseInt(img.dataset.w, 10);
+        img.style.width = Math.round(baseW * z) + 'px';
+        img.style.maxWidth = z === 1 ? '100%' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

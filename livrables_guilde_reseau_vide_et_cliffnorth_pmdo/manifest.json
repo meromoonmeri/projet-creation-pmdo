@@ -1,0 +1,277 @@
+{
+  "pack_id": "guilde_reseau_vide_et_cliffnorth_pmdo_v1",
+  "pmdo_version": "0.8.12.0",
+  "art_approved": false,
+  "runtime_tested": false,
+  "runtime_PMDO": "NOT TESTED",
+  "attribution": "Formes/layouts de salles inspires de Palikadude/Halcyon (guild_*.rsground) et references de palette/textures Metano (Metano Inn, Metano Normal Home, Metano Grass Home, Metano Town, Metano Altere Transition) + layout promontoire de ./cliffnordouesttest1.rsground du depot. Pixels generes par IA referencee et convertis en tuiles 8x8; non certifies tuiles natives officielles.",
+  "cliff_north": {
+    "source_rsground": "cliffnordouesttest1.rsground",
+    "output_ground": "Data/Ground/cliff_north_metano.rsground",
+    "output_tilesheet": "Content/Tile/Cliff_North_Metano_8px.tile",
+    "png_1x": "png_1x/cliff_north_metano.png",
+    "width_tiles": 138,
+    "height_tiles": 98,
+    "width_px": 1104,
+    "height_px": 784,
+    "unique_tiles": 11991,
+    "animated_waterfall_cells": 182,
+    "obstacles_preserved_from_source": true
+  },
+  "guild_empty_network": {
+    "room_count": 13,
+    "shared_tilesheet": "Content/Tile/Guilde_Reseau_Vide_Metano_8px.tile",
+    "shared_unique_tiles": 12708,
+    "network_overview_png": "png_1x/reseau_complet_13_salles_guilde.png",
+    "furniture_count_total": 0,
+    "spinda_spirals_total": 0,
+    "rooms": [
+      {
+        "id": "00_guild_first_floor",
+        "halcyon_shape_source": "guild_first_floor",
+        "ground_file": "Data/Ground/guilde_vide_guild_first_floor.rsground",
+        "png_1x": "png_1x/00_guild_first_floor.png",
+        "width_px": 320,
+        "height_px": 240,
+        "width_tiles": 40,
+        "height_tiles": 30,
+        "floor_level": 0,
+        "title_fr": "Entrée RDC — Tronc creux & rampe",
+        "connections": [
+          "Sud : Extérieur Guilde / Promontoire",
+          "Haut : 01_guild_second_floor"
+        ],
+        "unique_tiles_in_room": 904,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "01_guild_second_floor",
+        "halcyon_shape_source": "guild_second_floor",
+        "ground_file": "Data/Ground/guilde_vide_guild_second_floor.rsground",
+        "png_1x": "png_1x/01_guild_second_floor.png",
+        "width_px": 672,
+        "height_px": 448,
+        "width_tiles": 84,
+        "height_tiles": 56,
+        "floor_level": -1,
+        "title_fr": "Sous-sol -1 — Grand Hall d’Accueil",
+        "connections": [
+          "Escalier Est : 00_guild_first_floor",
+          "Puits Ouest : 02_guild_third_floor_lobby"
+        ],
+        "unique_tiles_in_room": 2200,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "02_guild_third_floor_lobby",
+        "halcyon_shape_source": "guild_third_floor_lobby",
+        "ground_file": "Data/Ground/guilde_vide_guild_third_floor_lobby.rsground",
+        "png_1x": "png_1x/02_guild_third_floor_lobby.png",
+        "width_px": 800,
+        "height_px": 448,
+        "width_tiles": 100,
+        "height_tiles": 56,
+        "floor_level": -2,
+        "title_fr": "Sous-sol -2 — Carrefour Central de la Guilde",
+        "connections": [
+          "Puits NE : 01_guild_second_floor",
+          "Arche Nord : 03_guild_guildmasters_room",
+          "Aile Ouest : 05_guild_storage_hallway",
+          "Aile Est : 07_guild_bedroom_hallway"
+        ],
+        "unique_tiles_in_room": 2679,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "03_guild_guildmasters_room",
+        "halcyon_shape_source": "guild_guildmasters_room",
+        "ground_file": "Data/Ground/guilde_vide_guild_guildmasters_room.rsground",
+        "png_1x": "png_1x/03_guild_guildmasters_room.png",
+        "width_px": 384,
+        "height_px": 384,
+        "width_tiles": 48,
+        "height_tiles": 48,
+        "floor_level": -2,
+        "title_fr": "Sous-sol -2 Nord — Salle du Maître (vide)",
+        "connections": [
+          "Couloir Sud : 02_guild_third_floor_lobby"
+        ],
+        "unique_tiles_in_room": 1270,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "04_guild_dining_room",
+        "halcyon_shape_source": "guild_dining_room",
+        "ground_file": "Data/Ground/guilde_vide_guild_dining_room.rsground",
+        "png_1x": "png_1x/04_guild_dining_room.png",
+        "width_px": 448,
+        "height_px": 288,
+        "width_tiles": 56,
+        "height_tiles": 36,
+        "floor_level": -2,
+        "title_fr": "Sous-sol -2 Ouest — Grand Réfectoire (vide)",
+        "connections": [
+          "Couloir Est : 05_guild_storage_hallway"
+        ],
+        "unique_tiles_in_room": 948,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "05_guild_storage_hallway",
+        "halcyon_shape_source": "guild_storage_hallway",
+        "ground_file": "Data/Ground/guilde_vide_guild_storage_hallway.rsground",
+        "png_1x": "png_1x/05_guild_storage_hallway.png",
+        "width_px": 352,
+        "height_px": 384,
+        "width_tiles": 44,
+        "height_tiles": 48,
+        "floor_level": -2,
+        "title_fr": "Aile Ouest — Couloir de la Réserve (T inversé)",
+        "connections": [
+          "Ouest : 04_guild_dining_room",
+          "Nord : 06_guild_storage_room",
+          "Est : 02_guild_third_floor_lobby"
+        ],
+        "unique_tiles_in_room": 613,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "06_guild_storage_room",
+        "halcyon_shape_source": "guild_storage_room",
+        "ground_file": "Data/Ground/guilde_vide_guild_storage_room.rsground",
+        "png_1x": "png_1x/06_guild_storage_room.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Aile Ouest — Salle de Réserve (vide)",
+        "connections": [
+          "Couloir Ouest : 05_guild_storage_hallway"
+        ],
+        "unique_tiles_in_room": 680,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "07_guild_bedroom_hallway",
+        "halcyon_shape_source": "guild_bedroom_hallway",
+        "ground_file": "Data/Ground/guilde_vide_guild_bedroom_hallway.rsground",
+        "png_1x": "png_1x/07_guild_bedroom_hallway.png",
+        "width_px": 480,
+        "height_px": 256,
+        "width_tiles": 60,
+        "height_tiles": 32,
+        "floor_level": -2,
+        "title_fr": "Aile Est — Couloir des Dortoirs (double croix H)",
+        "connections": [
+          "Ouest : 02_guild_third_floor_lobby",
+          "Est : 08_guild_heros_room",
+          "Nord-G : 09_top_left",
+          "Nord-D : 10_top_right",
+          "Sud-G : 11_bottom_left",
+          "Sud-D : 12_bottom_right"
+        ],
+        "unique_tiles_in_room": 974,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "08_guild_heros_room",
+        "halcyon_shape_source": "guild_heros_room",
+        "ground_file": "Data/Ground/guilde_vide_guild_heros_room.rsground",
+        "png_1x": "png_1x/08_guild_heros_room.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Aile Est — Chambre du Héros (vide)",
+        "connections": [
+          "Couloir Ouest : 07_guild_bedroom_hallway"
+        ],
+        "unique_tiles_in_room": 724,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "09_guild_top_left_bedroom",
+        "halcyon_shape_source": "guild_top_left_bedroom",
+        "ground_file": "Data/Ground/guilde_vide_guild_top_left_bedroom.rsground",
+        "png_1x": "png_1x/09_guild_top_left_bedroom.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Dortoir Nord-Ouest (vide)",
+        "connections": [
+          "Couloir Sud : 07_guild_bedroom_hallway (Nord-G)"
+        ],
+        "unique_tiles_in_room": 740,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "10_guild_top_right_bedroom",
+        "halcyon_shape_source": "guild_top_right_bedroom",
+        "ground_file": "Data/Ground/guilde_vide_guild_top_right_bedroom.rsground",
+        "png_1x": "png_1x/10_guild_top_right_bedroom.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Dortoir Nord-Est (vide)",
+        "connections": [
+          "Couloir Sud : 07_guild_bedroom_hallway (Nord-D)"
+        ],
+        "unique_tiles_in_room": 740,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "11_guild_bottom_left_bedroom",
+        "halcyon_shape_source": "guild_bottom_left_bedroom",
+        "ground_file": "Data/Ground/guilde_vide_guild_bottom_left_bedroom.rsground",
+        "png_1x": "png_1x/11_guild_bottom_left_bedroom.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Dortoir Sud-Ouest (vide)",
+        "connections": [
+          "Couloir Nord : 07_guild_bedroom_hallway (Sud-G)"
+        ],
+        "unique_tiles_in_room": 639,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      },
+      {
+        "id": "12_guild_bottom_right_bedroom",
+        "halcyon_shape_source": "guild_bottom_right_bedroom",
+        "ground_file": "Data/Ground/guilde_vide_guild_bottom_right_bedroom.rsground",
+        "png_1x": "png_1x/12_guild_bottom_right_bedroom.png",
+        "width_px": 352,
+        "height_px": 352,
+        "width_tiles": 44,
+        "height_tiles": 44,
+        "floor_level": -2,
+        "title_fr": "Dortoir Sud-Est (vide)",
+        "connections": [
+          "Couloir Nord : 07_guild_bedroom_hallway (Sud-D)"
+        ],
+        "unique_tiles_in_room": 639,
+        "furniture_count": 0,
+        "spinda_spirals_count": 0
+      }
+    ]
+  }
+}
