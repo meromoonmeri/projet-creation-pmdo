@@ -1,0 +1,23 @@
+COMMENT PLACER CES OBJETS SANS FOND DANS PMDO 0.8.12 (2 MÉTHODES AU CHOIX)
+===========================================================================
+
+MÉTHODE A — LA PLUS SIMPLE (IMPORT PNG DIRECT DANS L'ÉDITEUR PMDO DEV) :
+1. Ouvrez PMDO avec l'éditeur Dev (`-dev`), puis ouvrez votre Ground (ex: Café Spinda / Café Métano) dans l'éditeur de carte.
+2. Menu `Data` -> `Tiles` (ou onglet Tilesets de la carte) -> `Import` / `PNG to Tileset` :
+   - Taille de tuile (`Tile Size`) : `8` (`8 x 8 px`)
+   - Sélectionnez au choix :
+     * les PNG individuels dans `1x_PMDO_8px_sans_fond/` (ex: `01_spinda_comptoir_1x_arriere.png` et `01_spinda_comptoir_1x_avant.png`),
+     * OU les planches groupées dans `tilesheets_import_pmdo_8px/`.
+3. Tous les PNG ont déjà `alpha = 0` (100 % sans fond, 0 px de magenta, grille exacte de 8 px) :
+   - Pour un meuble simple (Piano, Jukebox, Table, Banquette) : peignez le rectangle complet sur un calque `Objects`.
+   - Pour un comptoir avec Pokémon vendeur derrière (Spinda, Qulbutoké, Sucreine, Kirlia, Charmilly) :
+     * placez `*_1x_arriere.png` sur un calque `Objects` normal (sous les entités),
+     * placez `*_1x_avant.png` exactement aux MÊMES coordonnées `(X, Y)` sur un calque `Over` (au-dessus des entités),
+     * placez votre Pokémon vendeur (`NPC Spawner`) entre les deux !
+   - Pour l'Estrade aux Rideaux Rouges :
+     * placez `06_estrade_rideaux_rouges_1x_arriere.png` sur un calque sous les personnages (`Under` / `Floor_Objects`) pour que les Pokémon marchent sur le bois de scène,
+     * et `06_estrade_rideaux_rouges_1x_avant.png` sur un calque `Over` aux mêmes `(X, Y)` pour le rideau supérieur !
+
+MÉTHODE B — MOD PRÊT À COPIER (30 BANQUES `.tile` DÉJÀ COMPILÉES) :
+- Copiez le dossier `Mod_PMDO_0812_Pret_A_Placer/cafe_spinda_metano_complet/` directement dans `<dossier_PMDO>/MODS/`,
+  OU lancez `python INSTALLER.py "<dossier_PMDO>/MODS/<votre_mod>"` pour fusionner automatiquement les 30 banques `.tile` dans `index.idx` !

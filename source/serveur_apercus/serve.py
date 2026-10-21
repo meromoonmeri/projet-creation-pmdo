@@ -58,8 +58,15 @@ def index_page():
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Aperçus — Guilde Treehouse PMD</title>
 <style>body{{background:#1d1a14;color:#eee;font:15px/1.5 system-ui,sans-serif;max-width:980px;margin:24px auto;padding:0 16px}}
 a{{color:#ffd76a}}small{{color:#999}}li{{margin:4px 0}}.new{{background:#6a4;color:#fff;border-radius:4px;padding:0 6px;font-size:12px}}
+.dlbox{{background:#2d241d;border:2px solid #f2b84b;border-radius:10px;padding:14px 18px;margin:14px 0 22px}}
+.dlbtn{{display:inline-block;background:#f2b84b;color:#1b1308;font-weight:700;padding:8px 14px;border-radius:7px;text-decoration:none;margin:6px 8px 2px 0}}
 h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
-<h1>Aperçus des maps PMD</h1>
+<h1>Aperçus &amp; Téléchargements PMDO</h1>
+<div class="dlbox">
+  <strong style="font-size:17px;color:#ffd76a">Téléchargement direct — Objets Café &amp; Estrade 100 % SANS FOND (prêts pour PMDO 0.8.12)</strong><br>
+  <a class="dlbtn" href="telecharger_objets_cafe_pmdo.html">Ouvrir la page de téléchargement (11 objets sans fond)</a>
+  <a class="dlbtn" href="livrables_pmdo_sans_fond/PACK_PMDO_1X_ET_MOD_0812_SANS_FOND.zip?dl=1">Télécharger le ZIP PMDO 1× + Mod .tile (2 Mo)</a>
+</div>
 <p>{len(rows)} aperçus autonomes. Chaque page contient ses calques, ses animations et ses liens de téléchargement.</p>
 <h2>Entrées de donjon sud → nord ({len(serie)})</h2><ul>{''.join(li(r) for r in serie)}</ul>
 <h2>Autres lots ({len(autres)})</h2><ul>{''.join(li(r) for r in autres)}</ul>
@@ -67,6 +74,13 @@ h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        if '?dl=1' in getattr(self, 'path', ''):
+            clean_name = Path(self.path.split('?', 1)[0]).name
+            if clean_name:
+                self.send_header('Content-Disposition', f'attachment; filename="{clean_name}"')
+        super().end_headers()
+
     def do_GET(self):
         if self.path in ('/', '/index.html'):
             body = index_page().encode()
