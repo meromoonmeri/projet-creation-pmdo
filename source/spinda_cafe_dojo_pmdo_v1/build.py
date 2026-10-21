@@ -187,8 +187,7 @@ def extract_clean_rgba(im_rgb: Image.Image, has_green_props: bool = False) -> Im
             y_flat = int(np.percentile(ddy, 96))
             fill_mask = (out[y_flat - 12 : y_flat + 1, x0:x1, 3] == 0)
             out[y_flat - 12 : y_flat + 1, x0:x1][fill_mask] = (4, 4, 6, 255)
-            trim_mask = pure_dark[y_flat + 1 :, x0:x1]
-            out[y_flat + 1 :, x0:x1][trim_mask] = (0, 0, 0, 0)
+            out[y_flat + 1 :, x0 + 3 : x1 - 3] = (0, 0, 0, 0)
 
     trans = out[:, :, 3] == 0
     despill = ~trans
