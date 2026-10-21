@@ -21,7 +21,7 @@ FORCE_DOWNLOAD_EXTS = (".rsground", ".tile", ".dir", ".idx", ".zip")
 
 
 class NoCachePMDOHandler(SimpleHTTPRequestHandler):
-    def do_GET(self) -> None:
+    def _try_virtual_rsground(self, send_body: bool) -> bool:
         parts = urlsplit(self.path)
         clean_path = unquote(parts.path).lstrip("/")
         if clean_path.startswith("livrables_cliff_nord_centre_pmdo/grounds_rsground/") and clean_path.endswith(".rsground"):
@@ -35,9 +35,18 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
                         self.send_header("Content-Type", "application/octet-stream")
                         self.send_header("Content-Length", str(len(payload)))
                         self.end_headers()
-                        self.wfile.write(payload)
-                        return
-        super().do_GET()
+                        if send_body:
+                            self.wfile.write(payload)
+                        return True
+        return False
+
+    def do_HEAD(self) -> None:
+        if not self._try_virtual_rsground(send_body=False):
+            super().do_HEAD()
+
+    def do_GET(self) -> None:
+        if not self._try_virtual_rsground(send_body=True):
+            super().do_GET()
 
     def end_headers(self) -> None:
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
