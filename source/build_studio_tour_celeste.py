@@ -38,12 +38,12 @@ def export_filmstrips() -> Dict:
         {
             "id": "MMA1",
             "folder": "mine_magma_arene_v1",
-            "ref_rel": "source/mine_magma_arene_v1/references/b70_groudon_boss_arena.png",
-            "ref_label": "Référence matérielle GBA exacte (b70)",
+            "ref_rel": "source/mine_magma_arene_v1/references/native_H26P01.png",
+            "ref_label": "Référence matérielle GBA native 1× (H26P01)",
             "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
             "bg_fill": "#370000",
-            "subtitle": "b70 Hardware 1:1 — Caldeira de magma visqueux, 4 îlots à geysers éruptifs, cascade nord & pont Sud-Nord",
-            "wind_summary": "b70canm : Cascade nord + 18 veines ardentes + 5 cratères | Caldeira : fleuves + ressac + 4 geysers déphasés + braises Top",
+            "subtitle": "H26P01 1× Natif + Palette Cycling H26P01.bpl — Veines #FF00FF, cascade Nord, 6 colonnes 1× & arène de Groudon (0 mini-volcan)",
+            "wind_summary": "H26P01.bpl : Mer & veines #FF00FF (31f @ 4t) | Cascade Nord & colonnes 1× (8f @ 3t) | Rives (15f @ 8t) | Braises W04 Top (16f @ 7t)",
         },
         {
             "id": "MME1",
@@ -52,8 +52,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence matérielle GBA exacte (D12P01)",
             "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
             "bg_fill": "#370000",
-            "subtitle": "D12P01 2× sans couture — Flammes de crête, orgues incandescentes, veines des dalles & gouffres de magma",
-            "wind_summary": "D12P01.bpl : Flammes de crête (3×) | Orgues & veines de dalles pulsantes | Gouffres d'angle & braises Top (24 poses)",
+            "subtitle": "Entrée monumentale Mine Magma — Chaussée Sud-Nord, arche caverneuse, veines #FF00FF & gouffres H26P01.bpl 1× (0 mini-volcan)",
+            "wind_summary": "H26P01.bpl : Gouffres & veines #FF00FF (31f @ 4t) | Cascades SO/SE 1× (8f @ 3t) | Incandescence (15f @ 8t) | Braises W04 Top (16f @ 7t)",
         },
         {
             "id": "STC1",
@@ -62,8 +62,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
             "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
             "bg_fill": "#040a34",
-            "subtitle": "b71 1:1 + Terre & Couronne de référence — Alizés, couronne d'arène & cumulus avant-plan statiques",
-            "wind_summary": "Statiques (1 pose) : Alizés Terre, couronne & croissants d'arène, cumulus Top | Animés (24 poses) : Étoiles, limbe & souffle BPL",
+            "subtitle": "b71 1:1 sans halo atmosphérique ni frange blanche d'extrémité — Alizés, couronne de référence & cumulus Top statiques",
+            "wind_summary": "Statiques (1 pose) : Horizon Terre pur, alizés, couronne & croissants, cumulus Top | Animés : Étoiles cosmos & souffle D13P01.bpl",
         },
     ]
 
@@ -95,6 +95,7 @@ def export_filmstrips() -> Dict:
                     "name": layer.name,
                     "kind": meta["layers"][idx]["kind"],
                     "poses": n_poses,
+                    "frame_length": meta["layers"][idx].get("frame_length", 5),
                     "unique_tiles": meta["unique_tiles_per_sheet"].get(sheet_key, 0),
                     "strip_url": f"/.cache/studio_layers/{mid}/{layer.slug}.png",
                     "static_url": f"/renders/{folder}/layers/{layer.slug}.png",
@@ -499,7 +500,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
             <input type="checkbox" data-key="${{key}}" ${{layerEnabled.get(key) ? 'checked' : ''}} />
             <span><strong>${{String(L.index).padStart(2, '0')}}</strong> ${{L.name}}</span>
           </label>
-          <span class="badge ${{isAnim ? 'anim' : ''}}">${{L.kind}} · ${{L.poses}}p · ${{L.unique_tiles}}t</span>
+          <span class="badge ${{isAnim ? 'anim' : ''}}">${{L.kind}} · ${{L.poses}}p@${{L.frame_length || 5}}t · ${{L.unique_tiles}}t</span>
         `;
         row.querySelector('input').addEventListener('change', (ev) => {{
           layerEnabled.set(key, ev.target.checked);
@@ -523,6 +524,8 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       renderCurrentFrame();
     }}
 
+    let hwTick = 0;
+
     function renderCurrentFrame() {{
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = m.bg_fill || '#050b18';
@@ -532,7 +535,8 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         const key = `${{m.id}}:${{L.slug}}`;
         if (!layerEnabled.get(key) || !L._img) continue;
         if (L._isStrip) {{
-          const frame = L.poses > 1 ? (poseIdx % L.poses) : 0;
+          const fl = L.frame_length || m.frame_ticks || 5;
+          const frame = L.poses > 1 ? (Math.floor(hwTick / fl) % L.poses) : 0;
           ctx.drawImage(L._img, frame * m.width, 0, m.width, m.height, 0, 0, m.width, m.height);
         }} else {{
           ctx.drawImage(L._img, 0, 0, m.width, m.height);
@@ -550,14 +554,16 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         }}
       }}
 
-      document.getElementById('frameLabel').textContent = `Pose ${{String(poseIdx).padStart(2, '0')}} / ${{m.n_frames - 1}}`;
+      poseIdx = Math.floor(hwTick / (m.frame_ticks || 5)) % m.n_frames;
+      document.getElementById('frameLabel').textContent = `Pose ${{String(poseIdx).padStart(2, '0')}} / ${{m.n_frames - 1}} (tick ${{hwTick}})`;
       document.getElementById('frameSlider').value = String(poseIdx);
     }}
 
     function tick(now) {{
-      const intervalMs = (1000 * m.frame_ticks / 60) / speedMul;
+      const intervalMs = (1000 / 60) / speedMul;
       if (playing && (now - lastStepMs) >= intervalMs) {{
-        poseIdx = (poseIdx + 1) % m.n_frames;
+        const steps = Math.max(1, Math.min(4, Math.floor((now - lastStepMs) / intervalMs)));
+        hwTick = (hwTick + steps) % 34720;
         lastStepMs = now;
         renderCurrentFrame();
       }}
@@ -571,6 +577,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     }});
     document.getElementById('frameSlider').addEventListener('input', (e) => {{
       poseIdx = Number(e.target.value);
+      hwTick = poseIdx * (m.frame_ticks || 5);
       renderCurrentFrame();
     }});
     document.querySelectorAll('[data-speed]').forEach((btn) => {{

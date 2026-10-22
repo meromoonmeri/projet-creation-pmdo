@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
-"""Constructeur multicalque 10 couches (24 trames @ 5 ticks = 120 ticks) :
-MME1 — Mine Magma — Entrée (`D12P01` Canonique Plein Cadre `2×` + `D12P01.bpl` & Parallaxe Volcanique).
+"""Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
+MME1 — Mine Magma — Entrée (`H26P01` `1×` + Palette Cycling matériel `H26P01.bpl` + Veines `#FF00FF`).
 
-Réunit sans aucune couture verticale ni aplats parasites :
-1. Le dôme volcanique enflammé, l'arche sombre d'entrée nord, les colonnes prismatiques d'orgues
-   basaltiques et le pavage polygonal fissuré de `references/d12p01_magma_cavern_entrance.png`
-   à l'échelle entière nette `2×` plein cadre `768 × 576` (`zéro` couture latérale, `zéro` étirement).
-2. Des contreforts rocheux d'orgues basaltiques & gouffres de magma en fusion aux coins inférieurs
-   gauche et droit découpés sur fond `#FF00FF` pur (`flancs_colonnes_basalte_magenta.png` +
-   `fond_mer_magma_continu.png` quantifiés sur la palette stricte `D12P01`), encadrant la large
-   chaussée praticable **Sud (`y = 576`) -> Nord (seuil de l'arche `y = 224`)**.
-3. Les vraies animations multicalques matérielles `D12P01.bpl` (`24` poses @ `5` ticks = `120` ticks)
-   ciblant exclusivement les entrées chromatiques animées de la ROM (zéro aplat sur la roche) :
-   - `MME1_01` : lueurs volcaniques lointaines dans la voûte caverneuse au-dessus de la crête,
-   - `MME1_04` : langues de flammes vives sur toute la crête du dôme (`D12P01.bpl` pal 0 col 1..7),
-   - `MME1_05` : magma en fusion respirant au pied des orgues basaltiques (`[255, 0..71, 0]`),
-   - `MME1_06` : ondes de magma pulsantes dans les fissures du pavage polygonal Sud -> Nord,
-   - `MME1_07` : courants ardents de magma dans les gouffres d'angle avant-plan,
-   - `MME1_09` (`Top`, `Layer = 4`) : braises et flammèches ascendantes à travers la caverne.
+Architecture canonique + découpe magenta `#FF00FF` stricte :
+- `MME1_00` (`BG`, `31` phases @ `4` ticks = `124` ticks) : Nappe & gouffres de magma canonique `H26P01`
+  à l'échelle `1×` native avec animation matérielle `H26P01.bpl` (palettes `5, 6, 7, 8`) ;
+- `MME1_01` (`BG`, `1` pose) : Sol basaltique polygonal continu (`sol_pavage_basalte_complet.png`) ;
+- `MME1_02` (`BG`, `31` phases @ `4` ticks = `124` ticks) : **Veines de magma détourées depuis `#FF00FF`**
+  dans les parois, l'arche et les terrasses (`decor_entree_veines_magenta.png` -> `H26P01.bpl` `1×`) ;
+- `MME1_03` (`BG`, `1` pose) : Chaussée praticable Sud -> Nord en dalles volcaniques polygonales ;
+- `MME1_04` (`BG`, `1` pose) : Rebords de chaussée et corniches basaltiques ;
+- `MME1_05` (`BG`, `1` pose) : Parois d'orgues basaltiques et terrasses volcaniques latérales ;
+- `MME1_06` (`BG`, `1` pose) : Dôme montagneux & arche caverneuse Nord (`donjon_seuil`) ;
+- `MME1_07` (`BG`, `15` phases @ `8` ticks = `120` ticks) : Incandescence thermique des rives & fissures (`H26P01.bpl` pal `0`) ;
+- `MME1_08` (`BG`, `8` phases @ `3` ticks = `24` ticks) : Cascades cylindriques de lave `H26P01` `1×` (`pal 4`)
+  se jetant dans les gouffres SO et SE (zéro mini-volcan !) ;
+- `MME1_09` (`Top`, `16` phases @ `7` ticks = `112` ticks) : Braises volcaniques ascendantes `W04` `1×` natives.
 """
 
 from __future__ import annotations
@@ -36,330 +34,232 @@ REPO_ROOT = HERE.parents[1]
 if str(REPO_ROOT / "source") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "source"))
 
+from moteur_magma_canonique_pmd_red import (  # type: ignore
+    build_canonical_h26p01_magma_frames,
+    build_canonical_w04_embers_frames,
+    build_h26p01_rim_glow_frames,
+    render_extended_canonical_pillars,
+    split_magenta_chasms_and_veins,
+)
 from tour_celeste_moteur_nuages import (  # type: ignore
     H_CANON,
-    N_FRAMES,
     TILE_SIZE,
     W_CANON,
     LayerEntry,
     build_rsground_package,
     extract_canonical_palette,
-    key_magenta,
     quantize_rgb_to_palette,
-    quantize_rgba_to_palette,
 )
 
 MAP_ID = "MME1"
 MAP_TITLE = "Mine Magma — Entrée"
 RAW_DIR = HERE / "bruts"
+DECOR_MAGENTA_RAW = RAW_DIR / "decor_entree_veines_magenta.png"
 REF_DIR = HERE / "references"
-ARENE_RAW_DIR = REPO_ROOT / "source" / "mine_magma_arene_v1" / "bruts"
+ARENA_RAW_DIR = REPO_ROOT / "source" / "mine_magma_arene_v1" / "bruts"
+ARENA_REF_DIR = REPO_ROOT / "source" / "mine_magma_arene_v1" / "references"
 RENDERS_DIR = REPO_ROOT / "renders" / "mine_magma_entree_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 
-def build_volcanic_palette() -> np.ndarray:
-    """Extrait la palette volcanique canonique stricte de `D12P01` (`74` couleurs GBA exactes)."""
-    pal = extract_canonical_palette(
+def build_unified_volcanic_palette(decor_rgb: np.ndarray, rock_mask: np.ndarray) -> np.ndarray:
+    canon = extract_canonical_palette(
         [
             REF_DIR / "d12p01_magma_cavern_entrance.png",
-            REF_DIR / "d12p02_magma_cavern_relay.png",
+            ARENA_REF_DIR / "native_H26P01.png",
         ],
-        max_colors=96,
-        min_pixels=1,
+        max_colors=88,
+        min_pixels=4,
     )
-    return pal.astype(np.uint8)
+    rock_px = decor_rgb[rock_mask]
+    uniq, cnt = np.unique(rock_px, axis=0, return_counts=True)
+    top_rock = uniq[np.argsort(-cnt)[:72]]
+    cave_darks = np.array([[0, 0, 0], [10, 3, 2], [22, 6, 4], [36, 11, 6]], dtype=np.uint8)
+    return np.unique(np.vstack([canon, top_rock, cave_darks]), axis=0).astype(np.uint8)
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
-    volc_pal = build_volcanic_palette()
+    decor_raw = Image.open(RAW_DIR / "decor_entree_veines_magenta.png").convert("RGB")
+    decor_rgb = np.asarray(decor_raw.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
+
+    sol_raw = Image.open(ARENA_RAW_DIR / "sol_pavage_basalte_complet.png").convert("RGB")
+    sol_rgb = np.asarray(sol_raw.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
+
+    min_chasm = max(400, int(round(4500 * (w * h) / float(W_CANON * H_CANON))))
+    all_magenta, open_chasm, rock_veins = split_magenta_chasms_and_veins(decor_rgb, min_open_chasm_area=min_chasm)
+    rock_mask = ~all_magenta
+
+    volcanic_pal = build_unified_volcanic_palette(decor_rgb, rock_mask)
+    q_decor = quantize_rgb_to_palette(decor_rgb, volcanic_pal)
+    q_sol = quantize_rgb_to_palette(sol_rgb, volcanic_pal)
+
+    yy, xx = np.mgrid[:h, :w]
+    lum = (
+        0.299 * decor_rgb[:, :, 0].astype(np.float32)
+        + 0.587 * decor_rgb[:, :, 1].astype(np.float32)
+        + 0.114 * decor_rgb[:, :, 2].astype(np.float32)
+    )
+    sat = (
+        np.maximum(np.maximum(decor_rgb[:, :, 0], decor_rgb[:, :, 1]), decor_rgb[:, :, 2]).astype(np.float32)
+        - np.minimum(np.minimum(decor_rgb[:, :, 0], decor_rgb[:, :, 1]), decor_rgb[:, :, 2]).astype(np.float32)
+    )
+
+    # 1. Bouche sombre de l'arche caverneuse Nord (`donjon_seuil`)
+    mouth_box = (yy >= int(0.12 * h)) & (yy <= int(0.33 * h)) & (xx >= int(0.43 * w)) & (xx <= int(0.57 * w))
+    cave_mouth_seed = mouth_box & (lum < 78.0) & (sat < 55.0)
+    cave_mouth = ndimage.binary_fill_holes(ndimage.binary_closing(cave_mouth_seed, iterations=3))
+    rock_mask = rock_mask | cave_mouth
+    q_decor[cave_mouth] = np.array([10, 2, 2], dtype=np.uint8)
+
+    # 2. Chaussée praticable centrale Sud -> Nord (composante connexe de pavage brun partant du bord Sud `y = h - 1`)
+    #    Les parois d'orgues dorées (`sat >= 105`) et les parois verticales sombres (`lum < 38`) sont exclues !
+    paver_cand = (
+        rock_mask
+        & (~cave_mouth)
+        & (yy >= int(0.35 * h))
+        & (sat < 102.0)
+        & (lum >= 42.0)
+        & (lum < 126.0)
+        & (~ndimage.binary_dilation(all_magenta, iterations=max(1, w // 384)))
+    )
+    paver_smooth = ndimage.binary_closing(
+        paver_cand, iterations=max(2, int(round(4 * w / 768.0))), border_value=1
+    )
+    paver_smooth = ndimage.binary_opening(
+        paver_smooth, iterations=max(1, int(round(2 * w / 768.0))), border_value=1
+    )
+    lbl_p, n_p = ndimage.label(paver_smooth)
+    south_seed_labels = [
+        lbl_id
+        for lbl_id in set(lbl_p[h - 14 :, int(0.28 * w) : int(0.72 * w)].ravel().tolist())
+        if lbl_id != 0
+    ]
+    walkable_causeway = np.isin(lbl_p, south_seed_labels) & rock_mask & (~cave_mouth) & (yy >= int(0.35 * h))
+    walkable_causeway = ndimage.binary_fill_holes(walkable_causeway) & rock_mask & (~cave_mouth) & (~all_magenta)
+
+    # 3. Séparation sémantique nette des reliefs rocheux :
+    #    - `rim_mask`  : bordure immédiate de la chaussée (`<= 5 px`),
+    #    - `arch_mask` : massif montagneux & arche caverneuse Nord (`cave_mouth` + dôme central haut),
+    #    - `cliff_mask`: falaises d'orgues basaltiques et terrasses volcaniques latérales.
+    rim_px = max(2, int(round(5 * w / float(W_CANON))))
+    rim_mask = rock_mask & (~walkable_causeway) & (~cave_mouth) & (ndimage.distance_transform_edt(~walkable_causeway) <= rim_px)
+    dome_region = (yy < int(0.52 * h)) & (xx >= int(0.18 * w)) & (xx <= int(0.82 * w)) & ((sat >= 72.0) | cave_mouth | (yy < int(0.34 * h)))
+    arch_mask = (rock_mask & (~walkable_causeway) & (~rim_mask) & dome_region) | cave_mouth
+    cliff_mask = rock_mask & (~walkable_causeway) & (~rim_mask) & (~arch_mask)
+
+    # 4. Couche 00 : Nappe & gouffres de magma canonique `H26P01` `1×` (palette cycling matériel `31 × 4` ticks)
+    #    Couvre tout le fond sous les gouffres ET sous les veines pour zéro trou d'occlusion !
+    frames_00_sea = build_canonical_h26p01_magma_frames(w=w, h=h, mask=None, phase_offset=0)
+
+    # 5. Couche 01 : Sol basaltique complet sous toute la roche (`~all_magenta`)
+    arr_01_sol = np.zeros((h, w, 4), dtype=np.uint8)
+    arr_01_sol[rock_mask, :3] = q_sol[rock_mask]
+    arr_01_sol[rock_mask, 3] = 255
+
+    # 6. Couche 02 : **Veines de magma dans la roche** (découpe exacte des fissures `#FF00FF` de `decor_entree_veines_magenta.png`
+    #    animées par la vraie texture canonique `H26P01` + `H26P01.bpl` décalée de `+9` phases pour un relief vivant !)
+    veins_dilated = ndimage.binary_dilation(rock_veins, iterations=1) & all_magenta
+    frames_02_veins = build_canonical_h26p01_magma_frames(
+        w=w,
+        h=h,
+        mask=veins_dilated,
+        phase_offset=9,
+        index_roll=(24, 16),
+        pure_molten_only=True,
+    )
+
+    def _layer_from_mask(m: np.ndarray) -> Image.Image:
+        out = np.zeros((h, w, 4), dtype=np.uint8)
+        out[m, :3] = q_decor[m]
+        out[m, 3] = 255
+        return Image.fromarray(out, mode="RGBA")
+
+    im_03_floor = _layer_from_mask(walkable_causeway)
+    im_04_rim = _layer_from_mask(rim_mask)
+    im_05_cliffs = _layer_from_mask(cliff_mask)
+    im_06_arch = _layer_from_mask(arch_mask)
+
+    # 7. Couche 07 : Incandescence thermique `H26P01.bpl` (palette `0`, `15 × 8` ticks) au bord des veines & gouffres
+    full_rock_rgba = np.zeros((h, w, 4), dtype=np.uint8)
+    non_walk_rock = rock_mask & (~walkable_causeway)
+    full_rock_rgba[non_walk_rock, :3] = q_decor[non_walk_rock]
+    full_rock_rgba[non_walk_rock, 3] = 255
+    frames_07_glow = build_h26p01_rim_glow_frames(full_rock_rgba, all_magenta)
+
+    # 8. Couche 08 : Cascades cylindriques de lave `H26P01` `1×` (`palette 4`, `8 × 3` ticks)
+    #    jaillissant sous l'aplomb des falaises SO et SE (`top_y = 336`, ZÉRO débordement sur le haut des orgues !)
     sx = w / float(W_CANON)
     sy = h / float(H_CANON)
-
-    # 1. Mise à l'échelle entière `2×` de `D12P01` (`408 × 336` -> `816 × 672` à `768 × 576`) :
-    #    - Recadrage horizontal symétrique de `24 px` de chaque côté (`x = 24..792` -> `768 px` plein cadre, ZÉRO couture !)
-    #    - Cadrage vertical `y = 20..596` (`576 px` : conserve 100 % de la voûte, de la crête de flammes,
-    #      de l'arche sombre nord, des colonnes basaltiques, des rochers gris et de la route Sud -> Nord !)
-    d12_orig = Image.open(REF_DIR / "d12p01_magma_cavern_entrance.png").convert("RGB")
-    up_w = max(w, int(round(d12_orig.width * 2.0 * sx)))
-    up_h = max(h, int(round(d12_orig.height * 2.0 * sy)))
-    d12_up = np.asarray(d12_orig.resize((up_w, up_h), Image.Resampling.NEAREST), dtype=np.uint8)
-
-    crop_x0 = (up_w - w) // 2
-    crop_y0 = min(max(0, int(round(16 * sy))), up_h - h)
-    d12_full = d12_up[crop_y0 : crop_y0 + h, crop_x0 : crop_x0 + w, :].copy()
-    d12_q = quantize_rgb_to_palette(d12_full, volc_pal)
-
-    # Détection exacte du vide supérieur `[55, 0, 0]` connecté au bord Nord (préserve l'arche sombre interne !)
-    is_bg55 = (
-        (np.abs(d12_full[:, :, 0].astype(np.int16) - 55) <= 4)
-        & (d12_full[:, :, 1] <= 4)
-        & (d12_full[:, :, 2] <= 4)
-    )
-    lbl_bg, _ = ndimage.label(is_bg55)
-    vault_labels = set(lbl_bg[0, :].tolist()) - {0}
-    vault_mask = np.isin(lbl_bg, list(vault_labels))
-    cavern_body_mask = ~vault_mask
-
-    # 2. `MME1_00` : voûte volcanique sombre `[55, 0, 0]` + gouffres de lave aux coins Sud-Ouest et Sud-Est
-    vault_rgb = quantize_rgb_to_palette(np.array([[[55, 0, 0]]], dtype=np.uint8), volc_pal)[0, 0]
-    sea_raw = Image.open(ARENE_RAW_DIR / "fond_mer_magma_continu.png").convert("RGB")
-    sea_q = quantize_rgb_to_palette(
-        np.asarray(sea_raw.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8),
-        volc_pal,
-    )
-
-    bg_arr = np.empty((h, w, 3), dtype=np.uint8)
-    bg_arr[:, :] = vault_rgb[None, None, :]
-
-    xs_g = np.arange(w, dtype=np.float32)[None, :]
-    yy_g = np.arange(h, dtype=np.float32)[:, None]
-
-    # Encoches organiques de gouffres de magma aux coins inférieurs gauche et droit (`x < corner_w`, `y > corner_y`)
-    # laissant toute la chaussée centrale **Sud -> Nord** largement ouverte (`x = 152..616` à `y = 576` = `58` tuiles !)
-    left_chasm = ((xs_g / max(1.0, 0.21 * w)) ** 1.35 + ((h - yy_g) / max(1.0, 0.30 * h)) ** 1.35) < 1.0
-    right_chasm = (((w - 1.0 - xs_g) / max(1.0, 0.21 * w)) ** 1.35 + ((h - yy_g) / max(1.0, 0.30 * h)) ** 1.35) < 1.0
-    corner_chasms = left_chasm | right_chasm
-    bg_arr[corner_chasms] = sea_q[corner_chasms]
-    layer00_rgba = np.concatenate([bg_arr, np.full((h, w, 1), 255, dtype=np.uint8)], axis=2)
-
-    # 3. `MME1_02` : corps caverneux canonique `D12P01` (`2×` net plein cadre), découpé proprement autour
-    #    de la voûte nord et des deux gouffres de lave Sud-Ouest / Sud-Est
-    arr_02 = np.zeros((h, w, 4), dtype=np.uint8)
-    keep_d12 = cavern_body_mask & (~corner_chasms)
-    arr_02[keep_d12, :3] = d12_q[keep_d12]
-    arr_02[keep_d12, 3] = 255
-
-    # 4. `MME1_03` + `MME1_08` : contreforts d'orgues basaltiques & amas rocheux découpés sur fond `#FF00FF` pur
-    #    (`flancs_colonnes_basalte_magenta.png`, `erode_fringe=3`) ancrés aux deux coins Sud-Ouest et Sud-Est !
-    flank_keyed = key_magenta(
-        Image.open(RAW_DIR / "flancs_colonnes_basalte_magenta.png"),
-        erode_fringe=3,
-        min_component_area=60,
-    )
-    flank_q = quantize_rgba_to_palette(flank_keyed, volc_pal)
-    cw_sp, ch_sp = max(24, int(round(168 * sx))), max(24, int(round(196 * sy)))
-    col_l = flank_q.resize((cw_sp, ch_sp), Image.Resampling.NEAREST)
-    col_r = col_l.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-
-    im_03 = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    im_03.alpha_composite(col_l, (-int(round(28 * sx)), h - ch_sp + int(round(18 * sy))))
-    im_03.alpha_composite(col_r, (w - cw_sp + int(round(28 * sx)), h - ch_sp + int(round(18 * sy))))
-    arr_03 = np.asarray(im_03, dtype=np.uint8)
-
-    # Petits rochers volcaniques gris découpés du pied des orgues pour ponctuer naturellement les rives des gouffres
-    f_arr = np.asarray(flank_q, dtype=np.uint8)
-    fh_s, fw_s = f_arr.shape[:2]
-    b_sub = f_arr[int(fh_s * 0.73) : int(fh_s * 0.95), int(fw_s * 0.35) : int(fw_s * 0.65), :].copy()
-    hot_px = (b_sub[:, :, 3] > 0) & ((b_sub[:, :, 0].astype(np.int16) - b_sub[:, :, 2].astype(np.int16)) > 85) & (b_sub[:, :, 0] > 165)
-    b_sub[hot_px, 3] = 0
-    im_08 = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    lbl_rk, n_rk = ndimage.label(b_sub[:, :, 3] > 0)
-    if n_rk > 0:
-        best_rk = lbl_rk == (int(np.argmax(ndimage.sum(b_sub[:, :, 3] > 0, lbl_rk, index=range(1, n_rk + 1)))) + 1)
-        b_sub[~best_rk] = 0
-        yrk, xrk = np.where(best_rk)
-        rock_crop = Image.fromarray(b_sub[int(yrk.min()) : int(yrk.max()) + 1, int(xrk.min()) : int(xrk.max()) + 1], mode="RGBA")
-        rk_a = rock_crop.resize((max(12, int(round(52 * sx))), max(10, int(round(34 * sy)))), Image.Resampling.NEAREST)
-        rk_b = rk_a.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-        im_08.alpha_composite(rk_a, (int(round(142 * sx)), int(round(472 * sy))))
-        im_08.alpha_composite(rk_b, (w - int(round(194 * sx)), int(round(466 * sy))))
-    arr_08 = np.asarray(im_08, dtype=np.uint8)
-
-    # 5. Palette de cycle magma canonique extraite directement de `D12P01.bpl` (aucune teinte hors palette !)
-    fire_ramp = quantize_rgb_to_palette(
-        np.array(
-            [
-                [
-                    [95, 0, 0],      # 0 : braise sombre
-                    [143, 55, 0],    # 1 : ocre rouge profond
-                    [183, 87, 0],    # 2 : ambre volcanique
-                    [255, 23, 0],    # 3 : rouge magma pur
-                    [255, 47, 0],    # 4 : vermillon ardent
-                    [255, 71, 0],    # 5 : orange lave vive
-                    [255, 119, 0],   # 6 : orange-or incandescent
-                    [255, 207, 0],   # 7 : jaune-or fusion `D12P01.bpl`
-                ]
-            ],
-            dtype=np.uint8,
-        ),
-        volc_pal,
-    )[0]
-
-    # `MME1_01` : respiration de brume ardente dans la voûte volcanique juste derrière la crête enflammée
-    crest_halo_band = vault_mask & ndimage.binary_dilation(cavern_body_mask, iterations=max(2, int(round(8 * sy))))
-    c_vault_warm = quantize_rgb_to_palette(np.array([[[79, 0, 0], [95, 0, 0]]], dtype=np.uint8), volc_pal)[0]
-    frames_01: List[Image.Image] = []
-    for t in range(N_FRAMES):
-        breath_v = 0.5 + 0.5 * np.sin(2.0 * np.pi * (t / float(N_FRAMES)))
-        arr1 = np.zeros((h, w, 4), dtype=np.uint8)
-        if breath_v > 0.35:
-            arr1[crest_halo_band, :3] = c_vault_warm[1 if breath_v > 0.72 else 0]
-            arr1[crest_halo_band, 3] = 255
-        frames_01.append(Image.fromarray(arr1, mode="RGBA"))
-
-    # Séparation stricte des pixels de LAVE PURE de `D12P01` (`R == 255` et `B == 0`, ou flammèches de crête
-    # touchant la voûte) — ZÉRO modification des colonnes rocheuses ocres (`R <= 231`), donc ZÉRO tache jaune !
-    d_r = d12_full[:, :, 0].astype(np.int16)
-    d_g = d12_full[:, :, 1].astype(np.int16)
-    d_b = d12_full[:, :, 2].astype(np.int16)
-    in_body = arr_02[:, :, 3] > 0
-
-    near_vault = ndimage.binary_dilation(vault_mask, iterations=max(2, int(round(10 * sy))))
-    # `MME1_04` : langues de flammes le long de la crête du dôme (`pal 0 col 1..7` de `D12P01.bpl`)
-    flame_rim_px = in_body & near_vault & (d_r >= 245) & (d_b == 0)
-
-    # `MME1_05` : poches de magma pur au pied des orgues basaltiques (`R == 255, B == 0`, `y < 0.54 * h`, hors crête)
-    pillar_lava_px = in_body & (~near_vault) & (yy_g < 0.54 * h) & (d_r >= 248) & (d_b == 0)
-
-    # `MME1_06` : veines de magma incandescentes dans les joints du pavage polygonal Sud -> Nord (`y >= 0.40 * h`)
-    floor_vein_px = in_body & (yy_g >= 0.40 * h) & (d_r >= 215) & (d_b == 0)
-
-    # Table de correspondance cyclique fidèle à `D12P01.bpl` (préserve le gradient interne `rouge -> orange -> or` !)
-    lava_cycle_table = [
-        np.array([255, 23, 0], dtype=np.uint8),
-        np.array([255, 47, 0], dtype=np.uint8),
-        np.array([255, 71, 0], dtype=np.uint8),
-        np.array([255, 119, 0], dtype=np.uint8),
-        np.array([255, 207, 0], dtype=np.uint8),
-        np.array([255, 135, 0], dtype=np.uint8),
-        np.array([255, 95, 0], dtype=np.uint8),
-        np.array([255, 47, 0], dtype=np.uint8),
+    pillar_specs = [
+        {"variant": "large", "cx": int(round(136 * sx)), "top_y": int(round(336 * sy)), "base_y": int(round(516 * sy)), "phase": 0, "mirror": False},
+        {"variant": "large", "cx": int(round(640 * sx)), "top_y": int(round(336 * sy)), "base_y": int(round(516 * sy)), "phase": 4, "mirror": True},
     ]
-    q_cycle = quantize_rgb_to_palette(np.array([lava_cycle_table], dtype=np.uint8), volc_pal)[0]
+    frames_08_pillars = render_extended_canonical_pillars(
+        w=w,
+        h=h,
+        specs=pillar_specs,
+        open_magma_mask=open_chasm if w >= 768 else None,
+    )
 
-    # Indice de phase intrinsèque de chaque pixel de lave `D12P01` d'après sa canalité verte `G` (`0 -> 207`),
-    # exactement comme le cyclage matériel de palette `D12P01.bpl` sur GBA !
-    g_phase_idx = np.zeros((h, w), dtype=np.int32)
-    g_phase_idx[d_g >= 20] = 1
-    g_phase_idx[d_g >= 44] = 2
-    g_phase_idx[d_g >= 68] = 3
-    g_phase_idx[d_g >= 108] = 4
-    g_phase_idx[d_g >= 150] = 5
+    # 9. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques `W04` `1×` natives (`16 × 7` ticks)
+    frames_09_embers = build_canonical_w04_embers_frames(w=w, h=h)
 
-    frames_04: List[Image.Image] = []
-    frames_05: List[Image.Image] = []
-    frames_06: List[Image.Image] = []
-    for t in range(N_FRAMES):
-        # Crête de flammes rapide (`3` cycles par boucle `24` poses comme `dur = 9` dans `D12P01.bpl` !)
-        arr4 = np.zeros((h, w, 4), dtype=np.uint8)
-        idx4 = (g_phase_idx[flame_rim_px] + t) % 8
-        arr4[flame_rim_px, :3] = q_cycle[idx4]
-        arr4[flame_rim_px, 3] = 255
-        frames_04.append(Image.fromarray(arr4, mode="RGBA"))
-
-        # Magma au pied des orgues basaltiques (`1` cycle lent respirant sur `24` poses comme `nf = 23` dans `D12P01.bpl`)
-        arr5 = np.zeros((h, w, 4), dtype=np.uint8)
-        step_p = (t * 8) // N_FRAMES
-        idx5 = (g_phase_idx[pillar_lava_px] + step_p) % 8
-        arr5[pillar_lava_px, :3] = q_cycle[idx5]
-        arr5[pillar_lava_px, 3] = 255
-        frames_05.append(Image.fromarray(arr5, mode="RGBA"))
-
-        # Veines incandescentes entre les dalles polygonales du chemin Sud -> Nord (`2` cycles par boucle)
-        arr6 = np.zeros((h, w, 4), dtype=np.uint8)
-        yy_full = np.broadcast_to(yy_g, (h, w))
-        step_v = ((t * 16) // N_FRAMES + (yy_full[floor_vein_px].astype(np.int32) // max(1, int(round(48 * sy))))) % 8
-        idx6 = (g_phase_idx[floor_vein_px] + step_v) % 8
-        arr6[floor_vein_px, :3] = q_cycle[idx6]
-        arr6[floor_vein_px, 3] = 255
-        frames_06.append(Image.fromarray(arr6, mode="RGBA"))
-
-    # `MME1_07` : cyclage organique des fleuves de magma dans les deux gouffres d'angle avant-plan
-    chasm_open = corner_chasms & (arr_03[:, :, 3] == 0) & (arr_08[:, :, 3] == 0)
-    chasm_lava = chasm_open & (sea_q[:, :, 0] >= 205) & (sea_q[:, :, 2] <= 24)
-    chasm_g_idx = np.clip(sea_q[:, :, 1].astype(np.int32) // 28, 0, 7)
-    frames_07: List[Image.Image] = []
-    for t in range(N_FRAMES):
-        arr7 = np.zeros((h, w, 4), dtype=np.uint8)
-        idx7 = (chasm_g_idx[chasm_lava] + (t // 3)) % 8
-        arr7[chasm_lava, :3] = q_cycle[idx7]
-        arr7[chasm_lava, 3] = 255
-        frames_07.append(Image.fromarray(arr7, mode="RGBA"))
-
-    # `MME1_09` (`Top`, `Layer = 4`) : braises et flammèches volcaniques ascendantes
-    ember_seeds = [
-        (0.06, 0.94, 0, True), (0.13, 0.86, 5, False), (0.19, 0.92, 11, True),
-        (0.09, 0.44, 17, False), (0.24, 0.36, 20, False), (0.81, 0.92, 3, True),
-        (0.88, 0.85, 9, False), (0.94, 0.95, 14, True), (0.76, 0.36, 19, False),
-        (0.91, 0.42, 22, False), (0.36, 0.28, 7, False), (0.64, 0.27, 16, False),
-    ]
-    rise_span = max(24, int(round(108 * sy)))
-    frames_09: List[Image.Image] = []
-    for t in range(N_FRAMES):
-        arr9 = np.zeros((h, w, 4), dtype=np.uint8)
-        for fx_e, fy_e, ph_e, big_e in ember_seeds:
-            u_e = ((t + ph_e) % N_FRAMES) / float(N_FRAMES)
-            ex = int(round(w * fx_e + np.sin(2.0 * np.pi * u_e) * 4.0 * sx))
-            ey = int(round(h * fy_e - u_e * rise_span))
-            if not (2 <= ex < w - 2 and 2 <= ey < h - 2):
-                continue
-            c_idx = 7 if u_e < 0.35 else (5 if u_e < 0.72 else 3)
-            arr9[ey, ex, :3] = fire_ramp[c_idx]
-            arr9[ey, ex, 3] = 255
-            if big_e and u_e < 0.75:
-                arr9[ey + 1, ex, :3] = fire_ramp[max(1, c_idx - 2)]
-                arr9[ey + 1, ex, 3] = 255
-        frames_09.append(Image.fromarray(arr9, mode="RGBA"))
-
-    # 6. Grille de collision 100 % visuelle : chaussée polygonale **Sud (`y = h - 1`) -> Arche Nord (`y ~ 0.30 * h`)**
-    walk_px = np.zeros((h, w), dtype=bool)
-    for py in range(h):
-        yf = py / float(h)
-        if yf < 0.28:
-            continue
-        elif yf < 0.58:
-            # S'évase exactement le long des parois rocheuses de `D12P01` depuis l'arche nord (`x = 0.465..0.535 * w`)
-            t_open = (yf - 0.28) / 0.30
-            half_c = int(round((0.036 + 0.38 * t_open) * w))
-            walk_px[py, (w // 2) - half_c : (w // 2) + half_c] = arr_02[py, (w // 2) - half_c : (w // 2) + half_c, 3] > 0
-        else:
-            walk_px[py, :] = (arr_02[py, :, 3] > 0) & (arr_03[py, :, 3] == 0) & (arr_08[py, :, 3] == 0)
-            # Garde une marge de sécurité de 2 tuiles au bord des gouffres de lave d'angle
-            walk_px[py, :] &= ~ndimage.binary_dilation(corner_chasms[py, :], iterations=max(2, int(round(12 * sx))))
-
+    # 10. Grille de collision `96 × 72` : chemin praticable continu du bord Sud (`y = gh - 1`) jusqu'au seuil de la grotte !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
         for tx in range(gw):
-            blk = walk_px[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            walk_grid[ty, tx] = float(blk.mean()) >= 0.65
+            blk = walkable_causeway[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
+            mag_blk = all_magenta[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
+            walk_grid[ty, tx] = (float(blk.mean()) >= 0.65) and (not bool(mag_blk.any()))
 
-    labeled_w, n_w = ndimage.label(walk_grid)
+    lbl_w, n_w = ndimage.label(walk_grid)
     if n_w > 1:
-        south_labels = set(labeled_w[-1, :].tolist()) - {0}
-        if south_labels:
-            walk_grid = np.isin(labeled_w, list(south_labels))
+        south_ids = set(lbl_w[-1, :].tolist()) - {0}
+        if south_ids:
+            walk_grid = np.isin(lbl_w, list(south_ids))
 
     layers = [
-        LayerEntry("00_voute_et_gouffres_magma", "Voute Volcanique & Gouffres Magma", "BG", [Image.fromarray(layer00_rgba, "RGBA")]),
-        LayerEntry("01_halo_ardent_voute", "Halo Ardent Voute Caverneuse", "BG", frames_01),
-        LayerEntry("02_dome_arche_et_pavage_d12", "Dome Arche & Chaussée D12P01 2x", "BG", [Image.fromarray(arr_02, "RGBA")]),
-        LayerEntry("03_contreforts_orgues_angles", "Contreforts Orgues Basaltiques Angles", "BG", [Image.fromarray(arr_03, "RGBA")]),
-        LayerEntry("04_flammes_crete_volcan_bpl", "Flammes Crete Volcanique D12P01 BPL", "BG", frames_04),
-        LayerEntry("05_lueur_pied_orgues_bpl", "Magma Incandescent Pied Orgues BPL", "BG", frames_05),
-        LayerEntry("06_veines_magma_dalles_bpl", "Veines Magma Pulsantes Chaussee BPL", "BG", frames_06),
-        LayerEntry("07_fleuves_magma_gouffres", "Fleuves Lave En Fusion Gouffres", "BG", frames_07),
-        LayerEntry("08_rochers_volcaniques_rives", "Rochers Volcaniques Rives Gouffres", "BG", [Image.fromarray(arr_08, "RGBA")]),
-        LayerEntry("09_braises_ascendantes_top", "Braises & Flammeches Ascendantes", "Top", frames_09),
+        LayerEntry("00_mer_et_gouffres_magma_h26", "Gouffres Magma Canonique H26P01.bpl", "BG", frames_00_sea, frame_length=4),
+        LayerEntry("01_sol_basalte_continu", "Sol Basalte Volcanique Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
+        LayerEntry("02_veines_magma_magenta_h26", "Veines Magma Decoupe Magenta H26P01.bpl", "BG", frames_02_veins, frame_length=4),
+        LayerEntry("03_chaussee_praticable_sud_nord", "Chaussee Pavage Basalte Sud-Nord", "BG", [im_03_floor], frame_length=5),
+        LayerEntry("04_rebords_chaussee_volcanique", "Rebords & Corniches Chaussee", "BG", [im_04_rim], frame_length=5),
+        LayerEntry("05_parois_orgues_basaltiques", "Parois Orgues Basaltiques & Terrasses", "BG", [im_05_cliffs], frame_length=5),
+        LayerEntry("06_dome_et_arche_entree_grotte", "Dome Volcanique & Arche Grotte Nord", "BG", [im_06_arch], frame_length=5),
+        LayerEntry("07_incandescence_rives_bpl", "Incandescence Thermique Parois BPL", "BG", frames_07_glow, frame_length=8),
+        LayerEntry("08_cascades_lave_gouffres_h26", "Cascades Lave Gouffres H26P01.bpl", "BG", frames_08_pillars, frame_length=3),
+        LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),
     ]
-    return layers, walk_grid, volc_pal
+    return layers, walk_grid, volcanic_pal
 
 
-def main() -> None:
-    layers, walk_grid, _ = build_layers_for_size(W_CANON, H_CANON)
+def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
+    w = max(64, int(round(W_CANON * scale / TILE_SIZE)) * TILE_SIZE)
+    h = max(64, int(round(H_CANON * scale / TILE_SIZE)) * TILE_SIZE)
+    out_dir = output_override if output_override is not None else RENDERS_DIR
+    vzip = (out_dir / f"{MAP_ID}_PMDO_0.8.12.zip") if output_override is not None else VIRTUAL_ZIP
+    layers, walk_grid, _ = build_layers_for_size(w, h)
     meta = build_rsground_package(
         map_id=MAP_ID,
         map_title=MAP_TITLE,
         layers=layers,
         walk_grid=walk_grid,
-        renders_dir=RENDERS_DIR,
-        virtual_zip_path=VIRTUAL_ZIP,
-        canonical_ref_for_fidelity=REF_DIR / "d12p01_magma_cavern_entrance.png",
-        max_fidelity_distance=16.0,
+        renders_dir=out_dir,
+        virtual_zip_path=vzip,
+        canonical_ref_for_fidelity=ARENA_REF_DIR / "native_H26P01.png",
+        max_fidelity_distance=30.0,
+        max_unique_tiles_per_bank=24000,
         namespace_override="mine_magma_mme1",
         asset_name_override="mine_magma_entree",
     )
+    meta["width"] = w
+    meta["height"] = h
+    return meta
+
+
+def main() -> None:
+    meta = build()
     print(json.dumps(meta, indent=2, ensure_ascii=False))
 
 

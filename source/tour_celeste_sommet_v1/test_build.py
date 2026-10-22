@@ -77,17 +77,25 @@ class TestTourCelesteSommet(unittest.TestCase):
 
     def test_02_static_clouds_and_animated_cosmos_bpl(self) -> None:
         self.assertEqual(len(self.layers), 10)
-        # Couches animées sur 24 poses : cosmos profond, étoiles héroïques, halo limbe, souffle BPL
-        for idx_anim in (0, 1, 2, 8):
+        # Couches animées sur 24 poses : cosmos profond, étoiles héroïques, reflets internes BPL
+        for idx_anim in (0, 1, 8):
             self.assertEqual(len(self.layers[idx_anim].frames), N_FRAMES)
-        # Couches nuageuses strictement statiques (`poses == 1`) : massif & croissants autour de l'arène + cumulus avant-plan
-        for idx_static in (3, 4, 5, 6, 7, 9):
+        # Planète Terre sans halo (`2`) + toutes les couches nuageuses (`3..7`, `9`) strictement statiques (`poses == 1`)
+        for idx_static in (2, 3, 4, 5, 6, 7, 9):
             self.assertEqual(len(self.layers[idx_static].frames), 1)
 
-        # Les alizés et continents sur le disque terrestre (`y >= 150`) restent 100 % fixes sur `STC1_00`
-        f0_earth = np.asarray(self.layers[0].frames[0], dtype=np.int16)[150:, :, :3]
-        f12_earth = np.asarray(self.layers[0].frames[12], dtype=np.int16)[150:, :, :3]
-        self.assertEqual(int(np.abs(f12_earth - f0_earth).max()), 0)
+        # Zéro blanc sur l'ourlet externe de l'arène/pont (`layer 05`) ni au contact immédiat de l'arène (`layer 04`)
+        l05 = np.asarray(self.layers[5].frames[0], dtype=np.uint8)
+        self.assertEqual(int(((l05[:, :, 3] > 0) & (l05[:, :, 0] >= 185)).sum()), 0)
+        from scipy import ndimage as _nd
+        arena_any = (
+            (l05[:, :, 3] > 0)
+            | (np.asarray(self.layers[6].frames[0], dtype=np.uint8)[:, :, 3] > 0)
+            | (np.asarray(self.layers[7].frames[0], dtype=np.uint8)[:, :, 3] > 0)
+        )
+        border_ring = _nd.binary_dilation(arena_any, iterations=4) & (~arena_any)
+        l04 = np.asarray(self.layers[4].frames[0], dtype=np.uint8)
+        self.assertEqual(int(((l04[:, :, 3] > 0) & border_ring).sum()), 0)
 
         # Scintillement réel des étoiles dans le cosmos
         st0 = np.asarray(self.layers[1].frames[0], dtype=np.float32)
@@ -98,7 +106,7 @@ class TestTourCelesteSommet(unittest.TestCase):
         collar_alpha = np.asarray(self.layers[3].frames[0], dtype=np.uint8)[:, :, 3] > 0
         crescent_alpha = np.asarray(self.layers[4].frames[0], dtype=np.uint8)[:, :, 3] > 0
         self.assertGreater(int(collar_alpha.sum()), 60000)
-        self.assertGreater(int(crescent_alpha.sum()), 12000)
+        self.assertGreater(int(crescent_alpha.sum()), 8000)
 
     def test_03_earth_reference_and_b71_pixel_fidelity(self) -> None:
         comp0 = _composite_pose(self.layers, 0)

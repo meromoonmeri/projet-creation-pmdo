@@ -2,19 +2,15 @@
 """Constructeur multicalque 10 couches (24 trames @ 5 ticks = 120 ticks) :
 STC1 — Sommet de la Tour Céleste — Arène de Rayquaza (`b71` + Planète Terre & Chemin Sud-Nord).
 
-Réunit à l'échelle pixel exacte :
-1. La Planète Terre vue de l'orbite fidèle à `references/ref_sommet_planete_rayquaza.png`
-   (`bruts/planete_terre_reference_exacte.png` recalée sur la courbure d'horizon `y = 75 -> 136 px`,
-   continents turquoise et alizés strictement statiques, halo atmosphérique respirant `STC1_02`
-   et cosmos étoilé scintillant multicalque `STC1_00` & `STC1_01`).
-2. Le massif nuageux volumétrique sculpté et les deux grands croissants de vent incurvés autour de
-   l'arène fidèles à `references/ref_sommet_planete_rayquaza.png`
-   (`bruts/couronne_nuages_autour_arene_magenta.png`, strictement statiques `poses = 1` sur
-   `STC1_03` et `STC1_04`).
-3. L'arène circulaire `1:1` extraite de `references/b71_sky_tower_summit.png` fusionnée sans couture
-   avec un chemin de nuages praticable **Sud -> Nord** à la même échelle de croissants `1:1` `b71`
-   (`bruts/chemin_sud_nord_b71_magenta.png`, `STC1_05..07`) + souffle lumineux `D13P01.bpl` (`STC1_08`).
-4. Les massifs cumulus d'avant-plan (`Top`, `Layer = 4`, `STC1_09`) strictement statiques (`poses = 1`).
+Garanties visuelles :
+1. Zéro halo atmosphérique sur l'horizon terrestre ni autour de l'arène de Rayquaza : la Planète Terre
+   (`STC1_02`, statique `1` pose) présente un contour net sur le cosmos étoilé (`STC1_00` & `STC1_01`).
+2. Zéro liseré / coin blanc séparant l'arène `b71` des nuages périphériques : l'ourlet externe de `b71`
+   est strictement pervenche (`[127, 167, 255]`) et s'adosse directement au massif nuageux bleu outremer
+   (`STC1_03`, statique `1` pose) flanqué de ses croissants de vent (`STC1_04`, statique `1` pose).
+3. Alizés terrestres, couronne nuageuse autour de l'arène et cumulus d'avant-plan (`STC1_09`, `Top`)
+   strictement statiques (`poses = 1`) ; étoiles cosmiques (`STC1_00`, `STC1_01`) et reflets internes
+   du sol nuageux (`STC1_08`) animés en `24` poses.
 """
 
 from __future__ import annotations
@@ -55,13 +51,10 @@ RENDERS_DIR = REPO_ROOT / "renders" / "tour_celeste_sommet_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 B71_RIM_SKYBLUE_RGB = np.array([127, 167, 255], dtype=np.uint8)
+B71_RIM_DEEP_RGB = np.array([103, 143, 235], dtype=np.uint8)
 
 
 def build_palettes() -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Construit :
-    - `b71_pal` : palette stricte des nuages canoniques `b71_sky_tower_summit.png`,
-    - `earth_pal` : palette fidèle du globe terrestre, de son massif nuageux sculpté et du cosmos,
-    - `unified_pal` : union complète sans doublon."""
     b71_all = extract_canonical_palette([REF_DIR / "b71_sky_tower_summit.png"], max_colors=56, min_pixels=2)
     b71_cloud_list = [
         c.tolist()
@@ -90,16 +83,15 @@ def build_palettes() -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
             [12, 30, 102],
             [14, 58, 174],
             [18, 78, 192],
+            [24, 96, 206],
             [30, 56, 164],
             [44, 74, 186],
             [62, 98, 208],
             [84, 126, 228],
             [108, 156, 242],
             [138, 188, 252],
-            [76, 206, 252],
-            [124, 228, 255],
-            [176, 246, 255],
-            [216, 250, 255],
+            [36, 148, 226],
+            [68, 182, 240],
         ],
         dtype=np.uint8,
     )
@@ -114,7 +106,6 @@ def extract_quadrant_sprite(
     palette: np.ndarray,
     target_size: Tuple[int, int],
 ) -> Image.Image | None:
-    """Extrait par détourage `#FF00FF` strict un sprite complet dans le quadrant `(x0, y0, x1, y1)`."""
     keyed = key_magenta(Image.open(raw_path), erode_fringe=3, min_component_area=80)
     raw_arr = np.asarray(keyed, dtype=np.uint8).copy()
     sh, sw = raw_arr.shape[:2]
@@ -139,46 +130,66 @@ def extract_reference_arena_collar_layers(
     w: int,
     h: int,
     unified_pal: np.ndarray,
+    arena_opaque_mask: np.ndarray,
 ) -> Tuple[Image.Image, Image.Image]:
-    """Extrait depuis `bruts/couronne_nuages_autour_arene_magenta.png` le massif nuageux sculpté
-    et les deux grands croissants de vent latéraux fidèles à `ref_sommet_planete_rayquaza.png`,
-    découpés sur fond `#FF00FF` pur et séparés en deux calques **strictement statiques (`poses = 1`)** :
-    - `STC1_03` : socle nuageux volumétrique bleu outremer / cobalt / pervenche sous et autour de l'arène ;
-    - `STC1_04` : croissants de vent incurvés gauche/droite et crêtes lumineuses cyan-blanc."""
+    """Extrait le socle nuageux sculpté (`STC1_03`) et les deux grands croissants de vent latéraux
+    (`STC1_04`) **sans aucun blanc résiduel autour de l'extrémité de l'arène** :
+    - toute calotte blanche dépassant en haut ou sur les flancs immédiats de `arena_opaque_mask` est
+      purgée / ramenée dans les bleus profonds du socle nuageux ;
+    - `STC1_04` ne conserve que les deux grands croissants de vent extérieurs gauche et droit."""
     keyed = key_magenta(
         Image.open(RAW_DIR / "couronne_nuages_autour_arene_magenta.png"),
         erode_fringe=3,
         min_component_area=40,
     )
-    k_arr = np.asarray(keyed, dtype=np.uint8)
+    k_arr = np.asarray(keyed, dtype=np.uint8).copy()
     ys_k, _ = np.where(k_arr[:, :, 3] > 0)
     if ys_k.size > 0:
-        # Aligne le bas du massif nuageux jusqu'à `y = h` comme sur `ref_sommet_planete_rayquaza.png`
         y_top_keep = max(0, int(ys_k.min()) - int(round(0.165 * k_arr.shape[0])))
         k_arr = k_arr[y_top_keep : int(ys_k.max()) + 1, :, :]
         keyed = Image.fromarray(k_arr, mode="RGBA")
     scaled = keyed.resize((w, h), Image.Resampling.NEAREST)
     s_arr = np.asarray(scaled, dtype=np.uint8).copy()
+
+    yy, xx = np.mgrid[:h, :w]
     opaque_raw = s_arr[:, :, 3] > 0
     lum_raw = (
         0.299 * s_arr[:, :, 0].astype(np.float32)
         + 0.587 * s_arr[:, :, 1].astype(np.float32)
         + 0.114 * s_arr[:, :, 2].astype(np.float32)
     )
-    # Renforce légèrement les ombres outremer profondes du socle nuageux comme sur la référence
-    deep_collar = opaque_raw & (lum_raw < 166.0)
+
+    # 1. Sélectionne par propagation de composantes connexes (`binary_propagation`) UNIQUEMENT les
+    #    masses claires (`lum_raw >= 134`) qui touchent le voisinage immédiat de `arena_opaque_mask`
+    #    afin de purger tout blanc collé à l'arène SANS AUCUNE coupure verticale rectiligne !
+    touch_seed = ndimage.binary_dilation(arena_opaque_mask, iterations=max(5, int(round(0.035 * min(w, h)))))
+    bright_blobs = opaque_raw & (lum_raw >= 134.0)
+    bright_touching_arena = ndimage.binary_propagation(bright_blobs & touch_seed, mask=bright_blobs)
+
+    # En haut de l'arène (`y < 0.34 * h`), cette calotte blanche dépassait dans le ciel -> supprimée
+    top_cap_white = bright_touching_arena & (~arena_opaque_mask) & (yy < int(round(0.34 * h)))
+    s_arr[top_cap_white] = 0
+    opaque_raw = s_arr[:, :, 3] > 0
+
+    # Sur les flancs de l'arène (`y >= 0.34 * h`), elle est ramenée en bleu cobalt profond du socle
+    collar_bright = bright_touching_arena & (~arena_opaque_mask) & (~top_cap_white)
+    s_arr[collar_bright, 0] = np.clip(s_arr[collar_bright, 0].astype(np.float32) * 0.34, 26, 82).astype(np.uint8)
+    s_arr[collar_bright, 1] = np.clip(s_arr[collar_bright, 1].astype(np.float32) * 0.46, 54, 118).astype(np.uint8)
+    s_arr[collar_bright, 2] = np.clip(s_arr[collar_bright, 2].astype(np.float32) * 0.84, 150, 212).astype(np.uint8)
+
+    deep_collar = opaque_raw & (~collar_bright) & (lum_raw < 166.0)
     s_arr[deep_collar, 0] = np.clip(s_arr[deep_collar, 0].astype(np.float32) * 0.72, 0, 255).astype(np.uint8)
     s_arr[deep_collar, 1] = np.clip(s_arr[deep_collar, 1].astype(np.float32) * 0.78, 0, 255).astype(np.uint8)
     s_arr[deep_collar, 2] = np.clip(s_arr[deep_collar, 2].astype(np.float32) * 0.94, 0, 255).astype(np.uint8)
-    q_rgba = np.asarray(quantize_rgba_to_palette(Image.fromarray(s_arr, mode="RGBA"), unified_pal), dtype=np.uint8)
 
+    q_rgba = np.asarray(quantize_rgba_to_palette(Image.fromarray(s_arr, mode="RGBA"), unified_pal), dtype=np.uint8)
     opaque = q_rgba[:, :, 3] > 0
     lum = (
         0.299 * q_rgba[:, :, 0].astype(np.float32)
         + 0.587 * q_rgba[:, :, 1].astype(np.float32)
         + 0.114 * q_rgba[:, :, 2].astype(np.float32)
     )
-    crescent_mask = opaque & (lum >= 158.0)
+    crescent_mask = opaque & (~bright_touching_arena) & (lum >= 152.0)
     pedestal_mask = opaque & (~crescent_mask)
 
     arr_03 = np.zeros((h, w, 4), dtype=np.uint8)
@@ -195,10 +206,9 @@ def extract_b71_arena_with_south_north_path(
     h: int,
     b71_pal: np.ndarray,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Assemble sans couture :
-    1. L'arène circulaire `1:1` de `b71_sky_tower_summit.png` calée à `y_sommet = 103 px` (`-14` tuiles),
-    2. Le chemin de nuages praticable **Sud -> Nord** (`chemin_sud_nord_b71_magenta.png`) échantillonné
-       à l'échelle exacte des croissants `b71` et s'ouvrant jusqu'au bord Sud `y = h`."""
+    """Assemble sans couture l'arène circulaire `1:1` de `b71_sky_tower_summit.png` et le chemin
+    de nuages praticable **Sud -> Nord**, en garantissant **zéro pixel blanc sur tout le bord
+    extérieur** (seul l'ourlet bleu pervenche entoure l'arène et le pont)."""
     b71_img = Image.open(REF_DIR / "b71_sky_tower_summit.png").convert("RGB")
     bw0, bh0 = b71_img.size
     if h == bh0 and w >= bw0:
@@ -212,36 +222,43 @@ def extract_b71_arena_with_south_north_path(
 
     bh, bw, _ = b71_scaled.shape
     x_off = (w - bw) // 2
-    y_shift_up = (int(round(0.194 * h)) // TILE_SIZE) * TILE_SIZE  # 112 px à h = 576
+    y_shift_up = (int(round(0.194 * h)) // TILE_SIZE) * TILE_SIZE
 
     r_ch = b71_scaled[:, :, 0].astype(np.int16)
     g_ch = b71_scaled[:, :, 1].astype(np.int16)
     b_ch = b71_scaled[:, :, 2].astype(np.int16)
 
-    fg_cloud_pixels = (((g_ch - r_ch) >= 30) & (g_ch >= 158) & (b_ch >= 225)) | (
-        (r_ch >= 235) & (g_ch >= 235) & (b_ch >= 235)
-    )
-    top_aa = (
-        ndimage.binary_dilation(fg_cloud_pixels, iterations=1)
-        & (~fg_cloud_pixels)
-        & (b_ch >= 195)
-        & (g_ch >= 40)
-        & (np.arange(bh)[:, None] < int(bh * 0.48))
-    )
-    b71_clean = b71_scaled.copy()
-    b71_clean[top_aa] = B71_RIM_SKYBLUE_RGB
-    fg_raw = fg_cloud_pixels | top_aa
-
     dome_seed = (g_ch >= 183) & ((g_ch - r_ch) >= 40) & (r_ch >= 135)
     lbl_s, n_s = ndimage.label(dome_seed)
-    main_dome = (lbl_s == (int(np.argmax(ndimage.sum(dome_seed, lbl_s, index=range(1, n_s + 1)))) + 1)) if n_s > 0 else dome_seed
-    main_dome_filled = ndimage.binary_fill_holes(ndimage.binary_dilation(main_dome, iterations=2))
+    main_dome = (
+        (lbl_s == (int(np.argmax(ndimage.sum(dome_seed, lbl_s, index=range(1, n_s + 1)))) + 1))
+        if n_s > 0
+        else dome_seed
+    )
+    main_dome_filled = ndimage.binary_fill_holes(ndimage.binary_dilation(main_dome, iterations=1))
 
-    # Ne conserve de `b71` que le dôme circulaire et son ourlet festonné immédiat (sans les anciens
-    # lambeaux effilochés latéraux, afin que la couronne `couronne_nuages_autour_arene_magenta.png`
-    # entoure proprement l'arène comme sur `ref_sommet_planete_rayquaza.png` !)
-    dome_collar_zone = ndimage.binary_dilation(main_dome_filled, iterations=max(4, int(round(min(w, h) * 0.032))))
-    fg_complete = (fg_raw & dome_collar_zone) | main_dome_filled
+    # À l'extérieur strict de `main_dome_filled`, on ne retient QUE le fin liseré bleu pervenche
+    # de l'arène (`r < 176`, jamais les nuages blancs extérieurs de `b71_sky_tower_summit.png` !)
+    blue_scallop_rim = (
+        ndimage.binary_dilation(main_dome_filled, iterations=3)
+        & (~main_dome_filled)
+        & (b_ch >= 210)
+        & (g_ch >= 120)
+        & (r_ch < 176)
+    )
+    outer_1px_aa = (
+        ndimage.binary_dilation(main_dome_filled | blue_scallop_rim, iterations=1)
+        & (~(main_dome_filled | blue_scallop_rim))
+    )
+    b71_clean = b71_scaled.copy()
+    b71_clean[outer_1px_aa] = B71_RIM_DEEP_RGB
+    # Tout pixel dans une bande de 2 px à l'intérieur du bord extrême de `main_dome_filled` qui serait
+    # blanc pur est adouci en bleu ciel `b71` pour éviter tout éclat blanc à l'extrémité
+    dome_inner_edge = main_dome_filled & (~ndimage.binary_erosion(main_dome_filled, iterations=2))
+    white_on_edge = dome_inner_edge & (r_ch >= 210) & (g_ch >= 235)
+    b71_clean[white_on_edge] = B71_RIM_SKYBLUE_RGB
+
+    fg_complete = main_dome_filled | blue_scallop_rim | outer_1px_aa
 
     arena_rgba = np.zeros((h, w, 4), dtype=np.uint8)
     arena_dome_mask = np.zeros((h, w), dtype=bool)
@@ -271,7 +288,7 @@ def extract_b71_arena_with_south_north_path(
         strip_src = p_sub[:, x0_p:x1_p, :]
         sh_p, sw_p = strip_src.shape[:2]
 
-        y_path_top = int(round(0.61 * h))
+        y_path_top = int(round(0.58 * h))
         path_len = max(16, h - y_path_top)
         for dy_i in range(path_len):
             y_dst = y_path_top + dy_i
@@ -279,7 +296,11 @@ def extract_b71_arena_with_south_north_path(
             cur_w = max(24, int(round(w * (0.205 + 0.068 * t_south))))
             sy = min(sh_p - 1, int(round(t_south * (sh_p - 1))))
             sx_idx = np.clip(np.rint(np.linspace(0, sw_p - 1, cur_w)).astype(np.int32), 0, sw_p - 1)
-            row_px = strip_src[sy, sx_idx, :]
+            row_px = strip_src[sy, sx_idx, :].copy()
+            # Adoucit les extrémités latérales du pont en bleu pervenche (jamais de blanc au bord !)
+            edge_w = max(2, int(round(cur_w * 0.08)))
+            row_px[:edge_w, :3] = B71_RIM_DEEP_RGB
+            row_px[-edge_w:, :3] = B71_RIM_DEEP_RGB
             x_left = (w - cur_w) // 2
             path_canvas[y_dst, x_left : x_left + cur_w, :] = row_px
 
@@ -319,6 +340,10 @@ def extract_b71_arena_with_south_north_path(
     crest_rim_mask = total_walkable_plateau & (~inner_walk_mask)
     outer_crown_mask = (combined_rgba[:, :, 3] > 0) & (~total_walkable_plateau)
 
+    # Garantie absolue : sur `outer_crown_mask`, AUCUN pixel blanc (`R >= 185`) n'est autorisé !
+    white_outer = outer_crown_mask & (combined_rgba[:, :, 0] >= 185)
+    combined_rgba[white_outer, :3] = B71_RIM_SKYBLUE_RGB
+
     layer05_arr = np.zeros((h, w, 4), dtype=np.uint8)
     layer05_arr[outer_crown_mask] = combined_rgba[outer_crown_mask]
 
@@ -336,16 +361,12 @@ def build_earth_and_cosmos_layers(
     h: int,
     earth_pal: np.ndarray,
     unified_pal: np.ndarray,
-) -> Tuple[
-    List[Image.Image],
-    List[Image.Image],
-    List[Image.Image],
-]:
-    """Recale exactement `bruts/planete_terre_reference_exacte.png` sur la courbure d'horizon
-    de `references/ref_sommet_planete_rayquaza.png` (`y = 75 px` au centre -> `y = 136 px` aux bords) :
-    - les continents et les alizés sur le globe terrestre restent **100 % statiques**,
-    - seules les étoiles profondes (`STC1_00`), les étoiles héroïques (`STC1_01`) et la douce
-      respiration lumineuse du limbe atmosphérique (`STC1_02`) s'animent en multicalque `24` poses."""
+) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Construit :
+    - `STC1_00` (`poses = 24`) : fond spatial bleu nuit profond + étoiles lointaines scintillantes,
+    - `STC1_01` (`poses = 24`) : étoiles proches scintillantes du cosmos,
+    - `STC1_02` (`poses = 1`)  : Planète Terre statique à contour net **SANS halo atmosphérique**
+      (tout halo lumineux débordant dans l'espace ou clignotant sur l'horizon est supprimé)."""
     earth_src = np.asarray(
         Image.open(RAW_DIR / "planete_terre_reference_exacte.png")
         .convert("RGB")
@@ -370,7 +391,7 @@ def build_earth_and_cosmos_layers(
     sx_idx = np.arange(w, dtype=np.int32)[None, :]
     warped_earth = earth_src[sy_idx, sx_idx].copy()
 
-    inside_planet = rel_y > 2.0
+    inside_planet = rel_y >= 0.0
     depth_t = np.clip(rel_y / max(1.0, 0.72 * h), 0.0, 1.0)
     dark_coast_ink = inside_planet & (
         (warped_earth[:, :, 2] < 142) | ((warped_earth[:, :, 1] < 58) & (warped_earth[:, :, 2] < 172))
@@ -381,19 +402,41 @@ def build_earth_and_cosmos_layers(
     ocean_floor = np.stack([ocean_r, ocean_g, ocean_b], axis=2)
     warped_earth[dark_coast_ink] = ocean_floor[dark_coast_ink]
 
-    deep_space_zone = rel_y < -16.0
-    space_grad = np.clip((-rel_y - 16.0) / max(1.0, 0.20 * h), 0.0, 1.0)
-    space_step = np.round(space_grad * 4.0) / 4.0
-    c_space_top = np.array([2.0, 6.0, 38.0], dtype=np.float32)[None, None, :]
-    c_space_low = np.array([6.0, 18.0, 68.0], dtype=np.float32)[None, None, :]
-    clean_space_rgb = np.clip(
+    # Atténue également la bande blanche aveuglante de halo interne en haut du globe (`rel_y` dans `[0, 22]`)
+    # afin d'obtenir une surface océanique/atmosphérique nette sans halo lumineux sur la zone Rayquaza
+    bright_halo_cap = inside_planet & (rel_y < 24.0) & (warped_earth[:, :, 0] >= 150) & (warped_earth[:, :, 1] >= 220)
+    t_limb = np.clip(rel_y / 24.0, 0.0, 1.0)
+    cap_rgb = np.stack(
+        [
+            np.clip(np.rint(34.0 + 38.0 * t_limb), 0, 255).astype(np.uint8),
+            np.clip(np.rint(142.0 + 46.0 * t_limb), 0, 255).astype(np.uint8),
+            np.clip(np.rint(224.0 + 20.0 * t_limb), 0, 255).astype(np.uint8),
+        ],
+        axis=2,
+    )
+    warped_earth[bright_halo_cap] = cap_rgb[bright_halo_cap]
+
+    planet_edge_1px = (rel_y >= -1.0) & (rel_y < 1.0)
+    warped_earth[planet_edge_1px] = np.array([24, 96, 206], dtype=np.uint8)
+
+    planet_q = quantize_rgb_to_palette(warped_earth, earth_pal)
+    planet_rgba = np.zeros((h, w, 4), dtype=np.uint8)
+    planet_mask = rel_y >= -1.0
+    planet_rgba[planet_mask, :3] = planet_q[planet_mask]
+    planet_rgba[planet_mask, 3] = 255
+    static_planet_02 = [Image.fromarray(planet_rgba, mode="RGBA")]
+
+    # Espace sidéral pur sans halo (`STC1_00`) + étoiles lointaines scintillantes
+    space_grad = np.clip((-rel_y) / max(1.0, 0.24 * h), 0.0, 1.0)
+    space_step = np.round(space_grad * 3.0) / 3.0
+    c_space_top = np.array([2.0, 6.0, 36.0], dtype=np.float32)[None, None, :]
+    c_space_low = np.array([6.0, 14.0, 56.0], dtype=np.float32)[None, None, :]
+    space_rgb = np.clip(
         np.rint(c_space_low * (1.0 - space_step[:, :, None]) + c_space_top * space_step[:, :, None]),
         0,
         255,
     ).astype(np.uint8)
-    warped_earth[deep_space_zone] = clean_space_rgb[deep_space_zone]
-
-    base_q = quantize_rgb_to_palette(warped_earth, earth_pal)
+    space_q = quantize_rgb_to_palette(space_rgb, earth_pal)
 
     deep_stars = [
         (0.04, 0.05, 1), (0.11, 0.13, 8), (0.18, 0.04, 15), (0.25, 0.09, 3),
@@ -406,10 +449,10 @@ def build_earth_and_cosmos_layers(
 
     frames_00: List[Image.Image] = []
     for t in range(N_FRAMES):
-        arr0 = np.concatenate([base_q.copy(), np.full((h, w, 1), 255, dtype=np.uint8)], axis=2)
+        arr0 = np.concatenate([space_q.copy(), np.full((h, w, 1), 255, dtype=np.uint8)], axis=2)
         for fx, fy, ph in deep_stars:
             px, py = int(w * fx), int(h * fy)
-            if py >= int(y_ref_limb[0, px]) - 10:
+            if py >= int(y_ref_limb[0, px]) - 4:
                 continue
             sv = np.sin(2.0 * np.pi * ((t + ph) / float(N_FRAMES)))
             if sv > 0.15:
@@ -439,7 +482,7 @@ def build_earth_and_cosmos_layers(
         arr_st = np.zeros((h, w, 4), dtype=np.uint8)
         for fx, fy, ph_s, is_major in hero_stars:
             cx, cy = int(w * fx), int(h * fy)
-            if cy >= int(y_ref_limb[0, cx]) - 10:
+            if cy >= int(y_ref_limb[0, cx]) - 5:
                 continue
             s_val = np.sin(2.0 * np.pi * ((t + ph_s) / float(N_FRAMES)))
             if s_val < -0.35:
@@ -466,63 +509,48 @@ def build_earth_and_cosmos_layers(
                 arr_st[cy, cx, 3] = 255
         frames_01.append(Image.fromarray(arr_st, mode="RGBA"))
 
-    # `STC1_02` : respiration douce du halo atmosphérique sur l'arc d'horizon terrestre (`rel_y` dans `[-13, -3]`),
-    # sans aucun nuage mobile sur la planète (les alizés restent 100 % fixes sur `base_q` !)
-    airglow_colors = quantize_rgb_to_palette(
-        np.array(
-            [[[58, 168, 244], [96, 206, 252], [148, 234, 255], [204, 248, 255]]],
-            dtype=np.uint8,
-        ),
-        unified_pal,
-    )[0]
-    frames_02: List[Image.Image] = []
-    for t in range(N_FRAMES):
-        arr2 = np.zeros((h, w, 4), dtype=np.uint8)
-        breath = 0.5 + 0.5 * np.sin(2.0 * np.pi * (t / float(N_FRAMES)))
-        band_outer = (rel_y >= -13.0 - 2.0 * breath) & (rel_y < -9.5)
-        band_inner = (rel_y >= -9.5) & (rel_y < -6.5 + 1.5 * breath)
-        arr2[band_outer, :3] = airglow_colors[1 if breath < 0.5 else 2]
-        arr2[band_outer, 3] = 255
-        arr2[band_inner, :3] = airglow_colors[2 if breath < 0.5 else 3]
-        arr2[band_inner, 3] = 255
-        frames_02.append(Image.fromarray(arr2, mode="RGBA"))
-
-    return frames_00, frames_01, frames_02
+    return frames_00, frames_01, static_planet_02
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
     bpl_path = REF_DIR / "rom_d13p01_bpl.json"
     b71_pal, earth_pal, unified_pal = build_palettes()
 
-    # 1. Arène `1:1` de `b71_sky_tower_summit.png` + Chemin de nuages Sud -> Nord fusionné sans couture
+    # 1. Arène `1:1` de `b71_sky_tower_summit.png` + Chemin de nuages Sud -> Nord (zéro blanc aux bords !)
     layer05_arr, layer06_arr, layer07_arr, dome_solid_mask, arena_inner_mask = extract_b71_arena_with_south_north_path(
         w, h, b71_pal
     )
+    arena_opaque_mask = (
+        (layer05_arr[:, :, 3] > 0) | (layer06_arr[:, :, 3] > 0) | (layer07_arr[:, :, 3] > 0)
+    )
 
-    # 2. Planète Terre (alizés 100 % statiques) + Cosmos étoilé scintillant + Halo atmosphérique respirant
-    frames_00, frames_01, frames_02 = build_earth_and_cosmos_layers(w, h, earth_pal, unified_pal)
+    # 2. Cosmos étoilé scintillant (`00`, `01`) + Planète Terre nette SANS halo atmosphérique (`02` statique)
+    frames_00, frames_01, static_planet_02 = build_earth_and_cosmos_layers(w, h, earth_pal, unified_pal)
 
-    # 3. Massif nuageux sculpté & grands croissants de vent latéraux fidèles à `ref_sommet_planete_rayquaza.png`
-    #    (`STC1_03` et `STC1_04` strictement statiques `poses = 1` !)
-    static_collar_03, static_crescents_04 = extract_reference_arena_collar_layers(w, h, unified_pal)
+    # 3. Massif nuageux sculpté & grands croissants de vent latéraux (`03` et `04` statiques, zéro blanc contre l'arène)
+    static_collar_03, static_crescents_04 = extract_reference_arena_collar_layers(
+        w, h, unified_pal, arena_opaque_mask
+    )
 
-    # 4. `STC1_08` : souffle lumineux `D13P01.bpl` strictement limité à l'ourlet interne de l'arène `b71`
+    # 4. `STC1_08` : scintillement discret `D13P01.bpl` strictement confiné AUX CROISSANTS INTERNES du pavage `b71`
+    #    (zéro halo périphérique autour de l'arène !)
     bpl_ramp = load_bpl_cyan_ramp(bpl_path, b71_pal)
-    outer_rim_band = (
-        (layer05_arr[:, :, 3] > 0)
-        & ndimage.binary_dilation(arena_inner_mask | (layer07_arr[:, :, 3] > 0), iterations=2)
-        & (layer05_arr[:, :, 1] >= 196)
+    strictly_inside = ndimage.binary_erosion(arena_inner_mask, iterations=max(4, int(round(0.03 * min(w, h)))))
+    inner_crescents = (
+        strictly_inside
+        & (layer06_arr[:, :, 0] >= 232)
+        & (layer06_arr[:, :, 1] >= 245)
     )
     frames_08: List[Image.Image] = []
     for t in range(N_FRAMES):
         arr_08 = np.zeros((h, w, 4), dtype=np.uint8)
-        arr_08[outer_rim_band, :3] = bpl_ramp[t]
-        arr_08[outer_rim_band, 3] = 255
+        arr_08[inner_crescents, :3] = bpl_ramp[t]
+        arr_08[inner_crescents, 3] = 255
         frames_08.append(Image.fromarray(arr_08, mode="RGBA"))
 
     # 5. `STC1_09` (`Top` `Layer = 4`) : cumulus d'avant-plan aux coins bas gauche et droit, STRICTEMENT STATIQUES (`poses = 1`)
     corner_pal = quantize_rgb_to_palette(
-        np.array([[[111, 151, 239], [135, 183, 255], [167, 215, 255], [207, 247, 255]]], dtype=np.uint8),
+        np.array([[[88, 128, 224], [111, 151, 239], [135, 183, 255], [167, 215, 255]]], dtype=np.uint8),
         b71_pal,
     )[0]
     corner_bank_img = extract_quadrant_sprite(
@@ -555,15 +583,15 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
             walk_grid = np.isin(labeled_w, list(south_labels))
 
     layers = [
-        LayerEntry("00_stratosphere_ultramarine", "Cosmos Etoile & Planete Terre", "BG", frames_00),
+        LayerEntry("00_stratosphere_ultramarine", "Cosmos Etoile Profond", "BG", frames_00),
         LayerEntry("01_etoiles_stratosphere", "Etoiles Scintillantes Cosmos", "BG", frames_01),
-        LayerEntry("02_horizon_planetaire_courbe", "Halo Atmospherique Horizon", "BG", frames_02),
+        LayerEntry("02_horizon_planetaire_courbe", "Planete Terre Statique Sans Halo", "BG", static_planet_02),
         LayerEntry("03_nappes_altitude_profondes", "Massif Nuageux Autour Arene", "BG", [static_collar_03]),
         LayerEntry("04_ailes_vent_sculptees_proches", "Croissants Vent Autour Arene", "BG", [static_crescents_04]),
-        LayerEntry("05_couronne_volumetrique_ombre", "Couronne & Chemin Nuages b71", "BG", [Image.fromarray(layer05_arr, "RGBA")]),
+        LayerEntry("05_couronne_volumetrique_ombre", "Bordure Pervenche Arene & Pont b71", "BG", [Image.fromarray(layer05_arr, "RGBA")]),
         LayerEntry("06_sol_couronne_rayquaza", "Sol Arene & Chemin Sud-Nord b71", "BG", [Image.fromarray(layer06_arr, "RGBA")]),
         LayerEntry("07_reliefs_cretes_couronne", "Reliefs Cretes Arene & Chemin b71", "BG", [Image.fromarray(layer07_arr, "RGBA")]),
-        LayerEntry("08_respiration_bpl_couronne", "Souffle Lumineux Couronne BPL", "BG", frames_08),
+        LayerEntry("08_respiration_bpl_couronne", "Reflets Internes Nuages BPL", "BG", frames_08),
         LayerEntry("09_sillages_courants_jet", "Cumulus Avant-Plan Statiques", "Top", [static_top_09]),
     ]
     return layers, walk_grid, unified_pal
