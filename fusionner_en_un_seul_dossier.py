@@ -4,7 +4,7 @@ import os, struct, shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 MAIN_TILE = os.path.join(ROOT, "town02", "Content", "Tile")
-PACKS = ["town02", "town02_tiles_pack_a", "town02_tiles_pack_b", "town02_tiles_pack_c"]
+PACKS = ["town02", "town02_tiles_pack_a", "town02_tiles_pack_b", "town02_tiles_pack_c", "town02_tiles_pack_d"]
 
 total_count = 0
 bodies = []
