@@ -23,8 +23,13 @@ from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
 
 ROOT = Path("/home/user/projet-creation-pmdo")
+VZIP_CACHE_DIR = ROOT / ".cache/virtual_zips"
 OUT_DIR = ROOT / "livrables_cliff_nord_centre_pmdo"
-MASTER_TOWN02_ZIP = OUT_DIR / "TOUTES_MAPS_TOWN02_RSGROUND.zip"
+MASTER_TOWN02_ZIP = (
+    OUT_DIR / "TOUTES_MAPS_TOWN02_RSGROUND.zip"
+    if (OUT_DIR / "TOUTES_MAPS_TOWN02_RSGROUND.zip").exists()
+    else VZIP_CACHE_DIR / "livrables_cliff_nord_centre_pmdo/TOUTES_MAPS_TOWN02_RSGROUND.zip"
+)
 PACK_ZIP = OUT_DIR / "PACK_CLIFF_NORD_CENTRE_PMDO_0812.zip"
 FORCE_DOWNLOAD_EXTS = (".rsground", ".tile", ".dir", ".idx", ".zip")
 
@@ -82,10 +87,22 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
         clean_path = unquote(parts.path).lstrip("/")
 
         if clean_path == "":
-            self.send_response(302)
-            self.send_header("Location", "/livrables_cliff_nord_centre_pmdo/apercu_cliff_nord_centre_pmdo.html")
-            self.end_headers()
-            return True
+            return False
+
+        cached_zip = VZIP_CACHE_DIR / clean_path
+        if clean_path.endswith(".zip") and not (ROOT / clean_path).is_file():
+            if cached_zip.is_file():
+                _send_blob(self, cached_zip.read_bytes(), posixpath.basename(clean_path), send_body)
+                return True
+            parent_dir = (ROOT / clean_path).parent
+            if parent_dir.is_dir() and parent_dir != ROOT:
+                buf = io.BytesIO()
+                with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zout:
+                    for fp in sorted(parent_dir.rglob("*")):
+                        if fp.is_file() and fp.suffix.lower() != ".zip":
+                            zout.writestr(fp.relative_to(parent_dir).as_posix(), fp.read_bytes())
+                _send_blob(self, buf.getvalue(), posixpath.basename(clean_path), send_body)
+                return True
 
         # 0) Inventaire JSON en direct des 78 cartes `.rsground` compatibles `town02`
         if clean_path.endswith("api_town02_grounds.json") and MASTER_TOWN02_ZIP.exists():
