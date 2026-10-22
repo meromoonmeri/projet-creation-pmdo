@@ -1,0 +1,317 @@
+{
+  "id": "relais_tour_celeste_sud_nord_v1",
+  "prefix": "MST1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "scene_loop_ticks": 64,
+  "canonical_biome": {
+    "rom_code": "D13P02",
+    "dungeon_fr": "Tour Céleste (relais mi-tour)",
+    "dungeon_en": "Sky Tower Mid Floor",
+    "reference_png": "source/relais_tour_celeste_sud_nord_v1/references/D13P02.png",
+    "reference_sha256": "f38259fd049415fc5da5dfbd3ee0ec78fcd166e6b966016676b56c5437dc395b",
+    "rom_bpl_palettes": {
+      "palette_9_etoiles": {
+        "palette_index": 9,
+        "frames": 8,
+        "duration_per_frame_ticks": 8,
+        "loop_ticks": 64
+      },
+      "palette_10_cumulus": {
+        "palette_index": 10,
+        "frames": 8,
+        "duration_per_frame_ticks": 8,
+        "loop_ticks": 64
+      }
+    }
+  },
+  "nature": "Décor généré référencé sur la capture ROM D13P02 combiné au sol complet 100 % natif périodique 72x72 de D13P02 (dérive RVB 0.0) ; animations multicalques D13P01.bpl + poses pixel-art détourées.",
+  "art_approved": false,
+  "raw_inputs": [
+    {
+      "file": "source/relais_tour_celeste_sud_nord_v1/bruts/decor.png",
+      "size": [
+        1200,
+        896
+      ],
+      "sha256": "472e40d979c82ec7697509cd1de76704240442e842e41ff6e169265f32b30ef0",
+      "images": [
+        "source/relais_tour_celeste_sud_nord_v1/references/D13P02.png"
+      ]
+    },
+    {
+      "file": "source/relais_tour_celeste_sud_nord_v1/references/D13P02_sol_natif_768x576.png",
+      "size": [
+        768,
+        576
+      ],
+      "sha256": "97388f33ba9a34fe043f744fcc68d088f307945a264b63ec46c4a0934ae552e7",
+      "images": [
+        "source/relais_tour_celeste_sud_nord_v1/references/D13P02.png"
+      ]
+    },
+    {
+      "file": "source/relais_tour_celeste_sud_nord_v1/bruts/particules_poses.png",
+      "size": [
+        1195,
+        896
+      ],
+      "sha256": "91577d5bebac07e05b741214798513f6fe9256c90d1b3315a11c4ef9aaefd454",
+      "images": [
+        "source/relais_tour_celeste_sud_nord_v1/references/D13P02.png"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "sol_complet",
+      "file": "calques/MST1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "pont_et_ile_relais",
+      "file": "calques/MST1_01_pont_et_ile_relais.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "motifs_ecaille_sol",
+      "file": "calques/MST1_02_motifs_ecaille_sol.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "ourlets_ponts",
+      "file": "calques/MST1_03_ourlets_ponts.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "douve_celeste",
+      "file": "calques/MST1_04_douve_celeste.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "murs_nuages_blancs",
+      "file": "calques/MST1_05_murs_nuages_blancs.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "ombres_cumulus",
+      "file": "calques/MST1_06_ombres_cumulus.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "etoiles_diamant_bleues",
+      "file": "calques/MST1_07_etoiles_diamant_bleues.png",
+      "phases": 1,
+      "ticks": 64
+    },
+    {
+      "id": "scintillement_bpl",
+      "file": "animation/scintillement_bpl/MST1_08_scintillement_bpl_fNN.png",
+      "phases": 8,
+      "ticks": 8
+    },
+    {
+      "id": "eclats_et_brises",
+      "file": "animation/eclats_et_brises/MST1_09_eclats_et_brises_fNN.png",
+      "phases": 16,
+      "ticks": 4
+    }
+  ],
+  "access": {
+    "entry_px": [
+      384,
+      536
+    ],
+    "threshold_px": [
+      384,
+      24
+    ],
+    "walkable_cells": 1508,
+    "blocked_cells": 5404,
+    "path_found_16x16": true
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "bleu_royal": {
+        "ref_rgb": [
+          49.9,
+          101.2,
+          254.7
+        ],
+        "mean_rgb": [
+          44.9,
+          92.4,
+          252.4
+        ],
+        "distance": 10.36
+      },
+      "ombre_cumulus": {
+        "ref_rgb": [
+          106.6,
+          154.0,
+          247.6
+        ],
+        "mean_rgb": [
+          123.8,
+          164.1,
+          242.7
+        ],
+        "distance": 20.52
+      },
+      "sol_ecaille_pervenche": {
+        "ref_rgb": [
+          185.3,
+          213.9,
+          252.0
+        ],
+        "mean_rgb": [
+          187.6,
+          214.1,
+          249.5
+        ],
+        "distance": 3.43
+      },
+      "cumulus_blanc": {
+        "ref_rgb": [
+          242.5,
+          252.2,
+          254.2
+        ],
+        "mean_rgb": [
+          242.9,
+          251.9,
+          253.7
+        ],
+        "distance": 0.7
+      }
+    },
+    "calques_finaux": {
+      "pont_et_ile_relais": {
+        "mean_rgb": [
+          187.0,
+          213.9,
+          250.1
+        ],
+        "ref_rgb": [
+          185.3,
+          213.9,
+          252.0
+        ],
+        "distance_rip": 2.64
+      },
+      "motifs_ecaille_sol": {
+        "mean_rgb": [
+          195.9,
+          225.0,
+          241.7
+        ],
+        "ref_rgb": [
+          189.6,
+          218.1,
+          251.0
+        ],
+        "distance_rip": 13.14
+      },
+      "ourlets_ponts": {
+        "mean_rgb": [
+          217.9,
+          233.2,
+          251.0
+        ],
+        "ref_rgb": [
+          227.8,
+          242.6,
+          253.8
+        ],
+        "distance_rip": 13.93
+      },
+      "douve_celeste": {
+        "mean_rgb": [
+          40.9,
+          86.5,
+          252.5
+        ],
+        "ref_rgb": [
+          60.5,
+          110.9,
+          254.8
+        ],
+        "distance_rip": 31.33
+      },
+      "murs_nuages_blancs": {
+        "mean_rgb": [
+          242.8,
+          251.5,
+          253.8
+        ],
+        "ref_rgb": [
+          244.2,
+          253.2,
+          254.1
+        ],
+        "distance_rip": 2.24
+      },
+      "ombres_cumulus": {
+        "mean_rgb": [
+          169.8,
+          199.2,
+          246.6
+        ],
+        "ref_rgb": [
+          182.9,
+          212.5,
+          251.4
+        ],
+        "distance_rip": 19.24
+      },
+      "etoiles_diamant_bleues": {
+        "mean_rgb": [
+          67.2,
+          122.3,
+          246.4
+        ],
+        "ref_rgb": [
+          60.5,
+          110.9,
+          254.8
+        ],
+        "distance_rip": 15.67
+      }
+    },
+    "sol_complet": 0.0
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "runtime_tested": false,
+    "asset_name": "mst1_relais_tour_celeste",
+    "namespace": "relais_tour_celeste",
+    "tex_size": 1,
+    "tiles_per_bank": {
+      "MST1_00_SOL": 19,
+      "MST1_01_PONT": 1714,
+      "MST1_02_MOTIFS": 1261,
+      "MST1_03_OURLETS": 503,
+      "MST1_04_DOUVE": 974,
+      "MST1_05_MURS": 4047,
+      "MST1_06_OMBRES": 2148,
+      "MST1_07_ETOILES": 829,
+      "MST1_08_SCINTILLEMENT": 10525,
+      "MST1_09_ECLATS": 1023
+    }
+  }
+}

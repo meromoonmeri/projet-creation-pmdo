@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Serveur HTTP statique PMDO 0.8.12 + streaming direct des **78 `.rsground` 100 % natifs `meromoonmeri/town02`** :
+Serveur HTTP statique PMDO 0.8.12 + streaming direct des **78 `.rsground` 100 % natifs `town02`** :
   - Sert les assets versionnés (`?v=...`) avec `Cache-Control: public, max-age=3600, immutable`
     afin que les frames d'animation préchargées tournent à 60 FPS sans aucun re-téléchargement.
   - Sert à la volée **n'importe lequel des 78 fichiers `.rsground` autonomes `town02`**

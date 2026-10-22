@@ -337,11 +337,11 @@ def ground_project(stack, blocked: np.ndarray, entry_px: list[int], threshold_px
         with p.open('rb') as f:
             nodes[p.stem] = tools.read_node(f)
     (STAGE / 'Content/Tile/index.idx').write_bytes(tools.encode_index(nodes))
-    ident = uuid.uuid5(uuid.NAMESPACE_URL, 'https://github.com/meromoonmeri/projet-creation-pmdo/' + NAMESPACE)
+    ident = uuid.uuid5(uuid.NAMESPACE_URL, 'https://github.com/projet-creation-pmdo/' + NAMESPACE)
     (STAGE / 'Mod.xml').write_text(f'''<?xml version="1.0" encoding="utf-8"?>
 <Header>
   <Name>Entree Traversee Cristal sud-nord 4:3 (ETX1) - Atelier 0.8.12</Name>
-  <Author>meromoonmeri</Author>
+  <Author></Author>
   <Description>Projet d'edition : arrivee au sud, dalles cristallines turquoise et sanctuaire nord de la Traversee Cristal (ref. ROM D17P11A).</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
