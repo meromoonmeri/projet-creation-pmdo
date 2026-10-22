@@ -1,0 +1,1 @@
+Bulk per-map plans, candidates, PMDO resources and runtime captures are written under `.runtime-cache/pmu-adaptation/`. This tracked placeholder keeps phase-2 outputs separate from immutable phase-1 artifacts.

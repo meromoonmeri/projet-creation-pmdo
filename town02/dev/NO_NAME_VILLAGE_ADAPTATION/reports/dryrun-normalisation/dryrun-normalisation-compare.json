@@ -1,0 +1,228 @@
+{
+  "cost_of_x0125": {
+    "art_density": 4,
+    "exceeds_density": true,
+    "mitigation": "the source data is preserved; regeneration from the GameMaker source remains possible at any factor",
+    "pixel_loss": "the second halving is lossy: ~17% of bytes differ from the true /4 motif",
+    "reversible": false
+  },
+  "decision_basis": "primary criterion is whether native-scale PMU buildings integrate; x0.125 gives an NNV house/PMU ratio of 1.21 (natural), x0.25 gives 2.42 (PMU dwarfed) - the exact defect observed in game",
+  "distinction_enforced": "pixel-art density (storage) is not world scale (occupancy); the x4 art density does not by itself imply a x0.25 world factor",
+  "dry_run": true,
+  "entity_rule": {
+    "doors": "the four Exit_Door_* are removed with the NNV houses, so their scaling is moot",
+    "entity_sizes_markers_pokemon": "UNCHANGED - markers are 16x16 like a Pokemon and belong to the PMDO referential, not to NNV terrain",
+    "positions_xy": "divided by the factor"
+  },
+  "files_modified": [],
+  "four_seasons": {
+    "aligned": true,
+    "requirement": "the same factor must be applied to all four bundles and their four tilesets in one operation",
+    "signature": "TexSize 8, grid 78x78, 15 layers, identical in spring/summer/autumn/winter"
+  },
+  "known_tension": {
+    "metric": "path width",
+    "note": "x0.125 yields narrower paths than the open-ground PMDO median. This is a real trade-off: NNV's 63.4% openness is an authored layout property, and its wide clearings are not corridors. Structure and asset coherence were prioritised over raw run-length statistics, because run length conflates paths with open fields.",
+    "open_pmdo_reference_cells": 13.8,
+    "x0.125_path_cells": 5.0,
+    "x0.25_path_cells": 10.0
+  },
+  "next_step": "await owner approval; nothing is applied",
+  "pmdo_reference": {
+    "building_width_median_pokemon": 7.12,
+    "building_width_median_px": 114.0,
+    "building_widths_px": [
+      304,
+      145,
+      208,
+      137,
+      112,
+      116,
+      104,
+      128,
+      111,
+      94,
+      94,
+      88,
+      144,
+      111
+    ],
+    "nnv_matching_group": "open",
+    "nnv_openness_percent": 63.4,
+    "path_group_sizes": {
+      "dense": 142,
+      "mid": 30,
+      "open": 20
+    },
+    "path_median_by_openness_cells": {
+      "dense": 8.0,
+      "mid": 11.5,
+      "open": 13.8
+    },
+    "pokemon_px": 16,
+    "tex_size": 1,
+    "tile_cell_px": 8
+  },
+  "pmu_pool": {
+    "count": 48,
+    "scale_policy": "NATIVE x1 - never rescaled; PMU assets are already PMDO-scaled",
+    "width_max_px": 212,
+    "width_median_pokemon": 6.12,
+    "width_median_px": 98.0,
+    "width_min_px": 40
+  },
+  "read_only": true,
+  "recommended": "x0.125",
+  "scenarios": {
+    "x0.125": {
+      "divisor": 8,
+      "geometry": {
+        "collision_grid": "624 -> 78",
+        "tex_size": "8 -> 1",
+        "tex_size_valid": true,
+        "tile_cell_px": "64 -> 8",
+        "tile_grid": "78x78 -> unchanged",
+        "world_px": "4992 -> 624"
+      },
+      "in_pokemon_units": {
+        "house": 7.41,
+        "path": 2.5,
+        "rock": 1.53,
+        "terrain_cell": 0.5,
+        "tree": 3.04
+      },
+      "lossless_by_season": {
+        "autumn": {
+          "lossless": 2,
+          "lossless_percent": 1.0,
+          "lossy": 198,
+          "sampled": 200,
+          "tiles_total": 12213
+        },
+        "spring": {
+          "lossless": 2,
+          "lossless_percent": 1.0,
+          "lossy": 198,
+          "sampled": 200,
+          "tiles_total": 11634
+        },
+        "summer": {
+          "lossless": 2,
+          "lossless_percent": 1.0,
+          "lossy": 198,
+          "sampled": 200,
+          "tiles_total": 12197
+        },
+        "winter": {
+          "lossless": 3,
+          "lossless_percent": 1.5,
+          "lossy": 197,
+          "sampled": 200,
+          "tiles_total": 10178
+        }
+      },
+      "objects_px": {
+        "house": "948 -> 118",
+        "plant": "175 -> 21",
+        "rock": "196 -> 24",
+        "tree": "389 -> 48"
+      },
+      "pmu_integration": {
+        "nnv_house_over_pmu": 1.21,
+        "pmu_median_px": 98.0,
+        "verdict": "PMU sits naturally"
+      },
+      "rounding": {
+        "collision_grid_after": 78,
+        "collision_grid_divisible": true,
+        "coordinates_not_divisible": 1,
+        "examples": [
+          {
+            "entity": "Exit_Door_106508",
+            "field": "X",
+            "group": "GroundObjects",
+            "value": 940
+          }
+        ],
+        "world_divisible": true
+      },
+      "vs_pmdo": {
+        "house_vs_metano_median": 1.04,
+        "path_vs_open_pmdo": 0.36,
+        "terrain_cell_vs_pmdo": 1.0
+      }
+    },
+    "x0.25": {
+      "divisor": 4,
+      "geometry": {
+        "collision_grid": "624 -> 156",
+        "tex_size": "8 -> 2",
+        "tex_size_valid": true,
+        "tile_cell_px": "64 -> 16",
+        "tile_grid": "78x78 -> unchanged",
+        "world_px": "4992 -> 1248"
+      },
+      "in_pokemon_units": {
+        "house": 14.81,
+        "path": 5.0,
+        "rock": 3.06,
+        "terrain_cell": 1.0,
+        "tree": 6.08
+      },
+      "lossless_by_season": {
+        "autumn": {
+          "lossless": 200,
+          "lossless_percent": 100.0,
+          "lossy": 0,
+          "sampled": 200,
+          "tiles_total": 12213
+        },
+        "spring": {
+          "lossless": 200,
+          "lossless_percent": 100.0,
+          "lossy": 0,
+          "sampled": 200,
+          "tiles_total": 11634
+        },
+        "summer": {
+          "lossless": 200,
+          "lossless_percent": 100.0,
+          "lossy": 0,
+          "sampled": 200,
+          "tiles_total": 12197
+        },
+        "winter": {
+          "lossless": 200,
+          "lossless_percent": 100.0,
+          "lossy": 0,
+          "sampled": 200,
+          "tiles_total": 10178
+        }
+      },
+      "objects_px": {
+        "house": "948 -> 237",
+        "plant": "175 -> 43",
+        "rock": "196 -> 49",
+        "tree": "389 -> 97"
+      },
+      "pmu_integration": {
+        "nnv_house_over_pmu": 2.42,
+        "pmu_median_px": 98.0,
+        "verdict": "PMU looks 2.4x too small"
+      },
+      "rounding": {
+        "collision_grid_after": 156,
+        "collision_grid_divisible": true,
+        "coordinates_not_divisible": 0,
+        "examples": [],
+        "world_divisible": true
+      },
+      "vs_pmdo": {
+        "house_vs_metano_median": 2.08,
+        "path_vs_open_pmdo": 0.72,
+        "terrain_cell_vs_pmdo": 2.0
+      }
+    }
+  },
+  "schema": "new-era.nnv-dryrun-normalisation-compare.v1"
+}

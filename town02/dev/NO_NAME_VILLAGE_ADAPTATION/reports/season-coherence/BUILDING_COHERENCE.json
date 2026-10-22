@@ -1,0 +1,94 @@
+{
+  "buildings_declared": 4,
+  "buildings_expected": 4,
+  "foliage_px": 9966,
+  "foliage_px_not_seasonalised": 0,
+  "method": "projection du sprite a son MapLoc, comparaison RGB stricte sur les pixels alpha==255",
+  "not_proven": "ce test prouve l'identite visuelle des batiments, PAS que le Ground se charge dans PMDO 0.8.12",
+  "one_building_per_nnv_plot": true,
+  "per_building": [
+    {
+      "building": 0,
+      "foliage_px": 4841,
+      "foliage_px_not_seasonalised": 0,
+      "frame": 0,
+      "map_loc": [
+        50,
+        361
+      ],
+      "semi_transparent_px_excluded": 0,
+      "sprite_px": [
+        122,
+        120
+      ],
+      "structure_divergences": 0,
+      "structure_px_compared": 5666
+    },
+    {
+      "building": 1,
+      "foliage_px": 0,
+      "foliage_px_not_seasonalised": 0,
+      "frame": 1,
+      "map_loc": [
+        102,
+        181
+      ],
+      "semi_transparent_px_excluded": 0,
+      "sprite_px": [
+        116,
+        99
+      ],
+      "structure_divergences": 0,
+      "structure_px_compared": 7558
+    },
+    {
+      "building": 2,
+      "foliage_px": 5125,
+      "foliage_px_not_seasonalised": 0,
+      "frame": 2,
+      "map_loc": [
+        478,
+        215
+      ],
+      "semi_transparent_px_excluded": 0,
+      "sprite_px": [
+        115,
+        98
+      ],
+      "structure_divergences": 0,
+      "structure_px_compared": 2003
+    },
+    {
+      "building": 3,
+      "foliage_px": 0,
+      "foliage_px_not_seasonalised": 0,
+      "frame": 3,
+      "map_loc": [
+        176,
+        3
+      ],
+      "semi_transparent_px_excluded": 0,
+      "sprite_px": [
+        126,
+        94
+      ],
+      "structure_divergences": 0,
+      "structure_px_compared": 8086
+    }
+  ],
+  "pmu_sheet_sha256_differs_by_season": true,
+  "pmu_sheet_sha256_per_season": {
+    "autumn": "a3476606d5aa3332aa91606ca18807977b3f32953e7cc90123c8bae6b1429dd6",
+    "spring": "8ea57806e8aeadbee7ed448cc36252e5a241eef9fe413b9de777ee01ef8f2178",
+    "summer": "59400d706536f23daaa5d38e3ee475cc98d22c70c3a5ab46f8a72198c58ce7bb",
+    "winter": "9b921121abc5db20447ef2f1bb24762ee5bb16aebb8335cff756f11a124f32d9"
+  },
+  "question": "les six maisons sont-elles pixel-identiques dans les quatre saisons ?",
+  "rule": "maconnerie identique aux 4 saisons ; feuillage OBLIGATOIREMENT different. Un feuillage fige est un defaut, pas un succes.",
+  "schema": "new-era.nnv-season-building-coherence.v1",
+  "semi_transparent_px_excluded": 0,
+  "structure_divergences": 0,
+  "structure_px_compared": 23313,
+  "verdict": "COHERENT",
+  "why_sheets_differ": "attendu : le feuillage est recolore par saison. Des planches identiques signifieraient que la saisonnalisation n'est plus appliquee."
+}

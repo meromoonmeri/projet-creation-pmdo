@@ -1,0 +1,908 @@
+{
+  "id": "lightning_field",
+  "aliases": [],
+  "name": {
+    "en": "Lightning Field",
+    "fr": "Champ de Foudre"
+  },
+  "chapter": 20,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Lightning Field (30F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/LightningField) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 20. Recoupé avec Bulbapedia (page « Lightning Field »).",
+  "comment": "Définition canonique générée pour le chapitre 20. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 51 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 30,
+  "biome": "storm_plain",
+  "level": 41,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 41
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "lightning_field_floor",
+    "wall": "lightning_field_wall",
+    "secondary": "lightning_field_secondary",
+    "name": "lightning_field",
+    "element": "normal",
+    "justification": "Champ de Foudre : plaines électriques canoniques ; unique utilisateur."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_ALLURE_SEED",
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_BOUNCE_BAND",
+    "ITEM_DIET_RIBBON",
+    "ITEM_EVASION_ORB",
+    "ITEM_EYEDROP_SEED",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_JOY_RIBBON",
+    "ITEM_MAX_ELIXIR",
+    "ITEM_NOSTICK_CAP",
+    "ITEM_PIERCE_BAND",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RACKET_BAND",
+    "ITEM_RADAR_ORB",
+    "ITEM_SILVER_SPIKE",
+    "ITEM_SNEAK_SCARF",
+    "ITEM_STUN_SEED",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_THUNDERSTONE",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "storm_plain",
+      "floors": [
+        1,
+        15
+      ],
+      "biome": "storm_plain",
+      "profiles": [
+        {
+          "name": "twosides",
+          "weight": 24
+        },
+        {
+          "name": "large_rooms",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "cacturne",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            15
+          ]
+        },
+        {
+          "species": "electrike",
+          "level": [
+            41,
+            41
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "electrode",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 6,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "elekid",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 6,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "flaaffy",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 6,
+          "floors": [
+            7,
+            13
+          ]
+        },
+        {
+          "species": "jolteon",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            8,
+            14
+          ]
+        },
+        {
+          "species": "magnemite",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            7
+          ]
+        },
+        {
+          "species": "mareep",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "minun",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 2,
+          "floors": [
+            7,
+            15
+          ]
+        },
+        {
+          "species": "pikachu",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 6,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "plusle",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 2,
+          "floors": [
+            7,
+            15
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "boost_calcium",
+              "weight": 1
+            },
+            {
+              "item": "boost_iron",
+              "weight": 1
+            },
+            {
+              "item": "boost_protein",
+              "weight": 1
+            },
+            {
+              "item": "boost_zinc",
+              "weight": 1
+            },
+            {
+              "item": "food_apple",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 1
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 1
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "thunder_plain",
+      "floors": [
+        16,
+        30
+      ],
+      "biome": "thunder_plain",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "large_rooms",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "ampharos",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            21
+          ]
+        },
+        {
+          "species": "cacturne",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 3,
+          "floors": [
+            16,
+            17
+          ]
+        },
+        {
+          "species": "electrode",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            21
+          ]
+        },
+        {
+          "species": "elekid",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            22
+          ]
+        },
+        {
+          "species": "magneton",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 7,
+          "floors": [
+            20,
+            28
+          ]
+        },
+        {
+          "species": "manectric",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 6,
+          "floors": [
+            25,
+            29
+          ]
+        },
+        {
+          "species": "minun",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 2,
+          "floors": [
+            16,
+            19
+          ]
+        },
+        {
+          "species": "plusle",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 2,
+          "floors": [
+            16,
+            19
+          ]
+        },
+        {
+          "species": "raichu",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            26,
+            29
+          ]
+        },
+        {
+          "species": "raikou",
+          "level": [
+            74,
+            74
+          ],
+          "weight": 20,
+          "floors": [
+            30,
+            30
+          ]
+        },
+        {
+          "species": "tropius",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 5,
+          "floors": [
+            20,
+            29
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "boost_calcium",
+              "weight": 1
+            },
+            {
+              "item": "boost_iron",
+              "weight": 1
+            },
+            {
+              "item": "boost_protein",
+              "weight": 1
+            },
+            {
+              "item": "boost_zinc",
+              "weight": 1
+            },
+            {
+              "item": "food_apple",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 1
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 1
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    500,
+    660
+  ],
+  "profiles": [
+    {
+      "name": "twosides",
+      "weight": 10
+    },
+    {
+      "name": "large_rooms",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        30
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "ammo_iron_thorn",
+          "price": 50,
+          "weight": 9
+        },
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 4
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 1
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 14
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_defense_scarf",
+          "price": 1800,
+          "weight": 1
+        },
+        {
+          "item": "held_zinc_band",
+          "price": 2300,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_stayaway",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        30
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Explosion Trap",
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "",
+    "relay_ground": "",
+    "canonical_end_ground": "champ_foudre",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/champ_foudre.rsground",
+    "cinematic_ground": "champ_foudre",
+    "battle_ground": "champ_foudre",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "champ_foudre",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/champ_foudre"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d17p01.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/lightning_field",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "champ_foudre",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "raikou",
+        "level": [
+          51,
+          51
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "end": "champ_foudre"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/lightning_field.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "lightning_field",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "champ_foudre",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "lightning_field",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "ground",
+        "target": "champ_foudre",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/lightning_field/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

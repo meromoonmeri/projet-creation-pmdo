@@ -1,0 +1,1747 @@
+{
+  "id": "wish_cave",
+  "aliases": [
+    "sanctuaire_voeu"
+  ],
+  "name": {
+    "en": "Wish Cave",
+    "fr": "Grotte du Vœu"
+  },
+  "chapter": 15,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Wish Cave (99F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/WishCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 15. Recoupé avec Bulbapedia (page « Wish Cave »).",
+  "comment": "Définition canonique générée pour le chapitre 15. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 76 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 99,
+  "biome": "wish_gallery",
+  "level": 33,
+  "rescues": 2,
+  "released": false,
+  "music": "Wish Cave.ogg",
+  "harvested_from_legacy": {
+    "zone": "Data/Zone/wish_cave.json",
+    "kept": {
+      "music": "Wish Cave.ogg",
+      "rescues": 2,
+      "grounds": [
+        "sanctuaire_voeu"
+      ],
+      "note": "Wish Cave canonique: 98 floors + 99F Jirachi; niveau 1, argent interdit, vœux."
+    },
+    "discarded": "legacy floor structure (2 floors vs 99 canonical) — rebuilt by the Builder"
+  },
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 33
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": false,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "wish_cave_1_floor",
+    "wall": "wish_cave_1_wall",
+    "secondary": "wish_cave_1_secondary",
+    "name": "wish_cave_1",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_ALLURE_SEED",
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_BOUNCE_BAND",
+    "ITEM_DECOY_ORB",
+    "ITEM_DETECT_BAND",
+    "ITEM_DIET_RIBBON",
+    "ITEM_DROUGHT_ORB",
+    "ITEM_EVASION_ORB",
+    "ITEM_EYEDROP_SEED",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_RIBBON",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_IDENTIFY_ORB",
+    "ITEM_LOB_ORB",
+    "ITEM_LOCKON_SPECS",
+    "ITEM_LONGTOSS_ORB",
+    "ITEM_MAX_ELIXIR",
+    "ITEM_MOBILE_ORB",
+    "ITEM_MOBILE_SCARF",
+    "ITEM_MUNCH_BELT",
+    "ITEM_ONE_ROOM_ORB",
+    "ITEM_ONE_SHOT_ORB",
+    "ITEM_PASS_SCARF",
+    "ITEM_PATSY_BAND",
+    "ITEM_PIERCE_BAND",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RACKET_BAND",
+    "ITEM_RADAR_ORB",
+    "ITEM_ROCKY_ORB",
+    "ITEM_SCOPE_LENS",
+    "ITEM_SEE_TRAP_ORB",
+    "ITEM_SHOCKER_ORB",
+    "ITEM_SILENCE_ORB",
+    "ITEM_SILVER_SPIKE",
+    "ITEM_SITRUS_BERRY",
+    "ITEM_SIZEBUST_ORB",
+    "ITEM_SNATCH_ORB",
+    "ITEM_SNEAK_SCARF",
+    "ITEM_STAIRS_ORB",
+    "ITEM_STAMINA_BAND",
+    "ITEM_STUN_SEED",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_TRANSFER_ORB",
+    "ITEM_TWIST_BAND",
+    "ITEM_WEATHER_BAND",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "wish_gallery",
+      "floors": [
+        1,
+        50
+      ],
+      "biome": "wish_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "abra",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 3,
+          "floors": [
+            38,
+            42
+          ]
+        },
+        {
+          "species": "ariados",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 7,
+          "floors": [
+            42,
+            46
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            38,
+            38
+          ],
+          "weight": 7,
+          "floors": [
+            7,
+            10
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 4,
+          "floors": [
+            45,
+            49
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "beldum",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 7,
+          "floors": [
+            15,
+            17
+          ]
+        },
+        {
+          "species": "bellsprout",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 2,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "caterpie",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            2,
+            4
+          ]
+        },
+        {
+          "species": "cleffa",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "dugtrio",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            50,
+            50
+          ]
+        },
+        {
+          "species": "dunsparce",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 7,
+          "floors": [
+            43,
+            44
+          ]
+        },
+        {
+          "species": "electabuzz",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 6,
+          "floors": [
+            33,
+            37
+          ]
+        },
+        {
+          "species": "electrike",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 8,
+          "floors": [
+            26,
+            33
+          ]
+        },
+        {
+          "species": "electrode",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            50,
+            50
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 5,
+          "floors": [
+            12,
+            14
+          ]
+        },
+        {
+          "species": "gligar",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 6,
+          "floors": [
+            31,
+            35
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 2,
+          "floors": [
+            46,
+            50
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 2,
+          "floors": [
+            47,
+            50
+          ]
+        },
+        {
+          "species": "jigglypuff",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "kadabra",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 4,
+          "floors": [
+            46,
+            50
+          ]
+        },
+        {
+          "species": "machop",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 9,
+          "floors": [
+            17,
+            25
+          ]
+        },
+        {
+          "species": "magmar",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 3,
+          "floors": [
+            47,
+            50
+          ]
+        },
+        {
+          "species": "magnemite",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "manectric",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 6,
+          "floors": [
+            36,
+            40
+          ]
+        },
+        {
+          "species": "marill",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 5,
+          "floors": [
+            4,
+            6
+          ]
+        },
+        {
+          "species": "medicham",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 20,
+          "floors": [
+            20,
+            20
+          ]
+        },
+        {
+          "species": "meditite",
+          "level": [
+            38,
+            38
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "murkrow",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 6,
+          "floors": [
+            39,
+            42
+          ]
+        },
+        {
+          "species": "natu",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 7,
+          "floors": [
+            13,
+            17
+          ]
+        },
+        {
+          "species": "nidoran_m",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 6,
+          "floors": [
+            33,
+            37
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 2,
+          "floors": [
+            47,
+            50
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 2,
+          "floors": [
+            47,
+            50
+          ]
+        },
+        {
+          "species": "nincada",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 3,
+          "floors": [
+            44,
+            49
+          ]
+        },
+        {
+          "species": "ralts",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 7,
+          "floors": [
+            11,
+            13
+          ]
+        },
+        {
+          "species": "rattata",
+          "level": [
+            35,
+            35
+          ],
+          "weight": 7,
+          "floors": [
+            5,
+            7
+          ]
+        },
+        {
+          "species": "skarmory",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 6,
+          "floors": [
+            18,
+            19
+          ]
+        },
+        {
+          "species": "spinarak",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 8,
+          "floors": [
+            26,
+            32
+          ]
+        },
+        {
+          "species": "sunkern",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "swinub",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 6,
+          "floors": [
+            17,
+            25
+          ]
+        },
+        {
+          "species": "tauros",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 6,
+          "floors": [
+            36,
+            43
+          ]
+        },
+        {
+          "species": "togepi",
+          "level": [
+            39,
+            39
+          ],
+          "weight": 7,
+          "floors": [
+            5,
+            10
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 5,
+          "floors": [
+            21,
+            28
+          ]
+        },
+        {
+          "species": "voltorb",
+          "level": [
+            35,
+            35
+          ],
+          "weight": 6,
+          "floors": [
+            8,
+            10
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 3
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "food_apple_huge",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 1
+            },
+            {
+              "item": "held_special_band",
+              "weight": 1
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 1
+            },
+            {
+              "item": "orb_fill_in",
+              "weight": 1
+            },
+            {
+              "item": "orb_luminous",
+              "weight": 1
+            },
+            {
+              "item": "orb_mug",
+              "weight": 1
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_pierce",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_slow",
+              "weight": 1
+            },
+            {
+              "item": "orb_slumber",
+              "weight": 1
+            },
+            {
+              "item": "orb_stayaway",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 2
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 2
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "wish_sanctum",
+      "floors": [
+        51,
+        99
+      ],
+      "biome": "wish_sanctum",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "arbok",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 4,
+          "floors": [
+            60,
+            64
+          ]
+        },
+        {
+          "species": "camerupt",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 5,
+          "floors": [
+            80,
+            85
+          ]
+        },
+        {
+          "species": "claydol",
+          "level": [
+            58,
+            58
+          ],
+          "weight": 8,
+          "floors": [
+            97,
+            98
+          ]
+        },
+        {
+          "species": "ditto",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 1,
+          "floors": [
+            53,
+            64
+          ]
+        },
+        {
+          "species": "dugtrio",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            51,
+            55
+          ]
+        },
+        {
+          "species": "dusclops",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 9,
+          "floors": [
+            90,
+            93
+          ]
+        },
+        {
+          "species": "electrode",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            51,
+            55
+          ]
+        },
+        {
+          "species": "flygon",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 6,
+          "floors": [
+            94,
+            96
+          ]
+        },
+        {
+          "species": "forretress",
+          "level": [
+            55,
+            55
+          ],
+          "weight": 5,
+          "floors": [
+            51,
+            88
+          ]
+        },
+        {
+          "species": "golem",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 5,
+          "floors": [
+            76,
+            79
+          ]
+        },
+        {
+          "species": "graveler",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 3,
+          "floors": [
+            72,
+            75
+          ]
+        },
+        {
+          "species": "grimer",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 5,
+          "floors": [
+            80,
+            85
+          ]
+        },
+        {
+          "species": "hitmonchan",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 4,
+          "floors": [
+            51,
+            56
+          ]
+        },
+        {
+          "species": "hitmonlee",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 4,
+          "floors": [
+            51,
+            56
+          ]
+        },
+        {
+          "species": "hitmontop",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            83,
+            89
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            51,
+            52
+          ]
+        },
+        {
+          "species": "jirachi",
+          "level": [
+            72,
+            72
+          ],
+          "weight": 20,
+          "floors": [
+            99,
+            99
+          ]
+        },
+        {
+          "species": "koffing",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            71,
+            75
+          ]
+        },
+        {
+          "species": "lairon",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 4,
+          "floors": [
+            62,
+            64
+          ]
+        },
+        {
+          "species": "magby",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 3,
+          "floors": [
+            72,
+            76
+          ]
+        },
+        {
+          "species": "magcargo",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 5,
+          "floors": [
+            56,
+            77
+          ]
+        },
+        {
+          "species": "magmar",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 6,
+          "floors": [
+            77,
+            80
+          ]
+        },
+        {
+          "species": "metagross",
+          "level": [
+            60,
+            60
+          ],
+          "weight": 8,
+          "floors": [
+            94,
+            98
+          ]
+        },
+        {
+          "species": "metang",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 4,
+          "floors": [
+            62,
+            64
+          ]
+        },
+        {
+          "species": "nidoking",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 5,
+          "floors": [
+            77,
+            79
+          ]
+        },
+        {
+          "species": "nidoqueen",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            74,
+            76
+          ]
+        },
+        {
+          "species": "numel",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 4,
+          "floors": [
+            53,
+            56
+          ]
+        },
+        {
+          "species": "piloswine",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 4,
+          "floors": [
+            59,
+            63
+          ]
+        },
+        {
+          "species": "pineco",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 4,
+          "floors": [
+            61,
+            64
+          ]
+        },
+        {
+          "species": "porygon2",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            79,
+            84
+          ]
+        },
+        {
+          "species": "rhydon",
+          "level": [
+            55,
+            55
+          ],
+          "weight": 4,
+          "floors": [
+            71,
+            76
+          ]
+        },
+        {
+          "species": "rhyhorn",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 5,
+          "floors": [
+            58,
+            61
+          ]
+        },
+        {
+          "species": "salamence",
+          "level": [
+            58,
+            58
+          ],
+          "weight": 6,
+          "floors": [
+            98,
+            98
+          ]
+        },
+        {
+          "species": "scizor",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 8,
+          "floors": [
+            90,
+            95
+          ]
+        },
+        {
+          "species": "shelgon",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 11,
+          "floors": [
+            65,
+            69
+          ]
+        },
+        {
+          "species": "shuppet",
+          "level": [
+            60,
+            60
+          ],
+          "weight": 3,
+          "floors": [
+            81,
+            84
+          ]
+        },
+        {
+          "species": "solrock",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 7,
+          "floors": [
+            86,
+            89
+          ]
+        },
+        {
+          "species": "torkoal",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 7,
+          "floors": [
+            57,
+            59
+          ]
+        },
+        {
+          "species": "weezing",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 2,
+          "floors": [
+            86,
+            98
+          ]
+        },
+        {
+          "species": "zangoose",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 10,
+          "floors": [
+            65,
+            71
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 3
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "food_apple_huge",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 1
+            },
+            {
+              "item": "held_special_band",
+              "weight": 1
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 1
+            },
+            {
+              "item": "orb_fill_in",
+              "weight": 1
+            },
+            {
+              "item": "orb_luminous",
+              "weight": 1
+            },
+            {
+              "item": "orb_mug",
+              "weight": 1
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_pierce",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_slow",
+              "weight": 1
+            },
+            {
+              "item": "orb_slumber",
+              "weight": 1
+            },
+            {
+              "item": "orb_stayaway",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 2
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 2
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    400,
+    530
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        99
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "ammo_iron_thorn",
+          "price": 50,
+          "weight": 12
+        },
+        {
+          "item": "ammo_geo_pebble",
+          "price": 50,
+          "weight": 4
+        },
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 1
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 2
+        },
+        {
+          "item": "seed_blinker",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 1
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "orb_totter",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "seed_sleep",
+          "price": 100,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "seed_blast",
+          "price": 100,
+          "weight": 1
+        },
+        {
+          "item": "berry_chesto",
+          "price": 80,
+          "weight": 1
+        },
+        {
+          "item": "food_apple_huge",
+          "price": 200,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        99
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Chestnut Trap",
+        "Explosion Trap",
+        "Grimy Trap",
+        "Gust Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Pitfall Trap",
+        "Poison Trap",
+        "Pokemon Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Summon Trap",
+        "Warp Trap",
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "",
+    "relay_ground": "",
+    "canonical_end_ground": "sanctuaire_voeu",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/sanctuaire_voeu.rsground",
+    "cinematic_ground": "sanctuaire_voeu",
+    "battle_ground": "sanctuaire_voeu",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "sanctuaire_voeu",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/sanctuaire_voeu"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d23p01.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/wish_cave",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "sanctuaire_voeu",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "map": "sanctuaire_voeu",
+    "roster": [
+      {
+        "species": "jirachi",
+        "level": [
+          43,
+          43
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "end": "sanctuaire_voeu"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/wish_cave.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "wish_cave",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "sanctuaire_voeu",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "wish_cave",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "ground",
+        "target": "sanctuaire_voeu",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/wish_cave/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

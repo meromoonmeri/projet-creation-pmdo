@@ -1,0 +1,145 @@
+{
+ "schema": "nnv-fauna-promotion-manifest-v1",
+ "PROMOTED": {
+  "entities": 1642,
+  "rooms": 34,
+  "species": 12,
+  "by_species": {
+   "vivillon": 474,
+   "cutiefly": 337,
+   "volbeat": 321,
+   "fletchling": 183,
+   "politoed": 123,
+   "magikarp": 76,
+   "illumise": 57,
+   "jumpluff": 37,
+   "barboach": 16,
+   "bellsprout": 7,
+   "surskit": 6,
+   "wingull": 5
+  },
+  "by_room": {
+   "rm35": 103,
+   "rm84": 99,
+   "rm59": 96,
+   "rm83": 87,
+   "rm67": 86,
+   "rm23": 80,
+   "rm44": 79,
+   "rm24": 78,
+   "rm43": 70,
+   "rm34": 67,
+   "rm82": 62,
+   "rm64": 61,
+   "rm66": 57,
+   "rm25": 55,
+   "rm85": 50,
+   "rm33": 45,
+   "rm53": 43,
+   "rm75": 40,
+   "rm63": 39,
+   "rm73": 38,
+   "rm54": 36,
+   "rm74": 31,
+   "rmvillage": 31,
+   "rm36": 30,
+   "rm32": 29,
+   "rm65": 26,
+   "rm56": 24,
+   "rm45": 22,
+   "rm46": 20,
+   "rm14": 18,
+   "rm37": 11,
+   "rm58": 11,
+   "rm39": 9,
+   "rm69": 9
+  },
+  "status": "PROMOTED_AND_PUSHED",
+  "verified_on_disk": 1642,
+  "grounds_restored": 34
+ },
+ "HELD": {
+  "entities": 109,
+  "seasonal": 109,
+  "species_held": [
+   "cradily",
+   "sandshrew"
+  ],
+  "reason": "variante de Ground de la saison non convertie/rendue ; hiver diverge a 100% de l ete (mesure sur rmvillage)"
+ },
+ "NO_PROOF": {
+  "entities": 57,
+  "rooms": [
+   "rm38",
+   "rm47",
+   "rm48",
+   "rm49",
+   "rm57",
+   "rm68",
+   "rm77",
+   "rmcave1",
+   "rmcave1_0",
+   "rmcave1_1",
+   "rmcave1_2"
+  ],
+  "reason": "ni rendu ni collision : Ground reconverti inexistant"
+ },
+ "LEGENDARY_FABULOUS_EXCLUDED": {
+  "count": 83,
+  "enforced_by": "test_fauna_ecology.py"
+ },
+ "METANO_GUILD_EXCLUDED": {
+  "count": 26,
+  "sample": [
+   "ambipom",
+   "audino",
+   "bidoof",
+   "chatot",
+   "chimecho",
+   "corphish",
+   "croagunk",
+   "diglett",
+   "dugtrio",
+   "farfetchd",
+   "growlithe",
+   "kangaskhan"
+  ],
+  "enforced_by": "test_fauna_ecology.py + verify_injected_grounds.py"
+ },
+ "reconciliation": {
+  "total": 1808,
+  "promoted": 1642,
+  "held": 109,
+  "no_proof": 57,
+  "balanced": true
+ },
+ "runtime": {
+  "status": "NOT_CERTIFIED",
+  "reason": "ni dotnet ni mono installes; hotes .NET bloques (6 testes)"
+ },
+ "validation": {
+  "injected_grounds_checks": 15139,
+  "ecology_suite_checks": 5991,
+  "wiring_checks": 7565,
+  "zone_script_checks": 21,
+  "archive_restore_checks": 314,
+  "tile_index": "1891 tuiles, aucun damier",
+  "pixel_perfect": "6/6 maps, sha identiques aux preuves d origine",
+  "simulation": {
+   "individuals": 1642,
+   "moves": 269800,
+   "clones": 6,
+   "clones_are": "les 7 Bellsprout sessiles (immobilite volontaire)",
+   "vegetative": 0,
+   "phase_duplicates": 0,
+   "state_sequences": 25,
+   "states": 19
+  }
+ },
+ "archive": {
+  "patch_sha256": "dcc072f9f5367b47fe90544efe504a632eaa3540f59d63399be2bec03c180d24",
+  "patch_bytes": 58011,
+  "full_archive_bytes": 233542949,
+  "restore_proven": true
+ }
+}

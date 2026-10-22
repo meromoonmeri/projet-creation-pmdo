@@ -1,0 +1,147 @@
+{
+  "assets": [
+    {
+      "frame_count": 1,
+      "loc_height": 32,
+      "output": "Content/Particle/NNV_Snow_Sprite_1.dir",
+      "output_sha256": "b14f0c3bd0a9b0c05cd4454cd3e2e1faa1a040ec83dbd0d518dfe0272ac5041c",
+      "pixel_transform": "identity_1_to_1",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "source_origin": [
+        32,
+        32
+      ],
+      "source_sprite_index": 2255,
+      "source_sprite_name": "ssnow1"
+    },
+    {
+      "frame_count": 1,
+      "loc_height": 32,
+      "output": "Content/Particle/NNV_Snow_Sprite_2.dir",
+      "output_sha256": "006e65364d61d01e10927575cee3aa75c31d5a6e0c545df419aff343f29aebb8",
+      "pixel_transform": "identity_1_to_1",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "source_origin": [
+        32,
+        32
+      ],
+      "source_sprite_index": 2562,
+      "source_sprite_name": "ssnow2"
+    },
+    {
+      "frame_count": 2,
+      "loc_height": 60,
+      "output": "Content/Particle/NNV_Snow_Footprint_Trail.dir",
+      "output_sha256": "e01adcc83097a7162e81df4ccde86f2e8df7093aa9f236d7b6d840b337aab216",
+      "pixel_transform": "identity_1_to_1",
+      "source_dimensions": [
+        204,
+        200
+      ],
+      "source_origin": [
+        102,
+        140
+      ],
+      "source_sprite_index": 2500,
+      "source_sprite_name": "spttrail01"
+    }
+  ],
+  "blockers": [
+    "GameMaker shape-0 base particle visual adapter not compiled",
+    "three-family emitter concurrency/timing not mapped to proven PMDO API",
+    "snow footprint terrain condition not implemented",
+    "snow trail fading surface not implemented",
+    "snpfssnow0 binary audio not present in tracked extraction",
+    "runtime PMDO particle capture not run"
+  ],
+  "conversion_status": "UNIMPLEMENTED",
+  "footprint_audio": {
+    "asset_status": "MISSING_BINARY_OUTSIDE_TRACKED_EXTRACTION",
+    "sound_resource_index": 352,
+    "source_manifest_status": "EXTRACTED_ALL",
+    "source_name": "snpfssnow0"
+  },
+  "promotion_allowed": false,
+  "runtime_status": "NOT_RUN",
+  "schema": "new-era.nnv-canonical-winter-particles.v1",
+  "semantic_sha256": "be4d657d3ddaffcf42958e9ff1e02e3cbf3c618c320a89012b3258093acb1887",
+  "source": {
+    "data_win_sha256": "2f33b595b450b40355554d73f5acc5d7272e5d54519e35cd8971e0f336401227",
+    "season_vm_evidence": "reports/season-vm-evidence.json",
+    "season_vm_evidence_sha256": "a4abbd845cd348aadb00e0cbda65747e06ad5c553348dfdb0cf253a975421904"
+  },
+  "source_parameters": {
+    "base_particle": {
+      "alpha": [
+        0.5,
+        1,
+        0
+      ],
+      "color": 16777215,
+      "direction": 270,
+      "life_seconds_range": [
+        2,
+        4
+      ],
+      "scale": 4,
+      "shape": 0,
+      "size_range": [
+        1,
+        2
+      ],
+      "speed_range": [
+        3,
+        1
+      ]
+    },
+    "created_by": "objwinter",
+    "footprints": {
+      "condition": "grass0/grass1/ground tile present and player ford > 0",
+      "sound": "snpfssnow0",
+      "trail_parameters": [
+        1334,
+        73,
+        300,
+        0.7,
+        1
+      ],
+      "trail_sprite_id": 2500
+    },
+    "spawn_layer": "shadows",
+    "sprite_particles": [
+      {
+        "alpha": [
+          0,
+          0.6,
+          0
+        ],
+        "size": 2,
+        "speed_range": [
+          6,
+          2
+        ],
+        "sprite_id": 2255
+      },
+      {
+        "alpha": [
+          0,
+          0.3,
+          0
+        ],
+        "size": 3,
+        "speed_range": [
+          9,
+          3
+        ],
+        "sprite_id": 2562
+      }
+    ]
+  },
+  "status": "ASSETS_COMPILED"
+}

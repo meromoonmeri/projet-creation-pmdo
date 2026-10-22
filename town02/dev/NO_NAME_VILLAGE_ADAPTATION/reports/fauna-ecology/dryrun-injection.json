@@ -1,0 +1,981 @@
+{
+ "schema": "nnv-fauna-dryrun-v1",
+ "mode": "DRY-RUN — aucune ecriture dans Data/ ni Content/",
+ "evidence_policy": "fail-closed : rien n est devine, rien n est promu sans preuve",
+ "seasonal_coverage": {
+  "variants_available_in_reconv": [
+   "summer"
+  ],
+  "note": "Seules les variantes de Ground reellement presentes dans /tmp/reconv peuvent recevoir des entites. Les especes dont aucune saison declaree n est disponible ne sont PAS injectees : elles ne sont ni perdues ni deplacees, elles attendent la reconversion des variantes manquantes.",
+  "withheld_for_missing_season": {
+   "ariados": 7,
+   "chinchou": 10,
+   "crabrawler": 4,
+   "delibird": 10,
+   "ducklett": 4,
+   "dwebble": 13,
+   "ledyba": 20,
+   "lotad": 7,
+   "piloswine": 16,
+   "swanna": 9,
+   "swinub": 9
+  },
+  "withheld_total": 109
+ },
+ "rooms": {
+  "proven_injectable": [
+   "rm14",
+   "rm23",
+   "rm24",
+   "rm25",
+   "rm32",
+   "rm33",
+   "rm34",
+   "rm35",
+   "rm36",
+   "rm37",
+   "rm39",
+   "rm43",
+   "rm44",
+   "rm45",
+   "rm46",
+   "rm53",
+   "rm54",
+   "rm56",
+   "rm58",
+   "rm59",
+   "rm63",
+   "rm64",
+   "rm65",
+   "rm66",
+   "rm67",
+   "rm69",
+   "rm73",
+   "rm74",
+   "rm75",
+   "rm82",
+   "rm83",
+   "rm84",
+   "rm85",
+   "rmvillage"
+  ],
+  "partial_blocked": [],
+  "no_proof_failclosed": [
+   "rm38",
+   "rm47",
+   "rm48",
+   "rm49",
+   "rm57",
+   "rm68",
+   "rm77",
+   "rmcave1",
+   "rmcave1_0",
+   "rmcave1_1",
+   "rmcave1_2"
+  ]
+ },
+ "held_species": {
+  "cradily": {
+   "status": "HELD",
+   "note": "toutes les occurrences source tombent dans des rooms sans preuve de terrain : espece mise en attente, jamais deplacee ailleurs pour la faire exister",
+   "source_by_evidence": {
+    "PROVEN": 0,
+    "PARTIAL": 0,
+    "NO_PROOF": 92
+   },
+   "rooms": [
+    "rmcave1_0",
+    "rmcave1_1",
+    "rmcave1_2"
+   ],
+   "placed_total": 0,
+   "promotable": 0
+  },
+  "sandshrew": {
+   "status": "HELD",
+   "note": "toutes les occurrences source tombent dans des rooms sans preuve de terrain : espece mise en attente, jamais deplacee ailleurs pour la faire exister",
+   "source_by_evidence": {
+    "PROVEN": 0,
+    "PARTIAL": 0,
+    "NO_PROOF": 16
+   },
+   "rooms": [
+    "rmcave1",
+    "rmcave1_0",
+    "rmcave1_1"
+   ],
+   "placed_total": 16,
+   "promotable": 0
+  }
+ },
+ "files": {
+  "grounds": [
+   {
+    "file": "rm14/Data/Ground/nnv_rm14_summer.rsground",
+    "absolute": "/tmp/reconv/rm14/Data/Ground/nnv_rm14_summer.rsground",
+    "room": "rm14",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 32960271,
+    "entities_added": 18,
+    "estimated_delta_bytes": 47700,
+    "species": {
+     "ariados": 3,
+     "fletchling": 10,
+     "ledyba": 9,
+     "vivillon": 8
+    }
+   },
+   {
+    "file": "rm23/Data/Ground/nnv_rm23_summer.rsground",
+    "absolute": "/tmp/reconv/rm23/Data/Ground/nnv_rm23_summer.rsground",
+    "room": "rm23",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 50490381,
+    "entities_added": 80,
+    "estimated_delta_bytes": 212000,
+    "species": {
+     "chinchou": 2,
+     "dwebble": 2,
+     "illumise": 9,
+     "lotad": 2,
+     "politoed": 18,
+     "vivillon": 2,
+     "volbeat": 51
+    }
+   },
+   {
+    "file": "rm24/Data/Ground/nnv_rm24_summer.rsground",
+    "absolute": "/tmp/reconv/rm24/Data/Ground/nnv_rm24_summer.rsground",
+    "room": "rm24",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 41038469,
+    "entities_added": 78,
+    "estimated_delta_bytes": 206700,
+    "species": {
+     "ariados": 1,
+     "dwebble": 4,
+     "fletchling": 2,
+     "illumise": 6,
+     "ledyba": 2,
+     "politoed": 21,
+     "vivillon": 6,
+     "volbeat": 43
+    }
+   },
+   {
+    "file": "rm25/Data/Ground/nnv_rm25_summer.rsground",
+    "absolute": "/tmp/reconv/rm25/Data/Ground/nnv_rm25_summer.rsground",
+    "room": "rm25",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 41591539,
+    "entities_added": 55,
+    "estimated_delta_bytes": 145750,
+    "species": {
+     "ariados": 1,
+     "dwebble": 3,
+     "fletchling": 5,
+     "illumise": 3,
+     "jumpluff": 2,
+     "ledyba": 4,
+     "politoed": 13,
+     "vivillon": 13,
+     "volbeat": 19
+    }
+   },
+   {
+    "file": "rm32/Data/Ground/nnv_rm32_summer.rsground",
+    "absolute": "/tmp/reconv/rm32/Data/Ground/nnv_rm32_summer.rsground",
+    "room": "rm32",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 56102697,
+    "entities_added": 29,
+    "estimated_delta_bytes": 76850,
+    "species": {
+     "cutiefly": 17,
+     "fletchling": 3,
+     "vivillon": 9
+    }
+   },
+   {
+    "file": "rm33/Data/Ground/nnv_rm33_summer.rsground",
+    "absolute": "/tmp/reconv/rm33/Data/Ground/nnv_rm33_summer.rsground",
+    "room": "rm33",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 41553238,
+    "entities_added": 45,
+    "estimated_delta_bytes": 119250,
+    "species": {
+     "chinchou": 2,
+     "dwebble": 2,
+     "fletchling": 2,
+     "jumpluff": 2,
+     "lotad": 2,
+     "politoed": 12,
+     "swanna": 1,
+     "vivillon": 5,
+     "volbeat": 24
+    }
+   },
+   {
+    "file": "rm34/Data/Ground/nnv_rm34_summer.rsground",
+    "absolute": "/tmp/reconv/rm34/Data/Ground/nnv_rm34_summer.rsground",
+    "room": "rm34",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 39009858,
+    "entities_added": 67,
+    "estimated_delta_bytes": 177550,
+    "species": {
+     "chinchou": 2,
+     "dwebble": 1,
+     "lotad": 1,
+     "politoed": 19,
+     "swanna": 2,
+     "volbeat": 48
+    }
+   },
+   {
+    "file": "rm35/Data/Ground/nnv_rm35_summer.rsground",
+    "absolute": "/tmp/reconv/rm35/Data/Ground/nnv_rm35_summer.rsground",
+    "room": "rm35",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 40252223,
+    "entities_added": 103,
+    "estimated_delta_bytes": 272950,
+    "species": {
+     "chinchou": 1,
+     "cutiefly": 14,
+     "dwebble": 1,
+     "fletchling": 4,
+     "illumise": 4,
+     "jumpluff": 1,
+     "lotad": 1,
+     "politoed": 20,
+     "swanna": 1,
+     "vivillon": 12,
+     "volbeat": 48
+    }
+   },
+   {
+    "file": "rm36/Data/Ground/nnv_rm36_summer.rsground",
+    "absolute": "/tmp/reconv/rm36/Data/Ground/nnv_rm36_summer.rsground",
+    "room": "rm36",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 40131773,
+    "entities_added": 30,
+    "estimated_delta_bytes": 79500,
+    "species": {
+     "fletchling": 3,
+     "illumise": 3,
+     "jumpluff": 4,
+     "vivillon": 20
+    }
+   },
+   {
+    "file": "rm37/Data/Ground/nnv_rm37_summer.rsground",
+    "absolute": "/tmp/reconv/rm37/Data/Ground/nnv_rm37_summer.rsground",
+    "room": "rm37",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 30810495,
+    "entities_added": 11,
+    "estimated_delta_bytes": 29150,
+    "species": {
+     "crabrawler": 4,
+     "delibird": 3,
+     "vivillon": 11
+    }
+   },
+   {
+    "file": "rm39/Data/Ground/nnv_rm39_summer.rsground",
+    "absolute": "/tmp/reconv/rm39/Data/Ground/nnv_rm39_summer.rsground",
+    "room": "rm39",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 47519395,
+    "entities_added": 9,
+    "estimated_delta_bytes": 23850,
+    "species": {
+     "fletchling": 9
+    }
+   },
+   {
+    "file": "rm43/Data/Ground/nnv_rm43_summer.rsground",
+    "absolute": "/tmp/reconv/rm43/Data/Ground/nnv_rm43_summer.rsground",
+    "room": "rm43",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 41759752,
+    "entities_added": 70,
+    "estimated_delta_bytes": 185500,
+    "species": {
+     "chinchou": 1,
+     "fletchling": 4,
+     "illumise": 2,
+     "jumpluff": 1,
+     "ledyba": 2,
+     "lotad": 1,
+     "politoed": 6,
+     "swanna": 2,
+     "vivillon": 19,
+     "volbeat": 38
+    }
+   },
+   {
+    "file": "rm44/Data/Ground/nnv_rm44_summer.rsground",
+    "absolute": "/tmp/reconv/rm44/Data/Ground/nnv_rm44_summer.rsground",
+    "room": "rm44",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 42055351,
+    "entities_added": 79,
+    "estimated_delta_bytes": 209350,
+    "species": {
+     "ariados": 1,
+     "chinchou": 2,
+     "fletchling": 6,
+     "illumise": 2,
+     "ledyba": 3,
+     "politoed": 14,
+     "swanna": 3,
+     "vivillon": 7,
+     "volbeat": 50
+    }
+   },
+   {
+    "file": "rm45/Data/Ground/nnv_rm45_summer.rsground",
+    "absolute": "/tmp/reconv/rm45/Data/Ground/nnv_rm45_summer.rsground",
+    "room": "rm45",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 39612510,
+    "entities_added": 22,
+    "estimated_delta_bytes": 58300,
+    "species": {
+     "ariados": 1,
+     "fletchling": 12,
+     "jumpluff": 4,
+     "vivillon": 6
+    }
+   },
+   {
+    "file": "rm46/Data/Ground/nnv_rm46_summer.rsground",
+    "absolute": "/tmp/reconv/rm46/Data/Ground/nnv_rm46_summer.rsground",
+    "room": "rm46",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 39278965,
+    "entities_added": 20,
+    "estimated_delta_bytes": 53000,
+    "species": {
+     "fletchling": 3,
+     "vivillon": 17
+    }
+   },
+   {
+    "file": "rm53/Data/Ground/nnv_rm53_summer.rsground",
+    "absolute": "/tmp/reconv/rm53/Data/Ground/nnv_rm53_summer.rsground",
+    "room": "rm53",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 38850870,
+    "entities_added": 43,
+    "estimated_delta_bytes": 113950,
+    "species": {
+     "fletchling": 10,
+     "vivillon": 33
+    }
+   },
+   {
+    "file": "rm54/Data/Ground/nnv_rm54_summer.rsground",
+    "absolute": "/tmp/reconv/rm54/Data/Ground/nnv_rm54_summer.rsground",
+    "room": "rm54",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 40498009,
+    "entities_added": 36,
+    "estimated_delta_bytes": 95400,
+    "species": {
+     "fletchling": 4,
+     "vivillon": 32
+    }
+   },
+   {
+    "file": "rm56/Data/Ground/nnv_rm56_summer.rsground",
+    "absolute": "/tmp/reconv/rm56/Data/Ground/nnv_rm56_summer.rsground",
+    "room": "rm56",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 45354893,
+    "entities_added": 24,
+    "estimated_delta_bytes": 63600,
+    "species": {
+     "fletchling": 5,
+     "magikarp": 2,
+     "vivillon": 17
+    }
+   },
+   {
+    "file": "rm58/Data/Ground/nnv_rm58_summer.rsground",
+    "absolute": "/tmp/reconv/rm58/Data/Ground/nnv_rm58_summer.rsground",
+    "room": "rm58",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 30901566,
+    "entities_added": 11,
+    "estimated_delta_bytes": 29150,
+    "species": {
+     "ducklett": 1,
+     "piloswine": 7,
+     "swinub": 5,
+     "vivillon": 11
+    }
+   },
+   {
+    "file": "rm59/Data/Ground/nnv_rm59_summer.rsground",
+    "absolute": "/tmp/reconv/rm59/Data/Ground/nnv_rm59_summer.rsground",
+    "room": "rm59",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 31038777,
+    "entities_added": 96,
+    "estimated_delta_bytes": 254400,
+    "species": {
+     "cutiefly": 96,
+     "ducklett": 3,
+     "piloswine": 1
+    }
+   },
+   {
+    "file": "rm63/Data/Ground/nnv_rm63_summer.rsground",
+    "absolute": "/tmp/reconv/rm63/Data/Ground/nnv_rm63_summer.rsground",
+    "room": "rm63",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 31717157,
+    "entities_added": 39,
+    "estimated_delta_bytes": 103350,
+    "species": {
+     "fletchling": 9,
+     "illumise": 4,
+     "jumpluff": 4,
+     "vivillon": 21,
+     "wingull": 1
+    }
+   },
+   {
+    "file": "rm64/Data/Ground/nnv_rm64_summer.rsground",
+    "absolute": "/tmp/reconv/rm64/Data/Ground/nnv_rm64_summer.rsground",
+    "room": "rm64",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 31853335,
+    "entities_added": 61,
+    "estimated_delta_bytes": 161650,
+    "species": {
+     "bellsprout": 3,
+     "fletchling": 25,
+     "illumise": 4,
+     "jumpluff": 6,
+     "vivillon": 22,
+     "wingull": 1
+    }
+   },
+   {
+    "file": "rm65/Data/Ground/nnv_rm65_summer.rsground",
+    "absolute": "/tmp/reconv/rm65/Data/Ground/nnv_rm65_summer.rsground",
+    "room": "rm65",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 38689632,
+    "entities_added": 26,
+    "estimated_delta_bytes": 68900,
+    "species": {
+     "barboach": 4,
+     "fletchling": 2,
+     "jumpluff": 1,
+     "surskit": 2,
+     "vivillon": 17
+    }
+   },
+   {
+    "file": "rm66/Data/Ground/nnv_rm66_summer.rsground",
+    "absolute": "/tmp/reconv/rm66/Data/Ground/nnv_rm66_summer.rsground",
+    "room": "rm66",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 38630544,
+    "entities_added": 57,
+    "estimated_delta_bytes": 151050,
+    "species": {
+     "cutiefly": 48,
+     "fletchling": 2,
+     "vivillon": 7
+    }
+   },
+   {
+    "file": "rm67/Data/Ground/nnv_rm67_summer.rsground",
+    "absolute": "/tmp/reconv/rm67/Data/Ground/nnv_rm67_summer.rsground",
+    "room": "rm67",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 30950448,
+    "entities_added": 86,
+    "estimated_delta_bytes": 227900,
+    "species": {
+     "cutiefly": 86,
+     "delibird": 7,
+     "piloswine": 1,
+     "swinub": 4
+    }
+   },
+   {
+    "file": "rm69/Data/Ground/nnv_rm69_summer.rsground",
+    "absolute": "/tmp/reconv/rm69/Data/Ground/nnv_rm69_summer.rsground",
+    "room": "rm69",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 30032461,
+    "entities_added": 9,
+    "estimated_delta_bytes": 23850,
+    "species": {
+     "fletchling": 9,
+     "piloswine": 7
+    }
+   },
+   {
+    "file": "rm73/Data/Ground/nnv_rm73_summer.rsground",
+    "absolute": "/tmp/reconv/rm73/Data/Ground/nnv_rm73_summer.rsground",
+    "room": "rm73",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 31913660,
+    "entities_added": 38,
+    "estimated_delta_bytes": 100700,
+    "species": {
+     "bellsprout": 1,
+     "fletchling": 7,
+     "illumise": 6,
+     "jumpluff": 3,
+     "vivillon": 20,
+     "wingull": 1
+    }
+   },
+   {
+    "file": "rm74/Data/Ground/nnv_rm74_summer.rsground",
+    "absolute": "/tmp/reconv/rm74/Data/Ground/nnv_rm74_summer.rsground",
+    "room": "rm74",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 33250974,
+    "entities_added": 31,
+    "estimated_delta_bytes": 82150,
+    "species": {
+     "fletchling": 3,
+     "illumise": 2,
+     "jumpluff": 3,
+     "vivillon": 23
+    }
+   },
+   {
+    "file": "rm75/Data/Ground/nnv_rm75_summer.rsground",
+    "absolute": "/tmp/reconv/rm75/Data/Ground/nnv_rm75_summer.rsground",
+    "room": "rm75",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 37752487,
+    "entities_added": 40,
+    "estimated_delta_bytes": 106000,
+    "species": {
+     "barboach": 6,
+     "fletchling": 17,
+     "illumise": 2,
+     "surskit": 1,
+     "vivillon": 14
+    }
+   },
+   {
+    "file": "rm82/Data/Ground/nnv_rm82_summer.rsground",
+    "absolute": "/tmp/reconv/rm82/Data/Ground/nnv_rm82_summer.rsground",
+    "room": "rm82",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 38852008,
+    "entities_added": 62,
+    "estimated_delta_bytes": 164300,
+    "species": {
+     "fletchling": 2,
+     "magikarp": 57,
+     "vivillon": 3
+    }
+   },
+   {
+    "file": "rm83/Data/Ground/nnv_rm83_summer.rsground",
+    "absolute": "/tmp/reconv/rm83/Data/Ground/nnv_rm83_summer.rsground",
+    "room": "rm83",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 38541907,
+    "entities_added": 87,
+    "estimated_delta_bytes": 230550,
+    "species": {
+     "barboach": 6,
+     "fletchling": 3,
+     "illumise": 2,
+     "jumpluff": 4,
+     "magikarp": 17,
+     "surskit": 3,
+     "vivillon": 51,
+     "wingull": 1
+    }
+   },
+   {
+    "file": "rm84/Data/Ground/nnv_rm84_summer.rsground",
+    "absolute": "/tmp/reconv/rm84/Data/Ground/nnv_rm84_summer.rsground",
+    "room": "rm84",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 31861990,
+    "entities_added": 99,
+    "estimated_delta_bytes": 262350,
+    "species": {
+     "bellsprout": 3,
+     "cutiefly": 76,
+     "fletchling": 2,
+     "illumise": 6,
+     "jumpluff": 2,
+     "vivillon": 9,
+     "wingull": 1
+    }
+   },
+   {
+    "file": "rm85/Data/Ground/nnv_rm85_summer.rsground",
+    "absolute": "/tmp/reconv/rm85/Data/Ground/nnv_rm85_summer.rsground",
+    "room": "rm85",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 37768766,
+    "entities_added": 50,
+    "estimated_delta_bytes": 132500,
+    "species": {
+     "fletchling": 8,
+     "illumise": 2,
+     "vivillon": 40
+    }
+   },
+   {
+    "file": "rmvillage/Data/Ground/nnv_rmvillage_summer.rsground",
+    "absolute": "/tmp/reconv/rmvillage/Data/Ground/nnv_rmvillage_summer.rsground",
+    "room": "rmvillage",
+    "season": "summer",
+    "action": "MODIFY (ajout d entites GroundChar)",
+    "current_bytes": 41985232,
+    "entities_added": 31,
+    "estimated_delta_bytes": 82150,
+    "species": {
+     "fletchling": 12,
+     "vivillon": 19
+    }
+   }
+  ],
+  "lua": [
+   {
+    "file": "Data/Script/halcyon/NNVEcology.lua",
+    "action": "CREATE",
+    "source": "NO_NAME_VILLAGE_ADAPTATION/generated/fauna/NNVEcology.lua",
+    "bytes": 24553,
+    "why": "moteur de vie autonome (profils, relations, budget CPU)"
+   },
+   {
+    "file": "Data/Script/halcyon/NNVDuel.lua",
+    "action": "CREATE",
+    "source": "NO_NAME_VILLAGE_ADAPTATION/generated/fauna/NNVDuel.lua",
+    "bytes": 4281,
+    "why": "bascule Ground -> .rsmap de duel et retour"
+   },
+   {
+    "file": "Data/Script/halcyon/NNVLife.lua",
+    "action": "MODIFY (appel de NNVEcology depuis Update/Setup)",
+    "bytes": 5986,
+    "estimated_delta_bytes": 420,
+    "why": "NNVLife gere deja les PNJ sociaux et les 12 objbird0 / 19 objbutterfly1 de rmvillage ; ces groupes doivent passer sous NNVEcology pour ne pas etre pilotes deux fois",
+    "conflict": "NNVLife.GROUPS contient source_birds (12) et source_butterflies (19) qui recouvrent exactement les occurrences objbird0/objbutterfly1 de rmvillage : a retirer de NNVLife lors de l injection"
+   }
+  ],
+  "duel_maps": [
+   {
+    "map_file": "Data/Map/nnv_duel_rm35_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 146135,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rm35_Summer.tile",
+    "tile_sheet_bytes": 50173,
+    "room": "rm35",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     1680,
+     2424
+    ],
+    "distinct_tiles": 324,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rm35_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   },
+   {
+    "map_file": "Data/Map/nnv_duel_rm59_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 147919,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rm59_Summer.tile",
+    "tile_sheet_bytes": 50917,
+    "room": "rm59",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     1176,
+     1320
+    ],
+    "distinct_tiles": 338,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rm59_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   },
+   {
+    "map_file": "Data/Map/nnv_duel_rm82_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 146125,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rm82_Summer.tile",
+    "tile_sheet_bytes": 46610,
+    "room": "rm82",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     2088,
+     2232
+    ],
+    "distinct_tiles": 323,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rm82_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   },
+   {
+    "map_file": "Data/Map/nnv_duel_rm83_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 146913,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rm83_Summer.tile",
+    "tile_sheet_bytes": 46999,
+    "room": "rm83",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     2784,
+     1320
+    ],
+    "distinct_tiles": 328,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rm83_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   },
+   {
+    "map_file": "Data/Map/nnv_duel_rm84_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 146106,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rm84_Summer.tile",
+    "tile_sheet_bytes": 46416,
+    "room": "rm84",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     2688,
+     1824
+    ],
+    "distinct_tiles": 286,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rm84_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   },
+   {
+    "map_file": "Data/Map/nnv_duel_rmvillage_summer.rsmap",
+    "action": "CREATE",
+    "bytes": 148351,
+    "tile_sheet_file": "Content/Tile/NNV_Duel_Rmvillage_Summer.tile",
+    "tile_sheet_bytes": 47063,
+    "room": "rmvillage",
+    "window_px": [
+     624,
+     336
+    ],
+    "origin_px": [
+     2184,
+     2328
+    ],
+    "distinct_tiles": 292,
+    "pixel_identical": true,
+    "index_idx": "AJOUT OBLIGATOIRE de la planche NNV_Duel_Rmvillage_Summer dans Content/Tile/index.idx, sinon damier mauve (GraphicsManager.GetTile: tilePos==0 -> BaseSheet.LoadError)"
+   }
+  ],
+  "tile_index": {
+   "file": "Content/Tile/index.idx",
+   "action": "MODIFY (ajout de 6 planche(s))",
+   "current_bytes": 23608335,
+   "estimated_delta_bytes": 30430,
+   "why": "GraphicsManager.GetTile (l.1152) appelle TileIndex.GetPosition(Sheet, TexLoc) ; TileGuide.GetPosition renvoie 0 si la planche est inconnue et TileIndexNode.GetPosition renvoie 0 si le TexLoc est inconnu. tilePos==0 => BaseSheet.LoadError() => damier mauve/noir.",
+   "guard": "NO_NAME_VILLAGE_ADAPTATION/tools/verify_tile_index.py"
+  },
+  "zones": [
+   {
+    "file": "Data/Zone/nnv_wild.json",
+    "action": "CREATE",
+    "why": "zone hote des duels sauvages, segments IsRelevant=false",
+    "segments": 6,
+    "estimated_bytes": 4800
+   },
+   {
+    "file": "Data/Zone/index.idx",
+    "action": "MODIFY (resynchronisation)",
+    "why": "toute nouvelle zone doit etre declaree dans l index des zones",
+    "estimated_delta_bytes": 260
+   }
+  ]
+ },
+ "totals": {
+  "ground_files_modified": 34,
+  "entities_injected": 1642,
+  "individuals_promotable": 1751,
+  "individuals_withheld": 57,
+  "lua_files": 3,
+  "duel_maps": 6,
+  "zone_files": 2,
+  "estimated_bytes": {
+   "grounds_delta": 4351300,
+   "duel_maps_and_sheets": 1169727,
+   "lua": 34820,
+   "zones": 5060,
+   "tile_index_delta": 30430,
+   "total": 5591337
+  }
+ },
+ "backup_rollback": {
+  "strategy": [
+   "Les Grounds reconvertis vivent dans /tmp/reconv (hors depot) : l injection ecrit des copies, l original reste intact.",
+   "Avant toute ecriture dans le depot : git tag pre-fauna-injection sur le HEAD courant.",
+   "Chaque fichier modifie est copie en <fichier>.pre-fauna.bak et son sha256 consigne dans reports/fauna-ecology/rollback-manifest.json.",
+   "Content/Tile/index.idx est sauvegarde entier avant modification (23,5 Mo) : c est le seul fichier partage a risque.",
+   "Rollback : git checkout <tag> -- Data/ Content/ , puis verify_tile_index.py pour confirmer l absence de damier."
+  ],
+  "irreversible_without_backup": [
+   "Content/Tile/index.idx",
+   "Data/Zone/index.idx"
+  ]
+ },
+ "reconciliation": {
+  "individuals_placed_total": 1808,
+  "promotable": 1751,
+  "injected": 1642,
+  "held_no_proof": 57,
+  "held_missing_season": 109,
+  "held_species": {
+   "cradily": 0,
+   "sandshrew": 16
+  },
+  "by_room": {
+   "rm35": 103,
+   "rm84": 99,
+   "rm59": 96,
+   "rm83": 87,
+   "rm67": 86,
+   "rm23": 80,
+   "rm44": 79,
+   "rm24": 78,
+   "rm43": 70,
+   "rm34": 67,
+   "rm82": 62,
+   "rm64": 61,
+   "rm66": 57,
+   "rm25": 55,
+   "rm85": 50,
+   "rm33": 45,
+   "rm53": 43,
+   "rm75": 40,
+   "rm63": 39,
+   "rm73": 38,
+   "rm54": 36,
+   "rm74": 31,
+   "rmvillage": 31,
+   "rm36": 30,
+   "rm32": 29,
+   "rm65": 26,
+   "rm56": 24,
+   "rm45": 22,
+   "rm46": 20,
+   "rm14": 18,
+   "rm37": 11,
+   "rm58": 11,
+   "rm39": 9,
+   "rm69": 9
+  },
+  "by_species": {
+   "vivillon": 474,
+   "cutiefly": 337,
+   "volbeat": 321,
+   "fletchling": 183,
+   "politoed": 123,
+   "magikarp": 76,
+   "illumise": 57,
+   "jumpluff": 37,
+   "barboach": 16,
+   "bellsprout": 7,
+   "surskit": 6,
+   "wingull": 5
+  },
+  "by_season": {
+   "summer": 1642
+  },
+  "by_biome": {
+   "grass": 949,
+   "open": 419,
+   "plant": 135,
+   "water": 129,
+   "marsh": 10
+  },
+  "unique_cells": 1642,
+  "dual_control_violations": [],
+  "balance_check": true
+ },
+ "guards": {
+  "ecology_suite": {
+   "exit": 0,
+   "tail": [
+    "controles: 5991",
+    "TOUT EST VERIFIE"
+   ]
+  },
+  "duel_pixel_identity": {
+   "exit": 0,
+   "tail": [
+    "",
+    "maps verifiees: 6",
+    "PIXEL-PERFECT CONFIRME: la .rsmap rend exactement le Ground"
+   ]
+  },
+  "tile_index_damier": {
+   "exit": 0,
+   "tail": [
+    "tuiles verifiees: 688",
+    "AUCUN DAMIER: toutes les tuiles sont resolvables"
+   ]
+  }
+ }
+}

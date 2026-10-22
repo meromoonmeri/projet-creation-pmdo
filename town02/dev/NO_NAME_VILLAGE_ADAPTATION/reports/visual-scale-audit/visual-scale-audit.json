@@ -1,0 +1,1301 @@
+{
+  "conclusion": "PMU_NEEDS_SCALE_ADAPTATION",
+  "conclusion_detail": {
+    "metano_scale": "art density 1 (1 art pixel = 1 real px); logical terrain cell 8 px; TexSize 1",
+    "nnv_scale": "art density 4 (1 art pixel = 4x4 real px); logical terrain cell 64 px; TexSize 8",
+    "pmu_factor": "x4 for 44 of 48 confirmed structures, x2 for the 4 already authored at density 2",
+    "pokemon_risk": "A Pokemon is 16x16 px in BOTH maps, so it is not itself rescaled. But because NNV scenery is 4x denser per world unit, a Pokemon standing in NNV looks ~4x smaller relative to trees and houses than the same Pokemon in metano_town. This is a real, measured mismatch, not an impression.",
+    "ratio": 4,
+    "why_not_nnv_needs_adaptation": "NNV is the map to preserve and its 1:1 mapping is already validated with four seasons and PMDO 0.8.12 runtime PASS; rescaling NNV would destroy that work. The incoming PMU assets are the ones that must be harmonised."
+  },
+  "independent_measurements": {
+    "houses_nnv_in_pokemon_units": {
+      "scarpenterhouse": {
+        "in_pokemon_units": [
+          74.5,
+          45.5
+        ],
+        "visible_bbox_px": [
+          1192,
+          728
+        ]
+      },
+      "shunterhouse": {
+        "in_pokemon_units": [
+          59.2,
+          53.5
+        ],
+        "visible_bbox_px": [
+          948,
+          856
+        ]
+      },
+      "sloggerhouse": {
+        "in_pokemon_units": [
+          59.2,
+          52.5
+        ],
+        "visible_bbox_px": [
+          948,
+          840
+        ]
+      },
+      "splayerhouse": {
+        "in_pokemon_units": [
+          75.0,
+          61.5
+        ],
+        "visible_bbox_px": [
+          1200,
+          984
+        ]
+      }
+    },
+    "metano_doorway_in_pokemon_units": {
+      "Fire_Home": {
+        "in_pokemon_units": 2.5,
+        "width_px": 40
+      },
+      "Grass_Home": {
+        "in_pokemon_units": 3.0,
+        "width_px": 48
+      },
+      "Rock_Home": {
+        "in_pokemon_units": 2.5,
+        "width_px": 40
+      },
+      "Water_Home": {
+        "in_pokemon_units": 3.0,
+        "width_px": 48
+      }
+    },
+    "metano_house_estimate_pokemon_units": "9-12 wide (entrance spacing and render crop)",
+    "nnv_door_collider_px": {
+      "Height": 64,
+      "Width": 64,
+      "X": 940,
+      "Y": 3296
+    },
+    "nnv_door_visual_block_px": "2x3 or 3x3 cells of 64 px = 128-192 px wide"
+  },
+  "map_modified": false,
+  "pmu_harmonisation_simulation": {
+    "candidates": [
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          28.0
+        ],
+        "harmonised_px": [
+          352,
+          448
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          7.0
+        ],
+        "native_px": [
+          88,
+          112
+        ],
+        "source_archive": "Tiles0.tile",
+        "structure_id": "tiles0_0357"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          36.2,
+          42.5
+        ],
+        "harmonised_px": [
+          580,
+          680
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          9.1,
+          10.6
+        ],
+        "native_px": [
+          145,
+          170
+        ],
+        "source_archive": "Tiles0.tile",
+        "structure_id": "tiles0_0367"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          23.5,
+          26.0
+        ],
+        "harmonised_px": [
+          376,
+          416
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.9,
+          6.5
+        ],
+        "native_px": [
+          94,
+          104
+        ],
+        "source_archive": "Tiles0.tile",
+        "structure_id": "tiles0_0370"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          27.0,
+          21.5
+        ],
+        "harmonised_px": [
+          432,
+          344
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.8,
+          5.4
+        ],
+        "native_px": [
+          108,
+          86
+        ],
+        "source_archive": "Tiles0.tile",
+        "structure_id": "tiles0_0373"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          11.5,
+          17.2
+        ],
+        "harmonised_px": [
+          184,
+          276
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          2.9,
+          4.3
+        ],
+        "native_px": [
+          46,
+          69
+        ],
+        "source_archive": "Tiles0.tile",
+        "structure_id": "tiles0_0492"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          10.2,
+          9.8
+        ],
+        "harmonised_px": [
+          164,
+          156
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          2.6,
+          2.4
+        ],
+        "native_px": [
+          41,
+          39
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0034"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          10.0,
+          15.8
+        ],
+        "harmonised_px": [
+          160,
+          252
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          2.5,
+          3.9
+        ],
+        "native_px": [
+          40,
+          63
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0050"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          10.0,
+          15.8
+        ],
+        "harmonised_px": [
+          160,
+          252
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          2.5,
+          3.9
+        ],
+        "native_px": [
+          40,
+          63
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0051"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          28.0
+        ],
+        "harmonised_px": [
+          352,
+          448
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          7.0
+        ],
+        "native_px": [
+          88,
+          112
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0053"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          16.0,
+          12.8
+        ],
+        "harmonised_px": [
+          256,
+          204
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.0,
+          3.2
+        ],
+        "native_px": [
+          64,
+          51
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0057"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          36.2,
+          42.5
+        ],
+        "harmonised_px": [
+          580,
+          680
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          9.1,
+          10.6
+        ],
+        "native_px": [
+          145,
+          170
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0070"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          23.5,
+          26.0
+        ],
+        "harmonised_px": [
+          376,
+          416
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.9,
+          6.5
+        ],
+        "native_px": [
+          94,
+          104
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0075"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          27.0,
+          21.5
+        ],
+        "harmonised_px": [
+          432,
+          344
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.8,
+          5.4
+        ],
+        "native_px": [
+          108,
+          86
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0076"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          11.5,
+          17.2
+        ],
+        "harmonised_px": [
+          184,
+          276
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          2.9,
+          4.3
+        ],
+        "native_px": [
+          46,
+          69
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0082"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          19.8,
+          24.0
+        ],
+        "harmonised_px": [
+          316,
+          384
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.9,
+          6.0
+        ],
+        "native_px": [
+          79,
+          96
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0085"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          19.8,
+          24.0
+        ],
+        "harmonised_px": [
+          316,
+          384
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.9,
+          6.0
+        ],
+        "native_px": [
+          79,
+          96
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0091"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          21.2,
+          25.8
+        ],
+        "harmonised_px": [
+          340,
+          412
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.3,
+          6.4
+        ],
+        "native_px": [
+          85,
+          103
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0354"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          20.5,
+          24.5
+        ],
+        "harmonised_px": [
+          328,
+          392
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.1,
+          6.1
+        ],
+        "native_px": [
+          82,
+          98
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0355"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.8,
+          26.5
+        ],
+        "harmonised_px": [
+          364,
+          424
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.7,
+          6.6
+        ],
+        "native_px": [
+          91,
+          106
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0360"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          27.5,
+          24.5
+        ],
+        "harmonised_px": [
+          440,
+          392
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.9,
+          6.1
+        ],
+        "native_px": [
+          110,
+          98
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0361"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.5,
+          22.8
+        ],
+        "harmonised_px": [
+          360,
+          364
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.6,
+          5.7
+        ],
+        "native_px": [
+          90,
+          91
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0363"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          26.8,
+          20.2
+        ],
+        "harmonised_px": [
+          428,
+          324
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.7,
+          5.1
+        ],
+        "native_px": [
+          107,
+          81
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0364"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          19.8,
+          19.8
+        ],
+        "harmonised_px": [
+          316,
+          316
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.9,
+          4.9
+        ],
+        "native_px": [
+          79,
+          79
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0365"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          23.2
+        ],
+        "harmonised_px": [
+          352,
+          372
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          5.8
+        ],
+        "native_px": [
+          88,
+          93
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0367"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          25.5,
+          20.2
+        ],
+        "harmonised_px": [
+          408,
+          324
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.4,
+          5.1
+        ],
+        "native_px": [
+          102,
+          81
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0369"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          26.0,
+          23.8
+        ],
+        "harmonised_px": [
+          416,
+          380
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.5,
+          5.9
+        ],
+        "native_px": [
+          104,
+          95
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0375"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          31.2,
+          22.0
+        ],
+        "harmonised_px": [
+          500,
+          352
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          7.8,
+          5.5
+        ],
+        "native_px": [
+          125,
+          88
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0380"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          26.5,
+          22.8
+        ],
+        "harmonised_px": [
+          424,
+          364
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.6,
+          5.7
+        ],
+        "native_px": [
+          106,
+          91
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0400"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          31.5,
+          23.5
+        ],
+        "harmonised_px": [
+          504,
+          376
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          7.9,
+          5.9
+        ],
+        "native_px": [
+          126,
+          94
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0406"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          19.8,
+          19.8
+        ],
+        "harmonised_px": [
+          316,
+          316
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.9,
+          4.9
+        ],
+        "native_px": [
+          79,
+          79
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0409"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          25.0,
+          28.8
+        ],
+        "harmonised_px": [
+          400,
+          460
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.2,
+          7.2
+        ],
+        "native_px": [
+          100,
+          115
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0413"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          29.0,
+          24.8
+        ],
+        "harmonised_px": [
+          464,
+          396
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          7.2,
+          6.2
+        ],
+        "native_px": [
+          116,
+          99
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0422"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          28.8,
+          24.5
+        ],
+        "harmonised_px": [
+          460,
+          392
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          7.2,
+          6.1
+        ],
+        "native_px": [
+          115,
+          98
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0434"
+      },
+      {
+        "harmonisation_factor": 2,
+        "harmonised_in_pokemon_units": [
+          26.5,
+          24.8
+        ],
+        "harmonised_px": [
+          424,
+          396
+        ],
+        "native_art_density": 2,
+        "native_in_pokemon_units": [
+          13.2,
+          12.4
+        ],
+        "native_px": [
+          212,
+          198
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0510"
+      },
+      {
+        "harmonisation_factor": 2,
+        "harmonised_in_pokemon_units": [
+          24.5,
+          24.8
+        ],
+        "harmonised_px": [
+          392,
+          396
+        ],
+        "native_art_density": 2,
+        "native_in_pokemon_units": [
+          12.2,
+          12.4
+        ],
+        "native_px": [
+          196,
+          198
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0528"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          25.2,
+          27.0
+        ],
+        "harmonised_px": [
+          404,
+          432
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.3,
+          6.8
+        ],
+        "native_px": [
+          101,
+          108
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0530"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          28.0
+        ],
+        "harmonised_px": [
+          352,
+          448
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          7.0
+        ],
+        "native_px": [
+          88,
+          112
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0546"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          34.0
+        ],
+        "harmonised_px": [
+          352,
+          544
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          8.5
+        ],
+        "native_px": [
+          88,
+          136
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0547"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          53.0,
+          40.0
+        ],
+        "harmonised_px": [
+          848,
+          640
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          13.2,
+          10.0
+        ],
+        "native_px": [
+          212,
+          160
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0548"
+      },
+      {
+        "harmonisation_factor": 2,
+        "harmonised_in_pokemon_units": [
+          25.5,
+          22.8
+        ],
+        "harmonised_px": [
+          408,
+          364
+        ],
+        "native_art_density": 2,
+        "native_in_pokemon_units": [
+          12.8,
+          11.4
+        ],
+        "native_px": [
+          204,
+          182
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0553"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          49.0,
+          57.5
+        ],
+        "harmonised_px": [
+          784,
+          920
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          12.2,
+          14.4
+        ],
+        "native_px": [
+          196,
+          230
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0554"
+      },
+      {
+        "harmonisation_factor": 2,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          24.2
+        ],
+        "harmonised_px": [
+          352,
+          388
+        ],
+        "native_art_density": 2,
+        "native_in_pokemon_units": [
+          11.0,
+          12.1
+        ],
+        "native_px": [
+          176,
+          194
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0555"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          19.8,
+          24.0
+        ],
+        "harmonised_px": [
+          316,
+          384
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          4.9,
+          6.0
+        ],
+        "native_px": [
+          79,
+          96
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0631"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          22.0,
+          28.0
+        ],
+        "harmonised_px": [
+          352,
+          448
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          5.5,
+          7.0
+        ],
+        "native_px": [
+          88,
+          112
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0641"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          27.0,
+          20.2
+        ],
+        "harmonised_px": [
+          432,
+          324
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.8,
+          5.1
+        ],
+        "native_px": [
+          108,
+          81
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0643"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          24.0,
+          26.0
+        ],
+        "harmonised_px": [
+          384,
+          416
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.0,
+          6.5
+        ],
+        "native_px": [
+          96,
+          104
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0646"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          27.2,
+          21.8
+        ],
+        "harmonised_px": [
+          436,
+          348
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          6.8,
+          5.4
+        ],
+        "native_px": [
+          109,
+          87
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0648"
+      },
+      {
+        "harmonisation_factor": 4,
+        "harmonised_in_pokemon_units": [
+          30.5,
+          30.0
+        ],
+        "harmonised_px": [
+          488,
+          480
+        ],
+        "native_art_density": 1,
+        "native_in_pokemon_units": [
+          7.6,
+          7.5
+        ],
+        "native_px": [
+          122,
+          120
+        ],
+        "source_archive": "Tiles9.tile",
+        "structure_id": "tiles9_0744"
+      }
+    ],
+    "factor_histogram": {
+      "2": 4,
+      "4": 44
+    },
+    "rule": "integer nearest-neighbour only; no interpolation, no smoothing, no recolor",
+    "target_density": 4
+  },
+  "read_only": true,
+  "relative_scale_conclusions": {
+    "pokemon_vs_door": {
+      "metano": "2.5-3.0 Pokemon wide",
+      "nnv": "8-12 Pokemon wide",
+      "verdict": "ratio ~4x"
+    },
+    "pokemon_vs_house": {
+      "metano": "a house is roughly 9-12 Pokemon wide",
+      "nnv": "a house is 59-75 Pokemon wide",
+      "verdict": "NNV houses are ~5-6x larger relative to a Pokemon"
+    },
+    "pokemon_vs_rock_and_path": {
+      "metano": "path and rock features resolve on 8 px cells",
+      "nnv": "the same features resolve on 64 px cells",
+      "verdict": "ratio 4x, consistent with the tile-cell measurement"
+    },
+    "pokemon_vs_terrain_cell": {
+      "metano": "1 Pokemon = 2 terrain cells (16 px / 8 px)",
+      "nnv": "1 Pokemon = 0.25 terrain cell (16 px / 64 px)",
+      "verdict": "NNV terrain cells are 4x larger per world unit"
+    }
+  },
+  "ruler": {
+    "collider_sizes": {
+      "16x16": 67
+    },
+    "conclusion": "PMDO fixes the Pokemon collider at 16x16 px independently of TexSize; it is therefore a valid cross-map ruler",
+    "grounds_with_characters": 15,
+    "invariant_px": 16
+  },
+  "schema": "new-era.nnv-visual-scale-audit.v1",
+  "separated_quantities": {
+    "1_physical_file_resolution": {
+      "metano_tile_file_px": 8,
+      "nnv_tile_file_px": 64
+    },
+    "2_pixel_art_density": {
+      "metano": {
+        "art_density_histogram": {
+          "1": 60
+        },
+        "dominant_art_density": 1,
+        "sampled": 60,
+        "tile_count": 16766,
+        "tile_file": "Metano_Town_Objects.tile",
+        "tile_size_px": 8
+      },
+      "method": "exact nearest-neighbour reversibility; not an eyeball estimate",
+      "nnv": {
+        "art_density_histogram": {
+          "4": 58,
+          "8": 2
+        },
+        "dominant_art_density": 4,
+        "sampled": 60,
+        "tile_count": 12197,
+        "tile_file": "NNV_rmvillage_Summer_Source.tile",
+        "tile_size_px": 64
+      }
+    },
+    "3_pmdo_logical_cell_px": {
+      "collision_cell_px_both": 8,
+      "metano": 8,
+      "nnv": 64
+    },
+    "4_tex_size": {
+      "metano": 1,
+      "nnv": 8
+    },
+    "5_real_tile_texture_size": {
+      "gamemaker_source_tile_sizes": [
+        [
+          64,
+          64
+        ],
+        [
+          128,
+          128
+        ]
+      ],
+      "metano_px": 8,
+      "nnv_px": 64,
+      "note": "NNV source tiles are authored at 64/128 px where PMDO uses 8 px"
+    },
+    "6_source_pixel_to_world_unit": {
+      "metano_tile_cell_in_pokemon": 0.5,
+      "nnv_tile_cell_in_pokemon": 4.0,
+      "pokemon_px": 16,
+      "ratio_nnv_over_metano": 8.0
+    },
+    "7_runtime_displayed_size": {
+      "note": "PMDO draws 1 texture pixel as 1 screen pixel; TexSize selects the atlas cell size, it does not rescale art. The collision grid is 8 px in both maps, so the same Pokemon occupies the same screen area in both, while NNV scenery is 4x denser per world unit.",
+      "verified_from": "both Grounds expose an 8 px obstacle grid and a 16x16 character collider"
+    }
+  },
+  "world_comparison": {
+    "metano_town": {
+      "collision_cell_px": 8,
+      "collision_grid": [
+        189,
+        189
+      ],
+      "layer_count": 11,
+      "map_char_colliders": [
+        [
+          16,
+          16
+        ]
+      ],
+      "map_char_count": 12,
+      "tex_size": 1,
+      "tile_layer_cell_in_pokemon_units": 0.5,
+      "tile_layer_cell_px": 8,
+      "tile_layer_grid": [
+        189,
+        189
+      ],
+      "world_in_pokemon_units": [
+        94.5,
+        94.5
+      ],
+      "world_px": [
+        1512,
+        1512
+      ]
+    },
+    "nnv_rmvillage": {
+      "collision_cell_px": 8,
+      "collision_grid": [
+        624,
+        624
+      ],
+      "layer_count": 15,
+      "map_char_colliders": [],
+      "map_char_count": 0,
+      "tex_size": 8,
+      "tile_layer_cell_in_pokemon_units": 4.0,
+      "tile_layer_cell_px": 64,
+      "tile_layer_grid": [
+        78,
+        78
+      ],
+      "world_in_pokemon_units": [
+        312.0,
+        312.0
+      ],
+      "world_px": [
+        4992,
+        4992
+      ]
+    }
+  }
+}

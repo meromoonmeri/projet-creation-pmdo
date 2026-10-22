@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/schemas/pmu-pmdo-adaptation-plan-v1.json",
+  "title": "PMU to PMDO map-local adaptation plan",
+  "type": "object",
+  "required": [
+    "schema", "map_id", "name", "seed", "status", "final_certification",
+    "phase_gate", "immutable_source", "classification", "target_geometry",
+    "topology", "layers", "animation", "collision", "actors_objects_events",
+    "visual_grammar_references", "reference_status", "forbidden_shortcuts",
+    "required_outputs", "adaptation_blockers"
+  ],
+  "properties": {
+    "schema": {"const": "new-era.pmu-pmdo-adaptation-plan.v1"},
+    "map_id": {"type": "string", "pattern": "^s[1-9][0-9]*$"},
+    "name": {"type": "string"},
+    "seed": {"type": "integer"},
+    "status": {"enum": ["PLAN_READY", "ADAPTATION_REQUIRED"]},
+    "final_certification": {"const": "NOT_STARTED"},
+    "phase_gate": {"type": "object"},
+    "immutable_source": {"type": "object"},
+    "classification": {"type": "object"},
+    "target_geometry": {
+      "type": "object",
+      "required": [
+        "physical_scale", "physical_dimensions_px", "pmdo_tex_size",
+        "pmdo_visual_cell_px", "pmdo_visual_grid", "pmdo_collision_cell_px",
+        "pmdo_collision_grid", "interpolation"
+      ],
+      "properties": {
+        "pmdo_tex_size": {"enum": [1, 2, 4]},
+        "pmdo_collision_cell_px": {"const": 8},
+        "interpolation": {"const": "FORBIDDEN"}
+      },
+      "additionalProperties": true
+    },
+    "topology": {"type": "object"},
+    "layers": {"type": "array", "minItems": 5, "maxItems": 5},
+    "animation": {"type": "object"},
+    "collision": {"type": "object"},
+    "actors_objects_events": {"type": "object"},
+    "visual_grammar_references": {"type": "array"},
+    "reference_status": {"type": "object"},
+    "forbidden_shortcuts": {"type": "array", "minItems": 1},
+    "required_outputs": {"type": "object"},
+    "adaptation_blockers": {"type": "array"}
+  },
+  "additionalProperties": false
+}

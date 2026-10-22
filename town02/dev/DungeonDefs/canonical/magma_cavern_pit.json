@@ -1,0 +1,344 @@
+{
+  "id": "magma_cavern_pit",
+  "aliases": [],
+  "name": {
+    "en": "Magma Cavern Pit",
+    "fr": "Fond de la Gorge Ardente"
+  },
+  "chapter": 12,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Magma Cavern Pit (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MagmaCavernPit) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 12. Recoupé avec Bulbapedia (page « Magma Cavern Pit »).",
+  "comment": "Définition canonique générée pour le chapitre 12. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. Étages canoniquement sans objet au sol (argent uniquement) : 1-3.",
+  "floors": 3,
+  "biome": "magma_pit",
+  "level": 28,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 600,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 28
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 4,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "world_abyss_2_floor",
+    "wall": "world_abyss_2_wall",
+    "secondary": "world_abyss_2_secondary",
+    "name": "world_abyss_2",
+    "element": "normal",
+    "justification": "Fond de la Gorge Ardente (Groudon) : abysse volcanique, unique utilisateur de ce triplet."
+  },
+  "segments": [
+    {
+      "name": "magma_pit",
+      "floors": [
+        1,
+        3
+      ],
+      "biome": "magma_pit",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "alakazam",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 10,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "groudon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 10,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "onix",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 10,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "steelix",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 10,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "tyranitar",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 20,
+          "floors": [
+            2,
+            2
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {},
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    340,
+    452
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        3
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 1
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_warp_scarf",
+          "price": 1000,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        3
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "gorge_ardente_porte",
+    "relay_ground": "gorge_ardente_coeur",
+    "canonical_end_ground": "fosse_ardente",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/fosse_ardente.rsground",
+    "cinematic_ground": "fosse_ardente",
+    "battle_ground": "fosse_ardente",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "fosse_ardente",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/fosse_ardente"
+      },
+      {
+        "scene": "gorge_ardente_coeur",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_coeur"
+      },
+      {
+        "scene": "gorge_ardente_porte",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_porte"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d12p01.cif.json",
+      "RESERVE/red_cinematics/d12p02.cif.json",
+      "RESERVE/red_cinematics/d12p04.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "fosse_ardente",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "groudon",
+        "level": [
+          38,
+          38
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "entrance": "gorge_ardente_porte",
+    "end": "fosse_ardente"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/magma_cavern_pit.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "magma_cavern_pit",
+    "segments": 1,
+    "entrance_ground": "gorge_ardente_porte",
+    "relay_ground": "gorge_ardente_coeur",
+    "end_ground": "fosse_ardente",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "fosse_ardente",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/magma_cavern_pit/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

@@ -1,0 +1,539 @@
+{
+  "id": "desert_region",
+  "aliases": [],
+  "name": {
+    "en": "Desert Region",
+    "fr": "Région Désertique"
+  },
+  "chapter": 17,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Desert Region (20F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/DesertRegion) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 17. Recoupé avec Bulbapedia (page « Desert Region »).",
+  "comment": "Définition canonique générée pour le chapitre 17. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 40 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 20,
+  "biome": "dunes",
+  "level": 36,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 36
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "northern_desert_1_floor",
+    "wall": "northern_desert_1_wall",
+    "secondary": "northern_desert_1_secondary",
+    "name": "northern_desert_1",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_EVASION_ORB",
+    "ITEM_GOLD_RIBBON",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_RIBBON",
+    "ITEM_HURL_ORB",
+    "ITEM_KEY",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RADAR_ORB",
+    "ITEM_STAMINA_BAND",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC"
+  ],
+  "segments": [
+    {
+      "name": "dunes",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "dunes",
+      "profiles": [
+        {
+          "name": "large_rooms",
+          "weight": 24
+        },
+        {
+          "name": "twosides",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "hitmontop",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 4,
+          "floors": [
+            7,
+            10
+          ]
+        },
+        {
+          "species": "nidoqueen",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 8,
+          "floors": [
+            7,
+            10
+          ]
+        },
+        {
+          "species": "nosepass",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "sandshrew",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "shedinja",
+          "level": [
+            36,
+            36
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            66,
+            66
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            10
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 4
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "deep_desert",
+      "floors": [
+        11,
+        20
+      ],
+      "biome": "deep_desert",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "baltoy",
+          "level": [
+            66,
+            66
+          ],
+          "weight": 7,
+          "floors": [
+            12,
+            20
+          ]
+        },
+        {
+          "species": "dusclops",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 3,
+          "floors": [
+            15,
+            20
+          ]
+        },
+        {
+          "species": "gligar",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 6,
+          "floors": [
+            15,
+            20
+          ]
+        },
+        {
+          "species": "hitmontop",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            13
+          ]
+        },
+        {
+          "species": "nidoqueen",
+          "level": [
+            64,
+            64
+          ],
+          "weight": 8,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "sandslash",
+          "level": [
+            66,
+            66
+          ],
+          "weight": 6,
+          "floors": [
+            15,
+            20
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            66,
+            66
+          ],
+          "weight": 8,
+          "floors": [
+            11,
+            11
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 4
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    440,
+    582
+  ],
+  "profiles": [
+    {
+      "name": "large_rooms",
+      "weight": 10
+    },
+    {
+      "name": "twosides",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        20
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 10
+        },
+        {
+          "item": "gummi_gray",
+          "price": 800,
+          "weight": 2
+        },
+        {
+          "item": "gummi_silver",
+          "price": 800,
+          "weight": 2
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        20
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Explosion Trap",
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Sticky Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/desert_region.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "desert_region",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "desert_region",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/desert_region/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

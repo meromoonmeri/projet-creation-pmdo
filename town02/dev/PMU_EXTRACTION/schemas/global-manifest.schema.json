@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/schemas/pmu-global-manifest-v1.json",
+  "title": "PMU canonical source global manifest",
+  "type": "object",
+  "required": ["schema_version", "status", "phase", "phase_2_pmdo", "scope", "map_count", "maps", "inventories"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "status": {"enum": ["DISCOVERED", "EXTRACTED", "RENDERED", "SOURCE_CERTIFIED", "PARTIAL", "BLOCKED", "UNKNOWN", "UNVERIFIED"]},
+    "phase": {"const": 1},
+    "phase_2_pmdo": {"type": "string"},
+    "scope": {"type": "string"},
+    "map_count": {"type": "integer", "minimum": 1},
+    "maps": {"type": "array"},
+    "inventories": {"type": "object"}
+  },
+  "additionalProperties": true
+}

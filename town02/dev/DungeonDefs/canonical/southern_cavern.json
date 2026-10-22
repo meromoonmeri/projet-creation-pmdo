@@ -1,0 +1,966 @@
+{
+  "id": "southern_cavern",
+  "aliases": [],
+  "name": {
+    "en": "Southern Cavern",
+    "fr": "Caverne Méridionale"
+  },
+  "chapter": 17,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Southern Cavern (50F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SouthernCavern) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 17. Recoupé avec Bulbapedia (page « Southern Cavern »).",
+  "comment": "Définition canonique générée pour le chapitre 17. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 45 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 50,
+  "biome": "south_gallery",
+  "level": 36,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 36
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "crystal_cave_1_floor",
+    "wall": "crystal_cave_1_wall",
+    "secondary": "crystal_cave_1_secondary",
+    "name": "crystal_cave_1",
+    "element": "normal",
+    "justification": "Caverne Méridionale : seconde variante de la grande caverne occidentale, distincte de western_cave_1 conservé par Western Cave."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_BOUNCE_BAND",
+    "ITEM_DIET_RIBBON",
+    "ITEM_EVASION_ORB",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_JOY_RIBBON",
+    "ITEM_NOSTICK_CAP",
+    "ITEM_PIERCE_BAND",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RACKET_BAND",
+    "ITEM_RADAR_ORB",
+    "ITEM_SNEAK_SCARF",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "south_gallery",
+      "floors": [
+        1,
+        17
+      ],
+      "biome": "south_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "baltoy",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 4,
+          "floors": [
+            12,
+            17
+          ]
+        },
+        {
+          "species": "cubone",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 4,
+          "floors": [
+            5,
+            10
+          ]
+        },
+        {
+          "species": "diglett",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            7
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            41,
+            41
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "gligar",
+          "level": [
+            36,
+            36
+          ],
+          "weight": 4,
+          "floors": [
+            15,
+            17
+          ]
+        },
+        {
+          "species": "larvitar",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 3,
+          "floors": [
+            16,
+            17
+          ]
+        },
+        {
+          "species": "nidoking",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 6,
+          "floors": [
+            8,
+            17
+          ]
+        },
+        {
+          "species": "phanpy",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            17
+          ]
+        },
+        {
+          "species": "seedot",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            9
+          ]
+        },
+        {
+          "species": "vibrava",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 4,
+          "floors": [
+            12,
+            17
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 4
+            },
+            {
+              "item": "berry_oran",
+              "weight": 11
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 4
+            },
+            {
+              "item": "food_apple_big",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "south_depths",
+      "floors": [
+        18,
+        33
+      ],
+      "biome": "south_depths",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "ariados",
+          "level": [
+            41,
+            41
+          ],
+          "weight": 4,
+          "floors": [
+            20,
+            30
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 3,
+          "floors": [
+            18,
+            22
+          ]
+        },
+        {
+          "species": "donphan",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 5,
+          "floors": [
+            31,
+            33
+          ]
+        },
+        {
+          "species": "dugtrio",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 4,
+          "floors": [
+            20,
+            31
+          ]
+        },
+        {
+          "species": "flygon",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 5,
+          "floors": [
+            31,
+            33
+          ]
+        },
+        {
+          "species": "gligar",
+          "level": [
+            36,
+            36
+          ],
+          "weight": 3,
+          "floors": [
+            18,
+            25
+          ]
+        },
+        {
+          "species": "graveler",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 5,
+          "floors": [
+            25,
+            33
+          ]
+        },
+        {
+          "species": "larvitar",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 4,
+          "floors": [
+            18,
+            26
+          ]
+        },
+        {
+          "species": "marowak",
+          "level": [
+            38,
+            38
+          ],
+          "weight": 4,
+          "floors": [
+            20,
+            30
+          ]
+        },
+        {
+          "species": "nidoking",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 3,
+          "floors": [
+            18,
+            19
+          ]
+        },
+        {
+          "species": "phanpy",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 3,
+          "floors": [
+            18,
+            19
+          ]
+        },
+        {
+          "species": "rhyhorn",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 5,
+          "floors": [
+            31,
+            33
+          ]
+        },
+        {
+          "species": "vibrava",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 3,
+          "floors": [
+            18,
+            20
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 4
+            },
+            {
+              "item": "berry_oran",
+              "weight": 11
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 4
+            },
+            {
+              "item": "food_apple_big",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "south_abyss",
+      "floors": [
+        34,
+        50
+      ],
+      "biome": "south_abyss",
+      "profiles": [
+        {
+          "name": "large_rooms",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "looping",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "donphan",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 5,
+          "floors": [
+            34,
+            40
+          ]
+        },
+        {
+          "species": "flygon",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 5,
+          "floors": [
+            34,
+            39
+          ]
+        },
+        {
+          "species": "golem",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 4,
+          "floors": [
+            40,
+            50
+          ]
+        },
+        {
+          "species": "graveler",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 5,
+          "floors": [
+            34,
+            36
+          ]
+        },
+        {
+          "species": "onix",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 9,
+          "floors": [
+            40,
+            50
+          ]
+        },
+        {
+          "species": "pupitar",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 4,
+          "floors": [
+            37,
+            45
+          ]
+        },
+        {
+          "species": "rhydon",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 4,
+          "floors": [
+            40,
+            50
+          ]
+        },
+        {
+          "species": "rhyhorn",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 5,
+          "floors": [
+            34,
+            39
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 4
+            },
+            {
+              "item": "berry_oran",
+              "weight": 11
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 4
+            },
+            {
+              "item": "food_apple_big",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_metal_coat",
+              "weight": 20
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    440,
+    582
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        50
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "ammo_iron_thorn",
+          "price": 50,
+          "weight": 9
+        },
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 4
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 1
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 14
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_defense_scarf",
+          "price": 1800,
+          "weight": 1
+        },
+        {
+          "item": "held_zinc_band",
+          "price": 2300,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_stayaway",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        50
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Explosion Trap",
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Pitfall Trap",
+        "Pokemon Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Summon Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/southern_cavern.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "southern_cavern",
+    "segments": 3,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "southern_cavern",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "zone",
+        "target": "southern_cavern",
+        "reason": "poursuite directe vers le segment 2 du même donjon"
+      },
+      {
+        "segment": 2,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/southern_cavern/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "animation_capture": "UNVERIFIED_IDENTICAL_CAMERA_SAMPLES",
+  "captures": [
+    {
+      "bytes": 1096044,
+      "file": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s301/runtime/spawn_tick_000.png",
+      "label": "spawn",
+      "sha256": "2b4aca4e58ca1fcdd1ffaccaf49cb1e89de8b8731ded20601ff57c9258b25c12",
+      "tick": 0
+    },
+    {
+      "bytes": 1096044,
+      "file": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s301/runtime/spawn_tick_015.png",
+      "label": "spawn",
+      "sha256": "2b4aca4e58ca1fcdd1ffaccaf49cb1e89de8b8731ded20601ff57c9258b25c12",
+      "tick": 15
+    }
+  ],
+  "ground_sha256": "63b6096f816de9874624d03dce2f790dba7763ca83af56447dbf26b0d3af7f30",
+  "index": {
+    "log": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s301/runtime/index.log",
+    "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "status": "PASS"
+  },
+  "map_id": "s301",
+  "method": "Agent A ignored overlay + patched SDL + SwiftShader/ANGLE + exact termination gate",
+  "pmdo_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+  "pmdo_version": "0.8.12",
+  "probes": {
+    "blocked": "PASS",
+    "blocked_delta": "0,0",
+    "event": "result",
+    "load": "PASS",
+    "move_delta": "0,8",
+    "movement": "PASS",
+    "verdict": "RUNTIME_PASS"
+  },
+  "schema": "new-era.pmu-pmdo-runtime.v1",
+  "source_png_used_by_runtime": false,
+  "status": "RUNTIME_TESTED",
+  "termination": {
+    "command": [
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmdo-headless-bundle/PMDO",
+      "-asset",
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/runtime-fixtures/s301/asset/",
+      "-appdata",
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/runtime-fixtures/s301/appdata/",
+      "-quest",
+      "smart_ground_fixture"
+    ],
+    "elapsed_seconds": 20.063143,
+    "event_count": 8,
+    "event_parse_error": null,
+    "last_event": {
+      "event": "end"
+    },
+    "pmdo_pid": 19379,
+    "pre_signal_process_state": {
+      "raw_masks": {
+        "SigBlk": "0000000000000000",
+        "SigCgt": "00000003000044fe",
+        "SigIgn": "0000000000001000"
+      },
+      "signals": {
+        "SIGINT": {
+          "blocked": false,
+          "caught": true,
+          "disposition": "CAUGHT",
+          "ignored": false,
+          "number": 2
+        },
+        "SIGTERM": {
+          "blocked": false,
+          "caught": true,
+          "disposition": "CAUGHT",
+          "ignored": false,
+          "number": 15
+        }
+      },
+      "thread_count": 14
+    },
+    "requested_signal": 2,
+    "requested_signal_name": "SIGINT",
+    "requested_signal_sent": true,
+    "residual_processes_after_cleanup": [],
+    "residual_processes_before_cleanup": [],
+    "schema": "new-era.pmdred-eu-pmdo-termination-gate.v1",
+    "terminal_seen": true,
+    "terminal_to_signal_seconds": 10.0,
+    "termination": {
+      "exit_code": null,
+      "exit_signal": 2,
+      "exit_signal_name": "SIGINT",
+      "forced_kill": false,
+      "kind": "EXPECTED_SIGINT_SIGNAL",
+      "normal_exit": false,
+      "result": "PASS",
+      "returncode": -2,
+      "segmentation_fault": false,
+      "wait_state": "SIGNALED"
+    }
+  },
+  "tile_sha256": "569da770fc95643651b54ae9e97fd56445580deeb2555ad5ac1fd4659033c23a"
+}

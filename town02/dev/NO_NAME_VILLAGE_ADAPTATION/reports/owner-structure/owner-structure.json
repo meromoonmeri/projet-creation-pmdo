@@ -1,0 +1,158 @@
+{
+  "asset": "ASSSET.png",
+  "asset_sha256": "be2d42fcd47466509f0f4ba332db8978d53eef5ffa50c0089d08ba9907d659e4",
+  "body_px_opacified_to_255": 841792,
+  "core_bbox_in_source": [
+    112,
+    15,
+    1481,
+    986
+  ],
+  "core_in_pokemon_units_at_x1": [
+    85.56,
+    60.69
+  ],
+  "core_px": [
+    1369,
+    971
+  ],
+  "core_sha256": "7f6cda3cba6123b050f4b09e1f66c9c76d1d7404435b46df56615b25a0fce22b",
+  "halo_px_removed": 27889,
+  "halo_threshold_alpha": 8,
+  "integration_allowed": false,
+  "integration_unlock_condition": "le proprietaire choisit une largeur cible et valide l'apercu",
+  "is_native_pixel_art": false,
+  "map_modified": false,
+  "pmdo_reference": {
+    "house_median_px": 114,
+    "pmu_confirmed_median_px": 98,
+    "pmu_confirmed_range_px": [
+      40,
+      212
+    ],
+    "pokemon_px": 16,
+    "source": "reports/pmdo-scale-reference/",
+    "world_unit_px": 8
+  },
+  "resampling": "NEAREST exclusivement ; LANCZOS produit en controle etiquete, jamais integre",
+  "schema": "new-era.owner-structure-measurement.v1",
+  "source_px": [
+    1536,
+    1024
+  ],
+  "stage": "MEASUREMENT_ONLY",
+  "variants": [
+    {
+      "control_lanczos_png": "CONTROL_ONLY_core_w114_LANCZOS.png",
+      "control_note": "COLONNE DE CONTROLE — jamais integree, sert a montrer le cout de NEAREST",
+      "divisor_from_source": 12.009,
+      "divisor_is_integer": false,
+      "in_pokemon_units": [
+        7.12,
+        5.06
+      ],
+      "nearest_png": "core_w114_NEAREST.png",
+      "nearest_sha256": "3811b38c30db83a1b1cf6eb7ed0a0781f8e88d22f24182b904092795dbecc654",
+      "result_px": [
+        114,
+        81
+      ],
+      "target_width_px": 114,
+      "vs_pmdo_house_median": 1.0,
+      "within_pmu_confirmed_range": true,
+      "world_units_8px": [
+        14.25,
+        10.12
+      ]
+    },
+    {
+      "control_lanczos_png": "CONTROL_ONLY_core_w144_LANCZOS.png",
+      "control_note": "COLONNE DE CONTROLE — jamais integree, sert a montrer le cout de NEAREST",
+      "divisor_from_source": 9.507,
+      "divisor_is_integer": false,
+      "in_pokemon_units": [
+        9.0,
+        6.38
+      ],
+      "nearest_png": "core_w144_NEAREST.png",
+      "nearest_sha256": "61938127a72ed3e478d63f774808af00597a581527f8786d065bed913df3472b",
+      "result_px": [
+        144,
+        102
+      ],
+      "target_width_px": 144,
+      "vs_pmdo_house_median": 1.26,
+      "within_pmu_confirmed_range": true,
+      "world_units_8px": [
+        18.0,
+        12.75
+      ]
+    },
+    {
+      "control_lanczos_png": "CONTROL_ONLY_core_w150_LANCZOS.png",
+      "control_note": "COLONNE DE CONTROLE — jamais integree, sert a montrer le cout de NEAREST",
+      "divisor_from_source": 9.127,
+      "divisor_is_integer": false,
+      "in_pokemon_units": [
+        9.38,
+        6.62
+      ],
+      "nearest_png": "core_w150_NEAREST.png",
+      "nearest_sha256": "154bbd6ef17b4f44b1eeb3ae6dc3851bdd81e90be070c6fe58dbe5b804cc3284",
+      "result_px": [
+        150,
+        106
+      ],
+      "target_width_px": 150,
+      "vs_pmdo_house_median": 1.32,
+      "within_pmu_confirmed_range": true,
+      "world_units_8px": [
+        18.75,
+        13.25
+      ]
+    },
+    {
+      "control_lanczos_png": "CONTROL_ONLY_core_w176_LANCZOS.png",
+      "control_note": "COLONNE DE CONTROLE — jamais integree, sert a montrer le cout de NEAREST",
+      "divisor_from_source": 7.778,
+      "divisor_is_integer": false,
+      "in_pokemon_units": [
+        11.0,
+        7.81
+      ],
+      "nearest_png": "core_w176_NEAREST.png",
+      "nearest_sha256": "2e6cd356c5ae8ce8cefc808463a2cbd53e5c5c34f725292eb47384c801de2488",
+      "result_px": [
+        176,
+        125
+      ],
+      "target_width_px": 176,
+      "vs_pmdo_house_median": 1.54,
+      "within_pmu_confirmed_range": true,
+      "world_units_8px": [
+        22.0,
+        15.62
+      ]
+    }
+  ],
+  "verdict_at_x1": "12.0x trop large pour une maison PMDO : integration a x1 refusee",
+  "why_not_native_pixel_art": {
+    "alpha_profile": {
+      "fully_opaque_255": 841792,
+      "fully_transparent": 462288,
+      "note": "coeur pleinement opaque present",
+      "partially_transparent": 25219
+    },
+    "distinct_colors": 178774,
+    "grid_probe": {
+      "grid_detected": false,
+      "interpretation": "aucune grille : la variance intra-bloc croit des f=2, l'image est au pixel pres",
+      "intra_block_variance": {
+        "2": 879.068,
+        "3": 1702.999,
+        "4": 2186.176
+      }
+    }
+  },
+  "why_opacified": "l'asset n'avait AUCUN pixel a alpha 255 ; le terrain saisonnier transparaissait a travers les murs, 23 382 px divergeaient entre les 4 saisons. Seuls les pixels deja quasi opaques (alpha >= 250) sont promus ; bords doux et ombres restent translucides."
+}

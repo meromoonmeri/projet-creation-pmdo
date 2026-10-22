@@ -1,0 +1,581 @@
+{
+  "id": "sky_tower",
+  "aliases": [
+    "parvis_celeste"
+  ],
+  "name": {
+    "en": "Sky Tower",
+    "fr": "Tour Céleste"
+  },
+  "chapter": 10,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Sky Tower (25F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SkyTower) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 10. Recoupé avec Bulbapedia (page « Sky Tower »).",
+  "comment": "Définition canonique générée pour le chapitre 10. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 37 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 25,
+  "biome": "sky_ascent",
+  "level": 24,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 24
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "sky_tower_floor",
+    "wall": "sky_tower_wall",
+    "secondary": "sky_tower_secondary",
+    "name": "sky_tower",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_DETECT_BAND",
+    "ITEM_GOLD_RIBBON",
+    "ITEM_HEAL_RIBBON",
+    "ITEM_RACKET_BAND",
+    "ITEM_SCOPE_LENS",
+    "ITEM_SILVER_SPIKE",
+    "ITEM_STAMINA_BAND",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "sky_ascent",
+      "floors": [
+        1,
+        25
+      ],
+      "biome": "sky_ascent",
+      "profiles": [
+        {
+          "name": "crossroads",
+          "weight": 24
+        },
+        {
+          "name": "branching",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "aerodactyl",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 6,
+          "floors": [
+            21,
+            25
+          ]
+        },
+        {
+          "species": "altaria",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 4,
+          "floors": [
+            12,
+            19
+          ]
+        },
+        {
+          "species": "dusclops",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 5,
+          "floors": [
+            17,
+            23
+          ]
+        },
+        {
+          "species": "duskull",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 6,
+          "floors": [
+            7,
+            14
+          ]
+        },
+        {
+          "species": "flygon",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 3,
+          "floors": [
+            21,
+            25
+          ]
+        },
+        {
+          "species": "forretress",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "koffing",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 5,
+          "floors": [
+            9,
+            16
+          ]
+        },
+        {
+          "species": "ledian",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 4,
+          "floors": [
+            10,
+            17
+          ]
+        },
+        {
+          "species": "lunatone",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            11
+          ]
+        },
+        {
+          "species": "masquerain",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            8
+          ]
+        },
+        {
+          "species": "scizor",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            21
+          ]
+        },
+        {
+          "species": "shedinja",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "shuppet",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "solrock",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 4,
+          "floors": [
+            12,
+            20
+          ]
+        },
+        {
+          "species": "tropius",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 3,
+          "floors": [
+            22,
+            25
+          ]
+        },
+        {
+          "species": "venomoth",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 5,
+          "floors": [
+            20,
+            25
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 10
+            },
+            {
+              "item": "food_apple",
+              "weight": 3
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 3
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 3
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 3
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 3
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 2
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    300,
+    400
+  ],
+  "profiles": [
+    {
+      "name": "crossroads",
+      "weight": 10
+    },
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        25
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 1
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_warp_scarf",
+          "price": 1000,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        25
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "arc_parvis_celeste",
+    "relay_ground": "arc_palier_celeste",
+    "canonical_end_ground": "arc_tour_ciel_sommet",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/arc_tour_ciel_sommet.rsground",
+    "cinematic_ground": "arc_tour_ciel_sommet",
+    "battle_ground": "arc_tour_ciel_sommet",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "arc_palier_celeste",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/arc_palier_celeste"
+      },
+      {
+        "scene": "arc_parvis_celeste",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/arc_parvis_celeste"
+      },
+      {
+        "scene": "arc_tour_ciel_sommet",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/arc_tour_ciel_sommet"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d13p01.cif.json",
+      "RESERVE/red_cinematics/d13p02.cif.json",
+      "RESERVE/red_cinematics/d13p03.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/sky_tower",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "arc_tour_ciel_sommet",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "fixed_grounds": {
+    "entrance": "arc_parvis_celeste",
+    "end": "arc_tour_ciel_sommet"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/sky_tower.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "sky_tower",
+    "segments": 1,
+    "entrance_ground": "arc_parvis_celeste",
+    "relay_ground": "arc_palier_celeste",
+    "end_ground": "arc_tour_ciel_sommet",
+    "next_zone": "sky_tower_summit",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "arc_palier_celeste",
+        "reason": "scène canonique de transition vers sky_tower_summit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/sky_tower/init.lua",
+    "archived_script": "",
+    "notes": [
+      "chaîne canonique : la scène finale appartient à sky_tower_summit"
+    ],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

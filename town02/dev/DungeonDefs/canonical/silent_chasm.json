@@ -1,0 +1,3238 @@
+{
+  "id": "silent_chasm",
+  "aliases": [
+    "gouffre_muet_bord"
+  ],
+  "name": {
+    "en": "Silent Chasm",
+    "fr": "Gouffre Muet"
+  },
+  "chapter": 8,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Silent Chasm (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SilentChasm) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 8. Recoupé avec Bulbapedia (page « Silent Chasm »).",
+  "comment": "Silent Chasm staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 9,
+  "biome": "silent_rim",
+  "level": 21,
+  "rescues": 2,
+  "released": false,
+  "music": "Silent Chasm.ogg",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 21
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "silent_chasm_floor",
+    "wall": "silent_chasm_wall",
+    "secondary": "silent_chasm_secondary",
+    "name": "silent_chasm",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Silent Chasm; source tileset IDs retained per floor."
+  },
+  "canonical_items_without_pmdo_equivalent": [],
+  "segments": [
+    {
+      "name": "silent_rim",
+      "floors": [
+        1,
+        9
+      ],
+      "biome": "silent_rim",
+      "profiles": [
+        {
+          "name": "ring",
+          "weight": 24,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "circle_room_ratio": [
+              65,
+              90
+            ],
+            "circle_paths": [
+              2,
+              4
+            ],
+            "connect_percent": 25,
+            "combine_rate": 0
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 18,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "grid_room_ratio": 80,
+            "grid_hall_ratio": 55,
+            "connect_percent": 25,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1667,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "farfetchd",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2666,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "teddiursa",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2667,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1667,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "farfetchd",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2666,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "teddiursa",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2667,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1667,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1000,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "farfetchd",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2666,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2000,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "teddiursa",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2667,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2778,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1666,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 3334,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2222,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1515,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 909,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 909,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1819,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "houndour",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2424,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2424,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1064,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 638,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 638,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "spinarak",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1277,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1277,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "houndour",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1702,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1702,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1702,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 652,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "paras",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 870,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 652,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "spinarak",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1304,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1305,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "houndour",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1739,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1739,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1739,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1000,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "paras",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1333,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1000,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "spinarak",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2000,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "yanma",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 2000,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2667,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "beedrill",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1724,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "gloom",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1035,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "paras",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 1379,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            23,
+            23
+          ],
+          "weight": 1034,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "spinarak",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2069,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "trapinch",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 2759,
+          "floors": [
+            9,
+            9
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1748,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 853,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 178,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 356,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 178,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 356,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 178,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 816,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 58,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 280,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "held_special_band",
+              "weight": 280,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 210,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 70,
+              "floors": [
+                9,
+                9
+              ]
+            }
+          ],
+          "skipped_by_reason": {
+            "NOT_IN_PMDO_0_8_9_BASE": [
+              "ITEM_BLOWBACK_ORB",
+              "ITEM_HURL_ORB",
+              "ITEM_RADAR_ORB",
+              "ITEM_SWITCHER_ORB",
+              "ITEM_WARP_ORB"
+            ]
+          }
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            2,
+            6
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0d0a02050019050000000000000000040301000f0019000304000000",
+            "layout": 13,
+            "room_density": 10,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0d0a02050019060000000000000000040302000f0019000304000000",
+            "layout": 13,
+            "room_density": 10,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0d0902050019060000000000000000040303000f0019000304000000",
+            "layout": 13,
+            "room_density": 9,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "4": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0d0902050019060000000000000000040304000f0019000304000000",
+            "layout": 13,
+            "room_density": 9,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "5": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0d0802050019060000000000000100050305000f0019000304000000",
+            "layout": 13,
+            "room_density": 8,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "6": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000702050019070000000000000100050306000f0019000304000000",
+            "layout": 0,
+            "room_density": 7,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "7": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000602050019070000000000000100050307000f0019000304000000",
+            "layout": 0,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "8": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000902050019070000000000000100040308000f0019000304000000",
+            "layout": 0,
+            "room_density": 9,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "9": {
+          "profiles": [
+            {
+              "name": "ring",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 80,
+                "grid_hall_ratio": 55,
+                "connect_percent": 25,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000a02050019070000000000000100040309000f0019000304000000",
+            "layout": 0,
+            "room_density": 10,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 2,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    260,
+    348
+  ],
+  "profiles": [
+    {
+      "name": "ring",
+      "weight": 24,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "circle_room_ratio": [
+          65,
+          90
+        ],
+        "circle_paths": [
+          2,
+          4
+        ],
+        "connect_percent": 25,
+        "combine_rate": 0
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 18,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "grid_room_ratio": 80,
+        "grid_hall_ratio": 55,
+        "connect_percent": 25,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        9
+      ],
+      "amount": [
+        1,
+        2
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true
+        }
+      ]
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "gouffre_muet_bord",
+    "relay_ground": "",
+    "canonical_end_ground": "d05p02",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d05p02.rsground",
+    "cinematic_ground": "d05p02",
+    "battle_ground": "d05p02",
+    "rule": "Canonical rescue/end scene on the source Ground; no invented battle."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "gouffre_muet_bord",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gouffre_muet_bord"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d05p01.cif.json",
+      "RESERVE/red_cinematics/d05p02.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d05p02",
+    "provenance": "PMD_RED_ROM",
+    "notes": "Canonical end Ground d05p02 — the ROM has no in-dungeon boss fight for this dungeon, but the canonical end scene owns any potential battle space (no invented dedicated arena)."
+  },
+  "fixed_grounds": {
+    "entrance": "gouffre_muet_bord",
+    "end": "d05p02"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/silent_chasm.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "silent_chasm",
+    "segments": 1,
+    "entrance_ground": "gouffre_muet_bord",
+    "relay_ground": "",
+    "end_ground": "d05p02",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d05p02",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/silent_chasm/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete silent_chasm entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "definition_floor_mode": "all",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_02",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet silent_chasm."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d05p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d05p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d05p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d05p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "pokemon": [],
+  "minibosses": [],
+  "midpoint": {}
+}

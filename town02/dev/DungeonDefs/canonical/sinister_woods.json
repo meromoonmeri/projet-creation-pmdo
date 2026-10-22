@@ -1,0 +1,3116 @@
+{
+  "id": "gloomy_forest",
+  "name": {
+    "en": "Sinister Woods",
+    "fr": "Bois Sinistre"
+  },
+  "aliases": [
+    "sinister_woods"
+  ],
+  "chapter": 6,
+  "route": "main",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Sinister Woods. PMD Red contains 12 procedural floors plus fixed/event floor 13 (D04P02). The current New Era definition is under canonical reconciliation; adaptations must not be presented as ROM-identical.",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": false,
+      "reason": "130/130 native map generations passed. Active PMDO route loaded D04P01, 12 procedural floors with logged seeds/stairs, midpoint, D04P02, the 3-boss fixed map with its native LuaCheckBossClearEvent hook, native segment exits/EndGame, and Metano Town. Route harness simulates the cleared boss outcome; player-input combat replay remains a separately documented limitation."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/sinister_woods_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "pret/pmd-red data/dungeon/SinisterWoods/main_data.inc and floor_id.json at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/profiles.py",
+          "reason": "RogueElements cannot replay the GBA generator byte-for-byte; native PMDO profiles are an explicit adapter and must be reconciled floor by floor against the ROM properties."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/sinister_woods_rom_manifest.json",
+          "evidence": "Per-floor pokemon_found.json rows and raw probabilities are embedded in the manifest."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/canonical/sinister_woods.json",
+          "reason": "Runtime levels are shifted to the New Era chapter tier; mini-boss encounters are New Era additions and are not PMD Red canon."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/sinister_woods_rom_manifest.json",
+          "evidence": "Item table IDs 11/12 and their raw category/item probabilities are embedded."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "PMD Red item constants require an explicit PMDO ID mapping; unmapped items must remain reported rather than silently replaced."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/sinister_woods_rom_manifest.json",
+          "evidence": "Procedural floors use ROM tileset ID 41; fixed D04P02 uses ID 65."
+        },
+        {
+          "kind": "RAW_ASSETS",
+          "path": "Data/AutoTile/sinister_woods_b41_floor.json",
+          "evidence": "Imported floor/wall/secondary DTEF package backed by Content/Tile/SinisterWoodsB41.tile."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d04p01.rsground",
+          "evidence": "Canonical entrance structure."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d04p02.rsground",
+          "evidence": "Canonical fixed/event final floor; active alias is Data/Ground/sinister_woods_clearing.rsground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d04p01.cif.json",
+          "evidence": "Entrance event IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d04p02.cif.json",
+          "evidence": "Fixed final event IR."
+        }
+      ]
+    }
+  },
+  "comment": "Sinister Woods canonical candidate: 12 procedural PMD Red floors plus fixed/event D04P02. RogueElements profile translation is INFERRED and raw floor bytes are retained.",
+  "music": "Sinister Woods.ogg",
+  "biome": "forest",
+  "level": 18,
+  "rescues": 2,
+  "released": true,
+  "floors": 12,
+  "money": [
+    140,
+    190
+  ],
+  "dtef": {
+    "package": "sinister_woods_b41",
+    "element": "grass"
+  },
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1500,
+    "max_foes": 6,
+    "respawn_time": 100
+  },
+  "stairs": {
+    "min_distance": 4,
+    "distance": [
+      18,
+      100
+    ],
+    "exit_tile": "stairs_go_down"
+  },
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 24
+    },
+    {
+      "name": "looping",
+      "weight": 18
+    },
+    {
+      "name": "large_rooms",
+      "weight": 14
+    }
+  ],
+  "pokemon": [],
+  "items": {
+    "canonical_ground": {
+      "amount": [
+        4,
+        6
+      ],
+      "source_tables": [
+        11,
+        12
+      ],
+      "provenance": "PMD_RED_ROM",
+      "entries": [
+        {
+          "item": "food_apple",
+          "weight": 14,
+          "source": "ITEM_APPLE"
+        },
+        {
+          "item": "berry_oran",
+          "weight": 10,
+          "source": "ITEM_ORAN_BERRY"
+        },
+        {
+          "item": "berry_rawst",
+          "weight": 4,
+          "source": "ITEM_RAWST_BERRY"
+        },
+        {
+          "item": "berry_pecha",
+          "weight": 3,
+          "source": "ITEM_PECHA_BERRY"
+        },
+        {
+          "item": "berry_cheri",
+          "weight": 3,
+          "source": "ITEM_CHERI_BERRY"
+        },
+        {
+          "item": "seed_blast",
+          "weight": 4,
+          "source": "ITEM_BLAST_SEED"
+        },
+        {
+          "item": "seed_reviver",
+          "weight": 1,
+          "source": "ITEM_REVIVER_SEED"
+        },
+        {
+          "item": "gummi_white",
+          "weight": 1,
+          "source": "ITEM_WHITE_GUMMI"
+        },
+        {
+          "item": "gummi_blue",
+          "weight": 1,
+          "source": "ITEM_BLUE_GUMMI"
+        },
+        {
+          "item": "gummi_grass",
+          "weight": 1,
+          "source": "ITEM_GRASS_GUMMI"
+        },
+        {
+          "item": "gummi_yellow",
+          "weight": 1,
+          "source": "ITEM_YELLOW_GUMMI"
+        },
+        {
+          "item": "gummi_clear",
+          "weight": 1,
+          "source": "ITEM_CLEAR_GUMMI"
+        },
+        {
+          "item": "gummi_orange",
+          "weight": 1,
+          "source": "ITEM_ORANGE_GUMMI"
+        },
+        {
+          "item": "gummi_pink",
+          "weight": 1,
+          "source": "ITEM_PINK_GUMMI"
+        },
+        {
+          "item": "gummi_brown",
+          "weight": 1,
+          "source": "ITEM_BROWN_GUMMI"
+        },
+        {
+          "item": "gummi_sky",
+          "weight": 1,
+          "source": "ITEM_SKY_GUMMI"
+        },
+        {
+          "item": "gummi_gold",
+          "weight": 1,
+          "source": "ITEM_GOLD_GUMMI"
+        },
+        {
+          "item": "gummi_green",
+          "weight": 1,
+          "source": "ITEM_GREEN_GUMMI"
+        },
+        {
+          "item": "orb_luminous",
+          "weight": 1,
+          "source": "ITEM_LUMINOUS_ORB"
+        },
+        {
+          "item": "orb_escape",
+          "weight": 1,
+          "source": "ITEM_ESCAPE_ORB"
+        },
+        {
+          "item": "orb_scanner",
+          "weight": 1,
+          "source": "ITEM_SCANNER_ORB"
+        }
+      ]
+    }
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_MAX_ELIXIR",
+    "ITEM_WARP_ORB",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_RADAR_ORB",
+    "ITEM_HURL_ORB"
+  ],
+  "features": {
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        12
+      ],
+      "amount": [
+        3,
+        4
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true,
+          "provenance": "PMD_RED_ROM"
+        }
+      ],
+      "source_table": 2,
+      "note": "trap_found_out2: only Wonder Tile has non-zero weight."
+    }
+  },
+  "segments": [
+    {
+      "name": "Lisière hantée",
+      "floors": [
+        1,
+        6
+      ],
+      "biome": "forest_edge",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "looping",
+          "weight": 18
+        },
+        {
+          "name": "large_rooms",
+          "weight": 10
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "oddish",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1579,
+          "floors": [
+            1,
+            1
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1579,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sudowoodo",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 4210,
+          "floors": [
+            1,
+            1
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 4210,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "swinub",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 4211,
+          "floors": [
+            1,
+            1
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 4211,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "oddish",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1364,
+          "floors": [
+            2,
+            2
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1364,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sudowoodo",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 3636,
+          "floors": [
+            2,
+            2
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 3636,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1364,
+          "floors": [
+            2,
+            2
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1364,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "swinub",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 3636,
+          "floors": [
+            2,
+            2
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 3636,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "oddish",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1000,
+          "floors": [
+            3,
+            3
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sentret",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 2667,
+          "floors": [
+            3,
+            3
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 2667,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sudowoodo",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 2666,
+          "floors": [
+            3,
+            3
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 2666,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1000,
+          "floors": [
+            3,
+            3
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "swinub",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2667,
+          "floors": [
+            3,
+            3
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2667,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "oddish",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 937,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 937,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sentret",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 2500,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sudowoodo",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 2500,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 938,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 938,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "silcoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1562,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1562,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "cascoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1563,
+          "floors": [
+            4,
+            4
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1563,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sentret",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 3810,
+          "floors": [
+            5,
+            5
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 3810,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1428,
+          "floors": [
+            5,
+            5
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1428,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "silcoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2381,
+          "floors": [
+            5,
+            5
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2381,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "cascoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2381,
+          "floors": [
+            5,
+            5
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2381,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sentret",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 2759,
+          "floors": [
+            6,
+            6
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 2759,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1034,
+          "floors": [
+            6,
+            6
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1034,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "silcoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1724,
+          "floors": [
+            6,
+            6
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1724,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "cascoon",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1724,
+          "floors": [
+            6,
+            6
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1724,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2759,
+          "floors": [
+            6,
+            6
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 2759,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        }
+      ],
+      "inherit_pokemon": false,
+      "inherit_items": true,
+      "max_foes": 6,
+      "respawn_time": 100,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 12,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b07290400140500000000000000000403010006000c000304000000",
+            "layout": 11,
+            "room_density": 7,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 6,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  50,
+                  65
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  50,
+                  65
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 16,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b06290400140500000000000000000403020008000c000304000000",
+            "layout": 11,
+            "room_density": 6,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 8,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 16,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b07290400140500000000000000000403030008000c000304000000",
+            "layout": 11,
+            "room_density": 7,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 8,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "4": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  58,
+                  73
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b0729040014050000000000000000040304000a000c000304000000",
+            "layout": 11,
+            "room_density": 7,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 10,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "5": {
+          "profiles": [
+            {
+              "name": "large_rooms",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  50,
+                  65
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "branching",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  50,
+                  65
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "000829040019060000010001000000050305000a000c020304000000",
+            "layout": 0,
+            "room_density": 8,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 10,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "6": {
+          "profiles": [
+            {
+              "name": "large_rooms",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  56,
+                  71
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "branching",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  56,
+                  71
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "000929040014060000010001000000050306000a000c020304000000",
+            "layout": 0,
+            "room_density": 9,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 1,
+            "extra_hallways": 10,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        }
+      }
+    },
+    {
+      "name": "Bois profonds",
+      "floors": [
+        7,
+        12
+      ],
+      "biome": "deep_forest",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "branching",
+          "weight": 18
+        },
+        {
+          "name": "large_rooms",
+          "weight": 16
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "ledyba",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 2400,
+          "floors": [
+            7,
+            7
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 2400,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "sunflora",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1200,
+          "floors": [
+            7,
+            7
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1200,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "linoone",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 3200,
+          "floors": [
+            7,
+            7
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 3200,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3200,
+          "floors": [
+            7,
+            7
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 3200,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "scyther",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2286,
+          "floors": [
+            8,
+            8
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 2286,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "ledyba",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1714,
+          "floors": [
+            8,
+            8
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1714,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "wooper",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1429,
+          "floors": [
+            8,
+            8
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 1429,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "linoone",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2285,
+          "floors": [
+            8,
+            8
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2285,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2286,
+          "floors": [
+            8,
+            8
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 2286,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "scyther",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2286,
+          "floors": [
+            9,
+            9
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 2286,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "ledyba",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1714,
+          "floors": [
+            9,
+            9
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1714,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "wooper",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1429,
+          "floors": [
+            9,
+            9
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 1429,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "linoone",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2285,
+          "floors": [
+            9,
+            9
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2285,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2286,
+          "floors": [
+            9,
+            9
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 2286,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "exeggutor",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1569,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1569,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "scyther",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1568,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 1568,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "hoothoot",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 1569,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 1569,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "ledyba",
+          "level": [
+            18,
+            18
+          ],
+          "weight": 1176,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 7,
+          "source_probability": 1176,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "wooper",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 981,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 981,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 1568,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 1568,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "slakoth",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 1569,
+          "floors": [
+            10,
+            10
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 1569,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "exeggutor",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2000,
+          "floors": [
+            11,
+            11
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "scyther",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2000,
+          "floors": [
+            11,
+            11
+          ],
+          "skills": [],
+          "source_level": 10,
+          "source_probability": 2000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "hoothoot",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 2000,
+          "floors": [
+            11,
+            11
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 2000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2000,
+          "floors": [
+            11,
+            11
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 2000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "slakoth",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2000,
+          "floors": [
+            11,
+            11
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2000,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "exeggutor",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2500,
+          "floors": [
+            12,
+            12
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "hoothoot",
+          "level": [
+            17,
+            17
+          ],
+          "weight": 2500,
+          "floors": [
+            12,
+            12
+          ],
+          "skills": [],
+          "source_level": 6,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "shroomish",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2500,
+          "floors": [
+            12,
+            12
+          ],
+          "skills": [],
+          "source_level": 9,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        },
+        {
+          "species": "slakoth",
+          "level": [
+            19,
+            19
+          ],
+          "weight": 2500,
+          "floors": [
+            12,
+            12
+          ],
+          "skills": [],
+          "source_level": 8,
+          "source_probability": 2500,
+          "provenance": {
+            "species_probability": "PMD_RED_ROM",
+            "runtime_level": "SUPPLEMENTAL",
+            "reason": "New Era chapter-6 level translation (+11)"
+          }
+        }
+      ],
+      "inherit_pokemon": false,
+      "inherit_items": true,
+      "max_foes": 6,
+      "respawn_time": 100,
+      "floor_overrides": {
+        "7": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  83,
+                  98
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  83,
+                  98
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  83,
+                  98
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 30,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b0a29040014060000010001000000050307000f000c020304000000",
+            "layout": 11,
+            "room_density": 10,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "8": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  3,
+                  4
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  95,
+                  100
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  3,
+                  4
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  95,
+                  100
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "010b29040019060000010001000100040308000f000c000304000000",
+            "layout": 1,
+            "room_density": 11,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "9": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  95,
+                  100
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  95,
+                  100
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "large_rooms",
+              "weight": 10,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  95,
+                  100
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 30,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "0b0c29040014060000010001000100040309000f000c000304000000",
+            "layout": 11,
+            "room_density": 12,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "10": {
+          "profiles": [
+            {
+              "name": "large_rooms",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 30,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "branching",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "000c2904001906000001000100010004030a000f000c000304000000",
+            "layout": 0,
+            "room_density": 12,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "11": {
+          "profiles": [
+            {
+              "name": "large_rooms",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 30,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "branching",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  40,
+                  60
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "000c2904001406000001000100000004030b000f000c020304000000",
+            "layout": 0,
+            "room_density": 12,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        },
+        "12": {
+          "profiles": [
+            {
+              "name": "large_rooms",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  6
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  80,
+                  95
+                ],
+                "branch_ratio": [
+                  65,
+                  90
+                ],
+                "connect_percent": 30,
+                "no_forced_branches": false,
+                "combine_rate": 10
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 20,
+                "no_forced_branches": false,
+                "path": "circle",
+                "circle_room_ratio": [
+                  55,
+                  80
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ]
+              }
+            },
+            {
+              "name": "branching",
+              "weight": 14,
+              "overrides": {
+                "grid_x": [
+                  4,
+                  5
+                ],
+                "grid_y": [
+                  4,
+                  5
+                ],
+                "cell_width": [
+                  10,
+                  11
+                ],
+                "cell_height": [
+                  10,
+                  11
+                ],
+                "room_ratio": [
+                  75,
+                  90
+                ],
+                "branch_ratio": [
+                  55,
+                  75
+                ],
+                "connect_percent": 0,
+                "no_forced_branches": false
+              }
+            }
+          ],
+          "source_floor": {
+            "provenance": "PMD_RED_ROM",
+            "raw_hex": "000c2904001906000001000100000004030c000f000c020304000000",
+            "layout": 0,
+            "room_density": 12,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 41,
+            "weather": 0,
+            "fixed_room": 0
+          },
+          "notes": "RogueElements adapter is INFERRED; raw ROM bytes remain authoritative."
+        }
+      }
+    }
+  ],
+  "minibosses": [],
+  "midpoint": {
+    "floor": 6,
+    "template": "searing_tunnel_midpoint",
+    "retexture": "sinister_woods_b41",
+    "checkpoint": true,
+    "heal": true,
+    "save": true,
+    "rest": true,
+    "statue": "kangaskhan",
+    "notes": "Ground fixe : structure du template validé, retexturée avec le DTEF forestier de Sinister Woods. Jamais généré procéduralement.",
+    "ground": "gloomy_forest_midpoint",
+    "sheet": "SinisterWoodsB41",
+    "required_objects": [
+      "Kangaskhan_Rock",
+      "North_Exit",
+      "South_Exit"
+    ],
+    "provenance": "SUPPLEMENTAL",
+    "canonical": false,
+    "reason": "New Era checkpoint; PMD Red D04 has no midpoint Ground."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "sinister_woods_clearing",
+    "map": "gloomy_forest_boss",
+    "source_floor": 13,
+    "source_fixed_room": 2,
+    "team": "Team Meanies",
+    "roster": [
+      {
+        "species": "gengar",
+        "level": [
+          15,
+          15
+        ],
+        "source_level": 15,
+        "role": "leader"
+      },
+      {
+        "species": "medicham",
+        "level": [
+          12,
+          12
+        ],
+        "source_level": 12
+      },
+      {
+        "species": "ekans",
+        "level": [
+          15,
+          15
+        ],
+        "source_level": 15
+      }
+    ],
+    "provenance": "PMD_RED_ROM",
+    "notes": "D04P02 is the canonical final scene; no unrelated arena may replace it."
+  },
+  "fixed_grounds": {
+    "entrance": "bois_sombres_oree",
+    "mid": "gloomy_forest_midpoint",
+    "end": "sinister_woods_clearing"
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "sinister_woods_clearing",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/sinister_woods_clearing"
+      },
+      {
+        "scene": "gloomy_forest_midpoint",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gloomy_forest_midpoint"
+      },
+      {
+        "scene": "bois_sombres_oree",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/bois_sombres_oree"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/gloomy_forest",
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d04p01.cif.json",
+      "RESERVE/red_cinematics/d04p02.cif.json"
+    ],
+    "transfer_check": "chaîne D04P01 (approche) → étages procéduraux → D04P02 (clairière) : cinématique et combat Team Dazzling sur le même Ground",
+    "rule": "Ces séquences appartiennent au donjon : rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "wiring": {
+    "dungeon": "gloomy_forest",
+    "segments": 3,
+    "procedural_segments": 2,
+    "entrance_ground": "bois_sombres_oree",
+    "relay_ground": "gloomy_forest_midpoint",
+    "end_ground": "sinister_woods_clearing",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "gloomy_forest_midpoint",
+        "reason": "supplemental New Era checkpoint after canonical 6F"
+      },
+      {
+        "segment": 1,
+        "kind": "ground",
+        "target": "sinister_woods_clearing",
+        "reason": "canonical D04P02 cutscene, then exact fixed battle map"
+      },
+      {
+        "segment": 2,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "canonical fixed battle floor cleared"
+      }
+    ],
+    "rule": "D04P02 is the final geography; no unrelated dedicated arena."
+  },
+  "supplemental_content": {
+    "enabled": false,
+    "entries": [
+      "Scyther le Guetteur",
+      "Exeggutor l'Ancien"
+    ],
+    "provenance": "SUPPLEMENTAL",
+    "reason": "Not present in PMD Red Sinister Woods; disabled for canonical validation."
+  },
+  "scenes": {
+    "source": "PMD_RED_ROM",
+    "entrance_ground": "bois_sombres_oree",
+    "relay_ground": "gloomy_forest_midpoint",
+    "canonical_end_ground": "sinister_woods_clearing",
+    "cinematic_ground": "sinister_woods_clearing",
+    "battle_ground": "sinister_woods_clearing",
+    "fixed_floor": 13,
+    "fixed_room": 2,
+    "state": "CANONICAL_GROUND_PRESENT_BATTLE_MAP_PENDING"
+  },
+  "fixed_segments": [
+    {
+      "role": "canonical_final_boss",
+      "map": "gloomy_forest_boss",
+      "ground": "sinister_woods_clearing",
+      "source_floor": 13,
+      "source_fixed_room": 2,
+      "is_relevant": false,
+      "provenance": "PMD_RED_ROM",
+      "comment": "Exact .rsmap counterpart of D04P02; not an unrelated dedicated arena."
+    }
+  ]
+}

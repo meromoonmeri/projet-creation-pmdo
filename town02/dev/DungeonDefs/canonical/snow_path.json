@@ -1,0 +1,344 @@
+{
+  "id": "snow_path",
+  "aliases": [],
+  "name": {
+    "en": "Snow Path",
+    "fr": "Sentier Neigeux"
+  },
+  "chapter": 25,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Snow Path (4F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SnowPath) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 25. Recoupé avec Bulbapedia (page « Snow Path »).",
+  "comment": "Définition canonique générée pour le chapitre 25. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 9 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`).",
+  "floors": 4,
+  "biome": "snow_path",
+  "level": 49,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 49
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": false,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "sky_peak_4th_pass_floor",
+    "wall": "sky_peak_4th_pass_wall",
+    "secondary": "sky_peak_4th_pass_secondary",
+    "name": "sky_peak_4th_pass",
+    "element": "normal",
+    "justification": "Sentier Neigeux : col d'altitude enneigé ; utilisateur unique après déplacement de la Cime du Mont Gelé."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_EVASION_ORB",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_MAX_ELIXIR",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RADAR_ORB",
+    "ITEM_SWITCHER_ORB"
+  ],
+  "segments": [
+    {
+      "name": "snow_path",
+      "floors": [
+        1,
+        4
+      ],
+      "biome": "snow_path",
+      "profiles": [
+        {
+          "name": "twosides",
+          "weight": 24
+        },
+        {
+          "name": "large_rooms",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "azurill",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "furret",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "nosepass",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            2,
+            4
+          ]
+        },
+        {
+          "species": "pineco",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 6,
+          "floors": [
+            3,
+            4
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 7
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "food_apple",
+              "weight": 20
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 3
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 3
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    600,
+    790
+  ],
+  "profiles": [
+    {
+      "name": "twosides",
+      "weight": 10
+    },
+    {
+      "name": "large_rooms",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        4
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "seed_blast",
+          "price": 100,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_luminous",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 3
+        },
+        {
+          "item": "orb_scanner",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        4
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/snow_path.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "snow_path",
+    "segments": 1,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/snow_path/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "animation_capture": "NOT_APPLICABLE_STATIC",
+  "captures": [
+    {
+      "bytes": 284820,
+      "file": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1191/runtime/spawn_tick_000.png",
+      "label": "spawn",
+      "sha256": "fecaa7ef1dbdfa7f9f21ec40e6d0a3d6332edbc0e35e69b3197140f04c5e6542",
+      "tick": 0
+    }
+  ],
+  "ground_sha256": "1a96db81b71718382457139aa724295e79ffb879708ba0d967ea8cc587250c79",
+  "index": {
+    "log": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1191/runtime/index.log",
+    "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "status": "PASS"
+  },
+  "map_id": "s1191",
+  "method": "Agent A ignored overlay + patched SDL + SwiftShader/ANGLE + exact termination gate",
+  "pmdo_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+  "pmdo_version": "0.8.12",
+  "probes": {
+    "blocked": "PASS",
+    "blocked_delta": "0,0",
+    "event": "result",
+    "load": "PASS",
+    "move_delta": "0,8",
+    "movement": "PASS",
+    "verdict": "RUNTIME_PASS"
+  },
+  "schema": "new-era.pmu-pmdo-runtime.v1",
+  "source_png_used_by_runtime": false,
+  "status": "RUNTIME_TESTED",
+  "termination": {
+    "command": [
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmdo-headless-bundle/PMDO",
+      "-asset",
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/runtime-fixtures/s1191/asset/",
+      "-appdata",
+      "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/runtime-fixtures/s1191/appdata/",
+      "-quest",
+      "smart_ground_fixture"
+    ],
+    "elapsed_seconds": 17.014149,
+    "event_count": 6,
+    "event_parse_error": null,
+    "last_event": {
+      "event": "end"
+    },
+    "pmdo_pid": 19402,
+    "pre_signal_process_state": {
+      "raw_masks": {
+        "SigBlk": "0000000000000000",
+        "SigCgt": "00000003000044fe",
+        "SigIgn": "0000000000001000"
+      },
+      "signals": {
+        "SIGINT": {
+          "blocked": false,
+          "caught": true,
+          "disposition": "CAUGHT",
+          "ignored": false,
+          "number": 2
+        },
+        "SIGTERM": {
+          "blocked": false,
+          "caught": true,
+          "disposition": "CAUGHT",
+          "ignored": false,
+          "number": 15
+        }
+      },
+      "thread_count": 14
+    },
+    "requested_signal": 2,
+    "requested_signal_name": "SIGINT",
+    "requested_signal_sent": true,
+    "residual_processes_after_cleanup": [],
+    "residual_processes_before_cleanup": [],
+    "schema": "new-era.pmdred-eu-pmdo-termination-gate.v1",
+    "terminal_seen": true,
+    "terminal_to_signal_seconds": 10.0,
+    "termination": {
+      "exit_code": null,
+      "exit_signal": 2,
+      "exit_signal_name": "SIGINT",
+      "forced_kill": false,
+      "kind": "EXPECTED_SIGINT_SIGNAL",
+      "normal_exit": false,
+      "result": "PASS",
+      "returncode": -2,
+      "segmentation_fault": false,
+      "wait_state": "SIGNALED"
+    }
+  },
+  "tile_sha256": "f2969abc75f3cc939edb28246163c4c734acb72bc1222566fe7b425521dc4717"
+}

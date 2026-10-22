@@ -1,0 +1,622 @@
+{
+  "id": "marvelous_sea",
+  "aliases": [],
+  "name": {
+    "en": "Marvelous Sea",
+    "fr": "Mer Merveilleuse"
+  },
+  "chapter": 23,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Marvelous Sea (20F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MarvelousSea) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 23. Recoupé avec Bulbapedia (page « Marvelous Sea »).",
+  "comment": "Définition canonique générée pour le chapitre 23. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 25 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 20,
+  "biome": "marvelous_shelf",
+  "level": 46,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 46
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "miracle_sea_floor",
+    "wall": "miracle_sea_wall",
+    "secondary": "miracle_sea_secondary",
+    "name": "miracle_sea",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_ALLURE_SEED",
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_BOUNCE_BAND",
+    "ITEM_CURVE_BAND",
+    "ITEM_DETECT_BAND",
+    "ITEM_DIET_RIBBON",
+    "ITEM_EVASION_ORB",
+    "ITEM_GOLD_RIBBON",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_RIBBON",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_JOY_RIBBON",
+    "ITEM_PATSY_BAND",
+    "ITEM_PLAIN_RIBBON",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RACKET_BAND",
+    "ITEM_RADAR_ORB",
+    "ITEM_SCOPE_LENS",
+    "ITEM_SNEAK_SCARF",
+    "ITEM_STAMINA_BAND",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_TIGHT_BELT",
+    "ITEM_WHIFF_SPECS",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "marvelous_shelf",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "marvelous_shelf",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "ring",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "omanyte",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            9
+          ]
+        },
+        {
+          "species": "remoraid",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "seel",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 5,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "shellder",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            8
+          ]
+        },
+        {
+          "species": "slowpoke",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 3,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "spheal",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 6,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "tentacool",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            9
+          ]
+        },
+        {
+          "species": "wingull",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            5
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_geo_pebble",
+              "weight": 4
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 1
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 5
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 3
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 5
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "marvelous_deep",
+      "floors": [
+        11,
+        20
+      ],
+      "biome": "marvelous_deep",
+      "profiles": [
+        {
+          "name": "ring",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "looping",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "anorith",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 7,
+          "floors": [
+            14,
+            20
+          ]
+        },
+        {
+          "species": "grimer",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 6,
+          "floors": [
+            20,
+            20
+          ]
+        },
+        {
+          "species": "omastar",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 6,
+          "floors": [
+            20,
+            20
+          ]
+        },
+        {
+          "species": "remoraid",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            19
+          ]
+        },
+        {
+          "species": "seel",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 6,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "slowpoke",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "spheal",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 7,
+          "floors": [
+            11,
+            19
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_geo_pebble",
+              "weight": 4
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 1
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 1
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 5
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 3
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 5
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    560,
+    738
+  ],
+  "profiles": [
+    {
+      "name": "looping",
+      "weight": 10
+    },
+    {
+      "name": "ring",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        20
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "seed_blast",
+          "price": 100,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_luminous",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 3
+        },
+        {
+          "item": "orb_scanner",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        20
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Summon Trap",
+        "Warp Trap",
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/marvelous_sea.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "marvelous_sea",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "marvelous_sea",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/marvelous_sea/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

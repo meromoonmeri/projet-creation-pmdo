@@ -1,0 +1,46 @@
+{
+ "schema": "music-gap-report/1",
+ "note": "pistes référencées par des zones mais absentes de Content/Music et du DumpAsset — le moteur charge la zone sans musique (silence). Statut REQUIRES_MOD_ASSET: pistes EoS à fournir au mod, PAS de substitution silencieuse. Identités musicales = arm9 overlay10 HardcodedDungeonMusic × enum music_id pmdsky-debug (vérifié 1:1 jukebox EU).",
+ "missing": {},
+ "resolved_2026_08_26": {
+  "method": "extraction ROM Sky EU: SOUND/BGM smd/swd -> audioutil ppmdu_2 (MIDI+SF2, boucle x2) -> FluidSynth 44100 -> libvorbis q5 — identités par NOM INTERNE SMD (B_DUN_KAKUSARET=Concealed etc.) croisé enum music_id",
+  "tracks": [
+   "Beach Cave",
+   "Dusk Forest",
+   "Far Amp Plains",
+   "Cave and Side Path",
+   "Lower Brine Cave",
+   "Quicksand Pit",
+   "Sealed Ruin Pit",
+   "Temporal Spire",
+   "Blizzard Island Rescue Team Medley",
+   "Surrounded Sea",
+   "Concealed Ruins",
+   "In the Nightmare",
+   "Miracle Sea",
+   "Random Dungeon Theme 1-3"
+  ]
+ },
+ "identity_correction_2026_08_27": {
+  "cause": "enum music_id pmdsky-debug décalé de +1 au-delà de 138 (ONE_FOR_ALL/_ALL_FOR_ONE) — identités de la plage 139+ invalides ; groupes RANDOM = 4 pistes canoniques nommées par groupe (RANDOM_MUSIC_ID_TABLE overlay10 EU @0x22C5B54), pas les 'Random Dungeon Themes'",
+  "authority": "MUSIC_MID_MAP.json (sky_music_mid_map.py, contre-épreuves usage ROM d123/d124/d128/d130/d133/d136 PASS)",
+  "fixed_zones": 27,
+  "new_tracks_extracted": [
+   "Murky Forest",
+   "Southern Jungle",
+   "Deep Star Cave",
+   "Fortune Ravine",
+   "Fortune Ravine Depths",
+   "Barren Valley",
+   "Dark Wasteland",
+   "Spacial Cliffs",
+   "Dark Ice Mountain",
+   "Icicle Forest",
+   "Vast Ice Mountain",
+   "Vast Ice Mountain Peak",
+   "Sky Peak Snowfield",
+   "Sky Peak Final Pass"
+  ],
+  "note": "groupes RANDOM: PMDO fixe une piste par étage → première piste du groupe ROM (adaptation technique documentée, piste toujours dans le groupe canonique)"
+ }
+}

@@ -1,0 +1,848 @@
+{
+  "id": "magma_cavern",
+  "aliases": [
+    "gorge_ardente_porte"
+  ],
+  "name": {
+    "en": "Magma Cavern",
+    "fr": "Gorge Ardente"
+  },
+  "chapter": 12,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Magma Cavern (23F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MagmaCavern) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 12. Recoupé avec Bulbapedia (page « Magma Cavern »).",
+  "comment": "Définition canonique générée pour le chapitre 12. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 32 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 23,
+  "biome": "magma_gallery",
+  "level": 28,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 28
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "magma_cavern_2_floor",
+    "wall": "magma_cavern_2_wall",
+    "secondary": "magma_cavern_2_secondary",
+    "name": "magma_cavern_2",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_GOLD_RIBBON",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_RIBBON",
+    "ITEM_RACKET_BAND",
+    "ITEM_SCOPE_LENS",
+    "ITEM_SILVER_SPIKE",
+    "ITEM_STAMINA_BAND",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "magma_gallery",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "magma_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "arbok",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 5,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "graveler",
+          "level": [
+            35,
+            35
+          ],
+          "weight": 6,
+          "floors": [
+            5,
+            8
+          ]
+        },
+        {
+          "species": "magmar",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 8,
+          "floors": [
+            7,
+            8
+          ]
+        },
+        {
+          "species": "mawile",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "nidoking",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "nidoqueen",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            6
+          ]
+        },
+        {
+          "species": "raticate",
+          "level": [
+            32,
+            32
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "sandshrew",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            6
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 10
+            },
+            {
+              "item": "food_apple",
+              "weight": 3
+            },
+            {
+              "item": "gummi_black",
+              "weight": 3
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 3
+            },
+            {
+              "item": "gummi_red",
+              "weight": 9
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 2
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 2
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "magma_core",
+      "floors": [
+        9,
+        15
+      ],
+      "biome": "magma_core",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "arbok",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 6,
+          "floors": [
+            9,
+            14
+          ]
+        },
+        {
+          "species": "golem",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "graveler",
+          "level": [
+            35,
+            35
+          ],
+          "weight": 4,
+          "floors": [
+            9,
+            10
+          ]
+        },
+        {
+          "species": "grimer",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "magcargo",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 6,
+          "floors": [
+            9,
+            14
+          ]
+        },
+        {
+          "species": "magmar",
+          "level": [
+            34,
+            34
+          ],
+          "weight": 4,
+          "floors": [
+            9,
+            11
+          ]
+        },
+        {
+          "species": "mawile",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5,
+          "floors": [
+            9,
+            12
+          ]
+        },
+        {
+          "species": "rhydon",
+          "level": [
+            36,
+            36
+          ],
+          "weight": 6,
+          "floors": [
+            14,
+            15
+          ]
+        },
+        {
+          "species": "sandslash",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            15
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 10
+            },
+            {
+              "item": "food_apple",
+              "weight": 3
+            },
+            {
+              "item": "gummi_black",
+              "weight": 3
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 3
+            },
+            {
+              "item": "gummi_red",
+              "weight": 9
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 2
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 2
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "magma_abyss",
+      "floors": [
+        16,
+        23
+      ],
+      "biome": "magma_abyss",
+      "profiles": [
+        {
+          "name": "large_rooms",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "looping",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "golem",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            20
+          ]
+        },
+        {
+          "species": "grimer",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 7,
+          "floors": [
+            16,
+            21
+          ]
+        },
+        {
+          "species": "onix",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 15,
+          "floors": [
+            21,
+            23
+          ]
+        },
+        {
+          "species": "rhydon",
+          "level": [
+            36,
+            36
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            20
+          ]
+        },
+        {
+          "species": "sandslash",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            20
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 10
+            },
+            {
+              "item": "food_apple",
+              "weight": 3
+            },
+            {
+              "item": "gummi_black",
+              "weight": 3
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 3
+            },
+            {
+              "item": "gummi_red",
+              "weight": 9
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 3
+            },
+            {
+              "item": "held_insomniascope",
+              "weight": 2
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_persim_band",
+              "weight": 1
+            },
+            {
+              "item": "held_power_band",
+              "weight": 2
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_warp_scarf",
+              "weight": 1
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 20
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    340,
+    452
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        23
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 1
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_warp_scarf",
+          "price": 1000,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        23
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "gorge_ardente_porte",
+    "relay_ground": "gorge_ardente_coeur",
+    "canonical_end_ground": "fosse_ardente",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/fosse_ardente.rsground",
+    "cinematic_ground": "fosse_ardente",
+    "battle_ground": "fosse_ardente",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "fosse_ardente",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/fosse_ardente"
+      },
+      {
+        "scene": "gorge_ardente_coeur",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_coeur"
+      },
+      {
+        "scene": "gorge_ardente_porte",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_porte"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d12p01.cif.json",
+      "RESERVE/red_cinematics/d12p02.cif.json",
+      "RESERVE/red_cinematics/d12p04.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/magma_cavern",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "fosse_ardente",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "fixed_grounds": {
+    "entrance": "gorge_ardente_porte",
+    "end": "fosse_ardente"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/magma_cavern.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "magma_cavern",
+    "segments": 3,
+    "entrance_ground": "gorge_ardente_porte",
+    "relay_ground": "gorge_ardente_coeur",
+    "end_ground": "fosse_ardente",
+    "next_zone": "magma_cavern_pit",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "magma_cavern",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "zone",
+        "target": "magma_cavern",
+        "reason": "poursuite directe vers le segment 2 du même donjon"
+      },
+      {
+        "segment": 2,
+        "kind": "ground",
+        "target": "gorge_ardente_coeur",
+        "reason": "scène canonique de transition vers magma_cavern_pit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/magma_cavern/init.lua",
+    "archived_script": "",
+    "notes": [
+      "chaîne canonique : la scène finale appartient à magma_cavern_pit"
+    ],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

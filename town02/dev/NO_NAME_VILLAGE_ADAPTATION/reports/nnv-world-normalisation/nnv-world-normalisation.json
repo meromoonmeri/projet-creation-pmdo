@@ -1,0 +1,504 @@
+{
+  "conclusion": "NNV_NEEDS_SCALE_ADAPTATION",
+  "direction": "PMDO/metano_town is the scale reference; NNV is the source to normalise. Pokemon keep their normal PMDO scale and are never rescaled.",
+  "map_modified": false,
+  "nnv_objects_measured": {
+    "house": [
+      {
+        "current_in_pokemon": 75.0,
+        "current_px": [
+          1200,
+          984
+        ],
+        "sprite": "splayerhouse"
+      },
+      {
+        "current_in_pokemon": 74.5,
+        "current_px": [
+          1192,
+          728
+        ],
+        "sprite": "scarpenterhouse"
+      },
+      {
+        "current_in_pokemon": 59.2,
+        "current_px": [
+          948,
+          856
+        ],
+        "sprite": "shunterhouse"
+      },
+      {
+        "current_in_pokemon": 59.2,
+        "current_px": [
+          948,
+          840
+        ],
+        "sprite": "sloggerhouse"
+      }
+    ],
+    "plant": [
+      {
+        "current_in_pokemon": 13.0,
+        "current_px": [
+          208,
+          131
+        ],
+        "sprite": "ssmplant91"
+      },
+      {
+        "current_in_pokemon": 10.9,
+        "current_px": [
+          175,
+          135
+        ],
+        "sprite": "ssmplant7"
+      },
+      {
+        "current_in_pokemon": 6.2,
+        "current_px": [
+          99,
+          84
+        ],
+        "sprite": "ssmplant90"
+      },
+      {
+        "current_in_pokemon": 3.8,
+        "current_px": [
+          60,
+          124
+        ],
+        "sprite": "ssmplant31"
+      }
+    ],
+    "rock": [
+      {
+        "current_in_pokemon": 20.5,
+        "current_px": [
+          328,
+          203
+        ],
+        "sprite": "ssmrock3"
+      },
+      {
+        "current_in_pokemon": 12.2,
+        "current_px": [
+          196,
+          130
+        ],
+        "sprite": "ssmrock2"
+      },
+      {
+        "current_in_pokemon": 3.5,
+        "current_px": [
+          56,
+          56
+        ],
+        "sprite": "ssmrock1"
+      },
+      {
+        "current_in_pokemon": 3.5,
+        "current_px": [
+          56,
+          52
+        ],
+        "sprite": "ssmrock10"
+      }
+    ],
+    "tree": [
+      {
+        "current_in_pokemon": 24.3,
+        "current_px": [
+          389,
+          293
+        ],
+        "sprite": "bgsmtree0"
+      },
+      {
+        "current_in_pokemon": 24.3,
+        "current_px": [
+          389,
+          293
+        ],
+        "sprite": "bgsmtree_old"
+      },
+      {
+        "current_in_pokemon": 24.3,
+        "current_px": [
+          389,
+          293
+        ],
+        "sprite": "bgtree0"
+      },
+      {
+        "current_in_pokemon": 24.3,
+        "current_px": [
+          389,
+          293
+        ],
+        "sprite": "bgsmtree0_old"
+      }
+    ]
+  },
+  "not_applied": "this audit computes the factor only; nothing is resized, moved or written",
+  "q1_pmdo_world_unit": {
+    "law_verification": {
+      "conforming_grounds": 423,
+      "interpretation": "TexSize only chooses tileset granularity. The world unit is the 8 px collision cell in every map, and a Pokemon is always 16x16 px = 2x2 world units.",
+      "law": "collision_grid == tile_grid * TexSize, and tile cell px == TexSize * 8",
+      "tex_size_to_tile_cell_px": {
+        "TexSize=1": "8 px",
+        "TexSize=3": "24 px"
+      },
+      "violating_grounds": 5,
+      "violations": [
+        {
+          "collision_grid": 114,
+          "ground": "cloven_ruins_midpoint.rsground",
+          "tex_size": 3,
+          "tile_grid": 114
+        },
+        {
+          "collision_grid": 45,
+          "ground": "mt_thunder_midpoint.rsground",
+          "tex_size": 3,
+          "tile_grid": 45
+        },
+        {
+          "collision_grid": 57,
+          "ground": "poisonous_forest_miniboss.rsground",
+          "tex_size": 3,
+          "tile_grid": 57
+        },
+        {
+          "collision_grid": 45,
+          "ground": "pre_tonnerre.rsground",
+          "tex_size": 1,
+          "tile_grid": 57
+        },
+        {
+          "collision_grid": 69,
+          "ground": "searing_tunnel_midpoint.rsground",
+          "tex_size": 3,
+          "tile_grid": 69
+        }
+      ]
+    },
+    "pokemon_in_world_units": 2,
+    "pokemon_px": 16,
+    "world_unit_px": 8
+  },
+  "q2_metano_world_unit": {
+    "collision_grid": 189,
+    "tex_size": 1,
+    "tile_cell_in_pokemon": 0.5,
+    "tile_cell_px": 8,
+    "tile_grid": 189,
+    "world_in_pokemon": 94.5,
+    "world_in_world_units": 189,
+    "world_px": 1512
+  },
+  "q3_nnv_world_unit": {
+    "collision_grid": 624,
+    "tex_size": 8,
+    "tile_cell_in_pokemon": 4.0,
+    "tile_cell_px": 64,
+    "tile_grid": 78,
+    "world_in_pokemon": 312.0,
+    "world_in_world_units": 624,
+    "world_px": 4992
+  },
+  "q4_texsize_role": {
+    "conclusion": "TexSize does not change the world unit; it changes how much world a single tileset cell covers. NNV at TexSize 8 makes one tile cell span 4 Pokemon, where metano spans half a Pokemon.",
+    "formula": "tile cell px = TexSize * 8",
+    "metano": "TexSize 1 -> 8 px cell",
+    "nnv": "TexSize 8 -> 64 px cell"
+  },
+  "q5_how_nnv_textures_were_converted": {
+    "art_density_measured": 4,
+    "converter": "convert_environment_room.py, strict 1:1, no resampling",
+    "finding": "the x4 upscale is present in the GameMaker source itself, not introduced by the conversion; the converter faithfully preserved it",
+    "source_tile_sizes_px": [
+      64,
+      128
+    ]
+  },
+  "q6_normalisation_factor": {
+    "best_fit_by_measurement": "x0.125",
+    "candidates": {
+      "x0.125": {
+        "divisor": 8,
+        "mean_relative_error_percent": 15.3,
+        "per_element": [
+          {
+            "element": "house",
+            "metano_target_in_pokemon": 9.4,
+            "normalised_in_pokemon": 7.41,
+            "relative_error_percent": 21.2
+          },
+          {
+            "element": "tree",
+            "metano_target_in_pokemon": 3.0,
+            "normalised_in_pokemon": 3.04,
+            "relative_error_percent": 1.3
+          },
+          {
+            "element": "rock",
+            "metano_target_in_pokemon": 1.5,
+            "normalised_in_pokemon": 1.53,
+            "relative_error_percent": 2.1
+          },
+          {
+            "element": "plant",
+            "metano_target_in_pokemon": 1.0,
+            "normalised_in_pokemon": 1.37,
+            "relative_error_percent": 36.7
+          }
+        ],
+        "tile_cell_in_pokemon_after": 0.5,
+        "tile_cell_px_after": 8
+      },
+      "x0.25": {
+        "divisor": 4,
+        "mean_relative_error_percent": 109.4,
+        "per_element": [
+          {
+            "element": "house",
+            "metano_target_in_pokemon": 9.4,
+            "normalised_in_pokemon": 14.81,
+            "relative_error_percent": 57.6
+          },
+          {
+            "element": "tree",
+            "metano_target_in_pokemon": 3.0,
+            "normalised_in_pokemon": 6.08,
+            "relative_error_percent": 102.6
+          },
+          {
+            "element": "rock",
+            "metano_target_in_pokemon": 1.5,
+            "normalised_in_pokemon": 3.06,
+            "relative_error_percent": 104.2
+          },
+          {
+            "element": "plant",
+            "metano_target_in_pokemon": 1.0,
+            "normalised_in_pokemon": 2.73,
+            "relative_error_percent": 173.4
+          }
+        ],
+        "tile_cell_in_pokemon_after": 1.0,
+        "tile_cell_px_after": 16
+      },
+      "x0.5": {
+        "divisor": 2,
+        "mean_relative_error_percent": 318.9,
+        "per_element": [
+          {
+            "element": "house",
+            "metano_target_in_pokemon": 9.4,
+            "normalised_in_pokemon": 29.62,
+            "relative_error_percent": 215.2
+          },
+          {
+            "element": "tree",
+            "metano_target_in_pokemon": 3.0,
+            "normalised_in_pokemon": 12.16,
+            "relative_error_percent": 305.2
+          },
+          {
+            "element": "rock",
+            "metano_target_in_pokemon": 1.5,
+            "normalised_in_pokemon": 6.12,
+            "relative_error_percent": 308.3
+          },
+          {
+            "element": "plant",
+            "metano_target_in_pokemon": 1.0,
+            "normalised_in_pokemon": 5.47,
+            "relative_error_percent": 446.9
+          }
+        ],
+        "tile_cell_in_pokemon_after": 2.0,
+        "tile_cell_px_after": 32
+      },
+      "x1": {
+        "divisor": 1,
+        "mean_relative_error_percent": 737.8,
+        "per_element": [
+          {
+            "element": "house",
+            "metano_target_in_pokemon": 9.4,
+            "normalised_in_pokemon": 59.25,
+            "relative_error_percent": 530.3
+          },
+          {
+            "element": "tree",
+            "metano_target_in_pokemon": 3.0,
+            "normalised_in_pokemon": 24.31,
+            "relative_error_percent": 710.4
+          },
+          {
+            "element": "rock",
+            "metano_target_in_pokemon": 1.5,
+            "normalised_in_pokemon": 12.25,
+            "relative_error_percent": 716.7
+          },
+          {
+            "element": "plant",
+            "metano_target_in_pokemon": 1.0,
+            "normalised_in_pokemon": 10.94,
+            "relative_error_percent": 993.8
+          }
+        ],
+        "tile_cell_in_pokemon_after": 4.0,
+        "tile_cell_px_after": 64
+      }
+    },
+    "lossless_max_divisor": 4,
+    "lossless_reason": "art density is 4: dividing by 4 removes the source upscale without losing a single pixel; dividing by more destroys real detail",
+    "why_cell_ratio_8_differs_from_density_4": {
+      "cell_ratio": 8,
+      "density_ratio": 4,
+      "explanation": "The two numbers measure different things. The cell ratio (8) compares how much world one tileset cell covers. The density ratio (4) compares how the art is stored. They differ by 2 because NNV motifs are also drawn about 1.6-2x larger in pure art pixels (a house is ~237 art px wide vs ~150 in metano). So the total apparent oversize is density (4) x motif (~2) = ~8, of which only the density part can be removed losslessly."
+    }
+  },
+  "q7_ratios_after_normalisation": {
+    "x0.125": {
+      "divisor": 8,
+      "mean_relative_error_percent": 15.3,
+      "per_element": [
+        {
+          "element": "house",
+          "metano_target_in_pokemon": 9.4,
+          "normalised_in_pokemon": 7.41,
+          "relative_error_percent": 21.2
+        },
+        {
+          "element": "tree",
+          "metano_target_in_pokemon": 3.0,
+          "normalised_in_pokemon": 3.04,
+          "relative_error_percent": 1.3
+        },
+        {
+          "element": "rock",
+          "metano_target_in_pokemon": 1.5,
+          "normalised_in_pokemon": 1.53,
+          "relative_error_percent": 2.1
+        },
+        {
+          "element": "plant",
+          "metano_target_in_pokemon": 1.0,
+          "normalised_in_pokemon": 1.37,
+          "relative_error_percent": 36.7
+        }
+      ],
+      "tile_cell_in_pokemon_after": 0.5,
+      "tile_cell_px_after": 8
+    },
+    "x0.25": {
+      "divisor": 4,
+      "mean_relative_error_percent": 109.4,
+      "per_element": [
+        {
+          "element": "house",
+          "metano_target_in_pokemon": 9.4,
+          "normalised_in_pokemon": 14.81,
+          "relative_error_percent": 57.6
+        },
+        {
+          "element": "tree",
+          "metano_target_in_pokemon": 3.0,
+          "normalised_in_pokemon": 6.08,
+          "relative_error_percent": 102.6
+        },
+        {
+          "element": "rock",
+          "metano_target_in_pokemon": 1.5,
+          "normalised_in_pokemon": 3.06,
+          "relative_error_percent": 104.2
+        },
+        {
+          "element": "plant",
+          "metano_target_in_pokemon": 1.0,
+          "normalised_in_pokemon": 2.73,
+          "relative_error_percent": 173.4
+        }
+      ],
+      "tile_cell_in_pokemon_after": 1.0,
+      "tile_cell_px_after": 16
+    },
+    "x0.5": {
+      "divisor": 2,
+      "mean_relative_error_percent": 318.9,
+      "per_element": [
+        {
+          "element": "house",
+          "metano_target_in_pokemon": 9.4,
+          "normalised_in_pokemon": 29.62,
+          "relative_error_percent": 215.2
+        },
+        {
+          "element": "tree",
+          "metano_target_in_pokemon": 3.0,
+          "normalised_in_pokemon": 12.16,
+          "relative_error_percent": 305.2
+        },
+        {
+          "element": "rock",
+          "metano_target_in_pokemon": 1.5,
+          "normalised_in_pokemon": 6.12,
+          "relative_error_percent": 308.3
+        },
+        {
+          "element": "plant",
+          "metano_target_in_pokemon": 1.0,
+          "normalised_in_pokemon": 5.47,
+          "relative_error_percent": 446.9
+        }
+      ],
+      "tile_cell_in_pokemon_after": 2.0,
+      "tile_cell_px_after": 32
+    },
+    "x1": {
+      "divisor": 1,
+      "mean_relative_error_percent": 737.8,
+      "per_element": [
+        {
+          "element": "house",
+          "metano_target_in_pokemon": 9.4,
+          "normalised_in_pokemon": 59.25,
+          "relative_error_percent": 530.3
+        },
+        {
+          "element": "tree",
+          "metano_target_in_pokemon": 3.0,
+          "normalised_in_pokemon": 24.31,
+          "relative_error_percent": 710.4
+        },
+        {
+          "element": "rock",
+          "metano_target_in_pokemon": 1.5,
+          "normalised_in_pokemon": 12.25,
+          "relative_error_percent": 716.7
+        },
+        {
+          "element": "plant",
+          "metano_target_in_pokemon": 1.0,
+          "normalised_in_pokemon": 10.94,
+          "relative_error_percent": 993.8
+        }
+      ],
+      "tile_cell_in_pokemon_after": 4.0,
+      "tile_cell_px_after": 64
+    }
+  },
+  "q8_coherent_with_metano": {
+    "x0.125": "houses 7.4 vs 9.4, trees 3.0 vs 3.0, rocks 1.5 vs 1.5 -> near-exact match, but requires destroying half the art detail",
+    "x0.25": "houses 14.8 vs 9.4 Pokemon (1.6x too large), trees 6.1 vs 3.0, rocks 3.1 vs 1.5 -> same order of magnitude, playable, lossless"
+  },
+  "read_only": true,
+  "recommended_factor": 0.25,
+  "recommended_factor_rationale": "x0.25 is the only factor that is both a real normalisation and strictly lossless: it removes exactly the x4 upscale that the GameMaker source baked in. It leaves NNV about 1.6x larger than metano in motif, which is an authored art choice, not a defect. x0.125 matches metano almost exactly but exceeds the art density and would permanently destroy detail, so it is not recommended without an explicit decision to accept that loss.",
+  "schema": "new-era.nnv-world-normalisation.v1"
+}

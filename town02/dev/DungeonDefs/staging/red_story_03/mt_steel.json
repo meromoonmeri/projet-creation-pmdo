@@ -1,0 +1,2116 @@
+{
+  "id": "mt_steel",
+  "aliases": [
+    "pic_ferreux_pied"
+  ],
+  "name": {
+    "en": "Mt. Steel",
+    "fr": "Pic Ferreux"
+  },
+  "chapter": 7,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Steel (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtSteel) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 7. Recoupé avec Bulbapedia (page « Mt. Steel »).",
+  "comment": "Mt. Steel staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 8,
+  "biome": "steel_slope",
+  "level": 20,
+  "rescues": 2,
+  "released": false,
+  "music": "Mt Steel.ogg",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 20
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "mt_steel_1_floor",
+    "wall": "mt_steel_1_wall",
+    "secondary": "mt_steel_1_secondary",
+    "name": "mt_steel_1",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Mt. Steel; source tileset IDs retained per floor."
+  },
+  "canonical_items_without_pmdo_equivalent": [],
+  "segments": [
+    {
+      "name": "steel_slope",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "steel_slope",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "room_ratio": [
+              65,
+              90
+            ],
+            "branch_ratio": [
+              50,
+              85
+            ],
+            "connect_percent": 15,
+            "combine_rate": 0,
+            "no_forced_branches": false
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 18,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "grid_room_ratio": 75,
+            "grid_hall_ratio": 55,
+            "connect_percent": 20,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "spearow",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2353,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "zigzagoon",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2941,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "spearow",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2353,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "zigzagoon",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2941,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "spearow",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2353,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "zigzagoon",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2941,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "spearow",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2353,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "zigzagoon",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2941,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "baltoy",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2353,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1905,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "tyrogue",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1905,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "zigzagoon",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1904,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2381,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "meditite",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1905,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 2051,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "tyrogue",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2052,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2564,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "meditite",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2051,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "beldum",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1282,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1633,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "pinsir",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2040,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "tyrogue",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1633,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2041,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "meditite",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1633,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "beldum",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1020,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "geodude",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1633,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "pinsir",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2040,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "tyrogue",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1633,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "aron",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 2041,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "meditite",
+          "level": [
+            22,
+            22
+          ],
+          "weight": 1633,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "beldum",
+          "level": [
+            21,
+            21
+          ],
+          "weight": 1020,
+          "floors": [
+            8,
+            8
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 2190,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1192,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 341,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 341,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 511,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 170,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 438,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 438,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 208,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "orb_escape",
+              "weight": 417,
+              "floors": [
+                8,
+                8
+              ]
+            }
+          ],
+          "skipped_by_reason": {
+            "NOT_IN_PMDO_0_8_9_BASE": [
+              "ITEM_BLOWBACK_ORB",
+              "ITEM_HURL_ORB",
+              "ITEM_SWITCHER_ORB",
+              "ITEM_WARP_ORB"
+            ]
+          }
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            2,
+            6
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0b092703000c0500000000000000000303010000000b000303000000",
+            "layout": 11,
+            "room_density": 9,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 39,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            2,
+            6
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0b092703000c0500000000000000000303020000000b000303000000",
+            "layout": 11,
+            "room_density": 9,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 39,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0b082703000c0600000000000000000303030000000b000303000000",
+            "layout": 11,
+            "room_density": 8,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 39,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "4": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "08082703000c0600000000000000000403040000000b000303000000",
+            "layout": 8,
+            "room_density": 8,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 39,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "5": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "08072703000c0600000000000000000403050000000b000303000000",
+            "layout": 8,
+            "room_density": 7,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 39,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "6": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "08072803000c0700000000000000000503060000000b000303000000",
+            "layout": 8,
+            "room_density": 7,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 40,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "7": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "08072803000c0700000000000000000503070000000b000303000000",
+            "layout": 8,
+            "room_density": 7,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 40,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "8": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 24,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            5,
+            6
+          ],
+          "initial_mobs": [
+            3,
+            8
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "08072803000c0700000000000000000503080000000b000303000000",
+            "layout": 8,
+            "room_density": 7,
+            "floor_connectivity": 12,
+            "allow_dead_ends": 0,
+            "extra_hallways": 0,
+            "item_density": 5,
+            "trap_density": 3,
+            "tileset": 40,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    240,
+    322
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 24,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "room_ratio": [
+          65,
+          90
+        ],
+        "branch_ratio": [
+          50,
+          85
+        ],
+        "connect_percent": 15,
+        "combine_rate": 0,
+        "no_forced_branches": false
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 18,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "grid_room_ratio": 75,
+        "grid_hall_ratio": 55,
+        "connect_percent": 20,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        9
+      ],
+      "amount": [
+        1,
+        2
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true
+        }
+      ]
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "pic_ferreux_pied",
+    "relay_ground": "",
+    "canonical_end_ground": "d03p02",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d03p02.rsground",
+    "cinematic_ground": "d03p02",
+    "battle_ground": "d03p02",
+    "rule": "Canonical fight on the .rsmap counterpart of the canonical Ground; post-battle scene on the same Ground.",
+    "fixed_floor": 9,
+    "fixed_room": 1,
+    "rsmap_source": "Data/Map/mt_steel_boss.rsmap",
+    "canonical_layout_source": "Data/Ground/d03p02.rsground"
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "pic_ferreux_pied",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/pic_ferreux_pied"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d03p01.cif.json",
+      "RESERVE/red_cinematics/d03p02.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d03p02",
+    "map": "mt_steel_boss",
+    "source_floor": 9,
+    "source_fixed_room": 1,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "skarmory",
+        "level": [
+          10,
+          10
+        ],
+        "source_level": 10,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d03p02 via the .rsmap counterpart mt_steel_boss; no invented arena."
+  },
+  "fixed_grounds": {
+    "entrance": "pic_ferreux_pied",
+    "end": "d03p02"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/mt_steel.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "mt_steel",
+    "segments": 1,
+    "entrance_ground": "pic_ferreux_pied",
+    "relay_ground": "",
+    "end_ground": "d03p02",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d03p02",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/mt_steel/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "midpoint": {},
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_steel entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_03",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_steel_1."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d03p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d03p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d03p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d03p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "pokemon": [],
+  "minibosses": [],
+  "fixed_segments": [
+    {
+      "role": "canonical_final_boss",
+      "map": "mt_steel_boss",
+      "ground": "d03p02",
+      "source_floor": 9,
+      "provenance": "PMD_RED_ROM",
+      "comment": "PMD Red canonical FIXED_ROOM_MT_STEEL_SKARMORY on source floor 9: exact .rsmap counterpart of d03p02.rsground (via tools/make_ground_arena.py). Not an unrelated arena.",
+      "boss_species": [
+        "skarmory"
+      ],
+      "is_relevant": false,
+      "source_fixed_room": 1,
+      "source_pokemon": [
+        {
+          "species": "MONSTER_DIGLETT",
+          "level": 5,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_SKARMORY",
+          "level": 10,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_ARON",
+          "level": 6,
+          "probability": 6667
+        },
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_BELDUM",
+          "level": 5,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    }
+  ]
+}

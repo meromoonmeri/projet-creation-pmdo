@@ -1,0 +1,824 @@
+{
+  "id": "oddity_cave",
+  "aliases": [],
+  "name": {
+    "en": "Oddity Cave",
+    "fr": "Caverne Étrange"
+  },
+  "chapter": 22,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Oddity Cave (15F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/OddityCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 22. Recoupé avec Bulbapedia (page « Oddity Cave »).",
+  "comment": "Définition canonique générée pour le chapitre 22. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 9 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 15,
+  "biome": "oddity_gallery",
+  "level": 44,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 44
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "spacial_rift_2_floor",
+    "wall": "spacial_rift_2_wall",
+    "secondary": "spacial_rift_2_secondary",
+    "name": "spacial_rift_2",
+    "element": "normal",
+    "justification": "caverne étrange ; seconde faille spatiale, distincte de spacial_rift_1."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_EVASION_ORB",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_MAX_ELIXIR",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RADAR_ORB",
+    "ITEM_SWITCHER_ORB"
+  ],
+  "segments": [
+    {
+      "name": "oddity_gallery",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "oddity_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "ampharos",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 6,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "beedrill",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "cacnea",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "ditto",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 2,
+          "floors": [
+            1,
+            8
+          ]
+        },
+        {
+          "species": "electabuzz",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 5,
+          "floors": [
+            4,
+            5
+          ]
+        },
+        {
+          "species": "electrike",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "nidoran_m",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "numel",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 9,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "pidgeotto",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 6,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "rapidash",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 6,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "shuckle",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 3,
+          "floors": [
+            6,
+            8
+          ]
+        },
+        {
+          "species": "slugma",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            6,
+            8
+          ]
+        },
+        {
+          "species": "torkoal",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 8,
+          "floors": [
+            7,
+            8
+          ]
+        },
+        {
+          "species": "weedle",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 2,
+          "floors": [
+            1,
+            4
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "berry_oran",
+              "weight": 8
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 3
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 2
+            },
+            {
+              "item": "food_apple",
+              "weight": 8
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 1
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 1
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 1
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 1
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 1
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 1
+            },
+            {
+              "item": "gummi_red",
+              "weight": 1
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 1
+            },
+            {
+              "item": "gummi_white",
+              "weight": 1
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 1
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 5
+            },
+            {
+              "item": "held_power_band",
+              "weight": 5
+            },
+            {
+              "item": "held_special_band",
+              "weight": 5
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 5
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 3
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "oddity_core",
+      "floors": [
+        9,
+        15
+      ],
+      "biome": "oddity_core",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "ditto",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 2,
+          "floors": [
+            9,
+            15
+          ]
+        },
+        {
+          "species": "lairon",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 8,
+          "floors": [
+            13,
+            15
+          ]
+        },
+        {
+          "species": "mightyena",
+          "level": [
+            53,
+            53
+          ],
+          "weight": 8,
+          "floors": [
+            13,
+            15
+          ]
+        },
+        {
+          "species": "nosepass",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 10,
+          "floors": [
+            11,
+            12
+          ]
+        },
+        {
+          "species": "piloswine",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 8,
+          "floors": [
+            11,
+            12
+          ]
+        },
+        {
+          "species": "rapidash",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 7,
+          "floors": [
+            9,
+            10
+          ]
+        },
+        {
+          "species": "shuckle",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 2,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "slugma",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 3,
+          "floors": [
+            9,
+            10
+          ]
+        },
+        {
+          "species": "snorunt",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 4,
+          "floors": [
+            14,
+            15
+          ]
+        },
+        {
+          "species": "torkoal",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 7,
+          "floors": [
+            9,
+            10
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "berry_oran",
+              "weight": 8
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 3
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 2
+            },
+            {
+              "item": "food_apple",
+              "weight": 8
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 1
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 1
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 1
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 1
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 1
+            },
+            {
+              "item": "gummi_purple",
+              "weight": 1
+            },
+            {
+              "item": "gummi_red",
+              "weight": 1
+            },
+            {
+              "item": "gummi_royal",
+              "weight": 1
+            },
+            {
+              "item": "gummi_white",
+              "weight": 1
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 1
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 5
+            },
+            {
+              "item": "held_power_band",
+              "weight": 5
+            },
+            {
+              "item": "held_special_band",
+              "weight": 5
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 5
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 3
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    540,
+    712
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        15
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 1
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_warp_scarf",
+          "price": 1000,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        15
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Chestnut Trap",
+        "Explosion Trap",
+        "Grimy Trap",
+        "Gust Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Poison Trap",
+        "Pokemon Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Summon Trap",
+        "Warp Trap",
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/oddity_cave.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "oddity_cave",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "oddity_cave",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/oddity_cave/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

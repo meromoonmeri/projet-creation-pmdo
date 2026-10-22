@@ -1,0 +1,308 @@
+{
+ "schema": "nnv-fauna-species-v1",
+ "rules": {
+  "exclusions": [
+   "aucun doublon avec les Pokemon de Metano Town (grounds metano_* + PNJ scriptes)",
+   "aucun doublon avec les Pokemon de la Guilde (grounds guild_* / sky_wigglytuff_*)",
+   "aucun legendaire, aucun fabuleux"
+  ],
+  "scale": "toutes les entites restent 16x16 px, echelle PMDO, aucun asset redimensionne",
+  "design_adaptation": "quand le sprite source ne permet pas d'identifier une espece avec certitude, l'espece la plus coherente est retenue selon apparence + comportement GML + biome + role ecologique, et marquee design_adaptation=true"
+ },
+ "behaviour_profiles": {
+  "ambient_flying": {
+   "desc": "vol libre continu, jamais pose longtemps, ignore le joueur",
+   "move_style": "orbit", "speed": 2, "pause_ratio": 0.10, "radius": 220,
+   "flees_player": false, "grounded": false
+  },
+  "ambient_ground": {
+   "desc": "petits deplacements au sol, pauses frequentes, vie de decor",
+   "move_style": "wander", "speed": 1, "pause_ratio": 0.45, "radius": 96,
+   "flees_player": false, "grounded": true
+  },
+  "timid": {
+   "desc": "erre calmement, fuit le joueur et les predateurs a courte distance",
+   "move_style": "wander", "speed": 2, "pause_ratio": 0.30, "radius": 128,
+   "flees_player": true, "flee_dist": 96, "grounded": true
+  },
+  "grazer": {
+   "desc": "broute : longues pauses tete baissee, petits pas entre deux touffes",
+   "move_style": "graze", "speed": 1, "pause_ratio": 0.60, "radius": 112,
+   "flees_player": true, "flee_dist": 72, "grounded": true
+  },
+  "flock": {
+   "desc": "se deplace en groupe serre autour d'un meneur, se disperse si effraye",
+   "move_style": "follow_leader", "speed": 2, "pause_ratio": 0.20, "radius": 160,
+   "flees_player": true, "flee_dist": 112, "grounded": false
+  },
+  "territorial": {
+   "desc": "patrouille un territoire etroit, fait face aux intrus, ne fuit pas",
+   "move_style": "patrol", "speed": 1, "pause_ratio": 0.40, "radius": 96,
+   "flees_player": false, "grounded": true
+  },
+  "ambusher": {
+   "desc": "immobile en embuscade, bref sursaut quand une proie passe",
+   "move_style": "ambush", "speed": 3, "pause_ratio": 0.85, "radius": 64,
+   "flees_player": false, "grounded": true
+  },
+  "aquatic_surface": {
+   "desc": "derive en surface, ne quitte jamais l'eau",
+   "move_style": "drift", "speed": 1, "pause_ratio": 0.35, "radius": 128,
+   "flees_player": false, "grounded": false, "requires": "water"
+  },
+  "aquatic_diver": {
+   "desc": "plonge et resurgit, cercles dans l'eau, fuit sous l'eau",
+   "move_style": "dive", "speed": 2, "pause_ratio": 0.25, "radius": 144,
+   "flees_player": true, "flee_dist": 80, "grounded": false, "requires": "water"
+  },
+  "shoreline": {
+   "desc": "va-et-vient entre eau et berge, ne s'eloigne jamais de la rive",
+   "move_style": "shore_patrol", "speed": 2, "pause_ratio": 0.35, "radius": 128,
+   "flees_player": true, "flee_dist": 88, "grounded": true, "requires": "near_water"
+  },
+  "wader": {
+   "desc": "echassier : longues immobilites dans l'eau peu profonde, pas lents",
+   "move_style": "wade", "speed": 1, "pause_ratio": 0.70, "radius": 160,
+   "flees_player": false, "grounded": true, "requires": "near_water"
+  },
+  "burrower": {
+   "desc": "surgit, fait quelques pas, se renfouit",
+   "move_style": "burrow", "speed": 2, "pause_ratio": 0.55, "radius": 80,
+   "flees_player": true, "flee_dist": 64, "grounded": true
+  },
+  "canopy": {
+   "desc": "vit sous le couvert des arbres, se deplace d'un tronc a l'autre",
+   "move_style": "tree_hop", "speed": 2, "pause_ratio": 0.40, "radius": 112,
+   "flees_player": true, "flee_dist": 80, "grounded": true, "requires": "near_tree"
+  },
+  "nocturnal_glow": {
+   "desc": "n'apparait que la nuit, derive lentement en lueurs",
+   "move_style": "orbit", "speed": 1, "pause_ratio": 0.25, "radius": 176,
+   "flees_player": false, "grounded": false, "time": "night"
+  },
+  "predator": {
+   "desc": "patrouille large, poursuit brievement les proies detectees",
+   "move_style": "hunt", "speed": 3, "pause_ratio": 0.25, "radius": 224,
+   "flees_player": false, "grounded": true
+  },
+  "sessile": {
+   "desc": "ancre au sol : oscille, s'oriente, ne se deplace jamais (volontaire)",
+   "move_style": "sway", "speed": 0, "pause_ratio": 1.0, "radius": 0,
+   "flees_player": false, "grounded": true
+  }
+ },
+ "species": {
+  "vivillon": {
+   "source_objects": ["objbutterfly1"], "profile": "ambient_flying", "level": 8,
+   "gen": 6, "types": ["bug", "flying"], "social": "loose_group", "group_size": [2, 5],
+   "habitat": ["grass", "plant", "near_tree"], "avoid": ["water"],
+   "seasons": ["spring", "summer", "autumn"], "time": "day",
+   "evidence": "sbutterfly1 16x16, papillon bleu deux ailes, spd=0 z=fz, parent objbgmob sans hp/dmg.",
+   "design_adaptation": false
+  },
+  "cutiefly": {
+   "source_objects": ["objbug0"], "profile": "ambient_flying", "level": 5,
+   "gen": 7, "types": ["bug", "fairy"], "social": "swarm", "group_size": [3, 8],
+   "habitat": ["plant", "grass"], "avoid": ["water"],
+   "seasons": ["spring", "summer"], "time": "day",
+   "evidence": "sbug0 4x4, point volant minuscule, parent objbgmob, z=0.",
+   "design_adaptation": true,
+   "note": "4x4 px ne designe aucune espece precise : plus petit butineur disponible, coherent avec les massifs de fleurs."
+  },
+  "volbeat": {
+   "source_objects": ["objfirefly"], "profile": "nocturnal_glow", "level": 10,
+   "gen": 3, "types": ["bug"], "social": "swarm", "group_size": [4, 9],
+   "habitat": ["grass", "near_water", "near_tree"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn"], "time": "night",
+   "evidence": "sfire1shad + sfire10..12 clignotants, z=64. Luciole canonique.",
+   "design_adaptation": false
+  },
+  "fletchling": {
+   "source_objects": ["objbird0"], "profile": "flock", "level": 9,
+   "gen": 6, "types": ["normal", "flying"], "social": "flock", "group_size": [3, 6],
+   "habitat": ["grass", "near_tree", "open"], "avoid": ["water"],
+   "seasons": ["spring", "summer", "autumn", "winter"], "time": "day",
+   "evidence": "sbird0 40x48 passereau rouge/gris perche, sbird0f1 16x14 en vol.",
+   "design_adaptation": false
+  },
+  "politoed": {
+   "source_objects": ["objfrog"], "profile": "shoreline", "level": 16,
+   "gen": 2, "types": ["water"], "social": "small_group", "group_size": [1, 3],
+   "habitat": ["near_water", "marsh"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn"], "time": "any",
+   "evidence": "sfrog00 28x20 vert vif, 6 frames de saut. Croagunk exclu (present a Metano).",
+   "design_adaptation": true,
+   "note": "Batracien vert : Politoed retenu apres exclusion de Croagunk."
+  },
+  "cradily": {
+   "source_objects": ["objmob2"], "profile": "sessile", "level": 22,
+   "gen": 3, "types": ["rock", "grass"], "social": "solitary", "group_size": [1, 1],
+   "habitat": ["marsh", "near_water", "grass"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn", "winter"], "time": "any",
+   "evidence": "smob2i0 208x108 couronne de tentacules verts ancree au sol, smob2d0 = repli. hp=4, mord.",
+   "design_adaptation": false
+  },
+  "illumise": {
+   "source_objects": ["objmobsm1"], "profile": "ambient_flying", "level": 10,
+   "gen": 3, "types": ["bug"], "social": "loose_group", "group_size": [2, 4],
+   "habitat": ["grass", "near_tree", "plant"], "avoid": ["water"],
+   "seasons": ["summer"], "time": "night",
+   "evidence": "smobsm1i0 68x56 insecte sombre a ailes claires + smobsm1bulb lumineux. maxhp=2.",
+   "design_adaptation": false
+  },
+  "jumpluff": {
+   "source_objects": ["objmobsm0"], "profile": "ambient_flying", "level": 14,
+   "gen": 2, "types": ["grass", "flying"], "social": "loose_group", "group_size": [2, 5],
+   "habitat": ["grass", "open", "near_tree"], "avoid": [],
+   "seasons": ["spring", "summer"], "time": "day",
+   "evidence": "smobsm0i0 64x60 boule cyan duveteuse, smobsm0j0 = saut. maxhp=3 level=2.",
+   "design_adaptation": false
+  },
+  "barboach": {
+   "source_objects": ["objmob0"], "profile": "aquatic_surface", "level": 8,
+   "gen": 3, "types": ["water", "ground"], "social": "small_group", "group_size": [2, 4],
+   "habitat": ["water"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn", "winter"], "time": "any",
+   "evidence": "smob0i0 60x32 forme sombre allongee dans une flaque (smob0puddle). hp=5.",
+   "design_adaptation": false
+  },
+  "sandshrew": {
+   "source_objects": ["objmob1"], "profile": "burrower", "level": 9,
+   "gen": 1, "types": ["ground"], "social": "solitary", "group_size": [1, 2],
+   "habitat": ["open", "near_rock"], "avoid": ["water", "marsh"],
+   "seasons": ["spring", "summer", "autumn"], "time": "day",
+   "evidence": "smob1i0 52x60 boule brun-orange ecailleuse, smob1d1 = creuse. hp=1, GML dig.",
+   "design_adaptation": false
+  },
+  "magikarp": {
+   "source_objects": ["objmobsm5", "objmobsm501", "objmobsm502", "objmobsm503",
+                      "objmobsm504", "objmobsm505", "objmobsm506", "objmobsm507",
+                      "objmobsm508", "objmobsm509", "objmobsm510"],
+   "profile": "aquatic_surface", "level": 6,
+   "gen": 1, "types": ["water"], "social": "school", "group_size": [3, 7],
+   "habitat": ["water"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn"], "time": "any",
+   "evidence": "chaine smobsm501..510 : amas laiteux dont la taille suit hp ; objmobsm5 fait naitre un objmob0 (poisson) a 10%. Ponte aquatique.",
+   "design_adaptation": true,
+   "note": "Le sprite ne montre pas de poisson. Frai canonique retenu : les 10 etats deviennent un banc, pas 10 especes."
+  },
+  "wingull": {
+   "source_objects": ["objmobsm3"], "profile": "flock", "level": 12,
+   "gen": 3, "types": ["water", "flying"], "social": "flock", "group_size": [2, 5],
+   "habitat": ["near_water", "open", "water"], "avoid": [],
+   "seasons": ["spring", "summer", "autumn"], "time": "day",
+   "evidence": "smobsm3f1 200x176 grand oiseau blanc/bleu en vol (flyup). maxhp=3.",
+   "design_adaptation": false
+  },
+  "surskit": {
+   "source_objects": ["objmobsm2"], "profile": "aquatic_surface", "level": 8,
+   "gen": 3, "types": ["bug", "water"], "social": "small_group", "group_size": [2, 5],
+   "habitat": ["water", "marsh"], "avoid": [],
+   "seasons": ["spring", "summer"], "time": "day",
+   "evidence": "smobsm2i1 72x36 silhouette basse effleurant l'eau + smobsm2ball bleu. maxhp=5. Wooper exclu (Metano).",
+   "design_adaptation": true,
+   "note": "Patineur d'eau : Surskit retenu apres exclusion de Wooper."
+  },
+  "bellsprout": {
+   "source_objects": ["objmobsm40"], "profile": "sessile", "level": 7,
+   "gen": 1, "types": ["grass", "poison"], "social": "solitary", "group_size": [1, 2],
+   "habitat": ["grass", "plant", "marsh"], "avoid": ["water"],
+   "seasons": ["spring", "summer", "autumn"], "time": "any",
+   "evidence": "ssmbplant001 192x576 tige verte ancree a bulbe rouge, 4 frames d'oscillation.",
+   "design_adaptation": true,
+   "note": "Objet immobile : reste sessile, oscillation volontaire, jamais de deplacement."
+  },
+  "ledyba": {
+   "source_objects": ["objmobau0"], "profile": "timid", "level": 11,
+   "gen": 2, "types": ["bug", "flying"], "social": "small_group", "group_size": [2, 4],
+   "habitat": ["near_tree", "plant", "grass"], "avoid": ["water"],
+   "seasons": ["autumn"], "time": "day",
+   "evidence": "smobau0e0 60x60 coccinelle rouge/jaune, smobau0m0 en marche. maxhp=4 dmg=3 level=1.",
+   "design_adaptation": false
+  },
+  "ariados": {
+   "source_objects": ["objmobau1"], "profile": "ambusher", "level": 20,
+   "gen": 2, "types": ["bug", "poison"], "social": "solitary", "group_size": [1, 1],
+   "habitat": ["near_tree", "plant"], "avoid": ["water"],
+   "seasons": ["autumn"], "time": "night",
+   "evidence": "smobau1i0 84x112 arthropode rouge/jaune elance sur hautes pattes. maxhp=6 level=3. Ledian exclu (Guilde).",
+   "design_adaptation": true,
+   "note": "Silhouette d'arachnide sur pattes hautes : Ariados retenu apres exclusion de Ledian."
+  },
+  "dwebble": {
+   "source_objects": ["objmobau2"], "profile": "territorial", "level": 15,
+   "gen": 5, "types": ["bug", "rock"], "social": "solitary", "group_size": [1, 2],
+   "habitat": ["near_rock", "near_water", "open"], "avoid": [],
+   "seasons": ["autumn"], "time": "any",
+   "evidence": "smobau2i0 180x148 carapace/coquille beige posee au sol. maxhp=6 dmg=1.5, GML shell+water.",
+   "design_adaptation": false
+  },
+  "chinchou": {
+   "source_objects": ["objmobau3"], "profile": "aquatic_diver", "level": 18,
+   "gen": 2, "types": ["water", "electric"], "social": "small_group", "group_size": [2, 4],
+   "habitat": ["water"], "avoid": [],
+   "seasons": ["autumn"], "time": "night",
+   "evidence": "smobau3shad masse immergee + smobau3spark0..2. GML water+fish+shock+spark. maxhp=20.",
+   "design_adaptation": false
+  },
+  "swanna": {
+   "source_objects": ["objmobau4"], "profile": "wader", "level": 24,
+   "gen": 5, "types": ["water", "flying"], "social": "small_group", "group_size": [1, 3],
+   "habitat": ["near_water", "water"], "avoid": [],
+   "seasons": ["autumn"], "time": "day",
+   "evidence": "smobau4e2 216x216 grand echassier bleu-gris a long cou, smobau4b0 88x352 dresse. maxhp=6.",
+   "design_adaptation": false
+  },
+  "lotad": {
+   "source_objects": ["objmobau5"], "profile": "aquatic_surface", "level": 10,
+   "gen": 3, "types": ["water", "grass"], "social": "small_group", "group_size": [2, 5],
+   "habitat": ["water", "marsh"], "avoid": [],
+   "seasons": ["autumn"], "time": "any",
+   "evidence": "smobau5i2 76x56 disque vert flottant type nenuphar. maxhp=4, GML water+jump.",
+   "design_adaptation": false
+  },
+  "swinub": {
+   "source_objects": ["objmobwn0", "objmobwn0_old"], "profile": "grazer", "level": 16,
+   "gen": 2, "types": ["ice", "ground"], "social": "small_group", "group_size": [2, 4],
+   "habitat": ["snow", "open", "grass"], "avoid": ["water"],
+   "seasons": ["winter"], "time": "any",
+   "evidence": "smobwn0i2 160x112 boule de fourrure creme a sabots, smobwn0r0 132x140 dresse. maxhp=8 level=5, GML snow.",
+   "design_adaptation": false
+  },
+  "ducklett": {
+   "source_objects": ["objmobwn1"], "profile": "shoreline", "level": 15,
+   "gen": 5, "types": ["water", "flying"], "social": "small_group", "group_size": [2, 4],
+   "habitat": ["near_water", "water"], "avoid": [],
+   "seasons": ["winter"], "time": "day",
+   "evidence": "smobwn1i0 92x232 oiseau blanc/bleu debout, long cou. maxhp=8 level=4.",
+   "design_adaptation": true,
+   "note": "Meme famille visuelle que objmobau4 mais objet hivernal distinct : la pre-evolution de Swanna distingue les deux saisons sans inventer d'espece etrangere."
+  },
+  "crabrawler": {
+   "source_objects": ["objmobwn2"], "profile": "territorial", "level": 21,
+   "gen": 7, "types": ["fighting"], "social": "solitary", "group_size": [1, 2],
+   "habitat": ["near_rock", "snow", "open"], "avoid": [],
+   "seasons": ["winter"], "time": "any",
+   "evidence": "smobwn2i0 116x84 arthropode trapu vu de face, pinces laterales rouges, smobwn2w0 en garde. maxhp=15 level=5. Skorupi exclu (Guilde).",
+   "design_adaptation": true,
+   "note": "Crustace bagarreur de face : Crabrawler retenu apres exclusion de Skorupi ; coherent avec le biome hivernal."
+  },
+  "piloswine": {
+   "source_objects": ["objmobwn4"], "profile": "predator", "level": 30,
+   "gen": 2, "types": ["ice", "ground"], "social": "solitary", "group_size": [1, 1],
+   "habitat": ["snow", "open", "grass"], "avoid": ["water"],
+   "seasons": ["winter"], "time": "any",
+   "evidence": "spahbox 240x240 masque de collision seul + trainees smobwn4trail0*. maxhp=35, GML dig+bite, collision=false : charge sous la neige.",
+   "design_adaptation": false
+  },
+  "delibird": {
+   "source_objects": ["objmobwn5"], "profile": "flock", "level": 17,
+   "gen": 2, "types": ["ice", "flying"], "social": "flock", "group_size": [2, 5],
+   "habitat": ["snow", "open", "near_tree"], "avoid": [],
+   "seasons": ["winter"], "time": "day",
+   "evidence": "smobwn5i0 44x56 petit oiseau sombre compact, zmax=256, GML fly+flap+wing. maxhp=3. Murkrow exclu (Metano).",
+   "design_adaptation": true,
+   "note": "Petit volant hivernal : Delibird retenu apres exclusion de Murkrow."
+  }
+ }
+}

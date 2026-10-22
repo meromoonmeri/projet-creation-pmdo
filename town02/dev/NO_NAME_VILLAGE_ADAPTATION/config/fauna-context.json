@@ -1,0 +1,218 @@
+{
+ "schema": "nnv-fauna-context-v1",
+ "purpose": "Population contextuelle : biome + saison + heure + meteo decident QUI est present, avec quelle densite et quel comportement. Ce fichier n'ajoute aucune entite : il decrit les regles que NNVEcology applique aux entites deja injectees et a celles qui seront liberees plus tard.",
+ "principle": "Les 1642 placements certifies ne sont JAMAIS remplaces. Les variantes s'ajoutent au systeme de vie ; elles ne le reecrivent pas.",
+
+ "weather_states": {
+  "clear":  {"desc": "temps degage", "activity": 1.0},
+  "rain":   {"desc": "pluie", "activity": 0.75},
+  "storm":  {"desc": "orage", "activity": 0.45},
+  "snow":   {"desc": "neige", "activity": 0.7},
+  "fog":    {"desc": "brouillard", "activity": 0.8}
+ },
+
+ "time_states": {
+  "day":     {"desc": "journee"},
+  "evening": {"desc": "crepuscule"},
+  "night":   {"desc": "nuit"}
+ },
+
+ "rules": {
+  "density_multiplier": "la densite d'une espece est multipliee par son facteur saison x heure x meteo ; 0 signifie absente",
+  "never_spawn_in_obstacle": "toute apparition contextuelle repasse par les memes gardes de terrain que l'injection initiale",
+  "no_vegetative": "une espece presente doit avoir un profil comportemental actif ou un etat d'immobilite nomme",
+  "fail_closed": "sans preuve de terrain pour la saison concernee, l'espece reste HELD"
+ },
+
+ "species_context": {
+  "vivillon": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.6, "winter": 0.0},
+   "time": {"day": 1.0, "evening": 0.5, "night": 0.0},
+   "weather": {"clear": 1.0, "rain": 0.2, "storm": 0.0, "fog": 0.6, "snow": 0.0},
+   "biomes": ["grass", "plant", "near_tree"],
+   "note": "papillon diurne : disparait la nuit et sous l'orage, se refugie sous le couvert"
+  },
+  "cutiefly": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.4, "winter": 0.0},
+   "time": {"day": 1.0, "evening": 0.6, "night": 0.0},
+   "weather": {"clear": 1.0, "rain": 0.1, "storm": 0.0, "fog": 0.5, "snow": 0.0},
+   "biomes": ["plant", "grass"],
+   "note": "butineur : suit la floraison, absent hors saison des fleurs"
+  },
+  "volbeat": {
+   "seasons": {"spring": 0.8, "summer": 1.0, "autumn": 0.6, "winter": 0.0},
+   "time": {"day": 0.0, "evening": 0.7, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 0.3, "storm": 0.0, "fog": 0.9, "snow": 0.0},
+   "biomes": ["grass", "near_water", "near_tree"],
+   "note": "strictement nocturne : c'est la nuit que la zone s'allume"
+  },
+  "illumise": {
+   "seasons": {"spring": 0.6, "summer": 1.0, "autumn": 0.3, "winter": 0.0},
+   "time": {"day": 0.0, "evening": 0.6, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 0.3, "storm": 0.0, "fog": 0.9, "snow": 0.0},
+   "biomes": ["grass", "near_tree", "plant"],
+   "note": "nocturne, accompagne Volbeat"
+  },
+  "fletchling": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 1.0, "winter": 0.5},
+   "time": {"day": 1.0, "evening": 0.6, "night": 0.0},
+   "weather": {"clear": 1.0, "rain": 0.5, "storm": 0.1, "fog": 0.7, "snow": 0.4},
+   "biomes": ["grass", "near_tree", "open"],
+   "note": "present toute l'annee, se rarefie l'hiver ; dort la nuit"
+  },
+  "politoed": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.7, "winter": 0.1},
+   "time": {"day": 0.8, "evening": 1.0, "night": 0.9},
+   "weather": {"clear": 0.8, "rain": 1.0, "storm": 0.9, "fog": 1.0, "snow": 0.1},
+   "biomes": ["near_water", "marsh"],
+   "note": "batracien : PLUS actif sous la pluie, hiverne quasiment"
+  },
+  "jumpluff": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.5, "winter": 0.0},
+   "time": {"day": 1.0, "evening": 0.7, "night": 0.2},
+   "weather": {"clear": 1.0, "rain": 0.3, "storm": 0.0, "fog": 0.6, "snow": 0.0},
+   "biomes": ["grass", "open", "near_tree"],
+   "note": "graine volante : l'orage la disperse"
+  },
+  "magikarp": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.8, "winter": 0.4},
+   "time": {"day": 1.0, "evening": 1.0, "night": 0.8},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 0.7, "fog": 1.0, "snow": 0.5},
+   "biomes": ["water"],
+   "note": "aquatique : la meteo de surface l'affecte peu"
+  },
+  "barboach": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.8, "winter": 0.5},
+   "time": {"day": 0.7, "evening": 1.0, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 0.8, "fog": 1.0, "snow": 0.5},
+   "biomes": ["water"],
+   "note": "fouisseur de vase, plus actif au crepuscule"
+  },
+  "surskit": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.4, "winter": 0.0},
+   "time": {"day": 1.0, "evening": 0.8, "night": 0.4},
+   "weather": {"clear": 1.0, "rain": 0.6, "storm": 0.2, "fog": 0.9, "snow": 0.0},
+   "biomes": ["water", "marsh"],
+   "note": "patineur de surface : l'orage brise la surface qu'il exploite"
+  },
+  "wingull": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.9, "winter": 0.6},
+   "time": {"day": 1.0, "evening": 0.7, "night": 0.1},
+   "weather": {"clear": 1.0, "rain": 0.8, "storm": 0.4, "fog": 0.5, "snow": 0.4},
+   "biomes": ["near_water", "open", "water"],
+   "note": "oiseau marin resistant au mauvais temps"
+  },
+  "bellsprout": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.7, "winter": 0.2},
+   "time": {"day": 1.0, "evening": 1.0, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 0.8, "fog": 1.0, "snow": 0.2},
+   "biomes": ["grass", "plant", "marsh"],
+   "note": "sessile : toujours la, mais se retracte l'hiver"
+  },
+  "cradily": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 1.0, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 1.0, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 1.0, "fog": 1.0, "snow": 1.0},
+   "biomes": ["marsh", "near_water", "grass"],
+   "status": "HELD",
+   "note": "toutes ses occurrences sont dans rmcave1* : aucune preuve de terrain"
+  },
+  "sandshrew": {
+   "seasons": {"spring": 1.0, "summer": 1.0, "autumn": 0.8, "winter": 0.3},
+   "time": {"day": 1.0, "evening": 0.6, "night": 0.3},
+   "weather": {"clear": 1.0, "rain": 0.2, "storm": 0.0, "fog": 0.7, "snow": 0.1},
+   "biomes": ["open", "near_rock"],
+   "status": "HELD",
+   "note": "fouisseur : deteste la pluie ; occurrences en rmcave1* sans preuve"
+  },
+
+  "ledyba": {
+   "seasons": {"spring": 0.4, "summer": 0.3, "autumn": 1.0, "winter": 0.0},
+   "time": {"day": 1.0, "evening": 0.6, "night": 0.1},
+   "weather": {"clear": 1.0, "rain": 0.2, "storm": 0.0, "fog": 0.6, "snow": 0.0},
+   "biomes": ["near_tree", "plant", "grass"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "coccinelle d'automne : grappes sur les troncs avant l'hiver"
+  },
+  "ariados": {
+   "seasons": {"spring": 0.2, "summer": 0.3, "autumn": 1.0, "winter": 0.1},
+   "time": {"day": 0.2, "evening": 0.8, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 0.4, "storm": 0.1, "fog": 1.0, "snow": 0.0},
+   "biomes": ["near_tree", "plant"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "embusque nocturne : le brouillard est son meilleur allie"
+  },
+  "dwebble": {
+   "seasons": {"spring": 0.5, "summer": 0.6, "autumn": 1.0, "winter": 0.3},
+   "time": {"day": 1.0, "evening": 0.8, "night": 0.6},
+   "weather": {"clear": 1.0, "rain": 0.7, "storm": 0.4, "fog": 0.9, "snow": 0.2},
+   "biomes": ["near_rock", "near_water", "open"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "territorial : cherche une roche a habiter"
+  },
+  "chinchou": {
+   "seasons": {"spring": 0.5, "summer": 0.6, "autumn": 1.0, "winter": 0.4},
+   "time": {"day": 0.2, "evening": 0.8, "night": 1.0},
+   "weather": {"clear": 1.0, "rain": 0.9, "storm": 0.6, "fog": 1.0, "snow": 0.3},
+   "biomes": ["water"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "bioluminescent : remonte la nuit, invisible en plein jour"
+  },
+  "swanna": {
+   "seasons": {"spring": 0.6, "summer": 0.5, "autumn": 1.0, "winter": 0.2},
+   "time": {"day": 1.0, "evening": 0.7, "night": 0.2},
+   "weather": {"clear": 1.0, "rain": 0.8, "storm": 0.3, "fog": 0.6, "snow": 0.2},
+   "biomes": ["near_water", "water"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "echassier migrateur : passage d'automne"
+  },
+  "lotad": {
+   "seasons": {"spring": 0.7, "summer": 0.8, "autumn": 1.0, "winter": 0.1},
+   "time": {"day": 1.0, "evening": 0.9, "night": 0.7},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 0.7, "fog": 1.0, "snow": 0.1},
+   "biomes": ["water", "marsh"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "nenuphar flottant, indifferent a la pluie"
+  },
+  "swinub": {
+   "seasons": {"spring": 0.3, "summer": 0.0, "autumn": 0.4, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 0.8, "night": 0.6},
+   "weather": {"clear": 1.0, "rain": 0.5, "storm": 0.3, "fog": 0.8, "snow": 1.0},
+   "biomes": ["snow", "open", "grass"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "broute sous la neige : la neige AUGMENTE son activite"
+  },
+  "piloswine": {
+   "seasons": {"spring": 0.2, "summer": 0.0, "autumn": 0.3, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 1.0, "night": 0.8},
+   "weather": {"clear": 1.0, "rain": 0.4, "storm": 0.3, "fog": 0.9, "snow": 1.0},
+   "biomes": ["snow", "open", "grass"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "predateur hivernal, charge sous la neige"
+  },
+  "crabrawler": {
+   "seasons": {"spring": 0.3, "summer": 0.2, "autumn": 0.5, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 0.9, "night": 0.7},
+   "weather": {"clear": 1.0, "rain": 0.6, "storm": 0.4, "fog": 0.8, "snow": 1.0},
+   "biomes": ["near_rock", "snow", "open"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "territorial : se dispute les rochers, y compris avec Dwebble"
+  },
+  "delibird": {
+   "seasons": {"spring": 0.2, "summer": 0.0, "autumn": 0.4, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 0.7, "night": 0.3},
+   "weather": {"clear": 1.0, "rain": 0.4, "storm": 0.2, "fog": 0.6, "snow": 1.0},
+   "biomes": ["snow", "open", "near_tree"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "vol en groupe dans la neige"
+  },
+  "ducklett": {
+   "seasons": {"spring": 0.5, "summer": 0.3, "autumn": 0.6, "winter": 1.0},
+   "time": {"day": 1.0, "evening": 0.7, "night": 0.3},
+   "weather": {"clear": 1.0, "rain": 1.0, "storm": 0.5, "fog": 0.8, "snow": 0.9},
+   "biomes": ["near_water", "water"],
+   "status": "HELD_MISSING_SEASON",
+   "note": "hiverne sur les plans d'eau non geles"
+  }
+ }
+}

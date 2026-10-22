@@ -1,0 +1,628 @@
+{
+  "id": "mt_blaze_peak",
+  "aliases": [],
+  "name": {
+    "en": "Mt. Blaze Peak",
+    "fr": "Cime du Mont Cendré"
+  },
+  "chapter": 10,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Blaze Peak (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtBlazePeak) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 10. Recoupé avec Bulbapedia (page « Mt. Blaze Peak »).",
+  "comment": "Mt. Blaze Peak staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 2,
+  "biome": "blaze_peak",
+  "level": 32,
+  "rescues": 2,
+  "released": false,
+  "music": "Mt. Blaze.ogg",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 800,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 24
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 4,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "mt_blaze_floor",
+    "wall": "mt_blaze_wall",
+    "secondary": "mt_blaze_secondary",
+    "name": "mt_blaze",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Mt. Blaze Peak; source tileset IDs retained per floor."
+  },
+  "segments": [
+    {
+      "name": "blaze_peak",
+      "floors": [
+        1,
+        2
+      ],
+      "biome": "blaze_peak",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 22,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "room_ratio": [
+              65,
+              90
+            ],
+            "branch_ratio": [
+              50,
+              85
+            ],
+            "connect_percent": 15,
+            "combine_rate": 0,
+            "no_forced_branches": false
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 18,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "grid_room_ratio": 75,
+            "grid_hall_ratio": 55,
+            "connect_percent": 20,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "fearow",
+          "level": [
+            32,
+            32
+          ],
+          "weight": 5000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "arcanine",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "fearow",
+          "level": [
+            32,
+            32
+          ],
+          "weight": 5000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "arcanine",
+          "level": [
+            33,
+            33
+          ],
+          "weight": 5000,
+          "floors": [
+            2,
+            2
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "gummi_red",
+              "weight": 2500,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 2500,
+              "floors": [
+                2,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "00062e16001406000000000000000004040100140528000206000000",
+            "layout": 0,
+            "room_density": 6,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 20,
+            "item_density": 4,
+            "trap_density": 4,
+            "tileset": 46,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            3,
+            7
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "00072e16001406000000000000000004040200140528000206000000",
+            "layout": 0,
+            "room_density": 7,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 20,
+            "item_density": 4,
+            "trap_density": 4,
+            "tileset": 46,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    300,
+    400
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 22,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "room_ratio": [
+          65,
+          90
+        ],
+        "branch_ratio": [
+          50,
+          85
+        ],
+        "connect_percent": 15,
+        "combine_rate": 0,
+        "no_forced_branches": false
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 18,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "grid_room_ratio": 75,
+        "grid_hall_ratio": 55,
+        "connect_percent": 20,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        3
+      ],
+      "amount": [
+        1,
+        2
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true
+        }
+      ]
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "d09p02",
+    "relay_ground": "",
+    "canonical_end_ground": "d09p03",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d09p03.rsground",
+    "cinematic_ground": "d09p03",
+    "battle_ground": "d09p03",
+    "rule": "Canonical fight on the .rsmap counterpart of the canonical Ground; post-battle scene on the same Ground.",
+    "fixed_floor": 3,
+    "fixed_room": 4,
+    "rsmap_source": "Data/Map/mt_blaze_peak_boss.rsmap",
+    "canonical_layout_source": "Data/Ground/d09p03.rsground"
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "d09p02",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d09p02"
+      },
+      {
+        "scene": "d09p03",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d09p03"
+      },
+      {
+        "scene": "mont_cendre_pied",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/mont_cendre_pied"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d09p01.cif.json",
+      "RESERVE/red_cinematics/d09p02.cif.json",
+      "RESERVE/red_cinematics/d09p03.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d09p03",
+    "map": "mt_blaze_peak_boss",
+    "source_floor": 3,
+    "source_fixed_room": 4,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "moltres",
+        "level": [
+          32,
+          32
+        ],
+        "source_level": 32,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d09p03 via the .rsmap counterpart mt_blaze_peak_boss; no invented arena."
+  },
+  "fixed_grounds": {
+    "entrance": "d09p02",
+    "end": "d09p03"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/mt_blaze_peak.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "mt_blaze_peak",
+    "segments": 1,
+    "entrance_ground": "d09p02",
+    "relay_ground": "d09p02",
+    "end_ground": "d09p03",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d09p03",
+        "reason": "Ground final canonique PMD Red — scène de fin post-boss"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/mt_blaze_peak/init.lua",
+    "archived_script": "",
+    "notes": [
+      "Chaîne canonique : mt_blaze_peak (3F dont 1 fixed_room boss) -> d09p03 (scène de fin)"
+    ],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "midpoint": {},
+  "pokemon": [],
+  "minibosses": [],
+  "fixed_segments": [
+    {
+      "role": "canonical_final_boss",
+      "map": "mt_blaze_peak_boss",
+      "ground": "d09p03",
+      "source_floor": 3,
+      "provenance": "PMD_RED_ROM",
+      "boss_species": [
+        "moltres"
+      ],
+      "comment": "PMD Red canonical FIXED_ROOM_MT_BLAZE_PEAK_MOLTRES on source floor 3: exact .rsmap counterpart of d09p03.rsground (via tools/make_ground_arena.py). Not an unrelated arena.",
+      "is_relevant": false,
+      "source_fixed_room": 4,
+      "source_pokemon": [
+        {
+          "species": "MONSTER_MOLTRES",
+          "level": 32,
+          "probability": 10000
+        },
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    }
+  ],
+  "canonical_items_without_pmdo_equivalent": [],
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_blaze_peak entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_09",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_blaze."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d09p02.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d09p03.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d09p02.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d09p03.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  }
+}

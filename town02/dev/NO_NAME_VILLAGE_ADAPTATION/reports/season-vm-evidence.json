@@ -1,0 +1,264 @@
+{
+  "evidence": [
+    {
+      "archive_member": "gml_Object_objstage_Step_2.gml",
+      "lines": "1-680",
+      "sha256": "a1898007a532177b028af0739802a10e46c2085d4241a426ada7a982932b1770"
+    },
+    {
+      "archive_member": "gml_Object_objwinter_Create_0.gml",
+      "lines": "1-56",
+      "sha256": "d8c313bab39f9d2aecc909b874c9d5b5da89839d78634aa6e0f1ae7af416bd93"
+    },
+    {
+      "archive_member": "gml_Object_objwinter_Step_0.gml",
+      "lines": "1-57",
+      "sha256": "03d6c9e0b7f197d8a2c8d08ad97bfff0625fb2e1f0cb6852d1204cda49f36428"
+    },
+    {
+      "archive_member": "gml_GlobalScript_scrseasonmap.gml",
+      "lines": "1-17",
+      "sha256": "dd443e05d2914173fc8ff329949f81aa5d68164267b66bfd3f29b7282df0ef05"
+    },
+    {
+      "archive_member": "gml_GlobalScript_scrrmsummercount.gml",
+      "lines": "1-29",
+      "sha256": "ec498bc083c744054a948a4351f299a5d9cce4e66099f661772922b401ef35a5"
+    },
+    {
+      "archive_member": "gml_GlobalScript_scrrmautumncount.gml",
+      "lines": "1-29",
+      "sha256": "11104cd3cf50c256eca6a1458761859cb90b0f253eee88500f501c02a8ab241c"
+    },
+    {
+      "archive_member": "gml_GlobalScript_scrrmwintercount.gml",
+      "lines": "1-35",
+      "sha256": "43eea7d67086bf5d21816b3b950e02bcc3c31e9f0c654e5791fd138b3a6247d3"
+    }
+  ],
+  "gml_archive": "extracted/official/decompiled-gml.tar.gz",
+  "limitations": [],
+  "raw_vm_archive": "extracted/official/inventory/Code.json.gz",
+  "schema": "no-name-village.season-vm-evidence.v2",
+  "seasons": {
+    "autumn": {
+      "below_sprite_prefix": "sau",
+      "boulder_sprites": [
+        "sboulder0",
+        "sboulder1"
+      ],
+      "global_value": 2,
+      "special_static_replacement": {
+        "sprite_id_2566": "srm542"
+      },
+      "stage_condition": "3 <= stage < 4",
+      "tilesets": {
+        "cliff": 24,
+        "cliff0": 24,
+        "grass0": 21,
+        "grass1": 21,
+        "ground": 21,
+        "groundtex": 4,
+        "undergrass": 21,
+        "water": 9
+      },
+      "tree_sprites": {
+        "20_percent": [
+          "bgautree_",
+          "bgautree0_"
+        ],
+        "80_percent": [
+          "bgautree",
+          "bgautree0"
+        ]
+      },
+      "visibility": {
+        "endwater": false,
+        "groundplot": true,
+        "vegetation": false,
+        "watereffect": true
+      }
+    },
+    "spring": {
+      "below_sprite_prefix": "ssp",
+      "boulder_sprites": [
+        "sboulder0",
+        "sboulder1"
+      ],
+      "global_value": 0,
+      "stage_condition": "stage < 2",
+      "tilesets": {
+        "cliff": 23,
+        "cliff0": 23,
+        "grass0": 29,
+        "grass1": 29,
+        "ground": 29,
+        "groundtex": 2,
+        "undergrass": 29,
+        "water": 9
+      },
+      "timeofday_override": {
+        "condition": "global.timeofday == 3 && room == playerhouse",
+        "grass0": 19,
+        "grass1": 19,
+        "ground": 19
+      },
+      "tree_sprites": [
+        "bgtree",
+        "bgtree0"
+      ],
+      "visibility": {
+        "endwater": false,
+        "groundplot": true,
+        "vegetation": true,
+        "watereffect": true
+      }
+    },
+    "summer": {
+      "below_sprite_prefix": "ssm",
+      "boulder_sprites": [
+        "sboulder0",
+        "sboulder1"
+      ],
+      "global_value": 1,
+      "stage_condition": "2 <= stage < 3",
+      "tilesets": {
+        "cliff": 20,
+        "cliff0": 20,
+        "grass0": 8,
+        "grass1": 8,
+        "ground": 8,
+        "groundtex": 2,
+        "undergrass": 8,
+        "water": 9
+      },
+      "tree_sprites": [
+        "bgsmtree",
+        "bgsmtree0"
+      ],
+      "visibility": {
+        "endwater": false,
+        "groundplot": true,
+        "vegetation": true,
+        "watereffect": true
+      }
+    },
+    "winter": {
+      "below_sprite_prefix": "swn",
+      "boulder_sprites": [
+        "swnrock3",
+        "swnrock2"
+      ],
+      "controller": "objwinter",
+      "global_value": 3,
+      "special_static_replacement": {
+        "sprite_id_2566": "srm543"
+      },
+      "stage_condition": "4 <= stage < 8",
+      "tilesets": {
+        "cliff": 12,
+        "cliff0": 12,
+        "grass0": 27,
+        "grass1": 27,
+        "ground": 27,
+        "groundtex": 5,
+        "undergrass": 27,
+        "water": 17
+      },
+      "tree_sprites": [
+        "bgwntree",
+        "bgwntree0"
+      ],
+      "visibility": {
+        "endwater": false,
+        "groundplot": false,
+        "vegetation": false,
+        "watereffect": "visible only when objhalfbf exists"
+      }
+    }
+  },
+  "selection": {
+    "global_variable": "global.season",
+    "normal_room_stage_mapping": {
+      "autumn": "3 <= stage < 4",
+      "spring": "stage < 2",
+      "summer": "2 <= stage < 3",
+      "winter": "4 <= stage < 8"
+    },
+    "room_family_function": "scrseasonmap",
+    "room_local_applied_cache": "objstage.season",
+    "special_values": {
+      "4": "blue-forest family (scrseasonmap(room) == 4)",
+      "5": "black-sea family (scrseasonmap(room) == 5)",
+      "6": "ending winter/black-snow variant"
+    }
+  },
+  "status": "SOURCE_PROVEN_EXACT_VM_LOGIC",
+  "winter_particles": {
+    "base_particle": {
+      "alpha": [
+        0.5,
+        1,
+        0
+      ],
+      "color": 16777215,
+      "direction": 270,
+      "life_seconds_range": [
+        2,
+        4
+      ],
+      "scale": 4,
+      "shape": 0,
+      "size_range": [
+        1,
+        2
+      ],
+      "speed_range": [
+        3,
+        1
+      ]
+    },
+    "created_by": "objwinter",
+    "footprints": {
+      "condition": "grass0/grass1/ground tile present and player ford > 0",
+      "sound": "snpfssnow0",
+      "trail_parameters": [
+        1334,
+        73,
+        300,
+        0.7,
+        1
+      ],
+      "trail_sprite_id": 2500
+    },
+    "spawn_layer": "shadows",
+    "sprite_particles": [
+      {
+        "alpha": [
+          0,
+          0.6,
+          0
+        ],
+        "size": 2,
+        "speed_range": [
+          6,
+          2
+        ],
+        "sprite_id": 2255
+      },
+      {
+        "alpha": [
+          0,
+          0.3,
+          0
+        ],
+        "size": 3,
+        "speed_range": [
+          9,
+          3
+        ],
+        "sprite_id": 2562
+      }
+    ]
+  }
+}

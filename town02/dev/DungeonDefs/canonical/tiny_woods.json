@@ -1,0 +1,697 @@
+{
+  "id": "tiny_woods",
+  "aliases": [
+    "foret_tendre_oree"
+  ],
+  "name": {
+    "en": "Tiny Woods",
+    "fr": "Forêt Tendre"
+  },
+  "chapter": 7,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Tiny Woods (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/TinyWoods) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 7. Recoupé avec Bulbapedia (page « Tiny Woods »).",
+  "comment": "Tiny Woods staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 3,
+  "biome": "young_woods",
+  "level": 20,
+  "rescues": 2,
+  "released": false,
+  "music": "Tiny Woods.ogg",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 20
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": false,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "tiny_woods_floor",
+    "wall": "tiny_woods_wall",
+    "secondary": "tiny_woods_secondary",
+    "name": "tiny_woods",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Tiny Woods; source tileset IDs retained per floor."
+  },
+  "segments": [
+    {
+      "name": "young_woods",
+      "floors": [
+        1,
+        3
+      ],
+      "biome": "young_woods",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24,
+          "overrides": {
+            "path": "circle",
+            "grid_x": [
+              3,
+              5
+            ],
+            "grid_y": [
+              3,
+              4
+            ],
+            "circle_room_ratio": [
+              65,
+              90
+            ],
+            "circle_paths": [
+              1,
+              3
+            ],
+            "connect_percent": 10,
+            "combine_rate": 0
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 16,
+          "overrides": {
+            "grid_x": [
+              3,
+              5
+            ],
+            "grid_y": [
+              3,
+              4
+            ],
+            "grid_room_ratio": 75,
+            "grid_hall_ratio": 50,
+            "connect_percent": 10,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "pidgey",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3333,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "sunkern",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3334,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "wurmple",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3333,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "pidgey",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3333,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "sunkern",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3334,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "wurmple",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 3333,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "pidgey",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2857,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "exeggcute",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 1429,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "sunkern",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2857,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "wurmple",
+          "level": [
+            20,
+            20
+          ],
+          "weight": 2857,
+          "floors": [
+            3,
+            3
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "berry_oran",
+              "weight": 7500,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 2500,
+              "floors": [
+                3,
+                3
+              ]
+            }
+          ]
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "looping",
+              "weight": 24,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ],
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 16,
+              "overrides": {
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 50,
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            2,
+            3
+          ],
+          "initial_mobs": [
+            2,
+            5
+          ],
+          "trap_amount": [
+            0,
+            1
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01050e01000f04000000000000000002000100050000000101000000",
+            "layout": 1,
+            "room_density": 5,
+            "floor_connectivity": 15,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 2,
+            "trap_density": 0,
+            "tileset": 14,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "looping",
+              "weight": 24,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ],
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 16,
+              "overrides": {
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 50,
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            2,
+            3
+          ],
+          "initial_mobs": [
+            2,
+            5
+          ],
+          "trap_amount": [
+            0,
+            1
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01060e01000f04000000000000000002000200050000000101000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 15,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 2,
+            "trap_density": 0,
+            "tileset": 14,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "looping",
+              "weight": 24,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "circle_room_ratio": [
+                  65,
+                  90
+                ],
+                "circle_paths": [
+                  1,
+                  3
+                ],
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 16,
+              "overrides": {
+                "grid_x": [
+                  3,
+                  5
+                ],
+                "grid_y": [
+                  3,
+                  4
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 50,
+                "connect_percent": 10,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            2,
+            3
+          ],
+          "initial_mobs": [
+            2,
+            5
+          ],
+          "trap_amount": [
+            0,
+            1
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01060e01000f04000000000000000002000300050000000101000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 15,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 2,
+            "trap_density": 0,
+            "tileset": 14,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    240,
+    322
+  ],
+  "profiles": [
+    {
+      "name": "looping",
+      "weight": 24,
+      "overrides": {
+        "path": "circle",
+        "grid_x": [
+          3,
+          5
+        ],
+        "grid_y": [
+          3,
+          4
+        ],
+        "circle_room_ratio": [
+          65,
+          90
+        ],
+        "circle_paths": [
+          1,
+          3
+        ],
+        "connect_percent": 10,
+        "combine_rate": 0
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 16,
+      "overrides": {
+        "grid_x": [
+          3,
+          5
+        ],
+        "grid_y": [
+          3,
+          4
+        ],
+        "grid_room_ratio": 75,
+        "grid_hall_ratio": 50,
+        "connect_percent": 10,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM trapDensity=0 on every floor"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "foret_tendre_oree",
+    "relay_ground": "",
+    "canonical_end_ground": "d01p02",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d01p02.rsground",
+    "cinematic_ground": "d01p02",
+    "battle_ground": "d01p02",
+    "rule": "Canonical rescue/end scene on the source Ground; no invented battle."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "foret_tendre_oree",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/foret_tendre_oree"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d01p01.cif.json",
+      "RESERVE/red_cinematics/d01p02.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d01p02",
+    "provenance": "PMD_RED_ROM",
+    "notes": "Canonical end Ground d01p02 — the ROM has no in-dungeon boss fight for this dungeon, but the canonical end scene owns any potential battle space (no invented dedicated arena)."
+  },
+  "fixed_grounds": {
+    "entrance": "foret_tendre_oree",
+    "end": "d01p02"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/tiny_woods.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "tiny_woods",
+    "segments": 1,
+    "entrance_ground": "foret_tendre_oree",
+    "relay_ground": "",
+    "end_ground": "d01p02",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d01p02",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/tiny_woods/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "pokemon": [],
+  "minibosses": [],
+  "midpoint": {},
+  "canonical_items_without_pmdo_equivalent": [],
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete tiny_woods entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/tiny_woods_rom_manifest.json",
+          "definition_floor_mode": "all",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/tiny_woods_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_01",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/tiny_woods_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/tiny_woods_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet tiny_woods."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d01p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d01p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d01p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d01p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  }
+}

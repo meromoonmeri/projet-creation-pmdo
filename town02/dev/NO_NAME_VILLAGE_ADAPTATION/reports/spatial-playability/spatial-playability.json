@@ -1,0 +1,360 @@
+{
+  "conclusion": "NNV_NEEDS_SCALE_ADAPTATION -> x0.25",
+  "contradicts_previous_audit": {
+    "previous_commit": "d69115848b9ce5b7829afe5d6dccbd902c10cf7e",
+    "previous_conclusion": "x0.125 (and an earlier x4 for PMU assets)",
+    "why_it_was_wrong": "the earlier audit compared ARTWORK resolution (art pixels) instead of WORLD FOOTPRINT (collision cells). The collision grid is already 8 px in NNV, so it measures world space in PMDO's own unit. Matching a 118 px drawing to a 114 px drawing said nothing about how much world the house occupies, nor about path widths, plots and distances."
+  },
+  "criterion": "does a PMDO-sized Pokemon feel like it belongs in NNV: paths, plots, structures, distances and open space, not building size alone",
+  "hypotheses": {
+    "x0.125": {
+      "checks": {
+        "path_median_cells": {
+          "error_vs_median_percent": 50.0,
+          "in_band": false,
+          "pmdo_band": [
+            6.0,
+            18.4
+          ],
+          "pmdo_median": 10.0,
+          "value_cells": 5.0,
+          "value_in_pokemon": 2.5,
+          "value_px": 40.0
+        },
+        "path_p75_cells": {
+          "error_vs_median_percent": 30.9,
+          "in_band": true,
+          "pmdo_band": [
+            10.3,
+            26.0
+          ],
+          "pmdo_median": 17.0,
+          "value_cells": 11.8,
+          "value_in_pokemon": 5.88,
+          "value_px": 94.0
+        },
+        "structure_span_median_cells": {
+          "error_vs_median_percent": 85.1,
+          "in_band": false,
+          "pmdo_band": [
+            12.0,
+            66.0
+          ],
+          "pmdo_median": 46.0,
+          "value_cells": 6.9,
+          "value_in_pokemon": 3.44,
+          "value_px": 55.0
+        }
+      },
+      "divisor": 8,
+      "free_percent_note": "scale-invariant ratio; no factor can change it",
+      "implied_tex_size": 1.0,
+      "in_band_count": 1,
+      "lossless": false,
+      "mean_error_percent": 55.3,
+      "pixel_loss": "yes: exceeds art density 4",
+      "technically_valid": true,
+      "tile_cell_px_after": 8.0
+    },
+    "x0.25": {
+      "checks": {
+        "path_median_cells": {
+          "error_vs_median_percent": 0.0,
+          "in_band": true,
+          "pmdo_band": [
+            6.0,
+            18.4
+          ],
+          "pmdo_median": 10.0,
+          "value_cells": 10.0,
+          "value_in_pokemon": 5.0,
+          "value_px": 80.0
+        },
+        "path_p75_cells": {
+          "error_vs_median_percent": 38.2,
+          "in_band": true,
+          "pmdo_band": [
+            10.3,
+            26.0
+          ],
+          "pmdo_median": 17.0,
+          "value_cells": 23.5,
+          "value_in_pokemon": 11.75,
+          "value_px": 188.0
+        },
+        "structure_span_median_cells": {
+          "error_vs_median_percent": 70.1,
+          "in_band": true,
+          "pmdo_band": [
+            12.0,
+            66.0
+          ],
+          "pmdo_median": 46.0,
+          "value_cells": 13.8,
+          "value_in_pokemon": 6.88,
+          "value_px": 110.0
+        }
+      },
+      "divisor": 4,
+      "free_percent_note": "scale-invariant ratio; no factor can change it",
+      "implied_tex_size": 2.0,
+      "in_band_count": 3,
+      "lossless": true,
+      "mean_error_percent": 36.1,
+      "pixel_loss": "none",
+      "technically_valid": true,
+      "tile_cell_px_after": 16.0
+    },
+    "x0.5": {
+      "checks": {
+        "path_median_cells": {
+          "error_vs_median_percent": 100.0,
+          "in_band": false,
+          "pmdo_band": [
+            6.0,
+            18.4
+          ],
+          "pmdo_median": 10.0,
+          "value_cells": 20.0,
+          "value_in_pokemon": 10.0,
+          "value_px": 160.0
+        },
+        "path_p75_cells": {
+          "error_vs_median_percent": 176.5,
+          "in_band": false,
+          "pmdo_band": [
+            10.3,
+            26.0
+          ],
+          "pmdo_median": 17.0,
+          "value_cells": 47.0,
+          "value_in_pokemon": 23.5,
+          "value_px": 376.0
+        },
+        "structure_span_median_cells": {
+          "error_vs_median_percent": 40.2,
+          "in_band": true,
+          "pmdo_band": [
+            12.0,
+            66.0
+          ],
+          "pmdo_median": 46.0,
+          "value_cells": 27.5,
+          "value_in_pokemon": 13.75,
+          "value_px": 220.0
+        }
+      },
+      "divisor": 2,
+      "free_percent_note": "scale-invariant ratio; no factor can change it",
+      "implied_tex_size": 4.0,
+      "in_band_count": 1,
+      "lossless": true,
+      "mean_error_percent": 105.6,
+      "pixel_loss": "none",
+      "technically_valid": true,
+      "tile_cell_px_after": 32.0
+    },
+    "x1": {
+      "checks": {
+        "path_median_cells": {
+          "error_vs_median_percent": 300.0,
+          "in_band": false,
+          "pmdo_band": [
+            6.0,
+            18.4
+          ],
+          "pmdo_median": 10.0,
+          "value_cells": 40.0,
+          "value_in_pokemon": 20.0,
+          "value_px": 320.0
+        },
+        "path_p75_cells": {
+          "error_vs_median_percent": 452.9,
+          "in_band": false,
+          "pmdo_band": [
+            10.3,
+            26.0
+          ],
+          "pmdo_median": 17.0,
+          "value_cells": 94.0,
+          "value_in_pokemon": 47.0,
+          "value_px": 752.0
+        },
+        "structure_span_median_cells": {
+          "error_vs_median_percent": 19.6,
+          "in_band": true,
+          "pmdo_band": [
+            12.0,
+            66.0
+          ],
+          "pmdo_median": 46.0,
+          "value_cells": 55.0,
+          "value_in_pokemon": 27.5,
+          "value_px": 440.0
+        }
+      },
+      "divisor": 1,
+      "free_percent_note": "scale-invariant ratio; no factor can change it",
+      "implied_tex_size": 8.0,
+      "in_band_count": 1,
+      "lossless": true,
+      "mean_error_percent": 257.5,
+      "pixel_loss": "none",
+      "technically_valid": true,
+      "tile_cell_px_after": 64.0
+    }
+  },
+  "measurement_unit": "collision cell = 8 px, identical in PMDO and NNV",
+  "nnv_modified": false,
+  "nnv_native": {
+    "free_percent": 63.4,
+    "grid_cells": [
+      624,
+      624
+    ],
+    "ground": "nnv_rmvillage_summer",
+    "path_median_cells": 40,
+    "path_p75_cells": 94.0,
+    "structure_count": 26,
+    "structure_density_per_1000_cells": 0.067,
+    "structure_span_median_cells": 55.0,
+    "tex_size": 8,
+    "world_px": 4992
+  },
+  "not_applied": "audit only; nothing resized, added, removed or imported",
+  "pmdo_reference": {
+    "corpus_size": 192,
+    "free_percent": {
+      "central_band_d1_d9": [
+        9.6,
+        56.5
+      ],
+      "max": 99.9,
+      "median": 20.9,
+      "min": 5.9
+    },
+    "named_examples": [
+      {
+        "free_percent": 85.9,
+        "grid_cells": [
+          116,
+          96
+        ],
+        "ground": "altere_pond",
+        "path_median_cells": 13.0,
+        "path_p75_cells": 20.0,
+        "structure_count": 35,
+        "structure_density_per_1000_cells": 3.143,
+        "structure_span_median_cells": 4,
+        "tex_size": 1,
+        "world_px": 928
+      },
+      {
+        "free_percent": 25.1,
+        "grid_cells": [
+          84,
+          63
+        ],
+        "ground": "bourg_comptoir",
+        "path_median_cells": 10.0,
+        "path_p75_cells": 15.0,
+        "structure_count": 2,
+        "structure_density_per_1000_cells": 0.378,
+        "structure_span_median_cells": 84.0,
+        "tex_size": 1,
+        "world_px": 672
+      },
+      {
+        "free_percent": 58.1,
+        "grid_cells": [
+          189,
+          189
+        ],
+        "ground": "metano_town",
+        "path_median_cells": 6.0,
+        "path_p75_cells": 11.0,
+        "structure_count": 214,
+        "structure_density_per_1000_cells": 5.991,
+        "structure_span_median_cells": 10.0,
+        "tex_size": 1,
+        "world_px": 1512
+      },
+      {
+        "free_percent": 56.9,
+        "grid_cells": [
+          144,
+          111
+        ],
+        "ground": "t00p01",
+        "path_median_cells": 14.0,
+        "path_p75_cells": 33.0,
+        "structure_count": 28,
+        "structure_density_per_1000_cells": 1.752,
+        "structure_span_median_cells": 9.0,
+        "tex_size": 1,
+        "world_px": 1152
+      },
+      {
+        "free_percent": 19.6,
+        "grid_cells": [
+          120,
+          90
+        ],
+        "ground": "t01p01",
+        "path_median_cells": 6,
+        "path_p75_cells": 9.0,
+        "structure_count": 6,
+        "structure_density_per_1000_cells": 0.556,
+        "structure_span_median_cells": 52.0,
+        "tex_size": 1,
+        "world_px": 960
+      }
+    ],
+    "path_median_cells": {
+      "central_band_d1_d9": [
+        6.0,
+        18.4
+      ],
+      "max": 63.0,
+      "median": 10.0,
+      "min": 4
+    },
+    "path_p75_cells": {
+      "central_band_d1_d9": [
+        10.3,
+        26.0
+      ],
+      "max": 84.0,
+      "median": 17.0,
+      "min": 5.0
+    },
+    "selection": "all TexSize=1 Grounds >= 60 cells wide containing real collision structure",
+    "structure_density_per_1000_cells": {
+      "central_band_d1_d9": [
+        0.3,
+        1.7
+      ],
+      "max": 6.2,
+      "median": 0.6,
+      "min": 0.0
+    },
+    "structure_span_median_cells": {
+      "central_band_d1_d9": [
+        12.0,
+        66.0
+      ],
+      "max": 120.0,
+      "median": 46.0,
+      "min": 0
+    }
+  },
+  "read_only": true,
+  "recommended_divisor": 4,
+  "recommended_factor": "x0.25",
+  "scale_invariant_finding": {
+    "meaning": "NNV is intrinsically more open than the PMDO median. This is a ratio and no scale factor can change it: it is an authored layout property, not a scale bug.",
+    "nnv_free_percent": 63.4,
+    "pmdo_free_percent_median": 20.9
+  },
+  "schema": "new-era.nnv-spatial-playability.v1"
+}

@@ -1,0 +1,97 @@
+{
+  "schema": "new-era.pmu-representative-group.v1",
+  "maps": {
+    "s737": {
+      "roles": ["critical_city", "settlement", "forest", "conditional_collision"],
+      "base_reference": "metano_town",
+      "decoration_reference": "metano_town",
+      "blend_policy": "source_fringe_regions",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Map-local use of the only clean native settlement grammar containing cliffs, river, vegetation, buildings and five decoration strata; layout is rebuilt exclusively from s737 topology. Metano is not selected globally."
+    },
+    "s167": {
+      "roles": ["indoor", "underground", "texsize1"],
+      "base_reference": "guild_second_floor",
+      "decoration_reference": "guild_second_floor",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Static TexSize 1 interior pilot using a complete clean floor/wall/shadow/four-decoration grammar; no guild layout, actors or narrative are copied."
+    },
+    "s1810": {
+      "roles": ["critical_city", "indoor", "forest", "settlement", "conditional_collision"],
+      "base_reference": null,
+      "decoration_reference": null,
+      "blend_policy": "none",
+      "resolution": "BLOCKED",
+      "rationale": "No single clean reference proves the combined indoor + forest + settlement vocabulary, and the compatible candidates split those roles without a proved layer-level mixing contract. No placeholder Ground is allowed."
+    },
+    "s1991": {
+      "roles": ["critical_city", "settlement", "snow"],
+      "base_reference": "metano_town",
+      "decoration_reference": "foret_givree_oree",
+      "blend_policy": "snow_on_open_terrain",
+      "resolution": "REFERENCE_RESOLVED",
+      "maximum_visual_distance": 0.24,
+      "measured_visual_distance": 0.2261,
+      "rationale": "Settlement structure and snowy terrain are resolved from two clean 8 px grammars whose measured profile distance passes the existing 0.24 compatibility gate; no reference layout is copied."
+    },
+    "s10": {
+      "roles": ["forest", "grassland"],
+      "base_reference": "poisonous_forest_entrance",
+      "decoration_reference": "poisonous_forest_entrance",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Complete clean forest grammar with native water, structure, shadow and four decoration layers. The poisonous narrative identity is not copied."
+    },
+    "s41": {
+      "roles": ["cave", "dungeon"],
+      "base_reference": "crooked_cavern_entrance",
+      "decoration_reference": "crooked_cavern_entrance",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Clean native cavern grammar; source topology and fourteen canonical warps define the target layout."
+    },
+    "s98": {
+      "roles": ["water", "coast", "connector"],
+      "base_reference": "altere_pond",
+      "decoration_reference": "altere_pond",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Clean native eight-layer water grammar with animated river, cliffs, shadows and decoration strata."
+    },
+    "s63": {
+      "roles": ["mountain", "snow", "cliff"],
+      "base_reference": "mount_windswept_entrance",
+      "decoration_reference": "foret_givree_oree",
+      "blend_policy": "snow_on_open_terrain",
+      "resolution": "REFERENCE_RESOLVED",
+      "maximum_visual_distance": 0.24,
+      "rationale": "Mountain structure is native; snow coverage is separately gated before composition."
+    },
+    "s301": {
+      "roles": ["ruin", "indoor"],
+      "base_reference": "cloven_ruins_entrance",
+      "decoration_reference": "cloven_ruins_entrance",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "Clean native ruins grammar; one composited PMDO layer is accepted only as visual vocabulary and is redistributed into the five PMU semantic output layers without copying layout."
+    },
+    "s1191": {
+      "roles": ["forest", "entrance", "texsize4"],
+      "base_reference": "poisonous_forest_entrance",
+      "decoration_reference": "poisonous_forest_entrance",
+      "blend_policy": "single_reference",
+      "resolution": "REFERENCE_RESOLVED",
+      "rationale": "TexSize 4 aggregation pilot using one complete clean native forest grammar; source topology remains authoritative and the reference narrative identity is not copied."
+    },
+    "s1034": {
+      "roles": ["cave", "snow", "dungeon", "texsize4_blocked_control"],
+      "base_reference": "metano_cave",
+      "decoration_reference": "foret_givree_oree",
+      "blend_policy": "snow_on_open_terrain",
+      "resolution": "REFERENCE_RESOLVED",
+      "maximum_visual_distance": 0.24,
+      "rationale": "TexSize 4 aggregation pilot combining clean cave and snow grammars only if measured compatibility passes."
+    }
+  }
+}

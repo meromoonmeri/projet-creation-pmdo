@@ -1,0 +1,608 @@
+{
+  "id": "waterfall_pond",
+  "aliases": [],
+  "name": {
+    "en": "Waterfall Pond",
+    "fr": "Étang de la Cascade"
+  },
+  "chapter": 26,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Waterfall Pond (19F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/WaterfallPond) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 26. Recoupé avec Bulbapedia (page « Waterfall Pond »).",
+  "comment": "Définition canonique générée pour le chapitre 26. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 2 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 19,
+  "biome": "pond_shore",
+  "level": 50,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 50
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "unused_waterfall_pond_floor",
+    "wall": "unused_waterfall_pond_wall",
+    "secondary": "unused_waterfall_pond_secondary",
+    "name": "unused_waterfall_pond",
+    "element": "normal"
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_HEAL_SEED",
+    "ITEM_MAX_ELIXIR"
+  ],
+  "segments": [
+    {
+      "name": "pond_shore",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "pond_shore",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "ring",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "barboach",
+          "level": [
+            70,
+            70
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "corphish",
+          "level": [
+            70,
+            70
+          ],
+          "weight": 6,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "goldeen",
+          "level": [
+            70,
+            70
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "lotad",
+          "level": [
+            75,
+            75
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "magikarp",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 1,
+          "floors": [
+            7,
+            10
+          ]
+        },
+        {
+          "species": "mudkip",
+          "level": [
+            73,
+            73
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            3
+          ]
+        },
+        {
+          "species": "poliwag",
+          "level": [
+            85,
+            85
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "poliwhirl",
+          "level": [
+            73,
+            73
+          ],
+          "weight": 4,
+          "floors": [
+            9,
+            10
+          ]
+        },
+        {
+          "species": "squirtle",
+          "level": [
+            71,
+            71
+          ],
+          "weight": 6,
+          "floors": [
+            8,
+            10
+          ]
+        },
+        {
+          "species": "surskit",
+          "level": [
+            69,
+            69
+          ],
+          "weight": 4,
+          "floors": [
+            4,
+            7
+          ]
+        },
+        {
+          "species": "totodile",
+          "level": [
+            74,
+            74
+          ],
+          "weight": 6,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "wooper",
+          "level": [
+            77,
+            77
+          ],
+          "weight": 5,
+          "floors": [
+            3,
+            6
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_geo_pebble",
+              "weight": 20
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 7
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 2
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 4
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "pond_depths",
+      "floors": [
+        11,
+        19
+      ],
+      "biome": "pond_depths",
+      "profiles": [
+        {
+          "name": "ring",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "looping",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "corphish",
+          "level": [
+            70,
+            70
+          ],
+          "weight": 7,
+          "floors": [
+            11,
+            12
+          ]
+        },
+        {
+          "species": "feebas",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 1,
+          "floors": [
+            16,
+            19
+          ]
+        },
+        {
+          "species": "lombre",
+          "level": [
+            70,
+            70
+          ],
+          "weight": 6,
+          "floors": [
+            13,
+            16
+          ]
+        },
+        {
+          "species": "magikarp",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 1,
+          "floors": [
+            11,
+            11
+          ]
+        },
+        {
+          "species": "marshtomp",
+          "level": [
+            73,
+            73
+          ],
+          "weight": 6,
+          "floors": [
+            13,
+            18
+          ]
+        },
+        {
+          "species": "masquerain",
+          "level": [
+            85,
+            85
+          ],
+          "weight": 4,
+          "floors": [
+            12,
+            14
+          ]
+        },
+        {
+          "species": "poliwhirl",
+          "level": [
+            73,
+            73
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            13
+          ]
+        },
+        {
+          "species": "poliwrath",
+          "level": [
+            75,
+            75
+          ],
+          "weight": 4,
+          "floors": [
+            16,
+            19
+          ]
+        },
+        {
+          "species": "quagsire",
+          "level": [
+            69,
+            69
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            19
+          ]
+        },
+        {
+          "species": "squirtle",
+          "level": [
+            71,
+            71
+          ],
+          "weight": 7,
+          "floors": [
+            11,
+            12
+          ]
+        },
+        {
+          "species": "whiscash",
+          "level": [
+            75,
+            75
+          ],
+          "weight": 5,
+          "floors": [
+            15,
+            19
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_geo_pebble",
+              "weight": 20
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 7
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 2
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 4
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    620,
+    816
+  ],
+  "profiles": [
+    {
+      "name": "looping",
+      "weight": 10
+    },
+    {
+      "name": "ring",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        19
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "seed_blast",
+          "price": 100,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_luminous",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 3
+        },
+        {
+          "item": "orb_scanner",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        19
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Seal Trap",
+        "Sticky Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [],
+    "red_cinematics": [],
+    "zone_script": "Data/Script/halcyon/zone/waterfall_pond",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/waterfall_pond.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "waterfall_pond",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "waterfall_pond",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/waterfall_pond/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

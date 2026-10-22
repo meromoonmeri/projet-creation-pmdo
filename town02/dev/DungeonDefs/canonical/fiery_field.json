@@ -1,0 +1,920 @@
+{
+  "id": "fiery_field",
+  "aliases": [],
+  "name": {
+    "en": "Fiery Field",
+    "fr": "Plaine Ardent"
+  },
+  "chapter": 18,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Fiery Field (30F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/FieryField) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 18. Recoupé avec Bulbapedia (page « Fiery Field »).",
+  "comment": "Définition canonique générée pour le chapitre 18. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 51 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 30,
+  "biome": "ember_plain",
+  "level": 37,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 37
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "deep_dark_crater_floor",
+    "wall": "deep_dark_crater_wall",
+    "secondary": "deep_dark_crater_secondary",
+    "name": "deep_dark_crater",
+    "element": "normal",
+    "justification": "Plaine Ardente : cratère volcanique, aucun triplet Fiery Field importé ; utilisateur unique."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_ALLURE_SEED",
+    "ITEM_BLOWBACK_ORB",
+    "ITEM_BOUNCE_BAND",
+    "ITEM_DIET_RIBBON",
+    "ITEM_EVASION_ORB",
+    "ITEM_EYEDROP_SEED",
+    "ITEM_FIRE_STONE",
+    "ITEM_GRAVELEROCK",
+    "ITEM_HEAL_SEED",
+    "ITEM_HURL_ORB",
+    "ITEM_JOY_RIBBON",
+    "ITEM_MAX_ELIXIR",
+    "ITEM_NOSTICK_CAP",
+    "ITEM_PIERCE_BAND",
+    "ITEM_POUNCE_ORB",
+    "ITEM_RACKET_BAND",
+    "ITEM_RADAR_ORB",
+    "ITEM_SILVER_SPIKE",
+    "ITEM_SNEAK_SCARF",
+    "ITEM_STUN_SEED",
+    "ITEM_SWITCHER_ORB",
+    "ITEM_TM_AERIAL_ACE",
+    "ITEM_TM_BRICK_BREAK",
+    "ITEM_TM_BULLET_SEED",
+    "ITEM_TM_CALM_MIND",
+    "ITEM_TM_DIG",
+    "ITEM_TM_EARTHQUAKE",
+    "ITEM_TM_FACADE",
+    "ITEM_TM_FIRE_BLAST",
+    "ITEM_TM_FLAMETHROWER",
+    "ITEM_TM_FOCUS_PUNCH",
+    "ITEM_TM_FRUSTRATION",
+    "ITEM_TM_GIGA_DRAIN",
+    "ITEM_TM_HIDDEN_POWER",
+    "ITEM_TM_ICE_BEAM",
+    "ITEM_TM_LIGHT_SCREEN",
+    "ITEM_TM_PSYCHIC",
+    "ITEM_TM_REFLECT",
+    "ITEM_TM_REST",
+    "ITEM_TM_RETURN",
+    "ITEM_TM_ROAR",
+    "ITEM_TM_SAFEGUARD",
+    "ITEM_TM_SECRET_POWER",
+    "ITEM_TM_SHADOW_BALL",
+    "ITEM_TM_SHOCK_WAVE",
+    "ITEM_TM_SOLARBEAM",
+    "ITEM_TM_TAUNT",
+    "ITEM_TM_THIEF",
+    "ITEM_TM_THUNDERBOLT",
+    "ITEM_TM_TOXIC",
+    "ITEM_X_RAY_SPECS"
+  ],
+  "segments": [
+    {
+      "name": "ember_plain",
+      "floors": [
+        1,
+        15
+      ],
+      "biome": "ember_plain",
+      "profiles": [
+        {
+          "name": "twosides",
+          "weight": 24
+        },
+        {
+          "name": "large_rooms",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "camerupt",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 4,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "charmander",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 4,
+          "floors": [
+            5,
+            8
+          ]
+        },
+        {
+          "species": "ditto",
+          "level": [
+            55,
+            55
+          ],
+          "weight": 1,
+          "floors": [
+            10,
+            15
+          ]
+        },
+        {
+          "species": "flareon",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 10,
+          "floors": [
+            10,
+            15
+          ]
+        },
+        {
+          "species": "magby",
+          "level": [
+            46,
+            46
+          ],
+          "weight": 10,
+          "floors": [
+            6,
+            9
+          ]
+        },
+        {
+          "species": "magmar",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 7,
+          "floors": [
+            4,
+            7
+          ]
+        },
+        {
+          "species": "numel",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 3,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "quilava",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 4,
+          "floors": [
+            15,
+            15
+          ]
+        },
+        {
+          "species": "rapidash",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            15
+          ]
+        },
+        {
+          "species": "slugma",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "torkoal",
+          "level": [
+            48,
+            48
+          ],
+          "weight": 4,
+          "floors": [
+            9,
+            14
+          ]
+        },
+        {
+          "species": "ursaring",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "vulpix",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            4
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "boost_calcium",
+              "weight": 1
+            },
+            {
+              "item": "boost_iron",
+              "weight": 1
+            },
+            {
+              "item": "boost_protein",
+              "weight": 1
+            },
+            {
+              "item": "boost_zinc",
+              "weight": 1
+            },
+            {
+              "item": "food_apple",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 1
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 1
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "burning_plain",
+      "floors": [
+        16,
+        30
+      ],
+      "biome": "burning_plain",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "large_rooms",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "camerupt",
+          "level": [
+            52,
+            52
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            21
+          ]
+        },
+        {
+          "species": "charmeleon",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 10,
+          "floors": [
+            26,
+            29
+          ]
+        },
+        {
+          "species": "combusken",
+          "level": [
+            41,
+            41
+          ],
+          "weight": 8,
+          "floors": [
+            22,
+            29
+          ]
+        },
+        {
+          "species": "ditto",
+          "level": [
+            55,
+            55
+          ],
+          "weight": 1,
+          "floors": [
+            16,
+            20
+          ]
+        },
+        {
+          "species": "entei",
+          "level": [
+            60,
+            60
+          ],
+          "weight": 20,
+          "floors": [
+            30,
+            30
+          ]
+        },
+        {
+          "species": "flareon",
+          "level": [
+            37,
+            37
+          ],
+          "weight": 7,
+          "floors": [
+            16,
+            16
+          ]
+        },
+        {
+          "species": "machoke",
+          "level": [
+            39,
+            39
+          ],
+          "weight": 5,
+          "floors": [
+            17,
+            25
+          ]
+        },
+        {
+          "species": "magcargo",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 5,
+          "floors": [
+            17,
+            25
+          ]
+        },
+        {
+          "species": "quilava",
+          "level": [
+            40,
+            40
+          ],
+          "weight": 5,
+          "floors": [
+            16,
+            24
+          ]
+        },
+        {
+          "species": "rapidash",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 4,
+          "floors": [
+            16,
+            16
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "ammo_iron_thorn",
+              "weight": 6
+            },
+            {
+              "item": "ammo_stick",
+              "weight": 10
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 1
+            },
+            {
+              "item": "berry_chesto",
+              "weight": 1
+            },
+            {
+              "item": "berry_oran",
+              "weight": 1
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 1
+            },
+            {
+              "item": "berry_rawst",
+              "weight": 1
+            },
+            {
+              "item": "boost_calcium",
+              "weight": 1
+            },
+            {
+              "item": "boost_iron",
+              "weight": 1
+            },
+            {
+              "item": "boost_protein",
+              "weight": 1
+            },
+            {
+              "item": "boost_zinc",
+              "weight": 1
+            },
+            {
+              "item": "food_apple",
+              "weight": 20
+            },
+            {
+              "item": "held_defense_scarf",
+              "weight": 3
+            },
+            {
+              "item": "held_special_band",
+              "weight": 2
+            },
+            {
+              "item": "held_zinc_band",
+              "weight": 2
+            },
+            {
+              "item": "orb_cleanse",
+              "weight": 1
+            },
+            {
+              "item": "orb_escape",
+              "weight": 3
+            },
+            {
+              "item": "orb_petrify",
+              "weight": 1
+            },
+            {
+              "item": "orb_rebound",
+              "weight": 1
+            },
+            {
+              "item": "orb_rollcall",
+              "weight": 1
+            },
+            {
+              "item": "orb_scanner",
+              "weight": 1
+            },
+            {
+              "item": "orb_totter",
+              "weight": 1
+            },
+            {
+              "item": "orb_trapbust",
+              "weight": 1
+            },
+            {
+              "item": "orb_trawl",
+              "weight": 1
+            },
+            {
+              "item": "seed_blast",
+              "weight": 1
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 1
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 1
+            },
+            {
+              "item": "seed_quick",
+              "weight": 1
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 1
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 1
+            },
+            {
+              "item": "seed_warp",
+              "weight": 2
+            },
+            {
+              "item": "tm_attract",
+              "weight": 1
+            },
+            {
+              "item": "tm_torment",
+              "weight": 1
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    460,
+    608
+  ],
+  "profiles": [
+    {
+      "name": "twosides",
+      "weight": 10
+    },
+    {
+      "name": "large_rooms",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        30
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "ammo_iron_thorn",
+          "price": 50,
+          "weight": 9
+        },
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 4
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 1
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 1
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 14
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_defense_scarf",
+          "price": 1800,
+          "weight": 1
+        },
+        {
+          "item": "held_zinc_band",
+          "price": 2300,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        },
+        {
+          "item": "orb_stayaway",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        30
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Explosion Trap",
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "",
+    "relay_ground": "",
+    "canonical_end_ground": "champ_braises",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/champ_braises.rsground",
+    "cinematic_ground": "champ_braises",
+    "battle_ground": "champ_braises",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "champ_braises",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/champ_braises"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d16p01.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/fiery_field",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "champ_braises",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "entei",
+        "level": [
+          47,
+          47
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "end": "champ_braises"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/fiery_field.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "fiery_field",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "champ_braises",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "fiery_field",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "ground",
+        "target": "champ_braises",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/fiery_field/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

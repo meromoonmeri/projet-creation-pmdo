@@ -1,0 +1,523 @@
+{
+  "id": "murky_cave",
+  "aliases": [
+    "caverne_trouble_autel",
+    "caverne_trouble_fond"
+  ],
+  "name": {
+    "en": "Murky Cave",
+    "fr": "Caverne Trouble"
+  },
+  "chapter": 21,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Murky Cave (19F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MurkyCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 21. Recoupé avec Bulbapedia (page « Murky Cave »).",
+  "comment": "Définition canonique générée pour le chapitre 21. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. Étages canoniquement sans objet au sol (argent uniquement) : 1-10, 11-19. Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 19,
+  "biome": "murky_gallery",
+  "level": 42,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 42
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "murky_cave_floor",
+    "wall": "murky_cave_wall",
+    "secondary": "murky_cave_secondary",
+    "name": "murky_cave",
+    "element": "normal"
+  },
+  "segments": [
+    {
+      "name": "murky_gallery",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "murky_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "cascoon",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            9
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 4,
+          "floors": [
+            3,
+            10
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 7,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "grimer",
+          "level": [
+            57,
+            57
+          ],
+          "weight": 5,
+          "floors": [
+            3,
+            6
+          ]
+        },
+        {
+          "species": "seviper",
+          "level": [
+            56,
+            56
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "shedinja",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 6,
+          "floors": [
+            7,
+            10
+          ]
+        },
+        {
+          "species": "shuppet",
+          "level": [
+            65,
+            65
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "venonat",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 4,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "zubat",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 5,
+          "floors": [
+            1,
+            5
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {},
+      "inherit_items": false
+    },
+    {
+      "name": "murky_depths",
+      "floors": [
+        11,
+        19
+      ],
+      "biome": "murky_depths",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "lattice",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "cascoon",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            11
+          ]
+        },
+        {
+          "species": "crobat",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 6,
+          "floors": [
+            11,
+            19
+          ]
+        },
+        {
+          "species": "dustox",
+          "level": [
+            47,
+            47
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            13
+          ]
+        },
+        {
+          "species": "misdreavus",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 4,
+          "floors": [
+            13,
+            19
+          ]
+        },
+        {
+          "species": "muk",
+          "level": [
+            73,
+            73
+          ],
+          "weight": 6,
+          "floors": [
+            14,
+            19
+          ]
+        },
+        {
+          "species": "shedinja",
+          "level": [
+            42,
+            42
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            12
+          ]
+        },
+        {
+          "species": "shuppet",
+          "level": [
+            65,
+            65
+          ],
+          "weight": 4,
+          "floors": [
+            11,
+            14
+          ]
+        },
+        {
+          "species": "swalot",
+          "level": [
+            71,
+            71
+          ],
+          "weight": 4,
+          "floors": [
+            14,
+            19
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {},
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    520,
+    686
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        19
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "ammo_stick",
+          "price": 50,
+          "weight": 8
+        },
+        {
+          "item": "ammo_iron_thorn",
+          "price": 50,
+          "weight": 5
+        },
+        {
+          "item": "ammo_geo_pebble",
+          "price": 50,
+          "weight": 4
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 7
+        },
+        {
+          "item": "gummi_white",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_red",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_blue",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_grass",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_yellow",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_clear",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_orange",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_pink",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_brown",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_sky",
+          "price": 800,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        19
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Chestnut Trap",
+        "Explosion Trap",
+        "Grimy Trap",
+        "Gust Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Pitfall Trap",
+        "Poison Trap",
+        "Pokemon Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Summon Trap",
+        "Warp Trap",
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "",
+    "relay_ground": "",
+    "canonical_end_ground": "caverne_trouble_fond",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/caverne_trouble_fond.rsground",
+    "cinematic_ground": "caverne_trouble_fond",
+    "battle_ground": "caverne_trouble_fond",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "caverne_trouble_autel",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/caverne_trouble_autel"
+      },
+      {
+        "scene": "caverne_trouble_fond",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/caverne_trouble_fond"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d24p01.cif.json",
+      "RESERVE/red_cinematics/d24p02.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "caverne_trouble_fond",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "fixed_grounds": {
+    "end": "caverne_trouble_fond"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/murky_cave.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "murky_cave",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "caverne_trouble_fond",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "murky_cave",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "ground",
+        "target": "caverne_trouble_fond",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/murky_cave/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "new-era.canonical-scene-registry.v1",
+  "entries": {
+    "sinister_woods": {
+      "dungeon_id": "gloomy_forest",
+      "game": "PMD_RED",
+      "source": {
+        "kind": "PMD_RED_ROM",
+        "manifest": "docs/canonical/red/sinister_woods_rom_manifest.json",
+        "floor": 13,
+        "fixed_room": 2,
+        "tileset_id": 65,
+        "scene_ir": "RESERVE/red_cinematics/d04p02.cif.json",
+        "scene_reference": "RESERVE/red_scene_reference/d04p02.lua"
+      },
+      "entrance": {
+        "source_code": "D04P01",
+        "ground": "bois_sombres_oree",
+        "reserve_ground": "RESERVE/red_grounds/d04p01.rsground",
+        "runtime_script": "Data/Script/halcyon/ground/bois_sombres_oree/init.lua"
+      },
+      "midpoint": {
+        "ground": "gloomy_forest_midpoint",
+        "provenance": "SUPPLEMENTAL",
+        "canonical": false,
+        "reason": "New Era checkpoint; PMD Red D04 has no midpoint."
+      },
+      "final": {
+        "source_code": "D04P02",
+        "canonical_ground": "sinister_woods_clearing",
+        "reserve_ground": "RESERVE/red_grounds/d04p02.rsground",
+        "battle_map": "gloomy_forest_boss",
+        "battle_map_kind": "exact_canonical_ground_counterpart",
+        "battle_map_visual_validation": "docs/dungeon_builder/SINISTER_FINAL_STAGE_REPORT.json",
+        "runtime_script": "Data/Script/halcyon/ground/sinister_woods_clearing/init.lua",
+        "rule": "The battle map is a pixel-exact dungeon-mode representation of D04P02, not a dedicated unrelated arena."
+      },
+      "route": [
+        "bois_sombres_oree",
+        "gloomy_forest:segment0:1F-6F",
+        "gloomy_forest_midpoint",
+        "gloomy_forest:segment1:7F-12F",
+        "sinister_woods_clearing",
+        "gloomy_forest:segment2:D04P02_battle",
+        "master_zone"
+      ],
+      "status": "ACTIVE_ROUTE_RUNTIME_VERIFIED",
+      "runtime_evidence": "docs/dungeon_builder/SINISTER_ROUTE_RUNTIME_PASS.json"
+    }
+  }
+}

@@ -1,0 +1,738 @@
+{
+  "id": "mt_faraway",
+  "aliases": [],
+  "name": {
+    "en": "Mt. Faraway",
+    "fr": "Mont Lointain"
+  },
+  "chapter": 28,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Faraway (40F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtFaraway) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 28. Recoupé avec Bulbapedia (page « Mt. Faraway »).",
+  "comment": "Définition canonique générée pour le chapitre 28. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 1 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`). Donjon secondaire : aucun relais/midpoint (règle du framework §1, réservés aux donjons d'histoire).",
+  "floors": 40,
+  "biome": "faraway_slope",
+  "level": 54,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 54
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "hidden_highland_floor",
+    "wall": "hidden_highland_wall",
+    "secondary": "hidden_highland_secondary",
+    "name": "hidden_highland",
+    "element": "normal",
+    "justification": "Mont Lointain : hautes terres isolées, aucun triplet Mt. Faraway importé ; utilisateur unique."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_ALLURE_SEED"
+  ],
+  "segments": [
+    {
+      "name": "faraway_slope",
+      "floors": [
+        1,
+        13
+      ],
+      "biome": "faraway_slope",
+      "profiles": [
+        {
+          "name": "twosides",
+          "weight": 24
+        },
+        {
+          "name": "branching",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "azumarill",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 7,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "golem",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            13
+          ]
+        },
+        {
+          "species": "hitmonchan",
+          "level": [
+            61,
+            61
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            9
+          ]
+        },
+        {
+          "species": "lunatone",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 7,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "marshtomp",
+          "level": [
+            67,
+            67
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            13
+          ]
+        },
+        {
+          "species": "snorunt",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            11
+          ]
+        },
+        {
+          "species": "solrock",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 6,
+          "floors": [
+            6,
+            11
+          ]
+        },
+        {
+          "species": "vigoroth",
+          "level": [
+            84,
+            84
+          ],
+          "weight": 5,
+          "floors": [
+            10,
+            13
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "orb_totter",
+              "weight": 3
+            },
+            {
+              "item": "seed_blast",
+              "weight": 7
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 2
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 2
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 3
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "faraway_ridge",
+      "floors": [
+        14,
+        27
+      ],
+      "biome": "faraway_ridge",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "crossroads",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "azumarill",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 14,
+          "floors": [
+            20,
+            20
+          ]
+        },
+        {
+          "species": "castform",
+          "level": [
+            89,
+            89
+          ],
+          "weight": 1,
+          "floors": [
+            20,
+            27
+          ]
+        },
+        {
+          "species": "golem",
+          "level": [
+            54,
+            54
+          ],
+          "weight": 7,
+          "floors": [
+            14,
+            19
+          ]
+        },
+        {
+          "species": "granbull",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 9,
+          "floors": [
+            21,
+            27
+          ]
+        },
+        {
+          "species": "marshtomp",
+          "level": [
+            67,
+            67
+          ],
+          "weight": 7,
+          "floors": [
+            14,
+            19
+          ]
+        },
+        {
+          "species": "parasect",
+          "level": [
+            69,
+            69
+          ],
+          "weight": 9,
+          "floors": [
+            20,
+            27
+          ]
+        },
+        {
+          "species": "vigoroth",
+          "level": [
+            84,
+            84
+          ],
+          "weight": 7,
+          "floors": [
+            14,
+            19
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "orb_totter",
+              "weight": 3
+            },
+            {
+              "item": "seed_blast",
+              "weight": 7
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 2
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 2
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 3
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "faraway_peak",
+      "floors": [
+        28,
+        40
+      ],
+      "biome": "faraway_peak",
+      "profiles": [
+        {
+          "name": "large_rooms",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "branching",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "azumarill",
+          "level": [
+            63,
+            63
+          ],
+          "weight": 8,
+          "floors": [
+            30,
+            35
+          ]
+        },
+        {
+          "species": "castform",
+          "level": [
+            89,
+            89
+          ],
+          "weight": 1,
+          "floors": [
+            28,
+            29
+          ]
+        },
+        {
+          "species": "croconaw",
+          "level": [
+            67,
+            67
+          ],
+          "weight": 5,
+          "floors": [
+            30,
+            39
+          ]
+        },
+        {
+          "species": "dugtrio",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 5,
+          "floors": [
+            30,
+            39
+          ]
+        },
+        {
+          "species": "glalie",
+          "level": [
+            84,
+            84
+          ],
+          "weight": 5,
+          "floors": [
+            30,
+            39
+          ]
+        },
+        {
+          "species": "granbull",
+          "level": [
+            62,
+            62
+          ],
+          "weight": 7,
+          "floors": [
+            28,
+            30
+          ]
+        },
+        {
+          "species": "ho_oh",
+          "level": [
+            89,
+            89
+          ],
+          "weight": 20,
+          "floors": [
+            40,
+            40
+          ]
+        },
+        {
+          "species": "parasect",
+          "level": [
+            69,
+            69
+          ],
+          "weight": 9,
+          "floors": [
+            28,
+            29
+          ]
+        },
+        {
+          "species": "weezing",
+          "level": [
+            59,
+            59
+          ],
+          "weight": 3,
+          "floors": [
+            30,
+            38
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "orb_totter",
+              "weight": 3
+            },
+            {
+              "item": "seed_blast",
+              "weight": 7
+            },
+            {
+              "item": "seed_blinker",
+              "weight": 2
+            },
+            {
+              "item": "seed_hunger",
+              "weight": 2
+            },
+            {
+              "item": "seed_sleep",
+              "weight": 3
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    660,
+    868
+  ],
+  "profiles": [
+    {
+      "name": "twosides",
+      "weight": 10
+    },
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        40
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 3
+        },
+        {
+          "item": "boost_protein",
+          "price": 3750,
+          "weight": 3
+        },
+        {
+          "item": "boost_calcium",
+          "price": 3750,
+          "weight": 3
+        },
+        {
+          "item": "boost_iron",
+          "price": 3750,
+          "weight": 3
+        },
+        {
+          "item": "boost_zinc",
+          "price": 3750,
+          "weight": 3
+        },
+        {
+          "item": "food_apple_huge",
+          "price": 200,
+          "weight": 1
+        },
+        {
+          "item": "gummi_white",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_red",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_blue",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_grass",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_yellow",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_clear",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_orange",
+          "price": 800,
+          "weight": 1
+        },
+        {
+          "item": "gummi_pink",
+          "price": 800,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        40
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Explosion Trap",
+        "Grimy Trap",
+        "Mud Trap",
+        "PP-Zero Trap",
+        "Seal Trap",
+        "Selfdestruct Trap",
+        "Slow Trap",
+        "Slumber Trap",
+        "Spin Trap",
+        "Sticky Trap",
+        "Summon Trap",
+        "Warp Trap"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "",
+    "relay_ground": "",
+    "canonical_end_ground": "sommet_aurore",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/sommet_aurore.rsground",
+    "cinematic_ground": "sommet_aurore",
+    "battle_ground": "sommet_aurore",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "sommet_aurore",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/sommet_aurore"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d19p01.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/mt_faraway",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "sommet_aurore",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "ho_oh",
+        "level": [
+          64,
+          64
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "end": "sommet_aurore"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/mt_faraway.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "mt_faraway",
+    "segments": 3,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "sommet_aurore",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "mt_faraway",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "zone",
+        "target": "mt_faraway",
+        "reason": "poursuite directe vers le segment 2 du même donjon"
+      },
+      {
+        "segment": 2,
+        "kind": "ground",
+        "target": "sommet_aurore",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/mt_faraway/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

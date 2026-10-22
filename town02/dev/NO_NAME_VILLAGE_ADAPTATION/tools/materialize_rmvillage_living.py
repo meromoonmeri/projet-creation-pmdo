@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Merge the native Pokemon life patch over a regenerated animal-free season."""
+from __future__ import annotations
+import argparse,hashlib,json,shutil
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--season',choices=('spring','summer','autumn','winter'),required=True);ap.add_argument('--environment',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+ em=json.loads((a.environment/'manifest.json').read_text());ground_path=a.environment/em['outputs']['ground'];ground=json.loads(ground_path.read_text(encoding='utf-8-sig'));patch=json.loads((ROOT/'generated/rmvillage/life/entities_patch.json').read_text())
+ assert em['transform']['kind']=='identity_spatial_mapping' and em['season']==a.season;assert patch['status']=='LIFE_PATCH_GENERATED' and patch['promotion_allowed'] is False
+ obj=ground['Object'];existing={c['EntName'] for layer in obj['Entities'] for c in layer['MapChars']};assert not existing.intersection(c['EntName'] for c in patch['entities'])
+ obj['Entities'][0]['MapChars'].extend(patch['entities']);obj['Comment']+=f" | Native Pokemon life patch v2: {len(patch['entities'])} MapChars; source animal sprites excluded from visual layers."
+ out_ground=a.output/'Data/Ground'/f'nnv_rmvillage_{a.season}_living.rsground';out_script=a.output/'Data/Script/halcyon/ground'/f'nnv_rmvillage_{a.season}_living'/'init.lua';out_life=a.output/'Data/Script/halcyon/NNVLife.lua'
+ out_ground.parent.mkdir(parents=True,exist_ok=True);out_script.parent.mkdir(parents=True,exist_ok=True);out_life.parent.mkdir(parents=True,exist_ok=True)
+ obj['AssetName']=f'nnv_rmvillage_{a.season}_living';out_ground.write_text('\ufeff'+json.dumps(ground,ensure_ascii=False,separators=(',',':')),encoding='utf-8');shutil.copy2(ROOT/'generated/rmvillage/life/init.lua',out_script);shutil.copy2(ROOT/'generated/rmvillage/life/NNVLife.lua',out_life)
+ check=json.loads(out_ground.read_text(encoding='utf-8-sig'))['Object'];chars=[c for layer in check['Entities'] for c in layer['MapChars']];assert len(chars)==49 and len({c['EntName'] for c in chars})==49
+ result={'schema':'new-era.nnv-rmvillage-living-candidate.v1','room':'rmvillage','season':a.season,'environment_manifest':str((a.environment/'manifest.json')),'environment_manifest_sha256':sha(a.environment/'manifest.json'),'life_patch':'generated/rmvillage/life/entities_patch.json','life_patch_sha256':sha(ROOT/'generated/rmvillage/life/entities_patch.json'),'outputs':{'ground':str(out_ground.relative_to(a.output)),'ground_sha256':sha(out_ground),'ground_script':str(out_script.relative_to(a.output)),'ground_script_sha256':sha(out_script),'life_script':str(out_life.relative_to(a.output)),'life_script_sha256':sha(out_life),'tile_source':str((a.environment/em['outputs']['tile']).resolve().relative_to(ROOT.resolve())),'tile_sha256':sha(a.environment/em['outputs']['tile'])},'mapchar_count':49,'social_count':5,'wild_count':44,'source_animals_converted':31,'source_animal_sprites_in_visual_layers':False,'status':'LIFE_INTEGRATED_CANDIDATE','runtime_status':'NOT_RUN','conversion_status':'UNIMPLEMENTED','certification_status':'NOT_CERTIFIED','promotion_allowed':False,'blockers':['Pokemon AI/routines/dialogues not runtime tested','other three animal-free seasonal environments not regenerated','four-state NNV time/lighting/audio system not integrated','wild encounter/battle transition system not implemented','objwinter controller incomplete']}
+ result['semantic_sha256']=hashlib.sha256(json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest();a.output.mkdir(parents=True,exist_ok=True);(a.output/'manifest.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,sort_keys=True)+'\n');print(json.dumps({'result':'RMVILLAGE_LIVING_MATERIALIZE_PASS','season':a.season,'mapchars':49,'status':result['status']}))
+if __name__=='__main__':main()

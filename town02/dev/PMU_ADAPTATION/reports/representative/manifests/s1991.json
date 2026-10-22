@@ -1,0 +1,385 @@
+{
+  "animation": {
+    "failures": {
+      "Fringe": {
+        "source_animated_tiles": 1,
+        "target_animated_cells": 16,
+        "visually_distinct_target_cells": 0
+      },
+      "Fringe2": {
+        "source_animated_tiles": 1,
+        "target_animated_cells": 16,
+        "visually_distinct_target_cells": 0
+      },
+      "Mask2": {
+        "source_animated_tiles": 8,
+        "target_animated_cells": 128,
+        "visually_distinct_target_cells": 0
+      }
+    },
+    "frame_length_pmdo_ticks": 15,
+    "source_counts": {
+      "Fringe": 1,
+      "Fringe2": 1,
+      "Ground": 0,
+      "Mask": 0,
+      "Mask2": 8
+    },
+    "status": "BLOCKED",
+    "target_counts": {
+      "Fringe": 16,
+      "Fringe2": 16,
+      "Mask2": 128
+    },
+    "target_distinct_counts": {}
+  },
+  "blockers": [
+    "NPC source events/dialogue require French EU adaptation before final validation",
+    "source animation has no visually distinct native target frame for: Fringe, Fringe2, Mask2",
+    "visual review failed: Snow and settlement vocabularies are both present, but Snowbasin lacks coherent buildings and reads as a generic patchwork rather than a snowy town."
+  ],
+  "collision": {
+    "actual_definite_8px_cells": 13808,
+    "conditional": [],
+    "expected_definite_8px_cells": 13808,
+    "status": "PASS"
+  },
+  "composition": {
+    "blend_policy": "snow_on_open_terrain",
+    "building_motif_placements": [
+      {
+        "cell_count": 78,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          57,
+          98
+        ],
+        "size_8px": [
+          10,
+          10
+        ],
+        "source_motif_origin": [
+          124,
+          20
+        ],
+        "target": "s321",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          15,
+          26
+        ]
+      },
+      {
+        "cell_count": 115,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          71,
+          131
+        ],
+        "size_8px": [
+          15,
+          13
+        ],
+        "source_motif_origin": [
+          29,
+          86
+        ],
+        "target": "s56",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          19,
+          35
+        ]
+      },
+      {
+        "cell_count": 78,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          97,
+          50
+        ],
+        "size_8px": [
+          10,
+          10
+        ],
+        "source_motif_origin": [
+          124,
+          20
+        ],
+        "target": "s1334",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          25,
+          14
+        ]
+      },
+      {
+        "cell_count": 115,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          119,
+          135
+        ],
+        "size_8px": [
+          15,
+          13
+        ],
+        "source_motif_origin": [
+          29,
+          86
+        ],
+        "target": "s319",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          31,
+          36
+        ]
+      },
+      {
+        "cell_count": 78,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          137,
+          118
+        ],
+        "size_8px": [
+          10,
+          10
+        ],
+        "source_motif_origin": [
+          124,
+          20
+        ],
+        "target": "s1333",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          35,
+          31
+        ]
+      },
+      {
+        "cell_count": 115,
+        "layout_source": "PMU_WARP_ANCHOR",
+        "origin_8px": [
+          143,
+          19
+        ],
+        "size_8px": [
+          15,
+          13
+        ],
+        "source_motif_origin": [
+          29,
+          86
+        ],
+        "target": "s278",
+        "visual_source": "LOCAL_PMDO_BUILDING_MOTIF",
+        "warp": [
+          37,
+          7
+        ]
+      }
+    ],
+    "building_policy": "complete local PMDO motifs anchored by canonical PMU warp coordinates; no PMDO reference layout copied",
+    "layer_mapping": {
+      "Fringe": {
+        "base_reference_layers": [
+          "Objects Anim",
+          "Objects Over"
+        ],
+        "decoration_reference_layers": []
+      },
+      "Fringe2": {
+        "base_reference_layers": [
+          "Objects Over Anim",
+          "Fringe"
+        ],
+        "decoration_reference_layers": []
+      },
+      "Ground": {
+        "base_reference_layers": [
+          "Base",
+          "Cliffs",
+          "Layer 4"
+        ],
+        "decoration_reference_layers": [
+          "Base"
+        ]
+      },
+      "Mask": {
+        "base_reference_layers": [
+          "River"
+        ],
+        "decoration_reference_layers": []
+      },
+      "Mask2": {
+        "base_reference_layers": [
+          "Objects Under",
+          "Objects Under Anim",
+          "Objects"
+        ],
+        "decoration_reference_layers": []
+      }
+    },
+    "method": "source collision/topology expanded to native 8 px PMDO grid; cells resolved by class/mask/transition from map-local clean grammar; no PMU raster cells copied",
+    "missing_role_grammar": [],
+    "water_analysis": {
+      "enabled": true,
+      "source_water_tiles": 0
+    }
+  },
+  "dimensions": {
+    "source_px": [
+      1632,
+      1632
+    ],
+    "source_tiles": [
+      51,
+      51
+    ],
+    "target_collision_grid_8px": [
+      204,
+      204
+    ],
+    "target_visual_grid": [
+      204,
+      204
+    ],
+    "tex_size": 1
+  },
+  "map_id": "s1991",
+  "name": "Winden, Snowbasin Town",
+  "npcs_objects": {
+    "conditional_collisions": [],
+    "connections": [
+      {
+        "entity": "Warp_15_26_to_s321",
+        "kind": "warp",
+        "target": "s321",
+        "target_x": 9,
+        "target_y": 11
+      },
+      {
+        "entity": "Warp_19_35_to_s56",
+        "kind": "warp",
+        "target": "s56",
+        "target_x": 9,
+        "target_y": 9
+      },
+      {
+        "entity": "Warp_25_14_to_s1334",
+        "kind": "warp",
+        "target": "s1334",
+        "target_x": 9,
+        "target_y": 29
+      },
+      {
+        "entity": "Warp_31_36_to_s319",
+        "kind": "warp",
+        "target": "s319",
+        "target_x": 9,
+        "target_y": 11
+      },
+      {
+        "entity": "Warp_35_31_to_s1333",
+        "kind": "warp",
+        "target": "s1333",
+        "target_x": 9,
+        "target_y": 11
+      },
+      {
+        "entity": "Warp_37_7_to_s278",
+        "kind": "warp",
+        "target": "s278",
+        "target_x": 10,
+        "target_y": 13
+      },
+      {
+        "direction": "up",
+        "entity": "Cardinal_up_to_s1642",
+        "kind": "cardinal",
+        "target": "s1642"
+      },
+      {
+        "direction": "down",
+        "entity": "Cardinal_down_to_s921",
+        "kind": "cardinal",
+        "target": "s921"
+      },
+      {
+        "direction": "left",
+        "entity": "Cardinal_left_to_s1391",
+        "kind": "cardinal",
+        "target": "s1391"
+      },
+      {
+        "direction": "right",
+        "entity": "Cardinal_right_to_s1640",
+        "kind": "cardinal",
+        "target": "s1640"
+      }
+    ],
+    "ground_object_count": 10,
+    "marker_count": 19,
+    "npc_count": 1,
+    "unresolved_npcs": []
+  },
+  "outputs": {
+    "controller": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1991/Data/Script/halcyon/ground/pmu_s1991/init.lua",
+    "controller_sha256": "6417a2f740dec45d1ab33c9c74cc256b42443750024a0d210d8dd990a5a62ea3",
+    "ground": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1991/Data/Ground/pmu_s1991.rsground",
+    "ground_sha256": "ee0af7a350b6a274ad17b41b5048d9112206f6a0129a60fbcdfcccaad687f798",
+    "pmdo_png": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1991/runtime/spawn_tick_000.png",
+    "runtime_report": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1991/runtime/runtime_report.json",
+    "runtime_report_sha256": "bbb95208a927e66883c53b408d2db3923e0f935c65db2ca1eb9f026957ac697c",
+    "tile": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-adaptation/representative/s1991/Content/Tile/pmu_s1991_Native.tile",
+    "tile_payload_count": 1345,
+    "tile_sha256": "6661c8d6d488dc412cbd1478031b6526d6da8860195eeb27404191bf42e5389b"
+  },
+  "references": {
+    "base": {
+      "asset": "metano_town",
+      "path": "/home/user/new-era-abyss-to-ascension-V4/Data/Ground/metano_town.rsground",
+      "sha256": "6377cbadb64dc7df8c28d5f56276f3a839e71399ac7eb32d8c5e54604904ba1b"
+    },
+    "compatibility_limit": 0.24,
+    "decoration": {
+      "asset": "foret_givree_oree",
+      "path": "/home/user/new-era-abyss-to-ascension-V4/Data/Ground/foret_givree_oree.rsground",
+      "sha256": "abbe40cde7c9159a0d34524b44ef85cd1f245ec2d3b22902f4380c22200bfe67"
+    },
+    "layout_copied": false,
+    "source_topology_drives_layout": true,
+    "visual_distance": 0.2261
+  },
+  "runtime_status": "RUNTIME_TESTED",
+  "schema": "new-era.pmu-pmdo-composition.v1",
+  "seed": 20262805,
+  "source": {
+    "ir": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-extraction/source/maps/s1991.json.gz",
+    "ir_json_sha256": "a28c368dfe48dc7f80166343ec86a636f100ff35064c2adba58036c63a2c38f3",
+    "png_used_as_ground_texture": false,
+    "source_png": "/home/user/new-era-abyss-to-ascension-V4/.runtime-cache/pmu-extraction/source/renders/s1991/source.png",
+    "source_png_sha256": "1deafff40705e73de63f9e1366296e09f2d643c96e4c68970fa1936f40e57eef"
+  },
+  "source_revision": 378,
+  "static_checks": {
+    "all_entities_in_bounds": true,
+    "collision_grid_matches_plan": true,
+    "definite_collision_exact": true,
+    "five_semantic_layers_present": true,
+    "ground_json_round_trip": true,
+    "tex_size_matches_plan": true,
+    "tile_dependency_exists": true,
+    "visual_grid_matches_plan": true
+  },
+  "status": "GROUND_GENERATED",
+  "validation_status": "BLOCKED",
+  "visual_review": {
+    "authority": "human review of exact PMDO 0.8.12 runtime captures against immutable phase-1 references",
+    "reason": "Snow and settlement vocabularies are both present, but Snowbasin lacks coherent buildings and reads as a generic patchwork rather than a snowy town.",
+    "review_date": "2026-08-14",
+    "status": "FAIL"
+  },
+  "visual_review_status": "FAIL"
+}

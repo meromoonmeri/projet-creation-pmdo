@@ -1,0 +1,342 @@
+{
+  "id": "frosty_grotto",
+  "aliases": [],
+  "name": {
+    "en": "Frosty Grotto",
+    "fr": "Grotte Givrée"
+  },
+  "chapter": 11,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Frosty Grotto (5F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/FrostyGrotto) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 11. Recoupé avec Bulbapedia (page « Frosty Grotto »).",
+  "comment": "Définition canonique générée pour le chapitre 11. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 1 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`).",
+  "floors": 5,
+  "biome": "frosty_grotto",
+  "level": 26,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 800,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 26
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 4,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "mt_freeze_floor",
+    "wall": "mt_freeze_wall",
+    "secondary": "mt_freeze_secondary",
+    "name": "mt_freeze",
+    "element": "normal",
+    "justification": "Grotte Givrée : cavité du massif du Mont Gelé (Artikodin) ; même biome canonique que le massif."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_MAX_ELIXIR"
+  ],
+  "segments": [
+    {
+      "name": "frosty_grotto",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "frosty_grotto",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "mixed",
+          "weight": 18
+        },
+        {
+          "name": "dense",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "articuno",
+          "level": [
+            43,
+            43
+          ],
+          "weight": 20,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "metang",
+          "level": [
+            27,
+            27
+          ],
+          "weight": 10,
+          "floors": [
+            1,
+            4
+          ]
+        },
+        {
+          "species": "rhyhorn",
+          "level": [
+            26,
+            26
+          ],
+          "weight": 10,
+          "floors": [
+            1,
+            4
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "berry_oran",
+              "weight": 6
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 10
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 10
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 8
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    320,
+    426
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        5
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 4
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 4
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 4
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 2
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 3
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        5
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "foret_givree_oree",
+    "relay_ground": "d10p02",
+    "canonical_end_ground": "d10p03",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d10p03.rsground",
+    "cinematic_ground": "d10p03",
+    "battle_ground": "d10p03",
+    "rule": "La cinématique, les dialogues, le déclenchement du combat, le combat et sa conclusion se déroulent sur ce même Ground : aucune arène séparée, aucune téléportation."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "d10p02",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d10p02"
+      },
+      {
+        "scene": "d10p03",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d10p03"
+      },
+      {
+        "scene": "foret_givree_oree",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/foret_givree_oree"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d10p01.cif.json",
+      "RESERVE/red_cinematics/d10p02.cif.json",
+      "RESERVE/red_cinematics/d10p03.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d10p03",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "articuno",
+        "level": [
+          36,
+          36
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "fixed_grounds": {
+    "entrance": "foret_givree_oree",
+    "end": "d10p03"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/frosty_grotto.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "frosty_grotto",
+    "segments": 1,
+    "entrance_ground": "foret_givree_oree",
+    "relay_ground": "d10p02",
+    "end_ground": "d10p03",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d10p03",
+        "reason": "Ground final canonique : cinématique, combat et fin au même endroit"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/frosty_grotto/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

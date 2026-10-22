@@ -1,0 +1,460 @@
+{
+  "id": "uproar_forest",
+  "aliases": [],
+  "name": {
+    "en": "Uproar Forest",
+    "fr": "Forêt du Tumulte"
+  },
+  "chapter": 22,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Uproar Forest (10F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/UproarForest) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 22. Recoupé avec Bulbapedia (page « Uproar Forest »).",
+  "comment": "Définition canonique générée pour le chapitre 22. Aucun étage pré-calculé : la topologie est produite en jeu par RogueElements. 1 objets canoniques n'existent pas dans le jeu d'objets du mod et sont omis de la table (liste conservée dans `canonical_items_without_pmdo_equivalent`).",
+  "floors": 10,
+  "biome": "uproar_edge",
+  "level": 44,
+  "rescues": 2,
+  "released": false,
+  "music": "",
+  "variation": {
+    "direction": "fond",
+    "time_limit": 2000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 44
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "treeshroud_forest_2_floor",
+    "wall": "treeshroud_forest_2_wall",
+    "secondary": "treeshroud_forest_2_secondary",
+    "name": "treeshroud_forest_2",
+    "element": "normal",
+    "justification": "Forêt du Tumulte : second tileset forestier PMDO, distinct de howling_forest_2 conservé par la Forêt des Hurlements."
+  },
+  "canonical_items_without_pmdo_equivalent": [
+    "ITEM_HEAL_SEED"
+  ],
+  "segments": [
+    {
+      "name": "uproar_edge",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "uproar_edge",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 24
+        },
+        {
+          "name": "dense",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "aipom",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "nuzleaf",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 1,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "roselia",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 5,
+          "floors": [
+            4,
+            5
+          ]
+        },
+        {
+          "species": "seedot",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            5
+          ]
+        },
+        {
+          "species": "venonat",
+          "level": [
+            51,
+            51
+          ],
+          "weight": 6,
+          "floors": [
+            1,
+            5
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "berry_oran",
+              "weight": 6
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 6
+            },
+            {
+              "item": "food_apple",
+              "weight": 7
+            },
+            {
+              "item": "gummi_grass",
+              "weight": 7
+            },
+            {
+              "item": "gummi_green",
+              "weight": 7
+            },
+            {
+              "item": "seed_blast",
+              "weight": 6
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    },
+    {
+      "name": "uproar_heart",
+      "floors": [
+        6,
+        10
+      ],
+      "biome": "uproar_heart",
+      "profiles": [
+        {
+          "name": "looping",
+          "weight": 24
+        },
+        {
+          "name": "branching",
+          "weight": 18
+        },
+        {
+          "name": "mixed",
+          "weight": 14
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "aipom",
+          "level": [
+            49,
+            49
+          ],
+          "weight": 6,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "mankey",
+          "level": [
+            45,
+            45
+          ],
+          "weight": 9,
+          "floors": [
+            8,
+            10
+          ]
+        },
+        {
+          "species": "nuzleaf",
+          "level": [
+            44,
+            44
+          ],
+          "weight": 2,
+          "floors": [
+            6,
+            10
+          ]
+        },
+        {
+          "species": "roselia",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 8,
+          "floors": [
+            6,
+            7
+          ]
+        },
+        {
+          "species": "seedot",
+          "level": [
+            50,
+            50
+          ],
+          "weight": 8,
+          "floors": [
+            6,
+            10
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": [
+            {
+              "item": "berry_cheri",
+              "weight": 2
+            },
+            {
+              "item": "berry_oran",
+              "weight": 6
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 6
+            },
+            {
+              "item": "food_apple",
+              "weight": 7
+            },
+            {
+              "item": "food_chestnut",
+              "weight": 20
+            },
+            {
+              "item": "gummi_grass",
+              "weight": 7
+            },
+            {
+              "item": "gummi_green",
+              "weight": 7
+            },
+            {
+              "item": "seed_blast",
+              "weight": 6
+            }
+          ]
+        }
+      },
+      "inherit_items": false
+    }
+  ],
+  "money": [
+    540,
+    712
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 10
+    },
+    {
+      "name": "dense",
+      "weight": 10
+    },
+    {
+      "name": "mixed",
+      "weight": 10
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": true,
+      "floors": [
+        1,
+        10
+      ],
+      "trials": 2,
+      "percent": 45,
+      "price_policy": "Data/Item Price x5",
+      "items": [
+        {
+          "item": "berry_oran",
+          "price": 50,
+          "weight": 2
+        },
+        {
+          "item": "seed_reviver",
+          "price": 800,
+          "weight": 4
+        },
+        {
+          "item": "berry_rawst",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "berry_pecha",
+          "price": 60,
+          "weight": 2
+        },
+        {
+          "item": "berry_cheri",
+          "price": 70,
+          "weight": 2
+        },
+        {
+          "item": "food_apple",
+          "price": 50,
+          "weight": 11
+        },
+        {
+          "item": "food_apple_big",
+          "price": 100,
+          "weight": 3
+        },
+        {
+          "item": "held_persim_band",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_power_band",
+          "price": 2000,
+          "weight": 1
+        },
+        {
+          "item": "held_pecha_scarf",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_insomniascope",
+          "price": 1500,
+          "weight": 1
+        },
+        {
+          "item": "held_warp_scarf",
+          "price": 1000,
+          "weight": 1
+        },
+        {
+          "item": "seed_warp",
+          "price": 150,
+          "weight": 1
+        },
+        {
+          "item": "orb_petrify",
+          "price": 250,
+          "weight": 1
+        }
+      ]
+    },
+    "monster_house": {
+      "enabled": true,
+      "floors": [
+        1,
+        10
+      ],
+      "trials": 2,
+      "percent": 30,
+      "species": 6,
+      "level_boost": 2,
+      "items": []
+    },
+    "traps": {
+      "enabled": true,
+      "canonical_kinds": [
+        "Wonder Tile"
+      ],
+      "note": "conversion des pièges PMDO à faire par TileSpawnZoneStep"
+    }
+  },
+  "fixed_grounds": {},
+  "takeover": {
+    "legacy_zone": "Data/Zone/uproar_forest.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "uproar_forest",
+    "segments": 2,
+    "entrance_ground": "",
+    "relay_ground": "",
+    "end_ground": "",
+    "next_zone": "",
+    "boss_mode": "",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "zone",
+        "target": "uproar_forest",
+        "reason": "poursuite directe vers le segment 1 du même donjon"
+      },
+      {
+        "segment": 1,
+        "kind": "end_run",
+        "target": "master_zone",
+        "reason": "aucun Ground final canonique : fin de run standard, aucun décor inventé"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/uproar_forest/init.lua",
+    "archived_script": "",
+    "notes": [],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  }
+}

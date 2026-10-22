@@ -1,0 +1,1255 @@
+{
+  "id": "mt_freeze_peak",
+  "aliases": [],
+  "name": {
+    "en": "Mt. Freeze Peak",
+    "fr": "Cime du Mont Gelé"
+  },
+  "chapter": 12,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Freeze Peak (5F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtFreezePeak) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 12. Recoupé avec Bulbapedia (page « Mt. Freeze Peak »).",
+  "comment": "Mt. Freeze Peak staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 4,
+  "biome": "freeze_peak",
+  "level": 28,
+  "rescues": 2,
+  "released": false,
+  "music": "Mt Freeze.ogg",
+  "variation": {
+    "direction": "sommet",
+    "time_limit": 800,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 28
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 4,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": true
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_up"
+  },
+  "dtef": {
+    "floor": "mt_freeze_floor",
+    "wall": "mt_freeze_wall",
+    "secondary": "mt_freeze_secondary",
+    "name": "mt_freeze",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Mt. Freeze Peak; source tileset IDs retained per floor."
+  },
+  "canonical_items_without_pmdo_equivalent": [],
+  "segments": [
+    {
+      "name": "freeze_peak",
+      "floors": [
+        1,
+        4
+      ],
+      "biome": "freeze_peak",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 22,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "room_ratio": [
+              65,
+              90
+            ],
+            "branch_ratio": [
+              50,
+              85
+            ],
+            "connect_percent": 15,
+            "combine_rate": 0,
+            "no_forced_branches": false
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 18,
+          "overrides": {
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "grid_room_ratio": 75,
+            "grid_hall_ratio": 55,
+            "connect_percent": 20,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "glalie",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 10000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "glalie",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 10000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "glalie",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 10000,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "glalie",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 10000,
+          "floors": [
+            4,
+            4
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "berry_oran",
+              "weight": 261,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 196,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 65,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 65,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 672,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 168,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 261,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 196,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 65,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 65,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 672,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 168,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 261,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 196,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 65,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 65,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 672,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 168,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 261,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "seed_reviver",
+              "weight": 196,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 65,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 65,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 672,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 168,
+              "floors": [
+                4,
+                4
+              ]
+            }
+          ]
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0b062f18000f0300000000000001000304010005041e000206000000",
+            "layout": 11,
+            "room_density": 6,
+            "floor_connectivity": 15,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 3,
+            "trap_density": 4,
+            "tileset": 47,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "0b062f18001403000000000000010003040200050414000206000000",
+            "layout": 11,
+            "room_density": 6,
+            "floor_connectivity": 20,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 3,
+            "trap_density": 4,
+            "tileset": 47,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            2,
+            6
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000c2f18001905000000000000010003040300050414000206000000",
+            "layout": 0,
+            "room_density": 12,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 0,
+            "extra_hallways": 5,
+            "item_density": 3,
+            "trap_density": 4,
+            "tileset": 47,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "4": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  65,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            2,
+            6
+          ],
+          "trap_amount": [
+            4,
+            5
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "000a2f18000f050000000000000100030404000a040a000206000000",
+            "layout": 0,
+            "room_density": 10,
+            "floor_connectivity": 15,
+            "allow_dead_ends": 0,
+            "extra_hallways": 10,
+            "item_density": 3,
+            "trap_density": 4,
+            "tileset": 47,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    340,
+    452
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 22,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "room_ratio": [
+          65,
+          90
+        ],
+        "branch_ratio": [
+          50,
+          85
+        ],
+        "connect_percent": 15,
+        "combine_rate": 0,
+        "no_forced_branches": false
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 18,
+      "overrides": {
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "grid_room_ratio": 75,
+        "grid_hall_ratio": 55,
+        "connect_percent": 20,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        5
+      ],
+      "amount": [
+        1,
+        2
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true
+        }
+      ]
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "d11p02",
+    "relay_ground": "",
+    "canonical_end_ground": "d11p03",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/d11p03.rsground",
+    "cinematic_ground": "d11p03",
+    "battle_ground": "d11p03",
+    "rule": "Canonical fight on the .rsmap counterpart of the canonical Ground; post-battle scene on the same Ground.",
+    "fixed_floor": 5,
+    "fixed_room": 6,
+    "rsmap_source": "Data/Map/mt_freeze_peak_boss.rsmap",
+    "canonical_layout_source": "Data/Ground/d11p03.rsground"
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "d11p02",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d11p02"
+      },
+      {
+        "scene": "d11p03",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/d11p03"
+      },
+      {
+        "scene": "mont_gele_pied",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/mont_gele_pied"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d11p01.cif.json",
+      "RESERVE/red_cinematics/d11p02.cif.json",
+      "RESERVE/red_cinematics/d11p03.cif.json"
+    ],
+    "zone_script": "",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d11p03",
+    "map": "mt_freeze_peak_boss",
+    "source_floor": 5,
+    "source_fixed_room": 6,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "glalie",
+        "level": [
+          20,
+          20
+        ],
+        "source_level": 20,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d11p03 via the .rsmap counterpart mt_freeze_peak_boss; no invented arena."
+  },
+  "fixed_grounds": {
+    "entrance": "d11p02",
+    "end": "d11p03"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/mt_freeze_peak.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "mt_freeze_peak",
+    "segments": 1,
+    "entrance_ground": "d11p02",
+    "relay_ground": "d11p02",
+    "end_ground": "d11p03",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "d11p03",
+        "reason": "Ground final canonique PMD Red — scène de fin post-boss"
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/mt_freeze_peak/init.lua",
+    "archived_script": "",
+    "notes": [
+      "Chaîne canonique : mt_freeze_peak (5F dont 1 fixed_room boss) -> d11p03 (scène de fin)"
+    ],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "midpoint": {},
+  "pokemon": [],
+  "minibosses": [],
+  "fixed_segments": [
+    {
+      "role": "canonical_final_boss",
+      "map": "mt_freeze_peak_boss",
+      "ground": "d11p03",
+      "source_floor": 5,
+      "provenance": "PMD_RED_ROM",
+      "boss_species": [
+        "glalie"
+      ],
+      "comment": "PMD Red canonical FIXED_ROOM_MT_FREEZE_PEAK_NINETALES on source floor 5: exact .rsmap counterpart of d11p03.rsground. ROM spawn (pokemon_found.json MtFreezePeak_5F_Pokemon): MONSTER_GLALIE lvl 20 prob=10000. Not an unrelated arena.",
+      "is_relevant": false,
+      "source_fixed_room": 6,
+      "source_pokemon": [
+        {
+          "species": "MONSTER_CHARIZARD",
+          "level": 55,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_ALAKAZAM",
+          "level": 50,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_TYRANITAR",
+          "level": 50,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_GLALIE",
+          "level": 20,
+          "probability": 10000
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_freeze_peak entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_10",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_freeze."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d11p02.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d11p03.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d11p02.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d11p03.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  }
+}

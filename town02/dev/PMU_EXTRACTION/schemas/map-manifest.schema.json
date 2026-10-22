@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/schemas/pmu-map-manifest-v1.json",
+  "title": "PMU canonical source map manifest",
+  "type": "object",
+  "required": ["schema_version", "status", "map_id", "revision", "dimensions", "properties", "layers", "attributes", "npc_presets", "provenance", "render"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "status": {"enum": ["DISCOVERED", "EXTRACTED", "RENDERED", "SOURCE_CERTIFIED", "PARTIAL", "BLOCKED", "UNKNOWN", "UNVERIFIED"]},
+    "map_id": {"type": "string", "pattern": "^s[0-9]+$"},
+    "name": {"type": "string"},
+    "revision": {"type": "integer"},
+    "dimensions": {
+      "type": "object",
+      "required": ["max_x_inclusive", "max_y_inclusive", "width_tiles", "height_tiles", "width_pixels", "height_pixels", "tile_size_pixels"]
+    },
+    "properties": {"type": "object"},
+    "cardinal_connections": {"type": "object"},
+    "warp_connections": {"type": "array"},
+    "layers": {"type": "object"},
+    "attributes": {"type": "array"},
+    "npc_presets": {"type": "array"},
+    "provenance": {"type": "object"},
+    "render": {"type": "object"}
+  },
+  "additionalProperties": true
+}

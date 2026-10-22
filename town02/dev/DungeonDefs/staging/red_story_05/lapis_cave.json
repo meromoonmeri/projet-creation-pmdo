@@ -1,0 +1,6722 @@
+{
+  "id": "lapis_cave",
+  "aliases": [
+    "grotte_lazuli_fond",
+    "grotte_lazuli_seuil"
+  ],
+  "name": {
+    "en": "Lapis Cave",
+    "fr": "Grotte Lazuli"
+  },
+  "chapter": 10,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Lapis Cave (14F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/LapisCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 10. Recoupé avec Bulbapedia (page « Lapis Cave »).",
+  "comment": "Lapis Cave staged canonical candidate from PMD Red ROM tables. Architecture translation to native RogueElements profiles is explicitly INFERRED.",
+  "floors": 14,
+  "biome": "lapis_gallery",
+  "level": 24,
+  "rescues": 2,
+  "released": false,
+  "music": "Lapis Cave.ogg",
+  "harvested_from_legacy": {
+    "zone": "Data/Zone/lapis_cave.json",
+    "kept": {
+      "music": "Lapis Cave.ogg",
+      "rescues": 2,
+      "grounds": [
+        "grotte_lazuli_seuil",
+        "grotte_lazuli_fond"
+      ],
+      "note": "Donjon canonique PMD Red: 14F, D08P01 entrée, D08P02 sortie; aucune boutique ni Monster House; obscurité 1-4 et 9-14."
+    },
+    "discarded": "legacy floor structure (1 floors vs 14 canonical) — rebuilt by the Builder"
+  },
+  "variation": {
+    "direction": "fond",
+    "time_limit": 1000,
+    "max_foes": 6,
+    "respawn_time": 100,
+    "level_scaling": {
+      "policy": "translation to chapter tier",
+      "chapter_base_level": 24
+    },
+    "canonical_flags": {
+      "maxItemsAllowed": 20,
+      "maxPartyMembers": 3,
+      "keepMoney": true,
+      "recruitingEnabled": true,
+      "stairDirectionUp": false
+    }
+  },
+  "stairs": {
+    "min_distance": 4,
+    "exit_tile": "stairs_go_down"
+  },
+  "dtef": {
+    "floor": "lapis_cave_floor",
+    "wall": "lapis_cave_wall",
+    "secondary": "lapis_cave_secondary",
+    "name": "lapis_cave",
+    "element": "normal",
+    "justification": "Canonical PMDO base package matching Lapis Cave; source tileset IDs retained per floor."
+  },
+  "canonical_items_without_pmdo_equivalent": [],
+  "segments": [
+    {
+      "name": "lapis_gallery",
+      "floors": [
+        1,
+        14
+      ],
+      "biome": "lapis_gallery",
+      "profiles": [
+        {
+          "name": "branching",
+          "weight": 22,
+          "overrides": {
+            "grid_x": [
+              5,
+              8
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "room_ratio": [
+              60,
+              90
+            ],
+            "branch_ratio": [
+              50,
+              85
+            ],
+            "connect_percent": 15,
+            "combine_rate": 0,
+            "no_forced_branches": false
+          }
+        },
+        {
+          "name": "lattice",
+          "weight": 18,
+          "overrides": {
+            "grid_x": [
+              5,
+              8
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "grid_room_ratio": 75,
+            "grid_hall_ratio": 55,
+            "connect_percent": 20,
+            "combine_rate": 0
+          }
+        },
+        {
+          "name": "looping",
+          "weight": 16,
+          "overrides": {
+            "path": "circle",
+            "grid_x": [
+              5,
+              7
+            ],
+            "grid_y": [
+              4,
+              6
+            ],
+            "circle_room_ratio": [
+              55,
+              85
+            ],
+            "circle_paths": [
+              2,
+              4
+            ],
+            "connect_percent": 20,
+            "combine_rate": 0
+          }
+        }
+      ],
+      "pokemon": [
+        {
+          "species": "zubat",
+          "level": [
+            31,
+            31
+          ],
+          "weight": 5000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "nincada",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5000,
+          "floors": [
+            1,
+            1
+          ]
+        },
+        {
+          "species": "zubat",
+          "level": [
+            31,
+            31
+          ],
+          "weight": 5000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "nincada",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5000,
+          "floors": [
+            2,
+            2
+          ]
+        },
+        {
+          "species": "zubat",
+          "level": [
+            31,
+            31
+          ],
+          "weight": 5000,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "nincada",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5000,
+          "floors": [
+            3,
+            3
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3334,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "nincada",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 3333,
+          "floors": [
+            4,
+            4
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3334,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            5,
+            5
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3334,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            6,
+            6
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3334,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            7,
+            7
+          ]
+        },
+        {
+          "species": "nidorina",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "nidorino",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3334,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "illumise",
+          "level": [
+            29,
+            29
+          ],
+          "weight": 3333,
+          "floors": [
+            8,
+            8
+          ]
+        },
+        {
+          "species": "tangela",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5000,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 5000,
+          "floors": [
+            9,
+            9
+          ]
+        },
+        {
+          "species": "tangela",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 5000,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 5000,
+          "floors": [
+            10,
+            10
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 3333,
+          "floors": [
+            11,
+            11
+          ]
+        },
+        {
+          "species": "tangela",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 3334,
+          "floors": [
+            11,
+            11
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 3333,
+          "floors": [
+            11,
+            11
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 3333,
+          "floors": [
+            12,
+            12
+          ]
+        },
+        {
+          "species": "tangela",
+          "level": [
+            28,
+            28
+          ],
+          "weight": 3334,
+          "floors": [
+            12,
+            12
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 3333,
+          "floors": [
+            12,
+            12
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 5000,
+          "floors": [
+            13,
+            13
+          ]
+        },
+        {
+          "species": "bagon",
+          "level": [
+            30,
+            30
+          ],
+          "weight": 5000,
+          "floors": [
+            13,
+            13
+          ]
+        },
+        {
+          "species": "golbat",
+          "level": [
+            24,
+            24
+          ],
+          "weight": 10000,
+          "floors": [
+            14,
+            14
+          ]
+        }
+      ],
+      "inherit_pokemon": false,
+      "items": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": [
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1969,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 429,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 429,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 143,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 286,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 286,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 656,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 44,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 32,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 16,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 32,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 33,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 157,
+              "floors": [
+                1,
+                1
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1969,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 429,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 429,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 143,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 286,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 286,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 656,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 44,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 32,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 16,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 32,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 33,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 157,
+              "floors": [
+                2,
+                2
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1969,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 429,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 429,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 143,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 286,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 286,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 656,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 44,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 32,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 16,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 32,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 33,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 157,
+              "floors": [
+                3,
+                3
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1969,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 429,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 429,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 143,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 286,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 286,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 656,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 44,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 32,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 16,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 32,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 33,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 157,
+              "floors": [
+                4,
+                4
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1282,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 466,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 466,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 155,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 311,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 311,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 713,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 48,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 48,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 48,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 48,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 47,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 18,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 35,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 171,
+              "floors": [
+                5,
+                5
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 1282,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 466,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 466,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 155,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 311,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 311,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 713,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 48,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 48,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 48,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 48,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 47,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 4,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 4,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 4,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 4,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 18,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 35,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 171,
+              "floors": [
+                6,
+                6
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                7,
+                7
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                8,
+                8
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                9,
+                9
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                10,
+                10
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                11,
+                11
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                12,
+                12
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                13,
+                13
+              ]
+            },
+            {
+              "item": "ammo_gravelerock",
+              "weight": 980,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "berry_oran",
+              "weight": 401,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "berry_pecha",
+              "weight": 401,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "berry_cheri",
+              "weight": 134,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "seed_blast",
+              "weight": 267,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "medicine_max_elixir",
+              "weight": 267,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "food_apple",
+              "weight": 272,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_white",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_red",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_blue",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_yellow",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_clear",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_orange",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_pink",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_brown",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_sky",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_gold",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_gray",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "gummi_silver",
+              "weight": 18,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "held_power_band",
+              "weight": 163,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "held_pecha_scarf",
+              "weight": 82,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_roar",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_bullet_seed",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_hidden_power",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_taunt",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_giga_drain",
+              "weight": 5,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_safeguard",
+              "weight": 5,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_frustration",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_return",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_dig",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_shadow_ball",
+              "weight": 5,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_brick_break",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_shock_wave",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_aerial_ace",
+              "weight": 5,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_torment",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_facade",
+              "weight": 40,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_secret_power",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_rest",
+              "weight": 20,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_attract",
+              "weight": 40,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "tm_thief",
+              "weight": 41,
+              "floors": [
+                14,
+                14
+              ]
+            },
+            {
+              "item": "machine_recall_box",
+              "weight": 196,
+              "floors": [
+                14,
+                14
+              ]
+            }
+          ],
+          "skipped_by_reason": {
+            "NOT_IN_PMDO_0_8_9_BASE": [
+              "ITEM_GOLD_RIBBON",
+              "ITEM_STAMINA_BAND",
+              "ITEM_TM_TOXIC"
+            ]
+          }
+        }
+      },
+      "inherit_items": false,
+      "floor_overrides": {
+        "1": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000001030301000a000a020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 10,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "2": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000001030302000a000a020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 10,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "3": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000001030303000a000a020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 10,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "4": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000001030304000f000a020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "5": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000100030305000f000a000205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "6": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d080019030000010001000100030306000f000a000205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 25,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "7": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e030000010001000100040307000f000a000205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "8": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e030000010001000100040308000f0014000205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "9": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e030000010001000000040309000f0014020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 15,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "10": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            4,
+            5
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e03000001000100000004030a00140014020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 20,
+            "item_density": 4,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "11": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e03000001000100000003030b0014001e020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 20,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "12": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e03000001000100000003030c0014001e020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 20,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "13": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e03000001000100000003030d00140028020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 20,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        },
+        "14": {
+          "profiles": [
+            {
+              "name": "branching",
+              "weight": 22,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "room_ratio": [
+                  60,
+                  90
+                ],
+                "branch_ratio": [
+                  50,
+                  85
+                ],
+                "connect_percent": 15,
+                "combine_rate": 0,
+                "no_forced_branches": false
+              }
+            },
+            {
+              "name": "lattice",
+              "weight": 18,
+              "overrides": {
+                "grid_x": [
+                  5,
+                  8
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "grid_room_ratio": 75,
+                "grid_hall_ratio": 55,
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            },
+            {
+              "name": "looping",
+              "weight": 16,
+              "overrides": {
+                "path": "circle",
+                "grid_x": [
+                  5,
+                  7
+                ],
+                "grid_y": [
+                  4,
+                  6
+                ],
+                "circle_room_ratio": [
+                  55,
+                  85
+                ],
+                "circle_paths": [
+                  2,
+                  4
+                ],
+                "connect_percent": 20,
+                "combine_rate": 0
+              }
+            }
+          ],
+          "item_amount": [
+            3,
+            4
+          ],
+          "initial_mobs": [
+            1,
+            4
+          ],
+          "trap_amount": [
+            3,
+            4
+          ],
+          "notes": "RogueElements adapter is INFERRED; source bytes retained below.",
+          "source_floor": {
+            "kind": "PMD_RED_ROM",
+            "raw_hex": "01062d08001e03000001000100010003030e00140028020205000000",
+            "layout": 1,
+            "room_density": 6,
+            "floor_connectivity": 30,
+            "allow_dead_ends": 1,
+            "extra_hallways": 20,
+            "item_density": 3,
+            "trap_density": 3,
+            "tileset": 45,
+            "weather": 0,
+            "fixed_room": 0
+          }
+        }
+      }
+    }
+  ],
+  "money": [
+    300,
+    400
+  ],
+  "profiles": [
+    {
+      "name": "branching",
+      "weight": 22,
+      "overrides": {
+        "grid_x": [
+          5,
+          8
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "room_ratio": [
+          60,
+          90
+        ],
+        "branch_ratio": [
+          50,
+          85
+        ],
+        "connect_percent": 15,
+        "combine_rate": 0,
+        "no_forced_branches": false
+      }
+    },
+    {
+      "name": "lattice",
+      "weight": 18,
+      "overrides": {
+        "grid_x": [
+          5,
+          8
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "grid_room_ratio": 75,
+        "grid_hall_ratio": 55,
+        "connect_percent": 20,
+        "combine_rate": 0
+      }
+    },
+    {
+      "name": "looping",
+      "weight": 16,
+      "overrides": {
+        "path": "circle",
+        "grid_x": [
+          5,
+          7
+        ],
+        "grid_y": [
+          4,
+          6
+        ],
+        "circle_room_ratio": [
+          55,
+          85
+        ],
+        "circle_paths": [
+          2,
+          4
+        ],
+        "connect_percent": 20,
+        "combine_rate": 0
+      }
+    }
+  ],
+  "items": {},
+  "features": {
+    "shop": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM kecleonShopChance=0"
+    },
+    "monster_house": {
+      "enabled": false,
+      "reason": "PMD_RED_ROM monsterHouseChance=0"
+    },
+    "traps": {
+      "enabled": true,
+      "floors": [
+        1,
+        14
+      ],
+      "amount": [
+        1,
+        2
+      ],
+      "entries": [
+        {
+          "source": "Wonder Tile",
+          "tile": "tile_wonder",
+          "weight": 10000,
+          "revealed": true
+        }
+      ]
+    }
+  },
+  "scenes": {
+    "source": "docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md",
+    "entrance_ground": "grotte_lazuli_seuil",
+    "relay_ground": "",
+    "canonical_end_ground": "grotte_lazuli_fond",
+    "state": "ACTIVE_GROUND",
+    "location": "Data/Ground/grotte_lazuli_fond.rsground",
+    "cinematic_ground": "grotte_lazuli_fond",
+    "battle_ground": "grotte_lazuli_fond",
+    "rule": "Canonical rescue/end scene on the source Ground; no invented battle."
+  },
+  "narrative": {
+    "transferred": true,
+    "cutscenes": [
+      {
+        "scene": "grotte_lazuli_fond",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/grotte_lazuli_fond"
+      },
+      {
+        "scene": "grotte_lazuli_seuil",
+        "state": "active",
+        "path": "Data/Script/halcyon/ground/grotte_lazuli_seuil"
+      }
+    ],
+    "red_cinematics": [
+      "RESERVE/red_cinematics/d08p01.cif.json",
+      "RESERVE/red_cinematics/d08p02.cif.json"
+    ],
+    "zone_script": "Data/Script/halcyon/zone/lapis_cave",
+    "pending_cinematics": [],
+    "transfer_check": "every cutscene folder is live under Data/Script/halcyon and is replayed on the canonical Ground",
+    "rule": "Ces séquences appartiennent au donjon : elles sont reprises par le nouveau pipeline et rejouées sur le Ground canonique (cinématique = combat = fin)."
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "grotte_lazuli_fond",
+    "provenance": "PMD_RED_ROM",
+    "notes": "Canonical end Ground grotte_lazuli_fond — the ROM has no in-dungeon boss fight for this dungeon, but the canonical end scene owns any potential battle space (no invented dedicated arena)."
+  },
+  "fixed_grounds": {
+    "entrance": "grotte_lazuli_seuil",
+    "end": "grotte_lazuli_fond"
+  },
+  "takeover": {
+    "legacy_zone": "Data/Zone/lapis_cave.json",
+    "status": "COMPLETED",
+    "policy": "legacy implementation replaced by this Builder's regeneration"
+  },
+  "wiring": {
+    "dungeon": "lapis_cave",
+    "segments": 1,
+    "entrance_ground": "grotte_lazuli_seuil",
+    "relay_ground": "",
+    "end_ground": "grotte_lazuli_fond",
+    "next_zone": "",
+    "boss_mode": "canonical_ground",
+    "segment_exits": [
+      {
+        "segment": 0,
+        "kind": "ground",
+        "target": "grotte_lazuli_fond",
+        "reason": "Ground final canonique PMD Red - cinématique, combat et fin au même endroit."
+      }
+    ],
+    "zone_script": "Data/Script/halcyon/zone/lapis_cave/init.lua",
+    "archived_script": "",
+    "notes": [
+      "Chaîne canonique : Lapis Cave (14F, aucun fixed room) -> grotte_lazuli_fond (scène de fin canonique d08p02)"
+    ],
+    "rule": "cinématique = combat = fin sur le Ground canonique ; boss interne = étage fixe du donjon, jamais un Ground inventé",
+    "ground_rebinds": []
+  },
+  "midpoint": {},
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete lapis_cave entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/lapis_cave_rom_manifest.json",
+          "definition_floor_mode": "all",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/lapis_cave_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_05",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/lapis_cave_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/lapis_cave_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet lapis_cave."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/grotte_lazuli_seuil.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/grotte_lazuli_fond.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/grotte_lazuli_seuil.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/grotte_lazuli_fond.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "pokemon": [],
+  "minibosses": []
+}
