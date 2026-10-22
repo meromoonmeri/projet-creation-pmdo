@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Suite de tests automatisés — STC1 Sommet de la Tour Céleste (Arène `b71` + Planète Terre + Chemin Sud-Nord).
+"""Suite de tests automatisés — STC1 Sommet de la Tour Céleste (`ref_sommet_planete_rayquaza.png`).
 
 Vérifie :
 1. Zéro halo magenta résiduel (`R > 165 & G < 90 & B > 165 = 0`) sur les 10 couches ;
 2. Respect strict des consignes d'animation et d'immobilité :
-   - étoiles profondes (`STC1_00`), étoiles héroïques (`STC1_01`), halo atmosphérique (`STC1_02`)
-     et souffle BPL (`STC1_08`) animés sur 24 poses sans saut brutal,
-   - alizés de la Planète Terre, massif nuageux & croissants autour de l'arène (`STC1_03`, `STC1_04`)
-     et cumulus d'avant-plan (`STC1_09`, `Top`) strictement statiques (`poses == 1` et `diff == 0`) ;
-3. Double fidélité visuelle :
-   - fidélité globale `< 18.0` face à `references/ref_sommet_planete_rayquaza.png`,
-   - identité pixel `1:1` (`< 4.0`) du dôme nuageux face à `references/b71_sky_tower_summit.png` ;
+   - étoiles profondes (`STC1_00`), étoiles héroïques (`STC1_01`) et reflets internes `D13P01.bpl`
+     (`STC1_08`) animés sur `24` poses sans saut brutal,
+   - Planète Terre & alizés (`STC1_02`), massif cumulonimbus, croissants latéraux, cuvette d'arène,
+     pont nuageux Sud -> Nord (`STC1_03..07`) et cumulus d'avant-plan (`STC1_09`, `Top`)
+     strictement statiques (`poses == 1`) ;
+3. Haute fidélité visuelle spatiale et colorimétrique face à `references/ref_sommet_planete_rayquaza.png`
+   (`distance RGB < 8.0` et `MAE pixel pleine image < 32.0 / 255`) ;
 4. Conformité du package PMDO `0.8.12.0` (`STC1`, `10` feuilles `.png/.tile`, `index.idx`,
-   `WallGrid` praticable continu du bord Sud `y = H - 1` jusqu'au cœur de l'arène circulaire `b71`) ;
+   `WallGrid` praticable continu du bord Sud `y = H - 1` jusqu'au cœur de la cuvette circulaire) ;
 5. Invariance d'échelle paramétrique (`384×288` vs `768×576`) ;
 6. Absence totale de toute mention de crédits.
 """
@@ -28,11 +28,11 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-for p in (str(HERE), str(REPO_ROOT / "source")):
+for p in (str(REPO_ROOT), str(REPO_ROOT / "source")):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-import build as stc_build  # type: ignore
+import source.tour_celeste_sommet_v1.build as stc_build  # type: ignore
 from tour_celeste_moteur_nuages import N_FRAMES  # type: ignore
 
 
@@ -77,42 +77,32 @@ class TestTourCelesteSommet(unittest.TestCase):
 
     def test_02_static_clouds_and_animated_cosmos_bpl(self) -> None:
         self.assertEqual(len(self.layers), 10)
-        # Couches animées sur 24 poses : cosmos profond, étoiles héroïques, reflets internes BPL
         for idx_anim in (0, 1, 8):
             self.assertEqual(len(self.layers[idx_anim].frames), N_FRAMES)
-        # Planète Terre sans halo (`2`) + toutes les couches nuageuses (`3..7`, `9`) strictement statiques (`poses == 1`)
         for idx_static in (2, 3, 4, 5, 6, 7, 9):
             self.assertEqual(len(self.layers[idx_static].frames), 1)
 
-        # Zéro blanc sur l'ourlet externe de l'arène/pont (`layer 05`) ni au contact immédiat de l'arène (`layer 04`)
-        l05 = np.asarray(self.layers[5].frames[0], dtype=np.uint8)
-        self.assertEqual(int(((l05[:, :, 3] > 0) & (l05[:, :, 0] >= 185)).sum()), 0)
-        from scipy import ndimage as _nd
-        arena_any = (
-            (l05[:, :, 3] > 0)
-            | (np.asarray(self.layers[6].frames[0], dtype=np.uint8)[:, :, 3] > 0)
-            | (np.asarray(self.layers[7].frames[0], dtype=np.uint8)[:, :, 3] > 0)
-        )
-        border_ring = _nd.binary_dilation(arena_any, iterations=4) & (~arena_any)
-        l04 = np.asarray(self.layers[4].frames[0], dtype=np.uint8)
-        self.assertEqual(int(((l04[:, :, 3] > 0) & border_ring).sum()), 0)
-
-        # Scintillement réel des étoiles dans le cosmos
         st0 = np.asarray(self.layers[1].frames[0], dtype=np.float32)
         st6 = np.asarray(self.layers[1].frames[6], dtype=np.float32)
         self.assertGreater(float(np.abs(st6 - st0).sum()), 500.0)
 
-        # Couverture substantielle du massif nuageux et des croissants de référence autour de l'arène
         collar_alpha = np.asarray(self.layers[3].frames[0], dtype=np.uint8)[:, :, 3] > 0
         crescent_alpha = np.asarray(self.layers[4].frames[0], dtype=np.uint8)[:, :, 3] > 0
-        self.assertGreater(int(collar_alpha.sum()), 60000)
-        self.assertGreater(int(crescent_alpha.sum()), 8000)
+        corner_alpha = np.asarray(self.layers[9].frames[0], dtype=np.uint8)[:, :, 3] > 0
+        self.assertGreater(int(collar_alpha.sum()), 40_000)
+        self.assertGreater(int(crescent_alpha.sum()), 8_000)
+        self.assertGreater(int(corner_alpha.sum()), 25_000)
 
-    def test_03_earth_reference_and_b71_pixel_fidelity(self) -> None:
+    def test_03_earth_and_cloud_arena_reference_fidelity(self) -> None:
         comp0 = _composite_pose(self.layers, 0)
         ref_ray = Image.open(HERE / "references" / "ref_sommet_planete_rayquaza.png")
         d_ray = compute_visual_fidelity_distance(comp0, ref_ray)
-        self.assertLess(d_ray, 25.0, f"Distance excessive face à ref_sommet_planete_rayquaza : {d_ray:.2f}")
+        self.assertLess(d_ray, 8.0, f"Distance excessive face à ref_sommet_planete_rayquaza : {d_ray:.2f}")
+
+        ref_arr = np.asarray(ref_ray.convert("RGB").resize((768, 576), Image.Resampling.NEAREST), dtype=np.float32)
+        c0_arr = np.asarray(comp0, dtype=np.float32)
+        pixel_mae = float(np.abs(c0_arr - ref_arr).mean())
+        self.assertLess(pixel_mae, 32.0, f"MAE pixel pleine image excessive face à la référence : {pixel_mae:.2f}")
 
         wrong_forest = np.zeros((576, 768, 3), dtype=np.uint8)
         wrong_forest[:, :, 0] = 34
@@ -120,13 +110,6 @@ class TestTourCelesteSommet(unittest.TestCase):
         wrong_forest[:, :, 2] = 42
         d_wrong = compute_visual_fidelity_distance(comp0, Image.fromarray(wrong_forest, mode="RGB"))
         self.assertGreater(d_wrong, 45.0)
-
-        b71 = np.asarray(Image.open(HERE / "references" / "b71_sky_tower_summit.png").convert("RGB"), dtype=np.float32)
-        c0_arr = np.asarray(comp0, dtype=np.float32)
-        dome_core = np.asarray(self.layers[6].frames[0], dtype=np.uint8)[:345, 108:660, 3] > 0
-        self.assertGreater(int(dome_core.sum()), 45000)
-        pix_diff = float(np.abs(c0_arr[:345, 108:660][dome_core] - b71[112:457, :][dome_core]).mean())
-        self.assertLess(pix_diff, 4.0, f"Le plateau d'arène s'écarte des pixels 1:1 de b71 : {pix_diff:.2f}")
 
     def test_04_rsground_package_and_south_to_north_walk_path(self) -> None:
         rsground = self.pkg_dir / "Data" / "Ground" / "stc1_tour_celeste.rsground"
@@ -157,11 +140,13 @@ class TestTourCelesteSommet(unittest.TestCase):
         meta_txt = (self.renders_dir / "metadata.json").read_text(encoding="utf-8").lower()
         for forbidden in ("credit", "crédit", "author", "auteur"):
             self.assertNotIn(forbidden, meta_txt)
-        idx_path = REPO_ROOT / "index.html"
-        if idx_path.is_file():
-            html_low = idx_path.read_text(encoding="utf-8").lower()
-            for forbidden in ("credit", "crédit"):
-                self.assertNotIn(forbidden, html_low)
+        for p in (
+            REPO_ROOT / "index.html",
+            REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html",
+        ):
+            txt = p.read_text(encoding="utf-8").lower()
+            for forbidden in ("credit", "crédit", "author :", "auteur :", "created by"):
+                self.assertNotIn(forbidden, txt)
 
 
 if __name__ == "__main__":

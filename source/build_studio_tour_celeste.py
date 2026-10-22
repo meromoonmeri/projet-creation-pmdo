@@ -62,8 +62,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
             "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
             "bg_fill": "#040a34",
-            "subtitle": "b71 1:1 sans halo atmosphérique ni frange blanche d'extrémité — Alizés, couronne de référence & cumulus Top statiques",
-            "wind_summary": "Statiques (1 pose) : Horizon Terre pur, alizés, couronne & croissants, cumulus Top | Animés : Étoiles cosmos & souffle D13P01.bpl",
+            "subtitle": "Fond Planète Terre & Cosmos étoilé + Tour cumulonimbus, cuvette d'arène, croissants, pont Sud-Nord & cumulus Top fidèles à la référence",
+            "wind_summary": "Statiques (1 pose) : Planète Terre & alizés, cumulonimbus, cuvette & pont, cumulus Top | Animés : Cosmos étoilé & reflets D13P01.bpl",
         },
     ]
 
@@ -619,9 +619,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MME1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="STC1"), encoding="utf-8")
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
+        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
