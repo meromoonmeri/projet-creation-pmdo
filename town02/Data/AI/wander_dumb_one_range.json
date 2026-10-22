@@ -1,0 +1,58 @@
+﻿{
+"Version": "0.8.9.0",
+"Object": {
+"$type": "RogueEssence.Data.AITactic, RogueEssence",
+"Name": {
+"DefaultText": "Dumb Wander One Range",
+"LocalTexts": {}
+},
+"Released": true,
+"Comment": "Same as wander dumb, but can only attack when within 1 tile of an enemy unit.",
+"ID": "wander_dumb_one_range",
+"Assignable": false,
+"Plans": [
+{
+"$type": "PMDC.Dungeon.AttackFoesPlan, PMDC",
+"AttackPattern": 1,
+"PositionPattern": 0,
+"IQ": 36,
+"RestrictedMobilityTypes": 0,
+"RestrictMobilityPassable": false,
+"AttackRange": 1,
+"StatusRange": 1,
+"SelfStatusRange": 1,
+"AbandonRangeOnHit": true
+},
+{
+"$type": "PMDC.Dungeon.FollowLeaderPlan, PMDC",
+"IQ": 164,
+"RestrictedMobilityTypes": 0,
+"RestrictMobilityPassable": false,
+"AttackRange": 0,
+"StatusRange": 0,
+"SelfStatusRange": 0,
+"AbandonRangeOnHit": true
+},
+{
+"$type": "PMDC.Dungeon.ExplorePlan, PMDC",
+"IQ": 164,
+"RestrictedMobilityTypes": 0,
+"RestrictMobilityPassable": false,
+"AttackRange": 0,
+"StatusRange": 0,
+"SelfStatusRange": 0,
+"AbandonRangeOnHit": true
+},
+{
+"$type": "PMDC.Dungeon.WaitPlan, PMDC",
+"IQ": 164,
+"RestrictedMobilityTypes": 0,
+"RestrictMobilityPassable": false,
+"AttackRange": 0,
+"StatusRange": 0,
+"SelfStatusRange": 0,
+"AbandonRangeOnHit": true
+}
+]
+}
+}
