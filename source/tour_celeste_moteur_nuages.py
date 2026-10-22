@@ -478,6 +478,8 @@ def build_rsground_package(
     canonical_ref_for_fidelity: Optional[Path] = None,
     max_fidelity_distance: float = 32.0,
     max_unique_tiles_per_bank: int = 12000,
+    namespace_override: Optional[str] = None,
+    asset_name_override: Optional[str] = None,
 ) -> Dict[str, object]:
     """Assemble, vérifie, exporte tous les rendus + le paquet `.rsground` + `.tile` + `index.idx`
     et archive le `.zip` virtuel servi sur `/renders/.../<MAP_ID>_PMDO_0.8.12.zip`."""
@@ -535,8 +537,8 @@ def build_rsground_package(
     tpl = json.loads((REPO_ROOT / "cliffdaytest.rsground").read_text(encoding="utf-8"))
     obj = tpl["Object"]
 
-    namespace = f"tour_celeste_{map_id.lower()}"
-    asset_name = f"{map_id.lower()}_tour_celeste"
+    namespace = namespace_override or f"tour_celeste_{map_id.lower()}"
+    asset_name = asset_name_override or f"{map_id.lower()}_tour_celeste"
     pmdo_layers: List[Dict[str, object]] = []
     banks: List[object] = []
     tile_counts: Dict[str, int] = {}

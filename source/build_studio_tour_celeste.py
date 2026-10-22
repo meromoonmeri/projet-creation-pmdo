@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Génère les planches filmstrip 24 poses par calque (dans `.cache/studio_layers/STC1/`, hors Git)
-et l'interface interactive HTML5 `<canvas>` 60 FPS (`index.html` + `apercu_sommet_tour_celeste_stc1_pmdo.html`)
-dédiée exclusivement à `STC1 — Sommet de la Tour Céleste — Arène de Rayquaza` (`b71 / D13P03`),
-avec navigation directe vers les autres aperçus du dépôt.
+"""Génère les planches filmstrip 24 poses par calque (dans `.cache/studio_layers/<MAP_ID>/`, hors Git)
+et le Studio interactif HTML5 `<canvas>` 60 FPS (`index.html`, `apercu_sommet_tour_celeste_stc1_pmdo.html`,
+`apercu_mine_magma_multicalque_pmdo.html`) réunissant les 3 cartes multicalques PMDO 0.8.12.0 :
+- `STC1` — Sommet de la Tour Céleste — Arène de Rayquaza (alizés, couronne de référence & cumulus statiques),
+- `MME1` — Mine Magma — Entrée (`D12P01` + `D12P01.bpl` 10 couches multicalques),
+- `MMA1` — Mine Magma — Arène de Groudon (`b70` Hardware `1:1` + `b70canm` + Caldeira & Geysers 10 couches).
 """
 
 from __future__ import annotations
@@ -34,13 +36,35 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "MMA1",
+            "folder": "mine_magma_arene_v1",
+            "ref_rel": "source/mine_magma_arene_v1/references/b70_groudon_boss_arena.png",
+            "ref_label": "Référence matérielle GBA exacte (b70)",
+            "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
+            "bg_fill": "#370000",
+            "subtitle": "b70 Hardware 1:1 — Caldeira de magma visqueux, 4 îlots à geysers éruptifs, cascade nord & pont Sud-Nord",
+            "wind_summary": "b70canm : Cascade nord + 18 veines ardentes + 5 cratères | Caldeira : fleuves + ressac + 4 geysers déphasés + braises Top",
+        },
+        {
+            "id": "MME1",
+            "folder": "mine_magma_entree_v1",
+            "ref_rel": "source/mine_magma_entree_v1/references/d12p01_magma_cavern_entrance.png",
+            "ref_label": "Référence matérielle GBA exacte (D12P01)",
+            "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
+            "bg_fill": "#370000",
+            "subtitle": "D12P01 2× sans couture — Flammes de crête, orgues incandescentes, veines des dalles & gouffres de magma",
+            "wind_summary": "D12P01.bpl : Flammes de crête (3×) | Orgues & veines de dalles pulsantes | Gouffres d'angle & braises Top (24 poses)",
+        },
+        {
             "id": "STC1",
             "folder": "tour_celeste_sommet_v1",
-            "ref_rel": "source/tour_celeste_sommet_v1/references/b71_sky_tower_summit.png",
+            "ref_rel": "source/tour_celeste_sommet_v1/references/ref_sommet_planete_rayquaza.png",
+            "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
             "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
-            "subtitle": "b71 canonique 1:1 — Cosmos étoilé scintillant, Planète courbe à spirales nuageuses orbitales & ailes de vent",
-            "wind_summary": "Étoiles : 24 poses scintillantes | Planète : spirales dx = +16 → & rubans dx = +8 → | Vent : gauche (-16, +8) ↙ / droite (+16, +8) ↘",
-        }
+            "bg_fill": "#040a34",
+            "subtitle": "b71 1:1 + Terre & Couronne de référence — Alizés, couronne d'arène & cumulus avant-plan statiques",
+            "wind_summary": "Statiques (1 pose) : Alizés Terre, couronne & croissants d'arène, cumulus Top | Animés (24 poses) : Étoiles, limbe & souffle BPL",
+        },
     ]
 
     manifest_maps: List[Dict] = []
@@ -83,6 +107,8 @@ def export_filmstrips() -> Dict:
                 "title": meta["title"],
                 "subtitle": item["subtitle"],
                 "wind_summary": item["wind_summary"],
+                "bg_fill": item["bg_fill"],
+                "ref_label": item["ref_label"],
                 "folder": folder,
                 "width": meta["size_px"][0],
                 "height": meta["size_px"][1],
@@ -106,38 +132,38 @@ def export_filmstrips() -> Dict:
     return {"maps": manifest_maps}
 
 
-def build_html(manifest: Dict) -> str:
+def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     manifest_json = json.dumps(manifest, ensure_ascii=False)
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sommet de la Tour Céleste (STC1) — Studio Multicalque 24 Poses (PMDO 0.8.12.0)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — Mine Magma (MME1 · MMA1) &amp; Tour Céleste (STC1)</title>
   <style>
     :root {{
-      --bg: #081226;
-      --panel: #102040;
-      --panel-2: #162b54;
-      --border: #2a4b8a;
-      --accent: #6ec6ff;
-      --accent-2: #a8e0ff;
+      --bg: #0b1020;
+      --panel: #141e38;
+      --panel-2: #1b294c;
+      --border: #314b82;
+      --accent: #ff944d;
+      --accent-2: #ffd180;
       --ok: #5be39b;
-      --text: #eef6ff;
-      --muted: #9db7dc;
+      --text: #f3f6ff;
+      --muted: #a6b7d8;
     }}
     * {{ box-sizing: border-box; }}
     body {{
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(circle at 50% 0%, #142c5c 0%, var(--bg) 68%);
+      background: radial-gradient(circle at 50% 0%, #24182c 0%, var(--bg) 68%);
       color: var(--text);
       min-height: 100vh;
     }}
     header {{
-      padding: 18px 24px;
+      padding: 16px 24px;
       border-bottom: 1px solid var(--border);
-      background: rgba(10, 22, 46, 0.9);
+      background: rgba(12, 18, 36, 0.94);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -146,36 +172,41 @@ def build_html(manifest: Dict) -> str:
     }}
     header h1 {{
       margin: 0;
-      font-size: 1.22rem;
+      font-size: 1.18rem;
       letter-spacing: 0.01em;
     }}
     header p {{
       margin: 4px 0 0;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }}
-    .nav-links {{
+    .map-tabs {{
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }}
-    .nav-link {{
+    .map-tab {{
       background: var(--panel);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 8px 13px;
-      font-weight: 600;
+      padding: 8px 14px;
+      font-weight: 700;
       font-size: 0.84rem;
-      text-decoration: none;
+      cursor: pointer;
     }}
-    .nav-link:hover {{ border-color: var(--accent); }}
+    .map-tab.active {{
+      background: linear-gradient(180deg, #b83b14, #7a2108);
+      border-color: var(--accent-2);
+      color: #fff;
+    }}
     main {{
       max-width: 1480px;
       margin: 0 auto;
-      padding: 20px 24px 40px;
+      padding: 18px 24px 40px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 390px;
+      grid-template-columns: minmax(0, 1fr) 395px;
       gap: 20px;
       align-items: start;
     }}
@@ -183,7 +214,7 @@ def build_html(manifest: Dict) -> str:
       main {{ grid-template-columns: 1fr; }}
     }}
     .stage-card, .side-card {{
-      background: rgba(16, 32, 64, 0.92);
+      background: rgba(20, 30, 56, 0.93);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
@@ -201,7 +232,7 @@ def build_html(manifest: Dict) -> str:
       border: 1px solid var(--border);
       padding: 6px 11px;
       border-radius: 7px;
-      font-size: 0.81rem;
+      font-size: 0.8rem;
       color: var(--accent-2);
     }}
     .canvas-wrap {{
@@ -210,8 +241,8 @@ def build_html(manifest: Dict) -> str:
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: #050b18;
-      border: 1px solid #1e3768;
+      background: #060912;
+      border: 1px solid #243864;
       border-radius: 10px;
       padding: 12px;
       overflow-x: auto;
@@ -222,7 +253,7 @@ def build_html(manifest: Dict) -> str:
       border-radius: 4px;
       max-width: 100%;
       height: auto;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
     }}
     .ref-box {{
       display: none;
@@ -242,7 +273,7 @@ def build_html(manifest: Dict) -> str:
       align-items: center;
       gap: 10px;
       padding-top: 12px;
-      border-top: 1px solid #203b6d;
+      border-top: 1px solid #243c6a;
     }}
     button.ctrl {{
       background: var(--panel-2);
@@ -254,12 +285,12 @@ def build_html(manifest: Dict) -> str:
       cursor: pointer;
     }}
     button.ctrl.active {{
-      background: #23509c;
-      border-color: var(--accent);
+      background: #9e3816;
+      border-color: var(--accent-2);
     }}
     input[type="range"] {{
       flex: 1;
-      min-width: 160px;
+      min-width: 150px;
       accent-color: var(--accent);
     }}
     .metrics {{
@@ -270,7 +301,7 @@ def build_html(manifest: Dict) -> str:
     }}
     .metric {{
       background: var(--panel-2);
-      border: 1px solid #23427a;
+      border: 1px solid #294375;
       border-radius: 8px;
       padding: 9px 11px;
     }}
@@ -290,7 +321,7 @@ def build_html(manifest: Dict) -> str:
       gap: 8px;
       padding: 7px 9px;
       background: var(--panel-2);
-      border: 1px solid #213e73;
+      border: 1px solid #264070;
       border-radius: 7px;
       font-size: 0.82rem;
     }}
@@ -305,13 +336,13 @@ def build_html(manifest: Dict) -> str:
       font-size: 0.71rem;
       padding: 2px 6px;
       border-radius: 5px;
-      background: #1c3a6e;
-      color: var(--accent-2);
+      background: #233c6b;
+      color: #cfe2ff;
       white-space: nowrap;
     }}
     .badge.anim {{
-      background: #174c4f;
-      color: #7ef7d4;
+      background: #5b2512;
+      color: #ffd180;
     }}
     .dl-btn {{
       display: block;
@@ -319,7 +350,7 @@ def build_html(manifest: Dict) -> str:
       text-align: center;
       margin-top: 14px;
       padding: 11px 14px;
-      background: linear-gradient(180deg, #2b6ad0, #1c4996);
+      background: linear-gradient(180deg, #c24116, #842608);
       color: #fff;
       text-decoration: none;
       font-weight: 700;
@@ -336,13 +367,10 @@ def build_html(manifest: Dict) -> str:
 <body>
   <header>
     <div>
-      <h1>Sommet de la Tour Céleste — Arène de Rayquaza (<code>STC1</code> · 24 Poses Multicalques · PMDO 0.8.12.0)</h1>
-      <p id="mapSubtitle">Chargement des planches pixel-art 1:1...</p>
+      <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
+      <p id="mapSubtitle">Chargement des planches pixel-art...</p>
     </div>
-    <nav class="nav-links">
-      <a class="nav-link" href="/apercu_traversee_cristal_d17_pmdo.html">Biome D17 — Traversée Cristal</a>
-      <a class="nav-link" href="/livrables_quest_pmdo_complet/apercu_quest_pmdo_3637_maps.html">Portail Quest PMDO (town02)</a>
-    </nav>
+    <nav class="map-tabs" id="mapTabs"></nav>
   </header>
 
   <main>
@@ -355,8 +383,8 @@ def build_html(manifest: Dict) -> str:
       <div class="canvas-wrap">
         <canvas id="stageCanvas" width="768" height="576"></canvas>
         <div class="ref-box" id="refBox">
-          <img id="refImg" class="ref-preview" width="384" height="288" alt="Référence canonique b71" />
-          <div class="ref-caption">Référence canonique GBA (b71)</div>
+          <img id="refImg" class="ref-preview" width="384" height="288" alt="Référence canonique GBA" />
+          <div class="ref-caption" id="refCaption">Référence canonique GBA</div>
         </div>
       </div>
 
@@ -367,7 +395,7 @@ def build_html(manifest: Dict) -> str:
         <button class="ctrl" data-speed="0.5">0.5×</button>
         <button class="ctrl active" data-speed="1">1× (60 FPS / 5 ticks)</button>
         <button class="ctrl" data-speed="2">2×</button>
-        <button class="ctrl" id="collBtn">Collisions</button>
+        <button class="ctrl" id="collBtn">Collisions Sud-Nord</button>
         <button class="ctrl" id="refBtn">Référence GBA</button>
       </div>
     </section>
@@ -378,17 +406,18 @@ def build_html(manifest: Dict) -> str:
         <strong style="font-size:0.9rem;">Calques natifs (10 couches)</strong>
         <div style="display:flex; gap:6px;">
           <button class="ctrl" id="allOnBtn" style="padding:4px 8px; font-size:0.76rem;">Tout afficher</button>
-          <button class="ctrl" id="animOnlyBtn" style="padding:4px 8px; font-size:0.76rem;">Nuages animés seuls</button>
+          <button class="ctrl" id="animOnlyBtn" style="padding:4px 8px; font-size:0.76rem;">Animés seuls</button>
         </div>
       </div>
       <div class="layer-list" id="layerList"></div>
-      <a class="dl-btn" id="zipDownload" href="#" download>Télécharger STC1_PMDO_0.8.12.zip</a>
+      <a class="dl-btn" id="zipDownload" href="#" download>Télécharger le package .rsground</a>
     </aside>
   </main>
 
   <script>
     const MANIFEST = {manifest_json};
-    const m = MANIFEST.maps[0];
+    const DEFAULT_ID = "{default_map_id}";
+    let m = MANIFEST.maps.find((x) => x.id === (location.hash.replace('#', '') || DEFAULT_ID)) || MANIFEST.maps[0];
     let playing = true;
     let speedMul = 1.0;
     let showCollisions = false;
@@ -414,35 +443,60 @@ def build_html(manifest: Dict) -> str:
       return p;
     }}
 
+    function buildTabs() {{
+      const tabsEl = document.getElementById('mapTabs');
+      tabsEl.innerHTML = '';
+      MANIFEST.maps.forEach((item) => {{
+        const btn = document.createElement('button');
+        btn.className = 'map-tab' + (item.id === m.id ? ' active' : '');
+        btn.textContent = `${{item.id}} · ${{item.title}}`;
+        btn.addEventListener('click', () => selectMap(item.id));
+        tabsEl.appendChild(btn);
+      }});
+    }}
+
+    async function selectMap(mapId) {{
+      const found = MANIFEST.maps.find((x) => x.id === mapId);
+      if (!found) return;
+      m = found;
+      history.replaceState(null, '', '#' + m.id);
+      poseIdx = 0;
+      buildTabs();
+      await initMap();
+    }}
+
     async function initMap() {{
       canvas.width = m.width;
       canvas.height = m.height;
       ctx.imageSmoothingEnabled = false;
 
-      document.getElementById('mapSubtitle').textContent = `${{m.id}} — ${{m.title}} (${{m.subtitle}})`;
+      document.getElementById('headerTitle').innerHTML = `${{m.title}} (<code>${{m.id}}</code> · 10 Calques · PMDO 0.8.12.0)`;
+      document.getElementById('mapSubtitle').textContent = m.subtitle;
       document.getElementById('windSummary').textContent = m.wind_summary;
       document.getElementById('refImg').src = m.ref_url;
+      document.getElementById('refCaption').textContent = m.ref_label;
       const dl = document.getElementById('zipDownload');
       dl.href = m.zip_url;
       dl.textContent = `⬇ Télécharger ${{m.id}}_PMDO_0.8.12.zip (${{(m.zip_bytes / 1048576).toFixed(2)}} Mio)`;
 
       document.getElementById('metricsBox').innerHTML = `
-        <div class="metric"><div class="k">Fidélité canonique</div><div class="v">${{m.fidelity.toFixed(2)}} &lt; 30</div></div>
+        <div class="metric"><div class="k">Fidélité canonique</div><div class="v">${{m.fidelity.toFixed(2)}} &lt; 25</div></div>
         <div class="metric"><div class="k">Cycle sans couture</div><div class="v">${{m.n_frames}} poses (${{m.n_frames * m.frame_ticks}} ticks)</div></div>
         <div class="metric"><div class="k">Tuiles praticables</div><div class="v">${{m.walkable_tiles}} / ${{m.total_tiles}}</div></div>
         <div class="metric"><div class="k">Tuiles uniques GPU</div><div class="v">${{m.total_unique_tiles.toLocaleString('fr-FR')}}</div></div>
       `;
 
       const listEl = document.getElementById('layerList');
+      listEl.innerHTML = '';
       m.layers.forEach((L) => {{
         const key = `${{m.id}}:${{L.slug}}`;
-        layerEnabled.set(key, true);
+        if (!layerEnabled.has(key)) layerEnabled.set(key, true);
         const row = document.createElement('div');
         row.className = 'layer-row';
         const isAnim = L.poses > 1;
         row.innerHTML = `
           <label>
-            <input type="checkbox" data-key="${{key}}" checked />
+            <input type="checkbox" data-key="${{key}}" ${{layerEnabled.get(key) ? 'checked' : ''}} />
             <span><strong>${{String(L.index).padStart(2, '0')}}</strong> ${{L.name}}</span>
           </label>
           <span class="badge ${{isAnim ? 'anim' : ''}}">${{L.kind}} · ${{L.poses}}p · ${{L.unique_tiles}}t</span>
@@ -457,9 +511,11 @@ def build_html(manifest: Dict) -> str:
       const statusEl = document.getElementById('loadStatus');
       let loaded = 0;
       await Promise.all(m.layers.map(async (L) => {{
-        const strip = await loadImg(L.strip_url);
-        L._img = strip || await loadImg(L.static_url);
-        L._isStrip = Boolean(strip);
+        if (!L._img) {{
+          const strip = await loadImg(L.strip_url);
+          L._img = strip || await loadImg(L.static_url);
+          L._isStrip = Boolean(strip);
+        }}
         loaded += 1;
         statusEl.textContent = `Calques chargés : ${{loaded}} / ${{m.layers.length}}`;
       }}));
@@ -469,7 +525,7 @@ def build_html(manifest: Dict) -> str:
 
     function renderCurrentFrame() {{
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0000a8';
+      ctx.fillStyle = m.bg_fill || '#050b18';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       for (const L of m.layers) {{
@@ -484,7 +540,7 @@ def build_html(manifest: Dict) -> str:
       }}
 
       if (showCollisions && m.walk_grid) {{
-        ctx.fillStyle = 'rgba(72, 255, 168, 0.28)';
+        ctx.fillStyle = 'rgba(72, 255, 168, 0.30)';
         const gh = m.walk_grid.length;
         const gw = m.walk_grid[0].length;
         for (let gy = 0; gy < gh; gy++) {{
@@ -546,6 +602,7 @@ def build_html(manifest: Dict) -> str:
       renderCurrentFrame();
     }});
 
+    buildTabs();
     initMap().then(() => requestAnimationFrame(tick));
   </script>
 </body>
@@ -555,10 +612,14 @@ def build_html(manifest: Dict) -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    html = build_html(manifest)
-    (REPO_ROOT / "index.html").write_text(html, encoding="utf-8")
-    (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(html, encoding="utf-8")
-    print("[Studio] index.html et apercu_sommet_tour_celeste_stc1_pmdo.html mis à jour (STC1 uniquement).")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MMA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
+        build_html(manifest, default_map_id="STC1"), encoding="utf-8"
+    )
+    print("[Studio] index.html, apercu_mine_magma_multicalque_pmdo.html et apercu_sommet_tour_celeste_stc1_pmdo.html générés.")
 
 
 if __name__ == "__main__":
