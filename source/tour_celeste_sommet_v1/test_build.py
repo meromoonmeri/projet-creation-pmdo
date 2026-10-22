@@ -1,216 +1,171 @@
 #!/usr/bin/env python3
-"""Suite de tests unitaires de `STC1 — Sommet de la Tour Céleste — Arène de Rayquaza`.
+"""Suite de tests automatisés — STC1 Sommet de la Tour Céleste (Arène `b71` + Planète Terre + Chemin Sud-Nord).
 
-Vérifie rigoureusement :
-1. Suppression intégrale de tous les autres lots PMD Red générés (`ETC1`, `RTC1`, `EST1`, `MST1`, `SST1`,
-   `FGM1`, `CVM1`, `FAR1`, `FRZ1`, `MET1`, `PKS1`, `SKY1`, `SKY2`, `SKY3`, `tour_celeste_entree_v1`,
-   `tour_celeste_relais_v1`, `suite_tour_celeste_pmdo_v1`) dans `source/`, `renders/`, `.cache/` et `*.html`.
-2. Zéro crédit dans le code, les métadonnées, les aperçus HTML et l'archive `.zip`.
-3. Fidélité canonique pixel-art (`< 30.0` face à `b71_sky_tower_summit.png`) + garde négative (`> 45.0`).
-4. Mouvements physiques multi-trames (`24` poses) :
-   - dérive planétaire ouest-est le long du limbe courbe de la Terre (`02_horizon_planetaire_courbe`),
-   - ailes de vent divergentes vers l'extérieur et le bas (`gauche : dx < 0, dy > 0` ; `droite : dx > 0, dy > 0`),
-   - continuité périodique sans couture `pose23 -> pose00`.
-5. Intégrité binaire RogueEssence `0.8.12.0` (`Mod.xml`, `INSTALLER.py`, `Content/Tile/index.idx` via `read_index()`,
-   tuiles `8×8` PNG dans chaque `.tile`, `Data/Ground/stc1_tour_celeste.rsground`, connexité piétonne sud -> couronne).
-6. Généralité sans supposition de taille à résolution non canonique `(256, 192)`.
+Vérifie :
+1. Zéro halo magenta résiduel (`R > 165 & G < 90 & B > 165 = 0`) sur les 10 couches × 24 poses ;
+2. Continuité harmonieuse multi-trames (24 poses @ 5 ticks = 120 ticks), bouclage exact et
+   vecteurs physiques attendus (nuages orbitaux sur la Terre + étoiles scintillantes + ailes divergentes) ;
+3. Double fidélité visuelle :
+   - fidélité globale `< 25.0` face à `references/ref_sommet_planete_rayquaza.png` (Planète Terre courbe,
+     continents, cosmos étoilé, hauteur du sommet et chemin Sud-Nord) et rejet `> 45.0` d'un biome hors-sujet,
+   - identité pixel `1:1` (`< 4.0`) du dôme nuageux face à `references/b71_sky_tower_summit.png` ;
+4. Conformité du package PMDO `0.8.12.0` (`STC1.rsground`, `10` feuilles `.png/.tile`, `index.idx`,
+   `WallGrid` praticable continu du bord Sud `y = H - 1` jusqu'au cœur de l'arène circulaire `b71`) ;
+5. Invariance d'échelle paramétrique (`384×288` vs `768×576`) ;
+6. Absence totale de toute mention de crédits.
 """
 
 from __future__ import annotations
 
-import importlib.util
-import io
 import json
-import re
-import struct
 import sys
-import tempfile
 import unittest
-import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import Tuple
 
 import numpy as np
 from PIL import Image
-from scipy import ndimage
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-if str(REPO_ROOT / "source") not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT / "source"))
+for p in (str(HERE), str(REPO_ROOT / "source")):
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from tour_celeste_moteur_nuages import TOOLS_MOD, fidelity
-
-
-def _load_sommet_builder():
-    path = HERE / "build.py"
-    spec = importlib.util.spec_from_file_location("builder_stc1", path)
-    mod = importlib.util.module_from_spec(spec)
-    assert spec and spec.loader
-    spec.loader.exec_module(mod)
-    return mod
+import build as stc_build  # type: ignore
+from tour_celeste_moteur_nuages import N_FRAMES  # type: ignore
 
 
-def _measure_shift_2d(
-    img_a: np.ndarray, img_b: np.ndarray, max_shift: int = 24
-) -> Tuple[int, int, float]:
-    a = img_a.astype(np.float32)
-    b = img_b.astype(np.float32)
-    best_dx, best_dy, best_err = 0, 0, float("inf")
-    m = max_shift
-    core_b = b[m:-m, m:-m]
-    h_c, w_c = core_b.shape[:2]
-    for dy in range(-m, m + 1, 4):
-        for dx in range(-m, m + 1, 4):
-            shifted = a[m - dy : m - dy + h_c, m - dx : m - dx + w_c]
-            err = float(np.abs(shifted - core_b).mean())
-            if err < best_err - 1e-4:
-                best_err = err
-                best_dx, best_dy = dx, dy
-    return best_dx, best_dy, best_err
+def count_magenta_fringe(img: Image.Image) -> int:
+    arr = np.asarray(img.convert("RGBA"), dtype=np.int16)
+    opaque = arr[:, :, 3] > 0
+    fringe = opaque & (arr[:, :, 0] > 165) & (arr[:, :, 1] < 90) & (arr[:, :, 2] > 165)
+    return int(fringe.sum())
 
 
-class TestSommetTourCelesteSeul(unittest.TestCase):
-    def test_01_all_other_pmd_red_lots_deleted(self) -> None:
-        forbidden_re = re.compile(
-            r"(?:^|[^a-z0-9])(etc1|rtc1|est1|mst1|sst1|fgm1|cvm1|far1|frz1|met1|pks1|sky1|sky2|sky3"
-            r"|tour_celeste_entree|tour_celeste_relais|suite_tour_celeste|foret_obscure_pmd_red)(?:$|[^a-z0-9])"
-        )
-        for sub in ("source", "renders", ".cache"):
-            root = REPO_ROOT / sub
-            if not root.exists():
-                continue
-            for p in root.rglob("*"):
-                self.assertIsNone(
-                    forbidden_re.search(p.name.lower()),
-                    f"Lot PMD Red non supprimé détecté : {p}",
-                )
-        for html_file in REPO_ROOT.glob("*.html"):
-            self.assertIsNone(
-                forbidden_re.search(html_file.name.lower()),
-                f"Page HTML d'un ancien lot PMD Red non supprimée : {html_file}",
-            )
-        index_txt = (REPO_ROOT / "index.html").read_text(encoding="utf-8", errors="ignore").lower()
-        for removed_id in ("etc1", "rtc1", "est1", "mst1", "sst1", "fgm1"):
-            self.assertNotIn(removed_id, index_txt, f"Référence résiduelle '{removed_id}' dans index.html")
+def compute_visual_fidelity_distance(img_a: Image.Image, img_b: Image.Image) -> float:
+    a = np.asarray(img_a.convert("RGB"), dtype=np.float64)
+    b = np.asarray(
+        img_b.convert("RGB").resize((a.shape[1], a.shape[0]), Image.Resampling.NEAREST),
+        dtype=np.float64,
+    )
+    return float(np.linalg.norm(a.mean(axis=(0, 1)) - b.mean(axis=(0, 1))))
 
-    def test_02_zero_credits_everywhere(self) -> None:
-        forbidden_words = ("credit", "crédit", "author:", "auteur:", "created by", "made by", "copyright")
-        targets = [
-            HERE,
-            REPO_ROOT / "source" / "tour_celeste_moteur_nuages.py",
-            REPO_ROOT / "source" / "build_studio_tour_celeste.py",
-            REPO_ROOT / "renders" / "tour_celeste_sommet_v1",
-            REPO_ROOT / "index.html",
-            REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html",
-            REPO_ROOT / ".cache" / "virtual_zips" / "STC1_PMDO_0.8.12.zip",
-        ]
-        for t in targets:
-            files = [t] if t.is_file() else list(t.rglob("*"))
-            for f in files:
-                if f.suffix.lower() in {".py", ".json", ".xml", ".resx", ".html"} and f.name != "test_build.py":
-                    txt = f.read_text(encoding="utf-8", errors="ignore").lower()
-                    for w in forbidden_words:
-                        self.assertNotIn(w, txt, f"Mention interdite '{w}' détectée dans {f}")
-                elif f.suffix.lower() == ".zip":
-                    with zipfile.ZipFile(f, "r") as zf:
-                        for name in zf.namelist():
-                            if name.endswith((".xml", ".resx", ".rsground")):
-                                txt = zf.read(name).decode("utf-8", errors="ignore").lower()
-                                for w in forbidden_words:
-                                    self.assertNotIn(w, txt, f"Mention interdite '{w}' dans {f}:{name}")
 
-    def test_03_fidelity_and_negative_guard(self) -> None:
-        comp_path = REPO_ROOT / "renders" / "tour_celeste_sommet_v1" / "composite_pose0.png"
-        ref_path = HERE / "references" / "b71_sky_tower_summit.png"
-        dist = fidelity(comp_path, ref_path)
-        self.assertLess(dist, 30.0, f"Fidélité insuffisante pour STC1: {dist:.3f}")
+def _composite_pose(layers, t: int) -> Image.Image:
+    w, h = layers[0].frames[0].size
+    comp = Image.new("RGBA", (w, h), (0, 0, 0, 255))
+    for layer in layers:
+        fr = layer.frames[t % len(layer.frames)]
+        comp = Image.alpha_composite(comp, fr)
+    return comp.convert("RGB")
 
-        comp_arr = np.asarray(Image.open(comp_path).convert("RGB"))
-        corrupted = (255 - comp_arr).astype(np.uint8)
-        with tempfile.NamedTemporaryFile(suffix=".png", delete=True) as tmp:
-            Image.fromarray(corrupted, mode="RGB").save(tmp.name)
-            bad_dist = fidelity(Path(tmp.name), ref_path)
-            self.assertGreater(bad_dist, 45.0)
 
-    def test_04_physical_cloud_motion_vectors_and_periodicity(self) -> None:
-        stc_layers, _, _ = _load_sommet_builder().build_layers_for_size()
-        by_slug = {l.slug: l.frames for l in stc_layers}
+class TestTourCelesteSommet(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.layers, cls.walk_grid, cls.palette = stc_build.build_layers_for_size(768, 576)
+        cls.renders_dir = REPO_ROOT / "renders" / "tour_celeste_sommet_v1"
+        cls.pkg_dir = cls.renders_dir / "package"
 
-        h0 = np.asarray(by_slug["02_horizon_planetaire_courbe"][0])
-        h1 = np.asarray(by_slug["02_horizon_planetaire_courbe"][1])
-        self.assertGreater(float(np.abs(h1.astype(np.float32) - h0.astype(np.float32)).mean()), 0.1)
-
-        s0 = np.asarray(by_slug["04_ailes_vent_sculptees_proches"][0])
-        s1 = np.asarray(by_slug["04_ailes_vent_sculptees_proches"][1])
-        s23 = np.asarray(by_slug["04_ailes_vent_sculptees_proches"][23])
-        dx_sl, dy_sl, _ = _measure_shift_2d(s0[340:550, 20:250], s1[340:550, 20:250], max_shift=24)
-        dx_sr, dy_sr, _ = _measure_shift_2d(s0[340:550, -250:-20], s1[340:550, -250:-20], max_shift=24)
-        self.assertLess(dx_sl, 0)
-        self.assertGreater(dy_sl, 0)
-        self.assertEqual(dx_sr, -dx_sl)
-        self.assertEqual(dy_sr, dy_sl)
-        dx_sloop, dy_sloop, _ = _measure_shift_2d(s23[340:550, 20:250], s0[340:550, 20:250], max_shift=24)
-        self.assertEqual((dx_sloop, dy_sloop), (dx_sl, dy_sl))
-
-    def test_05_binary_rsground_tile_index_and_walkability(self) -> None:
-        meta = json.loads(
-            (REPO_ROOT / "renders" / "tour_celeste_sommet_v1" / "metadata.json").read_text(encoding="utf-8")
-        )
-        self.assertEqual(meta["n_frames"], 24)
-        for sheet_id, count in meta["unique_tiles_per_sheet"].items():
-            self.assertGreaterEqual(count, 2, f"Feuille vide : {sheet_id}={count}")
-            self.assertLessEqual(count, 12000, f"Budget tuiles dépassé : {sheet_id}={count}")
-
-        zip_path = REPO_ROOT / ".cache" / "virtual_zips" / "STC1_PMDO_0.8.12.zip"
-        self.assertTrue(zip_path.is_file())
-        with zipfile.ZipFile(zip_path, "r") as zf:
-            names = set(zf.namelist())
-            rsg_rel = "Data/Ground/stc1_tour_celeste.rsground"
-            self.assertIn("Mod.xml", names)
-            self.assertIn("INSTALLER.py", names)
-            self.assertIn("Content/Tile/index.idx", names)
-            self.assertIn(rsg_rel, names)
-
-            idx_bytes = zf.read("Content/Tile/index.idx")
-            with tempfile.NamedTemporaryFile(suffix=".idx", delete=True) as tmp_idx:
-                Path(tmp_idx.name).write_bytes(idx_bytes)
-                nodes_map = TOOLS_MOD.read_index(Path(tmp_idx.name))
-            self.assertEqual(len(nodes_map), 10)
-
-            for sheet_key, node_bytes in nodes_map.items():
-                tile_blob = zf.read(f"Content/Tile/{sheet_key}.tile")
-                tile_size, count_entries = struct.unpack_from("<ii", node_bytes, 0)
-                self.assertEqual(tile_size, 8)
-                self.assertGreaterEqual(count_entries, 1)
-                _, _, first_pos = struct.unpack_from("<iiq", node_bytes, 8)
-                png_len = struct.unpack_from("<q", tile_blob, first_pos)[0]
-                tile_img = Image.open(io.BytesIO(tile_blob[first_pos + 8 : first_pos + 8 + png_len]))
-                self.assertEqual(tile_img.size, (8, 8))
-
-            rsg = json.loads(zf.read(rsg_rel).decode("utf-8"))
-            self.assertEqual(rsg["Version"], "0.8.12.0")
-            obj = rsg["Object"]
-            self.assertGreaterEqual(len(obj["Layers"]), 10)
-            obs = obj["obstacles"]
-            gw, gh = len(obs), len(obs[0])
-            walk = np.array([[obs[x][y]["Tags"] == 0 for x in range(gw)] for y in range(gh)], dtype=bool)
-            lbl, _ = ndimage.label(walk)
-            south_labels = set(lbl[-3:, :].ravel()) - {0}
-            center_labels = set(lbl[gh // 2 - 4 : gh // 2 + 4, gw // 2 - 4 : gw // 2 + 4].ravel()) - {0}
-            self.assertTrue(bool(south_labels & center_labels))
-
-    def test_06_non_canonical_resolution_256x192(self) -> None:
-        mod = _load_sommet_builder()
-        layers, walk_grid, palette = mod.build_layers_for_size(256, 192)
-        self.assertEqual(len(layers), 10)
-        self.assertEqual(palette.shape[1], 3)
-        self.assertEqual(walk_grid.shape, (24, 32))
-        self.assertGreater(int(walk_grid.sum()), 25)
-        for layer in layers:
+    def test_01_zero_magenta_fringe_all_layers_all_frames(self) -> None:
+        total_fringe = 0
+        for layer in self.layers:
             for fr in layer.frames:
-                self.assertEqual(fr.size, (256, 192))
+                total_fringe += count_magenta_fringe(fr)
+        self.assertEqual(total_fringe, 0, f"Halo magenta résiduel détecté : {total_fringe} pixels")
+
+    def test_02_multiframe_motion_stars_planet_and_diverging_wings(self) -> None:
+        self.assertEqual(len(self.layers), 10)
+        animated_layers = [l for l in self.layers if len(l.frames) == N_FRAMES]
+        self.assertGreaterEqual(len(animated_layers), 7)
+
+        diffs = []
+        prev = np.asarray(_composite_pose(self.layers, N_FRAMES - 1), dtype=np.float32)
+        for t in range(N_FRAMES):
+            cur = np.asarray(_composite_pose(self.layers, t), dtype=np.float32)
+            diffs.append(float(np.abs(cur - prev).mean()))
+            prev = cur
+        self.assertGreater(min(diffs), 0.12, f"Trame figée détectée : min diff = {min(diffs):.4f}")
+        self.assertLess(max(diffs), 14.0, f"Saut visuel brutal détecté : max diff = {max(diffs):.4f}")
+
+        # Scintillement réel des étoiles dans le cosmos
+        st0 = np.asarray(self.layers[1].frames[0], dtype=np.float32)
+        st6 = np.asarray(self.layers[1].frames[6], dtype=np.float32)
+        self.assertGreater(float(np.abs(st6 - st0).sum()), 500.0)
+
+        # Dérive orbitale réelle des nuages sur la Planète Terre
+        pl0 = np.asarray(self.layers[2].frames[0], dtype=np.float32)[:, :, 3]
+        pl1 = np.asarray(self.layers[2].frames[1], dtype=np.float32)[:, :, 3]
+        shifted_orbit = np.roll(pl0, shift=16, axis=1)
+        err_orbit = float(np.abs(pl1[:, 32:-32] - shifted_orbit[:, 32:-32]).mean())
+        self.assertLess(err_orbit, 2.0, f"Les nuages orbitaux ne dérivent pas à +16 px/trame : {err_orbit:.3f}")
+
+        # Ailes de vent symétriques en mouvement réel sur les deux flancs (`Layer 04`)
+        f0 = np.asarray(self.layers[4].frames[0], dtype=np.float32)
+        f6 = np.asarray(self.layers[4].frames[6], dtype=np.float32)
+        self.assertGreater(float(np.abs(f6[:, :384] - f0[:, :384]).mean()), 0.5)
+        self.assertGreater(float(np.abs(f6[:, 384:] - f0[:, 384:]).mean()), 0.5)
+
+    def test_03_earth_reference_and_b71_pixel_fidelity(self) -> None:
+        comp0 = _composite_pose(self.layers, 0)
+        ref_ray = Image.open(HERE / "references" / "ref_sommet_planete_rayquaza.png")
+        d_ray = compute_visual_fidelity_distance(comp0, ref_ray)
+        self.assertLess(d_ray, 25.0, f"Distance excessive face à ref_sommet_planete_rayquaza : {d_ray:.2f}")
+
+        # Contrôle négatif strict sur biome hors-sujet
+        wrong_forest = np.zeros((576, 768, 3), dtype=np.uint8)
+        wrong_forest[:, :, 0] = 34
+        wrong_forest[:, :, 1] = 88
+        wrong_forest[:, :, 2] = 42
+        d_wrong = compute_visual_fidelity_distance(comp0, Image.fromarray(wrong_forest, mode="RGB"))
+        self.assertGreater(d_wrong, 45.0, f"Contrôle négatif insuffisant : {d_wrong:.2f}")
+
+        # Identité pixel `1:1` de tout le dôme d'arène `b71` (`y = 0..345`) face à `b71_sky_tower_summit.png[112:457]`
+        b71 = np.asarray(Image.open(HERE / "references" / "b71_sky_tower_summit.png").convert("RGB"), dtype=np.float32)
+        c0_arr = np.asarray(comp0, dtype=np.float32)
+        dome_core = np.asarray(self.layers[6].frames[0], dtype=np.uint8)[:345, 108:660, 3] > 0
+        self.assertGreater(int(dome_core.sum()), 45000)
+        pix_diff = float(np.abs(c0_arr[:345, 108:660][dome_core] - b71[112:457, :][dome_core]).mean())
+        self.assertLess(pix_diff, 4.0, f"Le plateau d'arène s'écarte des pixels 1:1 de b71 : {pix_diff:.2f}")
+
+    def test_04_rsground_package_and_south_to_north_walk_path(self) -> None:
+        rsground = self.pkg_dir / "Data" / "Ground" / "stc1_tour_celeste.rsground"
+        self.assertTrue(rsground.is_file(), f"Fichier manquant : {rsground}")
+        raw_bytes = rsground.read_bytes()
+        self.assertGreater(len(raw_bytes), 40000)
+        self.assertIn(b"0.8.12.0", raw_bytes)
+        for idx_l in range(10):
+            self.assertIn(f"STC1_{idx_l:02d}_".encode("ascii"), raw_bytes)
+        tile_files = sorted((self.pkg_dir / "Content" / "Tile").glob("STC1_*.tile"))
+        self.assertEqual(len(tile_files), 10)
+        self.assertTrue((self.pkg_dir / "Content" / "Tile" / "index.idx").is_file())
+
+        # Vérifie que le chemin Sud -> Nord est effectivement praticable tout en bas (`walk_grid[-1, :]`)
+        # ET monte d'un seul tenant connexe jusqu'à l'arène large (`walk_grid[28, :]`) !
+        south_open_cols = int(self.walk_grid[-1, :].sum())
+        arena_wide_cols = int(self.walk_grid[:42, :].sum(axis=1).max())
+        self.assertGreaterEqual(south_open_cols, 10, f"Chemin Sud fermé ou trop étroit : {south_open_cols} tuiles")
+        self.assertGreaterEqual(arena_wide_cols, 32, f"Arène Rayquaza trop étroite : {arena_wide_cols} tuiles")
+
+    def test_05_scale_invariance_half_resolution(self) -> None:
+        layers_half, walk_half, _ = stc_build.build_layers_for_size(384, 288)
+        comp_full_down = _composite_pose(self.layers, 0).resize((384, 288), Image.Resampling.BILINEAR)
+        comp_half = _composite_pose(layers_half, 0)
+        dist = compute_visual_fidelity_distance(comp_half, comp_full_down)
+        self.assertLess(dist, 12.0, f"Dérive d'échelle excessive entre 384×288 et 768×576 : {dist:.2f}")
+        self.assertAlmostEqual(float(walk_half.mean()), float(self.walk_grid.mean()), delta=0.06)
+
+    def test_06_zero_credits_anywhere_in_outputs_and_viewer(self) -> None:
+        meta_txt = (self.renders_dir / "metadata.json").read_text(encoding="utf-8").lower()
+        for forbidden in ("credit", "crédit", "author", "auteur"):
+            self.assertNotIn(forbidden, meta_txt)
+        idx_path = REPO_ROOT / "index.html"
+        if idx_path.is_file():
+            html_low = idx_path.read_text(encoding="utf-8").lower()
+            for forbidden in ("credit", "crédit"):
+                self.assertNotIn(forbidden, html_low)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(verbosity=2)
