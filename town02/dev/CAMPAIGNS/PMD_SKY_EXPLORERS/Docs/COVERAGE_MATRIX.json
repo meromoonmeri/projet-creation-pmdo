@@ -1,0 +1,219 @@
+{
+ "schema": "campaign-coverage-matrix/1",
+ "campaign": "PMD_SKY_EXPLORERS",
+ "rule": "couvertures séparées — ne JAMAIS fusionner",
+ "dimensions": [
+  {
+   "dimension": "extraction_grounds",
+   "covered": 460,
+   "total": 460,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "MANIFEST.totals.grounds",
+   "note": "460 rsground du port (458 MAP_BG NDS, pixel-perfect skytemple-files)"
+  },
+  {
+   "dimension": "render_visual",
+   "covered": 459,
+   "total": 460,
+   "pct": 99.8,
+   "status": "PARTIAL",
+   "source": "AUDIT.coverage.render_pct",
+   "note": "1 ground hérité sans layers (b01p01_beach, ACCEPTED)"
+  },
+  {
+   "dimension": "frames_animation",
+   "status": "PASS",
+   "source": "AUDIT.frame_status"
+  },
+  {
+   "dimension": "rom_scripts_ssb",
+   "covered": 3760,
+   "total": 3760,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "Cinematics/ROM_SCRIPTS_INDEX.json (ExplorerScript + dialogues 5 langues)"
+  },
+  {
+   "dimension": "rom_scripts_ssa",
+   "covered": 1884,
+   "total": 1884,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "idem (placements acteurs/objets/events/triggers)"
+  },
+  {
+   "dimension": "cinematic_linked_grounds",
+   "covered": 336,
+   "total": 460,
+   "pct": 73.0,
+   "status": "PARTIAL",
+   "source": "MANIFEST.totals.with_cinematic (LEVEL_MAP_LINKS level→MAP_BG)",
+   "note": "124 grounds sans zone SCRIPT propre (variantes de MAP_BG non référencées par un level)"
+  },
+  {
+   "dimension": "progression_graph",
+   "status": "PASS",
+   "source": "Docs/PROGRESSION_GRAPH.json (SSB décompilés ROM)",
+   "note": "245 états écrits, 97 bit flags, 1219 déclencheurs ; 1 seul état lu-jamais-écrit (0.0 = init sauvegarde)"
+  },
+  {
+   "dimension": "playable_progression",
+   "covered": 244,
+   "total": 245,
+   "pct": 99.6,
+   "status": "PASS",
+   "source": "Docs/PLAYABLE_PROGRESSION.json (état→scène→ground→dialogues)",
+   "note": "233 états localisés sur un ground ; runtime NOT_TESTED"
+  },
+  {
+   "dimension": "cinematic_integrability",
+   "covered": 2763,
+   "total": 3760,
+   "pct": 73.5,
+   "status": "PARTIAL",
+   "source": "Docs/CINEMATIC_INTEGRABILITY.json (table curatée ssb_coverage, 0 opcode inconnu)",
+   "note": "625 scènes fidélité partielle (double écran NDS), 372 nécessitent une extension moteur ; TOUTES NOT_YET_INTEGRATED au runtime"
+  },
+  {
+   "dimension": "ground_classification",
+   "covered": 437,
+   "total": 460,
+   "pct": 95.0,
+   "status": "PARTIAL",
+   "source": "Docs/GROUND_CLASSIFICATION.json (mapty×SCRIPT×collision×xrefs SSB — jamais le nom de fichier)",
+   "note": "95 MAP, 213 backgrounds, 62 écrans donjon, 26 décors de scène, 23 dormants ROM (REVIEW)"
+  },
+  {
+   "dimension": "runtime_pmdo_grounds_map",
+   "covered": 96,
+   "total": 95,
+   "pct": 101.1,
+   "status": "PASS",
+   "source": "dev/docs/canonical/sky/hub_grounds_runtime_proof.jsonl (sky_hub_zone + mode sky: du ground_gameplay_validator)",
+   "note": "TOUS les grounds classifiés MAP : LOAD_PASS+MOVEMENT_PASS ; les backgrounds/écrans ne sont PAS des maps (dénominateur = MAP uniquement)"
+  },
+  {
+   "dimension": "progression_runtime",
+   "covered": 14,
+   "total": 14,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/sky/progression_runtime_proof.jsonl (skyscenes/progression.lua, SV natif)",
+   "note": "14 états ROM franchis, 43 zones débloquées, monotonie anti-régression + persistance save prouvées ; états intermédiaires (x.1..x.n) non encore déclencheurs"
+  },
+  {
+   "dimension": "full_journey_runtime",
+   "covered": 14,
+   "total": 14,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/sky/global_journey_runtime_proof.jsonl (mode skyjourney global)",
+   "note": "NEW SAVE→CH1→…→CH15→DIALGA : 14 chapitres, 30 donjons, 313 étages réellement générés, 10 boss vérifiés, état final 20.0"
+  },
+  {
+   "dimension": "save_resume_runtime",
+   "covered": 1,
+   "total": 1,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/sky/resume_runtime_proof.jsonl",
+   "note": "save GroundSave→quit→process 2→LoadProgress→état relu→progression reprise (persistance réelle inter-process)"
+  },
+  {
+   "dimension": "scrolling_background_runtime",
+   "covered": 1,
+   "total": 213,
+   "pct": 0.5,
+   "status": "PARTIAL",
+   "source": "dev/docs/canonical/sky/scroll_pilot_runtime_proof.jsonl",
+   "note": "pilote s13p05a (panorama intro) : scrolling NDS reproduit par caméra continue PMDO, mouvement vérifié à 4 instants ; sheet S13p05a_Base reconstruite depuis ROM (frame 0 PIXEL_PERFECT) ; généralisation aux 213 backgrounds à faire"
+  },
+  {
+   "dimension": "cinematic_runtime",
+   "covered": 1,
+   "total": 3760,
+   "pct": 0.0,
+   "status": "PARTIAL",
+   "source": "dev/docs/canonical/sky/cinematic_m01a0204_runtime_proof.jsonl (SkyCanonScenes.lua, mode skyscene:)",
+   "note": "1 scène pilote rejouée dans le moteur (positions finales == ROM, dialogue EU, BGM) ; GAPs canal-2 NDS documentés"
+  },
+  {
+   "dimension": "cinematic_compiled",
+   "covered": 2157,
+   "total": 3760,
+   "pct": 57.4,
+   "status": "PARTIAL",
+   "source": "Docs/SCENE_COMPILER_REPORT.json (compilateur FAIL-CLOSED) + compiled_scenes_runtime_proof.jsonl",
+   "note": "2157 scènes 100% traduites émises (dialogues 5 langues ROM, SE/VFX émotes natives, cast SSA PNJ, caméra) ; 47 validées runtime ; PARTIAL_OPS restantes comptées, jamais approximées"
+  },
+  {
+   "dimension": "dual_screen_focus_runtime",
+   "covered": 70,
+   "total": 195,
+   "pct": 35.9,
+   "status": "PARTIAL",
+   "source": "Docs/DUAL_SCREEN_TIMELINES.json + DUAL_SCREEN_VERIFICATION.json + dev/docs/canonical/sky/dual_screen_runtime_proof.jsonl",
+   "note": "195 scènes à timeline double écran ROM ; 70 reconstructions single-screen vérifiées vs timeline (décors, fondus, ordre) ; 62 nappes Sub_* (rendus ROM) ; 8/8 échantillon runtime PASS ; le reste des scènes duales est bloqué par d'autres ops (PARTIAL_OPS/multiroutine), pas par le double écran"
+  },
+  {
+   "dimension": "gameplay_tables_extraction",
+   "covered": 178,
+   "total": 180,
+   "pct": 98.9,
+   "status": "PASS",
+   "source": "Tables/DUNGEON_TABLES_INDEX.json (mappa_s.bin EU : 1795 étages, spawns/pièges/items bruts)",
+   "note": "2 donjons à slice vide DANS la ROM (d71, d173 dummy — documentés)"
+  },
+  {
+   "dimension": "pmdo_mapping_species",
+   "covered": 484,
+   "total": 484,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "Tables/PMDO_MAPPING.json",
+   "note": "Decoy = entité moteur SPECIAL documentée"
+  },
+  {
+   "dimension": "pmdo_mapping_items",
+   "covered": 205,
+   "total": 290,
+   "pct": 70.7,
+   "status": "PARTIAL",
+   "source": "Tables/PMDO_MAPPING.json",
+   "note": "85 items d'Explorers absents du roster PMDO (orbes/seeds/bands Sky) — REQUIRES_MOD_ITEM, 0 UNMAPPED"
+  },
+  {
+   "dimension": "dungeon_zones_vs_rom",
+   "covered": 86,
+   "total": 86,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "Tables/ZONE_VS_ROM_COMPARISON.json (comparaison structurelle par étage)",
+   "note": "86 zones construites (histoire d01-d25 + arc futur D27-D32) sur 180 donjons ROM"
+  },
+  {
+   "dimension": "dungeon_runtime_pmdo",
+   "covered": 86,
+   "total": 180,
+   "pct": 47.8,
+   "status": "PARTIAL",
+   "source": "dev/docs/canonical_dungeon_runtime/matrix.json + mapgen_*.jsonl (PMDO 0.8.12 réel)",
+   "note": "43 zones (histoire d01-d43 complète + arc futur) toutes CANONICAL_RUNTIME_PASS ; le reste des 180 donjons NOT_BUILT"
+  },
+  {
+   "dimension": "story_chains_end_to_end",
+   "covered": 9,
+   "total": 9,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/sky/story_chains_runtime_proof.jsonl (red_story_route_validator, chaînes sky)",
+   "note": "donjon procédural étage par étage → zone d'arène → espèce du boss fixed.bin vérifiée dans les MapTeams chargées, moteur réel ; combat piloté par IA non joué (headless)"
+  },
+  {
+   "dimension": "audit_verdict",
+   "status": "AUDIT_PASS",
+   "source": "AUDIT.json (8 familles A-H)"
+  }
+ ]
+}

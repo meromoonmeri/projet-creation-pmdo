@@ -1,0 +1,26 @@
+-- GÉNÉRÉ par dev/tools/red_compile_cinematics.py (V2 séquence ROM) — NE PAS ÉDITER À LA MAIN.
+-- Station canonique PMD Red EU : ground d04p01 — ordre = commands des scripts EU décodés (adresses ROM).
+local SkySceneKit = require 'halcyon.skyscenes.kit'
+return function(hero, partner)
+  pcall(function() UI:ResetSpeaker() end)
+  pcall(function() SOUND:PlayBGM("Sinister Woods.ogg", true) end) -- 0x44 music_id 15 (ROM)
+  SkySceneKit.say({english="This is it. is lost in these woods.", french="C'est ici. est perdu dans ces bois.", german="Wir sind da. hat sich in diesen Wäldern verlaufen.", italian="Eccoci qui. si è perso in questo bosco.", spanish="Aquí es. se ha perdido en este bosque."})
+  SkySceneKit.say({english="'s crew should have a head start on us.", french="L'équipe d' a une longueur d'avance sur nous.", german="s Gang hat bestimmt einen Vorsprung.", italian="La banda di dovrebbe essere davanti a noi.", spanish="Seguro que la banda de nos lleva la delantera."})
+  SkySceneKit.say({english="We'd better hurry.", french="On ferait mieux de se dépêcher.", german="Wir beeilen uns besser.", italian="Dobbiamo sbrigarci.", spanish="Será mejor que nos demos prisa."})
+  SkySceneKit.say({english="This is it. is lost somewhere in these woods.", french="C'est là. est perdu quelque part dans ces bois.", german="Da sind wir. hat sich irgendwo in diesem Wäldchen verlaufen.", italian="Eccoci qui. si è perso da qualche parte in questo bosco.", spanish="Aquí es. se ha perdido en este bosque."})
+  SkySceneKit.say({english="'s gang should already be here.", french="La bande d' doit déjà être là.", german="s Gang müsste auch schon hier sein.", italian="La banda di dovrebbe essere già qui.", spanish="y sus amigotes deberían de estar ya aquí."})
+  SkySceneKit.say({english="We ought to hurry.", french="Nous ferions mieux de nous dépêcher.", german="Wir sollten uns sputen.", italian="Non abbiamo tempo da perdere.", spanish="Debemos apresurarnos."})
+  SkySceneKit.say({english="This must be it. is lost somewhere in these woods.", french="Ça doit être là. est perdu quelque part dans ces bois.", german="Hier muss es sein. hat sich in diesen Wäldern verlaufen.", italian="Ci siamo. deve essersi perso da qualche parte in questo bosco.", spanish="Este debe de ser el sitio. se ha perdido en este bosque."})
+  SkySceneKit.say({english="'s gang should be in there already.", french="La bande d' doit déjà être là.", german="s Gang müsste bereits hier sein.", italian="La combriccola di dovrebbe essere già arrivata.", spanish="y sus secuaces deben de haber llegado antes que nosotros."})
+  SkySceneKit.say({english="We need to hurry.", french="On doit se dépêcher.", german="Wir müssen uns beeilen.", italian="Non c'è tempo da perdere.", spanish="Tenemos que darnos prisa."})
+  pcall(function() SOUND:PlayBGM("Sinister Woods.ogg", true) end) -- 0x44 music_id 15 (ROM)
+  SkySceneKit.say({english="Let's move it, [hero]!", french="Allons-y, [hero]!", german="Lass uns gehen, [hero]!", italian="Forza, [hero]!", spanish="¡Vamos, [hero]!"})
+  SkySceneKit.say({english="Even while we're dawdling here, 's team...", french="Alors qu'on traîne ici, l'équipe d'...", german="Wir trödeln hier herum, während s Team...", italian="Mentre siamo qui a perdere tempo, la squadra di ...", spanish="Mientras nos entretenemos aquí, el equipo de ..."})
+  SkySceneKit.say({english="Hurry! Chop, chop!", french="Dépêchons! Vite, vite!", german="Beeilung! Zack, zack!", italian="Sbrighiamoci! Dai, su!", spanish="¡Venga! ¡Corre!"})
+  SkySceneKit.say({english="Let's hurry, [hero]!", french="Dépêchons-nous, [hero]!", german="Komm, [hero]! Wir müssen uns beeilen!", italian="Affrettiamoci, [hero]!", spanish="¡Rápido, [hero]!"})
+  SkySceneKit.say({english="While we're stuck back here, 's gang will be...", french="L'équipe d' doit déjà être loin...", german="Während wir hier rumsitzen, wird s Gang...", italian="Mentre siamo qui, la banda di ...", spanish="Mientras estamos aquí hablando, la banda de ..."})
+  SkySceneKit.say({english="We have to hurry!", french="Nous devons nous dépêcher!", german="Beeilen wir uns lieber!", italian="Dobbiamo fare in fretta!", spanish="¡Debemos darnos prisa!"})
+  SkySceneKit.say({english="Let's hustle, [hero]!", french="Hâtons-nous, [hero]!", german="Beeilen wir uns, [hero]!", italian="Siamo con l'acqua alla gola, [hero]!", spanish="¡Adelante, [hero]!"})
+  SkySceneKit.say({english="We're still stuck back here while 's gang is...", french="On est encore bloqués ici alors que le groupe d' est...", german="Wir sind immer noch nicht weit genug gekommen, während s Gang...", italian="Siamo ancora qui mentre la combriccola di ...", spanish="Estamos todavía aquí, mientras que la banda de ..."})
+  SkySceneKit.say({english="Come on, hurry!", french="Allez, vite!", german="Komm schon, beeil dich!", italian="Forza, sbrighiamoci!", spanish="¡Venga, deprisa!"})
+end

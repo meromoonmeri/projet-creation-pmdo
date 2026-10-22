@@ -1,0 +1,28 @@
+-- GÉNÉRÉ par dev/tools/red_compile_cinematics.py (V2 séquence ROM) — NE PAS ÉDITER À LA MAIN.
+-- Station canonique PMD Red EU : ground d18p01 — ordre = commands des scripts EU décodés (adresses ROM).
+local SkySceneKit = require 'halcyon.skyscenes.kit'
+return function(hero, partner)
+  pcall(function() UI:ResetSpeaker() end)
+  pcall(function() SOUND:PlayBGM("In the Depths of the Pit (Rescue Team).ogg", true) end) -- 0x44 music_id 114 (ROM)
+  SkySceneKit.say({english="Gwoooooooh!", french="Roooooooh!", german="Gwoooooooh!", italian="Gwoooooooh!", spanish="¡Arrrg!"})
+  SkySceneKit.say({english="I have lost...", french="J'ai perdu...", german="Ich habe verloren...", italian="Ho perso...", spanish="He perdido..."})
+  SkySceneKit.say({english="I admit it. You are strong.", french="Je dois l'admettre. Tu as beaucoup de force.", german="Ich gebe es zu. Ich bin nicht stark genug.", italian="Devo ammettere che sei forte.", spanish="Lo admito. Eres muy fuerte."})
+  SkySceneKit.say({english="This! The ISunset Wing!", french="Mais... C'est la IPlume Crépuscule!", german="Dies! Die IAbendgoldfeder!", italian="Questa... è la IPiuma Tramonto!", spanish="¡Oh...! ¡Es la IPluma Dorada!"})
+  SkySceneKit.say({english="...I see. You came seeking the mirage Pokémon...", french="Je vois... Tu cherches le Pokémon mirage...", german="...Verstehe. Das Illusion-Pokémon...", italian="... Capisco. Stai cercando il Pokémon miraggio...", spanish="Entiendo... Has venido en busca del Pokémon espejismo..."})
+  SkySceneKit.say({english="... Step back.", french="... Recule-toi.", german="... Zurück!", italian="... Stai a distanza.", spanish="... Apártate."})
+  SkySceneKit.say({english="Kyuuuuuuuuhn!", french="Kyuuuuuuuuhn!", german="Kyuuuuuuuuhn!", italian="Kyuuuuuuuuhn!", spanish="¡Fiuuuuuh!"})
+  SkySceneKit.say({english="The north wind swirled around the ISunset Wing!", french="Le vent du nord enveloppe la IPlume Crépuscule!", german="Der eisige Nordwind fegt durch die IAbendgoldfeder!", italian="Il vento di tramontana avvolge la IPiuma Tramonto!", spanish="¡El viento del norte ha formado una espiral alrededor de la IPluma Dorada!"})
+  SkySceneKit.say({english="The ISunset Wing... transformed into the IRainbow Wing!", french="La IPlume Crépuscule... se transforme en IPlume Arc-en-Ciel!", german="Die IAbendgoldfeder... wird zur IRegenbogenfeder!", italian="La IPiuma Tramonto... si trasforma nella IPiuma Arcobaleno!", spanish="¡La IPluma Dorada... se ha transformado en la IPluma Iris!"})
+  pcall(function() SOUND:PlayBGM("In the Depths of the Pit (Rescue Team).ogg", true) end) -- 0x44 music_id 114 (ROM)
+  SkySceneKit.say({english="Glittering in the seven colors of the rainbow, this wing is beautiful beyond description!", french="Brillant des sept couleurs de l'arc-en-ciel, cette plume est d'une beauté indicible!", german="Die Feder erstrahlt in der vollen Pracht der 7 Farben des Regenbogens! Ihr Anblick ist atemberaubend schön!", italian="La Piuma brilla con i sette colori dell'arcobaleno. La sua bellezza è indescrivibile!", spanish="¡Con sus destellos de los siete colores del arco iris, esta pluma posee una belleza indescriptible!"})
+  SkySceneKit.say({english="This IRainbow Wing...", french="Cette IPlume Arc-en-Ciel...", german="Die IRegenbogenfeder...", italian="La IPiuma Arcobaleno...", spanish="La IPluma Iris..."})
+  SkySceneKit.say({english="It is the key to meeting the mirage Pokémon.", french="C'est la clé pour rencontrer le Pokémon mirage.", german="Sie ist der Schlüssel, um dem Illusion-Pokémon zu begegnen.", italian="Questo è lo strumento fondamentale per incontrare il Pokémon miraggio.", spanish="es la clave para encontrar al Pokémon espejismo."})
+  SkySceneKit.say({english="Take this wing...", french="Prends cette plume...", german="Diese Feder...", italian="Prendi questa Piuma...", spanish="Toma esta pluma..."})
+  SkySceneKit.say({english="Take it to the mountain so high that its peak is obscured by clouds.", french="Emmène-la sur la montagne dont le sommet perce les nuages.", german="Sie muss auf den Berg gebracht werden, dessen hoher Gipfel von Wolken verhüllt wird.", italian="Portala alla montagna la cui cima è avvolta dalle nuvole.", spanish="Llévala a aquella montaña cuya cima está en las nubes..."})
+  SkySceneKit.say({english="Yes... Take it to DMt. Faraway!", french="Oui... Emporte-la au DPic Inaccessible!", german="Ja... Zum DWeitweitberg!", italian="Sì... Portala sul DMonte Remoto!", spanish="Sí... ¡Llévala al DMonte Distante!"})
+  SkySceneKit.say({english="The mirage Pokémon is at its peak!", french="Le Pokémon mirage se trouve à son sommet!", german="Auf dem Gipfel findet man das Illusion-Pokémon!", italian="Il Pokémon miraggio si trova in cima!", spanish="¡El Pokémon espejismo se encuentra en la cima!"})
+  SkySceneKit.say({english="[hero] received the IRainbow Wing.", french="[hero] reçoit la IPlume Arc-en-Ciel.", german="[hero] erhält die IRegenbogenfeder.", italian="[hero] riceve la IPiuma Arcobaleno.", spanish="[hero] ha recibido la IPluma Iris."})
+  SkySceneKit.say({english="And...", french="Et...", german="Und...", italian="In più...", spanish="¡Y además..."})
+  SkySceneKit.say({english="Gained access to DMt. Faraway!", french="... le DPic Inaccessible est maintenant accessible!", german="Der DWeitweitberg steht offen!", italian="Il DMonte Remoto è ora accessibile!", spanish="tiene acceso al DMonte Distante!"})
+  GAME:WaitFrames(1) -- 0xE7
+end

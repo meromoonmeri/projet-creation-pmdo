@@ -1,0 +1,55 @@
+--- Scene: d10p01
+local d10p01 = {}
+function d10p01.Cutscene()
+  GAME:CutsceneMode(true)
+  GAME:PlayBGM('Escape Through The Snow', true)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  GAME:PlayBGM('Escape Through The Snow', true)
+  -- GAME:MoveCamera(HeroX, HeroY, 1)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_001"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_002"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_003"))
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_004"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_005"))
+  GAME:FadeOutBGM(120)
+  -- CAMERA_PAN(128, 0),
+  GAME:FadeOutBGM(120)
+  -- CAMERA_PAN(179, 0),
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_006"))
+  GAME:FadeOutBGM(120)
+  -- CAMERA_PAN(128, 0),
+  GAME:FadeOutBGM(120)
+  -- CAMERA_PAN(192, 0),
+  -- GROUND:CharSetAction(ent, 2)
+  -- CAMERA_PAN(128, 0),
+  -- CAMERA_PAN(192, 0),
+  GAME:PlayBGM('Escape Through The Snow', true)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_007"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_008"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_009"))
+  GAME:PlayBGM('Escape Through The Snow', true)
+  -- GROUND:CharSetAction(ent, 8)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_010"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_011"))
+  -- GROUND:CharSetAction(ent, 8)
+  -- GROUND:CharSetAction(ent, 2)
+  GAME:PlayBGM('Escape Through The Snow', true)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_012"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_013"))
+  -- GROUND:CharSetAction(ent, 2)
+  GAME:PlayBGM('Escape Through The Snow', true)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_014"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D10P01_015"))
+  GAME:CutsceneMode(false)
+end
+return d10p01

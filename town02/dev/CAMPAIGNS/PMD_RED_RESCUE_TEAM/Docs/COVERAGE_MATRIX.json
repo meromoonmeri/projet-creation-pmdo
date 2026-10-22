@@ -1,0 +1,115 @@
+{
+ "schema": "campaign-coverage-matrix/1",
+ "campaign": "PMD_RED_RESCUE_TEAM",
+ "rule": "couvertures séparées — ne JAMAIS fusionner",
+ "dimensions": [
+  {
+   "dimension": "extraction_grounds",
+   "covered": 254,
+   "total": 254,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "MANIFEST.totals.grounds",
+   "note": "254 grounds canoniques (campagne 219 validée PMDO réel + 21 fins de donjon + variantes)"
+  },
+  {
+   "dimension": "render_visual",
+   "covered": 254,
+   "total": 254,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "AUDIT.coverage.render_pct"
+  },
+  {
+   "dimension": "frames_animation",
+   "status": "PASS",
+   "source": "AUDIT.frame_status (période minimale réelle par tuile)"
+  },
+  {
+   "dimension": "runtime_pmdo",
+   "covered": 219,
+   "total": 254,
+   "pct": 86.2,
+   "status": "PARTIAL",
+   "source": "MANIFEST.totals.runtime_validated (campagne 219 : mismatched_pixel_count=0 dans PMDO 0.8.12 réel)",
+   "note": "35 grounds (fins de donjon importées + variantes) restent NOT_TESTED au runtime"
+  },
+  {
+   "dimension": "cinematic_sequences",
+   "covered": 132,
+   "total": 254,
+   "pct": 52.0,
+   "status": "PARTIAL",
+   "source": "MANIFEST.totals.with_cinematic (cif.json ROM)",
+   "note": "couvre les grounds d'histoire ; les arènes/variantes n'ont canoniquement pas de cinématique"
+  },
+  {
+   "dimension": "dialogues_5_langues",
+   "covered": 69,
+   "total": 133,
+   "pct": 51.9,
+   "status": "PARTIAL",
+   "source": "Cinematics/DIALOGUES_INDEX.json (69 stations graphe EU exact, 3073 blocs)",
+   "note": "64 stations REVIEW_REQUIRED (graphe EU non exactement aligné pret)"
+  },
+  {
+   "dimension": "canonical_cast",
+   "covered": 27,
+   "total": 27,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "eu_scene_cast.json (gGroundLivesTypeData 0x27BEEC) + preuve runtime 3 scènes",
+   "note": "27/27 scènes à cast décodées ; alt_sectors (49 entités) REVIEW_REQUIRED"
+  },
+  {
+   "dimension": "event_chain_rom_decoded",
+   "covered": 399,
+   "total": 407,
+   "pct": 98.0,
+   "status": "PASS",
+   "source": "Cinematics/EVENT_SCRIPTS_INDEX.json (gFunctionScriptTable EU @0x08294450, décodage octet par octet)",
+   "note": "136 écritures SCENARIO_MAIN confirmées 1:1 vs pret ; 8 EMPTY = pointeurs nuls DANS la ROM"
+  },
+  {
+   "dimension": "playable_progression",
+   "covered": 121,
+   "total": 121,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "Docs/PLAYABLE_PROGRESSION.json (EVENT→stations→dialogues)",
+   "note": "80 états avec stations résolues, 67 avec dialogues 5 langues — atteignabilité statique ; runtime NOT_TESTED"
+  },
+  {
+   "dimension": "dungeons_procedural_runtime",
+   "covered": 89,
+   "total": 89,
+   "pct": 100.0,
+   "status": "PARTIAL",
+   "source": "dev/docs/canonical_dungeon_runtime/matrix.json (89/89 CANONICAL_RUNTIME_PASS, 1848 étages)",
+   "note": "15 zones CH1-5 restaurées ont perdu leurs correctifs de convergence (zones verrouillées, état assumé)"
+  },
+  {
+   "dimension": "full_journey_runtime",
+   "covered": 13,
+   "total": 13,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/red/global_journey_runtime_proof.jsonl (mode redjourney)",
+   "note": "NEW SAVE→13 chapitres→182 étages→6 boss (Skarmory/Zapdos/Moltres/Glalie/Groudon/Rayquaza) SANS GAP — arènes Groudon/Rayquaza décodées de fixedmap.inc GBA octet par octet"
+  },
+  {
+   "dimension": "save_resume_runtime",
+   "covered": 1,
+   "total": 1,
+   "pct": 100.0,
+   "status": "PASS",
+   "source": "dev/docs/canonical/red/resume_runtime_proof.jsonl (dev/tools/red_resume_runtime_test.py)",
+   "note": "GroundSave état 7.0 depuis t01p02b→quit→process 2→LoadProgress→état 7.0 relu (mt_thunder oui, sky_tower non)→progression reprise 8.0 (great_canyon)"
+  },
+  {
+   "dimension": "audit_verdict",
+   "status": "AUDIT_PASS",
+   "source": "AUDIT.json (8 familles A-H)"
+  }
+ ]
+}

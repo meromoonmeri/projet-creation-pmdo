@@ -1,0 +1,7 @@
+require 'origin.common'
+require 'halcyon.dungeon_event.beginner_lesson_evt'
+require 'halcyon.event_single'
+require 'halcyon.event_battle'
+require 'halcyon.event_misc'
+require 'halcyon.event_mapgen'
+require 'halcyon.dungeon_life'

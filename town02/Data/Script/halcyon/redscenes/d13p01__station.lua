@@ -1,0 +1,26 @@
+-- GÉNÉRÉ par dev/tools/red_compile_cinematics.py (V2 séquence ROM) — NE PAS ÉDITER À LA MAIN.
+-- Station canonique PMD Red EU : ground d13p01 — ordre = commands des scripts EU décodés (adresses ROM).
+local SkySceneKit = require 'halcyon.skyscenes.kit'
+return function(hero, partner)
+  pcall(function() UI:ResetSpeaker() end)
+  pcall(function() SOUND:PlayBGM("Sky Tower (Rescue Team).ogg", true) end) -- 0x44 music_id 22 (ROM)
+  SkySceneKit.say({english="Ouch... Where are we?", french="Ouille... Où sommes-nous?", german="Autsch... Wo sind wir?", italian="Ahia... Dove siamo?", spanish="Ay... ¿Dónde estamos?"})
+  SkySceneKit.say({english="Owowow... Where are we?", french="Aïe, aïe, aïe... Où sommes-nous?", german="Auauauau... Wo sind wir?", italian="Ohhhh... Dove siamo?", spanish="Ay... ¿Dónde estamos?"})
+  SkySceneKit.say({english="Wah! [hero], this is cool! We're on clouds!", french="Houlà! [hero], c'est cool! Nous sommes sur des nuages!", german="Wow! [hero], ist das cool! Wir sind auf den Wolken!", italian="Ah! [hero], che forte! Siamo sulle nuvole!", spanish="¡Guau! ¡[hero], esto es genial! ¡¿Estamos de verdad en las nubes?!"})
+  SkySceneKit.say({english="Wah! [hero], this is cool! We're on clouds!", french="Houlà! [hero], c'est cool! On est sur des nuages!", german="Wah! [hero], ist das cool! Wir sind auf den Wolken!", italian="Ah! [hero], che forte! Siamo sulle nuvole!", spanish="¡Eh! ¡[hero], cómo mola! ¡Estamos en las nubes!"})
+  SkySceneKit.say({english="Oh, wow!", french="Oh, waouh!", german="Oh, wow!", italian="Oh, wow!", spanish="¡Oh, guau!"})
+  SkySceneKit.say({english="[hero], look up there!", french="[hero], regarde là-haut!", german="[hero], sieh mal nach oben!", italian="[hero], guarda lassù!", spanish="¡[hero], mira allí!"})
+  pcall(function() SOUND:PlayBGM("Sky Tower (Rescue Team).ogg", true) end) -- 0x44 music_id 22 (ROM)
+  SkySceneKit.say({english="It must be at the very top...", french="Ça doit être au sommet...", german="Wir müssen bis ganz nach oben...", italian="Dovrebbe trovarsi in cima...", spanish="Debe de estar en lo más alto..."})
+  SkySceneKit.say({english="That must be where is...", french="... que se trouve ...", german="Dort wird sein...", italian="Credo che sia lì...", spanish="Ese debe de ser el sitio donde se encuentra ..."})
+  SkySceneKit.say({english="It's at the top of this tower...", french="C'est au sommet de cette tour...", german="Ganz oben, auf der Spitze des Turms...", italian="In cima a questa torre...", spanish="En lo alto de aquella torre..."})
+  SkySceneKit.say({english="That's where is...", french="... que se trouve ...", german="Dort wird sein...", italian="dovrebbe essere lì...", spanish="Ahí es donde vive ..."})
+  SkySceneKit.say({english="[hero]! Let's give it our best!", french="[hero]! Donnons notre maximum!", german="[hero]! Geben wir alles!", italian="[hero]! Diamo il meglio di noi!", spanish="¡[hero]! ¡Vamos a por todas!"})
+  SkySceneKit.say({english="[hero]! Let's do our best on the climb!", french="[hero]! Nous devons nous accrocher pour grimper là-haut!", german="[hero]! Klettern wir hoch!", italian="[hero]! Impegniamoci a fondo e scaliamo la torre!", spanish="¡[hero]! ¡Debemos esforzarnos para subir allá!"})
+  pcall(function() SOUND:PlayBGM("Sky Tower (Rescue Team).ogg", true) end) -- 0x44 music_id 22 (ROM)
+  SkySceneKit.say({english="All right. We're up in the sky again.", french="Très bien. Nous sommes dans le ciel à nouveau.", german="Also gut. Wir sind wieder in luftiger Höhe.", italian="Bene. Eccoci di nuovo in cielo.", spanish="Muy bien. Estamos en el cielo otra vez."})
+  SkySceneKit.say({english="OK. Here we are in the sky again.", french="Très bien. On est à nouveau dans le ciel.", german="So. Der Himmel hat uns wieder.", italian="OK. Siamo di nuovo in cielo.", spanish="Vale. Aquí estamos otra vez en el cielo."})
+  SkySceneKit.say({english="OK. Here we are in the sky again.", french="Très bien. Nous sommes à nouveau dans le ciel.", german="So. Der Himmel hat uns wieder.", italian="OK. Siamo di nuovo in cielo.", spanish="Bueno... Pues ya estamos otra vez en el cielo..."})
+  SkySceneKit.say({english="Let's storm our way to the top floor!", french="En route pour le sommet!", german="Los! Stürmen wir die oberste Ebene!", italian="Facciamoci largo per raggiungere l'ultimo piano!", spanish="¡Vamos a abrirnos paso hasta el nivel superior!"})
+  SkySceneKit.say({english="Let's head for the top! This is it!", french="En route vers le sommet!", german="Auf zur höchsten Ebene! Dort ist unser Ziel!", italian="Puntiamo alla cima! Nessuno ci fermerà!", spanish="¡Vamos a lo más alto! ¡Venga!"})
+end

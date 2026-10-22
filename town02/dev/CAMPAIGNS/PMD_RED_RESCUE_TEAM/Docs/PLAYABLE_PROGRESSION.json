@@ -1,0 +1,3796 @@
+{
+ "schema": "red-playable-progression/1",
+ "authority": "chaîne EVENT_* ROM EU décodée (ROM_DECODED) + stations EU exactes + pret ground_map.h (enum) / event_flag.h (annotations)",
+ "note": "chaque étape cite ses événements, stations exécutées (EXECUTE_STATION résolus en MAP_*) et dialogues liés — aucune étape inventée",
+ "main_chain": [
+  {
+   "state": "1.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "2.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M00E01A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 228,
+     "map": "MAP_TEAM_BASE_WALL_MAP",
+     "asset": "s01",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "s01",
+     "status": "PASS",
+     "text_blocks": 6,
+     "file": "dialogues/s01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "2.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND",
+    "GETOUT_M01E01A"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "2.2",
+   "annotation": "??? Set upon exiting Tiny Woods.",
+   "written_by": [
+    "GETOUT_M01E01A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.0",
+   "annotation": "Chose team name. See QUEST_SET_TEAM_NAME. Set in EVENT_M01E01A_L003",
+   "written_by": [
+    "EVENT_M01E01A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 184,
+     "map": "MAP_SINISTER_WOODS_ENTRY",
+     "asset": "d01p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 183,
+     "map": "MAP_MT_STEEL_END",
+     "asset": "d01p01",
+     "group": 3,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 16,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 229,
+     "map": "MAP_COUNT",
+     "asset": "s02",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d01p02",
+     "status": "PASS",
+     "text_blocks": 8,
+     "file": "dialogues/d01p02.json.gz"
+    },
+    {
+     "station": "d01p01",
+     "status": "PASS",
+     "text_blocks": 109,
+     "file": "dialogues/d01p01.json.gz"
+    },
+    {
+     "station": "s02",
+     "status": "PASS",
+     "text_blocks": 0,
+     "file": "dialogues/s02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 15,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.3",
+   "annotation": "??? Bed tutorial related.",
+   "written_by": [
+    "EVENT_M01E02A_L001B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.4",
+   "annotation": "??? See QUEST_UNK1 also",
+   "written_by": [
+    "EVENT_M01E02A_L001C"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 17,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.5",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 17,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "3.6",
+   "annotation": "??? Thunderwave cave related",
+   "written_by": [
+    "EVENT_M01E02A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 185,
+     "map": "MAP_SINISTER_WOODS_END",
+     "asset": "d02p01",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d02p01",
+     "status": "PASS",
+     "text_blocks": 10,
+     "file": "dialogues/d02p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.0",
+   "annotation": "??? Set upon exiting Thunderwave Cave.",
+   "written_by": [
+    "EVENT_M01E02A_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 186,
+     "map": "MAP_SILENT_CHASM_ENTRY",
+     "asset": "d02p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 185,
+     "map": "MAP_SINISTER_WOODS_END",
+     "asset": "d02p01",
+     "group": 3,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 22,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d02p02",
+     "status": "PASS",
+     "text_blocks": 2,
+     "file": "dialogues/d02p02.json.gz"
+    },
+    {
+     "station": "d02p01",
+     "status": "PASS",
+     "text_blocks": 10,
+     "file": "dialogues/d02p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 19,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02B_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.4",
+   "annotation": "??? See QUEST_CAN_ACCESS_JOBS also",
+   "written_by": [
+    "EVENT_M01E02B_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 5,
+     "map": "MAP_PELIPPER_POST_OFFICE_INSIDE",
+     "asset": "t01p03",
+     "group": 12,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "t01p03",
+     "status": "PASS",
+     "text_blocks": 242,
+     "file": "dialogues/t01p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.5",
+   "annotation": "??? Mt Steel related",
+   "written_by": [
+    "EVENT_M01E02B_L004"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 20,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.6",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02B_L004B"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 25,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.7",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E02B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "4.8",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E02B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E02B_L008"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 188,
+     "map": "MAP_MT_THUNDER_ENTRY",
+     "asset": "d03p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 27,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d03p02",
+     "status": "PASS",
+     "text_blocks": 22,
+     "file": "dialogues/d03p02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.1",
+   "annotation": "??? See QUEST_CAN_RECRUIT also",
+   "written_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_M01E03A_L000"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E03A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 3,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 22,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E03A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 28,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.5",
+   "annotation": "??? See QUEST_UNK10 and QUEST_UNK11 also",
+   "written_by": [
+    "EVENT_M01E03A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.6",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E03A_L004"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 23,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.7",
+   "annotation": "??? See QUEST_MAZE_14 also",
+   "written_by": [
+    "EVENT_M01E03A_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 29,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.8",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E03A_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 24,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.9",
+   "annotation": "??? Sinister Woods related",
+   "written_by": [
+    "EVENT_M01E03A_L007"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 30,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.10",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E03A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "5.11",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E03A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "6.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E03A_L011"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 190,
+     "map": "MAP_MT_THUNDER_END",
+     "asset": "d04p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 33,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d04p02",
+     "status": "PASS",
+     "text_blocks": 11,
+     "file": "dialogues/d04p02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "6.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_M01E04A_L000"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "6.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E04A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 26,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND",
+    "GETOUT_M01E04A"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "6.3",
+   "annotation": "??? Silent Chasm related",
+   "written_by": [
+    "EVENT_M01E04A_L002",
+    "GETOUT_M01E04A"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 34,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 8,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 35,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E04A_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 192,
+     "map": "MAP_HILL_OF_THE_ANCIENTS",
+     "asset": "d05p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 38,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d05p02",
+     "status": "PASS",
+     "text_blocks": 28,
+     "file": "dialogues/d05p02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_M01E04B_L000"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E04B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 28,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.3",
+   "annotation": "??? Mt Thunder related",
+   "written_by": [
+    "EVENT_M01E04B_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 39,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.4",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E04B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "7.5",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E04B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "8.0",
+   "annotation": "??? See QUEST_LEGEND_ZAPDOS also",
+   "written_by": [
+    "EVENT_M01E04B_L007"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 195,
+     "map": "MAP_MT_BLAZE_ENTRY",
+     "asset": "d06p03",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d06p03",
+     "status": "PASS",
+     "text_blocks": 65,
+     "file": "dialogues/d06p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "8.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_M01E05A_L000"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "8.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 30,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "8.3",
+   "annotation": "??? Great Canyon related",
+   "written_by": [
+    "EVENT_M01E05A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 42,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND",
+    "GETOUT_M01E05A"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "8.4",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E05A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05A_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 197,
+     "map": "MAP_MT_BLAZE_END",
+     "asset": "d07p02",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d07p02",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_M01E05B_L000"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 32,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05B_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 44,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.4",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05B_L003"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "9.5",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05B_L004"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 3,
+     "map": "MAP_WHISCASH_POND_OPEN",
+     "asset": "t01p02a",
+     "group": 17,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "t01p02a",
+     "status": "PASS",
+     "text_blocks": 269,
+     "file": "dialogues/t01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "10.0",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E05B_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 45,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "10.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_FIRST"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "10.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E06A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 4,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 33,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 3,
+     "map": "MAP_WHISCASH_POND_OPEN",
+     "asset": "t01p02a",
+     "group": 18,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 34,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    },
+    {
+     "station": "t01p02a",
+     "status": "PASS",
+     "text_blocks": 269,
+     "file": "dialogues/t01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "10.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E06A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 46,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "11.0",
+   "annotation": "Fugitive story begins. See QUEST_SQUARE_ASLEEP also",
+   "written_by": [
+    "EVENT_M01E06A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 16,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 17,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 9,
+     "map": "MAP_TEAM_BASE_PIKACHU_BASIC",
+     "asset": "b01p00a",
+     "group": 47,
+     "sector": 0
+    }
+   ],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "11.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "11.2",
+   "annotation": "??? See QUEST_UNK12 also",
+   "written_by": [
+    "EVENT_M01E07A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 17,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "11.4",
+   "annotation": "??? See QUEST_UNK5 also",
+   "written_by": [
+    "EVENT_M01E07A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 19,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 20,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 21,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 165,
+     "map": "MAP_FUGITIVES_FIRE",
+     "asset": "a02p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 166,
+     "map": "MAP_FUGITIVES_LAPIS_CAVE",
+     "asset": "a02p02",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    },
+    {
+     "station": "a02p01",
+     "status": "PASS",
+     "text_blocks": 5,
+     "file": "dialogues/a02p01.json.gz"
+    },
+    {
+     "station": "a02p02",
+     "status": "PASS",
+     "text_blocks": 7,
+     "file": "dialogues/a02p02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND",
+    "GETOUT_M01E07A"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "11.5",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E07A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "12.0",
+   "annotation": "Lapis Cave completed? Mt Blaze story begins?",
+   "written_by": [
+    "EVENT_M01E07A_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 199,
+     "map": "MAP_FROSTY_FOREST_MID",
+     "asset": "d08p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 167,
+     "map": "MAP_FUGITIVES_VOLCANO",
+     "asset": "a02p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 168,
+     "map": "MAP_FUGITIVES_SNOW_ROAD",
+     "asset": "a02p04",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 167,
+     "map": "MAP_FUGITIVES_VOLCANO",
+     "asset": "a02p03",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d08p02",
+     "status": "PASS",
+     "text_blocks": 11,
+     "file": "dialogues/d08p02.json.gz"
+    },
+    {
+     "station": "a02p03",
+     "status": "PASS",
+     "text_blocks": 16,
+     "file": "dialogues/a02p03.json.gz"
+    },
+    {
+     "station": "a02p04",
+     "status": "PASS",
+     "text_blocks": 92,
+     "file": "dialogues/a02p04.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "12.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "12.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E07B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 200,
+     "map": "MAP_FROSTY_FOREST_END",
+     "asset": "d09p01",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d09p01",
+     "status": "PASS",
+     "text_blocks": 69,
+     "file": "dialogues/d09p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "12.3",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E07B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "12.4",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E07B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "13.0",
+   "annotation": "Mt Blaze completed. Frosty Grotto story begins. See QUEST_SQUARE_ASLEEP and QUEST_LEGEND_MOLTRES also",
+   "written_by": [
+    "EVENT_M01E07B_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 202,
+     "map": "MAP_MT_FREEZE_MID",
+     "asset": "d09p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 168,
+     "map": "MAP_FUGITIVES_SNOW_ROAD",
+     "asset": "a02p04",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d09p03",
+     "status": "PASS",
+     "text_blocks": 85,
+     "file": "dialogues/d09p03.json.gz"
+    },
+    {
+     "station": "a02p04",
+     "status": "PASS",
+     "text_blocks": 92,
+     "file": "dialogues/a02p04.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "13.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "13.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E08A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 169,
+     "map": "MAP_FUGITIVES_SNOW_FOREST",
+     "asset": "a03p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 169,
+     "map": "MAP_FUGITIVES_SNOW_FOREST",
+     "asset": "a03p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 170,
+     "map": "MAP_FUGITIVES_BLIZZARD_ROAD",
+     "asset": "a03p02",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "a03p01",
+     "status": "PASS",
+     "text_blocks": 30,
+     "file": "dialogues/a03p01.json.gz"
+    },
+    {
+     "station": "a03p02",
+     "status": "PASS",
+     "text_blocks": 2,
+     "file": "dialogues/a03p02.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "13.3",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E08A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "13.4",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E08A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "14.0",
+   "annotation": "Frosty Grotto completed. Mt Freeze story begins? See QUEST_LEGEND_ARTICUNO also",
+   "written_by": [
+    "EVENT_M01E08A_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 205,
+     "map": "MAP_MAGMA_CAVERN_MID",
+     "asset": "d10p03",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d10p03",
+     "status": "PASS",
+     "text_blocks": 79,
+     "file": "dialogues/d10p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "14.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "14.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E08B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 171,
+     "map": "MAP_SUMMIT_SUNSET",
+     "asset": "a03p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 5,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 171,
+     "map": "MAP_SUMMIT_SUNSET",
+     "asset": "a03p03",
+     "group": 2,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "a03p03",
+     "status": "PASS",
+     "text_blocks": 113,
+     "file": "dialogues/a03p03.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "14.3",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E08B"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.0",
+   "annotation": "Mt Freeze completed? See QUEST_UNK5 and QUEST_MAZE_14 also",
+   "written_by": [
+    "EVENT_M01E08B_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 208,
+     "map": "MAP_SKY_TOWER_MID",
+     "asset": "d11p03",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 208,
+     "map": "MAP_SKY_TOWER_MID",
+     "asset": "d11p03",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d11p03",
+     "status": "PASS",
+     "text_blocks": 171,
+     "file": "dialogues/d11p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 19,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 35,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 23,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.4",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 6,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 36,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 7,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 37,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.5",
+   "annotation": "??? Uproar Forest related",
+   "written_by": [
+    "EVENT_M01E09A_L004",
+    "EVENT_S01E01A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 25,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.6",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L005"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 38,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.7",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L006"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 26,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 20,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 27,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.8",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L007"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 39,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.9",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E09A_L008",
+    "GETOUT_M01E09A"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 21,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 28,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.10",
+   "annotation": "??? Magma Cavern related",
+   "written_by": [
+    "EVENT_M01E09A_L009"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 8,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 40,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.11",
+   "annotation": "??? Magma Cavern related",
+   "written_by": [
+    "EVENT_M01E09A_L010"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 30,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "15.12",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E09A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.0",
+   "annotation": "Magma Cavern completed. Sky Tower story begins. See QUEST_LEGEND_GROUDON also",
+   "written_by": [
+    "EVENT_M01E09A_L015"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 211,
+     "map": "MAP_D15",
+     "asset": "d12p04",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d12p04",
+     "status": "PASS",
+     "text_blocks": 16,
+     "file": "dialogues/d12p04.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND",
+    "EVENT_M01E10A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 22,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 174,
+     "map": "MAP_NIGHTMARE",
+     "asset": "a04p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 23,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 2,
+     "map": "MAP_WHISCASH_POND",
+     "asset": "t01p01",
+     "group": 11,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "a04p01",
+     "status": "PASS",
+     "text_blocks": 163,
+     "file": "dialogues/a04p01.json.gz"
+    },
+    {
+     "station": "a04p03",
+     "status": "PASS",
+     "text_blocks": 0,
+     "file": "dialogues/a04p03.json.gz"
+    },
+    {
+     "station": "t01p01",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.2",
+   "annotation": "World calamity music is forced. Partner awaits in Pokémon Square for you to confirm you're ready for Sky Tower. You begin dreaming with Gardevoir and Gengar is there. See QUEST_IN_WORLD_CALAMITY",
+   "written_by": [
+    "EVENT_M01E10A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 22,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 174,
+     "map": "MAP_NIGHTMARE",
+     "asset": "a04p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 23,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 2,
+     "map": "MAP_WHISCASH_POND",
+     "asset": "t01p01",
+     "group": 11,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "a04p01",
+     "status": "PASS",
+     "text_blocks": 163,
+     "file": "dialogues/a04p01.json.gz"
+    },
+    {
+     "station": "a04p03",
+     "status": "PASS",
+     "text_blocks": 0,
+     "file": "dialogues/a04p03.json.gz"
+    },
+    {
+     "station": "t01p01",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.3",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M01E10A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 164,
+     "map": "MAP_FUGITIVES_FISSURE",
+     "asset": "a01p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 42,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 164,
+     "map": "MAP_FUGITIVES_FISSURE",
+     "asset": "a01p02",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 163,
+     "map": "MAP_PERSONALITY_TEST_PURPLE",
+     "asset": "a01p01",
+     "group": 9,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 43,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    },
+    {
+     "station": "a01p02",
+     "status": "PASS",
+     "text_blocks": 95,
+     "file": "dialogues/a01p02.json.gz"
+    },
+    {
+     "station": "a01p01",
+     "status": "PASS",
+     "text_blocks": 197,
+     "file": "dialogues/a01p01.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.4",
+   "annotation": "??? Sky Tower related",
+   "written_by": [
+    "EVENT_M01E10A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 33,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.5",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E10A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "16.6",
+   "annotation": null,
+   "written_by": [
+    "GETOUT_M01E10A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "17.0",
+   "annotation": "Sky Tower completed. See QUEST_LEGEND_RAYQUAZA also",
+   "written_by": [
+    "EVENT_M01E10A_L008"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 214,
+     "map": "MAP_D18",
+     "asset": "d13p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 174,
+     "map": "MAP_NIGHTMARE",
+     "asset": "a04p03",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 214,
+     "map": "MAP_D18",
+     "asset": "d13p03",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 174,
+     "map": "MAP_NIGHTMARE",
+     "asset": "a04p03",
+     "group": 3,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 214,
+     "map": "MAP_D18",
+     "asset": "d13p03",
+     "group": 3,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "d13p03",
+     "status": "PASS",
+     "text_blocks": 31,
+     "file": "dialogues/d13p03.json.gz"
+    },
+    {
+     "station": "a04p03",
+     "status": "PASS",
+     "text_blocks": 0,
+     "file": "dialogues/a04p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "17.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "18.0",
+   "annotation": "??? See QUEST_REACHED_POSTGAME also",
+   "written_by": [
+    "EVENT_M01END_L001",
+    "EVENT_M01END_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 175,
+     "map": "MAP_NIGHT_SKY_1",
+     "asset": "a04p04",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 5,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 1,
+     "map": "MAP_POKEMON_SQUARE",
+     "asset": "t01p00",
+     "group": 24,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 3,
+     "map": "MAP_WHISCASH_POND_OPEN",
+     "asset": "t01p02a",
+     "group": 28,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 5,
+     "map": "MAP_PELIPPER_POST_OFFICE_INSIDE",
+     "asset": "t01p03",
+     "group": 27,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 6,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 172,
+     "map": "MAP_SKY_TOWER",
+     "asset": "a04p01",
+     "group": 7,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 176,
+     "map": "MAP_NIGHT_SKY_2",
+     "asset": "a05p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 177,
+     "map": "MAP_THE_END",
+     "asset": "a05p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 176,
+     "map": "MAP_NIGHT_SKY_2",
+     "asset": "a05p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 36,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 178,
+     "map": "MAP_TINY_WOODS_ENTRY",
+     "asset": "a05p03",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 176,
+     "map": "MAP_NIGHT_SKY_2",
+     "asset": "a05p01",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 177,
+     "map": "MAP_THE_END",
+     "asset": "a05p02",
+     "group": 1,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 176,
+     "map": "MAP_NIGHT_SKY_2",
+     "asset": "a05p01",
+     "group": 2,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 36,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 178,
+     "map": "MAP_TINY_WOODS_ENTRY",
+     "asset": "a05p03",
+     "group": 1,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "a04p04",
+     "status": "PASS",
+     "text_blocks": 32,
+     "file": "dialogues/a04p04.json.gz"
+    },
+    {
+     "station": "a04p01",
+     "status": "PASS",
+     "text_blocks": 163,
+     "file": "dialogues/a04p01.json.gz"
+    },
+    {
+     "station": "t01p02a",
+     "status": "PASS",
+     "text_blocks": 269,
+     "file": "dialogues/t01p02a.json.gz"
+    },
+    {
+     "station": "t01p03",
+     "status": "PASS",
+     "text_blocks": 242,
+     "file": "dialogues/t01p03.json.gz"
+    },
+    {
+     "station": "a05p01",
+     "status": "PASS",
+     "text_blocks": 14,
+     "file": "dialogues/a05p01.json.gz"
+    },
+    {
+     "station": "a05p02",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    },
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    },
+    {
+     "station": "a05p03",
+     "status": "PASS",
+     "text_blocks": 9,
+     "file": "dialogues/a05p03.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "18.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "18.2",
+   "annotation": "??? See QUEST_UNLOCKED_EVOLUTIONS also",
+   "written_by": [
+    "EVENT_M02E01A_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 45,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "18.3",
+   "annotation": "??? See QUEST_CAN_CHANGE_LEADER also",
+   "written_by": [
+    "EVENT_M02E01A_L002"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 37,
+     "sector": 0
+    },
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 3,
+     "map": "MAP_WHISCASH_POND_OPEN",
+     "asset": "t01p02a",
+     "group": 29,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    },
+    {
+     "station": "t01p02a",
+     "status": "PASS",
+     "text_blocks": 269,
+     "file": "dialogues/t01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "18.4",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E01A_L003"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 10,
+     "map": "MAP_TEAM_BASE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p01a",
+     "group": 40,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p01a",
+     "status": "REVIEW_REQUIRED",
+     "text_blocks": null,
+     "file": null
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "19.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_NEXT_DAY2_FUNC",
+    "EVENT_DIVIDE_NEXT_DAY_FUNC",
+    "GETOUT_T00E01A",
+    "GETOUT_U00E01A"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "19.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02A_L001",
+    "FORMATION_HERO"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "20.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "20.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02B_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "21.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "21.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02C_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "22.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "22.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02D_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "23.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "23.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02E_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "24.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "24.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02F_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "25.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "25.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02G_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "26.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "26.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02E02H_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "27.1",
+   "annotation": "??? Set from EVENT_DIVIDE_AFTER",
+   "written_by": [
+    "EVENT_DIVIDE_AFTER"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "27.2",
+   "annotation": null,
+   "written_by": [
+    "EVENT_M02END_L001"
+   ],
+   "stations_executed": [
+    {
+     "kind": "EXECUTE_SUBSTATION",
+     "map_id": 13,
+     "map": "MAP_TEAM_BASE_INSIDE_PIKACHU_CONSTRUCTION",
+     "asset": "b01p02a",
+     "group": 6,
+     "sector": 0
+    }
+   ],
+   "dialogues": [
+    {
+     "station": "b01p02a",
+     "status": "PASS",
+     "text_blocks": 240,
+     "file": "dialogues/b01p02a.json.gz"
+    }
+   ],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_AFTER",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  },
+  {
+   "state": "58.1",
+   "annotation": null,
+   "written_by": [
+    "EVENT_DIVIDE"
+   ],
+   "stations_executed": [],
+   "dialogues": [],
+   "read_by": [
+    "EVENT_DIVIDE",
+    "EVENT_DIVIDE_FIRST",
+    "EVENT_DIVIDE_SECOND"
+   ],
+   "reachability": "READ"
+  }
+ ],
+ "totals": {
+  "states": 121,
+  "with_stations": 80,
+  "with_dialogues": 67,
+  "read": 121
+ }
+}

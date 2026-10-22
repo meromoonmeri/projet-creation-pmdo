@@ -1,0 +1,5759 @@
+{
+ "schema": "red-progression-graph/1",
+ "authority": {
+  "rom_side": "ROM Red EU (sha256 0f9d125d…) — 69 stations au graphe EU exact, opcodes scénario décodés",
+  "pret_side": "pret/pmd-red@bf0092d0 ground_event_data.h — chaîne EVENT_* : TECHNICAL_REFERENCE (non décodée octet à octet dans la ROM EU ; les events globaux ne sont pas dans gMapScriptTable)",
+  "note": "Les deux faces sont séparées. Ne jamais présenter la face pret comme du contenu EU décodé."
+ },
+ "rom_stations": {
+  "scenario_writes": {
+   "SCENARIO_SUB1[3,3]": [
+    "b01p02a/s_gs12_g16_s0_evt1_sref_script#8"
+   ],
+   "SCENARIO_SUB1[9,5]": [
+    "t01p02a/s_gs2_g16_s1_station_sref_script#2"
+   ],
+   "SCENARIO_SUB3[33,4]": [
+    "t01p02a/s_gs2_g3_s0_lives0_dlg2#49"
+   ],
+   "SCENARIO_SUB9[51,2]": [
+    "t01p02a/s_gs2_g6_s0_station_sref_script#3"
+   ],
+   "SCENARIO_SUB9[51,4]": [
+    "t01p02a/s_gs2_g8_s0_station_sref_script#3"
+   ],
+   "SCENARIO_SUB9[51,6]": [
+    "t01p02a/s_gs2_g9_s1_station_sref_script#3"
+   ]
+  },
+  "scenario_guards": {
+   "CJUMP_SCENARIO_0(SCENARIO_SUB1)": [
+    "b01p02a/s_gs12_g0_s0_station_sref_script#1",
+    "d06p02/s_gs189_g0_s0_station_sref_script#1",
+    "d08p01/s_gs193_g0_s0_station_sref_script#4",
+    "d09p01/s_gs195_g0_s0_station_sref_script#4",
+    "d09p02/s_gs196_g0_s0_station_sref_script#1",
+    "d10p01/s_gs198_g0_s0_station_sref_script#4",
+    "+7 autres"
+   ],
+   "CJUMP_SCENARIO_1(SCENARIO_SUB1)": [
+    "b01p02a/s_gs12_g0_s0_station_sref_script#13",
+    "b01p02a/s_gs12_g0_s0_station_sref_script#6",
+    "t01p02a/s_gs2_g0_s0_station_sref_script#19",
+    "t01p02a/s_gs2_g0_s0_station_sref_script#35",
+    "t01p02a/s_gs2_g0_s0_station_sref_script#46",
+    "t01p02a/s_gs2_g0_s0_station_sref_script#54",
+    "+9 autres"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_MAIN,51,3)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#5"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_MAIN,51,7)": [
+    "t01p03/s_gs4_g2_s0_station_sref_script#5"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_MAIN,51,8)": [
+    "t01p03/s_gs4_g2_s0_station_sref_script#6"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_SELECT,51,1)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#4"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_SELECT,53,2)": [
+    "t01p03/s_gs4_g2_s0_station_sref_script#4"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_SUB1,51,5)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#6"
+   ],
+   "JUMPIF_SCENE_EQ(SCENARIO_SUB1,51,6)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#7"
+   ],
+   "JUMPIF_SCENE_EQ(var_0,30,-1)": [
+    "t01p02a/s_gs2_g20_s0_lives1_dlg0#0",
+    "t01p02a/s_gs2_g21_s0_lives1_dlg0#0",
+    "t01p02a/s_gs2_g22_s0_lives1_dlg0#0",
+    "t01p02a/s_gs2_g23_s0_lives1_dlg0#0",
+    "t01p02a/s_gs2_g24_s0_lives1_dlg0#0"
+   ],
+   "JUMPIF_SCENE_EQ(var_1,33,3)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#3"
+   ],
+   "JUMPIF_SCENE_EQ(var_1,53,1)": [
+    "t01p03/s_gs4_g2_s0_station_sref_script#3"
+   ],
+   "JUMPIF_SCENE_GT(SCENARIO_SUB2,49,-1)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#9"
+   ],
+   "JUMPIF_SCENE_GT(var_0,33,3)": [
+    "t01p02a/s_gs2_g3_s0_lives0_dlg2#3",
+    "t01p02a/s_gs2_g3_s0_lives0_dlg3#3"
+   ],
+   "JUMPIF_SCENE_GT(var_0,49,-1)": [
+    "t01p03/s_gs4_g1_s0_lives4_dlg0#1"
+   ],
+   "JUMPIF_SCENE_GT(var_0,51,2)": [
+    "t01p02a/s_gs2_g6_s0_station_sref_script#2"
+   ],
+   "JUMPIF_SCENE_GT(var_0,51,3)": [
+    "t01p02a/s_gs2_g8_s0_station_sref_script#2"
+   ],
+   "JUMPIF_SCENE_GT(var_0,51,5)": [
+    "t01p02a/s_gs2_g9_s1_station_sref_script#2"
+   ],
+   "JUMPIF_SCENE_GT(var_0,9,5)": [
+    "t01p02a/s_gs2_g16_s1_station_sref_script#1"
+   ],
+   "JUMPIF_SCENE_LT(SCENARIO_SUB2,49,2)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#8"
+   ],
+   "JUMPIF_SCENE_LT(SCENARIO_SUB3,49,4)": [
+    "t01p02a/s_gs2_g2_s0_station_sref_script#10"
+   ],
+   "JUMPIF_SCENE_LT(var_0,49,2)": [
+    "t01p03/s_gs4_g1_s0_lives4_dlg0#0"
+   ],
+   "JUMPIF_SCENE_LT(var_0,9,4)": [
+    "t01p03/s_gs4_g18_s0_station_sref_script#0"
+   ],
+   "JUMPIF_SCENE_LT(var_1,49,4)": [
+    "t01p03/s_gs4_g1_s0_lives4_dlg0#2"
+   ]
+  },
+  "quest_checks": {
+   "quest_0": [
+    "d08p01/s_gs193_g0_s0_station_sref_script#0",
+    "d09p01/s_gs195_g0_s0_station_sref_script#0",
+    "d09p02/s_gs196_g0_s0_evt1_sref_script#0",
+    "d10p01/s_gs198_g0_s0_station_sref_script#0",
+    "d10p02/s_gs199_g0_s0_evt1_sref_script#0",
+    "d11p01/s_gs201_g0_s0_station_sref_script#0",
+    "+3 autres"
+   ],
+   "quest_31": [
+    "t01p02a/s_gs2_g0_s0_station_sref_script#124"
+   ]
+  },
+  "friend_area_unlocks": {},
+  "dungeon_results": {
+   "result_-1_enter_0": [
+    "b01p02a/s_gs12_g15_s0_station_sref_script#0",
+    "b01p02a/s_gs12_g16_s1_station_sref_script#0",
+    "b01p02a/s_gs12_g17_s0_station_sref_script#0",
+    "b01p02a/s_gs12_g19_s0_station_sref_script#0",
+    "b01p02a/s_gs12_g20_s0_station_sref_script#0",
+    "b01p02a/s_gs12_g22_s0_station_sref_script#0",
+    "+50 autres"
+   ]
+  }
+ },
+ "eu_event_chain": {
+  "status": "ROM_DECODED",
+  "source": "gFunctionScriptTable EU @0x08294450 (407 entrées, 399 scripts PASS)",
+  "proof": "281/281 SCENARIO_CALC identiques à pret (delta ID de variable régional +1 uniforme) ; 136/136 états SCENARIO_MAIN 1:1",
+  "events": {
+   "INIT_PLAZA_SLEEP_STAY_FUNC": [
+    {
+     "kind": "JUMPIF_SCENARIOCHECK",
+     "quest": 0,
+     "label": 4
+    }
+   ],
+   "INIT_PLAZA_SLEEP_TALK_FUNC": [
+    {
+     "kind": "JUMPIF_SCENARIOCHECK",
+     "quest": 0,
+     "label": 4
+    }
+   ],
+   "FORMATION_HERO": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "var_0",
+     "main": 19,
+     "sub": 2,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 2
+    }
+   ],
+   "EVENT_DIVIDE": [
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_SELECT"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 1,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 0,
+     "sub": 0
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 58,
+     "sub": 1
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 58,
+     "sub": 1
+    }
+   ],
+   "EVENT_DIVIDE_NEXT_DAY_FUNC": [
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_0",
+     "main": 15,
+     "sub": 7,
+     "label": 4
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_1",
+     "main": 18,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "SCENARIO_SELECT",
+     "main": 31,
+     "sub": 0,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 1
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB1",
+     "main": 51,
+     "sub": 2,
+     "label": 12
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB2",
+     "main": 51,
+     "sub": 4,
+     "label": 12
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB3",
+     "main": 51,
+     "sub": 6,
+     "label": 12
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 3
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 7
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB5",
+     "main": 53,
+     "sub": 2,
+     "label": 13
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB6",
+     "main": 53,
+     "sub": 4,
+     "label": 13
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 3
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 5
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB8",
+     "main": 36,
+     "sub": 1,
+     "label": 7
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_14",
+     "main": 44,
+     "sub": 1,
+     "label": 9
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_16",
+     "main": 46,
+     "sub": 1,
+     "label": 10
+    }
+   ],
+   "EVENT_DIVIDE_NEXT_DAY2_FUNC": [
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_0",
+     "main": 15,
+     "sub": 7,
+     "label": 4
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_1",
+     "main": 18,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "SCENARIO_SELECT",
+     "main": 31,
+     "sub": 0,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 1
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB1",
+     "main": 51,
+     "sub": 2,
+     "label": 12
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB2",
+     "main": 51,
+     "sub": 4,
+     "label": 12
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB3",
+     "main": 51,
+     "sub": 6,
+     "label": 12
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 3
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 7
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB5",
+     "main": 53,
+     "sub": 2,
+     "label": 13
+    },
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "SCENARIO_SUB6",
+     "main": 53,
+     "sub": 4,
+     "label": 13
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 3
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 5
+    }
+   ],
+   "EVENT_DIVIDE_FIRST": [
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 2,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 10,
+     "sub": 1
+    }
+   ],
+   "EVENT_DIVIDE_SECOND": [
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 12,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 13,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 14,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 1
+    },
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_19",
+     "main": 31,
+     "sub": 0,
+     "label": 5
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 17,
+     "sub": 1
+    }
+   ],
+   "EVENT_DIVIDE_AFTER": [
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 20,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 21,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 22,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 23,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 24,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 25,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 26,
+     "sub": 1
+    },
+    {
+     "kind": "CJUMP_SCENARIO_1",
+     "var": "SCENARIO_MAIN"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 27,
+     "sub": 1
+    }
+   ],
+   "EVENT_M00E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 2,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E02A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E02A_L001B": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E02A_L001C": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E02A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 5
+    }
+   ],
+   "EVENT_M01E02A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 3,
+     "sub": 6
+    }
+   ],
+   "EVENT_M01E02A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E02B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E02B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E02B_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E02B_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 5
+    }
+   ],
+   "EVENT_M01E02B_L004B": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 6
+    }
+   ],
+   "EVENT_M01E02B_L008": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E03A_L000": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 1
+    }
+   ],
+   "EVENT_M01E03A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E03A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E03A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 5
+    }
+   ],
+   "EVENT_M01E03A_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 6
+    }
+   ],
+   "EVENT_M01E03A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 7
+    }
+   ],
+   "EVENT_M01E03A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 8
+    }
+   ],
+   "EVENT_M01E03A_L007": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 9
+    }
+   ],
+   "EVENT_M01E03A_L011": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E04A_L000": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 1
+    }
+   ],
+   "EVENT_M01E04A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E04A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E04A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E04B_L000": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 1
+    }
+   ],
+   "EVENT_M01E04B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E04B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E04B_L007": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E05A_L000": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 1
+    }
+   ],
+   "EVENT_M01E05A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E05A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E05A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E05B_L000": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 1
+    }
+   ],
+   "EVENT_M01E05B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E05B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E05B_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E05B_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 9,
+     "sub": 5
+    }
+   ],
+   "EVENT_M01E05B_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 10,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E06A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 10,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E06A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 10,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E06A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E07A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E07A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E07A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 12,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E07B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 12,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E07B_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 13,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E08A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 13,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E08A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 14,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E08B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 14,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E08B_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E09A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E09A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E09A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E09A_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 5
+    }
+   ],
+   "EVENT_M01E09A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 6
+    }
+   ],
+   "EVENT_M01E09A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 7
+    }
+   ],
+   "EVENT_M01E09A_L007": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 8
+    }
+   ],
+   "EVENT_M01E09A_L008": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 9
+    }
+   ],
+   "EVENT_M01E09A_L009": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 10
+    }
+   ],
+   "EVENT_M01E09A_L010": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 11
+    }
+   ],
+   "EVENT_M01E09A_L015": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01E10A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 1
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 2
+    }
+   ],
+   "EVENT_M01E10A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 3
+    }
+   ],
+   "EVENT_M01E10A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 4
+    }
+   ],
+   "EVENT_M01E10A_L008": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 17,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01END_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 0
+    }
+   ],
+   "EVENT_M01END_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 0
+    }
+   ],
+   "EVENT_M02E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 3
+    }
+   ],
+   "EVENT_M02E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 18,
+     "sub": 4
+    }
+   ],
+   "EVENT_M02E02A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 20,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02C_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 21,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02D_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 22,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02E_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 23,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02F_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 24,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02G_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 25,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02E02H_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 26,
+     "sub": 2
+    }
+   ],
+   "EVENT_M02END_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 27,
+     "sub": 2
+    }
+   ],
+   "EVENT_S00E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 57,
+     "sub": 0
+    }
+   ],
+   "EVENT_S01E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 29,
+     "sub": 1,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 1
+    }
+   ],
+   "EVENT_S01E01A_CONTINUE": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 29,
+     "sub": 2,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 2
+    }
+   ],
+   "EVENT_S01E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 31,
+     "sub": 0,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 31,
+     "sub": 0
+    }
+   ],
+   "EVENT_S01E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 2
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 1
+    }
+   ],
+   "EVENT_S01E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 3
+    }
+   ],
+   "EVENT_S01E01B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 30,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 30,
+     "sub": 0
+    }
+   ],
+   "EVENT_S01E01C_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 31,
+     "sub": 0
+    }
+   ],
+   "EVENT_S01E02A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 31,
+     "sub": 1,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 31,
+     "sub": 1
+    }
+   ],
+   "EVENT_S01E02A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 32,
+     "sub": 0,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 32,
+     "sub": 2
+    }
+   ],
+   "EVENT_S01E02A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 31,
+     "sub": 2
+    }
+   ],
+   "EVENT_S01E02A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 32,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 31,
+     "sub": 0
+    }
+   ],
+   "EVENT_S01E02B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 32,
+     "sub": 2
+    }
+   ],
+   "EVENT_S01E02B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 32,
+     "sub": 3
+    }
+   ],
+   "EVENT_S02E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 33,
+     "sub": 1,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 33,
+     "sub": 1
+    }
+   ],
+   "EVENT_S02E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 34,
+     "sub": 0,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 0
+    }
+   ],
+   "EVENT_S02E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 33,
+     "sub": 2
+    }
+   ],
+   "EVENT_S02E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 33,
+     "sub": 3
+    }
+   ],
+   "EVENT_S02E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 33,
+     "sub": 4
+    }
+   ],
+   "EVENT_S02E01A_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 33,
+     "sub": 0
+    }
+   ],
+   "EVENT_S02E02A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 34,
+     "sub": 1,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 1
+    }
+   ],
+   "EVENT_S02E02A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 35,
+     "sub": 0,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 35,
+     "sub": 0
+    }
+   ],
+   "EVENT_S02E02A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 2
+    }
+   ],
+   "EVENT_S02E02A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 3
+    }
+   ],
+   "EVENT_S02E02A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 35,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 34,
+     "sub": 0
+    }
+   ],
+   "EVENT_S03E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 36,
+     "sub": 1,
+     "label": 7
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 36,
+     "sub": 1
+    }
+   ],
+   "EVENT_S03E01A_CONTINUE": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 36,
+     "sub": 2,
+     "label": 7
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 36,
+     "sub": 2
+    }
+   ],
+   "EVENT_S03E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 37,
+     "sub": 0,
+     "label": 7
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 37,
+     "sub": 0
+    }
+   ],
+   "EVENT_S03E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 36,
+     "sub": 2
+    }
+   ],
+   "EVENT_S03E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 37,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 36,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 38,
+     "sub": 1,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 38,
+     "sub": 1
+    }
+   ],
+   "EVENT_S04E01A_LAST": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 43,
+     "sub": 0,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 43,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 43,
+     "sub": 2,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 43,
+     "sub": 2
+    }
+   ],
+   "EVENT_S04E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 38,
+     "sub": 2
+    }
+   ],
+   "EVENT_S04E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 39,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 38,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 40,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 39,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01C_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 41,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 40,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01D_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 42,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 41,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01E_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 43,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 42,
+     "sub": 0
+    }
+   ],
+   "EVENT_S04E01F_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 43,
+     "sub": 2
+    }
+   ],
+   "EVENT_S05E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 44,
+     "sub": 1,
+     "label": 9
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 44,
+     "sub": 1
+    }
+   ],
+   "EVENT_S05E01A_CONTINUE": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 44,
+     "sub": 2,
+     "label": 9
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 44,
+     "sub": 2
+    }
+   ],
+   "EVENT_S05E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 45,
+     "sub": 0,
+     "label": 9
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 45,
+     "sub": 0
+    }
+   ],
+   "EVENT_S05E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 44,
+     "sub": 2
+    }
+   ],
+   "EVENT_S05E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 45,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 44,
+     "sub": 0
+    }
+   ],
+   "EVENT_S06E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 46,
+     "sub": 1,
+     "label": 10
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 46,
+     "sub": 1
+    }
+   ],
+   "EVENT_S06E01A_CONTINUE": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 46,
+     "sub": 2,
+     "label": 10
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 46,
+     "sub": 2
+    }
+   ],
+   "EVENT_S06E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 48,
+     "sub": 0,
+     "label": 10
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 48,
+     "sub": 0
+    }
+   ],
+   "EVENT_S06E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 46,
+     "sub": 2
+    }
+   ],
+   "EVENT_S06E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 47,
+     "sub": 2
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 46,
+     "sub": 0
+    }
+   ],
+   "EVENT_S06E01B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 47,
+     "sub": 2
+    }
+   ],
+   "EVENT_S06E01B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 48,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 47,
+     "sub": 0
+    }
+   ],
+   "EVENT_S07E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 49,
+     "sub": 1,
+     "label": 11
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 49,
+     "sub": 1
+    }
+   ],
+   "EVENT_S07E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 50,
+     "sub": 0,
+     "label": 11
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 50,
+     "sub": 0
+    }
+   ],
+   "EVENT_S07E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 49,
+     "sub": 2
+    }
+   ],
+   "EVENT_S07E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 49,
+     "sub": 3
+    }
+   ],
+   "EVENT_S07E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 50,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 49,
+     "sub": 0
+    }
+   ],
+   "EVENT_S08E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 51,
+     "sub": 1,
+     "label": 12
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 1
+    }
+   ],
+   "EVENT_S08E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 52,
+     "sub": 0,
+     "label": 12
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 52,
+     "sub": 0
+    }
+   ],
+   "EVENT_S08E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 1
+    }
+   ],
+   "EVENT_S08E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 2
+    }
+   ],
+   "EVENT_S08E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 4
+    }
+   ],
+   "EVENT_S08E01A_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 6
+    }
+   ],
+   "EVENT_S08E01A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 7
+    }
+   ],
+   "EVENT_S08E01A_L005B": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 8
+    }
+   ],
+   "EVENT_S08E01A_L006": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 52,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 51,
+     "sub": 0
+    }
+   ],
+   "EVENT_S08E01A_L008": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 57,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 52,
+     "sub": 0
+    }
+   ],
+   "EVENT_S09E01A_START": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 53,
+     "sub": 1,
+     "label": 13
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 1
+    }
+   ],
+   "EVENT_S09E01A_END": [
+    {
+     "kind": "JUMPIF_SCENE_LT",
+     "var": "var_0",
+     "main": 55,
+     "sub": 0,
+     "label": 13
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 55,
+     "sub": 2
+    }
+   ],
+   "EVENT_S09E01A_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 1
+    }
+   ],
+   "EVENT_S09E01A_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 2
+    }
+   ],
+   "EVENT_S09E01A_L003": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 4
+    }
+   ],
+   "EVENT_S09E01A_L004": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 53,
+     "sub": 6
+    }
+   ],
+   "EVENT_S09E01A_L005": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 54,
+     "sub": 0
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 53,
+     "sub": 0
+    }
+   ],
+   "EVENT_S09E01B_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 54,
+     "sub": 2
+    }
+   ],
+   "EVENT_S09E01B_L002": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 55,
+     "sub": 2
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 54,
+     "sub": 0
+    }
+   ],
+   "EVENT_S09E01C_L001": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 55,
+     "sub": 3
+    }
+   ],
+   "EVENT_R00E01A_L001": [
+    {
+     "kind": "CJUMP_SCENARIO_0",
+     "var": "SCENARIO_SELECT"
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 57,
+     "sub": 0
+    }
+   ],
+   "GETOUT_M01E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 2,
+     "sub": 1,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 2,
+     "sub": 2
+    }
+   ],
+   "GETOUT_M01E02B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 4,
+     "sub": 6,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 7
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 4,
+     "sub": 7,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 4,
+     "sub": 8
+    }
+   ],
+   "GETOUT_M01E03A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 5,
+     "sub": 9,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 10
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 5,
+     "sub": 10,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 5,
+     "sub": 11
+    }
+   ],
+   "GETOUT_M01E04A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 2,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 6,
+     "sub": 3
+    }
+   ],
+   "GETOUT_M01E04B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 7,
+     "sub": 3,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 4
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 7,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 7,
+     "sub": 5
+    }
+   ],
+   "GETOUT_M01E05A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 3,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 8,
+     "sub": 4
+    }
+   ],
+   "GETOUT_M01E07A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 11,
+     "sub": 5
+    }
+   ],
+   "GETOUT_M01E07B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 12,
+     "sub": 2,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 12,
+     "sub": 3
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 12,
+     "sub": 3,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 12,
+     "sub": 4
+    }
+   ],
+   "GETOUT_M01E08A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 13,
+     "sub": 2,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 13,
+     "sub": 3
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 13,
+     "sub": 3,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 13,
+     "sub": 4
+    }
+   ],
+   "GETOUT_M01E08B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 14,
+     "sub": 2,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 14,
+     "sub": 3
+    }
+   ],
+   "GETOUT_M01E09A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 15,
+     "sub": 11,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 12
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 15,
+     "sub": 8,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 15,
+     "sub": 9
+    }
+   ],
+   "GETOUT_M01E10A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB1",
+     "main": 16,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 5
+    },
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_SUB4",
+     "main": 16,
+     "sub": 5,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 16,
+     "sub": 6
+    }
+   ],
+   "GETOUT_S01E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 29,
+     "sub": 3,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 29,
+     "sub": 4
+    }
+   ],
+   "GETOUT_S01E02A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 31,
+     "sub": 2,
+     "label": 5
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB1",
+     "main": 31,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S02E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 33,
+     "sub": 4,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 33,
+     "sub": 5
+    }
+   ],
+   "GETOUT_S02E02A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 34,
+     "sub": 4,
+     "label": 6
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB2",
+     "main": 34,
+     "sub": 5
+    }
+   ],
+   "GETOUT_S03E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 36,
+     "sub": 2,
+     "label": 7
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB3",
+     "main": 36,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S04E01B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 39,
+     "sub": 2,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 39,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S04E01C": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 40,
+     "sub": 2,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 40,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S04E01D": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 41,
+     "sub": 2,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 41,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S04E01E": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 42,
+     "sub": 2,
+     "label": 8
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB4",
+     "main": 42,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S05E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 44,
+     "sub": 2,
+     "label": 9
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB5",
+     "main": 44,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S06E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 46,
+     "sub": 2,
+     "label": 10
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 46,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S06E01B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 47,
+     "sub": 2,
+     "label": 10
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB6",
+     "main": 47,
+     "sub": 3
+    }
+   ],
+   "GETOUT_S07E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 49,
+     "sub": 3,
+     "label": 11
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB7",
+     "main": 49,
+     "sub": 4
+    }
+   ],
+   "GETOUT_S08E01A": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 51,
+     "sub": 8,
+     "label": 12
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB8",
+     "main": 51,
+     "sub": 9
+    }
+   ],
+   "GETOUT_S09E01B": [
+    {
+     "kind": "JUMPIF_SCENE_GT",
+     "var": "SCENARIO_MAIN",
+     "main": 54,
+     "sub": 3,
+     "label": 13
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SUB9",
+     "main": 54,
+     "sub": 4
+    }
+   ],
+   "GETOUT_U00E01A": [
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_0",
+     "main": 18,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 1
+    }
+   ],
+   "GETOUT_R00E01A": [
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_SELECT",
+     "main": 56,
+     "sub": 0
+    }
+   ],
+   "GETOUT_T00E01A": [
+    {
+     "kind": "JUMPIF_SCENE_EQ",
+     "var": "var_0",
+     "main": 18,
+     "sub": 4,
+     "label": 4
+    },
+    {
+     "kind": "SCENARIO_CALC",
+     "var": "SCENARIO_MAIN",
+     "main": 19,
+     "sub": 1
+    }
+   ]
+  }
+ },
+ "pret_event_chain": {
+  "status": "TECHNICAL_REFERENCE",
+  "events": {
+   "INCOMPLETE_TALK": {
+    "next": [
+     "END_TALK"
+    ]
+   },
+   "EXAMINE_MISS": {
+    "next": [
+     "END_TALK"
+    ]
+   },
+   "UNIT_TALK": {
+    "next": [
+     "END_TALK"
+    ]
+   },
+   "HABITAT_TALK": {
+    "next": [
+     "HABITAT_TALK_S01E02A"
+    ]
+   },
+   "HABITAT_MOVE1": {
+    "next": [
+     "HABITAT_MOVE_STAY_TURN"
+    ]
+   },
+   "HABITAT_MOVE2": {
+    "next": [
+     "HABITAT_MOVE_STAY_TURN"
+    ]
+   },
+   "SAVE_POINT": {
+    "next": [
+     "END_TALK",
+     "END_TALK"
+    ]
+   },
+   "WAREHOUSE_POINT": {
+    "next": [
+     "END_TALK"
+    ]
+   },
+   "SAVE_AND_WAREHOUSE_POINT": {
+    "next": [
+     "END_TALK",
+     "END_TALK",
+     "END_TALK",
+     "END_TALK"
+    ]
+   },
+   "FORMATION_HERO": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_DIVIDE": {
+    "sets": [
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "1.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "0.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "58.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "58.1",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M00E01A_L001",
+     "EVENT_DIVIDE_FIRST",
+     "EVENT_DIVIDE_SECOND",
+     "EVENT_DIVIDE_AFTER",
+     "EVENT_DIVIDE",
+     "EVENT_R00E01A_L001",
+     "EVENT_S01E01B_L001L",
+     "EVENT_S01E02A_L002L",
+     "EVENT_S02E01A_L004L",
+     "EVENT_S02E02A_L003L",
+     "EVENT_S03E01A_L002L",
+     "EVENT_S04E01A_L002L",
+     "EVENT_S04E01B_L001L",
+     "EVENT_S04E01C_L001L",
+     "EVENT_S04E01D_L001L",
+     "EVENT_S04E01E_L001L",
+     "EVENT_S05E01A_L002L",
+     "EVENT_S06E01A_L002L",
+     "EVENT_S06E01B_L002L",
+     "EVENT_S07E01A_L003L",
+     "EVENT_S08E01A_L006L",
+     "EVENT_S08E01A_L008L",
+     "EVENT_S09E01A_L005L",
+     "EVENT_S09E01B_L002L"
+    ]
+   },
+   "EVENT_DIVIDE_NEXT_DAY_FUNC": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.5",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.7",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.5",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_DIVIDE_NEXT_DAY2_FUNC": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.5",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.7",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.5",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_DIVIDE_FIRST": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "2.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.1",
+      "annotation": "??? See QUEST_CAN_RECRUIT also"
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "10.1",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E01A_L001",
+     "EVENT_M01E02A_L001",
+     "EVENT_M01E02A_L001C",
+     "EVENT_M01E02B_L001",
+     "EVENT_M01E02B_L004",
+     "EVENT_M01E03A_L000",
+     "EVENT_M01E03A_L001",
+     "EVENT_M01E03A_L004",
+     "EVENT_M01E03A_L006",
+     "EVENT_M01E04A_L000",
+     "EVENT_M01E04A_L001",
+     "EVENT_M01E04B_L000",
+     "EVENT_M01E04B_L001",
+     "EVENT_M01E05A_L000",
+     "EVENT_M01E05A_L001",
+     "EVENT_M01E05B_L000",
+     "EVENT_M01E05B_L001",
+     "EVENT_M01E06A_L001"
+    ]
+   },
+   "EVENT_DIVIDE_SECOND": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "11.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "12.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "13.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "14.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "17.1",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E07A_L001",
+     "EVENT_M01E07A_L003",
+     "EVENT_M01E07B_L001",
+     "EVENT_M01E08A_L001",
+     "EVENT_M01E08B_L001",
+     "EVENT_M01E09A_L001",
+     "EVENT_M01E09A_L003",
+     "EVENT_M01E09A_L005",
+     "EVENT_M01E09A_L007",
+     "EVENT_M01E10A_L001",
+     "EVENT_M01END_L001"
+    ]
+   },
+   "EVENT_DIVIDE_AFTER": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "20.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "21.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "22.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "23.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "24.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "25.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "26.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "27.1",
+      "annotation": "??? Set from EVENT_DIVIDE_AFTER"
+     }
+    ],
+    "next": [
+     "EVENT_M02E01A_L001",
+     "EVENT_M02E02A_L001",
+     "EVENT_M02E02B_L001",
+     "EVENT_M02E02C_L001",
+     "EVENT_M02E02D_L001",
+     "EVENT_M02E02E_L001",
+     "EVENT_M02E02F_L001",
+     "EVENT_M02E02G_L001",
+     "EVENT_M02E02H_L001",
+     "EVENT_M02END_L001"
+    ]
+   },
+   "EVENT_M00E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "2.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.0",
+      "annotation": "Chose team name. See QUEST_SET_TEAM_NAME. Set in EVENT_M01E01A_L003"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E02A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E02A_L001B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.3",
+      "annotation": "??? Bed tutorial related."
+     }
+    ]
+   },
+   "EVENT_M01E02A_L001C": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.4",
+      "annotation": "??? See QUEST_UNK1 also"
+     }
+    ]
+   },
+   "EVENT_M01E02A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.5",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E02A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "3.6",
+      "annotation": "??? Thunderwave cave related"
+     }
+    ]
+   },
+   "EVENT_M01E02A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.0",
+      "annotation": "??? Set upon exiting Thunderwave Cave."
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E02B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E02B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E02B_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.4",
+      "annotation": "??? See QUEST_CAN_ACCESS_JOBS also"
+     }
+    ]
+   },
+   "EVENT_M01E02B_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.5",
+      "annotation": "??? Mt Steel related"
+     }
+    ]
+   },
+   "EVENT_M01E02B_L004B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.6",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E02B_L008": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E03A_L000": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.1",
+      "annotation": "??? See QUEST_CAN_RECRUIT also"
+     }
+    ]
+   },
+   "EVENT_M01E03A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E03A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E03A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.5",
+      "annotation": "??? See QUEST_UNK10 and QUEST_UNK11 also"
+     }
+    ],
+    "next": [
+     "EVENT_M01E03A_L004"
+    ]
+   },
+   "EVENT_M01E03A_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.6",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E03A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.7",
+      "annotation": "??? See QUEST_MAZE_14 also"
+     }
+    ]
+   },
+   "EVENT_M01E03A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.8",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E03A_L007": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.9",
+      "annotation": "??? Sinister Woods related"
+     }
+    ]
+   },
+   "EVENT_M01E03A_L011": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E04A_L000": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E04A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E04A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.3",
+      "annotation": "??? Silent Chasm related"
+     }
+    ]
+   },
+   "EVENT_M01E04A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E04B_L000": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E04B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E04B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.3",
+      "annotation": "??? Mt Thunder related"
+     }
+    ]
+   },
+   "EVENT_M01E04B_L007": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.0",
+      "annotation": "??? See QUEST_LEGEND_ZAPDOS also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E05A_L000": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.3",
+      "annotation": "??? Great Canyon related"
+     }
+    ]
+   },
+   "EVENT_M01E05A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E05B_L000": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05B_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05B_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "9.5",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E05B_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "10.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E06A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "10.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E06A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "10.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E06A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "11.0",
+      "annotation": "Fugitive story begins. See QUEST_SQUARE_ASLEEP also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E07A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "11.2",
+      "annotation": "??? See QUEST_UNK12 also"
+     }
+    ]
+   },
+   "EVENT_M01E07A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "11.4",
+      "annotation": "??? See QUEST_UNK5 also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E07A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "12.0",
+      "annotation": "Lapis Cave completed? Mt Blaze story begins?"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E07B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "12.2",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E07B_L002"
+    ]
+   },
+   "EVENT_M01E07B_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "13.0",
+      "annotation": "Mt Blaze completed. Frosty Grotto story begins. See QUEST_SQUARE_ASLEEP and QUEST_LEGEND_MOLTRES also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E08A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "13.2",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E08A_L002"
+    ]
+   },
+   "EVENT_M01E08A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "14.0",
+      "annotation": "Frosty Grotto completed. Mt Freeze story begins? See QUEST_LEGEND_ARTICUNO also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E08B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "14.2",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E08B_L002"
+    ]
+   },
+   "EVENT_M01E08B_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.0",
+      "annotation": "Mt Freeze completed? See QUEST_UNK5 and QUEST_MAZE_14 also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E09A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.5",
+      "annotation": "??? Uproar Forest related"
+     }
+    ]
+   },
+   "EVENT_M01E09A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.6",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.7",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L007": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.8",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E09A_L008"
+    ]
+   },
+   "EVENT_M01E09A_L008": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.9",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E09A_L009": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.10",
+      "annotation": "??? Magma Cavern related"
+     }
+    ]
+   },
+   "EVENT_M01E09A_L010": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.11",
+      "annotation": "??? Magma Cavern related"
+     }
+    ]
+   },
+   "EVENT_M01E09A_L015": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.0",
+      "annotation": "Magma Cavern completed. Sky Tower story begins. See QUEST_LEGEND_GROUDON also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01E10A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.1",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.2",
+      "annotation": "World calamity music is forced. Partner awaits in Pokémon Square for you to confirm you're ready for Sky Tower. You begin dreaming with Gardevoir and Gengar is there. See QUEST_IN_WORLD_CALAMITY"
+     }
+    ]
+   },
+   "EVENT_M01E10A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M01E10A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.4",
+      "annotation": "??? Sky Tower related"
+     }
+    ]
+   },
+   "EVENT_M01E10A_L008": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "17.0",
+      "annotation": "Sky Tower completed. See QUEST_LEGEND_RAYQUAZA also"
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_M01END_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.0",
+      "annotation": "??? See QUEST_REACHED_POSTGAME also"
+     }
+    ]
+   },
+   "EVENT_M01END_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.0",
+      "annotation": "??? See QUEST_REACHED_POSTGAME also"
+     }
+    ]
+   },
+   "EVENT_M02E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.2",
+      "annotation": "??? See QUEST_UNLOCKED_EVOLUTIONS also"
+     }
+    ]
+   },
+   "EVENT_M02E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.3",
+      "annotation": "??? See QUEST_CAN_CHANGE_LEADER also"
+     }
+    ]
+   },
+   "EVENT_M02E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "18.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "20.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02C_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "21.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02D_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "22.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02E_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "23.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02F_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "24.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02G_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "25.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02E02H_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "26.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_M02END_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "27.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S00E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "57.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S01E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E01A_CONTINUE": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "31.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.2",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.5",
+      "annotation": "??? Uproar Forest related"
+     },
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E01A_L003": {
+    "next": [
+     "EVENT_S01E01B_L001"
+    ]
+   },
+   "EVENT_S01E01B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "30.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "30.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S01E01C_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "31.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E02A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "31.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E02A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "32.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E02A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "31.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E02A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "32.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "31.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S01E02B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "32.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S01E02B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "32.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "33.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "33.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "33.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "33.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E01A_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "33.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S02E02A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E02A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "35.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E02A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E02A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S02E02A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "35.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "34.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S03E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "36.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S03E01A_CONTINUE": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "36.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S03E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "37.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S03E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "36.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S03E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "37.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "36.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "38.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S04E01A_LAST": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "43.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S04E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "43.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S04E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "38.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S04E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "39.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "38.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01A_L002L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "40.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "39.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01B_L001L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01C_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "41.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "40.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01C_L001L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01D_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "42.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "41.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01D_L001L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01E_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "43.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "42.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01E_L001L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S04E01F_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "43.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S05E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "44.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S05E01A_CONTINUE": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "44.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S05E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "45.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S05E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "44.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S05E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "45.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "44.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S05E01A_L002L": {
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S06E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "46.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S06E01A_CONTINUE": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "46.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S06E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "48.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S06E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "46.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S06E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "47.2",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "46.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S06E01A_L002L": {
+    "next": [
+     "EVENT_S06E01B_L001"
+    ]
+   },
+   "EVENT_S06E01B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "47.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S06E01B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "48.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "47.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S07E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "49.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S07E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "50.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S07E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "49.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S07E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "49.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S07E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "50.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "49.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S08E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "52.0",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.6",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.7",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L005B": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.8",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S08E01A_L006": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "52.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "51.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S08E01A_L007": {
+    "next": [
+     "EVENT_S08E01A_L008"
+    ]
+   },
+   "EVENT_S08E01A_L008": {
+    "sets": [
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "57.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "52.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S09E01A_START": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_END": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "55.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.1",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_L003": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.4",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_L004": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "53.6",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01A_L005": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "54.0",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "53.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S09E01B_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "54.2",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_S09E01B_L002": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "55.2",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "54.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE"
+    ]
+   },
+   "EVENT_S09E01C_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "55.3",
+      "annotation": null
+     }
+    ]
+   },
+   "EVENT_R00E01A_L001": {
+    "sets": [
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "57.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE",
+     "EVENT_S08E01A_L008"
+    ]
+   },
+   "GETOUT_M01E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "2.2",
+      "annotation": "??? Set upon exiting Tiny Woods."
+     }
+    ],
+    "next": [
+     "EVENT_M01E01A_L002",
+     "EVENT_M01E01A_L003",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E02A": {
+    "next": [
+     "EVENT_M01E02A_L004",
+     "EVENT_M01E02A_L006",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E02B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.7",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "4.8",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E02B_L006",
+     "EVENT_M01E02B_L006",
+     "EVENT_M01E02B_L008",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E03A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.10",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "5.11",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E03A_L009",
+     "EVENT_M01E03A_L009",
+     "EVENT_M01E03A_L011",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E04A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "6.3",
+      "annotation": "??? Silent Chasm related"
+     }
+    ],
+    "next": [
+     "EVENT_M01E04A_L004",
+     "EVENT_M01E04A_L006",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E04B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.4",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "7.5",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E04B_L004",
+     "EVENT_M01E04B_L006",
+     "EVENT_M01E04B_L007",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E05A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "8.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E05A_L004",
+     "EVENT_M01E05A_L006",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E07A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "11.5",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E07A_L004",
+     "EVENT_M01E07A_L005",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E07B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "12.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "12.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E07B_L003",
+     "EVENT_M01E07B_L004",
+     "EVENT_M01E07B_L005",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E08A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "13.3",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "13.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E08A_L003",
+     "EVENT_M01E08A_L004",
+     "EVENT_M01E08A_L005",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E08B": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "14.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E08B_L003",
+     "EVENT_M01E08B_L005",
+     "EVENT_M01E08B_L006",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E09A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.12",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "15.9",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E09A_L012",
+     "EVENT_M01E09A_L014",
+     "EVENT_M01E09A_L015",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E10A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.5",
+      "annotation": null
+     },
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "16.6",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_M01E10A_L005",
+     "EVENT_M01E10A_L007",
+     "EVENT_M01E10A_L008",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S00E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S00E01A_L002",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S01E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "29.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S01E01A_L003",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S01E02A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB1",
+      "state": "31.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S01E02A_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S02E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "33.5",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S02E01A_L004",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S02E02A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB2",
+      "state": "34.5",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S02E02A_L003",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S03E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB3",
+      "state": "36.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S03E01A_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S04E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S04E01A_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S04E01B": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "39.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S04E01B_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S04E01C": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "40.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S04E01C_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S04E01D": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "41.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S04E01D_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S04E01E": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB4",
+      "state": "42.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S04E01E_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S05E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB5",
+      "state": "44.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S05E01A_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S06E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "46.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S06E01A_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S06E01B": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB6",
+      "state": "47.3",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S06E01B_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S07E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB7",
+      "state": "49.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S07E01A_L003",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S08E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB8",
+      "state": "51.9",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S08E01A_L006",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S09E01A": {
+    "next": [
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE",
+     "EVENT_S09E01A_L005",
+     "GETOUT_R00E01A",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_S09E01B": {
+    "sets": [
+     {
+      "var": "SCENARIO_SUB9",
+      "state": "54.4",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_S09E01B_L002",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_D62E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_D43E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_D44E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_D45E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_D46E01A": {
+    "next": [
+     "EVENT_S00E01A_L001",
+     "GETOUT_R00E01A",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_U00E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.1",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_R00E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_SELECT",
+      "state": "56.0",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_S00E01A_L001",
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_T00E01A": {
+    "sets": [
+     {
+      "var": "SCENARIO_MAIN",
+      "state": "19.1",
+      "annotation": null
+     }
+    ],
+    "next": [
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE",
+     "EVENT_DIVIDE",
+     "GETOUT_M01E07T",
+     "GETOUT_M01E08T"
+    ]
+   },
+   "GETOUT_M01E07T": {
+    "next": [
+     "EVENT_M01E07A_T001",
+     "EVENT_M01E07A_T002",
+     "EVENT_M01E07B_T001",
+     "EVENT_M01E07B_T002",
+     "EVENT_DIVIDE"
+    ]
+   },
+   "GETOUT_M01E08T": {
+    "next": [
+     "EVENT_M01E08A_T001",
+     "EVENT_M01E08A_T002",
+     "EVENT_M01E08B_T001",
+     "EVENT_M01E08B_T002",
+     "EVENT_DIVIDE"
+    ]
+   }
+  }
+ },
+ "totals": {
+  "rom_scenario_writes": 6,
+  "rom_scenario_main_states": 0,
+  "rom_guards": 24,
+  "rom_quest_checks": 2,
+  "rom_friend_area_unlocks": 0,
+  "eu_event_chain_scenario_main_writes": 136,
+  "pret_events": 226,
+  "pret_scenario_main_states": 121,
+  "coverage_note": "Stations = 69/133 exactes ; chaîne EVENT_* = ROM_DECODED (399 scripts, 136 états SCENARIO_MAIN confirmés 1:1 avec pret) — couvertures séparées."
+ }
+}

@@ -1,0 +1,186 @@
+﻿{
+  "Version": [
+    "0.0",
+    "0.8.9.0"
+  ],
+  "Object": {
+    "ZoneSteps": {
+      "_t": "a",
+      "0": {
+        "Script": [
+          "SpawnRescueNote",
+          "SpawnMissionNpcFromSV"
+        ]
+      },
+      "1": {
+        "Script": [
+          "SpawnMissionNpcFromSV",
+          "SpawnRescueNote"
+        ]
+      }
+    },
+    "UniversalStates": {
+      "_t": "a",
+      "3": {
+        "Effectiveness": {
+          "_t": "a",
+          "_10": [
+            9,
+            0,
+            0
+          ],
+          "10": [
+            8
+          ]
+        }
+      }
+    },
+    "OnEquips": {
+      "_t": "a",
+      "_0": [
+        {
+          "Key": {
+            "str": [
+              0
+            ]
+          },
+          "Value": {
+            "$type": "PMDC.Dungeon.CurseWarningEvent, PMDC"
+          }
+        },
+        0,
+        0
+      ]
+    },
+    "OnMapStarts": {
+      "_t": "a",
+      "_0": [
+        {
+          "Key": {
+            "str": [
+              -10
+            ]
+          },
+          "Value": {
+            "$type": "RogueEssence.Dungeon.SingleCharScriptEvent, RogueEssence",
+            "Script": "UpdateEscort",
+            "ArgTable": "{}"
+          }
+        },
+        0,
+        0
+      ]
+    },
+    "OnTurnEnds": {
+      "_t": "a",
+      "0": [
+        {
+          "Key": {
+            "str": [
+              0
+            ]
+          },
+          "Value": {
+            "$type": "RogueEssence.Dungeon.SingleCharScriptEvent, RogueEssence",
+            "Script": "SetCriticalHealthStatus",
+            "ArgTable": "{}"
+          }
+        }
+      ]
+    },
+    "OnDeaths": {
+      "_t": "a",
+      "2": {
+        "Value": {
+          "StatusID": [
+            "transformed",
+            ""
+          ]
+        }
+      },
+      "3": {
+        "Value": {
+          "$type": [
+            "@@ -1,42 +1,56 @@\n-PMDC.Dungeon.HandoutRelativeExpEvent, PMDC\n+RogueEssence.Dungeon.SingleCharScriptEvent, RogueEssence\n",
+            0,
+            2
+          ],
+          "Numerator": [
+            1,
+            0,
+            0
+          ],
+          "Denominator": [
+            7,
+            0,
+            0
+          ],
+          "LevelBuffer": [
+            5,
+            0,
+            0
+          ],
+          "PowerCurve": [
+            2,
+            0,
+            0
+          ],
+          "IgnoreMark": [
+            false,
+            0,
+            0
+          ],
+          "Script": [
+            "AllyDeathCheck"
+          ],
+          "ArgTable": [
+            "{}"
+          ]
+        }
+      },
+      "4": [
+        {
+          "Key": {
+            "str": [
+              10
+            ]
+          },
+          "Value": {
+            "$type": "PMDC.Dungeon.HandoutRelativeExpEvent, PMDC",
+            "Numerator": 1,
+            "Denominator": 35,
+            "LevelBuffer": 0,
+            "PowerCurve": 4,
+            "IgnoreMark": false
+          }
+        }
+      ]
+    },
+    "OnRefresh": {
+      "_t": "a",
+      "1": [
+        {
+          "Key": {
+            "str": [
+              0
+            ]
+          },
+          "Value": {
+            "$type": "PMDC.Dungeon.SpeciesMobilityEvent, PMDC",
+            "IDPair": [
+              {
+                "Item1": {
+                  "Species": "zorua",
+                  "Form": 1,
+                  "Skin": "",
+                  "Gender": -1
+                },
+                "Item2": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

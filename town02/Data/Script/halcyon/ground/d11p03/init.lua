@@ -1,0 +1,241 @@
+-- [dungeon_builder] scène canonique PMD Red — scène d11p03 (end).
+--[[ d11p03 — cinématique canonique de Pokémon Mystery Dungeon: Red Rescue Team.
+
+     Structure reprise du squelette extrait de la ROM
+     (RESERVE/red_scene_reference/d11p03.lua) : musique, ordre et nombre de
+     répliques, actions. Aucune réplique inventée : chaque ligne est la clé de
+     texte canonique `SCENE_D11P03_nnn`. Les clés absentes des Strings du mod
+     sont sautées — importer le texte de la ROM avec
+     `tools/audit_pmdred_eu_rom.py` les fera apparaître.
+
+     Rôle canonique : scène de fin / arène du donjon (docs/INVENTAIRE_GROUNDS_DONJONS_PMD_RED.md).
+     
+     Regénérer : python3 tools/dungeon_builder.py canon-scenes --apply ]]
+require 'origin.common'
+require 'halcyon.GeneralFunctions'
+require 'halcyon.RedCanonScene'
+
+local d11p03 = {}
+
+local SCENE = 'd11p03'
+-- Séquence canonique, dans l'ordre du script de la ROM
+-- (RESERVE/red_cinematics/d11p03.cif.json).
+local EVENTS = {
+  {t='camera', action='INIT_PAN'},
+  {t='anim', id='2'},
+  {t='msg', key='SCENE_D11P03_001'},
+  {t='msg', key='SCENE_D11P03_002'},
+  {t='bgm', track=''},
+  {t='msg', key='SCENE_D11P03_003'},
+  {t='msg', key='SCENE_D11P03_004'},
+  {t='msg', key='SCENE_D11P03_005'},
+  {t='msg', key='SCENE_D11P03_006'},
+  {t='msg', key='SCENE_D11P03_007'},
+  {t='msg', key='SCENE_D11P03_008'},
+  {t='msg', key='SCENE_D11P03_009'},
+  {t='msg', key='SCENE_D11P03_010'},
+  {t='msg', key='SCENE_D11P03_011'},
+  {t='msg', key='SCENE_D11P03_012'},
+  {t='msg', key='SCENE_D11P03_013'},
+  {t='msg', key='SCENE_D11P03_014'},
+  {t='msg', key='SCENE_D11P03_015'},
+  {t='msg', key='SCENE_D11P03_016'},
+  {t='msg', key='SCENE_D11P03_017'},
+  {t='msg', key='SCENE_D11P03_018'},
+  {t='msg', key='SCENE_D11P03_019'},
+  {t='msg', key='SCENE_D11P03_020'},
+  {t='msg', key='SCENE_D11P03_021'},
+  {t='shake', frames=30},
+  {t='msg', key='SCENE_D11P03_022'},
+  {t='msg', key='SCENE_D11P03_023'},
+  {t='msg', key='SCENE_D11P03_024'},
+  {t='msg', key='SCENE_D11P03_025'},
+  {t='msg', key='SCENE_D11P03_026'},
+  {t='msg', key='SCENE_D11P03_027'},
+  {t='msg', key='SCENE_D11P03_028'},
+  {t='msg', key='SCENE_D11P03_029'},
+  {t='msg', key='SCENE_D11P03_030'},
+  {t='msg', key='SCENE_D11P03_031'},
+  {t='msg', key='SCENE_D11P03_032'},
+  {t='msg', key='SCENE_D11P03_033'},
+  {t='msg', key='SCENE_D11P03_034'},
+  {t='msg', key='SCENE_D11P03_035'},
+  {t='msg', key='SCENE_D11P03_036'},
+  {t='msg', key='SCENE_D11P03_037'},
+  {t='msg', key='SCENE_D11P03_038'},
+  {t='msg', key='SCENE_D11P03_039'},
+  {t='msg', key='SCENE_D11P03_040'},
+  {t='bgm_fade', frames=150},
+  {t='msg', key='SCENE_D11P03_041'},
+  {t='msg', key='SCENE_D11P03_042'},
+  {t='msg', key='SCENE_D11P03_043'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='shake', frames=30},
+  {t='camera', action='INIT_PAN'},
+  {t='anim', id='2'},
+  {t='msg', key='SCENE_D11P03_044'},
+  {t='msg', key='SCENE_D11P03_045'},
+  {t='msg', key='SCENE_D11P03_046'},
+  {t='bgm', track=''},
+  {t='msg', key='SCENE_D11P03_047'},
+  {t='msg', key='SCENE_D11P03_048'},
+  {t='msg', key='SCENE_D11P03_049'},
+  {t='msg', key='SCENE_D11P03_050'},
+  {t='msg', key='SCENE_D11P03_051'},
+  {t='msg', key='SCENE_D11P03_052'},
+  {t='msg', key='SCENE_D11P03_053'},
+  {t='msg', key='SCENE_D11P03_054'},
+  {t='msg', key='SCENE_D11P03_055'},
+  {t='msg', key='SCENE_D11P03_056'},
+  {t='msg', key='SCENE_D11P03_057'},
+  {t='msg', key='SCENE_D11P03_058'},
+  {t='msg', key='SCENE_D11P03_059'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='bgm_fade', frames=150},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='camera', action='PAN'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='camera', action='PAN'},
+  {t='anim', id='2'},
+  {t='anim', id='18'},
+  {t='anim', id='4'},
+  {t='anim', id='4'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='camera', action='PAN'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='camera', action='PAN'},
+  {t='bgm_fade', frames=60},
+  {t='msg', key='SCENE_D11P03_060'},
+  {t='msg', key='SCENE_D11P03_061'},
+  {t='msg', key='SCENE_D11P03_062'},
+  {t='msg', key='SCENE_D11P03_063'},
+  {t='msg', key='SCENE_D11P03_064'},
+  {t='anim', id='2'},
+  {t='bgm_fade', frames=30},
+  {t='msg', key='SCENE_D11P03_065'},
+  {t='anim', id='50'},
+  {t='shake', frames=30},
+  {t='msg', key='SCENE_D11P03_066'},
+  {t='anim', id='2'},
+  {t='msg', key='SCENE_D11P03_067'},
+  {t='msg', key='SCENE_D11P03_068'},
+  {t='msg', key='SCENE_D11P03_069'},
+  {t='msg', key='SCENE_D11P03_070'},
+  {t='bgm', track=''},
+  {t='msg', key='SCENE_D11P03_071'},
+  {t='msg', key='SCENE_D11P03_072'},
+  {t='msg', key='SCENE_D11P03_073'},
+  {t='msg', key='SCENE_D11P03_074'},
+  {t='msg', key='SCENE_D11P03_075'},
+  {t='msg', key='SCENE_D11P03_076'},
+  {t='msg', key='SCENE_D11P03_077'},
+  {t='msg', key='SCENE_D11P03_078'},
+  {t='msg', key='SCENE_D11P03_079'},
+  {t='msg', key='SCENE_D11P03_080'},
+  {t='msg', key='SCENE_D11P03_081'},
+  {t='msg', key='SCENE_D11P03_082'},
+  {t='msg', key='SCENE_D11P03_083'},
+  {t='msg', key='SCENE_D11P03_084'},
+  {t='msg', key='SCENE_D11P03_085'},
+  {t='msg', key='SCENE_D11P03_086'},
+  {t='bgm_fade', frames=150},
+  {t='msg', key='SCENE_D11P03_087'},
+  {t='msg', key='SCENE_D11P03_088'},
+  {t='msg', key='SCENE_D11P03_089'},
+  {t='msg', key='SCENE_D11P03_090'},
+  {t='bgm', track=''},
+  {t='msg', key='SCENE_D11P03_091'},
+  {t='msg', key='SCENE_D11P03_092'},
+  {t='msg', key='SCENE_D11P03_093'},
+  {t='msg', key='SCENE_D11P03_094'},
+  {t='msg', key='SCENE_D11P03_095'},
+  {t='msg', key='SCENE_D11P03_096'},
+  {t='msg', key='SCENE_D11P03_097'},
+  {t='msg', key='SCENE_D11P03_098'},
+  {t='msg', key='SCENE_D11P03_099'},
+  {t='msg', key='SCENE_D11P03_100'},
+  {t='msg', key='SCENE_D11P03_101'},
+  {t='msg', key='SCENE_D11P03_102'},
+  {t='msg', key='SCENE_D11P03_103'},
+  {t='msg', key='SCENE_D11P03_104'},
+  {t='msg', key='SCENE_D11P03_105'},
+  {t='msg', key='SCENE_D11P03_106'},
+  {t='msg', key='SCENE_D11P03_107'},
+  {t='msg', key='SCENE_D11P03_108'},
+  {t='msg', key='SCENE_D11P03_109'},
+  {t='msg', key='SCENE_D11P03_110'},
+  {t='msg', key='SCENE_D11P03_111'},
+  {t='msg', key='SCENE_D11P03_112'},
+  {t='msg', key='SCENE_D11P03_113'},
+  {t='msg', key='SCENE_D11P03_114'},
+  {t='bgm_fade', frames=150},
+  {t='msg', key='SCENE_D11P03_115'},
+  {t='msg', key='SCENE_D11P03_116'},
+  {t='msg', key='SCENE_D11P03_117'},
+  {t='msg', key='SCENE_D11P03_118'},
+  {t='msg', key='SCENE_D11P03_119'},
+  {t='msg', key='SCENE_D11P03_120'},
+  {t='msg', key='SCENE_D11P03_121'},
+  {t='msg', key='SCENE_D11P03_122'},
+  {t='msg', key='SCENE_D11P03_123'},
+  {t='msg', key='SCENE_D11P03_124'},
+  {t='msg', key='SCENE_D11P03_125'},
+  {t='msg', key='SCENE_D11P03_126'},
+  {t='msg', key='SCENE_D11P03_127'},
+  {t='msg', key='SCENE_D11P03_128'},
+  {t='msg', key='SCENE_D11P03_129'},
+  {t='msg', key='SCENE_D11P03_130'},
+  {t='msg', key='SCENE_D11P03_131'},
+  {t='msg', key='SCENE_D11P03_132'},
+  {t='msg', key='SCENE_D11P03_133'},
+  {t='msg', key='SCENE_D11P03_134'},
+  {t='msg', key='SCENE_D11P03_135'},
+  {t='msg', key='SCENE_D11P03_136'},
+  {t='msg', key='SCENE_D11P03_137'},
+  {t='msg', key='SCENE_D11P03_138'},
+  {t='msg', key='SCENE_D11P03_139'},
+  {t='anim', id='2'},
+  {t='anim', id='9'},
+  {t='anim', id='2'},
+  {t='anim', id='5'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='anim', id='24'},
+  {t='shake', frames=30},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='anim', id='2'},
+  {t='anim', id='22'},
+  {t='anim', id='23'},
+  {t='anim', id='2'},
+}
+
+function d11p03.Init(map)
+  DEBUG.EnableDbgCoro()
+  COMMON.RespawnAllies(true)
+end
+
+function d11p03.Enter(map)
+  DEBUG.EnableDbgCoro()
+  GAME:FadeIn(20)
+  RedCanonScene.Play(SCENE, EVENTS)
+  GAME:CutsceneMode(false)
+  SV.CanonicalDungeons = SV.CanonicalDungeons or {}
+  SV.CanonicalDungeons['mt_freeze_peak'] = true
+  GeneralFunctions.EndDungeonRun(RogueEssence.Data.GameProgress.ResultType.Cleared,
+    'master_zone', -1, 1, 0, true, true)
+end
+
+function d11p03.Update(map) end
+function d11p03.GameSave(map) end
+function d11p03.GameLoad(map)
+  GAME:FadeIn(20)
+end
+
+return d11p03

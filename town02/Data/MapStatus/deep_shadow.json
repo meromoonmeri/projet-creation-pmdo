@@ -1,0 +1,119 @@
+{
+  "Version": "0.8.9.0",
+  "Object": {
+    "$type": "RogueEssence.Data.MapStatusData, RogueEssence",
+    "Name": {
+      "DefaultText": "Deep Shadow",
+      "LocalTexts": {
+        "fr": "Ombre profonde"
+      }
+    },
+    "Desc": {
+      "DefaultText": "Default weather-family setter for the deep-shadow dungeon floors.",
+      "LocalTexts": {
+        "fr": "Sélecteur d'ambiance pour les étages plongés dans l'ombre."
+      }
+    },
+    "Released": true,
+    "Comment": "Runtime adapter: this status is a family setter, not a visual effect. DefaultMapStatusStep writes the selected darkness/dusk ID into MapIDState; WeatherFillEvent materializes that selected status at map start and after refresh.",
+    "CarryOver": false,
+    "Emitter": {
+      "$type": "RogueEssence.Content.EmptySwitchOffEmitter, RogueEssence",
+      "LocHeight": 0
+    },
+    "DefaultHidden": true,
+    "StatusStates": [
+      {
+        "$type": "RogueEssence.Dungeon.MapIDState, RogueEssence",
+        "ID": ""
+      }
+    ],
+    "OnMapRefresh": [],
+    "RepeatMethod": {
+      "$type": "PMDC.Dungeon.MapStatusReplaceEvent, PMDC"
+    },
+    "ProximityEvent": {
+      "Radius": -1,
+      "TargetAlignments": 0,
+      "BeforeExplosions": [],
+      "OnEquips": [],
+      "OnPickups": [],
+      "BeforeStatusAdds": [],
+      "BeforeStatusAddings": [],
+      "OnStatusAdds": [],
+      "OnStatusRemoves": [],
+      "OnMapStatusAdds": [],
+      "OnMapStatusRemoves": [],
+      "OnMapStarts": [],
+      "OnTurnStarts": [],
+      "OnTurnEnds": [],
+      "OnMapTurnEnds": [],
+      "OnWalks": [],
+      "OnDeaths": [],
+      "OnRefresh": [],
+      "BeforeTryActions": [],
+      "BeforeActions": [],
+      "OnActions": [],
+      "BeforeHittings": [],
+      "BeforeBeingHits": [],
+      "AfterHittings": [],
+      "AfterBeingHits": [],
+      "OnHitTiles": [],
+      "AfterActions": [],
+      "UserElementEffects": [],
+      "TargetElementEffects": [],
+      "ModifyHPs": [],
+      "RestoreHPs": []
+    },
+    "OnEquips": [],
+    "OnPickups": [],
+    "BeforeStatusAdds": [],
+    "BeforeStatusAddings": [],
+    "OnStatusAdds": [],
+    "OnStatusRemoves": [],
+    "OnMapStatusAdds": [],
+    "OnMapStatusRemoves": [],
+    "OnMapStarts": [
+      {
+        "Key": {
+          "str": [
+            0
+          ]
+        },
+        "Value": {
+          "$type": "PMDC.Dungeon.WeatherFillEvent, PMDC"
+        }
+      }
+    ],
+    "OnTurnStarts": [],
+    "OnTurnEnds": [],
+    "OnMapTurnEnds": [
+      {
+        "Key": {
+          "str": [
+            6
+          ]
+        },
+        "Value": {
+          "$type": "PMDC.Dungeon.WeatherFillEvent, PMDC"
+        }
+      }
+    ],
+    "OnWalks": [],
+    "OnDeaths": [],
+    "OnRefresh": [],
+    "BeforeTryActions": [],
+    "BeforeActions": [],
+    "OnActions": [],
+    "BeforeHittings": [],
+    "BeforeBeingHits": [],
+    "AfterHittings": [],
+    "AfterBeingHits": [],
+    "OnHitTiles": [],
+    "AfterActions": [],
+    "UserElementEffects": [],
+    "TargetElementEffects": [],
+    "ModifyHPs": [],
+    "RestoreHPs": []
+  }
+}

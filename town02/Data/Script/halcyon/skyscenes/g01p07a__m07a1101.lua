@@ -1,0 +1,71 @@
+-- GÉNÉRÉ par dev/tools/sky_compile_scenes.py — NE PAS ÉDITER À LA MAIN.
+-- Scène canonique PMD Sky EU : SCRIPT/G01P07A/m07a1101.ssb (ROM sha256 1fa39d35…).
+-- Dialogues 5 langues ROM embarqués ; conventions du pilote m01a0204.
+local SkySceneKit = require 'halcyon.skyscenes.kit'
+local SkySubScreen = require 'halcyon.skyscenes.subscreen'
+return function(hero, partner)
+  pcall(function() SOUND:StopBGM() end)
+  -- back2_SetMode(4) [mode d'affichage sub NDS: géré par SubScreen]
+  -- back2_SetGround(V02P06A) [décor sub chargé: Sub_v02p06a]
+  -- camera2_SetPositionMark(Position<'m0', 19.5, 15.5>) [caméra sub NDS: nappe Sub_ cadrée fenêtre NDS, recadrage dynamique non simulé - documenté]
+  SkySubScreen.Show("v02p06a", 60, false) -- screen2_FadeIn: TOP_FOCUS (timeline ROM)
+  GAME:WaitFrames(150)
+  SkySubScreen.Hide(60) -- screen2_FadeOut: retour BOTTOM_FOCUS (timeline ROM)
+  -- back2_SetMode(0) [mode d'affichage sub NDS: géré par SubScreen]
+  GAME:WaitFrames(60)
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="But, Chief... Why'd you bother\nhelping out that chicken?", french="Mais, chef... Pourquoi vous avez\naidé ces poules mouillées?", german="Aber Boss, wieso haben wir dem\nAngsthasen geholfen?", italian="Ma, capo... Perché ti sei\ndisturbato ad aiutare quella mezza tacca?", spanish="Pero, Jefe... ¿Por qué te\nhas molestado en intervenir?"})
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Like giving away that Perfect\nApple right then...", french="Leur donner cette Pomme\nParfaite... Je pige pas...", german="Wir hätten den Perfekten Apfel\nnicht so früh hergeben sollen...", italian="Perché hai regalato quella Mela\nPerfetta?", spanish="¿Por qué le has dado la Manzana\nPerfecta justo en ese momento?"})
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="We should've just watched\nwhat'd happen to them after.", french="On aurait dû rester planqués et\nvoir ce qui allait leur arriver.", german="Wir hätten warten sollen, damit\nwir sehen, was mit ihnen passiert.", italian="Chissà che fine avrebbero fatto\nquei due!", spanish="Tendríamos que haber visto\nlo que les pasaba después."})
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" That would've been hilarious.", french=" On se serait bien marrés.", german=" Das wäre lustig gewesen.", italian="Ci saremmo sbellicati dalle\nrisate.", spanish="Seguro que hubiera sido\ndivertidísimo."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Koffing", true, "koffing", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_DOGAASU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" Yeah, my thoughts exactly.", french=" Ouais, je pense pareil!", german=" Ja, finde ich auch.", italian=" Già, sarebbe stato interessante!", spanish=" Eso mismo pienso yo."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Chaw-haw-haw! You're not\nthinking strategically, you two.", french="Gnark gnark gnark! Vous deux,\nvous ne pensez pas de manière stratégique.", german="Cha-ha-ha! Ihr denkt nicht\nstrategisch, ihr zwei.", italian="Ahr-ahr-ahr! Voi due\nnon avete una prospettiva strategica.", spanish="¡Jua, jua, jua! Vosotros no\npensáis estratégicamente, ¿verdad?"})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Why'd we come here in the\nfirst place?[K] The expedition, right?", french="Pourquoi sommes-nous venus ici,\nau départ?[K] Pour l'expédition, non?", german="Wozu sind wir denn überhaupt\nhier?[K] Wegen der Expedition, oder?", italian="Perché siamo venuti qui?[K]\nPer la spedizione, giusto?", spanish="A ver, ¿para qué hemos venido\na este [CS:N]Pokégremio[CR]?[K] Por la expedición, ¿no?"})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Right now, the trick is for us to\nwin the trust of [CS:N]Wigglytuff[CR].", french="L'astuce, maintenant, est de\ngagner la confiance de [CS:N]Grodoudou[CR].", german="Im Moment geht es darum, das\nVertrauen von [CS:N]Knuddeluff[CR] zu gewinnen.", italian="Per il momento, la cosa più\nimportante per noi è guadagnarci la fiducia\ndi [CS:N]Wigglytuff[CR].", spanish="Lo más importante entonces era\nganarnos la confianza de [CS:N]Wigglytuff[CR]."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Koffing", true, "koffing", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_DOGAASU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" I get it now.", french=" Ah, j'ai compris!", german=" Jetzt verstehe ich.", italian=" Adesso capisco.", spanish=" Ahora lo pillo."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" But...", french=" Mais...", german=" Aber...", italian=" Ma...", spanish=" El caso es que..."})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="This being a famous guild and\nall, I was playing it cautious at first, but it's\nbeen ridiculously easy.", french="Comme cette Guilde est célèbre,\nj'ai préféré être prudent au début, mais en\nfait c'était vraiment trop facile.", german="Weil es ja so eine berühmte\nGilde ist, war ich zuerst vorsichtig,\naber bisher war alles lächerlich einfach.", italian="... visto che questa è una Gilda\nfamosa, all'inizio ho voluto agire con cautela,\nma è stato troppo facile.", spanish="Siendo un [CS:N]Pokégremio[CR] tan\nfamoso trataba de ir con cierta cautela, pero\nlo cierto es que ha sido facilísimo."})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="[CS:N]Wigglytuff[CR]'s been nothing more\nthan a big baby.", french="[CS:N]Grodoudou[CR] n'est rien de plus\nqu'un gros bébé.", german="[CS:N]Knuddeluff[CR] ist wie ein\ngroßes Baby.", italian="[CS:N]Wigglytuff[CR] non ha fatto altro\nche comportarsi come un bambinone.", spanish="[CS:N]Wigglytuff[CR] no es más que un\nniño grande."})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" He's no big deal.", french="Il ne nous posera pas\nde problèmes.", german=" Er macht keine Probleme.", italian=" Non è certo un pericolo.", spanish="No nos tenemos que preocupar\npor él."})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Why everyone's so terrified of\n[CS:N]Wigglytuff[CR], I don't know. I'm clueless.", french="Je ne sais pas pourquoi\ntout le monde a peur de [CS:N]Grodoudou[CR].\nFranchement, ça me dépasse.", german="Wieso alle solche Angst vor\n[CS:N]Knuddeluff[CR] haben, weiß ich nicht. Ich habe\nnicht die geringste Ahnung.", italian="Non riesco proprio a capire\nperché tutti abbiano così tanta paura di\n[CS:N]Wigglytuff[CR]. Non ci arrivo proprio.", spanish="Si alguien entiende qué es lo que\nasusta tanto a todo el mundo de [CS:N]Wigglytuff[CR],\nque me lo diga."})
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Anyway, if we find a treasure\nwhile on the expedition...", french="Quoi qu'il en soit, si on trouve\nun trésor pendant l'expédition...", german="Jedenfalls, wenn wir während\nder Expedition einen Schatz finden...", italian="Ad ogni modo, se troviamo un\ntesoro nel corso della spedizione...", spanish="Entonces, si encontramos algún\ntesoro interesante en la expedición..."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Koffing", true, "koffing", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_DOGAASU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" We knock out the guild's crew.", french="... on met une raclée aux\nmembres de la Guilde.", german="Werden wir die Gildencrew\naus dem Weg räumen.", italian="... mettiamo KO i membri della\nGilda.", spanish="Solo tendremos que zurrar a\nlos miembros del [CS:N]Pokégremio[CR]."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Then we snatch the treasure and\nskedaddle on out!", french="On s'empare du trésor et on\ndéguerpit!", german="Dann schnappen wir uns den\nSchatz und machen uns aus dem Staub!", italian="Poi arraffiamo il tesoro e ce la\ndiamo a gambe!", spanish="Luego, cogemos el tesoro...\n¡y nos damos el piro!"})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Koffing", true, "koffing", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_DOGAASU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english="Whoa-ho-ho! This plan is a\nsure thing.", french="Mouarf mouarf mouarf! C'est un\nbon plan.", german="Whoahoho! Dieser Plan ist eine\nsichere Sache.", italian="Uooh-ho-ho! Questo piano è\nproprio grandioso.", spanish="¡Jo, jo, jo! ¡Este plan es pan\ncomido!"})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Zubat", true, "zubat", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_ZUBATTO (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" Heh-heh.", french=" Hin hin.", german=" Hehehe.", italian=" Eh-eh.", spanish=" Jue, jue..."})
+  -- CallCommon CORO_MESSAGE_CLOSE_WAIT_FUNC (fermeture/attente message: géré par say())
+  pcall(function() UI:SetSpeaker("Skuntank", true, "skuntank", 0, '', RogueEssence.Data.Gender.Unknown) end) -- locuteur NPC_SUKATANKU (espèce ROM, sans placement zone)
+  SkySceneKit.say({english=" Chaw-haw-haw.", french=" Gnark gnark gnark!", german=" Cha-ha-ha.", italian=" Ahr-ahr-ahr.", spanish=" Jua, jua, jua."})
+  -- message_KeyWait
+  GAME:FadeOut(false,  60)
+  -- message_CloseEnforce
+  GAME:WaitFrames(60)
+  -- CallCommon CORO_FADE_OUT_ALL_AFTER (fermeture/attente message: géré par say())
+  SkySubScreen.Hide(10) -- fin de scène: nappe sub retirée
+end

@@ -1,0 +1,27 @@
+--- Scene: d04p02
+local d04p02 = {}
+function d04p02.Cutscene()
+  GAME:CutsceneMode(true)
+  GAME:PlayBGM('In The Depths Of The Pit', true)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_001"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_002"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_003"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_004"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_005"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_006"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_007"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_008"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D04P02_009"))
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  -- GROUND:CharSetAction(ent, 2)
+  GAME:CutsceneMode(false)
+end
+return d04p02
