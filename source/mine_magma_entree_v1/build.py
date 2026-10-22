@@ -178,7 +178,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     )
 
     # 7. Couche 04 : **ZÉRO cascade à l'entrée** -> Rive visqueuse & croûte de bordure rocher `Dark Crater Pit`
-    band_px = max(8.0, 22.0 * (w / float(W_CANON)))
+    band_px = max(6.0, 11.5 * (w / float(W_CANON)))
     frames_04_viscous_shore = render_dark_crater_viscous_shoreline(
         open_chasm,
         n_frames=15,

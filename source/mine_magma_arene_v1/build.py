@@ -164,7 +164,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     )
 
     # 6. Couche 03 : Animation visqueuse de rive & croûte de bordure rocher (`15 × 8 = 120` ticks)
-    band_px = max(8.0, 22.0 * (w / float(W_CANON)))
+    band_px = max(6.0, 11.5 * (w / float(W_CANON)))
     frames_03_viscous_shore = render_dark_crater_viscous_shoreline(
         open_chasm_raw,
         n_frames=15,
@@ -199,9 +199,9 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     sy = h / float(H_CANON)
     col_specs = [
         {"nom": "gauche_fond", "x": int(round(128 * sx)), "y": int(round(206 * sy)), "demi": max(7, int(round(15 * sx))), "decalage": 0, "graine": 1},
-        {"nom": "gauche_devant", "x": int(round(62 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 6, "graine": 2},
-        {"nom": "droite_fond", "x": int(round(640 * sx)), "y": int(round(206 * sy)), "demi": max(7, int(round(15 * sx))), "decalage": 10, "graine": 3},
-        {"nom": "droite_devant", "x": int(round(706 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 3, "graine": 4},
+        {"nom": "gauche_devant", "x": int(round(62 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 4, "graine": 2},
+        {"nom": "droite_fond", "x": int(round(640 * sx)), "y": int(round(206 * sy)), "demi": max(7, int(round(15 * sx))), "decalage": 6, "graine": 3},
+        {"nom": "droite_devant", "x": int(round(706 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 2, "graine": 4},
     ]
     frames_08_cascade_and_cols = build_dark_crater_cascade_and_giant_columns(
         w=w,
@@ -209,7 +209,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         open_sea_mask=open_chasm,
         north_breach_mask=north_breach_mask,
         col_specs=col_specs,
-        n_phases=15,
+        n_phases=8,
     )
 
     # 12. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques montantes `W04` `1×` (`16 × 7` ticks)
@@ -239,7 +239,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("05_rune_primo_groudon_sol", "Symbole Primo-Groudon Grave Pulsant", "BG", frames_05_rune, frame_length=10),
         LayerEntry("06_falaises_roche_noire_magma", "Couronne, Falaises & Pitons Roche Noire", "BG", [im_06_cliffs], frame_length=5),
         LayerEntry("07_incandescence_parois_dcp", "Incandescence Bordure Rocher DCP", "BG", frames_07_glow, frame_length=8),
-        LayerEntry("08_cascade_et_colonnes_geantes", "Cascade Nord & Colonnes Geantes DCP", "BG", frames_08_cascade_and_cols, frame_length=8),
+        LayerEntry("08_cascade_et_colonnes_geantes", "Cascade Nord & Colonnes Geantes DCP", "BG", frames_08_cascade_and_cols, frame_length=15),
         LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),
     ]
     return layers, walk_grid, volcanic_pal

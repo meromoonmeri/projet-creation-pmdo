@@ -602,7 +602,7 @@ def build_dark_crater_pit_magma_frames(
 def render_dark_crater_viscous_shoreline(
     open_magma_mask: np.ndarray,
     n_frames: int = 15,
-    band_px: float = 22.0,
+    band_px: float = 11.5,
 ) -> List[Image.Image]:
     """Animation visqueuse de rive & croûte de bordure rocher calibrée à `100 %` sur la rampe
     exacte 13 tons de `Dark Crater Pit` (`d41p41a`, `0` damier, `alpha ∈ {0, 255}`) :
@@ -673,19 +673,19 @@ def render_dark_crater_viscous_shoreline(
         on_lip_crust = (dv <= crust_w) & (surge < 0.22) & (core > 0.24)
         on_lip_gold = (dv <= lip_w) & (~on_lip_crust)
 
-        # 2. Petits radeaux organiques isolés de croûte sombre flottant près des anses (`d <= 12 px`)
-        raft_seed = (dv > lip_w) & (dv <= 11.5) & (core > (0.44 + 0.020 * dv + 0.06 * surge))
+        # 2. Petits radeaux organiques isolés de croûte sombre flottant près des anses (`d <= 9.5 px`)
+        raft_seed = (dv > lip_w) & (dv <= 9.5) & (core > (0.45 + 0.022 * dv + 0.06 * surge))
         raft_amber_rim = (
             (dv > lip_w)
-            & (dv <= 12.2)
+            & (dv <= 10.2)
             & (~raft_seed)
-            & (core > (0.38 + 0.020 * dv + 0.06 * surge))
+            & (core > (0.39 + 0.022 * dv + 0.06 * surge))
         )
 
         # 3. Ondes visqueuses ambrées douces roulant vers la paroi (`idx 8..10`, sans cerne jaune détaché)
-        ridge_env = np.clip((15.5 - dv) / 8.5, 0.0, 1.0)
-        on_viscous_swell = (dv > lip_w) & (~raft_seed) & (~raft_amber_rim) & ((wave_main * ridge_env) > 0.48)
-        swell_peak = on_viscous_swell & ((wave_main * ridge_env) > 0.76)
+        ridge_env = np.clip((11.5 - dv) / 6.5, 0.0, 1.0)
+        on_viscous_swell = (dv > lip_w) & (~raft_seed) & (~raft_amber_rim) & ((wave_main * ridge_env) > 0.50)
+        swell_peak = on_viscous_swell & ((wave_main * ridge_env) > 0.78)
 
         opaque = on_lip_crust | on_lip_gold | raft_seed | raft_amber_rim | on_viscous_swell
         pal_idx = np.full(xv.shape, 8, dtype=np.int32)
@@ -740,14 +740,11 @@ def build_dark_crater_rim_glow_frames(
     frames: List[Image.Image] = []
     for f in range(15):
         s = float(f) / 15.0
-        w1 = np.clip(0.38 + 0.26 * np.sin(tau * 2.0 * s + a1), 0.12, 0.65)[:, None]
-        w2 = np.clip(0.20 + 0.14 * np.sin(tau * 2.0 * s + a2), 0.06, 0.36)[:, None]
+        w1 = (np.rint(np.clip(0.38 + 0.24 * np.sin(tau * 2.0 * s + a1), 0.14, 0.62) * 4.0) / 4.0)[:, None]
 
         arr = np.zeros((h, w, 4), dtype=np.uint8)
         arr[r1_ys, r1_xs, :3] = (np.clip((1.0 - w1) * base1 + w1 * c_gold, 0, 255).astype(np.uint8) & 0xF8)
         arr[r1_ys, r1_xs, 3] = 255
-        arr[r2_ys, r2_xs, :3] = (np.clip((1.0 - w2) * base2 + w2 * c_ember, 0, 255).astype(np.uint8) & 0xF8)
-        arr[r2_ys, r2_xs, 3] = 255
         frames.append(Image.fromarray(arr, mode="RGBA"))
     return frames
 
