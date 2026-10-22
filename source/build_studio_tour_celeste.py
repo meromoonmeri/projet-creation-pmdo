@@ -38,8 +38,8 @@ def export_filmstrips() -> Dict:
             "folder": "tour_celeste_sommet_v1",
             "ref_rel": "source/tour_celeste_sommet_v1/references/b71_sky_tower_summit.png",
             "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
-            "subtitle": "b71 / D13P03 — Courbe planétaire, stratosphère étoilée & ailes de vent divergentes",
-            "wind_summary": "Limbe terrestre : dx = +8 → | Aile gauche : (dx = -16, dy = +8) ↙ | Aile droite : (dx = +16, dy = +8) ↘",
+            "subtitle": "b71 canonique 1:1 — Cosmos étoilé scintillant, Planète courbe à spirales nuageuses orbitales & ailes de vent",
+            "wind_summary": "Étoiles : 24 poses scintillantes | Planète : spirales dx = +16 → & rubans dx = +8 → | Vent : gauche (-16, +8) ↙ / droite (+16, +8) ↘",
         }
     ]
 
