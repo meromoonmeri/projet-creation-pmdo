@@ -8,6 +8,5 @@
 
 V1 reste intacte dans son dossier. V3 est un jeu candidat distinct. Les ajouts ne sont pas encore approuvés artistiquement ni testés dans PMDO. PNGs opaques40², ≤15couleurs, fonds visibles exacts et hashes V1 contrôlés par le builder/tests.
 
-Crédits natifs : `native_credits.txt`, conservé sans modification depuis SpriteCollab, révision3609a86be2a4c8ad7cf255bd2255f044daafe24f. Les 10 propositions V1 ont la provenance documentée dans `../politoed_portraits_v1/`; les deux ajouts V3 sont des adaptations assistées par génération, pas des ressources natives SpriteCollab. Respecter les crédits/licences des sources ; aucune acceptation upstream revendiquée.
 
 Reconstruction : `.venv/bin/python source/pokemon_custom/politoed_portraits_v3/build.py`.

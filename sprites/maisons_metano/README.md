@@ -1,6 +1,5 @@
 # Dix huttes arrondies — référence Métano Town / Palika
 
-Dix **nouvelles créations générées**, guidées par les maisons de Métano Town dans [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon). Ce ne sont ni des sprites officiels ni des extractions renommées. Formes rondes et matériaux naturels, sans toiture pyramidale ni maison humaine rectangulaire.
 
 1. Feuillue
 2. Vannerie
@@ -46,7 +45,6 @@ Références originales : maison normale **80 × 111 px**, roche **96 × 96 px**
 
 ## Sources et attribution
 
-Référence : **Palika / Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Le README du projet crédite Palika comme auteur et répertorie les artistes contributeurs : [crédits Halcyon](https://github.com/Palikadude/Halcyon#credits). Les références sont conservées séparément des créations et ne sont pas intégrées aux atlas de livraison. Leur présence dans un dépôt public n'implique pas une licence de redistribution générale.
 
 Les cinq paires issues du générateur sont conservées dans `source/maisons_metano/paire_*.png`. Le script les détoure, enlève les débris isolés, les réduit sans déformation et produit les exports. La conformité artistique au style demandé reste une appréciation visuelle, pas une propriété que les tests peuvent certifier.
 

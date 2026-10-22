@@ -112,10 +112,3 @@ Le JavaScript de l’aperçu est contrôlé syntaxiquement avec Node. Ces tests 
 .venv/bin/python source/package_cote_v2.py
 ```
 
-## Sources et crédits
-
-- Modules de roche de référence : **Palikadude/Halcyon**, tuiles Métano Town, Palika et contributeurs. La planche de référence montre des extraits natifs à un zoom entier ; elle n’a pas été collée dans le terrain généré.
-- Base marine : planche *Pelipper Post Office* fournie par l’utilisateur, créditant Nintendo, Game Freak, Chunsoft et l’extraction par **Jaxster**. Ce ne sont pas les animations de rivière Métano.
-- Terrain corrigé, ciel et nuages : nouvelles sorties du générateur, conservées dans `source/cote_v2/`.
-
-Respecter les conditions des ressources d’origine. La disponibilité de ces éléments n’accorde pas de nouveaux droits de redistribution.

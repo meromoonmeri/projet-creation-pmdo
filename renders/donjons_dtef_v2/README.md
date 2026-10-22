@@ -70,4 +70,3 @@ L’import génère les ressources d’autotiles ; il ne configure pas les colli
 
 Scripts : `source/donjons_dtef_v2/{fetch,sources,build,verify,gallery,package}.py`. Dépendances Pillow/NumPy ; SciPy pour les outils partagés du dépôt. Reconstruction depuis le dépôt avec les fichiers de référence ; SHA256 DumpAsset dans `references/provenance.json`.
 
-Sources : Palikadude/Halcyon, audinowho/DumpAsset, RogueCollab/RogueEssence. Les ressources restent soumises aux droits de leurs auteurs/contributeurs et ayants droit ; leur présence dans un dépôt public n’est pas une licence universelle.

@@ -30,7 +30,6 @@ Aucun sprite d’export n’a été redimensionné. Le promontoire généré a �
 
 ## Origine des fonds animés
 
-La mer et le ciel proviennent de la planche **`IMG_4890.png` fournie par l’utilisateur dans le commit `3bc185b`**, copiée sous `source/falaises_cotieres_nues/reference_ciel_mer.png`. Il s’agit de la planche *Pelipper Post Office*, créditant Nintendo, Game Freak, Chunsoft et l’extraction par **Jaxster**.
 
 - Ciel : rectangle (544,8)–(1264,216), répété horizontalement et déplacé doucement.
 - Mer lointaine : cinq bandes de 48 × 128 px.
@@ -46,7 +45,6 @@ Les dimensions sont divisibles par **8** et les noms de feuilles sont uniques. P
 
 **Importer les PNG ne configure pas automatiquement les animations.** Les séquences de frames de ciel et de mer doivent être configurées dans le moteur ; les noms, l’ordre et les durées sont fournis dans le manifeste. Les deux séquences sont indépendantes. Ce lot ne contient pas de Ground map PMDO ni d’animation Aseprite prête à l’emploi.
 
-Aucun test dans l’installation PMDO de l’utilisateur n’a été exécuté. Les raccords des fonds répétés et l’échelle du terrain généré restent à valider en jeu. Respecter les conditions des ressources et les crédits originaux.
 
 ## Contrôles et reconstruction
 

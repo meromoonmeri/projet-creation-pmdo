@@ -57,4 +57,3 @@ Le test de découpage reproduit le principe de l’importeur, **pas une exécuti
 .venv/bin/python source/package_metano_import_png.py
 ```
 
-Sources artistiques : **Palikadude/Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`, Palika et contributeurs. Nouvelles compositions non officielles ; respecter les droits et conditions des ressources d’origine.

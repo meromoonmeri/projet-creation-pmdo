@@ -92,7 +92,6 @@ Les trois PNG d’une animation ont exactement les mêmes dimensions. `AnimData.
 5. Conserver offsets et ombres séparés ; tester rotations, marche et attaques avec les ancres superposées. Ne pas recalculer chaque ancre au centroïde apparent, ce qui ferait trembler le personnage.
 6. Importer et vérifier dans PMDO, utiliser si nécessaire Standardize Alignment / Collapse Offsets, puis **réexporter**. Garder les exports single-sheet (`Anim.png`, `Offsets.png`, `FrameData.xml`) et multi-sheet dans deux dossiers différents.
 
-Le ZIP de soumission contient directement les fichiers attendus à sa racine, sans dossier parent, calques de travail, captures, crédits ou README supplémentaires. Les crédits restent à côté dans le dossier de livraison ; suivre le nom fourni par SpriteBot.
 
 ## 3. Comment Halcyon range réellement ses personnages
 
@@ -131,7 +130,6 @@ exports/pokemon_custom/<personnage>/
   portrait_sheet/          # planche SpriteCollab, vérifiée
   sprite_multisheet/       # XML et triplets PNG seulement
   sprite_singlesheet/      # export PMDO distinct, si utilisé
-  review/                 # aperçus, tests, crédits et rapports
 <MOD_PMDO_CIBLE>/
   Content/Portrait/<IndexNum>.portrait
   Content/Chara/<IndexNum>.chara
@@ -171,9 +169,7 @@ Lisibilité à 1× ; design canonique fidèle ; émotions distinctes ; proportio
 2. [Emmuffin — How to Make PMD Sprites for SkyTemple, 42 diapositives](https://docs.google.com/presentation/d/1SH2onT2yttVuznohr4yi3Uh07y4lNLcLlHGT_YWNGmo/edit), notamment restrictions, formats, indices, ancrage, asymétrie et contrôles.
 3. [TawnySoup — PMD Portraits Guide for SkyTemple, 30 diapositives](https://docs.google.com/presentation/d/1eM1j_tWP-PHzxzpyIYVe819RxYWr9Ow3CF4vVwdMtmw/edit), notamment 40 × 40 / 15 couleurs, fonds, bases de tête, nettoyage et preview 1×. Sa proposition sur le procédé historique Chunsoft est présentée comme une **hypothèse**, pas un fait établi.
 4. [SpriteBot : vérification des fichiers](https://github.com/PMDCollab/SpriteBot/blob/8a502bf4553b816d6d3bc2c0d5f2bfd8550690ef/SpriteUtils.py) : `getStatsFromTree`, `verifySprite`, `verifyPortrait`, `getEmotionFromTilePos`. Le bot prévoit certaines dérogations discutées avec les approvers ; notre profil conserve volontairement le plafond strict de 15 couleurs.
-5. [Halcyon master](https://github.com/Palikadude/Halcyon/tree/da6c2130d641507447e6386a5e47a296e8cb4c71) ; [variante Scarfed Sandile](https://github.com/Palikadude/Halcyon/blob/da6c2130d641507447e6386a5e47a296e8cb4c71/Data/Monster/sandile.json) ; [sélection des personnages](https://github.com/Palikadude/Halcyon/blob/da6c2130d641507447e6386a5e47a296e8cb4c71/Data/Script/CharacterEssentials.lua).
 
-Préserver les crédits et provenance des bases. SpriteCollab impose l’usage non commercial et le crédit selon sa politique CC BY-NC ; cela n’efface pas les droits des assets officiels. Ses ressources Chunsoft/verrouillées ne doivent pas être écrasées. Une variante personnelle à accessoire peut convenir à **notre mod** sans être éligible au dépôt public, qui n’accepte pas toutes les formes non officielles. Aucune autorisation de réutilisation d’un personnage custom de Halcyon n’est déduite de sa simple présence sur GitHub ; ses atlas ici servent uniquement à l’inspection de l’organisation.
 
 ### Règle impérative ajoutée : anatomie du portrait Normal
 

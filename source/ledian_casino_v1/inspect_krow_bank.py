@@ -14,11 +14,11 @@ BANKS={
 
 def main():
  P.mkdir(parents=True,exist_ok=True)
- tree=json.loads(subprocess.check_output(['gh','api',f'repos/Palikadude/Halcyon/git/trees/{PIN}?recursive=1']))
+ tree=json.loads(subprocess.check_output(['gh','api',f'repos//Halcyon/git/trees/{PIN}?recursive=1']))
  indexed={x['path']:x for x in tree['tree']};sources={};exports={}
  for name,path in BANKS.items():
   remote=f'Content/Tile/{name}.tile'
-  if not path.exists():path.write_bytes(subprocess.check_output(['gh','api',f'repos/Palikadude/Halcyon/contents/{remote}?ref={PIN}','-H','Accept: application/vnd.github.raw+json']))
+  if not path.exists():path.write_bytes(subprocess.check_output(['gh','api',f'repos//Halcyon/contents/{remote}?ref={PIN}','-H','Accept: application/vnd.github.raw+json']))
   raw=path.read_bytes();blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest();assert blob==indexed[remote]['sha']
   ts,bank,_=tiles(path);assert ts==8
   sources[name]={'local':str(path.relative_to(ROOT)),'remote':remote,'git_blob':blob,'sha256':hashlib.sha256(raw).hexdigest(),'cell_px':ts}
@@ -34,7 +34,7 @@ def main():
   out=P/f'KrowBank_{ident}_native.png';crop.save(out,optimize=True)
   exports[ident]={'file':out.name,'sheet':name,'source_rect':[976,928,1080,1024],'kept_rows':[0,48] if ident=='toiture' else [0,96],'size':[104,96],'sha256':hashlib.sha256(out.read_bytes()).hexdigest()}
  roof=Image.open(P/exports['toiture']['file']).convert('RGBA');roof.alpha_composite(Image.open(P/exports['guichet']['file']).convert('RGBA'));roof.save(P/'KrowBank_structure_native.png',optimize=True)
- report={'repository':'https://github.com/Palikadude/Halcyon','commit':PIN,'identified_as':'Krow Bank, Bank_Owner = Murkrow','identity_evidence':[{'path':'Data/Script/ground/metano_town/init.lua','lines':[2837,2849]},{'path':'Data/Script/ground/metano_town/metano_town_ch_2.lua','lines':[460,466]}],'sources':sources,'exports':exports,'scope':'Native reference study and extracted object layers, NOT a finished casino map.','checks':['Git blob identity against pinned Halcyon tree','native 8 px grid','no resize, recolour, mirroring or generated redraw in these extracts','roof and front furnishing on separate aligned canvases'],'runtime_PMDO':'NOT TESTED'}
+ report={'repository':'https://github.com//Halcyon','commit':PIN,'identified_as':'Krow Bank, Bank_Owner = Murkrow','identity_evidence':[{'path':'Data/Script/ground/metano_town/init.lua','lines':[2837,2849]},{'path':'Data/Script/ground/metano_town/metano_town_ch_2.lua','lines':[460,466]}],'sources':sources,'exports':exports,'scope':'Native reference study and extracted object layers, NOT a finished casino map.','checks':['Git blob identity against pinned Halcyon tree','native 8 px grid','no resize, recolour, mirroring or generated redraw in these extracts','roof and front furnishing on separate aligned canvases'],'runtime_PMDO':'NOT TESTED'}
  (P/'provenance_krow_bank.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
  print('PASS: pinned native banks; Krow Bank roof and front furnishing exported independently at 104×96.')
 

@@ -70,13 +70,6 @@ Importer tes propres PNG de structures à leur taille native. Ces cartes utilise
 
 Le terrain conserve le visuel V2 : la terrasse est une correction **générée**, inspirée de Métano, pas une reconstruction certifiée avec les tuiles canoniques. L'intégration native ne change pas cette provenance.
 
-## Sources techniques et crédits
-
-- Halcyon / Palika et contributeurs, commit `da6c2130d641507447e6386a5e47a296e8cb4c71` : [`Data/Ground/post_office.rsground`](https://github.com/Palikadude/Halcyon/blob/da6c2130d641507447e6386a5e47a296e8cb4c71/Data/Ground/post_office.rsground), conteneur `Version = 0.7.15.1`. Aucun PNJ, objet ou script de cette carte n'a été repris.
-- Le binaire `Content/BG/Chapter_1.dir` du même dépôt a servi de contrôle du format DirSheet, pas de ressource graphique livrée.
-- [RogueEssence, commit `8b7eafafa73ff0c10b9e8fd9348559ee1b5dfe8b`](https://github.com/RogueCollab/RogueEssence/tree/8b7eafafa73ff0c10b9e8fd9348559ee1b5dfe8b) : `GroundMap.cs`, `MapBG.cs`, `LayeredBG.cs`, `TileLayer.cs`, `DirSheet.cs`, `TileSheet.cs`, `BaseSheet.cs`, `TileIndex.cs`, `ImportHelper.cs`, `Serializer.cs`, `UpgradeConverters.cs`, `Sprites.cs`, `LuaEngine.cs`, `PathMod.cs`.
-- Visuels : sources V2 du dépôt ; références Métano / Halcyon et feuille marine Pelipper fournie précédemment. La disponibilité publique des références n'implique pas une licence de redistribution sans restrictions.
-
 ## Reproduction dans le dépôt
 
 Depuis la racine, avec Pillow et numpy (ici `.venv/bin/python`) :

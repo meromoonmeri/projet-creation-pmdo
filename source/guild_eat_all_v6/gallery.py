@@ -12,6 +12,6 @@ def main():
   if m['directions']==8:
    html+='<details><summary>Voir les huit directions</summary><img alt="Eat huit directions '+m['name']+'" src="'+uri(OUT/'review'/f'{slot}_Eat_8directions.gif')+'"></details>'
   html+='</section>'
- html+='</div><h2>Fichiers et statut</h2><p>exports/guild_eat_all_v6/ : neuf packs XML/triples complets, crédits séparés,57GIFs, planches de contrôle et rapport technique. Les originaux et les cartes ajoutées par l’utilisateur restent intacts. Les dessins générés ont été utilisés comme études de gestuelle ; leurs erreurs anatomiques ne sont pas acceptées comme des exports natifs.</p><p>Toutes les propositions de guilde précédemment présentées sont retenues dans le programme. Cela ne signifie pas que les autres scènes, bâtiments ou animations encore à produire sont terminés.</p></html>'
+ html+='</div><h2>Fichiers et statut</h2><p>exports/guild_eat_all_v6/ : neuf packs XML/triples complets,  séparés,57GIFs, planches de contrôle et rapport technique. Les originaux et les cartes ajoutées par l’utilisateur restent intacts. Les dessins générés ont été utilisés comme études de gestuelle ; leurs erreurs anatomiques ne sont pas acceptées comme des exports natifs.</p><p>Toutes les propositions de guilde précédemment présentées sont retenues dans le programme. Cela ne signifie pas que les autres scènes, bâtiments ou animations encore à produire sont terminés.</p></html>'
  (ROOT/'apercu_guilde_eat_tous_v6.html').write_text(html)
 if __name__=='__main__':main()

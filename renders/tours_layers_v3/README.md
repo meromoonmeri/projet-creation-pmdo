@@ -15,7 +15,6 @@ Cette V3 est une adaptation générée inspirée d’Apple Woods : contrairement
 ## Petites feuilles animées
 Deux plans alpha indépendants par entrée : arrière (24 particules) et avant (20). Feuilles dessinées dans une cellule de 3 × 3 pixels, avec des poses étroites de 1 à 3 pixels, quatre poses de battement. 128 phases × 125 ms = boucle de 16 secondes. Chute verticale et balancement périodiques ; les débordements sont répliqués aux bords. Les feuilles ne sont pas agrandies dans la scène.
 Comparaison réelle : sprite Idle de Bulbizarre PMD, cellule 32 × 40, silhouette visible 17 × 21 pixels. Les feuilles font au maximum 3 pixels de côté, soit 1/7 de sa hauteur visible. ECHELLE_FEUILLES_1X.png est à l’échelle native ; la version 4X est un agrandissement nearest-neighbor de contrôle. Bulbizarre n’est pas intégré aux scènes.
-Référence : https://github.com/PMDCollab/SpriteCollab/tree/master/sprite/0001 ; crédit fourni par le dépôt : CHUNSOFT. Fichiers AnimData.xml, crédits et commit consulté conservés dans source/tours_layers_v3/references. Référence de comparaison uniquement, pas une création originale de cette livraison.
 
 ## Soleil animé, lune identique aux autres décors
 Le disque solaire est un calque indépendant du halo et du ciel. Animation douce à couleurs fixes : alpha 224–255, sans déplacement du disque ni rotation de teinte. 64 phases × 125 ms = 8 secondes. Le halo solaire pulse sur un autre calque. Le soleil n’est pas incrusté dans le ciel ou les montagnes.

@@ -65,7 +65,7 @@ for y in range(17):
             xx,yy,_,_=items[i]['atlas_rect_cells'];idx=(yy+y)*50+xx+x;ids.append(idx);fr.append({'Sheet':'Falaises_Metano_Modules','TexLoc':{'X':xx+x,'Y':yy+y}})
         anims.append({'id':ids[0],'animation':[{'tileid':v,'duration':167} for v in ids]});native_anims.append({'id':ids[0],'Frames':fr,'FrameLength':10})
 (O/'Falaises_Metano_Modules.tsj').write_text(json.dumps({'type':'tileset','version':'1.10','name':'Falaises_Metano_Modules','tilewidth':8,'tileheight':8,'columns':50,'tilecount':3000,'margin':0,'spacing':0,'image':'Falaises_Metano_Modules.png','imagewidth':400,'imageheight':480,'tiles':anims},indent=2))
-(O/'modules.json').write_text(json.dumps({'grid_px':8,'slot_size_px':[80,160],'reference':'Palikadude/Halcyon','commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','modules':items,'native_animations':native_anims,'note':'Fragments natifs à sélectionner par rectangle, pas un autotile universel. Cadence cascade proposée à 10 ticks.'},ensure_ascii=False,indent=2))
+(O/'modules.json').write_text(json.dumps({'grid_px':8,'slot_size_px':[80,160],'reference':'/Halcyon','commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','modules':items,'native_animations':native_anims,'note':'Fragments natifs à sélectionner par rectangle, pas un autotile universel. Cadence cascade proposée à 10 ticks.'},ensure_ascii=False,indent=2))
 # Legended PNG, enlarged x2 nearest only for presentation.
 board=Image.new('RGB',(920,1136),'#1d2e29');draw=ImageDraw.Draw(board);fp='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';font=ImageFont.truetype(fp,22);small=ImageFont.truetype(fp,12)
 draw.text((24,20),'FALAISES DE MÉTANO / MORCEAUX NATIFS',font=font,fill='#ead491')

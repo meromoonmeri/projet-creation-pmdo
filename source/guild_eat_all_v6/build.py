@@ -182,7 +182,7 @@ def previews(slot,rows,ticks):
  board.save(out/f'{slot}_Eat_keyframes.png')
 
 def main():
- OUT.mkdir(parents=True,exist_ok=True);(OUT/'credits').mkdir(exist_ok=True);(OUT/'masks').mkdir(exist_ok=True)
+ OUT.mkdir(parents=True,exist_ok=True);(OUT/'').mkdir(exist_ok=True);(OUT/'masks').mkdir(exist_ok=True)
  report={'scope':'Eat available for nine guild members; not all other guild actions completed.','food_in_sprite':False,'runtime_PMDO':'NOT TESTED','new_art_approved':False,'user_selection':'All previously presented guild proposals retained; not automatic approval of these previously unseen four drawings.','source_pin':'3609a86be2a4c8ad7cf255bd2255f044daafe24f','members':[],'method':'Four new gesture studies on magenta, followed by explicit pixel-authored native-part articulation. Raw generated facial/accessory/proportion errors not accepted as finished sprites.'}
  sys.path.insert(0,str(ROOT/'source/pmd_character_pipeline'));from validate import run
  for slot,name in MEMBERS:
@@ -202,8 +202,8 @@ def main():
   preserved={}
   for p in (REF/slot/'sprite').glob('*.png'):
    assert p.read_bytes()==(pack/p.name).read_bytes();preserved[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
-  shutil.copyfile(REF/slot/'sprite/credits.txt',OUT/'credits'/f'{slot}_native.txt')
-  if slot in ['0282','0461']:shutil.copyfile(REF/slot/('0002' if slot=='0282' else '0001')/'sprite/credits.txt',OUT/'credits'/f'{slot}_cutscene.txt')
+  shutil.copyfile(REF/slot/'sprite/.txt',OUT/''/f'{slot}_native.txt')
+  if slot in ['0282','0461']:shutil.copyfile(REF/slot/('0002' if slot=='0282' else '0001')/'sprite/.txt',OUT/''/f'{slot}_cutscene.txt')
   unique=[len({t[0].tobytes() for t in row}) for row in rows]
   if slot in NEW:
    for row in rows:assert row[0][0].tobytes()==row[-1][0].tobytes()

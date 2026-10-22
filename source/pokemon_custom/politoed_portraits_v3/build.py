@@ -53,7 +53,7 @@ def main():
  report['missing_required']=[e for e in C['portrait']['required_full'] if not (OUT/'portraits_individual'/f'{e}.png').exists()]
  report['background_mapping']={'Dizzy':{'file':'template.png','slot':13},'Special0':{'file':'Extra_Backgrounds.png','rectangle':[40,0,80,40]}}
  report['runtime_PMDO']='NOT TESTED'
- shutil.copyfile(NATIVE/'credits.txt',OUT/'native_credits.txt')
+ shutil.copyfile(NATIVE/'.txt',OUT/'native_.txt')
  sys.path.insert(0,str(ROOT/'source/pmd_character_pipeline'))
  from validate import run
  report['minimum_precheck']=run('portrait',OUT/'portraits_partial.png','minimum')

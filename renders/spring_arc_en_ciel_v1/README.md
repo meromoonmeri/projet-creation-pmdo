@@ -43,7 +43,6 @@ Un spectre doux se déplace dans le halo et le faisceau. Le centre reste très c
 Le halo exporté contient aussi les pixels du bassin nécessaires au remplacement de son éclairage initial. C’est un calque de lumière/remplacement RGBA, pas un shader additif. Le fond sous le halo et le faisceau a été reconstruit : désactiver les deux calques lumineux masque effectivement la lumière d’origine.
 
 ## Provenance et limites
-Base : `renders/soleil_spring_v1/`, carte `Palikadude/Halcyon` au commit `da6c2130d641507447e6386a5e47a296e8cb4c71`, feuilles `PMDCollab/RawAsset` au commit `03c80dad937911572f8fb19903771a47956fc696`. La provenance détaillée reste dans `source/soleil_spring_v1/references/provenance.json`.
 
 Les anciens rendus sont conservés. Les graphismes générés et les nouvelles couleurs ne sont pas attribués à Palika. Les ressources publiques n’impliquent pas une licence illimitée ; respecter les droits et attributions des ressources Pokémon Mystery Dungeon et de leurs contributeurs.
 

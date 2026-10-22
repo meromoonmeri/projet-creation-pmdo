@@ -6,6 +6,3 @@
 - **🌇 `Crépuscule`** : Ciel violet profond → orange-vermillon, **grand Soleil couchant rouge-orangé** effleuré par les cumulus cuivrés, mer pourpre-indigo `12` phases, **colonne de reflet orange ardent + crêtes embrasées**, et plateau `Grass Métano` lumière du soir.
 - **☀️ `Jour`** : Ciel azur `V24P04A`, cumulus blancs d'horizon, mer `V24P04A` `12` phases (houle, crêtes à double bosse, ligne sombre continue `1 px`, ondes en orbite, étincelles d'horizon), et plateau `Grass Métano` canonique.
 
-## Crédits & Statut
-- **Palikadude** & contributeurs (*PMDO Halcyon*), **Abyss to Ascension**, **Spike Chunsoft**.
-- Statut : `art_approved: false`, `runtime_tested: false`.

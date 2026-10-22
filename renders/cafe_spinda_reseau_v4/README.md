@@ -54,7 +54,6 @@ Les motifs Pokémon des comptoirs de référence font partie de leur architectur
 
 ## Vraies fenêtres circulaires à croisillons
 
-Sprite extrait de **`Guild_Heros_Room_Objects.tile`**, Palikadude/Halcyon, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Crop natif `(176,56)–(240,120)`, canevas64×64, silhouette52×59 avec son arrondi en perspective. **Aucun agrandissement, recoloration, cadre redessiné ni disque de paysage collé.** Le verre et la croix viennent du sprite original.
 
 Deux fenêtres au café, trois au salon supérieur, aucune dans les pièces souterraines ou l’accueil. Elles peuvent être masquées/exportées séparément. Banque, crop et empreintes : `fenetre_provenance.json` et références du script.
 
@@ -92,11 +91,9 @@ node source/cafe_spinda_reseau_v4/test_viewer.cjs
 python source/cafe_spinda_reseau_v4/package.py
 ```
 
-Référence Spinda : `Minemaker0430/ExplorersOfSkyOrigins`, commit `4e7422acc263886198113a8256677766e4244228`, banques `SpindaCafe1/2` et `spinda_cafe.rsground`, conservées dans `source/cafe_multietage_v1/references/`. Références bois/fenêtre/escalier et feu : Palikadude/Halcyon au pin précité. La référence du café utilisée pour la génération est un crop sans redimensionnement de la reconstruction native EoSO, correspondant au design montré par l’utilisateur ; ce n’est pas une extraction revendiquée du fichier joint inaccessible sur disque.
 
 Ancien café agrandi par bandes, anciens cafés V1–V3, casino et Beach conservés. Pour le budget, les grands bruts Beach ont été archivés losslessly avec leurs empreintes et le viewer Beach utilise ses PNG existants plutôt que leurs doublons embarqués ; aucun rendu ou ZIP Beach n’a été modifié.
 
-Attribution : créateurs/contributeurs PMD, Minemaker0430/EoSO et Palikadude/Halcyon. Leur disponibilité publique ne constitue pas une licence générale de redistribution.
 
 ### Stockage des études supplantées
 Les douze bruts (sept études et cinq masters retenus) sont maintenant conservés **à l’identique dans l’historique Git**, avec commit et SHA256 dans `bruts/archived_studies.json`. Les rendus, calques et ZIP restent en place. Les builds relisent les masters historiques dans cette archive. Le vérificateur lit ces archives directement ; restauration facultative : `python source/cafe_spinda_reseau_v4/archive_studies.py --restore`. Aucune livraison approuvée n’est supprimée.

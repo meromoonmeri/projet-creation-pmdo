@@ -71,7 +71,7 @@ for i in range(10):
 for mode,atlas in atlases.items():
     atlas.save(O/f'{PREFIX}_{mode}.png');write_tile(atlas,O/f'{PREFIX}_{mode}.tile')
     (O/f'{PREFIX}_{mode}.tsj').write_text(json.dumps({'type':'tileset','version':'1.10','name':f'{PREFIX}_{mode}','tilewidth':8,'tileheight':8,'columns':70,'tilecount':2240,'margin':0,'spacing':0,'image':f'{PREFIX}_{mode}.png','imagewidth':560,'imageheight':256},indent=2))
-manifest={'schema':1,'grid_px':8,'target':'PMDO Ground, TexSize=1','native_reference_sizes_px':[[80,111],[96,96],[110,99]],'reference':'Palikadude/Halcyon','source_commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','origin':'10 nouvelles créations via générateur, pas des extractions du jeu','animation':'aucune, structures fixes','houses':houses}
+manifest={'schema':1,'grid_px':8,'target':'PMDO Ground, TexSize=1','native_reference_sizes_px':[[80,111],[96,96],[110,99]],'reference':'/Halcyon','source_commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','origin':'10 nouvelles créations via générateur, pas des extractions du jeu','animation':'aucune, structures fixes','houses':houses}
 (O/'maisons.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
 # Contact sheet with labels; never used as an import texture.
 fontpath='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';font=ImageFont.truetype(fontpath,22);small=ImageFont.truetype(fontpath,15)

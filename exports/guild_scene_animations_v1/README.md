@@ -29,7 +29,6 @@ La planche générée entière échouait : directions incohérentes sur les autr
 
 ## Sources / attribution
 
-SpriteCollab épinglé à `3609a86be2a4c8ad7cf255bd2255f044daafe24f` : `sprite/0282`, `sprite/0282/0002`, `sprite/0461`, `sprite/0461/0001`. Téléchargements vérifiés contre les SHA Git des blobs. Crédits natifs exacts dans les quatre fichiers `*_credits.txt` voisins ; conserver chaque attribution/licence lors d’une redistribution. Base et Cutscene ont des fichiers de crédit distincts, aucun auteur n’est effacé. Nod dérive du corps/palette/repères Gardevoir natifs et de têtes nouvellement générées puis nettoyées ; ce n’est pas un ajout upstream et aucune licence des originaux n’est remplacée.
 
 Reconstruction : `.venv/bin/python source/guild_scene_animations_v1/build.py`. Galerie : `apercu_guilde_scenes_v1.html` à la racine.
 

@@ -1,6 +1,5 @@
 # Guilde PMDO — audit prioritaire des neuf membres
 
-**17 septembre 2026 · formes standard/base.** SpriteCollab HEAD revérifié : `3609a86be2a4c8ad7cf255bd2255f044daafe24f`. Portraits existants et crédits conservés ; aucune génération ni modification de sprite.
 
 ## Conclusion
 
@@ -58,9 +57,6 @@ Le total des manques des **slots de base** est 132 actions pour ce profil 32. Ce
 
 ## Ressources à réutiliser avant de générer
 
-- **Gardevoir / Cutscene (`0282/0002`)** : 21 actions déclarées ; ajouts par rapport à la base : StandingUp, Special0, Special1, Special2, Special3, Pose, Jump. Ne pas substituer silencieusement cette variante : comparer apparence, direction, repères et crédits.
-- **Weavile / Cutscene (`0461/0001`)** : 15 actions déclarées ; ajouts par rapport à la base : Special0, Special1. Ne pas substituer silencieusement cette variante : comparer apparence, direction, repères et crédits.
-- **Pachirisu / Female (`0417/0000/0000/0002`)** : 13 actions déclarées ; ajouts par rapport à la base : aucun. Cette variante femelle n’a pas nécessairement les mêmes scènes que la base ; vérifier le sexe voulu du membre. Ne pas substituer silencieusement cette variante : comparer apparence, direction, repères et crédits.
 
 Gardevoir possède notamment un dossier Cutscene ; Weavile aussi. Farfetch’d est ici la forme standard, pas celle de Galar. Les variantes shiny, femelles, alternatives et Méga restent listées en annexe JSON, mais ne sont pas choisies à la place des membres sans indication.
 
@@ -86,7 +82,6 @@ Après vérification des variantes Cutscene, commencer par les gestes de dialogu
 
 Vérifier les IDs Pokémon/formes/genres, les noms de portraits et actions appelés par les scripts, puis les ancrages, directions, collisions et déclenchements Ground/Dungeon dans PMDO. **Aucun test en jeu n’a été effectué pour ces neuf membres.**
 
-Cet audit contrôle les clés du tracker (les valeurs sont des verrous), les listings réels, les XML et leurs alias ainsi que la présence des triples de PNG déclarés. Seuls les triples Idle représentatifs ont été téléchargés et décodés : ce n’est pas une validation graphique image par image de toutes les animations. Les XML, crédits et Normal natifs sont conservés sous `source/guild_members_audit/references/`, avec hashes dans `audit.json`.
 
 ## Correction Carapagos conservée
 

@@ -52,4 +52,3 @@ Le build réutilise les propositions PNG conservées ; il n’appelle pas le gé
 
 ## Origine et droits
 
-Sources : **Palikadude/Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Crédit à Palika et aux contributeurs ; animations de rivière créditées à **Jaifain** dans Halcyon. Respecter les droits et conditions des ressources originales : leur disponibilité publique ne vaut pas autorisation universelle de redistribution. Les cartes sont de nouvelles compositions non officielles.

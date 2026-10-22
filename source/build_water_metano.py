@@ -34,7 +34,7 @@ def tsj(name,im,anims):
     (O/(name+'.tsj')).write_text(json.dumps({'type':'tileset','version':'1.10','name':name,'tilewidth':8,'tileheight':8,'columns':im.width//8,'tilecount':(im.width//8)*(im.height//8),'margin':0,'spacing':0,'image':name+'.png','imagewidth':im.width,'imageheight':im.height,'tiles':anims},indent=2))
 
 source={n:decode(S/'natifs'/(n+'.tile')) for n in NAMES}
-manifest={'origin':'EXTRACTION_PIXELS_SOURCE','repository':'https://github.com/Palikadude/Halcyon','commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','grid_px':8,'sources':{},'cascades':{},'river':{}}
+manifest={'origin':'EXTRACTION_PIXELS_SOURCE','repository':'https://github.com//Halcyon','commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','grid_px':8,'sources':{},'cascades':{},'river':{}}
 for n,(im,tiles) in source.items():
     straight(im).save(O/(n+'.png'))
     manifest['sources'][n]={'file':'../../source/eau_metano/natifs/'+n+'.tile','sha256':hashlib.sha256((S/'natifs'/(n+'.tile')).read_bytes()).hexdigest(),'size_px':list(im.size),'tile_count':len(tiles),'partial_alpha_pixels':sum(0<a<255 for r,g,b,a in im.getdata())}

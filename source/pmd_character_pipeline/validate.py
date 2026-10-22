@@ -83,7 +83,7 @@ def sprite(path,level='minimum'):
  for name in C['sprite']['completion_levels'][level]:
   if name not in names:errors.append(f'Missing {level} action: {name}')
  for entry in path.iterdir():
-  if entry.name not in expected:errors.append(f'Unexpected export entry: {entry.name}; documentation and credits belong outside this folder')
+  if entry.name not in expected:errors.append(f'Unexpected export entry: {entry.name}; documentation and  belong outside this folder')
  if len(palette_all)>15:errors.append(f'Global sprite palette has {len(palette_all)} visible colors; maximum 15')
  warnings.append('Body-part anatomy, duplicate-frame offset equivalence, protected-asset locks, motion quality and PMDO import still require authoritative/manual checks.')
  return errors,dict(actions=stats,global_visible_colors=len(palette_all)),warnings

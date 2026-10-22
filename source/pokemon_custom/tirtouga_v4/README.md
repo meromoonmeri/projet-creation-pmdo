@@ -10,7 +10,6 @@ Le profil complet effectivement défini par le contrat du projet compte32actions
 
 - `references/approved_portraits.png` : agrandissement nearest des portraits approuvés ; aucune modification de leurs fichiers source/export.
 - `references/official_564.png` : art officiel Tirtouga récupéré depuis PokeAPI/sprites, référence d'anatomie du corps : quatre palettes natatoires, masque sombre angulaire, carapace ardoise avec anneaux/plaque sombres. Pas une tortue terrestre à pieds ni une carapace à grosses taches blanches.
-- Caméra/échelle : Idle Torkoal0324, SpriteCollab `3609a86be2a4c8ad7cf255bd2255f044daafe24f`, crédits natifs conservés dans `references/torkoal_credits.txt`.
 - Index XML : noms/indices du vrai `sprite/0001/AnimData.xml` à la même révision. Ne pas utiliser les positions dans la liste des actions comme indices moteur.
 -10générations effectuées : Idle + Walk/Attack/Sleep/Hurt/Charge/Swing/Hop + Scenes_A/Scenes_B. Les deux générations Scenes_C/Scenes_D demandées ont été refusées par la limite de10du tour ; **aucun fichier imaginaire n'est exporté pour elles**.
 
@@ -70,8 +69,3 @@ Reconstruire :
 ```
 Dépendances : Pillow, NumPy, SciPy. La reconstruction est déterministe, les générations sont des sources conservées, pas réexécutées par le script.
 
-## Crédits et portraits validés
-
-Les cinq portraits générés V3 sont désormais **approuvés par l'utilisateur**, sur leurs fonds canoniques déjà composés. Empreintes immuables dans `source/pokemon_custom/tirtouga_portraits_v3/approval.json`. Ne pas régénérer les portraits ni substituer une autre palette/fond sans demande explicite.
-
-Normal/référence faciale : SpriteCollab, MUCRUSH (historique), `<@!217899432652308480>` (crédit courant, CC_BY-NC_4) ; crédits source conservés dans `tirtouga_v2/references/credits.txt`. Le Normal et les dessins natifs Torkoal ne sont pas notre création. Cette reconstruction corporelle est AI-assisted, guidée par des œuvres existantes ; conserver attribution et restrictions non commerciales. Pokémon appartient à ses ayants droit. Aucune soumission publique annoncée ni admissibilité IA présumée.

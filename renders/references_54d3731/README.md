@@ -45,7 +45,6 @@ Les compositions sont de nouvelles propositions générées à partir des réfé
 
 Les bruts initiaux et corrigés restent dans `bruts/`. Les rendus retenus utilisent explicitement `01_murky_entree_corrigee`, les trois fichiers `*_entree` de Friend Areas et `10_foret_neige_corrigee` ; les premiers essais correspondants restent historiques et ne sont pas les compositions proposées.
 
-Les références recadrées pour guider le générateur et leurs empreintes figurent dans `source/references_54d3731/`. Les originaux fournis à la racine ne sont pas modifiés. Attributions imprimées sur les sources : Haalfpack / Noctowl2000 pour Murky Forest, redblueyellow pour Beach, Toastypk pour les Friend Areas concernées. Respecter également les droits Pokémon Mystery Dungeon et les autres crédits des planches. La disponibilité publique n’est pas une licence générale de réutilisation.
 
 ## Vérifications
 `verification.json` : **160 PNG décodés**, 8 fichiers sources vérifiés par SHA-256, doublon confirmé, **20 recompositions exactes**, conversions nocturnes terrain comparées au filtre Abyss, absence d’astres dans les scènes sans ciel, absence de fichier animé. Galerie : contrôles avec DOM simulé ; pas de validation GPU.

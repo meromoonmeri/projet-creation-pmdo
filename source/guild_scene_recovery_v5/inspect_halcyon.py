@@ -51,10 +51,10 @@ def main():
  # Add reference evidence after the three reconstructed actions; source assets stay outside character packs.
  gallery=ROOT/'apercu_guilde_reconstruction_v5.html';html=gallery.read_text();marker='<section id="halcyon-evidence">'
  if marker in html:html=html[:html.index(marker)]+'</html>'
- section=marker+'<h2>Vérification sur les vrais sprites Halcyon</h2><p>Eat de Chapignon, Kranidos et Nanméouïe : aucun aliment dessiné dans les séquences inspectées. Halcyon affiche indépendamment les objets Food_* et l’émote eating. Ces extraits sont des références Halcyon/Palikadude et de leurs artistes, pas nos créations.</p><div class="grid">'
+ section=marker+'<h2>Vérification sur les vrais sprites Halcyon</h2><p>Eat de Chapignon, Kranidos et Nanméouïe : aucun aliment dessiné dans les séquences inspectées. Halcyon affiche indépendamment les objets Food_* et l’émote eating. Ces extraits sont des références Halcyon/ et de leurs artistes, pas nos créations.</p><div class="grid">'
  for item in result['examples']:
   data=base64.b64encode((OUT/item['gif']).read_bytes()).decode();section+='<div><h3>'+item['name']+'</h3><img alt="Eat natif Halcyon" src="data:image/gif;base64,'+data+'"></div>'
- section+='</div><p>Trois exemples réels, pas un audit exhaustif ou un test moteur. Les fichiers natifs et crédits ne sont pas remplacés par les reconstructions.</p></section>'
+ section+='</div><p>Trois exemples réels, pas un audit exhaustif ou un test moteur. Les fichiers natifs et  ne sont pas remplacés par les reconstructions.</p></section>'
  gallery.write_text(html.replace('</html>',section+'</html>'))
  print('Real Halcyon Eat48 inspected:',[x['name'] for x in result['examples']])
 if __name__=='__main__':main()

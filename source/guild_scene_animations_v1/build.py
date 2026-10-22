@@ -24,8 +24,8 @@ def main():
  base=REF/'0282/sprite';cut=REF/'0282/0002/sprite';native_hashes={}
  for p in base.glob('*.png'):
   shutil.copyfile(p,pack/p.name);native_hashes[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
- shutil.copyfile(base/'credits.txt',OUT/'Gardevoir_base_credits.txt');shutil.copyfile(cut/'credits.txt',OUT/'Gardevoir_Cutscene_credits.txt')
- if (pack/'credits.txt').exists():(pack/'credits.txt').unlink()
+ shutil.copyfile(base/'.txt',OUT/'Gardevoir_base_.txt');shutil.copyfile(cut/'.txt',OUT/'Gardevoir_Cutscene_.txt')
+ if (pack/'.txt').exists():(pack/'.txt').unlink()
  root=ET.parse(base/'AnimData.xml').getroot();anims=root.find('Anims')
  cut_nodes={n.findtext('Name'):n for n in ET.parse(cut/'AnimData.xml').getroot().findall('./Anims/Anim')}
  canonical_additions=['StandingUp','Special0','Special1','Special2','Special3','Pose','Jump']
@@ -71,7 +71,7 @@ def main():
  wearoot=ET.parse(weabase/'AnimData.xml').getroot();weahashes={}
  for p in weabase.glob('*.png'):
   shutil.copyfile(p,weapack/p.name);weahashes[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
- for src,label in [(weabase,'base'),(weavile,'Cutscene')]:shutil.copyfile(src/'credits.txt',OUT/f'Weavile_{label}_credits.txt')
+ for src,label in [(weabase,'base'),(weavile,'Cutscene')]:shutil.copyfile(src/'.txt',OUT/f'Weavile_{label}_.txt')
  for name in ['Special0','Special1']:
   node=next(n for n in ET.parse(weavile/'AnimData.xml').getroot().findall('./Anims/Anim') if n.findtext('Name')==name)
   wearoot.find('Anims').append(copy.deepcopy(node))
@@ -79,7 +79,7 @@ def main():
    p=weavile/f'{name}-{kind}.png';shutil.copyfile(p,weapack/p.name);weahashes[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
   preview(weavile,name,node,review/f'Weavile_{name}_native.gif')
  ET.indent(wearoot);ET.ElementTree(wearoot).write(weapack/'AnimData.xml',encoding='utf-8',xml_declaration=True)
- report={'source_pin':'3609a86be2a4c8ad7cf255bd2255f044daafe24f','native_png_sha256':native_hashes,'base_actions_preserved':[n.findtext('Name') for n in ET.parse(base/'AnimData.xml').getroot().findall('./Anims/Anim')],'additions':{'Pose':{'provenance':'Exact Gardevoir Cutscene 0282/0002 triple and XML action; credit file retained separately','directions':1,'durations': [4,4,6],'state':'technical_pass'},'Nod':{'provenance':'Generated front-row heads, native palette cleanup and native stationary body/markers; NOT all-generator pixels','directions':1,'remaining_directions':7,'frames':len(sequence),'unique_drawings':len(set(p.tobytes() for p in poses)),'durations':durations,'state':'generated','art_review':'Front-only candidate; not accepted as finished eight-direction animation'}},'rejected_studies':'All seven non-front generated direction sequences: direction/robe inconsistency. Never exported as eight-direction Nod.','weavile':'Special0/1 previewed as authentic cutscene gestures; not relabeled as Nod/Pose or used to close generic action gaps.','PMDO_runtime':'NOT TESTED','art_approved':False,'completed_global_backlog':False}
+ report={'source_pin':'3609a86be2a4c8ad7cf255bd2255f044daafe24f','native_png_sha256':native_hashes,'base_actions_preserved':[n.findtext('Name') for n in ET.parse(base/'AnimData.xml').getroot().findall('./Anims/Anim')],'additions':{'Pose':{'provenance':'Exact Gardevoir Cutscene 0282/0002 triple and XML action;  file retained separately','directions':1,'durations': [4,4,6],'state':'technical_pass'},'Nod':{'provenance':'Generated front-row heads, native palette cleanup and native stationary body/markers; NOT all-generator pixels','directions':1,'remaining_directions':7,'frames':len(sequence),'unique_drawings':len(set(p.tobytes() for p in poses)),'durations':durations,'state':'generated','art_review':'Front-only candidate; not accepted as finished eight-direction animation'}},'rejected_studies':'All seven non-front generated direction sequences: direction/robe inconsistency. Never exported as eight-direction Nod.','weavile':'Special0/1 previewed as authentic cutscene gestures; not relabeled as Nod/Pose or used to close generic action gaps.','PMDO_runtime':'NOT TESTED','art_approved':False,'completed_global_backlog':False}
  for name,sha in native_hashes.items():assert hashlib.sha256((pack/name).read_bytes()).hexdigest()==sha
  assert np.array_equal(np.array(poses[0])[14:],np.array(poses[2])[14:])
  assert len(set(p.tobytes() for p in poses))>=2

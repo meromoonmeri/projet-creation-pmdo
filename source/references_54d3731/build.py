@@ -15,7 +15,6 @@ manifest={'reference_commit':'54d3731','static':True,'scenes':[],'notes':['10 sc
 board=Image.new('RGB',(1600,1240),'#172a31');d=ImageDraw.Draw(board)
 for index,(slug,rawname,title,size) in enumerate(specs):
  im=load(B/(rawname+'.png'))
- # Remove blank white credit-like margin produced on Mushroom correction, never crop the drawing.
  if index==7:
   ar=np.array(im);valid=(np.mean(np.all(ar[:,:,:3]>240,axis=2),axis=1)<.85);ys=np.where(valid)[0];im=im.crop((0,int(ys.min()),im.width,int(ys.max()+1)))
  im=im.resize(size,N)

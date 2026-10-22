@@ -2,7 +2,6 @@
 
 **Extraction des ressources de Palika/Halcyon, pas une création générée.** Aucun dessin refait, redimensionnement, lissage, recoloration ou changement de palette. Les quatre cascades côte à côte sont bien traitées comme des **frames d'animation**, pas comme quatre modèles de cascades.
 
-Source : [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Les six blobs `.tile` utilisés ont été comparés à leurs identifiants GitHub ; leurs octets sont conservés dans `source/eau_metano/natifs/`. Preuve dans `source/eau_metano/sources_github.json`.
 
 ## 1. Cascades — 4 frames identiques à la source
 
@@ -79,6 +78,5 @@ Pillow requis. Tests : quatre cascades comparées aux rectangles originaux, **12
 
 ## Attribution
 
-Ressources du projet **Halcyon de Palika**, et de ses auteurs crédités. Le [README de Halcyon](https://github.com/Palikadude/Halcyon#credits) cite notamment **Jaifain pour les animations de rivière de Métano Town**, ainsi que les autres artistes du projet. L'attribution individuelle de chaque pixel de cascade n'est pas déduite de ce crédit général.
 
 Ce kit ne revendique pas ces sprites comme originaux et n'accorde pas de nouvelle licence sur les ressources tierces. Vérifier les autorisations des auteurs avant redistribution publique.

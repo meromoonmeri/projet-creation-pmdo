@@ -362,7 +362,6 @@ Ces commandes reproduisent **le pack Métano/Abyss antérieur**. Pour le mod Exp
 
 ## 24. Provenance, attribution et archivage
 
-Conserver les crédits Métano / Palika / Halcyon, ceux des références EoSO, ceux des variantes Abyss et des fonds Guilde/Sharpedo. Un dépôt public n’est pas une licence de réutilisation sans restrictions.
 
 Les textures des trois entrées de référence sont archivées pour analyse, pas choisies comme matière des nouvelles cartes. Les téléchargements de moteur, bibliothèques et fichiers temporaires doivent rester hors du contenu versionné du projet.
 

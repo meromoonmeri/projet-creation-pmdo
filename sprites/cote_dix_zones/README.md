@@ -126,4 +126,3 @@ Avec l'environnement Python du dépôt (Pillow, numpy), depuis la racine :
 
 La fabrication native se fait dans `~/.cache/cote_dix_pack/` pour éviter de versionner plusieurs centaines de Mo de JSON décompressé. Le ZIP, l'aperçu autonome, les sources et les PNG sont livrés dans le dépôt. `package.py` vérifie de nouveau les fichiers avant d'emballer le lot.
 
-Crédits : références et textures Métano de Palika / Halcyon et contributeurs ; nuages, ciel et ambiance issus des travaux de l'autre agent dans ce dépôt ; mer V2 issue de la planche côtière fournie précédemment. Les ressources tierces ne reçoivent pas une nouvelle licence de redistribution par cette intégration. Les sources techniques natives PMDO et leur version sont documentées dans `source/pmdo_cote/README.md`.

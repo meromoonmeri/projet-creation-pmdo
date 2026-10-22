@@ -24,7 +24,6 @@ Palette : sept valeurs de feuillage des références natives Halcyon ; ombre pro
 
 Références canoniques conservées dans `source/amp_plains_fleurie_v1/references/` : Halcyon working-copy**1522c7a8b7a34d70078e11ed605b21d563b0dc51**, Vast_Steppe_Objects, Vast_Steppe_Base et Vast_Steppe_Flower_Animations. La fleur native emploie3dessins24×24, séquence0/1/0/2 à14ticks ; les TexLoc0/3/0/6 correspondent à une grille8px. Empreintes et provenance dans le manifeste.
 
-Les images originales de Halcyon et le sol natif de la démo sont attribués à Halcyon/Palikadude et à leurs artistes, pas revendiqués comme nos créations. La fleur native de comparaison n’est pas intégrée à notre tilesheet. Respecter les crédits et licences des références ; aucune autorisation générale de redistribution des ressources natives n’est déduite de leur disponibilité.
 
 ## État
 

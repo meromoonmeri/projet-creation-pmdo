@@ -67,6 +67,5 @@ Python avec Pillow et NumPy :
 node source/cote_dix_zones/test_viewer.cjs apercu_cotes_v2_0812.html
 ```
 
-Les fichiers natifs non compressés sont construits dans `~/.cache/cote_v3_0812_pack/`. Les ressources Métano sont créditées à Palika / Halcyon et leurs contributeurs ; leur disponibilité publique ne constitue pas une autorisation de réutilisation sans restrictions. Consulter les conditions des sources avant redistribution hors du projet.
 
 Les copies PNG intermédiaires `AVANT_ROCHE`, `jour_*` et `nuit_*` ne sont pas versionnées pour éviter les doublons volumineux. Les commandes ci-dessus les régénèrent ; les exports finaux sont également accessibles depuis l’aperçu autonome sans perte.

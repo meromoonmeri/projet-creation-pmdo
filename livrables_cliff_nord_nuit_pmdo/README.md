@@ -17,6 +17,3 @@ python MOD_CLIFF_NORD_NUIT_PMDO/INSTALLER.py "CHEMIN/VERS/PMDO/MODS/votre_mod" -
 python MOD_CLIFF_NORD_NUIT_PMDO/INSTALLER.py "CHEMIN/VERS/PMDO/MODS/votre_mod"
 ```
 
-## Crédits & Statut
-- **Crédits artistiques** : **Palikadude** (`Halcyon`), **Chunsoft / Spike Chunsoft** (PMD Explorers), **meromoonmeri** (`town02` / `projet-pmdo`).
-- **Statuts de validation** : `art_approved: false`, `runtime_tested: false`.

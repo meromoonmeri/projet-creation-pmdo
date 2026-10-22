@@ -45,4 +45,3 @@ python source/verify_houses_metano.py --organic-v2
 
 Pillow requis. Le test contrôle les vingt PNG, l'alpha, la palette, les dimensions, les atlas et leurs deux `.tile` natifs. Les commandes sans option continuent de cibler le premier lot. Voir `verification.json`.
 
-Référence et attribution : [Palika / Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Les créations ne sont pas des sprites officiels. Voir les crédits de Halcyon pour les ressources de référence.

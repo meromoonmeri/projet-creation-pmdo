@@ -4,7 +4,6 @@
 
 `apercu_transformations_v1.html` and `exports/transformations_v1/README.md` are the current deliverable. Dynamax, true species-specific Gigantamax and Fire Terastallization each have eight 240-phase / eight-second transformation GIFs, plus eight separate eight-second hold loops: **48 final GIFs**. Generated VFX extraction/interpolation has now run. Seven transparent layers are paged for direction D; all other rendered directions are reproducible, not all exported as layers.
 
-`build_sequences.py` assembles descending columns, independent density layers, branching lightning, rising particles, opaque swap pulse, depth-separated cloud orbits; Tera assembles growth, refraction, opaque facets, fracture, fragments, body-clipped highlights and a faceless crown. Native Gigantamax Idle comes from SpriteCollab 0006/0003 at pin 3609a86be2a4c8ad7cf255bd2255f044daafe24f, with its credits retained; one static body pose per direction. Normal Dynamax is a visual ×3 scale, not an engine size/collision change.
 
 Checks executed: 168 opaque-swap cases; 1,920 body-surface clipping checks; 24 periodic endpoint checks; 48 decoded GIFs at exactly 8,000 ms; RGBA page geometry; original source hashes unchanged; five attachment unit tests. Seam deltas are reported separately: periodic closure is not artistic approval. Manual review of storyboards and all final Tera/Gmax directions performed; crown angles and occlusion remain provisional.
 

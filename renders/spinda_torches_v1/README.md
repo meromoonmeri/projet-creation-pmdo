@@ -21,7 +21,6 @@ Le halo des exports de pièce est borné à la silhouette du café. Les sprites 
 Les palettes cycliques concernent la **lumière**, pas les pixels natifs de flamme. Cette séparation permet la fidélité des quatre poses tout en répondant au cycle lumineux multiframe. L’image JPG est une planche de consultation, pas une animation ; l’atelier joue les vraies frames.
 
 ## Provenance et limites
-Flammes : `Palikadude/Halcyon`, commit`da6c2130d641507447e6386a5e47a296e8cb4c71`, banque `Ledian_Dojo_Animated.tile` ; provenance complète et SHA256 dans `flammes_provenance.json`/manifest. Sources originales générées : `source/spinda_torches_v1/raws/archive.json`, lecteur/restauration Git dans `archive.py`. Garder l’historique complet.
 
 Scripts : `.venv/bin/python source/spinda_torches_v1/build.py`, `verify.py`, `python source/spinda_torches_v1/serve.py --port 8009`. Vérifications de palette/index/frames, natifs et exports ; **pas de validation PMDO ou d’approbation artistique utilisateur**. Les meubles, rubans et nouvelles fenêtres en attente de V8 restent en attente : cette livraison traite les torches demandées.
 

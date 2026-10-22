@@ -10,7 +10,6 @@ Conserver une base de terrain vide ; ajouter l’aménagement en overlays réver
 
 ## Référence native réellement retrouvée : Krow Bank
 
-Source : [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 
 - `Data/Script/ground/metano_town/init.lua`, lignes2837/2849 : `Bank_Owner` est Murkrow.
 - `Data/Script/ground/metano_town/metano_town_ch_2.lua`, lignes460–466 : visite de **Krow Bank**, stockage de l’argent auprès de Murkrow.

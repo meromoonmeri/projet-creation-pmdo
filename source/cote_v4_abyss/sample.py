@@ -71,7 +71,7 @@ def main():
  # Exact 1x terrain side by side. No image resizing in this deliverable.
  board=Image.new('RGB',(w*2, h+68),'#152333');d=ImageDraw.Draw(board)
  d.text((16,12),'ECHANTILLON - Haut balcon / JOUR NATIF',fill='white')
- d.text((w+16,12),'NUIT - tuiles Abyss to Ascension V4',fill='white')
+ d.text((w+16,12),'NUIT - tuiles  V4',fill='white')
  for i,mode in enumerate(['jour','nuit']):board.paste(variants[mode],(i*w,48),variants[mode])
  board.save(OUT/'COMPARATIF_NATIF_1X.png',optimize=True)
  # Source crops at 4x, explicitly a reference chart, not import assets.

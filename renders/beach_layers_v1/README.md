@@ -76,6 +76,3 @@ Les 10 tests d’assets contrôlent provenance, partition exacte, phase 0, déco
 
 Le test du viewer contrôle les interactions en DOM simulé, pas dans un vrai navigateur. Une installation de Chromium a été tentée mais son téléchargement a échoué (connexion TLS interrompue). Ne pas annoncer un contrôle interactif Chromium réussi. Les fichiers et le serveur d’aperçu sont vérifiés séparément ; **PMDO non testé**.
 
-## Provenance et crédits
-
-Image principale fournie par l’utilisateur : `DSVFS.png`, empreinte dans le manifeste. Planche de référence Beach & Path to Beach : rip crédité **redblueyellow** sur la planche. Les ressources Pokémon Mystery Dungeon et leurs droits restent ceux de leurs auteurs/contributeurs et ayants droit, notamment Pokémon / Nintendo / Creatures / GAME FREAK / Chunsoft. Ce travail de séparation et d’animation ne confère pas de licence supplémentaire.

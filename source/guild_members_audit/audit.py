@@ -67,12 +67,12 @@ def xml_actions(path,files):
 def inspect(slot):
     sprite=listing('sprite',slot)
     xml=download('sprite',slot,'AnimData.xml',sprite)
-    download('sprite',slot,'credits.txt',sprite)
+    download('sprite',slot,'.txt',sprite)
     actions=xml_actions(xml,sprite) if xml else {}
     base=slot in [p[0] for p in MEMBERS]
     portraits=listing('portrait',slot) if base else {}
     if base:
-        download('portrait',slot,'credits.txt',portraits)
+        download('portrait',slot,'.txt',portraits)
         for name in (['Normal.png','Inspired.png','Shouting.png','Surprised.png'] if slot=='0186' else ['Normal.png']):
             download('portrait',slot,name,portraits)
     idle=actions.get('Idle',{}).get('source_action','Idle')
@@ -115,7 +115,7 @@ def main():
 
 def write_report(result):
     text='# Guilde PMDO — audit prioritaire des neuf membres\n\n'
-    text+='**17 septembre 2026 · formes standard/base.** SpriteCollab HEAD revérifié : `'+PIN+'`. Portraits existants et crédits conservés ; aucune génération ni modification de sprite.\n\n'
+    text+='**17 septembre 2026 · formes standard/base.** SpriteCollab HEAD revérifié : `'+PIN+'`. Portraits existants et  conservés ; aucune génération ni modification de sprite.\n\n'
     text+='## Conclusion\n\n'
     text+='- **Priorité portrait : Politoed / Tarpaud**, seul membre auquel il manque des émotions parmi les 16du contrat. Ne pas refaire ses quatre portraits existants ni ceux des huit autres membres.\n'
     text+='- Les neuf membres ont les 10actions du profil donjon du projet. Aucun nouveau sprite de base/Idle/Walk n’est à créer simplement pour combler une absence.\n'
@@ -135,17 +135,16 @@ def write_report(result):
         extra=[n for n in r['xml_actions'] if n not in result['members'][[m['slot'] for m in result['members']].index(r['slot'].split('/')[0])]['xml_actions']]
         text+=f"- **{r['name']} (`{r['slot']}`)** : {r['action_count']} actions déclarées ; ajouts par rapport à la base : "+(', '.join(extra) or 'aucun')+'. '
         if 'Female' in r['name']:text+='Cette variante femelle n’a pas nécessairement les mêmes scènes que la base ; vérifier le sexe voulu du membre. '
-        text+='Ne pas substituer silencieusement cette variante : comparer apparence, direction, repères et crédits.\n'
+        text+='Ne pas substituer silencieusement cette variante : comparer apparence, direction, repères et .\n'
     text+='\nGardevoir possède notamment un dossier Cutscene ; Weavile aussi. Farfetch’d est ici la forme standard, pas celle de Galar. Les variantes shiny, femelles, alternatives et Méga restent listées en annexe JSON, mais ne sont pas choisies à la place des membres sans indication.\n'
     text+='\n## Vues inversées des portraits\n\n'
     for r in result['members']:
         text+=f"- {r['english_name']} : {16-len(r['missing_reverse_portraits'])}/16 fichiers `^` présents.\n"
     text+='\nAbsence de fichier `^` ne signifie pas automatiquement portrait obligatoire manquant : vérifier l’asymétrie, les accessoires (poireau/feuille notamment) et le rendu côté dialogue. Ne pas fabriquer des miroirs automatiques présentés comme des dessins vérifiés. Les Special sont optionnels, hors total 16.\n'
     text+='\n### Ordre conseillé pour les animations\n\nAprès vérification des variantes Cutscene, commencer par les gestes de dialogue **Nod, Pose, LookUp** et la posture **Sit** si les scènes de guilde les appellent. Ensuite seulement les repas/sommeil/chutes et autres actions spécifiques au scénario. Ne pas recréer ces ressources pour Draby, Ptiravi ou Pachirisu de base : elles existent déjà.\n'
-    text+='\n## P3 — Intégration dans la quête\n\nVérifier les IDs Pokémon/formes/genres, les noms de portraits et actions appelés par les scripts, puis les ancrages, directions, collisions et déclenchements Ground/Dungeon dans PMDO. **Aucun test en jeu n’a été effectué pour ces neuf membres.**\n\nCet audit contrôle les clés du tracker (les valeurs sont des verrous), les listings réels, les XML et leurs alias ainsi que la présence des triples de PNG déclarés. Seuls les triples Idle représentatifs ont été téléchargés et décodés : ce n’est pas une validation graphique image par image de toutes les animations. Les XML, crédits et Normal natifs sont conservés sous `source/guild_members_audit/references/`, avec hashes dans `audit.json`.\n'
+    text+='\n## P3 — Intégration dans la quête\n\nVérifier les IDs Pokémon/formes/genres, les noms de portraits et actions appelés par les scripts, puis les ancrages, directions, collisions et déclenchements Ground/Dungeon dans PMDO. **Aucun test en jeu n’a été effectué pour ces neuf membres.**\n\nCet audit contrôle les clés du tracker (les valeurs sont des verrous), les listings réels, les XML et leurs alias ainsi que la présence des triples de PNG déclarés. Seuls les triples Idle représentatifs ont été téléchargés et décodés : ce n’est pas une validation graphique image par image de toutes les animations. Les XML,  et Normal natifs sont conservés sous `source/guild_members_audit/references/`, avec hashes dans `audit.json`.\n'
     text+='\n## Correction Carapagos conservée\n\nLes portraits approuvés à bouche ouverte sont réussis car ils suivent une référence canonique **sans dents visibles** : ils restent inchangés. La règle est la fidélité anatomique, pas une interdiction générale d’ouvrir le bec. Les paupières seules convenaient au dernier lot fermé ; une ouverture naturelle du bec est autorisée lorsque l’émotion et la référence la justifient.\n'
     (OUT/'README.md').write_text(text)
-    # Native portraits only, copied visually without altering credited files.
     board=Image.new('RGB',(720,480),(20,29,43));draw=ImageDraw.Draw(board)
     for i,r in enumerate(result['members']):
         x=i%3*240;y=i//3*160

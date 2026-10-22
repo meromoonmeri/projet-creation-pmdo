@@ -161,8 +161,8 @@ def main():
   hashes={}
   for p in (REF/slot/'sprite').glob('*.png'):
    assert p.read_bytes()==(pack/p.name).read_bytes();hashes[p.name]=hashlib.sha256(p.read_bytes()).hexdigest()
-  report['packs'][who]={'technical_check':check,'native_png_sha256':hashes};shutil.copyfile(REF/slot/'sprite/credits.txt',OUT/f'{who}_native_credits.txt')
- shutil.copyfile(REF/'0282/0002/sprite/credits.txt',OUT/'gardevoir_cutscene_credits.txt')
+  report['packs'][who]={'technical_check':check,'native_png_sha256':hashes};shutil.copyfile(REF/slot/'sprite/.txt',OUT/f'{who}_native_.txt')
+ shutil.copyfile(REF/'0282/0002/sprite/.txt',OUT/'gardevoir_cutscene_.txt')
  (OUT/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
  gallery(report);print({k:v['unique_drawings_per_direction'] for k,v in report['actions'].items()})
 
@@ -174,6 +174,6 @@ def gallery(report):
   prefix=key.replace('/','_');title,desc=titles[key];html+='<section><h2>'+title+'</h2><p>'+desc+'</p><img alt="'+title+' huit directions" src="'+uri(OUT/'review'/f'{prefix}_8directions.gif')+'"><details><summary>Les huit GIFs individuels</summary><div class="grid">'
   for direction in DIRS:html+='<div><h3>'+direction+'</h3><img alt="'+title+' '+direction+'" src="'+uri(OUT/'review'/f'{prefix}_{direction}.gif')+'"></div>'
   html+='</div></details></section>'
- html+='<p>27GIFs de nos cycles sous exports/guild_scene_recovery_v5/review/. Les anims natives, leurs crédits et les lots V1/V2 restent préservés.16étapes comprennent des maintiens : ce ne sont pas forcément16dessins uniques.</p></html>'
+ html+='<p>27GIFs de nos cycles sous exports/guild_scene_recovery_v5/review/. Les anims natives, leurs  et les lots V1/V2 restent préservés.16étapes comprennent des maintiens : ce ne sont pas forcément16dessins uniques.</p></html>'
  (ROOT/'apercu_guilde_reconstruction_v5.html').write_text(html)
 if __name__=='__main__':main()

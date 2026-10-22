@@ -26,7 +26,6 @@ Aucune nourriture intégrée aux sprites Eat. Halcyon déclenche séparément le
 
 `source/guild_scene_recovery_v5/halcyon/` conserve scripts, archives, preuves et lecteur moteur. Eat est l’ID48 de GFXParams (None0/Idle1), pas la position47 dans un contrat sans None ni l’Index interne XML. Le décodeur vérifie dimensions, frames et fin du bloc binaire. Il ne remplace pas l’exécution de Halcyon.
 
-Crédits de SpriteCollab conservés dans les fichiers voisins des packs. Références Halcyon attribuées à Palikadude et aux artistes originaux ; elles ne sont pas incorporées aux packs de Pokémon. Aucune nouvelle licence sur leurs œuvres n’est revendiquée.
 
 ## Contrôles / limites
 

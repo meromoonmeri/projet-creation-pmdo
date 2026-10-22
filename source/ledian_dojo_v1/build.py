@@ -21,7 +21,7 @@ specs=[
 # One actual native floor patch defines the common transition strip of each port.
 patch=load(P/'Ledian_Dojo_Floor.png').crop((184,224,216,256));save(patch,O/'materiaux/sol_raccord_natif.png');p=np.array(patch.resize((64,64),Image.Resampling.NEAREST));stripe=p[:32].copy();stripe[:,:,3]=np.minimum(stripe[:,:,3],np.array([255]*16+[round(255*(31-y)/16) for y in range(16,32)],dtype='uint8')[:,None])
 ladder=load(P/'layer_3.png').crop((192,48,216,120));save(ladder,O/'materiaux/echelle_native.png')
-manifest={'reference':'Palikadude/Halcyon ledian_dojo.rsground','commit':(P/'halcyon_commit.txt').read_text().strip(),'size':list(SIZE),'port_width':64,'runtime_validated':False,'rooms':[]};yy,xx=np.mgrid[:512,:512]
+manifest={'reference':'/Halcyon ledian_dojo.rsground','commit':(P/'halcyon_commit.txt').read_text().strip(),'size':list(SIZE),'port_width':64,'runtime_validated':False,'rooms':[]};yy,xx=np.mgrid[:512,:512]
 portspec={'N':((224,0),(256,8)),'S':((224,480),(256,504)),'W':((0,224),(8,256)),'E':((480,224),(504,256))}
 for slug,title,raw,dirs,polygon in specs:
  scene=cut(load(O/'bruts'/f'{raw}.png').resize(SIZE,Image.Resampling.NEAREST));a=np.array(scene);opaque=a[:,:,3]>0;fm=poly(polygon)&opaque;other=opaque&~fm

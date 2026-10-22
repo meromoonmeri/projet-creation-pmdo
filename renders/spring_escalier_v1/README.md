@@ -25,4 +25,3 @@ Une nouvelle génération guidée par le layout central et la référence Halcyo
 
 `source/spring_escalier_v1/build.py` reconstruit le livrable et vérifie l’égalité pixel par pixel hors masque sur chacune des **39 phases**. `verification.json` contient le résultat et la superficie du masque. Aucune modification d’une carte `.rsground` ni validation PMDO/GPU. Anciennes versions conservées.
 
-Source Halcyon / Palikadude et feuilles PMDCollab/RawAsset : provenance conservée dans `source/soleil_spring_v1/references/provenance.json`. Respecter les droits des ressources d’origine ; les nouvelles parties générées ne sont pas attribuées à Palika.

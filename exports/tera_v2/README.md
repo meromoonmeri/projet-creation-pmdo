@@ -55,7 +55,6 @@ L'inventaire est complet à la révision `3609a86be2a4c8ad7cf255bd2255f044daafe2
 
 La première requête récursive globale était tronquée : elle n'a pas servi à annoncer une couverture complète. Les fichiers natifs récupérés restent dans `.cache/tera_v2`, non dans Git.
 
-`catalogue_surface.py` peut traiter **à la demande toute planche de cet inventaire**, sans ajouter de règle par espèce. Il vérifie le SHA Git du PNG, charge les dimensions natives dans le XML, conserve les crédits et rend la phase demandée. La sortie est limitée à `exports/tera_v2` pour ne pas écraser les originaux.
 
 ```bash
 .venv/bin/python source/tera_v2/catalogue_surface.py \
@@ -63,7 +62,6 @@ La première requête récursive globale était tronquée : elle n'a pas servi �
   --output exports/tera_v2/custom/pikachu_phase06.png
 ```
 
-**Compatibilité de l'outil ≠ traitement réalisé de tout le catalogue.** Douze planches distantes ont été réellement récupérées et vérifiées sur les 24 phases : Pikachu, Magnéti, Fantominus, Onix, Ronflex, Zarbi, Wailord, Skelénox, Kyogre, Motisma, Majaspic et Statitik. Les 288 variantes sont dans `remote_banks/`, avec les crédits natifs. Les **55 941 autres planches** restent non rendues/non vérifiées. L'état exact par fichier est dans `spritecollab_catalogue.csv` ; il ne faut pas déduire la couverture de toutes les actions d'une espèce depuis son seul Idle.
 
 ## 4. Portraits et sprites manquants du projet
 
@@ -101,4 +99,3 @@ L'audit du projet comporte aussi **46 espèces de base sans sprites** et aucune 
 
 Designs de couronnes : descriptions des Tera Jewels de Scarlet/Violet consultées dans [Terastal phenomenon](https://bulbapedia.bulbagarden.net/wiki/Terastal_phenomenon), avec les références Feu/Eau conservées dans `source/transformations_v1/references`. Nouvelles images du générateur dans `source/tera_v2/generation`, dont essais rejetés. Les captures trouvées via recherche ne sont pas des sprites PMD approuvés. Le générateur a encore commis des erreurs détaillées ci-dessus.
 
-Personnages et portraits : SpriteCollab à la révision indiquée. Crédits exacts des douze échantillons conservés dans chaque `remote_banks/{slot}/credits.txt`, références Méga-Raichu dans `source/pokemon_custom/next_species/references/mega_raichu_{x,y}`. Ne pas attribuer une licence unique inventée à l'ensemble ; respecter chaque fichier de crédits, y compris ses restrictions.

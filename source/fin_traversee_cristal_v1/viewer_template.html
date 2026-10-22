@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FTX1 · Fin Traversée Cristal — Lac Cristallin · 4:3 (768×576)</title>
+<style>
+body{background:#121722;color:#e7ecf4;font:15px/1.55 system-ui,sans-serif;margin:0;padding:24px}
+main{max-width:1220px;margin:auto}
+h1{font-size:29px;margin:0 0 6px}
+p{color:#bcccd8;max-width:86ch}
+.wrap{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.stage{position:relative;background:#0a0f14;overflow:auto;max-height:86vh;border:1px solid #2d4252;border-radius:6px}
+canvas{display:block;image-rendering:pixelated}
+aside{flex:1;min-width:290px;max-width:430px}
+fieldset{border:1px solid #2d4252;border-radius:8px;margin:0 0 14px;padding:10px 14px}
+legend{color:#7ee0ec;padding:0 6px;font-weight:600}
+label{display:block;padding:3px 0;cursor:pointer}
+button{background:#cfe4ee;color:#102b38;border:0;border-radius:6px;padding:8px 14px;margin:2px 4px 2px 0;cursor:pointer;font-weight:600}
+button.on{background:#7ee0ec}
+.note{border-left:3px solid #7ee0ec;padding-left:12px;font-size:13.5px}
+.ref{width:100%;image-rendering:pixelated;border-radius:4px;border:1px solid #2d4252}
+code{color:#d3ebf7}
+</style>
+<main>
+<h1>FTX1 · Fin Traversée Cristal — Lac Cristallin (768×576)</h1>
+<p>Décor généré <strong>référencé sur les captures ROM exactes <code>D17P33A</code> et <code>D17P45A</code></strong> : chaussée cristalline translucide arrivant du sud au milieu des eaux saphir caustiques jusqu'à l'arène circulaire fermée au nord par les grands piliers hexagonaux de cristal. Les <strong>caustiques du lac</strong> (calque <code>08</code>, <code>6 × 10 = 60 ticks</code>) et la <strong>lueur du pont &amp; éclats</strong> (calque <code>09</code>, <code>4 × 10 = 40 ticks</code>) reproduisent la boucle polymétrique exacte <code>PPCM(60, 40) = 120 ticks</code> de <code>d17p33a1.bpa</code> + <code>d17p33a5.bpa</code>. Associé à l'entrée <a href="apercu_entree_traversee_cristal_sud_nord_v1.html" style="color:#7ee0ec"><code>ETX1</code> (Entrée Traversée Cristal)</a>.</p>
+<div class="wrap">
+  <div class="stage"><canvas id="c"></canvas></div>
+  <aside>
+    <fieldset><legend>Lecture (cadence 60 i/s)</legend><button id="play">Pause</button><button id="step">+2 ticks</button><div id="phase"></div></fieldset>
+    <fieldset><legend>Affichage</legend>
+      <button data-zoom="1" class="on">1×</button><button data-zoom="2">2×</button><button data-zoom="3">3×</button>
+      <label><input type="checkbox" id="grid"> Grille 8 px (96 × 72)</label>
+      <label><input type="checkbox" id="coll"> Collisions 16×16 et marqueurs</label>
+      <label><input type="checkbox" id="view"> Viewport PMDO ×1 (320×240) à l'arrivée</label>
+    </fieldset>
+    <fieldset><legend>Calques (bas → haut)</legend><div id="layers"></div><button id="solo">Tout afficher</button></fieldset>
+    <fieldset><legend>Poses (×4) : 4 éclats diamant + 4 ondes d'eau purgées</legend><div id="poses" style="display:flex;flex-wrap:wrap;gap:6px"></div></fieldset>
+    <fieldset><legend>Références D17P33A &amp; D17P45A</legend><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><img id="ref" class="ref" alt="D17P33A"><img id="ref2" class="ref" alt="D17P45A"></div></fieldset>
+    <fieldset><legend>Export</legend><button id="png">PNG de la vue actuelle (1×)</button></fieldset>
+    <p class="note">Statut : décor généré référencé (pas des tuiles natives certifiées), cul-de-sac nord fermé, <code>art_approved = false</code>, <code>runtime_tested = false</code>. Jaune = <code>entrance</code>, rose = <code>boss</code>, cyan = <code>objectif</code>.</p>
+  </aside>
+</div>
+</main>
+<script>
+const D=__DATA__;const [W,H]=D.size;const c=document.getElementById('c'),x=c.getContext('2d');
+function img(u){const i=new Image();i.src=u;return i}
+const L=D.stack.map(l=>({id:l.id,ticks:l.ticks,frames:l.frames.map(img)})),coll=img(D.collisions);
+document.getElementById('ref').src=D.reference;
+document.getElementById('ref2').src=D.reference2;
+const box=document.getElementById('layers'),checks={};
+L.forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id+(l.frames.length>1?' ('+l.frames.length+'×'+l.ticks+' ticks)':''));box.append(lab)});
+D.poses.forEach(p=>{const i=img(p.uri);i.width=p.w*4;i.height=p.h*4;i.title=p.id;i.style.cssText='image-rendering:pixelated;background:'+D.surface;document.getElementById('poses').append(i)});
+let zoom=1,tick=0,playing=true,last=performance.now();const STEP=2,MS=STEP*1000/60;
+function render(ctx){ctx.clearRect(0,0,W,H);L.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(l.frames[Math.floor(tick/l.ticks)%l.frames.length],0,0)});
+ if(document.getElementById('coll').checked)ctx.drawImage(coll,0,0);}
+function draw(){c.width=W*zoom;c.height=H*zoom;x.imageSmoothingEnabled=false;x.save();x.scale(zoom,zoom);render(x);x.restore();
+ if(document.getElementById('grid').checked){x.strokeStyle='rgba(255,255,255,.18)';x.lineWidth=1;x.beginPath();
+  for(let i=0;i<=W;i+=8){x.moveTo(i*zoom+.5,0);x.lineTo(i*zoom+.5,H*zoom)}for(let j=0;j<=H;j+=8){x.moveTo(0,j*zoom+.5);x.lineTo(W*zoom,j*zoom+.5)}x.stroke()}
+ if(document.getElementById('view').checked){const cx=Math.min(Math.max(D.entry[0]+8-160,0),W-320),cy=Math.min(Math.max(D.entry[1]+8-120,0),H-240);
+  x.strokeStyle='#ffe066';x.lineWidth=2;x.strokeRect(cx*zoom,cy*zoom,320*zoom,240*zoom)}
+ document.getElementById('phase').textContent='tick '+tick+' / '+D.loop;}
+function adv(){tick=(tick+STEP)%D.loop;draw()}
+function loop(t){if(playing&&t-last>=MS){last=t;adv()}requestAnimationFrame(loop)}
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Lecture'};
+document.getElementById('step').onclick=adv;
+document.querySelectorAll('[data-zoom]').forEach(b=>b.onclick=()=>{zoom=+b.dataset.zoom;document.querySelectorAll('[data-zoom]').forEach(o=>o.classList.toggle('on',o===b));draw()});
+['grid','coll','view'].forEach(id=>document.getElementById(id).onchange=draw);
+document.getElementById('solo').onclick=()=>{Object.values(checks).forEach(ch=>ch.checked=true);draw()};
+document.getElementById('png').onclick=()=>{const o=document.createElement('canvas');o.width=W;o.height=H;render(o.getContext('2d'));const a=document.createElement('a');a.download='FTX1_vue_tick'+String(tick).padStart(3,'0')+'.png';a.href=o.toDataURL('image/png');a.click()};
+Promise.all([...L.flatMap(l=>l.frames),coll].map(i=>i.decode())).then(()=>{draw();requestAnimationFrame(loop)});
+</script>
+</html>

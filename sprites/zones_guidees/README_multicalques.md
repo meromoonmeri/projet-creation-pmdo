@@ -67,6 +67,3 @@ Ces commandes ne rappellent pas le générateur et ne reconstruisent pas les sil
 
 Le JavaScript du visualiseur a passé le contrôle syntaxique Node. Le test dans Chromium n’a pas pu être exécuté : téléchargement du navigateur bloqué par une erreur réseau TLS. Pas de validation interactive dans les applications Aseprite/Tiled ni de test d’intégration PMDO. Les collisions et transitions restent à configurer.
 
-## Crédits
-
-Palika et contributeurs de **Palikadude/Halcyon**, commit source `da6c2130d641507447e6386a5e47a296e8cb4c71`. Animations de rivière créditées à **Jaifain**. Compositions nouvelles et non officielles ; respecter les droits et conditions des ressources originales. Voir également le README et la provenance du pack initial.

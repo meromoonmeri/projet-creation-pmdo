@@ -6,7 +6,7 @@ j=json.loads((O/'tree_selection.json').read_text());chosen=[x for x in j['tree']
 for x in chosen:
  p=O/Path(x['path']).name
  if not p.exists():
-  b=json.loads(subprocess.check_output(['gh','api','repos/Palikadude/Halcyon/git/blobs/'+x['sha']]));p.write_bytes(base64.b64decode(b['content']))
+  b=json.loads(subprocess.check_output(['gh','api','repos//Halcyon/git/blobs/'+x['sha']]));p.write_bytes(base64.b64decode(b['content']))
  prov.append({'path':x['path'],'blob':x['sha'],'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
  if p.suffix=='.tile':
   size,bank=decode(p);banks[p.stem]=bank;im=Image.new('RGBA',((max(x for x,y in bank)+1)*8,(max(y for x,y in bank)+1)*8))

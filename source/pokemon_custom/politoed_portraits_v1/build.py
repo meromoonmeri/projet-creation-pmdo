@@ -63,7 +63,7 @@ def build():
         p=NATIVE/(emotion+'.png');dst=OUT/'portraits_individual'/p.name
         shutil.copyfile(p,dst)
         report['portraits'][emotion]={'existing_native_preserved':True,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
-    shutil.copyfile(NATIVE/'credits.txt',OUT/'native_credits.txt')
+    shutil.copyfile(NATIVE/'.txt',OUT/'native_.txt')
     new_subjects={}
     for emotion in C['portrait']['required_full']:
         if emotion in PRESERVE:continue

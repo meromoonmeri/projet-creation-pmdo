@@ -18,7 +18,7 @@ def make():
  for name in names:
   p=REF/(name+'.tile')
   if not p.exists():p=S/'references'/(name+'.tile')
-  im,size=decode(p);banks[name]=im;raw=p.read_bytes();sources[name]={'file':str(p.relative_to(R)),'grid':size,'atlas_size':list(im.size),'sha256':h(raw),'git_blob':hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest(),'rgba_sha256':h(im.tobytes()),'repo':'Minemaker0430/ExplorersOfSkyOrigins' if name.startswith('Spinda') else 'Palikadude/Halcyon','commit':(REF/('eoso_commit.txt' if name.startswith('Spinda') else 'halcyon_commit.txt')).read_text().strip()}
+  im,size=decode(p);banks[name]=im;raw=p.read_bytes();sources[name]={'file':str(p.relative_to(R)),'grid':size,'atlas_size':list(im.size),'sha256':h(raw),'git_blob':hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest(),'rgba_sha256':h(im.tobytes()),'repo':'Minemaker0430/ExplorersOfSkyOrigins' if name.startswith('Spinda') else '/Halcyon','commit':(REF/('eoso_commit.txt' if name.startswith('Spinda') else 'halcyon_commit.txt')).read_text().strip()}
   # Audit the pinned upstream blobs, not just previously rendered local previews.
   tree=json.loads((R/'.cache/sky_canon'/('eoso_tree.json' if name.startswith('Spinda') else 'tree.json')).read_text()) if (R/'.cache/sky_canon'/('eoso_tree.json' if name.startswith('Spinda') else 'tree.json')).exists() else None
   if tree:assert sources[name]['git_blob']==next(x['sha'] for x in tree['tree'] if x['path']=='Content/Tile/'+name+'.tile')

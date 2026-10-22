@@ -51,7 +51,5 @@ Les couronnes restent des **accessoires sans tête ni visage intégré**. Le ret
 
 ## Provenance
 
-- Acteurs : sources SpriteCollab, originaux et fichiers `credits.txt` préservés dans `source/mega_evolution_v1/references/charizard/` et `source/transformations_v1/references/charizard_gmax/`.
-- Gigamax : slot `sprite/0006/0003`, révision `3609a86be2a4c8ad7cf255bd2255f044daafe24f`, crédit `<@!276369635304275968>`, `CC_BY-NC_4`. Ce n'est pas un Dracaufeu normal agrandi. Respecter les crédits/licences exacts des deux fichiers, sans attribuer une licence unique inventée à tout le lot.
 - Composants VFX et couronnes : images générées conservées dans `source/transformations_v1/generation/`, extraction avec alpha, interpolation par flux optique, puis chorégraphie calculée. **240 phases ne signifie pas 240 dessins manuels.** Les éclairs secondaires, les orbites, les particules, les facettes de fermeture et les reflets sont calculés.
 - Sol sombre de démonstration : décor neutre calculé pour la revue, pas terrain canonique PMD ni scène extraite de PMDO.

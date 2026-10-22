@@ -45,7 +45,6 @@ Leur première bande de sol est opaque et identique, à orientation de raccord �
 L’échelle provient directement de la couche native Objects Over, boîte (192,48)-(216,120), sans changement des pixels. Son sprite original est dans `materiaux/echelle_native.png`. Elle est proposée séparément sur la paroi nord de la salle latérale ; sa destination en jeu n’est pas implémentée.
 
 ## Source exacte
-[Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit **da6c2130d641507447e6386a5e47a296e8cb4c71** :
 - `Data/Ground/ledian_dojo.rsground`, carte408×312, grille8px ;
 - sept banques `Ledian_Dojo_{Animated,Ceiling,Floor,Objects,Objects_Over,Objects_Under,Shadows}.tile`.
 

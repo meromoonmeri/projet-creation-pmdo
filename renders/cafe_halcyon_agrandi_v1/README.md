@@ -4,7 +4,6 @@
 
 ## Le vrai café, agrandi sans grossir ses pixels
 
-Source : **Palikadude/Halcyon**, commit [`da6c2130d641507447e6386a5e47a296e8cb4c71`](https://github.com/Palikadude/Halcyon/tree/da6c2130d641507447e6386a5e47a296e8cb4c71), `Data/Ground/metano_cafe.rsground` et les cinq banques `Metano_Town_Cafe_*`.
 
 | | Original | Nouvelle salle |
 |---|---:|---:|
@@ -91,4 +90,3 @@ python source/cafe_halcyon_agrandi_v1/package.py
 
 `verification.json` : banques décodées et hashées, traçabilité de tous les pixels visibles, coins intacts, recomposition exacte, magenta pur, une entrée unique, continuité avec dégagement8px, zones libres, aucune décoration placée, poses natives réelles, compatibilité8px. `verification_viewer.json` : DOM simulé, calques/zoom/repères et animation, dépendances de la version normale et du ZIP extrait. Pas de navigateur graphique ou de PMDO exécuté : ces tests ne valent pas approbation artistique ou validation moteur.
 
-Attribution : Palikadude/Halcyon, contributeurs et ayants droit Pokémon Mystery Dungeon. Les ressources publiques ne sont pas présentées comme libres de toute licence ; conserver les attributions et vérifier les conditions applicables avant redistribution de votre mod.

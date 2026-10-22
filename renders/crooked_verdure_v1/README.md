@@ -39,4 +39,3 @@ Le Spring GIF est une conversion de `renders/spring_colonne_irisee_v1/animation.
 
 Pas de nouvelle carte `.rsground`, collision ou validation en jeu. Le sol répété et les raccords sont des propositions graphiques à valider. Les ressources antérieures ne sont pas modifiées.
 
-Attributions : carte Halcyon / Palikadude ; textures originales distribuées dans les sources référencées du dépôt ; herbe Luminous Spring de PMDCollab/RawAsset. Disponibilité publique ne signifie pas licence illimitée. Respecter les droits Pokémon Mystery Dungeon et des contributeurs. Les ajouts générés ne sont pas attribués à Palika.

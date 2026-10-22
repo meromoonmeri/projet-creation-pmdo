@@ -1,18 +1,18 @@
-from pathlib import Path
-import json,base64,hashlib,zipfile
-from PIL import Image,ImageDraw
-R=Path(__file__).resolve().parents[2];S=R/'source/tours_layers_v3';O=R/'renders/tours_layers_v3';M=json.loads((O/'manifest.json').read_text());assets=[];seen={};projects=[]
-def uid(path):
- b=path.read_bytes();key=hashlib.sha256(b).hexdigest()
- if key not in seen:seen[key]=len(assets);assets.append('data:image/png;base64,'+base64.b64encode(b).decode())
- return seen[key]
-for m in M:
- p={k:m[k] for k in ['id','title','kind','layers','environment_count','lights','clouds']};p['resources']={}
+from pathlib import Path 
+import json ,base64 ,hashlib ,zipfile 
+from PIL import Image ,ImageDraw 
+R =Path (__file__ ).resolve ().parents [2 ];S =R /'source/tours_layers_v3';O =R /'renders/tours_layers_v3';M =json .loads ((O /'manifest.json').read_text ());assets =[];seen ={};projects =[]
+def uid (path ):
+ b =path .read_bytes ();key =hashlib .sha256 (b ).hexdigest ()
+ if key not in seen :seen [key ]=len (assets );assets .append ('data:image/png;base64,'+base64 .b64encode (b ).decode ())
+ return seen [key ]
+for m in M :
+ p ={k :m [k ]for k in ['id','title','kind','layers','environment_count','lights','clouds']};p ['resources']={}
  for mode in ['jour','nuit']:
-  p['resources'][mode]={n:dict(ids=[uid(O/f) for f in a['files']],frame_ms=a['frame_ms']) for n,a in m['modes'][mode].items()}
- projects.append(p)
-data=dict(projects=projects,assets=assets,scale='data:image/png;base64,'+base64.b64encode((O/'ECHELLE_FEUILLES_1X.png').read_bytes()).decode());html=(S/'viewer.html').read_text().replace('__DATA__',json.dumps(data,separators=(',',':')));(R/'apercu_tours_layers_v3.html').write_text(html)
-readme='''# Tours V3 — entrées générées, petites feuilles, soleil animé et lune réutilisée
+  p ['resources'][mode ]={n :dict (ids =[uid (O /f )for f in a ['files']],frame_ms =a ['frame_ms'])for n ,a in m ['modes'][mode ].items ()}
+ projects .append (p )
+data =dict (projects =projects ,assets =assets ,scale ='data:image/png;base64,'+base64 .b64encode ((O /'ECHELLE_FEUILLES_1X.png').read_bytes ()).decode ());html =(S /'viewer.html').read_text ().replace ('__DATA__',json .dumps (data ,separators =(',',':')));(R /'apercu_tours_layers_v3.html').write_text (html )
+readme ='''# Tours V3 — entrées générées, petites feuilles, soleil animé et lune réutilisée
 
 ## Les quatre scènes restent distinctes
 - Entrée Carillon : 36 calques, jour/nuit.
@@ -29,7 +29,7 @@ Cette V3 est une adaptation générée inspirée d’Apple Woods : contrairement
 ## Petites feuilles animées
 Deux plans alpha indépendants par entrée : arrière (24 particules) et avant (20). Feuilles dessinées dans une cellule de 3 × 3 pixels, avec des poses étroites de 1 à 3 pixels, quatre poses de battement. 128 phases × 125 ms = boucle de 16 secondes. Chute verticale et balancement périodiques ; les débordements sont répliqués aux bords. Les feuilles ne sont pas agrandies dans la scène.
 Comparaison réelle : sprite Idle de Bulbizarre PMD, cellule 32 × 40, silhouette visible 17 × 21 pixels. Les feuilles font au maximum 3 pixels de côté, soit 1/7 de sa hauteur visible. ECHELLE_FEUILLES_1X.png est à l’échelle native ; la version 4X est un agrandissement nearest-neighbor de contrôle. Bulbizarre n’est pas intégré aux scènes.
-Référence : https://github.com/PMDCollab/SpriteCollab/tree/master/sprite/0001 ; crédit fourni par le dépôt : CHUNSOFT. Fichiers AnimData.xml, crédits et commit consulté conservés dans source/tours_layers_v3/references. Référence de comparaison uniquement, pas une création originale de cette livraison.
+Référence : https://github.com/PMDCollab/SpriteCollab/tree/master/sprite/0001 ; meta fourni par le dépôt : CHUNSOFT. Fichiers AnimData.xml, metas et commit consulté conservés dans source/tours_layers_v3/references. Référence de comparaison uniquement, pas une création originale de cette livraison.
 
 ## Soleil animé, lune identique aux autres décors
 Le disque solaire est un calque indépendant du halo et du ciel. Animation douce à couleurs fixes : alpha 224–255, sans déplacement du disque ni rotation de teinte. 64 phases × 125 ms = 8 secondes. Le halo solaire pulse sur un autre calque. Le soleil n’est pas incrusté dans le ciel ou les montagnes.
@@ -49,21 +49,21 @@ Recomposition des huit scènes et ORA ; filtres nuit ; durée des 14 animations 
 Tests d’images seulement : aucune validation d’import, de collisions, de navigation ou d’exécution PMDO, ni test GPU réel. La planche d’échelle ne prouve pas l’échelle d’affichage en moteur.
 Reproduction depuis le dépôt complet : .venv/bin/python source/tours_layers_v3/build.py ; verify.py ; package.py. Pillow, NumPy, SciPy. Les générations originales et les livraisons précédentes du dépôt sont nécessaires.
 '''
-(O/'README.md').write_text(readme)
-board=Image.new('RGB',(1280,548),'#171c1c');d=ImageDraw.Draw(board)
-for i,m in enumerate(M):
- for row,mode in enumerate(['jour','nuit']):
-  x=i*320;y=row*274;d.text((x+7,y+6),m['title']+' / '+mode,fill='#e9c58d');im=Image.open(O/m['id']/mode/'COMPOSITION.png').convert('RGB').resize((320,240),Image.Resampling.NEAREST);board.paste(im,(x,y+27))
-board.save(O/'VUE_ENSEMBLE.png')
-zpath=O/'Tours_Calques_Animations_v3.zip'
-with zipfile.ZipFile(zpath,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
- z.write(R/'apercu_tours_layers_v3.html','apercu_tours_layers_v3.html')
- for p in O.rglob('*'):
-  if p.is_file() and p!=zpath and p.suffix!='.webp':z.write(p,str(Path('contenu')/p.relative_to(O)))
- for p in S.iterdir():
-  if p.is_file():z.write(p,str(p.relative_to(R)))
- for name in ['bulbasaur_credits.txt','bulbasaur_AnimData.xml','spritecollab_commit.txt']:
-  p=S/'references'/name;z.write(p,str(p.relative_to(R)))
-with zipfile.ZipFile(zpath) as z:
- assert z.testzip() is None;assert all(not n.startswith('/') and '..' not in Path(n).parts for n in z.namelist())
-print('Gallery bytes',len(html.encode()),'ZIP bytes',zpath.stat().st_size,'CRC and paths PASS')
+(O /'README.md').write_text (readme )
+board =Image .new ('RGB',(1280 ,548 ),'#171c1c');d =ImageDraw .Draw (board )
+for i ,m in enumerate (M ):
+ for row ,mode in enumerate (['jour','nuit']):
+  x =i *320 ;y =row *274 ;d .text ((x +7 ,y +6 ),m ['title']+' / '+mode ,fill ='#e9c58d');im =Image .open (O /m ['id']/mode /'COMPOSITION.png').convert ('RGB').resize ((320 ,240 ),Image .Resampling .NEAREST );board .paste (im ,(x ,y +27 ))
+board .save (O /'VUE_ENSEMBLE.png')
+zpath =O /'Tours_Calques_Animations_v3.zip'
+with zipfile .ZipFile (zpath ,'w',zipfile .ZIP_DEFLATED ,compresslevel =6 )as z :
+ z .write (R /'apercu_tours_layers_v3.html','apercu_tours_layers_v3.html')
+ for p in O .rglob ('*'):
+  if p .is_file ()and p !=zpath and p .suffix !='.webp':z .write (p ,str (Path ('contenu')/p .relative_to (O )))
+ for p in S .iterdir ():
+  if p .is_file ():z .write (p ,str (p .relative_to (R )))
+ for name in ['bulbasaur_metas.txt','bulbasaur_AnimData.xml','spritecollab_commit.txt']:
+  p =S /'references'/name ;z .write (p ,str (p .relative_to (R )))
+with zipfile .ZipFile (zpath )as z :
+ assert z .testzip ()is None ;assert all (not n .startswith ('/')and '..'not in Path (n ).parts for n in z .namelist ())
+print ('Gallery bytes',len (html .encode ()),'ZIP bytes',zpath .stat ().st_size ,'CRC and paths PASS')

@@ -6,7 +6,6 @@ Premier candidat d’action réellement manquante adapté à l’identité/morph
 - `review/Gardevoir_Eat_front.gif` : aperçu nearest, timings GIF arrondis à10ms ; ticks XML exacts.
 - `review/Gardevoir_Eat_frames.png` : étapes de la gestuelle.
 - `verification.json` : précontrôle technique du pack, provenance, gestes et limites.
-- Crédits Gardevoir base/Cutscene inchangés dans les fichiers voisins ; conserver les attributions/licences originales. Eat associe un corps/visage/repères natifs à un bras/baie générés puis nettoyés. Ce n’est pas une ressource native ou approuvée SpriteCollab.
 
 Génération4×2 recadrée selon ses dimensions réelles ; continuité de main corrigée, visages générés à grands yeux non utilisés ; paupières retouchées au pixel. Le repère rouge de main est animé. Voir `source/guild_scene_animations_v2/CHOREOGRAPHY.md` pour la règle appliquée à tous les membres et les pistes non encore produites.
 

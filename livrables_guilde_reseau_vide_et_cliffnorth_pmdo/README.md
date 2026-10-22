@@ -12,6 +12,3 @@
    - **Sol parquet pur** : `0` signe Spinda / spirale.
    - Extérieur `RGBA alpha = 0` propre sans bloc noir ni résidu magenta.
 
-## Crédits & Statut
-- Crédits des layouts et références canoniques : **Palikadude / Halcyon** et artistes **Pokémon Mystery Dungeon** d'origine (les rendus générés constituent de nouveaux dessins référencés, distincts des tuiles natives certifiées).
-- Statut : `art_approved: false`, `runtime_tested: false` (vérification binaire et structurelle effectuée hors moteur PMDO).

@@ -96,4 +96,3 @@ Tests : pixels des quinze fragments contre leurs sources, atlas natif, référen
 
 ## Attribution
 
-Textures et tuiles de référence : **Palika / Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Voir les [crédits de Halcyon](https://github.com/Palikadude/Halcyon#credits), notamment Jaifain pour les animations de rivière de Métano. La nouvelle composition et les maisons ne sont pas des créations officielles. Vérifier les autorisations des auteurs avant redistribution publique de leurs ressources.

@@ -14,7 +14,6 @@ Le premier brouillon sur magenta n'a pas survécu à la restauration du checkout
 
 La planche magenta est générée par IA dans cette session, puis détourée, mise à la palette, direction DR corrigée par miroir, yeux retouchés et membres découpés à la main dans le script. Le rendu généré conserve des variations de proportions et de plaques de carapace entre les angles : **la quantification et le précontrôle ne les corrigent pas et ne constituent pas une finition artistique**.
 
-Normal : SpriteCollab `3609a86be2a4c8ad7cf255bd2255f044daafe24f`, `portrait/0564/Normal.png`. Historique MUCRUSH ; crédit courant `<@!217899432652308480>`, **CC_BY-NC_4** selon le fichier natif `references/credits.txt` conservé. Happy/Angry/Sad sont des **adaptations de cette œuvre**, pas des créations intégralement originales ; attribution et restriction non commerciale conservées. Pokémon / Carapagos appartient à ses ayants droit. Pas de soumission publique faite ; admissibilité IA à confirmer avec les mainteneurs.
 
 ## Contrôles et reste à faire
 

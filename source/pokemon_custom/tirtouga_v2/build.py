@@ -1,5 +1,5 @@
 """Custom draft: 8 directions, independently articulated flipper Walk, new expressions.
-Original Normal remains byte-for-byte unchanged; adaptations credited separately.
+Original Normal remains byte-for-byte unchanged; adaptations ed separately.
 """
 from pathlib import Path
 import json,sys,xml.etree.ElementTree as ET
@@ -85,7 +85,6 @@ for action,rows in frames_by_action.items():
  for kind,im in sheets.items():im.save(OUT/'sprite_multisheet'/f'{action}-{kind}.png')
 ET.indent(root);ET.ElementTree(root).write(OUT/'sprite_multisheet/AnimData.xml',encoding='utf-8',xml_declaration=True)
 (OUT/'review/landmarks.json').write_text(json.dumps(landmarks,indent=2)+'\n')
-# Expressions: pixel-authored adaptations of credited existing portrait, not new Normal art.
 normal=Image.open(SRC/'references/Normal.png').convert('RGBA');templates=Image.open(ROOT/'template.png').convert('RGBA');sheet=Image.new('RGBA',(200,160));sheet.paste(normal,(0,0));normal.save(OUT/'portraits_individual/Normal.png')
 colors={'dark':(38,47,54,255),'face':(60,73,92,255),'mid':(76,90,116,255),'light':(94,113,146,255),'white':(255,255,255,255),'blue':(158,200,212,255)}
 for name,slot in [('Happy',1),('Angry',3),('Sad',5)]:

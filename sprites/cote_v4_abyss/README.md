@@ -97,4 +97,3 @@ node source/cote_dix_zones/test_viewer.cjs apercu_cotes_metano_abyss.html
 
 Les fichiers natifs non compressés sont construits dans `~/.cache/cote_v4_abyss_pack/`. Les PNG intermédiaires/composites de chaque carte et les fonds sont régénérables et non versionnés ; l’aperçu autonome permet d’exporter les PNG sans perte. Le premier échantillon reste conservé dans `sprites/cote_v4_abyss_echantillon/`, mais n’est pas le nouveau pack final.
 
-Attributions : Métano / Palika / Halcyon et contributeurs, variantes nocturnes d’Abyss to Ascension, fonds Guilde/Sharpedo du commit `c16efe12`. La disponibilité publique des sources n’est pas une licence sans restrictions ; consulter leurs conditions avant redistribution hors du projet.

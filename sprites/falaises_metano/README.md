@@ -15,7 +15,6 @@ Ces cartes sont **trois propositions indépendantes**, pas trois morceaux automa
 ## Respect de l'échelle Métano
 
 - Roche, herbe, bordure, pied de falaise, sable et escaliers : échantillons natifs de `Metano_Town_Base` et `Metano_Town_Cliffs`.
-- Sources : [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 - Les textures sont répétées **à leur taille native**, jamais grossies pour obtenir la taille du décor.
 - Les grandes cascades conservent la largeur originale de **64 px** et utilisent les quatre frames de Métano. Leur couronne et leur bas sont préservés, leur milieu est prolongé par répétition de bandes. **Ces cascades longues ne sont donc pas des extractions intactes de 64 × 136 px.** Les extractions intactes restent dans `sprites/eau_metano/`.
 - La géométrie du terrain, les contours des nouveaux cours d'eau et les petites vaguelettes sont nouvellement composés. Les couleurs principales de l'eau proviennent de la rivière originale. Ce ne sont pas des extensions officielles ni des copies pixel pour pixel d'une zone existante.
@@ -70,4 +69,3 @@ Pillow requis. La reconstruction réutilise les patches sauvegardés et les fram
 
 ## Attribution
 
-Textures de Métano Town : **Palika / Halcyon** et les artistes crédités par le projet. Le [README de Halcyon](https://github.com/Palikadude/Halcyon#credits) cite notamment **Jaifain pour les animations de rivière de Métano**. La géométrie des trois layouts et leur assemblage ont été réalisés ici. Aucune nouvelle licence n'est accordée sur les ressources tierces ; vérifier les autorisations des auteurs avant redistribution publique.

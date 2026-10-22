@@ -37,7 +37,6 @@ Les chutes utilisent les quatre colonnes de frames de **Metano_Town_Animation_Ti
 
 ## Ce qui est vérifié
 
-Source : [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 
 Le vérificateur indépendant contrôle :
 
@@ -89,4 +88,3 @@ Pillow requis. Les sources canoniques sont celles conservées dans `source/falai
 
 ## Attribution
 
-Tuiles de **Palika / Halcyon** et des artistes crédités dans le projet. Le [README de Halcyon](https://github.com/Palikadude/Halcyon#credits) cite notamment **Jaifain pour les animations de rivière de Métano**. Ce pack ne revendique pas les textures originales comme des créations nouvelles. Vérifier les autorisations des auteurs avant redistribution publique.

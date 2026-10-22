@@ -10,7 +10,7 @@ for l in o['Layers']:
     name=a['Frames'][0]['Sheet']
     if not name or name in banks:continue
     p=P/(name+'.tile')
-    if not p.exists():p.write_bytes(subprocess.check_output(['gh','api',f'repos/Palikadude/Halcyon/contents/Content/Tile/{name}.tile?ref={pin}','-H','Accept: application/vnd.github.raw+json']))
+    if not p.exists():p.write_bytes(subprocess.check_output(['gh','api',f'repos//Halcyon/contents/Content/Tile/{name}.tile?ref={pin}','-H','Accept: application/vnd.github.raw+json']))
     ts,bank,_=tiles(p);banks[name]={xy:straight(im) for xy,im in bank.items()}
     sheet=Image.new('RGBA',((max(x for x,y in bank)+1)*ts,(max(y for x,y in bank)+1)*ts))
     for (x,y),im in banks[name].items():sheet.alpha_composite(im,(x*ts,y*ts))

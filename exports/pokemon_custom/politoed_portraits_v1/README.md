@@ -2,7 +2,6 @@
 
 **14 portraits de face disponibles dans ce lot partiel : 4 natifs conservés et10nouvelles propositions.**
 
-- Natifs inchangés : Normal, Inspired, Shouting, Surprised. Hashes vérifiés ; crédits originaux dans `native_credits.txt`.
 - Nouveaux candidats : Happy, Pain, Angry, Worried, Sad, Crying, Teary-Eyed, Determined, Joyous, Dizzy.
 - **Manquants : Sigh, Stunned.** Limite de10générations atteinte ; aucun fichier créé pour ces deux demandes.
 

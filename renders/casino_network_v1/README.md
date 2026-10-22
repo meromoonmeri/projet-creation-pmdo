@@ -47,7 +47,6 @@ Le tapis reprend des pixels de `Ledian_Dojo_Objects.png`, rectangle `(176,136)�
 
 ## Flammes réellement canoniques Ledian/Halcyon
 
-Référence épinglée : **Palikadude/Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 
 - `Data/Ground/ledian_dojo.rsground`, calque1 « Objects Under » ; instance sur les cellules `(14,11)–(18,19)`, grille8px.
 - Banque `Content/Tile/Ledian_Dojo_Animated.tile`.
@@ -59,7 +58,6 @@ Référence épinglée : **Palikadude/Halcyon**, commit `da6c2130d641507447e6386
 
 `flammes_provenance.json` donne hashes, cellules et tracks complets. `animations/` contient les quatre braseros entiers de contrôle et les quatre PNG de flamme. `objets/brasero_support.png` est le support séparé. Tous sont des PNG à alpha binaire.
 
-Krow Bank est repris sans modification depuis l’étude native précédente, qui identifie Murkrow via `Bank_Owner` dans les scripts Métano. Les sources et crédits ne sont pas remplacés par une revendication de création native originale. Ressources PMD : auteurs/contributeurs Halcyon et ayants droit concernés ; présence publique ne signifie pas licence générale de redistribution libre.
 
 ## Contrôles du viewer
 

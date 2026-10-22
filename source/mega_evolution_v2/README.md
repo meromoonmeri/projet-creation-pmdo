@@ -31,7 +31,6 @@ Les masques `mask_energy_*.png` sont une partition de la même image générée 
 
 Les atlas de composants dans `cycles/` utilisent des cellules 160×160 et 8 colonnes. 48 phases =6 lignes ; la rupture a43 phases suivies de5 cases transparentes de remplissage, **à ne pas lire comme phases utiles**.
 
-La caméra PMD est fixe. Le GIF `mega_8_directions.gif` présente les huit orientations **natives du personnage** autour des mêmes coordonnées, avec le même VFX radial. Ne pas le décrire comme huit nouvelles caméras 3D générées. Les PNG de personnages viennent de SpriteCollab `3609a86be2a4c8ad7cf255bd2255f044daafe24f`, Dracaufeu0006 / MégaX0006/0001 ; crédits dans les références V1, jamais recolorés.
 
 ## Vérifications
 
@@ -55,7 +54,6 @@ Depuis la racine avec Python/Pillow/NumPy/OpenCV :
 
 Voir `recovery_carapagos.md` : la V1 n'a pas été retrouvée dans les fichiers/Git accessibles. Les deux GIF Idle/Walk inclus sous `gifs/carapagos_v2_archive/` sont **explicitement la V2 existante**, pas une récupération de V1. Leurs durées viennent du XML, corrigées par rapport aux anciens WebP de démonstration. Pas de nouvelle extension d'actions sur le sprite rejeté.
 
-Emblème : génération guidée par la silhouette flamme/S d'une référence secondaire de logo fan déjà inspectée, crop conservé. Ce n'est pas une extraction de l'icône officielle. Les ressources générées sont AI-assisted/custom ; aucune soumission publique n'a été faite, aucun crédit officiel ou natif attribué à cette création.
 
 Planche de revue supplémentaire : `MEGAGEN_V2_directional_layout.png`, **8 rangées de directions ×12 colonnes temporelles**, phases0,16,…176. Ce sont des captures de composition avec personnage, pas des frames de personnage à soumettre à SpriteCollab.
 

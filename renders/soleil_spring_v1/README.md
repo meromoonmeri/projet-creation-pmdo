@@ -28,7 +28,6 @@ Wrap horizontal : **960 px**, vitesse **−8 px/s**, période spatiale **120 s**
 - [Planche cycle 3](planches/spring_cycle_3.png) / [cycle 13](planches/spring_cycle_13.png), aperçus de cellules 300×300 ; utiliser les PNG individuels 600×600 pour l’import.
 
 ### Source réellement examinée
-Carte **`Data/Ground/luminous_spring.rsground`** de [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), grille 25×25, cellules de 24 px, 2 couches. La carte référence les feuilles **`LuminousSpring` et `LuminousSpringAnim`**, présentes dans [PMDCollab/RawAsset](https://github.com/PMDCollab/RawAsset/tree/master/Tile/24x24) et non dans l’arbre propre de Halcyon. Les pins exacts, fichiers téléchargés et SHA-256 sont dans `source/soleil_spring_v1/references/provenance.json`.
 
 Deux groupes : **38 cellules à 3 phases**, **8 cellules à 13 phases**, **10 ticks par image**. À 60 Hz : boucle commune **39 phases / 390 ticks / 6,5 s**. Le WebP alterne des durées 167/167/166 ms pour respecter 6,5 s ; la galerie calcule directement les phases à 60 ticks/s.
 
@@ -46,4 +45,3 @@ Galerie testée en DOM simulé : 9 combinaisons vue/ambiance, 9 contrôles de ca
 ## Reproduction et droits
 Pillow + numpy. Scripts : `source/soleil_spring_v1/{reference,build,gallery,verify}.py` et `test_viewer.cjs`. Les dépendances de l’aperçu côtier proviennent du pack `references_calques_v2`, conservé sans modification.
 
-Attribution : carte Halcyon / Palikadude ; graphismes de base distribués par PMDCollab/RawAsset ; Pokémon Mystery Dungeon et ses ayants droit pour les ressources concernées. La disponibilité publique ne constitue pas une licence de réutilisation illimitée. Les nouveaux dessins générés sont explicitement distingués des ressources originales.

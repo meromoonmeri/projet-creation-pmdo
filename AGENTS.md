@@ -37,19 +37,6 @@ Le lot `sprites/metano_import_png/` inaugure les blocs natifs complets et les no
 Le commit utilisateur `3bc185bec2d5aa295f32825927db9d25bb936f75` était sur `arena/01a095e8-guilde-treehouse-pmd`, PAS sur main. Toujours vérifier la branche distante de la session, pas seulement origin/main, pour les nouveaux uploads utilisateur.
 Les fichiers `IMG_4888.jpeg`, `IMG_4889.png`, `IMG_4890.png`, `IMG_4892.png` représentent deux lieux côtiers (bureau de Bekipan ; terrasse de campement avec grotte), avec plusieurs ambiances/références du premier. Pour « les layouts que j’ai commit », utiliser ces fichiers, pas les anciens cirques de calibration. Les deux générations diurnes sont dans `source/layouts_commit_3bc185b/`, explicitement non certifiées comme tuiles canoniques.
 
-## Correction demandée : vraie variante Métano nuit d’Abyss to Ascension
-
-La référence existe dans `meromoonmeri/new-era-abyss-to-ascension-V4`, commit
-`55860b9a5eb48697a3cea3a8bdfce5f0529d6141` : `Metano_Town_Base_Night.tile`,
-`Metano_Town_Cliffs_Night.tile`, `Metano_Town_Fringe_Night.tile`.
-Copies et preuves : `source/cote_v4_abyss/`. Utiliser leurs pixels nocturnes
-existants, pas la formule Guilde/Sharpedo pour le terrain. Cette dernière
-reste la référence des fonds. L’utilisateur demande toute la roche dans le
-style Métano, sans fragments réinterprétés par le générateur. Le pack V3
-conservait encore lisière et ombres générées : ne pas le considérer corrigé.
-Le nouvel échantillon natif est une calibration de matière, pas une validation
-des retours, des raccords ni des volumes, et pas un remplacement des 20 Ground.
-
 ## Filtre Abyss demandé explicitement — correction complète livrée
 
 La dernière consigne autorise et demande le filtre nocturne exact d’Abyss.
@@ -151,7 +138,6 @@ Pour tout nouveau portrait/personnage Pokémon, lire `source/pmd_character_pipel
 - Portrait : 40×40, ≤15 couleurs par émotion fond compris, case remplie entièrement opaque ; planche 5×4, vues inversées dans les 4 rangées suivantes si asymétrie. Les contours adoucis sont des pixels opaques choisis dans la palette, pas de l’alpha partiel.
 - Sprite : ≤15 couleurs visibles pour toutes les animations ensemble, alpha 0/255 ; PNG Anim/Offsets/Shadow séparés, XML cohérent, 1 ou 8 directions, durées en ticks 1/60s. Les multiples de 8 sont conseillés pour les cellules, pas une obligation universelle de SpriteCollab.
 - Génération = référence de dessin. Retouche pixel par pixel et inspection à 1× obligatoires ; une réduction/quantification automatique ne prouve pas la qualité artistique. Valider identité et poses avant de multiplier les émotions/animations. Ne pas appliquer le pipeline des décors (halos alpha, énormes feuilles, etc.) aux portraits/sprites.
-- Conserver sources, provenance, crédits et bases verrouillées. Destination initiale : custom du mod, pas soumission publique garantie. L’éligibilité IA au dépôt public n’est pas établie par les documents consultés ; demander confirmation des mainteneurs avant soumission.
 - Halcyon emploie `Content/Portrait/<IndexNum>.portrait`, `Content/Chara/<IndexNum>.chara`, données de forme et sélection species/form/skin/gender dans les scripts. Ces archives/index sont produits par le moteur : ne jamais renommer des PNG ou écrire de faux binaires. Exemple vérifié : Sandile 551, forme 1 Scarfed Sandile.
 - Exécuter le précontrôle `validate.py` et les tests ; distinguer systématiquement conformité technique, revue artistique, approbation SpriteCollab et test PMDO. Le Pokémon et le mod cible ne sont pas encore choisis dans cette demande de préparation.
 
@@ -159,7 +145,6 @@ Fonds utilisateur ajoutés au commit `bee49f0` : `template.png` (200×320) prior
 
 ## Reprise caractères / Méga — ressources désormais sauvegardées
 
-Suite à la perte de l'ancien Carapagos non poussé, nouvelle source magenta et exports **partiels** dans `source/pokemon_custom/tirtouga_v2/` et `exports/pokemon_custom/tirtouga_v2/`. Idle/Walk uniquement, trois émotions adaptées du Normal crédité, précontrôles minimum PASS mais donjon/complet FAIL attendus. Ne pas annoncer un personnage fini. L'audit actualisé `source/sprite_audit_v2/` recense 46 bases sans sprite, aucune sans Normal, sur SpriteCollab3609a86.
 
 Méga : `source/mega_evolution_v1/`, `renders/mega_evolution_v1/`, galerie `apercu_mega_et_carapagos.html`. 144 phases/4,8s, six atlas RGBA, démo native Dracaufeu→MégaX huit directions, switch opaque, fragments de coque avec décroissance. Emblème flamme/S redessiné depuis une référence secondaire, pas extraction officielle. Tests d'image PASS, **aucun test runtime PMDO**, aucune couverture exhaustive des tailles X/Y/Z-A. Ces atlas ne sont pas des tilesets ; raccord moteur encore absent. Continuer à faire des checkpoints commit/push sur la branche de session, sans prétendre que les 46 Pokémon ou la Méga jouable sont terminés.
 
@@ -213,11 +198,9 @@ Lot `source/tera_v2/`, `exports/tera_v2/`, `apercu_tera_v2.html` : dix générat
 
 Nouveau verre :59plancheslocales×24phases +12planchesdistantes×24, alpha/RGBtransparent/XMLnatifs conservés ;11testsunitairesPASS. Toute source du catalogue peut être chargée à la demande par `catalogue_surface.py`, mais **55953planches indexées ≠ toutes rendues ou intégrées**. Inventaire complet984racines/3337XML,55941planchesdistantes non rendues ; aucunshaderPMDOinstallé/testé. Revue Feu+verre16placementsproposés, pas toutesanatomies.
 
-Deux tentatives supplémentaires Zarudeouest/Stellairecorps bloquées par limite10générations : aucunnouveausprite/portrait de la file dans ce tour. Carapagos32actions/16portraits regroupés sans compter d'art nouveau ;6originauxpréservés. Méga-RaichuX/Y **retrouvés** dans0026/0002 et0003 : Normal natif existant avec crédits, à préserver ;15émotions requises manquantes chacun, corps officiel complet à vérifier. Stellaire15émotionsmanquantes, Zarude0sur16, tousspritesàproduire/corriger. `project_queue.json` garde aussi46espècesbase sanssprites. Ne pas remplacer les portraits déjà présents ou faire passer l'inventaire pour une production terminée.
 
 ## Dernière correction de périmètre — totalité de SpriteCollab
 
-L’utilisateur précise explicitement : « la totalité des créations absentes de SpriteCollab, faudra tous les faire ». Cela **annule le précédent choix limité à la liste du projet**. La priorité est désormais le catalogue complet, sans abandonner Carapagos/Zarude/Stellaire/Méga-Raichu. `exports/spritecollab_global/` inventorie les 5 640 slots de la révision3609a86 (HEAD upstream revérifié), y compris variantes et entrées non requises. `source/sprite_audit_v2/global_backlog.py` distingue absences complètes, incomplets upstream, émotions du contrat et états/pending. Les 32actions du projet ne sont PAS automatiquement les exigences de chaque entrée SpriteCollab. Ne pas annoncer tous les Pokémon faits à partir d’un audit ni d’images brutes. Préserver crédits, originaux et propositions en attente ; pas de flips automatiques des asymétries.
 
 ## Règle portrait la plus récente — Normal anatomiquement fixe
 
@@ -237,7 +220,6 @@ Dernier lot : `apercu_expressions_canoniques_v2.html`, `exports/pokemon_custom/c
 
 ## Priorité la plus récente — les neuf membres de guilde de la quête PMDO
 
-Prioriser désormais Gardevoir, Farfetch’d, Pancham, Bagon, Shroomish, Happiny, Pachirisu, Weavile, Politoed. Le chantier global reste en file, pas annulé. Audit `exports/guild_members_audit/README.md` et `audit.json` : tracker3609a86 HEAD revérifié, vrais listings/XML/CopyOf et triplesIdle contrôlés, crédits natifs préservés. Aucun testPMDO ni création dans cet audit.
 
 Seul Politoed manque d’émotions parmi16 :12à produire, conserver Normal/Inspired/Shouting/Surprised. Tous les neuf ont donjon10. Bagon/Happiny/Pachirisu base ont32actions du profil ; les six autres manquent chacun22actions de scène du profil projet (132au total dans les bases), pas forcément toutes utilisées par la quête. Gardevoir Cutscene possède notamment Pose/StandingUp/Jump/Special0–3 ; Weavile Cutscene possèdeSpecial0–1 : examiner avant régénération. Pachirisu femelle n’a pas les mêmes scènes que sa base. Pas de forme/gender/Galar/Méga substituée sans indication.
 
@@ -257,7 +239,6 @@ Tarpaud : `source/pokemon_custom/politoed_portraits_v1/generation/Happy.png` est
 
 L’utilisateur préfère **le lot V1 poussé en ac15d0fa** aux essais V2 de visages entiers. Préserver V1 ; ne pas utiliser V2 Sigh/Stunned pour combler les trous. Exception ciblée : **Dizzy avec véritable spirale continue** (étourdi façon KO), et **Special0 applaudissant, yeux fermés, bouche ouverte** naturellement à la jonction vert/jaune. V3 conserve 13 portraits V1 byte-identiques, remplace Dizzy et ajoute Special0 ; fond optionnel explicitement choisi dans Extra_Backgrounds.png rectangle40,0,80,40. Générateur puis détourage/nettoyage ; la spirale finale est une retouche pixel manuelle explicite, pas des anneaux concentriques générés acceptés tels quels. Ajouts proposés, pas art-approuvés. Sigh/Stunned restent absents.
 
-Priorité actuelle : animations manquantes de guilde. `exports/guild_scene_animations_v1/` conserve toutes les animations de base de Gardevoir/Dimoret et ajoute les ressources Cutscene authentiques (7actions Gardevoir, 2Dimoret), crédits séparés et triples natifs inchangés. **Special1 Gardevoir doit matérialiser l’Appeal Cutscene, différent de l’Appeal de base** ; ne pas garder un alias qui sélectionnerait le mauvais dessin. Un seul manque du profil générique est couvert par cette réutilisation : Pose. Special0/1 Dimoret ne sont pas artificiellement renommés Nod/Pose.
 
 Nod Gardevoir : candidat **de face uniquement**, 3dessins sur5étapes, têtes générées de la première ligne puis palette native et corps/repères immobiles. Les sept autres vues générées sont incohérentes et rejetées ; pas de faux Nod8directions. Les deux packs passent le précontrôle donjon local, pas d’import/runtimePMDO ni d’approbation artistique. GIFs et galerie `apercu_guilde_scenes_v1.html`. Continuer les manques avant Team Dazzling/transition/maps ; ni132lacunes ni catalogue entier ne sont achevés.
 

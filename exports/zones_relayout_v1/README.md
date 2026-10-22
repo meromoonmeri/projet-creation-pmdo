@@ -11,6 +11,5 @@ PNG `RelayoutV1_*` : seules images de calques destinées au montage. TSX8px four
 
 `*_provenance.npz` contient `source_xy[y,x] = [x_source,y_source]`, ou[-1,-1] pour transparence. Chaque pixel visible RGBA est identique au pixel source enregistré. Pas de recoloration, miroir, rotation, mise à l’échelle ou mélange alpha. Seuls les sols homogènes sont assemblés par patches natifs et coutures de moindre différence (sans fondu), pas les falaises. Cela ne garantit pas à lui seul la qualité visuelle des raccords.
 
-Sources utilisateur : `forêtglomypmdsky.png` et `rockroadpmd.png`, commit9ec9a081. Originaux byte-identiques, hashes conservés. Crédits des références aux ayants droit et auteurs PMD d’origine ; aucun transfert de droits/licence déduit du dépôt utilisateur. Noms descriptifs, identification officielle des scènes non certifiée.
 
 96 testsPASS, dont7 nouveaux. **Art à examiner ; aucune collision, entrée/warp, occlusion de personnages ou exécution PMDO validée.** La ligne orange est uniquement une proposition de parcours. Autres zones et panoramas encore à produire, suivi dans `production_progress.json`.

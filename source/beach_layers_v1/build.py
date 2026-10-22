@@ -196,7 +196,7 @@ def main():
         dest=OUT/'import_8px'/path.relative_to(OUT);dest.parent.mkdir(parents=True,exist_ok=True)
         pad.save(dest.with_name(path.stem+'_PAD8.png'),optimize=True)
     m={'source':{'file':str(SRC.relative_to(ROOT)),'sha256':sha(SRC),'size':[w,h]},
-       'wave_reference':{'file':str(WAVE_REF.relative_to(ROOT)),'sha256':sha(WAVE_REF),'credit':'Beach & Path to Beach, rip redblueyellow; PMD / Nintendo / Creatures / GAME FREAK / Chunsoft',
+       'wave_reference':{'file':str(WAVE_REF.relative_to(ROOT)),'sha256':sha(WAVE_REF),'':'Beach & Path to Beach, rip redblueyellow; PMD / Nintendo / Creatures / GAME FREAK / Chunsoft',
                          'sample_rectangles':[[865,y,1180,y+47] for y in WAVE_ROWS], 'crest_height_px':heights.tolist(),
                          'usage':'Crest-height progression guides a new integer-coordinate displacement. No sheet pixels substituted into the supplied map; official cadence unknown.'},
        'layers':[{'id':i,'name':n,'file':f'calques/BeachV1_{i}.png','origin':[0,0]} for i,n,a in layers],
