@@ -1,125 +1,434 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Biome D17 — Traversée Cristal (ETX1 &amp; FTX1) — PMDO 0.8.12</title>
-<style>
-  :root{--bg:#0b1118;--panel:#121b26;--line:#1f3145;--txt:#e8f3fb;--muted:#8faac0;--acc:#5ce1e6;--acc2:#7ef4cc}
-  *{box-sizing:border-box}
-  body{margin:0;background:radial-gradient(circle at 50% 0%,#142638 0%,var(--bg) 62%);color:var(--txt);font:14px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-  header{max-width:1620px;margin:0 auto;padding:28px 24px 16px;border-bottom:1px solid var(--line)}
-  h1{margin:0 0 8px;font-size:24px;letter-spacing:.2px;color:#fff}
-  .sub{color:var(--muted);margin:0 0 14px;max-width:1100px}
-  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-  .pill{background:#162636;border:1px solid #26435e;border-radius:999px;padding:4px 12px;font-size:12px;color:#cfeaff}
-  .pill b{color:var(--acc)}
-  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-  a.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:8px;background:#193549;border:1px solid #2e5d7e;color:#e9f8ff;text-decoration:none;font-weight:600;font-size:13px}
-  a.btn:hover{background:#214761;border-color:var(--acc)}
-  a.btn.primary{background:linear-gradient(135deg,#0f4c5c,#1b6ca8);border-color:var(--acc)}
-  main{max-width:1620px;margin:0 auto;padding:22px 24px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(740px,1fr));gap:24px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.38)}
-  .card-hd{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-  .card-hd h2{margin:0;font-size:18px;color:#fff}
-  .meta{font-size:12px;color:var(--muted);margin-top:3px}
-  .toolbar{display:flex;gap:8px;align-items:center}
-  button{cursor:pointer;padding:6px 12px;border-radius:7px;border:1px solid #2d4c68;background:#17293a;color:#dff3ff;font-size:12px;font-weight:600}
-  button.active{background:#1d566e;border-color:var(--acc);color:#fff}
-  .stage{position:relative;background:#070c11;display:flex;justify-content:center;align-items:center;padding:12px}
-  .viewport{position:relative;width:768px;max-width:100%;aspect-ratio:4/3}
-  .viewport img{width:100%;height:100%;display:block;image-rendering:pixelated;border-radius:4px}
-  .viewport img.ov{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .16s ease}
-  .viewport.show-col img.ov{opacity:.62}
-  .specs{padding:14px 18px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12.5px}
-  .spec{background:#0e1620;border:1px solid #1a2a3b;border-radius:8px;padding:9px 11px}
-  .spec span{display:block;color:var(--muted);font-size:11px}
-  .spec b{color:#e8f6ff}
-  .card-ft{padding:12px 18px 16px;display:flex;flex-wrap:wrap;gap:8px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suite Tour Céleste, Chemin, Sommet & Suite — PMDO 0.8.12</title>
+  <style>
+    :root {
+      --bg: #080d18;
+      --panel: #10192d;
+      --panel-2: #16233d;
+      --border: #27406d;
+      --accent: #54c7ff;
+      --accent-2: #8ef0c0;
+      --text: #eaf3ff;
+      --muted: #9eb4d4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #122140 0%, var(--bg) 58%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 24px 28px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 13, 24, 0.86);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .header-row {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.32rem;
+      letter-spacing: -0.01em;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 3px;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    a.btn, button.btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 8px 13px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    a.btn:hover, button.btn:hover { border-color: var(--accent); background: #1c3054; }
+    a.btn.primary, button.btn.primary {
+      background: linear-gradient(135deg, #1a6db8, #2898dc);
+      border-color: #63ccff;
+      color: #fff;
+    }
+    button.btn.active {
+      background: #1d4e78;
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+    }
+    main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 22px 24px 56px;
+    }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .tab-btn {
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .tab-btn:hover { border-color: var(--accent); }
+    .tab-btn.active {
+      background: linear-gradient(160deg, #17345b, #112442);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(84, 199, 255, 0.35);
+    }
+    .tab-code { font-size: 0.76rem; color: var(--accent); font-weight: 700; display: block; }
+    .tab-title { font-size: 0.84rem; font-weight: 600; display: block; margin-top: 2px; }
+    .stage-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.48fr) minmax(320px, 0.92fr);
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 1080px) { .stage-grid { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .canvas-wrap {
+      width: 100%;
+      background: #040711;
+      border-radius: 10px;
+      border: 1px solid #20355b;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    canvas#mapCanvas {
+      width: 100%;
+      max-width: 768px;
+      aspect-ratio: 4 / 3;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      display: block;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #172a4a;
+      border: 1px solid #2e4d82;
+      font-size: 0.77rem;
+      color: var(--accent-2);
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin-top: 10px;
+    }
+    .meta-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(39, 64, 109, 0.55);
+    }
+    .meta-table td:first-child { color: var(--muted); width: 45%; }
+    .refs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .ref-item {
+      background: #0a1120;
+      border: 1px solid #233a63;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+    }
+    .ref-item img {
+      width: 100%;
+      height: 112px;
+      object-fit: contain;
+      image-rendering: pixelated;
+      border-radius: 4px;
+      background: #03060e;
+    }
+    .ref-caption { font-size: 0.74rem; color: var(--muted); margin-top: 5px; word-break: break-word; }
+    h2.sec-title {
+      margin: 34px 0 14px;
+      font-size: 1.15rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 11px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+    }
+    .map-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #040812;
+      image-rendering: pixelated;
+      cursor: pointer;
+    }
+    .map-card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .map-card h3 { margin: 0 0 4px; font-size: 0.96rem; }
+    .map-card p { margin: 0 0 10px; font-size: 0.81rem; color: var(--muted); }
+  </style>
 </head>
 <body>
 <header>
-  <h1>Biome D17 — Traversée Cristal (<code>ETX1</code> &amp; <code>FTX1</code>) — PMDO 0.8.12</h1>
-  <p class="sub">Deux cartes Ground jouables en format <code>768 &times; 576 px</code> (<code>96 &times; 72</code> tuiles de <code>8 &times; 8 px</code>), encodées en <code>.rsground</code> + feuilles binaires <code>.tile</code> et intégrées au dépôt complet sans Git LFS <code>town02-quest-pmdo-0812-complete</code> (<code>3 639</code> cartes).</p>
-  <div class="pills">
-    <span class="pill">Tests unitaires : <b>18 / 18 PASS</b></span>
-    <span class="pill">Résolution : <b>768 &times; 576 px (1:1 pixel-art)</b></span>
-    <span class="pill">Franges magenta : <b>0 px</b></span>
-    <span class="pill">Dépôt Quest sans LFS : <b>3 639 maps &middot; 2 567 feuilles .tile &middot; 0 LFS</b></span>
-  </div>
-  <div class="btns">
-    <a class="btn primary" href="renders/entree_traversee_cristal_sud_nord_v1/ETX1_projet_pmdo_0812.zip">Télécharger ETX1 (.rsground + .tile)</a>
-    <a class="btn primary" href="renders/fin_traversee_cristal_v1/FTX1_projet_pmdo_0812.zip">Télécharger FTX1 (.rsground + .tile)</a>
-    <a class="btn" href="apercu_entree_traversee_cristal_sud_nord_v1.html">Visionneuse détaillée ETX1 (calques + animation)</a>
-    <a class="btn" href="apercu_fin_traversee_cristal_v1.html">Visionneuse détaillée FTX1 (calques + animation)</a>
-    <a class="btn" href="index.html">Catalogue complet des aperçus</a>
+  <div class="header-row">
+    <div>
+      <h1>Suite Tour Céleste, Chemin, Sommet &amp; Suite — PMDO 0.8.12</h1>
+      <div class="sub">8 cartes animées 4:3 (768×576 px, 96×72 tuiles 8×8) + 8 restaurations natives 1:1 animées • Références officielles PMD Red Port &amp; PMD Sky Port</div>
+    </div>
+    <div class="btn-row">
+      <a class="btn primary" href="renders/suite_tour_celeste_pmdo_v1/PACK_COMPLET_TOUR_CELESTE_ET_SUITE_PMDO_0812.zip">Télécharger le Pack Complet (8 Mods .zip)</a>
+      <a class="btn" href="apercu_traversee_cristal_d17_pmdo.html">Biome D17 (ETX1 &amp; FTX1)</a>
+      <a class="btn" href="index.html">Portail Général</a>
+    </div>
   </div>
 </header>
 
 <main>
-  <section class="card">
-    <div class="card-hd">
-      <div>
-        <h2>1. Entrée Traversée Cristal (<code>etx1_entree_traversee_cristal</code>)</h2>
-        <div class="meta">Arrivée sud &rarr; seuil du sanctuaire nord &middot; Cycle BPL exact <code>19 &times; 4 = 76</code> ticks (Palettes 8 &amp; 9)</div>
-      </div>
-      <div class="toolbar">
-        <button onclick="toggleCol('vp-etx', this)">Afficher collisions &amp; marqueurs</button>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="viewport" id="vp-etx">
-        <img src="renders/entree_traversee_cristal_sud_nord_v1/review/ETX1_scene_t000.png" alt="ETX1 Entrée Traversée Cristal">
-        <img class="ov" src="renders/entree_traversee_cristal_sud_nord_v1/review/ETX1_collisions_marqueurs.png" alt="Collisions ETX1">
-      </div>
-    </div>
-    <div class="specs">
-      <div class="spec"><span>Cellules praticables</span><b>1 178 tuiles 8&times;8</b></div>
-      <div class="spec"><span>Marqueurs 16&times;16</span><b>[384, 536] &rarr; [384, 304]</b></div>
-      <div class="spec"><span>Feuilles PMDO</span><b>10 feuilles .tile + index.idx</b></div>
-    </div>
-    <div class="card-ft">
-      <a class="btn primary" href="renders/entree_traversee_cristal_sud_nord_v1/ETX1_projet_pmdo_0812.zip">Pack PMDO 0.8.12 (ETX1)</a>
-      <a class="btn" href="renders/entree_traversee_cristal_sud_nord_v1/ETX1_calques_png_8px.zip">Calques PNG 8px + OpenRaster (.ora)</a>
-      <a class="btn" href="apercu_entree_traversee_cristal_sud_nord_v1.html">Inspecteur interactif 76 ticks</a>
-    </div>
-  </section>
+  <div id="tabs" class="tabs"></div>
 
-  <section class="card">
-    <div class="card-hd">
-      <div>
-        <h2>2. Fin Traversée Cristal — Lac Cristallin (<code>ftx1_fin_traversee_cristal</code>)</h2>
-        <div class="meta">Pont sud &rarr; arène lacustre centrale &middot; Cul-de-sac nord (20 rangées) &middot; Cycle BPA polymétrique <code>12 &times; 10 = 120</code> ticks</div>
+  <div class="stage-grid">
+    <div class="card">
+      <div class="canvas-wrap">
+        <canvas id="mapCanvas" width="768" height="576"></canvas>
       </div>
       <div class="toolbar">
-        <button onclick="toggleCol('vp-ftx', this)">Afficher collisions &amp; marqueurs</button>
+        <div class="btn-row">
+          <button id="btnPlay" class="btn active">Pause / Lecture</button>
+          <button id="btnStep" class="btn">Phase suivante (<span id="phaseLabel">1/8</span>)</button>
+          <button id="btnCol" class="btn">Collisions &amp; Marqueurs 16×16</button>
+        </div>
+        <div class="btn-row">
+          <a id="btnZip" class="btn primary" href="#">Télécharger ce Mod (.zip)</a>
+          <a id="btnWebp" class="btn" href="#" target="_blank">Aperçu WebP animé</a>
+        </div>
       </div>
     </div>
-    <div class="stage">
-      <div class="viewport" id="vp-ftx">
-        <img src="renders/fin_traversee_cristal_v1/review/FTX1_scene_t000.png" alt="FTX1 Fin Traversée Cristal">
-        <img class="ov" src="renders/fin_traversee_cristal_v1/review/FTX1_collisions_marqueurs.png" alt="Collisions FTX1">
-      </div>
+
+    <div class="card">
+      <div id="pillsRow"></div>
+      <h2 id="detailTitle" style="margin:6px 0 6px;font-size:1.14rem;"></h2>
+      <div id="detailAnimDesc" style="font-size:0.85rem;color:var(--muted);margin-bottom:8px;"></div>
+      <table class="meta-table" id="metaTable"></table>
+      <h3 style="margin:16px 0 6px;font-size:0.92rem;color:var(--accent);">Références exactes utilisées (PMD Red Port / PMD Sky Port)</h3>
+      <div id="refsBox" class="refs-box"></div>
     </div>
-    <div class="specs">
-      <div class="spec"><span>Cellules praticables</span><b>1 371 tuiles 8&times;8 (nord fermé : 20 rangées)</b></div>
-      <div class="spec"><span>Marqueurs 16&times;16</span><b>[384, 536] &rarr; [384, 240] &rarr; [384, 176]</b></div>
-      <div class="spec"><span>Feuilles PMDO</span><b>10 feuilles .tile + index.idx</b></div>
-    </div>
-    <div class="card-ft">
-      <a class="btn primary" href="renders/fin_traversee_cristal_v1/FTX1_projet_pmdo_0812.zip">Pack PMDO 0.8.12 (FTX1)</a>
-      <a class="btn" href="renders/fin_traversee_cristal_v1/FTX1_calques_png_8px.zip">Calques PNG 8px + OpenRaster (.ora)</a>
-      <a class="btn" href="apercu_fin_traversee_cristal_v1.html">Inspecteur interactif 120 ticks</a>
-    </div>
-  </section>
+  </div>
+
+  <h2 class="sec-title">Les 8 Cartes Jouables &amp; Animées 4:3 (768 × 576 px — 96 × 72 cases de 8 px)</h2>
+  <div id="workshopGallery" class="gallery-grid"></div>
+
+  <h2 class="sec-title">Les 8 Restaurations Natives 1:1 Animées (PMD Red Port -> PMDO 0.8.12)</h2>
+  <div id="nativeGallery" class="gallery-grid"></div>
 </main>
+
 <script>
-function toggleCol(id, btn){
-  const el = document.getElementById(id);
-  el.classList.toggle('show-col');
-  btn.classList.toggle('active');
+let DATA = null;
+let curIdx = 2; // Démarre directement sur SKY1 (Entrée Tour Céleste) !
+let playing = true;
+let showCol = false;
+let phase = 0;
+let baseImg = null;
+let colImg = null;
+let animImgs = [];
+let timerId = null;
+
+const canvas = document.getElementById('mapCanvas');
+const ctx = canvas.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const im = new Image();
+    im.onload = () => resolve(im);
+    im.onerror = reject;
+    im.src = src + '?v=sky0812';
+  });
 }
+
+function renderFrame() {
+  if (!baseImg) return;
+  ctx.clearRect(0, 0, 768, 576);
+  ctx.drawImage(baseImg, 0, 0, 768, 576);
+  if (animImgs[phase]) ctx.drawImage(animImgs[phase], 0, 0, 768, 576);
+  if (showCol && colImg) ctx.drawImage(colImg, 0, 0, 768, 576);
+  document.getElementById('phaseLabel').textContent = `${phase + 1}/${animImgs.length || 8}`;
+}
+
+function restartLoop(ticksPerPhase) {
+  if (timerId) clearInterval(timerId);
+  const ms = Math.max(70, Math.round((ticksPerPhase * 1000) / 60));
+  timerId = setInterval(() => {
+    if (!playing || !animImgs.length) return;
+    phase = (phase + 1) % animImgs.length;
+    renderFrame();
+  }, ms);
+}
+
+async function selectMap(idx) {
+  curIdx = idx;
+  phase = 0;
+  const m = DATA.maps[idx];
+  document.querySelectorAll('.tab-btn').forEach((el, i) => el.classList.toggle('active', i === idx));
+  document.getElementById('detailTitle').textContent = `${m.code} — ${m.title_fr}`;
+  document.getElementById('detailAnimDesc').textContent = m.animation.description;
+  document.getElementById('btnZip').href = m.mod_zip_url;
+  document.getElementById('btnZip').textContent = `Télécharger ${m.code}_projet_pmdo_0812.zip (${Math.round(m.mod_zip_size_bytes / 1024)} Ko)`;
+  document.getElementById('btnWebp').href = m.animation.animated_webp;
+
+  document.getElementById('pillsRow').innerHTML = `
+    <span class="pill">${m.chapter}</span>
+    <span class="pill">${m.port_origin} : ${m.ref_codes.join(' + ')}</span>
+    <span class="pill">ΔRGB Réf = ${m.chromatic_distance_vs_port_ref}</span>
+  `;
+
+  const mkList = Object.entries(m.access.markers).map(([k, v]) => `${k}: [${v[0]}, ${v[1]}]`).join(' • ');
+  const tilesList = Object.entries(m.tiles_per_bank).map(([k, v]) => `${k}: ${v}`).join(' • ');
+  document.getElementById('metaTable').innerHTML = `
+    <tr><td>Asset Ground PMDO</td><td><code>${m.asset_name}.rsground</code></td></tr>
+    <tr><td>Dimensions exactes</td><td>768 × 576 px (96 × 72 tuiles 8×8, TexSize=1)</td></tr>
+    <tr><td>Cadence matérielle</td><td>${m.animation.phases} phases × ${m.animation.ticks_per_phase} ticks = ${m.animation.loop_ticks} ticks</td></tr>
+    <tr><td>Cellules praticables</td><td>${m.access.walkable_cells} cases (${m.access.north_closed ? 'Nord fermé : ' + m.access.closed_north_rows + ' rangées' : 'Traversée Sud → Nord ouverte'})</td></tr>
+    <tr><td>Marqueurs 16×16</td><td>${mkList}</td></tr>
+    <tr><td>Banques .tile</td><td>${tilesList}</td></tr>
+  `;
+
+  const refsBox = document.getElementById('refsBox');
+  refsBox.innerHTML = m.reference_pngs.map(rp => `
+    <div class="ref-item">
+      <a href="${rp}" target="_blank"><img src="${rp}?v=sky0812" alt="Référence port" /></a>
+      <div class="ref-caption">${rp.split('/').pop()}</div>
+    </div>
+  `).join('');
+
+  const [bIm, cIm, ...fIms] = await Promise.all([
+    loadImage(m.base_png),
+    loadImage(m.collision_overlay),
+    ...m.animation.frames.map(loadImage)
+  ]);
+  baseImg = bIm;
+  colImg = cIm;
+  animImgs = fIms;
+  renderFrame();
+  restartLoop(m.animation.ticks_per_phase);
+}
+
+document.getElementById('btnPlay').onclick = (e) => {
+  playing = !playing;
+  e.currentTarget.classList.toggle('active', playing);
+};
+document.getElementById('btnStep').onclick = () => {
+  playing = false;
+  document.getElementById('btnPlay').classList.remove('active');
+  phase = (phase + 1) % (animImgs.length || 8);
+  renderFrame();
+};
+document.getElementById('btnCol').onclick = (e) => {
+  showCol = !showCol;
+  e.currentTarget.classList.toggle('active', showCol);
+  renderFrame();
+};
+
+fetch('renders/suite_tour_celeste_pmdo_v1/suite_manifest.json?v=sky0812')
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    const tabs = document.getElementById('tabs');
+    tabs.innerHTML = data.maps.map((m, i) => `
+      <button class="tab-btn" onclick="selectMap(${i})">
+        <span class="tab-code">0${m.order} • ${m.code} (${m.port_origin})</span>
+        <span class="tab-title">${m.title_fr}</span>
+      </button>
+    `).join('');
+
+    document.getElementById('workshopGallery').innerHTML = data.maps.map((m, i) => `
+      <div class="map-card">
+        <img src="${m.animation.animated_webp}?v=sky0812" alt="${m.title_fr}" onclick="selectMap(${i});window.scrollTo({top:0,behavior:'smooth'});" />
+        <div class="map-card-body">
+          <div>
+            <span class="pill">${m.code}</span>
+            <span class="pill">${m.ref_codes.join(' + ')}</span>
+            <h3>${m.title_fr}</h3>
+            <p>${m.animation.description}</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn" onclick="selectMap(${i});window.scrollTo({top:0,behavior:'smooth'});">Inspecter sur scène</button>
+            <a class="btn primary" href="${m.mod_zip_url}">Mod .zip (${Math.round(m.mod_zip_size_bytes / 1024)} Ko)</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('nativeGallery').innerHTML = (data.native_1x1_maps || []).map(nm => `
+      <div class="map-card">
+        <img src="${nm.preview_png}?v=sky0812" alt="${nm.title_fr}" />
+        <div class="map-card-body">
+          <div>
+            <span class="pill">${nm.code} • 1:1 Natif</span>
+            <span class="pill">${nm.size_px[0]}×${nm.size_px[1]} px</span>
+            <h3>${nm.title_fr}</h3>
+            <p>Asset : <code>${nm.asset_name}.rsground</code> • Boucle matérielle ${nm.loop_ticks} ticks</p>
+          </div>
+          <div class="btn-row">
+            <a class="btn primary" href="${nm.mod_zip_url}">Télécharger Mod 1:1 (.zip)</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    selectMap(2);
+  });
 </script>
 </body>
 </html>
