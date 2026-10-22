@@ -45,3 +45,16 @@ git checkout -B main
 git remote set-url origin https://github.com/meromoonmeri/NEW-ERA-MASTER.git
 git push -u -f origin main
 ```
+
+---
+
+## Pousser ce doublon sans LFS vers `meromoonmeri/NEW-ERA-MASTER` ou `meromoonmeri/town02` en 1 commande
+
+Depuis votre PC (aucun Git LFS nécessaire) :
+```bash
+git clone --depth 1 --branch town02-quest-pmdo-0812-complete https://github.com/meromoonmeri/projet-creation-pmdo.git NEW-ERA-MASTER
+cd NEW-ERA-MASTER
+git checkout -B main
+git remote set-url origin https://github.com/meromoonmeri/NEW-ERA-MASTER.git
+git push -u -f origin main
+```
