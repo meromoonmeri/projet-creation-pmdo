@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/bibliotheque/asset.schema.json",
+  "title": "BIBLIOTHEQUE environmental asset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "asset_id", "game_id", "kind", "classification", "status", "provenance", "dependencies", "problems"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "asset_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "game_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+    "kind": {
+      "enum": ["MAP_LAYOUT", "TILESET", "AUTOTILE", "PANORAMA", "FOG", "WEATHER", "ENVIRONMENT_ANIMATION", "OVERLAY", "VFX", "BACKGROUND", "DECORATION"]
+    },
+    "classification": {
+      "enum": ["INCLUDED_ENVIRONMENTAL", "EXCLUDED_CHARACTER", "EXCLUDED_POKEMON", "EXCLUDED_UI", "EXCLUDED_ENGINE", "EXCLUDED_GAMEPLAY", "REVIEW_REQUIRED"]
+    },
+    "status": {"$ref": "status.schema.json"},
+    "dimensions": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1}
+      },
+      "required": ["width_px", "height_px"]
+    },
+    "alpha": {"type": ["boolean", "null"]},
+    "provenance": {"$ref": "provenance.schema.json"},
+    "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "used_by_zones": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "problems": {"type": "array", "items": {"type": "string"}}
+  }
+}

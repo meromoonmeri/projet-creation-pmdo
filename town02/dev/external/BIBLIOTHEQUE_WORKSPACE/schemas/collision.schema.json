@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/bibliotheque/collision.schema.json",
+  "title": "RPG Maker XP map collision preservation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "map_id", "source_complete", "tile_size_px", "width", "height", "layer_count", "source_layers", "tileset_tables", "derived_directional_grid", "dynamic_entities"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "map_id": {"type": "integer", "minimum": 1},
+    "source_complete": {"const": true},
+    "tile_size_px": {"const": 32},
+    "width": {"type": "integer", "minimum": 1},
+    "height": {"type": "integer", "minimum": 1},
+    "layer_count": {"type": "integer", "minimum": 1},
+    "source_layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "encoding", "value_count"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "encoding": {"const": "row-major-z-layers-json-u16"},
+        "value_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "tileset_tables": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "passages_complete", "priorities_complete", "terrain_tags_complete"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "passages_complete": {"const": true},
+        "priorities_complete": {"const": true},
+        "terrain_tags_complete": {"const": true}
+      }
+    },
+    "derived_directional_grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "method", "directions", "custom_script_overrides_executed"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "method": {"const": "RGSS1_STANDARD_PRIORITY_AND_PASSAGE_FLAGS"},
+        "directions": {"const": ["down", "left", "right", "up"]},
+        "custom_script_overrides_executed": {"const": false}
+      }
+    },
+    "dynamic_entities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "placements_complete"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "placements_complete": {"const": true}
+      }
+    }
+  }
+}

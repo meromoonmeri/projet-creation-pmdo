@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Preserve complete environmental construction while redacting source casting identities.",
+  "included": [
+    "map geometry and every tile layer",
+    "tilesets, autotiles, panoramas, fogs, weather and environmental overlays",
+    "raw passage, priority and terrain-tag collision tables",
+    "derived directional collision grids with an explicit derivation method",
+    "all event/entity coordinates and page-level placement state",
+    "entity direction, pattern, opacity, blend, movement and blocking flags",
+    "environmental tile entities and decorations",
+    "visual event commands, transitions, tones, flashes, shakes and weather",
+    "environmental animation frames, layers, durations and loops",
+    "source hashes, variants, dependencies and unresolved references"
+  ],
+  "redacted_but_placement_preserved": [
+    "human character graphics",
+    "named cast identities",
+    "trainer graphics",
+    "Pokemon character graphics",
+    "dialogue contents",
+    "source character names"
+  ],
+  "placeholder_contract": {
+    "id_format": "map_<map_id>_entity_<event_id>_page_<page_index>",
+    "classification": "CAST_PLACEHOLDER",
+    "preserve": [
+      "map_id",
+      "source_event_id",
+      "page_index",
+      "x",
+      "y",
+      "direction",
+      "pattern",
+      "opacity",
+      "blend_type",
+      "move_type",
+      "move_speed",
+      "move_frequency",
+      "walk_animation",
+      "step_animation",
+      "direction_fix",
+      "through",
+      "always_on_top",
+      "trigger",
+      "page_condition_flags"
+    ],
+    "redact": ["event_name", "character_graphic_name", "dialogue", "script_body"],
+    "replacement_goal": "Allow a New Era actor to occupy the exact source staging slot later."
+  },
+  "excluded_outputs": [
+    "executables and engine DLLs",
+    "source scripts and proprietary systems",
+    "battle logic",
+    "dialogue text",
+    "UI screens",
+    "human, trainer and Pokemon sprite pixels",
+    "audio binaries"
+  ],
+  "never_execute": ["Game.exe", "Scripts.rxdata", "PluginScripts.rxdata", "*.rb", "*.dll"],
+  "allowed_source_roots": [
+    "Data/MapInfos.rxdata",
+    "Data/Tilesets.rxdata",
+    "Data/Map*.rxdata",
+    "Data/CommonEvents.rxdata (visual commands only; dialogue and scripts redacted)",
+    "Data/Animations.rxdata (only animation IDs used by map timelines)",
+    "Data/Scripts/005_Sprites/008_Sprite_AnimationSprite.rb (static visual timing/placement authority only)",
+    "Data/Scripts/006_Map renderer/001_TilemapRenderer.rb (static timing constants only; content never exported)",
+    "Graphics/Tilesets",
+    "Graphics/Autotiles",
+    "Graphics/Fogs",
+    "Graphics/Panoramas",
+    "Graphics/Weather"
+  ],
+  "review_required_roots": ["Graphics/Animations", "Graphics/Pictures", "Graphics/Transitions"]
+}

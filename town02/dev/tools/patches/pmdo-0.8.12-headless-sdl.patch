@@ -1,0 +1,85 @@
+diff --git a/src/video/offscreen/SDL_offscreenevents.c b/src/video/offscreen/SDL_offscreenevents.c
+index d825162b8..5c4e002aa 100644
+--- a/src/video/offscreen/SDL_offscreenevents.c
++++ b/src/video/offscreen/SDL_offscreenevents.c
+@@ -26,13 +26,36 @@
+    most of the API. */
+
+ #include "../../events/SDL_events_c.h"
++#include "../../events/SDL_keyboard_c.h"
++#include "SDL_timer.h"
+
+ #include "SDL_offscreenvideo.h"
+ #include "SDL_offscreenevents_c.h"
+
+ void OFFSCREEN_PumpEvents(_THIS)
+ {
+-    /* do nothing. */
++    /*
++     * PMDO's release splash requires a real input edge before gameplay can
++     * start.  The offscreen backend has no physical event source, so exact
++     * headless validation can opt into a bounded synthetic Space pulse train.
++     * It is disabled for every ordinary SDL consumer.
++     */
++    static Uint64 headless_dismiss_start = 0;
++    static Uint64 headless_dismiss_interval = (Uint64) -1;
++    const char *dismiss_splash = SDL_getenv("PMDO_HEADLESS_DISMISS_SPLASH");
++    if (dismiss_splash && dismiss_splash[0] == '1') {
++        const Uint64 now = SDL_GetTicks64();
++        const Uint64 interval = (now - headless_dismiss_start) / 250;
++        if (headless_dismiss_start == 0) {
++            headless_dismiss_start = now;
++        }
++        if (interval < 120 && interval != headless_dismiss_interval) {
++            SDL_SendKeyboardKey(
++                (interval & 1) ? SDL_RELEASED : SDL_PRESSED,
++                SDL_SCANCODE_SPACE);
++            headless_dismiss_interval = interval;
++        }
++    }
+ }
+
+ #endif /* SDL_VIDEO_DRIVER_OFFSCREEN */
+diff --git a/src/video/offscreen/SDL_offscreenopengles.c b/src/video/offscreen/SDL_offscreenopengles.c
+index a36cf5188..d9f29e757 100644
+--- a/src/video/offscreen/SDL_offscreenopengles.c
++++ b/src/video/offscreen/SDL_offscreenopengles.c
+@@ -30,18 +30,27 @@
+
+ int OFFSCREEN_GLES_LoadLibrary(_THIS, const char *path)
+ {
+-    int ret = SDL_EGL_LoadLibraryOnly(_this, path);
+-    if (ret != 0) {
+-        return ret;
++    int ret;
++    const char *angle_default = SDL_getenv("PMDO_HEADLESS_ANGLE_DEFAULT_DISPLAY");
++
++    if (angle_default && angle_default[0] == '1') {
++        /* Chromium's ANGLE exposes a surfaceless default display but not
++           EXT_device_enumeration.  Keep pbuffer config selection while using
++           that default display for the isolated PMDO validator only. */
++        ret = SDL_EGL_LoadLibrary(_this, path, EGL_DEFAULT_DISPLAY, 0);
++        if (ret == 0) {
++            _this->egl_data->is_offscreen = SDL_TRUE;
++        }
++    } else {
++        ret = SDL_EGL_LoadLibraryOnly(_this, path);
++        if (ret == 0) {
++            /* driver_loaded gets incremented by SDL_GL_LoadLibrary when we
++               return, but InitializeOffscreen checks it before then. */
++            _this->gl_config.driver_loaded++;
++            ret = SDL_EGL_InitializeOffscreen(_this, 0);
++            _this->gl_config.driver_loaded--;
++        }
+     }
+-
+-    /* driver_loaded gets incremented by SDL_GL_LoadLibrary when we return,
+-       but SDL_EGL_InitializeOffscreen checks that we're loaded before then,
+-       so temporarily bump it since we know that LoadLibraryOnly succeeded. */
+-
+-    _this->gl_config.driver_loaded++;
+-    ret = SDL_EGL_InitializeOffscreen(_this, 0);
+-    _this->gl_config.driver_loaded--;
+     if (ret != 0) {
+         return ret;
+     }

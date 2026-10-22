@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/bibliotheque/animation.schema.json",
+  "title": "BIBLIOTHEQUE layered environmental animation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "animation_id", "game_id", "status", "frame_count", "loop", "timing_authority", "timing_provenance", "layers", "contexts", "dependencies", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "animation_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "game_id": {"type": "string"},
+    "source_animation_id": {"type": "integer", "minimum": 1},
+    "position": {"type": "integer"},
+    "cells_by_frame": {"type": "array", "items": {"type": "object"}},
+    "source_timings": {"type": "array", "items": {"type": "object"}},
+    "render_note": {"type": "string"},
+    "status": {"$ref": "status.schema.json"},
+    "frame_count": {"type": "integer", "minimum": 1},
+    "loop": {"type": "boolean"},
+    "loop_start": {"type": ["integer", "null"], "minimum": 0},
+    "timing_authority": {"enum": ["SOURCE_EXACT", "RGSS1_DEFAULT_UNVALIDATED", "UNKNOWN_REQUIRES_AUDIT"]},
+    "source_frame_layout": {"type": "string"},
+    "timing_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_path", "sha256", "method", "units", "static_audit_only"],
+      "properties": {
+        "source_path": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "method": {"enum": ["STATIC_SCRIPT_CONSTANT", "GIF_GRAPHIC_CONTROL_EXTENSION"]},
+        "constant": {"type": ["integer", "null"], "minimum": 1},
+        "units": {"enum": ["1/20 second", "1/100 second", "frames per second"]},
+        "static_audit_only": {"type": "boolean"}
+      }
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["layer_id", "order", "frames"],
+        "properties": {
+          "layer_id": {"type": "string"},
+          "order": {"type": "integer"},
+          "blend_mode": {"type": "string"},
+          "frames": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["index", "file", "duration_ms", "sha256"],
+              "properties": {
+                "index": {"type": "integer", "minimum": 0},
+                "file": {"type": "string", "pattern": "^frame_[0-9]{3,}\\.png$"},
+                "duration_ms": {"type": ["integer", "null"], "minimum": 1},
+                "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "contexts": {"type": "array", "items": {"type": "object"}},
+    "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "pmdo_dtef_candidate": {"type": "boolean"},
+    "contact_sheet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "width_px", "height_px"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1}
+      }
+    },
+    "definition_provenance": {"$ref": "provenance.schema.json"},
+    "provenance": {"$ref": "provenance.schema.json"}
+  }
+}

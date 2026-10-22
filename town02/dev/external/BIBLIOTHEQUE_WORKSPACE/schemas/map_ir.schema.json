@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/schemas/bibliotheque-map-ir-1.0.0.json",
+  "title": "BIBLIOTHEQUE lossless environmental Map IR",
+  "description": "Game-neutral contract between qualified source extraction and a target Ground converter. It excludes casting identities, dialogue, audio and script bodies while retaining every environmental layer, directional collision mask, visual timeline and redacted entity placement.",
+  "type": "object",
+  "required": [
+    "schema_version", "identity", "status", "provenance", "geometry",
+    "tile_layers", "collision", "entities", "environment", "animations",
+    "target_contract"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "identity": {
+      "type": "object",
+      "required": ["game_id", "zone_id", "source_map_id", "source_name", "zone_type"],
+      "properties": {
+        "game_id": {"enum": ["relict", "nova", "reminiscencia"]},
+        "zone_id": {"type": "string", "minLength": 1},
+        "source_map_id": {"type": ["integer", "string"]},
+        "source_name": {"type": "string"},
+        "zone_type": {"type": "string"},
+        "variant_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "status": {"enum": ["SOURCE_EXTRACTED", "SOURCE_DOCUMENTED", "PMDO_CONVERTED", "PMDO_VALIDATED", "ADAPTATION_REQUIRED", "UNSUPPORTED"]},
+    "provenance": {
+      "type": "object",
+      "required": ["source_repository", "source_commit", "source_path", "source_sha256", "inputs"],
+      "properties": {
+        "source_repository": {"type": "string"},
+        "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "source_path": {"type": "string"},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "inputs": {"type": "array", "items": {"$ref": "#/$defs/fileRef"}, "minItems": 4}
+      },
+      "additionalProperties": false
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["width_tiles", "height_tiles", "source_tile_size_px", "width_px", "height_px", "coordinate_origin"],
+      "properties": {
+        "width_tiles": {"type": "integer", "minimum": 1},
+        "height_tiles": {"type": "integer", "minimum": 1},
+        "source_tile_size_px": {"type": "integer", "minimum": 1},
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1},
+        "coordinate_origin": {"const": "TOP_LEFT_X_RIGHT_Y_DOWN"}
+      },
+      "additionalProperties": false
+    },
+    "tile_layers": {
+      "type": "object",
+      "required": ["encoding", "draw_order", "layers", "tileset", "visual_assets", "tile_catalog"],
+      "properties": {
+        "encoding": {"const": "ROW_MAJOR_U16_TILE_IDS"},
+        "draw_order": {"const": "ASCENDING_LAYER_INDEX"},
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["index", "rows"],
+            "properties": {
+              "index": {"type": "integer", "minimum": 0},
+              "rows": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 65535}}}
+            },
+            "additionalProperties": false
+          }
+        },
+        "tileset": {"type": "object"},
+        "visual_assets": {"type": "array", "items": {"$ref": "#/$defs/visualAsset"}},
+        "tile_catalog": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["tile_id", "transparent", "loop", "frames"],
+            "properties": {
+              "tile_id": {"type": "integer", "minimum": 0, "maximum": 65535},
+              "transparent": {"type": "boolean"},
+              "loop": {"type": "boolean"},
+              "frames": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["index", "duration_ms", "file", "sha256", "size_bytes"],
+                  "properties": {
+                    "index": {"type": "integer", "minimum": 0},
+                    "duration_ms": {"type": "integer", "minimum": 1},
+                    "file": {"type": "string"},
+                    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                    "size_bytes": {"type": "integer", "minimum": 1}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "collision": {
+      "type": "object",
+      "required": ["semantics", "direction_bits", "allowed_direction_masks", "terrain_tags", "dynamic_entity_collision_separate"],
+      "properties": {
+        "semantics": {"const": "ALLOWED_EXIT_DIRECTIONS_PER_SOURCE_TILE"},
+        "direction_bits": {
+          "type": "object",
+          "required": ["down", "left", "right", "up"],
+          "properties": {"down": {"const": 1}, "left": {"const": 2}, "right": {"const": 4}, "up": {"const": 8}},
+          "additionalProperties": false
+        },
+        "allowed_direction_masks": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 15}}},
+        "terrain_tags": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0}}},
+        "dynamic_entity_collision_separate": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "required": ["source_complete", "source_identities_redacted", "placements"],
+      "properties": {
+        "source_complete": {"const": true},
+        "source_identities_redacted": {"const": true},
+        "placements": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "required": ["panorama", "fog", "timeline"],
+      "properties": {
+        "panorama": {"type": "string"},
+        "fog": {"type": "string"},
+        "timeline": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "animations": {
+      "type": "object",
+      "required": ["autotiles", "environmental_vfx", "map_effects"],
+      "properties": {
+        "autotiles": {"type": "array", "items": {"type": "object"}},
+        "environmental_vfx": {"type": "array", "items": {"type": "object"}},
+        "map_effects": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "target_contract": {
+      "type": "object",
+      "required": ["target", "preserve", "forbid", "runtime_destination_allowed"],
+      "properties": {
+        "target": {"const": "PMDO_GROUND_0.8.12"},
+        "preserve": {"type": "array", "items": {"type": "string"}, "minItems": 6},
+        "forbid": {"type": "array", "items": {"type": "string"}, "minItems": 4},
+        "runtime_destination_allowed": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "fileRef": {
+      "type": "object",
+      "required": ["path", "sha256", "size_bytes"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "size_bytes": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "visualAsset": {
+      "type": "object",
+      "required": ["kind", "source_name", "source_path", "sha256", "width_px", "height_px"],
+      "properties": {
+        "kind": {"type": "string"},
+        "source_name": {"type": "string"},
+        "source_path": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

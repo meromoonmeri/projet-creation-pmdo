@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/bibliotheque/zone.schema.json",
+  "title": "BIBLIOTHEQUE source zone",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "zone_id", "game_id", "source", "name", "zone_type", "status", "geometry", "tileset", "tile_layers", "collision", "entities", "visual_dependencies", "variants", "cinematic_visuals", "problems", "pmdo"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "zone_id": {"type": "string", "pattern": "^relict_map_[0-9]{3}$"},
+    "game_id": {"const": "relict"},
+    "source": {"$ref": "provenance.schema.json"},
+    "name": {"type": "string"},
+    "source_map_id": {"type": "integer", "minimum": 1},
+    "parent_map_id": {"type": "integer", "minimum": 0},
+    "source_order": {"type": "integer", "minimum": 1},
+    "zone_type": {"enum": ["DUNGEON", "BOSS", "INTERIOR", "EXTERIOR", "CINEMATIC", "TEMPLATE", "SPECIAL", "UNCLASSIFIED"]},
+    "zone_type_inferred": {"type": "boolean"},
+    "status": {"$ref": "status.schema.json"},
+    "source_documentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["geometry_complete", "collision_complete", "entity_placements_complete", "visual_dependencies_complete", "timeline_complete", "animations_complete", "manual_contact_sheet_review", "contact_sheet_sha256"],
+      "properties": {
+        "geometry_complete": {"const": true},
+        "collision_complete": {"const": true},
+        "entity_placements_complete": {"const": true},
+        "visual_dependencies_complete": {"const": true},
+        "timeline_complete": {"const": true},
+        "animations_complete": {"const": true},
+        "manual_contact_sheet_review": {"const": "PASS_2026-08-13"},
+        "contact_sheet_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width_tiles", "height_tiles", "tile_size_px", "width_px", "height_px", "layer_count"],
+      "properties": {
+        "width_tiles": {"type": "integer", "minimum": 1},
+        "height_tiles": {"type": "integer", "minimum": 1},
+        "tile_size_px": {"const": 32},
+        "width_px": {"type": "integer", "minimum": 32},
+        "height_px": {"type": "integer", "minimum": 32},
+        "layer_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "tileset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "name", "autotile_slots", "panorama", "fog"],
+      "properties": {
+        "source_id": {"type": "integer", "minimum": 1},
+        "name": {"type": "string"},
+        "autotile_slots": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["slot", "name"],
+            "properties": {
+              "slot": {"type": "integer", "minimum": 0, "maximum": 6},
+              "name": {"type": "string"}
+            }
+          }
+        },
+        "panorama": {"type": "string"},
+        "fog": {"type": "string"}
+      }
+    },
+    "tile_layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "all_source_values_preserved"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "all_source_values_preserved": {"const": true}
+      }
+    },
+    "collision": {"$ref": "collision.schema.json"},
+    "entities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256", "placement_count", "page_placement_count", "cast_placeholder_count", "environmental_tile_entity_count", "logic_marker_count", "source_identities_redacted"],
+      "properties": {
+        "file": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "placement_count": {"type": "integer", "minimum": 0},
+        "page_placement_count": {"type": "integer", "minimum": 0},
+        "cast_placeholder_count": {"type": "integer", "minimum": 0},
+        "environmental_tile_entity_count": {"type": "integer", "minimum": 0},
+        "logic_marker_count": {"type": "integer", "minimum": 0},
+        "source_identities_redacted": {"const": true}
+      }
+    },
+    "visual_dependencies": {"type": "array", "items": {"type": "object"}},
+    "variants": {"type": "array", "items": {"type": "object"}},
+    "cinematic_visuals": {"type": "object"},
+    "audio_context_present": {"type": "boolean"},
+    "problems": {"type": "array", "items": {"type": "string"}},
+    "pmdo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conversion_started", "differences", "adaptation_needs"],
+      "properties": {
+        "conversion_started": {"const": false},
+        "differences": {"type": "array", "items": {"type": "string"}},
+        "adaptation_needs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

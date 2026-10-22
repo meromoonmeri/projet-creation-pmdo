@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://new-era.invalid/bibliotheque/visual-timeline.schema.json",
+  "title": "Redacted source visual timeline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "map_id", "variant", "timing", "sequence_count", "visual_command_counts", "excluded_command_counts", "dialogue_contents_exported", "script_bodies_exported", "sequences"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "map_id": {"type": "integer", "minimum": 1},
+    "variant": {"type": ["string", "null"]},
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_unit", "nominal_frame_rate", "nominal_frame_duration_ms", "authority", "branching_note"],
+      "properties": {
+        "source_unit": {"const": "RGSS frames"},
+        "nominal_frame_rate": {"const": 40},
+        "nominal_frame_duration_ms": {"const": 25},
+        "authority": {"type": "string"},
+        "branching_note": {"type": "string"}
+      }
+    },
+    "sequence_count": {"type": "integer", "minimum": 0},
+    "visual_command_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "excluded_command_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "dialogue_contents_exported": {"const": false},
+    "script_bodies_exported": {"const": false},
+    "sequences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_event_id", "page_index", "trigger", "condition_flags", "timeline", "excluded_command_counts"],
+        "properties": {
+          "source_event_id": {"type": "integer", "minimum": 1},
+          "page_index": {"type": "integer", "minimum": 0},
+          "trigger": {"type": "integer"},
+          "condition_flags": {"type": "object"},
+          "timeline": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["source_index", "code", "category", "indent", "parameters"],
+              "properties": {
+                "source_index": {"type": "integer", "minimum": 0},
+                "code": {"type": "integer", "minimum": 0},
+                "category": {"type": "string"},
+                "indent": {"type": "integer", "minimum": 0},
+                "parameters": {}
+              }
+            }
+          },
+          "excluded_command_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+        }
+      }
+    }
+  }
+}
