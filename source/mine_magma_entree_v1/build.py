@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-MME1 — Mine Magma — Entrée (`H26P01` `1×` + Palette Cycling matériel `H26P01.bpl` + Veines `#FF00FF`).
+MME1 — Mine Magma — Entrée (`100 %` Roche Noire Magma Basalte/Obsidienne + `H26P01.bpl` `1×` + `#FF00FF`).
 
-Architecture canonique + découpe magenta `#FF00FF` stricte :
-- `MME1_00` (`BG`, `31` phases @ `4` ticks = `124` ticks) : Nappe & gouffres de magma canonique `H26P01`
-  à l'échelle `1×` native avec animation matérielle `H26P01.bpl` (palettes `5, 6, 7, 8`) ;
-- `MME1_01` (`BG`, `1` pose) : Sol basaltique polygonal continu (`sol_pavage_basalte_complet.png`) ;
-- `MME1_02` (`BG`, `31` phases @ `4` ticks = `124` ticks) : **Veines de magma détourées depuis `#FF00FF`**
-  dans les parois, l'arche et les terrasses (`decor_entree_veines_magenta.png` -> `H26P01.bpl` `1×`) ;
-- `MME1_03` (`BG`, `1` pose) : Chaussée praticable Sud -> Nord en dalles volcaniques polygonales ;
-- `MME1_04` (`BG`, `1` pose) : Rebords de chaussée et corniches basaltiques ;
-- `MME1_05` (`BG`, `1` pose) : Parois d'orgues basaltiques et terrasses volcaniques latérales ;
-- `MME1_06` (`BG`, `1` pose) : Dôme montagneux & arche caverneuse Nord (`donjon_seuil`) ;
-- `MME1_07` (`BG`, `15` phases @ `8` ticks = `120` ticks) : Incandescence thermique des rives & fissures (`H26P01.bpl` pal `0`) ;
-- `MME1_08` (`BG`, `8` phases @ `3` ticks = `24` ticks) : Cascades cylindriques de lave `H26P01` `1×` (`pal 4`)
-  se jetant dans les gouffres SO et SE (zéro mini-volcan !) ;
-- `MME1_09` (`Top`, `16` phases @ `7` ticks = `112` ticks) : Braises volcaniques ascendantes `W04` `1×` natives.
+Cohérence géologique intégrale de l'entrée volcanique :
+- **Fond rocheux & falaises `100 %` roche noire magma** : massif continu de basalte noir fumé,
+  colonnes d'obsidienne, corniches et arche caverneuse monumentale (`donjon_seuil`) sans aucune
+  roche ocre/jaune étrangère ni pavage incohérent en arrière-plan.
+- **Chaussée Sud -> Nord** en dalles polygonales de basalte cendré bordée de crocs de pierre,
+  identique aux matériaux canoniques de l'îlot de `H26P01` (`native_H26P01.png`).
+- **Veines & gouffres de magma `100 %` Magenta `#FF00FF`** (`decor_entree_veines_magenta.png`),
+  animés par le **vrai magma canonique `H26P01` `1×`** et son **palette cycling matériel `H26P01.bpl`**.
+- **Zéro petit volcan** : cascades cylindriques `H26P01` `1×` (`8 × 3` ticks) s'écoulant sous
+  l'aplomb des falaises noires dans les gouffres latéraux, incandescence `H26P01.bpl` (`15 × 8` ticks)
+  et braises volcaniques `W04` (`Top`, `16 × 7` ticks).
 """
 
 from __future__ import annotations
@@ -55,41 +52,51 @@ MAP_ID = "MME1"
 MAP_TITLE = "Mine Magma — Entrée"
 RAW_DIR = HERE / "bruts"
 DECOR_MAGENTA_RAW = RAW_DIR / "decor_entree_veines_magenta.png"
+SOL_NOIR_RAW = RAW_DIR / "sol_basalte_noir_complet.png"
 REF_DIR = HERE / "references"
-ARENA_RAW_DIR = REPO_ROOT / "source" / "mine_magma_arene_v1" / "bruts"
 ARENA_REF_DIR = REPO_ROOT / "source" / "mine_magma_arene_v1" / "references"
 RENDERS_DIR = REPO_ROOT / "renders" / "mine_magma_entree_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 
-def build_unified_volcanic_palette(decor_rgb: np.ndarray, rock_mask: np.ndarray) -> np.ndarray:
+def build_unified_black_magma_palette(decor_rgb: np.ndarray, rock_mask: np.ndarray) -> np.ndarray:
+    """Construit la palette unifiée roche noire magma + dalles cendrées + magma canonique `H26P01`."""
     canon = extract_canonical_palette(
-        [
-            REF_DIR / "d12p01_magma_cavern_entrance.png",
-            ARENA_REF_DIR / "native_H26P01.png",
-        ],
-        max_colors=88,
+        [ARENA_REF_DIR / "native_H26P01.png"],
+        max_colors=64,
         min_pixels=4,
     )
     rock_px = decor_rgb[rock_mask]
     uniq, cnt = np.unique(rock_px, axis=0, return_counts=True)
-    top_rock = uniq[np.argsort(-cnt)[:72]]
-    cave_darks = np.array([[0, 0, 0], [10, 3, 2], [22, 6, 4], [36, 11, 6]], dtype=np.uint8)
-    return np.unique(np.vstack([canon, top_rock, cave_darks]), axis=0).astype(np.uint8)
+    top_rock = uniq[np.argsort(-cnt)[:96]]
+    black_obsidian = np.array(
+        [
+            [8, 3, 3],
+            [14, 5, 4],
+            [22, 8, 6],
+            [32, 14, 11],
+            [44, 24, 19],
+            [58, 36, 28],
+        ],
+        dtype=np.uint8,
+    )
+    return np.unique(np.vstack([canon, top_rock, black_obsidian]), axis=0).astype(np.uint8)
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
-    decor_raw = Image.open(RAW_DIR / "decor_entree_veines_magenta.png").convert("RGB")
+    decor_raw = Image.open(DECOR_MAGENTA_RAW).convert("RGB")
     decor_rgb = np.asarray(decor_raw.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
 
-    sol_raw = Image.open(ARENA_RAW_DIR / "sol_pavage_basalte_complet.png").convert("RGB")
+    sol_raw = Image.open(SOL_NOIR_RAW).convert("RGB")
     sol_rgb = np.asarray(sol_raw.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
 
-    min_chasm = max(400, int(round(4500 * (w * h) / float(W_CANON * H_CANON))))
-    all_magenta, open_chasm, rock_veins = split_magenta_chasms_and_veins(decor_rgb, min_open_chasm_area=min_chasm)
+    min_chasm = max(500, int(round(3500 * (w * h) / float(W_CANON * H_CANON))))
+    all_magenta, open_chasm, rock_veins = split_magenta_chasms_and_veins(
+        decor_rgb, min_open_chasm_area=min_chasm
+    )
     rock_mask = ~all_magenta
 
-    volcanic_pal = build_unified_volcanic_palette(decor_rgb, rock_mask)
+    volcanic_pal = build_unified_black_magma_palette(decor_rgb, rock_mask)
     q_decor = quantize_rgb_to_palette(decor_rgb, volcanic_pal)
     q_sol = quantize_rgb_to_palette(sol_rgb, volcanic_pal)
 
@@ -99,65 +106,69 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         + 0.587 * decor_rgb[:, :, 1].astype(np.float32)
         + 0.114 * decor_rgb[:, :, 2].astype(np.float32)
     )
-    sat = (
-        np.maximum(np.maximum(decor_rgb[:, :, 0], decor_rgb[:, :, 1]), decor_rgb[:, :, 2]).astype(np.float32)
-        - np.minimum(np.minimum(decor_rgb[:, :, 0], decor_rgb[:, :, 1]), decor_rgb[:, :, 2]).astype(np.float32)
+
+    # 1. Intérieur noir profond de la bouche caverneuse Nord (`donjon_seuil`, conserve 100 % des stalactites noires !)
+    mouth_box = (yy >= int(0.30 * h)) & (yy <= int(0.445 * h)) & (xx >= int(0.425 * w)) & (xx <= int(0.575 * w))
+    cave_mouth = rock_mask & mouth_box & (decor_rgb.max(axis=2) <= 12)
+    q_decor[cave_mouth] = np.array([8, 3, 3], dtype=np.uint8)
+
+    # 2. Crocs de pierre clairs (`bone_fangs`) bordant la chaussée centrale
+    bone_fangs = rock_mask & (decor_rgb[:, :, 0] >= 145)
+
+    # 3. Chaussée praticable Sud -> Nord en dalles de basalte cendré (du bord Sud `y = h - 1` jusqu'au seuil `y ≈ 0.45 * h`)
+    corridor_box = (
+        ((yy >= int(0.445 * h)) & (xx >= int(0.40 * w)) & (xx <= int(0.60 * w)))
+        | ((yy >= int(0.83 * h)) & (xx >= int(0.18 * w)) & (xx <= int(0.82 * w)))
     )
-
-    # 1. Bouche sombre de l'arche caverneuse Nord (`donjon_seuil`)
-    mouth_box = (yy >= int(0.12 * h)) & (yy <= int(0.33 * h)) & (xx >= int(0.43 * w)) & (xx <= int(0.57 * w))
-    cave_mouth_seed = mouth_box & (lum < 78.0) & (sat < 55.0)
-    cave_mouth = ndimage.binary_fill_holes(ndimage.binary_closing(cave_mouth_seed, iterations=3))
-    rock_mask = rock_mask | cave_mouth
-    q_decor[cave_mouth] = np.array([10, 2, 2], dtype=np.uint8)
-
-    # 2. Chaussée praticable centrale Sud -> Nord (composante connexe de pavage brun partant du bord Sud `y = h - 1`)
-    #    Les parois d'orgues dorées (`sat >= 105`) et les parois verticales sombres (`lum < 38`) sont exclues !
-    paver_cand = (
+    slab_cand = (
         rock_mask
         & (~cave_mouth)
-        & (yy >= int(0.35 * h))
-        & (sat < 102.0)
-        & (lum >= 42.0)
-        & (lum < 126.0)
-        & (~ndimage.binary_dilation(all_magenta, iterations=max(1, w // 384)))
+        & (~bone_fangs)
+        & corridor_box
+        & ((decor_rgb[:, :, 0] >= 75) | ((yy >= int(0.445 * h)) & (yy <= int(0.51 * h)) & (decor_rgb[:, :, 0] >= 22)))
     )
-    paver_smooth = ndimage.binary_closing(
-        paver_cand, iterations=max(2, int(round(4 * w / 768.0))), border_value=1
+    slab_smooth = ndimage.binary_closing(slab_cand, iterations=max(2, int(round(5 * w / 768.0))))
+    slab_smooth[h - max(3, int(round(8 * h / 576.0))) :, :] = (
+        rock_mask[h - max(3, int(round(8 * h / 576.0))) :, :]
+        & (~bone_fangs[h - max(3, int(round(8 * h / 576.0))) :, :])
+        & corridor_box[h - max(3, int(round(8 * h / 576.0))) :, :]
+        & (decor_rgb[h - max(3, int(round(8 * h / 576.0))) :, :, 0] >= 58)
     )
-    paver_smooth = ndimage.binary_opening(
-        paver_smooth, iterations=max(1, int(round(2 * w / 768.0))), border_value=1
-    )
-    lbl_p, n_p = ndimage.label(paver_smooth)
+    lbl_p, _ = ndimage.label(slab_smooth)
     south_seed_labels = [
         lbl_id
-        for lbl_id in set(lbl_p[h - 14 :, int(0.28 * w) : int(0.72 * w)].ravel().tolist())
+        for lbl_id in set(lbl_p[h - 6 :, int(0.40 * w) : int(0.60 * w)].ravel().tolist())
         if lbl_id != 0
     ]
-    walkable_causeway = np.isin(lbl_p, south_seed_labels) & rock_mask & (~cave_mouth) & (yy >= int(0.35 * h))
+    walkable_causeway = np.isin(lbl_p, south_seed_labels) & rock_mask & (~cave_mouth) & (~bone_fangs) & corridor_box
     walkable_causeway = ndimage.binary_fill_holes(walkable_causeway) & rock_mask & (~cave_mouth) & (~all_magenta)
 
-    # 3. Séparation sémantique nette des reliefs rocheux :
-    #    - `rim_mask`  : bordure immédiate de la chaussée (`<= 5 px`),
-    #    - `arch_mask` : massif montagneux & arche caverneuse Nord (`cave_mouth` + dôme central haut),
-    #    - `cliff_mask`: falaises d'orgues basaltiques et terrasses volcaniques latérales.
+    # 4. Partition sémantique nette de l'ensemble du massif de roche noire magma :
+    #    - `rim_and_fangs` : crocs de pierre clairs + rebords rocheux immédiats de la chaussée,
+    #    - `arch_and_wall` : paroi montagneuse supérieure & arche caverneuse Nord (`y < 0.56 * h`),
+    #    - `lower_cliffs`  : falaises abruptes de basalte noir surplombant les gouffres de magma.
     rim_px = max(2, int(round(5 * w / float(W_CANON))))
-    rim_mask = rock_mask & (~walkable_causeway) & (~cave_mouth) & (ndimage.distance_transform_edt(~walkable_causeway) <= rim_px)
-    dome_region = (yy < int(0.52 * h)) & (xx >= int(0.18 * w)) & (xx <= int(0.82 * w)) & ((sat >= 72.0) | cave_mouth | (yy < int(0.34 * h)))
-    arch_mask = (rock_mask & (~walkable_causeway) & (~rim_mask) & dome_region) | cave_mouth
-    cliff_mask = rock_mask & (~walkable_causeway) & (~rim_mask) & (~arch_mask)
+    rim_and_fangs = (
+        rock_mask
+        & (~walkable_causeway)
+        & (~cave_mouth)
+        & (bone_fangs | (ndimage.distance_transform_edt(~walkable_causeway) <= rim_px))
+    )
+    arch_and_wall = (
+        (rock_mask & (~walkable_causeway) & (~rim_and_fangs) & (yy < int(0.56 * h)))
+        | cave_mouth
+    )
+    lower_cliffs = rock_mask & (~walkable_causeway) & (~rim_and_fangs) & (~arch_and_wall)
 
-    # 4. Couche 00 : Nappe & gouffres de magma canonique `H26P01` `1×` (palette cycling matériel `31 × 4` ticks)
-    #    Couvre tout le fond sous les gouffres ET sous les veines pour zéro trou d'occlusion !
+    # 5. Couche 00 : Gouffres de magma canonique `H26P01` `1×` (palette cycling matériel `31 × 4` ticks)
     frames_00_sea = build_canonical_h26p01_magma_frames(w=w, h=h, mask=None, phase_offset=0)
 
-    # 5. Couche 01 : Sol basaltique complet sous toute la roche (`~all_magenta`)
+    # 6. Couche 01 : Sol complet de basalte cendré continu (`sol_basalte_noir_complet.png`)
     arr_01_sol = np.zeros((h, w, 4), dtype=np.uint8)
     arr_01_sol[rock_mask, :3] = q_sol[rock_mask]
     arr_01_sol[rock_mask, 3] = 255
 
-    # 6. Couche 02 : **Veines de magma dans la roche** (découpe exacte des fissures `#FF00FF` de `decor_entree_veines_magenta.png`
-    #    animées par la vraie texture canonique `H26P01` + `H26P01.bpl` décalée de `+9` phases pour un relief vivant !)
+    # 7. Couche 02 : **Veines de magma dans la roche noire** (`#FF00FF` -> rivières ardentes `H26P01.bpl` `1×`)
     veins_dilated = ndimage.binary_dilation(rock_veins, iterations=1) & all_magenta
     frames_02_veins = build_canonical_h26p01_magma_frames(
         w=w,
@@ -175,36 +186,37 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         return Image.fromarray(out, mode="RGBA")
 
     im_03_floor = _layer_from_mask(walkable_causeway)
-    im_04_rim = _layer_from_mask(rim_mask)
-    im_05_cliffs = _layer_from_mask(cliff_mask)
-    im_06_arch = _layer_from_mask(arch_mask)
+    im_04_rim = _layer_from_mask(rim_and_fangs)
+    im_05_cliffs = _layer_from_mask(lower_cliffs)
+    im_06_arch = _layer_from_mask(arch_and_wall)
 
-    # 7. Couche 07 : Incandescence thermique `H26P01.bpl` (palette `0`, `15 × 8` ticks) au bord des veines & gouffres
+    # 8. Couche 07 : Incandescence thermique `H26P01.bpl` (`15 × 8` ticks) sur les bords de la roche noire
     full_rock_rgba = np.zeros((h, w, 4), dtype=np.uint8)
-    non_walk_rock = rock_mask & (~walkable_causeway)
+    non_walk_rock = rock_mask & (~walkable_causeway) & (~cave_mouth)
     full_rock_rgba[non_walk_rock, :3] = q_decor[non_walk_rock]
     full_rock_rgba[non_walk_rock, 3] = 255
     frames_07_glow = build_h26p01_rim_glow_frames(full_rock_rgba, all_magenta)
 
-    # 8. Couche 08 : Cascades cylindriques de lave `H26P01` `1×` (`palette 4`, `8 × 3` ticks)
-    #    jaillissant sous l'aplomb des falaises SO et SE (`top_y = 336`, ZÉRO débordement sur le haut des orgues !)
+    # 9. Couche 04 : Cascades cylindriques de lave `H26P01` `1×` (`palette 4`, `8 × 3` ticks)
+    #    placées SOUS les falaises de basalte noir (`05_falaises` & `06_massif`) pour une occlusion 3D
+    #    naturelle parfaite derrière les surplombs rocheux (ZÉRO coupure plate en haut des cascades !)
     sx = w / float(W_CANON)
     sy = h / float(H_CANON)
     pillar_specs = [
-        {"variant": "large", "cx": int(round(136 * sx)), "top_y": int(round(336 * sy)), "base_y": int(round(516 * sy)), "phase": 0, "mirror": False},
-        {"variant": "large", "cx": int(round(640 * sx)), "top_y": int(round(336 * sy)), "base_y": int(round(516 * sy)), "phase": 4, "mirror": True},
+        {"variant": "large", "cx": int(round(200 * sx)), "top_y": int(round(320 * sy)), "base_y": int(round(524 * sy)), "phase": 0, "mirror": False},
+        {"variant": "large", "cx": int(round(568 * sx)), "top_y": int(round(320 * sy)), "base_y": int(round(536 * sy)), "phase": 4, "mirror": True},
     ]
-    frames_08_pillars = render_extended_canonical_pillars(
+    frames_04_pillars = render_extended_canonical_pillars(
         w=w,
         h=h,
         specs=pillar_specs,
-        open_magma_mask=open_chasm if w >= 768 else None,
+        open_magma_mask=None,
     )
 
-    # 9. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques `W04` `1×` natives (`16 × 7` ticks)
+    # 10. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques `W04` `1×` natives (`16 × 7` ticks)
     frames_09_embers = build_canonical_w04_embers_frames(w=w, h=h)
 
-    # 10. Grille de collision `96 × 72` : chemin praticable continu du bord Sud (`y = gh - 1`) jusqu'au seuil de la grotte !
+    # 11. Grille de collision `96 × 72` : chaussée Sud -> Nord continue de `y = gh - 1` jusqu'au seuil de la grotte !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
@@ -221,14 +233,14 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     layers = [
         LayerEntry("00_mer_et_gouffres_magma_h26", "Gouffres Magma Canonique H26P01.bpl", "BG", frames_00_sea, frame_length=4),
-        LayerEntry("01_sol_basalte_continu", "Sol Basalte Volcanique Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
+        LayerEntry("01_sol_basalte_noir_continu", "Sol Basalte Volcanique Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
         LayerEntry("02_veines_magma_magenta_h26", "Veines Magma Decoupe Magenta H26P01.bpl", "BG", frames_02_veins, frame_length=4),
-        LayerEntry("03_chaussee_praticable_sud_nord", "Chaussee Pavage Basalte Sud-Nord", "BG", [im_03_floor], frame_length=5),
-        LayerEntry("04_rebords_chaussee_volcanique", "Rebords & Corniches Chaussee", "BG", [im_04_rim], frame_length=5),
-        LayerEntry("05_parois_orgues_basaltiques", "Parois Orgues Basaltiques & Terrasses", "BG", [im_05_cliffs], frame_length=5),
-        LayerEntry("06_dome_et_arche_entree_grotte", "Dome Volcanique & Arche Grotte Nord", "BG", [im_06_arch], frame_length=5),
-        LayerEntry("07_incandescence_rives_bpl", "Incandescence Thermique Parois BPL", "BG", frames_07_glow, frame_length=8),
-        LayerEntry("08_cascades_lave_gouffres_h26", "Cascades Lave Gouffres H26P01.bpl", "BG", frames_08_pillars, frame_length=3),
+        LayerEntry("03_chaussee_praticable_sud_nord", "Chaussee Basalte Cendre Sud-Nord", "BG", [im_03_floor], frame_length=5),
+        LayerEntry("04_cascades_lave_gouffres_h26", "Cascades Lave Gouffres H26P01.bpl", "BG", frames_04_pillars, frame_length=3),
+        LayerEntry("05_falaises_roche_noire_magma", "Falaises Basalte Noir & Surplombs", "BG", [im_05_cliffs], frame_length=5),
+        LayerEntry("06_massif_et_arche_roche_noire", "Massif Roche Noire Magma & Arche Nord", "BG", [im_06_arch], frame_length=5),
+        LayerEntry("07_crocs_et_rebords_chaussee", "Crocs Volcaniques & Rebords Chaussee", "BG", [im_04_rim], frame_length=5),
+        LayerEntry("08_incandescence_rives_bpl", "Incandescence Thermique Roche Noire BPL", "BG", frames_07_glow, frame_length=8),
         LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),
     ]
     return layers, walk_grid, volcanic_pal
@@ -247,7 +259,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         walk_grid=walk_grid,
         renders_dir=out_dir,
         virtual_zip_path=vzip,
-        canonical_ref_for_fidelity=ARENA_REF_DIR / "native_H26P01.png",
+        canonical_ref_for_fidelity=REF_DIR / "native_h26p01_roche_noire_ref.png",
         max_fidelity_distance=30.0,
         max_unique_tiles_per_bank=24000,
         namespace_override="mine_magma_mme1",

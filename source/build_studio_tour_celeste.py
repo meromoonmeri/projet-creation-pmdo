@@ -48,12 +48,12 @@ def export_filmstrips() -> Dict:
         {
             "id": "MME1",
             "folder": "mine_magma_entree_v1",
-            "ref_rel": "source/mine_magma_entree_v1/references/d12p01_magma_cavern_entrance.png",
-            "ref_label": "Référence matérielle GBA exacte (D12P01)",
+            "ref_rel": "source/mine_magma_arene_v1/references/native_H26P01.png",
+            "ref_label": "Référence matérielle roche noire & magma 1× (H26P01)",
             "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
-            "bg_fill": "#370000",
-            "subtitle": "Entrée monumentale Mine Magma — Chaussée Sud-Nord, arche caverneuse, veines #FF00FF & gouffres H26P01.bpl 1× (0 mini-volcan)",
-            "wind_summary": "H26P01.bpl : Gouffres & veines #FF00FF (31f @ 4t) | Cascades SO/SE 1× (8f @ 3t) | Incandescence (15f @ 8t) | Braises W04 Top (16f @ 7t)",
+            "bg_fill": "#140404",
+            "subtitle": "Entrée 100 % Roche Noire Magma (Basalte & Obsidienne) — Chaussée Sud-Nord, arche caverneuse, veines #FF00FF & H26P01.bpl 1×",
+            "wind_summary": "Roche noire magma unifiée | Gouffres & veines #FF00FF (31f @ 4t) | 4 cascades 1× (8f @ 3t) | Rives (15f @ 8t) | Braises W04 Top",
         },
         {
             "id": "STC1",

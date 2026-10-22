@@ -204,9 +204,15 @@ def extract_canonical_h26p01_pillar_module(variant: str = "large") -> List[np.nd
     x0, y0, x1, y1 = boxes[variant]
     src_idx, _ = load_h26p01_native()
     sub = src_idx[y0:y1, x0:x1]
-    # L'indice `75` (`palette 4, slot 11`) est le fond plat hors anneau d'éclaboussure dans `H26P01` :
-    # l'exclure dégage l'anneau concentrique rond pur à 100 % sans aucun coin carré !
+    # Exclut les indices de fond plat hors fût / anneau rond (`75`, et hors ellipse basse sur `medium`)
     is_p4 = ((sub // 16) == 4) & (sub != 75)
+    if variant != "large":
+        mh_sub, mw_sub = sub.shape
+        yy_f, xx_f = np.mgrid[:mh_sub, :mw_sub]
+        foot_band = yy_f >= (mh_sub - 20)
+        ell = (((xx_f - (mw_sub - 1) / 2.0) / (mw_sub * 0.44)) ** 2 + ((yy_f - (mh_sub - 11.0)) / 9.5) ** 2) <= 1.0
+        shaft_narrow = np.abs(xx_f - (mw_sub - 1) / 2.0) <= (mw_sub * 0.24)
+        is_p4 = is_p4 & ((~foot_band) | ell | shaft_narrow)
     rim_1px = ndimage.binary_dilation(is_p4, iterations=1) & (~is_p4)
 
     out_frames: List[np.ndarray] = []

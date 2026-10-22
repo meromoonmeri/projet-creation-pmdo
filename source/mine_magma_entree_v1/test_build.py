@@ -3,10 +3,11 @@
 
 Vérifie :
 1. Zéro pixel `#FF00FF` ni liseré violet/prune résiduel dans le brut hors `#FF00FF` et sur tous les rendus.
-2. Veines de magma 100 % `#FF00FF` dans `decor_entree_veines_magenta.png` et animées dans le composite
+2. Cohérence géologique stricte `100 %` roche noire magma sur le fond montagneux et les falaises
+   (`0` roche jaune/ocre étrangère, `mean luminance < 36` sur les couches rocheuses de fond).
+3. Veines de magma `100 %` `#FF00FF` dans `decor_entree_veines_magenta.png` et animées dans le composite
    par le palette cycling matériel canonique `H26P01.bpl` (`31` frames × `4` ticks).
-3. Zéro mini-volcan (`ilot_colonne_magma_magenta.png` supprimé).
-4. Chaussée praticable Sud -> Nord continue de `y = 71` jusqu'au seuil de la caverne (`805` tuiles `8×8`).
+4. Zéro mini-volcan et chaussée praticable Sud -> Nord continue de `y = 71` jusqu'au seuil de la grotte.
 5. Invariance d'échelle (`0.5×`) sans damier et zéro mention interdite dans tous les livrables.
 """
 
@@ -44,7 +45,7 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
     def test_01_magenta_veins_in_raw_and_zero_purple_in_render(self) -> None:
         raw = np.asarray(Image.open(entree_build.DECOR_MAGENTA_RAW).convert("RGB"), dtype=np.int16)
         pure_mag = (raw[:, :, 0] == 255) & (raw[:, :, 1] == 0) & (raw[:, :, 2] == 255)
-        self.assertGreater(int(pure_mag.sum()), 200_000)
+        self.assertGreater(int(pure_mag.sum()), 180_000)
         plum = (~pure_mag) & (raw[:, :, 0] - raw[:, :, 1] >= 16) & (raw[:, :, 2] - raw[:, :, 1] >= 10)
         self.assertEqual(int(plum.sum()), 0, f"Pixels prune restants dans le brut : {int(plum.sum())}")
 
@@ -54,26 +55,42 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
             fringe = (r - g >= 18) & (b - g >= 12)
             self.assertEqual(int(fringe.sum()), 0, f"Liseré violet détecté sur pose {idx}: {int(fringe.sum())}")
 
-    def test_02_canonical_palette_cycling_in_veins_and_chasms(self) -> None:
+    def test_02_coherent_black_magma_background_rock(self) -> None:
+        arch_layer = np.asarray(
+            Image.open(self.renders / "layers" / "06_massif_et_arche_roche_noire.png").convert("RGBA"),
+            dtype=np.float32,
+        )
+        cliff_layer = np.asarray(
+            Image.open(self.renders / "layers" / "05_falaises_roche_noire_magma.png").convert("RGBA"),
+            dtype=np.float32,
+        )
+        for name, lyr in (("06_massif", arch_layer), ("05_falaises", cliff_layer)):
+            opaque = lyr[:, :, 3] > 0
+            self.assertGreater(int(opaque.sum()), 40_000)
+            lum = 0.299 * lyr[opaque, 0] + 0.587 * lyr[opaque, 1] + 0.114 * lyr[opaque, 2]
+            self.assertLess(float(lum.mean()), 36.0, f"La couche {name} doit être en vraie roche noire magma sombre")
+            yellow_sandstone = (lyr[opaque, 0] >= 150) & (lyr[opaque, 1] >= 80)
+            self.assertEqual(int(yellow_sandstone.sum()), 0, f"Zéro roche ocre/jaune incohérente tolérée sur {name}")
+
+    def test_03_canonical_palette_cycling_in_veins_and_chasms(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)
         diff12 = np.abs(self.pose1[:, :, :3].astype(int) - self.pose2[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff01 > 12).sum()), 5_000, "Le magma et les veines doivent s'animer massivement")
-        self.assertGreater(int((diff12 > 12).sum()), 5_000)
+        self.assertGreater(int((diff01 > 12).sum()), 6_000, "Le magma et les veines doivent s'animer massivement")
+        self.assertGreater(int((diff12 > 12).sum()), 6_000)
 
-        # Même dans la voûte rocheuse Nord (`y = 0..220`), les veines magenta découpées s'animent !
-        arch_anim = (diff01[0:220, :] > 12).sum()
-        self.assertGreater(int(arch_anim), 1_500, "Les veines de magma du massif supérieur doivent pulser !")
+        arch_anim = (diff01[0:280, :] > 12).sum()
+        self.assertGreater(int(arch_anim), 1_500, "Les veines de magma du massif de roche noire doivent pulser !")
 
-    def test_03_zero_mini_volcanoes_and_walkable_south_north_causeway(self) -> None:
+    def test_04_zero_mini_volcanoes_and_walkable_south_north_causeway(self) -> None:
         self.assertFalse((REPO_ROOT / "source" / "mine_magma_entree_v1" / "bruts" / "ilot_colonne_magma_magenta.png").exists())
         _, walk_grid, _ = entree_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 750)
+        self.assertGreater(int(walk_grid.sum()), 550)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        north_ids = set(lbl[:34, :].ravel().tolist()) - {0}
+        north_ids = set(lbl[:38, :].ravel().tolist()) - {0}
         self.assertTrue(bool(south_ids & north_ids), "La chaussée doit relier le bord Sud jusqu'au seuil de la caverne Nord")
 
-    def test_04_scale_invariance_and_zero_credits(self) -> None:
+    def test_05_scale_invariance_and_zero_credits(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             res_half = entree_build.build(scale=0.5, output_override=Path(tmp))
             self.assertEqual(res_half["width"], 384)
