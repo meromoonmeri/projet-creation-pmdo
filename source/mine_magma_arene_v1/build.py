@@ -1,24 +1,22 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-MMA1 — Mine Magma — Arène de Groudon (`100 %` Roche Noire Magma + `H26P01.bpl` `1×` + Rive Visqueuse + `#FF00FF`).
+MMA1 — Mine Magma — Arène de Groudon (`POV PMD` `d41p41a` + Roche Noire + Lave `Dark Crater Pit` `1×`).
 
-Continuité géologique et chromatique `100 %` avec `MME1` (`CONTINUITE.md`) :
-- `MMA1_00` (`BG`, `31` phases @ `4` ticks = `124` ticks) : Mer caldeira de magma canonique `H26P01` `1×`
-  avec palette cycling matériel exact `H26P01.bpl` (palettes `5, 6, 7, 8`) ;
-- `MMA1_01` (`BG`, `1` pose) : Sol basaltique sombre continu sans couture (`sol_pavage_basalte_complet.png`) ;
-- `MMA1_02` (`BG`, `31` phases @ `4` ticks = `124` ticks) : **Veines de magma détourées depuis `#FF00FF`**
-  dans le massif de roche noire magma et les flancs de l'île (`decor_arene_veines_magenta.png` -> `H26P01.bpl` `1×`) ;
+Continuité totale `POV PMD` + `Dark Crater Pit` (`d41p41a`) avec `MME1` :
+- `MMA1_00` (`BG`, `12` phases @ `10` ticks = `120` ticks) : Océan caldeira de magma canonique
+  `Dark Crater Pit` (`d41p41a` `1×` natif NDS, `96 × 96` sans aucune couture) ;
+- `MMA1_01` (`BG`, `1` pose) : Sol volcanique noir continu (`sol_pavage_basalte_complet.png`) ;
+- `MMA1_02` (`BG`, `12` phases @ `10` ticks = `120` ticks) : Fissures `#FF00FF` dans la couronne de roche noire ;
 - `MMA1_03` (`BG`, `15` phases @ `8` ticks = `120` ticks) : **Animation visqueuse de rive & croûte de
-  bordure rocher** (`render_viscous_shoreline_border`, `0` damier, collerette de croûte figée + radeaux
-  cellulaires Worley + rides visqueuses roulant vers chaque paroi rocheuse) ;
-- `MMA1_04` (`BG`, `8` phases @ `3` ticks = `24` ticks) : Grande cascade de lave Nord sous l'arche pointue
-  + 4 colonnes cylindriques canoniques `H26P01` `1×` (`pal 4`) jaillissant sous les surplombs de basalte noir
-  dans la mer caldeira (ZÉRO mini-volcan !) ;
-- `MMA1_05` (`BG`, `1` pose) : Grand plateau radial de boss de Groudon & pont Sud -> Nord praticable ;
-- `MMA1_06` (`BG`, `1` pose) : Falaises basses & éperons de basalte noir magma ;
-- `MMA1_07` (`BG`, `1` pose) : Couronne monumentale d'orgues de roche noire magma, arche Nord & crocs d'ivoire ;
-- `MMA1_08` (`BG`, `15` phases @ `8` ticks = `120` ticks) : Incandescence thermique de bordure rocher (`H26P01.bpl`) ;
-- `MMA1_09` (`Top`, `16` phases @ `7` ticks = `112` ticks) : Braises volcaniques ascendantes `W04` `1×` natives.
+  bordure rocher** (`Dark Crater Pit` 13 tons : halo d'ébullition jaune d'or + plaques de croûte sombre) ;
+- `MMA1_04` (`BG`, `1` pose) : Grand plateau central praticable de roche volcanique noire & pont Sud -> Nord ;
+- `MMA1_05` (`BG`, `12` phases @ `10` ticks = `120` ticks) : Symbole `Ω` de Primo-Groudon gravé à plat à même
+  le sol sombre du plateau central et pulsant dans la rampe `Dark Crater Pit` ;
+- `MMA1_06` (`BG`, `1` pose) : Falaises basses, pitons marins d'obsidienne & couronne Nord de roche noire ;
+- `MMA1_07` (`BG`, `15` phases @ `8` ticks = `120` ticks) : Incandescence thermique de bordure rocher ;
+- `MMA1_08` (`BG`, `24` phases @ `5` ticks = `120` ticks) : Grande cascade visqueuse centrale Nord + 4 colonnes
+  géantes de magma `Dark Crater Pit` (`colonnes_geantes.py`) montant jusqu'au bord haut `y = 0` ;
+- `MMA1_09` (`Top`, `16` phases @ `7` ticks = `112` ticks) : Braises volcaniques montantes `W04` `1×` natives.
 """
 
 from __future__ import annotations
@@ -38,12 +36,13 @@ if str(REPO_ROOT / "source") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "source"))
 
 from moteur_magma_canonique_pmd_red import (  # type: ignore
-    build_canonical_h26p01_magma_frames,
+    DARK_CRATER_VISCOUS_PAL,
     build_canonical_w04_embers_frames,
-    build_h26p01_rim_glow_frames,
-    extract_canonical_h26p01_pillar_module,
-    render_extended_canonical_pillars,
-    render_viscous_shoreline_border,
+    build_dark_crater_cascade_and_giant_columns,
+    build_dark_crater_pit_magma_frames,
+    build_dark_crater_rim_glow_frames,
+    build_primal_groudon_floor_rune_frames,
+    render_dark_crater_viscous_shoreline,
     split_magenta_chasms_and_veins,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
@@ -52,7 +51,6 @@ from tour_celeste_moteur_nuages import (  # type: ignore
     W_CANON,
     LayerEntry,
     build_rsground_package,
-    extract_canonical_palette,
     quantize_rgb_to_palette,
 )
 
@@ -61,97 +59,29 @@ MAP_TITLE = "Mine Magma — Arène de Groudon"
 RAW_DIR = HERE / "bruts"
 DECOR_MAGENTA_RAW = RAW_DIR / "decor_arene_veines_magenta.png"
 REF_DIR = HERE / "references"
-ENTREE_REF_DIR = REPO_ROOT / "source" / "mine_magma_entree_v1" / "references"
+DCP_PREVIEW_REF = REF_DIR / "dark_crater_pit" / "dark_crater_arene_ref.png"
 RENDERS_DIR = REPO_ROOT / "renders" / "mine_magma_arene_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 
 def build_unified_arena_palette(decor_rgb: np.ndarray, rock_mask: np.ndarray) -> np.ndarray:
-    """Palette unifiée 100 % cohérente avec `MME1` : basalte noir fumé + dalles cendrées + `H26P01`."""
-    canon = extract_canonical_palette(
-        [REF_DIR / "native_H26P01.png"],
-        max_colors=64,
-        min_pixels=4,
-    )
     rock_px = decor_rgb[rock_mask]
     uniq, cnt = np.unique(rock_px, axis=0, return_counts=True)
     top_rock = uniq[np.argsort(-cnt)[:96]]
-    black_obsidian = np.array(
+    black_anchors = np.array(
         [
-            [8, 3, 3],
-            [14, 5, 4],
-            [22, 8, 6],
-            [32, 14, 11],
-            [44, 24, 19],
-            [58, 36, 28],
+            [6, 5, 5],
+            [12, 11, 11],
+            [18, 17, 17],
+            [26, 25, 25],
+            [35, 34, 34],
+            [45, 44, 44],
+            [56, 55, 54],
+            [68, 66, 65],
         ],
         dtype=np.uint8,
     )
-    return np.unique(np.vstack([canon, top_rock, black_obsidian]), axis=0).astype(np.uint8)
-
-
-def _render_north_arch_waterfall_and_sea_pillars(
-    w: int,
-    h: int,
-    open_chasm: np.ndarray,
-    north_breach_mask: np.ndarray,
-) -> List[Image.Image]:
-    """Combine dans une seule piste matérielle `8` frames × `3` ticks (`H26P01` palette `4`, `1×`)
-    placée SOUS les falaises et la couronne de roche noire magma (`occlusion 3D naturelle` !) :
-    1. Les 4 colonnes cylindriques canoniques `H26P01` jaillissant exactement sous le rebord dentelé
-       des surplombs de basalte noir à l'Ouest (`cx = 44, 98`) et à l'Est (`cx = 668, 724`) sans
-       jamais transparaître à travers les veines rocheuses supérieures (`open_magma_mask = open_chasm`),
-    2. La grande cascade centrale Nord rugissant strictement à l'intérieur de la cavité fermée de
-       l'arche pointue de basalte noir (`north_breach_mask` connexe) derrière les crocs Nord !"""
-    sx = w / float(W_CANON)
-    sy = h / float(H_CANON)
-    sea_specs = [
-        {"variant": "medium", "cx": int(round(44 * sx)), "top_y": int(round(140 * sy)), "base_y": int(round(344 * sy)), "phase": 2, "mirror": False},
-        {"variant": "large", "cx": int(round(98 * sx)), "top_y": int(round(136 * sy)), "base_y": int(round(488 * sy)), "phase": 0, "mirror": False},
-        {"variant": "large", "cx": int(round(668 * sx)), "top_y": int(round(184 * sy)), "base_y": int(round(502 * sy)), "phase": 5, "mirror": True},
-        {"variant": "medium", "cx": int(round(724 * sx)), "top_y": int(round(196 * sy)), "base_y": int(round(384 * sy)), "phase": 7, "mirror": True},
-    ]
-    pillar_imgs = render_extended_canonical_pillars(
-        w=w,
-        h=h,
-        specs=sea_specs,
-        open_magma_mask=open_chasm,
-    )
-
-    ys_b, xs_b = np.where(north_breach_mask)
-    if ys_b.size < 32:
-        return pillar_imgs
-
-    bx0, bx1 = int(xs_b.min()), int(xs_b.max()) + 1
-    by0, by1 = int(ys_b.min()), int(ys_b.max()) + 1
-    bw_slot = bx1 - bx0
-    bh_slot = by1 - by0
-
-    mod_large = extract_canonical_h26p01_pillar_module("large")
-    out_frames: List[Image.Image] = []
-    for f in range(8):
-        arr = np.asarray(pillar_imgs[f], dtype=np.uint8).copy()
-        src_f = mod_large[(f + 1) % 8]
-        core_strip = src_f[8:24, 8:40, :3]
-        reps_y = bh_slot // 16 + 2
-        reps_x = bw_slot // 32 + 2
-        fall_rgb = np.tile(core_strip, (reps_y, reps_x, 1))[:bh_slot, :bw_slot, :]
-
-        foot_rows = min(28, bh_slot // 2)
-        foot_src = src_f[-foot_rows:, :, :]
-        foot_resized = np.asarray(
-            Image.fromarray(foot_src, mode="RGBA").resize((bw_slot, foot_rows), Image.Resampling.NEAREST),
-            dtype=np.uint8,
-        )
-        m_foot = foot_resized[:, :, 3] > 0
-        fall_rgb[-foot_rows:, :][m_foot] = foot_resized[:, :, :3][m_foot]
-
-        slot_sub = north_breach_mask[by0:by1, bx0:bx1]
-        arr[by0:by1, bx0:bx1, :3][slot_sub] = fall_rgb[slot_sub]
-        arr[by0:by1, bx0:bx1, 3][slot_sub] = 255
-        out_frames.append(Image.fromarray(arr, mode="RGBA"))
-
-    return out_frames
+    return np.unique(np.vstack([DARK_CRATER_VISCOUS_PAL, top_rock, black_anchors]), axis=0).astype(np.uint8)
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
@@ -167,14 +97,10 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     )
     rock_mask = ~all_magenta
 
-    # 1. Cavité exacte fermée par l'arche pointue de basalte noir au Nord du plateau de Groudon :
-    #    extraction par composante connexe exacte (`ndimage.label(all_magenta)` au point graine
-    #    `(0.28 * h, 0.50 * w)`) => ZÉRO débordement hors de l'arche rocheuse !
+    # 1. Brèche centrale Nord entre les deux cornes de basalte noir (`x ∈ [0.43w, 0.57w], y ∈ [0.07h, 0.39h]`)
     yy, xx = np.mgrid[:h, :w]
-    lbl_mag, _ = ndimage.label(all_magenta)
-    seed_arch_id = int(lbl_mag[int(0.28 * h), w // 2])
-    arch_core = (lbl_mag == seed_arch_id) if seed_arch_id != 0 else np.zeros((h, w), dtype=bool)
-    north_breach_mask = ndimage.binary_dilation(arch_core, iterations=1) & all_magenta
+    breach_box = (xx >= int(0.43 * w)) & (xx <= int(0.57 * w)) & (yy >= int(0.08 * h)) & (yy <= int(0.39 * h))
+    north_breach_mask = all_magenta & breach_box
     open_chasm = open_chasm_raw & (~north_breach_mask)
     rock_veins = all_magenta & (~open_chasm) & (~north_breach_mask)
 
@@ -182,121 +108,121 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     q_decor = quantize_rgb_to_palette(decor_rgb, volcanic_pal)
     q_sol = quantize_rgb_to_palette(sol_rgb, volcanic_pal)
 
-    # 2. Crocs d'ivoire volcanique bordant le pont et la couronne radiale de Groudon
-    bone_fangs = rock_mask & (decor_rgb[:, :, 0] >= 145)
+    lum = (
+        0.299 * decor_rgb[:, :, 0].astype(np.float32)
+        + 0.587 * decor_rgb[:, :, 1].astype(np.float32)
+        + 0.114 * decor_rgb[:, :, 2].astype(np.float32)
+    )
+    L_smooth = ndimage.uniform_filter(lum, size=max(3, int(round(9 * w / 768.0))))
 
-    # 3. Grand plateau radial central de Groudon + pont Sud -> Nord + rive Sud praticable :
-    #    enveloppe géométrique fidèle au disque à pétales de basalte + pont pavé, fermant les joints sombres !
-    boss_ellipse = (
-        ((xx - 0.50 * w) / (0.184 * w)) ** 2 + ((yy - 0.462 * h) / (0.100 * h)) ** 2
-    ) <= 1.0
-    south_bridge = (yy >= int(0.51 * h)) & (xx >= int(0.405 * w)) & (xx <= int(0.595 * w))
-    south_bank = (yy >= int(0.865 * h)) & (xx >= int(0.22 * w)) & (xx <= int(0.78 * w))
-    arena_zone = boss_ellipse | south_bridge | south_bank
-
-    slab_cand = (
+    # 2. Grand plateau central `POV PMD` (`d41p41a`) + pont basaltique Sud -> Nord :
+    island_corridor = (
+        ((yy >= int(0.36 * h)) & (yy <= int(0.84 * h)) & (xx >= int(0.28 * w)) & (xx <= int(0.72 * w)))
+        | ((yy >= int(0.76 * h)) & (xx >= int(0.42 * w)) & (xx <= int(0.58 * w)))
+    )
+    floor_cand = (
         rock_mask
-        & (~bone_fangs)
-        & arena_zone
-        & ((decor_rgb[:, :, 0] >= 52) | boss_ellipse)
+        & island_corridor
+        & ((L_smooth >= 26.0) | ((yy >= int(0.78 * h)) & (xx >= int(0.455 * w)) & (xx <= int(0.545 * w)) & (lum >= 12.0)))
+        & (~ndimage.binary_dilation(all_magenta, iterations=max(2, int(round(4 * w / 768.0)))))
     )
-    slab_smooth = ndimage.binary_closing(
-        slab_cand, iterations=max(2, int(round(6 * w / 768.0)))
-    )
+    floor_smooth = ndimage.binary_closing(floor_cand, iterations=max(2, int(round(5 * w / 768.0))))
     south_rows = max(3, int(round(8 * h / 576.0)))
-    slab_smooth[h - south_rows :, :] = (
+    floor_smooth[h - south_rows :, :] = (
         rock_mask[h - south_rows :, :]
-        & (~bone_fangs[h - south_rows :, :])
-        & south_bank[h - south_rows :, :]
-        & (decor_rgb[h - south_rows :, :, 0] >= 48)
+        & (xx[h - south_rows :, :] >= int(0.44 * w))
+        & (xx[h - south_rows :, :] <= int(0.56 * w))
+        & (lum[h - south_rows :, :] >= 12.0)
     )
-    lbl_p, _ = ndimage.label(slab_smooth)
+    lbl_p, _ = ndimage.label(floor_smooth)
     south_seed_labels = [
         lbl_id
-        for lbl_id in set(lbl_p[h - 6 :, int(0.35 * w) : int(0.65 * w)].ravel().tolist())
+        for lbl_id in set(lbl_p[h - 6 :, int(0.43 * w) : int(0.57 * w)].ravel().tolist())
         if lbl_id != 0
     ]
-    walkable_arena_floor = (
-        np.isin(lbl_p, south_seed_labels)
-        & rock_mask
-        & (~bone_fangs)
-        & (~all_magenta)
-    )
-    walkable_arena_floor = ndimage.binary_fill_holes(walkable_arena_floor) & rock_mask & (~bone_fangs) & (~all_magenta)
+    walkable_arena_floor = np.isin(lbl_p, south_seed_labels) & rock_mask & (~all_magenta)
+    walkable_arena_floor = ndimage.binary_fill_holes(walkable_arena_floor) & rock_mask & (~all_magenta)
 
-    # 4. Partition sémantique nette du massif de roche noire magma :
-    rim_px = max(2, int(round(5 * w / float(W_CANON))))
-    fangs_and_crown = (
-        rock_mask
-        & (~walkable_arena_floor)
-        & (bone_fangs | (yy < int(0.46 * h)) | (ndimage.distance_transform_edt(~walkable_arena_floor) <= rim_px))
-    )
-    lower_black_cliffs = rock_mask & (~walkable_arena_floor) & (~fangs_and_crown)
+    all_non_walk_rock = rock_mask & (~walkable_arena_floor)
 
-    # 5. Couche 00 : Mer caldeira de magma canonique `H26P01` `1×` (`31 × 4` ticks)
-    frames_00_sea = build_canonical_h26p01_magma_frames(w=w, h=h, mask=None, phase_offset=0)
+    # 3. Couche 00 : Océan caldeira `Dark Crater Pit` (`d41p41a`, `1×` natif `12 × 10 = 120` ticks)
+    frames_00_sea = build_dark_crater_pit_magma_frames(w=w, h=h, mask=None, phase_offset=0)
 
-    # 6. Couche 01 : Sol basaltique sombre continu sans couture (`sol_pavage_basalte_complet.png`)
+    # 4. Couche 01 : Sol basaltique noir continu sans couture
     arr_01_sol = np.zeros((h, w, 4), dtype=np.uint8)
     arr_01_sol[rock_mask, :3] = q_sol[rock_mask]
     arr_01_sol[rock_mask, 3] = 255
 
-    # 7. Couche 02 : **Veines de magma détourées depuis `#FF00FF`** (`H26P01.bpl` `1×`, `31 × 4` ticks)
+    # 5. Couche 02 : Fissures `#FF00FF` dans la couronne de roche noire (`12 × 10 = 120` ticks)
     veins_mask = ndimage.binary_dilation(rock_veins, iterations=1) & all_magenta
-    frames_02_veins = build_canonical_h26p01_magma_frames(
+    frames_02_veins = build_dark_crater_pit_magma_frames(
         w=w,
         h=h,
         mask=veins_mask,
-        phase_offset=11,
-        index_roll=(32, 24),
-        pure_molten_only=True,
+        phase_offset=5,
+        roll_xy=(40, 24),
     )
 
-    # 8. Couche 03 : **Animation visqueuse de rive & croûte de bordure rocher** (`15 × 8` ticks, `0` damier !)
+    # 6. Couche 03 : Animation visqueuse de rive & croûte de bordure rocher (`15 × 8 = 120` ticks)
     band_px = max(8.0, 22.0 * (w / float(W_CANON)))
-    frames_03_viscous_shore = render_viscous_shoreline_border(
-        open_chasm,
+    frames_03_viscous_shore = render_dark_crater_viscous_shoreline(
+        open_chasm_raw,
         n_frames=15,
         band_px=band_px,
     )
 
-    # 9. Couche 04 : Grande cascade Nord sous l'arche + 4 colonnes canoniques `H26P01` `1×` (`8 × 3` ticks)
-    #    placée SOUS les falaises et la couronne de roche noire magma pour une occlusion 3D naturelle !
-    frames_04_falls_and_pillars = _render_north_arch_waterfall_and_sea_pillars(
-        w=w,
-        h=h,
-        open_chasm=open_chasm,
-        north_breach_mask=north_breach_mask,
+    # 7. Couche 04 : Plateau central praticable & pont Sud -> Nord
+    out_floor = np.zeros((h, w, 4), dtype=np.uint8)
+    out_floor[walkable_arena_floor, :3] = q_decor[walkable_arena_floor]
+    out_floor[walkable_arena_floor, 3] = 255
+    im_04_floor = Image.fromarray(out_floor, mode="RGBA")
+
+    # 8. Couche 05 : Symbole `Ω` de Primo-Groudon gravé à plat sur le sol rocheux (`12 × 10 = 120` ticks)
+    frames_05_rune = build_primal_groudon_floor_rune_frames(
+        floor_mask=walkable_arena_floor,
+        center_xy=(0.50 * w, 0.585 * h),
+        radii_xy=(0.145 * w, 0.115 * h),
+        floor_rgb=q_decor,
     )
 
-    def _layer_from_mask(m: np.ndarray) -> Image.Image:
-        out = np.zeros((h, w, 4), dtype=np.uint8)
-        out[m, :3] = q_decor[m]
-        out[m, 3] = 255
-        return Image.fromarray(out, mode="RGBA")
+    # 9. Couche 06 : Couronne Nord, falaises basses & pitons marins de roche noire (`POV PMD`)
+    out_rock = np.zeros((h, w, 4), dtype=np.uint8)
+    out_rock[all_non_walk_rock, :3] = q_decor[all_non_walk_rock]
+    out_rock[all_non_walk_rock, 3] = 255
+    im_06_cliffs = Image.fromarray(out_rock, mode="RGBA")
 
-    im_05_floor = _layer_from_mask(walkable_arena_floor)
-    im_06_cliffs = _layer_from_mask(lower_black_cliffs)
-    im_07_crown = _layer_from_mask(fangs_and_crown)
+    # 10. Couche 07 : Incandescence thermique synchronisée de bordure rocher (`15 × 8 = 120` ticks)
+    frames_07_glow = build_dark_crater_rim_glow_frames(out_rock, all_magenta)
 
-    # 10. Couche 08 : Incandescence thermique de bordure rocher (`15 × 8` ticks)
-    full_rock_rgba = np.zeros((h, w, 4), dtype=np.uint8)
-    non_walk_rock = rock_mask & (~walkable_arena_floor)
-    full_rock_rgba[non_walk_rock, :3] = q_decor[non_walk_rock]
-    full_rock_rgba[non_walk_rock, 3] = 255
-    frames_08_glow = build_h26p01_rim_glow_frames(full_rock_rgba, all_magenta)
+    # 11. Couche 08 : Grande cascade Nord + 4 colonnes géantes `Dark Crater Pit` sortant par `y = 0` (`24 × 5 = 120` ticks)
+    sx = w / float(W_CANON)
+    sy = h / float(H_CANON)
+    col_specs = [
+        {"nom": "gauche_fond", "x": int(round(128 * sx)), "y": int(round(206 * sy)), "demi": max(7, int(round(15 * sx))), "decalage": 0, "graine": 1},
+        {"nom": "gauche_devant", "x": int(round(62 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 6, "graine": 2},
+        {"nom": "droite_fond", "x": int(round(640 * sx)), "y": int(round(206 * sy)), "demi": max(7, int(round(15 * sx))), "decalage": 10, "graine": 3},
+        {"nom": "droite_devant", "x": int(round(706 * sx)), "y": int(round(452 * sy)), "demi": max(10, int(round(21 * sx))), "decalage": 3, "graine": 4},
+    ]
+    frames_08_cascade_and_cols = build_dark_crater_cascade_and_giant_columns(
+        w=w,
+        h=h,
+        open_sea_mask=open_chasm,
+        north_breach_mask=north_breach_mask,
+        col_specs=col_specs,
+        n_phases=15,
+    )
 
-    # 11. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques `W04` `1×` natives (`16 × 7` ticks)
+    # 12. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques montantes `W04` `1×` (`16 × 7` ticks)
     frames_09_embers = build_canonical_w04_embers_frames(w=w, h=h)
 
-    # 12. Grille de collision `96 × 72` : pont praticable continu Sud (`y = gh - 1`) -> grand plateau de Groudon !
+    # 13. Grille de collision `96 × 72` : pont Sud continu jusqu'au vaste plateau central de Groudon !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
         for tx in range(gw):
             blk = walkable_arena_floor[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
             mag_blk = all_magenta[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            walk_grid[ty, tx] = (float(blk.mean()) >= 0.65) and (not bool(mag_blk.any()))
+            walk_grid[ty, tx] = (float(blk.mean()) >= 0.60) and (not bool(mag_blk.any()))
 
     lbl_w, n_w = ndimage.label(walk_grid)
     if n_w > 1:
@@ -305,15 +231,15 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
             walk_grid = np.isin(lbl_w, list(south_ids))
 
     layers = [
-        LayerEntry("00_mer_caldeira_magma_h26", "Mer Caldeira Magma Canonique H26P01.bpl", "BG", frames_00_sea, frame_length=4),
-        LayerEntry("01_sol_basalte_continu", "Sol Basalte Volcanique Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
-        LayerEntry("02_veines_magma_magenta_h26", "Veines Magma Decoupe Magenta H26P01.bpl", "BG", frames_02_veins, frame_length=4),
+        LayerEntry("00_mer_caldeira_magma_dcp", "Mer Caldeira Dark Crater Pit 1x", "BG", frames_00_sea, frame_length=10),
+        LayerEntry("01_sol_basalte_continu", "Sol Volcanique Noir Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
+        LayerEntry("02_veines_magma_magenta_dcp", "Fissures Magma Magenta Dark Crater Pit", "BG", frames_02_veins, frame_length=10),
         LayerEntry("03_rive_magma_visqueux_bordure", "Rive Magma Visqueux & Bordure Rocher", "BG", frames_03_viscous_shore, frame_length=8),
-        LayerEntry("04_cascade_arche_et_colonnes_h26", "Cascade Arche Nord & Colonnes H26P01.bpl", "BG", frames_04_falls_and_pillars, frame_length=3),
-        LayerEntry("05_plateau_et_pont_arene", "Plateau Boss Groudon & Pont Sud-Nord", "BG", [im_05_floor], frame_length=5),
-        LayerEntry("06_falaises_roche_noire_magma", "Falaises Basalte Noir & Contreforts", "BG", [im_06_cliffs], frame_length=5),
-        LayerEntry("07_couronne_arche_roche_noire", "Couronne Roche Noire Magma & Crocs", "BG", [im_07_crown], frame_length=5),
-        LayerEntry("08_incandescence_parois_bpl", "Incandescence Bordure Rocher BPL", "BG", frames_08_glow, frame_length=8),
+        LayerEntry("04_plateau_et_pont_arene", "Plateau Cratere Noir & Pont Sud-Nord", "BG", [im_04_floor], frame_length=5),
+        LayerEntry("05_rune_primo_groudon_sol", "Symbole Primo-Groudon Grave Pulsant", "BG", frames_05_rune, frame_length=10),
+        LayerEntry("06_falaises_roche_noire_magma", "Couronne, Falaises & Pitons Roche Noire", "BG", [im_06_cliffs], frame_length=5),
+        LayerEntry("07_incandescence_parois_dcp", "Incandescence Bordure Rocher DCP", "BG", frames_07_glow, frame_length=8),
+        LayerEntry("08_cascade_et_colonnes_geantes", "Cascade Nord & Colonnes Geantes DCP", "BG", frames_08_cascade_and_cols, frame_length=8),
         LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),
     ]
     return layers, walk_grid, volcanic_pal
@@ -332,7 +258,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         walk_grid=walk_grid,
         renders_dir=out_dir,
         virtual_zip_path=vzip,
-        canonical_ref_for_fidelity=ENTREE_REF_DIR / "native_h26p01_roche_noire_ref.png",
+        canonical_ref_for_fidelity=DCP_PREVIEW_REF,
         max_fidelity_distance=30.0,
         max_unique_tiles_per_bank=24000,
         namespace_override="mine_magma_mma1",

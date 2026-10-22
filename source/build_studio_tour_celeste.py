@@ -36,24 +36,24 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
-            "id": "MMA1",
-            "folder": "mine_magma_arene_v1",
-            "ref_rel": "source/mine_magma_arene_v1/references/native_H26P01.png",
-            "ref_label": "Référence matérielle GBA native 1× (H26P01)",
-            "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
-            "bg_fill": "#370000",
-            "subtitle": "H26P01 1× Natif + Palette Cycling H26P01.bpl — Veines #FF00FF, cascade Nord, 6 colonnes 1× & arène de Groudon (0 mini-volcan)",
-            "wind_summary": "H26P01.bpl : Mer & veines #FF00FF (31f @ 4t) | Cascade Nord & colonnes 1× (8f @ 3t) | Rives (15f @ 8t) | Braises W04 Top (16f @ 7t)",
-        },
-        {
             "id": "MME1",
             "folder": "mine_magma_entree_v1",
-            "ref_rel": "source/mine_magma_arene_v1/references/native_H26P01.png",
-            "ref_label": "Référence matérielle roche noire & magma 1× (H26P01)",
+            "ref_rel": "source/mine_magma_entree_v1/references/d40p11a_dark_crater_entrance.png",
+            "ref_label": "Référence PMD Sky — Dark Crater Entrance (d40p11a 1×)",
             "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
-            "bg_fill": "#140404",
-            "subtitle": "Entrée 100 % Roche Noire Magma (Basalte & Obsidienne) — Chaussée Sud-Nord, arche caverneuse, veines #FF00FF & H26P01.bpl 1×",
-            "wind_summary": "Roche noire magma unifiée | Gouffres & veines #FF00FF (31f @ 4t) | 4 cascades 1× (8f @ 3t) | Rives (15f @ 8t) | Braises W04 Top",
+            "bg_fill": "#0d0808",
+            "subtitle": "POV PMD 100 % Roche Noire Volcanique (d40p11a) + Lave Dark Crater Pit 1× (d41p41a) — Seuil Nord, cendre noire, 0 cascade & rive visqueuse",
+            "wind_summary": "POV PMD roche noire | Lave Dark Crater Pit 1× & veines #FF00FF (12f @ 10t) | Rive visqueuse & bordure rocher (15f @ 8t) | 0 cascade",
+        },
+        {
+            "id": "MMA1",
+            "folder": "mine_magma_arene_v1",
+            "ref_rel": "source/mine_magma_arene_v1/references/dark_crater_pit/d41p41a_preview.png",
+            "ref_label": "Référence PMD Sky — Dark Crater Pit (d41p41a 1×)",
+            "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
+            "bg_fill": "#220604",
+            "subtitle": "POV PMD Roche Noire + Lave Dark Crater Pit 1× (d41p41a) — Île caldeira, symbole Ω gravé, cascade Nord, 4 colonnes géantes & rive visqueuse",
+            "wind_summary": "Lave Dark Crater Pit 1× (12f @ 10t) | Rive visqueuse & bordure rocher (15f @ 8t) | Symbole Ω (12f @ 10t) | Cascade & 4 colonnes (15f @ 8t)",
         },
         {
             "id": "STC1",
@@ -619,9 +619,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MMA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MME1"), encoding="utf-8")
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
+        build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"

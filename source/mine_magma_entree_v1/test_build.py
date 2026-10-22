@@ -69,9 +69,20 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
             opaque = lyr[:, :, 3] > 0
             self.assertGreater(int(opaque.sum()), 40_000)
             lum = 0.299 * lyr[opaque, 0] + 0.587 * lyr[opaque, 1] + 0.114 * lyr[opaque, 2]
-            self.assertLess(float(lum.mean()), 36.0, f"La couche {name} doit être en vraie roche noire magma sombre")
+            self.assertLess(float(lum.mean()), 32.0, f"La couche {name} doit être en vraie roche noire volcanique POV PMD")
             yellow_sandstone = (lyr[opaque, 0] >= 150) & (lyr[opaque, 1] >= 80)
             self.assertEqual(int(yellow_sandstone.sum()), 0, f"Zéro roche ocre/jaune incohérente tolérée sur {name}")
+
+        # Vérifie que la lave est bien la vraie texture `Dark Crater Pit` (`d41p41a` `1×`, `12` poses @ `10` ticks)
+        sea_entry = [l for l in entree_build.build_layers_for_size()[0] if l.slug == "00_mer_et_gouffres_magma_dcp"][0]
+        self.assertEqual(len(sea_entry.frames), 12)
+        self.assertEqual(sea_entry.frame_length, 10)
+        sea0 = np.asarray(sea_entry.frames[0], dtype=np.uint8)[:, :, :3]
+        ref96 = np.asarray(
+            Image.open(REPO_ROOT / "source" / "mine_magma_arene_v1" / "references" / "dark_crater_pit" / "dark_crater_pit_lava_96x96_f00.png").convert("RGB"),
+            dtype=np.uint8,
+        )
+        self.assertTrue(np.array_equal(sea0[:96, :96, :], ref96), "La lave doit être exacte bit-à-bit `1×` Dark Crater Pit (`d41p41a`)")
 
     def test_03_zero_cascades_and_active_viscous_shoreline_rock_border(self) -> None:
         layer_slugs = [l["slug"] for l in self.metrics["layers"]]

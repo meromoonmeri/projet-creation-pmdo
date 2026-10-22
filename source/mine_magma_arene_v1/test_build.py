@@ -74,30 +74,40 @@ class TestMineMagmaAreneV1(unittest.TestCase):
         yellow_sandstone = (cliff_layer[opaque, 0] >= 150) & (cliff_layer[opaque, 1] >= 80)
         self.assertEqual(int(yellow_sandstone.sum()), 0)
 
-    def test_04_viscous_shoreline_rock_border_and_enclosed_arch_waterfall(self) -> None:
+    def test_04_viscous_shoreline_rock_border_and_dark_crater_columns(self) -> None:
         layers, _, _ = arene_build.build_layers_for_size()
+        sea_entry = [l for l in layers if l.slug == "00_mer_caldeira_magma_dcp"][0]
         shore_entry = [l for l in layers if l.slug == "03_rive_magma_visqueux_bordure"][0]
-        fall_entry = [l for l in layers if l.slug == "04_cascade_arche_et_colonnes_h26"][0]
+        fall_entry = [l for l in layers if l.slug == "08_cascade_et_colonnes_geantes"][0]
+        self.assertEqual(len(sea_entry.frames), 12)
+        self.assertEqual(sea_entry.frame_length, 10)
+        ref96 = np.asarray(
+            Image.open(REPO_ROOT / "source" / "mine_magma_arene_v1" / "references" / "dark_crater_pit" / "dark_crater_pit_lava_96x96_f00.png").convert("RGB"),
+            dtype=np.uint8,
+        )
+        self.assertTrue(np.array_equal(np.asarray(sea_entry.frames[0], dtype=np.uint8)[:96, :96, :3], ref96))
+
         self.assertEqual(len(shore_entry.frames), 15)
         self.assertEqual(shore_entry.frame_length, 8)
         f0 = np.asarray(shore_entry.frames[0], dtype=np.uint8)
         f7 = np.asarray(shore_entry.frames[7], dtype=np.uint8)
         self.assertEqual(int(((f0[:, :, 3] > 0) & (f0[:, :, 3] < 255)).sum()), 0)
-        self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 5_000)
+        self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 2_500)
 
-        # Zéro débordement de la cascade centrale au-dessus du sommet pointu de l'arche (`y < 55`) !
+        # Les 4 colonnes géantes `Dark Crater Pit` sortent par le haut `y = 0`, mais zéro cascade au centre à `y < 40` !
         fall0 = np.asarray(fall_entry.frames[0], dtype=np.uint8)
-        self.assertEqual(int((fall0[:55, :, 3] > 0).sum()), 0, "Zéro débordement de cascade au-dessus de l'arche Nord")
+        self.assertGreater(int((fall0[0, :, 3] > 0).sum()), 60, "Les 4 colonnes géantes doivent sortir par le bord haut y = 0")
+        self.assertEqual(int((fall0[:40, 260:508, 3] > 0).sum()), 0, "Zéro débordement de cascade centrale au-dessus des cornes Nord")
 
     def test_05_canonical_palette_cycling_and_walkable_arena(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)
         self.assertGreater(int((diff01 > 12).sum()), 20_000)
 
         _, walk_grid, _ = arene_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 950, f"Plateau d'arène trop étroit : {int(walk_grid.sum())} tuiles")
+        self.assertGreater(int(walk_grid.sum()), 750, f"Plateau d'arène trop étroit : {int(walk_grid.sum())} tuiles")
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        center_ids = set(lbl[30:40, 42:54].ravel().tolist()) - {0}
+        center_ids = set(lbl[36:46, 42:54].ravel().tolist()) - {0}
         self.assertTrue(bool(south_ids & center_ids), "Le pont Sud doit rejoindre continûment le centre de l'arène")
 
     def test_06_scale_invariance_and_zero_credits(self) -> None:
