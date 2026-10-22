@@ -10,9 +10,10 @@ Cohérence géologique intégrale de l'entrée volcanique :
   identique aux matériaux canoniques de l'îlot de `H26P01` (`native_H26P01.png`).
 - **Veines & gouffres de magma `100 %` Magenta `#FF00FF`** (`decor_entree_veines_magenta.png`),
   animés par le **vrai magma canonique `H26P01` `1×`** et son **palette cycling matériel `H26P01.bpl`**.
-- **Zéro petit volcan** : cascades cylindriques `H26P01` `1×` (`8 × 3` ticks) s'écoulant sous
-  l'aplomb des falaises noires dans les gouffres latéraux, incandescence `H26P01.bpl` (`15 × 8` ticks)
-  et braises volcaniques `W04` (`Top`, `16 × 7` ticks).
+- **Zéro cascade et zéro petit volcan à l'entrée** : animation visqueuse de rive et de croûte de
+  **bordure rocher** (`04_rive_magma_visqueux_bordure`, `15 × 8` ticks) partout où le magma touche la
+  roche noire, couplée en phase à l'incandescence thermique de bordure rocher (`08_incandescence_rives_bpl`)
+  et aux braises volcaniques `W04` (`Top`, `16 × 7` ticks).
 """
 
 from __future__ import annotations
@@ -35,7 +36,7 @@ from moteur_magma_canonique_pmd_red import (  # type: ignore
     build_canonical_h26p01_magma_frames,
     build_canonical_w04_embers_frames,
     build_h26p01_rim_glow_frames,
-    render_extended_canonical_pillars,
+    render_viscous_shoreline_border,
     split_magenta_chasms_and_veins,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
@@ -197,20 +198,15 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     full_rock_rgba[non_walk_rock, 3] = 255
     frames_07_glow = build_h26p01_rim_glow_frames(full_rock_rgba, all_magenta)
 
-    # 9. Couche 04 : Cascades cylindriques de lave `H26P01` `1×` (`palette 4`, `8 × 3` ticks)
-    #    placées SOUS les falaises de basalte noir (`05_falaises` & `06_massif`) pour une occlusion 3D
-    #    naturelle parfaite derrière les surplombs rocheux (ZÉRO coupure plate en haut des cascades !)
-    sx = w / float(W_CANON)
-    sy = h / float(H_CANON)
-    pillar_specs = [
-        {"variant": "large", "cx": int(round(200 * sx)), "top_y": int(round(320 * sy)), "base_y": int(round(524 * sy)), "phase": 0, "mirror": False},
-        {"variant": "large", "cx": int(round(568 * sx)), "top_y": int(round(320 * sy)), "base_y": int(round(536 * sy)), "phase": 4, "mirror": True},
-    ]
-    frames_04_pillars = render_extended_canonical_pillars(
-        w=w,
-        h=h,
-        specs=pillar_specs,
-        open_magma_mask=None,
+    # 9. Couche 04 : Animation visqueuse de rive & croûte de bordure rocher (`15 × 8` ticks = `120` ticks)
+    #    ZÉRO cascade à l'entrée (`retire les cascade a l'entrée`) ! Partout où le magma des gouffres
+    #    touche la roche noire (`open_chasm`), le magma s'épaissit en plaques de croûte refroidies au
+    #    contact du basalte, ondule visqueusement vers la rive et craque de fissures incandescentes !
+    band_px = max(8.0, 24.0 * (w / float(W_CANON)))
+    frames_04_viscous_shore = render_viscous_shoreline_border(
+        open_chasm,
+        n_frames=15,
+        band_px=band_px,
     )
 
     # 10. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques `W04` `1×` natives (`16 × 7` ticks)
@@ -236,11 +232,11 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("01_sol_basalte_noir_continu", "Sol Basalte Volcanique Continu", "BG", [Image.fromarray(arr_01_sol, "RGBA")], frame_length=5),
         LayerEntry("02_veines_magma_magenta_h26", "Veines Magma Decoupe Magenta H26P01.bpl", "BG", frames_02_veins, frame_length=4),
         LayerEntry("03_chaussee_praticable_sud_nord", "Chaussee Basalte Cendre Sud-Nord", "BG", [im_03_floor], frame_length=5),
-        LayerEntry("04_cascades_lave_gouffres_h26", "Cascades Lave Gouffres H26P01.bpl", "BG", frames_04_pillars, frame_length=3),
+        LayerEntry("04_rive_magma_visqueux_bordure", "Rive Magma Visqueux & Bordure Rocher", "BG", frames_04_viscous_shore, frame_length=8),
         LayerEntry("05_falaises_roche_noire_magma", "Falaises Basalte Noir & Surplombs", "BG", [im_05_cliffs], frame_length=5),
         LayerEntry("06_massif_et_arche_roche_noire", "Massif Roche Noire Magma & Arche Nord", "BG", [im_06_arch], frame_length=5),
         LayerEntry("07_crocs_et_rebords_chaussee", "Crocs Volcaniques & Rebords Chaussee", "BG", [im_04_rim], frame_length=5),
-        LayerEntry("08_incandescence_rives_bpl", "Incandescence Thermique Roche Noire BPL", "BG", frames_07_glow, frame_length=8),
+        LayerEntry("08_incandescence_rives_bpl", "Incandescence Bordure Rocher BPL", "BG", frames_07_glow, frame_length=8),
         LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),
     ]
     return layers, walk_grid, volcanic_pal

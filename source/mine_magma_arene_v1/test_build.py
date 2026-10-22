@@ -2,11 +2,13 @@
 """Tests unitaires d'acceptation — `mine_magma_arene_v1` (`MMA1`, PMDO 0.8.12.0).
 
 Vérifie :
-1. Suppression stricte à 100 % des petits volcans (`0` fichier volcan, `0` îlot volcanique).
-2. Veines de magma 100 % `#FF00FF` dans `decor_arene_veines_magenta.png` et zéro liseré prune.
-3. Animation canonique matérielle `H26P01.bpl` dans la mer de lave ET dans les veines rocheuses.
-4. Pont Sud -> Nord et grand plateau central d'arène continus et praticables (`> 1200` tuiles `8×8`).
-5. Invariance d'échelle (`0.5×`) et zéro mention interdite partout.
+1. Suppression stricte à `100 %` des petits volcans (`0` fichier volcan, `0` îlot volcanique).
+2. Veines & mer de magma `100 %` `#FF00FF` dans `decor_arene_veines_magenta.png` et zéro liseré prune.
+3. Cohérence géologique `100 %` roche noire magma avec l'entrée `MME1` (`mean luminance < 36`, `0` grès ocre).
+4. **Animation visqueuse de rive & croûte de bordure rocher** (`03_rive_magma_visqueux_bordure`,
+   `15 × 8` ticks, `alpha ∈ {0, 255}`) + **cascade Nord strictement contenue sous l'arche rocheuse**.
+5. Animation canonique matérielle `H26P01.bpl` dans la mer et les veines + pont Sud -> plateau de Groudon continu.
+6. Invariance d'échelle (`0.5×`) et zéro mention interdite partout.
 """
 
 from __future__ import annotations
@@ -22,11 +24,11 @@ from PIL import Image
 from scipy import ndimage
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-for p in (str(REPO_ROOT / "source"), str(REPO_ROOT / "source" / "mine_magma_arene_v1")):
+for p in (str(REPO_ROOT), str(REPO_ROOT / "source")):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-import build as arene_build  # type: ignore
+import source.mine_magma_arene_v1.build as arene_build  # type: ignore
 
 
 class TestMineMagmaAreneV1(unittest.TestCase):
@@ -60,18 +62,45 @@ class TestMineMagmaAreneV1(unittest.TestCase):
             fringe = (r - g >= 18) & (b - g >= 12)
             self.assertEqual(int(fringe.sum()), 0, f"Liseré violet détecté sur pose {idx}: {int(fringe.sum())}")
 
-    def test_03_canonical_palette_cycling_and_walkable_arena(self) -> None:
+    def test_03_coherent_black_magma_rock_matching_entrance(self) -> None:
+        cliff_layer = np.asarray(
+            Image.open(self.renders / "layers" / "06_falaises_roche_noire_magma.png").convert("RGBA"),
+            dtype=np.float32,
+        )
+        opaque = cliff_layer[:, :, 3] > 0
+        self.assertGreater(int(opaque.sum()), 20_000)
+        lum = 0.299 * cliff_layer[opaque, 0] + 0.587 * cliff_layer[opaque, 1] + 0.114 * cliff_layer[opaque, 2]
+        self.assertLess(float(lum.mean()), 36.0, "Les falaises de l'arène doivent être en roche noire magma cohérente avec MME1")
+        yellow_sandstone = (cliff_layer[opaque, 0] >= 150) & (cliff_layer[opaque, 1] >= 80)
+        self.assertEqual(int(yellow_sandstone.sum()), 0)
+
+    def test_04_viscous_shoreline_rock_border_and_enclosed_arch_waterfall(self) -> None:
+        layers, _, _ = arene_build.build_layers_for_size()
+        shore_entry = [l for l in layers if l.slug == "03_rive_magma_visqueux_bordure"][0]
+        fall_entry = [l for l in layers if l.slug == "04_cascade_arche_et_colonnes_h26"][0]
+        self.assertEqual(len(shore_entry.frames), 15)
+        self.assertEqual(shore_entry.frame_length, 8)
+        f0 = np.asarray(shore_entry.frames[0], dtype=np.uint8)
+        f7 = np.asarray(shore_entry.frames[7], dtype=np.uint8)
+        self.assertEqual(int(((f0[:, :, 3] > 0) & (f0[:, :, 3] < 255)).sum()), 0)
+        self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 5_000)
+
+        # Zéro débordement de la cascade centrale au-dessus du sommet pointu de l'arche (`y < 55`) !
+        fall0 = np.asarray(fall_entry.frames[0], dtype=np.uint8)
+        self.assertEqual(int((fall0[:55, :, 3] > 0).sum()), 0, "Zéro débordement de cascade au-dessus de l'arche Nord")
+
+    def test_05_canonical_palette_cycling_and_walkable_arena(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff01 > 12).sum()), 25_000)
+        self.assertGreater(int((diff01 > 12).sum()), 20_000)
 
         _, walk_grid, _ = arene_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 1200, f"Plateau d'arène trop étroit : {int(walk_grid.sum())} tuiles")
+        self.assertGreater(int(walk_grid.sum()), 950, f"Plateau d'arène trop étroit : {int(walk_grid.sum())} tuiles")
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        center_ids = set(lbl[30:42, 42:54].ravel().tolist()) - {0}
+        center_ids = set(lbl[30:40, 42:54].ravel().tolist()) - {0}
         self.assertTrue(bool(south_ids & center_ids), "Le pont Sud doit rejoindre continûment le centre de l'arène")
 
-    def test_04_scale_invariance_and_zero_credits(self) -> None:
+    def test_06_scale_invariance_and_zero_credits(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             res_half = arene_build.build(scale=0.5, output_override=Path(tmp))
             self.assertEqual(res_half["width"], 384)

@@ -293,28 +293,197 @@ def render_extended_canonical_pillars(
     return [Image.fromarray(arr, mode="RGBA") for arr in frames_out]
 
 
+# Palette 5-bit GBA 100 % canonique extraite directement de `H26P01.bpl`
+# (croûte refroidie noir-grenat -> rouge visqueux -> orange H26P01 -> fissure dorée).
+H26_VISCOUS_SHORE_PAL = np.array(
+    [
+        [31, 4, 0],      # 0 : croûte figée contre le basalte noir (bordure rocher)
+        [55, 8, 0],      # 1 : coeur sombre de plaque de croûte refroidie
+        [79, 15, 0],     # 2 : rebord de croûte refroidie
+        [103, 23, 7],    # 3 : sillon visqueux grenat chaud
+        [135, 31, 7],    # 4 : dos d'onde visqueuse rouge profond
+        [167, 47, 7],    # 5 : magma rouge-orangé H26P01
+        [199, 79, 0],    # 6 : crête visqueuse orange H26P01
+        [215, 119, 0],   # 7 : liseré en fusion autour des plaques de croûte
+        [231, 159, 0],   # 8 : fissure ardente au contact rocheux
+        [247, 199, 23],  # 9 : point d'éclat de rupture contre la paroi
+    ],
+    dtype=np.uint8,
+)
+
+
+def _shore_surge_phase_field(h: int, w: int) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    tau = 2.0 * np.pi
+    along = (
+        1.35 * np.sin(tau * xx / 128.0 + 0.7 * np.cos(tau * yy / 144.0))
+        + 1.05 * np.cos(tau * yy / 96.0 - 0.6 * np.sin(tau * xx / 160.0))
+        + 0.55 * np.sin(tau * (xx + yy) / 64.0)
+    )
+    return xx, yy, along
+
+
+def render_viscous_shoreline_border(
+    open_magma_mask: np.ndarray,
+    n_frames: int = 15,
+    band_px: float = 22.0,
+) -> List[Image.Image]:
+    """Génère `n_frames` phases bouclées sans couture (`FrameLength = 8` ticks, cycle `120` ticks)
+    d'animation visqueuse de rive et de croûte de bordure rocher sur `0 < d <= band_px`,
+    SANS AUCUN DAMIER (`0` Bayer dither) ni anneau jaune artificiel :
+    1. Collerette continue de croûte refroidie au contact immédiat du basalte (`bordure rocher`,
+       `d <= rim_w`, `1.8..5.0 px`) qui s'épaissit en refroidissant puis s'amincit et se fendille
+       de fissures orangées sous la poussée du magma ;
+    2. Plaques organiques de croûte refroidie (cellules Worley anisotropes `2:1` de `magma.py`)
+       flottant et se déformant visqueusement près des parois (`d <= 15 px`), laissant voir entre
+       elles le vrai magma `1×` `H26P01.bpl` en ébullition continue (`alpha = 0` dans les chenaux !) ;
+    3. Bourrelets / langues d'ondes visqueuses concentriques au rivage qui roulent lentement vers
+       la paroi rocheuse (`d : 20 -> 0`) dans les teintes canoniques exactes de `H26P01.bpl`."""
+    h, w = open_magma_mask.shape
+    dist = ndimage.distance_transform_edt(open_magma_mask).astype(np.float32)
+    active_band = open_magma_mask & (dist <= band_px)
+    ys, xs = np.where(active_band)
+    if len(ys) == 0:
+        return [Image.fromarray(np.zeros((h, w, 4), dtype=np.uint8), mode="RGBA") for _ in range(n_frames)]
+
+    xx_full, yy_full, along_full = _shore_surge_phase_field(h, w)
+    xv = xx_full[ys, xs]
+    yv = yy_full[ys, xs]
+    dv = dist[ys, xs]
+    av = along_full[ys, xs]
+
+    # Grille cellulaire périodique 2:1 (inspirée de `source/magma_visqueux/magma.py`)
+    cell_x, cell_y = 26.0, 13.0
+    nx, ny = int(np.ceil(w / cell_x)) + 4, int(np.ceil(h / cell_y)) + 4
+    rng = np.random.default_rng(26010)
+    jx = rng.uniform(0.18, 0.82, size=(ny, nx)).astype(np.float32)
+    jy = rng.uniform(0.18, 0.82, size=(ny, nx)).astype(np.float32)
+    tau = 2.0 * np.pi
+
+    frames: List[Image.Image] = []
+    for f in range(n_frames):
+        s = float(f) / float(n_frames)
+        ph = tau * s
+
+        # Houle visqueuse lente convergeant vers la paroi rocheuse (`+ 2 * s` => crêtes allant vers `d = 0`)
+        wave_main = np.sin(tau * (dv / 10.5 + 2.0 * s) + av)
+        wave_sub = np.sin(tau * (dv / 6.5 + 1.0 * s) - 0.75 * av + 0.9)
+        surge = 0.70 * wave_main + 0.30 * wave_sub
+
+        # Déformation visqueuse périodique des radeaux de croûte côtiers
+        wu = 3.4 * np.sin(tau * yv / 96.0 + ph) + 2.2 * surge
+        wv = 2.0 * np.cos(tau * xv / 112.0 - ph) + 1.4 * np.sin(tau * dv / 15.0 + ph)
+        gx = (xv + wu) / cell_x + 2.0
+        gy = (yv + wv) / cell_y + 2.0
+        ix0 = np.floor(gx).astype(np.int32)
+        iy0 = np.floor(gy).astype(np.int32)
+
+        d1 = np.full(xv.shape, 99.0, dtype=np.float32)
+        d2 = np.full(xv.shape, 99.0, dtype=np.float32)
+        for dy in (-1, 0, 1):
+            cy = (iy0 + dy) % ny
+            for dx in (-1, 0, 1):
+                cx = (ix0 + dx) % nx
+                px = (ix0 + dx).astype(np.float32) + jx[cy, cx]
+                py = (iy0 + dy).astype(np.float32) + jy[cy, cx]
+                dd = np.hypot(gx - px, gy - py)
+                swap = dd < d1
+                d2 = np.where(swap, d1, np.minimum(d2, dd))
+                d1 = np.where(swap, dd, d1)
+
+        # `core` est élevé au coeur d'une plaque cellulaire, `0` dans le chenal en fusion entre deux plaques
+        core = d2 - d1
+
+        # 1. Collerette continue de `bordure rocher` (`1.8..5.0 px` contre chaque falaise / pilier de basalte)
+        rim_w = 3.25 - 1.25 * surge + 1.15 * np.clip(core, 0.0, 0.7)
+        on_rock_lip = dv <= rim_w
+
+        # 2. Radeaux organiques de croûte refroidie flottant près des parois (`d <= 15.5 px`, contours nets sans damier !)
+        plate_thresh = 0.14 + 0.032 * dv + 0.07 * surge
+        on_crust_raft = (dv <= 15.5) & (core > plate_thresh)
+        raft_hot_rim = (dv <= 16.2) & (~on_crust_raft) & (core > plate_thresh - 0.075)
+
+        # 3. Bourrelets / rides visqueuses concentriques roulant de la mer H26P01 vers la rive (`d = 3..21 px`)
+        ridge_env = np.clip((band_px - dv) / 7.5, 0.0, 1.0)
+        on_viscous_ridge = (dv > rim_w) & (~on_crust_raft) & ((wave_main * ridge_env) > 0.34)
+        ridge_crest = on_viscous_ridge & ((wave_main * ridge_env) > 0.68)
+        on_viscous_trough = (dv > rim_w) & (dv <= 16.5) & (~on_crust_raft) & (~raft_hot_rim) & (wave_main < -0.52)
+
+        opaque = on_rock_lip | on_crust_raft | raft_hot_rim | on_viscous_ridge | on_viscous_trough
+        pal_idx = np.full(xv.shape, 5, dtype=np.int32)
+
+        # Creux visqueux sombres entre deux ondes côtières
+        pal_idx = np.where(on_viscous_trough, 4, pal_idx)
+        # Rides visqueuses concentriques orange H26P01
+        pal_idx = np.where(on_viscous_ridge, 5, pal_idx)
+        pal_idx = np.where(ridge_crest, np.where(dv <= 9.0, 7, 6), pal_idx)
+        # Liseré en fusion léchant le bord des radeaux de croûte
+        pal_idx = np.where(raft_hot_rim, np.where(surge > 0.25, 7, 6), pal_idx)
+        # Radeaux de croûte volcanique refroidie (coeur sombre -> bord grenat)
+        pal_idx = np.where(on_crust_raft, np.where(core > plate_thresh + 0.14, 1, 2), pal_idx)
+        # Bordure rocher immédiate : croûte noir-grenat qui craque d'éclats orangés sous la poussée du magma !
+        lip_crack = on_rock_lip & (core < 0.085) & (surge > 0.12)
+        lip_warm = on_rock_lip & (~lip_crack) & (dv > rim_w - 1.1)
+        lip_solid = on_rock_lip & (~lip_crack) & (~lip_warm)
+        pal_idx = np.where(lip_solid, np.where(dv <= 1.6, 0, 1), pal_idx)
+        pal_idx = np.where(lip_warm, np.where(surge > 0.35, 6, 3), pal_idx)
+        pal_idx = np.where(lip_crack, np.where(surge > 0.52, 9, 8), pal_idx)
+
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        vis_ys = ys[opaque]
+        vis_xs = xs[opaque]
+        arr[vis_ys, vis_xs, :3] = H26_VISCOUS_SHORE_PAL[pal_idx[opaque]]
+        arr[vis_ys, vis_xs, 3] = 255
+        frames.append(Image.fromarray(arr, mode="RGBA"))
+
+    return frames
+
+
 def build_h26p01_rim_glow_frames(
     rock_rgba: np.ndarray,
     hot_contact_mask: np.ndarray,
 ) -> List[Image.Image]:
     """Utilise les `15` phases matérielles exactes (`FrameLength = 8` ticks, cycle `120` ticks)
-    de la palette `0` de `H26P01.bpl` sur les bords rocheux immédiats des veines et gouffres."""
+    de la palette `0` de `H26P01.bpl` couplées en phase avec l'onde visqueuse de rive (`surge`)
+    pour illuminer dynamiquement les rebords rocheux (`bordure rocher` sur `2 px` d'épaisseur)
+    au moment précis où le magma visqueux vient lécher chaque paroi !"""
     _, bpl_bytes = load_h26p01_native()
     h, w, _ = rock_rgba.shape
     opaque_rock = rock_rgba[:, :, 3] > 0
     rim1 = ndimage.binary_dilation(hot_contact_mask, iterations=1) & opaque_rock
     rim2 = ndimage.binary_dilation(hot_contact_mask, iterations=2) & opaque_rock & (~rim1)
 
+    _, _, along = _shore_surge_phase_field(h, w)
+    # 4 secteurs de phase quantifiés par tuile `8×8` pour propager l'onde thermique autour du rivage
+    # tout en préservant une compacité maximale de la banque `.tile` !
+    along_tile = np.repeat(np.repeat(along[::8, ::8], 8, axis=0), 8, axis=1)[:h, :w]
+    phase_q = (np.rint(along_tile / (0.5 * np.pi)) * (0.5 * np.pi)).astype(np.float32)
+
+    tau = 2.0 * np.pi
+    r1_ys, r1_xs = np.where(rim1)
+    r2_ys, r2_xs = np.where(rim2)
+    base1 = rock_rgba[r1_ys, r1_xs, :3].astype(np.float32)
+    base2 = rock_rgba[r2_ys, r2_xs, :3].astype(np.float32)
+    a1 = phase_q[r1_ys, r1_xs]
+    a2 = phase_q[r2_ys, r2_xs]
+
     frames: List[Image.Image] = []
     for f in range(15):
+        s = float(f) / 15.0
         pal, _ = decode_red_palettes(bpl_bytes, tick=f * 8)
-        c_hot = pal[0, 13, :3]
-        c_mid = pal[0, 11, :3]
+        c_hot = pal[0, 13, :3].astype(np.float32)
+        c_mid = pal[0, 11, :3].astype(np.float32)
+
+        w1 = np.clip(0.42 + 0.25 * np.sin(tau * 2.0 * s + a1), 0.16, 0.68)[:, None]
+        w2 = np.clip(0.24 + 0.16 * np.sin(tau * 2.0 * s + a2), 0.08, 0.42)[:, None]
+
+        # Quantification matérielle GBA 5-bit BGR555 exacte (`& 0xF8`) : 100 % fidèle au GPU GBA
+        # et compacte la banque `.tile` de ~72 % en fusionnant les quasi-doublons à 1 LSB !
         arr = np.zeros((h, w, 4), dtype=np.uint8)
-        arr[rim1, :3] = np.clip(0.55 * rock_rgba[rim1, :3].astype(np.float32) + 0.45 * c_hot.astype(np.float32), 0, 255).astype(np.uint8)
-        arr[rim1, 3] = 255
-        arr[rim2, :3] = np.clip(0.75 * rock_rgba[rim2, :3].astype(np.float32) + 0.25 * c_mid.astype(np.float32), 0, 255).astype(np.uint8)
-        arr[rim2, 3] = 255
+        arr[r1_ys, r1_xs, :3] = (np.clip((1.0 - w1) * base1 + w1 * c_hot, 0, 255).astype(np.uint8) & 0xF8)
+        arr[r1_ys, r1_xs, 3] = 255
+        arr[r2_ys, r2_xs, :3] = (np.clip((1.0 - w2) * base2 + w2 * c_mid, 0, 255).astype(np.uint8) & 0xF8)
+        arr[r2_ys, r2_xs, 3] = 255
         frames.append(Image.fromarray(arr, mode="RGBA"))
     return frames
 
