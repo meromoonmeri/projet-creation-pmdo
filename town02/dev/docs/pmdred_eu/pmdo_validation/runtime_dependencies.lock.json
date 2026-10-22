@@ -1,0 +1,171 @@
+{
+  "schema": "new-era.pmdred-eu-exact-pmdo-runtime-lock.v2",
+  "recorded_at": "2026-08-12",
+  "purpose": "Regenerable, authenticated, create-only dependency lock for exact PMDO 0.8.12 Ground validation. Every downloaded, extracted, or built component must pass its recorded file/tree/import gate before use.",
+  "artifacts": {
+    "pmdo_archive": {
+      "repository": "meromoonmeri/RUNTIMEPMDO",
+      "repository_commit": "61c005e1dc9fd4eee6e6e7fcde77364de33d291e",
+      "path": "pmdc-linux-x64.zip",
+      "url": "https://github.com/meromoonmeri/RUNTIMEPMDO/blob/61c005e1dc9fd4eee6e6e7fcde77364de33d291e/pmdc-linux-x64.zip",
+      "bytes": 77503089,
+      "git_blob_sha1": "7fe052869491a92bf8a87bc3b97339eff3828339",
+      "local_path": ".runtime-cache/downloads/pmdc-linux-x64.zip",
+      "status": "REQUIRED",
+      "sha256": "c64f72afd27b96d5a870f71e44d05ee1e952909e86b9a53d0479163763c61577"
+    },
+    "pmdo_executable": {
+      "version": "0.8.12",
+      "upstream_tag": "PMDC v0.8.12",
+      "upstream_commit": "e975bd33e32bc774a43fdab24dc2e781c5a38bab",
+      "sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+      "bytes": 116173385,
+      "local_path": ".runtime-cache/pmdo-headless-bundle/PMDO",
+      "status": "REQUIRED"
+    },
+    "eu_rom": {
+      "repository": "meromoonmeri/PMD-RED-PMDO-PORT",
+      "repository_commit": "b441d467091a1678218168558fa480a3d8292012",
+      "path": "Pokemon Mystery Dungeon - Red Rescue Team (Europe) (En,Fr,De,Es,It).gba",
+      "url": "https://github.com/meromoonmeri/PMD-RED-PMDO-PORT/blob/b441d467091a1678218168558fa480a3d8292012/Pokemon%20Mystery%20Dungeon%20-%20Red%20Rescue%20Team%20(Europe)%20(En,Fr,De,Es,It).gba",
+      "git_blob_sha1": "82d1540fab46729b151bebe0825f78239bcf6bc1",
+      "sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+      "md5": "9837da1fdfe900c52f2109d9718d4e85",
+      "bytes": 33554432,
+      "local_path": ".runtime-cache/downloads/pmdred-eu.gba",
+      "status": "REQUIRED"
+    },
+    "dumpasset": {
+      "repository": "audinowho/DumpAsset",
+      "commit": "9d864d1425f002b051e7a54fffc639988d8ef9c9",
+      "local_path": ".runtime-cache/DumpAsset",
+      "role": "PMDO fixture base assets",
+      "status": "REQUIRED",
+      "archive_sha256": "956ad1047c8e66ea545c26033119e7e2fc3c1ff614ecfd37f96f57912178eb17",
+      "archive_bytes": 338722101,
+      "archive_path": ".runtime-cache/downloads/DumpAsset-9d864d1425f002b051e7a54fffc639988d8ef9c9.tar.gz",
+      "tree_manifest": ".runtime-cache/DumpAsset.tree-sha256",
+      "tree_manifest_sha256": "42be740813125641bb5c3a15adefcb24b53e70fa5401863e3913b77ea0c2356d",
+      "tree_file_count": 11485
+    },
+    "sdl_source": {
+      "repository": "libsdl-org/SDL",
+      "commit": "793a0681a92d156733fa3aaa174651dc7345cc5f",
+      "patch": "tools/patches/pmdo-0.8.12-headless-sdl.patch",
+      "expected_patched_library_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+      "local_source_path": ".runtime-cache/src/SDL",
+      "local_library_glob": ".runtime-cache/dotnet-headless/PMDO/**/libSDL2-2.0.so.0",
+      "status": "REQUIRED",
+      "expected_patched_library_bytes": 2013784,
+      "original_embedded_library_sha256": "52cf4d7fa12c1ee9a96ce875fa79da3eae7a901965f02e1ca1d4238bd5dc549e",
+      "original_embedded_library_bytes": 2526784,
+      "patch_sha256": "7fb310776961e5a6a30cb9bc4550a070d3eb284b3813ee03406e418e60119f6f",
+      "build_system": "CMake 3.25.0",
+      "build_configuration": "-DSDL_SHARED=ON -DSDL_STATIC=OFF -DSDL_TEST=OFF -DCMAKE_BUILD_TYPE=Release",
+      "primary_build_path": ".runtime-cache/build/SDL-headless/libSDL2-2.0.so.0.3000.3",
+      "independent_reproducibility_build_path": ".runtime-cache/build/SDL-reprocheck/libSDL2-2.0.so.0.3000.3",
+      "independent_reproducibility_result": "PASS_BYTE_IDENTICAL",
+      "authenticated_runtime_result": "PMDO 0.8.12 exact pixel/lifecycle validation PASS with ANGLE over SwiftShader",
+      "historical_unrecovered_expected_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb",
+      "historical_contradiction_resolution": "The historical binary was unavailable and three fresh build variants did not reproduce it. Two independent same-options CMake Release builds from the pinned authenticated source plus tracked patch produced 2cec7b5f... byte-identically; this locally reproducible artifact is therefore the locked runtime dependency. The former hash remains recorded here and is not relabeled."
+    },
+    "angle_swiftshader": {
+      "repository": "IsaacTalb/tiktok-wrapper",
+      "commit": "3be040fab553c751ffcdc7ad8d806b95b8e52af8",
+      "local_bundle_path": ".runtime-cache/pmdo-headless-bundle",
+      "required_files": [
+        "libEGL.so",
+        "libGLESv2.so",
+        "libvk_swiftshader.so",
+        "libvulkan.so.1",
+        "vk_swiftshader_icd.json"
+      ],
+      "status": "REQUIRED",
+      "file_sha256": {
+        "libEGL.so": "600273ce12be556fc44d9dff9a14ce9c3aad84c560405cfafba2dae386987329",
+        "libGLESv2.so": "ab560af215dbe4eb2f528cf1dd1c30f099c436d143e50fe8bb6bacb191187a3b",
+        "libvk_swiftshader.so": "43a8214c29b5b2daf3efa82ff95d1c5b615f6a4c2ad2aacf459bd579b25c88dc",
+        "libvulkan.so.1": "6be82e54960ba8243902667dbc8083b2200c5467402e571d7cd49fa325d42e26",
+        "vk_swiftshader_icd.json": "c9eef28b6b984fec220ef0abfecc40b502d46946706e47bfe97707027cb818bd"
+      },
+      "file_bytes": {
+        "libEGL.so": 251064,
+        "libGLESv2.so": 6437608,
+        "libvk_swiftshader.so": 4565640,
+        "libvulkan.so.1": 6396248,
+        "vk_swiftshader_icd.json": 107
+      }
+    },
+    "technical_reference": {
+      "repository": "pret/pmd-red",
+      "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+      "local_path": ".runtime-cache/pmd-red-reference",
+      "role": "technical identity/reference only; never substitutes for authoritative EU-ROM bytes",
+      "status": "REQUIRED"
+    },
+    "python_environment": {
+      "local_path": ".runtime-cache/test-venv",
+      "required_imports": [
+        "PIL",
+        "skytemple_files",
+        "lupa"
+      ],
+      "status": "REQUIRED",
+      "versions": {
+        "Pillow": "12.3.0",
+        "skytemple-files": "1.8.5",
+        "lupa": "2.8"
+      }
+    }
+  },
+  "derived_inputs": {
+    "normalized_extraction": {
+      "path": ".runtime-cache/pmdred-eu-ground",
+      "authority_manifest": "docs/pmdred_eu/ground_manifest.json",
+      "status": "REQUIRED",
+      "tree_manifest": ".runtime-cache/pmdred-eu-ground.tree-sha256",
+      "tree_manifest_sha256": "931c9e0363b6dc0936502e9fc58b61fb705a1dd07d9f25861b635c542bba00a5",
+      "tree_file_count": 724
+    },
+    "runtime_reference_plan": {
+      "tracked_source": "docs/pmdred_eu/runtime_reference_plan_v2.json",
+      "runtime_path": ".runtime-cache/pmdred-eu-reference-plan-v2.json",
+      "sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+      "status": "REQUIRED"
+    },
+    "converter_candidates": {
+      "path": ".runtime-cache/pmdred-eu-remaining-regenerated-v201",
+      "converter_version": "2.0.1-eu",
+      "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+      "candidate_inventory": "docs/pmdred_eu/remaining_grounds/candidate_audit.json",
+      "status": "REQUIRED",
+      "tree_manifest": ".runtime-cache/pmdred-eu-remaining-regenerated-v201.tree-sha256",
+      "tree_manifest_sha256": "dbf91db99f988f596d32869a5eaf73e85c3de52688d72a7e303304ad8e387184",
+      "tree_file_count": 440,
+      "audit_path": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/audit.json",
+      "audit_sha256": "2434d193ed48596314fe4c188da2b3800d7145f6189086c25ed57b3757acd43b",
+      "passing_candidate_count": 219,
+      "local_cycle_count": 2,
+      "tile_tick_comparisons": 23716938
+    }
+  },
+  "source_corrections": [
+    {
+      "recorded_at": "2026-08-12",
+      "issue": "The initial recovery note transposed the two meromoonmeri repository commit IDs.",
+      "verified_resolution": "git ls-remote and fresh authenticated clones prove RUNTIMEPMDO main=61c005e1dc9fd4eee6e6e7fcde77364de33d291e and PMD-RED-PMDO-PORT master=b441d467091a1678218168558fa480a3d8292012. File blob IDs, sizes, and authoritative SHA-256 gates remain independently checked."
+    },
+    {
+      "recorded_at": "2026-08-12",
+      "issue": "The unrecovered historical SDL dependency hash 9fc8bcf... could not be reproduced from its nominal pinned source and patch.",
+      "verified_resolution": "Preserved original PMDO extraction separately; authenticated pinned SDL 793a0681... plus tracked patch 7fb31077... was built twice independently with identical CMake 3.25.0 Release options. Both outputs are byte-identical at SHA-256 2cec7b5f... (2,013,784 bytes), and that adapted extraction completed exact PMDO 0.8.12 t01p07 lifecycle plus 97/97 raw-EU pixel comparisons. Lock replaced deliberately; former hash retained under historical_unrecovered_expected_sha256."
+    }
+  ],
+  "restoration": {
+    "script": "tools/restore_pmdred_eu_validation_runtime.sh",
+    "policy": "create-only; reject every existing mismatch; retain failed temporary paths",
+    "last_verified_result": "PASS",
+    "last_verified_at": "2026-08-12",
+    "idempotence_gate": "PASS; two consecutive runs left all restored component mtimes unchanged"
+  }
+}

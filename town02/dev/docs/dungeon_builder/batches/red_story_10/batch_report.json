@@ -1,0 +1,105 @@
+{
+  "schema": "new-era.red-story-batch.v1",
+  "batch": "red_story_10",
+  "summary": {
+    "requested": 1,
+    "staged": 1,
+    "generated": 1,
+    "runtime_pmdo_mapgen_validated": 1,
+    "route_validated": 1,
+    "promoted": 1,
+    "blocked": 0
+  },
+  "entries": [
+    {
+      "definition": "mt_freeze_peak",
+      "zone": "mt_freeze_peak",
+      "floors": 4,
+      "definition_path": "DungeonDefs/staging/red_story_10/mt_freeze_peak.json",
+      "zone_path": "Staging/dungeon_builder/red_story_10/Data/Zone/mt_freeze_peak.json",
+      "configuration_gate": true,
+      "warnings": [],
+      "status": "PROMOTED_RUNTIME_VALIDATED",
+      "blockers": [],
+      "runtime": {
+        "engine": "PMDO 0.8.12",
+        "attempted": 50,
+        "generated": 50,
+        "failures": 0,
+        "non_traversable": 0,
+        "invalid": 0,
+        "seeds_logged": 50
+      },
+      "artifacts": {
+        "definition_sha256": "8ef98d3f6ae3d8a2d97b90ac77fb65fe0a50bbb3b48393b38c9866706afd2954",
+        "zone_sha256": "800dc5058403ddd59ac95e494b803513d62bd8dd9dd9b0e89cc2aae40a3a250c"
+      },
+      "route_runtime": {
+        "jsonl": "docs/dungeon_builder/batches/red_story_10/runtime/routes/mt_freeze_peak.jsonl",
+        "jsonl_sha256": "ea5c27aff7977f8e016b8b70acbd743c15b86ad58d4a074505d4252d0fc32122",
+        "log": "docs/dungeon_builder/batches/red_story_10/runtime/routes/mt_freeze_peak.log",
+        "procedural_maps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "boss_maps": [
+          {
+            "segment": 1,
+            "floor": 0,
+            "boss_species": "glalie",
+            "expected_boss_species": "glalie",
+            "map_seed": "-6628180071424928576",
+            "kind": "canonical_fixed_boss"
+          }
+        ],
+        "boss_clears": [
+          {
+            "segment": 1,
+            "map": "mt_freeze_peak_boss",
+            "expected_species": "glalie",
+            "native_clear_hooks": 1,
+            "source_floor": 5,
+            "source_fixed_room": 6
+          }
+        ],
+        "grounds": [
+          "d11p02",
+          "d11p03"
+        ],
+        "fatals": 0
+      },
+      "canonical_battle_ground": "d11p03",
+      "canonical_layout_source": "Data/Ground/d11p03.rsground",
+      "rsmap_source": "Data/Map/mt_freeze_peak_boss.rsmap",
+      "rsmap_equivalence_verified": true,
+      "battle_location_verified": true,
+      "fixed_segments_provenance": [
+        {
+          "source_floor": 5,
+          "source_fixed_room": null,
+          "map": "mt_freeze_peak_boss",
+          "ground": "d11p03",
+          "provenance": "PMD_RED_ROM"
+        }
+      ],
+      "active_definition": "DungeonDefs/canonical/mt_freeze_peak.json",
+      "active_zone": "Data/Zone/mt_freeze_peak.json"
+    }
+  ],
+  "runtime_evidence": {
+    "jsonl": "docs/dungeon_builder/batches/red_story_10/runtime/native_mapgen.jsonl",
+    "jsonl_sha256": "903c1d36bbe198cf0958b3405eafde4ca37972f2f9f392315c1301c8e5063af5",
+    "report": null,
+    "report_sha256": null,
+    "end": {
+      "event": "end",
+      "attempted": 50,
+      "generated": 50,
+      "failures": 0,
+      "non_traversable": 0,
+      "invalid": 0
+    }
+  }
+}

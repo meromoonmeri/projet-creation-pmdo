@@ -1,0 +1,94 @@
+{
+  "schema": "new-era.canonical-journey-gate.sinister-woods.v2",
+  "result": "PASS_NATIVE_GENERATOR_RUNTIME_NON_PRODUCTION",
+  "public_identity": "Sinister Woods",
+  "technical_zone_id": "gloomy_forest",
+  "provenance": {
+    "grounds": "PMD_RED_EU_CANON",
+    "floors_1_13_spawn_cycle": "PMD_RED_EU_CANON",
+    "floors_14_23_extension": "NEW_ERA_ADAPTATION",
+    "team_dazzling_recast": "NEW_ERA_ADAPTATION"
+  },
+  "procedural_floor_counts": {
+    "0": 15,
+    "1": 5,
+    "3": 3
+  },
+  "music_by_segment": {
+    "0": [
+      "Sinister Woods.ogg"
+    ],
+    "1": [
+      "Sinister Woods.ogg"
+    ],
+    "3": [
+      "Sinister Woods.ogg"
+    ]
+  },
+  "canonical_grounds": {
+    "gloomy_forest_entrance": {
+      "exists": true,
+      "sha256": "6494e9fbdf4bd454407c52dbe8d1fe59782e1ab182caef45dfe22ce2bad0e5ab"
+    },
+    "sinister_woods_clearing": {
+      "exists": true,
+      "sha256": "f7152f104c7d3f5c1df90e87d6a44f1502c47336edea87145e695623007fb77b"
+    }
+  },
+  "foreign_environment_references": {
+    "treeshroud_tileset_reference_count": 0,
+    "sinister_woods_b41_namespace_reference_count": 9,
+    "relic_forest_blob_reference_count": 0,
+    "reverse_relic_forest_script_reference_count": 0,
+    "deep_shadow_missing": false
+  },
+  "blockers": [
+    "FULL_PMDO_RED_NARRATIVE_NOT_CERTIFIED",
+    "FULL_SINISTER_WOODS_DUNGEON_CHAIN_NOT_CERTIFIED",
+    "FULL_GAME_END_TO_END_TRAVERSAL_NOT_CERTIFIED"
+  ],
+  "production_route_written": true,
+  "separation": {
+    "status": "SEPARATED",
+    "evidence": "docs/pmdred_eu/narrative_audit/SINISTER_WOODS_RELIC_FOREST_SEPARATION_2026-08-18.json",
+    "runtime_evidence": "docs/pmdred_eu/narrative_audit/SINISTER_WOODS_RELIC_FOREST_SEPARATION_RUNTIME_2026-08-18.json",
+    "gloomy_forest_load_blob_steps": 0,
+    "relic_forest_load_blob_steps": 5,
+    "relic_forest_blob_assets_deleted": false,
+    "d04p01_d04p02_touched": false
+  },
+  "material_promotion": {
+    "status": "PROMOTED_UNIQUE_NAMESPACE",
+    "evidence": "docs/pmdred_eu/dungeon_grounds/SINISTER_WOODS_B41_PROMOTION_2026-08-19.json",
+    "sheet": "SinisterWoodsB41",
+    "autotiles": [
+      "sinister_woods_b41_floor",
+      "sinister_woods_b41_wall",
+      "sinister_woods_b41_secondary"
+    ],
+    "shared_treeshroud_preserved": true
+  },
+  "runtime": {
+    "status": "PASS_NATIVE_GENERATOR_RUNTIME_NON_PRODUCTION",
+    "evidence": "docs/pmdred_eu/dungeon_grounds/SINISTER_WOODS_PMDO_NATIVE_GENERATOR_RUNTIME_2026-08-21.json",
+    "scope": "segments 0, 1 and 3 procedural generation/material/collision/music/deep_shadow",
+    "full_narrative_chain": false
+  },
+  "production_route_certified": false,
+  "generator_profile": {
+    "status": "SOURCE_DERIVED_NATIVE_PMDO_ADAPTER",
+    "profile": "docs/canonical/red/sinister_woods_generator_profile.json",
+    "runtime_evidence": "docs/pmdred_eu/dungeon_grounds/SINISTER_WOODS_PMDO_NATIVE_GENERATOR_RUNTIME_2026-08-21.json",
+    "source_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "procedural_floor_nodes": 23,
+    "fixed_story_segments_preserved": true,
+    "pmdo_native_steps": [
+      "GridFloorGen",
+      "InitGridPlanStep",
+      "GridPathBranch",
+      "ConnectGridBranchStep",
+      "FloorStairsStep",
+      "MapTextureStep"
+    ]
+  }
+}

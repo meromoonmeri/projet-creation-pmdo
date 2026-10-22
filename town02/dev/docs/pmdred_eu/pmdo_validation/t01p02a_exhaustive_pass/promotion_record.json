@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "ground": "t01p02a",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "runtime_subject": "authenticated canonical source Ground and tile; fixture copy received only a deterministic entry marker and ignored validator plumbing",
+    "installation_mode": "validated adjacent temporary copies, flush/fsync, then per-file atomic os.replace",
+    "partial_failure_policy": "remove newly created lowercase destinations; no preexisting destination bytes exist to restore",
+    "historical_bytes_reserved_before_replacement": "NOT_APPLICABLE_DESTINATIONS_ABSENT",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "single lowercase t01p02a entry inserted after t01p01 without reserializing or reordering other entries"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "report_sha256": "221f3ff179fa3417149710b39f1e2b39f5b8e0fe68f489dcdda92fafb0824933",
+    "fixture_manifest_sha256": "1c602e0fcb4f6ebb09f7f79599f6a356dc4429ef2c59908bd3e413e01c527b07",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "canonical_ground_sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742",
+    "canonical_tile_sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4",
+    "planned_primary_tick_count": 816,
+    "observed_primary_tick_count": 816,
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 817,
+    "fully_opaque_sample_count": 817,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/t01p02a.rsground",
+      "destination": "Data/Ground/t01p02a.rsground",
+      "destination_preexisting": false,
+      "bytes": 2058566,
+      "validated_candidate_sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742",
+      "destination_sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/t01p02a_Base.tile",
+      "destination": "Content/Tile/t01p02a_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 853914,
+      "validated_candidate_sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4",
+      "destination_sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "t01p02a",
+    "entry_count": 1,
+    "position": "immediately after t01p01",
+    "pre_promotion_sha256": "0916663d21b09bcd6cb2ac910481efcc055b9f62999cde3d0fed87a4379f7e12",
+    "post_promotion_sha256": "e699a00529d631701e7e964ea291cb24420fb32c51b0574d941c1c581230afe1",
+    "prior_entry_present": false,
+    "separate_eos_entry": "sky_eos_t01p02a",
+    "separate_eos_entry_preserved": true
+  },
+  "preserved_variants": [
+    {
+      "role": "historical_red_import",
+      "ground": "RESERVE/red_grounds/t01p02a.rsground",
+      "ground_sha256": "a05a273a31e4582b7077e861769c130b0f93e8f2e4dddb4e2f77052f198811d4",
+      "tile": "RESERVE/red_tiles/t01p02a_Base.tile",
+      "tile_sha256": "83161f7cf4cf40ac5e69ccb4680e87c906b6275e8bbbd4b24d3128d50bf921a7",
+      "modified": false
+    },
+    {
+      "role": "active_eos_alias",
+      "ground": "Data/Ground/sky_eos_t01p02a.rsground",
+      "ground_sha256": "39afb28922625e1505aa3a62d18140bb41380c0c4f0328277a0e6ade50a0ccfc",
+      "tile": "Content/Tile/T01p02a_Base.tile",
+      "tile_sha256": "bc96415ece8fe8fba344159bbeec81ddee34b102a7926ea11be82d4e8338da7b",
+      "modified": false
+    }
+  ],
+  "reserve_policy": "No active lowercase destination existed. The pre-promotion record documents absence; historical Red and active EoS variants remain intact.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742",
+    "tile_sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4",
+    "log": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "variant_separation": "PASS",
+    "dormant_route_unchanged": "PASS"
+  }
+}

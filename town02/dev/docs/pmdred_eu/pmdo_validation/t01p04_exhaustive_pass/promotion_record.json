@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "ground": "t01p04",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "runtime_subject": "authenticated canonical source; fixture-only deterministic entry marker",
+    "installation_mode": "validated adjacent temporary copies, flush/fsync, then atomic os.replace",
+    "partial_failure_policy": "remove newly created lowercase destinations",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "single t01p04 insertion after t01p03 without reserialization"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "report_sha256": "35f5602855513cf7560a8c692845281b422ed6abcbb21b249ded2b0066d394b9",
+    "fixture_manifest_sha256": "96f9a66ef36cca1f3de7693ac54dc00f9af465f37a5b24c2bc1d3773e9ddf1a8",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "canonical_ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "canonical_tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_file_id": 6,
+    "identity_symbol": "MAP_MAKUHITA_DOJO",
+    "stale_identity_rejected": true
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/t01p04.rsground",
+      "destination": "Data/Ground/t01p04.rsground",
+      "destination_preexisting": false,
+      "bytes": 878108,
+      "validated_candidate_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+      "destination_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/t01p04_Base.tile",
+      "destination": "Content/Tile/t01p04_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 233733,
+      "validated_candidate_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+      "destination_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "t01p04",
+    "entry_count": 1,
+    "position": "immediately after t01p03",
+    "pre_promotion_sha256": "e7b2adbfc57cede69c3a727d9f53efa0dcb775b76138e33fe2f2934e54d2a5b3",
+    "post_promotion_sha256": "af9267c42bd2ada57dc5324d28fdc592dc7cba6fc3e5f883bfcf1778c53fe5f2",
+    "prior_entry_present": false,
+    "existing_project_entries": [
+      "dojo_ossatueur",
+      "sky_eos_t01p04a"
+    ],
+    "existing_project_entries_preserved": true
+  },
+  "preserved_variants": [
+    {
+      "role": "historical_red_import",
+      "ground": "RESERVE/red_grounds/t01p04.rsground",
+      "ground_sha256": "c2453bd295ed18dc4311d8716f52e32c1b6d24443fadc02fa47a6a158ed96b85",
+      "tile": "RESERVE/red_tiles/t01p04_Base.tile",
+      "tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+      "modified": false,
+      "identity_comment_status": "RETAINED_STALE_HISTORICAL_METADATA; CORRECTED IN CANONICAL RECORDS"
+    },
+    {
+      "role": "active_project_dojo",
+      "ground": "Data/Ground/dojo_ossatueur.rsground",
+      "ground_sha256": "33a70829e41a36b9525b72f1bfcbd37c668591af69b00828707b5dece4d58947",
+      "tile": "Content/Tile/T01P03A_layer1.tile",
+      "tile_sha256": "8741387be82be686b462682dc06e087c1b66946ad63598bc76f1271efc9f4330",
+      "script_sha256": "703c12fa17e1ec96d548a333717c14cd1ee510694d8ee0a50b45e412cf5d201d",
+      "modified": false
+    },
+    {
+      "role": "active_eos_variant",
+      "ground": "Data/Ground/sky_eos_t01p04a.rsground",
+      "ground_sha256": "3ec253e892b96679965fa94415cd2b3e548a77353a80f2bed672dc7b0e663615",
+      "tile": "Content/Tile/T01p04a_Base.tile",
+      "tile_sha256": "459040d2ad04625c399c48284d401e0df4ecf3a198051f4e80271780f41e4c5b",
+      "script_sha256": "0e597eea641913e7635d55be78d0087152562e40ee6a8596011f2ca710f4d25b",
+      "modified": false
+    }
+  ],
+  "reserve_policy": "Destinations were absent; historical, project dojo, EoS, and dormant cinematic assets remain intact.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "log": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "variant_separation": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

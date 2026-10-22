@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "ground": "t00p01",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "41b6011cc7c67bb7a1d792db0d598666ef37b2ceae66f9c9f8e7c88c621bc9d4"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "dimensions_pixels": [
+      1152,
+      888
+    ],
+    "primary_sample_count": 1,
+    "reload_sample_count": 1,
+    "exact_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "expected_rgba_sha256": "c5a652e09c01b01e927514ec087c939391c92c9518796f207b411489f14cafa7",
+    "actual_rgba_sha256": "c5a652e09c01b01e927514ec087c939391c92c9518796f207b411489f14cafa7",
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/report.json"
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "applicability": "STATIC_NO_ANIMATION_CHANNELS",
+    "strategy": "The authenticated schema-v2 reference found no BPL or BPA animation channels and therefore no nontrivial animation cycle. Tick 0 is the complete planned primary set and was validated again after reload.",
+    "animation_channel_count": 0,
+    "cell_animation_schedule_count": 0,
+    "planned_primary_ticks": [
+      0
+    ],
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "collision_layer_count": 1,
+    "bma_solid_cells": 6888,
+    "collision_sha256": "cd1a6fa2eb46795d0026062ec01373f57e39c5f5464b383493c6530ced2aaa1b",
+    "clear_movement_expected_delta": [
+      0,
+      8
+    ],
+    "clear_movement_observed_delta": [
+      0,
+      8
+    ],
+    "blocked_movement_expected_delta": [
+      0,
+      0
+    ],
+    "blocked_movement_observed_delta": [
+      0,
+      0
+    ],
+    "primary_movement_probe": "PASS",
+    "primary_blocked_probe": "PASS"
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "load_count": 2,
+    "entry_count": 2,
+    "exit_count": 2,
+    "same_ground_reentry_count": 1,
+    "sink_transition": "PASS",
+    "strict_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "all_cleanups_pass": true,
+    "reload_tick0_full_rgba_exact": true,
+    "state_leakage": "NONE_OBSERVED",
+    "orphaned_animation": "NONE_OBSERVED",
+    "stale_assets": "NONE_OBSERVED",
+    "permanent_locks": "NONE_OBSERVED",
+    "terminal_end_seen": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "square",
+      "ground_map_symbol": "MAP_SQUARE",
+      "map_id": 0,
+      "map_file_id": 0,
+      "stable_ground_id": "t00p01",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ]
+    },
+    "project_reuse": {
+      "role": "fugitive_arc_cutscene_ground",
+      "cinematic": true,
+      "arena": false,
+      "boss": false,
+      "basis": "Data/Script/halcyon/arc_fugitif/scene/t00p01.lua defines t00p01.Cutscene",
+      "status": "OUT_OF_SCOPE_UNTOUCHED_AND_NOT_VALIDATED_BY_THIS_GROUND_PASS"
+    }
+  },
+  "identity_divergence": {
+    "authoritative_result": "t00p01 is map ID 0 MAP_SQUARE; map ID 1 is separately MAP_POKEMON_SQUARE",
+    "conflicting_repository_records": [
+      "docs/pmdred_extraction_tracabilite.md calls T00P01 Pokémon Square",
+      "docs/canonical/red/upstream_ground_aliases.json maps place_pokemon.rsground to t00p01.rsground",
+      "docs/INVENTAIRE_DEPOTS_PMD_RED_SKY_2026-08-06.md instead calls T00P01 the team base"
+    ],
+    "handling": "This promotion uses only the authenticated stable ID and exact MAP_SQUARE technical identity. The contradictory alias is not used as proof and is retained pending non-destructive correction after exact t01p01 validation."
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t00p01.rsground",
+    "tile": "Content/Tile/t00p01_Base.tile",
+    "promotion_status": "PROMOTED_NON_DESTRUCTIVELY",
+    "preexisting_destinations": false,
+    "promoted_ground_sha256": "dab1dd66e489b4195a7b989cd9b67903d96cfa92acafd482ca5c534c8b0a611a",
+    "promoted_tile_sha256": "e9bbaa3e4d8968ec6a2709433778bf58fab6f2b48cc8192fcdcfebf5382ec769",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "dab1dd66e489b4195a7b989cd9b67903d96cfa92acafd482ca5c534c8b0a611a",
+    "candidate_tile_sha256": "e9bbaa3e4d8968ec6a2709433778bf58fab6f2b48cc8192fcdcfebf5382ec769",
+    "source_normalized_sha256": {
+      "T00P01": "3adefb5954c33453321b5205d352a1183b2f78e77ec55b3097c81d087c2aa2de",
+      "T00P01c": "4dda0234d5725ceef74be3a6c5cc1b273b5d5c3cb4aea464c07950c6c69f25c8",
+      "T00P01m": "b4b144b5d1484a680d6b8fd85c16bdafee6ff40bf6a101506a926d4b1b8e7a22"
+    },
+    "events_sha256": "52a7c08eafe3a6c5d37562124ac2be9288d44e2771569212ade34032fc3bf3ca",
+    "report_sha256": "33b636c988c0fee677f0974a1dd188f671d1e2344010788b148f63b2dc3b873e",
+    "fixture_manifest_sha256": "d6d02c73d0cc0820251ff38fc2719c8cc07caec1394f869541c7b578f1e4f537",
+    "commands": "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t00p01_exhaustive_pass/provenance.json",
+    "promotion_record_sha256": "73d3c415700f207eba27c419a16b7d85ed3274ad5ffb7ff669d3611d51170170"
+  },
+  "scope_note": "This PASS and promotion cover only canonical Ground map/tile reconstruction. Canonical events, characters, movement choreography, cameras, dialogue, music, VFX, and cinematics remain subsequent milestones. The existing Fugitive-arc script and contradictory legacy aliases were not used, modified, validated, rebuilt, or claimed complete."
+}

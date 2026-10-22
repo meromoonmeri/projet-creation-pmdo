@@ -1,0 +1,69 @@
+{
+  "schema": "new-era.pmdred-eu-primitive-adapter-runtime-validation.v1",
+  "result": "PASS_EXACT_PMDO_0_8_12",
+  "meaning": "five dormant primitive adapters loaded and executed; no canonical scene or journey is runtime-ready",
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "rogue_essence_commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace"
+  },
+  "authority": {
+    "pret_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+  },
+  "validated_primitives": {
+    "WAIT": {
+      "frames": 3,
+      "managed_coroutine_resumed": true
+    },
+    "BGM_FADEOUT": {
+      "frames": 5
+    },
+    "SET_DIR_WAIT": {
+      "direction_symbol_count": 8,
+      "preserve_direction_minus_one": true
+    },
+    "ROTATE_TO": {
+      "transition_policy_count": 4,
+      "step_frames": 2
+    },
+    "CMD_UNK_92": {
+      "corpus_form_count": 3,
+      "step_frames": 2
+    }
+  },
+  "fail_closed": {
+    "numeric_direction_rejected": true,
+    "unknown_opcode_rejected": true,
+    "missing_actor_rejected": true,
+    "unsupported_rotation_rejected": true,
+    "unsupported_relative_rotation_rejected": true
+  },
+  "scope": {
+    "executed_ground": "pmdred_eu_validation_sink",
+    "executed_ground_kind": "IGNORED_SYNTHETIC_FIXTURE_ONLY",
+    "certified_ground_revalidated": false,
+    "production_ground_modified": false,
+    "production_zone_modified": false,
+    "production_route_written": false,
+    "runtime_ready_asset_count": 0
+  },
+  "evidence": {
+    "events.jsonl": {
+      "bytes": 1808,
+      "sha256": "e0ba0c288c1dd57332031662d8685656e6ac8ea52d5e7b4958eed9532e0d4903"
+    },
+    "index.log": {
+      "bytes": 393,
+      "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8"
+    },
+    "runtime.log": {
+      "bytes": 4634,
+      "sha256": "7bccc59e91d5e65fc035e85f127e651a7d1794220314eaf017182cbf11f96463"
+    },
+    "fixture_manifest.json": {
+      "bytes": 945,
+      "sha256": "b529d9f54c0576e2613f263c657bfba3eaf80257ad676f1529e82e35d7db9738"
+    }
+  }
+}

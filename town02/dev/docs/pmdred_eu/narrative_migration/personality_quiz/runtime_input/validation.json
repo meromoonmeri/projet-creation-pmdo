@@ -1,0 +1,70 @@
+{
+  "schema": "new-era.pmdred-eu-personality-quiz-input-runtime-validation.v1",
+  "result": "PHYSICAL_CONFIRM_INPUT_PASS_LIVE_CREATION_PARTIAL",
+  "full_quiz_integrated": false,
+  "production_personality_test_routed": true,
+  "input": {
+    "mechanism": "RogueEssence.DiagManager.ActiveDebugReplay",
+    "frame_input": "neutral and Microsoft.Xna.Framework.Input.Keys.Enter",
+    "queued_confirm_pulses": 74,
+    "consumed_replay_index": 2855,
+    "final_replay_count": 4648,
+    "real_begin_choice_menu_count": 10,
+    "real_choice_result_count": 10
+  },
+  "timeline": {
+    "event_count": 212,
+    "last_runtime_frame": 1430,
+    "text_page_count": 27,
+    "question_answer_count": 8,
+    "choice_contexts": [
+      "question:hardy_1",
+      "question:docile_1",
+      "question:brave_1",
+      "question:jolly_1",
+      "question:impish_1",
+      "question:naive_1",
+      "question:timid_1",
+      "question:hasty_1",
+      "gender",
+      "recommendation_confirmation"
+    ]
+  },
+  "validated_scope": [
+    "real PMDO FrameInput pulses, not injected choice return values",
+    "all seven introduction pages advanced physically",
+    "eight real BeginChoiceMenu question confirmations",
+    "real gender and recommendation confirmation menus",
+    "description, reveal, partner prompt and end text advanced physically",
+    "canonical BGM and 30-frame palette fade boundaries",
+    "normal native PMDO unload"
+  ],
+  "not_yet_validated": [
+    "directional cursor navigation and non-first answer options",
+    "BraveQuest2B and restart under physical input (covered by deterministic flow gate only)",
+    "live complete New Era hero selector and partner selector",
+    "name-entry keyboard input, save serialization and relic_forest transition",
+    "s01 harness handoff"
+  ],
+  "pmdo": {
+    "version": "0.8.12",
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    }
+  },
+  "authority": {
+    "flow_sha256": "c960e059d379cf9e4dc2935b5b90ee202dea028d52c38aa21117a36a5f31e5b9",
+    "production_init_sha256": "20eda4cffdf57d3a03641aa92036ef64d10c682882e86a2fd504af08db9858b8",
+    "ground_sha256": "76b3abc6953e9da4840c094494585c9a79057791ef66f81027e1541858eaeb8d"
+  },
+  "promotion": "DIRECTIONAL_AND_LIVE_CHARACTER_CREATION_INPUT_GATES_REQUIRED_BEFORE_FULL_PASS"
+}

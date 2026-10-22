@@ -1,0 +1,977 @@
+{
+  "generated_at": "2026-08-22T22:58:24+00:00",
+  "dungeon": "waterfall_pond",
+  "name": {
+    "en": "Waterfall Pond",
+    "fr": "Étang de la Cascade"
+  },
+  "chapter": 26,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Waterfall Pond (19F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/WaterfallPond) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 26. Recoupé avec Bulbapedia (page « Waterfall Pond »).",
+  "floors": 19,
+  "biome": "pond_shore",
+  "direction": "fond",
+  "zone_file": "Data/Zone/waterfall_pond.json",
+  "segments": [
+    {
+      "name": "pond_shore",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "pond_shore",
+      "dtef": {
+        "floor": "unused_waterfall_pond_floor",
+        "wall": "unused_waterfall_pond_wall",
+        "secondary": "unused_waterfall_pond_secondary",
+        "name": "unused_waterfall_pond",
+        "element": "normal"
+      },
+      "profiles": [
+        "looping",
+        "ring",
+        "mixed"
+      ],
+      "pokemon": 12,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 6
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "pond_depths",
+      "floors": [
+        11,
+        19
+      ],
+      "biome": "pond_depths",
+      "dtef": {
+        "floor": "unused_waterfall_pond_floor",
+        "wall": "unused_waterfall_pond_wall",
+        "secondary": "unused_waterfall_pond_secondary",
+        "name": "unused_waterfall_pond",
+        "element": "normal"
+      },
+      "profiles": [
+        "ring",
+        "lattice",
+        "looping"
+      ],
+      "pokemon": 11,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 6
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {},
+  "midpoint": {},
+  "boss": {},
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "",
+    "battle_ground": "",
+    "scene_state": "NONE",
+    "mid": "",
+    "end": "",
+    "boss_mode": "",
+    "boss_ground": "",
+    "boss_map": "",
+    "canonical_end_candidates": [],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "no fixed 'end' Ground declared",
+      "no boss scene declared"
+    ]
+  },
+  "rng": {
+    "label": "generate:waterfall_pond",
+    "root_seed": 1993927611505303333,
+    "explicit_seed": false,
+    "derived_seeds": 101
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9015,
+      "seeds": [
+        6224033253512768270,
+        8299255901161778110,
+        3051138450793240766,
+        1530216781245316653,
+        5923118944098793885
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.0,
+        "rooms_min": 8,
+        "rooms_max": 11,
+        "halls_avg": 14.8,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 1.2,
+        "loops_avg": 2.6,
+        "connections_avg": 14.8,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9006,
+      "seeds": [
+        1233684476326629542,
+        8414181297856090063,
+        365119687356711842,
+        1837674888677610779,
+        899644635095798365
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 7,
+        "rooms_max": 21,
+        "halls_avg": 15.8,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 1.4,
+        "loops_avg": 2.6,
+        "connections_avg": 15.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 29.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7648,
+      "seeds": [
+        8163606619949462656,
+        1245444695430747978,
+        3566324001289705983,
+        8301215993352692786,
+        5013470261483883715
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 15.6,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 1.8,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 273,
+        "stair_distance_avg": 43.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8368,
+      "seeds": [
+        3319975448076371582,
+        1371564330482148158,
+        457338328004029996,
+        7558319369370558327,
+        7739746814493599600
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 15.4,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 0.6,
+        "loops_avg": 2.6,
+        "connections_avg": 15.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 50.0,
+        "reachable_ratio_min": 0.9987,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.865,
+      "seeds": [
+        2598452345201509982,
+        8810488960970955774,
+        4487905170178831690,
+        1433426257372859130,
+        788209599354637836
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 13,
+        "halls_avg": 13.6,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 1.4,
+        "connections_avg": 13.6,
+        "room_area_min": 20,
+        "room_area_max": 64,
+        "stair_distance_avg": 38.8,
+        "reachable_ratio_min": 0.9967,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        8,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8073,
+      "seeds": [
+        6516056900340296293,
+        38253975753836340,
+        1923840853253994749,
+        3593141375762964606,
+        3045527773069685336
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 18,
+        "halls_avg": 13.4,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 1.6,
+        "loops_avg": 1.6,
+        "connections_avg": 13.4,
+        "room_area_min": 25,
+        "room_area_max": 260,
+        "stair_distance_avg": 46.0,
+        "reachable_ratio_min": 0.9972,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.863,
+      "seeds": [
+        365319704306919598,
+        5536078996457607925,
+        796747447065236231,
+        9212650302429546606,
+        8697556521116382628
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 5,
+        "rooms_max": 15,
+        "halls_avg": 15.6,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 1.4,
+        "loops_avg": 2.2,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8727,
+      "seeds": [
+        2507686564252946329,
+        2780808930572430224,
+        4806745727853545888,
+        5941984040746121490,
+        7049865403148829878
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 6,
+        "rooms_max": 20,
+        "halls_avg": 16.8,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 1.0,
+        "loops_avg": 3.0,
+        "connections_avg": 16.8,
+        "room_area_min": 20,
+        "room_area_max": 319,
+        "stair_distance_avg": 43.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8812,
+      "seeds": [
+        7043202776758407187,
+        3514240166862292825,
+        5826364786187494018,
+        2007670641511116326,
+        6217336694551533824
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 8,
+        "rooms_max": 13,
+        "halls_avg": 15.6,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 2.6,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "pond_shore",
+      "kind": "procedural",
+      "profile": "looping+ring+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        8,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9339,
+      "seeds": [
+        4625013595937588661,
+        1631655691865567425,
+        620532899755636624,
+        1938369092543592785,
+        2641234575226022856
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 5,
+        "rooms_max": 16,
+        "halls_avg": 15.0,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 1.4,
+        "loops_avg": 1.8,
+        "connections_avg": 15.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 34.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.848,
+      "seeds": [
+        5045182784425462059,
+        2902464732539681042,
+        5577745120793589146,
+        1984320178069953627,
+        4007815187492820488
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 14.8,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.0,
+        "connections_avg": 14.8,
+        "room_area_min": 24,
+        "room_area_max": 80,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8398,
+      "seeds": [
+        1129854261342714659,
+        6339900855728533326,
+        570995688331547082,
+        2155619979039445874,
+        8407054597956276671
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 8,
+        "rooms_max": 10,
+        "halls_avg": 17.0,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 1.6,
+        "loops_avg": 3.2,
+        "connections_avg": 17.0,
+        "room_area_min": 20,
+        "room_area_max": 64,
+        "stair_distance_avg": 53.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8971,
+      "seeds": [
+        1670875473923722035,
+        4451748995046607260,
+        3800245606622845013,
+        8234736382504026225,
+        3201626118871863099
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.0,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 17.2,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.6,
+        "connections_avg": 17.2,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7921,
+      "seeds": [
+        8784377256989821,
+        1491114242132161868,
+        8099776828701325141,
+        5846334808694807146,
+        7246570648226946959
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 7.8,
+        "rooms_min": 4,
+        "rooms_max": 10,
+        "halls_avg": 12.4,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 1.4,
+        "connections_avg": 12.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 37.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9047,
+      "seeds": [
+        3183338644380580739,
+        3189833699497346814,
+        4587670269688287582,
+        5102602056527345621,
+        2394645089007289243
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 7,
+        "rooms_max": 15,
+        "halls_avg": 14.8,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 1.0,
+        "loops_avg": 2.4,
+        "connections_avg": 14.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 43.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 16,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8646,
+      "seeds": [
+        3937509730741966513,
+        3247732869190837487,
+        4485563547387906847,
+        1879994877155988838,
+        4612481863216719807
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.0,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 17.0,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 2.8,
+        "connections_avg": 17.0,
+        "room_area_min": 25,
+        "room_area_max": 72,
+        "stair_distance_avg": 45.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 17,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8285,
+      "seeds": [
+        5080455379865999717,
+        6592303310205891042,
+        1998322877714376193,
+        523834916973905131,
+        213116680728287597
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 9,
+        "rooms_max": 16,
+        "halls_avg": 16.4,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 1.6,
+        "loops_avg": 2.4,
+        "connections_avg": 16.4,
+        "room_area_min": 24,
+        "room_area_max": 80,
+        "stair_distance_avg": 46.0,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 18,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8578,
+      "seeds": [
+        1495101674582041543,
+        2230008396384641460,
+        8982595994184131867,
+        8302271636435448088,
+        5950779366303468269
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 5,
+        "rooms_max": 12,
+        "halls_avg": 18.4,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 3.0,
+        "connections_avg": 18.4,
+        "room_area_min": 25,
+        "room_area_max": 81,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 19,
+      "segment": "pond_depths",
+      "kind": "procedural",
+      "profile": "ring+lattice+looping",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "unused_waterfall_pond",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7648,
+      "seeds": [
+        5607655939148836759,
+        5155232875364444160,
+        4501518616927155094,
+        7263870870047003011,
+        4901499485574487970
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.0,
+        "rooms_min": 6,
+        "rooms_max": 10,
+        "halls_avg": 16.8,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 3.6,
+        "connections_avg": 16.8,
+        "room_area_min": 20,
+        "room_area_max": 168,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "new-era.sinister-route-runtime.v2",
+  "result": "ACTIVE_ROUTE_HARNESS_PASS",
+  "runtime": "PMDO 0.8.12 headless (SDL offscreen + ANGLE/SwiftShader)",
+  "events": 48,
+  "grounds": [
+    "bois_sombres_oree",
+    "gloomy_forest_midpoint",
+    "sinister_woods_clearing",
+    "metano_town"
+  ],
+  "maps": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      0
+    ]
+  ],
+  "map_seeds_logged": 13,
+  "adventure_seeds_logged": 13,
+  "boss": {
+    "event": "boss_outcome",
+    "simulated": "cleared",
+    "mobs": 3,
+    "native_clear_hooks": 1
+  },
+  "end": {
+    "event": "end",
+    "mission_complete": true
+  },
+  "failures": [],
+  "active_map_generation": {
+    "event": "end",
+    "attempted": 130,
+    "generated": 130,
+    "failures": 0,
+    "non_traversable": 0,
+    "invalid": 0
+  },
+  "artifacts": {
+    "active_zone": {
+      "path": "Data/Zone/gloomy_forest.json",
+      "sha256": "da71e8cd2ce64d6892a684e925da87f603b02bf9e235671bafed955bf47d9421"
+    },
+    "fixed_map": {
+      "path": "Data/Map/gloomy_forest_boss.rsmap",
+      "sha256": "99032d873363343e18d7676ca5d45551145f644b199fb328dc957c4dff539bfa"
+    },
+    "events": {
+      "path": "docs/dungeon_builder/runtime/sinister_full_route_runtime.jsonl",
+      "sha256": "f7c69e87d82b57dfca97c787e1c0447dad546401be30d97b537e93eb349b087f"
+    },
+    "active_mapgen": {
+      "path": "docs/dungeon_builder/runtime/sinister_active_native_runtime.jsonl",
+      "sha256": "fa529f6c716c69b411f0abbe2405a20d123168bb57c4470e1f39e4e9c9b83425"
+    }
+  },
+  "harness_scope": {
+    "real_pmdo": true,
+    "procedural_maps_loaded": 12,
+    "fixed_maps_loaded": 1,
+    "stairs_located": 12,
+    "floor_advance": "GAME:EnterZone for floors 1-5 after stair presence check; native EndSegment/ExitSegment on each 6F",
+    "boss_battle": "canonical map/team loaded in DungeonScene; PMDO native LuaCheckBossClearEvent hook verified; cleared outcome is explicitly simulated by the route harness",
+    "headless_adaptations": [
+      "visual fade waits completed immediately",
+      "town post-mission cutscene skipped after real destination Ground load",
+      "native EndGame advanced through only its terminal WaitForFrames(20)"
+    ]
+  },
+  "production_zone_promoted": true,
+  "strict_limitation": "This proves the complete active PMDO route, boss clear wiring, and state transitions; it does not replay player combat inputs against the three bosses."
+}

@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "ground": "b04p02b",
+  "validated_at": "2026-08-12",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "runtime_subject": "authenticated canonical source Ground and tile; fixture copy received only a deterministic entry marker and ignored validator plumbing",
+    "installation_mode": "validated adjacent temporary copies, flush/fsync, then per-file atomic os.replace",
+    "partial_failure_policy": "remove newly created lowercase destinations and restore the exact zone bytes; no preexisting destination bytes existed to restore",
+    "historical_bytes_reserved_before_replacement": "NOT_APPLICABLE_DESTINATIONS_ABSENT",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "single lowercase b04p02b entry inserted after t01p07 without reserializing or reordering other entries"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "active_patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "report_sha256": "29196623a1734d13cb096792490293f379fb45b5ca31e6ed88059aff6bd1ea84",
+    "fixture_manifest_sha256": "3b20e17d541718b23b455670cdc37f3ecdbbb2ed7f51e4e4c8c9093117441ad1",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "canonical_ground_sha256": "c95e20ff4b94a82401487be63afd05f64193e9c6f3c2250610f99d569cef0e54",
+    "canonical_tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_id": 32,
+    "identity_map_file_id": 33,
+    "identity_symbol": "MAP_TEAM_BASE_INSIDE_SKITTY_FINAL"
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/b04p02b.rsground",
+      "destination": "Data/Ground/b04p02b.rsground",
+      "destination_preexisting": false,
+      "bytes": 729277,
+      "validated_candidate_sha256": "c95e20ff4b94a82401487be63afd05f64193e9c6f3c2250610f99d569cef0e54",
+      "destination_sha256": "c95e20ff4b94a82401487be63afd05f64193e9c6f3c2250610f99d569cef0e54",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/b04p02b_Base.tile",
+      "destination": "Content/Tile/b04p02b_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 222152,
+      "validated_candidate_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+      "destination_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "b04p02b",
+    "entry_count": 1,
+    "position": "immediately after b04p02a",
+    "pre_promotion_sha256": "f5dc523d13aa832bdaeafb37dc6ebd8ce2dd3295c49f553e9bfbc602d37f3227",
+    "post_promotion_sha256": "2ea3c748286efe8aea235849ebc54327c3be77048674ec9ded768dfaba36d40a",
+    "prior_entry_present": false,
+    "existing_entries_preserved_in_order": true
+  },
+  "preserved_variants": [
+    {
+      "role": "historical_red_import",
+      "ground": "RESERVE/red_grounds/b04p02b.rsground",
+      "ground_sha256": "510625639bf086ef46d64871a928ae1bbe83b8a8399d67aff7fbe421c04b30b0",
+      "tile": "RESERVE/red_tiles/b04p02b_Base.tile",
+      "tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+      "modified": false
+    }
+  ],
+  "reserve_policy": "No active lowercase destination or same-name historical reserve asset existed. The pre-promotion record documents absence; all scripts, routes, aliases, team-base states, interiors, and species variants remain intact.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "c95e20ff4b94a82401487be63afd05f64193e9c6f3c2250610f99d569cef0e54",
+    "tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+    "log": "docs/pmdred_eu/pmdo_validation/b04p02b_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "variant_separation": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

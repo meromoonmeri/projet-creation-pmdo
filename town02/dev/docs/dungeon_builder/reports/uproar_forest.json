@@ -1,0 +1,574 @@
+{
+  "generated_at": "2026-08-22T22:58:23+00:00",
+  "dungeon": "uproar_forest",
+  "name": {
+    "en": "Uproar Forest",
+    "fr": "Forêt du Tumulte"
+  },
+  "chapter": 22,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Uproar Forest (10F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/UproarForest) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 22. Recoupé avec Bulbapedia (page « Uproar Forest »).",
+  "floors": 10,
+  "biome": "uproar_edge",
+  "direction": "fond",
+  "zone_file": "Data/Zone/uproar_forest.json",
+  "segments": [
+    {
+      "name": "uproar_edge",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "uproar_edge",
+      "dtef": {
+        "floor": "treeshroud_forest_2_floor",
+        "wall": "treeshroud_forest_2_wall",
+        "secondary": "treeshroud_forest_2_secondary",
+        "name": "treeshroud_forest_2",
+        "element": "normal",
+        "justification": "Forêt du Tumulte : second tileset forestier PMDO, distinct de howling_forest_2 conservé par la Forêt des Hurlements."
+      },
+      "profiles": [
+        "branching",
+        "dense",
+        "mixed"
+      ],
+      "pokemon": 5,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 7
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "uproar_heart",
+      "floors": [
+        6,
+        10
+      ],
+      "biome": "uproar_heart",
+      "dtef": {
+        "floor": "treeshroud_forest_2_floor",
+        "wall": "treeshroud_forest_2_wall",
+        "secondary": "treeshroud_forest_2_secondary",
+        "name": "treeshroud_forest_2",
+        "element": "normal",
+        "justification": "Forêt du Tumulte : second tileset forestier PMDO, distinct de howling_forest_2 conservé par la Forêt des Hurlements."
+      },
+      "profiles": [
+        "looping",
+        "branching",
+        "mixed"
+      ],
+      "pokemon": 5,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 8
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {},
+  "midpoint": {},
+  "boss": {},
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "",
+    "battle_ground": "",
+    "scene_state": "NONE",
+    "mid": "",
+    "end": "",
+    "boss_mode": "",
+    "boss_ground": "",
+    "boss_map": "",
+    "canonical_end_candidates": [],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "no fixed 'end' Ground declared",
+      "no boss scene declared"
+    ]
+  },
+  "rng": {
+    "label": "generate:uproar_forest",
+    "root_seed": 7069874675371842336,
+    "explicit_seed": false,
+    "derived_seeds": 55
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "uproar_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        8,
+        4
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8292,
+      "seeds": [
+        5766768176458193745,
+        3876898544529262914,
+        3418428173390856603,
+        4840116435380907726,
+        1396849612964508433
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.4,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 16.2,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.8,
+        "connections_avg": 16.2,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 0.9984,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "uproar_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8775,
+      "seeds": [
+        332872841431060178,
+        227151970390351603,
+        5915308534453043874,
+        1482924352315832511,
+        2887156761150909104
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 10,
+        "rooms_max": 23,
+        "halls_avg": 15.0,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 1.4,
+        "connections_avg": 15.0,
+        "room_area_min": 9,
+        "room_area_max": 64,
+        "stair_distance_avg": 39.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "uproar_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        8,
+        9
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.6938,
+      "seeds": [
+        3981267731220652946,
+        2869426997088095814,
+        4354534106337527345,
+        51671146732188028,
+        2659731144503974340
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.8,
+        "rooms_min": 6,
+        "rooms_max": 20,
+        "halls_avg": 15.4,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.6,
+        "connections_avg": 15.4,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "uproar_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        8,
+        8
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8816,
+      "seeds": [
+        2244714667357746243,
+        3061619238366848670,
+        720483886924268645,
+        2587049867308889826,
+        8685532658404506590
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 7,
+        "rooms_max": 18,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 1.2,
+        "connections_avg": 15.4,
+        "room_area_min": 9,
+        "room_area_max": 140,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "uproar_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7182,
+      "seeds": [
+        6483973171943041701,
+        6031108339561557808,
+        4448359631351555474,
+        903473518181377523,
+        7459226402894856092
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.4,
+        "rooms_min": 8,
+        "rooms_max": 28,
+        "halls_avg": 20.4,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.8,
+        "connections_avg": 20.4,
+        "room_area_min": 9,
+        "room_area_max": 64,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "uproar_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.884,
+      "seeds": [
+        6299522157124045050,
+        6941805402092363309,
+        662430828780716723,
+        6278432042373702810,
+        992152822402864616
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 9,
+        "rooms_max": 15,
+        "halls_avg": 15.6,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.2,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 33.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "uproar_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8354,
+      "seeds": [
+        1637329599390229929,
+        6307326397367049845,
+        3439634492419799569,
+        6238495875568769744,
+        2667681702878691470
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 8,
+        "rooms_max": 11,
+        "halls_avg": 12.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 2.2,
+        "connections_avg": 12.0,
+        "room_area_min": 20,
+        "room_area_max": 175,
+        "stair_distance_avg": 44.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "uproar_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8012,
+      "seeds": [
+        2275199808293697530,
+        4421053961473142476,
+        6577781868073586980,
+        7792167446004830051,
+        4979837931395738848
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 10,
+        "rooms_max": 18,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.8,
+        "connections_avg": 15.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 34.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "uproar_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8072,
+      "seeds": [
+        5157065060065649918,
+        5639116316979688396,
+        1029108724172926797,
+        3018647835959605203,
+        6483555507498490935
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 8,
+        "rooms_max": 21,
+        "halls_avg": 12.4,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.0,
+        "connections_avg": 12.4,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 33.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "uproar_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "treeshroud_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.697,
+      "seeds": [
+        250572376490675600,
+        9222793804374024998,
+        1586310654336981117,
+        4826651270357443861,
+        4937862444782302817
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 13,
+        "halls_avg": 10.2,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.0,
+        "connections_avg": 10.2,
+        "room_area_min": 24,
+        "room_area_max": 247,
+        "stair_distance_avg": 34.0,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

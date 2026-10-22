@@ -1,0 +1,40 @@
+{
+  "schema": "new-era.pmdred-eu-candidate-regeneration-history.v1",
+  "updated_at": "2026-08-12",
+  "purpose": "Preserve and reconcile both candidate generations without relabeling historical hashes as exact-engine-tested bytes.",
+  "generations": [
+    {
+      "label": "v2.0.0-eu historical tracked audit",
+      "status": "SUPERSEDED_AFTER_EXACT_ENGINE_PERIOD_DEFECT",
+      "converter_version": "2.0.0-eu",
+      "conversion_report": "docs/pmdred_eu/remaining_grounds/history/v200_pre_period_fix/conversion_report.json",
+      "conversion_report_sha256": "db2f34b5c3506d4868ea97d95181dcd9e38b065201f24f47cc1bd508eaa2301d",
+      "candidate_audit": "docs/pmdred_eu/remaining_grounds/history/v200_pre_period_fix/candidate_audit.json",
+      "candidate_audit_sha256": "e4c8c5a8afcc64c0b14b89a4e74ccaff25ea8d04282fb0aee0216c5c4d8d96e6",
+      "validated_local_cycle_count": 1,
+      "t01p07_reported_sha256": {
+        "rsground": "bf0982e6eef66697142f76ab345b49e5d4e4d029bf7dfda3005629693f6afca6",
+        "tile": "f5ffa239eb9389e34644b9d2a72dbcc17f3d5c679bfa2bd9317f7bd78e75e50c"
+      }
+    },
+    {
+      "label": "v2.0.1-eu authenticated regeneration",
+      "status": "ACTIVE_AUTHENTICATED_CANDIDATE_SET",
+      "converter_version": "2.0.1-eu",
+      "converter_fix_commit": "17052b5f15eaededab4deb5d2a88abc014264b92",
+      "fix": "minimal_period now requires a candidate period to divide the closed sequence length, preventing finite-prefix pseudo-periods; the audit covers two complete local cycles",
+      "conversion_report": "docs/pmdred_eu/remaining_grounds/conversion_report.json",
+      "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+      "candidate_audit": "docs/pmdred_eu/remaining_grounds/candidate_audit.json",
+      "candidate_audit_sha256": "2434d193ed48596314fe4c188da2b3800d7145f6189086c25ed57b3757acd43b",
+      "validated_local_cycle_count": 2,
+      "t01p07_reported_sha256": {
+        "rsground": "cc7ce085938d10aa4d564e6037e0ea0671ab1736f08448b38c6ad9c517a35546",
+        "tile": "456d26b0fd97241ec47db70822d18604a291bd65f99032f4a5e84c0c5273327f"
+      },
+      "t01p07_exact_pmdo_tested_and_promoted": true,
+      "t01p07_evidence": "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/provenance.json"
+    }
+  ],
+  "decision": "Only active v2.0.1-eu bytes may serve as candidate authority for continuing exact-engine validation. Historical reports remain immutable evidence of the earlier generation and are not promotion proof."
+}

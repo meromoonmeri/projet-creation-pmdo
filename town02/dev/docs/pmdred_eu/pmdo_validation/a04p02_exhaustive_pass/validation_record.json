@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "ground": "a04p02",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      288,
+      216
+    ],
+    "primary_sample_count": 1,
+    "reload_sample_count": 1,
+    "exact_sample_count": 2,
+    "unique_rgba_frame_count": 1,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/a04p02_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/a04p02_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/a04p02_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/a04p02_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "A04P02": "ff0a0da39eb1f874f67eb93e8d37b6c15583c3a13a22e09577c10aca877f31c2",
+      "A04P02c": "7519f353a3db748c6eda2c5b9d95e5290c231bd7ddc10fc2365a6e0c4e83b43b",
+      "A04P02m": "971b54dc959211c94a18ca050c0b3011cdbcde2875a4c3227a7910575cca234a"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 1,
+    "first_tick": 0,
+    "last_tick": 0,
+    "cell_local_schedule_count": 0,
+    "maximum_cell_local_cycle_ticks": 0,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [],
+    "unique_observed_rgba_frames": 1,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "A04P02m",
+    "collision_layer_count": 0,
+    "solid_cells": 0,
+    "collision_sha256": "96c5023576733f88726277165f7fa44936426956bcbcca126d7f1169216e1a4b",
+    "successful_probe": {
+      "start": [
+        136,
+        104
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": null
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "f5ce40b13dd3ec9a838f7b6e052c7cb24d56a933f1ec3f45ced743546e99de30",
+    "canonical_source_tile_sha256": "cd3701af37bc622846de18ec28bb3d9073ae7efa96a88bdd589afc408e142bca",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing",
+      "engine-requested LoadPhase.Unload"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "canonical_ground_map",
+      "ground_map_symbol": "MAP_COMET",
+      "canonical_debug_id": 181,
+      "conversion_type": 1,
+      "debug_string": "__ground_amd_conversion_00181",
+      "debug_string_address": "0x0827A53C",
+      "ground_place_id": 35,
+      "map_file_id": 182,
+      "map_id": 173,
+      "stable_ground_id": "a04p02",
+      "weather_id": -1,
+      "dimensions_tiles": [
+        36,
+        27
+      ],
+      "classification": "canonical_comet",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    },
+    "scope": {
+      "story_events": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_id": 173,
+    "authenticated_map_file_id": 182,
+    "pinned_enum_symbol": "MAP_COMET",
+    "conversion_type": 1,
+    "weather_id": -1
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/a04p02.rsground",
+    "tile": "Content/Tile/a04p02_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "a04p02",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/a04p02/README.md",
+    "promoted_ground_sha256": "f5ce40b13dd3ec9a838f7b6e052c7cb24d56a933f1ec3f45ced743546e99de30",
+    "promoted_tile_sha256": "cd3701af37bc622846de18ec28bb3d9073ae7efa96a88bdd589afc408e142bca"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "f5ce40b13dd3ec9a838f7b6e052c7cb24d56a933f1ec3f45ced743546e99de30",
+    "candidate_tile_sha256": "cd3701af37bc622846de18ec28bb3d9073ae7efa96a88bdd589afc408e142bca",
+    "source_normalized_sha256": {
+      "A04P02": "ff0a0da39eb1f874f67eb93e8d37b6c15583c3a13a22e09577c10aca877f31c2",
+      "A04P02c": "7519f353a3db748c6eda2c5b9d95e5290c231bd7ddc10fc2365a6e0c4e83b43b",
+      "A04P02m": "971b54dc959211c94a18ca050c0b3011cdbcde2875a4c3227a7910575cca234a"
+    },
+    "events_sha256": "f35c1b050b3b070da7d3243857fbb52cf551a968fbb0ee9702fbf4c71ba455bf",
+    "report_sha256": "952b670742a5a73b0429fdd1ca83182f241954007091a3ae54a0c9f773b0308f",
+    "fixture_manifest_sha256": "af8f4a9cc8f3e64be7dfd466b2d6d544ee4b55c250e264d64733b0cd60bf0a6e",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/a04p02_exhaustive_pass/provenance.json"
+  },
+  "termination_validation": {
+    "result": "PASS",
+    "runner": "tools/run_pmdred_eu_pmdo_termination_gate.py",
+    "runner_sha256": "7d7e274794c5d08f24eeb266655fb9aae58ff37f76b6d2a7ced0489de4d449a5",
+    "engine_unload": "RogueEssence.GameBase.LoadPhase.Unload",
+    "graceful_exit_observed": true,
+    "watchdog_signal": "SIGTERM",
+    "watchdog_signal_sent": false,
+    "kind": "NORMAL_EXIT",
+    "returncode": 0,
+    "wait_state": "EXITED",
+    "normal_exit": true,
+    "segmentation_fault": false,
+    "forced_kill": false,
+    "residual_processes_before_cleanup": [],
+    "residual_processes_after_cleanup": [],
+    "status_sha256": "c5becad8beed27c30bb158a10420c65a408d1adac5c0ff6ec3abdbf535984c5d"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "PMDO engine-requested LoadPhase.Unload; direct wait status 0; TERM watchdog not sent",
+    "evidence_impact": "NONE",
+    "termination_gate": "PASS_NORMAL_EXIT_0_NO_SIGNAL_NO_SIGSEGV_NO_ORPHANS"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical story events, actors, entrances, music, variants, and routing are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "f5ce40b13dd3ec9a838f7b6e052c7cb24d56a933f1ec3f45ced743546e99de30",
+    "indexed_tile_sha256": "cd3701af37bc622846de18ec28bb3d9073ae7efa96a88bdd589afc408e142bca",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after a04p01",
+    "zone_ground_map_count": 354,
+    "canonical_index": 296,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

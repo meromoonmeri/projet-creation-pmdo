@@ -1,0 +1,509 @@
+{
+  "generated_at": "2026-08-22T23:00:37+00:00",
+  "dungeon": "sky_tower_summit",
+  "name": {
+    "en": "Sky Tower Summit",
+    "fr": "Sommet de la Tour Céleste"
+  },
+  "chapter": 10,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Sky Tower Summit (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SkyTowerSummit) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 10. Recoupé avec Bulbapedia (page « Sky Tower Summit »).",
+  "floors": 9,
+  "biome": "sky_summit",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/sky_tower_summit.json",
+  "segments": [
+    {
+      "name": "sky_summit",
+      "floors": [
+        1,
+        9
+      ],
+      "biome": "sky_summit",
+      "dtef": {
+        "floor": "sky_tower_floor",
+        "wall": "sky_tower_wall",
+        "secondary": "sky_tower_secondary",
+        "name": "sky_tower",
+        "element": "normal",
+        "justification": "Sommet de la Tour Céleste : même édifice que la Tour Céleste, biome canonique identique."
+      },
+      "profiles": [
+        "large_rooms",
+        "crossroads",
+        "mixed"
+      ],
+      "pokemon": 7,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 8
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "arc_parvis_celeste",
+    "end": "arc_tour_ciel_sommet"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "arc_tour_ciel_sommet",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "rayquaza",
+        "level": [
+          34,
+          34
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "arc_parvis_celeste",
+    "cinematic_ground": "arc_tour_ciel_sommet",
+    "battle_ground": "arc_tour_ciel_sommet",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "arc_tour_ciel_sommet",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "arc_tour_ciel_sommet",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "arc_tour_ciel_sommet"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'arc_tour_ciel_sommet' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:sky_tower_summit",
+    "root_seed": 3147467851076867520,
+    "explicit_seed": false,
+    "derived_seeds": 46
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8753,
+      "seeds": [
+        3461998239051883924,
+        5919804279418970871,
+        1237376578688936883,
+        6854729487860222924,
+        1223219323197181087
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 4,
+        "rooms_max": 16,
+        "halls_avg": 8.8,
+        "branches_avg": 1.6,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 0.8,
+        "connections_avg": 8.8,
+        "room_area_min": 25,
+        "room_area_max": 154,
+        "stair_distance_avg": 43.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9475,
+      "seeds": [
+        2394138636941154223,
+        382280545390089384,
+        8999894088515795068,
+        4325519051675460825,
+        1523132554411424667
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 6,
+        "rooms_max": 19,
+        "halls_avg": 12.0,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.4,
+        "connections_avg": 12.0,
+        "room_area_min": 24,
+        "room_area_max": 280,
+        "stair_distance_avg": 42.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        9,
+        11
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9197,
+      "seeds": [
+        6893779095263941620,
+        4077701044708758714,
+        386598729115200314,
+        3948634143823597255,
+        1319938956838028114
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 9.4,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 0.8,
+        "connections_avg": 9.4,
+        "room_area_min": 30,
+        "room_area_max": 220,
+        "stair_distance_avg": 36.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        16,
+        11
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8791,
+      "seeds": [
+        1992944526401550631,
+        2295863123267229132,
+        8491510779322593154,
+        7100056321520678009,
+        8970322016003695938
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 6,
+        "rooms_max": 15,
+        "halls_avg": 9.0,
+        "branches_avg": 1.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.6,
+        "connections_avg": 9.0,
+        "room_area_min": 20,
+        "room_area_max": 171,
+        "stair_distance_avg": 46.2,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.867,
+      "seeds": [
+        8836370404556396926,
+        2520366873742495660,
+        3479915053286750750,
+        7683591543485694290,
+        7521979557297754559
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 7,
+        "rooms_max": 13,
+        "halls_avg": 9.4,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.0,
+        "connections_avg": 9.4,
+        "room_area_min": 20,
+        "room_area_max": 154,
+        "stair_distance_avg": 38.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9295,
+      "seeds": [
+        8557438459708562318,
+        3796523903749869700,
+        8551815211780105791,
+        7339368666461086124,
+        5184196349883381551
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 7,
+        "rooms_max": 18,
+        "halls_avg": 11.2,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.8,
+        "connections_avg": 11.2,
+        "room_area_min": 20,
+        "room_area_max": 152,
+        "stair_distance_avg": 44.8,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8242,
+      "seeds": [
+        7514546559113967922,
+        114261103066009089,
+        6412550083150580453,
+        1190706289350526779,
+        2991308955829354089
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.4,
+        "rooms_min": 5,
+        "rooms_max": 11,
+        "halls_avg": 8.4,
+        "branches_avg": 1.0,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 0.6,
+        "connections_avg": 8.4,
+        "room_area_min": 20,
+        "room_area_max": 200,
+        "stair_distance_avg": 39.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        10,
+        12
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8407,
+      "seeds": [
+        2021926350140852846,
+        7868826747237620079,
+        4279009819288255670,
+        460648034339350007,
+        3570797756143876849
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.6,
+        "rooms_min": 6,
+        "rooms_max": 12,
+        "halls_avg": 9.0,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.2,
+        "connections_avg": 9.0,
+        "room_area_min": 20,
+        "room_area_max": 312,
+        "stair_distance_avg": 31.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "sky_summit",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        10,
+        11
+      ],
+      "dtef": "sky_tower",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8977,
+      "seeds": [
+        8406418199555289184,
+        5205171319028559648,
+        8570400807519498669,
+        5729055263038424150,
+        8802857821679765471
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.2,
+        "rooms_min": 6,
+        "rooms_max": 11,
+        "halls_avg": 8.8,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.2,
+        "connections_avg": 8.8,
+        "room_area_min": 24,
+        "room_area_max": 300,
+        "stair_distance_avg": 30.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

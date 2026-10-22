@@ -1,0 +1,3395 @@
+[
+  {
+    "dungeon": "buried_relic",
+    "name": "Buried Relic",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/buried_relic.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "map",
+        "path": "Data/Map/buried_relic_arena.rsmap",
+        "action": "HARVEST",
+        "reason": "canonical scene available as a map: becomes the Ground of this very scene",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "darknight_relic",
+    "name": "Darknight Relic",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/darknight_relic.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "desert_region",
+    "name": "Desert Region",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/desert_region.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "fantasy_strait",
+    "name": "Fantasy Strait",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/fantasy_strait.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "far_off_sea",
+    "name": "Far-Off Sea",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/far_off_sea.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "fiery_field",
+    "name": "Fiery Field",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/champ_braises",
+        "Data/Script/halcyon/zone/fiery_field",
+        "RESERVE/scripts_ground/champ_braises"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d16p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/fiery_field.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/champ_braises.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/champ_braises",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'champ_braises' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/champ_braises",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'champ_braises' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/fiery_field",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/fiery_field",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d16p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D16: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "frosty_forest",
+    "name": "Frosty Forest",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d10p02",
+        "Data/Script/halcyon/ground/d10p03",
+        "Data/Script/halcyon/ground/foret_givree_oree",
+        "Data/Script/halcyon/ground/frosty_forest_midpoint",
+        "Data/Script/halcyon/zone/frosty_forest",
+        "RESERVE/scripts_ground/foret_givree_oree"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d10p01.cif.json",
+        "RESERVE/red_cinematics/d10p02.cif.json",
+        "RESERVE/red_cinematics/d10p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/frosty_forest.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d10p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d10p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/foret_givree_oree.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/frosty_forest_midpoint.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d10p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd10p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d10p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd10p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/foret_givree_oree",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'foret_givree_oree' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/foret_givree_oree",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'foret_givree_oree' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/frosty_forest_midpoint",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'frosty_forest_midpoint' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/frosty_forest",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/frosty_forest",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/creer_midpoints.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/full_audit_pmdred_imports.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/gen_addon_sky_network.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "frosty_grotto",
+    "name": "Frosty Grotto",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d10p02",
+        "Data/Script/halcyon/ground/d10p03",
+        "Data/Script/halcyon/ground/foret_givree_oree",
+        "RESERVE/scripts_ground/foret_givree_oree"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d10p01.cif.json",
+        "RESERVE/red_cinematics/d10p02.cif.json",
+        "RESERVE/red_cinematics/d10p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/frosty_grotto.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d10p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d10p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/foret_givree_oree.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d10p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd10p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d10p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd10p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/foret_givree_oree",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'foret_givree_oree' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/foret_givree_oree",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'foret_givree_oree' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d10p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D10: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "grand_sea",
+    "name": "Grand Sea",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/grand_sea.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "great_canyon",
+    "name": "Great Canyon",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/grand_canyon_porte",
+        "RESERVE/scripts_ground/grand_canyon_porte"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d07p01.cif.json",
+        "RESERVE/red_cinematics/d07p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/great_canyon.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d07p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/grand_canyon_porte.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/grand_canyon_porte",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'grand_canyon_porte' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/grand_canyon_porte",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'grand_canyon_porte' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d07p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D07: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d07p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D07: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "howling_forest",
+    "name": "Howling Forest",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/bois_des_plaintes",
+        "RESERVE/scripts_ground/bois_des_plaintes"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d25p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/howling_forest.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/bois_des_plaintes.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/bois_des_plaintes",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'bois_des_plaintes' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/bois_des_plaintes",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'bois_des_plaintes' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d25p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D25: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "joyous_tower",
+    "name": "Joyous Tower",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/joyous_tower.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "lapis_cave",
+    "name": "Lapis Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/grotte_lazuli_fond",
+        "Data/Script/halcyon/ground/grotte_lazuli_seuil",
+        "Data/Script/halcyon/zone/lapis_cave",
+        "RESERVE/scripts_ground/grotte_lazuli_fond",
+        "RESERVE/scripts_ground/grotte_lazuli_seuil"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d08p01.cif.json",
+        "RESERVE/red_cinematics/d08p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/lapis_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/grotte_lazuli_fond.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/grotte_lazuli_seuil.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/grotte_lazuli_fond",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'grotte_lazuli_fond' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/grotte_lazuli_fond",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'grotte_lazuli_fond' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/grotte_lazuli_seuil",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'grotte_lazuli_seuil' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/grotte_lazuli_seuil",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'grotte_lazuli_seuil' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/lapis_cave",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d08p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D08: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d08p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D08: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "lightning_field",
+    "name": "Lightning Field",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/champ_foudre",
+        "Data/Script/halcyon/zone/lightning_field",
+        "RESERVE/scripts_ground/champ_foudre"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d17p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/lightning_field.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/champ_foudre.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/champ_foudre",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'champ_foudre' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/champ_foudre",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'champ_foudre' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/lightning_field",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/lightning_field",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d17p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D17: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "magma_cavern",
+    "name": "Magma Cavern",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/fosse_ardente",
+        "Data/Script/halcyon/ground/gorge_ardente_coeur",
+        "Data/Script/halcyon/ground/gorge_ardente_porte",
+        "Data/Script/halcyon/zone/magma_cavern",
+        "RESERVE/scripts_ground/fosse_ardente",
+        "RESERVE/scripts_ground/gorge_ardente_coeur",
+        "RESERVE/scripts_ground/gorge_ardente_porte"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d12p01.cif.json",
+        "RESERVE/red_cinematics/d12p02.cif.json",
+        "RESERVE/red_cinematics/d12p04.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/magma_cavern.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/fosse_ardente.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gorge_ardente_coeur.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gorge_ardente_porte.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/fosse_ardente",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'fosse_ardente' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/fosse_ardente",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'fosse_ardente' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_coeur",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gorge_ardente_coeur' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/gorge_ardente_coeur",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'gorge_ardente_coeur' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_porte",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gorge_ardente_porte' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/gorge_ardente_porte",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'gorge_ardente_porte' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/magma_cavern",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/magma_cavern",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p04.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/purge_chapter6_32_dungeon_data.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "magma_cavern_pit",
+    "name": "Magma Cavern Pit",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/fosse_ardente",
+        "Data/Script/halcyon/ground/gorge_ardente_coeur",
+        "Data/Script/halcyon/ground/gorge_ardente_porte",
+        "RESERVE/scripts_ground/fosse_ardente",
+        "RESERVE/scripts_ground/gorge_ardente_coeur",
+        "RESERVE/scripts_ground/gorge_ardente_porte"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d12p01.cif.json",
+        "RESERVE/red_cinematics/d12p02.cif.json",
+        "RESERVE/red_cinematics/d12p04.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/magma_cavern_pit.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/fosse_ardente.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gorge_ardente_coeur.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gorge_ardente_porte.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/fosse_ardente",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'fosse_ardente' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/fosse_ardente",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'fosse_ardente' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_coeur",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gorge_ardente_coeur' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/gorge_ardente_coeur",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'gorge_ardente_coeur' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gorge_ardente_porte",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gorge_ardente_porte' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/gorge_ardente_porte",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'gorge_ardente_porte' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d12p04.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D12: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "marvelous_sea",
+    "name": "Marvelous Sea",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/marvelous_sea.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "meteor_cave",
+    "name": "Meteor Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/zone/meteor_cave"
+      ],
+      "red_cinematics": []
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/meteor_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "map",
+        "path": "Data/Map/meteor_cave_arena.rsmap",
+        "action": "HARVEST",
+        "reason": "canonical scene available as a map: becomes the Ground of this very scene",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/meteor_cave",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/meteor_cave",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_blaze",
+    "name": "Mt. Blaze",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d09p02",
+        "Data/Script/halcyon/ground/d09p03",
+        "Data/Script/halcyon/ground/mont_cendre_pied",
+        "Data/Script/halcyon/ground/mt_blaze_midpoint",
+        "Data/Script/halcyon/zone/mt_blaze",
+        "RESERVE/scripts_ground/mont_cendre_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d09p01.cif.json",
+        "RESERVE/red_cinematics/d09p02.cif.json",
+        "RESERVE/red_cinematics/d09p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_blaze.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d09p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d09p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_cendre_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mt_blaze_midpoint.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d09p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd09p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d09p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd09p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_cendre_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_cendre_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_cendre_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_cendre_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mt_blaze_midpoint",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mt_blaze_midpoint' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/mt_blaze",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/mt_blaze",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/creer_midpoints.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/full_audit_pmdred_imports.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_blaze_peak",
+    "name": "Mt. Blaze Peak",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d09p02",
+        "Data/Script/halcyon/ground/d09p03",
+        "Data/Script/halcyon/ground/mont_cendre_pied",
+        "RESERVE/scripts_ground/mont_cendre_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d09p01.cif.json",
+        "RESERVE/red_cinematics/d09p02.cif.json",
+        "RESERVE/red_cinematics/d09p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_blaze_peak.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d09p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d09p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_cendre_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d09p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd09p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d09p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd09p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_cendre_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_cendre_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_cendre_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_cendre_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d09p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D09: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_faraway",
+    "name": "Mt. Faraway",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/sommet_aurore",
+        "Data/Script/halcyon/zone/mt_faraway",
+        "RESERVE/scripts_ground/sommet_aurore"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d19p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_faraway.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/sommet_aurore.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/sommet_aurore",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'sommet_aurore' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/sommet_aurore",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'sommet_aurore' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/mt_faraway",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/mt_faraway",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d19p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D19: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_freeze",
+    "name": "Mt. Freeze",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d11p02",
+        "Data/Script/halcyon/ground/d11p03",
+        "Data/Script/halcyon/ground/mont_gele_pied",
+        "Data/Script/halcyon/ground/mt_freeze_midpoint",
+        "Data/Script/halcyon/zone/mt_freeze",
+        "RESERVE/scripts_ground/mont_gele_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d11p01.cif.json",
+        "RESERVE/red_cinematics/d11p02.cif.json",
+        "RESERVE/red_cinematics/d11p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_freeze.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d11p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d11p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_gele_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mt_freeze_midpoint.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d11p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd11p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d11p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd11p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_gele_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_gele_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_gele_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_gele_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mt_freeze_midpoint",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mt_freeze_midpoint' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/mt_freeze",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/creer_midpoints.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/full_audit_pmdred_imports.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_freeze_peak",
+    "name": "Mt. Freeze Peak",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/d11p02",
+        "Data/Script/halcyon/ground/d11p03",
+        "Data/Script/halcyon/ground/mont_gele_pied",
+        "RESERVE/scripts_ground/mont_gele_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d11p01.cif.json",
+        "RESERVE/red_cinematics/d11p02.cif.json",
+        "RESERVE/red_cinematics/d11p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_freeze_peak.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d11p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d11p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_gele_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d11p02",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd11p02' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/d11p03",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'd11p03' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_gele_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_gele_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_gele_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_gele_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d11p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D11: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_steel",
+    "name": "Mt. Steel",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/pic_ferreux_pied",
+        "RESERVE/scripts_ground/pic_ferreux_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d03p01.cif.json",
+        "RESERVE/red_cinematics/d03p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_steel.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d03p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/pic_ferreux_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/pic_ferreux_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'pic_ferreux_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/pic_ferreux_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'pic_ferreux_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d03p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D03: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d03p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D03: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_thunder",
+    "name": "Mt. Thunder",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/mont_grondant_pied",
+        "Data/Script/halcyon/zone/mt_thunder",
+        "RESERVE/scripts_ground/mont_grondant_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d06p01.cif.json",
+        "RESERVE/red_cinematics/d06p02.cif.json",
+        "RESERVE/red_cinematics/d06p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_thunder.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d06p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d06p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_grondant_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_grondant_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_grondant_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_grondant_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_grondant_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/mt_thunder",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/mt_thunder",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/creer_midpoints.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/full_audit_pmdred_imports.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "mt_thunder_peak",
+    "name": "Mt. Thunder Peak",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/mont_grondant_pied",
+        "RESERVE/scripts_ground/mont_grondant_pied"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d06p01.cif.json",
+        "RESERVE/red_cinematics/d06p02.cif.json",
+        "RESERVE/red_cinematics/d06p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/mt_thunder_peak.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d06p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d06p03.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/mont_grondant_pied.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/mont_grondant_pied",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'mont_grondant_pied' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/mont_grondant_pied",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'mont_grondant_pied' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d06p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D06: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "murky_cave",
+    "name": "Murky Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/caverne_trouble_autel",
+        "Data/Script/halcyon/ground/caverne_trouble_fond",
+        "RESERVE/scripts_ground/caverne_trouble_autel",
+        "RESERVE/scripts_ground/caverne_trouble_fond"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d24p01.cif.json",
+        "RESERVE/red_cinematics/d24p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/murky_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/caverne_trouble_autel.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/caverne_trouble_fond.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/caverne_trouble_autel",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'caverne_trouble_autel' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/caverne_trouble_autel",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'caverne_trouble_autel' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/caverne_trouble_fond",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'caverne_trouble_fond' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/caverne_trouble_fond",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'caverne_trouble_fond' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d24p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D24: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d24p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D24: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "northern_range",
+    "name": "Northern Range",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/cretes_boreales",
+        "RESERVE/scripts_ground/cretes_boreales"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d21p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/northern_range.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/cretes_boreales.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/cretes_boreales",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'cretes_boreales' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/cretes_boreales",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'cretes_boreales' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d21p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D21: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "northwind_field",
+    "name": "Northwind Field",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/champ_vent_boreal",
+        "Data/Script/halcyon/zone/northwind_field",
+        "RESERVE/scripts_ground/champ_vent_boreal"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d18p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/northwind_field.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/champ_vent_boreal.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/champ_vent_boreal",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'champ_vent_boreal' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/champ_vent_boreal",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'champ_vent_boreal' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/northwind_field",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/northwind_field",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d18p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D18: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "oddity_cave",
+    "name": "Oddity Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/oddity_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "pitfall_valley",
+    "name": "Pitfall Valley",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/vallon_perdu",
+        "RESERVE/scripts_ground/vallon_perdu"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d22p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/pitfall_valley.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/vallon_perdu.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/vallon_perdu",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'vallon_perdu' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/vallon_perdu",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'vallon_perdu' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d22p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D22: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "purity_forest",
+    "name": "Purity Forest",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/foret_guerison",
+        "Data/Script/halcyon/zone/purity_forest",
+        "RESERVE/scripts_ground/foret_guerison"
+      ],
+      "red_cinematics": []
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/purity_forest.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/foret_guerison.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/foret_guerison",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'foret_guerison' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/foret_guerison",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'foret_guerison' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/purity_forest",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/purity_forest",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "remains_island",
+    "name": "Remains Island",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/remains_island.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "rock_path",
+    "name": "Rock Path",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/rock_path.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "silent_chasm",
+    "name": "Silent Chasm",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/gouffre_muet_bord",
+        "RESERVE/scripts_ground/gouffre_muet_bord"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d05p01.cif.json",
+        "RESERVE/red_cinematics/d05p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/silent_chasm.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d05p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gouffre_muet_bord.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gouffre_muet_bord",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gouffre_muet_bord' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/gouffre_muet_bord",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'gouffre_muet_bord' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d05p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D05: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d05p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D05: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "silver_trench",
+    "name": "Silver Trench",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/fosse_argentee",
+        "Data/Script/halcyon/zone/silver_trench",
+        "RESERVE/scripts_ground/fosse_argentee"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d15p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/silver_trench.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/fosse_argentee.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/fosse_argentee",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'fosse_argentee' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/fosse_argentee",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'fosse_argentee' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/silver_trench",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/silver_trench",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d15p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D15: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "gloomy_forest",
+    "name": "Sinister Woods",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/bois_sombres_oree",
+        "Data/Script/halcyon/ground/gloomy_forest_midpoint",
+        "Data/Script/halcyon/ground/sinister_woods_clearing",
+        "Data/Script/halcyon/zone/gloomy_forest",
+        "RESERVE/scripts_ground/bois_sombres_oree"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d04p01.cif.json",
+        "RESERVE/red_cinematics/d04p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/gloomy_forest.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/bois_sombres_oree.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/gloomy_forest_midpoint.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/sinister_woods_clearing.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/bois_sombres_oree",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'bois_sombres_oree' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/bois_sombres_oree",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'bois_sombres_oree' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/gloomy_forest_midpoint",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'gloomy_forest_midpoint' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/sinister_woods_clearing",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'sinister_woods_clearing' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/gloomy_forest",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d04p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D04: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d04p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D04: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/add_annexe_toupie.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_sinister_woods_relic_forest_separation.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/build_canonical_journey_registry.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/build_sinister_woods_chain_fixture.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/build_sinister_woods_procedural_fixture.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/insert_miniboss_segments.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/migrate_pmdred_sinister_woods_generator.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/purge_chapter6_32_dungeon_data.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/reduire_base.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/scale_boss_levels.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/validate_ch5.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/verify_zone_index.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "sky_tower",
+    "name": "Sky Tower",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/arc_palier_celeste",
+        "Data/Script/halcyon/ground/arc_parvis_celeste",
+        "Data/Script/halcyon/ground/arc_tour_ciel_sommet",
+        "Data/Script/halcyon/zone/sky_tower"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d13p01.cif.json",
+        "RESERVE/red_cinematics/d13p02.cif.json",
+        "RESERVE/red_cinematics/d13p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/sky_tower.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_palier_celeste.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_parvis_celeste.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_tour_ciel_sommet.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_palier_celeste",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_palier_celeste' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_parvis_celeste",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_parvis_celeste' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_tour_ciel_sommet",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_tour_ciel_sommet' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/sky_tower",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/gen_addon_sky_network.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/purge_chapter6_32_dungeon_data.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/reduire_base.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "sky_tower_summit",
+    "name": "Sky Tower Summit",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/arc_palier_celeste",
+        "Data/Script/halcyon/ground/arc_parvis_celeste",
+        "Data/Script/halcyon/ground/arc_tour_ciel_sommet"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d13p01.cif.json",
+        "RESERVE/red_cinematics/d13p02.cif.json",
+        "RESERVE/red_cinematics/d13p03.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/sky_tower_summit.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_palier_celeste.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_parvis_celeste.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/arc_tour_ciel_sommet.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_palier_celeste",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_palier_celeste' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_parvis_celeste",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_parvis_celeste' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/arc_tour_ciel_sommet",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'arc_tour_ciel_sommet' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d13p03.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D13: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "snow_path",
+    "name": "Snow Path",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/snow_path.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "solar_cave",
+    "name": "Solar Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/solar_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "southern_cavern",
+    "name": "Southern Cavern",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/southern_cavern.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "stormy_sea",
+    "name": "Stormy Sea",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/abime_tempetes",
+        "Data/Script/halcyon/zone/stormy_sea",
+        "RESERVE/scripts_ground/abime_tempetes"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d14p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/stormy_sea.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/abime_tempetes.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/abime_tempetes",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'abime_tempetes' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/abime_tempetes",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'abime_tempetes' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/stormy_sea",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/stormy_sea",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d14p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D14: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "thunderwave_cave",
+    "name": "Thunderwave Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/grotte_statique_seuil",
+        "RESERVE/scripts_ground/grotte_statique_seuil"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d02p01.cif.json",
+        "RESERVE/red_cinematics/d02p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/thunderwave_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d02p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/grotte_statique_seuil.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/grotte_statique_seuil",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'grotte_statique_seuil' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/grotte_statique_seuil",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'grotte_statique_seuil' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d02p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D02: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d02p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D02: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "tiny_woods",
+    "name": "Tiny Woods",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/foret_tendre_oree",
+        "RESERVE/scripts_ground/foret_tendre_oree"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d01p01.cif.json",
+        "RESERVE/red_cinematics/d01p02.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/tiny_woods.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/d01p02.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/foret_tendre_oree.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/foret_tendre_oree",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'foret_tendre_oree' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/foret_tendre_oree",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'foret_tendre_oree' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d01p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D01: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d01p02.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D01: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "unown_relic",
+    "name": "Unown Relic",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/unown_relic.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "uproar_forest",
+    "name": "Uproar Forest",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/uproar_forest.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "waterfall_pond",
+    "name": "Waterfall Pond",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/zone/waterfall_pond"
+      ],
+      "red_cinematics": []
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/waterfall_pond.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/waterfall_pond",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_terapagos_20f.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/purge_chapter6_32_dungeon_data.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/reduire_base.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "western_cave",
+    "name": "Western Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/antre_occident",
+        "Data/Script/halcyon/zone/western_cave",
+        "RESERVE/scripts_ground/antre_occident"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d20p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/western_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/antre_occident.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/antre_occident",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'antre_occident' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "RESERVE/scripts_ground/antre_occident",
+        "action": "TRANSFER",
+        "reason": "archived cutscene of scene 'antre_occident' to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/western_cave",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/western_cave",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d20p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D20: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      }
+    ]
+  },
+  {
+    "dungeon": "wish_cave",
+    "name": "Wish Cave",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [
+        "Data/Script/halcyon/ground/sanctuaire_voeu",
+        "Data/Script/halcyon/zone/wish_cave"
+      ],
+      "red_cinematics": [
+        "RESERVE/red_cinematics/d23p01.cif.json"
+      ]
+    },
+    "notes": [],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/wish_cave.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      },
+      {
+        "kind": "ground",
+        "path": "Data/Ground/sanctuaire_voeu.rsground",
+        "action": "HARVEST",
+        "reason": "canonical scene kept as-is: geometry, collisions, markers and objects are the source of truth for cutscene + battle",
+        "state": "active"
+      },
+      {
+        "kind": "map",
+        "path": "Data/Map/sanctuaire_voeu.rsmap",
+        "action": "HARVEST",
+        "reason": "canonical scene available as a map: becomes the Ground of this very scene",
+        "state": "active"
+      },
+      {
+        "kind": "script_ground",
+        "path": "Data/Script/halcyon/ground/sanctuaire_voeu",
+        "action": "TRANSFER",
+        "reason": "cutscene of scene 'sanctuaire_voeu' must follow the dungeon",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "Data/Script/halcyon/zone/wish_cave",
+        "action": "TRANSFER",
+        "reason": "zone script (floor events, boss trigger) rebound to the regenerated zone",
+        "state": "active"
+      },
+      {
+        "kind": "script_zone",
+        "path": "RESERVE/scripts_zone/wish_cave",
+        "action": "TRANSFER",
+        "reason": "archived zone script to restore",
+        "state": "archived"
+      },
+      {
+        "kind": "cinematic",
+        "path": "RESERVE/red_cinematics/d23p01.cif.json",
+        "action": "TRANSFER",
+        "reason": "canonical PMD Red cutscene of D23: audio, camera, dialogue and battle trigger to replay on the same Ground",
+        "state": "archived"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_geometry_uniqueness.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      },
+      {
+        "kind": "tool",
+        "path": "tools/audit_red_narrative.py",
+        "action": "REVIEW",
+        "reason": "legacy generator that writes this dungeon's zone: superseded by the Builder, to retire manually once the rebuild is validated",
+        "state": "active"
+      }
+    ]
+  },
+  {
+    "dungeon": "wyvern_hill",
+    "name": "Wyvern Hill",
+    "in_scope": true,
+    "narrative": {
+      "cutscenes": [],
+      "red_cinematics": []
+    },
+    "notes": [
+      "no narrative content found for this dungeon"
+    ],
+    "artefacts": [
+      {
+        "kind": "zone",
+        "path": "Data/Zone/wyvern_hill.json",
+        "action": "CURRENT",
+        "reason": "already produced by this Builder: it is the current canonical implementation",
+        "state": "active"
+      }
+    ]
+  }
+]

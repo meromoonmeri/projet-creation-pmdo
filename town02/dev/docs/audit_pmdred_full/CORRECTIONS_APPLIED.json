@@ -1,0 +1,50 @@
+{
+  "corrections": [
+    {
+      "ground": "ChampVentBoreal_Base",
+      "file": "Content/Tile/index.idx",
+      "old": "stale offsets from the pre-regeneration tile header; PMDO attempted invalid lengths at 2,13 through 4,14",
+      "new": "index entry replaced byte-for-byte from current ChampVentBoreal_Base.tile header",
+      "reason": "RogueEssence TileIndex.GetPosition reads index.idx, not the tile header; replacing the .tile without reindexing caused Texture2D.FromStream failures",
+      "validation": "six reported coordinates resolve to bounded positive lengths, PNG signature 89504E470D0A1A0A, Pillow decode succeeds"
+    },
+    {
+      "ground": "all recently regenerated PMD Red sheets",
+      "file": "Content/Tile/index.idx",
+      "old": "32 stale or absent tile index nodes",
+      "new": "all nodes injected from current tile headers; existing unrelated nodes preserved",
+      "reason": "prevent identical BaseSheet.Load failures on other regenerated assets"
+    },
+    {
+      "ground": "mount_windswept_guardian",
+      "old": "three teammate spawners outside 360x336 Ground and two mandatory markers in collision",
+      "new": "team at (152,248), (200,248), (224,248); entrance (176,248); boss (176,136); cutscene (176,192)",
+      "reason": "old entities came from a larger pre-Northwind arena"
+    },
+    {
+      "ground": "mt_blaze_midpoint / frosty_forest_midpoint / mt_freeze_midpoint",
+      "old": "relay packages existed but ZoneData and ExitSegment routed directly to d09p02/d10p02/d11p02; teammate spawners collided after visual transplant",
+      "new": "relays restored to ZoneData and transitions; canonical visuals retained; teammate spawners moved to reachable source-safe cells",
+      "reason": "later canonical conversion bypassed prior checkpoint corrections"
+    },
+    {
+      "ground": "d05p01",
+      "old": "Cutscene_Marker (144,128) inside wall after regeneration",
+      "new": "Cutscene_Marker (160,128)",
+      "reason": "restored previously documented Silent Chasm correction"
+    },
+    {
+      "ground": "nine named dungeon-backed imports",
+      "old": "debug_placeholder_Base with structurally invalid embedded image length",
+      "new": "ROM-reconstructed bXX material Grounds and valid native tile sheets",
+      "reason": "placeholder conversion had overwritten/hidden corrected assets"
+    }
+  ],
+  "manual_review": [
+    {
+      "ground": "d11p03",
+      "issue": "three required markers are in a connectivity component different from the entrance according to static collision flood-fill",
+      "action": "do not relocate until the Mt. Freeze summit cutscene/runtime transition is executed; fixed-room separation may be intentional"
+    }
+  ]
+}

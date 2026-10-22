@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "ground": "t01p02a",
+  "validated_at": "2026-08-12",
+  "result": "PASS",
+  "authorities": {
+    "rom": {
+      "region": "Europe (En,Fr,De,Es,It)",
+      "path": ".runtime-cache/downloads/pmdred-eu.gba",
+      "bytes": 33554432,
+      "sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd"
+    },
+    "technical_reference": {
+      "repository": "pret/pmd-red",
+      "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+      "role": "technical structure and MAP_WHISCASH_POND_OPEN enum identity; not a substitute for EU bytes"
+    },
+    "normalized_extraction": {
+      "path": ".runtime-cache/pmdred-eu-ground",
+      "audit": ".runtime-cache/pmdred-eu-extraction-audit.json",
+      "source_hashes": {
+        "T01P021": "745e74cbf7d9ea20622bd185c84c0157ee504d325452e667dbe919f586e69d7f",
+        "T01P02A": "dd3de8c76cd970be80164c2878b018bdbac0e3a1d4c26762d61513336424b509",
+        "T01P02Am": "c046caa1f12a0b7bf713992a2d82f0d8e3456399acec57e6615328da2e6ca2ae",
+        "T01P02c": "cf988623bdc66b5a8aa94981701ac08f40be3d9565682aa6e2e3438682f79b89"
+      }
+    },
+    "reference_renderer": {
+      "mode": "independent_raw_eu_resources",
+      "independence": "raw BPL/BPC/BPA/BMA parser and renderer; no converter/auditor/candidate parser imports"
+    },
+    "runtime_plan": {
+      "path": ".runtime-cache/pmdred-eu-reference-plan-v2.json",
+      "schema": 2,
+      "sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0"
+    },
+    "conversion": {
+      "converter": "2.0.1-eu",
+      "report": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/conversion_report.json",
+      "report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc"
+    }
+  },
+  "identity": {
+    "canonical_debug_id": 2,
+    "map_id": 3,
+    "map_file_id": 3,
+    "ground_place_id": 3,
+    "conversion_type": 1,
+    "weather_id": 9,
+    "stable_ground_id": "t01p02a",
+    "ground_map_symbol": "MAP_WHISCASH_POND_OPEN",
+    "dimensions_tiles": [
+      57,
+      78
+    ],
+    "dimensions_pixels": [
+      456,
+      624
+    ],
+    "classification": "standard_overworld_story_cinematic_venue",
+    "cinematic": true,
+    "arena": false,
+    "boss": false
+  },
+  "tested_source": {
+    "ground": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/t01p02a.rsground",
+    "ground_sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742",
+    "tile": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/t01p02a_Base.tile",
+    "tile_sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4",
+    "candidate_entities": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_copy_changes": [
+      "injected deterministic Main_Entrance_Marker",
+      "added ignored fixture-validation comment and scripts"
+    ],
+    "fixture_manifest": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/fixture_manifest.json",
+    "fixture_manifest_sha256": "1c602e0fcb4f6ebb09f7f79599f6a356dc4429ef2c59908bd3e413e01c527b07"
+  },
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb",
+    "events": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/events.jsonl",
+    "events_sha256": "29c8ecb949fd59164c13c648380537dcc6ed40b45eccda7c06a1f2b9bc5ebfc1",
+    "event_count": 2473,
+    "primary_samples": 816,
+    "reload_samples": 1,
+    "runtime_seconds_to_terminal": 145,
+    "bounded_timeout_seconds": 7200,
+    "wrapper_exit": 0
+  },
+  "comparison": {
+    "report": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/report.json",
+    "report_sha256": "221f3ff179fa3417149710b39f1e2b39f5b8e0fe68f489dcdda92fafb0824933",
+    "sample_count": 817,
+    "exact_sample_count": 817,
+    "fully_opaque_sample_count": 817,
+    "mismatched_pixels": 0,
+    "maximum_channel_delta": 0,
+    "unique_primary_rgba_frames": 336
+  },
+  "routing_analysis": {
+    "pre_promotion_lowercase_ground": false,
+    "pre_promotion_lowercase_tile": false,
+    "pre_promotion_zone_entry": false,
+    "fugitive_scene_defined": true,
+    "fugitive_scene_wrapper_defined": true,
+    "fugitive_sequence_route_defined": false,
+    "lowercase_ground_init_defined": false,
+    "decision": "Promote exact bare canonical source additively and register it, but do not migrate an unproven historical marker or rewire the deferred Fugitive arc."
+  },
+  "preservation": {
+    "historical_red_ground": {
+      "path": "RESERVE/red_grounds/t01p02a.rsground",
+      "sha256": "a05a273a31e4582b7077e861769c130b0f93e8f2e4dddb4e2f77052f198811d4"
+    },
+    "historical_red_tile": {
+      "path": "RESERVE/red_tiles/t01p02a_Base.tile",
+      "sha256": "83161f7cf4cf40ac5e69ccb4680e87c906b6275e8bbbd4b24d3128d50bf921a7"
+    },
+    "eos_ground": {
+      "path": "Data/Ground/sky_eos_t01p02a.rsground",
+      "sha256": "39afb28922625e1505aa3a62d18140bb41380c0c4f0328277a0e6ade50a0ccfc"
+    },
+    "eos_tile": {
+      "path": "Content/Tile/T01p02a_Base.tile",
+      "sha256": "bc96415ece8fe8fba344159bbeec81ddee34b102a7926ea11be82d4e8338da7b"
+    },
+    "eos_script": {
+      "path": "Data/Script/halcyon/ground/sky_eos_t01p02a/init.lua",
+      "sha256": "ecacbce7b91841618dcb20b9f0e45454583f536abac014c85b6f5626f58f1568"
+    },
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p02a/README.md"
+  },
+  "promoted": {
+    "ground": {
+      "path": "Data/Ground/t01p02a.rsground",
+      "sha256": "a6fddda0dd6b7f87e10e8feca8c951cd682c51de5aecae03fd4013f4a9b0e742"
+    },
+    "tile": {
+      "path": "Content/Tile/t01p02a_Base.tile",
+      "sha256": "24b066df18a36171b8f29eaafadf52bc450aba2c4fb558fca40ddc69b35466f4"
+    },
+    "zone": {
+      "path": "Data/Zone/master_zone.json",
+      "pre_sha256": "0916663d21b09bcd6cb2ac910481efcc055b9f62999cde3d0fed87a4379f7e12",
+      "post_sha256": "e699a00529d631701e7e964ea291cb24420fb32c51b0574d941c1c581230afe1"
+    }
+  },
+  "durable_evidence": {
+    "README.md": "80c3a9792ef5f0e91fc1bec9570902145a563f66bf6ba59c2a0a74864d2aafc0",
+    "commands.sh": "037642ee1749883b4d3058ac116393f7a1a824d51b6589fc4585fd9b545a4e46",
+    "comparison.log": "eb47e674550934798983224315feaafb460a26bec011d770bd6d9d822c1bec89",
+    "engine.log": "fd96a468ef90e69040742ca7dfcde7d392aeae17ee3a4f0b169806a8a38c6157",
+    "events.jsonl": "29c8ecb949fd59164c13c648380537dcc6ed40b45eccda7c06a1f2b9bc5ebfc1",
+    "fixture_manifest.json": "1c602e0fcb4f6ebb09f7f79599f6a356dc4429ef2c59908bd3e413e01c527b07",
+    "index.log": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "post_promotion_index.log": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "report.json": "221f3ff179fa3417149710b39f1e2b39f5b8e0fe68f489dcdda92fafb0824933",
+    "runtime.log": "715cef0f9e20f3b28f66f6d6aedfd12154392b9b0af55a4f470aafac9b70209e"
+  },
+  "reproduction": {
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/commands.sh",
+    "note": "Screenshot filenames and report absolute paths are timestamp-dependent; pixel results, tested source hashes, tick coverage, and event semantics are deterministic."
+  },
+  "scope": "Ground map/tile, visuals, animation, collision, repeated lifecycle, cleanup, and additive registration only. Later narrative/cinematic systems are not claimed.",
+  "post_promotion_integration": {
+    "exact_pmdo_index": "PASS",
+    "method": "Built an isolated fixture from copies read back from promoted destinations, then bounded PMDO 0.8.12 -index zone.",
+    "log": "docs/pmdred_eu/pmdo_validation/t01p02a_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_registry_static_validation": "PASS",
+    "zone_encoding_bom_preserved": true,
+    "eos_coexistence": "PASS"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "decoder": "dependency-free PNG/APNG, 8-bit non-interlaced, CRC-checked",
+  "ground_count": 1,
+  "grounds": [
+    "d01p02"
+  ],
+  "sample_count": 2,
+  "exact_sample_count": 2,
+  "fully_opaque_sample_count": 2,
+  "all_exact": true,
+  "all_fully_opaque": true,
+  "runtime": {
+    "validation_count": 2,
+    "ground_entry_count": 2,
+    "inter_entry_transition_count": 1,
+    "observed_ground_exit_count": 1,
+    "same_ground_reentry_count": 1,
+    "cleanup_probe_count": 2,
+    "all_runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "all_cleanups_pass": true,
+    "end_event_seen": true,
+    "validations": [
+      {
+        "ground": "d01p02",
+        "load": "LOAD_PASS",
+        "spawn": {
+          "x": 176,
+          "y": 160
+        },
+        "move_dirs": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "move_deltas": [
+          "0,-16",
+          "16,0",
+          "0,16",
+          "-16,0"
+        ],
+        "movement_probe": "MOVEMENT_PASS",
+        "animation_probe": "ANIMATION_SAMPLED_LIFECYCLE_PASS",
+        "sampled_ticks": [
+          0
+        ],
+        "verdict": "SAFE"
+      },
+      {
+        "ground": "d01p02",
+        "load": "LOAD_PASS",
+        "spawn": {
+          "x": 176,
+          "y": 160
+        },
+        "move_dirs": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "move_deltas": [
+          "0,-16",
+          "16,0",
+          "0,16",
+          "-16,0"
+        ],
+        "movement_probe": "MOVEMENT_PASS",
+        "animation_probe": "ANIMATION_SAMPLED_LIFECYCLE_PASS",
+        "sampled_ticks": [
+          0
+        ],
+        "verdict": "SAFE"
+      }
+    ],
+    "cleanups": [
+      {
+        "event": "ground_exit",
+        "ground": "d01p02",
+        "cleanup": "PASS"
+      },
+      {
+        "event": "final_cleanup",
+        "cleanup": "PASS"
+      }
+    ]
+  },
+  "samples": [
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        360,
+        336
+      ],
+      "actual_dimensions": [
+        360,
+        336
+      ],
+      "expected_rgba_sha256": "d6e37c1d8027f1bbecb9cc7ddf155cf1aa9c7320b06baaebdd6abaa3b189cd2f",
+      "actual_rgba_sha256": "d6e37c1d8027f1bbecb9cc7ddf155cf1aa9c7320b06baaebdd6abaa3b189cd2f",
+      "mismatched_pixels": 0,
+      "maximum_channel_delta": 0,
+      "actual_fully_opaque": true,
+      "exact": true,
+      "ground": "d01p02",
+      "tick": 0,
+      "source_screenshot": ".runtime-cache/pmdo-pmdred-eu-route-final/SCREENSHOT/2026-08-11_22-10-00.png"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        360,
+        336
+      ],
+      "actual_dimensions": [
+        360,
+        336
+      ],
+      "expected_rgba_sha256": "d6e37c1d8027f1bbecb9cc7ddf155cf1aa9c7320b06baaebdd6abaa3b189cd2f",
+      "actual_rgba_sha256": "d6e37c1d8027f1bbecb9cc7ddf155cf1aa9c7320b06baaebdd6abaa3b189cd2f",
+      "mismatched_pixels": 0,
+      "maximum_channel_delta": 0,
+      "actual_fully_opaque": true,
+      "exact": true,
+      "ground": "d01p02",
+      "tick": 0,
+      "source_screenshot": ".runtime-cache/pmdo-pmdred-eu-route-final/SCREENSHOT/2026-08-11_22-10-02.png"
+    }
+  ]
+}

@@ -1,0 +1,985 @@
+{
+  "generated_at": "2026-08-22T23:09:26+00:00",
+  "dungeon": "meteor_cave",
+  "name": {
+    "en": "Meteor Cave",
+    "fr": "Grotte de la Météorite"
+  },
+  "chapter": 14,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Meteor Cave (20F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MeteorCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 14. Recoupé avec Bulbapedia (page « Meteor Cave »).",
+  "floors": 20,
+  "biome": "meteor_shell",
+  "direction": "fond",
+  "zone_file": "Data/Zone/meteor_cave.json",
+  "segments": [
+    {
+      "name": "meteor_shell",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "meteor_shell",
+      "dtef": {
+        "floor": "spacial_rift_1_floor",
+        "wall": "spacial_rift_1_wall",
+        "secondary": "spacial_rift_1_secondary",
+        "name": "spacial_rift_1",
+        "element": "normal",
+        "justification": "grotte de la météorite (Deoxys) ; biome spatial/anormal."
+      },
+      "profiles": [
+        "branching",
+        "mixed",
+        "dense"
+      ],
+      "pokemon": 3,
+      "item_tables": {},
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "meteor_core",
+      "floors": [
+        11,
+        20
+      ],
+      "biome": "meteor_core",
+      "dtef": {
+        "floor": "spacial_rift_1_floor",
+        "wall": "spacial_rift_1_wall",
+        "secondary": "spacial_rift_1_secondary",
+        "name": "spacial_rift_1",
+        "element": "normal",
+        "justification": "grotte de la météorite (Deoxys) ; biome spatial/anormal."
+      },
+      "profiles": [
+        "looping",
+        "lattice",
+        "mixed"
+      ],
+      "pokemon": 4,
+      "item_tables": {},
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {},
+  "midpoint": {},
+  "boss": {
+    "mode": "arena_rsmap",
+    "map": "meteor_cave_arena",
+    "arena_kind": "in_dungeon_fixed_room",
+    "notes": "Aucune scène canonique (actif ni archive) : le combat canonique se déroule à l'intérieur du donjon (dialogue de boss en donjon), la salle fixe .rsmap est donc l'implémentation correcte.",
+    "floor": 20,
+    "fixed_room": "meteor_cave_arena",
+    "canonical_evidence": {
+      "source": "pret/pmd-red src/dungeon_boss_dialogue.c",
+      "symbols": "gDeoxysPreFightDialogue_1..4",
+      "conclusion": "rencontre en donjon, aucun Ground de cinématique dans la source (les archives PMD Red ne couvrent que D01–D25)"
+    },
+    "roster": [
+      {
+        "species": "deoxys",
+        "level": [
+          41,
+          41
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "",
+    "battle_ground": "",
+    "scene_state": "NONE",
+    "mid": "",
+    "end": "",
+    "boss_mode": "arena_rsmap",
+    "boss_ground": "",
+    "boss_map": "meteor_cave_arena",
+    "canonical_end_candidates": [],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "no fixed 'end' Ground declared",
+      "dedicated arena scene: meteor_cave_arena.rsmap (source of truth) → to be converted into a boss Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:meteor_cave",
+    "root_seed": 3760974074876992205,
+    "explicit_seed": false,
+    "derived_seeds": 105
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7671,
+      "seeds": [
+        902652668559985620,
+        2454374623337083570,
+        8398545048660982456,
+        2744042546126358420,
+        6822594978704858727
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.2,
+        "rooms_min": 10,
+        "rooms_max": 24,
+        "halls_avg": 17.2,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.8,
+        "connections_avg": 17.2,
+        "room_area_min": 9,
+        "room_area_max": 182,
+        "stair_distance_avg": 45.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7741,
+      "seeds": [
+        5203129753874935343,
+        3345986735038130961,
+        6431408133795157816,
+        5531067340370455575,
+        2506929328968985315
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 19.6,
+        "rooms_min": 11,
+        "rooms_max": 32,
+        "halls_avg": 23.2,
+        "branches_avg": 7.2,
+        "dead_ends_avg": 5.4,
+        "loops_avg": 2.4,
+        "connections_avg": 23.2,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 47.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7678,
+      "seeds": [
+        1518971694746842947,
+        7818340463403565373,
+        2578215507889438224,
+        5466383641360201377,
+        253888833924625854
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 12.0,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.4,
+        "connections_avg": 12.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 33.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        11
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7924,
+      "seeds": [
+        339530416030754293,
+        8957276482375719263,
+        1261437707032033578,
+        6734371132482603192,
+        6031958039642649014
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.8,
+        "rooms_min": 11,
+        "rooms_max": 19,
+        "halls_avg": 16.4,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.6,
+        "connections_avg": 16.4,
+        "room_area_min": 9,
+        "room_area_max": 209,
+        "stair_distance_avg": 43.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7702,
+      "seeds": [
+        5774520176517664754,
+        9150427296685221063,
+        1527269209783405911,
+        3523013644164892883,
+        8596808895347297688
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.0,
+        "rooms_min": 9,
+        "rooms_max": 23,
+        "halls_avg": 15.6,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.6,
+        "connections_avg": 15.6,
+        "room_area_min": 9,
+        "room_area_max": 252,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 0.9979,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        7
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8329,
+      "seeds": [
+        404853084970705803,
+        8733100814472279459,
+        7483590484083154663,
+        1737611497423692661,
+        1165160165943129921
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.8,
+        "rooms_min": 12,
+        "rooms_max": 23,
+        "halls_avg": 20.2,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.8,
+        "connections_avg": 20.2,
+        "room_area_min": 9,
+        "room_area_max": 144,
+        "stair_distance_avg": 39.0,
+        "reachable_ratio_min": 0.9985,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8476,
+      "seeds": [
+        1036884143053173452,
+        3061794927292044727,
+        1455568731810769627,
+        8891921788659141818,
+        7752786225457635859
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.8,
+        "rooms_min": 14,
+        "rooms_max": 19,
+        "halls_avg": 18.6,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 2.2,
+        "connections_avg": 18.6,
+        "room_area_min": 12,
+        "room_area_max": 198,
+        "stair_distance_avg": 42.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8008,
+      "seeds": [
+        2924397589466633079,
+        2563494237368483502,
+        4183060626754814091,
+        4488963414075882897,
+        7482758819111639759
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.4,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 14.6,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.2,
+        "connections_avg": 14.6,
+        "room_area_min": 12,
+        "room_area_max": 144,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        8,
+        12
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.6715,
+      "seeds": [
+        4998158758435028436,
+        7651032026234760753,
+        7826585026724739575,
+        3745369272334836355,
+        5355566626648413215
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.6,
+        "rooms_min": 8,
+        "rooms_max": 31,
+        "halls_avg": 18.8,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 2.0,
+        "connections_avg": 18.8,
+        "room_area_min": 9,
+        "room_area_max": 128,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "meteor_shell",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        9,
+        7
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8192,
+      "seeds": [
+        6816680820195528840,
+        5495538676040152373,
+        7398863226046471969,
+        7860235415931745449,
+        8202308733602783748
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 18.0,
+        "rooms_min": 11,
+        "rooms_max": 25,
+        "halls_avg": 21.2,
+        "branches_avg": 6.8,
+        "dead_ends_avg": 6.0,
+        "loops_avg": 2.2,
+        "connections_avg": 21.2,
+        "room_area_min": 9,
+        "room_area_max": 200,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.7992,
+      "seeds": [
+        1733120709905912906,
+        1127038539570412374,
+        7105379430479574214,
+        7298557844559820880,
+        2952024499254605396
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 15.4,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 2.4,
+        "connections_avg": 15.4,
+        "room_area_min": 20,
+        "room_area_max": 209,
+        "stair_distance_avg": 48.6,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8633,
+      "seeds": [
+        9051463801677915304,
+        2840645596997843225,
+        179450506866630712,
+        4548944663844674917,
+        1414338453758822821
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 9,
+        "rooms_max": 15,
+        "halls_avg": 18.0,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 3.4,
+        "connections_avg": 18.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 31.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.8283,
+      "seeds": [
+        2645800794780835962,
+        8407302780245251841,
+        1461632263151310851,
+        2369890224030637172,
+        4074906555170782638
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 9,
+        "rooms_max": 11,
+        "halls_avg": 12.6,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.0,
+        "connections_avg": 12.6,
+        "room_area_min": 25,
+        "room_area_max": 80,
+        "stair_distance_avg": 30.4,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8638,
+      "seeds": [
+        7869005868773868725,
+        5851295383369551505,
+        3845461400789396339,
+        4394625609361247481,
+        8895726149268866744
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 9,
+        "rooms_max": 14,
+        "halls_avg": 15.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.0,
+        "connections_avg": 15.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 0.9984,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8265,
+      "seeds": [
+        8254546760372579982,
+        2476941914432931884,
+        183238160285945577,
+        4138926852775683914,
+        792930355834502631
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 9,
+        "rooms_max": 12,
+        "halls_avg": 14.6,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.6,
+        "connections_avg": 14.6,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 35.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 16,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        14,
+        8
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7475,
+      "seeds": [
+        19742914162104255,
+        8141899523997557850,
+        5022218806918332073,
+        938141942522549485,
+        4547654009329524914
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 14.4,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.2,
+        "connections_avg": 14.4,
+        "room_area_min": 24,
+        "room_area_max": 176,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 17,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        12,
+        7
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.834,
+      "seeds": [
+        6897951615515643357,
+        9123547650072439864,
+        1784569406112667600,
+        1862407679326148432,
+        8707471642488562049
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 5,
+        "rooms_max": 14,
+        "halls_avg": 15.6,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.8,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 42.6,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 18,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9232,
+      "seeds": [
+        2257066150424576491,
+        3914304978694933272,
+        7051559181160957414,
+        2639694093141866426,
+        4830270402508400175
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 8,
+        "rooms_max": 15,
+        "halls_avg": 15.6,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 2.8,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 42.2,
+        "reachable_ratio_min": 0.9987,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 19,
+      "segment": "meteor_core",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        10,
+        11
+      ],
+      "dtef": "spacial_rift_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7842,
+      "seeds": [
+        6664494387079714481,
+        2070848480987291533,
+        1910142621133607322,
+        3643506243753721263,
+        3600048995840715361
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 9,
+        "rooms_max": 12,
+        "halls_avg": 16.6,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 3.0,
+        "connections_avg": 16.6,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 48.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

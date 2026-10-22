@@ -1,0 +1,103 @@
+{
+  "schema": "new-era.red-story-batch.v1",
+  "batch": "red_story_09",
+  "summary": {
+    "requested": 1,
+    "staged": 1,
+    "generated": 1,
+    "runtime_pmdo_mapgen_validated": 1,
+    "route_validated": 1,
+    "promoted": 1,
+    "blocked": 0
+  },
+  "entries": [
+    {
+      "definition": "mt_blaze_peak",
+      "zone": "mt_blaze_peak",
+      "floors": 2,
+      "definition_path": "DungeonDefs/staging/red_story_09/mt_blaze_peak.json",
+      "zone_path": "Staging/dungeon_builder/red_story_09/Data/Zone/mt_blaze_peak.json",
+      "configuration_gate": true,
+      "warnings": [],
+      "status": "PROMOTED_RUNTIME_VALIDATED",
+      "blockers": [],
+      "runtime": {
+        "engine": "PMDO 0.8.12",
+        "attempted": 30,
+        "generated": 30,
+        "failures": 0,
+        "non_traversable": 0,
+        "invalid": 0,
+        "seeds_logged": 30
+      },
+      "artifacts": {
+        "definition_sha256": "5fc8eb7192b0a8f3611e3f350e62f6fe286faa697f0f085561f9514ee2babc1e",
+        "zone_sha256": "c12399ea0f275a8e8a1620b431ab35a3a225d0ed55123cd87de63c7dc8c81315"
+      },
+      "route_runtime": {
+        "jsonl": "docs/dungeon_builder/batches/red_story_09/runtime/routes/mt_blaze_peak.jsonl",
+        "jsonl_sha256": "d8638bd08751b9c9eaeccd40233bfa41582b4f8cffe9bdc07758482b7bed39d1",
+        "log": "docs/dungeon_builder/batches/red_story_09/runtime/routes/mt_blaze_peak.log",
+        "procedural_maps": [
+          0,
+          1
+        ],
+        "boss_maps": [
+          {
+            "segment": 1,
+            "floor": 0,
+            "boss_species": "moltres",
+            "expected_boss_species": "moltres",
+            "map_seed": "-1973735756520447374",
+            "kind": "canonical_fixed_boss"
+          }
+        ],
+        "boss_clears": [
+          {
+            "segment": 1,
+            "map": "mt_blaze_peak_boss",
+            "expected_species": "moltres",
+            "native_clear_hooks": 1,
+            "source_floor": 3,
+            "source_fixed_room": 4
+          }
+        ],
+        "grounds": [
+          "d09p02",
+          "d09p03"
+        ],
+        "fatals": 0
+      },
+      "canonical_battle_ground": "d09p03",
+      "canonical_layout_source": "Data/Ground/d09p03.rsground",
+      "rsmap_source": "Data/Map/mt_blaze_peak_boss.rsmap",
+      "rsmap_equivalence_verified": true,
+      "battle_location_verified": true,
+      "fixed_segments_provenance": [
+        {
+          "source_floor": 3,
+          "source_fixed_room": null,
+          "map": "mt_blaze_peak_boss",
+          "ground": "d09p03",
+          "provenance": "PMD_RED_ROM"
+        }
+      ],
+      "active_definition": "DungeonDefs/canonical/mt_blaze_peak.json",
+      "active_zone": "Data/Zone/mt_blaze_peak.json"
+    }
+  ],
+  "runtime_evidence": {
+    "jsonl": "docs/dungeon_builder/batches/red_story_09/runtime/native_mapgen.jsonl",
+    "jsonl_sha256": "cc52e61448500dfba67f25c7e263b5b12759f410fd775508b2b84062ea045a1a",
+    "report": null,
+    "report_sha256": null,
+    "end": {
+      "event": "end",
+      "attempted": 30,
+      "generated": 30,
+      "failures": 0,
+      "non_traversable": 0,
+      "invalid": 0
+    }
+  }
+}

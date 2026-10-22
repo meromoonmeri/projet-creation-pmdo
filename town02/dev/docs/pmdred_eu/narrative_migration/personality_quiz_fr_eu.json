@@ -1,0 +1,5420 @@
+{
+  "schema": "new-era.pmdred-eu-personality-quiz-authority.v1",
+  "classification": "PMD_RED_EU_CANON",
+  "authority": {
+    "rom": ".runtime-cache/downloads/pmdred-eu.gba",
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "rom_language": "French (Europe)",
+    "french_record_start": "0x0810E43A",
+    "english_alignment_record_start": "0x080E394C",
+    "record_count": 219,
+    "pret_repository": "https://github.com/pret/pmd-red.git",
+    "pret_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "pret_role": "structure, ordering, branch graph, answer values, and effects only",
+    "text_role": "all French text and control markers are decoded directly from the locked EU ROM"
+  },
+  "rules": {
+    "personality_order": [
+      "hardy",
+      "docile",
+      "brave",
+      "jolly",
+      "impish",
+      "naive",
+      "timid",
+      "hasty",
+      "sassy",
+      "calm",
+      "relaxed",
+      "lonely",
+      "quirky"
+    ],
+    "french_personality_labels": {
+      "hardy": "hardi",
+      "docile": "docile",
+      "brave": "brave",
+      "jolly": "jovial",
+      "impish": "malin",
+      "naive": "naïf",
+      "timid": "timide",
+      "hasty": "pressé",
+      "sassy": "malpoli",
+      "calm": "calme",
+      "relaxed": "relax",
+      "lonely": "solo",
+      "quirky": "bizarre"
+    },
+    "selectable_question_count": 55,
+    "branch_question_count": 1,
+    "asked_question_count": 8,
+    "category_without_replacement": true,
+    "brave_2b_trigger": 99,
+    "tie_resolution": "random start personality, then strict-greater cyclic scan exactly as RevealPersonality"
+  },
+  "gender": {
+    "question": {
+      "macro": "GENDER_Q",
+      "rom_record_address": "0x0810FCFE",
+      "rom_text_address": "0x0810FD00",
+      "rom_prefix": 18,
+      "raw_hex": "457465732d766f757320756e20676172e76f6e206f7520756e652066696c6c653f",
+      "rom_encoded_text": "Etes-vous un garçon ou une fille?",
+      "display_text": "Etes-vous un garçon ou une fille?",
+      "segments": [
+        {
+          "text": "Etes-vous un garçon ou une fille?",
+          "after": null
+        }
+      ]
+    },
+    "answers": [
+      {
+        "macro": "GENDER_A0",
+        "rom_record_address": "0x0810FD22",
+        "rom_text_address": "0x0810FD24",
+        "rom_prefix": 5,
+        "raw_hex": "476172e76f6e2e",
+        "rom_encoded_text": "Garçon.",
+        "display_text": "Garçon.",
+        "segments": [
+          {
+            "text": "Garçon.",
+            "after": null
+          }
+        ]
+      },
+      {
+        "macro": "GENDER_A1",
+        "rom_record_address": "0x0810FD2C",
+        "rom_text_address": "0x0810FD2E",
+        "rom_prefix": 5,
+        "raw_hex": "46696c6c652e",
+        "rom_encoded_text": "Fille.",
+        "display_text": "Fille.",
+        "segments": [
+          {
+            "text": "Fille.",
+            "after": null
+          }
+        ]
+      }
+    ]
+  },
+  "eu_confirmation": {
+    "question": {
+      "macro": "EU_STARTER_CONFIRM",
+      "rom_record_address": "0x0810FD36",
+      "rom_text_address": "0x0810FD38",
+      "rom_prefix": 26,
+      "raw_hex": "566f75732073656d626c657a20ea747265206c6520506f6be96d6f6e0a246d302e0a4573742d636520636f72726563743f",
+      "rom_encoded_text": "Vous semblez être le Pokémon\n$m0.\nEst-ce correct?",
+      "display_text": "Vous semblez être le Pokémon\n$m0.\nEst-ce correct?",
+      "segments": [
+        {
+          "text": "Vous semblez être le Pokémon\n$m0.\nEst-ce correct?",
+          "after": null
+        }
+      ]
+    },
+    "confirm": {
+      "macro": "EU_CONFIRM_YES",
+      "rom_record_address": "0x0810FD6A",
+      "rom_text_address": "0x0810FD6C",
+      "rom_prefix": 11,
+      "raw_hex": "4f75697e3263206578616374656d656e7421",
+      "rom_encoded_text": "Oui~2c exactement!",
+      "display_text": "Oui, exactement!",
+      "segments": [
+        {
+          "text": "Oui, exactement!",
+          "after": null
+        }
+      ]
+    },
+    "restart": {
+      "macro": "EU_CONFIRM_RESTART",
+      "rom_record_address": "0x0810FD80",
+      "rom_text_address": "0x0810FD82",
+      "rom_prefix": 10,
+      "raw_hex": "546f7574207265636f6d6d656e6365722e",
+      "rom_encoded_text": "Tout recommencer.",
+      "display_text": "Tout recommencer.",
+      "segments": [
+        {
+          "text": "Tout recommencer.",
+          "after": null
+        }
+      ]
+    }
+  },
+  "presentation_text": {
+    "starter_reveal": {
+      "macro": "STARTER_REVEAL",
+      "rom_record_address": "0x0810FD94",
+      "rom_text_address": "0x0810FD96",
+      "rom_prefix": 13,
+      "raw_hex": "0a232b2e2e2e206c6520506f6be96d6f6e20246d3021",
+      "rom_encoded_text": "\n#+... le Pokémon $m0!",
+      "display_text": "\n... le Pokémon $m0!",
+      "segments": [
+        {
+          "text": "\n... le Pokémon $m0!",
+          "after": null
+        }
+      ]
+    },
+    "partner_prompt": {
+      "macro": "PARTNER_PROMPT",
+      "rom_record_address": "0x0810FDAE",
+      "rom_text_address": "0x0810FDB0",
+      "rom_prefix": 69,
+      "raw_hex": "232b566f696369206c61206465726e69e8726520e9746170652e23570a232b517569207365726120766f7472652070617274656e616972653f2350232b43686f6973697373657a206c6520506f6be96d6f6e2071756520766f757320766f756c657a0a232b636f6d6d652070617274656e616972652064616e73206365747465206c697374652e",
+      "rom_encoded_text": "#+Voici la dernière étape.#W\n#+Qui sera votre partenaire?#P#+Choisissez le Pokémon que vous voulez\n#+comme partenaire dans cette liste.",
+      "display_text": "Voici la dernière étape.\nQui sera votre partenaire?Choisissez le Pokémon que vous voulez\ncomme partenaire dans cette liste.",
+      "segments": [
+        {
+          "text": "Voici la dernière étape.",
+          "after": "wait_press"
+        },
+        {
+          "text": "Qui sera votre partenaire?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Choisissez le Pokémon que vous voulez\ncomme partenaire dans cette liste.",
+          "after": null
+        }
+      ]
+    },
+    "partner_nick_prompt": {
+      "macro": "PARTNER_NICK_PROMPT",
+      "rom_record_address": "0x0810FE38",
+      "rom_text_address": "0x0810FE3A",
+      "rom_prefix": 22,
+      "raw_hex": "232b5175656c2073657261206c65206e6f6d20646520766f7472650a232b70617274656e616972653f",
+      "rom_encoded_text": "#+Quel sera le nom de votre\n#+partenaire?",
+      "display_text": "Quel sera le nom de votre\npartenaire?",
+      "segments": [
+        {
+          "text": "Quel sera le nom de votre\npartenaire?",
+          "after": null
+        }
+      ]
+    },
+    "end_text": {
+      "macro": "END_TEXT",
+      "rom_record_address": "0x0810FE64",
+      "rom_text_address": "0x0810FE66",
+      "rom_prefix": 50,
+      "raw_hex": "232b4269656e2120546f757420657374207072ea74212350232b496c206573742074656d707320646520766f757320656e766f7965722064616e73206c650a232b6d6f6e64652064657320506f6be96d6f6e212350232b456e206176616e7421",
+      "rom_encoded_text": "#+Bien! Tout est prêt!#P#+Il est temps de vous envoyer dans le\n#+monde des Pokémon!#P#+En avant!",
+      "display_text": "Bien! Tout est prêt!Il est temps de vous envoyer dans le\nmonde des Pokémon!En avant!",
+      "segments": [
+        {
+          "text": "Bien! Tout est prêt!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Il est temps de vous envoyer dans le\nmonde des Pokémon!",
+          "after": "extra_message"
+        },
+        {
+          "text": "En avant!",
+          "after": null
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "hardy": {
+      "macro": "DESC_HARDY",
+      "rom_record_address": "0x0810FEC8",
+      "rom_text_address": "0x0810FECA",
+      "rom_prefix": 220,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652068617264692e2350232b566f75732066616974657320766f73206465766f6972732073616e73207265636869676e65720a232b657420766f7573206d616e67657a2064e963656d6d656e742e2350232b566f7573206176657a20756e6520666f72746520766f6c6f6e74e920766f75730a232b7065726d657474616e7420647e32376163636f6d706c6972206c65732074e2636865730a232b6c657320706c757320646966666963696c65732e2350232b4d61697320766f757320706f7576657a20617573736920ea747265206f70696e69e27472652061750a232b706f696e7420646520766f75732071756572656c6c657220617665632064657320616d69732e2e2e2350232b5269656e206e65206d617263686520706f757220766f7573207175616e640a232b766f757320ea74657320656e20636f6ce872657e32630a232b616c6f72732061707072656e657a20e020766f75732064e974656e6472652e2350232b5175656c71757e3237756e20646520686172646920636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type hardi.#P#+Vous faites vos devoirs sans rechigner\n#+et vous mangez décemment.#P#+Vous avez une forte volonté vous\n#+permettant d~27accomplir les tâches\n#+les plus difficiles.#P#+Mais vous pouvez aussi être opiniâtre au\n#+point de vous quereller avec des amis...#P#+Rien ne marche pour vous quand\n#+vous êtes en colère~2c\n#+alors apprenez à vous détendre.#P#+Quelqu~27un de hardi comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type hardi.Vous faites vos devoirs sans rechigner\net vous mangez décemment.Vous avez une forte volonté vous\npermettant d'accomplir les tâches\nles plus difficiles.Mais vous pouvez aussi être opiniâtre au\npoint de vous quereller avec des amis...Rien ne marche pour vous quand\nvous êtes en colère,\nalors apprenez à vous détendre.Quelqu'un de hardi comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type hardi.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous faites vos devoirs sans rechigner\net vous mangez décemment.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez une forte volonté vous\npermettant d'accomplir les tâches\nles plus difficiles.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais vous pouvez aussi être opiniâtre au\npoint de vous quereller avec des amis...",
+          "after": "extra_message"
+        },
+        {
+          "text": "Rien ne marche pour vous quand\nvous êtes en colère,\nalors apprenez à vous détendre.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de hardi comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "docile": {
+      "macro": "DESC_DOCILE",
+      "rom_record_address": "0x08110080",
+      "rom_text_address": "0x08110082",
+      "rom_prefix": 164,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b6465207479706520646f63696c652e2350232b566f7573206176657a20647520639c75722e23570a232b566f757320ea746573207472e87320736572766961626c652e23570a232b566f757320766f75732066616974657320666163696c656d656e742064657320616d69732e2350232b566f757320ea74657320756e6520706572736f6e6e65206d65727665696c6c657573652e2350232b2e2e2e2357204573742d636520717565206a7e323765786167e872653f23570a232b4a65206e652063726f6973207061732e2350232b566f757320706f75727269657a20656e20ea7472650a232b6c65206d65696c6c657572206a7567652e2350232b5175656c71757e3237756e20646520646f63696c6520636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type docile.#P#+Vous avez du cœur.#W\n#+Vous êtes très serviable.#W\n#+Vous vous faites facilement des amis.#P#+Vous êtes une personne merveilleuse.#P#+...#W Est-ce que j~27exagère?#W\n#+Je ne crois pas.#P#+Vous pourriez en être\n#+le meilleur juge.#P#+Quelqu~27un de docile comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type docile.Vous avez du cœur.\nVous êtes très serviable.\nVous vous faites facilement des amis.Vous êtes une personne merveilleuse.... Est-ce que j'exagère?\nJe ne crois pas.Vous pourriez en être\nle meilleur juge.Quelqu'un de docile comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type docile.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez du cœur.",
+          "after": "wait_press"
+        },
+        {
+          "text": "Vous êtes très serviable.",
+          "after": "wait_press"
+        },
+        {
+          "text": "Vous vous faites facilement des amis.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes une personne merveilleuse.",
+          "after": "extra_message"
+        },
+        {
+          "text": "...",
+          "after": "wait_press"
+        },
+        {
+          "text": " Est-ce que j'exagère?",
+          "after": "wait_press"
+        },
+        {
+          "text": "Je ne crois pas.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous pourriez en être\nle meilleur juge.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de docile comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "brave": {
+      "macro": "DESC_BRAVE",
+      "rom_record_address": "0x081101C8",
+      "rom_text_address": "0x081101CA",
+      "rom_prefix": 203,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652062726176652e2350232b566f7573206176657a20756e20666f72742073656e73206465206c61206a7573746963652e23570a232b566f75732064e974657374657a206c65206d616c2e23570a232b566f757320616666726f6e74657269657a206e7e3237696d706f727465207175656c20656e6e656d692e2350232b566f757320ea74657320767261696d656e742068e9726fef717565212350232b456e206176616e74212350232b506f7572206c61206a7573746963652e2e2e23570a232b506f7572206c6120706169782064616e73206c65206d6f6e64652e2e2e23570a232b436f6d626174747265206c657320666f72636573206475206d616c212350232b2e2e2e2357205369206a7e3237616920746f72742e2e2e23570a232b5472617661696c6c657a20706f757220646576656e697220756e206d6f64e86c65212350232b5175656c71757e3237756e20646520627261766520636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type brave.#P#+Vous avez un fort sens de la justice.#W\n#+Vous détestez le mal.#W\n#+Vous affronteriez n~27importe quel ennemi.#P#+Vous êtes vraiment héroïque!#P#+En avant!#P#+Pour la justice...#W\n#+Pour la paix dans le monde...#W\n#+Combattre les forces du mal!#P#+...#W Si j~27ai tort...#W\n#+Travaillez pour devenir un modèle!#P#+Quelqu~27un de brave comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type brave.Vous avez un fort sens de la justice.\nVous détestez le mal.\nVous affronteriez n'importe quel ennemi.Vous êtes vraiment héroïque!En avant!Pour la justice...\nPour la paix dans le monde...\nCombattre les forces du mal!... Si j'ai tort...\nTravaillez pour devenir un modèle!Quelqu'un de brave comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type brave.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez un fort sens de la justice.",
+          "after": "wait_press"
+        },
+        {
+          "text": "Vous détestez le mal.",
+          "after": "wait_press"
+        },
+        {
+          "text": "Vous affronteriez n'importe quel ennemi.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes vraiment héroïque!",
+          "after": "extra_message"
+        },
+        {
+          "text": "En avant!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Pour la justice...",
+          "after": "wait_press"
+        },
+        {
+          "text": "Pour la paix dans le monde...",
+          "after": "wait_press"
+        },
+        {
+          "text": "Combattre les forces du mal!",
+          "after": "extra_message"
+        },
+        {
+          "text": "...",
+          "after": "wait_press"
+        },
+        {
+          "text": " Si j'ai tort...",
+          "after": "wait_press"
+        },
+        {
+          "text": "Travaillez pour devenir un modèle!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de brave comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "jolly": {
+      "macro": "DESC_JOLLY",
+      "rom_record_address": "0x0811035E",
+      "rom_text_address": "0x08110360",
+      "rom_prefix": 229,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b64652074797065206a6f7669616c2e2350232b546f756a6f75727320656e20747261696e206465207269726520657420736f75726972657e326320766f75730a232b6d6f746976657a20746f7574206c65206d6f6e6465206175746f757220646520766f75732e2350232b566f75732061646f72657a206c657320626c6167756573212350232b566f7573206176657a20706c65696e20647e3237616d69737e32632065740a232b766f757320ea74657320706f70756c61697265206ff92071756520766f757320616c6c69657a2e2350232b4d61697320706172666f69737e326320766f757320766f757320656d706f7274657a0a232b6574206469746573206465732063686f736573207175690a232b766f75732063617573656e742064657320656e6e7569732e2350232b566f7573206465767269657a2061707072656e64726520e02072e9666ce963686972206176616e740a232b64652064697265206f752066616972652071756f692071756520636520736f69742e2350232b5175656c71757e3237756e206465206a6f7669616c20636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type jovial.#P#+Toujours en train de rire et sourire~2c vous\n#+motivez tout le monde autour de vous.#P#+Vous adorez les blagues!#P#+Vous avez plein d~27amis~2c et\n#+vous êtes populaire où que vous alliez.#P#+Mais parfois~2c vous vous emportez\n#+et dites des choses qui\n#+vous causent des ennuis.#P#+Vous devriez apprendre à réfléchir avant\n#+de dire ou faire quoi que ce soit.#P#+Quelqu~27un de jovial comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type jovial.Toujours en train de rire et sourire, vous\nmotivez tout le monde autour de vous.Vous adorez les blagues!Vous avez plein d'amis, et\nvous êtes populaire où que vous alliez.Mais parfois, vous vous emportez\net dites des choses qui\nvous causent des ennuis.Vous devriez apprendre à réfléchir avant\nde dire ou faire quoi que ce soit.Quelqu'un de jovial comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type jovial.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Toujours en train de rire et sourire, vous\nmotivez tout le monde autour de vous.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous adorez les blagues!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez plein d'amis, et\nvous êtes populaire où que vous alliez.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais parfois, vous vous emportez\net dites des choses qui\nvous causent des ennuis.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous devriez apprendre à réfléchir avant\nde dire ou faire quoi que ce soit.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de jovial comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "impish": {
+      "macro": "DESC_IMPISH",
+      "rom_record_address": "0x08110528",
+      "rom_text_address": "0x0811052A",
+      "rom_prefix": 286,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b64652074797065206d616c696e2e2350232b566f757320ea74657320666f6ce27472657e326320616c6ce86772657e32630a232b657420766f75732061646f72657a206c657320626c61677565732e2350232b566f7573206176657a20617573736920626f6e20639c75722e2350232b437e323765737420706f757220e76120717565206c65732067656e730a232b766f75732074726f7576656e742074656c6c656d656e7420697272e97369737469626c652e2350232b566f757320646576657a20ea747265206c6120706572736f6e6e650a232b6c6120706c757320706f70756c61697265212350232b4f683f235720566f7573206e7e3237ea7465732070617320736920706f70756c616972653f23570a232b566f757320ea7465732074726f70206d6f64657374652e2e2e0a232b6f7520766f7573206e6520766f757320656e2072656e64657a2070617320636f6d7074652e2350232b4a6520706172696520717565206c65732067656e7320736f6e742074726f702074696d696465730a232b706f75722064e9766f696c6572206c657572732073656e74696d656e74732e2350232b496c20792061207175656c71757e3237756e206ce0206465686f72732071756920610a232b7065757220646520766f75732064e9636c6172657220736f6e20616d6f7572212350232b5175656c71757e3237756e206465206d616c696e20636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type malin.#P#+Vous êtes folâtre~2c allègre~2c\n#+et vous adorez les blagues.#P#+Vous avez aussi bon cœur.#P#+C~27est pour ça que les gens\n#+vous trouvent tellement irrésistible.#P#+Vous devez être la personne\n#+la plus populaire!#P#+Oh?#W Vous n~27êtes pas si populaire?#W\n#+Vous êtes trop modeste...\n#+ou vous ne vous en rendez pas compte.#P#+Je parie que les gens sont trop timides\n#+pour dévoiler leurs sentiments.#P#+Il y a quelqu~27un là dehors qui a\n#+peur de vous déclarer son amour!#P#+Quelqu~27un de malin comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type malin.Vous êtes folâtre, allègre,\net vous adorez les blagues.Vous avez aussi bon cœur.C'est pour ça que les gens\nvous trouvent tellement irrésistible.Vous devez être la personne\nla plus populaire!Oh? Vous n'êtes pas si populaire?\nVous êtes trop modeste...\nou vous ne vous en rendez pas compte.Je parie que les gens sont trop timides\npour dévoiler leurs sentiments.Il y a quelqu'un là dehors qui a\npeur de vous déclarer son amour!Quelqu'un de malin comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type malin.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes folâtre, allègre,\net vous adorez les blagues.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez aussi bon cœur.",
+          "after": "extra_message"
+        },
+        {
+          "text": "C'est pour ça que les gens\nvous trouvent tellement irrésistible.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous devez être la personne\nla plus populaire!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Oh?",
+          "after": "wait_press"
+        },
+        {
+          "text": " Vous n'êtes pas si populaire?",
+          "after": "wait_press"
+        },
+        {
+          "text": "Vous êtes trop modeste...\nou vous ne vous en rendez pas compte.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Je parie que les gens sont trop timides\npour dévoiler leurs sentiments.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Il y a quelqu'un là dehors qui a\npeur de vous déclarer son amour!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de malin comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "naive": {
+      "macro": "DESC_NAIVE",
+      "rom_record_address": "0x08110764",
+      "rom_text_address": "0x08110766",
+      "rom_prefix": 241,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b64652074797065206e61ef662e2350232b566f757320ea746573206465206e61747572652063757269657573657e32630a232b657420766f75732061696d657a206c65732063686f7365732072617265732e2350232b566f74726520617474697475646520616c6ce867726520657420696e736f756369616e74650a232b646f69742072656e647265206c65732063686f73657320696e74e972657373616e7465730a232b706f7572206c657320706572736f6e6e657320646520766f74726520656e746f75726167652e2350232b4d61697320766f7573206176657a206465732064e966617574732e0a232b566f757320706f7576657a20ea74726520696d6d61747572652e2350232b566f7573206e652074656e657a2070617320656e20706c6163652e0a232b566f757320ea74657320746f756a6f75727320656e206d6f7576656d656e742e2350232b566f757320706f7576657a20617573736920ea74726520e9676fef7374657e32630a232b616c6f727320766f7573206465767269657a20766f7573207375727665696c6c65722e2350232b5175656c71757e3237756e206465206e61ef6620636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type naïf.#P#+Vous êtes de nature curieuse~2c\n#+et vous aimez les choses rares.#P#+Votre attitude allègre et insouciante\n#+doit rendre les choses intéressantes\n#+pour les personnes de votre entourage.#P#+Mais vous avez des défauts.\n#+Vous pouvez être immature.#P#+Vous ne tenez pas en place.\n#+Vous êtes toujours en mouvement.#P#+Vous pouvez aussi être égoïste~2c\n#+alors vous devriez vous surveiller.#P#+Quelqu~27un de naïf comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type naïf.Vous êtes de nature curieuse,\net vous aimez les choses rares.Votre attitude allègre et insouciante\ndoit rendre les choses intéressantes\npour les personnes de votre entourage.Mais vous avez des défauts.\nVous pouvez être immature.Vous ne tenez pas en place.\nVous êtes toujours en mouvement.Vous pouvez aussi être égoïste,\nalors vous devriez vous surveiller.Quelqu'un de naïf comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type naïf.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes de nature curieuse,\net vous aimez les choses rares.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Votre attitude allègre et insouciante\ndoit rendre les choses intéressantes\npour les personnes de votre entourage.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais vous avez des défauts.\nVous pouvez être immature.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous ne tenez pas en place.\nVous êtes toujours en mouvement.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous pouvez aussi être égoïste,\nalors vous devriez vous surveiller.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de naïf comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "timid": {
+      "macro": "DESC_TIMID",
+      "rom_record_address": "0x08110946",
+      "rom_text_address": "0x08110948",
+      "rom_prefix": 271,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652074696d6964652e2350232b566f75732074726f7576657a20646966666963696c6520647e3237616c6c65720a232b61757820746f696c6574746573206c61206e7569742e2350232b566f75732074726f7576657a2061757373692074726f7020656666726179616e740a232b6465207265746f75726e65722064616e7320766f7472652073616c6c6520646520636c617373650a232b706f75722072e9637570e972657220756e206f626a6574206f75626c69e92e2350232b536920766f75732064657669657a206d6172636865722064616e7320756e65207275650a232b736f6d627265206c61206e7569747e326320766f757320766f7573207265746f75726e657269657a0a232b70726f6261626c656d656e7420736f7576656e7420706f75720a232b7265676172646572206465727269e8726520766f75732e2350232b4d61697320766f747265206e61747572652074696d696465206573740a232b617573736920756e20706f696e7420706f7369746966212350232b43617220636520736f6e7420636575782071756920636f6e6e61697373656e74206c6120706575720a232b71756920e970726f7576656e74206c65207672616920636f75726167652e2350232b5175656c71757e3237756e2064652074696d69646520636f6d6d6520766f75730a232b646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type timide.#P#+Vous trouvez difficile d~27aller\n#+aux toilettes la nuit.#P#+Vous trouvez aussi trop effrayant\n#+de retourner dans votre salle de classe\n#+pour récupérer un objet oublié.#P#+Si vous deviez marcher dans une rue\n#+sombre la nuit~2c vous vous retourneriez\n#+probablement souvent pour\n#+regarder derrière vous.#P#+Mais votre nature timide est\n#+aussi un point positif!#P#+Car ce sont ceux qui connaissent la peur\n#+qui éprouvent le vrai courage.#P#+Quelqu~27un de timide comme vous\n#+doit être...",
+      "display_text": "Vous semblez être...\nde type timide.Vous trouvez difficile d'aller\naux toilettes la nuit.Vous trouvez aussi trop effrayant\nde retourner dans votre salle de classe\npour récupérer un objet oublié.Si vous deviez marcher dans une rue\nsombre la nuit, vous vous retourneriez\nprobablement souvent pour\nregarder derrière vous.Mais votre nature timide est\naussi un point positif!Car ce sont ceux qui connaissent la peur\nqui éprouvent le vrai courage.Quelqu'un de timide comme vous\ndoit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type timide.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous trouvez difficile d'aller\naux toilettes la nuit.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous trouvez aussi trop effrayant\nde retourner dans votre salle de classe\npour récupérer un objet oublié.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Si vous deviez marcher dans une rue\nsombre la nuit, vous vous retourneriez\nprobablement souvent pour\nregarder derrière vous.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais votre nature timide est\naussi un point positif!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Car ce sont ceux qui connaissent la peur\nqui éprouvent le vrai courage.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de timide comme vous\ndoit être...",
+          "after": null
+        }
+      ]
+    },
+    "hasty": {
+      "macro": "DESC_HASTY",
+      "rom_record_address": "0x08110B64",
+      "rom_text_address": "0x08110B66",
+      "rom_prefix": 326,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b64652074797065207072657373e92e2350232b566f75732061696d657a207072656e647265206c65732063686f73657320656e206368617267650a232b706f75722071757e3237656c6c657320736f69656e74206269656e206661697465732e2350232b566f757320ea746573207075676e6163652e2350232b4d61697320736f75666672657a2d766f7573206465207374726573733f2350232b566f757320766f757320e96e657276657a20736920766f730a232b616d6973206e7e32376172726976656e742070617320e0206c7e323768657572652e2350232bc76120766f75732066727573747265207175616e64206c65732063686f7365730a232b6e652073652070617373656e742070617320636f6d6d6520766f7573206c6520766f756c657a2e2350232b506575742dea747265207072657373657a2d766f75732073616e7320617272ea74206c650a232b626f75746f6e206465206c7e3237617363656e7365757220737e3237696c206573742074726f70206c6f6e6720e00a232b617272697665722e2350232b2e2e2e20506575742dea74726520ea7465732d766f757320656e20747261696e2064650a232b70726573736572206c6520626f75746f6e20412073616e7320617272ea74206a7573746520656e0a232b6365206d6f6d656e742e2350232b417474656e74696f6e3a20737e3237e96e65727665722074726f7020666163696c656d656e740a232b6e7e32376573742070617320626f6e20706f757220766f747265206269656e2dea7472652e2350232b5175656c71757e3237756e206465207072657373e920636f6d6d6520766f75730a232b646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type pressé.#P#+Vous aimez prendre les choses en charge\n#+pour qu~27elles soient bien faites.#P#+Vous êtes pugnace.#P#+Mais souffrez-vous de stress?#P#+Vous vous énervez si vos\n#+amis n~27arrivent pas à l~27heure.#P#+Ça vous frustre quand les choses\n#+ne se passent pas comme vous le voulez.#P#+Peut-être pressez-vous sans arrêt le\n#+bouton de l~27ascenseur s~27il est trop long à\n#+arriver.#P#+... Peut-être êtes-vous en train de\n#+presser le bouton A sans arrêt juste en\n#+ce moment.#P#+Attention: s~27énerver trop facilement\n#+n~27est pas bon pour votre bien-être.#P#+Quelqu~27un de pressé comme vous\n#+doit être...",
+      "display_text": "Vous semblez être...\nde type pressé.Vous aimez prendre les choses en charge\npour qu'elles soient bien faites.Vous êtes pugnace.Mais souffrez-vous de stress?Vous vous énervez si vos\namis n'arrivent pas à l'heure.Ça vous frustre quand les choses\nne se passent pas comme vous le voulez.Peut-être pressez-vous sans arrêt le\nbouton de l'ascenseur s'il est trop long à\narriver.... Peut-être êtes-vous en train de\npresser le bouton A sans arrêt juste en\nce moment.Attention: s'énerver trop facilement\nn'est pas bon pour votre bien-être.Quelqu'un de pressé comme vous\ndoit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type pressé.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous aimez prendre les choses en charge\npour qu'elles soient bien faites.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes pugnace.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais souffrez-vous de stress?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous vous énervez si vos\namis n'arrivent pas à l'heure.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Ça vous frustre quand les choses\nne se passent pas comme vous le voulez.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Peut-être pressez-vous sans arrêt le\nbouton de l'ascenseur s'il est trop long à\narriver.",
+          "after": "extra_message"
+        },
+        {
+          "text": "... Peut-être êtes-vous en train de\npresser le bouton A sans arrêt juste en\nce moment.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Attention: s'énerver trop facilement\nn'est pas bon pour votre bien-être.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de pressé comme vous\ndoit être...",
+          "after": null
+        }
+      ]
+    },
+    "sassy": {
+      "macro": "DESC_SASSY",
+      "rom_record_address": "0x08110DF0",
+      "rom_text_address": "0x08110DF2",
+      "rom_prefix": 393,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b64652074797065206d616c706f6c692e2350232b566f7573206176657a2074656e64616e636520e020ea74726520756e207065752063796e697175652e2350232b4d616c6772e920e7617e326320696c20792061207175656c7175652063686f73652064650a232b73796d706174686971756520657420647e323761646f7261626c65206368657a20766f75732e2350232b4d61697320706575742dea7472652064697465732d766f757320706172666f6973206465730a232b63686f736573206172726f67616e74657320717569206d657474656e740a232b6c65732067656e7320656e20636f6ce872653f2350232b4661697465732d766f7573206365747465206572726575723f2350232b4f75206573742d636520717565206c65732067656e7320766f75732074726f7576656e742074726f700a232b706575206d6f64657374657e32632074726f7020736e6f627e3263206f7520e9676fef7374653f2350232b4573742d63652071757e32376f6e20766f7573206c7e3237612064e96ae0206469743f2350232b4865696e3f235720566f7573206d652064697465732064652064e967616765723f2350232b4d6169737e326320566f75732e2e2e2056656e657a206d65206c65206469726520656e20666163652123570a232b2e2e2e20476c6f7570212350232b2e2e2e20506172646f6e6e657a2d6d6f692e0a232b436573207061726f6c6573206d7e32376f6e7420e96368617070e92e0a232b4a65206c6520726567726574746520767261696d656e742e2350232b456e20746f7574206361737e326320766f74726520617474697475646520636f6f6c2065742064697374616e74650a232b6573742063652071756920766f75732064e966696e69742e2350232bc76120766f75732072656e6420e0206c6120666f697320696e737570706f727461626c652065740a232b73796d70617468697175652e2350232b5175656c71757e3237756e206465206d616c706f6c6920636f6d6d6520766f75730a232b646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type malpoli.#P#+Vous avez tendance à être un peu cynique.#P#+Malgré ça~2c il y a quelque chose de\n#+sympathique et d~27adorable chez vous.#P#+Mais peut-être dites-vous parfois des\n#+choses arrogantes qui mettent\n#+les gens en colère?#P#+Faites-vous cette erreur?#P#+Ou est-ce que les gens vous trouvent trop\n#+peu modeste~2c trop snob~2c ou égoïste?#P#+Est-ce qu~27on vous l~27a déjà dit?#P#+Hein?#W Vous me dites de dégager?#P#+Mais~2c Vous... Venez me le dire en face!#W\n#+... Gloup!#P#+... Pardonnez-moi.\n#+Ces paroles m~27ont échappé.\n#+Je le regrette vraiment.#P#+En tout cas~2c votre attitude cool et distante\n#+est ce qui vous définit.#P#+Ça vous rend à la fois insupportable et\n#+sympathique.#P#+Quelqu~27un de malpoli comme vous\n#+doit être...",
+      "display_text": "Vous semblez être...\nde type malpoli.Vous avez tendance à être un peu cynique.Malgré ça, il y a quelque chose de\nsympathique et d'adorable chez vous.Mais peut-être dites-vous parfois des\nchoses arrogantes qui mettent\nles gens en colère?Faites-vous cette erreur?Ou est-ce que les gens vous trouvent trop\npeu modeste, trop snob, ou égoïste?Est-ce qu'on vous l'a déjà dit?Hein? Vous me dites de dégager?Mais, Vous... Venez me le dire en face!\n... Gloup!... Pardonnez-moi.\nCes paroles m'ont échappé.\nJe le regrette vraiment.En tout cas, votre attitude cool et distante\nest ce qui vous définit.Ça vous rend à la fois insupportable et\nsympathique.Quelqu'un de malpoli comme vous\ndoit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type malpoli.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous avez tendance à être un peu cynique.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Malgré ça, il y a quelque chose de\nsympathique et d'adorable chez vous.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais peut-être dites-vous parfois des\nchoses arrogantes qui mettent\nles gens en colère?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Faites-vous cette erreur?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Ou est-ce que les gens vous trouvent trop\npeu modeste, trop snob, ou égoïste?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Est-ce qu'on vous l'a déjà dit?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Hein?",
+          "after": "wait_press"
+        },
+        {
+          "text": " Vous me dites de dégager?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais, Vous... Venez me le dire en face!",
+          "after": "wait_press"
+        },
+        {
+          "text": "... Gloup!",
+          "after": "extra_message"
+        },
+        {
+          "text": "... Pardonnez-moi.\nCes paroles m'ont échappé.\nJe le regrette vraiment.",
+          "after": "extra_message"
+        },
+        {
+          "text": "En tout cas, votre attitude cool et distante\nest ce qui vous définit.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Ça vous rend à la fois insupportable et\nsympathique.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de malpoli comme vous\ndoit être...",
+          "after": null
+        }
+      ]
+    },
+    "calm": {
+      "macro": "DESC_CALM",
+      "rom_record_address": "0x08111102",
+      "rom_text_address": "0x08111104",
+      "rom_prefix": 256,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652063616c6d652e2350232b566f757320646f6e6e657a20646520626f6e7320636f6e7365696c730a232be020766f7320616d697320717569206f6e74206465732070726f626ce86d65732e2350232b566f7573206e7e323761696d657a2070617320766f7573206261747472652e2350232b566f757320ea74657320756e6520706572736f6e6e6520646f7563657e326320e020626f6e20639c75720a232b65742071756920736520736f75636965206465732067656e732e2350232b566f757320646576657a2061766f69722062656175636f757020647e3237616d69730a232b71756920766f75732061646d6972656e742e2350232b436570656e64616e742e2e2e23570a232b766f757320ea74657320706172666f697320756e207065752063616e646964652e2e2e2350232b61696e7369207175652074ea746520656e206c7e3237616972202e2e2e2350232b4574206dea6d6520756e2070657520626f68e86d652e2350232b566f7573206465767269657a20676172646572206365730a232b64e9666175747320e0206c7e323765737072697420706f7572206c657320e976697465722e2350232b5175656c71757e3237756e2064652063616c6d6520636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type calme.#P#+Vous donnez de bons conseils\n#+à vos amis qui ont des problèmes.#P#+Vous n~27aimez pas vous battre.#P#+Vous êtes une personne douce~2c à bon cœur\n#+et qui se soucie des gens.#P#+Vous devez avoir beaucoup d~27amis\n#+qui vous admirent.#P#+Cependant...#W\n#+vous êtes parfois un peu candide...#P#+ainsi que tête en l~27air ...#P#+Et même un peu bohème.#P#+Vous devriez garder ces\n#+défauts à l~27esprit pour les éviter.#P#+Quelqu~27un de calme comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type calme.Vous donnez de bons conseils\nà vos amis qui ont des problèmes.Vous n'aimez pas vous battre.Vous êtes une personne douce, à bon cœur\net qui se soucie des gens.Vous devez avoir beaucoup d'amis\nqui vous admirent.Cependant...\nvous êtes parfois un peu candide...ainsi que tête en l'air ...Et même un peu bohème.Vous devriez garder ces\ndéfauts à l'esprit pour les éviter.Quelqu'un de calme comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type calme.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous donnez de bons conseils\nà vos amis qui ont des problèmes.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous n'aimez pas vous battre.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes une personne douce, à bon cœur\net qui se soucie des gens.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous devez avoir beaucoup d'amis\nqui vous admirent.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Cependant...",
+          "after": "wait_press"
+        },
+        {
+          "text": "vous êtes parfois un peu candide...",
+          "after": "extra_message"
+        },
+        {
+          "text": "ainsi que tête en l'air ...",
+          "after": "extra_message"
+        },
+        {
+          "text": "Et même un peu bohème.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous devriez garder ces\ndéfauts à l'esprit pour les éviter.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de calme comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "relaxed": {
+      "macro": "DESC_RELAXED",
+      "rom_record_address": "0x08111302",
+      "rom_text_address": "0x08111304",
+      "rom_prefix": 371,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652072656c61782e2350232b4573742d63652071756520766f757320706c616e657a20706172666f69730a232b617520706f696e74206465207261746572206c65206275733f2350232b4f7520766f757320766f7573206173736f7570697373657a2073616e73206c6520766f756c6f69723f2350232b4f75206573742d63652071756520766f7472652074656d70732064652072e9616374696f6e206573740a232b756e20706575206d6f696e7320726170696465207175652063656c756920646573206175747265733f2350232b4d616973206365206e7e32376573742070617320666f7263e96d656e740a232b756e65206d617576616973652063686f73652e2350232b566f757320706f7576657a206661697265206c65732063686f73657320e020766f7472650a232b727974686d652073616e7320766f75732073656e74697220736f7573207072657373696f6e2e2350232b566f757320706f7576657a207669767265206465206661e76f6e2064e9636f6e7472616374e9650a232b6574207472616e7175696c6c657e32632073616e7320696e717569e9747564652e2350232b4a652070656e73652071756520637e323765737420756e207374796c65206465207669650a232b73657265696e7e326320717565206a6520766f757320656e766965206dea6d652e2350232b566f757320ea74657320617573736920e9746f6e6e616d6d656e7420706f70756c616972652e2350232b4365747465206d616e69e872652071756520766f7573206176657a2064652072656761726465720a232b666978656d656e742064616e73206c6520766964652e2e2e2350232b2e2e2e207269737175652064652066616972652063686176697265720a232b6269656e2064657320639c7572732e2350232b5175656c71757e3237756e2064652072656c617820636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type relax.#P#+Est-ce que vous planez parfois\n#+au point de rater le bus?#P#+Ou vous vous assoupissez sans le vouloir?#P#+Ou est-ce que votre temps de réaction est\n#+un peu moins rapide que celui des autres?#P#+Mais ce n~27est pas forcément\n#+une mauvaise chose.#P#+Vous pouvez faire les choses à votre\n#+rythme sans vous sentir sous pression.#P#+Vous pouvez vivre de façon décontractée\n#+et tranquille~2c sans inquiétude.#P#+Je pense que c~27est un style de vie\n#+serein~2c que je vous envie même.#P#+Vous êtes aussi étonnamment populaire.#P#+Cette manière que vous avez de regarder\n#+fixement dans le vide...#P#+... risque de faire chavirer\n#+bien des cœurs.#P#+Quelqu~27un de relax comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type relax.Est-ce que vous planez parfois\nau point de rater le bus?Ou vous vous assoupissez sans le vouloir?Ou est-ce que votre temps de réaction est\nun peu moins rapide que celui des autres?Mais ce n'est pas forcément\nune mauvaise chose.Vous pouvez faire les choses à votre\nrythme sans vous sentir sous pression.Vous pouvez vivre de façon décontractée\net tranquille, sans inquiétude.Je pense que c'est un style de vie\nserein, que je vous envie même.Vous êtes aussi étonnamment populaire.Cette manière que vous avez de regarder\nfixement dans le vide...... risque de faire chavirer\nbien des cœurs.Quelqu'un de relax comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type relax.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Est-ce que vous planez parfois\nau point de rater le bus?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Ou vous vous assoupissez sans le vouloir?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Ou est-ce que votre temps de réaction est\nun peu moins rapide que celui des autres?",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais ce n'est pas forcément\nune mauvaise chose.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous pouvez faire les choses à votre\nrythme sans vous sentir sous pression.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous pouvez vivre de façon décontractée\net tranquille, sans inquiétude.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Je pense que c'est un style de vie\nserein, que je vous envie même.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes aussi étonnamment populaire.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Cette manière que vous avez de regarder\nfixement dans le vide...",
+          "after": "extra_message"
+        },
+        {
+          "text": "... risque de faire chavirer\nbien des cœurs.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de relax comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "lonely": {
+      "macro": "DESC_LONELY",
+      "rom_record_address": "0x081115E8",
+      "rom_text_address": "0x081115EA",
+      "rom_prefix": 370,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b6465207479706520736f6c6f2e2350232b566f7573206167697373657a20746f756a6f757273206176656320656e747261696e0a232b65742068756d6f75722061766563206c65732067656e732e2350232b4d61697320637e3237657374207365756c656d656e740a232b70617263652071756520766f7573206e7e3237ea74657320706173207365756c2865292e2350232b436570656e64616e747e326320756e6520666f6973207472616e7175696c6c652e2e2e2350232b766f75732073656e74657a2d766f75732062697a617272656d656e740a232b7472697374653f2350232b437e323765737420706f75722063656c612071756520766f757320766f756c657a0a232b746f756a6f75727320ea747265206176656320647e323761757472657320706572736f6e6e65732e2350232b4d61697320736920766f7573206176657a20746f7574206c652074656d70730a232b6c65206361666172642e2e2e2350232b766f74726520e97175696c69627265206e7574726974696f6e6e656c20656e207072656e640a232b756e20636f75702e204d616e67657a20706c7573206465206ce967756d6573212350232b436570656e64616e742e2e2e23570a232b4365206e7e32376573742070617320756e65206d617576616973652063686f73650a232b64652073652073656e746972207365756c2865292e2350232b566f757320736176657a2063652071757e3237657374206c6120736f6c69747564657e326320637e32376573740a232b706f757220e7612071756520766f757320766f75732073656e74657a20736f6c6974616972652e2350232b457420637e323765737420706f757220e7612071756520766f7573206e7e3237ea746573207061730a232b767261696d656e74207365756c2865292e2350232b5175656c71757e3237756e20646520736f6c6f20636f6d6d6520766f757320646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type solo.#P#+Vous agissez toujours avec entrain\n#+et humour avec les gens.#P#+Mais c~27est seulement\n#+parce que vous n~27êtes pas seul(e).#P#+Cependant~2c une fois tranquille...#P#+vous sentez-vous bizarrement\n#+triste?#P#+C~27est pour cela que vous voulez\n#+toujours être avec d~27autres personnes.#P#+Mais si vous avez tout le temps\n#+le cafard...#P#+votre équilibre nutritionnel en prend\n#+un coup. Mangez plus de légumes!#P#+Cependant...#W\n#+Ce n~27est pas une mauvaise chose\n#+de se sentir seul(e).#P#+Vous savez ce qu~27est la solitude~2c c~27est\n#+pour ça que vous vous sentez solitaire.#P#+Et c~27est pour ça que vous n~27êtes pas\n#+vraiment seul(e).#P#+Quelqu~27un de solo comme vous doit être...",
+      "display_text": "Vous semblez être...\nde type solo.Vous agissez toujours avec entrain\net humour avec les gens.Mais c'est seulement\nparce que vous n'êtes pas seul(e).Cependant, une fois tranquille...vous sentez-vous bizarrement\ntriste?C'est pour cela que vous voulez\ntoujours être avec d'autres personnes.Mais si vous avez tout le temps\nle cafard...votre équilibre nutritionnel en prend\nun coup. Mangez plus de légumes!Cependant...\nCe n'est pas une mauvaise chose\nde se sentir seul(e).Vous savez ce qu'est la solitude, c'est\npour ça que vous vous sentez solitaire.Et c'est pour ça que vous n'êtes pas\nvraiment seul(e).Quelqu'un de solo comme vous doit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type solo.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous agissez toujours avec entrain\net humour avec les gens.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais c'est seulement\nparce que vous n'êtes pas seul(e).",
+          "after": "extra_message"
+        },
+        {
+          "text": "Cependant, une fois tranquille...",
+          "after": "extra_message"
+        },
+        {
+          "text": "vous sentez-vous bizarrement\ntriste?",
+          "after": "extra_message"
+        },
+        {
+          "text": "C'est pour cela que vous voulez\ntoujours être avec d'autres personnes.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Mais si vous avez tout le temps\nle cafard...",
+          "after": "extra_message"
+        },
+        {
+          "text": "votre équilibre nutritionnel en prend\nun coup. Mangez plus de légumes!",
+          "after": "extra_message"
+        },
+        {
+          "text": "Cependant...",
+          "after": "wait_press"
+        },
+        {
+          "text": "Ce n'est pas une mauvaise chose\nde se sentir seul(e).",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous savez ce qu'est la solitude, c'est\npour ça que vous vous sentez solitaire.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Et c'est pour ça que vous n'êtes pas\nvraiment seul(e).",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de solo comme vous doit être...",
+          "after": null
+        }
+      ]
+    },
+    "quirky": {
+      "macro": "DESC_QUIRKY",
+      "rom_record_address": "0x081118CC",
+      "rom_text_address": "0x081118CE",
+      "rom_prefix": 320,
+      "raw_hex": "232b566f75732073656d626c657a20ea7472652e2e2e23570a232b646520747970652062697a617272652e2350232b4c65732067656e732070656e73656e742071756520766f757320ea7465730a232b756e28652920657863656e7472697175652071756920666169740a232b6c65732063686f73657320e020736f6e20727974686d652e2350232b566f7573206e652063617373657a206a616d61697320766f74726520727974686d652e2350232b566f747265206e617475726520696e736f756369616e746520766f75732072656e640a232b64e973697261626c652e204d61697320766f757320ea7465732061757373690a232b706172666f697320756e2070657520696d6d61747572652e2e2e2350232b566f757320ea74657320696e636f6e7374616e742865292065742063617573657a206465730a232b70726f626ce86d65732061757820706572736f6e6e65730a232b646520766f74726520656e746f75726167652e2350232b4c65732067656e7320736f6e7420706575742dea74726520706172666f697320656e0a232b636f6ce872652071756520766f757320736f79657a20736920696e636f6e7374616e742865292e2350232b536920766f757320766f75732072656e64657a20636f6d70746520e0207175656c20706f696e740a232b766f74726520636f6d706f7274656d656e742065737420e9676fef7374657e32630a232b72e9666ce96368697373657a20756e20706575206176616e740a232b6465206661697265207175656c7175652063686f736520647e32376964696f742e2350232b5175656c71757e3237756e2064652062697a6172726520636f6d6d6520766f75730a232b646f697420ea7472652e2e2e",
+      "rom_encoded_text": "#+Vous semblez être...#W\n#+de type bizarre.#P#+Les gens pensent que vous êtes\n#+un(e) excentrique qui fait\n#+les choses à son rythme.#P#+Vous ne cassez jamais votre rythme.#P#+Votre nature insouciante vous rend\n#+désirable. Mais vous êtes aussi\n#+parfois un peu immature...#P#+Vous êtes inconstant(e) et causez des\n#+problèmes aux personnes\n#+de votre entourage.#P#+Les gens sont peut-être parfois en\n#+colère que vous soyez si inconstant(e).#P#+Si vous vous rendez compte à quel point\n#+votre comportement est égoïste~2c\n#+réfléchissez un peu avant\n#+de faire quelque chose d~27idiot.#P#+Quelqu~27un de bizarre comme vous\n#+doit être...",
+      "display_text": "Vous semblez être...\nde type bizarre.Les gens pensent que vous êtes\nun(e) excentrique qui fait\nles choses à son rythme.Vous ne cassez jamais votre rythme.Votre nature insouciante vous rend\ndésirable. Mais vous êtes aussi\nparfois un peu immature...Vous êtes inconstant(e) et causez des\nproblèmes aux personnes\nde votre entourage.Les gens sont peut-être parfois en\ncolère que vous soyez si inconstant(e).Si vous vous rendez compte à quel point\nvotre comportement est égoïste,\nréfléchissez un peu avant\nde faire quelque chose d'idiot.Quelqu'un de bizarre comme vous\ndoit être...",
+      "segments": [
+        {
+          "text": "Vous semblez être...",
+          "after": "wait_press"
+        },
+        {
+          "text": "de type bizarre.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Les gens pensent que vous êtes\nun(e) excentrique qui fait\nles choses à son rythme.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous ne cassez jamais votre rythme.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Votre nature insouciante vous rend\ndésirable. Mais vous êtes aussi\nparfois un peu immature...",
+          "after": "extra_message"
+        },
+        {
+          "text": "Vous êtes inconstant(e) et causez des\nproblèmes aux personnes\nde votre entourage.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Les gens sont peut-être parfois en\ncolère que vous soyez si inconstant(e).",
+          "after": "extra_message"
+        },
+        {
+          "text": "Si vous vous rendez compte à quel point\nvotre comportement est égoïste,\nréfléchissez un peu avant\nde faire quelque chose d'idiot.",
+          "after": "extra_message"
+        },
+        {
+          "text": "Quelqu'un de bizarre comme vous\ndoit être...",
+          "after": null
+        }
+      ]
+    }
+  },
+  "questions": [
+    {
+      "id": "hardy_1",
+      "pret_object": "HardyQuest1",
+      "pointer_index": 0,
+      "category": "hardy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HARDY_Q1",
+        "rom_record_address": "0x0810E478",
+        "rom_text_address": "0x0810E47A",
+        "rom_prefix": 32,
+        "raw_hex": "556e20636f6e7472f46c652076612061766f6972206c696575206269656e74f4742e0a436f6d6d656e74206c65207072e9706172657a2d766f75733f",
+        "rom_encoded_text": "Un contrôle va avoir lieu bientôt.\nComment le préparez-vous?",
+        "display_text": "Un contrôle va avoir lieu bientôt.\nComment le préparez-vous?",
+        "segments": [
+          {
+            "text": "Un contrôle va avoir lieu bientôt.\nComment le préparez-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "HARDY_Q1_A0",
+            "rom_record_address": "0x0810E43A",
+            "rom_text_address": "0x0810E43C",
+            "rom_prefix": 12,
+            "raw_hex": "4a7e3237e974756469652062656175636f75702e",
+            "rom_encoded_text": "J~27étudie beaucoup.",
+            "display_text": "J'étudie beaucoup.",
+            "segments": [
+              {
+                "text": "J'étudie beaucoup.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "HARDY_Q1_A1",
+            "rom_record_address": "0x0810E452",
+            "rom_text_address": "0x0810E454",
+            "rom_prefix": 11,
+            "raw_hex": "4175206465726e69657220696e7374616e742e",
+            "rom_encoded_text": "Au dernier instant.",
+            "display_text": "Au dernier instant.",
+            "segments": [
+              {
+                "text": "Au dernier instant.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "HARDY_Q1_A2",
+            "rom_record_address": "0x0810E468",
+            "rom_text_address": "0x0810E46A",
+            "rom_prefix": 8,
+            "raw_hex": "4a65206d7e3237616d7573652e",
+            "rom_encoded_text": "Je m~27amuse.",
+            "display_text": "Je m'amuse.",
+            "segments": [
+              {
+                "text": "Je m'amuse.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hardy_2",
+      "pret_object": "HardyQuest2",
+      "pointer_index": 1,
+      "category": "hardy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HARDY_Q2",
+        "rom_record_address": "0x0810E4C8",
+        "rom_text_address": "0x0810E4CA",
+        "rom_prefix": 32,
+        "raw_hex": "506f7576657a2d766f757320766f757320636f6e63656e7472657220737572207175656c7175650a63686f73652071756520766f75732061696d657a3f",
+        "rom_encoded_text": "Pouvez-vous vous concentrer sur quelque\nchose que vous aimez?",
+        "display_text": "Pouvez-vous vous concentrer sur quelque\nchose que vous aimez?",
+        "segments": [
+          {
+            "text": "Pouvez-vous vous concentrer sur quelque\nchose que vous aimez?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 2,
+            "docile": 1
+          },
+          "text": {
+            "macro": "HARDY_Q2_A0",
+            "rom_record_address": "0x0810E4B8",
+            "rom_text_address": "0x0810E4BA",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "HARDY_Q2_A1",
+            "rom_record_address": "0x0810E4C0",
+            "rom_text_address": "0x0810E4C2",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e20",
+            "rom_encoded_text": "Non. ",
+            "display_text": "Non. ",
+            "segments": [
+              {
+                "text": "Non. ",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hardy_3",
+      "pret_object": "HardyQuest3",
+      "pointer_index": 2,
+      "category": "hardy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HARDY_Q3",
+        "rom_record_address": "0x0810E518",
+        "rom_text_address": "0x0810E51A",
+        "rom_prefix": 33,
+        "raw_hex": "44616e73206c6573206d6f6d656e747320646966666963696c65737e3263206573742d6365207175650a766f757320766f757320616363726f6368657a3f",
+        "rom_encoded_text": "Dans les moments difficiles~2c est-ce que\nvous vous accrochez?",
+        "display_text": "Dans les moments difficiles, est-ce que\nvous vous accrochez?",
+        "segments": [
+          {
+            "text": "Dans les moments difficiles, est-ce que\nvous vous accrochez?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 2,
+            "brave": 2
+          },
+          "text": {
+            "macro": "HARDY_Q3_A0",
+            "rom_record_address": "0x0810E508",
+            "rom_text_address": "0x0810E50A",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 2,
+            "quirky": 2
+          },
+          "text": {
+            "macro": "HARDY_Q3_A1",
+            "rom_record_address": "0x0810E510",
+            "rom_text_address": "0x0810E512",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hardy_4",
+      "pret_object": "HardyQuest4",
+      "pointer_index": 3,
+      "category": "hardy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HARDY_Q4",
+        "rom_record_address": "0x0810E578",
+        "rom_text_address": "0x0810E57A",
+        "rom_prefix": 38,
+        "raw_hex": "566f69636920756e20736561752e20536920766f7573206d657474657a206465206c7e32376561750a646564616e737e326320766f7573206c652072656d706c697373657a2e2e2e",
+        "rom_encoded_text": "Voici un seau. Si vous mettez de l~27eau\ndedans~2c vous le remplissez...",
+        "display_text": "Voici un seau. Si vous mettez de l'eau\ndedans, vous le remplissez...",
+        "segments": [
+          {
+            "text": "Voici un seau. Si vous mettez de l'eau\ndedans, vous le remplissez...",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "HARDY_Q4_A0",
+            "rom_record_address": "0x0810E55A",
+            "rom_text_address": "0x0810E55C",
+            "rom_prefix": 5,
+            "raw_hex": "41207261732e",
+            "rom_encoded_text": "A ras.",
+            "display_text": "A ras.",
+            "segments": [
+              {
+                "text": "A ras.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "HARDY_Q4_A1",
+            "rom_record_address": "0x0810E564",
+            "rom_text_address": "0x0810E566",
+            "rom_prefix": 5,
+            "raw_hex": "412064656d692e",
+            "rom_encoded_text": "A demi.",
+            "display_text": "A demi.",
+            "segments": [
+              {
+                "text": "A demi.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "HARDY_Q4_A2",
+            "rom_record_address": "0x0810E56E",
+            "rom_text_address": "0x0810E570",
+            "rom_prefix": 5,
+            "raw_hex": "556e207065752e",
+            "rom_encoded_text": "Un peu.",
+            "display_text": "Un peu.",
+            "segments": [
+              {
+                "text": "Un peu.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "docile_1",
+      "pret_object": "DocileQuest1",
+      "pointer_index": 4,
+      "category": "docile",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "DOCILE_Q1",
+        "rom_record_address": "0x0810E5DC",
+        "rom_text_address": "0x0810E5DE",
+        "rom_prefix": 36,
+        "raw_hex": "4f6e20766f757320646f6e6e65206c652063686f697820656e74726520646575780a636164656175782e204c657175656c20616c6c657a2d766f7573207072656e6472653f",
+        "rom_encoded_text": "On vous donne le choix entre deux\ncadeaux. Lequel allez-vous prendre?",
+        "display_text": "On vous donne le choix entre deux\ncadeaux. Lequel allez-vous prendre?",
+        "segments": [
+          {
+            "text": "On vous donne le choix entre deux\ncadeaux. Lequel allez-vous prendre?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2,
+            "naive": 1
+          },
+          "text": {
+            "macro": "DOCILE_Q1_A0",
+            "rom_record_address": "0x0810E5C4",
+            "rom_text_address": "0x0810E5C6",
+            "rom_prefix": 6,
+            "raw_hex": "4c652067726f732e",
+            "rom_encoded_text": "Le gros.",
+            "display_text": "Le gros.",
+            "segments": [
+              {
+                "text": "Le gros.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 2,
+            "calm": 1
+          },
+          "text": {
+            "macro": "DOCILE_Q1_A1",
+            "rom_record_address": "0x0810E5D0",
+            "rom_text_address": "0x0810E5D2",
+            "rom_prefix": 6,
+            "raw_hex": "4c652070657469742e",
+            "rom_encoded_text": "Le petit.",
+            "display_text": "Le petit.",
+            "segments": [
+              {
+                "text": "Le petit.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "docile_2",
+      "pret_object": "DocileQuest2",
+      "pointer_index": 5,
+      "category": "docile",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "DOCILE_Q2",
+        "rom_record_address": "0x0810E65E",
+        "rom_text_address": "0x0810E660",
+        "rom_prefix": 33,
+        "raw_hex": "566f75732063617373657a20756e209c756620706f757272692064616e7320766f7472650a6368616d6272652120517565206661697465732d766f75733f",
+        "rom_encoded_text": "Vous cassez un œuf pourri dans votre\nchambre! Que faites-vous?",
+        "display_text": "Vous cassez un œuf pourri dans votre\nchambre! Que faites-vous?",
+        "segments": [
+          {
+            "text": "Vous cassez un œuf pourri dans votre\nchambre! Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2,
+            "hasty": 1
+          },
+          "text": {
+            "macro": "DOCILE_Q2_A0",
+            "rom_record_address": "0x0810E624",
+            "rom_text_address": "0x0810E626",
+            "rom_prefix": 15,
+            "raw_hex": "4a7e32376f757672652076697465206c612066656eea7472652e",
+            "rom_encoded_text": "J~27ouvre vite la fenêtre.",
+            "display_text": "J'ouvre vite la fenêtre.",
+            "segments": [
+              {
+                "text": "J'ouvre vite la fenêtre.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "naive": 2,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "DOCILE_Q2_A1",
+            "rom_record_address": "0x0810E642",
+            "rom_text_address": "0x0810E644",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206c652072656e69666c6520647e323761626f72642e",
+            "rom_encoded_text": "Je le renifle d~27abord.",
+            "display_text": "Je le renifle d'abord.",
+            "segments": [
+              {
+                "text": "Je le renifle d'abord.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "docile_3",
+      "pret_object": "DocileQuest3",
+      "pointer_index": 6,
+      "category": "docile",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "DOCILE_Q3",
+        "rom_record_address": "0x0810E6EA",
+        "rom_text_address": "0x0810E6EC",
+        "rom_prefix": 51,
+        "raw_hex": "556e20616d6920766f75732072616de86e65207175656c7175652063686f7365207175650a766f757320617669657a206f75626c69e92e23570a436f6d6d656e74206c652072656d65726369657a2d766f75733f20566f75732064697465732e2e2e",
+        "rom_encoded_text": "Un ami vous ramène quelque chose que\nvous aviez oublié.#W\nComment le remerciez-vous? Vous dites...",
+        "display_text": "Un ami vous ramène quelque chose que\nvous aviez oublié.\nComment le remerciez-vous? Vous dites...",
+        "segments": [
+          {
+            "text": "Un ami vous ramène quelque chose que\nvous aviez oublié.",
+            "after": "wait_press"
+          },
+          {
+            "text": "Comment le remerciez-vous? Vous dites...",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2
+          },
+          "text": {
+            "macro": "DOCILE_Q3_A0",
+            "rom_record_address": "0x0810E6A0",
+            "rom_text_address": "0x0810E6A2",
+            "rom_prefix": 11,
+            "raw_hex": "4d6572636920e02070726f667573696f6e2e",
+            "rom_encoded_text": "Merci à profusion.",
+            "display_text": "Merci à profusion.",
+            "segments": [
+              {
+                "text": "Merci à profusion.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "naive": 1,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "DOCILE_Q3_A1",
+            "rom_record_address": "0x0810E6B6",
+            "rom_text_address": "0x0810E6B8",
+            "rom_prefix": 12,
+            "raw_hex": "4d6572636920657420756e6520626c616775652e",
+            "rom_encoded_text": "Merci et une blague.",
+            "display_text": "Merci et une blague.",
+            "segments": [
+              {
+                "text": "Merci et une blague.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "DOCILE_Q3_A2",
+            "rom_record_address": "0x0810E6CE",
+            "rom_text_address": "0x0810E6D0",
+            "rom_prefix": 14,
+            "raw_hex": "4d657263697e3263206d6169732063616c6d656d656e742e",
+            "rom_encoded_text": "Merci~2c mais calmement.",
+            "display_text": "Merci, mais calmement.",
+            "segments": [
+              {
+                "text": "Merci, mais calmement.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "docile_4",
+      "pret_object": "DocileQuest4",
+      "pointer_index": 7,
+      "category": "docile",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "DOCILE_Q4",
+        "rom_record_address": "0x0810E794",
+        "rom_text_address": "0x0810E796",
+        "rom_prefix": 34,
+        "raw_hex": "496c2079206120756e20706f727465666575696c6c6520737572206c6520626f72640a6465206c6120726f7574652e20517565206661697465732d766f75733f",
+        "rom_encoded_text": "Il y a un portefeuille sur le bord\nde la route. Que faites-vous?",
+        "display_text": "Il y a un portefeuille sur le bord\nde la route. Que faites-vous?",
+        "segments": [
+          {
+            "text": "Il y a un portefeuille sur le bord\nde la route. Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2
+          },
+          "text": {
+            "macro": "DOCILE_Q4_A0",
+            "rom_record_address": "0x0810E750",
+            "rom_text_address": "0x0810E752",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206c7e3237616de86e6520e0206c6120706f6c69636521",
+            "rom_encoded_text": "Je l~27amène à la police!",
+            "display_text": "Je l'amène à la police!",
+            "segments": [
+              {
+                "text": "Je l'amène à la police!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "naive": 2
+          },
+          "text": {
+            "macro": "DOCILE_Q4_A1",
+            "rom_record_address": "0x0810E76C",
+            "rom_text_address": "0x0810E76E",
+            "rom_prefix": 8,
+            "raw_hex": "4f7569212047e96e69616c21",
+            "rom_encoded_text": "Oui! Génial!",
+            "display_text": "Oui! Génial!",
+            "segments": [
+              {
+                "text": "Oui! Génial!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "DOCILE_Q4_A2",
+            "rom_record_address": "0x0810E77C",
+            "rom_text_address": "0x0810E77E",
+            "rom_prefix": 12,
+            "raw_hex": "506572736f6e6e65206e6520726567617264653f",
+            "rom_encoded_text": "Personne ne regarde?",
+            "display_text": "Personne ne regarde?",
+            "segments": [
+              {
+                "text": "Personne ne regarde?",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brave_1",
+      "pret_object": "BraveQuest1",
+      "pointer_index": 8,
+      "category": "brave",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "BRAVE_Q1",
+        "rom_record_address": "0x0810E7E8",
+        "rom_text_address": "0x0810E7EA",
+        "rom_prefix": 87,
+        "raw_hex": "566f757320666169746573206475207361757420e0206c7e3237e96c6173746971756520706f7572206c610a7072656d69e8726520666f69732e235056752071756520e761206661697420706575727e326320766f75732066616974657320756e20746573740a6176656320756e6520706f7570e9652e2e2e2357204c7e3237e96c617374697175652063726171756521235053617574657a2d766f7573207175616e64206dea6d653f",
+        "rom_encoded_text": "Vous faites du saut à l~27élastique pour la\npremière fois.#PVu que ça fait peur~2c vous faites un test\navec une poupée...#W L~27élastique craque!#PSautez-vous quand même?",
+        "display_text": "Vous faites du saut à l'élastique pour la\npremière fois.Vu que ça fait peur, vous faites un test\navec une poupée... L'élastique craque!Sautez-vous quand même?",
+        "segments": [
+          {
+            "text": "Vous faites du saut à l'élastique pour la\npremière fois.",
+            "after": "extra_message"
+          },
+          {
+            "text": "Vu que ça fait peur, vous faites un test\navec une poupée...",
+            "after": "wait_press"
+          },
+          {
+            "text": " L'élastique craque!",
+            "after": "extra_message"
+          },
+          {
+            "text": "Sautez-vous quand même?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "brave": 3,
+            "impish": 1
+          },
+          "text": {
+            "macro": "BRAVE_Q1_A0",
+            "rom_record_address": "0x0810E7D8",
+            "rom_text_address": "0x0810E7DA",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "docile": 2,
+            "timid": 1
+          },
+          "text": {
+            "macro": "BRAVE_Q1_A1",
+            "rom_record_address": "0x0810E7E0",
+            "rom_text_address": "0x0810E7E2",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brave_2a",
+      "pret_object": "BraveQuest2A",
+      "pointer_index": 9,
+      "category": "brave",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "BRAVE_Q2A",
+        "rom_record_address": "0x0810E8B6",
+        "rom_text_address": "0x0810E8B8",
+        "rom_prefix": 29,
+        "raw_hex": "4c657320657874726174657272657374726573206e6f757320656e766168697373656e74210a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Les extraterrestres nous envahissent!\nQue faites-vous?",
+        "display_text": "Les extraterrestres nous envahissent!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Les extraterrestres nous envahissent!\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 99,
+          "effects": {},
+          "text": {
+            "macro": "BRAVE_Q2A_A0",
+            "rom_record_address": "0x0810E896",
+            "rom_text_address": "0x0810E898",
+            "rom_prefix": 6,
+            "raw_hex": "4a65206c757474652e",
+            "rom_encoded_text": "Je lutte.",
+            "display_text": "Je lutte.",
+            "segments": [
+              {
+                "text": "Je lutte.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q2A_A1",
+            "rom_record_address": "0x0810E8A2",
+            "rom_text_address": "0x0810E8A4",
+            "rom_prefix": 6,
+            "raw_hex": "4a6520667569732e",
+            "rom_encoded_text": "Je fuis.",
+            "display_text": "Je fuis.",
+            "segments": [
+              {
+                "text": "Je fuis.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q2A_A2",
+            "rom_record_address": "0x0810E8AE",
+            "rom_text_address": "0x0810E8B0",
+            "rom_prefix": 4,
+            "raw_hex": "5269656e2e",
+            "rom_encoded_text": "Rien.",
+            "display_text": "Rien.",
+            "segments": [
+              {
+                "text": "Rien.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brave_3",
+      "pret_object": "BraveQuest3",
+      "pointer_index": 10,
+      "category": "brave",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "BRAVE_Q3",
+        "rom_record_address": "0x0810EA22",
+        "rom_text_address": "0x0810EA24",
+        "rom_prefix": 39,
+        "raw_hex": "566f757320656e74656e64657a20756e206372692076656e616e74206465206465727269e87265206c610a706f7274652123570a436f6d6d656e742072e96167697373657a2d766f75733f",
+        "rom_encoded_text": "Vous entendez un cri venant de derrière la\nporte!#W\nComment réagissez-vous?",
+        "display_text": "Vous entendez un cri venant de derrière la\nporte!\nComment réagissez-vous?",
+        "segments": [
+          {
+            "text": "Vous entendez un cri venant de derrière la\nporte!",
+            "after": "wait_press"
+          },
+          {
+            "text": "Comment réagissez-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 1,
+            "brave": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q3_A0",
+            "rom_record_address": "0x0810E9F4",
+            "rom_text_address": "0x0810E9F6",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206c7e32376f7576726520647e3237756e20636f75702e",
+            "rom_encoded_text": "Je l~27ouvre d~27un coup.",
+            "display_text": "Je l'ouvre d'un coup.",
+            "segments": [
+              {
+                "text": "Je l'ouvre d'un coup.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "naive": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q3_A1",
+            "rom_record_address": "0x0810EA10",
+            "rom_text_address": "0x0810EA12",
+            "rom_prefix": 9,
+            "raw_hex": "4a6520637269652061757373692e",
+            "rom_encoded_text": "Je crie aussi.",
+            "display_text": "Je crie aussi.",
+            "segments": [
+              {
+                "text": "Je crie aussi.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brave_4",
+      "pret_object": "BraveQuest4",
+      "pointer_index": 11,
+      "category": "brave",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "BRAVE_Q4",
+        "rom_record_address": "0x0810EAE8",
+        "rom_text_address": "0x0810EAEA",
+        "rom_prefix": 42,
+        "raw_hex": "556e20766f796f7520656d62ea746520756e652066696c6c652064616e7320756e65207275650a616e696de9652064752063656e7472652d76696c6c652123570a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Un voyou embête une fille dans une rue\nanimée du centre-ville!#W\nQue faites-vous?",
+        "display_text": "Un voyou embête une fille dans une rue\nanimée du centre-ville!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Un voyou embête une fille dans une rue\nanimée du centre-ville!",
+            "after": "wait_press"
+          },
+          {
+            "text": "Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "brave": 3
+          },
+          "text": {
+            "macro": "BRAVE_Q4_A0",
+            "rom_record_address": "0x0810EA70",
+            "rom_text_address": "0x0810EA72",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206c7e3237616964652073616e732068e973697465722e",
+            "rom_encoded_text": "Je l~27aide sans hésiter.",
+            "display_text": "Je l'aide sans hésiter.",
+            "segments": [
+              {
+                "text": "Je l'aide sans hésiter.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2,
+            "brave": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q4_A1",
+            "rom_record_address": "0x0810EA8C",
+            "rom_text_address": "0x0810EA8E",
+            "rom_prefix": 18,
+            "raw_hex": "4a65206c7e3237616964657e3263206d616973206a7e3237616920706575722e",
+            "rom_encoded_text": "Je l~27aide~2c mais j~27ai peur.",
+            "display_text": "Je l'aide, mais j'ai peur.",
+            "segments": [
+              {
+                "text": "Je l'aide, mais j'ai peur.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "docile": 1,
+            "timid": 1,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "BRAVE_Q4_A2",
+            "rom_record_address": "0x0810EAB0",
+            "rom_text_address": "0x0810EAB2",
+            "rom_prefix": 13,
+            "raw_hex": "4a7e3237617070656c6c65206c6120706f6c6963652e",
+            "rom_encoded_text": "J~27appelle la police.",
+            "display_text": "J'appelle la police.",
+            "segments": [
+              {
+                "text": "J'appelle la police.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 3,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "BRAVE_Q4_A3",
+            "rom_record_address": "0x0810EACA",
+            "rom_text_address": "0x0810EACC",
+            "rom_prefix": 15,
+            "raw_hex": "446520706575727e3263206a65206e652066616973207269656e2e",
+            "rom_encoded_text": "De peur~2c je ne fais rien.",
+            "display_text": "De peur, je ne fais rien.",
+            "segments": [
+              {
+                "text": "De peur, je ne fais rien.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jolly_1",
+      "pret_object": "JollyQuest1",
+      "pointer_index": 12,
+      "category": "jolly",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "JOLLY_Q1",
+        "rom_record_address": "0x0810EB4C",
+        "rom_text_address": "0x0810EB4E",
+        "rom_prefix": 19,
+        "raw_hex": "4176657a2d766f757320756e6520706572736f6e6e616c6974e920656e6a6f75e9653f",
+        "rom_encoded_text": "Avez-vous une personnalité enjouée?",
+        "display_text": "Avez-vous une personnalité enjouée?",
+        "segments": [
+          {
+            "text": "Avez-vous une personnalité enjouée?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2,
+            "naive": 1
+          },
+          "text": {
+            "macro": "JOLLY_Q1_A0",
+            "rom_record_address": "0x0810EB3C",
+            "rom_text_address": "0x0810EB3E",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 1,
+            "quirky": 1
+          },
+          "text": {
+            "macro": "JOLLY_Q1_A1",
+            "rom_record_address": "0x0810EB44",
+            "rom_text_address": "0x0810EB46",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jolly_2",
+      "pret_object": "JollyQuest2",
+      "pointer_index": 13,
+      "category": "jolly",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "JOLLY_Q2",
+        "rom_record_address": "0x0810EB82",
+        "rom_text_address": "0x0810EB84",
+        "rom_prefix": 32,
+        "raw_hex": "4573742d63652071756520766f75732061696d657a20766f757320616d757365720a62727579616d6d656e742061766563206c6573206175747265733f",
+        "rom_encoded_text": "Est-ce que vous aimez vous amuser\nbruyamment avec les autres?",
+        "display_text": "Est-ce que vous aimez vous amuser\nbruyamment avec les autres?",
+        "segments": [
+          {
+            "text": "Est-ce que vous aimez vous amuser\nbruyamment avec les autres?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "JOLLY_Q2_A0",
+            "rom_record_address": "0x0810EB72",
+            "rom_text_address": "0x0810EB74",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 1
+          },
+          "text": {
+            "macro": "JOLLY_Q2_A1",
+            "rom_record_address": "0x0810EB7A",
+            "rom_text_address": "0x0810EB7C",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jolly_3",
+      "pret_object": "JollyQuest3",
+      "pointer_index": 14,
+      "category": "jolly",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "JOLLY_Q3",
+        "rom_record_address": "0x0810EBF0",
+        "rom_text_address": "0x0810EBF2",
+        "rom_prefix": 28,
+        "raw_hex": "436520736f6e74206c657320766163616e63657320647e3237e974e9210a4ff92061696d657269657a2d766f757320616c6c65723f",
+        "rom_encoded_text": "Ce sont les vacances d~27été!\nOù aimeriez-vous aller?",
+        "display_text": "Ce sont les vacances d'été!\nOù aimeriez-vous aller?",
+        "segments": [
+          {
+            "text": "Ce sont les vacances d'été!\nOù aimeriez-vous aller?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2
+          },
+          "text": {
+            "macro": "JOLLY_Q3_A0",
+            "rom_record_address": "0x0810EBC2",
+            "rom_text_address": "0x0810EBC4",
+            "rom_prefix": 7,
+            "raw_hex": "41206c6120706c61676521",
+            "rom_encoded_text": "A la plage!",
+            "display_text": "A la plage!",
+            "segments": [
+              {
+                "text": "A la plage!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "JOLLY_Q3_A1",
+            "rom_record_address": "0x0810EBD0",
+            "rom_text_address": "0x0810EBD2",
+            "rom_prefix": 8,
+            "raw_hex": "456e207468616c6173736f2e",
+            "rom_encoded_text": "En thalasso.",
+            "display_text": "En thalasso.",
+            "segments": [
+              {
+                "text": "En thalasso.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "JOLLY_Q3_A2",
+            "rom_record_address": "0x0810EBE0",
+            "rom_text_address": "0x0810EBE2",
+            "rom_prefix": 8,
+            "raw_hex": "51757e3237696d706f7274652e",
+            "rom_encoded_text": "Qu~27importe.",
+            "display_text": "Qu'importe.",
+            "segments": [
+              {
+                "text": "Qu'importe.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jolly_4",
+      "pret_object": "JollyQuest4",
+      "pointer_index": 15,
+      "category": "jolly",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "JOLLY_Q4",
+        "rom_record_address": "0x0810EC8E",
+        "rom_text_address": "0x0810EC90",
+        "rom_prefix": 63,
+        "raw_hex": "556e20e97472616e67657220636f6d6d656e636520756e6520636f6e766572736174696f6e0a6176656320766f75732e2350566f7573206e6520636f6d7072656e657a206162736f6c756d656e74207269656e20e02063650a71757e3237696c206469742e23570a517565206c75692064697465732d766f75733f",
+        "rom_encoded_text": "Un étranger commence une conversation\navec vous.#PVous ne comprenez absolument rien à ce\nqu~27il dit.#W\nQue lui dites-vous?",
+        "display_text": "Un étranger commence une conversation\navec vous.Vous ne comprenez absolument rien à ce\nqu'il dit.\nQue lui dites-vous?",
+        "segments": [
+          {
+            "text": "Un étranger commence une conversation\navec vous.",
+            "after": "extra_message"
+          },
+          {
+            "text": "Vous ne comprenez absolument rien à ce\nqu'il dit.",
+            "after": "wait_press"
+          },
+          {
+            "text": "Que lui dites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 3
+          },
+          "text": {
+            "macro": "JOLLY_Q4_A0",
+            "rom_record_address": "0x0810EC28",
+            "rom_text_address": "0x0810EC2A",
+            "rom_prefix": 15,
+            "raw_hex": "48617e326320686121204f75692e205472e873206472f46c6521",
+            "rom_encoded_text": "Ha~2c ha! Oui. Très drôle!",
+            "display_text": "Ha, ha! Oui. Très drôle!",
+            "segments": [
+              {
+                "text": "Ha, ha! Oui. Très drôle!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "JOLLY_Q4_A1",
+            "rom_record_address": "0x0810EC46",
+            "rom_text_address": "0x0810EC48",
+            "rom_prefix": 15,
+            "raw_hex": "48756d2e2e2e20566f757320706f7576657a2072e970e97465723f",
+            "rom_encoded_text": "Hum... Vous pouvez répéter?",
+            "display_text": "Hum... Vous pouvez répéter?",
+            "segments": [
+              {
+                "text": "Hum... Vous pouvez répéter?",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "JOLLY_Q4_A2",
+            "rom_record_address": "0x0810EC64",
+            "rom_text_address": "0x0810EC66",
+            "rom_prefix": 21,
+            "raw_hex": "4269656e2e2e2e2048756d7e326320696c206661757420717565206a7e3237792061696c6c652e",
+            "rom_encoded_text": "Bien... Hum~2c il faut que j~27y aille.",
+            "display_text": "Bien... Hum, il faut que j'y aille.",
+            "segments": [
+              {
+                "text": "Bien... Hum, il faut que j'y aille.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "impish_1",
+      "pret_object": "ImpishQuest1",
+      "pointer_index": 16,
+      "category": "impish",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "IMPISH_Q1",
+        "rom_record_address": "0x0810ED1C",
+        "rom_text_address": "0x0810ED1E",
+        "rom_prefix": 19,
+        "raw_hex": "4176657a2d766f75732064e96ae020636f6e73747275697420756e207069e867653f",
+        "rom_encoded_text": "Avez-vous déjà construit un piège?",
+        "display_text": "Avez-vous déjà construit un piège?",
+        "segments": [
+          {
+            "text": "Avez-vous déjà construit un piège?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "impish": 2,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "IMPISH_Q1_A0",
+            "rom_record_address": "0x0810ED0C",
+            "rom_text_address": "0x0810ED0E",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q1_A1",
+            "rom_record_address": "0x0810ED14",
+            "rom_text_address": "0x0810ED16",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "impish_2",
+      "pret_object": "ImpishQuest2",
+      "pointer_index": 17,
+      "category": "impish",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "IMPISH_Q2",
+        "rom_record_address": "0x0810ED52",
+        "rom_text_address": "0x0810ED54",
+        "rom_prefix": 19,
+        "raw_hex": "4573742d63652071756520766f75732061696d657a206c657320626c61677565733f",
+        "rom_encoded_text": "Est-ce que vous aimez les blagues?",
+        "display_text": "Est-ce que vous aimez les blagues?",
+        "segments": [
+          {
+            "text": "Est-ce que vous aimez les blagues?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q2_A0",
+            "rom_record_address": "0x0810ED42",
+            "rom_text_address": "0x0810ED44",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "docile": 1,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "IMPISH_Q2_A1",
+            "rom_record_address": "0x0810ED4A",
+            "rom_text_address": "0x0810ED4C",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "impish_3",
+      "pret_object": "ImpishQuest3",
+      "pointer_index": 18,
+      "category": "impish",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "IMPISH_Q3",
+        "rom_record_address": "0x0810ED88",
+        "rom_text_address": "0x0810ED8A",
+        "rom_prefix": 28,
+        "raw_hex": "5920612d742d696c2062656175636f75702064652063686f7365732071756520766f75730a61696d657269657a2066616972653f",
+        "rom_encoded_text": "Y a-t-il beaucoup de choses que vous\naimeriez faire?",
+        "display_text": "Y a-t-il beaucoup de choses que vous\naimeriez faire?",
+        "segments": [
+          {
+            "text": "Y a-t-il beaucoup de choses que vous\naimeriez faire?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 1,
+            "impish": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q3_A0",
+            "rom_record_address": "0x0810ED78",
+            "rom_text_address": "0x0810ED7A",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 1,
+            "quirky": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q3_A1",
+            "rom_record_address": "0x0810ED80",
+            "rom_text_address": "0x0810ED82",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "impish_4",
+      "pret_object": "ImpishQuest4",
+      "pointer_index": 19,
+      "category": "impish",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "IMPISH_Q4",
+        "rom_record_address": "0x0810EE12",
+        "rom_text_address": "0x0810EE14",
+        "rom_prefix": 25,
+        "raw_hex": "556e6520627275746520656d62ea746520766f74726520616d69286529210a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Une brute embête votre ami(e)!\nQue faites-vous?",
+        "display_text": "Une brute embête votre ami(e)!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Une brute embête votre ami(e)!\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "brave": 3
+          },
+          "text": {
+            "macro": "IMPISH_Q4_A0",
+            "rom_record_address": "0x0810EDC0",
+            "rom_text_address": "0x0810EDC2",
+            "rom_prefix": 13,
+            "raw_hex": "4a7e3237616666726f6e7465206c612062727574652e",
+            "rom_encoded_text": "J~27affronte la brute.",
+            "display_text": "J'affronte la brute.",
+            "segments": [
+              {
+                "text": "J'affronte la brute.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q4_A1",
+            "rom_record_address": "0x0810EDDA",
+            "rom_text_address": "0x0810EDDC",
+            "rom_prefix": 12,
+            "raw_hex": "4a65206c612067726f6e6465206465206c6f696e2e",
+            "rom_encoded_text": "Je la gronde de loin.",
+            "display_text": "Je la gronde de loin.",
+            "segments": [
+              {
+                "text": "Je la gronde de loin.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "IMPISH_Q4_A2",
+            "rom_record_address": "0x0810EDF2",
+            "rom_text_address": "0x0810EDF4",
+            "rom_prefix": 16,
+            "raw_hex": "4a65206c7e32376174746171756520706172206465727269e872652e",
+            "rom_encoded_text": "Je l~27attaque par derrière.",
+            "display_text": "Je l'attaque par derrière.",
+            "segments": [
+              {
+                "text": "Je l'attaque par derrière.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "naive_1",
+      "pret_object": "NaiveQuest1",
+      "pointer_index": 20,
+      "category": "naive",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "NAIVE_Q1",
+        "rom_record_address": "0x0810EE6E",
+        "rom_text_address": "0x0810EE70",
+        "rom_prefix": 17,
+        "raw_hex": "41696d657a2d766f7573206c657320626c6167756573206964696f7465733f",
+        "rom_encoded_text": "Aimez-vous les blagues idiotes?",
+        "display_text": "Aimez-vous les blagues idiotes?",
+        "segments": [
+          {
+            "text": "Aimez-vous les blagues idiotes?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "impish": 1,
+            "naive": 3
+          },
+          "text": {
+            "macro": "NAIVE_Q1_A0",
+            "rom_record_address": "0x0810EE44",
+            "rom_text_address": "0x0810EE46",
+            "rom_prefix": 8,
+            "raw_hex": "4a7e323761646f726520e76121",
+            "rom_encoded_text": "J~27adore ça!",
+            "display_text": "J'adore ça!",
+            "segments": [
+              {
+                "text": "J'adore ça!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "jolly": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q1_A1",
+            "rom_record_address": "0x0810EE54",
+            "rom_text_address": "0x0810EE56",
+            "rom_prefix": 5,
+            "raw_hex": "556e207065752e",
+            "rom_encoded_text": "Un peu.",
+            "display_text": "Un peu.",
+            "segments": [
+              {
+                "text": "Un peu.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q1_A2",
+            "rom_record_address": "0x0810EE5E",
+            "rom_text_address": "0x0810EE60",
+            "rom_prefix": 8,
+            "raw_hex": "50617320647520746f75742e",
+            "rom_encoded_text": "Pas du tout.",
+            "display_text": "Pas du tout.",
+            "segments": [
+              {
+                "text": "Pas du tout.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "naive_2",
+      "pret_object": "NaiveQuest2",
+      "pointer_index": 21,
+      "category": "naive",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "NAIVE_Q2",
+        "rom_record_address": "0x0810EEA0",
+        "rom_text_address": "0x0810EEA2",
+        "rom_prefix": 17,
+        "raw_hex": "4573742d63652071756520766f7573207269657a2062656175636f75703f",
+        "rom_encoded_text": "Est-ce que vous riez beaucoup?",
+        "display_text": "Est-ce que vous riez beaucoup?",
+        "segments": [
+          {
+            "text": "Est-ce que vous riez beaucoup?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 1,
+            "naive": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q2_A0",
+            "rom_record_address": "0x0810EE90",
+            "rom_text_address": "0x0810EE92",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q2_A1",
+            "rom_record_address": "0x0810EE98",
+            "rom_text_address": "0x0810EE9A",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "naive_3",
+      "pret_object": "NaiveQuest3",
+      "pointer_index": 22,
+      "category": "naive",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "NAIVE_Q3",
+        "rom_record_address": "0x0810EED2",
+        "rom_text_address": "0x0810EED4",
+        "rom_prefix": 41,
+        "raw_hex": "4573742d636520717565206c65732061757472657320766f757320646973656e7420736f7576656e740a71756520766f7573206176657a206465732072e9616374696f6e73207075e972696c65733f",
+        "rom_encoded_text": "Est-ce que les autres vous disent souvent\nque vous avez des réactions puériles?",
+        "display_text": "Est-ce que les autres vous disent souvent\nque vous avez des réactions puériles?",
+        "segments": [
+          {
+            "text": "Est-ce que les autres vous disent souvent\nque vous avez des réactions puériles?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 1,
+            "naive": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q3_A0",
+            "rom_record_address": "0x0810EEC2",
+            "rom_text_address": "0x0810EEC4",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q3_A1",
+            "rom_record_address": "0x0810EECA",
+            "rom_text_address": "0x0810EECC",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "naive_4",
+      "pret_object": "NaiveQuest4",
+      "pointer_index": 23,
+      "category": "naive",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "NAIVE_Q4",
+        "rom_record_address": "0x0810EF34",
+        "rom_text_address": "0x0810EF36",
+        "rom_prefix": 31,
+        "raw_hex": "4573742d63652071756520766f75732061696d657a20696d6167696e6572206465732074727563730a706f757220766f757320616d757365723f",
+        "rom_encoded_text": "Est-ce que vous aimez imaginer des trucs\npour vous amuser?",
+        "display_text": "Est-ce que vous aimez imaginer des trucs\npour vous amuser?",
+        "segments": [
+          {
+            "text": "Est-ce que vous aimez imaginer des trucs\npour vous amuser?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "naive": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q4_A0",
+            "rom_record_address": "0x0810EF24",
+            "rom_text_address": "0x0810EF26",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hasty": 2
+          },
+          "text": {
+            "macro": "NAIVE_Q4_A1",
+            "rom_record_address": "0x0810EF2C",
+            "rom_text_address": "0x0810EF2E",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "timid_1",
+      "pret_object": "TimidQuest1",
+      "pointer_index": 24,
+      "category": "timid",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "TIMID_Q1",
+        "rom_record_address": "0x0810EFBA",
+        "rom_text_address": "0x0810EFBC",
+        "rom_prefix": 24,
+        "raw_hex": "556e65206d61696e20736f72742064657320746f696c6574746573210a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Une main sort des toilettes!\nQue faites-vous?",
+        "display_text": "Une main sort des toilettes!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Une main sort des toilettes!\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "TIMID_Q1_A0",
+            "rom_record_address": "0x0810EF72",
+            "rom_text_address": "0x0810EF74",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206d7e3237656e6675697320656e206875726c616e742e",
+            "rom_encoded_text": "Je m~27enfuis en hurlant.",
+            "display_text": "Je m'enfuis en hurlant.",
+            "segments": [
+              {
+                "text": "Je m'enfuis en hurlant.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 1,
+            "calm": 2
+          },
+          "text": {
+            "macro": "TIMID_Q1_A1",
+            "rom_record_address": "0x0810EF8E",
+            "rom_text_address": "0x0810EF90",
+            "rom_prefix": 14,
+            "raw_hex": "4a652072656665726d65206c6520636f75766572636c652e",
+            "rom_encoded_text": "Je referme le couvercle.",
+            "display_text": "Je referme le couvercle.",
+            "segments": [
+              {
+                "text": "Je referme le couvercle.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "brave": 2,
+            "impish": 1,
+            "naive": 1
+          },
+          "text": {
+            "macro": "TIMID_Q1_A2",
+            "rom_record_address": "0x0810EFAA",
+            "rom_text_address": "0x0810EFAC",
+            "rom_prefix": 8,
+            "raw_hex": "4a65206c612073657272652e",
+            "rom_encoded_text": "Je la serre.",
+            "display_text": "Je la serre.",
+            "segments": [
+              {
+                "text": "Je la serre.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "timid_2",
+      "pret_object": "TimidQuest2",
+      "pointer_index": 25,
+      "category": "timid",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "TIMID_Q2",
+        "rom_record_address": "0x0810F038",
+        "rom_text_address": "0x0810F03A",
+        "rom_prefix": 50,
+        "raw_hex": "417474726170657a206e7e3237696d706f727465207175656c20646f696774206465206c61206d61696e0a6761756368652061766563206c612064726f6974652e23570a5175656c20646f696774206176657a2d766f75732063686f6973693f",
+        "rom_encoded_text": "Attrapez n~27importe quel doigt de la main\ngauche avec la droite.#W\nQuel doigt avez-vous choisi?",
+        "display_text": "Attrapez n'importe quel doigt de la main\ngauche avec la droite.\nQuel doigt avez-vous choisi?",
+        "segments": [
+          {
+            "text": "Attrapez n'importe quel doigt de la main\ngauche avec la droite.",
+            "after": "wait_press"
+          },
+          {
+            "text": "Quel doigt avez-vous choisi?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "TIMID_Q2_A0",
+            "rom_record_address": "0x0810EFEA",
+            "rom_text_address": "0x0810EFEC",
+            "rom_prefix": 6,
+            "raw_hex": "4c6520706f7563652e",
+            "rom_encoded_text": "Le pouce.",
+            "display_text": "Le pouce.",
+            "segments": [
+              {
+                "text": "Le pouce.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hasty": 2
+          },
+          "text": {
+            "macro": "TIMID_Q2_A1",
+            "rom_record_address": "0x0810EFF6",
+            "rom_text_address": "0x0810EFF8",
+            "rom_prefix": 7,
+            "raw_hex": "4c7e3237696e6465782e",
+            "rom_encoded_text": "L~27index.",
+            "display_text": "L'index.",
+            "segments": [
+              {
+                "text": "L'index.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "jolly": 2
+          },
+          "text": {
+            "macro": "TIMID_Q2_A2",
+            "rom_record_address": "0x0810F004",
+            "rom_text_address": "0x0810F006",
+            "rom_prefix": 7,
+            "raw_hex": "4c65206d616a6575722e",
+            "rom_encoded_text": "Le majeur.",
+            "display_text": "Le majeur.",
+            "segments": [
+              {
+                "text": "Le majeur.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 3,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "TIMID_Q2_A3",
+            "rom_record_address": "0x0810F012",
+            "rom_text_address": "0x0810F014",
+            "rom_prefix": 9,
+            "raw_hex": "4c7e3237616e6e756c616972652e",
+            "rom_encoded_text": "L~27annulaire.",
+            "display_text": "L'annulaire.",
+            "segments": [
+              {
+                "text": "L'annulaire.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 4,
+          "effects": {
+            "lonely": 2
+          },
+          "text": {
+            "macro": "TIMID_Q2_A4",
+            "rom_record_address": "0x0810F024",
+            "rom_text_address": "0x0810F026",
+            "rom_prefix": 10,
+            "raw_hex": "4c7e32376175726963756c616972652e",
+            "rom_encoded_text": "L~27auriculaire.",
+            "display_text": "L'auriculaire.",
+            "segments": [
+              {
+                "text": "L'auriculaire.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "timid_3",
+      "pret_object": "TimidQuest3",
+      "pointer_index": 26,
+      "category": "timid",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "TIMID_Q3",
+        "rom_record_address": "0x0810F0D0",
+        "rom_text_address": "0x0810F0D2",
+        "rom_prefix": 45,
+        "raw_hex": "4f6e20766f757320656e6665726d6520706172206572726575722064616e7320756e650a7069e86365206e6f69726520636f6d6d65206465206c7e3237656e6372652123570a517565206661697465732d766f75733f",
+        "rom_encoded_text": "On vous enferme par erreur dans une\npièce noire comme de l~27encre!#W\nQue faites-vous?",
+        "display_text": "On vous enferme par erreur dans une\npièce noire comme de l'encre!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "On vous enferme par erreur dans une\npièce noire comme de l'encre!",
+            "after": "wait_press"
+          },
+          {
+            "text": "Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "TIMID_Q3_A0",
+            "rom_record_address": "0x0810F09C",
+            "rom_text_address": "0x0810F09E",
+            "rom_prefix": 12,
+            "raw_hex": "4a7e3237656e666f6e6365206c6120706f7274652e",
+            "rom_encoded_text": "J~27enfonce la porte.",
+            "display_text": "J'enfonce la porte.",
+            "segments": [
+              {
+                "text": "J'enfonce la porte.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "lonely": 2
+          },
+          "text": {
+            "macro": "TIMID_Q3_A1",
+            "rom_record_address": "0x0810F0B4",
+            "rom_text_address": "0x0810F0B6",
+            "rom_prefix": 7,
+            "raw_hex": "4a6520706c657572652e",
+            "rom_encoded_text": "Je pleure.",
+            "display_text": "Je pleure.",
+            "segments": [
+              {
+                "text": "Je pleure.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "impish": 2,
+            "quirky": 1
+          },
+          "text": {
+            "macro": "TIMID_Q3_A2",
+            "rom_record_address": "0x0810F0C2",
+            "rom_text_address": "0x0810F0C4",
+            "rom_prefix": 7,
+            "raw_hex": "4a65206e6574746f69652e",
+            "rom_encoded_text": "Je nettoie.",
+            "display_text": "Je nettoie.",
+            "segments": [
+              {
+                "text": "Je nettoie.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "timid_4",
+      "pret_object": "TimidQuest4",
+      "pointer_index": 27,
+      "category": "timid",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "TIMID_Q4",
+        "rom_record_address": "0x0810F168",
+        "rom_text_address": "0x0810F16A",
+        "rom_prefix": 22,
+        "raw_hex": "4f73657a2d766f757320656e747265722064616e7320756e65206d6169736f6e2068616e74e9653f",
+        "rom_encoded_text": "Osez-vous entrer dans une maison hantée?",
+        "display_text": "Osez-vous entrer dans une maison hantée?",
+        "segments": [
+          {
+            "text": "Osez-vous entrer dans une maison hantée?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "brave": 3
+          },
+          "text": {
+            "macro": "TIMID_Q4_A0",
+            "rom_record_address": "0x0810F12A",
+            "rom_text_address": "0x0810F12C",
+            "rom_prefix": 9,
+            "raw_hex": "53616e732070726f626ce86d6521",
+            "rom_encoded_text": "Sans problème!",
+            "display_text": "Sans problème!",
+            "segments": [
+              {
+                "text": "Sans problème!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "TIMID_Q4_A1",
+            "rom_record_address": "0x0810F13C",
+            "rom_text_address": "0x0810F13E",
+            "rom_prefix": 8,
+            "raw_hex": "4575682e2e2e206e6f6e2e2e2e",
+            "rom_encoded_text": "Euh... non...",
+            "display_text": "Euh... non...",
+            "segments": [
+              {
+                "text": "Euh... non...",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "TIMID_Q4_A2",
+            "rom_record_address": "0x0810F14C",
+            "rom_text_address": "0x0810F14E",
+            "rom_prefix": 14,
+            "raw_hex": "4f75697e32632061766563207175656c71757e3237756e2e",
+            "rom_encoded_text": "Oui~2c avec quelqu~27un.",
+            "display_text": "Oui, avec quelqu'un.",
+            "segments": [
+              {
+                "text": "Oui, avec quelqu'un.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hasty_1",
+      "pret_object": "HastyQuest1",
+      "pointer_index": 28,
+      "category": "hasty",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HASTY_Q1",
+        "rom_record_address": "0x0810F1E4",
+        "rom_text_address": "0x0810F1E6",
+        "rom_prefix": 50,
+        "raw_hex": "566f7573207265636576657a20756e20706171756574206361646561752123570a4d61697320766f7573206e6520736176657a207061732063652071757e3237696c207920610a646564616e732e235720517565206661697465732d766f75733f",
+        "rom_encoded_text": "Vous recevez un paquet cadeau!#W\nMais vous ne savez pas ce qu~27il y a\ndedans.#W Que faites-vous?",
+        "display_text": "Vous recevez un paquet cadeau!\nMais vous ne savez pas ce qu'il y a\ndedans. Que faites-vous?",
+        "segments": [
+          {
+            "text": "Vous recevez un paquet cadeau!",
+            "after": "wait_press"
+          },
+          {
+            "text": "Mais vous ne savez pas ce qu'il y a\ndedans.",
+            "after": "wait_press"
+          },
+          {
+            "text": " Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hasty": 2
+          },
+          "text": {
+            "macro": "HASTY_Q1_A0",
+            "rom_record_address": "0x0810F194",
+            "rom_text_address": "0x0810F196",
+            "rom_prefix": 13,
+            "raw_hex": "4a65206c7e32376f757672652064652073756974652e",
+            "rom_encoded_text": "Je l~27ouvre de suite.",
+            "display_text": "Je l'ouvre de suite.",
+            "segments": [
+              {
+                "text": "Je l'ouvre de suite.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "HASTY_Q1_A1",
+            "rom_record_address": "0x0810F1AE",
+            "rom_text_address": "0x0810F1B0",
+            "rom_prefix": 13,
+            "raw_hex": "4a65206c7e32376f7576726520706c757320746172642e",
+            "rom_encoded_text": "Je l~27ouvre plus tard.",
+            "display_text": "Je l'ouvre plus tard.",
+            "segments": [
+              {
+                "text": "Je l'ouvre plus tard.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "HASTY_Q1_A2",
+            "rom_record_address": "0x0810F1C8",
+            "rom_text_address": "0x0810F1CA",
+            "rom_prefix": 14,
+            "raw_hex": "5175656c71757e3237756e206d65206c7e32376f757672652e",
+            "rom_encoded_text": "Quelqu~27un me l~27ouvre.",
+            "display_text": "Quelqu'un me l'ouvre.",
+            "segments": [
+              {
+                "text": "Quelqu'un me l'ouvre.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hasty_2",
+      "pret_object": "HastyQuest2",
+      "pointer_index": 29,
+      "category": "hasty",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HASTY_Q2",
+        "rom_record_address": "0x0810F27C",
+        "rom_text_address": "0x0810F27E",
+        "rom_prefix": 31,
+        "raw_hex": "566f7573206761676e657a20e0206c61206c6f74657269652123570a517565206661697465732d766f7573206465206c7e3237617267656e743f",
+        "rom_encoded_text": "Vous gagnez à la loterie!#W\nQue faites-vous de l~27argent?",
+        "display_text": "Vous gagnez à la loterie!\nQue faites-vous de l'argent?",
+        "segments": [
+          {
+            "text": "Vous gagnez à la loterie!",
+            "after": "wait_press"
+          },
+          {
+            "text": "Que faites-vous de l'argent?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2,
+            "hasty": 1
+          },
+          "text": {
+            "macro": "HASTY_Q2_A0",
+            "rom_record_address": "0x0810F248",
+            "rom_text_address": "0x0810F24A",
+            "rom_prefix": 9,
+            "raw_hex": "4a65206d7e3237656e20736572732e",
+            "rom_encoded_text": "Je m~27en sers.",
+            "display_text": "Je m'en sers.",
+            "segments": [
+              {
+                "text": "Je m'en sers.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 1,
+            "calm": 1
+          },
+          "text": {
+            "macro": "HASTY_Q2_A1",
+            "rom_record_address": "0x0810F25A",
+            "rom_text_address": "0x0810F25C",
+            "rom_prefix": 9,
+            "raw_hex": "4a7e3237e9636f6e6f6d6973652e",
+            "rom_encoded_text": "J~27économise.",
+            "display_text": "J'économise.",
+            "segments": [
+              {
+                "text": "J'économise.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "brave": 2,
+            "quirky": 2
+          },
+          "text": {
+            "macro": "HASTY_Q2_A2",
+            "rom_record_address": "0x0810F26C",
+            "rom_text_address": "0x0810F26E",
+            "rom_prefix": 8,
+            "raw_hex": "4a65206c6520646f6e6e652e",
+            "rom_encoded_text": "Je le donne.",
+            "display_text": "Je le donne.",
+            "segments": [
+              {
+                "text": "Je le donne.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hasty_3",
+      "pret_object": "HastyQuest3",
+      "pointer_index": 30,
+      "category": "hasty",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HASTY_Q3",
+        "rom_record_address": "0x0810F30A",
+        "rom_text_address": "0x0810F30C",
+        "rom_prefix": 28,
+        "raw_hex": "566f75732064e9636f757672657a20756e20636f66667265206175207472e9736f72210a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Vous découvrez un coffre au trésor!\nQue faites-vous?",
+        "display_text": "Vous découvrez un coffre au trésor!\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Vous découvrez un coffre au trésor!\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hasty": 2
+          },
+          "text": {
+            "macro": "HASTY_Q3_A0",
+            "rom_record_address": "0x0810F2BA",
+            "rom_text_address": "0x0810F2BC",
+            "rom_prefix": 13,
+            "raw_hex": "4a65206c7e32376f7576726520646520737569746521",
+            "rom_encoded_text": "Je l~27ouvre de suite!",
+            "display_text": "Je l'ouvre de suite!",
+            "segments": [
+              {
+                "text": "Je l'ouvre de suite!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "HASTY_Q3_A1",
+            "rom_record_address": "0x0810F2D4",
+            "rom_text_address": "0x0810F2D6",
+            "rom_prefix": 14,
+            "raw_hex": "5269656e2e2e2e20437e323765737420756e207069e867652e",
+            "rom_encoded_text": "Rien... C~27est un piège.",
+            "display_text": "Rien... C'est un piège.",
+            "segments": [
+              {
+                "text": "Rien... C'est un piège.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "HASTY_Q3_A2",
+            "rom_record_address": "0x0810F2F0",
+            "rom_text_address": "0x0810F2F2",
+            "rom_prefix": 13,
+            "raw_hex": "5269656e7e326320696c207365726120766964652e2e2e",
+            "rom_encoded_text": "Rien~2c il sera vide...",
+            "display_text": "Rien, il sera vide...",
+            "segments": [
+              {
+                "text": "Rien, il sera vide...",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hasty_4",
+      "pret_object": "HastyQuest4",
+      "pointer_index": 31,
+      "category": "hasty",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "HASTY_Q4",
+        "rom_record_address": "0x0810F37C",
+        "rom_text_address": "0x0810F37E",
+        "rom_prefix": 45,
+        "raw_hex": "566f74726520616d69286529206e7e32376172726976652070617320e0206c7e32376865757265207072e97675650a706f757220766f7472652072656e64657a2d766f75732e0a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Votre ami(e) n~27arrive pas à l~27heure prévue\npour votre rendez-vous.\nQue faites-vous?",
+        "display_text": "Votre ami(e) n'arrive pas à l'heure prévue\npour votre rendez-vous.\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Votre ami(e) n'arrive pas à l'heure prévue\npour votre rendez-vous.\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 1,
+            "hasty": 2
+          },
+          "text": {
+            "macro": "HASTY_Q4_A0",
+            "rom_record_address": "0x0810F342",
+            "rom_text_address": "0x0810F344",
+            "rom_prefix": 9,
+            "raw_hex": "4a65206d7e3237e96e657276652e",
+            "rom_encoded_text": "Je m~27énerve.",
+            "display_text": "Je m'énerve.",
+            "segments": [
+              {
+                "text": "Je m'énerve.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "HASTY_Q4_A1",
+            "rom_record_address": "0x0810F354",
+            "rom_text_address": "0x0810F356",
+            "rom_prefix": 8,
+            "raw_hex": "4a7e3237617474656e64732e",
+            "rom_encoded_text": "J~27attends.",
+            "display_text": "J'attends.",
+            "segments": [
+              {
+                "text": "J'attends.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "hasty": 3
+          },
+          "text": {
+            "macro": "HASTY_Q4_A2",
+            "rom_record_address": "0x0810F364",
+            "rom_text_address": "0x0810F366",
+            "rom_prefix": 12,
+            "raw_hex": "456e20636f6ce872657e3263206a6520706172732e",
+            "rom_encoded_text": "En colère~2c je pars.",
+            "display_text": "En colère, je pars.",
+            "segments": [
+              {
+                "text": "En colère, je pars.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sassy_1",
+      "pret_object": "SassyQuest1",
+      "pointer_index": 32,
+      "category": "sassy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "SASSY_Q1",
+        "rom_record_address": "0x0810F40A",
+        "rom_text_address": "0x0810F40C",
+        "rom_prefix": 39,
+        "raw_hex": "4c65205072e9736964656e74206465206c612052e97075626c697175652065737420656e20666163650a646520766f75732e20436f6d6d656e74206c7569207061726c657a2d766f75733f",
+        "rom_encoded_text": "Le Président de la République est en face\nde vous. Comment lui parlez-vous?",
+        "display_text": "Le Président de la République est en face\nde vous. Comment lui parlez-vous?",
+        "segments": [
+          {
+            "text": "Le Président de la République est en face\nde vous. Comment lui parlez-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "SASSY_Q1_A0",
+            "rom_record_address": "0x0810F3D6",
+            "rom_text_address": "0x0810F3D8",
+            "rom_prefix": 7,
+            "raw_hex": "43616c6d656d656e742e",
+            "rom_encoded_text": "Calmement.",
+            "display_text": "Calmement.",
+            "segments": [
+              {
+                "text": "Calmement.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "docile": 2
+          },
+          "text": {
+            "macro": "SASSY_Q1_A1",
+            "rom_record_address": "0x0810F3E4",
+            "rom_text_address": "0x0810F3E6",
+            "rom_prefix": 8,
+            "raw_hex": "4e657276657573656d656e742e",
+            "rom_encoded_text": "Nerveusement.",
+            "display_text": "Nerveusement.",
+            "segments": [
+              {
+                "text": "Nerveusement.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "SASSY_Q1_A2",
+            "rom_record_address": "0x0810F3F4",
+            "rom_text_address": "0x0810F3F6",
+            "rom_prefix": 11,
+            "raw_hex": "4f4e20537e3237454e204649434845212121",
+            "rom_encoded_text": "ON S~27EN FICHE!!!",
+            "display_text": "ON S'EN FICHE!!!",
+            "segments": [
+              {
+                "text": "ON S'EN FICHE!!!",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sassy_2",
+      "pret_object": "SassyQuest2",
+      "pointer_index": 33,
+      "category": "sassy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "SASSY_Q2",
+        "rom_record_address": "0x0810F468",
+        "rom_text_address": "0x0810F46A",
+        "rom_prefix": 35,
+        "raw_hex": "4573742d63652071757e32376f6e20766f75732064697420646520666169726520617474656e74696f6e20e00a63652071756520766f7573207261636f6e74657a3f",
+        "rom_encoded_text": "Est-ce qu~27on vous dit de faire attention à\nce que vous racontez?",
+        "display_text": "Est-ce qu'on vous dit de faire attention à\nce que vous racontez?",
+        "segments": [
+          {
+            "text": "Est-ce qu'on vous dit de faire attention à\nce que vous racontez?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "impish": 1,
+            "sassy": 2
+          },
+          "text": {
+            "macro": "SASSY_Q2_A0",
+            "rom_record_address": "0x0810F458",
+            "rom_text_address": "0x0810F45A",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "SASSY_Q2_A1",
+            "rom_record_address": "0x0810F460",
+            "rom_text_address": "0x0810F462",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sassy_3",
+      "pret_object": "SassyQuest3",
+      "pointer_index": 34,
+      "category": "sassy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "SASSY_Q3",
+        "rom_record_address": "0x0810F4BE",
+        "rom_text_address": "0x0810F4C0",
+        "rom_prefix": 30,
+        "raw_hex": "4573742d63652071756520766f75732070656e73657a2071756520766f757320ea7465730a636f6f6c3f20536f79657a20686f6e6eea74652e",
+        "rom_encoded_text": "Est-ce que vous pensez que vous êtes\ncool? Soyez honnête.",
+        "display_text": "Est-ce que vous pensez que vous êtes\ncool? Soyez honnête.",
+        "segments": [
+          {
+            "text": "Est-ce que vous pensez que vous êtes\ncool? Soyez honnête.",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "SASSY_Q3_A0",
+            "rom_record_address": "0x0810F4AE",
+            "rom_text_address": "0x0810F4B0",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "SASSY_Q3_A1",
+            "rom_record_address": "0x0810F4B6",
+            "rom_text_address": "0x0810F4B8",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sassy_4",
+      "pret_object": "SassyQuest4",
+      "pointer_index": 35,
+      "category": "sassy",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "SASSY_Q4",
+        "rom_record_address": "0x0810F50A",
+        "rom_text_address": "0x0810F50C",
+        "rom_prefix": 48,
+        "raw_hex": "4573742d63652071756520766f75732072656d65726369657a207175656c71757e3237756e0a617665632073696e63e9726974e9207175616e6420766f757320766f75732073656e74657a0a7265636f6e6e61697373616e742865293f",
+        "rom_encoded_text": "Est-ce que vous remerciez quelqu~27un\navec sincérité quand vous vous sentez\nreconnaissant(e)?",
+        "display_text": "Est-ce que vous remerciez quelqu'un\navec sincérité quand vous vous sentez\nreconnaissant(e)?",
+        "segments": [
+          {
+            "text": "Est-ce que vous remerciez quelqu'un\navec sincérité quand vous vous sentez\nreconnaissant(e)?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2,
+            "calm": 1
+          },
+          "text": {
+            "macro": "SASSY_Q4_A0",
+            "rom_record_address": "0x0810F4FA",
+            "rom_text_address": "0x0810F4FC",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 2,
+            "quirky": 1
+          },
+          "text": {
+            "macro": "SASSY_Q4_A1",
+            "rom_record_address": "0x0810F502",
+            "rom_text_address": "0x0810F504",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "calm_1",
+      "pret_object": "CalmQuest1",
+      "pointer_index": 36,
+      "category": "calm",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "CALM_Q1",
+        "rom_record_address": "0x0810F57A",
+        "rom_text_address": "0x0810F57C",
+        "rom_prefix": 39,
+        "raw_hex": "4573742d63652071756520766f757320766f75732074726f7576657a20706172666f69730a736f706f726966697175652065742065786167e972e96d656e742070727564656e742865293f",
+        "rom_encoded_text": "Est-ce que vous vous trouvez parfois\nsoporifique et exagérément prudent(e)?",
+        "display_text": "Est-ce que vous vous trouvez parfois\nsoporifique et exagérément prudent(e)?",
+        "segments": [
+          {
+            "text": "Est-ce que vous vous trouvez parfois\nsoporifique et exagérément prudent(e)?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "calm": 2,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "CALM_Q1_A0",
+            "rom_record_address": "0x0810F56A",
+            "rom_text_address": "0x0810F56C",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "CALM_Q1_A1",
+            "rom_record_address": "0x0810F572",
+            "rom_text_address": "0x0810F574",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "calm_2",
+      "pret_object": "CalmQuest2",
+      "pointer_index": 37,
+      "category": "calm",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "CALM_Q2",
+        "rom_record_address": "0x0810F5D8",
+        "rom_text_address": "0x0810F5DA",
+        "rom_prefix": 28,
+        "raw_hex": "52ea76657a2d766f757320706172666f69732064652070617265737365722073616e7320ea7472650a64e972616e67e92865293f",
+        "rom_encoded_text": "Rêvez-vous parfois de paresser sans être\ndérangé(e)?",
+        "display_text": "Rêvez-vous parfois de paresser sans être\ndérangé(e)?",
+        "segments": [
+          {
+            "text": "Rêvez-vous parfois de paresser sans être\ndérangé(e)?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "CALM_Q2_A0",
+            "rom_record_address": "0x0810F5C8",
+            "rom_text_address": "0x0810F5CA",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "CALM_Q2_A1",
+            "rom_record_address": "0x0810F5D0",
+            "rom_text_address": "0x0810F5D2",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "calm_3",
+      "pret_object": "CalmQuest3",
+      "pointer_index": 38,
+      "category": "calm",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "CALM_Q3",
+        "rom_record_address": "0x0810F620",
+        "rom_text_address": "0x0810F622",
+        "rom_prefix": 13,
+        "raw_hex": "41696d657a2d766f757320766f7573206261747472653f",
+        "rom_encoded_text": "Aimez-vous vous battre?",
+        "display_text": "Aimez-vous vous battre?",
+        "segments": [
+          {
+            "text": "Aimez-vous vous battre?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "impish": 1,
+            "timid": 2
+          },
+          "text": {
+            "macro": "CALM_Q3_A0",
+            "rom_record_address": "0x0810F610",
+            "rom_text_address": "0x0810F612",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "CALM_Q3_A1",
+            "rom_record_address": "0x0810F618",
+            "rom_text_address": "0x0810F61A",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "calm_4",
+      "pret_object": "CalmQuest4",
+      "pointer_index": 39,
+      "category": "calm",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "CALM_Q4",
+        "rom_record_address": "0x0810F64A",
+        "rom_text_address": "0x0810F64C",
+        "rom_prefix": 18,
+        "raw_hex": "4573742d63652071756520766f7573206261696c6c657a20736f7576656e743f",
+        "rom_encoded_text": "Est-ce que vous baillez souvent?",
+        "display_text": "Est-ce que vous baillez souvent?",
+        "segments": [
+          {
+            "text": "Est-ce que vous baillez souvent?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "calm": 2,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "CALM_Q4_A0",
+            "rom_record_address": "0x0810F63A",
+            "rom_text_address": "0x0810F63C",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 1,
+            "hasty": 2
+          },
+          "text": {
+            "macro": "CALM_Q4_A1",
+            "rom_record_address": "0x0810F642",
+            "rom_text_address": "0x0810F644",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "relaxed_1",
+      "pret_object": "RelaxedQuest1",
+      "pointer_index": 40,
+      "category": "relaxed",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "RELAXED_Q1",
+        "rom_record_address": "0x0810F67E",
+        "rom_text_address": "0x0810F680",
+        "rom_prefix": 30,
+        "raw_hex": "4172726976657a2d766f757320736f7576656e7420656e2072657461726420656e20636f7572730a6f75206175782072e9756e696f6e733f",
+        "rom_encoded_text": "Arrivez-vous souvent en retard en cours\nou aux réunions?",
+        "display_text": "Arrivez-vous souvent en retard en cours\nou aux réunions?",
+        "segments": [
+          {
+            "text": "Arrivez-vous souvent en retard en cours\nou aux réunions?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "sassy": 1,
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q1_A0",
+            "rom_record_address": "0x0810F66E",
+            "rom_text_address": "0x0810F670",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2,
+            "hasty": 1
+          },
+          "text": {
+            "macro": "RELAXED_Q1_A1",
+            "rom_record_address": "0x0810F676",
+            "rom_text_address": "0x0810F678",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "relaxed_2",
+      "pret_object": "RelaxedQuest2",
+      "pointer_index": 41,
+      "category": "relaxed",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "RELAXED_Q2",
+        "rom_record_address": "0x0810F6CA",
+        "rom_text_address": "0x0810F6CC",
+        "rom_prefix": 37,
+        "raw_hex": "4176657a2d766f7573206c7e3237696d7072657373696f6e2071756520766f7573206176657a0a72616c656e7469206c6520727974686d65206465726e69e872656d656e743f",
+        "rom_encoded_text": "Avez-vous l~27impression que vous avez\nralenti le rythme dernièrement?",
+        "display_text": "Avez-vous l'impression que vous avez\nralenti le rythme dernièrement?",
+        "segments": [
+          {
+            "text": "Avez-vous l'impression que vous avez\nralenti le rythme dernièrement?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q2_A0",
+            "rom_record_address": "0x0810F6BA",
+            "rom_text_address": "0x0810F6BC",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "impish": 1,
+            "hasty": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q2_A1",
+            "rom_record_address": "0x0810F6C2",
+            "rom_text_address": "0x0810F6C4",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "relaxed_3",
+      "pret_object": "RelaxedQuest3",
+      "pointer_index": 42,
+      "category": "relaxed",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "RELAXED_Q3",
+        "rom_record_address": "0x0810F758",
+        "rom_text_address": "0x0810F75A",
+        "rom_prefix": 37,
+        "raw_hex": "566f757320ea74657320e0206c6120706c616765206574206c652074656d7073206573740a737570657262652e20436f6d6d656e7420766f75732073656e74657a2d766f75733f",
+        "rom_encoded_text": "Vous êtes à la plage et le temps est\nsuperbe. Comment vous sentez-vous?",
+        "display_text": "Vous êtes à la plage et le temps est\nsuperbe. Comment vous sentez-vous?",
+        "segments": [
+          {
+            "text": "Vous êtes à la plage et le temps est\nsuperbe. Comment vous sentez-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q3_A0",
+            "rom_record_address": "0x0810F714",
+            "rom_text_address": "0x0810F716",
+            "rom_prefix": 7,
+            "raw_hex": "5375706572206269656e21",
+            "rom_encoded_text": "Super bien!",
+            "display_text": "Super bien!",
+            "segments": [
+              {
+                "text": "Super bien!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q3_A1",
+            "rom_record_address": "0x0810F722",
+            "rom_text_address": "0x0810F724",
+            "rom_prefix": 13,
+            "raw_hex": "4269656e7e3263206a65206d65207265706f73652e2e2e",
+            "rom_encoded_text": "Bien~2c je me repose...",
+            "display_text": "Bien, je me repose...",
+            "segments": [
+              {
+                "text": "Bien, je me repose...",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "hasty": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q3_A2",
+            "rom_record_address": "0x0810F73C",
+            "rom_text_address": "0x0810F73E",
+            "rom_prefix": 14,
+            "raw_hex": "4a7e3237616920656e7669652064652072656e7472657221",
+            "rom_encoded_text": "J~27ai envie de rentrer!",
+            "display_text": "J'ai envie de rentrer!",
+            "segments": [
+              {
+                "text": "J'ai envie de rentrer!",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "relaxed_4",
+      "pret_object": "RelaxedQuest4",
+      "pointer_index": 43,
+      "category": "relaxed",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "RELAXED_Q4",
+        "rom_record_address": "0x0810F7B2",
+        "rom_text_address": "0x0810F7B4",
+        "rom_prefix": 33,
+        "raw_hex": "566f7573206172726976652d742d696c20646520766f757320656e646f726d69722073616e73200a766f757320656e2072656e64726520636f6d7074653f",
+        "rom_encoded_text": "Vous arrive-t-il de vous endormir sans \nvous en rendre compte?",
+        "display_text": "Vous arrive-t-il de vous endormir sans \nvous en rendre compte?",
+        "segments": [
+          {
+            "text": "Vous arrive-t-il de vous endormir sans \nvous en rendre compte?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "calm": 1,
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q4_A0",
+            "rom_record_address": "0x0810F7A2",
+            "rom_text_address": "0x0810F7A4",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "RELAXED_Q4_A1",
+            "rom_record_address": "0x0810F7AA",
+            "rom_text_address": "0x0810F7AC",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lonely_1",
+      "pret_object": "LonelyQuest1",
+      "pointer_index": 44,
+      "category": "lonely",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "LONELY_Q1",
+        "rom_record_address": "0x0810F804",
+        "rom_text_address": "0x0810F806",
+        "rom_prefix": 27,
+        "raw_hex": "566f75732073656e74657a2d766f7573206d6973e97261626c65207175616e6420766f75730aea746573207365756c2865293f",
+        "rom_encoded_text": "Vous sentez-vous misérable quand vous\nêtes seul(e)?",
+        "display_text": "Vous sentez-vous misérable quand vous\nêtes seul(e)?",
+        "segments": [
+          {
+            "text": "Vous sentez-vous misérable quand vous\nêtes seul(e)?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 1,
+            "lonely": 2
+          },
+          "text": {
+            "macro": "LONELY_Q1_A0",
+            "rom_record_address": "0x0810F7F4",
+            "rom_text_address": "0x0810F7F6",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "LONELY_Q1_A1",
+            "rom_record_address": "0x0810F7FC",
+            "rom_text_address": "0x0810F7FE",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lonely_2",
+      "pret_object": "LonelyQuest2",
+      "pointer_index": 45,
+      "category": "lonely",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "LONELY_Q2",
+        "rom_record_address": "0x0810F84A",
+        "rom_text_address": "0x0810F84C",
+        "rom_prefix": 53,
+        "raw_hex": "4573742d63652071756520766f75732064e974657374657a20ea747265206c61206465726e69e872650a706572736f6e6e6520e02071756974746572206c612073616c6c6520646520636c6173736520e0206c610a66696e206465206c61206a6f75726ee9653f",
+        "rom_encoded_text": "Est-ce que vous détestez être la dernière\npersonne à quitter la salle de classe à la\nfin de la journée?",
+        "display_text": "Est-ce que vous détestez être la dernière\npersonne à quitter la salle de classe à la\nfin de la journée?",
+        "segments": [
+          {
+            "text": "Est-ce que vous détestez être la dernière\npersonne à quitter la salle de classe à la\nfin de la journée?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 1,
+            "lonely": 2
+          },
+          "text": {
+            "macro": "LONELY_Q2_A0",
+            "rom_record_address": "0x0810F83A",
+            "rom_text_address": "0x0810F83C",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "brave": 3,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "LONELY_Q2_A1",
+            "rom_record_address": "0x0810F842",
+            "rom_text_address": "0x0810F844",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lonely_3",
+      "pret_object": "LonelyQuest3",
+      "pointer_index": 46,
+      "category": "lonely",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "LONELY_Q3",
+        "rom_record_address": "0x0810F8CC",
+        "rom_text_address": "0x0810F8CE",
+        "rom_prefix": 38,
+        "raw_hex": "5175616e6420766f757320616c6c657a20766f757320636f7563686572206c6520736f69727e32630a636f6d6d656e74206c61697373657a2d766f7573206c61206c756d69e872653f",
+        "rom_encoded_text": "Quand vous allez vous coucher le soir~2c\ncomment laissez-vous la lumière?",
+        "display_text": "Quand vous allez vous coucher le soir,\ncomment laissez-vous la lumière?",
+        "segments": [
+          {
+            "text": "Quand vous allez vous coucher le soir,\ncomment laissez-vous la lumière?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "timid": 1,
+            "lonely": 2
+          },
+          "text": {
+            "macro": "LONELY_Q3_A0",
+            "rom_record_address": "0x0810F8B4",
+            "rom_text_address": "0x0810F8B6",
+            "rom_prefix": 6,
+            "raw_hex": "416c6c756de9652e",
+            "rom_encoded_text": "Allumée.",
+            "display_text": "Allumée.",
+            "segments": [
+              {
+                "text": "Allumée.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 2
+          },
+          "text": {
+            "macro": "LONELY_Q3_A1",
+            "rom_record_address": "0x0810F8C0",
+            "rom_text_address": "0x0810F8C2",
+            "rom_prefix": 6,
+            "raw_hex": "457465696e74652e",
+            "rom_encoded_text": "Eteinte.",
+            "display_text": "Eteinte.",
+            "segments": [
+              {
+                "text": "Eteinte.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lonely_4",
+      "pret_object": "LonelyQuest4",
+      "pointer_index": 47,
+      "category": "lonely",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "LONELY_Q4",
+        "rom_record_address": "0x0810F958",
+        "rom_text_address": "0x0810F95A",
+        "rom_prefix": 42,
+        "raw_hex": "437e3237657374206c65207765656b2d656e647e3263206d61697320706572736f6e6e65206e6520766575740a6a6f756572206176656320766f75732e2e2e0a517565206661697465732d766f75733f",
+        "rom_encoded_text": "C~27est le week-end~2c mais personne ne veut\njouer avec vous...\nQue faites-vous?",
+        "display_text": "C'est le week-end, mais personne ne veut\njouer avec vous...\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "C'est le week-end, mais personne ne veut\njouer avec vous...\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 1,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "LONELY_Q4_A0",
+            "rom_record_address": "0x0810F918",
+            "rom_text_address": "0x0810F91A",
+            "rom_prefix": 9,
+            "raw_hex": "556e6520657863757273696f6e2e",
+            "rom_encoded_text": "Une excursion.",
+            "display_text": "Une excursion.",
+            "segments": [
+              {
+                "text": "Une excursion.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "calm": 1,
+            "relaxed": 2
+          },
+          "text": {
+            "macro": "LONELY_Q4_A1",
+            "rom_record_address": "0x0810F92A",
+            "rom_text_address": "0x0810F92C",
+            "rom_prefix": 11,
+            "raw_hex": "4a6520747261ee6e652073616e73206275742e",
+            "rom_encoded_text": "Je traîne sans but.",
+            "display_text": "Je traîne sans but.",
+            "segments": [
+              {
+                "text": "Je traîne sans but.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "timid": 1,
+            "lonely": 3
+          },
+          "text": {
+            "macro": "LONELY_Q4_A2",
+            "rom_record_address": "0x0810F940",
+            "rom_text_address": "0x0810F942",
+            "rom_prefix": 12,
+            "raw_hex": "4a65206d6520726563726f71756576696c6c652e",
+            "rom_encoded_text": "Je me recroqueville.",
+            "display_text": "Je me recroqueville.",
+            "segments": [
+              {
+                "text": "Je me recroqueville.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "quirky_1",
+      "pret_object": "QuirkyQuest1",
+      "pointer_index": 48,
+      "category": "quirky",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "QUIRKY_Q1",
+        "rom_record_address": "0x0810F9BC",
+        "rom_text_address": "0x0810F9BE",
+        "rom_prefix": 43,
+        "raw_hex": "4573742d63652071757e3237696c20766f75732061727269766520706172666f6973206465206e6520706c75730a7269656e2061766f697220e020666169726520746f757420647e3237756e20636f75703f",
+        "rom_encoded_text": "Est-ce qu~27il vous arrive parfois de ne plus\nrien avoir à faire tout d~27un coup?",
+        "display_text": "Est-ce qu'il vous arrive parfois de ne plus\nrien avoir à faire tout d'un coup?",
+        "segments": [
+          {
+            "text": "Est-ce qu'il vous arrive parfois de ne plus\nrien avoir à faire tout d'un coup?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q1_A0",
+            "rom_record_address": "0x0810F9AC",
+            "rom_text_address": "0x0810F9AE",
+            "rom_prefix": 4,
+            "raw_hex": "4f75692e",
+            "rom_encoded_text": "Oui.",
+            "display_text": "Oui.",
+            "segments": [
+              {
+                "text": "Oui.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hardy": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q1_A1",
+            "rom_record_address": "0x0810F9B4",
+            "rom_text_address": "0x0810F9B6",
+            "rom_prefix": 4,
+            "raw_hex": "4e6f6e2e",
+            "rom_encoded_text": "Non.",
+            "display_text": "Non.",
+            "segments": [
+              {
+                "text": "Non.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "quirky_2",
+      "pret_object": "QuirkyQuest2",
+      "pointer_index": 49,
+      "category": "quirky",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "QUIRKY_Q2",
+        "rom_record_address": "0x0810FA4E",
+        "rom_text_address": "0x0810FA50",
+        "rom_prefix": 19,
+        "raw_hex": "436f6d6d656e742072e9706f6e64657a2d766f757320e020756e20652d6d61696c3f",
+        "rom_encoded_text": "Comment répondez-vous à un e-mail?",
+        "display_text": "Comment répondez-vous à un e-mail?",
+        "segments": [
+          {
+            "text": "Comment répondez-vous à un e-mail?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 1,
+            "hasty": 1
+          },
+          "text": {
+            "macro": "QUIRKY_Q2_A0",
+            "rom_record_address": "0x0810FA12",
+            "rom_text_address": "0x0810FA14",
+            "rom_prefix": 9,
+            "raw_hex": "546f75742064652073756974652e",
+            "rom_encoded_text": "Tout de suite.",
+            "display_text": "Tout de suite.",
+            "segments": [
+              {
+                "text": "Tout de suite.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q2_A1",
+            "rom_record_address": "0x0810FA24",
+            "rom_text_address": "0x0810FA26",
+            "rom_prefix": 12,
+            "raw_hex": "4a652072e9706f6e64737e3263206f75207061732e",
+            "rom_encoded_text": "Je réponds~2c ou pas.",
+            "display_text": "Je réponds, ou pas.",
+            "segments": [
+              {
+                "text": "Je réponds, ou pas.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q2_A2",
+            "rom_record_address": "0x0810FA3C",
+            "rom_text_address": "0x0810FA3E",
+            "rom_prefix": 9,
+            "raw_hex": "54726f70206661746967616e742e",
+            "rom_encoded_text": "Trop fatigant.",
+            "display_text": "Trop fatigant.",
+            "segments": [
+              {
+                "text": "Trop fatigant.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "quirky_3",
+      "pret_object": "QuirkyQuest3",
+      "pointer_index": 50,
+      "category": "quirky",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "QUIRKY_Q3",
+        "rom_record_address": "0x0810FAE4",
+        "rom_text_address": "0x0810FAE6",
+        "rom_prefix": 46,
+        "raw_hex": "566f75732061696d657a206269656e20756e6520706572736f6e6e652e2e2e23570a4d61697320617563756e206d6f79656e20646520737e3237656e2072617070726f636865722e0a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Vous aimez bien une personne...#W\nMais aucun moyen de s~27en rapprocher.\nQue faites-vous?",
+        "display_text": "Vous aimez bien une personne...\nMais aucun moyen de s'en rapprocher.\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Vous aimez bien une personne...",
+            "after": "wait_press"
+          },
+          {
+            "text": "Mais aucun moyen de s'en rapprocher.\nQue faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hardy": 1,
+            "brave": 3
+          },
+          "text": {
+            "macro": "QUIRKY_Q3_A0",
+            "rom_record_address": "0x0810FA74",
+            "rom_text_address": "0x0810FA76",
+            "rom_prefix": 14,
+            "raw_hex": "4a65206c75692064e9636c617265206d6120666c616d6d652e",
+            "rom_encoded_text": "Je lui déclare ma flamme.",
+            "display_text": "Je lui déclare ma flamme.",
+            "segments": [
+              {
+                "text": "Je lui déclare ma flamme.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q3_A1",
+            "rom_record_address": "0x0810FA90",
+            "rom_text_address": "0x0810FA92",
+            "rom_prefix": 17,
+            "raw_hex": "4a652064697320626f6e6a6f75727e326320706575742dea7472652e2e2e",
+            "rom_encoded_text": "Je dis bonjour~2c peut-être...",
+            "display_text": "Je dis bonjour, peut-être...",
+            "segments": [
+              {
+                "text": "Je dis bonjour, peut-être...",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "impish": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q3_A2",
+            "rom_record_address": "0x0810FAB2",
+            "rom_text_address": "0x0810FAB4",
+            "rom_prefix": 12,
+            "raw_hex": "4a65206c7569206a6f756520756e20746f75722e",
+            "rom_encoded_text": "Je lui joue un tour.",
+            "display_text": "Je lui joue un tour.",
+            "segments": [
+              {
+                "text": "Je lui joue un tour.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 3,
+          "effects": {
+            "timid": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q3_A3",
+            "rom_record_address": "0x0810FACA",
+            "rom_text_address": "0x0810FACC",
+            "rom_prefix": 13,
+            "raw_hex": "4a65206c7e323761646d697265206465206c6f696e2e",
+            "rom_encoded_text": "Je l~27admire de loin.",
+            "display_text": "Je l'admire de loin.",
+            "segments": [
+              {
+                "text": "Je l'admire de loin.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "quirky_4",
+      "pret_object": "QuirkyQuest4",
+      "pointer_index": 51,
+      "category": "quirky",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "QUIRKY_Q4",
+        "rom_record_address": "0x0810FB7A",
+        "rom_text_address": "0x0810FB7C",
+        "rom_prefix": 67,
+        "raw_hex": "4c6120726f757465207365206469766973653a20656c6c65207061727420e02064726f69746520657420e00a6761756368652e204f6e20766f7573206469742071757e3237696c2079206120756e207472e9736f72207375720a63656c6c652064652064726f6974652e204465207175656c2063f474e920616c6c657a2d766f75733f",
+        "rom_encoded_text": "La route se divise: elle part à droite et à\ngauche. On vous dit qu~27il y a un trésor sur\ncelle de droite. De quel côté allez-vous?",
+        "display_text": "La route se divise: elle part à droite et à\ngauche. On vous dit qu'il y a un trésor sur\ncelle de droite. De quel côté allez-vous?",
+        "segments": [
+          {
+            "text": "La route se divise: elle part à droite et à\ngauche. On vous dit qu'il y a un trésor sur\ncelle de droite. De quel côté allez-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "docile": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q4_A0",
+            "rom_record_address": "0x0810FB40",
+            "rom_text_address": "0x0810FB42",
+            "rom_prefix": 10,
+            "raw_hex": "4a65207661697320e02064726f69746521",
+            "rom_encoded_text": "Je vais à droite!",
+            "display_text": "Je vais à droite!",
+            "segments": [
+              {
+                "text": "Je vais à droite!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q4_A1",
+            "rom_record_address": "0x0810FB54",
+            "rom_text_address": "0x0810FB56",
+            "rom_prefix": 11,
+            "raw_hex": "556e207069e86765212041206761756368652e",
+            "rom_encoded_text": "Un piège! A gauche.",
+            "display_text": "Un piège! A gauche.",
+            "segments": [
+              {
+                "text": "Un piège! A gauche.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 2,
+          "effects": {
+            "quirky": 2
+          },
+          "text": {
+            "macro": "QUIRKY_Q4_A2",
+            "rom_record_address": "0x0810FB6A",
+            "rom_text_address": "0x0810FB6C",
+            "rom_prefix": 8,
+            "raw_hex": "50657520696d706f7274652e",
+            "rom_encoded_text": "Peu importe.",
+            "display_text": "Peu importe.",
+            "segments": [
+              {
+                "text": "Peu importe.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "misc_1",
+      "pret_object": "MiscQuest1",
+      "pointer_index": 52,
+      "category": "misc",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "MISC_Q1",
+        "rom_record_address": "0x0810FC22",
+        "rom_text_address": "0x0810FC24",
+        "rom_prefix": 17,
+        "raw_hex": "456e20766163616e6365737e326320766f7573207072e966e972657a2e2e2e",
+        "rom_encoded_text": "En vacances~2c vous préférez...",
+        "display_text": "En vacances, vous préférez...",
+        "segments": [
+          {
+            "text": "En vacances, vous préférez...",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "hasty": 1,
+            "quirky": 1
+          },
+          "text": {
+            "macro": "MISC_Q1_A0",
+            "rom_record_address": "0x0810FC00",
+            "rom_text_address": "0x0810FC02",
+            "rom_prefix": 8,
+            "raw_hex": "4c6120736f6c69747564652e",
+            "rom_encoded_text": "La solitude.",
+            "display_text": "La solitude.",
+            "segments": [
+              {
+                "text": "La solitude.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "jolly": 1,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "MISC_Q1_A1",
+            "rom_record_address": "0x0810FC10",
+            "rom_text_address": "0x0810FC12",
+            "rom_prefix": 9,
+            "raw_hex": "4574726520656e2067726f7570652e",
+            "rom_encoded_text": "Etre en groupe.",
+            "display_text": "Etre en groupe.",
+            "segments": [
+              {
+                "text": "Etre en groupe.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "misc_2",
+      "pret_object": "MiscQuest2",
+      "pointer_index": 53,
+      "category": "misc",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "MISC_Q2",
+        "rom_record_address": "0x0810FC62",
+        "rom_text_address": "0x0810FC64",
+        "rom_prefix": 28,
+        "raw_hex": "437e3237657374206c612066ea7465206465206c7e3237e974e9210a566f75732061696d657a206c6573206361726e6176616c733f",
+        "rom_encoded_text": "C~27est la fête de l~27été!\nVous aimez les carnavals?",
+        "display_text": "C'est la fête de l'été!\nVous aimez les carnavals?",
+        "segments": [
+          {
+            "text": "C'est la fête de l'été!\nVous aimez les carnavals?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "jolly": 2
+          },
+          "text": {
+            "macro": "MISC_Q2_A0",
+            "rom_record_address": "0x0810FC44",
+            "rom_text_address": "0x0810FC46",
+            "rom_prefix": 7,
+            "raw_hex": "4a7e323761646f726521",
+            "rom_encoded_text": "J~27adore!",
+            "display_text": "J'adore!",
+            "segments": [
+              {
+                "text": "J'adore!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "sassy": 1,
+            "quirky": 1
+          },
+          "text": {
+            "macro": "MISC_Q2_A1",
+            "rom_record_address": "0x0810FC52",
+            "rom_text_address": "0x0810FC54",
+            "rom_prefix": 8,
+            "raw_hex": "4d7e3237656e2066696368652e",
+            "rom_encoded_text": "M~27en fiche.",
+            "display_text": "M'en fiche.",
+            "segments": [
+              {
+                "text": "M'en fiche.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "misc_3",
+      "pret_object": "MiscQuest3",
+      "pointer_index": 54,
+      "category": "misc",
+      "selectable": true,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "MISC_Q3",
+        "rom_record_address": "0x0810FCAE",
+        "rom_text_address": "0x0810FCB0",
+        "rom_prefix": 40,
+        "raw_hex": "5175656c71757e3237756e206469742071756520766f757320ea746573209362697a617272650a6d616973206472f46c65942e0a566f757320766f75732073656e74657a20636f6d6d656e743f",
+        "rom_encoded_text": "Quelqu~27un dit que vous êtes “bizarre\nmais drôle”.\nVous vous sentez comment?",
+        "display_text": "Quelqu'un dit que vous êtes “bizarre\nmais drôle”.\nVous vous sentez comment?",
+        "segments": [
+          {
+            "text": "Quelqu'un dit que vous êtes “bizarre\nmais drôle”.\nVous vous sentez comment?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "naive": 1,
+            "lonely": 1
+          },
+          "text": {
+            "macro": "MISC_Q3_A0",
+            "rom_record_address": "0x0810FC9A",
+            "rom_text_address": "0x0810FC9C",
+            "rom_prefix": 5,
+            "raw_hex": "537570657221",
+            "rom_encoded_text": "Super!",
+            "display_text": "Super!",
+            "segments": [
+              {
+                "text": "Super!",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "hasty": 1,
+            "sassy": 1
+          },
+          "text": {
+            "macro": "MISC_Q3_A1",
+            "rom_record_address": "0x0810FCA4",
+            "rom_text_address": "0x0810FCA6",
+            "rom_prefix": 5,
+            "raw_hex": "5472697374652e",
+            "rom_encoded_text": "Triste.",
+            "display_text": "Triste.",
+            "segments": [
+              {
+                "text": "Triste.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "brave_2b",
+      "pret_object": "BraveQuest2B",
+      "pointer_index": 55,
+      "category": "brave",
+      "selectable": false,
+      "classification": "PMD_RED_EU_CANON",
+      "question": {
+        "macro": "BRAVE_Q2B",
+        "rom_record_address": "0x0810E90E",
+        "rom_text_address": "0x0810E910",
+        "rom_prefix": 115,
+        "raw_hex": "566f7573206176657a206269656e20636f6d62617474752e2e2e23570a6d616973206c657320657874726174657272657374726573206761676e656e742e2e2e2350496c207920656e206120756e2071756920766f7573206469742e2e2e2350935455204e4f555320415320494d5052455353494f4e4e45532e0a437e3237455441495420554e20504c4149534952204120564f49522e23504a4f494e532d544f492041204e4f55537e326320455420454e53454d424c457e32630a4449524947454f4e53204c45204d4f4e44452e9423570a517565206661697465732d766f75733f",
+        "rom_encoded_text": "Vous avez bien combattu...#W\nmais les extraterrestres gagnent...#PIl y en a un qui vous dit...#P“TU NOUS AS IMPRESSIONNES.\nC~27ETAIT UN PLAISIR A VOIR.#PJOINS-TOI A NOUS~2c ET ENSEMBLE~2c\nDIRIGEONS LE MONDE.”#W\nQue faites-vous?",
+        "display_text": "Vous avez bien combattu...\nmais les extraterrestres gagnent...Il y en a un qui vous dit...“TU NOUS AS IMPRESSIONNES.\nC'ETAIT UN PLAISIR A VOIR.JOINS-TOI A NOUS, ET ENSEMBLE,\nDIRIGEONS LE MONDE.”\nQue faites-vous?",
+        "segments": [
+          {
+            "text": "Vous avez bien combattu...",
+            "after": "wait_press"
+          },
+          {
+            "text": "mais les extraterrestres gagnent...",
+            "after": "extra_message"
+          },
+          {
+            "text": "Il y en a un qui vous dit...",
+            "after": "extra_message"
+          },
+          {
+            "text": "“TU NOUS AS IMPRESSIONNES.\nC'ETAIT UN PLAISIR A VOIR.",
+            "after": "extra_message"
+          },
+          {
+            "text": "JOINS-TOI A NOUS, ET ENSEMBLE,\nDIRIGEONS LE MONDE.”",
+            "after": "wait_press"
+          },
+          {
+            "text": "Que faites-vous?",
+            "after": null
+          }
+        ]
+      },
+      "answers": [
+        {
+          "value": 0,
+          "effects": {
+            "sassy": 1,
+            "relaxed": 1
+          },
+          "text": {
+            "macro": "BRAVE_Q2B_A0",
+            "rom_record_address": "0x0810E8F0",
+            "rom_text_address": "0x0810E8F2",
+            "rom_prefix": 8,
+            "raw_hex": "4a7e3237616363657074652e",
+            "rom_encoded_text": "J~27accepte.",
+            "display_text": "J'accepte.",
+            "segments": [
+              {
+                "text": "J'accepte.",
+                "after": null
+              }
+            ]
+          }
+        },
+        {
+          "value": 1,
+          "effects": {
+            "brave": 4
+          },
+          "text": {
+            "macro": "BRAVE_Q2B_A1",
+            "rom_record_address": "0x0810E900",
+            "rom_text_address": "0x0810E902",
+            "rom_prefix": 7,
+            "raw_hex": "4a65207265667573652e",
+            "rom_encoded_text": "Je refuse.",
+            "display_text": "Je refuse.",
+            "segments": [
+              {
+                "text": "Je refuse.",
+                "after": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

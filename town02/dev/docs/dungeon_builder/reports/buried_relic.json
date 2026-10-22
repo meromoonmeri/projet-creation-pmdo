@@ -1,0 +1,4590 @@
+{
+  "generated_at": "2026-08-22T23:09:20+00:00",
+  "dungeon": "buried_relic",
+  "name": {
+    "en": "Buried Relic",
+    "fr": "Relique Enfouie"
+  },
+  "chapter": 15,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Buried Relic (99F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/BuriedRelic) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 15. Recoupé avec Bulbapedia (page « Buried Relic »).",
+  "floors": 99,
+  "biome": "relic_halls",
+  "direction": "fond",
+  "zone_file": "Data/Zone/buried_relic.json",
+  "segments": [
+    {
+      "name": "relic_halls",
+      "floors": [
+        1,
+        33
+      ],
+      "biome": "relic_halls",
+      "dtef": {
+        "floor": "buried_relic_1_floor",
+        "wall": "buried_relic_1_wall",
+        "secondary": "buried_relic_1_secondary",
+        "name": "buried_relic_1",
+        "element": "normal"
+      },
+      "profiles": [
+        "crossroads",
+        "lattice",
+        "mixed"
+      ],
+      "pokemon": 27,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 40
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "relic_depths",
+      "floors": [
+        34,
+        66
+      ],
+      "biome": "relic_depths",
+      "dtef": {
+        "floor": "buried_relic_1_floor",
+        "wall": "buried_relic_1_wall",
+        "secondary": "buried_relic_1_secondary",
+        "name": "buried_relic_1",
+        "element": "normal"
+      },
+      "profiles": [
+        "lattice",
+        "looping",
+        "dense"
+      ],
+      "pokemon": 12,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 40
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "relic_vault",
+      "floors": [
+        67,
+        99
+      ],
+      "biome": "relic_vault",
+      "dtef": {
+        "floor": "buried_relic_1_floor",
+        "wall": "buried_relic_1_wall",
+        "secondary": "buried_relic_1_secondary",
+        "name": "buried_relic_1",
+        "element": "normal"
+      },
+      "profiles": [
+        "large_rooms",
+        "crossroads",
+        "mixed"
+      ],
+      "pokemon": 11,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 40
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {},
+  "midpoint": {},
+  "boss": {
+    "mode": "arena_rsmap",
+    "map": "buried_relic_arena",
+    "arena_kind": "in_dungeon_fixed_room",
+    "notes": "Aucune scène canonique (actif ni archive) : le combat canonique se déroule à l'intérieur du donjon (dialogue de boss en donjon), la salle fixe .rsmap est donc l'implémentation correcte.",
+    "floor": 99,
+    "fixed_room": "buried_relic_arena",
+    "canonical_evidence": {
+      "source": "pret/pmd-red src/dungeon_boss_dialogue.c",
+      "symbols": "gRegirockPreFightDialogue, gRegicePreFightDialogue, gRegisteelPreFightDialogue",
+      "conclusion": "rencontre en donjon, aucun Ground de cinématique dans la source (les archives PMD Red ne couvrent que D01–D25)"
+    },
+    "roster": [
+      {
+        "species": "regirock",
+        "level": [
+          43,
+          43
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "",
+    "battle_ground": "",
+    "scene_state": "NONE",
+    "mid": "",
+    "end": "",
+    "boss_mode": "arena_rsmap",
+    "boss_ground": "",
+    "boss_map": "buried_relic_arena",
+    "canonical_end_candidates": [],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "no fixed 'end' Ground declared",
+      "dedicated arena scene: buried_relic_arena.rsmap (source of truth) → to be converted into a boss Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:buried_relic",
+    "root_seed": 1644873516998839223,
+    "explicit_seed": false,
+    "derived_seeds": 549
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9033,
+      "seeds": [
+        3505851091703575370,
+        1991999834271617153,
+        2568713987934293283,
+        2414120994903131281,
+        2072546167634345421
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 9,
+        "rooms_max": 12,
+        "halls_avg": 16.8,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 3.2,
+        "connections_avg": 16.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9016,
+      "seeds": [
+        3273445146138747483,
+        5504106957085222437,
+        115196924675435377,
+        6429080343477236403,
+        8617851797075086861
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.0,
+        "rooms_min": 4,
+        "rooms_max": 13,
+        "halls_avg": 8.4,
+        "branches_avg": 1.6,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.4,
+        "connections_avg": 8.4,
+        "room_area_min": 30,
+        "room_area_max": 175,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7877,
+      "seeds": [
+        6230631529469846282,
+        1088001707646309598,
+        4530184611719127866,
+        2474973961255865452,
+        8700845476258297174
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 7,
+        "rooms_max": 22,
+        "halls_avg": 13.8,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.6,
+        "connections_avg": 13.8,
+        "room_area_min": 20,
+        "room_area_max": 216,
+        "stair_distance_avg": 46.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        13,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8631,
+      "seeds": [
+        5498522779582497093,
+        7151290152816763329,
+        8736212401651713542,
+        4932357855249036383,
+        3380379779574687589
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.8,
+        "rooms_min": 8,
+        "rooms_max": 19,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.8,
+        "connections_avg": 15.4,
+        "room_area_min": 24,
+        "room_area_max": 220,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9286,
+      "seeds": [
+        514927478638114655,
+        4804927915254733683,
+        1456196786630990604,
+        7744248116084962140,
+        2696544564288287228
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 8,
+        "rooms_max": 15,
+        "halls_avg": 14.6,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 2.6,
+        "connections_avg": 14.6,
+        "room_area_min": 20,
+        "room_area_max": 200,
+        "stair_distance_avg": 52.4,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9398,
+      "seeds": [
+        8587588870205740592,
+        3572403553103906048,
+        4705929705124190437,
+        1401793894566599114,
+        4725186821868797340
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 5,
+        "rooms_max": 21,
+        "halls_avg": 14.4,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.8,
+        "connections_avg": 14.4,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 47.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8898,
+      "seeds": [
+        2278696149516201147,
+        1367544149181797532,
+        8843431907292551987,
+        796790443987856411,
+        3982473176039454769
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 7,
+        "rooms_max": 16,
+        "halls_avg": 11.6,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 1.2,
+        "connections_avg": 11.6,
+        "room_area_min": 24,
+        "room_area_max": 126,
+        "stair_distance_avg": 43.6,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9822,
+      "seeds": [
+        7633883826301775320,
+        3279456170027452318,
+        9071686576348564193,
+        3072526088224629416,
+        7442857353055829497
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.4,
+        "rooms_min": 7,
+        "rooms_max": 10,
+        "halls_avg": 13.6,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.8,
+        "connections_avg": 13.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 39.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8074,
+      "seeds": [
+        4013230061984835422,
+        7896643350180315021,
+        7619282135465999007,
+        9024666873124817663,
+        1498589119062675029
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 6,
+        "rooms_max": 12,
+        "halls_avg": 13.8,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 2.6,
+        "connections_avg": 13.8,
+        "room_area_min": 20,
+        "room_area_max": 207,
+        "stair_distance_avg": 50.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.853,
+      "seeds": [
+        7148422501241149007,
+        4754992009046592040,
+        8923856781864386356,
+        8613633050718694496,
+        6998793505134250192
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 8,
+        "rooms_max": 21,
+        "halls_avg": 17.0,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 3.0,
+        "connections_avg": 17.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 43.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8953,
+      "seeds": [
+        4511830580432786158,
+        8503042720300513996,
+        2918834764287671963,
+        1353064252924073851,
+        5516244741828302590
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.4,
+        "rooms_min": 8,
+        "rooms_max": 25,
+        "halls_avg": 17.4,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 2.8,
+        "connections_avg": 17.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 42.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8632,
+      "seeds": [
+        1432416234073021375,
+        1690580352804098156,
+        3951850053566121728,
+        966460572500972841,
+        4952968942782553145
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.2,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 8.6,
+        "branches_avg": 1.8,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 0.2,
+        "connections_avg": 8.6,
+        "room_area_min": 25,
+        "room_area_max": 204,
+        "stair_distance_avg": 40.6,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8824,
+      "seeds": [
+        4150676291029634551,
+        2915243252852027613,
+        643118834428398498,
+        1139831326274082340,
+        7561347592483379024
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 5,
+        "rooms_max": 19,
+        "halls_avg": 12.0,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 1.2,
+        "connections_avg": 12.0,
+        "room_area_min": 20,
+        "room_area_max": 102,
+        "stair_distance_avg": 42.8,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        13,
+        12
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7844,
+      "seeds": [
+        7696054658406239128,
+        5317434332751095683,
+        916878047841961588,
+        457156113566897714,
+        4276821422302347885
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 7,
+        "rooms_max": 17,
+        "halls_avg": 13.0,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.4,
+        "connections_avg": 13.0,
+        "room_area_min": 20,
+        "room_area_max": 140,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.941,
+      "seeds": [
+        7721441948342653902,
+        4644510048752526488,
+        3115980636854198047,
+        8260636828505710054,
+        3675084780671568495
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 5,
+        "rooms_max": 17,
+        "halls_avg": 15.4,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 2.4,
+        "connections_avg": 15.4,
+        "room_area_min": 20,
+        "room_area_max": 110,
+        "stair_distance_avg": 48.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 16,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9003,
+      "seeds": [
+        3114283823470022688,
+        1566170324251942534,
+        8177971598325006633,
+        716502070101035524,
+        5470163785170136300
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 12.2,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.2,
+        "connections_avg": 12.2,
+        "room_area_min": 20,
+        "room_area_max": 119,
+        "stair_distance_avg": 36.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 17,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8728,
+      "seeds": [
+        2034475004267316828,
+        1874888721457904898,
+        3097425721532140085,
+        356545819595226743,
+        3432568264744687094
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 15.6,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 2.6,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 18,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8403,
+      "seeds": [
+        6385297872752454238,
+        3990327159786351554,
+        6470585758182834729,
+        2345770801326332454,
+        845014895622589535
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 5,
+        "rooms_max": 12,
+        "halls_avg": 11.8,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.2,
+        "connections_avg": 11.8,
+        "room_area_min": 24,
+        "room_area_max": 247,
+        "stair_distance_avg": 40.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 19,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        8,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9476,
+      "seeds": [
+        5546208653211086361,
+        2051653554382572491,
+        649361580227826328,
+        6588495821980031846,
+        5389177348600026437
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 9,
+        "rooms_max": 12,
+        "halls_avg": 15.8,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 2.4,
+        "connections_avg": 15.8,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 42.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 20,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.862,
+      "seeds": [
+        4568975011185332973,
+        7968311068306391277,
+        9154090939525618566,
+        489000227220706840,
+        9136330989195502209
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 7,
+        "rooms_max": 10,
+        "halls_avg": 11.6,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.2,
+        "connections_avg": 11.6,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 50.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 21,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        8,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8847,
+      "seeds": [
+        4036779404766802212,
+        738795747403738481,
+        8603792379929257430,
+        695857833816956071,
+        5811077308171062292
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 7,
+        "rooms_max": 16,
+        "halls_avg": 11.6,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.2,
+        "connections_avg": 11.6,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 40.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 22,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8684,
+      "seeds": [
+        7163959963147476318,
+        3933512057190078249,
+        9147925856687402421,
+        5799604534088201506,
+        6951765802370469
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 7,
+        "rooms_max": 27,
+        "halls_avg": 14.0,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 1.0,
+        "connections_avg": 14.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 0.9992,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 23,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.891,
+      "seeds": [
+        3838158136107495682,
+        1895793515286254836,
+        6410900754597303443,
+        7333781326082374056,
+        1617971853640560433
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 13.8,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 2.0,
+        "connections_avg": 13.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 46.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 24,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8006,
+      "seeds": [
+        5010617301444906908,
+        428769302103106762,
+        3719640951975862219,
+        907578637992186265,
+        485427072703737536
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.0,
+        "rooms_min": 8,
+        "rooms_max": 29,
+        "halls_avg": 19.4,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 2.8,
+        "connections_avg": 19.4,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 52.4,
+        "reachable_ratio_min": 0.9982,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 25,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7169,
+      "seeds": [
+        5764087045051494620,
+        5989528965329404141,
+        821053627180789142,
+        4154785605863828281,
+        8984455559676316919
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.4,
+        "rooms_min": 4,
+        "rooms_max": 11,
+        "halls_avg": 11.2,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.4,
+        "connections_avg": 11.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 36.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 26,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9312,
+      "seeds": [
+        7868962039503223939,
+        2614606256617526237,
+        7611903746921336209,
+        8699587246510456184,
+        7458922969275913524
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 8,
+        "rooms_max": 22,
+        "halls_avg": 15.6,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.6,
+        "connections_avg": 15.6,
+        "room_area_min": 20,
+        "room_area_max": 264,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 27,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9466,
+      "seeds": [
+        590938514706084470,
+        4419006986326878976,
+        7347265900382759236,
+        3849378819438873229,
+        1728695803210234329
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 8,
+        "rooms_max": 13,
+        "halls_avg": 12.8,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 2.0,
+        "connections_avg": 12.8,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 34.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 28,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9789,
+      "seeds": [
+        4455891484138411698,
+        3476303537726639589,
+        6908975174850308164,
+        600458292103434340,
+        8496261109139287212
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 10,
+        "rooms_max": 14,
+        "halls_avg": 20.4,
+        "branches_avg": 7.0,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 3.8,
+        "connections_avg": 20.4,
+        "room_area_min": 20,
+        "room_area_max": 144,
+        "stair_distance_avg": 50.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 29,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        13,
+        12
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8341,
+      "seeds": [
+        4198622882451044955,
+        574487543224791148,
+        1326895846633866045,
+        1216056296347841724,
+        4395985272435845637
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.0,
+        "rooms_min": 7,
+        "rooms_max": 10,
+        "halls_avg": 12.6,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 2.0,
+        "connections_avg": 12.6,
+        "room_area_min": 20,
+        "room_area_max": 234,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 30,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9904,
+      "seeds": [
+        279118460900124941,
+        6727371831000842942,
+        3478349195811910888,
+        386855513085615300,
+        3425498579582370158
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 15.2,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 2.4,
+        "connections_avg": 15.2,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 31,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8874,
+      "seeds": [
+        7718503634080914211,
+        4542681487694329885,
+        4654244308517321814,
+        3840015122018335019,
+        6218928718576175694
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 7,
+        "rooms_max": 18,
+        "halls_avg": 14.8,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.4,
+        "connections_avg": 14.8,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 38.8,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 32,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7747,
+      "seeds": [
+        9056173402435672288,
+        3165116425691209076,
+        8116010796103042709,
+        8162781938171289369,
+        8870635221368853113
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 14.0,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 2.0,
+        "connections_avg": 14.0,
+        "room_area_min": 20,
+        "room_area_max": 200,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 33,
+      "segment": "relic_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.879,
+      "seeds": [
+        5841361864286572600,
+        477629336827392315,
+        7083571131717455988,
+        5795466220665226087,
+        4965253160127531087
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 8,
+        "rooms_max": 12,
+        "halls_avg": 12.8,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 2.0,
+        "connections_avg": 12.8,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 34,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        7,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.745,
+      "seeds": [
+        8050001051754740463,
+        2034342605753083467,
+        3173405490131932618,
+        6158542906026556872,
+        5570008815453707904
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 8,
+        "rooms_max": 19,
+        "halls_avg": 15.6,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 1.8,
+        "connections_avg": 15.6,
+        "room_area_min": 12,
+        "room_area_max": 80,
+        "stair_distance_avg": 33.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 35,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7515,
+      "seeds": [
+        4006861951330477795,
+        567251546450037437,
+        1976788325482234745,
+        4127363876983084795,
+        5706870580431909429
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 4,
+        "rooms_max": 23,
+        "halls_avg": 15.8,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.4,
+        "connections_avg": 15.8,
+        "room_area_min": 12,
+        "room_area_max": 70,
+        "stair_distance_avg": 36.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 36,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7913,
+      "seeds": [
+        7319573878176704232,
+        1584602158309257936,
+        8933659489912753289,
+        1060331326978652985,
+        98764692824165751
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 9,
+        "rooms_max": 19,
+        "halls_avg": 20.6,
+        "branches_avg": 6.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 3.8,
+        "connections_avg": 20.6,
+        "room_area_min": 9,
+        "room_area_max": 126,
+        "stair_distance_avg": 45.4,
+        "reachable_ratio_min": 0.9979,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 37,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7763,
+      "seeds": [
+        3226669526753507097,
+        1732881343897692427,
+        6143251971188628244,
+        7192052695656480076,
+        1260529321205055339
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 4,
+        "rooms_max": 22,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 2.6,
+        "connections_avg": 15.4,
+        "room_area_min": 9,
+        "room_area_max": 81,
+        "stair_distance_avg": 41.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 38,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.764,
+      "seeds": [
+        8437654373240631033,
+        4738045386111677441,
+        2569119300428452745,
+        5007617660298255863,
+        6767712755282319403
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 7.6,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 11.6,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 2.2,
+        "connections_avg": 11.6,
+        "room_area_min": 30,
+        "room_area_max": 64,
+        "stair_distance_avg": 39.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 39,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8023,
+      "seeds": [
+        4379100419879558515,
+        8548761092518249142,
+        2250709245703515004,
+        1530324782910160577,
+        1226378102722838382
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 8,
+        "rooms_max": 23,
+        "halls_avg": 18.2,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 2.8,
+        "connections_avg": 18.2,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 44.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 40,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8673,
+      "seeds": [
+        4806239329598393647,
+        7076130157777560240,
+        9038839624875504229,
+        8043362031118853919,
+        685544640724123317
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 7,
+        "rooms_max": 20,
+        "halls_avg": 16.2,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 2.4,
+        "connections_avg": 16.2,
+        "room_area_min": 15,
+        "room_area_max": 72,
+        "stair_distance_avg": 31.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 41,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8138,
+      "seeds": [
+        5064839853670418710,
+        8196066845056242578,
+        3016571953549938136,
+        8916892736957846270,
+        4665650595154138629
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 7,
+        "rooms_max": 20,
+        "halls_avg": 18.4,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 3.0,
+        "connections_avg": 18.4,
+        "room_area_min": 12,
+        "room_area_max": 168,
+        "stair_distance_avg": 40.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 42,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9114,
+      "seeds": [
+        1014815891957617295,
+        5629339525512991704,
+        2326135624620960635,
+        8713626636549500435,
+        8819277693074027627
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 15.8,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 2.6,
+        "connections_avg": 15.8,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 39.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 43,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        4
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8301,
+      "seeds": [
+        771645086259967711,
+        8382882987352591506,
+        8040796658793070466,
+        1670123728703218714,
+        6739801564483933977
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 9,
+        "rooms_max": 15,
+        "halls_avg": 16.2,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 2.4,
+        "connections_avg": 16.2,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 35.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 44,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.8184,
+      "seeds": [
+        1692217211553129021,
+        8262940752637742412,
+        5405850352071561364,
+        6268710462681870291,
+        805081539512266874
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.2,
+        "rooms_min": 9,
+        "rooms_max": 23,
+        "halls_avg": 19.6,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 2.4,
+        "connections_avg": 19.6,
+        "room_area_min": 12,
+        "room_area_max": 81,
+        "stair_distance_avg": 34.6,
+        "reachable_ratio_min": 0.9985,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 45,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7966,
+      "seeds": [
+        7939580772678795331,
+        1966840863836174572,
+        4341176031495508024,
+        276663935815011261,
+        6598321604514946245
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 7,
+        "rooms_max": 21,
+        "halls_avg": 16.8,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.6,
+        "connections_avg": 16.8,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 45.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 46,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        7,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.7947,
+      "seeds": [
+        7863583071554150594,
+        1199553942312427138,
+        6002922841107775698,
+        2232350908305444527,
+        8546236142726629720
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 7,
+        "rooms_max": 16,
+        "halls_avg": 18.4,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 3.6,
+        "connections_avg": 18.4,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 47,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.8097,
+      "seeds": [
+        4140871555415558994,
+        1145735392350266537,
+        5023670953249536436,
+        6123045593528542594,
+        6860157810818772465
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 7,
+        "rooms_max": 11,
+        "halls_avg": 14.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.6,
+        "connections_avg": 14.0,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 41.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 48,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7441,
+      "seeds": [
+        4390533464382091461,
+        6139900677416119982,
+        3544180057301445435,
+        3745429851114054854,
+        5813919237390026283
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 5,
+        "rooms_max": 19,
+        "halls_avg": 15.2,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 2.2,
+        "connections_avg": 15.2,
+        "room_area_min": 9,
+        "room_area_max": 81,
+        "stair_distance_avg": 46.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 49,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7934,
+      "seeds": [
+        3028050903480873135,
+        179102926103929318,
+        4734942631728942727,
+        8388179650173705026,
+        8305887674392360535
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 14.0,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 2.6,
+        "connections_avg": 14.0,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 36.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 50,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9103,
+      "seeds": [
+        1478329096963055402,
+        6245325367352954427,
+        5660815073528659044,
+        2933828084745102,
+        2657229013502967933
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 8,
+        "rooms_max": 11,
+        "halls_avg": 14.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.4,
+        "connections_avg": 14.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 51,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.8255,
+      "seeds": [
+        8007027386302949410,
+        4746508310608513364,
+        586985778713625733,
+        1282192712911587124,
+        8985417910214877416
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.4,
+        "rooms_min": 8,
+        "rooms_max": 20,
+        "halls_avg": 20.4,
+        "branches_avg": 7.0,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 4.2,
+        "connections_avg": 20.4,
+        "room_area_min": 9,
+        "room_area_max": 81,
+        "stair_distance_avg": 30.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 52,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        7,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8502,
+      "seeds": [
+        7614238878123429155,
+        1312015412167138152,
+        5468937369773045563,
+        1949384600749951676,
+        4384904894449687800
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 17.0,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 3.4,
+        "connections_avg": 17.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 53,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7287,
+      "seeds": [
+        3364172939358389120,
+        3702077927196274540,
+        5478665671219342710,
+        8679679812046432714,
+        4178044483746433413
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 4,
+        "rooms_max": 18,
+        "halls_avg": 15.0,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.4,
+        "connections_avg": 15.0,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 37.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 54,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7742,
+      "seeds": [
+        2857231977495380947,
+        7659083929232652169,
+        1545654463523052498,
+        2822518964522822065,
+        745259925446280856
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 9,
+        "rooms_max": 24,
+        "halls_avg": 21.0,
+        "branches_avg": 7.0,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 4.2,
+        "connections_avg": 21.0,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 0.9976,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 55,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        6
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.899,
+      "seeds": [
+        4931878626842932728,
+        8682849550964711656,
+        6645390719031575289,
+        535194027567279608,
+        7090447738951369126
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.0,
+        "rooms_min": 8,
+        "rooms_max": 22,
+        "halls_avg": 17.8,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.4,
+        "connections_avg": 17.8,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 56,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.7942,
+      "seeds": [
+        7459941659198128801,
+        2136821640575428612,
+        3466907905490400681,
+        3216924777852019911,
+        5366856110122425009
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 8,
+        "rooms_max": 12,
+        "halls_avg": 12.8,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.2,
+        "connections_avg": 12.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 39.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 57,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.827,
+      "seeds": [
+        1657715661552034299,
+        6113856555326791875,
+        506739923440395986,
+        6593343442917279485,
+        2923473712776030590
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 9,
+        "rooms_max": 20,
+        "halls_avg": 19.4,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 3.6,
+        "connections_avg": 19.4,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 58,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8243,
+      "seeds": [
+        6730276273011784163,
+        7797199423877016668,
+        4468084004144251114,
+        8024318738696632169,
+        718480421552065987
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 8,
+        "rooms_max": 18,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.0,
+        "connections_avg": 15.4,
+        "room_area_min": 9,
+        "room_area_max": 64,
+        "stair_distance_avg": 43.6,
+        "reachable_ratio_min": 0.9978,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 59,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7423,
+      "seeds": [
+        933688123126712177,
+        524639001744408922,
+        6722435269836502144,
+        6350710053105571394,
+        7708598465919029002
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 7,
+        "rooms_max": 13,
+        "halls_avg": 17.8,
+        "branches_avg": 6.6,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 4.4,
+        "connections_avg": 17.8,
+        "room_area_min": 24,
+        "room_area_max": 70,
+        "stair_distance_avg": 48.8,
+        "reachable_ratio_min": 0.9972,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 60,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8935,
+      "seeds": [
+        2236722965696401941,
+        2471101126707101004,
+        6676091000873052207,
+        8126183285150948471,
+        1330255241577598006
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 8,
+        "rooms_max": 16,
+        "halls_avg": 16.0,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.6,
+        "connections_avg": 16.0,
+        "room_area_min": 12,
+        "room_area_max": 64,
+        "stair_distance_avg": 40.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 61,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7638,
+      "seeds": [
+        346610310135685724,
+        8590837497810294500,
+        6039480539899263842,
+        3625193908444365712,
+        2427300959512891578
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 8,
+        "rooms_max": 24,
+        "halls_avg": 16.2,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.2,
+        "connections_avg": 16.2,
+        "room_area_min": 12,
+        "room_area_max": 64,
+        "stair_distance_avg": 35.6,
+        "reachable_ratio_min": 0.9979,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 62,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7947,
+      "seeds": [
+        7678904507251224763,
+        827233597525574209,
+        8524441875921315928,
+        4049866251487263642,
+        5467958317995504845
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 9,
+        "rooms_max": 28,
+        "halls_avg": 19.6,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 2.8,
+        "connections_avg": 19.6,
+        "room_area_min": 9,
+        "room_area_max": 85,
+        "stair_distance_avg": 42.4,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 63,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7391,
+      "seeds": [
+        1018103703346133407,
+        6312028633119603318,
+        8103294937036301688,
+        7734665771429100077,
+        3099113533456848283
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 9,
+        "rooms_max": 17,
+        "halls_avg": 20.6,
+        "branches_avg": 7.0,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 4.2,
+        "connections_avg": 20.6,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 42.2,
+        "reachable_ratio_min": 0.9967,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 64,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        9,
+        7
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8297,
+      "seeds": [
+        6485900678963492514,
+        7408655886467051853,
+        5496269610315941414,
+        4756223385725916875,
+        4599705352502917560
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 7,
+        "rooms_max": 20,
+        "halls_avg": 14.2,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.0,
+        "connections_avg": 14.2,
+        "room_area_min": 15,
+        "room_area_max": 80,
+        "stair_distance_avg": 45.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 65,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.8481,
+      "seeds": [
+        1240870363006557846,
+        425950705082018845,
+        5795907615959723006,
+        127781130873372123,
+        9068434781161702529
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 8,
+        "rooms_max": 22,
+        "halls_avg": 17.2,
+        "branches_avg": 6.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 3.2,
+        "connections_avg": 17.2,
+        "room_area_min": 12,
+        "room_area_max": 81,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 66,
+      "segment": "relic_depths",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        8,
+        4
+      ],
+      "cell": [
+        8,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8204,
+      "seeds": [
+        964096574917700961,
+        6147931214322434852,
+        8990417357129180041,
+        5984725725881032286,
+        5012929109541621701
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 7,
+        "rooms_max": 23,
+        "halls_avg": 17.8,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 2.6,
+        "connections_avg": 17.8,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 36.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 67,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7797,
+      "seeds": [
+        1887777362590917480,
+        6561981265325448376,
+        7517392646476655838,
+        2064372470305328892,
+        8623830228603577806
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 4,
+        "rooms_max": 13,
+        "halls_avg": 9.0,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 9.0,
+        "room_area_min": 20,
+        "room_area_max": 140,
+        "stair_distance_avg": 34.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 68,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9334,
+      "seeds": [
+        3695343513312464788,
+        8591844542685391019,
+        1711296566784505458,
+        4817679590599049544,
+        1713938091644398334
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 4,
+        "rooms_max": 19,
+        "halls_avg": 12.0,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.0,
+        "connections_avg": 12.0,
+        "room_area_min": 20,
+        "room_area_max": 330,
+        "stair_distance_avg": 31.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 69,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9139,
+      "seeds": [
+        5741129013393282435,
+        5304764507079548118,
+        971858328139467359,
+        6733839299340751600,
+        4607744810171149857
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 8,
+        "rooms_max": 15,
+        "halls_avg": 10.6,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.8,
+        "connections_avg": 10.6,
+        "room_area_min": 20,
+        "room_area_max": 154,
+        "stair_distance_avg": 42.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 70,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        13,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8802,
+      "seeds": [
+        2082504937968370886,
+        8554104012563044214,
+        2894291699889317325,
+        7790684210631423558,
+        7104437691534154747
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 7.6,
+        "rooms_min": 5,
+        "rooms_max": 9,
+        "halls_avg": 6.8,
+        "branches_avg": 1.0,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.2,
+        "connections_avg": 6.8,
+        "room_area_min": 24,
+        "room_area_max": 294,
+        "stair_distance_avg": 34.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 71,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        13,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.909,
+      "seeds": [
+        6858631111704379502,
+        2979749536340214489,
+        4234537140020025464,
+        2734828638768668543,
+        7720503773830851938
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 6,
+        "rooms_max": 20,
+        "halls_avg": 9.8,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 9.8,
+        "room_area_min": 20,
+        "room_area_max": 330,
+        "stair_distance_avg": 50.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 72,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        14,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9171,
+      "seeds": [
+        7911753354431845136,
+        3170464125218119813,
+        3888219932519571264,
+        7390889563517161968,
+        1594238043460816393
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.4,
+        "rooms_min": 7,
+        "rooms_max": 10,
+        "halls_avg": 8.2,
+        "branches_avg": 1.2,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 0.6,
+        "connections_avg": 8.2,
+        "room_area_min": 25,
+        "room_area_max": 220,
+        "stair_distance_avg": 50.8,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 73,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        14,
+        13
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7023,
+      "seeds": [
+        4119811606371895801,
+        345079770703023909,
+        4175298743452018057,
+        902849094398872810,
+        5003129576393717529
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 6,
+        "rooms_max": 25,
+        "halls_avg": 12.6,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.4,
+        "connections_avg": 12.6,
+        "room_area_min": 25,
+        "room_area_max": 225,
+        "stair_distance_avg": 44.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 74,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9244,
+      "seeds": [
+        7505725195863366944,
+        5198142127637335876,
+        2513204901348235705,
+        6953734207641155294,
+        953871621582710440
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.6,
+        "rooms_min": 5,
+        "rooms_max": 15,
+        "halls_avg": 8.4,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 8.4,
+        "room_area_min": 25,
+        "room_area_max": 390,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 75,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8505,
+      "seeds": [
+        5150176014655272421,
+        6554440538664317019,
+        4958568151333545322,
+        272462776220773241,
+        5831172854898140625
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.6,
+        "rooms_min": 4,
+        "rooms_max": 15,
+        "halls_avg": 8.4,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.6,
+        "connections_avg": 8.4,
+        "room_area_min": 24,
+        "room_area_max": 341,
+        "stair_distance_avg": 30.2,
+        "reachable_ratio_min": 0.999,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 76,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        13,
+        12
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9061,
+      "seeds": [
+        2381403479144466046,
+        438854256195430272,
+        4273212244740930132,
+        2357565441304248703,
+        7142141230560630072
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 6,
+        "rooms_max": 15,
+        "halls_avg": 8.4,
+        "branches_avg": 1.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 0.6,
+        "connections_avg": 8.4,
+        "room_area_min": 24,
+        "room_area_max": 171,
+        "stair_distance_avg": 27.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 77,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7784,
+      "seeds": [
+        7866146887288843648,
+        6554421986131683707,
+        301445247557727120,
+        1129844706488209510,
+        4659823538354352751
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 4,
+        "rooms_max": 21,
+        "halls_avg": 12.8,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.0,
+        "connections_avg": 12.8,
+        "room_area_min": 20,
+        "room_area_max": 324,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 78,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        16,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8576,
+      "seeds": [
+        6141716537911950257,
+        4854138573203165916,
+        5791553076324906916,
+        3391378217802846000,
+        8180844193574491881
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 10.0,
+        "branches_avg": 1.8,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 0.8,
+        "connections_avg": 10.0,
+        "room_area_min": 24,
+        "room_area_max": 266,
+        "stair_distance_avg": 39.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 79,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        11,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9186,
+      "seeds": [
+        1033469803378655386,
+        6213288207547978594,
+        786156126908583533,
+        6271278103627045278,
+        5910589671634892365
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 5,
+        "rooms_max": 21,
+        "halls_avg": 10.4,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 1.0,
+        "connections_avg": 10.4,
+        "room_area_min": 20,
+        "room_area_max": 140,
+        "stair_distance_avg": 39.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 80,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        16,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9286,
+      "seeds": [
+        4154288661162964924,
+        3814864736439788703,
+        184283079855177437,
+        1539363650831316017,
+        1302656772544221819
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 7,
+        "rooms_max": 19,
+        "halls_avg": 11.0,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.8,
+        "connections_avg": 11.0,
+        "room_area_min": 25,
+        "room_area_max": 341,
+        "stair_distance_avg": 44.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 81,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        15,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8545,
+      "seeds": [
+        3552793060001544963,
+        3215201910777923156,
+        6404555429610188789,
+        4840948155245339177,
+        6037251896022563294
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 6,
+        "rooms_max": 17,
+        "halls_avg": 9.2,
+        "branches_avg": 1.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.2,
+        "connections_avg": 9.2,
+        "room_area_min": 20,
+        "room_area_max": 325,
+        "stair_distance_avg": 36.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 82,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        15,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8863,
+      "seeds": [
+        1428598943567030095,
+        4463417868617969797,
+        7654067348704127323,
+        6073715917322204539,
+        1996490447949004433
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 7,
+        "rooms_max": 16,
+        "halls_avg": 9.6,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 0.8,
+        "connections_avg": 9.6,
+        "room_area_min": 20,
+        "room_area_max": 154,
+        "stair_distance_avg": 36.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 83,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8711,
+      "seeds": [
+        1085046227792186025,
+        6725095319751152585,
+        7379197322648448693,
+        6425012362540210868,
+        4781614539725214708
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.4,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 8.4,
+        "branches_avg": 1.8,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.6,
+        "connections_avg": 8.4,
+        "room_area_min": 30,
+        "room_area_max": 225,
+        "stair_distance_avg": 40.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 84,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7893,
+      "seeds": [
+        2605276697846212874,
+        924558579445209507,
+        1706624871431506536,
+        3173442209746232417,
+        8627986176570624322
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 6,
+        "rooms_max": 12,
+        "halls_avg": 9.2,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.8,
+        "connections_avg": 9.2,
+        "room_area_min": 20,
+        "room_area_max": 275,
+        "stair_distance_avg": 34.8,
+        "reachable_ratio_min": 0.9985,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 85,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9437,
+      "seeds": [
+        3473221235148698104,
+        6231416375864290556,
+        2696128628909933277,
+        272754973969758840,
+        7759038722085126493
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.0,
+        "rooms_min": 5,
+        "rooms_max": 13,
+        "halls_avg": 9.4,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 9.4,
+        "room_area_min": 20,
+        "room_area_max": 299,
+        "stair_distance_avg": 43.0,
+        "reachable_ratio_min": 0.9984,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 86,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        16,
+        13
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8804,
+      "seeds": [
+        7342095569253826239,
+        5886894962722887635,
+        5462597558225930640,
+        2416221558365467090,
+        3038463687530065363
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 6,
+        "rooms_max": 12,
+        "halls_avg": 9.0,
+        "branches_avg": 1.8,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 0.8,
+        "connections_avg": 9.0,
+        "room_area_min": 20,
+        "room_area_max": 130,
+        "stair_distance_avg": 28.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 87,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7717,
+      "seeds": [
+        192112824630792667,
+        6404836574538657579,
+        9145974863718264500,
+        6685920598581748135,
+        8125715550973341353
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 7.0,
+        "rooms_min": 4,
+        "rooms_max": 9,
+        "halls_avg": 6.2,
+        "branches_avg": 1.2,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 0.2,
+        "connections_avg": 6.2,
+        "room_area_min": 20,
+        "room_area_max": 384,
+        "stair_distance_avg": 42.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 88,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7644,
+      "seeds": [
+        1983503210917276464,
+        2408957961716197524,
+        1303391455273166559,
+        999159435874691424,
+        5617061671941511394
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 10.6,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.2,
+        "connections_avg": 10.6,
+        "room_area_min": 24,
+        "room_area_max": 364,
+        "stair_distance_avg": 34.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 89,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        16,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7173,
+      "seeds": [
+        3571086080625228772,
+        7201202128069908160,
+        8330051737791645781,
+        925667542692593380,
+        703900676369924291
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 11.2,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 0.8,
+        "connections_avg": 11.2,
+        "room_area_min": 25,
+        "room_area_max": 121,
+        "stair_distance_avg": 36.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 90,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        13
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9226,
+      "seeds": [
+        790586515352280690,
+        1383520910050773389,
+        9020602768013885567,
+        2648005890477530352,
+        365035579745932207
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 5,
+        "rooms_max": 19,
+        "halls_avg": 9.4,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 1.0,
+        "connections_avg": 9.4,
+        "room_area_min": 24,
+        "room_area_max": 184,
+        "stair_distance_avg": 39.0,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 91,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8826,
+      "seeds": [
+        545925143863757485,
+        2817561907994789643,
+        2602832810251816654,
+        1563645247475351295,
+        8510081979596577122
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 5,
+        "rooms_max": 16,
+        "halls_avg": 9.0,
+        "branches_avg": 1.6,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 0.4,
+        "connections_avg": 9.0,
+        "room_area_min": 24,
+        "room_area_max": 230,
+        "stair_distance_avg": 49.4,
+        "reachable_ratio_min": 0.999,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 92,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8048,
+      "seeds": [
+        1198222221246774342,
+        7084965703632968319,
+        4679352967604496508,
+        3864066678479925665,
+        6928151612060575418
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.0,
+        "rooms_min": 5,
+        "rooms_max": 16,
+        "halls_avg": 9.2,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 0.8,
+        "connections_avg": 9.2,
+        "room_area_min": 20,
+        "room_area_max": 220,
+        "stair_distance_avg": 46.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 93,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        10,
+        7
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8331,
+      "seeds": [
+        1756483321537652808,
+        3093093649165654139,
+        5278326320926346876,
+        5061146286118742094,
+        1638966063948733990
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 7.6,
+        "rooms_min": 4,
+        "rooms_max": 14,
+        "halls_avg": 7.4,
+        "branches_avg": 1.2,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 0.6,
+        "connections_avg": 7.4,
+        "room_area_min": 24,
+        "room_area_max": 192,
+        "stair_distance_avg": 27.8,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 94,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        15,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8014,
+      "seeds": [
+        9204326460326967309,
+        4933322709030631575,
+        2921423859582077930,
+        8520988868345486689,
+        5075849045850749208
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.6,
+        "rooms_min": 6,
+        "rooms_max": 14,
+        "halls_avg": 8.2,
+        "branches_avg": 1.0,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 0.4,
+        "connections_avg": 8.2,
+        "room_area_min": 20,
+        "room_area_max": 144,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 95,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.6889,
+      "seeds": [
+        6645763802542158111,
+        461870651044430846,
+        8759265849416038191,
+        7634957106661173945,
+        2205549017851442893
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 7,
+        "rooms_max": 17,
+        "halls_avg": 11.8,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 1.6,
+        "connections_avg": 11.8,
+        "room_area_min": 20,
+        "room_area_max": 429,
+        "stair_distance_avg": 41.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 96,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        13,
+        8
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8371,
+      "seeds": [
+        5611423235073366770,
+        7661727336863037826,
+        109206421293491992,
+        1736388837344153831,
+        5473528976569555162
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 9.8,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.0,
+        "connections_avg": 9.8,
+        "room_area_min": 20,
+        "room_area_max": 152,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 0.9987,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 97,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7799,
+      "seeds": [
+        264781719587381779,
+        3279828054177849329,
+        3114702767639726553,
+        6137720948803399181,
+        3678364448671725737
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 4,
+        "rooms_max": 16,
+        "halls_avg": 8.4,
+        "branches_avg": 1.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.4,
+        "connections_avg": 8.4,
+        "room_area_min": 20,
+        "room_area_max": 330,
+        "stair_distance_avg": 46.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 98,
+      "segment": "relic_vault",
+      "kind": "procedural",
+      "profile": "large_rooms+crossroads+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        16,
+        11
+      ],
+      "dtef": "buried_relic_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8946,
+      "seeds": [
+        6845064687366516439,
+        4030397584963352484,
+        1199127792628888025,
+        2167233593893176615,
+        6890565363534821813
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 7,
+        "rooms_max": 21,
+        "halls_avg": 11.2,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.8,
+        "connections_avg": 11.2,
+        "room_area_min": 25,
+        "room_area_max": 280,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

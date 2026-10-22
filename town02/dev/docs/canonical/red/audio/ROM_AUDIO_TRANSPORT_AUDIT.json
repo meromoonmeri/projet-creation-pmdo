@@ -1,0 +1,78 @@
+{
+  "schema": "new-era.rom-audio-transport-audit.v1",
+  "recorded_at": "2026-08-24T00:00:00Z",
+  "rom": {
+    "game": "Pokemon Mystery Dungeon - Red Rescue Team (Europe) (En,Fr,De,Es,It)",
+    "expected_size": 33554432,
+    "expected_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "expected_md5": "9837da1fdfe900c52f2109d9718d4e85"
+  },
+  "canonical_source_declared_by_user": {
+    "repo": "meromoonmeri/BIBLIOTHEQUE",
+    "branch": "bibliotheque",
+    "path": "PMD-RED/pmdred-eu.gba",
+    "commit_shorthand": "e5fffe8",
+    "storage": "Git LFS",
+    "lfs_oid_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd"
+  },
+  "transport_failures_recorded": [
+    {
+      "route": "GitHub contents API",
+      "result": "returned Git LFS pointer only (not the ROM bytes)",
+      "action": "cannot download the actual ROM bytes through this path"
+    },
+    {
+      "route": "curl https://media.githubusercontent.com/media/meromoonmeri/BIBLIOTHEQUE/bibliotheque/PMD-RED/pmdred-eu.gba",
+      "result": "SSL_ERROR_SYSCALL (OpenSSL SSL_connect)",
+      "action": "abandoned; user explicitly forbade retrying this URL"
+    },
+    {
+      "route": "POST https://github.com/meromoonmeri/BIBLIOTHEQUE.git/info/lfs/objects/batch (HTTPS + SSH negotiations)",
+      "result": "batch response only offered github-cloud.githubusercontent.com href; direct fetch fails with TLS EOF",
+      "action": "abandoned; user forbade github-cloud.githubusercontent.com"
+    },
+    {
+      "route": "ssh -T git@github.com (port 22 and 443)",
+      "result": "Connection reset by peer / Connection closed by remote host",
+      "action": "SSH transport unavailable in sandbox"
+    },
+    {
+      "route": "GitHub Actions artifacts on meromoonmeri/BIBLIOTHEQUE @ bibliotheque",
+      "result": "gh run list returned empty array",
+      "action": "no artifact to download"
+    }
+  ],
+  "resolved_via": {
+    "mechanism": "existing project restore script (tools/restore_pmdred_eu_validation_runtime.sh)",
+    "authoritative_alternate_source": {
+      "repo": "meromoonmeri/PMD-RED-PMDO-PORT",
+      "pinned_commit_sha1": "b441d467091a1678218168558fa480a3d8292012",
+      "commit_subject": "Track Pokemon source data with Git LFS",
+      "file_path": "Pokemon Mystery Dungeon - Red Rescue Team (Europe) (En,Fr,De,Es,It).gba",
+      "storage": "Git LFS resolved by gh clone + gh-authenticated LFS fetch"
+    },
+    "why_this_is_the_same_asset": "the file transported from meromoonmeri/PMD-RED-PMDO-PORT@b441d46 has size 33554432 bytes and SHA-256 0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd, matching the BIBLIOTHEQUE-authoritative pointer byte-for-byte; the same alternate source is already declared by tools/restore_pmdred_eu_validation_runtime.sh (variable ROM_SHA), which is the historical mechanism the project has always used to obtain the ROM bytes when BIBLIOTHEQUE LFS transport is unavailable in the sandbox",
+    "commands_used": [
+      "gh repo clone meromoonmeri/PMD-RED-PMDO-PORT .runtime-cache/recovery-sources/PMD-RED-PMDO-PORT -- --depth 1",
+      "git -C .runtime-cache/recovery-sources/PMD-RED-PMDO-PORT fetch --depth 1 origin b441d467091a1678218168558fa480a3d8292012",
+      "git -C .runtime-cache/recovery-sources/PMD-RED-PMDO-PORT checkout --detach b441d467091a1678218168558fa480a3d8292012",
+      "cp --reflink=auto '.runtime-cache/recovery-sources/PMD-RED-PMDO-PORT/Pokemon Mystery Dungeon - Red Rescue Team (Europe) (En,Fr,De,Es,It).gba' .runtime-cache/downloads/pmdred-eu.gba"
+    ],
+    "verified_locally_at": "2026-08-24",
+    "actual_size": 33554432,
+    "actual_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "actual_md5": "9837da1fdfe900c52f2109d9718d4e85"
+  },
+  "environment_notes": [
+    ".runtime-cache/ is git-ignored (project policy); ROM bytes never enter the repository history",
+    "gh CLI is authenticated in the sandbox as arena-ai-coding-agent[bot] via GH_TOKEN",
+    "The pinned commit is verified against the pre-existing restore script constant PORT_COMMIT=b441d467091a1678218168558fa480a3d8292012 in tools/restore_pmdred_eu_validation_runtime.sh"
+  ],
+  "status": "ROM_BYTES_AVAILABLE",
+  "next_steps": [
+    "Fix pipeline blocker label CANONICAL_MUSIC_ASSET_MISSING -> ROM_AUDIO_EXTRACTION_PENDING while the .ogg is being built",
+    "Identify GBA sappy/mp2k tracks for MUS_TINY_WOODS (seq_126) and MUS_THUNDERWAVE_CAVE (seq_014) inside the ROM bytes",
+    "Render the two tracks to WAV via a ROM-based renderer (agbplay or equivalent) then convert to PMDO-compatible .ogg via ffmpeg, recording ROM->WAV->OGG provenance and output hashes",
+    "Rerun preflight for D01 (tiny_woods) / D02 (thunderwave_cave) and promote only if PASS"
+  ]
+}

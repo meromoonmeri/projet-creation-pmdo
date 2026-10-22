@@ -1,0 +1,215 @@
+{
+  "schema": "new-era.pmdred-eu.sinister-woods-b41-production-promotion.v1",
+  "status": "PROMOTED_UNIQUE_NAMESPACE",
+  "authority": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "dungeon_id": 3,
+    "procedural_tileset": 41,
+    "selection": "mapparam rows 1..12 b41; row13 b65 D04P02"
+  },
+  "namespace": {
+    "shared_treeshroud_names_preserved": true,
+    "sinister_sheet": "SinisterWoodsB41",
+    "sinister_autotiles": [
+      "sinister_woods_b41_floor",
+      "sinister_woods_b41_wall",
+      "sinister_woods_b41_secondary"
+    ],
+    "zone_references": 9,
+    "reason": "Treeshroud is consumed by Relic Forest blobs, Relic Forest zone, arenas and Grounds; global replacement would mix New Era content."
+  },
+  "production_assets": {
+    "Content/Tile/SinisterWoodsB41.tile": {
+      "sha256": "fc01caa619e413712b70c4531c260d2eb05378fc80bd795829f371abe860a2d0",
+      "size": 1463854
+    },
+    "Data/AutoTile/sinister_woods_b41_floor.json": {
+      "sha256": "656e139afa4484b3969a262212a4eb1fe8b59937082724f34436662d154da064",
+      "size": 42583
+    },
+    "Data/AutoTile/sinister_woods_b41_secondary.json": {
+      "sha256": "e2fde5635195a10c275d9bdb582a86264fc52e848648cd94cf694bead4ef3320",
+      "size": 6285894
+    },
+    "Data/AutoTile/sinister_woods_b41_wall.json": {
+      "sha256": "df3dd5b648ff238397b8b7be4c2b271f48aa3cd04740380794a31d892a3b0e85",
+      "size": 42593
+    },
+    "Data/AutoTile/index.idx": {
+      "sha256": "6c5394e570f26c1f39f4b84e68d35cfe959e12f6c82c2300ae01c69094c54df7",
+      "size": 3131
+    },
+    "Content/Tile/index.idx": {
+      "sha256": "8d93b588f718f02bb1a5242d5e6cd4c95b0f40d50a08b1f96bf07c9f1180faa8",
+      "size": 58161254
+    },
+    "Data/Zone/gloomy_forest.json": {
+      "sha256": "24745a7b07e22c9035ef2c468d39fa422d72af1ce71a8b5710637967ae2ea890",
+      "size": 307792
+    },
+    "Data/Script/halcyon/services/sinister_woods_b41_startup_adapter/init.lua": {
+      "sha256": "e5e709ae7f3ebb76981172915682baff7cfc8684db683ab82644562d92b3ee05",
+      "size": 3442
+    }
+  },
+  "candidate": {
+    "manifest_sha256": "6b067dae1a5d34f96c83d2be3ee061b7aefb3c6a5ecfbe95d2e2d5ac72f34fed",
+    "validation_sha256": "df3bf51a1d7250b26305278b4aba16163c77473fc27d813869818dc9236ff814",
+    "validation_result": "PASS",
+    "pixel_checks": 32016,
+    "layer_checks": 2001,
+    "atlas_sha256": "fc01caa619e413712b70c4531c260d2eb05378fc80bd795829f371abe860a2d0",
+    "atlas_tile_count": 68250
+  },
+  "post_promotion_runtime": {
+    "fixture": ".runtime-cache/sinister-woods-production-fixture",
+    "index_log_sha256": "ba292fb1338fd8c41e24943f5ed66065d47e9ef26f45a38e5efa7be95a7f5fbb",
+    "runtime_log_sha256": "81717dd8a2ac5b2074f19b4e74aa2759f08d16f080115865fd9937ea14556445",
+    "events_sha256": "5335cd1e5bfdad89997e2bc3336bedae6b7f4179e03467b0afa351c156210957",
+    "termination_sha256": "6af9a996ef52798aaf1096947b874a43125f4c5f0428c1d2e83ce71ade0ea3ba",
+    "segments": [
+      {
+        "event": "map",
+        "segment": 0,
+        "width": 38,
+        "height": 51,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 1,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 3,
+        "width": 38,
+        "height": 64,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": true,
+        "darkness": false,
+        "dusk": true,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      }
+    ],
+    "adapter_events": [
+      {
+        "event": "map_start",
+        "tick": 0
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 0,
+        "tick": 0
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 1320,
+        "delta": 1320
+      },
+      {
+        "event": "map_start",
+        "tick": 3000
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 2001,
+        "tick": 3000
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 3840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 4320,
+        "delta": 1320
+      },
+      {
+        "event": "map_start",
+        "tick": 6000
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 2001,
+        "tick": 6000
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 6840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 7320,
+        "delta": 1320
+      }
+    ],
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "terminal_seen": true,
+      "graceful_exit_observed": true,
+      "watchdog": false,
+      "residual_before": [],
+      "residual_after": [],
+      "forbidden_diagnostics": []
+    }
+  },
+  "relic_regression": {
+    "fixture": ".runtime-cache/relic-forest-blob-fixture",
+    "termination_sha256": "3ae4f226038d90fbc9c549cb4f6dfe26aa7cdfdff08820f7fd2040cb5b0c1ffb",
+    "runtime_log_sha256": "ad051e13c5fe10231b9d55cae9d3f7cd7377689cee300b3ecab75ea138e1e667",
+    "result": "PASS",
+    "blob_assets_modified": false
+  },
+  "guards": {
+    "consumer_audit": "PASS_UNIQUE_NAMESPACE_SEPARATED",
+    "consumer_audit_sha256": "058e08ecfccb7c7fef41e2b86acc7c6dfa59e52fa861d83067748e13163c25ad",
+    "verify_tile_index": "PASS_953_SHEETS",
+    "verify_zone_index": "PASS",
+    "sinister_static_gate": "PASS",
+    "d04p01_d04p02_modified": false,
+    "relic_forest_zone_modified": false,
+    "relic_blob_maps_modified": false
+  },
+  "production_route_written": true,
+  "promotion": "PROMOTED_UNIQUE_NAMESPACE",
+  "verdict": "SINISTER_WOODS_B41_PROMOTION_PASS_UNIQUE_NAMESPACE",
+  "remaining_scope": [
+    "FULL_PMDO_RED_NARRATIVE_NOT_CERTIFIED",
+    "FULL_GAME_END_TO_END_TRAVERSAL_NOT_CERTIFIED"
+  ]
+}

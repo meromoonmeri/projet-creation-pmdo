@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "ground": "s05",
+  "validated_at": "2026-08-12",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "installation_mode": "validated adjacent temporary copies, fsync, atomic os.replace",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "one insertion after s04 without reserialization"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "active_patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "report_sha256": "828f4ce32a3f990b5e6fdf93e7609f9ff6df774f2862afa0bff060ee14ba6482",
+    "fixture_manifest_sha256": "825a5bdf487f4bbbe8c0c7d80fb3b90ceaac4cc98e198a06afed53a12a3d5e52",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "canonical_ground_sha256": "58fde8e5fa5d815e1aa059be627d323a3d67debb61695b5de83668c0df3f5355",
+    "canonical_tile_sha256": "768c2a4d75761a48073fbead833635fe5892d0252fe7924cdf9137384b4128e6",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_file_id": 245,
+    "identity_symbol": null,
+    "rom_eu_identity_label": "ROM_EU_POST_ENUM_MAP_ID_236",
+    "technical_enum_status": "ROM_EU_POST_ENUM_AFTER_MAP_COUNT",
+    "termination_gate": "PASS_NORMAL_EXIT_0",
+    "termination_method": "RogueEssence.GameBase.LoadPhase.Unload",
+    "termination_watchdog_sent": false,
+    "termination_kind": "NORMAL_EXIT",
+    "termination_returncode": 0,
+    "termination_status_sha256": "b2920240a43e33e64c8555b91462cb1bc503d22df2c66e4eebcf9a72fe934efb",
+    "segmentation_fault": false,
+    "orphan_process_count": 0
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/s05.rsground",
+      "destination": "Data/Ground/s05.rsground",
+      "destination_preexisting": false,
+      "bytes": 275290,
+      "validated_candidate_sha256": "58fde8e5fa5d815e1aa059be627d323a3d67debb61695b5de83668c0df3f5355",
+      "destination_sha256": "58fde8e5fa5d815e1aa059be627d323a3d67debb61695b5de83668c0df3f5355",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/s05_Base.tile",
+      "destination": "Content/Tile/s05_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 56772,
+      "validated_candidate_sha256": "768c2a4d75761a48073fbead833635fe5892d0252fe7924cdf9137384b4128e6",
+      "destination_sha256": "768c2a4d75761a48073fbead833635fe5892d0252fe7924cdf9137384b4128e6",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "s05",
+    "entry_count": 1,
+    "position": "immediately after s04",
+    "pre_promotion_sha256": "f0bc1875c07778f79b456dc43890484ee442f9b737b98c00016fee421d787633",
+    "post_promotion_sha256": "45b2098babe299dd3f582743fb2c1868ccf0540f853cdd28ed0545ddaf0a112c",
+    "prior_entry_present": false,
+    "existing_entries_preserved_in_order": true
+  },
+  "preserved_variants": [],
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "58fde8e5fa5d815e1aa059be627d323a3d67debb61695b5de83668c0df3f5355",
+    "tile_sha256": "768c2a4d75761a48073fbead833635fe5892d0252fe7924cdf9137384b4128e6",
+    "log": "docs/pmdred_eu/pmdo_validation/s05_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

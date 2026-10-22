@@ -1,0 +1,119 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "D55P11A",
+ "scene": "enter08",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/D55P11A/enter08.ssb",
+ "file_size": 36,
+ "header": {
+  "nb_constants": 0,
+  "nb_strings": 0,
+  "constant_strings_start": 24,
+  "const_table_length": 0,
+  "strings_en": 0,
+  "unknown": 0
+ },
+ "data_offset": 12,
+ "start_of_const_table": 36,
+ "start_of_constants": 36,
+ "number_of_routines": 1,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 10,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 4
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 22,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 26,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 2,
+   "off": 30,
+   "id": 302,
+   "name": "supervision_ExecuteCommon",
+   "raw": [
+    549
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 549,
+     "resolved": "EVENT_N06_08"
+    }
+   ],
+   "resolved": [
+    "EVENT_N06_08"
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 34,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [],
+ "strings": [],
+ "validation": {
+  "end_cursor": 36,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 1,
+  "n_ops": 4,
+  "n_constants": 0,
+  "n_strings": 0,
+  "cross_check_model": true
+ }
+}

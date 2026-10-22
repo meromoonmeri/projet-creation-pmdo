@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-08-22T22:57:58+00:00",
+  "dungeon": "magma_cavern_pit",
+  "name": {
+    "en": "Magma Cavern Pit",
+    "fr": "Fond de la Gorge Ardente"
+  },
+  "chapter": 12,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Magma Cavern Pit (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MagmaCavernPit) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 12. Recoupé avec Bulbapedia (page « Magma Cavern Pit »).",
+  "floors": 3,
+  "biome": "magma_pit",
+  "direction": "fond",
+  "zone_file": "Data/Zone/magma_cavern_pit.json",
+  "segments": [
+    {
+      "name": "magma_pit",
+      "floors": [
+        1,
+        3
+      ],
+      "biome": "magma_pit",
+      "dtef": {
+        "floor": "world_abyss_2_floor",
+        "wall": "world_abyss_2_wall",
+        "secondary": "world_abyss_2_secondary",
+        "name": "world_abyss_2",
+        "element": "normal",
+        "justification": "Fond de la Gorge Ardente (Groudon) : abysse volcanique, unique utilisateur de ce triplet."
+      },
+      "profiles": [
+        "branching",
+        "mixed",
+        "dense"
+      ],
+      "pokemon": 5,
+      "item_tables": {},
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "gorge_ardente_porte",
+    "end": "fosse_ardente"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "fosse_ardente",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "groudon",
+        "level": [
+          38,
+          38
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "gorge_ardente_porte",
+    "cinematic_ground": "fosse_ardente",
+    "battle_ground": "fosse_ardente",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "fosse_ardente",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "fosse_ardente",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "fosse_ardente"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'fosse_ardente' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:magma_cavern_pit",
+    "root_seed": 1939074602930152269,
+    "explicit_seed": false,
+    "derived_seeds": 15
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "magma_pit",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        9,
+        7
+      ],
+      "dtef": "world_abyss_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8218,
+      "seeds": [
+        4326376577819576956,
+        758723264898166448,
+        7318081577222038262,
+        1894593275805315039,
+        3734297488437333623
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 9,
+        "rooms_max": 19,
+        "halls_avg": 15.6,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.4,
+        "connections_avg": 15.6,
+        "room_area_min": 12,
+        "room_area_max": 198,
+        "stair_distance_avg": 42.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "magma_pit",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "dtef": "world_abyss_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8316,
+      "seeds": [
+        1304969817074314592,
+        7384926603257903750,
+        1998880705789031553,
+        8908286444853099998,
+        3339858005355998960
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.8,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 16.6,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 1.6,
+        "connections_avg": 16.6,
+        "room_area_min": 9,
+        "room_area_max": 91,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "magma_pit",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "world_abyss_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8242,
+      "seeds": [
+        4860926575449183413,
+        3237852237910700170,
+        6825316580839931456,
+        3983311305214533829,
+        8349733180993993008
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 18.6,
+        "rooms_min": 13,
+        "rooms_max": 22,
+        "halls_avg": 21.8,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 5.2,
+        "loops_avg": 2.0,
+        "connections_avg": 21.8,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 55.6,
+        "reachable_ratio_min": 0.9991,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

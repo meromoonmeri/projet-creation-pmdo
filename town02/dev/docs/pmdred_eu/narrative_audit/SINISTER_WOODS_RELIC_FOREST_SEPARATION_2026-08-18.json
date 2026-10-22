@@ -1,0 +1,588 @@
+{
+  "schema": "new-era.pmdred-eu-sinister-woods-relic-forest-separation.v1",
+  "authority": {
+    "checkpoint": "c3ba0185ff3ea5bc0ad67edf0b3cc5e2928f09ee",
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "map_provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141"
+  },
+  "scope": {
+    "sinister_woods_zone": "Data/Zone/gloomy_forest.json",
+    "relic_forest_zone": "Data/Zone/relic_forest.json",
+    "runtime_asset_roots": [
+      "Data/Map",
+      "Content/Tile"
+    ],
+    "external_conversion_libraries_are_not_runtime": true
+  },
+  "findings": {
+    "why_gloomy_forest_was_branded": "The LoadBlobStep node is byte-structurally identical to the Relic Forest node: same stencil, amount and six weighted map ids. The current zone was cloned from the PMDO Relic Forest dungeon template; the three current procedural segments retained that foreign decoration step. ReverseRelicForest was retained by the same template inheritance and mutates stairs using Chapter 1 Relic Forest flags.",
+    "gloomy_forest_before_correction": {
+      "load_blob_steps": 3,
+      "blob_spawn_references": 18,
+      "reverse_relic_forest_script_references": 3,
+      "segments": [
+        0,
+        1,
+        3
+      ]
+    },
+    "relic_forest_owner_after_correction": {
+      "load_blob_steps": 5,
+      "blob_spawn_references": 30,
+      "blob_ids": [
+        "relic_forest_blob_broken_pillar",
+        "relic_forest_blob_fallen_left",
+        "relic_forest_blob_fallen_right",
+        "relic_forest_blob_pillar",
+        "relic_forest_blob_rubble",
+        "relic_forest_blob_ruins"
+      ],
+      "reverse_relic_forest_script_references": 1
+    },
+    "transitive_asset_policy": "All six .rsmap files and all six Relic_Forest_Blob .tile sheets remain installed because relic_forest still resolves them. No asset was deleted. Each blob map also references treeshroud_forest_1_floor for its underlying unbreakable terrain; this shared dependency is recorded so the later b41 promotion cannot silently break Relic Forest.",
+    "current_runtime_references": {
+      "gloomy_forest": {
+        "path": "Data/Zone/gloomy_forest.json",
+        "sha256": "244a56578f155c251b0c6cf0b958670f7964a998d7b4ac91a0ed4fbf82569390",
+        "load_blob_step_count": 0,
+        "blob_spawn_count": 0,
+        "load_blob_steps": [],
+        "reverse_relic_forest_script_count": 0,
+        "reverse_relic_forest_scripts": [],
+        "blob_ids": []
+      },
+      "relic_forest": {
+        "path": "Data/Zone/relic_forest.json",
+        "sha256": "6f79c137fae01b2f37d5a249e9ef3a010c562d6cab02d571a8d336493539fc87",
+        "load_blob_step_count": 5,
+        "blob_spawn_count": 30,
+        "load_blob_steps": [
+          {
+            "path": "Object/Segments/0/Floors/0/GenSteps/7/Value",
+            "node_sha256": "b12dae34924ad092e0f62bcc54fab71247b9b105fd12e20e9876479218837c23",
+            "amount": {
+              "Min": 2,
+              "Max": 4
+            },
+            "spawn_ids": [
+              "relic_forest_blob_fallen_right",
+              "relic_forest_blob_fallen_left",
+              "relic_forest_blob_broken_pillar",
+              "relic_forest_blob_rubble",
+              "relic_forest_blob_pillar",
+              "relic_forest_blob_ruins"
+            ],
+            "spawn_rates": {
+              "relic_forest_blob_fallen_right": 4,
+              "relic_forest_blob_fallen_left": 4,
+              "relic_forest_blob_broken_pillar": 8,
+              "relic_forest_blob_rubble": 8,
+              "relic_forest_blob_pillar": 8,
+              "relic_forest_blob_ruins": 3
+            },
+            "terrain_stencil_sha256": "7cd6200464e24d79e3d6e384c2fbb463e8570e6fb052bfcda0be91213de512ed"
+          },
+          {
+            "path": "Object/Segments/0/Floors/1/GenSteps/7/Value",
+            "node_sha256": "b12dae34924ad092e0f62bcc54fab71247b9b105fd12e20e9876479218837c23",
+            "amount": {
+              "Min": 2,
+              "Max": 4
+            },
+            "spawn_ids": [
+              "relic_forest_blob_fallen_right",
+              "relic_forest_blob_fallen_left",
+              "relic_forest_blob_broken_pillar",
+              "relic_forest_blob_rubble",
+              "relic_forest_blob_pillar",
+              "relic_forest_blob_ruins"
+            ],
+            "spawn_rates": {
+              "relic_forest_blob_fallen_right": 4,
+              "relic_forest_blob_fallen_left": 4,
+              "relic_forest_blob_broken_pillar": 8,
+              "relic_forest_blob_rubble": 8,
+              "relic_forest_blob_pillar": 8,
+              "relic_forest_blob_ruins": 3
+            },
+            "terrain_stencil_sha256": "7cd6200464e24d79e3d6e384c2fbb463e8570e6fb052bfcda0be91213de512ed"
+          },
+          {
+            "path": "Object/Segments/0/Floors/2/GenSteps/7/Value",
+            "node_sha256": "b12dae34924ad092e0f62bcc54fab71247b9b105fd12e20e9876479218837c23",
+            "amount": {
+              "Min": 2,
+              "Max": 4
+            },
+            "spawn_ids": [
+              "relic_forest_blob_fallen_right",
+              "relic_forest_blob_fallen_left",
+              "relic_forest_blob_broken_pillar",
+              "relic_forest_blob_rubble",
+              "relic_forest_blob_pillar",
+              "relic_forest_blob_ruins"
+            ],
+            "spawn_rates": {
+              "relic_forest_blob_fallen_right": 4,
+              "relic_forest_blob_fallen_left": 4,
+              "relic_forest_blob_broken_pillar": 8,
+              "relic_forest_blob_rubble": 8,
+              "relic_forest_blob_pillar": 8,
+              "relic_forest_blob_ruins": 3
+            },
+            "terrain_stencil_sha256": "7cd6200464e24d79e3d6e384c2fbb463e8570e6fb052bfcda0be91213de512ed"
+          },
+          {
+            "path": "Object/Segments/0/Floors/3/GenSteps/7/Value",
+            "node_sha256": "b12dae34924ad092e0f62bcc54fab71247b9b105fd12e20e9876479218837c23",
+            "amount": {
+              "Min": 2,
+              "Max": 4
+            },
+            "spawn_ids": [
+              "relic_forest_blob_fallen_right",
+              "relic_forest_blob_fallen_left",
+              "relic_forest_blob_broken_pillar",
+              "relic_forest_blob_rubble",
+              "relic_forest_blob_pillar",
+              "relic_forest_blob_ruins"
+            ],
+            "spawn_rates": {
+              "relic_forest_blob_fallen_right": 4,
+              "relic_forest_blob_fallen_left": 4,
+              "relic_forest_blob_broken_pillar": 8,
+              "relic_forest_blob_rubble": 8,
+              "relic_forest_blob_pillar": 8,
+              "relic_forest_blob_ruins": 3
+            },
+            "terrain_stencil_sha256": "7cd6200464e24d79e3d6e384c2fbb463e8570e6fb052bfcda0be91213de512ed"
+          },
+          {
+            "path": "Object/Segments/0/Floors/4/GenSteps/7/Value",
+            "node_sha256": "b12dae34924ad092e0f62bcc54fab71247b9b105fd12e20e9876479218837c23",
+            "amount": {
+              "Min": 2,
+              "Max": 4
+            },
+            "spawn_ids": [
+              "relic_forest_blob_fallen_right",
+              "relic_forest_blob_fallen_left",
+              "relic_forest_blob_broken_pillar",
+              "relic_forest_blob_rubble",
+              "relic_forest_blob_pillar",
+              "relic_forest_blob_ruins"
+            ],
+            "spawn_rates": {
+              "relic_forest_blob_fallen_right": 4,
+              "relic_forest_blob_fallen_left": 4,
+              "relic_forest_blob_broken_pillar": 8,
+              "relic_forest_blob_rubble": 8,
+              "relic_forest_blob_pillar": 8,
+              "relic_forest_blob_ruins": 3
+            },
+            "terrain_stencil_sha256": "7cd6200464e24d79e3d6e384c2fbb463e8570e6fb052bfcda0be91213de512ed"
+          }
+        ],
+        "reverse_relic_forest_script_count": 1,
+        "reverse_relic_forest_scripts": [
+          {
+            "path": "Object/Segments/0/ZoneSteps/6"
+          }
+        ],
+        "blob_ids": [
+          "relic_forest_blob_broken_pillar",
+          "relic_forest_blob_fallen_left",
+          "relic_forest_blob_fallen_right",
+          "relic_forest_blob_pillar",
+          "relic_forest_blob_rubble",
+          "relic_forest_blob_ruins"
+        ]
+      }
+    },
+    "map_assets": {
+      "relic_forest_blob_broken_pillar": {
+        "id": "relic_forest_blob_broken_pillar",
+        "map_path": "Data/Map/relic_forest_blob_broken_pillar.rsmap",
+        "map_exists": true,
+        "map_sha256": "77d14b8dd67360c76536bd4ae91ffecd8214a19e5ad72af94d09a7e14da75789",
+        "reserve_exists": true,
+        "reserve_sha256": "77d14b8dd67360c76536bd4ae91ffecd8214a19e5ad72af94d09a7e14da75789",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Broken_Pillar",
+        "sheets": [
+          "Relic_Forest_Blob_Broken_Pillar"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Broken_Pillar",
+            "path": "Content/Tile/Relic_Forest_Blob_Broken_Pillar.tile",
+            "exists": true,
+            "sha256": "32e5356fcbc18f4997c2b945010e8e9e401be993243e1c18e8a8894b176daecc"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 1,
+            "columns": 2
+          }
+        ],
+        "map_tile_count": 2
+      },
+      "relic_forest_blob_fallen_left": {
+        "id": "relic_forest_blob_fallen_left",
+        "map_path": "Data/Map/relic_forest_blob_fallen_left.rsmap",
+        "map_exists": true,
+        "map_sha256": "07188d6a3ce86ead1fd644093f19e2e2c5dfab649fb7b5a8abb343f5fe93cd28",
+        "reserve_exists": true,
+        "reserve_sha256": "07188d6a3ce86ead1fd644093f19e2e2c5dfab649fb7b5a8abb343f5fe93cd28",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Fallen_Left",
+        "sheets": [
+          "Relic_Forest_Blob_Fallen_Left"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Fallen_Left",
+            "path": "Content/Tile/Relic_Forest_Blob_Fallen_Left.tile",
+            "exists": true,
+            "sha256": "809dd569108f27941f24ef5094b2c48d278724461f0c4327f20900265fc3bc4a"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 2,
+            "columns": 2
+          }
+        ],
+        "map_tile_count": 4
+      },
+      "relic_forest_blob_fallen_right": {
+        "id": "relic_forest_blob_fallen_right",
+        "map_path": "Data/Map/relic_forest_blob_fallen_right.rsmap",
+        "map_exists": true,
+        "map_sha256": "5db746a56c9aa59631029a5fe96278c39009c98a247bfee9fc608aabe91a5bcc",
+        "reserve_exists": true,
+        "reserve_sha256": "5db746a56c9aa59631029a5fe96278c39009c98a247bfee9fc608aabe91a5bcc",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Fallen_Right",
+        "sheets": [
+          "Relic_Forest_Blob_Fallen_Right"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Fallen_Right",
+            "path": "Content/Tile/Relic_Forest_Blob_Fallen_Right.tile",
+            "exists": true,
+            "sha256": "85f146a64c59965368ae205c9a7a8c9e23451c568b699b1a1e4379d2cb9763f7"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 2,
+            "columns": 2
+          }
+        ],
+        "map_tile_count": 4
+      },
+      "relic_forest_blob_pillar": {
+        "id": "relic_forest_blob_pillar",
+        "map_path": "Data/Map/relic_forest_blob_pillar.rsmap",
+        "map_exists": true,
+        "map_sha256": "7e9d4da01ed246a286cd891cd4437fc7646dadb97f0c17309b66c5af6d558825",
+        "reserve_exists": true,
+        "reserve_sha256": "7e9d4da01ed246a286cd891cd4437fc7646dadb97f0c17309b66c5af6d558825",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Pillar",
+        "sheets": [
+          "Relic_Forest_Blob_Pillar"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Pillar",
+            "path": "Content/Tile/Relic_Forest_Blob_Pillar.tile",
+            "exists": true,
+            "sha256": "214abadbf7c559323ac47a962d87daa9185b18eb5c7267f90c3637baf03c35b4"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 1,
+            "columns": 3
+          }
+        ],
+        "map_tile_count": 3
+      },
+      "relic_forest_blob_rubble": {
+        "id": "relic_forest_blob_rubble",
+        "map_path": "Data/Map/relic_forest_blob_rubble.rsmap",
+        "map_exists": true,
+        "map_sha256": "3c1eaf17a6c5f282e8ff74aaa4cf9eddbc52d8d17c858e62ad35c9059a10415a",
+        "reserve_exists": true,
+        "reserve_sha256": "3c1eaf17a6c5f282e8ff74aaa4cf9eddbc52d8d17c858e62ad35c9059a10415a",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Rubble",
+        "sheets": [
+          "Relic_Forest_Blob_Rubble"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Rubble",
+            "path": "Content/Tile/Relic_Forest_Blob_Rubble.tile",
+            "exists": true,
+            "sha256": "da844f32c6a194e9dfa774d337dc7fcd99b19087265dbc58b3178600320009cc"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 1,
+            "columns": 1
+          }
+        ],
+        "map_tile_count": 1
+      },
+      "relic_forest_blob_ruins": {
+        "id": "relic_forest_blob_ruins",
+        "map_path": "Data/Map/relic_forest_blob_ruins.rsmap",
+        "map_exists": true,
+        "map_sha256": "00a900494c34498acb3643009d47bad8b16ea1c89d07290e351240b9ebab5f95",
+        "reserve_exists": true,
+        "reserve_sha256": "00a900494c34498acb3643009d47bad8b16ea1c89d07290e351240b9ebab5f95",
+        "provenance_commit": "55860b9a5eb48697a3cea3a8bdfce5f0529d6141",
+        "asset_name": "Relic_Forest_Blob_Ruins",
+        "sheets": [
+          "Relic_Forest_Blob_Ruins"
+        ],
+        "tile_assets": [
+          {
+            "sheet": "Relic_Forest_Blob_Ruins",
+            "path": "Content/Tile/Relic_Forest_Blob_Ruins.tile",
+            "exists": true,
+            "sha256": "214672dfff8eb77fb0340de0683e37255ad2689c58ed571f18d9e456cf023a3d"
+          }
+        ],
+        "autotilesets": [
+          "treeshroud_forest_1_floor"
+        ],
+        "layer_shapes": [
+          {
+            "name": "New Layer",
+            "rows": 4,
+            "columns": 3
+          }
+        ],
+        "map_tile_count": 12
+      }
+    },
+    "repository_token_references": {
+      "audit_or_documentation": [
+        {
+          "path": "docs/audit_cinematique_genese.md",
+          "matches": [
+            "relic_forest_blob_pillar"
+          ],
+          "occurrences": 1
+        },
+        {
+          "path": "docs/canonical_journeys/CANONICAL_JOURNEY_REGISTRY.json",
+          "matches": [
+            "relic_forest_blob_reference_count"
+          ],
+          "occurrences": 1
+        },
+        {
+          "path": "docs/canonical_journeys/SINISTER_WOODS_GATE.json",
+          "matches": [
+            "relic_forest_blob_reference_count"
+          ],
+          "occurrences": 1
+        },
+        {
+          "path": "docs/pmdred_eu/dungeon_grounds/sinister_woods_material_comparison_2026-08-18.json",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 6
+        },
+        {
+          "path": "docs/pmdred_eu/narrative_audit/SINISTER_WOODS_PROVENANCE_2026-08-18.md",
+          "matches": [
+            "relic_forest_blob_dependencies",
+            "relic_forest_blob_regression"
+          ],
+          "occurrences": 2
+        },
+        {
+          "path": "docs/pmdred_eu/narrative_migration/relic_forest_blob_regression/REPORT.md",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_dependencies",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_regression",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 8
+        }
+      ],
+      "audit_or_test_tool": [
+        {
+          "path": "tools/audit_sinister_woods_relic_forest_separation.py",
+          "matches": [
+            "relic_forest_blob_assets_deleted",
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 7
+        },
+        {
+          "path": "tools/build_canonical_journey_registry.py",
+          "matches": [
+            "relic_forest_blob_reference_count"
+          ],
+          "occurrences": 1
+        },
+        {
+          "path": "tools/build_relic_forest_blob_fixture.py",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_probe",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 9
+        },
+        {
+          "path": "tools/run_relic_forest_blob_regression.sh",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_dependencies",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_fixture",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_probe",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 10
+        },
+        {
+          "path": "tools/test_relic_forest_blob_dependencies.py",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_or_stair_script",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 7
+        }
+      ],
+      "current_runtime_zone": [
+        {
+          "path": "Data/Zone/relic_forest.json",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 30
+        }
+      ],
+      "external_conversion_library": [
+        {
+          "path": "external/BIBLIOTHEQUE_WORKSPACE/games/relict/conversion/pmdo_dungeons/zones/relict_ancient_retreat_pmdo.json",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 6
+        },
+        {
+          "path": "external/BIBLIOTHEQUE_WORKSPACE/games/reminiscencia/conversion/pmdo_dungeons/zones/reminiscencia_deciduous_forest_pmdo.json",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 6
+        },
+        {
+          "path": "external/BIBLIOTHEQUE_WORKSPACE/games/reminiscencia/conversion/pmdo_dungeons/zones/reminiscencia_forest_pmdo.json",
+          "matches": [
+            "relic_forest_blob_broken_pillar",
+            "relic_forest_blob_fallen_left",
+            "relic_forest_blob_fallen_right",
+            "relic_forest_blob_pillar",
+            "relic_forest_blob_rubble",
+            "relic_forest_blob_ruins"
+          ],
+          "occurrences": 6
+        }
+      ]
+    }
+  },
+  "checks": {
+    "gloomy_forest_has_no_load_blob_steps": true,
+    "gloomy_forest_has_no_blob_spawn_ids": true,
+    "gloomy_forest_has_no_reverse_relic_forest_script": true,
+    "relic_forest_retains_all_six_blob_ids": true,
+    "relic_forest_retains_five_blob_steps": true,
+    "all_six_maps_and_transitive_tiles_resolve": true,
+    "gloomy_load_template_was_cloned_from_relic_template_before_removal": true
+  },
+  "blockers": [],
+  "result": "SEPARATED",
+  "expected_separated": true,
+  "production_route": {
+    "gloomy_forest_load_blob_removed": true,
+    "relic_forest_blob_assets_deleted": false,
+    "d04p01_d04p02_touched": false
+  }
+}

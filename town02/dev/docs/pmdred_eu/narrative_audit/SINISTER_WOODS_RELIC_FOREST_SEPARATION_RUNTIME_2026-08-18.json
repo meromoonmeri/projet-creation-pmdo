@@ -1,0 +1,82 @@
+{
+  "schema": "new-era.pmdred-eu-sinister-woods-relic-forest-separation-runtime.v1",
+  "checkpoint": "c3ba0185ff3ea5bc0ad67edf0b3cc5e2928f09ee",
+  "zone_sha256_after_wiring": "244a56578f155c251b0c6cf0b958670f7964a998d7b4ac91a0ed4fbf82569390",
+  "sinister_woods_probe": {
+    "fixture": ".runtime-cache/sinister-woods-procedural-fixture",
+    "scope": "gloomy_forest segments 0 and 1, floor 0; segment 3 is excluded from this clean run because its pre-existing deep_shadow status is independently unresolved",
+    "command_entrypoint": "tools/run_pmdred_eu_pmdo_termination_gate.py",
+    "segments": [
+      {
+        "segment": 0,
+        "floor": 0,
+        "width": 38,
+        "height": 51,
+        "clear_moves": 3,
+        "blocked_moves": 1,
+        "music": "Sinister Woods.ogg"
+      },
+      {
+        "segment": 1,
+        "floor": 0,
+        "width": 51,
+        "height": 38,
+        "clear_moves": 4,
+        "blocked_moves": 0,
+        "music": "Sinister Woods.ogg"
+      }
+    ],
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "terminal_seen": true,
+      "graceful_exit_observed": true,
+      "watchdog": false,
+      "residual_processes": []
+    },
+    "events": 7,
+    "last_event": {
+      "event": "end",
+      "normal_unload_requested": true
+    },
+    "forbidden_runtime_diagnostics": [],
+    "ignored_fixture_evidence": {
+      "termination_json_sha256": "4640068e6c4cb52e1974ae3d72af67ba282c4e103824ba67865f61c37c3a0a48",
+      "runtime_log_sha256": "86c628fe8d744ab335bf231fdc218e54bfe5f8a16a1324eb8e7df5a79dbcb9b4",
+      "events_jsonl_sha256": "fba31e4ff6fe8f0be20aa22ee9840b86552a61ddf7bf9a11c0c553681a62e9c1"
+    }
+  },
+  "relic_forest_blob_regression": {
+    "fixture": ".runtime-cache/relic-forest-blob-fixture",
+    "scope": "resolve all six blob maps and enter relic_forest segment 0 floor 0",
+    "resolved_maps": {
+      "relic_forest_blob_broken_pillar": "1x2",
+      "relic_forest_blob_fallen_left": "2x2",
+      "relic_forest_blob_fallen_right": "2x2",
+      "relic_forest_blob_pillar": "1x3",
+      "relic_forest_blob_rubble": "1x1",
+      "relic_forest_blob_ruins": "4x3"
+    },
+    "generated_floor": "25x38",
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "terminal_seen": true,
+      "graceful_exit_observed": true,
+      "watchdog": false,
+      "residual_processes": []
+    },
+    "ignored_fixture_evidence": {
+      "termination_json_sha256": "b1136679bc2a3b58a9d04eff1eff7ac0f29eaf8b2cdc17b9ce94384b7fc8aa2c",
+      "runtime_log_sha256": "ad051e13c5fe10231b9d55cae9d3f7cd7377689cee300b3ecab75ea138e1e667"
+    }
+  },
+  "verdict": "WIRING_SEPARATED_RUNTIME_VALIDATED",
+  "remaining_blockers": [
+    "PROCEDURAL_B41_MATERIAL_NOT_YET_PROMOTED",
+    "DEEP_SHADOW_COMPONENT_STILL_SEPARATE_AND_UNRESOLVED"
+  ],
+  "production_promotion": "NOT_REQUESTED_BY_THIS_EVIDENCE"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "new-era.pmdred-eu-personality-quiz-runtime-validation.v1",
+  "result": "CORE_PASS_NOT_PRODUCTION_ROUTED",
+  "full_quiz_integrated": false,
+  "classification": {
+    "rom_text_questions_answers_effects": "PMD_RED_EU_CANON",
+    "target_ground_and_parallax": "NEW_ERA_NATIVE",
+    "injected_rng_and_fixture_lifecycle": "NEW_ERA_ADAPTATION"
+  },
+  "validated_scope": [
+    "219 aligned EU ROM French records",
+    "55 directly selectable questions plus branch-only BraveQuest2B",
+    "eight distinct-category selections with observed rejection",
+    "answer effects and deterministic scoring",
+    "BraveQuest2A to BraveQuest2B branch",
+    "strict-greater cyclic tie resolution",
+    "tracked personality_test Ground and two-layer animated parallax",
+    "normal native PMDO unload"
+  ],
+  "not_yet_validated": [
+    "production personality_test entry routing",
+    "interactive question/gender UI and all user-choice paths",
+    "canonical introduction, BGM, SFX, palettes, VFX, and timings",
+    "result handoff to the complete New Era starter catalogue",
+    "starter/partner creation and final transition"
+  ],
+  "authority": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "record_count": 219,
+    "authority_sha256": "ad23d9f43484fa1cd75d53e092c295dd3f510407e13bcc449a0fcf3f41ee019d",
+    "quiz_data_sha256": "05f454799f998551741fe62870606d7dcfb32f0d686115471207c8be4d904b52",
+    "quiz_engine_sha256": "eef83d3e439e0cbb1d62b80fefd8b4afb268ea86d744fcec097b68e940494d70"
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    },
+    "event_count": 33,
+    "last_runtime_frame": 67
+  },
+  "selection_replay": {
+    "draws": [
+      0,
+      1,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28
+    ],
+    "selected_questions": [
+      "hardy_1",
+      "docile_1",
+      "brave_1",
+      "jolly_1",
+      "impish_1",
+      "naive_1",
+      "timid_1",
+      "hasty_1"
+    ],
+    "result": "naive"
+  },
+  "parallax": {
+    "serialized_layers": [
+      {
+        "asset": "Dream_Back",
+        "alpha": 255,
+        "movement_x": 30,
+        "repeat_x": true
+      },
+      {
+        "asset": "Dream_Front",
+        "alpha": 128,
+        "movement_x": -30,
+        "repeat_x": true
+      }
+    ],
+    "requested_elapsed_frames": 120,
+    "changed_rgb_pixels": 76800,
+    "captures": [
+      {
+        "phase": "parallax_early",
+        "source_file": "2026-08-12_20-38-07.png",
+        "width": 320,
+        "height": 240,
+        "sha256": "77a335557b00c34fc7ae1af7ec216675bf57192d9f3cbf1cbe7afd5afc8c78fc"
+      },
+      {
+        "phase": "parallax_late",
+        "source_file": "2026-08-12_20-38-10.png",
+        "width": 320,
+        "height": 240,
+        "sha256": "1d2954d97e382210ede7dabc89306548f5ce34feeafdf3994ca227269448f104"
+      }
+    ]
+  },
+  "promotion": "FORBIDDEN_UNTIL_INTERACTIVE_PRODUCTION_TIMELINE_AND_NEW_ERA_STARTER_HANDOFF_PASS"
+}

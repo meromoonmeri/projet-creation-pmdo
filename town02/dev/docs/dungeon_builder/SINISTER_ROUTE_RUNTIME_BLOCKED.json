@@ -1,0 +1,47 @@
+{
+  "schema": "new-era.sinister-route-runtime.v1",
+  "result": "SUPERSEDED",
+  "runtime": "PMDO 0.8.12 headless",
+  "events": [
+    {
+      "event": "begin",
+      "entrance_index": 391
+    },
+    {
+      "event": "ground",
+      "id": "bois_sombres_oree"
+    },
+    {
+      "event": "ground_transition",
+      "id": "bois_sombres_oree"
+    }
+  ],
+  "expected": {
+    "grounds": [
+      "bois_sombres_oree",
+      "gloomy_forest_midpoint",
+      "sinister_woods_clearing",
+      "metano_town"
+    ],
+    "segments": [
+      0,
+      1,
+      2
+    ]
+  },
+  "observed": {
+    "grounds": [
+      "bois_sombres_oree"
+    ],
+    "segments": []
+  },
+  "blocker": "The headless route harness loads D04P01 but its service-driven transition does not advance after GroundMapEnter; no fake runtime PASS is claimed.",
+  "map_generation_runtime": "PASS_SEPARATE_EVIDENCE",
+  "source_sha256": {
+    "events": "701071b86695a3be1e682e54b076d4cfe40712c8167ff5e97cd168b6c315f285",
+    "engine_log": "27938f196aa7fec9cf1f7c708fefb08ed31dbb2f5ff2c0010b69ccc0b2cc36f9"
+  },
+  "production_zone_promoted": false,
+  "superseded_by": "docs/dungeon_builder/SINISTER_ROUTE_RUNTIME_PASS.json",
+  "superseded_reason": "The scheduling, Ground spawner, visual wait, and fixed-map DiscoveryArray blockers were corrected; active route harness now passes."
+}

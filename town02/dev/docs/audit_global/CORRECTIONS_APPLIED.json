@@ -1,0 +1,15 @@
+{
+  "batch": "transparent-border-and-auditor-geometry",
+  "corrections": [
+    {
+      "type": "INVALID_TEXLOC",
+      "ground": "sinister_woods_clearing",
+      "sheet": "SinisterWoodsFinalCanonical_Base",
+      "count": 189,
+      "cause": "Ground referenced transparent canonical border cells omitted from .tile key table",
+      "correction": "Added those exact coordinate keys, all sharing one transparent 8x8 PNG payload; no visual pixels fabricated",
+      "validation": "PASS_STATIC: 0 invalid TexLoc across 730378 references; PMDO_RUNTIME=NOT_TESTED"
+    }
+  ],
+  "fixed": 189
+}

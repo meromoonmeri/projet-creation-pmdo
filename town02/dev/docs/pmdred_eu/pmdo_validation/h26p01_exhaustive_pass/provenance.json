@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "status": "EXHAUSTIVE_RUNTIME_PASS_PROMOTED",
+  "validated_at": "2026-08-12",
+  "ground": "h26p01",
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "41b6011cc7c67bb7a1d792db0d598666ef37b2ceae66f9c9f8e7c88c621bc9d4"
+  },
+  "authority": {
+    "region": "Europe (En,Fr,De,Es,It)",
+    "rom_size": 33554432,
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan": "docs/pmdred_eu/runtime_reference_plan_v2.json",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "rom_extraction_audit": "docs/pmdred_eu/eu_rom_extraction_audit.json",
+    "rom_extraction_audit_sha256": "d68f731246bbbebddfa668866de2be39125aac57f8783a4b6ec8a5cc657f65d0",
+    "conversion_report": "docs/pmdred_eu/conversion_validation_v201_eu.json",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "static_audit": "docs/pmdred_eu/static_audit_v201_eu.json",
+    "static_audit_sha256": "2434d193ed48596314fe4c188da2b3800d7145f6189086c25ed57b3757acd43b"
+  },
+  "canonical_identity": {
+    "rom_manifest": "docs/pmdred_eu/ground_manifest.json",
+    "rom_manifest_sha256": "02a5d8699ceef50c8195fccedcd455694121983f23869070e5b42b6dfb4e9730",
+    "manifest_ids": {
+      "canonical_debug_id": 162,
+      "ground_place_id": 9,
+      "map_file_id": 163,
+      "map_id": 155,
+      "weather_id": 13
+    },
+    "technical_enum_symbol": "MAP_FRIEND_AREA_VOLCANIC_PIT",
+    "technical_source_repository": "https://github.com/pret/pmd-red",
+    "technical_source_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "technical_source_path": "include/constants/ground_map.h",
+    "technical_source_blob_sha": "fc1b2db255cce354665e2b1c3f43f9eb8abc61c2"
+  },
+  "candidate": {
+    "converter": "2.0.1-eu",
+    "ground_bytes": 5444584,
+    "ground_sha256": "b73166a0dfb774a4c2cdf62b9fb5d5b3f467565759005a4850072a5e1b721a56",
+    "tile_bytes": 1943724,
+    "tile_sha256": "ec93bd38bef447a8bf2ce38c1b8ed7c9972cba85fa0c428df298d9ddb232df01",
+    "source_normalized_sha256": {
+      "H26P01": "9b24e8eecd87badce0b0187195c88ae93c426087e1081d3ada9b440316df6695",
+      "H26P01c": "b4a030e3063858df623a6e1edff1e6a6ac70a8f3a3a39cbf5e243d452ede3f9c",
+      "H26P01m": "943e44b8ed4e6b914d0f7135fcc95bfe48f6e282c275dad4c2f92f4b9dd8d39a"
+    }
+  },
+  "result": {
+    "runtime": "PASS",
+    "pixel_samples": 4217,
+    "primary_animation_samples": 4216,
+    "reload_samples": 1,
+    "pixel_exact": 4217,
+    "fully_opaque": 4217,
+    "movement": "PASS",
+    "collision": "PASS",
+    "entry_exit_reentry": "PASS",
+    "cleanup_reload": "PASS",
+    "native_lifecycle_order": "PASS",
+    "terminal_end_seen": true,
+    "promotion": "PROMOTED_NON_DESTRUCTIVELY"
+  },
+  "classification": {
+    "canonical_source": {
+      "category": "friend_area",
+      "ground_map_symbol": "MAP_FRIEND_AREA_VOLCANIC_PIT",
+      "map_id": 155,
+      "map_file_id": 163,
+      "stable_ground_id": "h26p01",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ],
+      "name_en": "Volcanic Pit",
+      "name_fr": "Fosse Volcanique"
+    },
+    "project_reuse": {
+      "role": "boss_arena",
+      "arena": true,
+      "boss": true,
+      "boss_identity": "Volcanion",
+      "chapter": 23,
+      "location": "Forge de Vapeur",
+      "cinematic": false,
+      "cinematic_basis": "not designated as cinematic in the project mapping row",
+      "basis": "docs/vague6_friend_areas_boss.md:75"
+    }
+  },
+  "correction": {
+    "supersedes": "docs/pmdred_eu/pmdo_validation/h26p01_clock_pinned_pass/provenance.json classification text",
+    "reason": "The focused pilot explicitly did not classify special roles and called the asset a story Ground. Authoritative map ID 155 is the Volcanic Pit Friend Area, while the project separately reuses h26p01 as the chapter-23 Volcanion boss arena. These identities must not be collapsed."
+  },
+  "commands": "commands.sh",
+  "validation_record": "validation_record.json",
+  "artifacts": {
+    "README.md": {
+      "bytes": 3070,
+      "sha256": "bde4d7b9a4fbbac1b11fd696174f81a83e6eee77889b14fa99cd6835ea70e42f"
+    },
+    "actual/actual_primary_tick0.png": {
+      "bytes": 52262,
+      "sha256": "4d108dd28229f5a41e0fb4b1a049992fbfd7581a727e273f0c489344332426db"
+    },
+    "actual/actual_primary_tick7439.png": {
+      "bytes": 52242,
+      "sha256": "e4c6661f7c6a08fedba5d465c8e889b86a1c3e38ccb3406be0ffea73cb95bf1d"
+    },
+    "actual/actual_reload_tick0.png": {
+      "bytes": 52262,
+      "sha256": "4d108dd28229f5a41e0fb4b1a049992fbfd7581a727e273f0c489344332426db"
+    },
+    "commands.sh": {
+      "bytes": 2972,
+      "sha256": "4a0b5ba237fbc474049864c83d678915896fd99d3c4521cd91090bb405c9a4ec"
+    },
+    "comparison.log": {
+      "bytes": 127,
+      "sha256": "9db16e9e11f7aae1c84bf209c2055b6bf76ada6e23bd3c113586df5af48a3551"
+    },
+    "comparisons/comparison_primary_tick0.png": {
+      "bytes": 42236,
+      "sha256": "2306c5af759712f069c578726a9d2ccaee0b1519c645ec9fac8fa9f554969203"
+    },
+    "comparisons/comparison_primary_tick7439.png": {
+      "bytes": 42333,
+      "sha256": "fbc6aa8a041a6fb639c8c078ed543062fb395fc55405e925a075f2637974ad4b"
+    },
+    "comparisons/comparison_reload_tick0.png": {
+      "bytes": 42236,
+      "sha256": "2306c5af759712f069c578726a9d2ccaee0b1519c645ec9fac8fa9f554969203"
+    },
+    "events.jsonl": {
+      "bytes": 1266681,
+      "sha256": "56a23c2fde85e45034d547cd1dfe1ef737aa186bdd5d79646a6c51f485118d7a"
+    },
+    "fixture_manifest.json": {
+      "bytes": 59925,
+      "sha256": "d9cd3cb753c05fe962451acb802e51f8a8870bcf656d1d00ead0ac6175a82f80"
+    },
+    "index.log": {
+      "bytes": 393,
+      "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8"
+    },
+    "promotion_record.json": {
+      "bytes": 2424,
+      "sha256": "d7339d705fc5ce9304f2ab1f97400a9f183f9f4dea6e1b4979e82df5079cf00d"
+    },
+    "report.json": {
+      "bytes": 3357281,
+      "sha256": "b5cb208838e8deb62e1cd070879b07c5b4c57c247254c4830bcf490d7c0f86b6"
+    },
+    "runtime.log": {
+      "bytes": 1637153,
+      "sha256": "68c9cab240f3230b4b5d8b8d789ac9d002bf05fe76d1d4510ed5ac1b53303b9d"
+    },
+    "validation_record.json": {
+      "bytes": 14080,
+      "sha256": "a7ce0771c51bce0be4f4a94ab22cd8f0ed67b6821c3fc0c5d4ce213005a21334"
+    }
+  },
+  "promotion_record": "promotion_record.json",
+  "promotion_record_sha256": "d7339d705fc5ce9304f2ab1f97400a9f183f9f4dea6e1b4979e82df5079cf00d"
+}

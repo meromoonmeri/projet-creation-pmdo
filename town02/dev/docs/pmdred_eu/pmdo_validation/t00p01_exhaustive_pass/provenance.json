@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "status": "EXHAUSTIVE_RUNTIME_PASS_PROMOTED",
+  "validated_at": "2026-08-12",
+  "ground": "t00p01",
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "41b6011cc7c67bb7a1d792db0d598666ef37b2ceae66f9c9f8e7c88c621bc9d4"
+  },
+  "authority": {
+    "region": "Europe (En,Fr,De,Es,It)",
+    "rom_size": 33554432,
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan": "docs/pmdred_eu/runtime_reference_plan_v2.json",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "rom_extraction_audit": "docs/pmdred_eu/eu_rom_extraction_audit.json",
+    "rom_extraction_audit_sha256": "d68f731246bbbebddfa668866de2be39125aac57f8783a4b6ec8a5cc657f65d0",
+    "conversion_report": "docs/pmdred_eu/conversion_validation_v201_eu.json",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "static_audit": "docs/pmdred_eu/static_audit_v201_eu.json",
+    "static_audit_sha256": "2434d193ed48596314fe4c188da2b3800d7145f6189086c25ed57b3757acd43b"
+  },
+  "canonical_identity": {
+    "rom_manifest": "docs/pmdred_eu/ground_manifest.json",
+    "rom_manifest_sha256": "02a5d8699ceef50c8195fccedcd455694121983f23869070e5b42b6dfb4e9730",
+    "manifest_ids": {
+      "canonical_debug_id": 0,
+      "ground_place_id": 0,
+      "map_file_id": 0,
+      "map_id": 0,
+      "weather_id": 9
+    },
+    "technical_enum_symbol": "MAP_SQUARE",
+    "technical_source_repository": "https://github.com/pret/pmd-red",
+    "technical_source_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "technical_source_path": "include/constants/ground_map.h",
+    "technical_source_blob_sha": "fc1b2db255cce354665e2b1c3f43f9eb8abc61c2"
+  },
+  "candidate": {
+    "converter": "2.0.1-eu",
+    "ground_bytes": 3232778,
+    "ground_sha256": "dab1dd66e489b4195a7b989cd9b67903d96cfa92acafd482ca5c534c8b0a611a",
+    "tile_bytes": 323725,
+    "tile_sha256": "e9bbaa3e4d8968ec6a2709433778bf58fab6f2b48cc8192fcdcfebf5382ec769",
+    "source_normalized_sha256": {
+      "T00P01": "3adefb5954c33453321b5205d352a1183b2f78e77ec55b3097c81d087c2aa2de",
+      "T00P01c": "4dda0234d5725ceef74be3a6c5cc1b273b5d5c3cb4aea464c07950c6c69f25c8",
+      "T00P01m": "b4b144b5d1484a680d6b8fd85c16bdafee6ff40bf6a101506a926d4b1b8e7a22"
+    }
+  },
+  "result": {
+    "runtime": "PASS",
+    "pixel_samples": 2,
+    "primary_samples": 1,
+    "reload_samples": 1,
+    "pixel_exact": 2,
+    "fully_opaque": 2,
+    "animation": "PASS_STATIC_NO_CHANNELS",
+    "movement": "PASS",
+    "collision": "PASS",
+    "entry_exit_reentry": "PASS",
+    "cleanup_reload": "PASS",
+    "native_lifecycle_order": "PASS",
+    "terminal_end_seen": true,
+    "promotion": "PROMOTED_NON_DESTRUCTIVELY"
+  },
+  "classification": {
+    "canonical_source": {
+      "category": "square",
+      "ground_map_symbol": "MAP_SQUARE",
+      "map_id": 0,
+      "map_file_id": 0,
+      "stable_ground_id": "t00p01",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ]
+    },
+    "project_reuse": {
+      "role": "fugitive_arc_cutscene_ground",
+      "cinematic": true,
+      "arena": false,
+      "boss": false,
+      "basis": "Data/Script/halcyon/arc_fugitif/scene/t00p01.lua defines t00p01.Cutscene",
+      "status": "OUT_OF_SCOPE_UNTOUCHED_AND_NOT_VALIDATED_BY_THIS_GROUND_PASS"
+    }
+  },
+  "identity_divergence": {
+    "authoritative_result": "Map ID 0 is MAP_SQUARE. The adjacent map ID 1 is MAP_POKEMON_SQUARE.",
+    "conflicting_records": {
+      "docs/pmdred_extraction_tracabilite.md": "calls T00P01 Pokémon Square",
+      "docs/canonical/red/upstream_ground_aliases.json": "maps place_pokemon.rsground to t00p01.rsground",
+      "docs/INVENTAIRE_DEPOTS_PMD_RED_SKY_2026-08-06.md": "calls T00P01 the team base"
+    },
+    "handling": "The exact MAP_SQUARE identity governs this promotion. The contradictory legacy alias is retained and quarantined from proof until exact t01p01 validation permits a non-destructive correction."
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "The native validator does not self-close. After its durable end event and final cleanup, process-group TERM ended PMDO; the shell reported PMDO segmentation-fault termination during that external shutdown.",
+    "evidence_impact": "NONE; the runtime PASS, final cleanup, terminal event, and both accounted captures preceded external termination, and no descendant remained before comparison."
+  },
+  "scope_note": "This milestone promoted only the canonical Ground map and tile. It did not modify or validate the Fugitive-arc cutscene, contradictory aliases, or any event, character, camera, dialogue, music, VFX, or choreography system.",
+  "commands": "commands.sh",
+  "validation_record": "validation_record.json",
+  "artifacts": {
+    "README.md": {
+      "bytes": 3600,
+      "sha256": "eb95215c90f9b5742d5c37dd78d19ded662f97b520558a4a07a577c3801507f9"
+    },
+    "actual/actual_primary_tick0.png": {
+      "bytes": 91270,
+      "sha256": "fef974a20b733ed9d6874e988117cf51742f20323c1d072a4c374ea98af0eae1"
+    },
+    "actual/actual_reload_tick0.png": {
+      "bytes": 91270,
+      "sha256": "fef974a20b733ed9d6874e988117cf51742f20323c1d072a4c374ea98af0eae1"
+    },
+    "commands.sh": {
+      "bytes": 3267,
+      "sha256": "5fc98117d1febdb1916ad44b48095ae9ee1e17644e96271bea97ec66ab5e4373"
+    },
+    "comparison.log": {
+      "bytes": 159,
+      "sha256": "0fe6300cc9531a038c824d28a2537847949da172e46380336ccb970c607398be"
+    },
+    "comparisons/comparison_primary_tick0.png": {
+      "bytes": 92554,
+      "sha256": "e8d8a5f46f035f858366d058ecf4ceacfb42d1200dff467c3fcd03d33c6eac7c"
+    },
+    "comparisons/comparison_reload_tick0.png": {
+      "bytes": 92554,
+      "sha256": "e8d8a5f46f035f858366d058ecf4ceacfb42d1200dff467c3fcd03d33c6eac7c"
+    },
+    "events.jsonl": {
+      "bytes": 2424,
+      "sha256": "52a7c08eafe3a6c5d37562124ac2be9288d44e2771569212ade34032fc3bf3ca"
+    },
+    "fixture_manifest.json": {
+      "bytes": 1837,
+      "sha256": "d6d02c73d0cc0820251ff38fc2719c8cc07caec1394f869541c7b578f1e4f537"
+    },
+    "index.log": {
+      "bytes": 393,
+      "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8"
+    },
+    "promotion_record.json": {
+      "bytes": 2400,
+      "sha256": "73d3c415700f207eba27c419a16b7d85ed3274ad5ffb7ff669d3611d51170170"
+    },
+    "report.json": {
+      "bytes": 5194,
+      "sha256": "33b636c988c0fee677f0974a1dd188f671d1e2344010788b148f63b2dc3b873e"
+    },
+    "runtime.log": {
+      "bytes": 6191,
+      "sha256": "b9975d5cd52c298fc4c57841d1d20940894238fa6913f0092317df2ad89f989a"
+    },
+    "validation_record.json": {
+      "bytes": 6721,
+      "sha256": "102c96fc6c182ab9f0e8b994354512f5e8a9f289b40ba8be53332ae24f28aa7f"
+    }
+  },
+  "promotion_record": "promotion_record.json",
+  "promotion_record_sha256": "73d3c415700f207eba27c419a16b7d85ed3274ad5ffb7ff669d3611d51170170"
+}

@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "ground": "t01p00",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "dimensions_pixels": [960, 720],
+    "primary_sample_count": 24,
+    "reload_sample_count": 1,
+    "exact_sample_count": 25,
+    "unique_rgba_frame_count": 4,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/comparisons/comparison_primary_tick83.png",
+      "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "strategy": "Every planned full-map runtime frame was compared in full RGBA against an independent renderer reading the authenticated raw EU BPL/BPC/BPA/BMA resources. Exact output proves the visible tile composition, tile pixels, palette selection, and animated tile substitution at all sampled boundaries.",
+    "palette_resource": "T01P00",
+    "bpc_resource": "T01P01c",
+    "bpa_resources": ["T01P011"],
+    "bma_resource": "T01P01m"
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "applicability": "ANIMATED_BPA_TILE_CHANNEL",
+    "strategy": "The complete schema-v2 two-local-cycle boundary plan brackets every six-frame BPA transition through tick 83. Exact PMDO clock repinning and pixel comparison covered every planned tick, plus reload tick 0.",
+    "animation_channel_count": 1,
+    "channel": {
+      "kind": "BPA_TILE",
+      "index": 0,
+      "frame_count": 6,
+      "source_duration_values": [6, 6, 6, 6, 6, 6],
+      "pmdo_frame_durations": [7, 7, 7, 7, 7, 7],
+      "local_cycle_ticks": 42,
+      "complete_cycle_count": 2
+    },
+    "planned_primary_ticks": [0, 6, 7, 13, 14, 20, 21, 27, 28, 34, 35, 41, 42, 48, 49, 55, 56, 62, 63, 69, 70, 76, 77, 83],
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "collision_layer_count": 1,
+    "bma_solid_cells": 8685,
+    "collision_sha256": "7d7a44f8677b2ee38939a02049af1b42eaf99748ab5ccb06f438f4d4b0d3538b",
+    "clear_movement_expected_delta": [0, 8],
+    "clear_movement_observed_delta": [0, 8],
+    "blocked_movement_expected_delta": [0, 0],
+    "blocked_movement_observed_delta": [0, 0],
+    "primary_movement_probe": "PASS",
+    "primary_blocked_probe": "PASS"
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "load_count": 2,
+    "entry_count": 2,
+    "exit_count": 2,
+    "same_ground_reentry_count": 1,
+    "sink_transition": "PASS",
+    "strict_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "all_cleanups_pass": true,
+    "reload_tick0_full_rgba_exact": true,
+    "state_leakage": "NONE_OBSERVED",
+    "orphaned_animation": "NONE_OBSERVED",
+    "stale_assets": "NONE_OBSERVED",
+    "permanent_locks": "NONE_OBSERVED",
+    "terminal_end_seen": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "pokemon_square",
+      "ground_map_symbol": "MAP_POKEMON_SQUARE",
+      "map_id": 1,
+      "map_file_id": 1,
+      "stable_ground_id": "t01p00",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ]
+    },
+    "project_reuse": {
+      "role": "none_found",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "status": "NO_PROJECT_SCRIPT_REFERENCE_FOUND"
+    }
+  },
+  "identity_divergence": {
+    "authoritative_result": "t01p00 is map ID 1 / map file ID 1 / MAP_POKEMON_SQUARE.",
+    "related_conflicting_repository_records": [
+      "docs/pmdred_extraction_tracabilite.md calls T00P01 Pokémon Square",
+      "docs/canonical/red/upstream_ground_aliases.json maps place_pokemon.rsground to t00p01.rsground",
+      "t01p01 shares canonical debug ID 1 and Ground place ID 2 but has map ID/map file ID 2"
+    ],
+    "handling": "This promotion records the exact map-ID-1 technical identity only. The conflicting legacy place_pokemon alias is untouched and is not used as proof; any correction remains deferred until exact t01p01 validation proves the adjacent variant non-destructively."
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t01p00.rsground",
+    "tile": "Content/Tile/t01p00_Base.tile",
+    "promotion_status": "PROMOTED_NON_DESTRUCTIVELY",
+    "preexisting_destinations": false,
+    "promoted_ground_sha256": "fce5dfc06ad09a9c4e5129cb9d2a6475a7e73549972983e4d94254cb4370a0f2",
+    "promoted_tile_sha256": "e4f8ea31c2c8f05d7527f17166a71476e54445fcaaced0757339daa311f05db2",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "fce5dfc06ad09a9c4e5129cb9d2a6475a7e73549972983e4d94254cb4370a0f2",
+    "candidate_tile_sha256": "e4f8ea31c2c8f05d7527f17166a71476e54445fcaaced0757339daa311f05db2",
+    "source_normalized_sha256": {
+      "T01P00": "d04356288c1fc7b641a61c4d08a4e48e4ce0217ac257288ec3c2c10db40df00a",
+      "T01P011": "aaef366c5202d51dc287c4f5c4448dd006a780d4ea23bfad0b1273f3bf3ca691",
+      "T01P01c": "03a8e00787b8b69be8aba87307d88fb6ea7f04b1db0a58c7884d05e2147fb944",
+      "T01P01m": "e7ffb2415fdf9fc41b64fdff2c020aff4e7e4d148ea126f40dbcb7171419c291"
+    },
+    "events_sha256": "5603c399f3e26d623cd7f468aa515cbbadd0ee75e9706dc5dd1248c0817ed21c",
+    "report_sha256": "5e217c19cb33c0af914a5869f48f92649950eaa301fa6b69185fe089fe56988a",
+    "fixture_manifest_sha256": "25d94d90788f6cfb416c1caa19c4332287f119c258adc4721026f16840efdee9",
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t01p00_exhaustive_pass/provenance.json",
+    "promotion_record_sha256": "42eadd743955e6d5aa1feb2cb25fc993e6212877b00b84d608a7e9070ea9a3d1"
+  },
+  "scope_note": "This PASS and promotion cover only canonical Ground map/tile reconstruction. Canonical events, characters, movement choreography, cameras, dialogue, music, VFX, and cinematics remain subsequent milestones. The conflicting legacy alias and t01p01 candidate were not modified, validated, promoted, or claimed complete."
+}

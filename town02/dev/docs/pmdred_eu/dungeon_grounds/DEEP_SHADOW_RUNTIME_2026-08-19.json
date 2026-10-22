@@ -1,0 +1,94 @@
+{
+  "schema": "new-era.pmdred-eu.deep-shadow-runtime.v1",
+  "authority": {
+    "zone": "Data/Zone/gloomy_forest.json",
+    "zone_sha256": "244a56578f155c251b0c6cf0b958670f7964a998d7b4ac91a0ed4fbf82569390",
+    "setter": "Data/MapStatus/deep_shadow.json",
+    "setter_sha256": "0750cd49437838b4b045872fcaacc99cc1cd26e07ec6a4847fd5701a5a51302a",
+    "visual_defaults": [
+      "Data/MapStatus/darkness.json",
+      "Data/MapStatus/dusk.json"
+    ],
+    "visual_default_sha256": {
+      "Data/MapStatus/darkness.json": "dbe7bfa569bdeb018cb3e0a78b5afe0f928be6094610eac95edc190e0d19e0ac",
+      "Data/MapStatus/dusk.json": "87473f22e2bd800e4c15c65ef246dc56f9f0a60dbb6c62d07aa412df443561b1"
+    },
+    "map_status_index_sha256": "6d32b4a519e4a935e1998ff4b7734a3efa8bcc80a19b736b931f169fa338d46e",
+    "pmdo_runtime_commit": "61c005e1dc9fd4eee6e6e7fcde77364de33d291e",
+    "pmdo_version": "0.8.12"
+  },
+  "fixture": {
+    "path": ".runtime-cache/sinister-woods-procedural-fixture",
+    "schema": "new-era.pmdred-eu.sinister-woods-procedural-runtime-fixture.v1",
+    "production_assets_modified": false
+  },
+  "segments": [
+    {
+      "event": "map",
+      "segment": 0,
+      "width": 38,
+      "height": 51,
+      "music": "Sinister Woods.ogg",
+      "deep_shadow_setter": false,
+      "darkness": false,
+      "dusk": false,
+      "free_collision_probe": true,
+      "blocked_collision_probe": true
+    },
+    {
+      "event": "map",
+      "segment": 1,
+      "width": 51,
+      "height": 38,
+      "music": "Sinister Woods.ogg",
+      "deep_shadow_setter": false,
+      "darkness": false,
+      "dusk": false,
+      "free_collision_probe": true,
+      "blocked_collision_probe": true
+    },
+    {
+      "event": "map",
+      "segment": 3,
+      "width": 38,
+      "height": 64,
+      "music": "Sinister Woods.ogg",
+      "deep_shadow_setter": true,
+      "darkness": false,
+      "dusk": true,
+      "free_collision_probe": true,
+      "blocked_collision_probe": true
+    }
+  ],
+  "termination": {
+    "gate": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    },
+    "terminal_seen": true,
+    "graceful_exit_observed": true,
+    "watchdog": false,
+    "residual_processes_before_cleanup": [],
+    "residual_processes_after_cleanup": []
+  },
+  "forbidden_diagnostics": [],
+  "runtime_evidence_sha256": {
+    "termination_json": "aa0250ddb7d15fed905d9f8204b0fa4119aab9265098f0b17ac1421b40985e02",
+    "runtime_log": "e9176fa351810a06bdaf8fb72b86f3fbaf62e3c8e636bf519cc0841fa2ddc7e3",
+    "events_jsonl": "5335cd1e5bfdad89997e2bc3336bedae6b7f4179e03467b0afa351c156210957",
+    "index_log": "ba292fb1338fd8c41e24943f5ed66065d47e9ef26f45a38e5efa7be95a7f5fbb"
+  },
+  "verdict": "DEEP_SHADOW_RUNTIME_TESTED",
+  "remaining_scope": [
+    "ROM_B41_PROCEDURAL_MATERIAL_NOT_YET_PROMOTED",
+    "FULL_PMDO_RED_NARRATIVE_NOT_CERTIFIED"
+  ]
+}

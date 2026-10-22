@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "ground": "s02_spa",
+  "validated_at": "2026-08-12",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "installation_mode": "validated adjacent temporary copies, fsync, atomic os.replace",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "one insertion after s02_ita without reserialization"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "active_patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "report_sha256": "7dafb84874c2afe4534c0b81073f8403d3500afc828afd19002e05bf91d61a7e",
+    "fixture_manifest_sha256": "adb66be54e85071cead506300ab2c91f47b6ce717d994fb4a312f9345671ff71",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "canonical_ground_sha256": "40996e801ac9ac074b6197e1b335f03d39f5e5e09d63e6f2c403f4e06723f156",
+    "canonical_tile_sha256": "feaac14d21d55f06470ef106f101250a54c02fbca8eef9dee0717d68c39aa111",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_file_id": 242,
+    "identity_symbol": null,
+    "rom_eu_identity_label": "ROM_EU_POST_ENUM_MAP_ID_233",
+    "technical_enum_status": "ROM_EU_POST_ENUM_AFTER_MAP_COUNT",
+    "termination_gate": "PASS_NORMAL_EXIT_0",
+    "termination_method": "RogueEssence.GameBase.LoadPhase.Unload",
+    "termination_watchdog_sent": false,
+    "termination_kind": "NORMAL_EXIT",
+    "termination_returncode": 0,
+    "termination_status_sha256": "8450ebdb68f4c62ed5fb375e9779e6637c187335674cace0400576fbf827f3b3",
+    "segmentation_fault": false,
+    "orphan_process_count": 0
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/s02_spa.rsground",
+      "destination": "Data/Ground/s02_spa.rsground",
+      "destination_preexisting": false,
+      "bytes": 393765,
+      "validated_candidate_sha256": "40996e801ac9ac074b6197e1b335f03d39f5e5e09d63e6f2c403f4e06723f156",
+      "destination_sha256": "40996e801ac9ac074b6197e1b335f03d39f5e5e09d63e6f2c403f4e06723f156",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/s02_spa_Base.tile",
+      "destination": "Content/Tile/s02_spa_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 108232,
+      "validated_candidate_sha256": "feaac14d21d55f06470ef106f101250a54c02fbca8eef9dee0717d68c39aa111",
+      "destination_sha256": "feaac14d21d55f06470ef106f101250a54c02fbca8eef9dee0717d68c39aa111",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "s02_spa",
+    "entry_count": 1,
+    "position": "immediately after s02_ita",
+    "pre_promotion_sha256": "7e0691dd04185d36b797697e019ff647d9db0ae524af1d07186137f3af077634",
+    "post_promotion_sha256": "8dde9378aa2471ee033ffc244fcf2fdea3478f8c068896dfd531e5b36064af4c",
+    "prior_entry_present": false,
+    "existing_entries_preserved_in_order": true
+  },
+  "preserved_variants": [],
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "40996e801ac9ac074b6197e1b335f03d39f5e5e09d63e6f2c403f4e06723f156",
+    "tile_sha256": "feaac14d21d55f06470ef106f101250a54c02fbca8eef9dee0717d68c39aa111",
+    "log": "docs/pmdred_eu/pmdo_validation/s02_spa_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

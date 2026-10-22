@@ -1,0 +1,673 @@
+{
+ "schema": "newera.adaptation.cast.v1",
+ "principe": "1:1 avec la cinématique canonique Sky (chorégraphie, timings, positions, animations, caméra, fades, SFX, BGM, transitions, flags, embranchements, ordre). SEUL LE CAST change. Aucune réécriture narrative.",
+ "directives_utilisateur": {
+  "dusknoir_grovyle_allies": "dusknoir & groovyle dans new era font équipe ils viennent d'un futur",
+  "dialga_gentil": "dialga dans new era est gentil il est plus corrompu (ABSENT de l'arc du futur)",
+  "decalage_30_ans": "tout les evenement de new era se passe 30 ans plus tard",
+  "necrozma_lumiere": "necrozma dans le futur a absorbé toute la lumiere du monde, la vie en somme le monde deviens progressivement neant",
+  "eternatus_realite": "eternatus lui a altérée la réalitée et cela devenu une sorte d'infini",
+  "climax_ch32": "ces deux boss final (Necrozma + Eternatus) sont le climax du jeu au chapitre 32",
+  "p05p01a_repaire_necrozma": "P05P01A = repaire de Necrozma (deux yeux rouges dans l'obscurité)",
+  "p05p03a_poteau_execution": "p05p03a = poteau d'exécution où héros/partenaire/Grovyle sont ligotés (anims/positions 1:1)"
+ },
+ "cast_global": {
+  "NPC_YONOWAARU": {
+   "new_era": "NewEra.Dusknoir",
+   "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste.",
+   "species": "Dusknoir",
+   "note": "Les répliques/actions de MÉCHANT de Sky portées par YONOWAARU sont ré-attribuées à Necrozma / ses sbires (couche dialogue). Animations/positions conservées telles quelles."
+  },
+  "NPC_YONOWAARU_N8": {
+   "new_era": "NewEra.Dusknoir",
+   "role": "ALLIÉ venu du futur (variante d'instanciation N8).",
+   "species": "Dusknoir",
+   "note": "Même acteur que YONOWAARU ; la variante N8 est une seconde instance (même personnage)."
+  },
+  "NPC_JUPUTORU": {
+   "new_era": "NewEra.Grovyle",
+   "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir).",
+   "species": "Grovyle",
+   "note": "Grovyle reste Grovyle (espèce conservée)."
+  },
+  "NPC_YAMIRAMI": {
+   "new_era": "NewEra.Sableye_1",
+   "role": "Sbire de Necrozma (garde du futur plongé dans le néant).",
+   "species": "Sableye"
+  },
+  "NPC_YAMIRAMI2": {
+   "new_era": "NewEra.Sableye_2",
+   "role": "Sbire de Necrozma.",
+   "species": "Sableye"
+  },
+  "NPC_YAMIRAMI3": {
+   "new_era": "NewEra.Sableye_3",
+   "role": "Sbire de Necrozma.",
+   "species": "Sableye"
+  },
+  "NPC_YAMIRAMI4": {
+   "new_era": "NewEra.Sableye_4",
+   "role": "Sbire de Necrozma.",
+   "species": "Sableye"
+  },
+  "NPC_YAMIRAMI5": {
+   "new_era": "NewEra.Sableye_5",
+   "role": "Sbire de Necrozma.",
+   "species": "Sableye"
+  },
+  "NPC_YAMIRAMI6": {
+   "new_era": "NewEra.Sableye_6",
+   "role": "Sbire de Necrozma.",
+   "species": "Sableye"
+  },
+  "NPC_SEREBII": {
+   "new_era": "NewEra.Celebi",
+   "role": "Gardienne du Passage du Temps / alliée (guide).",
+   "species": "Celebi"
+  },
+  "PLAYER": {
+   "new_era": "NewEra.Hero",
+   "role": "Héros (présent)."
+  },
+  "ATTENDANT1": {
+   "new_era": "NewEra.Partner",
+   "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+  },
+  "PLAYER_FUTURE": {
+   "new_era": "NewEra.HeroFuture",
+   "role": "Héros du futur (30 ans plus tard — le même, dans le monde devenu néant)."
+  },
+  "__MAITRE__": {
+   "new_era": "NewEra.Necrozma",
+   "role": "LE MAÎTRE aux yeux rouges dans l'obscurité (P05P01A). A absorbé toute la lumière du futur.",
+   "species": "Necrozma",
+   "note": "Maître de l'original (Dialga) -> Necrozma. Dialga est ABSENT de l'arc (gentil dans New Era). Dans les scènes où YONOWAARU est l'antagoniste (ANTAGONIST_SCENES), l'acteur devient Necrozma."
+  }
+ },
+ "cast_par_scene": {
+  "P05P01A_m17a0103": {
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   }
+  },
+  "P05P01A_m19a0102": {
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   }
+  },
+  "P05P01A_n08a2008": {
+   "PLAYER_FUTURE": {
+    "new_era": "NewEra.HeroFuture",
+    "role": "Héros du futur (30 ans plus tard — le même, dans le monde devenu néant)."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "NPC_YONOWAARU_N8": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (variante d'instanciation N8)."
+   }
+  },
+  "P05P02A_m17a0104": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P05P02A_m17a0201": {
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   }
+  },
+  "P05P02A_m17a0301": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   }
+  },
+  "P05P03A_m17a0302": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   }
+  },
+  "P05P03A_m26a06d3": {
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   }
+  },
+  "P05P04A_m17a0401": {
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P05P04A_m17a0403": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P06P01A_m18a0401": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P06P01A_m26a0614": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P07P01A_m18b1401": {
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   }
+  },
+  "P07P01A_m26a06e6": {
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   }
+  },
+  "P08P01A_m19a0601": {
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_SEREBII": {
+    "new_era": "NewEra.Celebi",
+    "role": "Gardienne du Passage du Temps / alliée (guide)."
+   }
+  },
+  "P08P01A_m19d0612": {
+   "NPC_SEREBII": {
+    "new_era": "NewEra.Celebi",
+    "role": "Gardienne du Passage du Temps / alliée (guide)."
+   }
+  },
+  "P08P01A_n08a2308": {
+   "PLAYER_FUTURE": {
+    "new_era": "NewEra.HeroFuture",
+    "role": "Héros du futur (30 ans plus tard — le même, dans le monde devenu néant)."
+   },
+   "NPC_YONOWAARU_N8": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (variante d'instanciation N8)."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   }
+  },
+  "P08P01A_n08a2408": {
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   }
+  },
+  "P08P01A_n08a2508": {
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "PLAYER_FUTURE": {
+    "new_era": "NewEra.HeroFuture",
+    "role": "Héros du futur (30 ans plus tard — le même, dans le monde devenu néant)."
+   }
+  },
+  "P08P01A_n08a2608": {
+   "NPC_YONOWAARU_N8": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (variante d'instanciation N8)."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "PLAYER_FUTURE": {
+    "new_era": "NewEra.HeroFuture",
+    "role": "Héros du futur (30 ans plus tard — le même, dans le monde devenu néant)."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   }
+  },
+  "P09P01A_m19b1001": {
+   "NPC_SEREBII": {
+    "new_era": "NewEra.Celebi",
+    "role": "Gardienne du Passage du Temps / alliée (guide)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   }
+  },
+  "P09P01A_m19b1007": {
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_SEREBII": {
+    "new_era": "NewEra.Celebi",
+    "role": "Gardienne du Passage du Temps / alliée (guide)."
+   }
+  },
+  "P09P01A_m19b1009": {
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "PLAYER": {
+    "new_era": "NewEra.Hero",
+    "role": "Héros (présent)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   },
+   "NPC_SEREBII": {
+    "new_era": "NewEra.Celebi",
+    "role": "Gardienne du Passage du Temps / alliée (guide)."
+   },
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   }
+  },
+  "P09P01A_m19d1072": {
+   "NPC_YONOWAARU": {
+    "new_era": "NewEra.Dusknoir",
+    "role": "ALLIÉ venu du futur (fait équipe avec Grovyle). Jamais antagoniste."
+   },
+   "NPC_YAMIRAMI": {
+    "new_era": "NewEra.Sableye_1",
+    "role": "Sbire de Necrozma (garde du futur plongé dans le néant)."
+   },
+   "NPC_YAMIRAMI4": {
+    "new_era": "NewEra.Sableye_4",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI5": {
+    "new_era": "NewEra.Sableye_5",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI2": {
+    "new_era": "NewEra.Sableye_2",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI3": {
+    "new_era": "NewEra.Sableye_3",
+    "role": "Sbire de Necrozma."
+   },
+   "NPC_YAMIRAMI6": {
+    "new_era": "NewEra.Sableye_6",
+    "role": "Sbire de Necrozma."
+   },
+   "ATTENDANT1": {
+    "new_era": "NewEra.Partner",
+    "role": "Partenaire (ligoté aux pieux en p05p03a, animation 78 conservée)."
+   },
+   "NPC_JUPUTORU": {
+    "new_era": "NewEra.Grovyle",
+    "role": "ALLIÉ venu du futur (fait équipe avec Dusknoir)."
+   }
+  }
+ },
+ "regle_antagoniste": {
+  "regle": "antagoniste / maître de l'original -> Necrozma, lorsque le personnage doit être remplacé narrativement",
+  "scenes": {
+   "P05P03A_m17a0302": "Necrozma",
+   "P05P03A_m26a06d3": "Necrozma",
+   "P09P01A_m19b1001": "Necrozma",
+   "P09P01A_m19b1007": "Necrozma",
+   "P09P01A_m19b1009": "Necrozma",
+   "P09P01A_m19d1072": "Necrozma"
+  },
+  "substitutions_dialogue": {
+   "Dialga": "Necrozma (le maître du futur ; Dialga absent de l'arc)",
+   "Primal Dialga": "Necrozma (la présence sombre aux yeux rouges)",
+   "Dusknoir (scènes antagoniste)": "Necrozma (l'acteur YONOWAARU devient Necrozma ; nom dans les dialogues substitué)"
+  }
+ }
+}

@@ -1,0 +1,888 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "D55P21A",
+ "scene": "enter00",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/D55P21A/enter00.ssb",
+ "file_size": 342,
+ "header": {
+  "nb_constants": 10,
+  "nb_strings": 0,
+  "constant_strings_start": 180,
+  "const_table_length": 150,
+  "strings_en": 0,
+  "unknown": 0
+ },
+ "data_offset": 12,
+ "start_of_const_table": 172,
+ "start_of_constants": 192,
+ "number_of_routines": 2,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 16,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 30
+  },
+  {
+   "index": 1,
+   "start_offset_bytes": 150,
+   "type": 3,
+   "linked": 9,
+   "type_name": "COMMON",
+   "op_count": 4
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 28,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 0,
+     "resolved": {
+      "kind": "const",
+      "name": "ENTER"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "ENTER"
+    }
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 32,
+   "id": 329,
+   "name": "SwitchSector",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 2,
+   "off": 34,
+   "id": 99,
+   "name": "Case",
+   "raw": [
+    1,
+    21
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 21,
+     "resolved": 21
+    }
+   ],
+   "resolved": [
+    1,
+    21
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 40,
+   "id": 220,
+   "name": "screen_FadeOutAll",
+   "raw": [
+    1,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "suspension_flag",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    1,
+    0
+   ]
+  },
+  {
+   "seq": 4,
+   "off": 46,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    1
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 1,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_BACK_SET"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_BACK_SET"
+    }
+   ]
+  },
+  {
+   "seq": 5,
+   "off": 50,
+   "id": 9,
+   "name": "back_SetGround",
+   "raw": [
+    139
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "level_id",
+     "type": "Level",
+     "raw": 139,
+     "resolved": "D55P21A"
+    }
+   ],
+   "resolved": [
+    "D55P21A"
+   ]
+  },
+  {
+   "seq": 6,
+   "off": 54,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 2,
+     "resolved": {
+      "kind": "const",
+      "name": "CHARA_SET"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "CHARA_SET"
+    }
+   ]
+  },
+  {
+   "seq": 7,
+   "off": 58,
+   "id": 316,
+   "name": "supervision_StationCommon",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "station_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 8,
+   "off": 62,
+   "id": 319,
+   "name": "Switch",
+   "raw": [
+    73
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 73,
+     "resolved": "EXECUTE_SPECIAL_EPISODE_TYPE"
+    }
+   ],
+   "resolved": [
+    "EXECUTE_SPECIAL_EPISODE_TYPE"
+   ]
+  },
+  {
+   "seq": 9,
+   "off": 66,
+   "id": 99,
+   "name": "Case",
+   "raw": [
+    3,
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 3,
+     "resolved": 3
+    },
+    {
+     "i": 1,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    3,
+    30
+   ]
+  },
+  {
+   "seq": 10,
+   "off": 72,
+   "id": 135,
+   "name": "Jump",
+   "raw": [
+    32
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 32,
+     "resolved": 32
+    }
+   ],
+   "resolved": [
+    32
+   ]
+  },
+  {
+   "seq": 11,
+   "off": 76,
+   "id": 329,
+   "name": "SwitchSector",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 12,
+   "off": 78,
+   "id": 99,
+   "name": "Case",
+   "raw": [
+    1,
+    70
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 70,
+     "resolved": 70
+    }
+   ],
+   "resolved": [
+    1,
+    70
+   ]
+  },
+  {
+   "seq": 13,
+   "off": 84,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 3,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_PLAYE_SET"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_PLAYE_SET"
+    }
+   ]
+  },
+  {
+   "seq": 14,
+   "off": 88,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    4
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 4,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_PLAYER_SET_RESUME"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_PLAYER_SET_RESUME"
+    }
+   ]
+  },
+  {
+   "seq": 15,
+   "off": 92,
+   "id": 41,
+   "name": "BranchBit",
+   "raw": [
+    17,
+    7,
+    46
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 17,
+     "resolved": "SCENARIO_MAIN_BIT_FLAG"
+    },
+    {
+     "i": 1,
+     "spec": "index",
+     "type": "Number",
+     "raw": 7,
+     "resolved": 7
+    },
+    {
+     "i": 2,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 46,
+     "resolved": 46
+    }
+   ],
+   "resolved": [
+    "SCENARIO_MAIN_BIT_FLAG",
+    7,
+    46
+   ]
+  },
+  {
+   "seq": 16,
+   "off": 100,
+   "id": 135,
+   "name": "Jump",
+   "raw": [
+    56
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 56,
+     "resolved": 56
+    }
+   ],
+   "resolved": [
+    56
+   ]
+  },
+  {
+   "seq": 17,
+   "off": 104,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 5,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_CHARMS_RESUME"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_CHARMS_RESUME"
+    }
+   ]
+  },
+  {
+   "seq": 18,
+   "off": 108,
+   "id": 116,
+   "name": "flag_CalcBit",
+   "raw": [
+    17,
+    7,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 17,
+     "resolved": "SCENARIO_MAIN_BIT_FLAG"
+    },
+    {
+     "i": 1,
+     "spec": "index",
+     "type": "Number",
+     "raw": 7,
+     "resolved": 7
+    },
+    {
+     "i": 2,
+     "spec": "value",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "SCENARIO_MAIN_BIT_FLAG",
+    7,
+    0
+   ]
+  },
+  {
+   "seq": 19,
+   "off": 116,
+   "id": 316,
+   "name": "supervision_StationCommon",
+   "raw": [
+    62
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "station_id",
+     "type": "Number",
+     "raw": 62,
+     "resolved": 62
+    }
+   ],
+   "resolved": [
+    62
+   ]
+  },
+  {
+   "seq": 20,
+   "off": 120,
+   "id": 135,
+   "name": "Jump",
+   "raw": [
+    62
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 62,
+     "resolved": 62
+    }
+   ],
+   "resolved": [
+    62
+   ]
+  },
+  {
+   "seq": 21,
+   "off": 124,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 6,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_CHARMS_SET_NORMAL"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_CHARMS_SET_NORMAL"
+    }
+   ]
+  },
+  {
+   "seq": 22,
+   "off": 128,
+   "id": 316,
+   "name": "supervision_StationCommon",
+   "raw": [
+    61
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "station_id",
+     "type": "Number",
+     "raw": 61,
+     "resolved": 61
+    }
+   ],
+   "resolved": [
+    61
+   ]
+  },
+  {
+   "seq": 23,
+   "off": 132,
+   "id": 135,
+   "name": "Jump",
+   "raw": [
+    62
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "jump_address",
+     "type": "uint",
+     "raw": 62,
+     "resolved": 62
+    }
+   ],
+   "resolved": [
+    62
+   ]
+  },
+  {
+   "seq": 24,
+   "off": 136,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    7
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 7,
+     "resolved": {
+      "kind": "const",
+      "name": "SET_BGM"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "SET_BGM"
+    }
+   ]
+  },
+  {
+   "seq": 25,
+   "off": 140,
+   "id": 32,
+   "name": "bgm_PlayFadeIn",
+   "raw": [
+    139,
+    0,
+    256
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "bgm_id",
+     "type": "Bgm",
+     "raw": 139,
+     "resolved": "BoulderQuarry"
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    },
+    {
+     "i": 2,
+     "spec": "volume",
+     "type": "Number",
+     "raw": 256,
+     "resolved": 256
+    }
+   ],
+   "resolved": [
+    "BoulderQuarry",
+    0,
+    256
+   ]
+  },
+  {
+   "seq": 26,
+   "off": 148,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    8
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 8,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_ENTER_END"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_ENTER_END"
+    }
+   ]
+  },
+  {
+   "seq": 27,
+   "off": 152,
+   "id": 107,
+   "name": "debug_Print",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "ConstString",
+     "raw": 9,
+     "resolved": {
+      "kind": "const",
+      "name": "LABEL_END"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "const",
+     "name": "LABEL_END"
+    }
+   ]
+  },
+  {
+   "seq": 28,
+   "off": 156,
+   "id": 136,
+   "name": "JumpCommon",
+   "raw": [
+    657
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 657,
+     "resolved": "COMMON_ENTER"
+    }
+   ],
+   "resolved": [
+    "COMMON_ENTER"
+   ]
+  },
+  {
+   "seq": 29,
+   "off": 160,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 0,
+   "off": 162,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 166,
+   "id": 364,
+   "name": "WaitScreenFade",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 2,
+   "off": 168,
+   "id": 365,
+   "name": "WaitScreenFadeAll",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 3,
+   "off": 170,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [
+  {
+   "index": 0,
+   "name": "ENTER"
+  },
+  {
+   "index": 1,
+   "name": "LABEL_BACK_SET"
+  },
+  {
+   "index": 2,
+   "name": "CHARA_SET"
+  },
+  {
+   "index": 3,
+   "name": "LABEL_PLAYE_SET"
+  },
+  {
+   "index": 4,
+   "name": "LABEL_PLAYER_SET_RESUME"
+  },
+  {
+   "index": 5,
+   "name": "LABEL_CHARMS_RESUME"
+  },
+  {
+   "index": 6,
+   "name": "LABEL_CHARMS_SET_NORMAL"
+  },
+  {
+   "index": 7,
+   "name": "SET_BGM"
+  },
+  {
+   "index": 8,
+   "name": "LABEL_ENTER_END"
+  },
+  {
+   "index": 9,
+   "name": "LABEL_END"
+  }
+ ],
+ "strings": [],
+ "validation": {
+  "end_cursor": 342,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 2,
+  "n_ops": 34,
+  "n_constants": 10,
+  "n_strings": 0,
+  "cross_check_model": true
+ }
+}

@@ -1,0 +1,295 @@
+{
+  "generated_at": "2026-08-24T16:56:41+00:00",
+  "dungeon": "mt_thunder_peak",
+  "name": {
+    "en": "Mt. Thunder Peak",
+    "fr": "Cime du Mont Grondant"
+  },
+  "chapter": 9,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Thunder Peak (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtThunderPeak) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 9. Recoupé avec Bulbapedia (page « Mt. Thunder Peak »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_thunder_peak entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_thunder_peak_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_thunder_peak_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_08",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_thunder_peak_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_thunder_peak_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_thunder_peak."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d06p02.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d06p03.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d06p02.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d06p03.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 2,
+  "biome": "thunder_peak",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/mt_thunder_peak.json",
+  "segments": [
+    {
+      "name": "thunder_peak",
+      "floors": [
+        1,
+        2
+      ],
+      "biome": "thunder_peak",
+      "dtef": {
+        "floor": "mt_thunder_peak_floor",
+        "wall": "mt_thunder_peak_wall",
+        "secondary": "mt_thunder_peak_secondary",
+        "name": "mt_thunder_peak",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Mt. Thunder Peak; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "branching",
+        "lattice"
+      ],
+      "pokemon": 10,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 28
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "d06p02",
+    "end": "d06p03"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d06p03",
+    "map": "mt_thunder_peak_boss",
+    "source_floor": 3,
+    "source_fixed_room": 3,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "zapdos",
+        "level": [
+          25,
+          25
+        ],
+        "source_level": 25,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d06p03 via the .rsmap counterpart mt_thunder_peak_boss; no invented arena."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "d06p02",
+    "cinematic_ground": "d06p03",
+    "battle_ground": "d06p03",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d06p03",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d06p03",
+    "boss_map": "mt_thunder_peak_boss",
+    "canonical_end_candidates": [
+      "d06p03"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd06p03' (no separate arena created)",
+      "scene source of truth: mt_thunder_peak_boss.rsmap matches the end Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:mt_thunder_peak",
+    "root_seed": 1609692902848653688,
+    "explicit_seed": false,
+    "derived_seeds": 23
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "thunder_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "mt_thunder_peak",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9747,
+      "seeds": [
+        2138895342294177189,
+        7973229982308491155,
+        5209665094252784270,
+        2637902534548574823,
+        7945640997317667918,
+        8525288009647334992,
+        8092907946652473470,
+        5472590788088748248,
+        8716679369306654242,
+        7580225639821199815
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 16.2,
+        "rooms_min": 12,
+        "rooms_max": 23,
+        "halls_avg": 22.5,
+        "branches_avg": 7.4,
+        "dead_ends_avg": 5.2,
+        "loops_avg": 3.6,
+        "connections_avg": 22.5,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 46.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "thunder_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "mt_thunder_peak",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9271,
+      "seeds": [
+        5714404730551099966,
+        8299782356062214511,
+        5798998412236041645,
+        2169246703518348031,
+        370468457058251700,
+        1816524564024747770,
+        4441163303971674064,
+        167486793647259624,
+        3253006310336227466,
+        3271870006416005217
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 6.6,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 6.9,
+        "branches_avg": 1.9,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 0.7,
+        "connections_avg": 6.9,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 34.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

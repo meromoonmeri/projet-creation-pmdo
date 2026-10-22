@@ -1,0 +1,350 @@
+{
+  "schema": 1,
+  "ground": "t01p02b",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "dimensions_pixels": [
+      456,
+      624
+    ],
+    "primary_sample_count": 816,
+    "reload_sample_count": 1,
+    "exact_sample_count": 817,
+    "unique_rgba_frame_count": 336,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/comparisons/comparison_primary_tick2687.png",
+      "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "strategy": "Every planned full-map PMDO RGBA frame was compared pixel-for-pixel with a renderer independently decoding authenticated raw EU BPL/BPC/BPA/BMA resources.",
+    "resource_hashes": {
+      "T01P021": "745e74cbf7d9ea20622bd185c84c0157ee504d325452e667dbe919f586e69d7f",
+      "T01P02B": "dd3de8c76cd970be80164c2878b018bdbac0e3a1d4c26762d61513336424b509",
+      "T01P02Bm": "69482a8303d21170e9d06e1343a9468b291959576f4e82f8d0892960ceb2c40d",
+      "T01P02c": "cf988623bdc66b5a8aa94981701ac08f40be3d9565682aa6e2e3438682f79b89"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "schema": "authenticated runtime reference plan v2",
+    "primary_tick_count": 816,
+    "first_tick": 0,
+    "last_tick": 2687,
+    "cell_local_schedule_count": 18,
+    "maximum_cell_local_cycle_ticks": 1344,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 42,
+        "frame_count": 6,
+        "frame_durations": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "index": 0,
+        "kind": "BPA_TILE",
+        "source_duration_values": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      {
+        "cycle": 56,
+        "frame_count": 7,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 0,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 24,
+        "frame_count": 3,
+        "frame_durations": [
+          8,
+          8,
+          8
+        ],
+        "index": 1,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 64,
+        "frame_count": 8,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 2,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 48,
+        "frame_count": 6,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 8,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 56,
+        "frame_count": 7,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 9,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 48,
+        "frame_count": 6,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 10,
+        "kind": "BPL_PALETTE"
+      }
+    ],
+    "unique_observed_rgba_frames": 336,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "BMA T01P02Bm",
+    "collision_layer_count": 1,
+    "solid_cells": 3802,
+    "collision_sha256": "6325171524c91210845ff95362c2e17bb2c06c91380a49fbd70d2332630b7945",
+    "successful_probe": {
+      "start": [
+        224,
+        304
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        224,
+        304
+      ],
+      "direction": "Right",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "inter_entry_transitions": 1,
+    "same_ground_reentries": 1,
+    "sink_transition": true,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f",
+    "canonical_source_tile_sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic Main_Entrance_Marker on a copied Ground",
+      "ignored validation comment and scripts"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "pelipper_post_office_exterior",
+      "ground_map_symbol": "MAP_PELIPPER_POST_OFFICE",
+      "canonical_debug_id": 3,
+      "map_id": 4,
+      "map_file_id": 4,
+      "ground_place_id": 3,
+      "stable_ground_id": "t01p02b",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "authenticated EU-ROM conversion-table entry",
+        "pinned pret/pmd-red ground-map enum index 4"
+      ],
+      "classification": "standard_overworld_service_exterior"
+    },
+    "project_reuse": {
+      "role": "Independent active project Post Office implementation under post_office",
+      "cinematic": "NOT_ASSESSED_BY_THIS_GROUND_ONLY_PASS",
+      "arena": false,
+      "boss": false,
+      "status": "PRESERVED UNCHANGED; NOT ALIASED OR REWIRED",
+      "ground": "Data/Ground/post_office.rsground",
+      "script": "Data/Script/halcyon/ground/post_office/init.lua"
+    }
+  },
+  "identity_correction": {
+    "result": "PASS",
+    "authenticated_map_file_id": 4,
+    "pinned_enum_symbol": "MAP_PELIPPER_POST_OFFICE",
+    "stale_label": "MAP_FILE_ID_WHISCASH_POND_OPEN",
+    "stale_locations": [
+      "RESERVE/red_grounds/t01p02b.rsground comment",
+      "docs/AUDIT_ANIMATIONS_PMD_RED_2026-08-07.md table"
+    ],
+    "correction": "Whiscash Pond Open is enum/map file ID 3 and belongs to authenticated stable ID t01p02a; t01p02b is map file ID 4, Pelipper Post Office.",
+    "reserve_bytes_modified": false,
+    "canonical_metadata_propagates_stale_label": false
+  },
+  "variant_separation": {
+    "result": "PASS",
+    "canonical_lowercase_id": "t01p02b",
+    "project_id": "post_office",
+    "project_ground_sha256": "66aefb5ebefa768a8bd903121ed301158f59c0ee65bd031936c1368165537ff4",
+    "project_tile": "Content/Tile/PostOffice.tile",
+    "project_tile_sha256": "11a0ac7c85a210d33add380f65c1e2e9fdcde6c60f6d0f7723f43388dafa9814",
+    "project_script_sha256": "62df8281632f40e5ef11841d706dedc8858789cf71e75fd10eec45aa80c3637a",
+    "project_entities": {
+      "markers": 5,
+      "spawners": 1,
+      "map_characters": 2,
+      "ground_objects": 3
+    },
+    "overwritten_aliased_or_rewired": false
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t01p02b.rsground",
+    "tile": "Content/Tile/t01p02b_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "t01p02b",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p02b/README.md",
+    "promoted_ground_sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f",
+    "promoted_tile_sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f",
+    "candidate_tile_sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243",
+    "source_normalized_sha256": {
+      "T01P021": "745e74cbf7d9ea20622bd185c84c0157ee504d325452e667dbe919f586e69d7f",
+      "T01P02B": "dd3de8c76cd970be80164c2878b018bdbac0e3a1d4c26762d61513336424b509",
+      "T01P02Bm": "69482a8303d21170e9d06e1343a9468b291959576f4e82f8d0892960ceb2c40d",
+      "T01P02c": "cf988623bdc66b5a8aa94981701ac08f40be3d9565682aa6e2e3438682f79b89"
+    },
+    "events_sha256": "b136d5387df13a91371bdaeed0c0f2ea338c18a732a2407867ae9d403dae3923",
+    "report_sha256": "711f9c89f40f8a84c67db1541d8e4c466345e9ac271766ba5a48f1d3c977500c",
+    "fixture_manifest_sha256": "b2deb311068b14a2c79c70130c3635214666f737e74b283b8fe8dcb5647c8afa",
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "The validator does not self-close. Its process group was terminated only after end and final cleanup. The shell reported a post-terminal segmentation fault while unwinding, but the bounded wrapper exited 0.",
+    "evidence_impact": "NONE; all required evidence preceded external termination."
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "Existing validated 27-relationship dungeon-Ground restitution bundle retained unchanged."
+  },
+  "scope_note": "This PASS covers the canonical Ground map/tile, identity, collision, animation, repeated lifecycle, and additive registration. It does not claim canonical events, characters, choreography, cameras, dialogue, music, VFX, or cinematics as reconstructed or fully validated.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_subject": "copies taken from Data/Ground/t01p02b.rsground and Content/Tile/t01p02b_Base.tile after promotion",
+    "indexed_ground_sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f",
+    "indexed_tile_sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243",
+    "index_log": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/post_promotion_index.log",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_json_parse": "PASS",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "exactly one insertion into GroundMaps, after t01p02a",
+    "zone_ground_map_count": 195,
+    "canonical_index": 136,
+    "project_post_office_index": 12,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

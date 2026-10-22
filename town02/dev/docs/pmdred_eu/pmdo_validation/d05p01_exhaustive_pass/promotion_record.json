@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "ground": "d05p01",
+  "validated_at": "2026-08-12",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_ADDITIVE_CANONICAL",
+  "method": {
+    "destination_precondition": "both lowercase canonical destinations absent",
+    "installation_mode": "validated adjacent temporary copies, fsync, atomic os.replace",
+    "existing_asset_discarded": false,
+    "existing_scripts_modified": false,
+    "zone_registration": "one insertion after d04p01 without reserialization"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "active_patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "report_sha256": "af752de80166aa62b1891199a72c27888069b66de7f5554fe4d1fcb0cb832a61",
+    "fixture_manifest_sha256": "9e5e27899fa39ef9033743f8f1a1961c547a469bf4130e4c411159422665b318",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "canonical_ground_sha256": "e8166d54a0f79f431917772a1e32617c3be938389496bb05307ba2fd37f05860",
+    "canonical_tile_sha256": "9ca91e5c119eaeb5921f76fd279a60014af2de0a94f9243ca0dd77e361b96bf6",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_file_id": 200,
+    "identity_symbol": "MAP_GREAT_CANYON_ENTRY",
+    "termination_gate": "PASS_NORMAL_EXIT_0",
+    "termination_method": "RogueEssence.GameBase.LoadPhase.Unload",
+    "termination_watchdog_sent": false,
+    "termination_kind": "NORMAL_EXIT",
+    "termination_returncode": 0,
+    "termination_status_sha256": "95138bc950a303bd8e9db4231263438f9ed38469dd5c04caf6d1012783709142",
+    "segmentation_fault": false,
+    "orphan_process_count": 0
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/d05p01.rsground",
+      "destination": "Data/Ground/d05p01.rsground",
+      "destination_preexisting": false,
+      "bytes": 507760,
+      "validated_candidate_sha256": "e8166d54a0f79f431917772a1e32617c3be938389496bb05307ba2fd37f05860",
+      "destination_sha256": "e8166d54a0f79f431917772a1e32617c3be938389496bb05307ba2fd37f05860",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/d05p01_Base.tile",
+      "destination": "Content/Tile/d05p01_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 84300,
+      "validated_candidate_sha256": "9ca91e5c119eaeb5921f76fd279a60014af2de0a94f9243ca0dd77e361b96bf6",
+      "destination_sha256": "9ca91e5c119eaeb5921f76fd279a60014af2de0a94f9243ca0dd77e361b96bf6",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "d05p01",
+    "entry_count": 1,
+    "position": "immediately after d04p01",
+    "pre_promotion_sha256": "ee4bc6f60bdc17a327609483df26d1d5fa8614fdc895efc131e80698400c9d11",
+    "post_promotion_sha256": "3886e1d10b4fb56783cf74622796aa7bff606b198f9c7b4b0e9b4ad7a19063ac",
+    "prior_entry_present": false,
+    "existing_entries_preserved_in_order": true
+  },
+  "preserved_variants": [],
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "e8166d54a0f79f431917772a1e32617c3be938389496bb05307ba2fd37f05860",
+    "tile_sha256": "9ca91e5c119eaeb5921f76fd279a60014af2de0a94f9243ca0dd77e361b96bf6",
+    "log": "docs/pmdred_eu/pmdo_validation/d05p01_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

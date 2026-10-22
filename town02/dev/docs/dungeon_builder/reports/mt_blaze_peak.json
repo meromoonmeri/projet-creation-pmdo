@@ -1,0 +1,295 @@
+{
+  "generated_at": "2026-08-24T16:56:46+00:00",
+  "dungeon": "mt_blaze_peak",
+  "name": {
+    "en": "Mt. Blaze Peak",
+    "fr": "Cime du Mont Cendré"
+  },
+  "chapter": 10,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Blaze Peak (3F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtBlazePeak) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 10. Recoupé avec Bulbapedia (page « Mt. Blaze Peak »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_blaze_peak entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_09",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_blaze_peak_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_blaze."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d09p02.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d09p03.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d09p02.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d09p03.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 2,
+  "biome": "blaze_peak",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/mt_blaze_peak.json",
+  "segments": [
+    {
+      "name": "blaze_peak",
+      "floors": [
+        1,
+        2
+      ],
+      "biome": "blaze_peak",
+      "dtef": {
+        "floor": "mt_blaze_floor",
+        "wall": "mt_blaze_wall",
+        "secondary": "mt_blaze_secondary",
+        "name": "mt_blaze",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Mt. Blaze Peak; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "branching",
+        "lattice"
+      ],
+      "pokemon": 4,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 2
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "d09p02",
+    "end": "d09p03"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d09p03",
+    "map": "mt_blaze_peak_boss",
+    "source_floor": 3,
+    "source_fixed_room": 4,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "moltres",
+        "level": [
+          32,
+          32
+        ],
+        "source_level": 32,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d09p03 via the .rsmap counterpart mt_blaze_peak_boss; no invented arena."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "d09p02",
+    "cinematic_ground": "d09p03",
+    "battle_ground": "d09p03",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d09p03",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d09p03",
+    "boss_map": "mt_blaze_peak_boss",
+    "canonical_end_candidates": [
+      "d09p03"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd09p03' (no separate arena created)",
+      "scene source of truth: mt_blaze_peak_boss.rsmap matches the end Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:mt_blaze_peak",
+    "root_seed": 7273043174420178906,
+    "explicit_seed": false,
+    "derived_seeds": 24
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "blaze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "mt_blaze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9524,
+      "seeds": [
+        5197398768379589932,
+        2760406167987398172,
+        6131077577723507819,
+        7356204877606684683,
+        8097813369831788758,
+        3510774756096482495,
+        7073105652615610266,
+        3364210004601660146,
+        3880023663469243430,
+        1420300536654193406
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 15.0,
+        "rooms_min": 11,
+        "rooms_max": 19,
+        "halls_avg": 21.1,
+        "branches_avg": 6.8,
+        "dead_ends_avg": 4.9,
+        "loops_avg": 3.5,
+        "connections_avg": 21.1,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 36.1,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "blaze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "mt_blaze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9583,
+      "seeds": [
+        6821366954163642664,
+        7601390275954115791,
+        3667173928637743502,
+        4518771553392468513,
+        8722940453387314872,
+        6679354185941965811,
+        6891231541700326405,
+        7306692620290633009,
+        304816237638400295,
+        7936758455298584915
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 15.2,
+        "rooms_min": 10,
+        "rooms_max": 24,
+        "halls_avg": 20.7,
+        "branches_avg": 7.2,
+        "dead_ends_avg": 5.6,
+        "loops_avg": 3.0,
+        "connections_avg": 20.7,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 40.9,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

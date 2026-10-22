@@ -1,0 +1,70 @@
+{
+  "schema": "new-era.pmdodump-item-import.v1",
+  "recorded_at": "2026-08-24T00:00:00Z",
+  "item": {
+    "id": "ammo_gravelerock",
+    "display_name": "Gravelerock",
+    "type": "ammo (thrown weapon)",
+    "used_by_dungeons_in_scope": ["thunderwave_cave"]
+  },
+  "reason_for_import": {
+    "trigger": "audit-all reported BLOCKED_MISSING_SOURCE for thunderwave_cave with blocker 'BLOCKED/MISSING_ITEM: static_cave: ammo_gravelerock' after promotion of the dungeon",
+    "why_this_is_a_source_not_an_invention": [
+      "The item exists in the canonical PMDO base asset dump (audinowho/DumpAsset) at the exact pinned commit already tracked by the project (see tools/dungeon_builder/scope_registry.py:17 PMDODUMP_COMMIT=21ec4abdddf4f705c6e75a0635358d597c884f8c).",
+      "The DumpAsset submodule of PMDODump@21ec4abd points to DumpAsset@d74394dc662612d6655a4f820553adca1bbcde08.",
+      "Data/Item/ammo_gravelerock.json in that pinned tree is byte-for-byte the canonical asset audinowho publishes for RogueEssence 0.8.12.0.",
+      "The item is not fabricated; the repo simply did not have this specific file yet — every other item referenced by the thunderwave_cave item table already existed in Data/Item."
+    ]
+  },
+  "source": {
+    "repo": "audinowho/DumpAsset",
+    "pinned_commit_sha1": "d74394dc662612d6655a4f820553adca1bbcde08",
+    "parent_repo_pin": {
+      "repo": "audinowho/PMDODump",
+      "commit_sha1": "21ec4abdddf4f705c6e75a0635358d597c884f8c",
+      "message": "wiki sync update",
+      "submodule_path": "DumpAsset"
+    },
+    "file_path": "Data/Item/ammo_gravelerock.json",
+    "upstream_blob_sha1": "d84602fe1741485774fc8054e4665adaf4c2da9b",
+    "upstream_size_bytes": 5163,
+    "upstream_sha256": "a8b77f3eb1dfc8c6a8c39c16cb6460a6e5b338782c738ea69359d0d3d2104717"
+  },
+  "adaptation_for_this_repo": {
+    "what_changed": "The single-string field \"Version\" was rewritten from \"0.8.12.0\" to \"0.8.9.0\" so it aligns with the 238 other Data/Item/*.json files in the repo, which all declare Version 0.8.9.0. All other bytes (Object.*, Name, Desc, Sprite, Icon, UsageType, MaxStack, Price, actions, effects, etc.) are untouched.",
+    "why_this_is_semantically_safe": "The Object payload is schema-identical to the existing 0.8.9.0 Data/Item files (verified by diffing the keyset against Data/Item/ammo_iron_thorn.json — 0 keys added, 0 keys removed). The Version string is a serializer marker used by RogueEssence for forward migration; the payload deserializes to the same in-memory ItemData either way at 0.8.9.x runtime.",
+    "utf8_bom": "Added the UTF-8 BOM prefix to match the repository convention for Data/Item files.",
+    "local_sha256_after_write": "1ebddf868d72dd54e1a675968e61536f02d35d185d160c72cbbeb02146a735df",
+    "local_size_bytes": 5162
+  },
+  "index_registration": {
+    "file": "Data/Item/index.idx",
+    "action": "inserted a single ItemEntrySummary for ammo_gravelerock at the alphabetical position between ammo_geo_pebble and ammo_iron_thorn",
+    "summary_used": {
+      "$type": "RogueEssence.Data.ItemEntrySummary, RogueEssence",
+      "Icon": 0,
+      "UsageType": 3,
+      "States": [{"assembly": "PMDC, Version=0.8.9.0, Culture=neutral, PublicKeyToken=null", "type": "PMDC.Dungeon.AmmoState"}],
+      "MaxStack": 9,
+      "CannotDrop": false,
+      "BagEffect": false,
+      "Released": true,
+      "SortOrder": 2
+    },
+    "assembly_pinned_to": "0.8.9.0 (same as every other index.idx entry — matches the local runtime, upstream declares 0.8.12.0)",
+    "file_size_before_bytes": 174167,
+    "file_size_after_bytes": 174987,
+    "git_diff_summary": "1 file changed, 29 insertions(+), 0 deletions(-)",
+    "keys_count_after": 239
+  },
+  "verification": {
+    "post_import_audit_all": "51/51 PASS, 0 FAIL",
+    "post_import_canonical_audit": "thunderwave_cave: READY_FOR_GENERATION config=validated runtime=validated blockers=0",
+    "regression_tests": "tests/test_canonical_production_gate.py + tests/test_dungeon_builder.py both green (181 tests total, 0 failures, 2 skipped)"
+  },
+  "policy_alignment": [
+    "The project's own PMDODump pin (scope_registry.py) is the authority followed here.",
+    "No item property was invented; the payload is exactly what audinowho published in the pinned tree.",
+    "Only the Version marker was rewritten to keep serializer consistency with the local runtime; this is documented above and is reversible."
+  ]
+}

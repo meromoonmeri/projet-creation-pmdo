@@ -1,0 +1,85 @@
+﻿{
+  "Version": "0.8.9.0",
+  "Object": {
+    "$type": "RogueEssence.Data.ZoneData, RogueEssence",
+    "Name": {
+      "DefaultText": "Tornadus Arena (TEST)",
+      "LocalTexts": {
+        "fr": "Arène de Tornadus (TEST)"
+      }
+    },
+    "Released": true,
+    "Comment": "ZONE DE TEST (hors histoire) : combat isole dans l'arene du Sommet Venteux regeneree le 2026-08-05 (mount_windswept_guardian.rsmap, 19x19 craggy_peak, Tornadus lv33). Retirable sans risque : ce fichier + index.idx + zone/tornadus_arena/init.lua + 1 ligne menu Metano + 1 ligne debug unlock.",
+    "NoEXP": false,
+    "ExpPercent": 100,
+    "Level": -1,
+    "LevelCap": false,
+    "KeepSkills": false,
+    "TeamRestrict": false,
+    "TeamSize": -1,
+    "MoneyRestrict": false,
+    "BagRestrict": -1,
+    "KeepTreasure": false,
+    "BagSize": -1,
+    "Persistent": false,
+    "Rescues": 0,
+    "Rogue": 0,
+    "GroundMaps": [],
+    "Segments": [
+      {
+        "$type": "RogueEssence.LevelGen.LayeredSegment, RogueEssence",
+        "Floors": [
+          {
+            "$type": "RogueEssence.LevelGen.LoadGen, RogueEssence",
+            "GenSteps": [
+              {
+                "Key": {
+                  "str": [
+                    -1
+                  ]
+                },
+                "Value": {
+                  "$type": "RogueEssence.LevelGen.MappedRoomStep`1[[RogueEssence.LevelGen.MapLoadContext, RogueEssence]], RogueEssence",
+                  "MapID": "mount_windswept_guardian"
+                }
+              }
+            ],
+            "Comment": ""
+          }
+        ],
+        "ZoneSteps": [
+          {
+            "$type": "PMDC.LevelGen.SaveVarsZoneStep, PMDC",
+            "Priority": {
+              "str": [
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "$type": "PMDC.LevelGen.FloorNameDropZoneStep, PMDC",
+            "DropPriority": {
+              "str": [
+                -15
+              ]
+            },
+            "Name": {
+              "DefaultText": "Tornadus Arena (TEST)",
+              "LocalTexts": {
+                "fr": "Arène de Tornadus (TEST)"
+              }
+            },
+            "Priority": {
+              "str": [
+                -6
+              ]
+            }
+          }
+        ],
+        "IsRelevant": true,
+        "Comment": "Segment fixe unique : l'arene du boss (patron mount_windswept seg 2)."
+      }
+    ]
+  }
+}

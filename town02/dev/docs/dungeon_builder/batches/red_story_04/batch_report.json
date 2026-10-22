@@ -1,0 +1,79 @@
+{
+  "schema": "new-era.red-story-batch.v1",
+  "batch": "red_story_04",
+  "summary": {
+    "requested": 1,
+    "staged": 1,
+    "generated": 1,
+    "runtime_pmdo_mapgen_validated": 1,
+    "route_validated": 1,
+    "promoted": 1,
+    "blocked": 0
+  },
+  "entries": [
+    {
+      "definition": "mt_thunder",
+      "zone": "mt_thunder",
+      "floors": 10,
+      "definition_path": "DungeonDefs/staging/red_story_04/mt_thunder.json",
+      "zone_path": "Staging/dungeon_builder/red_story_04/Data/Zone/mt_thunder.json",
+      "configuration_gate": true,
+      "warnings": [],
+      "status": "PROMOTED_RUNTIME_VALIDATED",
+      "blockers": [],
+      "runtime": {
+        "engine": "PMDO 0.8.12",
+        "attempted": 100,
+        "generated": 100,
+        "failures": 0,
+        "non_traversable": 0,
+        "invalid": 0,
+        "seeds_logged": 100
+      },
+      "artifacts": {
+        "definition_sha256": "d939e11818a826f3dd2a32681484db2497c84c9dd8796e18ebbb6ce99a3e59c1",
+        "zone_sha256": "eb81627b96e76539ae936cf6c3a6161980895c27e586bca3f5b29e251ebf3d74"
+      },
+      "route_runtime": {
+        "jsonl": "docs/dungeon_builder/batches/red_story_04/runtime/routes/mt_thunder.jsonl",
+        "jsonl_sha256": "546d23ce42ec38bdc851bef3f39e99b0375d6728a49ddfd45d52c3494518852f",
+        "log": "docs/dungeon_builder/batches/red_story_04/runtime/routes/mt_thunder.log",
+        "procedural_maps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "boss_maps": [],
+        "boss_clears": [],
+        "grounds": [
+          "mont_grondant_pied",
+          "d06p02"
+        ],
+        "fatals": 0
+      },
+      "active_definition": "DungeonDefs/canonical/mt_thunder.json",
+      "active_zone": "Data/Zone/mt_thunder.json"
+    }
+  ],
+  "runtime_evidence": {
+    "jsonl": "docs/dungeon_builder/batches/red_story_04/runtime/native_mapgen.jsonl",
+    "jsonl_sha256": "43648328fa79388b5de1c1fce5a6da833e50c8768e5b58d16236578408e21e09",
+    "report": null,
+    "report_sha256": null,
+    "end": {
+      "event": "end",
+      "attempted": 100,
+      "generated": 100,
+      "failures": 0,
+      "non_traversable": 0,
+      "invalid": 0
+    }
+  }
+}

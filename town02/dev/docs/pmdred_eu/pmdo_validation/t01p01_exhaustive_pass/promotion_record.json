@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "ground": "t01p01",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_INTEGRATION_PRESERVING_MIGRATION",
+  "method": {
+    "destination_precondition": "both destinations present at the recorded historical hashes",
+    "canonical_migration": "authenticated canonical visual/collision/animation Ground plus only additive legacy Markers/Spawners",
+    "runtime_subject": "the exact integrated Ground and canonical tile subsequently installed at the destinations",
+    "installation_mode": "validated adjacent temporary copies, flush/fsync, then per-file atomic os.replace",
+    "partial_failure_policy": "restore both historical files atomically from the durable pre-promotion reserve",
+    "historical_bytes_reserved_before_replacement": true,
+    "existing_asset_discarded": false,
+    "existing_project_entities_preserved": true,
+    "existing_scripts_modified": false
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "report_sha256": "4b1aa913ec975325a29f4a4499500f98e9754b915939ca7372c0d07624d34339",
+    "fixture_manifest_sha256": "ce11ddeee72bdaedc6aaaecb9c17a233de83d0aed68f0fcc0e0e57aa2e69e466",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "canonical_ground_sha256": "8626f4b563697c5b4fc7dd387d3cfec7f1c337ea18c8b2cf75b2f6bd920f293c",
+    "integrated_ground_sha256": "f1677cd5e68eb0d78cd5073171b528cc9263ef8484825438105cb9fad92964d6",
+    "entity_integration_proof": "PASS_ADDITIVE_MARKERS_SPAWNERS_ONLY",
+    "planned_primary_tick_count": 216,
+    "observed_primary_tick_count": 216,
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 217,
+    "fully_opaque_sample_count": 217,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true
+  },
+  "integration": {
+    "proof_mode": "additive_markers_spawners_only",
+    "markers_preserved": [
+      "Main_Entrance_Marker",
+      "Cutscene_Marker"
+    ],
+    "spawners_preserved": [
+      {
+        "NPCName": "Teammate1",
+        "EntName": "TEAMMATE_1"
+      }
+    ],
+    "canonical_marker_count": 0,
+    "integrated_marker_count": 2,
+    "canonical_spawner_count": 0,
+    "integrated_spawner_count": 1,
+    "visual_result_with_integration": "217/217 full-RGBA samples pixel-exact to independent EU-ROM references"
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-t01p01-migrated-candidate/grounds/t01p01.rsground",
+      "canonical_baseline": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/t01p01.rsground",
+      "destination": "Data/Ground/t01p01.rsground",
+      "destination_preexisting": true,
+      "pre_promotion_sha256": "4f14a203166427d27c38d52946eb4c37d2ec5a9f2e085cf06bf924fbe9d1e284",
+      "reserve": "RESERVE/pmdred_pre_promotion/t01p01/t01p01.rsground",
+      "reserve_sha256": "4f14a203166427d27c38d52946eb4c37d2ec5a9f2e085cf06bf924fbe9d1e284",
+      "canonical_baseline_sha256": "8626f4b563697c5b4fc7dd387d3cfec7f1c337ea18c8b2cf75b2f6bd920f293c",
+      "bytes": 2406644,
+      "validated_candidate_sha256": "f1677cd5e68eb0d78cd5073171b528cc9263ef8484825438105cb9fad92964d6",
+      "destination_sha256": "f1677cd5e68eb0d78cd5073171b528cc9263ef8484825438105cb9fad92964d6",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-t01p01-migrated-candidate/tiles/t01p01_Base.tile",
+      "destination": "Content/Tile/t01p01_Base.tile",
+      "destination_preexisting": true,
+      "pre_promotion_sha256": "498b32238cecadd1783fd93ff6742db47cda1d45a624500e3b338a48f70b0535",
+      "reserve": "RESERVE/pmdred_pre_promotion/t01p01/t01p01_Base.tile",
+      "reserve_sha256": "498b32238cecadd1783fd93ff6742db47cda1d45a624500e3b338a48f70b0535",
+      "bytes": 486975,
+      "validated_candidate_sha256": "355a21a503224e5807b2b3265e4487161f217d0478d745dc71974f735648c301",
+      "destination_sha256": "355a21a503224e5807b2b3265e4487161f217d0478d745dc71974f735648c301",
+      "candidate_destination_identical": true
+    }
+  ],
+  "alias_correction": {
+    "path": "docs/canonical/red/upstream_ground_aliases.json",
+    "alias": "place_pokemon.rsground",
+    "previous_target": "t00p01.rsground",
+    "corrected_target": "t01p00.rsground",
+    "basis": [
+      "t01p00 exact PMDO pass plus pinned technical enum MAP_POKEMON_SQUARE (map ID 1)",
+      "t01p01 exact PMDO pass plus pinned technical enum MAP_WHISCASH_POND (map ID 2)"
+    ],
+    "legacy_named_asset_deleted": false
+  },
+  "reserve_policy": "Exact pre-promotion destination bytes are retained under RESERVE/pmdred_pre_promotion/t01p01. Earlier red_grounds/red_tiles variants and every unpromoted canonical candidate also remain in reserve."
+}

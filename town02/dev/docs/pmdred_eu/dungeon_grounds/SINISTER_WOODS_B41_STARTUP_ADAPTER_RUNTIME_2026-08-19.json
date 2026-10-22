@@ -1,0 +1,159 @@
+{
+  "schema": "new-era.pmdred-eu.sinister-woods-b41-startup-adapter-runtime.v1",
+  "status": "STAGED_VALIDATED_RUNTIME_TESTED",
+  "candidate": {
+    "manifest_sha256": "69f63d7457dfd2b66f7116bb5a080104f6b96e19d2ec852a997009679fcc3b35",
+    "validation_sha256": "9708d19a87fc90b27c86aa8c62fb62d030a0de86c27553280d89ce024cb8f64a",
+    "atlas_sha256": "fc01caa619e413712b70c4531c260d2eb05378fc80bd795829f371abe860a2d0",
+    "atlas_tile_count": 68250,
+    "validation_result": "PASS",
+    "validation_blockers": [],
+    "pixel_checks": 32016,
+    "layer_checks": 2001,
+    "one_shot_startup_adapter": true
+  },
+  "runtime": {
+    "fixture": ".runtime-cache/sinister-woods-startup-adapter-fixture",
+    "candidate_overlaid": true,
+    "startup_adapter_enabled": true,
+    "index_log_sha256": "ba292fb1338fd8c41e24943f5ed66065d47e9ef26f45a38e5efa7be95a7f5fbb",
+    "runtime_log_sha256": "81717dd8a2ac5b2074f19b4e74aa2759f08d16f080115865fd9937ea14556445",
+    "events_sha256": "5335cd1e5bfdad89997e2bc3336bedae6b7f4179e03467b0afa351c156210957",
+    "termination_sha256": "56aa3a1874d8de17dac7a2433ed36ef8f6df033d5124c84cd9d789ae3540a4dd",
+    "segments": [
+      {
+        "event": "map",
+        "segment": 0,
+        "width": 38,
+        "height": 51,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 1,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 3,
+        "width": 38,
+        "height": 64,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": true,
+        "darkness": false,
+        "dusk": true,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      }
+    ],
+    "adapter_events": [
+      {
+        "event": "map_start",
+        "tick": 0
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 0,
+        "tick": 0
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 1320,
+        "delta": 1320
+      },
+      {
+        "event": "map_start",
+        "tick": 3000
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 2001,
+        "tick": 3000
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 3840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 4320,
+        "delta": 1320
+      },
+      {
+        "event": "map_start",
+        "tick": 6000
+      },
+      {
+        "event": "raw_startup_restored",
+        "layers": 2001,
+        "tick": 6000
+      },
+      {
+        "event": "published",
+        "duration": 8,
+        "layers": 405,
+        "tick": 6840,
+        "delta": 840
+      },
+      {
+        "event": "published",
+        "duration": 12,
+        "layers": 1596,
+        "tick": 7320,
+        "delta": 1320
+      }
+    ],
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "terminal_seen": true,
+      "graceful_exit_observed": true,
+      "watchdog": false,
+      "residual_before": [],
+      "residual_after": []
+    },
+    "forbidden_diagnostics": []
+  },
+  "shared_name_audit": {
+    "path": "docs/pmdred_eu/dungeon_grounds/SINISTER_WOODS_B41_MATERIAL_CONSUMERS_2026-08-19.json",
+    "sha256": "26e62de1d6b2bff9b08a81819c109270e85f134ab2ed4cc8ac1bf7b5757dc9d6",
+    "result": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+    "exact_missing_component": "SHARED_TREESHROUD_CONSUMERS_REQUIRE_DECOUPLING_BEFORE_PROMOTION"
+  },
+  "production_route": {
+    "production_route_written": false,
+    "promotion": "FORBIDDEN",
+    "relic_forest_blobs_modified": false,
+    "d04p01_d04p02_modified": false,
+    "reason": "Shared Treeshroud names have Relic Forest, arenas and Ground consumers; promote b41 under those names only after unique namespace or independently validated decoupling."
+  },
+  "verdict": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+  "exact_missing_component": "SHARED_TREESHROUD_CONSUMERS_REQUIRE_DECOUPLING_BEFORE_PROMOTION"
+}

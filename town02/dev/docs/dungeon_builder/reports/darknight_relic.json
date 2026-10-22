@@ -1,0 +1,799 @@
+{
+  "generated_at": "2026-08-22T22:58:15+00:00",
+  "dungeon": "darknight_relic",
+  "name": {
+    "en": "Darknight Relic",
+    "fr": "Relique de la Nuit"
+  },
+  "chapter": 20,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Darknight Relic (15F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/DarknightRelic) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 20. Recoupé avec Bulbapedia (page « Darknight Relic »).",
+  "floors": 15,
+  "biome": "dark_halls",
+  "direction": "fond",
+  "zone_file": "Data/Zone/darknight_relic.json",
+  "segments": [
+    {
+      "name": "dark_halls",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "dark_halls",
+      "dtef": {
+        "floor": "the_nightmare_floor",
+        "wall": "the_nightmare_wall",
+        "secondary": "the_nightmare_secondary",
+        "name": "the_nightmare",
+        "element": "normal",
+        "justification": "relique nocturne ; biome onirique sombre disponible."
+      },
+      "profiles": [
+        "crossroads",
+        "lattice",
+        "mixed"
+      ],
+      "pokemon": 7,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 22
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "dark_sanctum",
+      "floors": [
+        9,
+        15
+      ],
+      "biome": "dark_sanctum",
+      "dtef": {
+        "floor": "the_nightmare_floor",
+        "wall": "the_nightmare_wall",
+        "secondary": "the_nightmare_secondary",
+        "name": "the_nightmare",
+        "element": "normal",
+        "justification": "relique nocturne ; biome onirique sombre disponible."
+      },
+      "profiles": [
+        "lattice",
+        "looping",
+        "dense"
+      ],
+      "pokemon": 7,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 20
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {},
+  "midpoint": {},
+  "boss": {},
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "",
+    "battle_ground": "",
+    "scene_state": "NONE",
+    "mid": "",
+    "end": "",
+    "boss_mode": "",
+    "boss_ground": "",
+    "boss_map": "",
+    "canonical_end_candidates": [],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "no fixed 'end' Ground declared",
+      "no boss scene declared"
+    ]
+  },
+  "rng": {
+    "label": "generate:darknight_relic",
+    "root_seed": 3053127263044125234,
+    "explicit_seed": false,
+    "derived_seeds": 86
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9294,
+      "seeds": [
+        1067368167579742249,
+        7025629270344012904,
+        5817232864103296251,
+        1814844108929283311,
+        7491111986034808904
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 9,
+        "rooms_max": 15,
+        "halls_avg": 12.6,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.2,
+        "connections_avg": 12.6,
+        "room_area_min": 20,
+        "room_area_max": 110,
+        "stair_distance_avg": 43.0,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        8,
+        12
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8382,
+      "seeds": [
+        8492424220376435820,
+        6181024996905970760,
+        1845100287901466882,
+        7216869540634449410,
+        6902752624999960702
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 7,
+        "rooms_max": 10,
+        "halls_avg": 11.4,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.4,
+        "connections_avg": 11.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 46.0,
+        "reachable_ratio_min": 0.9982,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9222,
+      "seeds": [
+        8377716363427658993,
+        8217109183235830861,
+        560559640850026442,
+        7624233026082130935,
+        7651152775502346979
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 8,
+        "rooms_max": 28,
+        "halls_avg": 14.2,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.2,
+        "connections_avg": 14.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 0.9993,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9515,
+      "seeds": [
+        3010674215667650450,
+        4512410582523344900,
+        4479215614172251457,
+        7510640957086925972,
+        7940965391819774193
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 14,
+        "halls_avg": 12.2,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.6,
+        "connections_avg": 12.2,
+        "room_area_min": 24,
+        "room_area_max": 70,
+        "stair_distance_avg": 37.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8187,
+      "seeds": [
+        3434171296103483369,
+        7001999468166189304,
+        2497808306902062147,
+        183199099937137046,
+        4167592435478586630
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 6,
+        "rooms_max": 13,
+        "halls_avg": 11.4,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.0,
+        "connections_avg": 11.4,
+        "room_area_min": 20,
+        "room_area_max": 207,
+        "stair_distance_avg": 47.8,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8771,
+      "seeds": [
+        3828489032749251909,
+        8259092560124170006,
+        6321365800974701192,
+        4879187007484403991,
+        570617007375660616
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 9,
+        "rooms_max": 14,
+        "halls_avg": 17.4,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 3.8,
+        "connections_avg": 17.4,
+        "room_area_min": 25,
+        "room_area_max": 207,
+        "stair_distance_avg": 49.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        8,
+        11
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9688,
+      "seeds": [
+        6406409516390596171,
+        4906661400193731067,
+        221560125421739938,
+        8130420923110697032,
+        5772645934601163926
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 8,
+        "rooms_max": 17,
+        "halls_avg": 12.4,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.4,
+        "connections_avg": 12.4,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 52.4,
+        "reachable_ratio_min": 0.9979,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "dark_halls",
+      "kind": "procedural",
+      "profile": "crossroads+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7727,
+      "seeds": [
+        3185187600826293674,
+        626229981183516621,
+        5302062879681521251,
+        6424253533437587180,
+        676005374009263662
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 6,
+        "rooms_max": 13,
+        "halls_avg": 13.2,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 2.0,
+        "connections_avg": 13.2,
+        "room_area_min": 20,
+        "room_area_max": 216,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        6
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.8673,
+      "seeds": [
+        4815763608916783453,
+        5715031463767119855,
+        5637163614500654115,
+        8457835437574801250,
+        7853652028570810322
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.0,
+        "rooms_min": 8,
+        "rooms_max": 29,
+        "halls_avg": 21.0,
+        "branches_avg": 6.8,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 3.2,
+        "connections_avg": 21.0,
+        "room_area_min": 9,
+        "room_area_max": 64,
+        "stair_distance_avg": 29.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8615,
+      "seeds": [
+        6375438844374705845,
+        9108696678069804303,
+        8920601308906228482,
+        3995369731500962308,
+        7547585994060656136
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.4,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 19.2,
+        "branches_avg": 5.8,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 3.2,
+        "connections_avg": 19.2,
+        "room_area_min": 15,
+        "room_area_max": 64,
+        "stair_distance_avg": 45.4,
+        "reachable_ratio_min": 0.9985,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8049,
+      "seeds": [
+        7401105059404214357,
+        4341756709130935343,
+        8988107748897341397,
+        3591272774903431541,
+        7340361187569778848
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 9,
+        "rooms_max": 17,
+        "halls_avg": 18.6,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 2.8,
+        "connections_avg": 18.6,
+        "room_area_min": 18,
+        "room_area_max": 81,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8073,
+      "seeds": [
+        3060933462774048926,
+        2484813724835514652,
+        5971929145104699940,
+        373521035418312259,
+        2010514113763088542
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 4,
+        "rooms_max": 19,
+        "halls_avg": 17.0,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 3.2,
+        "connections_avg": 17.0,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 33.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8576,
+      "seeds": [
+        1351487124054487522,
+        1761786458743123196,
+        8662005414131210137,
+        6701889769221314295,
+        804684350748739400
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 7,
+        "rooms_max": 24,
+        "halls_avg": 16.2,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.6,
+        "connections_avg": 16.2,
+        "room_area_min": 9,
+        "room_area_max": 60,
+        "stair_distance_avg": 32.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7832,
+      "seeds": [
+        6550998962745829422,
+        8523898779494484484,
+        2263109140521967837,
+        4703719117056179072,
+        2423075994977992507
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 5,
+        "rooms_max": 17,
+        "halls_avg": 13.2,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.8,
+        "connections_avg": 13.2,
+        "room_area_min": 15,
+        "room_area_max": 80,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "dark_sanctum",
+      "kind": "procedural",
+      "profile": "lattice+looping+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "the_nightmare",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.7181,
+      "seeds": [
+        7565264994165457653,
+        9125374808497358720,
+        4814782571624718640,
+        4463258026933943170,
+        6006299070217154567
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.6,
+        "rooms_min": 8,
+        "rooms_max": 23,
+        "halls_avg": 22.2,
+        "branches_avg": 7.0,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 4.0,
+        "connections_avg": 22.2,
+        "room_area_min": 12,
+        "room_area_max": 70,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 0.9983,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

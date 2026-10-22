@@ -1,0 +1,79 @@
+{
+  "schema": "new-era.pmdred-eu-personality-quiz-flow-runtime-validation.v1",
+  "result": "FLOW_PASS_PRODUCTION_ROUTED_INTERACTIVE_INPUT_PARTIAL",
+  "full_quiz_integrated": false,
+  "production_personality_test_routed": true,
+  "classification": {
+    "introduction_questions_scoring_descriptions_palette_audio": "PMD_RED_EU_CANON",
+    "complete_catalogue_recommendation_and_non_binary_choice": "NEW_ERA_ADAPTATION",
+    "ground_parallax_hero_partner_creation_systems": "NEW_ERA_NATIVE"
+  },
+  "validated_scope": [
+    "tracked production personality_test module parsed and loaded by PMDO with only Enter inert in the ignored fixture",
+    "seven exact French EU introduction pages through real PMDO text UI",
+    "BGM switch and 30-frame CMD_BYTE_22-equivalent fade-in",
+    "two complete deterministic quiz attempts, one restart, 16 direct questions and BraveQuest2B",
+    "all prompts and answer labels passed through real PMDO text UI",
+    "canonical gender choices plus preserved New Era non-binary adaptation",
+    "description, recommendation, confirmation, partner prompt, nickname prompt and end text",
+    "move-never-filter recommendation over a New Era catalogue fixture",
+    "30-frame BGM fade and CMD_BYTE_23-equivalent fade-out",
+    "normal native PMDO unload"
+  ],
+  "not_yet_validated": [
+    "physical interactive menu input and cursor navigation; choices were injected by the ignored fixture",
+    "all 55 direct question choice combinations and all tie seeds",
+    "actual hero/partner menu completion, assets, abilities, moves and save serialization",
+    "final transition to relic_forest after live character creation",
+    "full s01 harness handoff into the production personality_test flow"
+  ],
+  "timeline": {
+    "event_count": 246,
+    "last_runtime_frame": 2117,
+    "text_page_count": 46,
+    "choice_prompt_count": 21,
+    "restart_count": 1,
+    "branch_count": 1,
+    "answer_count": 17
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    }
+  },
+  "captures": {
+    "changed_rgb_pixels": 76800,
+    "rows": [
+      {
+        "context": "recommendation_1",
+        "source_file": "2026-08-12_20-52-16.png",
+        "width": 320,
+        "height": 240,
+        "sha256": "8797caa3644ee14aa106de808fb103e95b5a49609d07985f0cf1dcd7b32f5a0b"
+      },
+      {
+        "context": "recommendation_2",
+        "source_file": "2026-08-12_20-52-46.png",
+        "width": 320,
+        "height": 240,
+        "sha256": "cc5438ad81d0982141513ae46afa4fe915b70a60250abb66005c86165c80d168"
+      }
+    ]
+  },
+  "authority": {
+    "flow_sha256": "c960e059d379cf9e4dc2935b5b90ee202dea028d52c38aa21117a36a5f31e5b9",
+    "production_init_sha256": "20eda4cffdf57d3a03641aa92036ef64d10c682882e86a2fd504af08db9858b8",
+    "ground_sha256": "76b3abc6953e9da4840c094494585c9a79057791ef66f81027e1541858eaeb8d"
+  },
+  "promotion": "INTERACTIVE_INPUT_AND_LIVE_CHARACTER_CREATION_GATE_REQUIRED_BEFORE_FULL_PASS"
+}

@@ -1,0 +1,1254 @@
+{
+  "generated_at": "2026-08-22T22:58:21+00:00",
+  "dungeon": "pitfall_valley",
+  "name": {
+    "en": "Pitfall Valley",
+    "fr": "Vallon Perdu"
+  },
+  "chapter": 16,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Pitfall Valley (25F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/PitfallValley) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 16. Recoupé avec Bulbapedia (page « Pitfall Valley »).",
+  "floors": 25,
+  "biome": "pitfall_rim",
+  "direction": "fond",
+  "zone_file": "Data/Zone/pitfall_valley.json",
+  "segments": [
+    {
+      "name": "pitfall_rim",
+      "floors": [
+        1,
+        12
+      ],
+      "biome": "pitfall_rim",
+      "dtef": {
+        "floor": "pitfall_valley_1_floor",
+        "wall": "pitfall_valley_1_wall",
+        "secondary": "pitfall_valley_1_secondary",
+        "name": "pitfall_valley_1",
+        "element": "normal"
+      },
+      "profiles": [
+        "twosides",
+        "branching",
+        "mixed"
+      ],
+      "pokemon": 12,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 26
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "pitfall_floor",
+      "floors": [
+        13,
+        25
+      ],
+      "biome": "pitfall_floor",
+      "dtef": {
+        "floor": "pitfall_valley_1_floor",
+        "wall": "pitfall_valley_1_wall",
+        "secondary": "pitfall_valley_1_secondary",
+        "name": "pitfall_valley_1",
+        "element": "normal"
+      },
+      "profiles": [
+        "branching",
+        "crossroads",
+        "mixed"
+      ],
+      "pokemon": 5,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 27
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "vallon_perdu",
+    "end": "vallon_perdu"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "vallon_perdu",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "vallon_perdu",
+    "cinematic_ground": "vallon_perdu",
+    "battle_ground": "vallon_perdu",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "vallon_perdu",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "vallon_perdu",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "vallon_perdu"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'vallon_perdu' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:pitfall_valley",
+    "root_seed": 2823104767095208122,
+    "explicit_seed": false,
+    "derived_seeds": 149
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8245,
+      "seeds": [
+        6295876120735087682,
+        5518668507227651303,
+        1749304043247283567,
+        3033413206057737933,
+        4769514999376042882
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 7,
+        "rooms_max": 14,
+        "halls_avg": 10.4,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 10.4,
+        "room_area_min": 20,
+        "room_area_max": 252,
+        "stair_distance_avg": 39.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        3,
+        4
+      ],
+      "cell": [
+        13,
+        9
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7714,
+      "seeds": [
+        3784362111771981546,
+        5611848154406848089,
+        3622813000270222622,
+        919870337131008466,
+        6241671769494691925
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.0,
+        "rooms_min": 6,
+        "rooms_max": 30,
+        "halls_avg": 14.4,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 0.8,
+        "connections_avg": 14.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 42.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.918,
+      "seeds": [
+        5539929539876052182,
+        6542795467592984514,
+        7972994585217455876,
+        3077821471694333909,
+        5940882259970995850
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 10,
+        "rooms_max": 16,
+        "halls_avg": 12.2,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 0.8,
+        "connections_avg": 12.2,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 33.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9023,
+      "seeds": [
+        1747410877262872582,
+        7689371923423395177,
+        4172100914739975803,
+        7573074779406448015,
+        6141046716288171724
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 13,
+        "halls_avg": 11.0,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 1.0,
+        "connections_avg": 11.0,
+        "room_area_min": 20,
+        "room_area_max": 70,
+        "stair_distance_avg": 40.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        13,
+        9
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8685,
+      "seeds": [
+        7058910849628516432,
+        3100407332527363147,
+        2286904288743730935,
+        6456322086907119905,
+        5185895307726350341
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 6,
+        "rooms_max": 17,
+        "halls_avg": 10.2,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.6,
+        "connections_avg": 10.2,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 31.8,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 4,
+      "max_pair_similarity": 0.9305,
+      "seeds": [
+        9156505189228547436,
+        484116425123607710,
+        6075286220238440147,
+        3595290780145633946,
+        6229512374197500422
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 8,
+        "rooms_max": 12,
+        "halls_avg": 9.6,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 0.4,
+        "connections_avg": 9.6,
+        "room_area_min": 24,
+        "room_area_max": 80,
+        "stair_distance_avg": 39.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        14,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9379,
+      "seeds": [
+        3168720599146340442,
+        5970089234678054190,
+        3531708539489885134,
+        7579118812153770124,
+        3431167550888127901
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 6,
+        "rooms_max": 23,
+        "halls_avg": 14.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.6,
+        "connections_avg": 14.4,
+        "room_area_min": 20,
+        "room_area_max": 176,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 0.9992,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.8964,
+      "seeds": [
+        1596618030912606562,
+        335780989274400134,
+        8150571240331868741,
+        1268115316451292728,
+        3748282292058047804
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 9.0,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.4,
+        "connections_avg": 9.0,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 41.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8855,
+      "seeds": [
+        9035559853522593851,
+        5234452355088690587,
+        1422720937783833382,
+        7831388821167804755,
+        4592985661491212407
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.8,
+        "rooms_min": 6,
+        "rooms_max": 14,
+        "halls_avg": 13.2,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.4,
+        "connections_avg": 13.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        3,
+        3
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 4,
+      "max_pair_similarity": 0.9111,
+      "seeds": [
+        8776609628853046262,
+        4221668218589335287,
+        7837905827001644514,
+        522488005320568794,
+        4611251642844401068
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 8,
+        "rooms_max": 12,
+        "halls_avg": 9.8,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 0.6,
+        "connections_avg": 9.8,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 32.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7198,
+      "seeds": [
+        6433846708115862506,
+        1744204051600056829,
+        4816236779334670275,
+        6254944225442476902,
+        4199728361565793867
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 6,
+        "rooms_max": 17,
+        "halls_avg": 12.0,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.8,
+        "connections_avg": 12.0,
+        "room_area_min": 25,
+        "room_area_max": 72,
+        "stair_distance_avg": 32.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "pitfall_rim",
+      "kind": "procedural",
+      "profile": "twosides+branching+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9336,
+      "seeds": [
+        8528515149823914184,
+        4290789912325752473,
+        2616529683992484148,
+        68351202482011518,
+        7739076399486179784
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 8,
+        "rooms_max": 16,
+        "halls_avg": 13.6,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.4,
+        "connections_avg": 13.6,
+        "room_area_min": 20,
+        "room_area_max": 70,
+        "stair_distance_avg": 40.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8843,
+      "seeds": [
+        935851206929395982,
+        3181564395717437812,
+        5916778791849686519,
+        1439514025359000316,
+        4805314528455289398
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 7,
+        "rooms_max": 17,
+        "halls_avg": 12.6,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.2,
+        "connections_avg": 12.6,
+        "room_area_min": 20,
+        "room_area_max": 160,
+        "stair_distance_avg": 37.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8407,
+      "seeds": [
+        2004157587448755254,
+        6162928925131586285,
+        8085143773427065796,
+        3333382190082390438,
+        6830804554768667711
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 9.2,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.8,
+        "connections_avg": 9.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 42.6,
+        "reachable_ratio_min": 0.9977,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8967,
+      "seeds": [
+        4086209641446665794,
+        5452649097509073214,
+        758463432484988980,
+        2328984391165151241,
+        1185455406651171677
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.0,
+        "rooms_min": 9,
+        "rooms_max": 21,
+        "halls_avg": 14.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.6,
+        "connections_avg": 14.0,
+        "room_area_min": 20,
+        "room_area_max": 184,
+        "stair_distance_avg": 49.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 16,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        13,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8091,
+      "seeds": [
+        2743431687569280468,
+        4377907957064302583,
+        1454564438963505873,
+        559761701707316366,
+        8049514888137529372
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 7,
+        "rooms_max": 15,
+        "halls_avg": 10.0,
+        "branches_avg": 1.8,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.8,
+        "connections_avg": 10.0,
+        "room_area_min": 20,
+        "room_area_max": 192,
+        "stair_distance_avg": 41.6,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 17,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9277,
+      "seeds": [
+        6254280041769954985,
+        467748571671040545,
+        4355158998092658914,
+        2172740197147432361,
+        4705226596783999506
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 8,
+        "rooms_max": 12,
+        "halls_avg": 9.4,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 0.4,
+        "connections_avg": 9.4,
+        "room_area_min": 24,
+        "room_area_max": 64,
+        "stair_distance_avg": 44.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 18,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.902,
+      "seeds": [
+        4562141635060694256,
+        5541755661902580254,
+        1659502687695068444,
+        3304234650462527183,
+        5413676669213622715
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 9,
+        "rooms_max": 17,
+        "halls_avg": 11.0,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 0.6,
+        "connections_avg": 11.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 45.4,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 19,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8343,
+      "seeds": [
+        7467194648234670072,
+        6096175806632343023,
+        4488543048339494894,
+        7330629940686669177,
+        5474486638789238041
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 8,
+        "rooms_max": 17,
+        "halls_avg": 10.4,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 0.4,
+        "connections_avg": 10.4,
+        "room_area_min": 24,
+        "room_area_max": 231,
+        "stair_distance_avg": 44.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 20,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8915,
+      "seeds": [
+        4980753952879463434,
+        6149995180532480968,
+        4136116795560945363,
+        3271938759882893328,
+        854508544070599886
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 9,
+        "rooms_max": 14,
+        "halls_avg": 10.6,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 0.6,
+        "connections_avg": 10.6,
+        "room_area_min": 24,
+        "room_area_max": 112,
+        "stair_distance_avg": 33.0,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 21,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9573,
+      "seeds": [
+        4034401239007288568,
+        1354845885951671719,
+        3362935131745295761,
+        7861734244499810017,
+        1617687178949265075
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.8,
+        "rooms_min": 7,
+        "rooms_max": 21,
+        "halls_avg": 14.6,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.2,
+        "connections_avg": 14.6,
+        "room_area_min": 20,
+        "room_area_max": 184,
+        "stair_distance_avg": 44.4,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 22,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        11
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9763,
+      "seeds": [
+        2720841481233003623,
+        3008688006033077012,
+        4021195937630045078,
+        8131494786608659013,
+        171883540752885694
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 9,
+        "rooms_max": 17,
+        "halls_avg": 13.0,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 0.6,
+        "connections_avg": 13.0,
+        "room_area_min": 20,
+        "room_area_max": 288,
+        "stair_distance_avg": 61.6,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 23,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9218,
+      "seeds": [
+        9100230550723809218,
+        5560679512899158337,
+        3405795233338531880,
+        7329359902835195036,
+        3287786381095776843
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 7,
+        "rooms_max": 15,
+        "halls_avg": 10.2,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 0.8,
+        "connections_avg": 10.2,
+        "room_area_min": 24,
+        "room_area_max": 72,
+        "stair_distance_avg": 34.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 24,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        11,
+        12
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9352,
+      "seeds": [
+        3268055944906929114,
+        792926421047824121,
+        4247683264535992186,
+        3824694011400911196,
+        2898923423778441936
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.0,
+        "rooms_min": 10,
+        "rooms_max": 16,
+        "halls_avg": 13.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.0,
+        "connections_avg": 13.4,
+        "room_area_min": 25,
+        "room_area_max": 156,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 25,
+      "segment": "pitfall_floor",
+      "kind": "procedural",
+      "profile": "branching+crossroads+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "pitfall_valley_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8899,
+      "seeds": [
+        4014791812559567148,
+        3311328214656816006,
+        214641599961582600,
+        6271929224236772355,
+        926198605541537140
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.4,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 10.0,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 0.6,
+        "connections_avg": 10.0,
+        "room_area_min": 25,
+        "room_area_max": 210,
+        "stair_distance_avg": 35.4,
+        "reachable_ratio_min": 0.9978,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

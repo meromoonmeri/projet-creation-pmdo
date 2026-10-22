@@ -1,0 +1,108 @@
+{
+  "schema": "new-era.pmdred-eu.sinister-woods-chain-runtime.v1",
+  "result": "PMDO_SINISTER_WOODS_CHAIN_RUNTIME_PASS_NON_PRODUCTION",
+  "scope": "real PMDO fixture: chapter-6 Ground/map order and native dungeon segment loading",
+  "not_certified": [
+    "full player-controlled chapter-6 narrative",
+    "Team Dazzling cinematic certification",
+    "battle outcome certification",
+    "New Game to ending traversal"
+  ],
+  "provenance": {
+    "pret_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "fixture_manifest_sha256": "73c5feecd981e3d158b7034528399a6e25860d53d0eb59aa6fd516305df548a1",
+    "events_sha256": "a4de5583767ad45b30b1c0eb6a40ad6a834b1d3041b3a9c946d50e4a23e862a8",
+    "runtime_log_sha256": "b7e1a988e9bdb3c9fd8470e498a261340f5aa5ebdcde6d68df8f93c2776fd59c",
+    "termination_sha256": "a3b4a3a7f670f070be0e7a8a6baccea43165ab0da6579876e6d3e700cdfeaed5",
+    "boss_map_sha256": "ee9269b8c58e93601db12ecb1ef3b53482ec049cd2d8166d1ed9de0e9acfdbd4"
+  },
+  "runtime": {
+    "event_count": 23,
+    "grounds": [
+      "gloomy_forest_entrance",
+      "gloomy_forest_midpoint",
+      "gloomy_forest_miniboss",
+      "gloomy_forest_miniboss",
+      "sinister_woods_clearing"
+    ],
+    "segments": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "maps": [
+      {
+        "event": "map",
+        "segment": 0,
+        "map_id": 0,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "free_collision": true,
+        "blocked_collision": true
+      },
+      {
+        "event": "map",
+        "segment": 1,
+        "map_id": 0,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "free_collision": true,
+        "blocked_collision": true
+      },
+      {
+        "event": "map",
+        "segment": 2,
+        "map_id": 0,
+        "width": 19,
+        "height": 19,
+        "music": "Boss Battle!.ogg",
+        "free_collision": true,
+        "blocked_collision": true
+      },
+      {
+        "event": "map",
+        "segment": 3,
+        "map_id": 0,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "free_collision": true,
+        "blocked_collision": true
+      },
+      {
+        "event": "map",
+        "segment": 4,
+        "map_id": 0,
+        "width": 20,
+        "height": 16,
+        "music": "Boss Battle!.ogg",
+        "free_collision": true,
+        "blocked_collision": true
+      }
+    ],
+    "diagnostics": {}
+  },
+  "checks": {
+    "input_replay_installed": true,
+    "bootstrap_chapter_6": true,
+    "ground_request_order": true,
+    "segment_order": true,
+    "procedural_maps_use_sinister_music": true,
+    "all_maps_have_collision_probes": true,
+    "mini_boss_map_loaded": true,
+    "final_boss_map_loaded": true,
+    "boss_map_type_is_native": true,
+    "boss_team_type_is_native": true,
+    "boss_tactic_is_serialized_object": true,
+    "boss_effect_types_are_explicit": true,
+    "normal_engine_exit": true,
+    "terminal_event_seen": true,
+    "no_forbidden_diagnostics": true,
+    "fixture_is_non_production": true
+  },
+  "production_route_certified": false
+}

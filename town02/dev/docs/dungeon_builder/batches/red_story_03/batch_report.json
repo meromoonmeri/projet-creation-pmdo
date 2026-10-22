@@ -1,0 +1,109 @@
+{
+  "schema": "new-era.red-story-batch.v1",
+  "batch": "red_story_03",
+  "summary": {
+    "requested": 1,
+    "staged": 1,
+    "generated": 1,
+    "runtime_pmdo_mapgen_validated": 1,
+    "route_validated": 1,
+    "promoted": 1,
+    "blocked": 0
+  },
+  "entries": [
+    {
+      "definition": "mt_steel",
+      "zone": "mt_steel",
+      "floors": 8,
+      "definition_path": "DungeonDefs/staging/red_story_03/mt_steel.json",
+      "zone_path": "Staging/dungeon_builder/red_story_03/Data/Zone/mt_steel.json",
+      "configuration_gate": true,
+      "warnings": [],
+      "status": "PROMOTED_RUNTIME_VALIDATED",
+      "blockers": [],
+      "runtime": {
+        "engine": "PMDO 0.8.12",
+        "attempted": 90,
+        "generated": 90,
+        "failures": 0,
+        "non_traversable": 0,
+        "invalid": 0,
+        "seeds_logged": 90
+      },
+      "artifacts": {
+        "definition_sha256": "20272c97387c563b35afa0583043cca69c19cf8153101ba93b75240e79707a76",
+        "zone_sha256": "eb5273195049ae76bba700e713edf473fc30126ec3b5b2dbaca469868ff45ef3"
+      },
+      "route_runtime": {
+        "jsonl": "docs/dungeon_builder/batches/red_story_03/runtime/routes/mt_steel.jsonl",
+        "jsonl_sha256": "f9799566868664957b6e452bbf1a7e2ebdd0e217796211728183815511b77424",
+        "log": "docs/dungeon_builder/batches/red_story_03/runtime/routes/mt_steel.log",
+        "procedural_maps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "boss_maps": [
+          {
+            "segment": 1,
+            "floor": 0,
+            "boss_species": "skarmory",
+            "expected_boss_species": "skarmory",
+            "map_seed": "-4992052460361933602",
+            "kind": "canonical_fixed_boss"
+          }
+        ],
+        "boss_clears": [
+          {
+            "segment": 1,
+            "map": "mt_steel_boss",
+            "expected_species": "skarmory",
+            "native_clear_hooks": 1,
+            "source_floor": 9,
+            "source_fixed_room": 1
+          }
+        ],
+        "grounds": [
+          "pic_ferreux_pied",
+          "d03p02"
+        ],
+        "fatals": 0
+      },
+      "canonical_battle_ground": "d03p02",
+      "canonical_layout_source": "Data/Ground/d03p02.rsground",
+      "rsmap_source": "Data/Map/mt_steel_boss.rsmap",
+      "rsmap_equivalence_verified": true,
+      "battle_location_verified": true,
+      "fixed_segments_provenance": [
+        {
+          "source_floor": 9,
+          "source_fixed_room": null,
+          "map": "mt_steel_boss",
+          "ground": "d03p02",
+          "provenance": "PMD_RED_ROM"
+        }
+      ],
+      "active_definition": "DungeonDefs/canonical/mt_steel.json",
+      "active_zone": "Data/Zone/mt_steel.json"
+    }
+  ],
+  "runtime_evidence": {
+    "jsonl": "docs/dungeon_builder/batches/red_story_03/runtime/native_mapgen.jsonl",
+    "jsonl_sha256": "ea4096e18cb07d117ccb4440a2b9fa23c67214a67ff80db9de6ca1340e51ed2b",
+    "report": null,
+    "report_sha256": null,
+    "end": {
+      "event": "end",
+      "attempted": 90,
+      "generated": 90,
+      "failures": 0,
+      "non_traversable": 0,
+      "invalid": 0
+    }
+  }
+}

@@ -1,0 +1,498 @@
+{
+  "generated_at": "2026-08-22T23:00:27+00:00",
+  "dungeon": "frosty_forest",
+  "name": {
+    "en": "Frosty Forest",
+    "fr": "Forêt Givrée"
+  },
+  "chapter": 11,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Frosty Forest (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/FrostyForest) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 11. Recoupé avec Bulbapedia (page « Frosty Forest »).",
+  "floors": 9,
+  "biome": "frosty_edge",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/frosty_forest.json",
+  "segments": [
+    {
+      "name": "frosty_edge",
+      "floors": [
+        1,
+        9
+      ],
+      "biome": "frosty_edge",
+      "dtef": {
+        "floor": "frosty_forest_floor",
+        "wall": "frosty_forest_wall",
+        "secondary": "frosty_forest_secondary",
+        "name": "frosty_forest",
+        "element": "normal"
+      },
+      "profiles": [
+        "branching",
+        "dense",
+        "mixed"
+      ],
+      "pokemon": 8,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 22
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "mid": "frosty_forest_midpoint",
+    "entrance": "foret_givree_oree",
+    "end": "d10p03"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d10p03",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "foret_givree_oree",
+    "cinematic_ground": "d10p03",
+    "battle_ground": "d10p03",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "frosty_forest_midpoint",
+    "end": "d10p03",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d10p03",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "d10p03"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "final battle stays on the canonical end Ground 'd10p03' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:frosty_forest",
+    "root_seed": 8551319622303074313,
+    "explicit_seed": false,
+    "derived_seeds": 49
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7383,
+      "seeds": [
+        2126821231277930237,
+        1447438753556596835,
+        5476282083015217006,
+        5415834766148984234,
+        2941052483524225956
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 6,
+        "rooms_max": 25,
+        "halls_avg": 15.4,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.2,
+        "connections_avg": 15.4,
+        "room_area_min": 9,
+        "room_area_max": 105,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8278,
+      "seeds": [
+        5557900204286658259,
+        3945135365985323227,
+        6505474853626451273,
+        3910526622115792495,
+        3223376729582626692
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.0,
+        "rooms_min": 10,
+        "rooms_max": 25,
+        "halls_avg": 20.2,
+        "branches_avg": 6.6,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 2.0,
+        "connections_avg": 20.2,
+        "room_area_min": 9,
+        "room_area_max": 273,
+        "stair_distance_avg": 36.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7588,
+      "seeds": [
+        7330418480444722003,
+        6168437452889856580,
+        164820645719198053,
+        945204887534510256,
+        6163693268623571960
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 18.6,
+        "rooms_min": 13,
+        "rooms_max": 28,
+        "halls_avg": 22.0,
+        "branches_avg": 7.2,
+        "dead_ends_avg": 6.8,
+        "loops_avg": 1.6,
+        "connections_avg": 22.0,
+        "room_area_min": 9,
+        "room_area_max": 81,
+        "stair_distance_avg": 43.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.821,
+      "seeds": [
+        2015698192958614724,
+        1053790858217346739,
+        3062779637940482645,
+        4558258516276483579,
+        968739039933776318
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.0,
+        "rooms_min": 10,
+        "rooms_max": 17,
+        "halls_avg": 17.2,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.6,
+        "connections_avg": 17.2,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        7,
+        6
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8808,
+      "seeds": [
+        3737419452521530408,
+        6062179507162024207,
+        2182766267992973313,
+        4065402112608525067,
+        2120069106498753453
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.2,
+        "rooms_min": 6,
+        "rooms_max": 23,
+        "halls_avg": 19.4,
+        "branches_avg": 6.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 2.6,
+        "connections_avg": 19.4,
+        "room_area_min": 9,
+        "room_area_max": 90,
+        "stair_distance_avg": 39.6,
+        "reachable_ratio_min": 0.9986,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8621,
+      "seeds": [
+        5826968916862204407,
+        1148107970336183385,
+        2574972860070506730,
+        813436068203044972,
+        6470319620307500704
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.2,
+        "rooms_min": 10,
+        "rooms_max": 23,
+        "halls_avg": 16.2,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.6,
+        "connections_avg": 16.2,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 40.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8963,
+      "seeds": [
+        1622889474243225653,
+        6115703875300223957,
+        907927384100804430,
+        5222944701968128568,
+        949888557885047026
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.4,
+        "rooms_min": 10,
+        "rooms_max": 24,
+        "halls_avg": 22.6,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 2.4,
+        "connections_avg": 22.6,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 38.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9166,
+      "seeds": [
+        1551613313168162794,
+        8477877566252599914,
+        1189822045738153099,
+        2723978587570481629,
+        1938651627945556646
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.6,
+        "rooms_min": 7,
+        "rooms_max": 26,
+        "halls_avg": 14.4,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 1.2,
+        "connections_avg": 14.4,
+        "room_area_min": 15,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "frosty_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "frosty_forest",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7303,
+      "seeds": [
+        4908543798674641564,
+        4307059322125899239,
+        6083109310111084563,
+        5982593434846564369,
+        8478208714706583564
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.4,
+        "rooms_min": 10,
+        "rooms_max": 26,
+        "halls_avg": 17.2,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 6.0,
+        "loops_avg": 1.0,
+        "connections_avg": 17.2,
+        "room_area_min": 9,
+        "room_area_max": 128,
+        "stair_distance_avg": 41.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

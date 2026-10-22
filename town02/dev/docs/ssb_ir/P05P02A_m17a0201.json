@@ -1,0 +1,540 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "P05P02A",
+ "scene": "m17a0201",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/P05P02A/m17a0201.ssb",
+ "file_size": 394,
+ "header": {
+  "nb_constants": 0,
+  "nb_strings": 6,
+  "constant_strings_start": 96,
+  "const_table_length": 0,
+  "strings_en": 286,
+  "unknown": 9
+ },
+ "data_offset": 12,
+ "start_of_const_table": 108,
+ "start_of_constants": 108,
+ "number_of_routines": 1,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 10,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 18
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 22,
+   "id": 32,
+   "name": "bgm_PlayFadeIn",
+   "raw": [
+    80,
+    0,
+    256
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "bgm_id",
+     "type": "Bgm",
+     "raw": 80,
+     "resolved": "InTheFuture"
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    },
+    {
+     "i": 2,
+     "spec": "volume",
+     "type": "Number",
+     "raw": 256,
+     "resolved": 256
+    }
+   ],
+   "resolved": [
+    "InTheFuture",
+    0,
+    256
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 30,
+   "id": 128,
+   "name": "flag_SetScenario",
+   "raw": [
+    3,
+    18,
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 3,
+     "resolved": "SCENARIO_MAIN"
+    },
+    {
+     "i": 1,
+     "spec": "scenario_value",
+     "type": "Number",
+     "raw": 18,
+     "resolved": 18
+    },
+    {
+     "i": 2,
+     "spec": "level_value",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    "SCENARIO_MAIN",
+    18,
+    2
+   ]
+  },
+  {
+   "seq": 2,
+   "off": 38,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 42,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 4,
+   "off": 46,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 5,
+   "off": 50,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 6,
+   "off": 54,
+   "id": 156,
+   "name": "message_Mail",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 0,
+     "resolved": {
+      "kind": "string",
+      "index": 0,
+      "text": "[CN][hero] tested the doors."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 0,
+     "text": "[CN][hero] tested the doors."
+    }
+   ]
+  },
+  {
+   "seq": 7,
+   "off": 58,
+   "id": 156,
+   "name": "message_Mail",
+   "raw": [
+    1
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 1,
+     "resolved": {
+      "kind": "string",
+      "index": 1,
+      "text": "[CN]The doors failed to open."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 1,
+     "text": "[CN]The doors failed to open."
+    }
+   ]
+  },
+  {
+   "seq": 8,
+   "off": 62,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 9,
+   "off": 66,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    0,
+    4,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 4,
+     "resolved": "WORRIED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "PLAYER",
+    "WORRIED",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 10,
+   "off": 74,
+   "id": 172,
+   "name": "message_SwitchMonologue",
+   "raw": [
+    66
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 66,
+     "resolved": "HERO_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "HERO_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 11,
+   "off": 78,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    4,
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 2,
+     "resolved": {
+      "kind": "string",
+      "index": 2,
+      "text": "(It's no good.[K] Like [partner] said, these\ndoors won't open.)"
+     }
+    }
+   ],
+   "resolved": [
+    4,
+    {
+     "kind": "string",
+     "index": 2,
+     "text": "(It's no good.[K] Like [partner] said, these\ndoors won't open.)"
+    }
+   ]
+  },
+  {
+   "seq": 12,
+   "off": 84,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 3,
+     "resolved": {
+      "kind": "string",
+      "index": 3,
+      "text": "(It's no good.[K] Like [partner] said, these\ndoors won't open.)"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 3,
+     "text": "(It's no good.[K] Like [partner] said, these\ndoors won't open.)"
+    }
+   ]
+  },
+  {
+   "seq": 13,
+   "off": 88,
+   "id": 172,
+   "name": "message_SwitchMonologue",
+   "raw": [
+    66
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 66,
+     "resolved": "HERO_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "HERO_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 14,
+   "off": 92,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    4,
+    4
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 4,
+     "resolved": {
+      "kind": "string",
+      "index": 4,
+      "text": "(It sure looks like we've been locked up!)"
+     }
+    }
+   ],
+   "resolved": [
+    4,
+    {
+     "kind": "string",
+     "index": 4,
+     "text": "(It sure looks like we've been locked up!)"
+    }
+   ]
+  },
+  {
+   "seq": 15,
+   "off": 98,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 5,
+     "resolved": {
+      "kind": "string",
+      "index": 5,
+      "text": "(It sure looks like we've been locked up!)"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 5,
+     "text": "(It sure looks like we've been locked up!)"
+    }
+   ]
+  },
+  {
+   "seq": 16,
+   "off": 102,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 17,
+   "off": 106,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [],
+ "strings": [
+  "[CN][hero] tested the doors.",
+  "[CN]The doors failed to open.",
+  "(It's no good.[K] Like [partner] said, these\ndoors won't open.)",
+  "(It's no good.[K] Like [partner] said, these\ndoors won't open.)",
+  "(It sure looks like we've been locked up!)",
+  "(It sure looks like we've been locked up!)"
+ ],
+ "validation": {
+  "end_cursor": 394,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 1,
+  "n_ops": 18,
+  "n_constants": 0,
+  "n_strings": 6,
+  "cross_check_model": true
+ }
+}

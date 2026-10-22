@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "ground": "t01p04",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "dimensions_pixels": [
+      528,
+      528
+    ],
+    "primary_sample_count": 1,
+    "reload_sample_count": 1,
+    "exact_sample_count": 2,
+    "unique_rgba_frame_count": 1,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "strategy": "Complete static tick and reload PMDO RGBA frames were compared pixel-for-pixel with an independent authenticated raw EU BPL/BPC/BMA renderer.",
+    "resource_hashes": {
+      "T01P04": "e86ade0011ddc3543c7918adf680bdc475bdf9394a5bb5306f8dccaa0edf2617",
+      "T01P04c": "e9df255ed09f64d01ac6122d6cccbb5733bf45bcb0f676543d8642c29fb95d98",
+      "T01P04m": "6201aca2e56e7e5adf0d59a497fe290edd9fd65c4d1faaff5f905ed55ae4a5b5"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "schema": "authenticated runtime reference plan v2",
+    "primary_tick_count": 1,
+    "first_tick": 0,
+    "last_tick": 0,
+    "cell_local_schedule_count": 0,
+    "maximum_cell_local_cycle_ticks": 1,
+    "animation_channels": [],
+    "static_ground": true,
+    "complete_static_schedule_covered": true,
+    "unique_observed_rgba_frames": 1,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "BMA T01P04m",
+    "collision_layer_count": 1,
+    "solid_cells": 4028,
+    "collision_sha256": "103f07a8556c2d9d490be4a8063de96223dfd8a1ab5780302f72fcd8da0620df",
+    "auxiliary_nonzero_cells": 44,
+    "auxiliary_sha256": "e6985c55b86b415a8efedbe1b1f9b1140791f3f168d8bba54edab84a833e51f7",
+    "successful_probe": {
+      "start": [
+        256,
+        248
+      ],
+      "direction": "Left",
+      "observed_delta": [
+        -8,
+        0
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        256,
+        248
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "inter_entry_transitions": 1,
+    "same_ground_reentries": 1,
+    "sink_transition": true,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphaned_animation_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "canonical_source_tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic Main_Entrance_Marker on a copied Ground",
+      "ignored validation comment and scripts"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "makuhita_dojo_exterior",
+      "ground_map_symbol": "MAP_MAKUHITA_DOJO",
+      "canonical_debug_id": 5,
+      "map_id": 6,
+      "map_file_id": 6,
+      "ground_place_id": 5,
+      "stable_ground_id": "t01p04",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "authenticated EU-ROM conversion-table entry",
+        "pinned pret/pmd-red ground-map enum index 6"
+      ],
+      "classification": "training_facility_exterior_not_arena"
+    },
+    "project_reuse": {
+      "role": "Dormant Fugitive cinematic ID plus independent active dojo_ossatueur and sky_eos_t01p04a Grounds",
+      "cinematic": "INTENDED_BUT_NOT_ROUTED_OR_VALIDATED",
+      "arena": "ACTIVE PROJECT DOJO SEPARATE; NOT ASSESSED BY THIS PASS",
+      "boss": false,
+      "status": "GROUND PROMOTED ONLY; FUGITIVE ARC NOT REBUILT OR CLAIMED VALIDATED",
+      "negative_routing_evidence": [
+        "not present in FugitiveArc sequence",
+        "not registered in FugitiveCinematics",
+        "no ground/t01p04/init.lua"
+      ]
+    }
+  },
+  "identity_correction": {
+    "result": "PASS",
+    "authenticated_map_file_id": 6,
+    "pinned_enum_symbol": "MAP_MAKUHITA_DOJO",
+    "stale_label": "MAP_FILE_ID_PELIPPER_POST_OFFICE_INSIDE",
+    "stale_locations": [
+      "RESERVE/red_grounds/t01p04.rsground comment",
+      "docs/AUDIT_ANIMATIONS_PMD_RED_2026-08-07.md table"
+    ],
+    "correction": "Pelipper Post Office Inside is map/file ID 5 and authenticated t01p03; t01p04 is map/file ID 6, Makuhita Dojo.",
+    "reserve_bytes_modified": false,
+    "canonical_metadata_propagates_stale_label": false
+  },
+  "variant_separation": {
+    "result": "PASS",
+    "canonical_lowercase_id": "t01p04",
+    "active_project_variants": [
+      {
+        "id": "dojo_ossatueur",
+        "ground_sha256": "33a70829e41a36b9525b72f1bfcbd37c668591af69b00828707b5dece4d58947",
+        "tile_sha256": "8741387be82be686b462682dc06e087c1b66946ad63598bc76f1271efc9f4330",
+        "script_sha256": "703c12fa17e1ec96d548a333717c14cd1ee510694d8ee0a50b45e412cf5d201d"
+      },
+      {
+        "id": "sky_eos_t01p04a",
+        "ground_sha256": "3ec253e892b96679965fa94415cd2b3e548a77353a80f2bed672dc7b0e663615",
+        "tile_sha256": "459040d2ad04625c399c48284d401e0df4ecf3a198051f4e80271780f41e4c5b",
+        "script_sha256": "0e597eea641913e7635d55be78d0087152562e40ee6a8596011f2ca710f4d25b"
+      }
+    ],
+    "overwritten_aliased_or_rewired": false
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t01p04.rsground",
+    "tile": "Content/Tile/t01p04_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "t01p04",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p04/README.md",
+    "promoted_ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "promoted_tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "candidate_tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "source_normalized_sha256": {
+      "T01P04": "e86ade0011ddc3543c7918adf680bdc475bdf9394a5bb5306f8dccaa0edf2617",
+      "T01P04c": "e9df255ed09f64d01ac6122d6cccbb5733bf45bcb0f676543d8642c29fb95d98",
+      "T01P04m": "6201aca2e56e7e5adf0d59a497fe290edd9fd65c4d1faaff5f905ed55ae4a5b5"
+    },
+    "events_sha256": "c9ae1b6c2881a750b10b369ac71bcf1b272c992927301aec3957b94d06a8b125",
+    "report_sha256": "35f5602855513cf7560a8c692845281b422ed6abcbb21b249ded2b0066d394b9",
+    "fixture_manifest_sha256": "96f9a66ef36cca1f3de7693ac54dc00f9af465f37a5b24c2bc1d3773e9ddf1a8",
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "Validator does not self-close; its process group was terminated only after end/final cleanup. Wrapper exited 0.",
+    "evidence_impact": "NONE."
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "Existing validated 27-relationship dungeon-Ground restitution bundle retained unchanged."
+  },
+  "scope_note": "Ground map/tile, identity, visuals, static timing, collision, repeated lifecycle, cleanup, and additive registration only; later narrative/cinematic systems are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_subject": "copies read back from promoted t01p04 destinations",
+    "indexed_ground_sha256": "c15bf9f0f7697d1fba4269fd2517513adba616241e67890eed1795dc6564d775",
+    "indexed_tile_sha256": "2565ce1c27e242fb80ef4fc7243e238b026acd353a261a460f65cd4406fea504",
+    "index_log": "docs/pmdred_eu/pmdo_validation/t01p04_exhaustive_pass/post_promotion_index.log",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_json_parse": "PASS",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "exactly one insertion after t01p03",
+    "zone_ground_map_count": 197,
+    "canonical_index": 138,
+    "project_dojo_index": 66,
+    "eos_index": 192,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

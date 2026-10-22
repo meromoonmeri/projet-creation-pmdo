@@ -1,0 +1,329 @@
+{
+  "generated_at": "2026-08-22T22:57:58+00:00",
+  "dungeon": "frosty_grotto",
+  "name": {
+    "en": "Frosty Grotto",
+    "fr": "Grotte Givrée"
+  },
+  "chapter": 11,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Frosty Grotto (5F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/FrostyGrotto) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 11. Recoupé avec Bulbapedia (page « Frosty Grotto »).",
+  "floors": 5,
+  "biome": "frosty_grotto",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/frosty_grotto.json",
+  "segments": [
+    {
+      "name": "frosty_grotto",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "frosty_grotto",
+      "dtef": {
+        "floor": "mt_freeze_floor",
+        "wall": "mt_freeze_wall",
+        "secondary": "mt_freeze_secondary",
+        "name": "mt_freeze",
+        "element": "normal",
+        "justification": "Grotte Givrée : cavité du massif du Mont Gelé (Artikodin) ; même biome canonique que le massif."
+      },
+      "profiles": [
+        "branching",
+        "mixed",
+        "dense"
+      ],
+      "pokemon": 3,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 5
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "foret_givree_oree",
+    "end": "d10p03"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d10p03",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée.",
+    "roster": [
+      {
+        "species": "articuno",
+        "level": [
+          36,
+          36
+        ],
+        "role": "leader"
+      }
+    ]
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "foret_givree_oree",
+    "cinematic_ground": "d10p03",
+    "battle_ground": "d10p03",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d10p03",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d10p03",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "d10p03"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd10p03' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:frosty_grotto",
+    "root_seed": 8904834547963222912,
+    "explicit_seed": false,
+    "derived_seeds": 27
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "frosty_grotto",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        6
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8045,
+      "seeds": [
+        1979393874388616452,
+        900265018371667273,
+        7357557496064688757,
+        4291915114889547962,
+        6795990966952400926
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.2,
+        "rooms_min": 8,
+        "rooms_max": 27,
+        "halls_avg": 19.0,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 1.8,
+        "connections_avg": 19.0,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.8,
+        "reachable_ratio_min": 0.9982,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "frosty_grotto",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        8,
+        4
+      ],
+      "cell": [
+        9,
+        6
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9092,
+      "seeds": [
+        7985867199363467117,
+        5311753415624299914,
+        7629111093579616985,
+        521175110657081367,
+        1920505998225704947
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 8,
+        "rooms_max": 17,
+        "halls_avg": 12.8,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.8,
+        "connections_avg": 12.8,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 47.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "frosty_grotto",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7663,
+      "seeds": [
+        7434256387164321138,
+        4736158299144733661,
+        3600236947920200938,
+        5743157130869189676,
+        3056217648330369306
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 9,
+        "rooms_max": 27,
+        "halls_avg": 15.4,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.2,
+        "connections_avg": 15.4,
+        "room_area_min": 12,
+        "room_area_max": 204,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "frosty_grotto",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8548,
+      "seeds": [
+        2993633678196878210,
+        3163671230311181316,
+        8880546102798681774,
+        2716365984910953367,
+        4735234250509604181
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.2,
+        "rooms_min": 8,
+        "rooms_max": 29,
+        "halls_avg": 18.6,
+        "branches_avg": 5.8,
+        "dead_ends_avg": 5.2,
+        "loops_avg": 1.6,
+        "connections_avg": 18.6,
+        "room_area_min": 12,
+        "room_area_max": 250,
+        "stair_distance_avg": 32.2,
+        "reachable_ratio_min": 0.9992,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "frosty_grotto",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7882,
+      "seeds": [
+        8765464676339753240,
+        6322153738234783790,
+        6911518389744548894,
+        3757253937220728093,
+        2615642393845347895
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.4,
+        "rooms_min": 10,
+        "rooms_max": 22,
+        "halls_avg": 17.8,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 2.6,
+        "connections_avg": 17.8,
+        "room_area_min": 12,
+        "room_area_max": 270,
+        "stair_distance_avg": 35.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

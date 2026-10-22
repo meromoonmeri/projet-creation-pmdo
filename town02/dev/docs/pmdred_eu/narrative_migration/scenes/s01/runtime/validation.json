@@ -1,0 +1,192 @@
+{
+  "schema": "new-era.pmdred-eu-narrative-scene-runtime-validation.v1",
+  "scene": "s01",
+  "result": "PARTIAL_PASS_DEPENDENCY_BLOCKED",
+  "full_scene_migrated": false,
+  "validated_boundary": "BGM_STOP through BGM_SWITCH after six exact EU MSG_ON_BG blocks",
+  "blocking_dependency": "SPECIAL_TEXT_PERSONALITY_QUIZ_AND_PALETTE_0x22",
+  "runtime_environment": {
+    "pmdo_0_8_12_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "dumpasset_tree_manifest_sha256": "42be740813125641bb5c3a15adefcb24b53e70fa5401863e3913b77ea0c2356d",
+    "dumpasset_tree_file_count": 11485,
+    "dumpasset_tree_lock_result": "PASS",
+    "dumpasset_transport_archive": {
+      "path": ".runtime-cache/downloads/DumpAsset-9d864d1425f002b051e7a54fffc639988d8ef9c9.tar.gz.download.10404",
+      "observed_sha256": "216d97a6757782b540b657f3684a9342bda00fd233b2ecae0a240e855f0a96ce",
+      "locked_sha256": "956ad1047c8e66ea545c26033119e7e2fc3c1ff614ecfd37f96f57912178eb17",
+      "result": "TRANSPORT_ARCHIVE_REGENERATED_BY_GITHUB; EXTRACTED_11485_FILE_TREE_MATCHES_LOCK"
+    }
+  },
+  "pmdo": {
+    "version": "0.8.12",
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    },
+    "terminal_seen": true,
+    "graceful_exit_observed": true,
+    "requested_signal_sent": false,
+    "residual_process_count": 0
+  },
+  "timeline": {
+    "event_count": 55,
+    "contiguous_sequence": true,
+    "monotonic_runtime_frames": true,
+    "validated_boundary_frame": 199,
+    "dialogue_command_order": [
+      "PMDRED_EU_S01_001",
+      "PMDRED_EU_S01_002",
+      "PMDRED_EU_S01_003",
+      "PMDRED_EU_S01_004",
+      "PMDRED_EU_S01_005",
+      "PMDRED_EU_S01_006"
+    ],
+    "dialogue_page_order": [
+      "PMDRED_EU_S01_001",
+      "PMDRED_EU_S01_002",
+      "PMDRED_EU_S01_003",
+      "PMDRED_EU_S01_004",
+      "PMDRED_EU_S01_005",
+      "PMDRED_EU_S01_006_A",
+      "PMDRED_EU_S01_006_B"
+    ],
+    "dialogue_page_timings": [
+      {
+        "page_key": "PMDRED_EU_S01_001",
+        "begin_frame": 0,
+        "capture_request_frame": 3,
+        "capture_complete_frame": 5,
+        "end_frame": 18,
+        "runtime_duration_frames": 18
+      },
+      {
+        "page_key": "PMDRED_EU_S01_002",
+        "begin_frame": 18,
+        "capture_request_frame": 20,
+        "capture_complete_frame": 22,
+        "end_frame": 54,
+        "runtime_duration_frames": 36
+      },
+      {
+        "page_key": "PMDRED_EU_S01_003",
+        "begin_frame": 54,
+        "capture_request_frame": 57,
+        "capture_complete_frame": 59,
+        "end_frame": 103,
+        "runtime_duration_frames": 49
+      },
+      {
+        "page_key": "PMDRED_EU_S01_004",
+        "begin_frame": 103,
+        "capture_request_frame": 105,
+        "capture_complete_frame": 107,
+        "end_frame": 136,
+        "runtime_duration_frames": 33
+      },
+      {
+        "page_key": "PMDRED_EU_S01_005",
+        "begin_frame": 136,
+        "capture_request_frame": 139,
+        "capture_complete_frame": 141,
+        "end_frame": 158,
+        "runtime_duration_frames": 22
+      },
+      {
+        "page_key": "PMDRED_EU_S01_006_A",
+        "begin_frame": 158,
+        "capture_request_frame": 160,
+        "capture_complete_frame": 162,
+        "end_frame": 175,
+        "runtime_duration_frames": 17
+      },
+      {
+        "page_key": "PMDRED_EU_S01_006_B",
+        "begin_frame": 175,
+        "capture_request_frame": 178,
+        "capture_complete_frame": 180,
+        "end_frame": 199,
+        "runtime_duration_frames": 24
+      }
+    ],
+    "audio_order": [
+      "BGM_STOP",
+      "BGM_SWITCH:MUS_WELCOME_TO_THE_WORLD_OF_POKEMON"
+    ],
+    "source_sector_actor_count": 0,
+    "fixture_actor_hidden_count": 1,
+    "movement": "NOT_APPLICABLE_IN_VALIDATED_BOUNDARY",
+    "orientation": "NOT_APPLICABLE_IN_VALIDATED_BOUNDARY",
+    "camera": "NOT_APPLICABLE_IN_VALIDATED_BOUNDARY",
+    "vfx": "BLACK_MSG_ON_BG_PRESENTATION_ONLY_BEFORE_BLOCKING_PALETTE_OPCODE",
+    "state_at_boundary": "cutscene prelude complete; exact quiz handoff deliberately blocked"
+  },
+  "captures": [
+    {
+      "page_key": "PMDRED_EU_S01_001",
+      "source_file": "2026-08-12_19-56-49.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_002",
+      "source_file": "2026-08-12_19-56-51.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_003",
+      "source_file": "2026-08-12_19-56-52.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_004",
+      "source_file": "2026-08-12_19-56-54.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_005",
+      "source_file": "2026-08-12_19-56-55.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_006_A",
+      "source_file": "2026-08-12_19-56-56.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    },
+    {
+      "page_key": "PMDRED_EU_S01_006_B",
+      "source_file": "2026-08-12_19-56-56_1.png",
+      "width": 480,
+      "height": 384,
+      "sha256": "ba93272fee4de29909de003ebad4ef1b36bf310fcd88a9061f7646f441e4a273",
+      "ground_frame": "fully_opaque_black_no_actor_or_effect"
+    }
+  ],
+  "capture_limitation": "PMDO _GROUND:Screenshot captures the Ground presentation layer, not UI glyph pixels. Exact French glyph input is therefore proven by ROM-backed static equality plus successful real UI calls and synchronized page events; it is not claimed as a dialogue pixel comparison.",
+  "promotion": "FORBIDDEN_UNTIL_FULL_S01_QUIZ_PALETTE_FADE_AND_RETURN_PASS"
+}

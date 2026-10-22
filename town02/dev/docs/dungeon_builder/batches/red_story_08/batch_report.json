@@ -1,0 +1,103 @@
+{
+  "schema": "new-era.red-story-batch.v1",
+  "batch": "red_story_08",
+  "summary": {
+    "requested": 1,
+    "staged": 1,
+    "generated": 1,
+    "runtime_pmdo_mapgen_validated": 1,
+    "route_validated": 1,
+    "promoted": 1,
+    "blocked": 0
+  },
+  "entries": [
+    {
+      "definition": "mt_thunder_peak",
+      "zone": "mt_thunder_peak",
+      "floors": 2,
+      "definition_path": "DungeonDefs/staging/red_story_08/mt_thunder_peak.json",
+      "zone_path": "Staging/dungeon_builder/red_story_08/Data/Zone/mt_thunder_peak.json",
+      "configuration_gate": true,
+      "warnings": [],
+      "status": "PROMOTED_RUNTIME_VALIDATED",
+      "blockers": [],
+      "runtime": {
+        "engine": "PMDO 0.8.12",
+        "attempted": 30,
+        "generated": 30,
+        "failures": 0,
+        "non_traversable": 0,
+        "invalid": 0,
+        "seeds_logged": 30
+      },
+      "artifacts": {
+        "definition_sha256": "5af668bf3e7450808fc933748c13e0243e7acb2830961e112fcbb8af7f3ea17b",
+        "zone_sha256": "0c18b07720d2f4eb1ffa4f233a5d82f67344c40c86aa87f956e34d03ef904009"
+      },
+      "route_runtime": {
+        "jsonl": "docs/dungeon_builder/batches/red_story_08/runtime/routes/mt_thunder_peak.jsonl",
+        "jsonl_sha256": "97594088e0e3dee24828cbe43f4f44669cbec33e7dbe37b989635813f2358051",
+        "log": "docs/dungeon_builder/batches/red_story_08/runtime/routes/mt_thunder_peak.log",
+        "procedural_maps": [
+          0,
+          1
+        ],
+        "boss_maps": [
+          {
+            "segment": 1,
+            "floor": 0,
+            "boss_species": "zapdos",
+            "expected_boss_species": "zapdos",
+            "map_seed": "2341463894892412892",
+            "kind": "canonical_fixed_boss"
+          }
+        ],
+        "boss_clears": [
+          {
+            "segment": 1,
+            "map": "mt_thunder_peak_boss",
+            "expected_species": "zapdos",
+            "native_clear_hooks": 1,
+            "source_floor": 3,
+            "source_fixed_room": 3
+          }
+        ],
+        "grounds": [
+          "d06p02",
+          "d06p03"
+        ],
+        "fatals": 0
+      },
+      "canonical_battle_ground": "d06p03",
+      "canonical_layout_source": "Data/Ground/d06p03.rsground",
+      "rsmap_source": "Data/Map/mt_thunder_peak_boss.rsmap",
+      "rsmap_equivalence_verified": true,
+      "battle_location_verified": true,
+      "fixed_segments_provenance": [
+        {
+          "source_floor": 3,
+          "source_fixed_room": null,
+          "map": "mt_thunder_peak_boss",
+          "ground": "d06p03",
+          "provenance": "PMD_RED_ROM"
+        }
+      ],
+      "active_definition": "DungeonDefs/canonical/mt_thunder_peak.json",
+      "active_zone": "Data/Zone/mt_thunder_peak.json"
+    }
+  ],
+  "runtime_evidence": {
+    "jsonl": "docs/dungeon_builder/batches/red_story_08/runtime/native_mapgen.jsonl",
+    "jsonl_sha256": "57a1d7cfe29bb476b765a491877caa166f625fd473be39143c568400c95a7465",
+    "report": null,
+    "report_sha256": null,
+    "end": {
+      "event": "end",
+      "attempted": 30,
+      "generated": 30,
+      "failures": 0,
+      "non_traversable": 0,
+      "invalid": 0
+    }
+  }
+}

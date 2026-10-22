@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "ground": "a03p01",
+  "validated_at": "2026-08-12",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS_INTEGRATION_PRESERVING_MIGRATION_WITH_SHEET_ALIAS",
+  "method": {
+    "destination_precondition": "active Ground and conflicting historical same-name tile present at recorded hashes; unique alias absent; zone entry present exactly once",
+    "canonical_migration": "authenticated canonical visual/collision/animation Ground plus only additive active Markers/Spawners and an exact Sheet alias",
+    "installation_mode": "historical Ground and tile reserved first; Ground replaced atomically; byte-identical candidate tile created under unique alias; rollback from reserve on failure",
+    "sheet_alias": "a03p01_pmdred_Base",
+    "sheet_alias_reference_count": 4320,
+    "historical_tile_modified": false,
+    "existing_asset_discarded": false,
+    "existing_project_entities_preserved": true,
+    "existing_scripts_modified": false,
+    "zone_registration": "preexisting entry preserved without any zone write"
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "active_patched_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "report_sha256": "88dd1fb6634528812913453a4f3632bdf809f97076c121784c82499cc7ead86e",
+    "fixture_manifest_sha256": "0910e48318b47b821348b08e68d7cbd3147ab9b3116bb98c64fd648248cf0f33",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "canonical_ground_sha256": "36b389989c2ed916b95bc79aa5236a03c42911d81116d8f4f3c1f59679f1c3b3",
+    "integrated_ground_sha256": "b0217e3fa2963faf0ee340c639b80d8a2cd33f7c3a8a585db21f8eecc0be0beb",
+    "aliased_integrated_ground_sha256": "e88881d4a9e6c28affd44927ae963174f641ec95751b786ebf4442c12b0b1259",
+    "entity_integration_proof": "PASS_ADDITIVE_MARKERS_SPAWNERS_ONLY",
+    "canonical_tile_sha256": "877fd56336e417ed7690db8baeeedf465657eaf37a345d2010fa356333bf8cf4",
+    "aliased_tile_sha256": "877fd56336e417ed7690db8baeeedf465657eaf37a345d2010fa356333bf8cf4",
+    "candidate_tile_bytes_unchanged": true,
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "runtime_safe": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true,
+    "identity_map_file_id": 178,
+    "identity_symbol": "MAP_FUGITIVES_SNOW_FOREST",
+    "termination_gate": "PASS_NORMAL_EXIT_0",
+    "termination_method": "RogueEssence.GameBase.LoadPhase.Unload",
+    "termination_watchdog_sent": false,
+    "termination_kind": "NORMAL_EXIT",
+    "termination_returncode": 0,
+    "termination_status_sha256": "55647c9c5140343d08f78ce7d94429a64914917c78a1168cbb6dede48b0f14bb",
+    "segmentation_fault": false,
+    "orphan_process_count": 0
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-a03p01-integrated-aliased-candidate.rsground",
+      "canonical_baseline": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/a03p01.rsground",
+      "destination": "Data/Ground/a03p01.rsground",
+      "destination_preexisting": true,
+      "preexisting_sha256": "b274410f90ad2ef7f0e9c2cbdbb4e68959db2dca25b94b3452f3d67a5a5280dc",
+      "preexisting_reserve": "RESERVE/pmdred_pre_promotion/a03p01/a03p01.rsground",
+      "bytes": 901532,
+      "canonical_baseline_sha256": "36b389989c2ed916b95bc79aa5236a03c42911d81116d8f4f3c1f59679f1c3b3",
+      "integrated_pre_alias_sha256": "b0217e3fa2963faf0ee340c639b80d8a2cd33f7c3a8a585db21f8eecc0be0beb",
+      "validated_integrated_aliased_candidate_sha256": "e88881d4a9e6c28affd44927ae963174f641ec95751b786ebf4442c12b0b1259",
+      "destination_sha256": "e88881d4a9e6c28affd44927ae963174f641ec95751b786ebf4442c12b0b1259",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-a03p01-integrated-candidate/tiles/a03p01_Base.tile",
+      "destination": "Content/Tile/a03p01_pmdred_Base.tile",
+      "destination_preexisting": false,
+      "historical_conflicting_destination": "Content/Tile/a03p01_Base.tile",
+      "historical_sha256": "4b8f2b3729a32685206ee5c37bc346e53b83685da4a9bdb6964bbb4d1f4642b0",
+      "historical_reserve": "RESERVE/pmdred_pre_promotion/a03p01/a03p01_Base.tile",
+      "bytes": 207856,
+      "validated_candidate_sha256": "877fd56336e417ed7690db8baeeedf465657eaf37a345d2010fa356333bf8cf4",
+      "destination_sha256": "877fd56336e417ed7690db8baeeedf465657eaf37a345d2010fa356333bf8cf4",
+      "candidate_destination_identical": true
+    }
+  ],
+  "zone_registration": {
+    "destination": "Data/Zone/master_zone.json",
+    "entry": "a03p01",
+    "entry_count": 1,
+    "position": "preexisting index preserved",
+    "pre_promotion_index": 308,
+    "post_promotion_index": 308,
+    "pre_promotion_sha256": "182f2a76a5a572807409183936c74a9df906731e34d002c12c712516ef708359",
+    "post_promotion_sha256": "182f2a76a5a572807409183936c74a9df906731e34d002c12c712516ef708359",
+    "prior_entry_present": true,
+    "existing_entries_preserved_in_order": true,
+    "zone_bytes_unchanged": true
+  },
+  "preserved_variants": [
+    {
+      "active_ground_before_migration": "RESERVE/pmdred_pre_promotion/a03p01/a03p01.rsground",
+      "sha256": "b274410f90ad2ef7f0e9c2cbdbb4e68959db2dca25b94b3452f3d67a5a5280dc"
+    },
+    {
+      "historical_active_tile": "Content/Tile/a03p01_Base.tile",
+      "pre_promotion_reserve": "RESERVE/pmdred_pre_promotion/a03p01/a03p01_Base.tile",
+      "sha256": "4b8f2b3729a32685206ee5c37bc346e53b83685da4a9bdb6964bbb4d1f4642b0",
+      "modified": false,
+      "candidate_alias": "Content/Tile/a03p01_pmdred_Base.tile"
+    }
+  ],
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_index": "PASS",
+    "promoted_destination_copy_indexed": true,
+    "ground_sha256": "e88881d4a9e6c28affd44927ae963174f641ec95751b786ebf4442c12b0b1259",
+    "tile_sha256": "877fd56336e417ed7690db8baeeedf465657eaf37a345d2010fa356333bf8cf4",
+    "log": "docs/pmdred_eu/pmdo_validation/a03p01_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_structure": "PASS",
+    "existing_routes_unchanged": "PASS"
+  }
+}

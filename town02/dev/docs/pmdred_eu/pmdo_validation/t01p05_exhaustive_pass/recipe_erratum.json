@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "ground": "t01p05",
+  "recorded_at": "2026-08-12",
+  "kind": "reproduction_recipe_boolean_assertion_correction",
+  "affected_file": "docs/pmdred_eu/pmdo_validation/t01p05_exhaustive_pass/commands.sh",
+  "original_repository_commit": "b76f995112ae11c33081c9ea72f99f8867879c1c",
+  "original_sha256": "a6455840e3e53d4d39c68278f65cb42c496380c562fa2bc7358903aef4219348",
+  "corrected_sha256": "204cf817cce1a3cde024beee8b08e24767feb255163dedb39dde8989d06411a4",
+  "original_assertion": "(( TERMINAL_SEEN == 72 ))",
+  "corrected_assertion": "(( TERMINAL_SEEN == 1 ))",
+  "reason": "TERMINAL_SEEN is initialized to 0 and assigned 1 after the terminal end event is observed; it is a Boolean flag. Comparing it with 72 made an otherwise successful reproduction recipe terminate before the already-recorded event-count and screenshot-count gates.",
+  "scope": "Recipe-only transcription correction. No runtime event, capture, comparison, validation, promotion, destination, or historical reserve byte was changed.",
+  "evidence_impact": "none",
+  "promotion_impact": "none"
+}

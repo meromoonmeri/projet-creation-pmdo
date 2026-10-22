@@ -1,0 +1,1171 @@
+{
+  "schema": "new-era.pmdred.sinister-woods-generator-profile.v1",
+  "result": "PROFILE_ONLY_NOT_RUNTIME_CERTIFICATION",
+  "source": {
+    "repository": "pret/pmd-red",
+    "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "authority": "src/dungeon_generation.c::GenerateFloor",
+    "files": [
+      "src/dungeon_generation.c",
+      "include/structs/str_dungeon.h",
+      "include/dungeon_generation.h",
+      "data/dungeon/SinisterWoods/main_data.inc",
+      "data/dungeon/SinisterWoods/floor_id.json",
+      "data/dungeon/SinisterWoods/pokemon_found.json"
+    ],
+    "generator_behaviors": [
+      "32 attempts to choose grid dimensions",
+      "10 layout attempts",
+      "10 spawn/reachability attempts",
+      "AssignRooms(roomDensity)",
+      "AssignGridCellConnections(floorConnectivity)",
+      "GenerateExtraHallways(numExtraHallways)",
+      "GenerateSecondaryTerrainFormations(roomFlags, standaloneLakeDensity)",
+      "ProcessFixedRoom(fixedRoomNumber) for fixed floors"
+    ]
+  },
+  "canonical_identity": {
+    "dungeon_id": 3,
+    "name": "Sinister Woods",
+    "floor_count": 13,
+    "procedural_floor_count": 12,
+    "fixed_floor_count": 1,
+    "mechanics": {
+      "stair_direction": "up",
+      "recruiting": true,
+      "rescues_allowed": 10,
+      "max_items": 20,
+      "max_party_members": 3,
+      "turn_limit": 1000
+    }
+  },
+  "tilesets": {
+    "procedural_floors_1_12": {
+      "rom_tileset_id": 41,
+      "pmdo_namespace": "SinisterWoodsB41"
+    },
+    "fixed_floor_13": {
+      "rom_tileset_id": 65,
+      "pmdo_namespace": "D04P02",
+      "fixed_ground": "sinister_woods_clearing"
+    }
+  },
+  "new_era_integration": {
+    "technical_zone_id": "gloomy_forest",
+    "display_identity": "Sinister Woods",
+    "casting": "Team Dazzling retained; PMD Red Team Meanies is not instantiated",
+    "story_policy": "existing New Era relay, mini-boss, boss and post-dungeon scenes remain outside this generator migration",
+    "procedural_segments": {
+      "0": {
+        "global_floor_offset": 0,
+        "source_cycle": "1..12"
+      },
+      "1": {
+        "global_floor_offset": 15,
+        "source_cycle": "1..12"
+      },
+      "3": {
+        "global_floor_offset": 20,
+        "source_cycle": "1..12"
+      }
+    }
+  },
+  "floors": [
+    {
+      "floor": 1,
+      "source_record_index": 1,
+      "raw_hex": "0b07290400140500000000000000000403010006000c000304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 7,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 5,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 0,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 0,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 1,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 6,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 17,
+        "Pokemon": 10,
+        "Traps": 2,
+        "Items": 11,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 58,
+          "Max": 75
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": true,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 6,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 2,
+      "source_record_index": 2,
+      "raw_hex": "0b06290400140500000000000000000403020008000c000304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 6,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 5,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 0,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 0,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 2,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 8,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 18,
+        "Pokemon": 11,
+        "Traps": 2,
+        "Items": 11,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 50,
+          "Max": 67
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": true,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 8,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 3,
+      "source_record_index": 3,
+      "raw_hex": "0b07290400140500000000000000000403030008000c000304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 7,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 5,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 0,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 0,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 3,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 8,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 19,
+        "Pokemon": 12,
+        "Traps": 2,
+        "Items": 11,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 58,
+          "Max": 75
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": true,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 8,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 4,
+      "source_record_index": 4,
+      "raw_hex": "0b0729040014050000000000000000040304000a000c000304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 7,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 5,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 0,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 0,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 4,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 10,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 20,
+        "Pokemon": 13,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 58,
+          "Max": 75
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": true,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 10,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 5,
+      "source_record_index": 5,
+      "raw_hex": "000829040019060000010001000000050305000a000c020304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 8,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 25,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 3,
+        "floorNumber": 5,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 10,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 2,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 21,
+        "Pokemon": 14,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 4,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 50,
+          "Max": 62
+        },
+        "branch_ratio": {
+          "Min": 55,
+          "Max": 75
+        },
+        "connect_percent": 100,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 9
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 10,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 6,
+      "source_record_index": 6,
+      "raw_hex": "000929040014060000010001000000050306000a000c020304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 9,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 3,
+        "floorNumber": 6,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 10,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 2,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 22,
+        "Pokemon": 15,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 4,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 56,
+          "Max": 69
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 9
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 10,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 7,
+      "source_record_index": 7,
+      "raw_hex": "0b0a29040014060000010001000000050307000f000c020304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 10,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 3,
+        "floorNumber": 7,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 2,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 23,
+        "Pokemon": 16,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 83,
+          "Max": 100
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 8,
+      "source_record_index": 8,
+      "raw_hex": "010b29040019060000010001000100040308000f000c000304000000",
+      "floor_properties": {
+        "layout": 1,
+        "roomDensity": 11,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 25,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 8,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 24,
+        "Pokemon": 17,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "SMALL",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 3,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 100,
+          "Max": 100
+        },
+        "branch_ratio": {
+          "Min": 55,
+          "Max": 75
+        },
+        "connect_percent": 100,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 4,
+          "Max": 7
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": true,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 9,
+      "source_record_index": 9,
+      "raw_hex": "0b0c29040014060000010001000100040309000f000c000304000000",
+      "floor_properties": {
+        "layout": 11,
+        "roomDensity": 12,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 9,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 25,
+        "Pokemon": 17,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "MEDIUM",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 3,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 100,
+          "Max": 100
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 8
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": true,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 10,
+      "source_record_index": 10,
+      "raw_hex": "000c2904001906000001000100010004030a000f000c000304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 25,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 10,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 26,
+        "Pokemon": 18,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 4,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 75,
+          "Max": 88
+        },
+        "branch_ratio": {
+          "Min": 55,
+          "Max": 75
+        },
+        "connect_percent": 100,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 9
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": true,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 11,
+      "source_record_index": 11,
+      "raw_hex": "000c2904001406000001000100000004030b000f000c020304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 20,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 11,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 2,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 27,
+        "Pokemon": 19,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 4,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 75,
+          "Max": 88
+        },
+        "branch_ratio": {
+          "Min": 40,
+          "Max": 60
+        },
+        "connect_percent": 80,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 9
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 12,
+      "source_record_index": 12,
+      "raw_hex": "000c2904001906000001000100000004030c000f000c020304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 41,
+        "bgMusic": 4,
+        "weather": 0,
+        "floorConnectivity": 25,
+        "enemyDensity": 6,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 12,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 2,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 28,
+        "Pokemon": 20,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": true,
+      "fixed_room": null,
+      "tileset_binding": {
+        "rom_tileset_id": 41,
+        "pmdo_ground": "sinister_woods_b41_floor",
+        "pmdo_wall": "sinister_woods_b41_wall",
+        "pmdo_secondary": "sinister_woods_b41_secondary",
+        "music": "Sinister Woods.ogg"
+      },
+      "pmdo_native_adapter": {
+        "grid": {
+          "CellX": 4,
+          "CellY": 4,
+          "CellWidth": 10,
+          "CellHeight": 10,
+          "CellWall": 3,
+          "Wrap": false
+        },
+        "room_ratio": {
+          "Min": 75,
+          "Max": 88
+        },
+        "branch_ratio": {
+          "Min": 55,
+          "Max": 75
+        },
+        "connect_percent": 100,
+        "no_forced_branches": false,
+        "room_size": {
+          "Min": 5,
+          "Max": 9
+        },
+        "room_generator": "RogueElements.RoomGenSquare",
+        "hall_generator": "RogueElements.RoomGenAngledHall",
+        "extra_hallways": 15,
+        "secondary_terrain": {
+          "enabled": false,
+          "standalone_lake_density": 12
+        },
+        "pmdo_equivalence": "native_grid_adapter_not_rng_identical"
+      }
+    },
+    {
+      "floor": 13,
+      "source_record_index": 13,
+      "raw_hex": "000a4100000f00000001000100000004030d020f000c000304000000",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 10,
+        "tileset": 65,
+        "bgMusic": 0,
+        "weather": 0,
+        "floorConnectivity": 15,
+        "enemyDensity": 0,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 3,
+        "floorNumber": 13,
+        "fixedRoomNumber": 2,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 12,
+        "visibilityRange": 0,
+        "moneyUpperBound": 3,
+        "kecleonShopLayout": 4,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0
+      },
+      "floor_id": {
+        "MainData": 29,
+        "Pokemon": 21,
+        "Traps": 2,
+        "Items": 12,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 2,
+        "BuriedItems": 3
+      },
+      "layout_name": "LARGE",
+      "generated_by_rom": false,
+      "fixed_room": 2,
+      "tileset_binding": {
+        "rom_tileset_id": 65,
+        "mode": "fixed_ground_transition",
+        "pmdo_namespace": "D04P02",
+        "fixed_ground": "sinister_woods_clearing",
+        "music": null
+      },
+      "pmdo_native_adapter": {
+        "mode": "fixed_ground_transition",
+        "fixed_room": 2,
+        "reason": "PMD Red calls ProcessFixedRoom instead of GenerateStandardFloor"
+      }
+    }
+  ],
+  "provenance_sha256": {
+    "main_data.inc": "a43588ea68d2c844805a4f8e01e64456a4bbbe1e177f79a0c0012ff20015d15d",
+    "floor_id.json": "eda015601b93b676ddb6e5076527f1d5a3430e6861dcf555ea7fc675481f0429",
+    "pokemon_found.json": "73c9b828f114b5f47eaf312dbd0148236c1999a6ea5c83a7ca6ff801d8fb499d"
+  }
+}

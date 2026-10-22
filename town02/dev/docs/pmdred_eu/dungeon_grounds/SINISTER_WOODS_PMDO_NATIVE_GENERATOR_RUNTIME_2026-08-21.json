@@ -1,0 +1,93 @@
+{
+  "schema": "new-era.pmdred-eu.sinister-woods-native-generator-runtime.v1",
+  "result": "PMDO_NATIVE_GENERATOR_RUNTIME_PASS_NON_PRODUCTION",
+  "scope": "actual PMDO 0.8.12 fixture replay of native procedural generation/material for segments 0, 1 and 3",
+  "not_certified": [
+    "full Team Dazzling narrative chain",
+    "boss/relay/victory/defeat journey",
+    "full chapter 6 to ending traversal",
+    "byte-identical PMD Red RNG stream"
+  ],
+  "provenance": {
+    "pret_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "zone": "Data/Zone/gloomy_forest.json",
+    "zone_sha256": "16e39b8d4daeadab11d998d8932495ce0119768d86572d56730163b37a08b917",
+    "generator_profile": "docs/canonical/red/sinister_woods_generator_profile.json",
+    "generator_profile_sha256": "94ac30b6109760f54bb4ce7ac0f17d1ccf9f77be20645da0670aa580b9210b91",
+    "fixture_manifest_sha256": "452c38d7a7e1a3ab36a97c85a2dfcbbd81648186cf355bf47714e24dd9b9b5b4",
+    "events_sha256": "1d21b754308bdc92172cb9c40ecf8a5b62862e2b9fa49b6f78164cbbd05b1c54",
+    "runtime_log_sha256": "31d522f5adf9ca2b3848040b33c3b4a095673b4ff4424c0d9d40bb510939d7f3",
+    "termination_sha256": "e88c4ef8bb980b41446cb289bf637fb26e3ab5b8872c7c47e7f7e8d504ed59a5"
+  },
+  "runtime": {
+    "pmdo_termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    },
+    "terminal_seen": true,
+    "event_count": 8,
+    "maps": [
+      {
+        "event": "map",
+        "segment": 0,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 1,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 3,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": true,
+        "darkness": false,
+        "dusk": true,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      }
+    ],
+    "diagnostics": {}
+  },
+  "checks": {
+    "bootstrap_present": true,
+    "entered_expected_segments": true,
+    "mapped_expected_segments": true,
+    "all_maps_have_canonical_music": true,
+    "all_maps_have_free_and_blocked_collision": true,
+    "deep_shadow_on_deep_segment": true,
+    "dusk_on_deep_segment": true,
+    "normal_exit_code_zero": true,
+    "engine_terminal_event": true,
+    "no_forbidden_runtime_diagnostics": true,
+    "fixture_zone_matches_production_zone": true,
+    "fixture_material_is_unique_namespace": true
+  },
+  "production_route_promoted": false
+}

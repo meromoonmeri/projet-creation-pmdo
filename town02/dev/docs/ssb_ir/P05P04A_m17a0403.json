@@ -1,0 +1,2292 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "P05P04A",
+ "scene": "m17a0403",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/P05P04A/m17a0403.ssb",
+ "file_size": 860,
+ "header": {
+  "nb_constants": 0,
+  "nb_strings": 15,
+  "constant_strings_start": 426,
+  "const_table_length": 0,
+  "strings_en": 422,
+  "unknown": 23
+ },
+ "data_offset": 12,
+ "start_of_const_table": 438,
+ "start_of_constants": 438,
+ "number_of_routines": 1,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 10,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 84
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 22,
+   "id": 32,
+   "name": "bgm_PlayFadeIn",
+   "raw": [
+    81,
+    0,
+    256
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "bgm_id",
+     "type": "Bgm",
+     "raw": 81,
+     "resolved": "PlanetsParalysis"
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    },
+    {
+     "i": 2,
+     "spec": "volume",
+     "type": "Number",
+     "raw": 256,
+     "resolved": 256
+    }
+   ],
+   "resolved": [
+    "PlanetsParalysis",
+    0,
+    256
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 30,
+   "id": 9,
+   "name": "back_SetGround",
+   "raw": [
+    236
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "level_id",
+     "type": "Level",
+     "raw": 236,
+     "resolved": "P05P04A"
+    }
+   ],
+   "resolved": [
+    "P05P04A"
+   ]
+  },
+  {
+   "seq": 2,
+   "off": 34,
+   "id": 316,
+   "name": "supervision_StationCommon",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "station_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 38,
+   "id": 298,
+   "name": "supervision_Acting",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "layer_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 4,
+   "off": 42,
+   "id": 203,
+   "name": "performer",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "performer_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 5,
+   "off": 46,
+   "id": 75,
+   "name": "camera_SetMyself",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 6,
+   "off": 48,
+   "id": 217,
+   "name": "screen_FadeIn",
+   "raw": [
+    1,
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "suspension_flag",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    1,
+    30
+   ]
+  },
+  {
+   "seq": 7,
+   "off": 54,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    30
+   ]
+  },
+  {
+   "seq": 8,
+   "off": 58,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    10,
+    12,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 12,
+     "resolved": "SURPRISED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1",
+    "SURPRISED",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 9,
+   "off": 66,
+   "id": 173,
+   "name": "message_SwitchTalk",
+   "raw": [
+    67
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 67,
+     "resolved": "PARTNER_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "PARTNER_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 10,
+   "off": 70,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    1,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 0,
+     "resolved": {
+      "kind": "string",
+      "index": 0,
+      "text": " It's as if...[K]all movement..."
+     }
+    }
+   ],
+   "resolved": [
+    1,
+    {
+     "kind": "string",
+     "index": 0,
+     "text": " It's as if...[K]all movement..."
+    }
+   ]
+  },
+  {
+   "seq": 11,
+   "off": 76,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    2,
+    1
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 1,
+     "resolved": {
+      "kind": "string",
+      "index": 1,
+      "text": " It's as if...[K]all movement..."
+     }
+    }
+   ],
+   "resolved": [
+    2,
+    {
+     "kind": "string",
+     "index": 1,
+     "text": " It's as if...[K]all movement..."
+    }
+   ]
+  },
+  {
+   "seq": 12,
+   "off": 82,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 2,
+     "resolved": {
+      "kind": "string",
+      "index": 2,
+      "text": " It's as if...[K]all movement..."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 2,
+     "text": " It's as if...[K]all movement..."
+    }
+   ]
+  },
+  {
+   "seq": 13,
+   "off": 86,
+   "id": 173,
+   "name": "message_SwitchTalk",
+   "raw": [
+    67
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 67,
+     "resolved": "PARTNER_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "PARTNER_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 14,
+   "off": 90,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    1,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 3,
+     "resolved": {
+      "kind": "string",
+      "index": 3,
+      "text": " It's as if everything's stopped."
+     }
+    }
+   ],
+   "resolved": [
+    1,
+    {
+     "kind": "string",
+     "index": 3,
+     "text": " It's as if everything's stopped."
+    }
+   ]
+  },
+  {
+   "seq": 15,
+   "off": 96,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    2,
+    4
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 4,
+     "resolved": {
+      "kind": "string",
+      "index": 4,
+      "text": " It's as if everything's stopped."
+     }
+    }
+   ],
+   "resolved": [
+    2,
+    {
+     "kind": "string",
+     "index": 4,
+     "text": " It's as if everything's stopped."
+    }
+   ]
+  },
+  {
+   "seq": 16,
+   "off": 102,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 5,
+     "resolved": {
+      "kind": "string",
+      "index": 5,
+      "text": " It's as if everything's stopped."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 5,
+     "text": " It's as if everything's stopped."
+    }
+   ]
+  },
+  {
+   "seq": 17,
+   "off": 106,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 18,
+   "off": 110,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 19,
+   "off": 114,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    4,
+    10,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 6,
+     "resolved": "Left"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "Left"
+   ]
+  },
+  {
+   "seq": 20,
+   "off": 122,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 21,
+   "off": 126,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    105,
+    0,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 6,
+     "resolved": "Bottom_R_FaceInw"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU",
+    "NORMAL",
+    "Bottom_R_FaceInw"
+   ]
+  },
+  {
+   "seq": 22,
+   "off": 134,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 6,
+     "resolved": {
+      "kind": "string",
+      "index": 6,
+      "text": " Exactly."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 6,
+     "text": " Exactly."
+    }
+   ]
+  },
+  {
+   "seq": 23,
+   "off": 138,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 24,
+   "off": 142,
+   "id": 248,
+   "name": "se_Play",
+   "raw": [
+    8978
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "se_id",
+     "type": "Number",
+     "raw": 8978,
+     "resolved": 8978
+    }
+   ],
+   "resolved": [
+    8978
+   ]
+  },
+  {
+   "seq": 25,
+   "off": 146,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 26,
+   "off": 150,
+   "id": 258,
+   "name": "SetEffect",
+   "raw": [
+    88,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "effect_id",
+     "type": "Effect",
+     "raw": 88,
+     "resolved": "ExclamationMark"
+    },
+    {
+     "i": 1,
+     "spec": "position_marker_id?",
+     "type": "Number",
+     "raw": 3,
+     "resolved": 3
+    }
+   ],
+   "resolved": [
+    "ExclamationMark",
+    3
+   ]
+  },
+  {
+   "seq": 27,
+   "off": 156,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 5,
+     "resolved": 5
+    }
+   ],
+   "resolved": [
+    5
+   ]
+  },
+  {
+   "seq": 28,
+   "off": 160,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 29,
+   "off": 164,
+   "id": 258,
+   "name": "SetEffect",
+   "raw": [
+    88,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "effect_id",
+     "type": "Effect",
+     "raw": 88,
+     "resolved": "ExclamationMark"
+    },
+    {
+     "i": 1,
+     "spec": "position_marker_id?",
+     "type": "Number",
+     "raw": 3,
+     "resolved": 3
+    }
+   ],
+   "resolved": [
+    "ExclamationMark",
+    3
+   ]
+  },
+  {
+   "seq": 30,
+   "off": 170,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 31,
+   "off": 174,
+   "id": 350,
+   "name": "WaitEffect",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 32,
+   "off": 176,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 33,
+   "off": 180,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 34,
+   "off": 184,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 35,
+   "off": 192,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 36,
+   "off": 196,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    4,
+    10,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 3,
+     "resolved": "UpRight"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "UpRight"
+   ]
+  },
+  {
+   "seq": 37,
+   "off": 204,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 38,
+   "off": 208,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    10,
+    0,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1",
+    "NORMAL",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 39,
+   "off": 216,
+   "id": 173,
+   "name": "message_SwitchTalk",
+   "raw": [
+    67
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 67,
+     "resolved": "PARTNER_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "PARTNER_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 40,
+   "off": 220,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    1,
+    7
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 7,
+     "resolved": {
+      "kind": "string",
+      "index": 7,
+      "text": " What?!"
+     }
+    }
+   ],
+   "resolved": [
+    1,
+    {
+     "kind": "string",
+     "index": 7,
+     "text": " What?!"
+    }
+   ]
+  },
+  {
+   "seq": 41,
+   "off": 226,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    2,
+    8
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 8,
+     "resolved": {
+      "kind": "string",
+      "index": 8,
+      "text": " What?!"
+     }
+    }
+   ],
+   "resolved": [
+    2,
+    {
+     "kind": "string",
+     "index": 8,
+     "text": " What?!"
+    }
+   ]
+  },
+  {
+   "seq": 42,
+   "off": 232,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 9,
+     "resolved": {
+      "kind": "string",
+      "index": 9,
+      "text": " Pardon?!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 9,
+     "text": " Pardon?!"
+    }
+   ]
+  },
+  {
+   "seq": 43,
+   "off": 236,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 44,
+   "off": 240,
+   "id": 161,
+   "name": "message_EmptyActor",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 45,
+   "off": 242,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 10,
+     "resolved": {
+      "kind": "string",
+      "index": 10,
+      "text": " Wheh-heh-heh!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 10,
+     "text": " Wheh-heh-heh!"
+    }
+   ]
+  },
+  {
+   "seq": 46,
+   "off": 246,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 47,
+   "off": 250,
+   "id": 248,
+   "name": "se_Play",
+   "raw": [
+    8974
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "se_id",
+     "type": "Number",
+     "raw": 8974,
+     "resolved": 8974
+    }
+   ],
+   "resolved": [
+    8974
+   ]
+  },
+  {
+   "seq": 48,
+   "off": 254,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 49,
+   "off": 258,
+   "id": 258,
+   "name": "SetEffect",
+   "raw": [
+    91,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "effect_id",
+     "type": "Effect",
+     "raw": 91,
+     "resolved": "Shocked"
+    },
+    {
+     "i": 1,
+     "spec": "position_marker_id?",
+     "type": "Number",
+     "raw": 3,
+     "resolved": 3
+    }
+   ],
+   "resolved": [
+    "Shocked",
+    3
+   ]
+  },
+  {
+   "seq": 50,
+   "off": 264,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 5,
+     "resolved": 5
+    }
+   ],
+   "resolved": [
+    5
+   ]
+  },
+  {
+   "seq": 51,
+   "off": 268,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 52,
+   "off": 272,
+   "id": 258,
+   "name": "SetEffect",
+   "raw": [
+    91,
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "effect_id",
+     "type": "Effect",
+     "raw": 91,
+     "resolved": "Shocked"
+    },
+    {
+     "i": 1,
+     "spec": "position_marker_id?",
+     "type": "Number",
+     "raw": 3,
+     "resolved": 3
+    }
+   ],
+   "resolved": [
+    "Shocked",
+    3
+   ]
+  },
+  {
+   "seq": 53,
+   "off": 278,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 54,
+   "off": 282,
+   "id": 115,
+   "name": "ExecuteCommon",
+   "raw": [
+    39,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 39,
+     "resolved": "JUMP_SURPRISE_FUNC_SERIES"
+    },
+    {
+     "i": 1,
+     "spec": "unk1",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "JUMP_SURPRISE_FUNC_SERIES",
+    0
+   ]
+  },
+  {
+   "seq": 55,
+   "off": 288,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 56,
+   "off": 292,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 57,
+   "off": 296,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    1,
+    10,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 6,
+     "resolved": "Left"
+    }
+   ],
+   "resolved": [
+    1,
+    10,
+    "Left"
+   ]
+  },
+  {
+   "seq": 58,
+   "off": 304,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 59,
+   "off": 308,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    1,
+    10,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 6,
+     "resolved": "Left"
+    }
+   ],
+   "resolved": [
+    1,
+    10,
+    "Left"
+   ]
+  },
+  {
+   "seq": 60,
+   "off": 316,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 61,
+   "off": 320,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    1,
+    10,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 6,
+     "resolved": "Left"
+    }
+   ],
+   "resolved": [
+    1,
+    10,
+    "Left"
+   ]
+  },
+  {
+   "seq": 62,
+   "off": 328,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 63,
+   "off": 332,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    10,
+    12,
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 12,
+     "resolved": "SURPRISED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 10,
+     "resolved": "Bottom_L_FaceOutw"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1",
+    "SURPRISED",
+    "Bottom_L_FaceOutw"
+   ]
+  },
+  {
+   "seq": 64,
+   "off": 340,
+   "id": 173,
+   "name": "message_SwitchTalk",
+   "raw": [
+    67
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "var",
+     "type": "GameVar",
+     "raw": 67,
+     "resolved": "PARTNER_TALK_KIND"
+    }
+   ],
+   "resolved": [
+    "PARTNER_TALK_KIND"
+   ]
+  },
+  {
+   "seq": 65,
+   "off": 344,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    1,
+    11
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 11,
+     "resolved": {
+      "kind": "string",
+      "index": 11,
+      "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+     }
+    }
+   ],
+   "resolved": [
+    1,
+    {
+     "kind": "string",
+     "index": 11,
+     "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+    }
+   ]
+  },
+  {
+   "seq": 66,
+   "off": 350,
+   "id": 103,
+   "name": "CaseText",
+   "raw": [
+    2,
+    12
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "value",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    },
+    {
+     "i": 1,
+     "spec": "display",
+     "type": "String",
+     "raw": 12,
+     "resolved": {
+      "kind": "string",
+      "index": 12,
+      "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+     }
+    }
+   ],
+   "resolved": [
+    2,
+    {
+     "kind": "string",
+     "index": 12,
+     "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+    }
+   ]
+  },
+  {
+   "seq": 67,
+   "off": 356,
+   "id": 110,
+   "name": "DefaultText",
+   "raw": [
+    13
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 13,
+     "resolved": {
+      "kind": "string",
+      "index": 13,
+      "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 13,
+     "text": " Wah! I hear those [CS:N]Sableye[CR]!"
+    }
+   ]
+  },
+  {
+   "seq": 68,
+   "off": 360,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 69,
+   "off": 364,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    105,
+    0,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 6,
+     "resolved": "Bottom_R_FaceInw"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU",
+    "NORMAL",
+    "Bottom_R_FaceInw"
+   ]
+  },
+  {
+   "seq": 70,
+   "off": 372,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    14
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 14,
+     "resolved": {
+      "kind": "string",
+      "index": 14,
+      "text": " We have to keep running!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 14,
+     "text": " We have to keep running!"
+    }
+   ]
+  },
+  {
+   "seq": 71,
+   "off": 376,
+   "id": 150,
+   "name": "message_Close",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 72,
+   "off": 378,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    105
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 105,
+     "resolved": "NPC_JUPUTORU"
+    }
+   ],
+   "resolved": [
+    "NPC_JUPUTORU"
+   ]
+  },
+  {
+   "seq": 73,
+   "off": 382,
+   "id": 198,
+   "name": "MovePositionOffset",
+   "raw": [
+    33152,
+    160,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 33152,
+     "resolved": "1.5"
+    },
+    {
+     "i": 1,
+     "spec": "x",
+     "type": "Number",
+     "raw": 160,
+     "resolved": 160
+    },
+    {
+     "i": 2,
+     "spec": "y",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "1.5",
+    160,
+    0
+   ]
+  },
+  {
+   "seq": 74,
+   "off": 390,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 5,
+     "resolved": 5
+    }
+   ],
+   "resolved": [
+    5
+   ]
+  },
+  {
+   "seq": 75,
+   "off": 394,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 0,
+     "resolved": "PLAYER"
+    }
+   ],
+   "resolved": [
+    "PLAYER"
+   ]
+  },
+  {
+   "seq": 76,
+   "off": 398,
+   "id": 198,
+   "name": "MovePositionOffset",
+   "raw": [
+    33152,
+    160,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 33152,
+     "resolved": "1.5"
+    },
+    {
+     "i": 1,
+     "spec": "x",
+     "type": "Number",
+     "raw": 160,
+     "resolved": 160
+    },
+    {
+     "i": 2,
+     "spec": "y",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "1.5",
+    160,
+    0
+   ]
+  },
+  {
+   "seq": 77,
+   "off": 406,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 10,
+     "resolved": "ATTENDANT1"
+    }
+   ],
+   "resolved": [
+    "ATTENDANT1"
+   ]
+  },
+  {
+   "seq": 78,
+   "off": 410,
+   "id": 198,
+   "name": "MovePositionOffset",
+   "raw": [
+    33152,
+    160,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 33152,
+     "resolved": "1.5"
+    },
+    {
+     "i": 1,
+     "spec": "x",
+     "type": "Number",
+     "raw": 160,
+     "resolved": 160
+    },
+    {
+     "i": 2,
+     "spec": "y",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "1.5",
+    160,
+    0
+   ]
+  },
+  {
+   "seq": 79,
+   "off": 418,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    30
+   ]
+  },
+  {
+   "seq": 80,
+   "off": 422,
+   "id": 30,
+   "name": "bgm_FadeOut",
+   "raw": [
+    180
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 180,
+     "resolved": 180
+    }
+   ],
+   "resolved": [
+    180
+   ]
+  },
+  {
+   "seq": 81,
+   "off": 426,
+   "id": 219,
+   "name": "screen_FadeOut",
+   "raw": [
+    1,
+    60
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "suspension_flag",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 60,
+     "resolved": 60
+    }
+   ],
+   "resolved": [
+    1,
+    60
+   ]
+  },
+  {
+   "seq": 82,
+   "off": 432,
+   "id": 347,
+   "name": "WaitBgm",
+   "raw": [
+    81
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "bgm_id",
+     "type": "Bgm",
+     "raw": 81,
+     "resolved": "PlanetsParalysis"
+    }
+   ],
+   "resolved": [
+    "PlanetsParalysis"
+   ]
+  },
+  {
+   "seq": 83,
+   "off": 436,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [],
+ "strings": [
+  " It's as if...[K]all movement...",
+  " It's as if...[K]all movement...",
+  " It's as if...[K]all movement...",
+  " It's as if everything's stopped.",
+  " It's as if everything's stopped.",
+  " It's as if everything's stopped.",
+  " Exactly.",
+  " What?!",
+  " What?!",
+  " Pardon?!",
+  " Wheh-heh-heh!",
+  " Wah! I hear those [CS:N]Sableye[CR]!",
+  " Wah! I hear those [CS:N]Sableye[CR]!",
+  " Wah! I hear those [CS:N]Sableye[CR]!",
+  " We have to keep running!"
+ ],
+ "validation": {
+  "end_cursor": 860,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 1,
+  "n_ops": 84,
+  "n_constants": 0,
+  "n_strings": 15,
+  "cross_check_model": true
+ }
+}

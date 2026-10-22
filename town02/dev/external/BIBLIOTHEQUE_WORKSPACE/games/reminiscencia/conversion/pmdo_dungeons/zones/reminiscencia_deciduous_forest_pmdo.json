@@ -1,0 +1,2224 @@
+﻿{
+ "Version": "0.8.9.0",
+ "Object": {
+  "$type": "RogueEssence.Data.ZoneData, RogueEssence",
+  "Name": {
+   "DefaultText": "Forêt Foliodoro",
+   "LocalTexts": {
+    "fr": "Forêt Foliodoro"
+   }
+  },
+  "Released": true,
+  "Comment": "Candidat BIBLIOTHEQUE reminiscencia; basé sur gloomy_forest, sans promotion runtime.",
+  "NoEXP": false,
+  "ExpPercent": 100,
+  "Level": 22,
+  "LevelCap": false,
+  "KeepSkills": false,
+  "TeamRestrict": false,
+  "TeamSize": 4,
+  "MoneyRestrict": false,
+  "BagRestrict": -1,
+  "KeepTreasure": false,
+  "BagSize": 32,
+  "Persistent": false,
+  "Rescues": 0,
+  "Rogue": 0,
+  "Segments": [
+   {
+    "$type": "RogueEssence.LevelGen.RangeDictSegment, RogueEssence",
+    "Floors": {
+     "nodes": [
+      {
+       "Item": {
+        "$type": "RogueEssence.LevelGen.GridFloorGen, RogueEssence",
+        "GenSteps": [
+         {
+          "Key": {
+           "str": [
+            -6
+           ]
+          },
+          "Value": {
+           "$type": "PMDC.LevelGen.MapDataStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], PMDC",
+           "Music": "Sinister Woods.ogg",
+           "TimeLimit": 1500,
+           "TileSight": 0,
+           "CharSight": 0,
+           "ClampCamera": false
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            -5
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.InitGridPlanStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+           "CellWidth": 10,
+           "CellHeight": 10,
+           "CellX": 3,
+           "CellY": 4,
+           "CellWall": 3,
+           "Wrap": false
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            -4
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.GridPathBranch`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+           "RoomRatio": {
+            "Min": 75,
+            "Max": 86
+           },
+           "BranchRatio": {
+            "Min": 35,
+            "Max": 61
+           },
+           "NoForcedBranches": false,
+           "GenericRooms": {
+            "$type": "RogueElements.SpawnList`1[[RogueElements.RoomGen`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements]], RogueElements",
+            "$values": [
+             {
+              "Spawn": {
+               "$type": "RogueElements.RoomGenRound`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+               "Width": {
+                "Min": 4,
+                "Max": 8
+               },
+               "Height": {
+                "Min": 4,
+                "Max": 8
+               }
+              },
+              "Rate": 10
+             }
+            ]
+           },
+           "RoomComponents": [
+            {
+             "$type": "PMDC.LevelGen.ConnectivityRoom, PMDC",
+             "Connection": 1
+            }
+           ],
+           "GenericHalls": {
+            "$type": "RogueElements.SpawnList`1[[RogueElements.PermissiveRoomGen`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements]], RogueElements",
+            "$values": [
+             {
+              "Spawn": {
+               "$type": "RogueElements.RoomGenAngledHall`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+               "HallTurnBias": 75,
+               "Brush": {
+                "$type": "RogueElements.DefaultHallBrush, RogueElements"
+               },
+               "Width": {
+                "Min": 1,
+                "Max": 2
+               },
+               "Height": {
+                "Min": 1,
+                "Max": 2
+               }
+              },
+              "Rate": 10
+             }
+            ]
+           },
+           "HallComponents": [
+            {
+             "$type": "PMDC.LevelGen.ConnectivityRoom, PMDC",
+             "Connection": 1
+            }
+           ]
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            -4
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.ConnectGridBranchStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+           "ConnectPercent": 55,
+           "Filters": [
+            {
+             "$type": "RogueElements.RoomFilterComponent, RogueElements",
+             "Negate": true,
+             "Components": [
+              {
+               "$type": "PMDC.LevelGen.NoConnectRoom, PMDC"
+              }
+             ]
+            }
+           ],
+           "GenericHalls": {
+            "$type": "RogueElements.PresetPicker`1[[RogueElements.PermissiveRoomGen`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements]], RogueElements",
+            "ToSpawn": {
+             "$type": "RogueElements.RoomGenAngledHall`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+             "HallTurnBias": 75,
+             "Brush": {
+              "$type": "RogueElements.DefaultHallBrush, RogueElements"
+             },
+             "Width": {
+              "Min": 1,
+              "Max": 2
+             },
+             "Height": {
+              "Min": 1,
+              "Max": 2
+             }
+            }
+           },
+           "HallComponents": [
+            {
+             "$type": "PMDC.LevelGen.ConnectivityRoom, PMDC",
+             "Connection": 1
+            }
+           ]
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            -3
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.DrawGridToFloorStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements"
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            -1
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.DrawFloorToTileStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+           "Padding": 1
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            0,
+            1
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.UnbreakableBorderStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Thickness": 1
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            0,
+            2
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.LoadBlobStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "PreventChanges": 0,
+           "TerrainStencil": {
+            "$type": "RogueElements.MultiBlobStencil`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+            "List": [
+             {
+              "$type": "RogueElements.BlobTileStencil`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+              "TileStencil": {
+               "$type": "RogueElements.MapTerrainStencil`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+               "Room": true,
+               "Wall": false,
+               "Blocked": false,
+               "Not": false
+              },
+              "RequireAny": false
+             },
+             {
+              "$type": "RogueElements.NoChokepointStencil`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+              "TileStencil": {
+               "$type": "RogueElements.MapTerrainStencil`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueElements",
+               "Room": true,
+               "Wall": false,
+               "Blocked": false,
+               "Not": false
+              },
+              "Global": false,
+              "Negate": false
+             }
+            ],
+            "RequireAny": false
+           },
+           "Amount": {
+            "Min": 2,
+            "Max": 4
+           },
+           "Maps": [
+            {
+             "Spawn": "relic_forest_blob_fallen_right",
+             "Rate": 4
+            },
+            {
+             "Spawn": "relic_forest_blob_fallen_left",
+             "Rate": 4
+            },
+            {
+             "Spawn": "relic_forest_blob_broken_pillar",
+             "Rate": 8
+            },
+            {
+             "Spawn": "relic_forest_blob_rubble",
+             "Rate": 8
+            },
+            {
+             "Spawn": "relic_forest_blob_pillar",
+             "Rate": 8
+            },
+            {
+             "Spawn": "relic_forest_blob_ruins",
+             "Rate": 3
+            }
+           ]
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            1
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.FloorStairsStep`3[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.LevelGen.MapGenEntrance, RogueEssence],[RogueEssence.LevelGen.MapGenExit, RogueEssence]], RogueElements",
+           "MinDistance": 0,
+           "Entrances": [
+            {
+             "Loc": {
+              "X": 0,
+              "Y": 0
+             },
+             "Dir": 0
+            }
+           ],
+           "Exits": [
+            {
+             "Loc": {
+              "X": 0,
+              "Y": 0
+             },
+             "Tile": {
+              "TileLoc": {
+               "X": 0,
+               "Y": 0
+              },
+              "ID": "stairs_go_up",
+              "Revealed": true,
+              "Owner": 0,
+              "TileStates": []
+             }
+            }
+           ],
+           "Filters": [
+            {
+             "$type": "PMDC.LevelGen.RoomFilterConnectivity, PMDC",
+             "Connection": 1
+            },
+            {
+             "$type": "RogueElements.RoomFilterComponent, RogueElements",
+             "Negate": true,
+             "Components": [
+              {
+               "$type": "PMDC.LevelGen.BossRoom, PMDC"
+              }
+             ]
+            }
+           ]
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            2,
+            2
+           ]
+          },
+          "Value": {
+           "$type": "PMDC.LevelGen.MobSpawnSettingsStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], PMDC",
+           "Priority": {
+            "str": [
+             15
+            ]
+           },
+           "Respawn": {
+            "$type": "PMDC.Dungeon.RespawnFromEligibleEvent, PMDC",
+            "MaxFoes": 14,
+            "RespawnTime": 20
+           },
+           "MaxFoes": 14,
+           "RespawnTime": 20
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            4
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.MapTextureStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "GroundTileset": "treeshroud_forest_1_floor",
+           "BlockTileset": "treeshroud_forest_1_wall",
+           "WaterTileset": "treeshroud_forest_1_secondary",
+           "LayeredGround": false,
+           "IndependentGround": false,
+           "GroundElement": "grass"
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.TerminalSpawnStep`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.LevelGen.MoneySpawn, RogueEssence]], RogueElements",
+           "IncludeHalls": false,
+           "Filters": [],
+           "Spawn": {
+            "$type": "RogueEssence.LevelGen.MoneyDivSpawner`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+            "DivAmount": {
+             "Min": 1,
+             "Max": 3
+            }
+           }
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            1
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.DueSpawnStep`3[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.InvItem, RogueEssence],[RogueEssence.LevelGen.MapGenEntrance, RogueEssence]], RogueElements",
+           "SuccessPercent": 25,
+           "IncludeHalls": false,
+           "Filters": [
+            {
+             "$type": "PMDC.LevelGen.RoomFilterConnectivity, PMDC",
+             "Connection": 1
+            }
+           ],
+           "Spawn": {
+            "$type": "RogueElements.ContextSpawner`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.InvItem, RogueEssence]], RogueElements",
+            "Amount": {
+             "Min": 2,
+             "Max": 4
+            }
+           }
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            2
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.PlaceRandomMobsStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Filters": [
+            {
+             "$type": "PMDC.LevelGen.RoomFilterConnectivity, PMDC",
+             "Connection": 1
+            }
+           ],
+           "IncludeHalls": false,
+           "Spawn": {
+            "$type": "RogueEssence.LevelGen.TeamContextSpawner`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+            "Amount": {
+             "Min": 2,
+             "Max": 4
+            }
+           },
+           "Ally": false,
+           "ClumpFactor": 20
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            3
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.RandomRoomSpawnStep`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+           "SuccessPercent": 100,
+           "IncludeHalls": false,
+           "Filters": [
+            {
+             "$type": "PMDC.LevelGen.RoomFilterConnectivity, PMDC",
+             "Connection": 1
+            }
+           ],
+           "Spawn": {
+            "$type": "RogueElements.PickerSpawner`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+            "Picker": {
+             "$type": "RogueElements.LoopedRand`1[[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+             "Spawner": {
+              "$type": "RogueElements.SpawnList`1[[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+              "$values": [
+               {
+                "Spawn": {
+                 "TileLoc": {
+                  "X": 0,
+                  "Y": 0
+                 },
+                 "ID": "tile_wonder",
+                 "Revealed": true,
+                 "Owner": 0,
+                 "TileStates": []
+                },
+                "Rate": 10
+               }
+              ]
+             },
+             "AmountSpawner": {
+              "$type": "RogueElements.RandRange, RogueElements",
+              "Min": 2,
+              "Max": 4
+             }
+            }
+           }
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            3
+           ]
+          },
+          "Value": {
+           "$type": "RogueElements.RandomRoomSpawnStep`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+           "SuccessPercent": 100,
+           "IncludeHalls": false,
+           "Filters": [
+            {
+             "$type": "PMDC.LevelGen.RoomFilterConnectivity, PMDC",
+             "Connection": 1
+            }
+           ],
+           "Spawn": {
+            "$type": "RogueElements.ContextSpawner`2[[RogueEssence.LevelGen.MapGenContext, RogueEssence],[RogueEssence.Dungeon.EffectTile, RogueEssence]], RogueElements",
+            "Amount": {
+             "Min": 6,
+             "Max": 9
+            }
+           }
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            6
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.MapEffectStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Effect": {
+            "UniversalStates": [],
+            "BeforeTryActions": [],
+            "BeforeActions": [],
+            "OnActions": [],
+            "BeforeExplosions": [],
+            "BeforeHits": [],
+            "OnHits": [],
+            "OnHitTiles": [],
+            "AfterActions": [],
+            "ElementEffects": [],
+            "OnEquips": [],
+            "OnPickups": [],
+            "BeforeStatusAdds": [],
+            "OnStatusAdds": [],
+            "OnStatusRemoves": [],
+            "OnMapStatusAdds": [],
+            "OnMapStatusRemoves": [],
+            "OnMapStarts": [],
+            "OnTurnStarts": [],
+            "OnTurnEnds": [],
+            "OnMapTurnEnds": [],
+            "OnWalks": [],
+            "OnDeaths": [],
+            "OnRefresh": [],
+            "OnMapRefresh": [],
+            "ModifyHPs": [],
+            "RestoreHPs": [],
+            "InitActionData": []
+           }
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            2,
+            1
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.ScriptGenStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Script": "SpawnChapter6Chenipent",
+           "ArgTable": "{}"
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            2,
+            3
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.ScriptGenStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Script": "DungeonLife.SpawnFriendlyResident",
+           "ArgTable": "{}"
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            5,
+            2,
+            3
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.LevelGen.ScriptGenStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "Script": "DungeonLife.CheckTeamForSecretZone",
+           "ArgTable": "{}"
+          }
+         },
+         {
+          "Key": {
+           "str": [
+            0,
+            3
+           ]
+          },
+          "Value": {
+           "$type": "RogueEssence.AddTunnelStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], RogueEssence",
+           "TurnLength": {
+            "Min": 2,
+            "Max": 7
+           },
+           "MaxLength": {
+            "Min": 2,
+            "Max": 7
+           },
+           "AllowDeadEnd": false,
+           "TraverseFloor": false,
+           "Halls": {
+            "Min": 6,
+            "Max": 9
+           },
+           "Brush": {
+            "$type": "RogueElements.DefaultHallBrush, RogueElements"
+           }
+          }
+         }
+        ],
+        "Comment": ""
+       },
+       "Range": {
+        "Min": 0,
+        "Max": 24
+       }
+      }
+     ]
+    },
+    "ZoneSteps": [
+     {
+      "$type": "PMDC.LevelGen.SaveVarsZoneStep, PMDC",
+      "Priority": {
+       "str": [
+        1,
+        1
+       ]
+      }
+     },
+     {
+      "$type": "PMDC.LevelGen.FloorNameDropZoneStep, PMDC",
+      "DropPriority": {
+       "str": [
+        -15
+       ]
+      },
+      "Name": {
+       "DefaultText": "Gloomy Forest",
+       "LocalTexts": {
+        "fr": "Forêt Lugubre"
+       }
+      },
+      "Priority": {
+       "str": [
+        -6
+       ]
+      }
+     },
+     {
+      "$type": "RogueEssence.LevelGen.MoneySpawnZoneStep, RogueEssence",
+      "Priority": {
+       "str": [
+        2
+       ]
+      },
+      "StartAmount": {
+       "Min": 10,
+       "Max": 21
+      },
+      "AddAmount": {
+       "Min": 3,
+       "Max": 7
+      },
+      "ModStates": []
+     },
+     {
+      "$type": "RogueEssence.LevelGen.ItemSpawnZoneStep, RogueEssence",
+      "Priority": {
+       "str": [
+        2,
+        1
+       ]
+      },
+      "Spawns": {
+       "necessities": {
+        "Spawns": [
+         {
+          "Spawn": {
+           "ID": "berry_leppa",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 9,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         },
+         {
+          "Spawn": {
+           "ID": "berry_oran",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 12,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         },
+         {
+          "Spawn": {
+           "ID": "food_apple",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 10,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         },
+         {
+          "Spawn": {
+           "ID": "berry_cheri",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 5,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         },
+         {
+          "Spawn": {
+           "ID": "berry_pecha",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 5,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         },
+         {
+          "Spawn": {
+           "ID": "seed_blast",
+           "Cursed": false,
+           "HiddenValue": "",
+           "Amount": 0,
+           "Price": 0
+          },
+          "Rate": 5,
+          "Range": {
+           "Min": 0,
+           "Max": 5
+          }
+         }
+        ],
+        "SpawnRates": {
+         "nodes": [
+          {
+           "Item": 14,
+           "Range": {
+            "Min": 0,
+            "Max": 8
+           }
+          }
+         ]
+        }
+       }
+      }
+     },
+     {
+      "$type": "RogueEssence.LevelGen.TeamSpawnZoneStep, RogueEssence",
+      "Priority": {
+       "str": [
+        2,
+        2
+       ]
+      },
+      "Spawns": [
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "budew",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "combee",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "burmy",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "sewaddle",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "deerling",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "caterpie",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "metapod",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "butterfree",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "weedle",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "kakuna",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "beedrill",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "oddish",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "gloom",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "vileplume",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "weepinbell",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "victreebel",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "paras",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "parasect",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "venonat",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "venomoth",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "hoothoot",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "noctowl",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "ledyba",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "ledian",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "spinarak",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "hoppip",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "skiploom",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 24,
+           "Max": 27
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "jumpluff",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 25,
+           "Max": 28
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "seedot",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 22,
+           "Max": 25
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_dumb_two_range",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": {
+         "Spawn": {
+          "BaseForm": {
+           "Species": "nuzleaf",
+           "Form": 0,
+           "Skin": "",
+           "Gender": -1
+          },
+          "Level": {
+           "Min": 23,
+           "Max": 26
+          },
+          "SpecifiedSkills": [],
+          "Intrinsic": "",
+          "Tactic": "wander_normal",
+          "SpawnConditions": [],
+          "SpawnFeatures": [
+           {
+            "$type": "PMDC.LevelGen.MobSpawnWeak, PMDC"
+           }
+          ]
+         },
+         "Role": 0
+        },
+        "Rate": 5,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       }
+      ],
+      "TeamSizes": [
+       {
+        "Spawn": 1,
+        "Rate": 12,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": 2,
+        "Rate": 10,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": 3,
+        "Rate": 6,
+        "Range": {
+         "Min": 0,
+         "Max": 24
+        }
+       },
+       {
+        "Spawn": 4,
+        "Rate": 2,
+        "Range": {
+         "Min": 12,
+         "Max": 24
+        }
+       }
+      ],
+      "SpecificSpawns": []
+     },
+     {
+      "$type": "RogueEssence.LevelGen.TileSpawnZoneStep, RogueEssence",
+      "Priority": {
+       "str": [
+        2,
+        3
+       ]
+      },
+      "Spawns": []
+     },
+     {
+      "$type": "RogueEssence.LevelGen.ScriptZoneStep, RogueEssence",
+      "Script": "ReverseRelicForest",
+      "ArgTable": "{}"
+     },
+     {
+      "$type": "RogueEssence.LevelGen.SpreadStepRangeZoneStep, RogueEssence",
+      "StepPriority": {
+       "str": [
+        5
+       ]
+      },
+      "Spawns": [
+       {
+        "Spawn": {
+         "$type": "RogueEssence.LevelGen.ScriptGenStep`1[[RogueEssence.LevelGen.ListMapGenContext, RogueEssence]], RogueEssence",
+         "Script": "NewEraMystery",
+         "ArgTable": "{BaseChance=6, SegDiff=4}"
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 0,
+         "Max": 6
+        }
+       }
+      ],
+      "SpreadPlan": {
+       "$type": "RogueEssence.LevelGen.SpreadPlanSpaced, RogueEssence",
+       "FloorSpacing": {
+        "Min": 2,
+        "Max": 4
+       },
+       "BeginStart": false,
+       "FloorRange": {
+        "Min": 0,
+        "Max": 6
+       }
+      },
+      "ModStates": []
+     },
+     {
+      "$type": "PMDC.LevelGen.SpreadHouseZoneStep, PMDC",
+      "Priority": {
+       "str": [
+        6
+       ]
+      },
+      "Items": [
+       {
+        "Spawn": {
+         "IsMoney": true,
+         "Cursed": false,
+         "Value": "",
+         "HiddenValue": "",
+         "Amount": 75,
+         "Price": 0,
+         "TileLoc": {
+          "X": 0,
+          "Y": 0
+         }
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       }
+      ],
+      "ItemThemes": [
+       {
+        "Spawn": {
+         "$type": "PMDC.LevelGen.ItemThemeNone, PMDC",
+         "SpecialRatio": 50,
+         "Amount": {
+          "Min": 2,
+          "Max": 4
+         }
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       }
+      ],
+      "Mobs": [
+       {
+        "Spawn": {
+         "BaseForm": {
+          "Species": "houndour",
+          "Form": 0,
+          "Skin": "",
+          "Gender": -1
+         },
+         "Level": {
+          "Min": 8,
+          "Max": 10
+         },
+         "SpecifiedSkills": [
+          "ember",
+          "thief",
+          "howl"
+         ],
+         "Intrinsic": "",
+         "Tactic": "thief",
+         "SpawnConditions": [],
+         "SpawnFeatures": [
+          {
+           "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+           "StartAt": 3,
+           "Remove": false
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnAltColor, PMDC",
+           "Chance": {
+            "Numerator": 1,
+            "Denominator": 0
+           },
+           "Odds": 0
+          }
+         ]
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       },
+       {
+        "Spawn": {
+         "BaseForm": {
+          "Species": "purrloin",
+          "Form": 0,
+          "Skin": "",
+          "Gender": -1
+         },
+         "Level": {
+          "Min": 8,
+          "Max": 10
+         },
+         "SpecifiedSkills": [
+          "thief",
+          "scratch",
+          "assist"
+         ],
+         "Intrinsic": "limber",
+         "Tactic": "thief",
+         "SpawnConditions": [],
+         "SpawnFeatures": [
+          {
+           "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnAltColor, PMDC",
+           "Chance": {
+            "Numerator": 1,
+            "Denominator": 0
+           },
+           "Odds": 0
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+           "StartAt": 3,
+           "Remove": false
+          }
+         ]
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       },
+       {
+        "Spawn": {
+         "BaseForm": {
+          "Species": "mankey",
+          "Form": 0,
+          "Skin": "",
+          "Gender": -1
+         },
+         "Level": {
+          "Min": 8,
+          "Max": 10
+         },
+         "SpecifiedSkills": [
+          "covet",
+          "low_kick",
+          "focus_energy"
+         ],
+         "Intrinsic": "",
+         "Tactic": "thief",
+         "SpawnConditions": [],
+         "SpawnFeatures": [
+          {
+           "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+           "StartAt": 3,
+           "Remove": false
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+          },
+          {
+           "$type": "PMDC.LevelGen.MobSpawnAltColor, PMDC",
+           "Chance": {
+            "Numerator": 1,
+            "Denominator": 0
+           },
+           "Odds": 0
+          }
+         ]
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       }
+      ],
+      "MobThemes": [
+       {
+        "Spawn": {
+         "$type": "PMDC.LevelGen.MobThemeNone, PMDC",
+         "SpecialRatio": 100,
+         "Amount": {
+          "Min": 2,
+          "Max": 4
+         }
+        },
+        "Rate": 10,
+        "Range": {
+         "Min": 5,
+         "Max": 9
+        }
+       }
+      ],
+      "HouseStepSpawns": [
+       {
+        "Spawn": {
+         "$type": "PMDC.LevelGen.MonsterHallStep`1[[RogueEssence.LevelGen.MapGenContext, RogueEssence]], PMDC",
+         "Filters": [
+          {
+           "$type": "RogueElements.RoomFilterComponent, RogueElements",
+           "Negate": true,
+           "Components": [
+            {
+             "$type": "RogueEssence.LevelGen.ImmutableRoom, RogueEssence"
+            },
+            {
+             "$type": "PMDC.LevelGen.NoEventRoom, PMDC"
+            }
+           ]
+          }
+         ],
+         "Size": {
+          "X": 0,
+          "Y": 0
+         },
+         "Items": [
+          {
+           "Spawn": {
+            "IsMoney": true,
+            "Cursed": false,
+            "Value": "",
+            "HiddenValue": "",
+            "Amount": 75,
+            "Price": 0,
+            "TileLoc": {
+             "X": 0,
+             "Y": 0
+            }
+           },
+           "Rate": 10
+          }
+         ],
+         "ItemThemes": [
+          {
+           "Spawn": {
+            "$type": "PMDC.LevelGen.ItemThemeNone, PMDC",
+            "SpecialRatio": 50,
+            "Amount": {
+             "Min": 1,
+             "Max": 4
+            }
+           },
+           "Rate": 10
+          }
+         ],
+         "Mobs": [
+          {
+           "Spawn": {
+            "BaseForm": {
+             "Species": "houndour",
+             "Form": 0,
+             "Skin": "",
+             "Gender": -1
+            },
+            "Level": {
+             "Min": 8,
+             "Max": 10
+            },
+            "SpecifiedSkills": [
+             "ember",
+             "thief",
+             "howl"
+            ],
+            "Intrinsic": "",
+            "Tactic": "thief",
+            "SpawnConditions": [],
+            "SpawnFeatures": [
+             {
+              "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+             },
+             {
+              "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+              "StartAt": 3,
+              "Remove": false
+             }
+            ]
+           },
+           "Rate": 10
+          },
+          {
+           "Spawn": {
+            "BaseForm": {
+             "Species": "mankey",
+             "Form": 0,
+             "Skin": "",
+             "Gender": -1
+            },
+            "Level": {
+             "Min": 8,
+             "Max": 10
+            },
+            "SpecifiedSkills": [
+             "covet",
+             "low_kick",
+             "focus_energy"
+            ],
+            "Intrinsic": "",
+            "Tactic": "thief",
+            "SpawnConditions": [],
+            "SpawnFeatures": [
+             {
+              "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+              "StartAt": 3,
+              "Remove": false
+             },
+             {
+              "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+             }
+            ]
+           },
+           "Rate": 10
+          },
+          {
+           "Spawn": {
+            "BaseForm": {
+             "Species": "purrloin",
+             "Form": 0,
+             "Skin": "",
+             "Gender": -1
+            },
+            "Level": {
+             "Min": 8,
+             "Max": 10
+            },
+            "SpecifiedSkills": [
+             "thief",
+             "scratch",
+             "assist"
+            ],
+            "Intrinsic": "limber",
+            "Tactic": "thief",
+            "SpawnConditions": [],
+            "SpawnFeatures": [
+             {
+              "$type": "PMDC.LevelGen.MobSpawnUnrecruitable, PMDC"
+             },
+             {
+              "$type": "PMDC.LevelGen.MobSpawnAltColor, PMDC",
+              "Chance": {
+               "Numerator": 1,
+               "Denominator": 0
+              },
+              "Odds": 0
+             },
+             {
+              "$type": "PMDC.LevelGen.MobSpawnMovesOff, PMDC",
+              "StartAt": 3,
+              "Remove": false
+             }
+            ]
+           },
+           "Rate": 10
+          }
+         ],
+         "MobThemes": [
+          {
+           "Spawn": {
+            "$type": "PMDC.LevelGen.MobThemeNone, PMDC",
+            "SpecialRatio": 100,
+            "Amount": {
+             "Min": 2,
+             "Max": 4
+            }
+           },
+           "Rate": 10
+          }
+         ]
+        },
+        "Rate": 10
+       }
+      ],
+      "SpreadPlan": {
+       "$type": "RogueEssence.LevelGen.SpreadPlanChance, RogueEssence",
+       "Chance": 50,
+       "FloorRange": {
+        "Min": 5,
+        "Max": 9
+       }
+      },
+      "ModStates": []
+     }
+    ],
+    "IsRelevant": true,
+    "Comment": "Forêt Foliodoro — structure complexe PMDO, escaliers RogueElements et roster étendu."
+   }
+  ],
+  "GroundMaps": []
+ }
+}

@@ -1,0 +1,963 @@
+{
+  "generated_at": "2026-08-22T22:57:45+00:00",
+  "dungeon": "gloomy_forest",
+  "name": {
+    "en": "Sinister Woods",
+    "fr": "Bois Sinistre"
+  },
+  "chapter": 6,
+  "route": "main",
+  "source": "Pokémon Mystery Dungeon: Rescue Team (Red/Blue Rescue Team & Rescue Team DX) — Sinister Woods, B1F-B12F. Species/items adapted to PMDO spawn tables and rescaled to New Era chapter 6 (30 years later).",
+  "floors": 14,
+  "biome": "forest",
+  "direction": "fond",
+  "zone_file": "Data/Zone/gloomy_forest.json",
+  "segments": [
+    {
+      "name": "Lisière hantée",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "forest_edge",
+      "dtef": {
+        "package": "sinister_woods_b41",
+        "element": "grass"
+      },
+      "profiles": [
+        "branching",
+        "dense",
+        "mixed",
+        "crossroads"
+      ],
+      "pokemon": 9,
+      "item_tables": {
+        "necessities": {
+          "amount": [
+            3,
+            6
+          ],
+          "entries": 6
+        },
+        "forest_finds": {
+          "amount": [
+            1,
+            3
+          ],
+          "entries": 5
+        },
+        "gummis": {
+          "amount": [
+            0,
+            2
+          ],
+          "entries": 4
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": [
+        {
+          "status": "fog",
+          "floors": [
+            6,
+            10
+          ],
+          "chance": 35
+        },
+        {
+          "status": "light_rain",
+          "floors": [
+            11,
+            14
+          ],
+          "chance": 30
+        }
+      ]
+    },
+    {
+      "name": "Bois profonds",
+      "floors": [
+        6,
+        10
+      ],
+      "biome": "deep_forest",
+      "dtef": {
+        "package": "sinister_woods_b41",
+        "element": "grass"
+      },
+      "profiles": [
+        "looping",
+        "branching",
+        "large_rooms",
+        "mixed",
+        "ring"
+      ],
+      "pokemon": 9,
+      "item_tables": {
+        "necessities": {
+          "amount": [
+            3,
+            6
+          ],
+          "entries": 6
+        },
+        "forest_finds": {
+          "amount": [
+            1,
+            3
+          ],
+          "entries": 5
+        },
+        "gummis": {
+          "amount": [
+            0,
+            2
+          ],
+          "entries": 4
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": [
+        {
+          "status": "fog",
+          "floors": [
+            6,
+            10
+          ],
+          "chance": 35
+        },
+        {
+          "status": "light_rain",
+          "floors": [
+            11,
+            14
+          ],
+          "chance": 30
+        }
+      ]
+    },
+    {
+      "name": "Clairière du Filou",
+      "floors": [
+        11,
+        14
+      ],
+      "biome": "forest_clearing",
+      "dtef": {
+        "package": "sinister_woods_b41",
+        "element": "grass"
+      },
+      "profiles": [
+        "mixed",
+        "large_rooms",
+        "looping",
+        "branching"
+      ],
+      "pokemon": 9,
+      "item_tables": {
+        "necessities": {
+          "amount": [
+            3,
+            6
+          ],
+          "entries": 6
+        },
+        "forest_finds": {
+          "amount": [
+            1,
+            3
+          ],
+          "entries": 5
+        },
+        "gummis": {
+          "amount": [
+            0,
+            2
+          ],
+          "entries": 4
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": [
+        {
+          "status": "fog",
+          "floors": [
+            6,
+            10
+          ],
+          "chance": 35
+        },
+        {
+          "status": "light_rain",
+          "floors": [
+            11,
+            14
+          ],
+          "chance": 30
+        }
+      ]
+    }
+  ],
+  "fixed_grounds": {
+    "end": "sinister_woods_clearing",
+    "mid": "gloomy_forest_midpoint"
+  },
+  "midpoint": {
+    "floor": 8,
+    "template": "searing_tunnel_midpoint",
+    "retexture": "sinister_woods_b41",
+    "checkpoint": true,
+    "heal": true,
+    "save": true,
+    "rest": true,
+    "statue": "kangaskhan",
+    "notes": "Ground fixe : structure du template validé, retexturée avec le DTEF forestier de Sinister Woods. Jamais généré procéduralement.",
+    "ground": "gloomy_forest_midpoint",
+    "sheet": "SinisterWoodsB41",
+    "required_objects": [
+      "Kangaskhan_Rock",
+      "North_Exit",
+      "South_Exit"
+    ]
+  },
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "sinister_woods_clearing",
+    "team": "Team Dazzling (héritiers de Team Meanies)",
+    "roster": [
+      {
+        "species": "gengar",
+        "level": [
+          26,
+          26
+        ],
+        "role": "leader"
+      },
+      {
+        "species": "medicham",
+        "level": [
+          24,
+          24
+        ]
+      },
+      {
+        "species": "ekans",
+        "level": [
+          24,
+          24
+        ]
+      }
+    ],
+    "notes": "Sinister Woods possède un Ground de fin canonique exploitable (D04P02 → sinister_woods_clearing) : le combat final s'y déroule directement, aucune arène séparée n'est créée."
+  },
+  "minibosses": [
+    {
+      "name": "Scyther le Guetteur",
+      "species": "scyther",
+      "level": [
+        26,
+        26
+      ],
+      "floor": 7,
+      "mode": "floor_encounter",
+      "notes": "Renforcé au-dessus des résidents du segment (Lv 19-21)."
+    },
+    {
+      "name": "Exeggutor l'Ancien",
+      "species": "exeggutor",
+      "level": [
+        28,
+        28
+      ],
+      "floor": 11,
+      "mode": "floor_encounter",
+      "notes": "Garde l'entrée de la clairière."
+    }
+  ],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "sinister_woods_clearing",
+    "battle_ground": "sinister_woods_clearing",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "gloomy_forest_midpoint",
+    "end": "sinister_woods_clearing",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "sinister_woods_clearing",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "sinister_woods_clearing"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "final battle stays on the canonical end Ground 'sinister_woods_clearing' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:gloomy_forest",
+    "root_seed": 2101663151294867089,
+    "explicit_seed": false,
+    "derived_seeds": 73
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "Lisière hantée",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed+crossroads",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7908,
+      "seeds": [
+        1197067756834352060,
+        8370755941431836693,
+        6128465657626279898,
+        2916637552364881753,
+        7129916343456924754
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.2,
+        "rooms_min": 8,
+        "rooms_max": 21,
+        "halls_avg": 13.8,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 1.0,
+        "connections_avg": 13.8,
+        "room_area_min": 25,
+        "room_area_max": 162,
+        "stair_distance_avg": 42.8,
+        "reachable_ratio_min": 0.9981,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "Lisière hantée",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed+crossroads",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        13,
+        10
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8022,
+      "seeds": [
+        874726473546048856,
+        2383889402463902406,
+        6319973313327145386,
+        7035389083852950633,
+        5137261163053651391
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.2,
+        "rooms_min": 7,
+        "rooms_max": 17,
+        "halls_avg": 12.8,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.6,
+        "connections_avg": 12.8,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 45.8,
+        "reachable_ratio_min": 0.9976,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "Lisière hantée",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed+crossroads",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8754,
+      "seeds": [
+        1239708758182077209,
+        6274604679880280212,
+        720724333776583891,
+        873311740871674789,
+        157569002024337469
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.6,
+        "rooms_min": 10,
+        "rooms_max": 22,
+        "halls_avg": 16.0,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.4,
+        "connections_avg": 16.0,
+        "room_area_min": 12,
+        "room_area_max": 70,
+        "stair_distance_avg": 39.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "Lisière hantée",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed+crossroads",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7903,
+      "seeds": [
+        4639034379909505583,
+        5110678587327778624,
+        2166117273805128920,
+        6976102278145544229,
+        3600995173391824489
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.8,
+        "rooms_min": 7,
+        "rooms_max": 20,
+        "halls_avg": 15.8,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.6,
+        "connections_avg": 15.8,
+        "room_area_min": 9,
+        "room_area_max": 200,
+        "stair_distance_avg": 32.0,
+        "reachable_ratio_min": 0.9987,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "Lisière hantée",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed+crossroads",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8677,
+      "seeds": [
+        1258862495548209151,
+        5372919650794517200,
+        6697345595366286520,
+        8981742102069045296,
+        6695947285416274407
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 8,
+        "rooms_max": 18,
+        "halls_avg": 12.6,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 1.0,
+        "connections_avg": 12.6,
+        "room_area_min": 15,
+        "room_area_max": 204,
+        "stair_distance_avg": 35.8,
+        "reachable_ratio_min": 0.9984,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "Bois profonds",
+      "kind": "procedural",
+      "profile": "looping+branching+large_rooms+mixed+ring",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8536,
+      "seeds": [
+        725163678027141980,
+        5396622673894480877,
+        6778951578448953895,
+        3428718375268728302,
+        4910323646196238666
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 6,
+        "rooms_max": 14,
+        "halls_avg": 11.6,
+        "branches_avg": 3.0,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 1.4,
+        "connections_avg": 11.6,
+        "room_area_min": 24,
+        "room_area_max": 368,
+        "stair_distance_avg": 35.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "Bois profonds",
+      "kind": "procedural",
+      "profile": "looping+branching+large_rooms+mixed+ring",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.83,
+      "seeds": [
+        8553701333209784811,
+        5940721896212141409,
+        5147710195140367712,
+        7328426072795132796,
+        8675276605556443849
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 7,
+        "rooms_max": 17,
+        "halls_avg": 11.8,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.2,
+        "connections_avg": 11.8,
+        "room_area_min": 24,
+        "room_area_max": 110,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "Bois profonds",
+      "kind": "procedural",
+      "profile": "looping+branching+large_rooms+mixed+ring",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.6755,
+      "seeds": [
+        361808225887716779,
+        6095251326588572506,
+        6869117992927568565,
+        8038984239036618891,
+        43095453465649899
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.6,
+        "rooms_min": 6,
+        "rooms_max": 17,
+        "halls_avg": 13.0,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 1.4,
+        "connections_avg": 13.0,
+        "room_area_min": 20,
+        "room_area_max": 144,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "Bois profonds",
+      "kind": "procedural",
+      "profile": "looping+branching+large_rooms+mixed+ring",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [
+        "fog",
+        "fog",
+        "fog",
+        "fog"
+      ],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8327,
+      "seeds": [
+        9135663653705178050,
+        7195384991798607003,
+        2263937046563134177,
+        508147708866793553,
+        2943827810599362843
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.4,
+        "rooms_min": 6,
+        "rooms_max": 14,
+        "halls_avg": 11.6,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 1.2,
+        "connections_avg": 11.6,
+        "room_area_min": 20,
+        "room_area_max": 299,
+        "stair_distance_avg": 37.6,
+        "reachable_ratio_min": 0.9958,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "Bois profonds",
+      "kind": "procedural",
+      "profile": "looping+branching+large_rooms+mixed+ring",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [
+        "fog",
+        "fog",
+        "fog",
+        "fog"
+      ],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.6662,
+      "seeds": [
+        3944850429166625162,
+        6520587359614681827,
+        6296511421004363228,
+        3697996725202596170,
+        9062409767813882326
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.8,
+        "rooms_min": 5,
+        "rooms_max": 18,
+        "halls_avg": 13.8,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 1.8,
+        "loops_avg": 2.0,
+        "connections_avg": 13.8,
+        "room_area_min": 25,
+        "room_area_max": 275,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "Clairière du Filou",
+      "kind": "procedural",
+      "profile": "mixed+large_rooms+looping+branching",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        12,
+        13
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8348,
+      "seeds": [
+        7728694955562430678,
+        8640449672148684706,
+        1753210153106431073,
+        3465877806997934987,
+        6662875452633518814
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 8,
+        "rooms_max": 19,
+        "halls_avg": 13.4,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 1.6,
+        "connections_avg": 13.4,
+        "room_area_min": 24,
+        "room_area_max": 108,
+        "stair_distance_avg": 35.6,
+        "reachable_ratio_min": 0.9974,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "Clairière du Filou",
+      "kind": "procedural",
+      "profile": "mixed+large_rooms+looping+branching",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        13,
+        11
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [
+        "light_rain",
+        "light_rain",
+        "light_rain",
+        "light_rain"
+      ],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9419,
+      "seeds": [
+        5279595433898062857,
+        3386478131105371389,
+        3394331701304275309,
+        5966752349792876388,
+        442214281461955696
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.6,
+        "rooms_min": 5,
+        "rooms_max": 17,
+        "halls_avg": 11.2,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.6,
+        "connections_avg": 11.2,
+        "room_area_min": 20,
+        "room_area_max": 260,
+        "stair_distance_avg": 32.6,
+        "reachable_ratio_min": 0.998,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "Clairière du Filou",
+      "kind": "procedural",
+      "profile": "mixed+large_rooms+looping+branching",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7177,
+      "seeds": [
+        6611128275282604013,
+        7754460497019489515,
+        4464514764753902310,
+        8811722130270075561,
+        5382021271835769866
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.8,
+        "rooms_min": 4,
+        "rooms_max": 25,
+        "halls_avg": 13.6,
+        "branches_avg": 3.4,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.8,
+        "connections_avg": 13.6,
+        "room_area_min": 20,
+        "room_area_max": 132,
+        "stair_distance_avg": 37.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "Clairière du Filou",
+      "kind": "procedural",
+      "profile": "mixed+large_rooms+looping+branching",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        14,
+        8
+      ],
+      "dtef": "sinister_woods_b41",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7385,
+      "seeds": [
+        651021285264139868,
+        5575647029025697751,
+        5080036410269078656,
+        4203494759431413846,
+        4351779290230142135
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.4,
+        "rooms_min": 8,
+        "rooms_max": 25,
+        "halls_avg": 17.6,
+        "branches_avg": 5.4,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 2.6,
+        "connections_avg": 17.6,
+        "room_area_min": 20,
+        "room_area_max": 165,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 0.9979,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

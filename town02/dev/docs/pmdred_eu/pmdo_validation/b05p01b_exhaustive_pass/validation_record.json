@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "ground": "b05p01b",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      552,
+      552
+    ],
+    "primary_sample_count": 50,
+    "reload_sample_count": 1,
+    "exact_sample_count": 51,
+    "unique_rgba_frame_count": 32,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/b05p01b_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/b05p01b_exhaustive_pass/comparisons/comparison_primary_tick127.png",
+      "docs/pmdred_eu/pmdo_validation/b05p01b_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/b05p01b_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "B05P01B": "6d3d996545e54ba7133f5df9c2a88f9d6326146f8a97094bc22628f5fe5ea251",
+      "B05P01B1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B05P01B3": "39c58dd8f063a658fde3675209cf3fea5a7524f2f40670e55b87c8ad6ef7a1f3",
+      "B05P01Bc": "df1f2509f6c57fc4c29dd460d087a3f41f6aaa989b193801db5f76a6030de566",
+      "B05P01Bm": "481d054cf8f6b258b450f1d46687916a38a35b8918b13d25eb26f019e76237c8"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 50,
+    "first_tick": 0,
+    "last_tick": 127,
+    "cell_local_schedule_count": 2,
+    "maximum_cell_local_cycle_ticks": 64,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 42,
+        "frame_count": 6,
+        "frame_durations": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "index": 0,
+        "kind": "BPA_TILE",
+        "source_duration_values": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      {
+        "cycle": 64,
+        "frame_count": 8,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 3,
+        "kind": "BPL_PALETTE"
+      }
+    ],
+    "unique_observed_rgba_frames": 32,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "B05P01Bm",
+    "collision_layer_count": 1,
+    "solid_cells": 3767,
+    "collision_sha256": "23ca7e91a697423dbb834fd8893fceef2c3c05656e1e589a090745b34d69c016",
+    "successful_probe": {
+      "start": [
+        272,
+        272
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        264,
+        272
+      ],
+      "direction": "Left",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "97294d20b1e8df42e440fd1bd32c4133ac477a2a39da1fcf78c5ee296ddb36e4",
+    "canonical_source_tile_sha256": "12654bc24939fe1075de678bd7b382496c029c3b30caf8ec8f59042ef5338c79",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "canonical_ground_map",
+      "ground_map_symbol": "MAP_TEAM_BASE_SQUIRTLE_FINAL",
+      "canonical_debug_id": 35,
+      "conversion_type": 1,
+      "debug_string": "__ground_amd_conversion_00035",
+      "debug_string_address": "0x0827B67C",
+      "ground_place_id": 10,
+      "map_file_id": 36,
+      "map_id": 35,
+      "stable_ground_id": "b05p01b",
+      "weather_id": 9,
+      "dimensions_tiles": [
+        69,
+        69
+      ],
+      "classification": "canonical_team_base_squirtle_final",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    },
+    "scope": {
+      "story_events": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_id": 35,
+    "authenticated_map_file_id": 36,
+    "pinned_enum_symbol": "MAP_TEAM_BASE_SQUIRTLE_FINAL",
+    "conversion_type": 1,
+    "weather_id": 9
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/b05p01b.rsground",
+    "tile": "Content/Tile/b05p01b_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "b05p01b",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/b05p01b/README.md",
+    "promoted_ground_sha256": "97294d20b1e8df42e440fd1bd32c4133ac477a2a39da1fcf78c5ee296ddb36e4",
+    "promoted_tile_sha256": "12654bc24939fe1075de678bd7b382496c029c3b30caf8ec8f59042ef5338c79"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "97294d20b1e8df42e440fd1bd32c4133ac477a2a39da1fcf78c5ee296ddb36e4",
+    "candidate_tile_sha256": "12654bc24939fe1075de678bd7b382496c029c3b30caf8ec8f59042ef5338c79",
+    "source_normalized_sha256": {
+      "B05P01B": "6d3d996545e54ba7133f5df9c2a88f9d6326146f8a97094bc22628f5fe5ea251",
+      "B05P01B1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B05P01B3": "39c58dd8f063a658fde3675209cf3fea5a7524f2f40670e55b87c8ad6ef7a1f3",
+      "B05P01Bc": "df1f2509f6c57fc4c29dd460d087a3f41f6aaa989b193801db5f76a6030de566",
+      "B05P01Bm": "481d054cf8f6b258b450f1d46687916a38a35b8918b13d25eb26f019e76237c8"
+    },
+    "events_sha256": "edad9d2d42d999179b7401a06e70a60386db8f9b3047dac94456a1942293ea5f",
+    "report_sha256": "e872919871ae4539271013907510ccaf109001d1885cfd9b44910d1dfb48feed",
+    "fixture_manifest_sha256": "f96363cd495aa450addfe3ab87aab5c928b141d786989865053ec101a122bcb9",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/b05p01b_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "bounded process-group termination after terminal evidence",
+    "evidence_impact": "NONE"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical story events, actors, entrances, music, variants, and routing are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "97294d20b1e8df42e440fd1bd32c4133ac477a2a39da1fcf78c5ee296ddb36e4",
+    "indexed_tile_sha256": "12654bc24939fe1075de678bd7b382496c029c3b30caf8ec8f59042ef5338c79",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after b05p01a",
+    "zone_ground_map_count": 226,
+    "canonical_index": 167,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "schema": 1,
+  "ground": "t01p07",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      408,
+      384
+    ],
+    "primary_sample_count": 96,
+    "reload_sample_count": 1,
+    "exact_sample_count": 97,
+    "unique_rgba_frame_count": 19,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/comparisons/comparison_primary_tick479.png",
+      "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "T01P07": "5be2736576f9aa93ef91416f9be4f15d0b0567eb5dc9493e401851c461578e7e",
+      "T01P07c": "7cff2b6d6b4e0e34888359465b5ecf120a298c2f6569a03396d3559bf0706dbd",
+      "T01P07m": "0d2928c43ec89b7d0203e61a52174b2ec0429d6c4893c2a6be65e154b6ff94f5"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 96,
+    "first_tick": 0,
+    "last_tick": 479,
+    "cell_local_schedule_count": 3,
+    "maximum_cell_local_cycle_ticks": 240,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 240,
+        "frame_count": 24,
+        "frame_durations": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "index": 1,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 240,
+        "frame_count": 24,
+        "frame_durations": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "index": 2,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 240,
+        "frame_count": 24,
+        "frame_durations": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "index": 3,
+        "kind": "BPL_PALETTE"
+      }
+    ],
+    "unique_observed_rgba_frames": 19,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "T01P07m",
+    "collision_layer_count": 1,
+    "solid_cells": 2357,
+    "collision_sha256": "27fc53ebb8a4435be52d1519dd8b910aabce8e767d898745834a7fd999b1234b",
+    "successful_probe": {
+      "start": [
+        200,
+        184
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        200,
+        184
+      ],
+      "direction": "Right",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "cc7ce085938d10aa4d564e6037e0ea0671ab1736f08448b38c6ad9c517a35546",
+    "canonical_source_tile_sha256": "456d26b0fd97241ec47db70822d18604a291bd65f99032f4a5e84c0c5273327f",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "luminous_cave",
+      "ground_map_symbol": "MAP_LUMINOUS_CAVE",
+      "canonical_debug_id": 8,
+      "map_id": 8,
+      "map_file_id": 8,
+      "ground_place_id": 8,
+      "stable_ground_id": "t01p07",
+      "cinematic": true,
+      "arena": false,
+      "boss": false,
+      "classification": "evolution_cinematic_interior"
+    },
+    "scope": {
+      "cinematic_choreography": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_file_id": 8,
+    "pinned_enum_symbol": "MAP_LUMINOUS_CAVE",
+    "conversion_type": 2,
+    "weather_id": 0
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t01p07.rsground",
+    "tile": "Content/Tile/t01p07_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "t01p07",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p07/README.md",
+    "promoted_ground_sha256": "cc7ce085938d10aa4d564e6037e0ea0671ab1736f08448b38c6ad9c517a35546",
+    "promoted_tile_sha256": "456d26b0fd97241ec47db70822d18604a291bd65f99032f4a5e84c0c5273327f"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "cc7ce085938d10aa4d564e6037e0ea0671ab1736f08448b38c6ad9c517a35546",
+    "candidate_tile_sha256": "456d26b0fd97241ec47db70822d18604a291bd65f99032f4a5e84c0c5273327f",
+    "source_normalized_sha256": {
+      "T01P07": "5be2736576f9aa93ef91416f9be4f15d0b0567eb5dc9493e401851c461578e7e",
+      "T01P07c": "7cff2b6d6b4e0e34888359465b5ecf120a298c2f6569a03396d3559bf0706dbd",
+      "T01P07m": "0d2928c43ec89b7d0203e61a52174b2ec0429d6c4893c2a6be65e154b6ff94f5"
+    },
+    "events_sha256": "c6f9abacc946c160afdedf57405ff833ff9cec331540b3d11a308272981601b9",
+    "report_sha256": "353cb0dc04faf87cf6a6fc553a62a4eb7da08eefea2c16e58949582e73b3cec2",
+    "fixture_manifest_sha256": "81d346b66c964b3c48c3f920e6f3c5e2d84caa1532306830ce952bc20d084c0e",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t01p07_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "bounded process-group termination after terminal evidence",
+    "evidence_impact": "NONE"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical evolution dialogue/choreography, music assignment, and narrative systems are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "cc7ce085938d10aa4d564e6037e0ea0671ab1736f08448b38c6ad9c517a35546",
+    "indexed_tile_sha256": "456d26b0fd97241ec47db70822d18604a291bd65f99032f4a5e84c0c5273327f",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after t01p05",
+    "zone_ground_map_count": 199,
+    "canonical_index": 140,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

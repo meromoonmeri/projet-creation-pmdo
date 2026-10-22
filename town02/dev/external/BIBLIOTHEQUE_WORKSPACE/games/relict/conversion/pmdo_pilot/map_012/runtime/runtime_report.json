@@ -1,0 +1,128 @@
+{
+  "adaptation_status": "ADAPTATION_REQUIRED",
+  "authority": {
+    "fixture_extension": "tools/build_pmdo_runtime_fixture.py",
+    "headless_sdl_sha256": "2cec7b5f9603a8a856a94b3a5e4fb5bd5e93e3ed0d04b85431625d5acb14e71f",
+    "method": "Agent A ignored overlay + patched SDL + SwiftShader/ANGLE",
+    "pmdo_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "pmdo_version": "0.8.12",
+    "sdl_patch_sha256": "7fb310776961e5a6a30cb9bc4550a070d3eb284b3813ee03406e418e60119f6f"
+  },
+  "candidate": {
+    "asset": "relict_map_012_pilot",
+    "ground_sha256": "5456299e6c64f51e7a69ae8e0af9089b3b1fab63d65dab757196882a087d5017",
+    "tile_sha256": "ae3578078911215b0697994a3a5b457fb5d9ace9841c545a0e659dd6f7275ace"
+  },
+  "fixture": {
+    "events_file": "runtime/events.jsonl",
+    "events_sha256": "d9be09e57f997eef0fcc5414b105b5bc762c98f93910bab1416af3114f6b085e",
+    "fixture_manifest_sha256": "8266d338975beb5552220f92d199df49e50e209133504f494ecc5eeb733391da",
+    "index_error_signature_count": 0,
+    "index_log_file": "runtime/index.log",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "kind": "ignored_agent_a_overlay_extension",
+    "spawn": {
+      "clear_move_directions": 4,
+      "movement_probes": {
+        "blocked": {
+          "direction": "Right",
+          "expected_delta": [
+            8,
+            0
+          ],
+          "x": 688,
+          "y": 520
+        },
+        "blocked_expectation": "BMA_SOLID_BLOCK",
+        "solid_cells": 15584,
+        "successful": {
+          "direction": "Down",
+          "expected_delta": [
+            0,
+            8
+          ],
+          "x": 552,
+          "y": 520
+        }
+      },
+      "x": 552,
+      "y": 520
+    },
+    "zone_index": 232
+  },
+  "forbidden_content_check": {
+    "audio_binary_exported": false,
+    "dialogue_exported": false,
+    "fixture_actor_pixels_exported": false,
+    "script_body_exported": false,
+    "source_actor_pixels_exported": false
+  },
+  "result": "PMDO_RUNTIME_VALIDATION_PASS",
+  "runtime_destination_written": false,
+  "runtime_probes": {
+    "animation_samples": "PASS",
+    "blocked_movement": "PASS",
+    "ground_load": "PASS",
+    "successful_movement": "PASS",
+    "terminal_event": "PASS"
+  },
+  "schema_version": "1.0.0",
+  "validation_status": "PMDO_VALIDATED",
+  "visual_validation": {
+    "actor_exclusion_rect": {
+      "height": 64,
+      "width": 48,
+      "x": 536,
+      "y": 488
+    },
+    "actor_policy": "Raw screenshots stay ignored and are not exported. Only the fixture-native actor rectangle is replaced by the deterministic environmental reference.",
+    "samples": [
+      {
+        "actor_excluded_pixel_count": 200,
+        "dimensions_px": [
+          1120,
+          1056
+        ],
+        "environment_different_pixel_count": 0,
+        "environment_evidence_file": "runtime/environment_tick_000.png",
+        "environment_evidence_sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6",
+        "environment_max_channel_delta": 0,
+        "expected_file": "previews/composite_tick_000.png",
+        "expected_sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6",
+        "pmdo_tick": 0,
+        "raw_difference_bounds_inclusive": [
+          553,
+          515,
+          566,
+          534
+        ],
+        "raw_different_pixel_count": 200,
+        "raw_runtime_pixels_exported": false,
+        "raw_runtime_sha256": "53c8705a8c9a9198fcf158b313d52969fbbdfab433189ecfb8a389051010a64e"
+      },
+      {
+        "actor_excluded_pixel_count": 200,
+        "dimensions_px": [
+          1120,
+          1056
+        ],
+        "environment_different_pixel_count": 0,
+        "environment_evidence_file": "runtime/environment_tick_015.png",
+        "environment_evidence_sha256": "f1b099233523d72edae4f064be4e25627ff93ee10abd1deb720e4529e278da47",
+        "environment_max_channel_delta": 0,
+        "expected_file": "previews/composite_tick_015.png",
+        "expected_sha256": "f1b099233523d72edae4f064be4e25627ff93ee10abd1deb720e4529e278da47",
+        "pmdo_tick": 15,
+        "raw_difference_bounds_inclusive": [
+          553,
+          515,
+          566,
+          534
+        ],
+        "raw_different_pixel_count": 200,
+        "raw_runtime_pixels_exported": false,
+        "raw_runtime_sha256": "81355c0394ea9c017083ce1477f6be906ef87b0d8b5eeadb4a98c31d708c7ded"
+      }
+    ]
+  }
+}

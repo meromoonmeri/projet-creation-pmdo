@@ -1,0 +1,378 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "D55P11A",
+ "scene": "enter05",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/D55P11A/enter05.ssb",
+ "file_size": 230,
+ "header": {
+  "nb_constants": 0,
+  "nb_strings": 3,
+  "constant_strings_start": 70,
+  "const_table_length": 0,
+  "strings_en": 148,
+  "unknown": 5
+ },
+ "data_offset": 12,
+ "start_of_const_table": 82,
+ "start_of_constants": 82,
+ "number_of_routines": 1,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 10,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 13
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 22,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    46
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 46,
+     "resolved": "TALK_MAIN"
+    }
+   ],
+   "resolved": [
+    "TALK_MAIN"
+   ]
+  },
+  {
+   "seq": 1,
+   "off": 26,
+   "id": 115,
+   "name": "ExecuteCommon",
+   "raw": [
+    3,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 3,
+     "resolved": "LIVES_REPLY_NORMAL"
+    },
+    {
+     "i": 1,
+     "spec": "unk1",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "LIVES_REPLY_NORMAL",
+    0
+   ]
+  },
+  {
+   "seq": 2,
+   "off": 32,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    47
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 47,
+     "resolved": "TALK_SUB"
+    }
+   ],
+   "resolved": [
+    "TALK_SUB"
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 36,
+   "id": 115,
+   "name": "ExecuteCommon",
+   "raw": [
+    3,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 3,
+     "resolved": "LIVES_REPLY_NORMAL"
+    },
+    {
+     "i": 1,
+     "spec": "unk1",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    "LIVES_REPLY_NORMAL",
+    0
+   ]
+  },
+  {
+   "seq": 4,
+   "off": 42,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    9,
+    0,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 6,
+     "resolved": "Bottom_R_FaceInw"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS",
+    "NORMAL",
+    "Bottom_R_FaceInw"
+   ]
+  },
+  {
+   "seq": 5,
+   "off": 50,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 0,
+     "resolved": {
+      "kind": "string",
+      "index": 0,
+      "text": " It's a promise, [CS:N]Sentret[CR]."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 0,
+     "text": " It's a promise, [CS:N]Sentret[CR]."
+    }
+   ]
+  },
+  {
+   "seq": 6,
+   "off": 54,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    1
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 1,
+     "resolved": {
+      "kind": "string",
+      "index": 1,
+      "text": " Well, if we run into Team [CS:X]AWD[CR],\nwe'll make sure to give them what for!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 1,
+     "text": " Well, if we run into Team [CS:X]AWD[CR],\nwe'll make sure to give them what for!"
+    }
+   ]
+  },
+  {
+   "seq": 7,
+   "off": 58,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 8,
+   "off": 62,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    378,
+    8,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 378,
+     "resolved": "NPC_METAMON_OTACHI"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 8,
+     "resolved": "TEARY-EYED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "NPC_METAMON_OTACHI",
+    "TEARY-EYED",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 9,
+   "off": 70,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 2,
+     "resolved": {
+      "kind": "string",
+      "index": 2,
+      "text": " Th-thank you very much!"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 2,
+     "text": " Th-thank you very much!"
+    }
+   ]
+  },
+  {
+   "seq": 10,
+   "off": 74,
+   "id": 150,
+   "name": "message_Close",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 11,
+   "off": 76,
+   "id": 136,
+   "name": "JumpCommon",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 0,
+     "resolved": "END_TALK"
+    }
+   ],
+   "resolved": [
+    "END_TALK"
+   ]
+  },
+  {
+   "seq": 12,
+   "off": 80,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [],
+ "strings": [
+  " It's a promise, [CS:N]Sentret[CR].",
+  " Well, if we run into Team [CS:X]AWD[CR],\nwe'll make sure to give them what for!",
+  " Th-thank you very much!"
+ ],
+ "validation": {
+  "end_cursor": 230,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 1,
+  "n_ops": 13,
+  "n_constants": 0,
+  "n_strings": 3,
+  "cross_check_model": true
+ }
+}

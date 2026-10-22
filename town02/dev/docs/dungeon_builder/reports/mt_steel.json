@@ -1,0 +1,595 @@
+{
+  "generated_at": "2026-08-24T16:56:15+00:00",
+  "dungeon": "mt_steel",
+  "name": {
+    "en": "Mt. Steel",
+    "fr": "Pic Ferreux"
+  },
+  "chapter": 7,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Steel (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtSteel) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 7. Recoupé avec Bulbapedia (page « Mt. Steel »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_steel entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_03",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_steel_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_steel_1."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d03p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d03p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d03p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d03p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 8,
+  "biome": "steel_slope",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/mt_steel.json",
+  "segments": [
+    {
+      "name": "steel_slope",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "steel_slope",
+      "dtef": {
+        "floor": "mt_steel_1_floor",
+        "wall": "mt_steel_1_wall",
+        "secondary": "mt_steel_1_secondary",
+        "name": "mt_steel_1",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Mt. Steel; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "branching",
+        "lattice"
+      ],
+      "pokemon": 38,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 80
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "pic_ferreux_pied",
+    "end": "d03p02"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d03p02",
+    "map": "mt_steel_boss",
+    "source_floor": 9,
+    "source_fixed_room": 1,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "skarmory",
+        "level": [
+          10,
+          10
+        ],
+        "source_level": 10,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d03p02 via the .rsmap counterpart mt_steel_boss; no invented arena."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "pic_ferreux_pied",
+    "cinematic_ground": "d03p02",
+    "battle_ground": "d03p02",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d03p02",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d03p02",
+    "boss_map": "mt_steel_boss",
+    "canonical_end_candidates": [
+      "d03p02"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd03p02' (no separate arena created)",
+      "scene source of truth: mt_steel_boss.rsmap matches the end Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:mt_steel",
+    "root_seed": 878496208901282280,
+    "explicit_seed": false,
+    "derived_seeds": 86
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9067,
+      "seeds": [
+        7957979020600900839,
+        8760670512482431611,
+        3999180244136875669,
+        719112483042569342,
+        3409623875977431718,
+        1348431523134887570,
+        4770755778364438515,
+        4162944600029160137,
+        421648694912949233,
+        2904548619200711589
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 16.2,
+        "rooms_min": 10,
+        "rooms_max": 25,
+        "halls_avg": 23.4,
+        "branches_avg": 7.8,
+        "dead_ends_avg": 5.4,
+        "loops_avg": 3.9,
+        "connections_avg": 23.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 48.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9262,
+      "seeds": [
+        9108981282375615036,
+        5883477620709270828,
+        6129885157515397258,
+        6604724537665589130,
+        2268453545693170653,
+        7404583618755152543,
+        910987132762803783,
+        8546610997854040820,
+        5736472828620413046,
+        5698585837018196297
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 15.8,
+        "rooms_min": 11,
+        "rooms_max": 22,
+        "halls_avg": 22.5,
+        "branches_avg": 7.4,
+        "dead_ends_avg": 5.4,
+        "loops_avg": 3.6,
+        "connections_avg": 22.5,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 60.7,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9339,
+      "seeds": [
+        8805950216445334083,
+        4885958383098013483,
+        3988733142819105028,
+        8027175685345330641,
+        7071852610678940127,
+        618337841491330563,
+        191634927804682955,
+        2600893158586432179,
+        7981169009218782012,
+        239166196512787374
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 15.7,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 22.6,
+        "branches_avg": 7.4,
+        "dead_ends_avg": 5.6,
+        "loops_avg": 3.5,
+        "connections_avg": 22.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 47.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9109,
+      "seeds": [
+        2735768397444444909,
+        2598764326584802198,
+        1108684742691981889,
+        2301997079858630166,
+        2401749274650762461,
+        19935031557669299,
+        1111031114660214109,
+        3426153962225726064,
+        4637347979877270841,
+        1554084103615696777
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 17.3,
+        "rooms_min": 11,
+        "rooms_max": 25,
+        "halls_avg": 23.2,
+        "branches_avg": 7.6,
+        "dead_ends_avg": 5.7,
+        "loops_avg": 3.3,
+        "connections_avg": 23.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 45.9,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8648,
+      "seeds": [
+        630268287877074372,
+        4858092095392424707,
+        6958819270695650434,
+        5403164708182761230,
+        4766213337944875613,
+        2381394714853445663,
+        8519816543574710278,
+        7476454135425178295,
+        3755947206992607120,
+        6035966536936124438
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 14.7,
+        "rooms_min": 10,
+        "rooms_max": 21,
+        "halls_avg": 22.5,
+        "branches_avg": 7.6,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 4.3,
+        "connections_avg": 22.5,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 47.3,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9204,
+      "seeds": [
+        5804597579721140827,
+        1814452157207222297,
+        5100487493019117137,
+        7931069611635861107,
+        2424114238857215940,
+        3718809105761689830,
+        6811764890345962548,
+        6530217728157320007,
+        8853054842207102706,
+        8891095940041815931
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 16.8,
+        "rooms_min": 13,
+        "rooms_max": 24,
+        "halls_avg": 25.0,
+        "branches_avg": 9.0,
+        "dead_ends_avg": 6.1,
+        "loops_avg": 4.3,
+        "connections_avg": 25.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 47.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9614,
+      "seeds": [
+        1082868381433319089,
+        5944755385893410803,
+        772243461767650253,
+        2231814624811395162,
+        8332659431473862884,
+        8234785527169801862,
+        7042766188563152386,
+        6787194629786947556,
+        9072698706466466306,
+        727720314353894958
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 16.9,
+        "rooms_min": 11,
+        "rooms_max": 24,
+        "halls_avg": 23.0,
+        "branches_avg": 7.6,
+        "dead_ends_avg": 5.7,
+        "loops_avg": 3.5,
+        "connections_avg": 23.0,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 48.9,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "steel_slope",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "mt_steel_1",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9132,
+      "seeds": [
+        5051053343368001600,
+        2792049518247697291,
+        4578707590409089891,
+        1204009663497237673,
+        6730268217886572274,
+        7057446757723181984,
+        4716022356184255810,
+        1873827998737819151,
+        7195361957029857459,
+        4134320618755104674
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 15.7,
+        "rooms_min": 11,
+        "rooms_max": 23,
+        "halls_avg": 24.0,
+        "branches_avg": 8.9,
+        "dead_ends_avg": 5.8,
+        "loops_avg": 4.5,
+        "connections_avg": 24.0,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 42.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

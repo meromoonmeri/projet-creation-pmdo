@@ -1,0 +1,2544 @@
+{
+ "schema": "newera.ssb_canonical_ir.v1",
+ "zone": "D55P21A",
+ "scene": "n06a1401",
+ "source_rom": "Pokemon Mystery Dungeon - Explorers of Sky (USA)",
+ "source_file": "files/language-specific/US/SCRIPT/D55P21A/n06a1401.ssb",
+ "file_size": 890,
+ "header": {
+  "nb_constants": 0,
+  "nb_strings": 10,
+  "constant_strings_start": 482,
+  "const_table_length": 0,
+  "strings_en": 396,
+  "unknown": 15
+ },
+ "data_offset": 12,
+ "start_of_const_table": 494,
+ "start_of_constants": 494,
+ "number_of_routines": 1,
+ "routines": [
+  {
+   "index": 0,
+   "start_offset_bytes": 10,
+   "type": 1,
+   "linked": 0,
+   "type_name": "ACTOR",
+   "op_count": 102
+  }
+ ],
+ "ops": [
+  {
+   "seq": 0,
+   "off": 22,
+   "id": 296,
+   "name": "sound_Stop",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 1,
+   "off": 24,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    191,
+    4,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 4,
+     "resolved": "WORRIED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO",
+    "WORRIED",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 2,
+   "off": 32,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 0,
+     "resolved": {
+      "kind": "string",
+      "index": 0,
+      "text": " Everyone...[K]all right?"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 0,
+     "text": " Everyone...[K]all right?"
+    }
+   ]
+  },
+  {
+   "seq": 3,
+   "off": 36,
+   "id": 155,
+   "name": "message_KeyWait",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 4,
+   "off": 38,
+   "id": 220,
+   "name": "screen_FadeOutAll",
+   "raw": [
+    1,
+    60
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "suspension_flag",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 60,
+     "resolved": 60
+    }
+   ],
+   "resolved": [
+    1,
+    60
+   ]
+  },
+  {
+   "seq": 5,
+   "off": 44,
+   "id": 151,
+   "name": "message_CloseEnforce",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 6,
+   "off": 46,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    693
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 693,
+     "resolved": "FADE_OUT_ALL_AFTER"
+    }
+   ],
+   "resolved": [
+    "FADE_OUT_ALL_AFTER"
+   ]
+  },
+  {
+   "seq": 7,
+   "off": 50,
+   "id": 9,
+   "name": "back_SetGround",
+   "raw": [
+    139
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "level_id",
+     "type": "Level",
+     "raw": 139,
+     "resolved": "D55P21A"
+    }
+   ],
+   "resolved": [
+    "D55P21A"
+   ]
+  },
+  {
+   "seq": 8,
+   "off": 54,
+   "id": 316,
+   "name": "supervision_StationCommon",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "station_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 9,
+   "off": 58,
+   "id": 298,
+   "name": "supervision_Acting",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "layer_id",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    }
+   ],
+   "resolved": [
+    0
+   ]
+  },
+  {
+   "seq": 10,
+   "off": 62,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 11,
+   "off": 66,
+   "id": 265,
+   "name": "SetPositionInitial",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 12,
+   "off": 68,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 13,
+   "off": 72,
+   "id": 265,
+   "name": "SetPositionInitial",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 14,
+   "off": 74,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 15,
+   "off": 78,
+   "id": 256,
+   "name": "SetDirection",
+   "raw": [
+    7
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 7,
+     "resolved": "DownLeft"
+    }
+   ],
+   "resolved": [
+    "DownLeft"
+   ]
+  },
+  {
+   "seq": 16,
+   "off": 82,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 17,
+   "off": 86,
+   "id": 256,
+   "name": "SetDirection",
+   "raw": [
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 0,
+     "resolved": "Down"
+    }
+   ],
+   "resolved": [
+    "Down"
+   ]
+  },
+  {
+   "seq": 18,
+   "off": 90,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 19,
+   "off": 94,
+   "id": 256,
+   "name": "SetDirection",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 2,
+     "resolved": "Right"
+    }
+   ],
+   "resolved": [
+    "Right"
+   ]
+  },
+  {
+   "seq": 20,
+   "off": 98,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 21,
+   "off": 102,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 22,
+   "off": 106,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 23,
+   "off": 110,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 24,
+   "off": 114,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 25,
+   "off": 118,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 26,
+   "off": 122,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 27,
+   "off": 126,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    22
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 22,
+     "resolved": 22
+    }
+   ],
+   "resolved": [
+    22
+   ]
+  },
+  {
+   "seq": 28,
+   "off": 130,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 29,
+   "off": 134,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    22
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 22,
+     "resolved": 22
+    }
+   ],
+   "resolved": [
+    22
+   ]
+  },
+  {
+   "seq": 30,
+   "off": 138,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 31,
+   "off": 142,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    22
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 22,
+     "resolved": 22
+    }
+   ],
+   "resolved": [
+    22
+   ]
+  },
+  {
+   "seq": 32,
+   "off": 146,
+   "id": 217,
+   "name": "screen_FadeIn",
+   "raw": [
+    1,
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "suspension_flag",
+     "type": "Number",
+     "raw": 1,
+     "resolved": 1
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    1,
+    30
+   ]
+  },
+  {
+   "seq": 33,
+   "off": 152,
+   "id": 32,
+   "name": "bgm_PlayFadeIn",
+   "raw": [
+    139,
+    0,
+    256
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "bgm_id",
+     "type": "Bgm",
+     "raw": 139,
+     "resolved": "BoulderQuarry"
+    },
+    {
+     "i": 1,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 0,
+     "resolved": 0
+    },
+    {
+     "i": 2,
+     "spec": "volume",
+     "type": "Number",
+     "raw": 256,
+     "resolved": 256
+    }
+   ],
+   "resolved": [
+    "BoulderQuarry",
+    0,
+    256
+   ]
+  },
+  {
+   "seq": 34,
+   "off": 160,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    30
+   ]
+  },
+  {
+   "seq": 35,
+   "off": 164,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 36,
+   "off": 168,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    23
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 23,
+     "resolved": 23
+    }
+   ],
+   "resolved": [
+    23
+   ]
+  },
+  {
+   "seq": 37,
+   "off": 172,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    }
+   ],
+   "resolved": [
+    10
+   ]
+  },
+  {
+   "seq": 38,
+   "off": 176,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 39,
+   "off": 180,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    23
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 23,
+     "resolved": 23
+    }
+   ],
+   "resolved": [
+    23
+   ]
+  },
+  {
+   "seq": 40,
+   "off": 184,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    7
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 7,
+     "resolved": 7
+    }
+   ],
+   "resolved": [
+    7
+   ]
+  },
+  {
+   "seq": 41,
+   "off": 188,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 42,
+   "off": 192,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    23
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 23,
+     "resolved": 23
+    }
+   ],
+   "resolved": [
+    23
+   ]
+  },
+  {
+   "seq": 43,
+   "off": 196,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 44,
+   "off": 200,
+   "id": 344,
+   "name": "WaitAnimation",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 45,
+   "off": 202,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 46,
+   "off": 206,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 47,
+   "off": 210,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 48,
+   "off": 214,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 49,
+   "off": 218,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 50,
+   "off": 222,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 51,
+   "off": 226,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    4,
+    10,
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 2,
+     "resolved": "Right"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "Right"
+   ]
+  },
+  {
+   "seq": 52,
+   "off": 234,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 53,
+   "off": 238,
+   "id": 253,
+   "name": "SetAnimation",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "id",
+     "type": "Number",
+     "raw": 2,
+     "resolved": 2
+    }
+   ],
+   "resolved": [
+    2
+   ]
+  },
+  {
+   "seq": 54,
+   "off": 242,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 55,
+   "off": 246,
+   "id": 332,
+   "name": "Turn2Direction",
+   "raw": [
+    4,
+    10,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "direction",
+     "type": "Direction",
+     "raw": 0,
+     "resolved": "Down"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "Down"
+   ]
+  },
+  {
+   "seq": 56,
+   "off": 254,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    10
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    }
+   ],
+   "resolved": [
+    10
+   ]
+  },
+  {
+   "seq": 57,
+   "off": 258,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 58,
+   "off": 262,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 59,
+   "off": 270,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 6,
+     "resolved": 6
+    }
+   ],
+   "resolved": [
+    6
+   ]
+  },
+  {
+   "seq": 60,
+   "off": 274,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 61,
+   "off": 278,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    8,
+    10,
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 8,
+     "resolved": 8
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    8,
+    10,
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 62,
+   "off": 286,
+   "id": 352,
+   "name": "WaitExecuteLives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 63,
+   "off": 290,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    30
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 30,
+     "resolved": 30
+    }
+   ],
+   "resolved": [
+    30
+   ]
+  },
+  {
+   "seq": 64,
+   "off": 294,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    9,
+    0,
+    14
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 14,
+     "resolved": "Top_C_FaceR"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS",
+    "NORMAL",
+    "Top_C_FaceR"
+   ]
+  },
+  {
+   "seq": 65,
+   "off": 302,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    1
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 1,
+     "resolved": {
+      "kind": "string",
+      "index": 1,
+      "text": " Yeah.[K] I'm fine."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 1,
+     "text": " Yeah.[K] I'm fine."
+    }
+   ]
+  },
+  {
+   "seq": 66,
+   "off": 306,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 67,
+   "off": 310,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 68,
+   "off": 314,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 69,
+   "off": 322,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 6,
+     "resolved": 6
+    }
+   ],
+   "resolved": [
+    6
+   ]
+  },
+  {
+   "seq": 70,
+   "off": 326,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 71,
+   "off": 330,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 72,
+   "off": 338,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    112,
+    0,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU",
+    "NORMAL",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 73,
+   "off": 346,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    2
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 2,
+     "resolved": {
+      "kind": "string",
+      "index": 2,
+      "text": " I'm all right too.[K] But I was a\nlittle unprepared."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 2,
+     "text": " I'm all right too.[K] But I was a\nlittle unprepared."
+    }
+   ]
+  },
+  {
+   "seq": 74,
+   "off": 350,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    3
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 3,
+     "resolved": {
+      "kind": "string",
+      "index": 3,
+      "text": " They were a little stronger...[K]\nthan I expected."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 3,
+     "text": " They were a little stronger...[K]\nthan I expected."
+    }
+   ]
+  },
+  {
+   "seq": 75,
+   "off": 354,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 76,
+   "off": 358,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 77,
+   "off": 362,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 78,
+   "off": 370,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 6,
+     "resolved": 6
+    }
+   ],
+   "resolved": [
+    6
+   ]
+  },
+  {
+   "seq": 79,
+   "off": 374,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 80,
+   "off": 378,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 81,
+   "off": 386,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    191,
+    4,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 4,
+     "resolved": "WORRIED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 6,
+     "resolved": "Bottom_R_FaceInw"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO",
+    "WORRIED",
+    "Bottom_R_FaceInw"
+   ]
+  },
+  {
+   "seq": 82,
+   "off": 394,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    4
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 4,
+     "resolved": {
+      "kind": "string",
+      "index": 4,
+      "text": " What should we do?[K] Look for\nanother way?"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 4,
+     "text": " What should we do?[K] Look for\nanother way?"
+    }
+   ]
+  },
+  {
+   "seq": 83,
+   "off": 398,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 84,
+   "off": 402,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    191
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO"
+   ]
+  },
+  {
+   "seq": 85,
+   "off": 406,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 86,
+   "off": 414,
+   "id": 343,
+   "name": "Wait",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "duration",
+     "type": "Number",
+     "raw": 6,
+     "resolved": 6
+    }
+   ],
+   "resolved": [
+    6
+   ]
+  },
+  {
+   "seq": 87,
+   "off": 418,
+   "id": 137,
+   "name": "lives",
+   "raw": [
+    112
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU"
+   ]
+  },
+  {
+   "seq": 88,
+   "off": 422,
+   "id": 333,
+   "name": "Turn2DirectionLives",
+   "raw": [
+    4,
+    10,
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "speed",
+     "type": "Number",
+     "raw": 4,
+     "resolved": 4
+    },
+    {
+     "i": 1,
+     "spec": "rotationdirection",
+     "type": "Number",
+     "raw": 10,
+     "resolved": 10
+    },
+    {
+     "i": 2,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    }
+   ],
+   "resolved": [
+    4,
+    10,
+    "PLAYER_CHARMS"
+   ]
+  },
+  {
+   "seq": 89,
+   "off": 430,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    9,
+    4,
+    14
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 4,
+     "resolved": "WORRIED"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 14,
+     "resolved": "Top_C_FaceR"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS",
+    "WORRIED",
+    "Top_C_FaceR"
+   ]
+  },
+  {
+   "seq": 90,
+   "off": 438,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    5
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 5,
+     "resolved": {
+      "kind": "string",
+      "index": 5,
+      "text": " No.[K] If we do that, there's a\nchance we'll get even more lost..."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 5,
+     "text": " No.[K] If we do that, there's a\nchance we'll get even more lost..."
+    }
+   ]
+  },
+  {
+   "seq": 91,
+   "off": 442,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 6,
+     "resolved": {
+      "kind": "string",
+      "index": 6,
+      "text": " And it will take a while."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 6,
+     "text": " And it will take a while."
+    }
+   ]
+  },
+  {
+   "seq": 92,
+   "off": 446,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    9,
+    0,
+    14
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 9,
+     "resolved": "PLAYER_CHARMS"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 14,
+     "resolved": "Top_C_FaceR"
+    }
+   ],
+   "resolved": [
+    "PLAYER_CHARMS",
+    "NORMAL",
+    "Top_C_FaceR"
+   ]
+  },
+  {
+   "seq": 93,
+   "off": 454,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    7
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 7,
+     "resolved": {
+      "kind": "string",
+      "index": 7,
+      "text": " Anyhow...[K] We should think of a\nway to cross over there somehow."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 7,
+     "text": " Anyhow...[K] We should think of a\nway to cross over there somehow."
+    }
+   ]
+  },
+  {
+   "seq": 94,
+   "off": 458,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 95,
+   "off": 462,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    112,
+    0,
+    0
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 112,
+     "resolved": "NPC_CHAAREMU"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 0,
+     "resolved": "Standard"
+    }
+   ],
+   "resolved": [
+    "NPC_CHAAREMU",
+    "NORMAL",
+    "Standard"
+   ]
+  },
+  {
+   "seq": 96,
+   "off": 470,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    8
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 8,
+     "resolved": {
+      "kind": "string",
+      "index": 8,
+      "text": " Yeah."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 8,
+     "text": " Yeah."
+    }
+   ]
+  },
+  {
+   "seq": 97,
+   "off": 474,
+   "id": 56,
+   "name": "CallCommon",
+   "raw": [
+    686
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "coro_id",
+     "type": "Routine",
+     "raw": 686,
+     "resolved": "MESSAGE_CLOSE_WAIT_FUNC"
+    }
+   ],
+   "resolved": [
+    "MESSAGE_CLOSE_WAIT_FUNC"
+   ]
+  },
+  {
+   "seq": 98,
+   "off": 478,
+   "id": 164,
+   "name": "message_SetFace",
+   "raw": [
+    191,
+    0,
+    6
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "actor_id",
+     "type": "Entity",
+     "raw": 191,
+     "resolved": "NPC_SAANAITO"
+    },
+    {
+     "i": 1,
+     "spec": "face_id",
+     "type": "Face",
+     "raw": 0,
+     "resolved": "NORMAL"
+    },
+    {
+     "i": 2,
+     "spec": "face_mode",
+     "type": "FaceMode",
+     "raw": 6,
+     "resolved": "Bottom_R_FaceInw"
+    }
+   ],
+   "resolved": [
+    "NPC_SAANAITO",
+    "NORMAL",
+    "Bottom_R_FaceInw"
+   ]
+  },
+  {
+   "seq": 99,
+   "off": 486,
+   "id": 174,
+   "name": "message_Talk",
+   "raw": [
+    9
+   ],
+   "arg_specs": [
+    {
+     "i": 0,
+     "spec": "txt",
+     "type": "String",
+     "raw": 9,
+     "resolved": {
+      "kind": "string",
+      "index": 9,
+      "text": " Got it."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "kind": "string",
+     "index": 9,
+     "text": " Got it."
+    }
+   ]
+  },
+  {
+   "seq": 100,
+   "off": 490,
+   "id": 150,
+   "name": "message_Close",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  },
+  {
+   "seq": 101,
+   "off": 492,
+   "id": 112,
+   "name": "End",
+   "raw": [],
+   "arg_specs": [],
+   "resolved": []
+  }
+ ],
+ "constants": [],
+ "strings": [
+  " Everyone...[K]all right?",
+  " Yeah.[K] I'm fine.",
+  " I'm all right too.[K] But I was a\nlittle unprepared.",
+  " They were a little stronger...[K]\nthan I expected.",
+  " What should we do?[K] Look for\nanother way?",
+  " No.[K] If we do that, there's a\nchance we'll get even more lost...",
+  " And it will take a while.",
+  " Anyhow...[K] We should think of a\nway to cross over there somehow.",
+  " Yeah.",
+  " Got it."
+ ],
+ "validation": {
+  "end_cursor": 890,
+  "cursor_eq_file_size": true,
+  "cursor_after_ops_eq_const_table": true,
+  "unknown_opcodes": [],
+  "unresolved_params": [],
+  "undocumented_enums": [],
+  "n_routines": 1,
+  "n_ops": 102,
+  "n_constants": 0,
+  "n_strings": 10,
+  "cross_check_model": true
+ }
+}

@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "ground": "b02p01b",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      552,
+      552
+    ],
+    "primary_sample_count": 24,
+    "reload_sample_count": 1,
+    "exact_sample_count": 25,
+    "unique_rgba_frame_count": 6,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/b02p01b_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/b02p01b_exhaustive_pass/comparisons/comparison_primary_tick83.png",
+      "docs/pmdred_eu/pmdo_validation/b02p01b_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/b02p01b_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "B01P01B1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B01P01Bc": "d0868a4d3e2dbb03fc7be78fe8d17f66148638244e2b8ca133c10c074192a0db",
+      "B01P01Bm": "c5825c408706a9fe492ee75ba2e547d7d9e65f58d34025b8225913408009f233",
+      "B02P01B": "3ad34e248bcbc715a715db6cbdbde5f14ea2cf4215aca6dc99de4539640aa414",
+      "B02P01B3": "0bc6d4736ec7a5d2fb6697e90d6eb646fcfd726408e4b65f5d2f6fdf0693c634"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 24,
+    "first_tick": 0,
+    "last_tick": 83,
+    "cell_local_schedule_count": 1,
+    "maximum_cell_local_cycle_ticks": 42,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 42,
+        "frame_count": 6,
+        "frame_durations": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "index": 0,
+        "kind": "BPA_TILE",
+        "source_duration_values": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      }
+    ],
+    "unique_observed_rgba_frames": 6,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "B01P01Bm",
+    "collision_layer_count": 1,
+    "solid_cells": 3767,
+    "collision_sha256": "bc721d02780ee6cae7afd708c98830d22b03a7efabb23ab5add0ee4fa97fd56b",
+    "successful_probe": {
+      "start": [
+        272,
+        272
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        264,
+        272
+      ],
+      "direction": "Left",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "56ff8d17e40fda1739530a95a453a3aeb21aba4f70ef6d05f4854fdecb9f2cd7",
+    "canonical_source_tile_sha256": "7355317e5fb617763b1f28ef578cb175ba7b9b95bdf49ce63708e3b2f7c26530",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "canonical_ground_map",
+      "ground_map_symbol": "MAP_TEAM_BASE_MEOWTH_FINAL",
+      "canonical_debug_id": 17,
+      "conversion_type": 1,
+      "debug_string": "__ground_amd_conversion_00017",
+      "debug_string_address": "0x0827B8BC",
+      "ground_place_id": 10,
+      "map_file_id": 18,
+      "map_id": 17,
+      "stable_ground_id": "b02p01b",
+      "weather_id": 9,
+      "dimensions_tiles": [
+        69,
+        69
+      ],
+      "classification": "canonical_team_base_meowth_final",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    },
+    "scope": {
+      "story_events": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_id": 17,
+    "authenticated_map_file_id": 18,
+    "pinned_enum_symbol": "MAP_TEAM_BASE_MEOWTH_FINAL",
+    "conversion_type": 1,
+    "weather_id": 9
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/b02p01b.rsground",
+    "tile": "Content/Tile/b02p01b_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "b02p01b",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/b02p01b/README.md",
+    "promoted_ground_sha256": "56ff8d17e40fda1739530a95a453a3aeb21aba4f70ef6d05f4854fdecb9f2cd7",
+    "promoted_tile_sha256": "7355317e5fb617763b1f28ef578cb175ba7b9b95bdf49ce63708e3b2f7c26530"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "56ff8d17e40fda1739530a95a453a3aeb21aba4f70ef6d05f4854fdecb9f2cd7",
+    "candidate_tile_sha256": "7355317e5fb617763b1f28ef578cb175ba7b9b95bdf49ce63708e3b2f7c26530",
+    "source_normalized_sha256": {
+      "B01P01B1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B01P01Bc": "d0868a4d3e2dbb03fc7be78fe8d17f66148638244e2b8ca133c10c074192a0db",
+      "B01P01Bm": "c5825c408706a9fe492ee75ba2e547d7d9e65f58d34025b8225913408009f233",
+      "B02P01B": "3ad34e248bcbc715a715db6cbdbde5f14ea2cf4215aca6dc99de4539640aa414",
+      "B02P01B3": "0bc6d4736ec7a5d2fb6697e90d6eb646fcfd726408e4b65f5d2f6fdf0693c634"
+    },
+    "events_sha256": "2c7c1a41d2ca392f68435f8c76a4b0b62b4c1e1e0ea200a31cfbc8704aaa1bee",
+    "report_sha256": "47b64f645650f342b6efb61da99144905f4351a0ae3edd59055b54e2a48cecc4",
+    "fixture_manifest_sha256": "a79747823801e175124dd4d36529a9949cdb6d4dc3b3562d13916e37b1c32533",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/b02p01b_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "bounded process-group termination after terminal evidence",
+    "evidence_impact": "NONE"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical story events, actors, entrances, music, variants, and routing are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "56ff8d17e40fda1739530a95a453a3aeb21aba4f70ef6d05f4854fdecb9f2cd7",
+    "indexed_tile_sha256": "7355317e5fb617763b1f28ef578cb175ba7b9b95bdf49ce63708e3b2f7c26530",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after b02p01a",
+    "zone_ground_map_count": 208,
+    "canonical_index": 149,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

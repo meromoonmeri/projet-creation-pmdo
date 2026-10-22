@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "mode": "AUTOMATED RUNTIME GAMEPLAY PILOT",
+  "grounds": [
+    {
+      "ground": "a02p01",
+      "load": "PASS",
+      "spawn": {
+        "x": 200,
+        "y": 152
+      },
+      "move_dirs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "verdict": "MANUAL_REVIEW",
+      "movement_probe": "INCONCLUSIVE_SYNC_CONTEXT"
+    },
+    {
+      "ground": "mt_blaze_midpoint",
+      "load": "PASS",
+      "spawn": {
+        "x": 220,
+        "y": 320
+      },
+      "move_dirs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "verdict": "MANUAL_REVIEW",
+      "movement_probe": "INCONCLUSIVE_SYNC_CONTEXT"
+    },
+    {
+      "ground": "mount_windswept_guardian",
+      "load": "PASS",
+      "spawn": {
+        "x": 176,
+        "y": 248
+      },
+      "move_dirs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "verdict": "MANUAL_REVIEW",
+      "movement_probe": "INCONCLUSIVE_SYNC_CONTEXT"
+    },
+    {
+      "ground": "d11p03",
+      "load": "PASS",
+      "spawn": {
+        "x": 280,
+        "y": 344
+      },
+      "move_dirs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "verdict": "MANUAL_REVIEW",
+      "movement_probe": "INCONCLUSIVE_SYNC_CONTEXT"
+    },
+    {
+      "ground": "champ_vent_boreal",
+      "load": "PASS",
+      "spawn": {
+        "x": 176,
+        "y": 176
+      },
+      "move_dirs": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "verdict": "MANUAL_REVIEW",
+      "movement_probe": "INCONCLUSIVE_SYNC_CONTEXT"
+    }
+  ],
+  "events": [
+    {
+      "event": "begin",
+      "count": 5
+    },
+    {
+      "event": "end"
+    }
+  ],
+  "parse_errors": [],
+  "summary": {
+    "tested": 5,
+    "load_pass": 5,
+    "runtime_fail": 0,
+    "manual_review": 5,
+    "movement_inconclusive": 5
+  },
+  "limitations": [
+    "Pilot validates real PMDO Ground loading, actual player spawn coordinates, Lua initialization, and cross-zone iteration.",
+    "Forced movement calls cannot be judged from the synchronous GroundMapEnter callback; zeros are inconclusive, not collision failures.",
+    "Camera edges, interactions, boss battle and transitions require later asynchronous validator phases."
+  ]
+}

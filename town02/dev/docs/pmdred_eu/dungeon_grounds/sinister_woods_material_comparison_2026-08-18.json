@@ -1,0 +1,142 @@
+{
+  "schema": "new-era.pmdred-eu-sinister-woods-material-comparison.v1",
+  "verdict": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+  "comparison_verdict": "REPLACE_REQUIRED",
+  "production_route_written": false,
+  "promotion": "FORBIDDEN",
+  "authority": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "dungeon_id": 3,
+    "dungeon_name_fr": "Bois Sinistre",
+    "technical_reference": "pret/pmd-red bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "material_decoder": "tools/pmdred_dungeon_ground.py",
+    "ground_manifest": "docs/pmdred_eu/ground_manifest.json",
+    "ground_manifest_sha256": "02a5d8699ceef50c8195fccedcd455694121983f23869070e5b42b6dfb4e9730"
+  },
+  "mapparam_source_selection": {
+    "dungeon_id": 3,
+    "playable_floor_count": 13,
+    "procedural_selector_rows": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "procedural_tileset": 41,
+    "procedural_materials": ["b41fon", "b41cel", "b41cex", "b41pal", "b41canm"],
+    "final_selector_row": 13,
+    "final_tileset": 65,
+    "final_materials": ["b65fon", "b65cel", "b65emap0", "b65pal", "b65canm"],
+    "source_correction": "b65 is the direct/final row material; the procedural Sinister Woods rows select tileset 41. Using b65 for rows 1-12 would violate the ROM mapparam authority."
+  },
+  "rom_procedural_materials_b41": {
+    "b41fon": {
+      "decompressed_size": 13280,
+      "decompressed_sha256": "3ef1d008554a1b3bed72e7af2d199b590d682235aa010533bd2a367c7e661661",
+      "stream_sha256": "4ceef7503397cd34a843bdf44fc3ba6cfe51f5d43afc140f8d1abd9052c8cf80"
+    },
+    "b41cel": {
+      "decompressed_size": 4500,
+      "decompressed_sha256": "dedf44516ad9305d64ff67e14bb3c26b4ab53c2c439f3c078a43fa44c976e222",
+      "stream_sha256": "07416fa9d3a71a3517c45c597d52cd66accbed6f0b12f4856879497a28157ba7"
+    },
+    "b41cex": {
+      "decompressed_size": 2352,
+      "decompressed_sha256": "2396fa857763baea97cd2104e52c29434e560a390ffaaa95f69da667d87016ea",
+      "stream_sha256": "fae469d49c1691c310b81dbee4461c754eabd1c3a731af6c4a1ce2612764cb48"
+    },
+    "b41pal": {
+      "payload_size": 768,
+      "payload_sha256": "f5345e09321e20b67339e561add912eaecfa329fda12d04e5788eefd8ae83fb3"
+    },
+    "b41canm": {
+      "record_count": 32,
+      "active_record_count": 16,
+      "active_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      "root_sha256": "309eeb5d9b3b0d76d33d5ed792d16144a1361382885b8c6f7567695cb474aaf0"
+    },
+    "derived": {
+      "cel_chunk_count": 250,
+      "cex_unique_chunk_ids": 127,
+      "source_display_rgb_count": 38
+    }
+  },
+  "rom_final_materials_b65_reference": {
+    "b65fon": "320c8a7babf2ec326d5e36ea31fe9659b5bfab48858735c6394d36388c4459b6",
+    "b65cel": "068b915ab7ad7b1221a03cd701a03af55b6f5cfbd16ab534dd73e7fc4cca4ffc",
+    "b65emap0": "c53dfa877169dc6ff563b4146bdc9a15337016fd00020e5a2cdc40dc749ab8b7",
+    "b65pal": "5a3e44854a214b8ebe9eb28f9d584790987a8843dbd527360a6e40f1ac5db2a4",
+    "b65canm_root": "6e9681b2398d643d29a4ce9e4d05c982738d7f5953da80bbce305b4fad9ed462"
+  },
+  "current_pmdo_treeshroud": {
+    "source_tree": "DumpAsset 9d864d1425f002b051e7a54fffc639988d8ef9c9",
+    "tile": ".runtime-cache/DumpAsset/Content/Tile/TreeshroudForest1.tile",
+    "tile_sha256": "b9d08bd6cf1aeab3c4822512cdd1d7ca3971aedfe4a41ee726bedae562f25bfa",
+    "tile_size": 24,
+    "tile_count": 1234,
+    "unique_tile_hashes": 578,
+    "floor_autotile_sha256": "595f352478b72e381f62743183d3943f1efcb8fad942f01a1aa14cfa701998b3",
+    "wall_autotile_sha256": "1da6b6eb054718ba0e2345d3bb1365574cc1c2b5f77d193b9021ffc61550d3b9",
+    "secondary_autotile_sha256": "75603b88a9646732000908c4a7e2b2fc86c3211473acd1bd25e8c5b1dc1b52d7",
+    "autotile_animation": {
+      "floor_groups": 49,
+      "floor_animated_groups": 0,
+      "wall_groups": 58,
+      "wall_animated_groups": 0,
+      "secondary_groups": 137,
+      "secondary_animated_groups": 90,
+      "secondary_frame_refs": 1127,
+      "secondary_max_frames": 12
+    },
+    "nontransparent_rgb_count": 63
+  },
+  "independent_material_comparison": {
+    "algorithm": "Existing DungeonGroundRenderer from tools/pmdred_dungeon_ground.py; render every CEX-reachable b41 chunk at PAL tick zero; compare complete 24x24 RGBA pixels and displayed RGB sets against every TreeshroudForest1 tile.",
+    "b41_rendered_chunk_count": 127,
+    "exact_chunk_hash_matches": 0,
+    "source_pmdo_rgb_intersection": 0,
+    "source_rgb_only": 38,
+    "pmdo_rgb_only": 63,
+    "result": "NOT_EQUIVALENT",
+    "b65_final_reference_comparison": {
+      "exact_chunk_hash_matches_all": 0,
+      "exact_chunk_hash_matches_visible": 0,
+      "source_pmdo_rgb_intersection": 0,
+      "result": "NOT_EQUIVALENT_AS_FINAL_MATERIAL_EITHER"
+    }
+  },
+  "resources_requiring_replacement": [
+    "TreeshroudForest1.tile",
+    "Data/AutoTile/treeshroud_forest_1_floor.json",
+    "Data/AutoTile/treeshroud_forest_1_wall.json",
+    "Data/AutoTile/treeshroud_forest_1_secondary.json"
+  ],
+  "resources_explicitly_excluded": [
+    "Data/Map/relic_forest_blob_broken_pillar.rsmap",
+    "Data/Map/relic_forest_blob_fallen_left.rsmap",
+    "Data/Map/relic_forest_blob_fallen_right.rsmap",
+    "Data/Map/relic_forest_blob_pillar.rsmap",
+    "Data/Map/relic_forest_blob_rubble.rsmap",
+    "Data/Map/relic_forest_blob_ruins.rsmap",
+    "D04P01/D04P02 validated Ground resources"
+  ],
+  "procedural_runtime_probe": {
+    "fixture": ".runtime-cache/sinister-woods-procedural-fixture",
+    "segments_tested": [0, 1, 3],
+    "floor_tested": 0,
+    "observed_maps": [
+      {"segment": 0, "width": 38, "height": 51, "clear_collision_probes": 2, "blocked_collision_probes": 2, "music": "Sinister Woods.ogg"},
+      {"segment": 1, "width": 51, "height": 38, "clear_collision_probes": 4, "blocked_collision_probes": 0, "music": "Sinister Woods.ogg"},
+      {"segment": 3, "width": 38, "height": 64, "clear_collision_probes": 4, "blocked_collision_probes": 0, "music": "Sinister Woods.ogg"}
+    ],
+    "engine_termination": "NORMAL_EXIT_0",
+    "terminal_event": true,
+    "watchdog_signal": false,
+    "residual_processes": 0,
+    "runtime_result": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+    "missing_component": {
+      "id": "deep_shadow",
+      "file": "Data/MapStatus/deep_shadow.json",
+      "reference": "Data/Zone/gloomy_forest.json:6808",
+      "engine_error": "Missing Data: deep_shadow",
+      "note": "The three floors generated and the engine unloaded normally, but the strict runtime gate rejects the missing MapStatus diagnostic. No status file was invented."
+    }
+  },
+  "final_verdict": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+  "final_verdict_reason": "TreeshroudForest1 and its three AutoTile mappings are exactly non-equivalent to the ROM-derived procedural b41 material; a canonical replacement atlas/mapping and the missing deep_shadow runtime component still require implementation and validation."
+}

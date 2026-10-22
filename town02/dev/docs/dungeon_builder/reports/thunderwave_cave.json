@@ -1,0 +1,429 @@
+{
+  "generated_at": "2026-08-24T16:56:00+00:00",
+  "dungeon": "thunderwave_cave",
+  "name": {
+    "en": "Thunderwave Cave",
+    "fr": "Grotte Statique"
+  },
+  "chapter": 7,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Thunderwave Cave (5F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/ThunderwaveCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 7. Recoupé avec Bulbapedia (page « Thunderwave Cave »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete thunderwave_cave entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/thunderwave_cave_rom_manifest.json",
+          "definition_floor_mode": "all",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/thunderwave_cave_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_01",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/thunderwave_cave_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/thunderwave_cave_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet thunderwave_cave."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d02p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d02p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d02p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d02p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 5,
+  "biome": "static_cave",
+  "direction": "fond",
+  "zone_file": "Data/Zone/thunderwave_cave.json",
+  "segments": [
+    {
+      "name": "static_cave",
+      "floors": [
+        1,
+        5
+      ],
+      "biome": "static_cave",
+      "dtef": {
+        "floor": "thunderwave_cave_floor",
+        "wall": "thunderwave_cave_wall",
+        "secondary": "thunderwave_cave_secondary",
+        "name": "thunderwave_cave",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Thunderwave Cave; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "branching",
+        "looping"
+      ],
+      "pokemon": 18,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 35
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "grotte_statique_seuil",
+    "end": "d02p02"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d02p02",
+    "provenance": "PMD_RED_ROM",
+    "notes": "Canonical end Ground d02p02 — the ROM has no in-dungeon boss fight for this dungeon, but the canonical end scene owns any potential battle space (no invented dedicated arena)."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "grotte_statique_seuil",
+    "cinematic_ground": "d02p02",
+    "battle_ground": "d02p02",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d02p02",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d02p02",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "d02p02"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd02p02' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:thunderwave_cave",
+    "root_seed": 3004560419160667095,
+    "explicit_seed": false,
+    "derived_seeds": 60
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "static_cave",
+      "kind": "procedural",
+      "profile": "branching|looping",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "thunderwave_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 5,
+      "max_pair_similarity": 0.9562,
+      "seeds": [
+        2951266858166913130,
+        2101266334176349716,
+        5381494820720065710,
+        2666856461128631892,
+        8685534284692520857,
+        7322131430122949684,
+        5367444609161597130,
+        1693394502424399285,
+        7803293992084818790,
+        3625834955180627486
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 10.3,
+        "rooms_min": 7,
+        "rooms_max": 13,
+        "halls_avg": 13.2,
+        "branches_avg": 2.5,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 0.7,
+        "connections_avg": 13.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 42.3,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "static_cave",
+      "kind": "procedural",
+      "profile": "branching|looping",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "thunderwave_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9712,
+      "seeds": [
+        6276020899969766524,
+        5243209074287383527,
+        2128280219076629267,
+        6454822847420044809,
+        3506383856135438288,
+        5007481266684216239,
+        4770295513960711221,
+        8908169348533879216,
+        2958158115627785528,
+        8360259536876129844
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 10.0,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 13.0,
+        "branches_avg": 2.0,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 0.6,
+        "connections_avg": 13.0,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 39.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "static_cave",
+      "kind": "procedural",
+      "profile": "branching|looping",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "thunderwave_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9086,
+      "seeds": [
+        2221988906246756141,
+        721046801159465958,
+        3252682089549425590,
+        2131349926688784724,
+        1440809593127411235,
+        496237339793435614,
+        6927238835510246327,
+        1982973698209640950,
+        8247476029533050538,
+        7383883022509819299
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 10.6,
+        "rooms_min": 7,
+        "rooms_max": 15,
+        "halls_avg": 13.8,
+        "branches_avg": 2.5,
+        "dead_ends_avg": 2.5,
+        "loops_avg": 1.0,
+        "connections_avg": 13.8,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 41.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "static_cave",
+      "kind": "procedural",
+      "profile": "branching|looping",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "thunderwave_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9432,
+      "seeds": [
+        5639121753536582830,
+        4717701704632294251,
+        4818123905354885823,
+        8000591381282917036,
+        70823763196275736,
+        4012272951198471752,
+        6336398578955570788,
+        5382156013579878985,
+        1283895985389261838,
+        1370537655909891265
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 10.0,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 12.5,
+        "branches_avg": 2.5,
+        "dead_ends_avg": 3.1,
+        "loops_avg": 0.8,
+        "connections_avg": 12.5,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 35.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "static_cave",
+      "kind": "procedural",
+      "profile": "branching|looping",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "thunderwave_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9315,
+      "seeds": [
+        1361957914150322530,
+        3947520901669668056,
+        2241126136247481300,
+        9189885818257973982,
+        769944469331809497,
+        7065260022832071887,
+        7444812823484389967,
+        7649830967666054524,
+        1939675979858126062,
+        8817432819256959601
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 9.5,
+        "rooms_min": 7,
+        "rooms_max": 13,
+        "halls_avg": 11.4,
+        "branches_avg": 2.2,
+        "dead_ends_avg": 3.3,
+        "loops_avg": 0.5,
+        "connections_avg": 11.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

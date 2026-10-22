@@ -1,0 +1,20 @@
+{
+  "ground": "mount_windswept_guardian",
+  "phase": "post-battle guild arrival",
+  "map_pixels": [360, 336],
+  "collision_source": "Data/Ground/mount_windswept_guardian.rsground obstacles",
+  "party": {
+    "Tornadus": [176, 136], "Hero": [176, 208], "Partner": [152, 216],
+    "Teammate2": [200, 216], "Teammate3": [224, 224]
+  },
+  "guild": {
+    "Tropius": [120, 248], "Noctowl": [136, 248], "Girafarig": [152, 248],
+    "Breloom": [168, 248], "Audino": [184, 248], "Snubbull": [200, 248],
+    "Growlithe": [216, 248], "Zigzagoon": [232, 248]
+  },
+  "checks": {"entities": 13, "on_walkable_cell": true, "overlap_count": 0, "minimum_spacing_px": 16},
+  "departure": "sequential deterministic reposition/despawn; no concurrent path joins",
+  "transition": "FadeOut then cloven_ruins_entrance with RuinsCampPending",
+  "destination_display_name": "Cloven Ruin",
+  "verdict": "PASS_STATIC"
+}

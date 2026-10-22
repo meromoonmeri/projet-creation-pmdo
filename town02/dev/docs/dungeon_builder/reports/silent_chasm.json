@@ -1,0 +1,629 @@
+{
+  "generated_at": "2026-08-24T16:56:05+00:00",
+  "dungeon": "silent_chasm",
+  "name": {
+    "en": "Silent Chasm",
+    "fr": "Gouffre Muet"
+  },
+  "chapter": 8,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Silent Chasm (9F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/SilentChasm) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 8. Recoupé avec Bulbapedia (page « Silent Chasm »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete silent_chasm entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "definition_floor_mode": "all",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_02",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/silent_chasm_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet silent_chasm."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d05p01.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d05p02.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d05p01.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d05p02.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 9,
+  "biome": "silent_rim",
+  "direction": "fond",
+  "zone_file": "Data/Zone/silent_chasm.json",
+  "segments": [
+    {
+      "name": "silent_rim",
+      "floors": [
+        1,
+        9
+      ],
+      "biome": "silent_rim",
+      "dtef": {
+        "floor": "silent_chasm_floor",
+        "wall": "silent_chasm_wall",
+        "secondary": "silent_chasm_secondary",
+        "name": "silent_chasm",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Silent Chasm; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "ring",
+        "lattice"
+      ],
+      "pokemon": 53,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 198
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "gouffre_muet_bord",
+    "end": "d05p02"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d05p02",
+    "provenance": "PMD_RED_ROM",
+    "notes": "Canonical end Ground d05p02 — the ROM has no in-dungeon boss fight for this dungeon, but the canonical end scene owns any potential battle space (no invented dedicated arena)."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "gouffre_muet_bord",
+    "cinematic_ground": "d05p02",
+    "battle_ground": "d05p02",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d05p02",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d05p02",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "d05p02"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd05p02' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:silent_chasm",
+    "root_seed": 5638262008164590793,
+    "explicit_seed": false,
+    "derived_seeds": 101
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9171,
+      "seeds": [
+        5730327471082516421,
+        6834307150836265524,
+        5290773604321087881,
+        2597963329481487504,
+        5504577130716578328,
+        8861950293664047311,
+        8558231798024481355,
+        1700360905700913250,
+        2707121186104945725,
+        2271373352846487148
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 14.2,
+        "rooms_min": 11,
+        "rooms_max": 17,
+        "halls_avg": 26.6,
+        "branches_avg": 7.1,
+        "dead_ends_avg": 2.9,
+        "loops_avg": 4.6,
+        "connections_avg": 26.6,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 47.9,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9429,
+      "seeds": [
+        3577548093248994003,
+        8631804488396275826,
+        7550913897323576217,
+        7549216515807547796,
+        5231349864090339398,
+        3198818415773731915,
+        363807251913399734,
+        6338219642030952300,
+        5764054177981779958,
+        3257073477368018995
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 12.9,
+        "rooms_min": 10,
+        "rooms_max": 16,
+        "halls_avg": 23.9,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 2.1,
+        "loops_avg": 4.2,
+        "connections_avg": 23.9,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 49.3,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9434,
+      "seeds": [
+        4744757339047775152,
+        5134221323322097470,
+        7093034392922614948,
+        8883165438030537532,
+        2532442121065483722,
+        2968655797408932644,
+        2920246408406555677,
+        1833335547702961173,
+        7874265402039541953,
+        830402889596058409
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 13.2,
+        "rooms_min": 8,
+        "rooms_max": 16,
+        "halls_avg": 25.7,
+        "branches_avg": 6.6,
+        "dead_ends_avg": 2.5,
+        "loops_avg": 4.3,
+        "connections_avg": 25.7,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 48.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9423,
+      "seeds": [
+        3710349356081298160,
+        6936456599168903921,
+        6360963197660100648,
+        5524332056911620822,
+        4541406011035275469,
+        6110851307667546279,
+        3320103190739015148,
+        3705540844803670526,
+        999526066495731400,
+        8989871855165456793
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 13.7,
+        "rooms_min": 12,
+        "rooms_max": 16,
+        "halls_avg": 28.5,
+        "branches_avg": 9.2,
+        "dead_ends_avg": 2.8,
+        "loops_avg": 6.3,
+        "connections_avg": 28.5,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 45.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9201,
+      "seeds": [
+        3682940557344277523,
+        4305763781133235739,
+        2779206869726872124,
+        3101999174857795406,
+        4456361507859046022,
+        5028479422557984159,
+        5755273142283808329,
+        4331730856141035871,
+        1385703705877165476,
+        6730779687456721042
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 14.1,
+        "rooms_min": 12,
+        "rooms_max": 17,
+        "halls_avg": 27.1,
+        "branches_avg": 7.9,
+        "dead_ends_avg": 2.7,
+        "loops_avg": 5.2,
+        "connections_avg": 27.1,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 60.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        12,
+        10
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9756,
+      "seeds": [
+        1505661292646056164,
+        4653140261742821195,
+        940568986064575787,
+        889855422146259934,
+        507604155950868574,
+        8101626406291921081,
+        924196230963652532,
+        8555922052909029914,
+        5508302354323687225,
+        5678100951085882183
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 13.5,
+        "rooms_min": 11,
+        "rooms_max": 15,
+        "halls_avg": 23.6,
+        "branches_avg": 5.7,
+        "dead_ends_avg": 2.7,
+        "loops_avg": 3.6,
+        "connections_avg": 23.6,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 52.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9287,
+      "seeds": [
+        1841452312636961986,
+        3096741913263346778,
+        873726339939861110,
+        8269521773085019444,
+        3322187495649759350,
+        9138954954211045782,
+        6643590946779039950,
+        3713066157107198569,
+        4943114540856848227,
+        1380310590968917773
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 12.4,
+        "rooms_min": 10,
+        "rooms_max": 15,
+        "halls_avg": 24.3,
+        "branches_avg": 6.7,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 5.1,
+        "connections_avg": 24.3,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 45.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9061,
+      "seeds": [
+        179204020294044621,
+        2572235267251936031,
+        8121658032269857511,
+        2196002362675989524,
+        1295315295526029351,
+        298549645822866879,
+        7366941243247538753,
+        1831680368819261232,
+        5688431130943384391,
+        7623243458590882254
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 13.7,
+        "rooms_min": 10,
+        "rooms_max": 17,
+        "halls_avg": 26.4,
+        "branches_avg": 7.2,
+        "dead_ends_avg": 2.3,
+        "loops_avg": 4.9,
+        "connections_avg": 26.4,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 48.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "silent_rim",
+      "kind": "procedural",
+      "profile": "ring|lattice",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "silent_chasm",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9282,
+      "seeds": [
+        4824865727314783752,
+        2337276259226717083,
+        7875548096357622794,
+        1110025054452890541,
+        904404495830586383,
+        4118090911766340396,
+        6665958828470902669,
+        1714900558184579386,
+        4219744620209812548,
+        2131044011335699478
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 12.2,
+        "rooms_min": 9,
+        "rooms_max": 15,
+        "halls_avg": 23.3,
+        "branches_avg": 5.9,
+        "dead_ends_avg": 1.3,
+        "loops_avg": 4.4,
+        "connections_avg": 23.3,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 44.3,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

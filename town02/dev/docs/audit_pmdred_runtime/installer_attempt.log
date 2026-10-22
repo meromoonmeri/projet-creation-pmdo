@@ -1,0 +1,14 @@
+Preparing PMDO installation...
+
+System.Net.WebException: The remote server returned an error: (403) rate limit exceeded.
+   at System.Net.HttpWebRequest.GetResponse()
+   at System.Net.WebClient.GetWebResponse(WebRequest request)
+   at System.Net.WebClient.DownloadBits(WebRequest request, Stream writeStream)
+   at System.Net.WebClient.DownloadDataInternal(Uri address, WebRequest& request)
+   at System.Net.WebClient.DownloadString(Uri address)
+   at PMDOSetup.Program.Update(Boolean force, Release specificRelease)
+   at PMDOSetup.Program.Main()Unhandled exception. System.InvalidOperationException: Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.
+   at System.ConsolePal.ReadKey(Boolean intercept)
+   at System.Console.ReadKey()
+   at PMDOSetup.Program.ReadKey()
+   at PMDOSetup.Program.Main()

@@ -1,0 +1,254 @@
+{
+  "schema": 2,
+  "decoder": "dependency-free PNG/APNG, 8-bit non-interlaced, CRC-checked",
+  "reference_provenance": {
+    "mode": "independent_raw_eu_resources",
+    "reference_plan": ".runtime-cache/pmdred-eu-reference-plan-v2.json",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "normalized_source_dir": ".runtime-cache/pmdred-eu-ground",
+    "conversion_report": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/conversion_report.json",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "authority": {
+      "authenticated_rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+      "conversion_report": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/conversion_report.json",
+      "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+      "independence": "raw BPL/BPC/BPA/BMA parser and renderer; no converter/auditor/candidate parser imports",
+      "normalized_extraction_directory": ".runtime-cache/pmdred-eu-ground",
+      "region": "Europe (En,Fr,De,Es,It)"
+    }
+  },
+  "ground_count": 1,
+  "grounds": [
+    "h26p01"
+  ],
+  "sample_count": 7,
+  "exact_sample_count": 3,
+  "fully_opaque_sample_count": 7,
+  "all_exact": false,
+  "all_fully_opaque": true,
+  "runtime": {
+    "validation_count": 2,
+    "ground_entry_count": 2,
+    "inter_entry_transition_count": 1,
+    "observed_ground_exit_count": 2,
+    "same_ground_reentry_count": 1,
+    "cleanup_probe_count": 3,
+    "all_runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "all_cleanups_pass": true,
+    "end_event_seen": true,
+    "validations": [
+      {
+        "ground": "h26p01",
+        "phase": "primary",
+        "load": "LOAD_PASS",
+        "clock_write_read": "PASS",
+        "movement_probe": "PASS",
+        "blocked_probe": "PASS",
+        "move_delta": "0,8",
+        "blocked_delta": "0,0",
+        "solid_cells": 2120,
+        "sampled_ticks": [
+          0,
+          119,
+          120,
+          123,
+          127,
+          128
+        ],
+        "verdict": "SAFE"
+      },
+      {
+        "ground": "h26p01",
+        "phase": "reload",
+        "load": "LOAD_PASS",
+        "clock_write_read": "PASS",
+        "movement_probe": "PASS",
+        "blocked_probe": "PASS",
+        "move_delta": "0,0",
+        "blocked_delta": "0,0",
+        "solid_cells": 2120,
+        "sampled_ticks": [
+          0
+        ],
+        "verdict": "SAFE"
+      }
+    ],
+    "cleanups": [
+      {
+        "event": "ground_exit",
+        "ground": "h26p01",
+        "phase": "primary",
+        "cleanup": "PASS"
+      },
+      {
+        "event": "ground_exit",
+        "ground": "h26p01",
+        "phase": "reload",
+        "cleanup": "PASS"
+      },
+      {
+        "event": "final_cleanup",
+        "cleanup": "PASS"
+      }
+    ]
+  },
+  "samples": [
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "f12bee3096bd283d8cf8aec83de0ca78259767f295df1fd7c8bc16c78cf198a5",
+      "actual_rgba_sha256": "f12bee3096bd283d8cf8aec83de0ca78259767f295df1fd7c8bc16c78cf198a5",
+      "mismatched_pixels": 0,
+      "maximum_channel_delta": 0,
+      "actual_fully_opaque": true,
+      "exact": true,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 0,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-07.png",
+      "source_screenshot_sha256": "4d108dd28229f5a41e0fb4b1a049992fbfd7581a727e273f0c489344332426db",
+      "comparative_png": ".runtime-cache/pmdred-eu-pilot-comparison/h26p01/comparison_primary_tick0.png"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "c0345b6bfd5da427e9a3589e2d6e9a6c90e7ec770fcecb61b092f07a895a4974",
+      "actual_rgba_sha256": "2bb6ce201d4e598393f09d459bee1f85c18d27907bcf59d0f9d5ecfcb0b9cbb3",
+      "mismatched_pixels": 16576,
+      "maximum_channel_delta": 24,
+      "actual_fully_opaque": true,
+      "exact": false,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 119,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-08.png",
+      "source_screenshot_sha256": "9915ee7fc00dd30d5bec5f5ff773064dc1b24c9935836f783e388a445c327d79"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "2bb6ce201d4e598393f09d459bee1f85c18d27907bcf59d0f9d5ecfcb0b9cbb3",
+      "actual_rgba_sha256": "2bb6ce201d4e598393f09d459bee1f85c18d27907bcf59d0f9d5ecfcb0b9cbb3",
+      "mismatched_pixels": 0,
+      "maximum_channel_delta": 0,
+      "actual_fully_opaque": true,
+      "exact": true,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 120,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-08_1.png",
+      "source_screenshot_sha256": "9915ee7fc00dd30d5bec5f5ff773064dc1b24c9935836f783e388a445c327d79"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "4ac4efc02cab98a780eab09c2964843deacd23a46cdfbd2d5e537db56c11313d",
+      "actual_rgba_sha256": "e6d5a4534cf9023c55f51fb0ef9202d2f9acfcc7190c2f5a96d0cf0061aa8ad2",
+      "mismatched_pixels": 2,
+      "maximum_channel_delta": 24,
+      "actual_fully_opaque": true,
+      "exact": false,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 123,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-08_2.png",
+      "source_screenshot_sha256": "324d70d1fafea2d6077ef20b72e781df8c60d8802ecb10b290273988ba51c0b3"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "26e3d0403824cfbbb1a93ecfc89a3f91969a68a966d37cf7efb206cb4dc4ca62",
+      "actual_rgba_sha256": "accc01da42d35c0b4e81e41c55f2ce450bd35f9199cd3285b89b6d03d9101576",
+      "mismatched_pixels": 3924,
+      "maximum_channel_delta": 24,
+      "actual_fully_opaque": true,
+      "exact": false,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 127,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-08_3.png",
+      "source_screenshot_sha256": "a6ce123458d0c8b2880a07dd0ce96685504b8808c5b86ce7d9bbc6801e1310d2"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "accc01da42d35c0b4e81e41c55f2ce450bd35f9199cd3285b89b6d03d9101576",
+      "actual_rgba_sha256": "02e4adc950b58e5e86952e1a2ae8abfd0cf050a86efd59c68235a12054be5a50",
+      "mismatched_pixels": 12600,
+      "maximum_channel_delta": 24,
+      "actual_fully_opaque": true,
+      "exact": false,
+      "ground": "h26p01",
+      "phase": "primary",
+      "tick": 128,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-09.png",
+      "source_screenshot_sha256": "5436362d0385c627702aa9e80e08c3d53ee88f81937fcd3ddefb5a6029655bfd"
+    },
+    {
+      "dimensions_match": true,
+      "expected_dimensions": [
+        480,
+        312
+      ],
+      "actual_dimensions": [
+        480,
+        312
+      ],
+      "expected_rgba_sha256": "f12bee3096bd283d8cf8aec83de0ca78259767f295df1fd7c8bc16c78cf198a5",
+      "actual_rgba_sha256": "f12bee3096bd283d8cf8aec83de0ca78259767f295df1fd7c8bc16c78cf198a5",
+      "mismatched_pixels": 0,
+      "maximum_channel_delta": 0,
+      "actual_fully_opaque": true,
+      "exact": true,
+      "ground": "h26p01",
+      "phase": "reload",
+      "tick": 0,
+      "source_screenshot": ".runtime-cache/pmdred-eu-pilot-fixture/appdata/SCREENSHOT/2026-08-12_00-46-09_1.png",
+      "source_screenshot_sha256": "4d108dd28229f5a41e0fb4b1a049992fbfd7581a727e273f0c489344332426db",
+      "comparative_png": ".runtime-cache/pmdred-eu-pilot-comparison/h26p01/comparison_reload_tick0.png"
+    }
+  ]
+}

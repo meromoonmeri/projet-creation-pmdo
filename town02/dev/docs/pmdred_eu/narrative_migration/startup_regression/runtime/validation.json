@@ -1,0 +1,104 @@
+{
+  "schema": "new-era.new-game-startup-regression-validation.v1",
+  "result": "PASS_NORMAL_NEW_ERA_STARTUP_RESTORED",
+  "priority": "CRITICAL_REGRESSION",
+  "cause": {
+    "primary": "Data/StartParams.xml StartMap ID 40 resolved to searing_crucible while the intended New Era selector is personality_test at ID 31",
+    "secondary": "commit 524e379 routed pmdred_quiz_flow directly from personality_test.CharacterSelect before the future narrative gate",
+    "visible_missingno_mechanism": "StartChars is empty and DefaultMonster is the engine's historical missingno seed sentinel; wrong/premature Ground exposure allowed that sentinel or the immutable teammate placeholder to become observable",
+    "not_the_cause": [
+      "SV.General.Starter sentinel: unchanged from the pre-migration baseline",
+      "personality_test Ground teammate placeholder: unchanged immutable Ground data",
+      "halcyon.pmdred_eu harness: no normal-start require and validators are environment-gated"
+    ]
+  },
+  "correction": {
+    "personality_test_init": {
+      "regressed_sha256": "20eda4cffdf57d3a03641aa92036ef64d10c682882e86a2fd504af08db9858b8",
+      "restored_sha256": "e417364941cc7c5e53002f72633b7050b610601eaaa538e903556f1fbd766bac",
+      "method": "byte-exact restoration from commit 56d30131, before production quiz routing"
+    },
+    "start_map": {
+      "before": {
+        "zone": "master_zone",
+        "segment": -1,
+        "id": 40,
+        "resolved_ground": "searing_crucible",
+        "entry": 0
+      },
+      "after": {
+        "zone": "master_zone",
+        "segment": -1,
+        "id": 31,
+        "resolved_ground": "personality_test",
+        "entry": 0
+      }
+    },
+    "default_monster_changed": false,
+    "certified_ground_changed": false,
+    "chapters_1_to_5_changed": false,
+    "pmdred_modules": "present but dormant; no production startup require"
+  },
+  "runtime": {
+    "method": "fresh appdata and physical title-screen New Game; no direct NewGamePlus and no EnterZone override",
+    "event_count": 95,
+    "first_ground": {
+      "event": "FIRST_GROUND_ENTERED",
+      "sequence": 60,
+      "frame": 1026,
+      "asset": "personality_test",
+      "party_count": 2,
+      "party_0": "bulbasaur",
+      "party_1": "cyndaquil",
+      "pmdred_state_present": false
+    },
+    "normal_story_ground": {
+      "event": "NORMAL_STORY_GROUND_ENTERED",
+      "sequence": 92,
+      "frame": 3043,
+      "asset": "relic_forest",
+      "party_count": 2,
+      "party_0": "bulbasaur",
+      "party_1": "cyndaquil",
+      "actor_player": "bulbasaur",
+      "actor_teammate": "cyndaquil",
+      "pmdred_state_present": false,
+      "chapter": 1
+    },
+    "internal_seed_sentinel": {
+      "species": "missingno",
+      "classification": "pre-existing engine seed consumed before first observable Ground state",
+      "visible": false
+    },
+    "pmdred_triggered": false,
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "wait_state": "EXITED",
+      "normal_exit": true,
+      "exit_code": 0,
+      "exit_signal": null,
+      "exit_signal_name": null,
+      "segmentation_fault": false,
+      "forced_kill": false
+    },
+    "capture": {
+      "file": "2026-08-12_22-11-30.png",
+      "width": 1512,
+      "height": 1512,
+      "sha256": "4364cb2240dfcaa443c72d74b6a51f7b4457ee806596b3252cbc13a7c795705c"
+    }
+  },
+  "protected_baseline": {
+    "path": "docs/pmdred_eu/narrative_migration/protected_baseline.json",
+    "sha256": "f70b213bf7afd3adba9ffd28f78862a004ede66d42b32d3dad5603c8b483f24c",
+    "guard_result": "PASS",
+    "qualified_ground_ids": 219,
+    "immutable_ground_and_tile_files": 438,
+    "chapter_1_to_5_files": 99,
+    "active_fugitive_routes": 27,
+    "historical_integration_files": 48
+  },
+  "remaining_pmdred_work": "dormant until a post-startup narrative gate is explicitly designed and validated"
+}

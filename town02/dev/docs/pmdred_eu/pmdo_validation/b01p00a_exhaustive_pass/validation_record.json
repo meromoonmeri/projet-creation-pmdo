@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "ground": "b01p00a",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      552,
+      552
+    ],
+    "primary_sample_count": 24,
+    "reload_sample_count": 1,
+    "exact_sample_count": 25,
+    "unique_rgba_frame_count": 6,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/b01p00a_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/b01p00a_exhaustive_pass/comparisons/comparison_primary_tick83.png",
+      "docs/pmdred_eu/pmdo_validation/b01p00a_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/b01p00a_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "B01P00A": "7c829982bec4c281f6cc8510073ae8126b561544cdde701b0b876b7bdd99089c",
+      "B01P01A1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B01P01Ac": "af2b4c3a14c0ab80e798e491389880ef7bf8bd5ef9f1fafdcf9cda71d1e01af9",
+      "B01P01Am": "8706afcabc41c18af3d999bfc875e3f818688b767fda0c7dc79e4e9732e4b5d5"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 24,
+    "first_tick": 0,
+    "last_tick": 83,
+    "cell_local_schedule_count": 1,
+    "maximum_cell_local_cycle_ticks": 42,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 42,
+        "frame_count": 6,
+        "frame_durations": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "index": 0,
+        "kind": "BPA_TILE",
+        "source_duration_values": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      }
+    ],
+    "unique_observed_rgba_frames": 6,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "B01P01Am",
+    "collision_layer_count": 1,
+    "solid_cells": 3652,
+    "collision_sha256": "a48e455f659f9c92c84738c882ce3dcde689f8c7c09bdb45ef65e25e1d73a42b",
+    "successful_probe": {
+      "start": [
+        272,
+        272
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        264,
+        272
+      ],
+      "direction": "Left",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "5b52c0152eac8352bc364e362113d1ff9f73f710d558a64a06ba93d11aa4b449",
+    "canonical_source_tile_sha256": "d6a7088978d33196fab79b0285b505b84a6de86b01914033c8d0ac502fa7d4ba",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "team_base",
+      "ground_map_symbol": "MAP_TEAM_BASE_PIKACHU_BASIC",
+      "canonical_debug_id": 10,
+      "conversion_type": 1,
+      "debug_string": "__ground_amd_conversion_00010",
+      "debug_string_address": "0x0827B99C",
+      "ground_place_id": 10,
+      "map_file_id": 10,
+      "map_id": 9,
+      "stable_ground_id": "b01p00a",
+      "weather_id": 9,
+      "dimensions_tiles": [
+        69,
+        69
+      ],
+      "classification": "basic_pikachu_team_base_exterior",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    },
+    "scope": {
+      "story_events": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "construction_state_routing": false,
+      "interior": false,
+      "species_variants": false,
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_id": 9,
+    "authenticated_map_file_id": 10,
+    "pinned_enum_symbol": "MAP_TEAM_BASE_PIKACHU_BASIC",
+    "conversion_type": 1,
+    "weather_id": 9
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/b01p00a.rsground",
+    "tile": "Content/Tile/b01p00a_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "b01p00a",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/b01p00a/README.md",
+    "promoted_ground_sha256": "5b52c0152eac8352bc364e362113d1ff9f73f710d558a64a06ba93d11aa4b449",
+    "promoted_tile_sha256": "d6a7088978d33196fab79b0285b505b84a6de86b01914033c8d0ac502fa7d4ba"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "5b52c0152eac8352bc364e362113d1ff9f73f710d558a64a06ba93d11aa4b449",
+    "candidate_tile_sha256": "d6a7088978d33196fab79b0285b505b84a6de86b01914033c8d0ac502fa7d4ba",
+    "source_normalized_sha256": {
+      "B01P00A": "7c829982bec4c281f6cc8510073ae8126b561544cdde701b0b876b7bdd99089c",
+      "B01P01A1": "f967f3fbb4aa66bbbd309aa3388fa18bac3a6615ef93efde0e273b77bb62659a",
+      "B01P01Ac": "af2b4c3a14c0ab80e798e491389880ef7bf8bd5ef9f1fafdcf9cda71d1e01af9",
+      "B01P01Am": "8706afcabc41c18af3d999bfc875e3f818688b767fda0c7dc79e4e9732e4b5d5"
+    },
+    "events_sha256": "2c230af9956ca0e973dc1a1c338987bc575d8a762c33887b0ebf6ace5c596f88",
+    "report_sha256": "397cc7e19b6b97075cd1f64969145a71d7d31db715df49f7b43995ce1802669a",
+    "fixture_manifest_sha256": "85f2041cdc69240f648b0a6c8b277ecb4e5ea4df6882f64dabcb35405e8448b7",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/b01p00a_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "bounded process-group termination after terminal evidence",
+    "evidence_impact": "NONE"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical team-base story events, actors, entrances, music, construction routing, interiors, and species variants are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "5b52c0152eac8352bc364e362113d1ff9f73f710d558a64a06ba93d11aa4b449",
+    "indexed_tile_sha256": "d6a7088978d33196fab79b0285b505b84a6de86b01914033c8d0ac502fa7d4ba",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after t01p07",
+    "zone_ground_map_count": 200,
+    "canonical_index": 141,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

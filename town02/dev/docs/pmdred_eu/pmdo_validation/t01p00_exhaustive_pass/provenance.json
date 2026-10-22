@@ -1,0 +1,271 @@
+{
+  "schema": 1,
+  "status": "EXHAUSTIVE_RUNTIME_PASS_PROMOTED",
+  "validated_at": "2026-08-12",
+  "ground": "t01p00",
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "pmdo_repository_commit": "e975bd33e32bc774a43fdab24dc2e781c5a38bab",
+    "rogue_essence_commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "source_archive_sha256": "c64f72afd27b96d5a870f71e44d05ee1e952909e86b9a53d0479163763c61577",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "fna3d_driver": "OpenGL",
+    "opengl_driver": "OpenGL ES 3.1.0 (ANGLE 2.1.20986 git hash: ce590bee825a)",
+    "renderer_log": "engine.log",
+    "headless_adaptation": {
+      "method": "separate .NET single-file extraction; untouched original preserved",
+      "original_extracted_sdl_sha256": "52cf4d7fa12c1ee9a96ce875fa79da3eae7a901965f02e1ca1d4238bd5dc549e",
+      "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb",
+      "sdl_source_commit": "793a0681a92d156733fa3aaa174651dc7345cc5f",
+      "tracked_patch": "tools/patches/pmdo-0.8.12-headless-sdl.patch",
+      "tracked_patch_sha256": "7fb310776961e5a6a30cb9bc4550a070d3eb284b3813ee03406e418e60119f6f",
+      "libegl_sha256": "600273ce12be556fc44d9dff9a14ce9c3aad84c560405cfafba2dae386987329",
+      "libglesv2_sha256": "ab560af215dbe4eb2f528cf1dd1c30f099c436d143e50fe8bb6bacb191187a3b",
+      "libvulkan_sha256": "6be82e54960ba8243902667dbc8083b2200c5467402e571d7cd49fa325d42e26",
+      "swiftshader_sha256": "43a8214c29b5b2daf3efa82ff95d1c5b615f6a4c2ad2aacf459bd579b25c88dc",
+      "swiftshader_icd_sha256": "9d3b059ac8534ecf3ad2f528d3f81a50b18f1af5336c49bff2ea4a4689d716f7"
+    },
+    "renderer_log_scope": {
+      "format": "PMDO append-only daily log",
+      "diagnostic_history_retained": true,
+      "evidence_sessions": [
+        {
+          "purpose": "fixture indexing",
+          "started": "2026-08-12 06:40:59"
+        },
+        {
+          "purpose": "exhaustive runtime validator",
+          "started": "2026-08-12 06:41:29"
+        }
+      ],
+      "preceding_failed_renderer_diagnostics_are_promotion_evidence": false
+    }
+  },
+  "fixture": {
+    "dumpasset_repository": "https://github.com/audinowho/DumpAsset",
+    "dumpasset_commit": "9d864d1425f002b051e7a54fffc639988d8ef9c9",
+    "selector": "pmdred_eu_native_fixture",
+    "indexed_category": "zone",
+    "loads_per_ground": 2,
+    "event_count": 97,
+    "screenshot_count": 25,
+    "primary_ticks": [
+      0,
+      6,
+      7,
+      13,
+      14,
+      20,
+      21,
+      27,
+      28,
+      34,
+      35,
+      41,
+      42,
+      48,
+      49,
+      55,
+      56,
+      62,
+      63,
+      69,
+      70,
+      76,
+      77,
+      83
+    ],
+    "reload_ticks": [
+      0
+    ]
+  },
+  "authority": {
+    "region": "Europe (En,Fr,De,Es,It)",
+    "rom_size": 33554432,
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_mode": "independent raw BPL/BPC/BPA/BMA parser and renderer; no converter/auditor/candidate parser imports",
+    "reference_plan": "docs/pmdred_eu/runtime_reference_plan_v2.json",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "rom_extraction_audit": "docs/pmdred_eu/eu_rom_extraction_audit.json",
+    "rom_extraction_audit_sha256": "d68f731246bbbebddfa668866de2be39125aac57f8783a4b6ec8a5cc657f65d0",
+    "conversion_report": "docs/pmdred_eu/conversion_validation_v201_eu.json",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "static_audit": "docs/pmdred_eu/static_audit_v201_eu.json",
+    "static_audit_sha256": "2434d193ed48596314fe4c188da2b3800d7145f6189086c25ed57b3757acd43b"
+  },
+  "canonical_identity": {
+    "rom_manifest": "docs/pmdred_eu/ground_manifest.json",
+    "rom_manifest_sha256": "02a5d8699ceef50c8195fccedcd455694121983f23869070e5b42b6dfb4e9730",
+    "manifest_ids": {
+      "canonical_debug_id": 1,
+      "ground_place_id": 2,
+      "map_file_id": 1,
+      "map_id": 1,
+      "weather_id": 9
+    },
+    "technical_enum_symbol": "MAP_POKEMON_SQUARE",
+    "technical_source_repository": "https://github.com/pret/pmd-red",
+    "technical_source_commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "technical_source_path": "include/constants/ground_map.h",
+    "technical_source_blob_sha": "fc1b2db255cce354665e2b1c3f43f9eb8abc61c2"
+  },
+  "candidate": {
+    "converter": "2.0.1-eu",
+    "ground_bytes": 2363485,
+    "ground_sha256": "fce5dfc06ad09a9c4e5129cb9d2a6475a7e73549972983e4d94254cb4370a0f2",
+    "tile_bytes": 469813,
+    "tile_sha256": "e4f8ea31c2c8f05d7527f17166a71476e54445fcaaced0757339daa311f05db2",
+    "source_resources": {
+      "bpl": "T01P00",
+      "bpc": "T01P01c",
+      "bpa": [
+        "T01P011"
+      ],
+      "bma": "T01P01m"
+    },
+    "source_normalized_sha256": {
+      "T01P00": "d04356288c1fc7b641a61c4d08a4e48e4ce0217ac257288ec3c2c10db40df00a",
+      "T01P011": "aaef366c5202d51dc287c4f5c4448dd006a780d4ea23bfad0b1273f3bf3ca691",
+      "T01P01c": "03a8e00787b8b69be8aba87307d88fb6ea7f04b1db0a58c7884d05e2147fb944",
+      "T01P01m": "e7ffb2415fdf9fc41b64fdff2c020aff4e7e4d148ea126f40dbcb7171419c291"
+    }
+  },
+  "result": {
+    "runtime": "PASS",
+    "pixel_samples": 25,
+    "primary_samples": 24,
+    "reload_samples": 1,
+    "pixel_exact": 25,
+    "fully_opaque": 25,
+    "unique_rgba_frames": 4,
+    "tiles_palettes": "PASS",
+    "animation": "PASS_TWO_LOCAL_CYCLES",
+    "movement": "PASS",
+    "collision": "PASS",
+    "entry_exit_reentry": "PASS",
+    "cleanup_reload": "PASS",
+    "native_lifecycle_order": "PASS",
+    "terminal_end_seen": true,
+    "promotion": "PROMOTED_NON_DESTRUCTIVELY"
+  },
+  "classification": {
+    "canonical_source": {
+      "category": "pokemon_square",
+      "ground_map_symbol": "MAP_POKEMON_SQUARE",
+      "map_id": 1,
+      "map_file_id": 1,
+      "stable_ground_id": "t01p00",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ]
+    },
+    "project_reuse": {
+      "role": "none_found",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "status": "NO_PROJECT_SCRIPT_REFERENCE_FOUND"
+    }
+  },
+  "identity_divergence": {
+    "authoritative_result": "Map ID 1 / map file ID 1 is t01p00 / MAP_POKEMON_SQUARE.",
+    "conflicting_records": {
+      "docs/pmdred_extraction_tracabilite.md": "calls T00P01 Pokémon Square",
+      "docs/canonical/red/upstream_ground_aliases.json": "maps place_pokemon.rsground to t00p01.rsground",
+      "adjacent_manifest_record": "t01p01 shares canonical debug ID 1 and Ground place ID 2 but has map ID/map file ID 2"
+    },
+    "handling": "The exact map-ID-1 identity governs this promotion. The contradictory legacy alias is retained and quarantined from proof until exact t01p01 validation permits a non-destructive correction."
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "The native validator does not self-close. After its durable end event and final cleanup, process-group TERM ended PMDO; the shell reported PMDO segmentation-fault termination during that external shutdown.",
+    "evidence_impact": "NONE; the runtime PASS, final cleanup, terminal event, and all 25 accounted captures preceded external termination, and no descendant remained before comparison."
+  },
+  "scope_note": "This milestone promoted only the canonical Ground map and tile. It did not modify or validate the conflicting legacy alias, t01p01, or any event, character, camera, dialogue, music, VFX, cinematic, or choreography system.",
+  "commands": "commands.sh",
+  "validation_record": "validation_record.json",
+  "artifacts": {
+    "README.md": {
+      "bytes": 5426,
+      "sha256": "705c40d6185c18f310593787dec0dab481adc790b9f0b52ceae9f1bb2cc5300d"
+    },
+    "actual/actual_primary_tick0.png": {
+      "bytes": 326752,
+      "sha256": "464ed8366714e9bd2e7319c052c18952a0275afca77b83df1a14511e3abc5dd5"
+    },
+    "actual/actual_primary_tick83.png": {
+      "bytes": 326445,
+      "sha256": "9f6da7938a4d61b1267d7ab51a4096885c27ec98b80b6d74dfc0c30f6385dc3e"
+    },
+    "actual/actual_reload_tick0.png": {
+      "bytes": 326752,
+      "sha256": "464ed8366714e9bd2e7319c052c18952a0275afca77b83df1a14511e3abc5dd5"
+    },
+    "commands.sh": {
+      "bytes": 4116,
+      "sha256": "ca4f07cc5a8a13c3db08bb1753f3b8d168ec1d999c7cdbcaaea342a65d19610e"
+    },
+    "comparison.log": {
+      "bytes": 162,
+      "sha256": "f579e31ad918b62e41bfeb6f41241afedee48d30b8a0c3b3015b0836b5715178"
+    },
+    "comparisons/comparison_primary_tick0.png": {
+      "bytes": 228269,
+      "sha256": "4aa9a2f4c1086a93afd4cc1e595bb981bed9b977e15748335e41937ae12a3e9f"
+    },
+    "comparisons/comparison_primary_tick83.png": {
+      "bytes": 228252,
+      "sha256": "140952b77b79f336e43e08e27cb9c3263ac927d89fc7c49f8d38b2a7daec24b7"
+    },
+    "comparisons/comparison_reload_tick0.png": {
+      "bytes": 228269,
+      "sha256": "4aa9a2f4c1086a93afd4cc1e595bb981bed9b977e15748335e41937ae12a3e9f"
+    },
+    "engine.log": {
+      "bytes": 14564,
+      "sha256": "698ea194cd5e4ef5ac1ffc7ef48c453dca82d3de9c1d5e3f8414220db7e771b3"
+    },
+    "events.jsonl": {
+      "bytes": 9107,
+      "sha256": "5603c399f3e26d623cd7f468aa515cbbadd0ee75e9706dc5dd1248c0817ed21c"
+    },
+    "fixture_manifest.json": {
+      "bytes": 2110,
+      "sha256": "25d94d90788f6cfb416c1caa19c4332287f119c258adc4721026f16840efdee9"
+    },
+    "index.log": {
+      "bytes": 393,
+      "sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8"
+    },
+    "promotion_record.json": {
+      "bytes": 2404,
+      "sha256": "42eadd743955e6d5aa1feb2cb25fc993e6212877b00b84d608a7e9070ea9a3d1"
+    },
+    "report.json": {
+      "bytes": 24482,
+      "sha256": "5e217c19cb33c0af914a5869f48f92649950eaa301fa6b69185fe089fe56988a"
+    },
+    "runtime.log": {
+      "bytes": 14875,
+      "sha256": "b2c0ee4bfb2cfcda4a3233cc107138aed4fbeb978b49fa55cb8d7b395318bf11"
+    },
+    "validation_record.json": {
+      "bytes": 7353,
+      "sha256": "e8edb16aa4ed5cd6011f2b2ab9aca4bd96de2cabd293b6d28ca0915b319926eb"
+    }
+  },
+  "promotion_record": "promotion_record.json",
+  "promotion_record_sha256": "42eadd743955e6d5aa1feb2cb25fc993e6212877b00b84d608a7e9070ea9a3d1",
+  "post_validation_documentation": {
+    "amended_at": "2026-08-12",
+    "renderer_recipe_correction": "commands.sh now records SDL_VIDEO_GL_DRIVER as the absolute ANGLE libGLESv2.so path in addition to SDL_VIDEO_EGL_DRIVER. The exact successful runtime used both; this amendment corrects the previously incomplete written recipe and does not alter runtime evidence.",
+    "subsequent_identity_resolution": "The later exhaustive t01p01 pass proved MAP_WHISCASH_POND and corrected the active place_pokemon alias to t01p00. Identity-divergence fields elsewhere in this record describe the state and deliberate deferral at this promotion time.",
+    "runtime_evidence_changed": false
+  }
+}

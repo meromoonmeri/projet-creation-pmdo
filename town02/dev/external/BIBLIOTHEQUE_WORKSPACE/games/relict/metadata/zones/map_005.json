@@ -1,0 +1,486 @@
+{
+  "audio_context_present": true,
+  "cinematic_visuals": {
+    "dialogue_contents_exported": false,
+    "excluded_command_counts": {
+      "audio_commands_redacted": 1,
+      "dialogue_commands_redacted": 8,
+      "script_commands_redacted": 31,
+      "script_continuation_commands_redacted": 2
+    },
+    "script_bodies_exported": false,
+    "visual_command_counts": {
+      "animation_on_entity": 7,
+      "entity_relocation": 6,
+      "forced_move_route": 12,
+      "map_transfer": 2
+    }
+  },
+  "collision": {
+    "derived_directional_grid": {
+      "custom_script_overrides_executed": false,
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "file": "zones/collision/map_005_directional.json",
+      "method": "RGSS1_STANDARD_PRIORITY_AND_PASSAGE_FLAGS",
+      "sha256": "3754a498db98836dac565f765da339a37d2566e10b58c5516057077b639b9367"
+    },
+    "dynamic_entities": {
+      "file": "zones/entities/map_005_entities.json",
+      "placements_complete": true,
+      "sha256": "24f46a0c810ff0d7dffe6119374c0d6e49272009cc9a049bfbcf9b8ea30eec74"
+    },
+    "height": 33,
+    "layer_count": 3,
+    "map_id": 5,
+    "schema_version": "1.0.0",
+    "source_complete": true,
+    "source_layers": {
+      "encoding": "row-major-z-layers-json-u16",
+      "file": "zones/geometry/map_005_layers.json",
+      "sha256": "ab0c2e19e200db701d00d28eda88a98e5da318b5c6e1e9d6d024488314d79fdd",
+      "value_count": 3465
+    },
+    "tile_size_px": 32,
+    "tileset_tables": {
+      "file": "tilesets/collision/tileset_004.json",
+      "passages_complete": true,
+      "priorities_complete": true,
+      "sha256": "9bc258bfd666ffa3688a411f98de47d6fe006409e785595d7cebf1925b621ded",
+      "terrain_tags_complete": true
+    },
+    "width": 35
+  },
+  "entities": {
+    "cast_placeholder_count": 6,
+    "environmental_tile_entity_count": 0,
+    "file": "zones/entities/map_005_entities.json",
+    "logic_marker_count": 4,
+    "page_placement_count": 10,
+    "placement_count": 8,
+    "sha256": "24f46a0c810ff0d7dffe6119374c0d6e49272009cc9a049bfbcf9b8ea30eec74",
+    "source_identities_redacted": true
+  },
+  "game_id": "relict",
+  "geometry": {
+    "height_px": 1056,
+    "height_tiles": 33,
+    "layer_count": 3,
+    "tile_size_px": 32,
+    "width_px": 1120,
+    "width_tiles": 35
+  },
+  "name": "Respite",
+  "parent_map_id": 2,
+  "pmdo": {
+    "adaptation_needs": [
+      "Map RMXP passage/priority/terrain semantics to RogueEssence terrain and collision.",
+      "Replace every CAST_PLACEHOLDER with an approved New Era actor.",
+      "Validate visual commands, movement routes, overlays and timings scene by scene."
+    ],
+    "conversion_started": false,
+    "differences": [
+      "RMXP uses three 32px tile layers and per-tile passage flags.",
+      "Dynamic event collision and page conditions must become explicit PMDO entities.",
+      "Source cast graphics are redacted and require New Era replacements."
+    ]
+  },
+  "problems": [
+    "DIVERGENT_SOURCE_VARIANT_REQUIRES_REVIEW"
+  ],
+  "schema_version": "1.0.0",
+  "source": {
+    "commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+    "extraction_method": "bounded pure-Python Ruby Marshal 4.8 reader; no source code execution",
+    "license_status": "UNKNOWN",
+    "repository": "https://github.com/meromoonmeri/BIBLIOTHEQUE",
+    "sha256": "2eb59b31d71fc9f27df6dd3bbc62fc16939b86b635002e53f53db662f645a1a5",
+    "size_bytes": 14977,
+    "source_format": "RPG Maker XP Ruby Marshal 4.8 RPG::Map",
+    "source_path": "Relict/Relict V1.2/Relict/Data/Map005.rxdata"
+  },
+  "source_documentation": {
+    "animations_complete": true,
+    "collision_complete": true,
+    "contact_sheet_sha256": "5420d1827e576d7f53eea015e5a3d01ba65902d4ee461b0125ea552e82bbf0cb",
+    "entity_placements_complete": true,
+    "geometry_complete": true,
+    "manual_contact_sheet_review": "PASS_2026-08-13",
+    "timeline_complete": true,
+    "visual_dependencies_complete": true
+  },
+  "source_map_id": 5,
+  "source_order": 5,
+  "status": "SOURCE_DOCUMENTED",
+  "tile_layers": {
+    "all_source_values_preserved": true,
+    "file": "zones/geometry/map_005_layers.json",
+    "sha256": "ab0c2e19e200db701d00d28eda88a98e5da318b5c6e1e9d6d024488314d79fdd"
+  },
+  "tileset": {
+    "autotile_slots": [
+      {
+        "name": "grassDungeon3",
+        "slot": 0
+      },
+      {
+        "name": "waterDungeon3",
+        "slot": 1
+      },
+      {
+        "name": "pathDungeon3",
+        "slot": 2
+      },
+      {
+        "name": "flower",
+        "slot": 3
+      },
+      {
+        "name": "",
+        "slot": 4
+      },
+      {
+        "name": "",
+        "slot": 5
+      },
+      {
+        "name": "",
+        "slot": 6
+      }
+    ],
+    "fog": "",
+    "name": "dungeon3",
+    "panorama": "",
+    "source_id": 4
+  },
+  "variants": [
+    {
+      "byte_identical_to_canonical": false,
+      "derived_artifacts": {
+        "directional_collision": "zones/collision/map_005_variant_mies_conflicted_copy_2025_12_18_directional.json",
+        "directional_collision_sha256": "6a699a076a7dd1119ce2e2a373c96cb7fef449a2f0ea431745d0c66ecfa3236c",
+        "entity_placements": "zones/entities/map_005_variant_mies_conflicted_copy_2025_12_18_entities.json",
+        "entity_placements_sha256": "24f46a0c810ff0d7dffe6119374c0d6e49272009cc9a049bfbcf9b8ea30eec74",
+        "tile_layers": "zones/geometry/map_005_variant_mies_conflicted_copy_2025_12_18_layers.json",
+        "tile_layers_sha256": "41140b9a12c2552318ddd4ec52fa43219d3001e039dc4731ed544afd212c1150"
+      },
+      "geometry": {
+        "height_tiles": 33,
+        "layer_count": 3,
+        "width_tiles": 35
+      },
+      "sha256": "420d1a4e43c364c18d9d985d98f297f9bb7f2ec7e0df1925196510c3a18a92cc",
+      "size_bytes": 14977,
+      "source_label": "Mie's conflicted copy 2025-12-18",
+      "source_path": "Data/Map005 (Mie's conflicted copy 2025-12-18).rxdata",
+      "tileset": {
+        "autotile_slots": [
+          {
+            "name": "grassDungeon7",
+            "slot": 0
+          },
+          {
+            "name": "waterDungeon7",
+            "slot": 1
+          },
+          {
+            "name": "pathDungeon7",
+            "slot": 2
+          },
+          {
+            "name": "",
+            "slot": 3
+          },
+          {
+            "name": "",
+            "slot": 4
+          },
+          {
+            "name": "",
+            "slot": 5
+          },
+          {
+            "name": "",
+            "slot": 6
+          }
+        ],
+        "fog": "",
+        "name": "dungeon7",
+        "panorama": "",
+        "source_id": 8
+      },
+      "tileset_id": 8,
+      "visual_dependencies": [
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 96
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "d8363e33d504e9fd75e32dce74f1db6a0b54420bd9cdf6837555ef1560f945aa",
+          "size_bytes": 2789,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "grassDungeon7",
+          "source_path": "Graphics/Autotiles/grassDungeon7.png"
+        },
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 96
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "86e20db294051bd1e2569a540b11b5cf22c5add69746cb9cb0cc0bb4507ad374",
+          "size_bytes": 2425,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "pathDungeon7",
+          "source_path": "Graphics/Autotiles/pathDungeon7.png"
+        },
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 384
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "88535a0e59eeeab8a76e4f6c8d1faaf6529df8ad71342d63895f7578270b6532",
+          "size_bytes": 5439,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "waterDungeon7",
+          "source_path": "Graphics/Autotiles/waterDungeon7.png"
+        },
+        {
+          "ambiguous_match_count": 2,
+          "dimensions": {
+            "height_px": 448,
+            "width_px": 256
+          },
+          "kind": "TILESET",
+          "problems": [
+            "AMBIGUOUS_CASE_INSENSITIVE_MATCH"
+          ],
+          "resolved": true,
+          "sha256": "4f10a2b5783749876714f70b91c1e1397cb01a4e5966cf0557553dd9be8c0ab1",
+          "size_bytes": 10320,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "dungeon7",
+          "source_path": "Graphics/Tilesets/dungeon7.png"
+        }
+      ]
+    },
+    {
+      "byte_identical_to_canonical": false,
+      "derived_artifacts": {
+        "directional_collision": "zones/collision/map_005_variant_mies_conflicted_copy_2026_01_01_directional.json",
+        "directional_collision_sha256": "4b1c05fc5c06330cd51b924d2fd7fa2349906bb199bf3e004c3c37753a838fbb",
+        "entity_placements": "zones/entities/map_005_variant_mies_conflicted_copy_2026_01_01_entities.json",
+        "entity_placements_sha256": "24f46a0c810ff0d7dffe6119374c0d6e49272009cc9a049bfbcf9b8ea30eec74",
+        "tile_layers": "zones/geometry/map_005_variant_mies_conflicted_copy_2026_01_01_layers.json",
+        "tile_layers_sha256": "41140b9a12c2552318ddd4ec52fa43219d3001e039dc4731ed544afd212c1150"
+      },
+      "geometry": {
+        "height_tiles": 33,
+        "layer_count": 3,
+        "width_tiles": 35
+      },
+      "sha256": "180386c15e9d1b2b5c69e9171b248471370604842027c1515a051015133006d8",
+      "size_bytes": 14977,
+      "source_label": "Mie's conflicted copy 2026-01-01",
+      "source_path": "Data/Map005 (Mie's conflicted copy 2026-01-01).rxdata",
+      "tileset": {
+        "autotile_slots": [
+          {
+            "name": "grassDungeon5",
+            "slot": 0
+          },
+          {
+            "name": "waterDungeon5",
+            "slot": 1
+          },
+          {
+            "name": "pathDungeon5",
+            "slot": 2
+          },
+          {
+            "name": "",
+            "slot": 3
+          },
+          {
+            "name": "",
+            "slot": 4
+          },
+          {
+            "name": "",
+            "slot": 5
+          },
+          {
+            "name": "",
+            "slot": 6
+          }
+        ],
+        "fog": "",
+        "name": "dungeon5",
+        "panorama": "",
+        "source_id": 6
+      },
+      "tileset_id": 6,
+      "visual_dependencies": [
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 576
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "19fbf982450edf0304318785d7116788906142c11203c3c5b8ebf8af1170affa",
+          "size_bytes": 9261,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "grassDungeon5",
+          "source_path": "Graphics/Autotiles/grassDungeon5.png"
+        },
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 96
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "3a0f4628f376abf274ecc246a94ced9739a33732487d6d26695173e753bfd6c5",
+          "size_bytes": 1281,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "pathDungeon5",
+          "source_path": "Graphics/Autotiles/pathDungeon5.png"
+        },
+        {
+          "ambiguous_match_count": 1,
+          "dimensions": {
+            "height_px": 128,
+            "width_px": 384
+          },
+          "kind": "AUTOTILE",
+          "problems": [],
+          "resolved": true,
+          "sha256": "3e6e58269ab816d2c31e8b1c16d42bc6db3f05c412fb861ed9feea1a3d7fccd9",
+          "size_bytes": 3273,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "waterDungeon5",
+          "source_path": "Graphics/Autotiles/waterDungeon5.png"
+        },
+        {
+          "ambiguous_match_count": 2,
+          "dimensions": {
+            "height_px": 448,
+            "width_px": 256
+          },
+          "kind": "TILESET",
+          "problems": [
+            "AMBIGUOUS_CASE_INSENSITIVE_MATCH"
+          ],
+          "resolved": true,
+          "sha256": "27b1a95eab678c025a0d453544da072b50a9fb646719f3c13d0f56343cad4af0",
+          "size_bytes": 6556,
+          "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+          "source_name": "dungeon5",
+          "source_path": "Graphics/Tilesets/dungeon5.png"
+        }
+      ]
+    }
+  ],
+  "visual_dependencies": [
+    {
+      "ambiguous_match_count": 1,
+      "dimensions": {
+        "height_px": 128,
+        "width_px": 384
+      },
+      "kind": "AUTOTILE",
+      "problems": [],
+      "resolved": true,
+      "sha256": "4a5dbf3fe135166d913e7873ac0ffdfa2aec52d25dd029b86ca82ffcc3d49c7f",
+      "size_bytes": 3983,
+      "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+      "source_name": "flower",
+      "source_path": "Graphics/Autotiles/flower.png"
+    },
+    {
+      "ambiguous_match_count": 1,
+      "dimensions": {
+        "height_px": 128,
+        "width_px": 96
+      },
+      "kind": "AUTOTILE",
+      "problems": [],
+      "resolved": true,
+      "sha256": "6fe8cf6437dce764543eb598aef5548bec9b9782243e56611a4a60962323cbec",
+      "size_bytes": 2923,
+      "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+      "source_name": "grassDungeon3",
+      "source_path": "Graphics/Autotiles/grassDungeon3.png"
+    },
+    {
+      "ambiguous_match_count": 1,
+      "dimensions": {
+        "height_px": 128,
+        "width_px": 96
+      },
+      "kind": "AUTOTILE",
+      "problems": [],
+      "resolved": true,
+      "sha256": "44003259e2841f808bc32ca727baf7f7af672aaa06a9d453720b2685c7c68811",
+      "size_bytes": 2608,
+      "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+      "source_name": "pathDungeon3",
+      "source_path": "Graphics/Autotiles/pathDungeon3.png"
+    },
+    {
+      "ambiguous_match_count": 1,
+      "dimensions": {
+        "height_px": 128,
+        "width_px": 384
+      },
+      "kind": "AUTOTILE",
+      "problems": [],
+      "resolved": true,
+      "sha256": "92a86cef0d841ddfc3ae16436f503e01c57d5c0d383c602a928080ea3d488a31",
+      "size_bytes": 5404,
+      "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+      "source_name": "waterDungeon3",
+      "source_path": "Graphics/Autotiles/waterDungeon3.png"
+    },
+    {
+      "ambiguous_match_count": 2,
+      "dimensions": {
+        "height_px": 448,
+        "width_px": 256
+      },
+      "kind": "TILESET",
+      "problems": [
+        "AMBIGUOUS_CASE_INSENSITIVE_MATCH"
+      ],
+      "resolved": true,
+      "sha256": "ae71bca5fc00b4d980f06f97b165ec896314a716b7bf8fe1b1402b0e58f0d513",
+      "size_bytes": 6271,
+      "source_commit": "6963878956ec4c53833c03f26aa6a9aafd17800f",
+      "source_name": "dungeon3",
+      "source_path": "Graphics/Tilesets/dungeon3.png"
+    }
+  ],
+  "zone_id": "relict_map_005",
+  "zone_type": "SPECIAL",
+  "zone_type_inferred": true
+}

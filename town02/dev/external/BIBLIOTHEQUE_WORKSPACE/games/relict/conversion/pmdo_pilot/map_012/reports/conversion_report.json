@@ -1,0 +1,137 @@
+{
+  "adaptation_required": [
+    "PMDO runtime load/render validation through the existing Agent A headless method.",
+    "Map source terrain tags to approved New Era Ground behavior where narratively needed.",
+    "Replace redacted source placements with approved New Era actors without moving them.",
+    "Adapt source visual timelines/VFX to New Era scripts without restoring dialogue or casting.",
+    "Select French EU name, music, entrances, exits and narrative routing at the contractual integration point."
+  ],
+  "adaptation_status": "ADAPTATION_REQUIRED",
+  "conversion_status": "PMDO_CONVERTED",
+  "forbidden_content_check": {
+    "audio_binary_exported": false,
+    "casting_sprite_exported": false,
+    "dialogue_exported": false,
+    "script_body_exported": false
+  },
+  "identity": {
+    "game_id": "relict",
+    "source_map_id": 12,
+    "source_name": "Playa",
+    "variant_id": null,
+    "zone_id": "relict_map_012",
+    "zone_type": "EXTERIOR"
+  },
+  "ir": {
+    "file": "conversion/ir/map_012.json",
+    "sha256": "436d19527b4b4c9c881eb0f44f807ef90ca7a83f546ab5fcfb286fb05280ef36"
+  },
+  "outputs": {
+    "composite_tick_000": {
+      "file": "previews/composite_tick_000.png",
+      "sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6"
+    },
+    "composite_tick_015": {
+      "differs_from_tick_000": true,
+      "file": "previews/composite_tick_015.png",
+      "sha256": "f1b099233523d72edae4f064be4e25627ff93ee10abd1deb720e4529e278da47"
+    },
+    "ground": {
+      "file": "Data/Ground/relict_map_012_pilot.rsground",
+      "sha256": "5456299e6c64f51e7a69ae8e0af9089b3b1fab63d65dab757196882a087d5017",
+      "size_bytes": 1806515
+    },
+    "tile": {
+      "atlas_entry_count": 133,
+      "deduplicated_payload_count": 133,
+      "file": "Content/Tile/relict_map_012_pilot_Base.tile",
+      "sha256": "ae3578078911215b0697994a3a5b457fb5d9ace9841c545a0e659dd6f7275ace",
+      "size_bytes": 42426,
+      "tile_size_px": 32
+    }
+  },
+  "result": "PMDO_PILOT_STATIC_VALIDATION_PASS",
+  "retained_sidecar_semantics": {
+    "directional_collision": true,
+    "entity_pages_and_routes": true,
+    "environmental_vfx": true,
+    "map_effects": true,
+    "terrain_tags": [
+      0,
+      3,
+      7
+    ],
+    "visual_timeline": true
+  },
+  "runtime_destination_written": false,
+  "runtime_validation_status": "NOT_RUN",
+  "schema_version": "1.0.0",
+  "technical_validation": {
+    "animated_catalog_tile_count": 24,
+    "animation_durations_ms": [
+      250
+    ],
+    "animation_frame_count": 192,
+    "animation_frame_lengths_pmdo": [
+      15
+    ],
+    "blocked_source_tiles": 974,
+    "collision_grid": [
+      140,
+      132
+    ],
+    "entity_placement_count": 0,
+    "free_source_tiles": 181,
+    "geometry_px": [
+      1120,
+      1056
+    ],
+    "graphic_grid": [
+      35,
+      33
+    ],
+    "ground_json_round_trip": "PASS",
+    "ground_layer_count": 3,
+    "marker_count": 0,
+    "partial_directional_masks": [],
+    "source_layer_count": 3,
+    "tile_binary_round_trip": "PASS"
+  },
+  "visual_validation": {
+    "composite_tick_000": {
+      "different_pixels": 0,
+      "expected": "previews/maps/map_012/composite.png",
+      "expected_sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6",
+      "max_channel_delta": 0
+    },
+    "layers": [
+      {
+        "different_pixels": 0,
+        "expected": "previews/maps/map_012/layer_00.png",
+        "expected_sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6",
+        "index": 0,
+        "max_channel_delta": 0,
+        "output": "previews/layer_00.png",
+        "output_sha256": "2a2f7d709e7feada6c2bca7e65f67da3755f9f602299ab70e2149fbffa93d1f6"
+      },
+      {
+        "different_pixels": 0,
+        "expected": "previews/maps/map_012/layer_01.png",
+        "expected_sha256": "0045c16fe6d69d2463c5487e8cd44cc7e5c14820f905d1b0f2d727e34f6425e7",
+        "index": 1,
+        "max_channel_delta": 0,
+        "output": "previews/layer_01.png",
+        "output_sha256": "0045c16fe6d69d2463c5487e8cd44cc7e5c14820f905d1b0f2d727e34f6425e7"
+      },
+      {
+        "different_pixels": 0,
+        "expected": "previews/maps/map_012/layer_02.png",
+        "expected_sha256": "0045c16fe6d69d2463c5487e8cd44cc7e5c14820f905d1b0f2d727e34f6425e7",
+        "index": 2,
+        "max_channel_delta": 0,
+        "output": "previews/layer_02.png",
+        "output_sha256": "0045c16fe6d69d2463c5487e8cd44cc7e5c14820f905d1b0f2d727e34f6425e7"
+      }
+    ]
+  }
+}

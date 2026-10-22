@@ -1,0 +1,804 @@
+{
+  "generated_at": "2026-08-22T22:58:18+00:00",
+  "dungeon": "howling_forest",
+  "name": {
+    "en": "Howling Forest",
+    "fr": "Forêt des Hurlements"
+  },
+  "chapter": 25,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Howling Forest (15F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/HowlingForest) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 25. Recoupé avec Bulbapedia (page « Howling Forest »).",
+  "floors": 15,
+  "biome": "howling_edge",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/howling_forest.json",
+  "segments": [
+    {
+      "name": "howling_edge",
+      "floors": [
+        1,
+        8
+      ],
+      "biome": "howling_edge",
+      "dtef": {
+        "floor": "howling_forest_2_floor",
+        "wall": "howling_forest_2_wall",
+        "secondary": "howling_forest_2_secondary",
+        "name": "howling_forest_2",
+        "element": "normal"
+      },
+      "profiles": [
+        "branching",
+        "dense",
+        "mixed"
+      ],
+      "pokemon": 7,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 27
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "howling_heart",
+      "floors": [
+        9,
+        15
+      ],
+      "biome": "howling_heart",
+      "dtef": {
+        "floor": "howling_forest_2_floor",
+        "wall": "howling_forest_2_wall",
+        "secondary": "howling_forest_2_secondary",
+        "name": "howling_forest_2",
+        "element": "normal"
+      },
+      "profiles": [
+        "looping",
+        "branching",
+        "mixed"
+      ],
+      "pokemon": 9,
+      "item_tables": {
+        "canonical": {
+          "amount": [
+            2,
+            5
+          ],
+          "entries": 27
+        }
+      },
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "end": "bois_des_plaintes"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "bois_des_plaintes",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "bois_des_plaintes",
+    "battle_ground": "bois_des_plaintes",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "bois_des_plaintes",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "bois_des_plaintes",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "bois_des_plaintes"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'bois_des_plaintes' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:howling_forest",
+    "root_seed": 478616200503809045,
+    "explicit_seed": false,
+    "derived_seeds": 80
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7917,
+      "seeds": [
+        6733138850799283369,
+        3942222611800529564,
+        6033928214439403213,
+        2953991888006396028,
+        3833185122864160016
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.0,
+        "rooms_min": 10,
+        "rooms_max": 19,
+        "halls_avg": 15.6,
+        "branches_avg": 3.6,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.6,
+        "connections_avg": 15.6,
+        "room_area_min": 9,
+        "room_area_max": 104,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        8,
+        7
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8523,
+      "seeds": [
+        6241479250322838864,
+        282988992823501814,
+        7141425526491655220,
+        8142634489125152231,
+        4756550674376071790
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 16.0,
+        "rooms_min": 9,
+        "rooms_max": 22,
+        "halls_avg": 18.6,
+        "branches_avg": 5.6,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 1.8,
+        "connections_avg": 18.6,
+        "room_area_min": 9,
+        "room_area_max": 126,
+        "stair_distance_avg": 34.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8507,
+      "seeds": [
+        662841578858964292,
+        8995083225281791166,
+        596781502612464311,
+        9168640608831299267,
+        992573427704781367
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.2,
+        "rooms_min": 10,
+        "rooms_max": 25,
+        "halls_avg": 20.2,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 5.0,
+        "loops_avg": 1.6,
+        "connections_avg": 20.2,
+        "room_area_min": 9,
+        "room_area_max": 72,
+        "stair_distance_avg": 47.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8378,
+      "seeds": [
+        5392187288338620012,
+        4264893953259785337,
+        7213986448383478985,
+        4144442030760455028,
+        3518208212966439340
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 18.0,
+        "rooms_min": 11,
+        "rooms_max": 28,
+        "halls_avg": 21.0,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 5.4,
+        "loops_avg": 1.8,
+        "connections_avg": 21.0,
+        "room_area_min": 9,
+        "room_area_max": 135,
+        "stair_distance_avg": 30.8,
+        "reachable_ratio_min": 0.9987,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        10,
+        8
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8168,
+      "seeds": [
+        8875525683108440695,
+        6776109185526023262,
+        1892225372485145226,
+        3213423333677818220,
+        5547717435004381912
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.4,
+        "rooms_min": 7,
+        "rooms_max": 27,
+        "halls_avg": 16.2,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 1.6,
+        "connections_avg": 16.2,
+        "room_area_min": 9,
+        "room_area_max": 80,
+        "stair_distance_avg": 38.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8088,
+      "seeds": [
+        7112054129250085315,
+        8468837246074070028,
+        29091175723188603,
+        8808583079702357338,
+        5344756509746550739
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.4,
+        "rooms_min": 6,
+        "rooms_max": 21,
+        "halls_avg": 15.4,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.6,
+        "connections_avg": 15.4,
+        "room_area_min": 12,
+        "room_area_max": 234,
+        "stair_distance_avg": 41.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        7,
+        6
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8817,
+      "seeds": [
+        4723755416883651912,
+        6151723769590031295,
+        758648748554294472,
+        412811711672490887,
+        4244009971845124598
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.8,
+        "rooms_min": 7,
+        "rooms_max": 21,
+        "halls_avg": 14.2,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.0,
+        "connections_avg": 14.2,
+        "room_area_min": 12,
+        "room_area_max": 152,
+        "stair_distance_avg": 39.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "howling_edge",
+      "kind": "procedural",
+      "profile": "branching+dense+mixed",
+      "grid": [
+        8,
+        5
+      ],
+      "cell": [
+        7,
+        7
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8564,
+      "seeds": [
+        7169494177775097468,
+        915470819046388365,
+        7266645016519626734,
+        2782094981216901592,
+        4747427913318614985
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.4,
+        "rooms_min": 6,
+        "rooms_max": 26,
+        "halls_avg": 21.2,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 3.0,
+        "connections_avg": 21.2,
+        "room_area_min": 9,
+        "room_area_max": 126,
+        "stair_distance_avg": 37.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        10,
+        11
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9079,
+      "seeds": [
+        4535823289368476154,
+        526139708905250459,
+        8703585729743614290,
+        5720364314079938054,
+        6574469122684131497
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.6,
+        "rooms_min": 10,
+        "rooms_max": 23,
+        "halls_avg": 16.6,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.8,
+        "connections_avg": 16.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 31.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        7,
+        4
+      ],
+      "cell": [
+        8,
+        10
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8271,
+      "seeds": [
+        1891284596839736801,
+        170208316102110224,
+        938767914070470108,
+        9161988261903702766,
+        2103677306540419944
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.4,
+        "rooms_min": 10,
+        "rooms_max": 13,
+        "halls_avg": 13.2,
+        "branches_avg": 4.4,
+        "dead_ends_avg": 3.4,
+        "loops_avg": 1.8,
+        "connections_avg": 13.2,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9326,
+      "seeds": [
+        3368680976253042426,
+        958850923917112872,
+        1075032601547059480,
+        2294363105092550259,
+        3410052943702317050
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.4,
+        "rooms_min": 7,
+        "rooms_max": 16,
+        "halls_avg": 13.6,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.2,
+        "connections_avg": 13.6,
+        "room_area_min": 20,
+        "room_area_max": 180,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.865,
+      "seeds": [
+        1565141238261740613,
+        2206946674488452102,
+        7022385225402876193,
+        5620311906601556014,
+        6642923547858338228
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 8,
+        "rooms_max": 16,
+        "halls_avg": 13.4,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.6,
+        "connections_avg": 13.4,
+        "room_area_min": 25,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8734,
+      "seeds": [
+        6811162234584338333,
+        6444869242131248668,
+        8765322413640104329,
+        1971541348276817510,
+        619086959804339170
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 10,
+        "rooms_max": 16,
+        "halls_avg": 13.0,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 3.0,
+        "loops_avg": 1.6,
+        "connections_avg": 13.0,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 45.8,
+        "reachable_ratio_min": 0.9988,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8052,
+      "seeds": [
+        992932225556612487,
+        928560030408561934,
+        1077646553001665939,
+        3609289758255580734,
+        9087746328698625485
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.8,
+        "rooms_min": 8,
+        "rooms_max": 21,
+        "halls_avg": 16.0,
+        "branches_avg": 5.2,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 2.2,
+        "connections_avg": 16.0,
+        "room_area_min": 24,
+        "room_area_max": 242,
+        "stair_distance_avg": 43.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "howling_heart",
+      "kind": "procedural",
+      "profile": "looping+branching+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "howling_forest_2",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8929,
+      "seeds": [
+        1322013062798714811,
+        7864988120135037625,
+        8286884021462058910,
+        6751348444816931262,
+        7531469597985634848
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.4,
+        "rooms_min": 10,
+        "rooms_max": 17,
+        "halls_avg": 14.8,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 3.6,
+        "loops_avg": 1.6,
+        "connections_avg": 14.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 39.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

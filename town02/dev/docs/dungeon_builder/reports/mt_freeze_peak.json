@@ -1,0 +1,395 @@
+{
+  "generated_at": "2026-08-24T16:56:51+00:00",
+  "dungeon": "mt_freeze_peak",
+  "name": {
+    "en": "Mt. Freeze Peak",
+    "fr": "Cime du Mont Gelé"
+  },
+  "chapter": 12,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Mt. Freeze Peak (5F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MtFreezePeak) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 12. Recoupé avec Bulbapedia (page « Mt. Freeze Peak »).",
+  "provenance": {
+    "schema": "new-era.dungeon-provenance.v1",
+    "game": "PMD_RED",
+    "status": {
+      "configuration": "validated",
+      "runtime": "validated",
+      "batch_approved": true,
+      "reason": "Native PMDO mapgen and complete mt_freeze_peak entrance->floors->canonical-end->return route passed."
+    },
+    "categories": {
+      "floor_parameters": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "definition_floor_mode": "procedural_only",
+          "evidence": "Per-floor raw bytes and table IDs."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "tools/dungeon_builder/red_story_batch.py",
+          "reason": "PMD Red geometry bytes require a native RogueElements adapter."
+        }
+      ],
+      "pokemon": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor species, source levels, and probabilities."
+        },
+        {
+          "kind": "SUPPLEMENTAL",
+          "path": "DungeonDefs/staging/red_story_10",
+          "reason": "Source levels translated to the New Era chapter tier."
+        }
+      ],
+      "items": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor category and item probabilities."
+        },
+        {
+          "kind": "INFERRED",
+          "path": "CONVERSION/Item.txt",
+          "reason": "Explicit PMD Red constant to PMDO item ID mapping."
+        }
+      ],
+      "tileset": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "docs/canonical/red/mt_freeze_peak_rom_manifest.json",
+          "evidence": "Per-floor source tileset IDs."
+        },
+        {
+          "kind": "PROJECT_DATA",
+          "path": "tools/dungeon_builder/data/base_autotiles.txt",
+          "evidence": "PMDO base DTEF triplet mt_freeze."
+        }
+      ],
+      "grounds": [
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d11p02.rsground",
+          "evidence": "Canonical entrance Ground."
+        },
+        {
+          "kind": "PMD_RED_RESERVED_GROUND",
+          "path": "RESERVE/red_grounds/d11p03.rsground",
+          "evidence": "Canonical rescue/end Ground."
+        }
+      ],
+      "scenes": [
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d11p02.cif.json",
+          "evidence": "Canonical entrance scene IR."
+        },
+        {
+          "kind": "PMD_RED_ROM",
+          "path": "RESERVE/red_cinematics/d11p03.cif.json",
+          "evidence": "Canonical end scene IR."
+        }
+      ]
+    }
+  },
+  "floors": 4,
+  "biome": "freeze_peak",
+  "direction": "sommet",
+  "zone_file": "Data/Zone/mt_freeze_peak.json",
+  "segments": [
+    {
+      "name": "freeze_peak",
+      "floors": [
+        1,
+        4
+      ],
+      "biome": "freeze_peak",
+      "dtef": {
+        "floor": "mt_freeze_floor",
+        "wall": "mt_freeze_wall",
+        "secondary": "mt_freeze_secondary",
+        "name": "mt_freeze",
+        "element": "normal",
+        "justification": "Canonical PMDO base package matching Mt. Freeze Peak; source tileset IDs retained per floor."
+      },
+      "profiles": [
+        "branching",
+        "lattice"
+      ],
+      "pokemon": 4,
+      "item_tables": {
+        "canonical_floor_items": {
+          "amount": [
+            1,
+            2
+          ],
+          "entries": 60
+        }
+      },
+      "shop": false,
+      "monster_house": false,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "entrance": "d11p02",
+    "end": "d11p03"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "d11p03",
+    "map": "mt_freeze_peak_boss",
+    "source_floor": 5,
+    "source_fixed_room": 6,
+    "provenance": "PMD_RED_ROM",
+    "roster": [
+      {
+        "species": "glalie",
+        "level": [
+          20,
+          20
+        ],
+        "source_level": 20,
+        "role": "leader",
+        "provenance": "PMD_RED_ROM"
+      }
+    ],
+    "notes": "Canonical fight on Ground d11p03 via the .rsmap counterpart mt_freeze_peak_boss; no invented arena."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "d11p02",
+    "cinematic_ground": "d11p03",
+    "battle_ground": "d11p03",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "d11p03",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "d11p03",
+    "boss_map": "mt_freeze_peak_boss",
+    "canonical_end_candidates": [
+      "d11p03"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'd11p03' (no separate arena created)",
+      "scene source of truth: mt_freeze_peak_boss.rsmap matches the end Ground"
+    ]
+  },
+  "rng": {
+    "label": "generate:mt_freeze_peak",
+    "root_seed": 6056106653366638464,
+    "explicit_seed": false,
+    "derived_seeds": 46
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "freeze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9243,
+      "seeds": [
+        9065523460565237105,
+        7944839854092605641,
+        7126955470494967342,
+        6743002661088671443,
+        7293031287846846050,
+        8293339386755586410,
+        741792982616967810,
+        7976319406228833235,
+        1228919358419221252,
+        3940956178346384461
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 13.8,
+        "rooms_min": 9,
+        "rooms_max": 22,
+        "halls_avg": 21.3,
+        "branches_avg": 7.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 4.3,
+        "connections_avg": 21.3,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 43.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "freeze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.9739,
+      "seeds": [
+        2205768367137323144,
+        7652511290544726828,
+        3976892414042758161,
+        2432837704700058604,
+        3874162830227933637,
+        6381712406096508280,
+        8685768627797248823,
+        6661665477013312114,
+        8183122152374572942,
+        6630571051314020311
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 16.2,
+        "rooms_min": 10,
+        "rooms_max": 23,
+        "halls_avg": 23.9,
+        "branches_avg": 8.1,
+        "dead_ends_avg": 5.5,
+        "loops_avg": 4.1,
+        "connections_avg": 23.9,
+        "room_area_min": 20,
+        "room_area_max": 81,
+        "stair_distance_avg": 41.3,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "freeze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.9343,
+      "seeds": [
+        3049986156374234962,
+        6047460834071783335,
+        7096071843899608483,
+        1411930081417853108,
+        1800811632746042355,
+        5972888635016368429,
+        8770333703782861830,
+        3447323624643068740,
+        5133837886725036939,
+        677834005859787367
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 14.6,
+        "rooms_min": 11,
+        "rooms_max": 21,
+        "halls_avg": 22.6,
+        "branches_avg": 7.7,
+        "dead_ends_avg": 4.8,
+        "loops_avg": 4.1,
+        "connections_avg": 22.6,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 55.5,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "freeze_peak",
+      "kind": "procedural",
+      "profile": "branching|lattice",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "mt_freeze",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 10,
+      "variants_rejected": 3,
+      "max_pair_similarity": 0.9437,
+      "seeds": [
+        3265658502658588888,
+        7083084055517612303,
+        9196009847535573589,
+        7441549237111779009,
+        5860727645070088545,
+        1451250137549648455,
+        151817622318050737,
+        7560154714710620191,
+        5026533963936527708,
+        6113715330370344393
+      ],
+      "metrics": {
+        "variants": 10,
+        "rooms_avg": 17.7,
+        "rooms_min": 11,
+        "rooms_max": 26,
+        "halls_avg": 24.6,
+        "branches_avg": 8.1,
+        "dead_ends_avg": 5.8,
+        "loops_avg": 3.9,
+        "connections_avg": 24.6,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 48.9,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 10
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

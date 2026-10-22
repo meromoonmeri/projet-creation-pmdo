@@ -1,0 +1,545 @@
+{
+  "schema": 1,
+  "ground": "h26p01",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "41b6011cc7c67bb7a1d792db0d598666ef37b2ceae66f9c9f8e7c88c621bc9d4"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "primary_sample_count": 4216,
+    "reload_sample_count": 1,
+    "exact_sample_count": 4217,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/comparisons/comparison_primary_tick7439.png",
+      "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/report.json"
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "strategy": "tick zero and both sides of every frame boundary throughout two complete cycles of every distinct map-cell BPL/BPA dependency set",
+    "validated_local_cycle_count": 2,
+    "source_tick_min": 0,
+    "source_tick_max": 7439,
+    "animation_channels": [
+      {
+        "cycle": 120,
+        "frame_count": 15,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 0,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 24,
+        "frame_count": 8,
+        "frame_durations": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "index": 4,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 124,
+        "frame_count": 31,
+        "frame_durations": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "index": 5,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 124,
+        "frame_count": 31,
+        "frame_durations": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "index": 6,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 124,
+        "frame_count": 31,
+        "frame_durations": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "index": 7,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 124,
+        "frame_count": 31,
+        "frame_durations": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "index": 8,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 32,
+        "frame_count": 4,
+        "frame_durations": [
+          8,
+          8,
+          8,
+          8
+        ],
+        "index": 9,
+        "kind": "BPL_PALETTE"
+      }
+    ],
+    "cell_animation_schedules": [
+      {
+        "channels": [
+          "BPL_PALETTE:0"
+        ],
+        "first_cycle_boundary_sample_count": 30,
+        "maximum_sample_tick": 239,
+        "source_local_cycle": 120,
+        "two_cycle_boundary_sample_count": 60
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:0",
+          "BPL_PALETTE:4"
+        ],
+        "first_cycle_boundary_sample_count": 90,
+        "maximum_sample_tick": 239,
+        "source_local_cycle": 120,
+        "two_cycle_boundary_sample_count": 180
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:0",
+          "BPL_PALETTE:7"
+        ],
+        "first_cycle_boundary_sample_count": 1860,
+        "maximum_sample_tick": 7439,
+        "source_local_cycle": 3720,
+        "two_cycle_boundary_sample_count": 3720
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:0",
+          "BPL_PALETTE:7",
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 1860,
+        "maximum_sample_tick": 7439,
+        "source_local_cycle": 3720,
+        "two_cycle_boundary_sample_count": 3720
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:0",
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 1860,
+        "maximum_sample_tick": 7439,
+        "source_local_cycle": 3720,
+        "two_cycle_boundary_sample_count": 3720
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:0",
+          "BPL_PALETTE:9"
+        ],
+        "first_cycle_boundary_sample_count": 120,
+        "maximum_sample_tick": 959,
+        "source_local_cycle": 480,
+        "two_cycle_boundary_sample_count": 240
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:4"
+        ],
+        "first_cycle_boundary_sample_count": 16,
+        "maximum_sample_tick": 47,
+        "source_local_cycle": 24,
+        "two_cycle_boundary_sample_count": 32
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:4",
+          "BPL_PALETTE:5"
+        ],
+        "first_cycle_boundary_sample_count": 620,
+        "maximum_sample_tick": 1487,
+        "source_local_cycle": 744,
+        "two_cycle_boundary_sample_count": 1240
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:4",
+          "BPL_PALETTE:7"
+        ],
+        "first_cycle_boundary_sample_count": 620,
+        "maximum_sample_tick": 1487,
+        "source_local_cycle": 744,
+        "two_cycle_boundary_sample_count": 1240
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:4",
+          "BPL_PALETTE:7",
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 620,
+        "maximum_sample_tick": 1487,
+        "source_local_cycle": 744,
+        "two_cycle_boundary_sample_count": 1240
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:4",
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 620,
+        "maximum_sample_tick": 1487,
+        "source_local_cycle": 744,
+        "two_cycle_boundary_sample_count": 1240
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:5"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:5",
+          "BPL_PALETTE:6"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:6"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:7"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:7",
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:7",
+          "BPL_PALETTE:8",
+          "BPL_PALETTE:9"
+        ],
+        "first_cycle_boundary_sample_count": 496,
+        "maximum_sample_tick": 1983,
+        "source_local_cycle": 992,
+        "two_cycle_boundary_sample_count": 992
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:8"
+        ],
+        "first_cycle_boundary_sample_count": 62,
+        "maximum_sample_tick": 247,
+        "source_local_cycle": 124,
+        "two_cycle_boundary_sample_count": 124
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:8",
+          "BPL_PALETTE:9"
+        ],
+        "first_cycle_boundary_sample_count": 496,
+        "maximum_sample_tick": 1983,
+        "source_local_cycle": 992,
+        "two_cycle_boundary_sample_count": 992
+      },
+      {
+        "channels": [
+          "BPL_PALETTE:9"
+        ],
+        "first_cycle_boundary_sample_count": 8,
+        "maximum_sample_tick": 63,
+        "source_local_cycle": 32,
+        "two_cycle_boundary_sample_count": 16
+      }
+    ]
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "bma_solid_cells": 2120,
+    "clear_movement_expected_delta": [
+      0,
+      8
+    ],
+    "clear_movement_observed_delta": [
+      0,
+      8
+    ],
+    "blocked_movement_expected_delta": [
+      0,
+      0
+    ],
+    "blocked_movement_observed_delta": [
+      0,
+      0
+    ],
+    "primary_movement_probe": "PASS",
+    "primary_blocked_probe": "PASS",
+    "reload_movement_probe": "PASS",
+    "reload_blocked_probe": "PASS"
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "load_count": 2,
+    "entry_count": 2,
+    "exit_count": 2,
+    "same_ground_reentry_count": 1,
+    "sink_transition": "PASS",
+    "strict_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "all_cleanups_pass": true,
+    "reload_tick0_full_rgba_exact": true,
+    "state_leakage": "NONE_OBSERVED",
+    "orphaned_animation": "NONE_OBSERVED",
+    "stale_assets": "NONE_OBSERVED",
+    "permanent_locks": "NONE_OBSERVED",
+    "terminal_end_seen": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "friend_area",
+      "ground_map_symbol": "MAP_FRIEND_AREA_VOLCANIC_PIT",
+      "map_id": 155,
+      "map_file_id": 163,
+      "stable_ground_id": "h26p01",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ],
+      "name_en": "Volcanic Pit",
+      "name_fr": "Fosse Volcanique"
+    },
+    "project_reuse": {
+      "role": "boss_arena",
+      "arena": true,
+      "boss": true,
+      "boss_identity": "Volcanion",
+      "chapter": 23,
+      "location": "Forge de Vapeur",
+      "cinematic": false,
+      "cinematic_basis": "not designated as cinematic in the project mapping row",
+      "basis": "docs/vague6_friend_areas_boss.md:75"
+    }
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/h26p01.rsground",
+    "tile": "Content/Tile/h26p01_Base.tile",
+    "promotion_status": "PROMOTED_NON_DESTRUCTIVELY",
+    "preexisting_destinations": false,
+    "promoted_ground_sha256": "b73166a0dfb774a4c2cdf62b9fb5d5b3f467565759005a4850072a5e1b721a56",
+    "promoted_tile_sha256": "ec93bd38bef447a8bf2ce38c1b8ed7c9972cba85fa0c428df298d9ddb232df01",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "b73166a0dfb774a4c2cdf62b9fb5d5b3f467565759005a4850072a5e1b721a56",
+    "candidate_tile_sha256": "ec93bd38bef447a8bf2ce38c1b8ed7c9972cba85fa0c428df298d9ddb232df01",
+    "source_normalized_sha256": {
+      "H26P01": "9b24e8eecd87badce0b0187195c88ae93c426087e1081d3ada9b440316df6695",
+      "H26P01c": "b4a030e3063858df623a6e1edff1e6a6ac70a8f3a3a39cbf5e243d452ede3f9c",
+      "H26P01m": "943e44b8ed4e6b914d0f7135fcc95bfe48f6e282c275dad4c2f92f4b9dd8d39a"
+    },
+    "events_sha256": "56a23c2fde85e45034d547cd1dfe1ef737aa186bdd5d79646a6c51f485118d7a",
+    "report_sha256": "b5cb208838e8deb62e1cd070879b07c5b4c57c247254c4830bcf490d7c0f86b6",
+    "fixture_manifest_sha256": "d9cd3cb753c05fe962451acb802e51f8a8870bcf656d1d00ead0ac6175a82f80",
+    "commands": "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/h26p01_exhaustive_pass/provenance.json",
+    "promotion_record_sha256": "d7339d705fc5ce9304f2ab1f97400a9f183f9f4dea6e1b4979e82df5079cf00d"
+  },
+  "scope_note": "This PASS and promotion cover canonical Ground map/tile reconstruction. Canonical event, character, camera, dialogue, music, and VFX reconstruction remains the explicitly subsequent milestone; no claim about those separate systems is made here."
+}

@@ -1,0 +1,2402 @@
+{
+  "schema": "new-era.canonical.pmd-red-dungeon.v1",
+  "game": "PMD_RED",
+  "dungeon_folder": "MeteorCave",
+  "source": {
+    "kind": "PMD_RED_ROM",
+    "proxy": "pret/pmd-red disassembly",
+    "repository": "https://github.com/pret/pmd-red",
+    "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+    "files": {
+      "main_data": {
+        "path": "data/dungeon/MeteorCave/main_data.inc",
+        "sha256": "357e8d1b7c70a1f4cc82cb123ebe847814574f8a1f4f948e1ae9f69e6a7266c6"
+      },
+      "floor_id": {
+        "path": "data/dungeon/MeteorCave/floor_id.json",
+        "sha256": "baa1b96c669074963dd3760e904672e77ac3e776aaab87836256fb075dc32c56"
+      },
+      "pokemon": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "items": {
+        "path": "data/dungeon/dungeon_item_data.json",
+        "sha256": "823e4849bdc7ef6ee16969ea946134bcfae6dbd46ae5e2670f27244efa3cc215"
+      },
+      "traps": {
+        "path": "data/dungeon/trap_data.json",
+        "sha256": "303be7c00395cc562fa3d92fddf048573a84957c32d5051e2e098d77425a71fb"
+      },
+      "dungeons": {
+        "path": "data/dungeon/dungeon_data.json",
+        "sha256": "3fbd20baee5576a4500cf02b839b47291022b53dc297a4a12ed3ad69f6ea8e2f"
+      }
+    }
+  },
+  "floor_count": 20,
+  "procedural_floors": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "fixed_floors": [
+    20
+  ],
+  "floors": [
+    {
+      "floor": 1,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 8,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 5,
+        "floorNumber": 1,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 0,
+        "visibilityRange": 2,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "00081c150028ff0000010001000000040501000f0000020607000000"
+      },
+      "table_ids": {
+        "MainData": 326,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 56,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 2,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 10,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 1,
+        "itemDensity": 4,
+        "trapDensity": 5,
+        "floorNumber": 2,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 0,
+        "visibilityRange": 2,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000a1c150028ff0000010001000001040502000f0000020607000000"
+      },
+      "table_ids": {
+        "MainData": 327,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 56,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 3,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 1,
+        "itemDensity": 4,
+        "trapDensity": 5,
+        "floorNumber": 3,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 10,
+        "visibilityRange": 2,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000001040503000f000a020607000000"
+      },
+      "table_ids": {
+        "MainData": 328,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 56,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 1,
+        "itemDensity": 4,
+        "trapDensity": 5,
+        "floorNumber": 4,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 15,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 10,
+        "visibilityRange": 2,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000001040504000f000a020607000000"
+      },
+      "table_ids": {
+        "MainData": 329,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 58,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 5,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 4,
+        "trapDensity": 5,
+        "floorNumber": 5,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 20,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 20,
+        "visibilityRange": 2,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff000001000100000004050500140014020607000000"
+      },
+      "table_ids": {
+        "MainData": 330,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 58,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 6,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 1,
+        "itemDensity": 4,
+        "trapDensity": 10,
+        "floorNumber": 6,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 20,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 20,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000001040a0600140014010607000000"
+      },
+      "table_ids": {
+        "MainData": 331,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 58,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 7,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 20,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 1,
+        "itemDensity": 4,
+        "trapDensity": 10,
+        "floorNumber": 7,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 20,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 20,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "00141c150028ff0000010001000001040a0700140014010607000000"
+      },
+      "table_ids": {
+        "MainData": 332,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 0,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 8,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 30,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 30,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000000050a08001e001e010607000000"
+      },
+      "table_ids": {
+        "MainData": 333,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 9,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 9,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 30,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 30,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000100050a09001e001e010607000000"
+      },
+      "table_ids": {
+        "MainData": 334,
+        "Pokemon": 161,
+        "Traps": 7,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 10,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 10,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 30,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 30,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000a1c150028ff0000010001000101050a0a001e001e010607000000"
+      },
+      "table_ids": {
+        "MainData": 335,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 11,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 8,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 11,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 30,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 30,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "00081c150028ff0000010001000101050a0b001e001e010607000000"
+      },
+      "table_ids": {
+        "MainData": 336,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 12,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 12,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000100050a0c00280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 337,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 13,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 0,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 13,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000100050a0d00280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 338,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 14,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 14,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000101050a0e00280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 339,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 15,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 15,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000101050a0f00280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 340,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 16,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 16,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000101050a1000280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 341,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 17,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 12,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 17,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000c1c150028ff0000010001000101050a1100280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 342,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 18,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 18,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000101050a1200280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 343,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 19,
+      "classification": "procedural",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 10,
+        "floorNumber": 19,
+        "fixedRoomNumber": 0,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 1,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff0000010001000101050a1300280028010607000000"
+      },
+      "table_ids": {
+        "MainData": 344,
+        "Pokemon": 161,
+        "Traps": 8,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 161,
+      "pokemon_table_index": 0,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 3334
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 3333
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    },
+    {
+      "floor": 20,
+      "classification": "fixed",
+      "floor_properties": {
+        "layout": 0,
+        "roomDensity": 15,
+        "tileset": 28,
+        "bgMusic": 21,
+        "weather": 0,
+        "floorConnectivity": 40,
+        "enemyDensity": 255,
+        "kecleonShopChance": 0,
+        "monsterHouseChance": 0,
+        "mazeRoomChance": 1,
+        "itemStickyChance": 0,
+        "allowDeadEnds": 1,
+        "secondaryStructuresBudget": 0,
+        "roomFlags": 1,
+        "unkE": 1,
+        "itemDensity": 5,
+        "trapDensity": 0,
+        "floorNumber": 20,
+        "fixedRoomNumber": 23,
+        "numExtraHallways": 40,
+        "buriedItemDensity": 0,
+        "standaloneLakeDensity": 40,
+        "visibilityRange": 0,
+        "moneyUpperBound": 6,
+        "kecleonShopLayout": 7,
+        "itemlessMonsterHouseChance": 0,
+        "unk1A": 0,
+        "unk1B": 0,
+        "raw_hex": "000f1c150028ff000001000100010105001417280028000607000000"
+      },
+      "table_ids": {
+        "MainData": 345,
+        "Pokemon": 162,
+        "Traps": 9,
+        "Items": 59,
+        "KecleonShop": 1,
+        "MonsterRoomItems": 46,
+        "BuriedItems": 57
+      },
+      "pokemon_absolute_id": 162,
+      "pokemon_table_index": 1,
+      "pokemon_source": {
+        "path": "data/dungeon/MeteorCave/pokemon_found.json",
+        "sha256": "7479ca333b29708bcc290b8153b364432a7993a1952ec5115dfad6ea1ff2f23c"
+      },
+      "pokemon": [
+        {
+          "species": "MONSTER_KECLEON",
+          "level": 90,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_NORMAL",
+          "level": 35,
+          "probability": 10000
+        },
+        {
+          "species": "MONSTER_DEOXYS_ATTACK",
+          "level": 35,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_DEFENSE",
+          "level": 35,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DEOXYS_SPEED",
+          "level": 35,
+          "probability": 0
+        },
+        {
+          "species": "MONSTER_DECOY",
+          "level": 1,
+          "probability": 0
+        }
+      ]
+    }
+  ],
+  "tables": {
+    "items": {
+      "56": {
+        "name": "items_found_out56",
+        "description": "Meteor Cave B1F-B3F",
+        "categories": [
+          {
+            "category": "CATEGORY_POKE",
+            "categoryProbability": 10000,
+            "items": [
+              {
+                "item": "ITEM_POKE",
+                "itemProbability": 10000
+              }
+            ]
+          }
+        ]
+      },
+      "58": {
+        "name": "items_found_out58",
+        "description": "Meteor Cave B4F-B6F",
+        "categories": [
+          {
+            "category": "CATEGORY_POKE",
+            "categoryProbability": 10000,
+            "items": [
+              {
+                "item": "ITEM_POKE",
+                "itemProbability": 10000
+              }
+            ]
+          }
+        ]
+      },
+      "59": {
+        "name": "items_found_out59",
+        "description": "Meteor Cave B7F-B20F",
+        "categories": [
+          {
+            "category": "CATEGORY_POKE",
+            "categoryProbability": 10000,
+            "items": [
+              {
+                "item": "ITEM_POKE",
+                "itemProbability": 10000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "shops": {
+      "1": {
+        "name": "items_found_out1",
+        "description": "Kecleon Shop Set A",
+        "categories": [
+          {
+            "category": "CATEGORY_BERRIES_SEEDS_VITAMINS",
+            "categoryProbability": 3000,
+            "items": [
+              {
+                "item": "ITEM_ORAN_BERRY",
+                "itemProbability": 1053
+              },
+              {
+                "item": "ITEM_REVIVER_SEED",
+                "itemProbability": 2631
+              },
+              {
+                "item": "ITEM_RAWST_BERRY",
+                "itemProbability": 1053
+              },
+              {
+                "item": "ITEM_PECHA_BERRY",
+                "itemProbability": 1052
+              },
+              {
+                "item": "ITEM_CHERI_BERRY",
+                "itemProbability": 1053
+              },
+              {
+                "item": "ITEM_BLAST_SEED",
+                "itemProbability": 1053
+              },
+              {
+                "item": "ITEM_MAX_ELIXIR",
+                "itemProbability": 2105
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_FOOD_GUMMIES",
+            "categoryProbability": 4000,
+            "items": [
+              {
+                "item": "ITEM_APPLE",
+                "itemProbability": 8000
+              },
+              {
+                "item": "ITEM_BIG_APPLE",
+                "itemProbability": 2000
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_ORBS",
+            "categoryProbability": 3000,
+            "items": [
+              {
+                "item": "ITEM_BLOWBACK_ORB",
+                "itemProbability": 2000
+              },
+              {
+                "item": "ITEM_WARP_ORB",
+                "itemProbability": 1000
+              },
+              {
+                "item": "ITEM_LUMINOUS_ORB",
+                "itemProbability": 1000
+              },
+              {
+                "item": "ITEM_PETRIFY_ORB",
+                "itemProbability": 2000
+              },
+              {
+                "item": "ITEM_SCANNER_ORB",
+                "itemProbability": 1000
+              },
+              {
+                "item": "ITEM_RADAR_ORB",
+                "itemProbability": 1000
+              },
+              {
+                "item": "ITEM_HURL_ORB",
+                "itemProbability": 2000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "monster_house_items": {
+      "46": {
+        "name": "items_found_out46",
+        "description": "Monster House Set B",
+        "categories": [
+          {
+            "category": "CATEGORY_TMS_HMS",
+            "categoryProbability": 2500,
+            "items": [
+              {
+                "item": "ITEM_TM_FOCUS_PUNCH",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_CALM_MIND",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_ROAR",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_TOXIC",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_BULLET_SEED",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_HIDDEN_POWER",
+                "itemProbability": 634
+              },
+              {
+                "item": "ITEM_TM_TAUNT",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_ICE_BEAM",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_LIGHT_SCREEN",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_GIGA_DRAIN",
+                "itemProbability": 80
+              },
+              {
+                "item": "ITEM_TM_SAFEGUARD",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_FRUSTRATION",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_SOLARBEAM",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_THUNDERBOLT",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_EARTHQUAKE",
+                "itemProbability": 80
+              },
+              {
+                "item": "ITEM_TM_RETURN",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_DIG",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_PSYCHIC",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_SHADOW_BALL",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_BRICK_BREAK",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_REFLECT",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_SHOCK_WAVE",
+                "itemProbability": 318
+              },
+              {
+                "item": "ITEM_TM_FLAMETHROWER",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_FIRE_BLAST",
+                "itemProbability": 80
+              },
+              {
+                "item": "ITEM_TM_AERIAL_ACE",
+                "itemProbability": 79
+              },
+              {
+                "item": "ITEM_TM_TORMENT",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_FACADE",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_SECRET_POWER",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_REST",
+                "itemProbability": 317
+              },
+              {
+                "item": "ITEM_TM_ATTRACT",
+                "itemProbability": 635
+              },
+              {
+                "item": "ITEM_TM_THIEF",
+                "itemProbability": 635
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_POKE",
+            "categoryProbability": 6250,
+            "items": [
+              {
+                "item": "ITEM_POKE",
+                "itemProbability": 10000
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_ORBS",
+            "categoryProbability": 1250,
+            "items": [
+              {
+                "item": "ITEM_EVASION_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_REBOUND_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_SWITCHER_ORB",
+                "itemProbability": 883
+              },
+              {
+                "item": "ITEM_BLOWBACK_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_WARP_ORB",
+                "itemProbability": 882
+              },
+              {
+                "item": "ITEM_PETRIFY_ORB",
+                "itemProbability": 589
+              },
+              {
+                "item": "ITEM_POUNCE_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_TRAWL_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_CLEANSE_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_ESCAPE_ORB",
+                "itemProbability": 1765
+              },
+              {
+                "item": "ITEM_SCANNER_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_RADAR_ORB",
+                "itemProbability": 589
+              },
+              {
+                "item": "ITEM_ROLLCALL_ORB",
+                "itemProbability": 588
+              },
+              {
+                "item": "ITEM_HURL_ORB",
+                "itemProbability": 588
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "buried_items": {
+      "57": {
+        "name": "items_found_out57",
+        "description": "Buried Items Set B",
+        "categories": [
+          {
+            "category": "CATEGORY_THROWN_LINE",
+            "categoryProbability": 769,
+            "items": [
+              {
+                "item": "ITEM_STICK",
+                "itemProbability": 5814
+              },
+              {
+                "item": "ITEM_IRON_THORN",
+                "itemProbability": 3488
+              },
+              {
+                "item": "ITEM_SILVER_SPIKE",
+                "itemProbability": 698
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_THROWN_ARC",
+            "categoryProbability": 769,
+            "items": [
+              {
+                "item": "ITEM_GRAVELEROCK",
+                "itemProbability": 7000
+              },
+              {
+                "item": "ITEM_GEO_PEBBLE",
+                "itemProbability": 3000
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_BERRIES_SEEDS_VITAMINS",
+            "categoryProbability": 4616,
+            "items": [
+              {
+                "item": "ITEM_SITRUS_BERRY",
+                "itemProbability": 1389
+              },
+              {
+                "item": "ITEM_LIFE_SEED",
+                "itemProbability": 1389
+              },
+              {
+                "item": "ITEM_GINSENG",
+                "itemProbability": 1389
+              },
+              {
+                "item": "ITEM_JOY_SEED",
+                "itemProbability": 1389
+              },
+              {
+                "item": "ITEM_PROTEIN",
+                "itemProbability": 1388
+              },
+              {
+                "item": "ITEM_CALCIUM",
+                "itemProbability": 1389
+              },
+              {
+                "item": "ITEM_IRON",
+                "itemProbability": 834
+              },
+              {
+                "item": "ITEM_ZINC",
+                "itemProbability": 833
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_FOOD_GUMMIES",
+            "categoryProbability": 769,
+            "items": [
+              {
+                "item": "ITEM_HUGE_APPLE",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_WHITE_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_RED_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_BLUE_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_GRASS_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_YELLOW_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_CLEAR_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_ORANGE_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_PINK_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_BROWN_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_SKY_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_GOLD_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_GREEN_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_GRAY_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_PURPLE_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_ROYAL_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_BLACK_GUMMI",
+                "itemProbability": 526
+              },
+              {
+                "item": "ITEM_SILVER_GUMMI",
+                "itemProbability": 527
+              },
+              {
+                "item": "ITEM_BANANA",
+                "itemProbability": 526
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_HELD_ITEMS",
+            "categoryProbability": 769,
+            "items": [
+              {
+                "item": "ITEM_GOLD_RIBBON",
+                "itemProbability": 10000
+              }
+            ]
+          },
+          {
+            "category": "CATEGORY_ORBS",
+            "categoryProbability": 2308,
+            "items": [
+              {
+                "item": "ITEM_HAIL_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SUNNY_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_RAINY_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_EVASION_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SANDY_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_ROCKY_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SNATCH_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SEE_TRAP_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_MUG_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_REBOUND_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_LOB_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SWITCHER_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_WARP_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_TRANSFER_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_SLOW_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_QUICK_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_LUMINOUS_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_PETRIFY_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_STAYAWAY_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_POUNCE_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_TRAWL_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_CLEANSE_ORB",
+                "itemProbability": 371
+              },
+              {
+                "item": "ITEM_DECOY_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_SLUMBER_ORB",
+                "itemProbability": 371
+              },
+              {
+                "item": "ITEM_TOTTER_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_TWO_EDGE_ORB",
+                "itemProbability": 370
+              },
+              {
+                "item": "ITEM_SILENCE_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_ESCAPE_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_SCANNER_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_RADAR_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_DROUGHT_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_TRAPBUST_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_INVISIFY_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_ONE_SHOT_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_IDENTIFY_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SHOCKER_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_SIZEBUST_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_ONE_ROOM_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_FILL_IN_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_TRAPPER_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_ITEMIZER_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_HURL_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_MOBILE_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_STAIRS_ORB",
+                "itemProbability": 186
+              },
+              {
+                "item": "ITEM_LONGTOSS_ORB",
+                "itemProbability": 185
+              },
+              {
+                "item": "ITEM_PIERCE_ORB",
+                "itemProbability": 185
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "traps": {
+      "7": {
+        "name": "trap_found_out7",
+        "traps": {
+          "Trip Trap": 0,
+          "Mud Trap": 2419,
+          "Sticky Trap": 807,
+          "Grimy Trap": 806,
+          "Summon Trap": 0,
+          "Pitfall Trap": 0,
+          "Warp Trap": 807,
+          "Gust Trap": 403,
+          "Spin Trap": 726,
+          "Slumber Trap": 403,
+          "Slow Trap": 403,
+          "Seal Trap": 807,
+          "Poison Trap": 0,
+          "Selfdestruct Trap": 242,
+          "Explosion Trap": 564,
+          "PP-Zero Trap": 807,
+          "Chestnut Trap": 0,
+          "Wonder Tile": 0,
+          "Pokemon Trap": 806,
+          "Spiked Tile": 0
+        }
+      },
+      "8": {
+        "name": "trap_found_out8",
+        "traps": {
+          "Trip Trap": 0,
+          "Mud Trap": 2158,
+          "Sticky Trap": 1439,
+          "Grimy Trap": 720,
+          "Summon Trap": 0,
+          "Pitfall Trap": 359,
+          "Warp Trap": 720,
+          "Gust Trap": 359,
+          "Spin Trap": 648,
+          "Slumber Trap": 360,
+          "Slow Trap": 359,
+          "Seal Trap": 720,
+          "Poison Trap": 0,
+          "Selfdestruct Trap": 216,
+          "Explosion Trap": 503,
+          "PP-Zero Trap": 720,
+          "Chestnut Trap": 0,
+          "Wonder Tile": 0,
+          "Pokemon Trap": 719,
+          "Spiked Tile": 0
+        }
+      },
+      "9": {
+        "name": "trap_found_out9",
+        "traps": {
+          "Trip Trap": 0,
+          "Mud Trap": 2239,
+          "Sticky Trap": 1492,
+          "Grimy Trap": 747,
+          "Summon Trap": 0,
+          "Pitfall Trap": 0,
+          "Warp Trap": 746,
+          "Gust Trap": 373,
+          "Spin Trap": 672,
+          "Slumber Trap": 373,
+          "Slow Trap": 373,
+          "Seal Trap": 746,
+          "Poison Trap": 0,
+          "Selfdestruct Trap": 224,
+          "Explosion Trap": 522,
+          "PP-Zero Trap": 747,
+          "Chestnut Trap": 0,
+          "Wonder Tile": 0,
+          "Pokemon Trap": 746,
+          "Spiked Tile": 0
+        }
+      }
+    }
+  },
+  "notes": [
+    "Raw probabilities and IDs are preserved; no PMDO mapping or level rescaling is applied here.",
+    "A non-zero table ID does not imply the feature spawns: per-floor chance bytes remain authoritative."
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "ground": "t01p02b",
+  "validated_at": "2026-08-12",
+  "result": "PASS",
+  "authorities": {
+    "rom": {
+      "region": "Europe (En,Fr,De,Es,It)",
+      "path": ".runtime-cache/downloads/pmdred-eu.gba",
+      "bytes": 33554432,
+      "sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd"
+    },
+    "technical_reference": {
+      "repository": "pret/pmd-red",
+      "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+      "role": "technical structure and MAP_PELIPPER_POST_OFFICE enum identity; not a substitute for EU bytes"
+    },
+    "normalized_extraction": {
+      "path": ".runtime-cache/pmdred-eu-ground",
+      "audit": ".runtime-cache/pmdred-eu-extraction-audit.json",
+      "source_hashes": {
+        "T01P021": "745e74cbf7d9ea20622bd185c84c0157ee504d325452e667dbe919f586e69d7f",
+        "T01P02B": "dd3de8c76cd970be80164c2878b018bdbac0e3a1d4c26762d61513336424b509",
+        "T01P02Bm": "69482a8303d21170e9d06e1343a9468b291959576f4e82f8d0892960ceb2c40d",
+        "T01P02c": "cf988623bdc66b5a8aa94981701ac08f40be3d9565682aa6e2e3438682f79b89"
+      }
+    },
+    "reference_renderer": {
+      "mode": "independent_raw_eu_resources",
+      "independence": "raw BPL/BPC/BPA/BMA parser and renderer; no converter/auditor/candidate parser imports"
+    },
+    "runtime_plan": {
+      "path": ".runtime-cache/pmdred-eu-reference-plan-v2.json",
+      "schema": 2,
+      "sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0"
+    },
+    "conversion": {
+      "converter": "2.0.1-eu",
+      "report": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/conversion_report.json",
+      "report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc"
+    }
+  },
+  "identity": {
+    "canonical_debug_id": 3,
+    "map_id": 4,
+    "map_file_id": 4,
+    "ground_place_id": 3,
+    "conversion_type": 1,
+    "weather_id": 9,
+    "stable_ground_id": "t01p02b",
+    "ground_map_symbol": "MAP_PELIPPER_POST_OFFICE",
+    "dimensions_tiles": [
+      57,
+      78
+    ],
+    "dimensions_pixels": [
+      456,
+      624
+    ],
+    "classification": "standard_overworld_service_exterior",
+    "cinematic": false,
+    "arena": false,
+    "boss": false
+  },
+  "identity_erratum": {
+    "stale_symbol": "MAP_FILE_ID_WHISCASH_POND_OPEN",
+    "stale_sources": [
+      "RESERVE/red_grounds/t01p02b.rsground comment",
+      "docs/AUDIT_ANIMATIONS_PMD_RED_2026-08-07.md"
+    ],
+    "authenticated_correction": "map/file ID 4 = MAP_PELIPPER_POST_OFFICE; map/file ID 3 = MAP_WHISCASH_POND_OPEN = t01p02a",
+    "decision": "Retain historical bytes but reject stale label for canonical identity and promotion documentation."
+  },
+  "tested_source": {
+    "ground": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/t01p02b.rsground",
+    "ground_sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f",
+    "tile": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/t01p02b_Base.tile",
+    "tile_sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243",
+    "candidate_entities": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_copy_changes": [
+      "injected deterministic Main_Entrance_Marker",
+      "added ignored fixture-validation comment and scripts"
+    ],
+    "fixture_manifest": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/fixture_manifest.json",
+    "fixture_manifest_sha256": "b2deb311068b14a2c79c70130c3635214666f737e74b283b8fe8dcb5647c8afa"
+  },
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb",
+    "events": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/events.jsonl",
+    "events_sha256": "b136d5387df13a91371bdaeed0c0f2ea338c18a732a2407867ae9d403dae3923",
+    "event_count": 2473,
+    "primary_samples": 816,
+    "reload_samples": 1,
+    "runtime_seconds_to_terminal": 148,
+    "bounded_timeout_seconds": 7200,
+    "wrapper_exit": 0,
+    "post_terminal_shell_signal_note": "segmentation fault reported only while unwinding after complete terminal evidence; no evidence impact"
+  },
+  "comparison": {
+    "report": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/report.json",
+    "report_sha256": "711f9c89f40f8a84c67db1541d8e4c466345e9ac271766ba5a48f1d3c977500c",
+    "sample_count": 817,
+    "exact_sample_count": 817,
+    "fully_opaque_sample_count": 817,
+    "mismatched_pixels": 0,
+    "maximum_channel_delta": 0,
+    "unique_primary_rgba_frames": 336
+  },
+  "routing_analysis": {
+    "pre_promotion_lowercase_ground": false,
+    "pre_promotion_lowercase_tile": false,
+    "pre_promotion_zone_entry": false,
+    "active_project_post_office_present": true,
+    "active_project_route_present": true,
+    "lowercase_ground_init_defined": false,
+    "decision": "Promote exact bare canonical source additively and register it, but do not migrate the unproven historical marker, alias it to post_office, or alter existing Post Office gameplay/routing."
+  },
+  "preservation": {
+    "historical_red_ground": {
+      "path": "RESERVE/red_grounds/t01p02b.rsground",
+      "sha256": "896f4bc4d1a5c821275a9cf611494e263002185ecdd8808810227fa79822383f"
+    },
+    "historical_red_tile": {
+      "path": "RESERVE/red_tiles/t01p02b_Base.tile",
+      "sha256": "ed0ff744feb5ddba0f7d38e54b6a63352f84825e5cd96caaaa1c649ca49fdc11"
+    },
+    "project_ground": {
+      "path": "Data/Ground/post_office.rsground",
+      "sha256": "66aefb5ebefa768a8bd903121ed301158f59c0ee65bd031936c1368165537ff4"
+    },
+    "project_tile": {
+      "path": "Content/Tile/PostOffice.tile",
+      "sha256": "11a0ac7c85a210d33add380f65c1e2e9fdcde6c60f6d0f7723f43388dafa9814"
+    },
+    "project_script": {
+      "path": "Data/Script/halcyon/ground/post_office/init.lua",
+      "sha256": "62df8281632f40e5ef11841d706dedc8858789cf71e75fd10eec45aa80c3637a"
+    },
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p02b/README.md"
+  },
+  "promoted": {
+    "ground": {
+      "path": "Data/Ground/t01p02b.rsground",
+      "sha256": "48690134d1035735fe8b7dc4341deb41382cfeefdda9fed81ccdc67f036f352f"
+    },
+    "tile": {
+      "path": "Content/Tile/t01p02b_Base.tile",
+      "sha256": "b3d6c11fd882d957b18dac7f34fe9ae79b25b9f8395a03827015aee269f33243"
+    },
+    "zone": {
+      "path": "Data/Zone/master_zone.json",
+      "pre_sha256": "e699a00529d631701e7e964ea291cb24420fb32c51b0574d941c1c581230afe1",
+      "post_sha256": "e1c4e4c1647e1ecea7841588b23913af038898bf51554216585b590241007e6a"
+    }
+  },
+  "durable_evidence": {
+    "README.md": "0839bbc022f23a5ea456aba12fee53deb20de03c2dad902b32048c663206508d",
+    "commands.sh": "f6d9db5f7b6f7490212c9819605503e3d258c88c4dddd348af37a049cca6a895",
+    "comparison.log": "7537b168b658b54a7410734b387f0cdb73cab1d4435daaf59987b54e477534a1",
+    "engine.log": "692f9fc8ebed128e2dfa7504a9455470cb82e0a5c44a58d1bdf00e1bf1d47e8d",
+    "events.jsonl": "b136d5387df13a91371bdaeed0c0f2ea338c18a732a2407867ae9d403dae3923",
+    "fixture_manifest.json": "b2deb311068b14a2c79c70130c3635214666f737e74b283b8fe8dcb5647c8afa",
+    "index.log": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "post_promotion_index.log": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "report.json": "711f9c89f40f8a84c67db1541d8e4c466345e9ac271766ba5a48f1d3c977500c",
+    "runtime.log": "ce231924415b02c120c4e8ba31658c92cdb028425f921480a0d5d138de5a3e4f"
+  },
+  "reproduction": {
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/commands.sh",
+    "note": "Screenshot filenames and report absolute paths are timestamp-dependent; pixel results, tested source hashes, tick coverage, event semantics, and authenticated identity are deterministic."
+  },
+  "scope": "Ground map/tile, visuals, animation, collision, identity, repeated lifecycle, cleanup, and additive registration only. Later narrative/cinematic systems are not claimed.",
+  "post_promotion_integration": {
+    "exact_pmdo_index": "PASS",
+    "method": "Built an isolated fixture from copies read back from promoted destinations, then bounded PMDO 0.8.12 -index zone.",
+    "log": "docs/pmdred_eu/pmdo_validation/t01p02b_exhaustive_pass/post_promotion_index.log",
+    "log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_registry_static_validation": "PASS",
+    "zone_encoding_bom_preserved": true,
+    "project_post_office_coexistence": "PASS"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "schema": "new-era.pmdred-eu-definitive-integration-contract.v1",
+  "decided_at": "2026-08-12",
+  "status": "AUTHORITATIVE",
+  "supersedes": {
+    "parallel_pmd_red_campaign": "REJECTED",
+    "independent_personality_quiz": "FORBIDDEN",
+    "dialogue_only_or_simplified_port": "FORBIDDEN"
+  },
+  "authority_split": {
+    "PMD_RED_EU_CANON": [
+      "dialogue_fr",
+      "event_order",
+      "branches",
+      "actors_and_roles",
+      "positions",
+      "orientations",
+      "movement_paths",
+      "warps",
+      "animations",
+      "poses",
+      "expressions",
+      "timings",
+      "waits_and_cues",
+      "choreography",
+      "camera",
+      "palettes",
+      "fades",
+      "vfx",
+      "bgm",
+      "sfx",
+      "transitions",
+      "dungeon_cinematics",
+      "encounter_and_boss_staging"
+    ],
+    "NEW_ERA_ADAPTATION": [
+      "story_context",
+      "metano_town_start",
+      "continuity",
+      "starter_catalogue",
+      "pmdo_systems",
+      "save_state",
+      "zone_and_progression_integration",
+      "explicitly_approved_casting_changes"
+    ],
+    "NEW_ERA_NATIVE": [
+      "protected_chapters_1_to_5",
+      "protected_historical_routes",
+      "existing_unrelated_story_content"
+    ]
+  },
+  "personality_quiz": {
+    "integration_mode": "EXTEND_EXISTING_NEW_ERA_PERSONALITY_TEST",
+    "second_quiz_allowed": false,
+    "existing_ground": "Data/Ground/personality_test.rsground",
+    "ground_mutation_allowed": false,
+    "canonical_requirements": [
+      "eu_intro_dialogue",
+      "red_question_order",
+      "answers_and_branching",
+      "personality_weights_and_result",
+      "gender_prompt",
+      "result_reveal",
+      "timings",
+      "bgm_and_sfx",
+      "palette_opcodes_0x22_0x23",
+      "fades_and_transitions"
+    ],
+    "new_era_requirements": {
+      "starter_catalogue": "ALL_CURRENT_NEW_ERA_STARTERS",
+      "canonical_result_effect": "RECOMMEND_OR_HIGHLIGHT_WITHOUT_RESTRICTING_CATALOGUE",
+      "visual_assets": "NEW_ERA_SPRITES_PORTRAITS_ANIMATIONS_AND_FORMS",
+      "partner_creation": "REUSE_AND_ADAPT_EXISTING_NEW_ERA_SYSTEM"
+    },
+    "parallax": {
+      "type": "RogueEssence.Dungeon.LayeredBG",
+      "layers": [
+        {
+          "asset": "Content/BG/Dream_Back.dir",
+          "alpha": 255,
+          "movement_x": 30,
+          "repeat_x": true
+        },
+        {
+          "asset": "Content/BG/Dream_Front.dir",
+          "alpha": 128,
+          "movement_x": -30,
+          "repeat_x": true
+        }
+      ],
+      "opposed_motion_required": true
+    },
+    "startup_non_regression": {
+      "normal_new_game_flow": "TITLE_TO_NATIVE_CHARACTER_SELECT_TO_RELIC_FOREST_CHAPTER_1",
+      "pmdred_quiz_at_new_game": false,
+      "pmdred_harness_at_new_game": false,
+      "activation_gate": "POST_STARTUP_NEW_ERA_NARRATIVE_GATE_TO_BE_DEFINED_AND_VALIDATED",
+      "current_activation": "DORMANT"
+    }
+  },
+  "fugitive_arc": {
+    "integration_mode": "NEW_ERA_MAIN_CONTINUITY",
+    "parallel_campaign_allowed": false,
+    "start_location": "METANO_TOWN_SQUARE",
+    "canonical_staging_is_authority": true,
+    "technical_namespace_is_not_a_separate_campaign": true,
+    "protected_existing_routes": 27,
+    "silent_overwrite_allowed": false,
+    "preconnection_targeted_checks": [
+      "current_chapter_and_progression_gate",
+      "metano_characters_and_events",
+      "active_quests_and_routes",
+      "player_state_and_party",
+      "save_flags",
+      "zones_and_destinations",
+      "protected_story_integrations"
+    ]
+  },
+  "dungeons": {
+    "canonical_gameplay_and_staging_required": true,
+    "immutable_archive_backed_grounds": 219,
+    "separate_dungeon_backed_relationships": 27,
+    "required_sequence_components": [
+      "entry",
+      "canonical_layout_and_gameplay",
+      "relay_and_checkpoint",
+      "in_dungeon_events",
+      "pre_encounter_scene",
+      "encounter_or_boss_staging",
+      "battle",
+      "victory_defeat_retry_retreat",
+      "exit_and_narrative_return"
+    ],
+    "dungeon_cutscene_modules": 26,
+    "role_fidelity_examples": [
+      "NINETALES",
+      "ABSOL"
+    ],
+    "static_boss_appearance_is_sufficient": false
+  },
+  "provenance_labels": [
+    "PMD_RED_EU_CANON",
+    "NEW_ERA_ADAPTATION",
+    "NEW_ERA_NATIVE"
+  ],
+  "immutable_baseline": {
+    "archive_backed_ground_count": 219,
+    "ground_and_tile_file_count": 438,
+    "chapter_1_to_5_file_count": 99,
+    "protected_fugitive_route_count": 27,
+    "ground_regeneration_allowed": false
+  },
+  "acceptance": {
+    "launch_without_error_is_pass": false,
+    "simplified_scene_is_pass": false,
+    "real_pmdo_validation_required": true,
+    "domains_must_pass_together": [
+      "logic",
+      "dialogue",
+      "actors",
+      "positions",
+      "orientations",
+      "movement",
+      "animations",
+      "timing_and_sync",
+      "camera",
+      "palette_and_vfx",
+      "audio",
+      "transitions",
+      "final_state",
+      "new_era_non_regression"
+    ]
+  },
+  "revised_order": [
+    "integrated_personality_quiz_and_s01",
+    "canonical_result_to_full_new_era_starter_catalogue",
+    "global_hero_partner_presentation",
+    "targeted_metano_town_square_entry_gate",
+    "full_fugitive_arc_with_dungeons",
+    "dungeon_cutscenes_and_canonical_encounters",
+    "progressive_new_era_story_connection"
+  ]
+}

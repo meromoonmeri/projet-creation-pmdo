@@ -1,0 +1,151 @@
+{
+  "schema": "new-era.pmdred-eu.sinister-woods-b41-material-candidate-runtime.v1",
+  "status": "STAGED_VALIDATED_RUNTIME_TESTED",
+  "authority": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "dungeon_id": 3,
+    "procedural_tileset": 41,
+    "source_resources": [
+      "b41fon",
+      "b41cel",
+      "b41cex",
+      "b41pal",
+      "b41canm"
+    ],
+    "candidate_tool_version": "2.0.0-b41-staging"
+  },
+  "candidate": {
+    "manifest_path": ".runtime-cache/sinister-woods-b41-candidate/manifest.json",
+    "manifest_sha256": "1daa37e3ef80d12732bc1df267611549519bad17fa077e3865b50385e308a8b4",
+    "validation_path": ".runtime-cache/sinister-woods-b41-candidate/validation.json",
+    "validation_sha256": "cd7d6f7816b2ca6c7b8559e3675bd36701671ca422547822db274ca65900cc7e",
+    "atlas_path": ".runtime-cache/sinister-woods-b41-candidate/Content/Tile/TreeshroudForest1.tile",
+    "atlas_sha256": "bf4d8287c08d4202f3e5b4eae156acb90ccadba6e3028a44d8c3a4155ee85086",
+    "atlas_tile_count": 64250,
+    "autotiles": {
+      "floor": {
+        "path": ".runtime-cache/sinister-woods-b41-candidate/Data/AutoTile/treeshroud_forest_1_floor.json",
+        "sha256": "a04cb7fb1f15fc53fa6f6633f4e43e0bf15ae6d95ba891aae5e9f2dbbf6bf4fa",
+        "supported_neighbor_code_count": 47,
+        "variant_count": 3,
+        "animated_neighbor_code_count": 0,
+        "independent_canm_overlay_layers": true
+      },
+      "wall": {
+        "path": ".runtime-cache/sinister-woods-b41-candidate/Data/AutoTile/treeshroud_forest_1_wall.json",
+        "sha256": "1ff86c687e78e1943d992ce320596ff6dde550a518bfee52c2284eeb6af9e3f5",
+        "supported_neighbor_code_count": 47,
+        "variant_count": 3,
+        "animated_neighbor_code_count": 0,
+        "independent_canm_overlay_layers": true
+      },
+      "secondary": {
+        "path": ".runtime-cache/sinister-woods-b41-candidate/Data/AutoTile/treeshroud_forest_1_secondary.json",
+        "sha256": "adae44f7fee385fe1e121cea07d522759edfc70f9df78a45714b134ead32e319",
+        "supported_neighbor_code_count": 47,
+        "variant_count": 3,
+        "animated_neighbor_code_count": 47,
+        "independent_canm_overlay_layers": true
+      }
+    },
+    "independent_validation": {
+      "result": "PASS_WITH_STARTUP_PHASE_GATE",
+      "blockers": [
+        "ONE_SHOT_GBA_STARTUP_PALETTE_HOLD_NOT_REPRESENTABLE_BY_CYCLIC_PMDO_TILELAYER"
+      ],
+      "layer_checks": 2001,
+      "pixel_checks": 32016,
+      "canm_independent_durations": {
+        "0": 12,
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 12,
+        "5": 12,
+        "6": 12,
+        "7": 12,
+        "8": 12,
+        "9": 12,
+        "10": 12,
+        "11": 12,
+        "12": 12,
+        "13": 8,
+        "14": 8,
+        "15": 8
+      }
+    }
+  },
+  "runtime": {
+    "fixture": ".runtime-cache/sinister-woods-procedural-fixture",
+    "candidate_overlaid": true,
+    "candidate_fixture_manifest_sha256": "94fe7ce5fedb6c1754bc749e64c604526142880992380b29f3b23cfe0d407e13",
+    "index_log_sha256": "ba292fb1338fd8c41e24943f5ed66065d47e9ef26f45a38e5efa7be95a7f5fbb",
+    "runtime_log_sha256": "e9176fa351810a06bdaf8fb72b86f3fbaf62e3c8e636bf519cc0841fa2ddc7e3",
+    "events_sha256": "5335cd1e5bfdad89997e2bc3336bedae6b7f4179e03467b0afa351c156210957",
+    "termination_sha256": "ff82f0379bf51a95327fe90100d31f7f3d17b3c1e5994a894ef402aa0c61db8c",
+    "segments": [
+      {
+        "event": "map",
+        "segment": 0,
+        "width": 38,
+        "height": 51,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 1,
+        "width": 51,
+        "height": 38,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": false,
+        "darkness": false,
+        "dusk": false,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      },
+      {
+        "event": "map",
+        "segment": 3,
+        "width": 38,
+        "height": 64,
+        "music": "Sinister Woods.ogg",
+        "deep_shadow_setter": true,
+        "darkness": false,
+        "dusk": true,
+        "free_collision_probe": true,
+        "blocked_collision_probe": true
+      }
+    ],
+    "termination": {
+      "result": "PASS",
+      "kind": "NORMAL_EXIT",
+      "returncode": 0,
+      "terminal_seen": true,
+      "graceful_exit_observed": true,
+      "watchdog": false,
+      "residual_before": [],
+      "residual_after": []
+    },
+    "forbidden_diagnostics": []
+  },
+  "production_route": {
+    "production_route_written": false,
+    "promotion": "FORBIDDEN",
+    "resources_to_replace_only": [
+      "TreeshroudForest1.tile",
+      "Data/AutoTile/treeshroud_forest_1_floor.json",
+      "Data/AutoTile/treeshroud_forest_1_wall.json",
+      "Data/AutoTile/treeshroud_forest_1_secondary.json"
+    ],
+    "relic_forest_blobs_modified": false,
+    "d04p01_d04p02_modified": false,
+    "reason": "Exact one-shot GBA raw CANM startup hold is not representable by a cyclic PMDO TileLayer without a separate runtime adapter; candidate remains staging-only."
+  },
+  "verdict": "BLOCKED_WITH_EXACT_MISSING_COMPONENT",
+  "exact_missing_component": "ONE_SHOT_GBA_STARTUP_PALETTE_HOLD_NOT_REPRESENTABLE_BY_CYCLIC_PMDO_TILELAYER"
+}

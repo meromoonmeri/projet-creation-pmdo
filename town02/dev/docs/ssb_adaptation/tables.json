@@ -1,0 +1,83 @@
+{
+ "schema": "newera.adaptation.tables.v1",
+ "bgm": {
+  "InTheFuture": "In the Future.ogg",
+  "PlanetsParalysis": "In the Future.ogg",
+  "OhNo": "Growing Anxiety.ogg",
+  "TimeGearRemix": "Time Gear Remix.ogg",
+  "TimeGear": "Time Gear Remix.ogg",
+  "MemoriesReturned": "Time Restored.ogg",
+  "OnTheCeiling": "Growing Anxiety.ogg",
+  "InTheHandsOfFate": "Sympathy.ogg",
+  "HiddenHighland": "Hidden Highland.ogg",
+  "AnotherStaticNoise": "Rising Fear.ogg",
+  "InTheDepthsOfThePit": "In the Depths of the Pit.ogg",
+  "WelcomeToTheWorldOfPokemon": "Welcome to the World of Pokémon!.ogg",
+  "ThePowerOfDarkness": "The Power of Darkness.ogg",
+  "StrongBlastNoise": "Rising Fear.ogg"
+ },
+ "grounds": {
+  "P05P01A": "p05p01a",
+  "P05P02A": "p05p02a",
+  "P05P02A2": "p05p02a",
+  "P05P03A": "p05p03a",
+  "P05P04A": "p05p04a",
+  "P06P01A": "p06p01a",
+  "P07P01A": "p07p01a",
+  "P08P01A": "p08p01a",
+  "P09P01A": "p09p01a",
+  "S04P01A": "s04p01a",
+  "V09P04A": "v09p04a",
+  "V10P03C": "v10p03c",
+  "V12P01A": "v12p01a",
+  "V13P01A": "v13p01a",
+  "V14P01A": "v14p01a",
+  "V14P03A": "v14p03a",
+  "V14P04A": "v14p04a"
+ },
+ "faces": {
+  "NORMAL": "Normal",
+  "HAPPY": "Happy",
+  "PAIN": "Pain",
+  "SURPRISED": "Surprised",
+  "SAD": "Sad",
+  "WORRIED": "Worried",
+  "DETERMINED": "Determined",
+  "ANGRY": "Angry",
+  "SIGH": "Sigh",
+  "TEARY-EYED": "TearyEyed",
+  "SHOUTING": "Shouting",
+  "INSPIRED": "Inspired"
+ },
+ "variables": {
+  "PARTNER_TALK_KIND": "SV.NewEra.PartnerTalkKind",
+  "HERO_TALK_KIND": "SV.NewEra.HeroTalkKind",
+  "SCENARIO_MAIN": "SV.Scenario.Main",
+  "SCENARIO_MAIN_BIT_FLAG": "SV.Scenario.MainBitFlag",
+  "COMPULSORY_SAVE_POINT": "SV.Scenario.CompulsorySavePoint",
+  "SCENARIO_SIDE": "SV.Scenario.Side"
+ },
+ "routines_communes": {
+  "MESSAGE_CLOSE_WAIT_FUNC": "fermer le dialogue et attendre la fin (structurel : UI:ResetSpeaker)",
+  "WAIT_START_FUNC": "attendre le démarrage (structurel)",
+  "NORMAL_WAIT_END_TALK": "attendre la fin de dialogue (structurel)",
+  "HANYOU_SAVE_FUNC": "SAVE POINT obligatoire -> équivalent New Era (GAME:Save / point de contrôle)",
+  "BOSS_WIPE_FUNC": "effacement d'écran de boss -> BossFX (wipe)",
+  "JUMP_SURPRISE_FUNC_SERIES": "sursaut de surprise -> GROUND:CharSetEmote('exclaim') + CharSetAnim('Hurt')",
+  "JUMP_ANGRY_FUNC_SERIES": "colère -> CharSetEmote('angry')",
+  "JUMP_HAPPY_FUNC_SERIES": "joie -> CharSetEmote('happy')",
+  "LOOK_AROUND_FUNC_SERIES": "regarde autour -> CharAnimateTurnTo séquentiel",
+  "LOOK_AROUND_LEFT_FUNC_SERIES": "regarde à gauche",
+  "LOOK_AROUND_RIGHT_FUNC_SERIES": "regarde à droite",
+  "LOOK_AROUND_DOWN_FUNC_SERIES": "regarde en bas",
+  "LOOK_AROUND_FAST_FUNC_SERIES": "regarde autour (rapide)",
+  "HEAD_SHAKE_FUNC_SERIES": "hoche la tête -> CharSetAnim('Shake')",
+  "EXPLANATION_FUNC_SERIES": "geste d'explication -> CharSetAnim('Talk')"
+ },
+ "notes": {
+  "bgm": "Noms .ogg = convention New Era (à vérifier dans Content/Music du mod ; les BGM canoniques Sky sont à importer ou remplacer).",
+  "grounds": "Les grounds P05* importés du port PMD-SKY-PMDO-PORT ; S04P01A = embranchement (le présent) — transition à conserver.",
+  "faces": "Mapping face Sky -> émotion portrait PMDO (GeneralFunctions.SetEmotion valide ces noms).",
+  "variables": "Variables Sky -> SV New Era (SCENARIO_MAIN_BIT_FLAG[8]=1 et COMPULSORY_SAVE_POINT=14 en fin de m17a0302)."
+ }
+}

@@ -1,0 +1,80 @@
+{
+  "classification": "AUTOMATED RUNTIME TEST",
+  "grounds": [
+    {
+      "ground": "luluby_town_morning",
+      "dimensions": "84x72",
+      "source": {
+        "bma": "OVERW1",
+        "rom": "WavesOfNostalgia sha256 5d2b5c7b9942c7eca2115d486eec69b9060418b09fc215ad6f104d46b544f0db"
+      },
+      "max_cell_frames": 2,
+      "collision": {
+        "blocked": 1058,
+        "source": "OVERW1 BMA exact geometry"
+      },
+      "main_entrance": {
+        "X": 368,
+        "Y": 544,
+        "Width": 16,
+        "Height": 16
+      },
+      "teammate_spawners": 3,
+      "runtime_load": "PASS",
+      "runtime_residents": 10,
+      "runtime_errors": 0
+    },
+    {
+      "ground": "luluby_town_evening",
+      "dimensions": "84x72",
+      "source": {
+        "bma": "OVERW1E",
+        "rom": "WavesOfNostalgia sha256 5d2b5c7b9942c7eca2115d486eec69b9060418b09fc215ad6f104d46b544f0db"
+      },
+      "max_cell_frames": 2,
+      "collision": {
+        "blocked": 1058,
+        "source": "OVERW1 BMA exact geometry"
+      },
+      "main_entrance": {
+        "X": 368,
+        "Y": 544,
+        "Width": 16,
+        "Height": 16
+      },
+      "teammate_spawners": 3,
+      "runtime_load": "PASS",
+      "runtime_residents": 10,
+      "runtime_errors": 0
+    },
+    {
+      "ground": "luluby_town_night",
+      "dimensions": "84x72",
+      "source": {
+        "bma": "OVERW1N",
+        "rom": "WavesOfNostalgia sha256 5d2b5c7b9942c7eca2115d486eec69b9060418b09fc215ad6f104d46b544f0db"
+      },
+      "max_cell_frames": 1,
+      "collision": {
+        "blocked": 1058,
+        "source": "OVERW1 BMA exact geometry"
+      },
+      "main_entrance": {
+        "X": 368,
+        "Y": 544,
+        "Width": 16,
+        "Height": 16
+      },
+      "teammate_spawners": 3,
+      "runtime_load": "PASS",
+      "runtime_residents": 10,
+      "runtime_errors": 0
+    }
+  ],
+  "menu_integration": "PASS_STATIC / MANUAL_SELECTION_REVIEW",
+  "notes": [
+    "Ground sources are MAP_BG assets, not cutscene screenshots.",
+    "Morning and evening preserve both rendered animation frames; night source has one frame.",
+    "Evening/night BMA omit collision; identical OVERW1 day collision is reused cell-for-cell, never inferred from pixels."
+  ]
+}

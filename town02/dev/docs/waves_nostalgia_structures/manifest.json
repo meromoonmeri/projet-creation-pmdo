@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "rom": {
+    "bytes": 152547776,
+    "sha256": "5d2b5c7b9942c7eca2115d486eec69b9060418b09fc215ad6f104d46b544f0db"
+  },
+  "skytemple_files": "1.8.5",
+  "count": 4,
+  "structures": [
+    {
+      "id": "house_leaf_01",
+      "map": "overw1",
+      "kind": "house",
+      "file": "overw1/house_leaf_01.png",
+      "mapping": "overw1/house_leaf_01.mapping.json",
+      "source_position_px": [
+        368,
+        52
+      ],
+      "width": 87,
+      "height": 76,
+      "sha256": "db2968c47acca9cfc8294fbb17f9a651692eb07ab1286258611f021f26d6a1d0",
+      "opaque_pixels": 5453,
+      "transparent_background": true,
+      "native_resolution": true,
+      "npc_included": false,
+      "terrain_included": false,
+      "pixel_perfect": true,
+      "native_record_count": 196
+    },
+    {
+      "id": "house_leaf_02",
+      "map": "overw1",
+      "kind": "house",
+      "file": "overw1/house_leaf_02.png",
+      "mapping": "overw1/house_leaf_02.mapping.json",
+      "source_position_px": [
+        156,
+        271
+      ],
+      "width": 88,
+      "height": 97,
+      "sha256": "1a5d5cc11700d4ba12b4b27dcda24811553477ed2e56d276d52eefd5a1c0352d",
+      "opaque_pixels": 6360,
+      "transparent_background": true,
+      "native_resolution": true,
+      "npc_included": false,
+      "terrain_included": false,
+      "pixel_perfect": true,
+      "native_record_count": 244
+    },
+    {
+      "id": "shop_01",
+      "map": "overw1",
+      "kind": "shop",
+      "file": "overw1/shop_01.png",
+      "mapping": "overw1/shop_01.mapping.json",
+      "source_position_px": [
+        421,
+        232
+      ],
+      "width": 190,
+      "height": 156,
+      "sha256": "2eef7eca896e64cbd287e35f9a1d3c3225fe2dfaafa88700974648da79937797",
+      "opaque_pixels": 18737,
+      "transparent_background": true,
+      "native_resolution": true,
+      "npc_included": false,
+      "terrain_included": false,
+      "pixel_perfect": true,
+      "native_record_count": 666
+    },
+    {
+      "id": "beach_tent_01",
+      "map": "overw4",
+      "kind": "tent",
+      "file": "overw4/beach_tent_01.png",
+      "mapping": "overw4/beach_tent_01.mapping.json",
+      "source_position_px": [
+        30,
+        149
+      ],
+      "width": 50,
+      "height": 76,
+      "sha256": "a12b55e0d62db504931d3d566eeae52206690f2dc6b5940e386e87d142b497c5",
+      "opaque_pixels": 2713,
+      "transparent_background": true,
+      "native_resolution": true,
+      "npc_included": false,
+      "terrain_included": false,
+      "pixel_perfect": true,
+      "native_record_count": 114
+    }
+  ],
+  "validation": {
+    "unresolved_tile_references": 0,
+    "bpa_mapping": "BG_LIST_EXACT_8_SLOTS",
+    "source_pixel_mismatches": 0,
+    "resized": false,
+    "recolored": false,
+    "terrain_included": false,
+    "npc_included": false
+  },
+  "status": "EXTRACTED_NATIVE_STRUCTURES",
+  "source": {
+    "rom": "WavetoNostalgia.NDS",
+    "rom_bytes": 152547776,
+    "rom_sha256": "5d2b5c7b9942c7eca2115d486eec69b9060418b09fc215ad6f104d46b544f0db",
+    "retrieval": "GitHub master ZIP with included LFS objects",
+    "map_bg_count": 1580
+  },
+  "native_asset_search": {
+    "standalone_building_files_found": false,
+    "native_composition_authority": "MAP_BG bg_list.dat + BMA + BPC + BPL + BPA",
+    "mapping_chain": "BG_LIST BPA slots -> BMA layer/chunk -> BPC 3x3 tilemap -> tile index/flip -> BPL palette",
+    "bpa_slots_resolved": true,
+    "invalid_tile_replacements": 0
+  },
+  "contact_sheet": {
+    "file": "contact_sheet.png",
+    "sha256": "e664bf9841c4e4da9a33ef409b49dd8cfec5dd05cec3cbc3fe86e18338b65e31",
+    "bytes": 53784
+  },
+  "excluded_candidates": [
+    {
+      "map": "overw1",
+      "excluded": "tree_house_01",
+      "status": "NOT_EXPORTED",
+      "reason": "environmental cliff/ground pixels remain connected to the native tree-house composition",
+      "file": "overw1/EXCLUDED_CANDIDATE_tree_house_01.json"
+    },
+    {
+      "map": "overw2",
+      "status": "NO_BUILDING_EXPORTED",
+      "reason": "No autonomous building separable from the native composition without retaining environmental cliff/path terrain.",
+      "file": "overw2/NO_QUALIFYING_BUILDING.json"
+    },
+    {
+      "map": "overw3",
+      "status": "NOT_EXPORTED",
+      "reason": "House canopy intersects environmental edge graphics; no terrain-free complete sprite promoted.",
+      "file": "overw3/NO_QUALIFYING_BUILDING.json"
+    },
+    {
+      "map": "overw5",
+      "excluded": "camp_stand_01",
+      "status": "NOT_EXPORTED",
+      "reason": "environmental ground remains between disconnected camp furnishings",
+      "file": "overw5/NO_QUALIFYING_BUILDING.json"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "ground": "a01p01",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "41b6011cc7c67bb7a1d792db0d598666ef37b2ceae66f9c9f8e7c88c621bc9d4"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "primary_sample_count": 1,
+    "reload_sample_count": 1,
+    "exact_sample_count": 2,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "expected_rgba_sha256": "1ded50fc7fb020ac3cc53d647cab271322d1a4be88b2ef6ec7a788bec7503c28",
+    "actual_rgba_sha256": "1ded50fc7fb020ac3cc53d647cab271322d1a4be88b2ef6ec7a788bec7503c28",
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/report.json"
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "applicability": "STATIC_NO_ANIMATION_CHANNELS",
+    "strategy": "The authenticated schema-v2 reference found no BPL or BPA animation channels and therefore no nontrivial animation cycle. Tick 0 is the complete planned primary sample set; it was validated again after reload.",
+    "animation_channel_count": 0,
+    "cell_animation_schedule_count": 0,
+    "planned_primary_ticks": [
+      0
+    ],
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "collision_layer_count": 0,
+    "bma_solid_cells": 0,
+    "collision_sha256": "39a68c2004ed4a20edb148b72e5aabd663f15cce54b30d2ea1c106e839761ed5",
+    "clear_movement_expected_delta": [
+      0,
+      8
+    ],
+    "clear_movement_observed_delta": [
+      0,
+      8
+    ],
+    "primary_movement_probe": "PASS",
+    "blocked_probe": "NOT_APPLICABLE_NO_BMA_SOLIDS",
+    "blocked_probe_basis": "The canonical BMA has no collision layer and no solid cells, so no canonical blocked movement exists to probe."
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "load_count": 2,
+    "entry_count": 2,
+    "exit_count": 2,
+    "same_ground_reentry_count": 1,
+    "sink_transition": "PASS",
+    "strict_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "all_cleanups_pass": true,
+    "reload_tick0_full_rgba_exact": true,
+    "state_leakage": "NONE_OBSERVED",
+    "orphaned_animation": "NONE_OBSERVED",
+    "stale_assets": "NONE_OBSERVED",
+    "permanent_locks": "NONE_OBSERVED",
+    "terminal_end_seen": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "personality_test_background",
+      "ground_map_symbol": "MAP_PERSONALITY_TEST_CYAN",
+      "map_id": 163,
+      "map_file_id": 172,
+      "stable_ground_id": "a01p01",
+      "interactive_event_background": true,
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "docs/pmdred_eu/ground_manifest.json",
+        "pret/pmd-red include/constants/ground_map.h at bf0092d0e34fd8e49b859a0b5f96f00740faa42d"
+      ]
+    },
+    "project_reuse": {
+      "role": "fugitive_arc_cutscene_ground",
+      "cinematic": true,
+      "arena": false,
+      "boss": false,
+      "basis": "Data/Script/halcyon/arc_fugitif/scene/a01p01.lua defines a01p01.Cutscene",
+      "status": "OUT_OF_SCOPE_UNTOUCHED_AND_NOT_VALIDATED_BY_THIS_GROUND_PASS"
+    }
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/a01p01.rsground",
+    "tile": "Content/Tile/a01p01_Base.tile",
+    "promotion_status": "PROMOTED_NON_DESTRUCTIVELY",
+    "preexisting_destinations": false,
+    "promoted_ground_sha256": "23564c7171f3234282cf6bab34165eb92aa4910ea63a1a4ca7d2b01209f7b432",
+    "promoted_tile_sha256": "fb00f9f9e008317e70245148ab42d3ed3966e79f5203d23529fcb26f05f4bab0",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "23564c7171f3234282cf6bab34165eb92aa4910ea63a1a4ca7d2b01209f7b432",
+    "candidate_tile_sha256": "fb00f9f9e008317e70245148ab42d3ed3966e79f5203d23529fcb26f05f4bab0",
+    "source_normalized_sha256": {
+      "A01P01": "a22e066e1fa1d36d86c27aa072bc1804d52965d9fa734feecf8528c1ececa554",
+      "A01P01c": "da69bb1cec50a179995080e8fc3dd381702ceefae1941d1a3060afe898922e05",
+      "A01P01m": "d24aeeffe5a74fe57d3f58da15e6177c31317ea94d3a459d27dfbd21b4d0a2ad"
+    },
+    "events_sha256": "cba8e09216b7ef65016dd26f2ce3d4999e56d9c7e009a4e072de26e24cf06c5b",
+    "report_sha256": "a0d802f2e4260b7e211456914d40b1cc6e207da0fe1944b9d49b37569a4696de",
+    "fixture_manifest_sha256": "256e7602dc0d98561910699c084fbebf010dd91245728bcb7e84751531e860e2",
+    "commands": "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/a01p01_exhaustive_pass/provenance.json",
+    "promotion_record_sha256": "6af5b7ee77a1aa394fe9acc7d17d9a74ba6051eb68c0ef24fa0ccc16374226f5"
+  },
+  "scope_note": "This PASS and promotion cover only canonical Ground map/tile reconstruction. Canonical events, characters, movement choreography, cameras, dialogue, music, VFX, and cinematics remain explicitly subsequent milestones. The existing Fugitive-arc script that reuses this ID was not modified, validated, rebuilt, or claimed complete."
+}

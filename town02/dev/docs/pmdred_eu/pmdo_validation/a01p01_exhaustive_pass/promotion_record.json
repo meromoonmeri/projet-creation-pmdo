@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "ground": "a01p01",
+  "promoted_at": "2026-08-12",
+  "result": "PROMOTION_PASS",
+  "method": {
+    "destination_precondition": "both destinations absent",
+    "creation_mode": "Python open mode xb (exclusive creation)",
+    "partial_failure_policy": "remove only files newly created by this promotion attempt",
+    "existing_asset_deleted": false,
+    "existing_asset_replaced": false,
+    "existing_asset_overwritten": false
+  },
+  "gates": {
+    "exact_pmdo_version": "0.8.12",
+    "exact_pmdo_executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "report_sha256": "a0d802f2e4260b7e211456914d40b1cc6e207da0fe1944b9d49b37569a4696de",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "planned_primary_tick_count": 1,
+    "observed_primary_tick_count": 1,
+    "planned_primary_ticks_exactly_covered": true,
+    "reload_tick_zero_covered": true,
+    "pixel_exact_sample_count": 2,
+    "fully_opaque_sample_count": 2,
+    "runtime_safe": true,
+    "runtime_sequence_consistent": true,
+    "native_lifecycle_order_pass": true,
+    "cleanup_pass": true,
+    "terminal_end_seen": true
+  },
+  "files": [
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/grounds/a01p01.rsground",
+      "destination": "Data/Ground/a01p01.rsground",
+      "destination_preexisting": false,
+      "bytes": 580534,
+      "candidate_sha256": "23564c7171f3234282cf6bab34165eb92aa4910ea63a1a4ca7d2b01209f7b432",
+      "destination_sha256": "23564c7171f3234282cf6bab34165eb92aa4910ea63a1a4ca7d2b01209f7b432",
+      "candidate_destination_identical": true
+    },
+    {
+      "candidate": ".runtime-cache/pmdred-eu-remaining-regenerated-v201/tiles/a01p01_Base.tile",
+      "destination": "Content/Tile/a01p01_Base.tile",
+      "destination_preexisting": false,
+      "bytes": 102892,
+      "candidate_sha256": "fb00f9f9e008317e70245148ab42d3ed3966e79f5203d23529fcb26f05f4bab0",
+      "destination_sha256": "fb00f9f9e008317e70245148ab42d3ed3966e79f5203d23529fcb26f05f4bab0",
+      "candidate_destination_identical": true
+    }
+  ],
+  "reserve_policy": "All historical imports and every unpromoted canonical candidate remain in reserve. This promotion affected only absent a01p01 destinations."
+}

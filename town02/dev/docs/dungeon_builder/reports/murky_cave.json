@@ -1,0 +1,968 @@
+{
+  "generated_at": "2026-08-22T22:58:20+00:00",
+  "dungeon": "murky_cave",
+  "name": {
+    "en": "Murky Cave",
+    "fr": "Caverne Trouble"
+  },
+  "chapter": 21,
+  "route": "secondary",
+  "source": "Pokémon Mystery Dungeon: Red Rescue Team — Murky Cave (19F). Espèces, niveaux, probabilités, tables d'objets, pièges et boutiques extraits de pret/pmd-red (data/dungeon/MurkyCave) via tools/build_canonical_definitions.py ; niveaux renivelés au palier du chapitre 21. Recoupé avec Bulbapedia (page « Murky Cave »).",
+  "floors": 19,
+  "biome": "murky_gallery",
+  "direction": "fond",
+  "zone_file": "Data/Zone/murky_cave.json",
+  "segments": [
+    {
+      "name": "murky_gallery",
+      "floors": [
+        1,
+        10
+      ],
+      "biome": "murky_gallery",
+      "dtef": {
+        "floor": "murky_cave_floor",
+        "wall": "murky_cave_wall",
+        "secondary": "murky_cave_secondary",
+        "name": "murky_cave",
+        "element": "normal"
+      },
+      "profiles": [
+        "branching",
+        "mixed",
+        "dense"
+      ],
+      "pokemon": 9,
+      "item_tables": {},
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    },
+    {
+      "name": "murky_depths",
+      "floors": [
+        11,
+        19
+      ],
+      "biome": "murky_depths",
+      "dtef": {
+        "floor": "murky_cave_floor",
+        "wall": "murky_cave_wall",
+        "secondary": "murky_cave_secondary",
+        "name": "murky_cave",
+        "element": "normal"
+      },
+      "profiles": [
+        "looping",
+        "lattice",
+        "mixed"
+      ],
+      "pokemon": 8,
+      "item_tables": {},
+      "shop": true,
+      "monster_house": true,
+      "treasure_room": false,
+      "key_room": false,
+      "mystery": false,
+      "weather": []
+    }
+  ],
+  "fixed_grounds": {
+    "end": "caverne_trouble_fond"
+  },
+  "midpoint": {},
+  "boss": {
+    "mode": "canonical_ground",
+    "ground": "caverne_trouble_fond",
+    "notes": "Ground de fin canonique existant : le combat final s'y déroule, aucune arène séparée."
+  },
+  "minibosses": [],
+  "ground_check": {
+    "entrance": "",
+    "cinematic_ground": "caverne_trouble_fond",
+    "battle_ground": "caverne_trouble_fond",
+    "scene_state": "ACTIVE_GROUND",
+    "mid": "",
+    "end": "caverne_trouble_fond",
+    "boss_mode": "canonical_ground",
+    "boss_ground": "caverne_trouble_fond",
+    "boss_map": "",
+    "canonical_end_candidates": [
+      "caverne_trouble_fond"
+    ],
+    "ok": true,
+    "problems": [],
+    "notes": [
+      "no fixed 'entrance' Ground declared",
+      "no fixed 'mid' Ground declared",
+      "final battle stays on the canonical end Ground 'caverne_trouble_fond' (no separate arena created)"
+    ]
+  },
+  "rng": {
+    "label": "generate:murky_cave",
+    "root_seed": 5289380585744237490,
+    "explicit_seed": false,
+    "derived_seeds": 107
+  },
+  "warnings": [],
+  "floor_reports": [
+    {
+      "floor": 1,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        4
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8705,
+      "seeds": [
+        3590056716154541482,
+        2247198760743335828,
+        889823039951797530,
+        4935355344843061662,
+        509525986169569217
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.0,
+        "rooms_min": 6,
+        "rooms_max": 22,
+        "halls_avg": 12.4,
+        "branches_avg": 3.2,
+        "dead_ends_avg": 3.2,
+        "loops_avg": 1.0,
+        "connections_avg": 12.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.0,
+        "reachable_ratio_min": 0.999,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 2,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        14,
+        11
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.9035,
+      "seeds": [
+        1354047163967397732,
+        7576862456678427933,
+        4362880482018165175,
+        6909275155995409886,
+        5985019280788624972
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.8,
+        "rooms_min": 13,
+        "rooms_max": 26,
+        "halls_avg": 20.0,
+        "branches_avg": 6.0,
+        "dead_ends_avg": 6.0,
+        "loops_avg": 1.6,
+        "connections_avg": 20.0,
+        "room_area_min": 9,
+        "room_area_max": 312,
+        "stair_distance_avg": 41.6,
+        "reachable_ratio_min": 0.9989,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 3,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.7879,
+      "seeds": [
+        2660896928183324343,
+        2036766089067397516,
+        4095154636098958130,
+        3390432970903326106,
+        1890935932161183877
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.0,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 10.8,
+        "branches_avg": 2.6,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 0.4,
+        "connections_avg": 10.8,
+        "room_area_min": 20,
+        "room_area_max": 64,
+        "stair_distance_avg": 35.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 4,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        3
+      ],
+      "cell": [
+        11,
+        10
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.7978,
+      "seeds": [
+        3448777689959985830,
+        6459398107296356437,
+        6591304301050422874,
+        3681351211932271350,
+        6470836815892479283
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 15.8,
+        "rooms_min": 8,
+        "rooms_max": 22,
+        "halls_avg": 19.0,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.8,
+        "connections_avg": 19.0,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 38.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 5,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        11,
+        7
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8132,
+      "seeds": [
+        8498726409850001210,
+        5996196425062432660,
+        3397636115937778822,
+        3272612743126998537,
+        4079029102186297090
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.6,
+        "rooms_min": 9,
+        "rooms_max": 19,
+        "halls_avg": 14.6,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 4.2,
+        "loops_avg": 1.2,
+        "connections_avg": 14.6,
+        "room_area_min": 12,
+        "room_area_max": 72,
+        "stair_distance_avg": 41.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 6,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8603,
+      "seeds": [
+        3949223938616557193,
+        590602321925021298,
+        4022843893570024882,
+        7789153033978521968,
+        8870256313358740034
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.8,
+        "rooms_min": 10,
+        "rooms_max": 17,
+        "halls_avg": 14.2,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 1.0,
+        "connections_avg": 14.2,
+        "room_area_min": 24,
+        "room_area_max": 240,
+        "stair_distance_avg": 41.6,
+        "reachable_ratio_min": 0.9983,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 7,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        6,
+        5
+      ],
+      "cell": [
+        8,
+        6
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8339,
+      "seeds": [
+        1831818923017093355,
+        8964899844299986535,
+        5786628933394905784,
+        7379241005317058308,
+        4081114378769007800
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 17.8,
+        "rooms_min": 10,
+        "rooms_max": 29,
+        "halls_avg": 20.4,
+        "branches_avg": 5.8,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 2.2,
+        "connections_avg": 20.4,
+        "room_area_min": 9,
+        "room_area_max": 96,
+        "stair_distance_avg": 36.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 8,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        11,
+        8
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8543,
+      "seeds": [
+        1684951053775025765,
+        2098758862232966103,
+        4822405294286059331,
+        5124244424283971261,
+        2311388440873799321
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 13.0,
+        "rooms_min": 10,
+        "rooms_max": 15,
+        "halls_avg": 13.4,
+        "branches_avg": 4.0,
+        "dead_ends_avg": 4.6,
+        "loops_avg": 0.8,
+        "connections_avg": 13.4,
+        "room_area_min": 20,
+        "room_area_max": 190,
+        "stair_distance_avg": 42.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 9,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        11,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.923,
+      "seeds": [
+        2156293761873964354,
+        5895604753566618385,
+        4895746553297526785,
+        6903648232802112325,
+        4038685654122244012
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.2,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 12.4,
+        "branches_avg": 3.8,
+        "dead_ends_avg": 4.4,
+        "loops_avg": 0.8,
+        "connections_avg": 12.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.6,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 10,
+      "segment": "murky_gallery",
+      "kind": "procedural",
+      "profile": "branching+mixed+dense",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8276,
+      "seeds": [
+        4251916870668092991,
+        7010557900815912575,
+        1450374743127409278,
+        8664041370123259505,
+        4169329278105929370
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 14.8,
+        "rooms_min": 8,
+        "rooms_max": 26,
+        "halls_avg": 17.0,
+        "branches_avg": 4.6,
+        "dead_ends_avg": 3.8,
+        "loops_avg": 1.8,
+        "connections_avg": 17.0,
+        "room_area_min": 9,
+        "room_area_max": 98,
+        "stair_distance_avg": 39.8,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 11,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        10,
+        10
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8546,
+      "seeds": [
+        8605318668859306309,
+        1309640162179299665,
+        1348659742629740391,
+        3689081175605777543,
+        2524790621557286778
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.8,
+        "rooms_min": 8,
+        "rooms_max": 19,
+        "halls_avg": 17.6,
+        "branches_avg": 6.8,
+        "dead_ends_avg": 2.4,
+        "loops_avg": 3.6,
+        "connections_avg": 17.6,
+        "room_area_min": 20,
+        "room_area_max": 270,
+        "stair_distance_avg": 53.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 12,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        7,
+        3
+      ],
+      "cell": [
+        13,
+        8
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 2,
+      "max_pair_similarity": 0.7791,
+      "seeds": [
+        5077003731193071033,
+        4214736370077174126,
+        7530287450950992675,
+        7544567022163887008,
+        8225789372871125964
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 11.6,
+        "rooms_min": 7,
+        "rooms_max": 24,
+        "halls_avg": 15.6,
+        "branches_avg": 4.2,
+        "dead_ends_avg": 2.2,
+        "loops_avg": 2.4,
+        "connections_avg": 15.6,
+        "room_area_min": 25,
+        "room_area_max": 144,
+        "stair_distance_avg": 35.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 13,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        7,
+        5
+      ],
+      "cell": [
+        9,
+        8
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8176,
+      "seeds": [
+        6296337490756491852,
+        5861396532542112140,
+        4257225623238119552,
+        3550428005711610926,
+        9025243721673689534
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.2,
+        "rooms_min": 5,
+        "rooms_max": 10,
+        "halls_avg": 10.4,
+        "branches_avg": 2.8,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 1.2,
+        "connections_avg": 10.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 37.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 14,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        3
+      ],
+      "cell": [
+        9,
+        10
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8536,
+      "seeds": [
+        542251835741352994,
+        7233382672286766953,
+        2781990275159931952,
+        1718356709317779882,
+        9073756474684324090
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 12.8,
+        "rooms_min": 8,
+        "rooms_max": 26,
+        "halls_avg": 17.2,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 2.8,
+        "connections_avg": 17.2,
+        "room_area_min": 25,
+        "room_area_max": 128,
+        "stair_distance_avg": 38.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 15,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        3
+      ],
+      "cell": [
+        12,
+        8
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8043,
+      "seeds": [
+        6962760019171481745,
+        8836103968783075230,
+        823076148999626075,
+        3538569033387018817,
+        607208325194620361
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 8.8,
+        "rooms_min": 6,
+        "rooms_max": 11,
+        "halls_avg": 14.6,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 1.6,
+        "loops_avg": 3.2,
+        "connections_avg": 14.6,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 30.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 16,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        5
+      ],
+      "cell": [
+        14,
+        7
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8152,
+      "seeds": [
+        440742948369750924,
+        1212392815859355742,
+        5683029761723250510,
+        2584260100632883945,
+        6686507824753766025
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 9.2,
+        "rooms_min": 7,
+        "rooms_max": 12,
+        "halls_avg": 10.8,
+        "branches_avg": 2.4,
+        "dead_ends_avg": 1.6,
+        "loops_avg": 1.6,
+        "connections_avg": 10.8,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 40.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 17,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        4
+      ],
+      "cell": [
+        12,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 1,
+      "max_pair_similarity": 0.8355,
+      "seeds": [
+        8301458640121203130,
+        4514383730583951879,
+        8239120941649052072,
+        3046735597622984964,
+        5567991548187896990
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 6,
+        "rooms_max": 16,
+        "halls_avg": 16.4,
+        "branches_avg": 6.4,
+        "dead_ends_avg": 4.0,
+        "loops_avg": 3.0,
+        "connections_avg": 16.4,
+        "room_area_min": 20,
+        "room_area_max": 72,
+        "stair_distance_avg": 44.0,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 18,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        5,
+        5
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.8047,
+      "seeds": [
+        9222340480086700760,
+        800834464965283457,
+        5235344563697519696,
+        9045287952467563519,
+        899938163233080751
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.0,
+        "rooms_min": 6,
+        "rooms_max": 12,
+        "halls_avg": 15.8,
+        "branches_avg": 5.0,
+        "dead_ends_avg": 2.0,
+        "loops_avg": 3.2,
+        "connections_avg": 15.8,
+        "room_area_min": 24,
+        "room_area_max": 81,
+        "stair_distance_avg": 49.4,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    },
+    {
+      "floor": 19,
+      "segment": "murky_depths",
+      "kind": "procedural",
+      "profile": "looping+lattice+mixed",
+      "grid": [
+        4,
+        4
+      ],
+      "cell": [
+        10,
+        9
+      ],
+      "dtef": "murky_cave",
+      "weather": [],
+      "map_id": "",
+      "variants_ok": 5,
+      "variants_rejected": 0,
+      "max_pair_similarity": 0.841,
+      "seeds": [
+        609487914653684254,
+        2500998132077052488,
+        1066900699357178530,
+        4453934519821154169,
+        4004360613462504954
+      ],
+      "metrics": {
+        "variants": 5,
+        "rooms_avg": 10.2,
+        "rooms_min": 8,
+        "rooms_max": 14,
+        "halls_avg": 14.4,
+        "branches_avg": 4.8,
+        "dead_ends_avg": 2.6,
+        "loops_avg": 2.6,
+        "connections_avg": 14.4,
+        "room_area_min": 20,
+        "room_area_max": 80,
+        "stair_distance_avg": 45.2,
+        "reachable_ratio_min": 1.0,
+        "distinct_signatures": 5
+      },
+      "traversable": true,
+      "notes": []
+    }
+  ]
+}

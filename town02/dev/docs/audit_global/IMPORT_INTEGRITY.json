@@ -1,0 +1,252 @@
+{
+  "classification": "STATIC_GLOBAL_AUDIT; runtime statuses separate",
+  "coverage": {
+    "zones": 57,
+    "dungeons": 57,
+    "structures": 139,
+    "segments": 139,
+    "floors": 841,
+    "grounds": 218,
+    "tile_sheets": 731,
+    "frames": 954041,
+    "tile_references": 954041,
+    "markers": 453,
+    "spawners": 304,
+    "entities": 468,
+    "transitions": 327,
+    "bosses": 182,
+    "lua_files": 681,
+    "cinematic_candidate_files": 466
+  },
+  "summary": {
+    "TOTAL_DISCOVERED": 1913145,
+    "TOTAL_AUDITED": 1913145,
+    "TOTAL_FIXED": 0,
+    "TOTAL_RUNTIME_PASS": 0,
+    "TOTAL_RUNTIME_FAIL": 0,
+    "TOTAL_INCONCLUSIVE": 0,
+    "TOTAL_NOT_TESTED": 400,
+    "problems": 42
+  },
+  "problems": [
+    {
+      "type": "ZONE_INDEX_GROUNDS_STALE",
+      "zone": "master_zone"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "frosty_forest",
+      "segment": 2,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "gloomy_forest",
+      "segment": 5,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "gloomy_forest",
+      "segment": 6,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "magma_cavern",
+      "segment": 2,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "foret_embuscade",
+      "segment": 4,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "sky_tower",
+      "segment": 1,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "sky_tower",
+      "segment": 3,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "sky_tower",
+      "segment": 5,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "wish_cave",
+      "segment": 1,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "CROSS_DUNGEON_FLOOR_NAME",
+      "zone": "toundra_desolee",
+      "segment": 1,
+      "floor": "Verdant Oath",
+      "cause": "same floor identity used by foret_embuscade,frosty_forest,gloomy_forest,magma_cavern,sky_tower,toundra_desolee,wish_cave"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "carrefour_nord",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:None"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "carrefour_sud",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_1"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "carrefour_sud",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_2"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "carte_chapitre_v2",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "ecran_titre_v2",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "guilde_parvis",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:PARTNER_SPAWN"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "guilde_parvis",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_1"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "guilde_parvis",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_2"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "guilde_parvis",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_3"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "mt_thunder_midpoint",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "plage_lucioles",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:PARTNER_SPAWN"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "plage_lucioles",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_1"
+    },
+    {
+      "type": "SPAWNER_OUT_OF_BOUNDS",
+      "ground": "plage_lucioles",
+      "cause": "SPAWNER_OUT_OF_BOUNDS:TEAMMATE_2"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "s21p01a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v09p04a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v10p03c",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v12p01a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v13p01a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v14p01a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v14p03a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "ORPHAN_GROUND",
+      "ground": "v14p04a",
+      "cause": "ORPHAN_GROUND"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/ground/mt_thunder_midpoint/init.lua:EnterDungeon:mt_thunder"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/ground/palier_celeste/init.lua:ContinueDungeon:new_era_zone_17"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/ground/palier_celeste/init.lua:ContinueDungeon:new_era_zone_17"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/d18p11a_m17a0701.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/d19p11a_m18a0301.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/d20p11a_m18b0701.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/d21p21a_m18b1002.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/d22p11a_m19a0501.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/m17a0301.lua:EnterGroundMap:s04p01a"
+    },
+    {
+      "type": "INVALID_TRANSITION_TARGET",
+      "cause": "Data/Script/halcyon/future_arc/scene/p05p02a_m17a0301.lua:EnterGroundMap:s04p01a"
+    }
+  ]
+}

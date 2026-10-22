@@ -1,0 +1,336 @@
+{
+  "schema": 1,
+  "ground": "t01p03",
+  "runtime": "PASS",
+  "validated_at": "2026-08-12",
+  "engine": {
+    "name": "PMDO",
+    "version": "0.8.12",
+    "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+    "adapted_sdl_sha256": "9fc8bcf5838419a8e5cc2db7f51a2f1291ed1c54c942fa0348b71ac76e66d1cb"
+  },
+  "visual_comparison": {
+    "result": "PASS",
+    "reference": "independent authenticated EU-ROM raw-resource renderer",
+    "dimensions_pixels": [
+      720,
+      528
+    ],
+    "primary_sample_count": 600,
+    "reload_sample_count": 1,
+    "exact_sample_count": 601,
+    "unique_rgba_frame_count": 100,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/comparisons/comparison_primary_tick1399.png",
+      "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "strategy": "Every planned full-map PMDO RGBA frame was compared pixel-for-pixel with a renderer independently decoding authenticated raw EU BPL/BPC/BPA/BMA resources.",
+    "resource_hashes": {
+      "T01P03": "1063478c1eeac4f3dacada9752fa0c75717eaf052abb472c7356eee1948d2c00",
+      "T01P031": "355aa4746df7c45f58ea977d5eef8b312884648dc79c957400fd4815d4d9f563",
+      "T01P03c": "e1bb354f329303423a78d8bbf6585a4ba74ba1d7da0184c1cfdf3598f5bb5564",
+      "T01P03m": "b72d11b8f34a2bfd09aab9a7e92217de9a22d054b1f468a3d263806ad26ac5ac"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "schema": "authenticated runtime reference plan v2",
+    "primary_tick_count": 600,
+    "first_tick": 0,
+    "last_tick": 1399,
+    "cell_local_schedule_count": 5,
+    "maximum_cell_local_cycle_ticks": 700,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [
+      {
+        "cycle": 70,
+        "frame_count": 10,
+        "frame_durations": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "index": 0,
+        "kind": "BPA_TILE",
+        "source_duration_values": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      {
+        "cycle": 100,
+        "frame_count": 10,
+        "frame_durations": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "index": 10,
+        "kind": "BPL_PALETTE"
+      },
+      {
+        "cycle": 100,
+        "frame_count": 10,
+        "frame_durations": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "index": 11,
+        "kind": "BPL_PALETTE"
+      }
+    ],
+    "unique_observed_rgba_frames": 100,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "BMA T01P03m",
+    "collision_layer_count": 1,
+    "solid_cells": 4961,
+    "collision_sha256": "cdfa6af1a07c6342a44e0ef3105491cb53b11f1a058d13149a673cd15fbed8bc",
+    "successful_probe": {
+      "start": [
+        352,
+        280
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        352,
+        280
+      ],
+      "direction": "Up",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "inter_entry_transitions": 1,
+    "same_ground_reentries": 1,
+    "sink_transition": true,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphaned_animation_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "d4ced89dfe536a4f32c83efab24557bd03a91ff13b12971dede8613ecf085c0a",
+    "canonical_source_tile_sha256": "52bd020d89e74a9dafc1c20ae8ab75592426ff24629dbe4c9577ad223ea7db8e",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic Main_Entrance_Marker on a copied Ground",
+      "ignored validation comment and scripts"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "pelipper_post_office_inside",
+      "ground_map_symbol": "MAP_PELIPPER_POST_OFFICE_INSIDE",
+      "canonical_debug_id": 4,
+      "map_id": 5,
+      "map_file_id": 5,
+      "ground_place_id": 4,
+      "stable_ground_id": "t01p03",
+      "cinematic": false,
+      "arena": false,
+      "boss": false,
+      "basis": [
+        "authenticated EU-ROM conversion-table entry",
+        "pinned pret/pmd-red ground-map enum index 5"
+      ],
+      "classification": "standard_overworld_service_interior"
+    },
+    "project_reuse": {
+      "role": "Dormant Fugitive cinematic script ID plus independent active post_office and sky_eos_t01p03a Grounds",
+      "cinematic": "INTENDED_BUT_NOT_ROUTED_OR_VALIDATED",
+      "arena": false,
+      "boss": false,
+      "status": "GROUND PROMOTED ONLY; FUGITIVE ARC NOT REBUILT OR CLAIMED VALIDATED",
+      "script_references": [
+        "Data/Script/halcyon/arc_fugitif/scene/t01p03.lua"
+      ],
+      "negative_routing_evidence": [
+        "not present in Data/Script/halcyon/FugitiveArc.lua sequence",
+        "not registered in Data/Script/halcyon/FugitiveCinematics.lua",
+        "no Data/Script/halcyon/ground/t01p03/init.lua"
+      ]
+    }
+  },
+  "identity_correction": {
+    "result": "PASS",
+    "authenticated_map_file_id": 5,
+    "pinned_enum_symbol": "MAP_PELIPPER_POST_OFFICE_INSIDE",
+    "stale_label": "MAP_FILE_ID_PELIPPER_POST_OFFICE",
+    "stale_locations": [
+      "RESERVE/red_grounds/t01p03.rsground comment",
+      "docs/AUDIT_ANIMATIONS_PMD_RED_2026-08-07.md table"
+    ],
+    "correction": "Pelipper Post Office exterior is enum/map file ID 4 and belongs to authenticated stable ID t01p02b; t01p03 is map file ID 5, Pelipper Post Office Inside.",
+    "reserve_bytes_modified": false,
+    "canonical_metadata_propagates_stale_label": false
+  },
+  "variant_separation": {
+    "result": "PASS",
+    "canonical_lowercase_id": "t01p03",
+    "active_project_variants": [
+      {
+        "id": "post_office",
+        "ground": "Data/Ground/post_office.rsground",
+        "ground_sha256": "66aefb5ebefa768a8bd903121ed301158f59c0ee65bd031936c1368165537ff4",
+        "tile": "Content/Tile/PostOffice.tile",
+        "tile_sha256": "11a0ac7c85a210d33add380f65c1e2e9fdcde6c60f6d0f7723f43388dafa9814",
+        "script_sha256": "62df8281632f40e5ef11841d706dedc8858789cf71e75fd10eec45aa80c3637a",
+        "entities": {
+          "markers": 5,
+          "spawners": 1,
+          "map_characters": 2,
+          "ground_objects": 3
+        }
+      },
+      {
+        "id": "sky_eos_t01p03a",
+        "ground": "Data/Ground/sky_eos_t01p03a.rsground",
+        "ground_sha256": "ae15f5c34443a882a1a028a86a67e3e33cb81e2931f0c1e33c56f6d8d512b710",
+        "tile": "Content/Tile/T01p03a_Base.tile",
+        "tile_sha256": "2857ff3a7fd607e5efb593ab883e436bf32b97e3773064b8d97c6edbe125523b",
+        "script_sha256": "1981b8fa0e66302a8e614e374ddd13d08eb091bc55127c4fd50d7f703fb11e3f",
+        "entities": {
+          "markers": 1,
+          "spawners": 3,
+          "map_characters": 0,
+          "ground_objects": 0
+        }
+      }
+    ],
+    "overwritten_aliased_or_rewired": false
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/t01p03.rsground",
+    "tile": "Content/Tile/t01p03_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "t01p03",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/t01p03/README.md",
+    "promoted_ground_sha256": "d4ced89dfe536a4f32c83efab24557bd03a91ff13b12971dede8613ecf085c0a",
+    "promoted_tile_sha256": "52bd020d89e74a9dafc1c20ae8ab75592426ff24629dbe4c9577ad223ea7db8e",
+    "promotion_record": "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/promotion_record.json"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "d4ced89dfe536a4f32c83efab24557bd03a91ff13b12971dede8613ecf085c0a",
+    "candidate_tile_sha256": "52bd020d89e74a9dafc1c20ae8ab75592426ff24629dbe4c9577ad223ea7db8e",
+    "source_normalized_sha256": {
+      "T01P03": "1063478c1eeac4f3dacada9752fa0c75717eaf052abb472c7356eee1948d2c00",
+      "T01P031": "355aa4746df7c45f58ea977d5eef8b312884648dc79c957400fd4815d4d9f563",
+      "T01P03c": "e1bb354f329303423a78d8bbf6585a4ba74ba1d7da0184c1cfdf3598f5bb5564",
+      "T01P03m": "b72d11b8f34a2bfd09aab9a7e92217de9a22d054b1f468a3d263806ad26ac5ac"
+    },
+    "events_sha256": "51283558c4bba06c4b1f4ae702757718ada963e15e20c0c5b46198b80eb78838",
+    "report_sha256": "612e893b097f361342bc37a0a2f3d4b27b92b3607190065bfca1e28618c468c5",
+    "fixture_manifest_sha256": "f8be35dce8a2b27075872bbcc3266b852698eda3d1c214ad54fe56187bfaf927",
+    "commands": "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/commands.sh",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "The validator does not self-close. Its process group was terminated only after end and final cleanup. The shell reported a post-terminal segmentation fault while unwinding, but the bounded wrapper exited 0.",
+    "evidence_impact": "NONE; all required evidence preceded external termination."
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "Existing validated 27-relationship dungeon-Ground restitution bundle retained unchanged."
+  },
+  "scope_note": "This PASS covers the canonical Ground map/tile, identity, collision, animation, repeated lifecycle, and additive registration. It does not claim canonical events, characters, choreography, cameras, dialogue, music, VFX, or cinematics as reconstructed or fully validated.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_subject": "copies taken from Data/Ground/t01p03.rsground and Content/Tile/t01p03_Base.tile after promotion",
+    "indexed_ground_sha256": "d4ced89dfe536a4f32c83efab24557bd03a91ff13b12971dede8613ecf085c0a",
+    "indexed_tile_sha256": "52bd020d89e74a9dafc1c20ae8ab75592426ff24629dbe4c9577ad223ea7db8e",
+    "index_log": "docs/pmdred_eu/pmdo_validation/t01p03_exhaustive_pass/post_promotion_index.log",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_json_parse": "PASS",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "exactly one insertion into GroundMaps, after t01p02b",
+    "zone_ground_map_count": 196,
+    "canonical_index": 137,
+    "project_post_office_index": 12,
+    "eos_index": 194,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

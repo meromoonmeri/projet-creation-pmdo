@@ -1,0 +1,3141 @@
+{
+  "schema": "new-era.pmdred-eu-opcode-registry.v1",
+  "result": "PMD_RED_OPCODE_REGISTRY_PASS",
+  "meaning": "source semantics and exact PMDO API candidates inventoried; no scene or route is runtime-ready",
+  "authority": {
+    "pret": {
+      "repository": "pret/pmd-red",
+      "commit": "bf0092d0e34fd8e49b859a0b5f96f00740faa42d",
+      "locked_blobs": {
+        "include/data_script.h": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+        "include/constants/direction.h": "c2a1d19f632b0dc8817177f5a27f72b64ae4e4b4",
+        "src/ground_script.c": "87431714802987dedbc0330b7338ad90f390ce0b",
+        "src/direction_util.c": "ba6d169507615e34988dae40135ba39011ef840f",
+        "src/textbox.c": "f2e66d8da1fa14b3ee216350c00a131698fa5a9a",
+        "src/palette_util.c": "926d28d1ede0270717649e587edf569639245a27",
+        "src/ground_lives.c": "d4a101ff03a49375cd363188ae6df16fec71d3ea",
+        "include/structs/str_ground_script.h": "9582fa965c290850861d219d39e0c8083948308e"
+      }
+    },
+    "pmdo_0_8_12": {
+      "runtime_repository": "meromoonmeri/RUNTIMEPMDO",
+      "runtime_commit": "61c005e1dc9fd4eee6e6e7fcde77364de33d291e",
+      "executable_sha256": "faf9755c5c6ba1a06460c433b401c118bae218887b8687aefb995b80d4de8327",
+      "rogue_essence_pdb_sha256": "8a0b86b6115dcb9b99a34ef767bdc4cda1b9ab6082b49896a905d060d496937f",
+      "pdb_sourcelink_rogue_essence_commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace",
+      "pmdodump_tag": "v0.8.12",
+      "pmdodump_tag_commit": "f7f79d1b2ebaf13633a4387cdb8deba73353a533",
+      "pmdc_commit": "e975bd33e32bc774a43fdab24dc2e781c5a38bab",
+      "rogue_essence_commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace",
+      "rogue_elements_commit": "a3869ec8f451ada25efdb453b85281fd098c1671",
+      "locked_rogue_essence_blobs": {
+        "RogueEssence/Lua/ScriptGround.cs": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+        "RogueEssence/Lua/ScriptGame.cs": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+        "RogueEssence/Lua/ScriptUI.cs": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+        "RogueEssence/Lua/ScriptSound.cs": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade"
+      }
+    }
+  },
+  "direction_mapping": {
+    "rule": "map symbols explicitly; numeric casts are forbidden because horizontal ordering is mirrored",
+    "pmd_red": [
+      "SOUTH",
+      "SOUTHEAST",
+      "EAST",
+      "NORTHEAST",
+      "NORTH",
+      "NORTHWEST",
+      "WEST",
+      "SOUTHWEST"
+    ],
+    "pmdo": [
+      "Down",
+      "DownLeft",
+      "Left",
+      "UpLeft",
+      "Up",
+      "UpRight",
+      "Right",
+      "DownRight"
+    ],
+    "symbol_map": {
+      "DIRECTION_SOUTH": "Direction.Down",
+      "DIRECTION_SOUTHEAST": "Direction.DownRight",
+      "DIRECTION_EAST": "Direction.Right",
+      "DIRECTION_NORTHEAST": "Direction.UpRight",
+      "DIRECTION_NORTH": "Direction.Up",
+      "DIRECTION_NORTHWEST": "Direction.UpLeft",
+      "DIRECTION_WEST": "Direction.Left",
+      "DIRECTION_SOUTHWEST": "Direction.DownLeft"
+    }
+  },
+  "asset_count": 27,
+  "action_kind_count": 88,
+  "action_count": 4967,
+  "source_semantics_action_counts": {
+    "PARTIAL": 236,
+    "PROVEN": 4731
+  },
+  "adapter_status_kind_counts": {
+    "ADAPTER_PROVEN": 5,
+    "ANIMATION_BINDING_REQUIRED": 2,
+    "AUDIO_BINDING_REQUIRED": 8,
+    "CAMERA_BINDING_REQUIRED": 2,
+    "CONCURRENCY_COMPILER_REQUIRED": 3,
+    "CONTROL_FLOW_COMPILER_REQUIRED": 19,
+    "ENTITY_AND_GEOMETRY_BINDING_REQUIRED": 12,
+    "ENTITY_FLAG_BINDING_REQUIRED": 2,
+    "GROUND_CONTEXT_REQUIRED": 8,
+    "NO_EQUIVALENT_PROVEN": 12,
+    "ORIENTATION_BINDING_REQUIRED": 1,
+    "PORTRAIT_BINDING_REQUIRED": 4,
+    "ROUTE_BINDING_REQUIRED": 3,
+    "STATE_BINDING_REQUIRED": 2,
+    "TEXT_AND_ACTOR_BINDING_REQUIRED": 2,
+    "TEXT_BINDING_REQUIRED": 3
+  },
+  "adapter_status_action_counts": {
+    "ADAPTER_PROVEN": 782,
+    "ANIMATION_BINDING_REQUIRED": 261,
+    "AUDIO_BINDING_REQUIRED": 248,
+    "CAMERA_BINDING_REQUIRED": 11,
+    "CONCURRENCY_COMPILER_REQUIRED": 1188,
+    "CONTROL_FLOW_COMPILER_REQUIRED": 812,
+    "ENTITY_AND_GEOMETRY_BINDING_REQUIRED": 283,
+    "ENTITY_FLAG_BINDING_REQUIRED": 58,
+    "GROUND_CONTEXT_REQUIRED": 140,
+    "NO_EQUIVALENT_PROVEN": 340,
+    "ORIENTATION_BINDING_REQUIRED": 25,
+    "PORTRAIT_BINDING_REQUIRED": 183,
+    "ROUTE_BINDING_REQUIRED": 23,
+    "STATE_BINDING_REQUIRED": 52,
+    "TEXT_AND_ACTOR_BINDING_REQUIRED": 503,
+    "TEXT_BINDING_REQUIRED": 58
+  },
+  "adapter_proven_kind_count": 5,
+  "adapter_proven_action_count": 782,
+  "runtime_ready_kind_count": 0,
+  "runtime_ready_asset_count": 0,
+  "production_route_count": 0,
+  "entries": [
+    {
+      "kind": "ALERT_CUE",
+      "occurrence_count": 556,
+      "source_opcode": "0xE4",
+      "source_macro": "ALERT_CUE",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Unlocks a numbered source script cue used to synchronize concurrent actor/event arrays.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1421,
+            3192
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 539
+        }
+      },
+      "adapter_status": "CONCURRENCY_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "deterministic cue scheduler"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "ASK1",
+      "occurrence_count": 16,
+      "source_opcode": "0xD3",
+      "source_macro": "ASK1",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Builds and displays a blocking source choice menu whose result selects a branch label.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1275,
+            3101,
+            3140
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 505
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:BeginChoiceMenu",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 1487,
+          "member": "BeginChoiceMenu"
+        },
+        {
+          "api": "UI:WaitForChoice",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 1641,
+          "member": "_WaitForChoice"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French prompt and choices",
+        "branch-label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "AWAIT_CUE",
+      "occurrence_count": 627,
+      "source_opcode": "0xE3",
+      "source_macro": "AWAIT_CUE",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Blocks and conditionally branches until a numbered source script cue is unlocked.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            871,
+            3184
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 537
+        }
+      },
+      "adapter_status": "CONCURRENCY_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "deterministic cue scheduler and branch resolution"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "BGM_FADEIN",
+      "occurrence_count": 2,
+      "source_opcode": "0x45",
+      "source_macro": "BGM_FADEIN",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Starts a numeric source BGM with an explicit fade duration.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1351,
+            2194
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 209
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:PlayBGM",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 156,
+          "member": "PlayBGM"
+        }
+      ],
+      "remaining_blockers": [
+        "source music id to exact PMDO asset"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "BGM_FADEOUT",
+      "occurrence_count": 39,
+      "source_opcode": "0x48",
+      "source_macro": "BGM_FADEOUT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Fades the current background track over an explicit frame count.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1354,
+            2214
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 215
+        }
+      },
+      "adapter_status": "ADAPTER_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:FadeOutBGM",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 173,
+          "member": "FadeOutBGM"
+        }
+      ],
+      "remaining_blockers": [],
+      "runtime_ready": false,
+      "proved_adapter": {
+        "rule": "BGM_FADEOUT(frames) -> SOUND:FadeOutBGM(frames)",
+        "pmdo_calls": [
+          "SOUND:FadeOutBGM"
+        ],
+        "preconditions": [
+          "frames is an integer greater than or equal to zero"
+        ],
+        "proof": "The PMD Red executor and exact PMDO API both fade the current BGM over the supplied frame count."
+      }
+    },
+    {
+      "kind": "BGM_SWITCH",
+      "occurrence_count": 45,
+      "source_opcode": "0x44",
+      "source_macro": "BGM_SWITCH",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Replaces the current source BGM with a numeric music id.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1350,
+            2185
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 207
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:PlayBGM",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 156,
+          "member": "PlayBGM"
+        }
+      ],
+      "remaining_blockers": [
+        "source music id to exact PMDO asset"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CALL_SCRIPT",
+      "occurrence_count": 209,
+      "source_opcode": "0xE8",
+      "source_macro": "CALL_SCRIPT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Calls or tail-jumps to a predefined source function script.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1424,
+            3212
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 549
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "predefined source function adapter and call-stack semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CALL_STATION",
+      "occurrence_count": 2,
+      "source_opcode": "0xEA",
+      "source_macro": "CALL_STATION",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Calls another station script while preserving a one-level source return context.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1426,
+            3220
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 553
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "station graph resolution and source call-stack semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CAMERA_PAN",
+      "occurrence_count": 4,
+      "source_opcode": "0x86",
+      "source_macro": "CAMERA_PAN",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Interpolates the source camera toward a Ground link target while updating pan state.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            712,
+            2507
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 340
+        }
+      },
+      "adapter_status": "CAMERA_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:MoveCamera",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 314,
+          "member": "_MoveCamera"
+        }
+      ],
+      "remaining_blockers": [
+        "source link geometry",
+        "camera speed/duration parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CANCEL_EFFECTS",
+      "occurrence_count": 6,
+      "source_opcode": "0x14",
+      "source_macro": "CANCEL_EFFECTS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Cancels the selected source object/effect group and sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1326,
+            1685,
+            1732
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 72
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "transient entity ownership and cancellation parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CANCEL_OBJECTS",
+      "occurrence_count": 3,
+      "source_opcode": "0x13",
+      "source_macro": "CANCEL_OBJECTS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Cancels the selected source object/effect group and sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1325,
+            1684,
+            1728
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 70
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "transient entity ownership and cancellation parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CHOICE",
+      "occurrence_count": 32,
+      "source_opcode": "0xD9",
+      "source_macro": "CHOICE",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Builds and displays a blocking source choice menu whose result selects a branch label.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1420
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 517
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:BeginChoiceMenu",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 1487,
+          "member": "BeginChoiceMenu"
+        },
+        {
+          "api": "UI:WaitForChoice",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 1641,
+          "member": "_WaitForChoice"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French prompt and choices",
+        "branch-label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CJUMP_SCENARIO_0",
+      "occurrence_count": 6,
+      "source_opcode": "0xC4",
+      "source_macro": "CJUMP_SCENARIO_0",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1407,
+            2990,
+            3017
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 473
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CJUMP_VAR",
+      "occurrence_count": 6,
+      "source_opcode": "0xC0",
+      "source_macro": "CJUMP_VAR",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1403,
+            2986,
+            3001
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 465
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CMD_UNK_92",
+      "occurrence_count": 11,
+      "source_opcode": "0x92",
+      "source_macro": "CMD_UNK_92",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Rotates toward a direction derived from the current direction by a source direction transformation.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            781,
+            803,
+            2670
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 368
+        }
+      },
+      "adapter_status": "ADAPTER_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:CharAnimateTurn",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 351,
+          "member": "_CharAnimateTurn"
+        }
+      ],
+      "remaining_blockers": [
+        "current parent actor is compiler context"
+      ],
+      "runtime_ready": false,
+      "proved_adapter": {
+        "rule": "CMD_UNK_92(step_frames, turn_step, target_transform) -> derive target from current direction, then perform the same forced animated turn",
+        "pmdo_calls": [
+          "GROUND:CharAnimateTurn"
+        ],
+        "preconditions": [
+          "the compiler resolves the parent action to one GroundChar",
+          "turn_step and target_transform are one of the three combinations occurring in the corpus",
+          "step_frames is a positive integer"
+        ],
+        "source_helper_proof": {
+          "path": "src/direction_util.c",
+          "blob_sha": "ba6d169507615e34988dae40135ba39011ef840f",
+          "lines": [
+            30,
+            86
+          ]
+        },
+        "proof": "The locked executor derives a fixed target with TransformDirection1, then uses TransformDirection2 for a forced one-direction step after each delay; the PMDO forced-turn primitive matches that sequence after explicit enum remapping."
+      }
+    },
+    {
+      "kind": "CMD_UNK_93",
+      "occurrence_count": 25,
+      "source_opcode": "0x93",
+      "source_macro": "CMD_UNK_93",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Rotates toward a resolved source entity using a source direction transition policy.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            782,
+            807,
+            2659
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 370
+        }
+      },
+      "adapter_status": "ORIENTATION_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:CharAnimateTurn",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 351,
+          "member": "_CharAnimateTurn"
+        },
+        {
+          "api": "GROUND:CharAnimateTurnTo",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 370,
+          "member": "_CharAnimateTurnTo"
+        }
+      ],
+      "remaining_blockers": [
+        "target and parent actor binding",
+        "transition policy lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "CMD_UNK_E5",
+      "occurrence_count": 5,
+      "source_opcode": "0xE5",
+      "source_macro": "CMD_UNK_E5",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets a cue branch discriminator, locks the numbered cue with a branch value, and blocks until release.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            872,
+            3196
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 543
+        }
+      },
+      "adapter_status": "CONCURRENCY_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "deterministic cue scheduler and branch resolution"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "COND",
+      "occurrence_count": 9,
+      "source_opcode": "0xCD",
+      "source_macro": "COND",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1416
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 493
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "COND_EQUAL",
+      "occurrence_count": 13,
+      "source_opcode": "0xCC",
+      "source_macro": "COND_EQUAL",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1415
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 491
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "EXECUTE_STATION",
+      "occurrence_count": 6,
+      "source_opcode": "0x1D",
+      "source_macro": "EXECUTE_STATION",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Executes the selected map station for an explicit map/group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1335,
+            1817
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 92
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "station graph resolution and actor context"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FANFARE_FADEOUT2",
+      "occurrence_count": 3,
+      "source_opcode": "0x4E",
+      "source_macro": "FANFARE_FADEOUT2",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Stops or fades a numeric source sound on its source channel.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1360,
+            2229
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 227
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source sound id and channel",
+        "no exact PMDO fanfare stop/fade API proved"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FANFARE_PLAY",
+      "occurrence_count": 10,
+      "source_opcode": "0x49",
+      "source_macro": "FANFARE_PLAY",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Plays a numeric source sound/fanfare id.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1355,
+            2218
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 217
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:PlayFanfare",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 127,
+          "member": "PlayFanfare"
+        }
+      ],
+      "remaining_blockers": [
+        "source sound id to exact PMDO asset and channel"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FANFARE_PLAY2",
+      "occurrence_count": 143,
+      "source_opcode": "0x4C",
+      "source_macro": "FANFARE_PLAY2",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Plays a numeric source sound/fanfare id.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1358,
+            2219
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 223
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:PlayFanfare",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 127,
+          "member": "PlayFanfare"
+        }
+      ],
+      "remaining_blockers": [
+        "source sound id to exact PMDO asset and channel"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FANFARE_STOP2",
+      "occurrence_count": 4,
+      "source_opcode": "0x4D",
+      "source_macro": "FANFARE_STOP2",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Stops or fades a numeric source sound on its source channel.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1359,
+            2224
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 225
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source sound id and channel",
+        "no exact PMDO fanfare stop/fade API proved"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FLASH_FROM",
+      "occurrence_count": 47,
+      "source_opcode": "0x27",
+      "source_macro": "FLASH_FROM",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Runs a blocking source color/palette transition on an explicit palette channel.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            555,
+            1943,
+            1947
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 116
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "arbitrary RGB palette channel and blend-curve equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "FLASH_TO",
+      "occurrence_count": 56,
+      "source_opcode": "0x28",
+      "source_macro": "FLASH_TO",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Runs a blocking source color/palette transition on an explicit palette channel.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            556,
+            1944,
+            1950
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 122
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "arbitrary RGB palette channel and blend-curve equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMPIF",
+      "occurrence_count": 4,
+      "source_opcode": "0xB4",
+      "source_macro": "JUMPIF",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1391,
+            2908
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 438
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMPIF_ARRAY",
+      "occurrence_count": 1,
+      "source_opcode": "0xB6",
+      "source_macro": "JUMPIF_ARRAY",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1393,
+            2920
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 442
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMPIF_EQUAL",
+      "occurrence_count": 25,
+      "source_opcode": "0xB3",
+      "source_macro": "JUMPIF_EQUAL",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1390,
+            2902
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 436
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMPIF_SCENARIOCHECK",
+      "occurrence_count": 3,
+      "source_opcode": "0xBB",
+      "source_macro": "JUMPIF_SCENARIOCHECK",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Evaluates source script state and resolves a conditional label/variant branch.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1398,
+            2950
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 455
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical script-variable and scenario-state adapter",
+        "label lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMP_LABEL",
+      "occurrence_count": 50,
+      "source_opcode": "0xE7",
+      "source_macro": "JUMP_LABEL",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Defines or jumps to a local source command-array label.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1423,
+            3208
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 547
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "label graph lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "JUMP_SCRIPT",
+      "occurrence_count": 48,
+      "source_opcode": "0xE9",
+      "source_macro": "JUMP_SCRIPT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Calls or tail-jumps to a predefined source function script.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1425,
+            3216
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 551
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "predefined source function adapter and call-stack semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "LABEL",
+      "occurrence_count": 90,
+      "source_opcode": "0xF4",
+      "source_macro": "LABEL",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Defines or jumps to a local source command-array label.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            3270
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 576
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "label graph lowering"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "MSG_INSTANT",
+      "occurrence_count": 31,
+      "source_opcode": "0x32",
+      "source_macro": "MSG_INSTANT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Prints blocking instant-style source text without a bound portrait.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            885,
+            2071,
+            2080
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 153
+        }
+      },
+      "adapter_status": "TEXT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French text body"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "MSG_NPC",
+      "occurrence_count": 385,
+      "source_opcode": "0x34",
+      "source_macro": "MSG_NPC",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Prints blocking NPC-style source text using a portrait/speaker slot.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            887,
+            2073,
+            2088
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 161
+        }
+      },
+      "adapter_status": "TEXT_AND_ACTOR_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeaker",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 428,
+          "member": "SetSpeaker"
+        },
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French text body",
+        "speaker-slot binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "MSG_ON_BG_AUTO",
+      "occurrence_count": 16,
+      "source_opcode": "0x39",
+      "source_macro": "MSG_ON_BG_AUTO",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Prints source background narration with automatic progression.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            901,
+            2116
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 179
+        }
+      },
+      "adapter_status": "TEXT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowTimedDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 177,
+          "member": "WaitShowTimedDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French text body",
+        "fade/timing parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "MSG_OVERHEARD",
+      "occurrence_count": 11,
+      "source_opcode": "0x36",
+      "source_macro": "MSG_OVERHEARD",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Prints blocking overheard/background source dialogue.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            889,
+            2075,
+            2096
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 166
+        }
+      },
+      "adapter_status": "TEXT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "exact EU French text body",
+        "textbox-style parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "MSG_VAR",
+      "occurrence_count": 64,
+      "source_opcode": "0xCF",
+      "source_macro": "MSG_VAR",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects a source text variant from a script variable and contiguous variant records.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1229,
+            3087
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 497
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "script-variable model",
+        "exact EU French text variants"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "NEXT_DUNGEON",
+      "occurrence_count": 7,
+      "source_opcode": "0x02",
+      "source_macro": "NEXT_DUNGEON",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Requests the next source dungeon and branches according to request availability.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1536
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 31
+        }
+      },
+      "adapter_status": "ROUTE_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:EnterDungeon",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 137,
+          "member": "_EnterDungeon"
+        }
+      ],
+      "remaining_blockers": [
+        "canonical zone/segment/entry mapping",
+        "route outcome semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "PORTRAIT",
+      "occurrence_count": 83,
+      "source_opcode": "0x2E",
+      "source_macro": "PORTRAIT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets portrait placement and expression for a source speaker slot.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1344,
+            2060
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 139
+        }
+      },
+      "adapter_status": "PORTRAIT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeakerEmotion",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 597,
+          "member": "SetSpeakerEmotion"
+        },
+        {
+          "api": "UI:SetSpeakerLoc",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 579,
+          "member": "SetSpeakerLoc"
+        }
+      ],
+      "remaining_blockers": [
+        "speaker slot",
+        "expression and placement mapping"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "PORTRAIT_POS",
+      "occurrence_count": 7,
+      "source_opcode": "0x2F",
+      "source_macro": "PORTRAIT_POS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Offsets a source portrait slot by explicit screen coordinates.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1345,
+            2064
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 146
+        }
+      },
+      "adapter_status": "PORTRAIT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeakerLoc",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 579,
+          "member": "SetSpeakerLoc"
+        }
+      ],
+      "remaining_blockers": [
+        "speaker slot and coordinate-origin mapping"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "PORTRAIT_REP",
+      "occurrence_count": 92,
+      "source_opcode": "0x2E",
+      "source_macro": "PORTRAIT_REP",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets portrait placement and expression for a source speaker slot.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1344,
+            2060
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 143
+        }
+      },
+      "adapter_status": "PORTRAIT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeakerEmotion",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 597,
+          "member": "SetSpeakerEmotion"
+        },
+        {
+          "api": "UI:SetSpeakerLoc",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 579,
+          "member": "SetSpeakerLoc"
+        }
+      ],
+      "remaining_blockers": [
+        "speaker slot",
+        "expression and placement mapping"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X01",
+      "occurrence_count": 3,
+      "source_opcode": "0x01",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Requests a Ground transition with map id, mode byte and transition duration.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1523
+          ]
+        }
+      },
+      "adapter_status": "ROUTE_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:EnterGroundMap",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 92,
+          "member": "EnterGroundMap"
+        }
+      ],
+      "remaining_blockers": [
+        "canonical Ground and entrypoint binding",
+        "transition-mode binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X22",
+      "occurrence_count": 31,
+      "source_opcode": "0x22",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Starts palette transition controller A with the supplied duration and optionally blocks until the shared palette controller is idle.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            550,
+            1913
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "palette channel and blend curve are not exposed by a proven PMDO equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X23",
+      "occurrence_count": 28,
+      "source_opcode": "0x23",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Starts the reverse operation of palette transition controller A and optionally blocks until the shared palette controller is idle.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            551,
+            1919
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "palette channel and blend curve are not exposed by a proven PMDO equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X25",
+      "occurrence_count": 6,
+      "source_opcode": "0x25",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Starts palette transition controller B with the supplied duration and optionally blocks until the shared palette controller is idle.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            553,
+            1931
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "second palette channel semantics and PMDO equivalent remain unproved"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X26",
+      "occurrence_count": 4,
+      "source_opcode": "0x26",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Starts the reverse operation of palette transition controller B and optionally blocks until the shared palette controller is idle.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            554,
+            1937
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "second palette channel semantics and PMDO equivalent remain unproved"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X2D",
+      "occurrence_count": 118,
+      "source_opcode": "0x2D",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Binds a text portrait/name slot; submodes 7 and 9 used here derive display species and canonical actor name from the current action or an explicit target.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1343,
+            1986
+          ]
+        }
+      },
+      "adapter_status": "TEXT_AND_ACTOR_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeaker",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 428,
+          "member": "SetSpeaker"
+        }
+      ],
+      "remaining_blockers": [
+        "source action identity to PMDO GroundChar binding",
+        "portrait slot and format-buffer behavior"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X2E",
+      "occurrence_count": 1,
+      "source_opcode": "0x2E",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets portrait placement and expression for a previously bound text portrait slot.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1344,
+            2060
+          ]
+        }
+      },
+      "adapter_status": "PORTRAIT_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:SetSpeakerEmotion",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 597,
+          "member": "SetSpeakerEmotion"
+        },
+        {
+          "api": "UI:SetSpeakerLoc",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 579,
+          "member": "SetSpeakerLoc"
+        }
+      ],
+      "remaining_blockers": [
+        "portrait-slot ownership",
+        "Red portrait expression to PMDO emotion mapping"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X3B",
+      "occurrence_count": 10,
+      "source_opcode": "0x3B",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Invokes the source multipurpose callback dispatcher and branches on its return value.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            914,
+            2137
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "callback-specific game-state semantics must be proved for every selector"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X52",
+      "occurrence_count": 20,
+      "source_opcode": "0x52",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets bit flags on the current parent entity through its type-specific callback.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1364,
+            2267
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_FLAG_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "bit-level source flags to PMDO entity properties"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X53",
+      "occurrence_count": 38,
+      "source_opcode": "0x53",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Clears bit flags on the current parent entity through its type-specific callback.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1365,
+            2271
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_FLAG_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "bit-level source flags to PMDO entity properties"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X54",
+      "occurrence_count": 38,
+      "source_opcode": "0x54",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects the parent entity animation/event index and stores its previous direction.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1366,
+            2278
+          ]
+        }
+      },
+      "adapter_status": "ANIMATION_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:CharSetAnim",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 791,
+          "member": "CharSetAnim"
+        }
+      ],
+      "remaining_blockers": [
+        "source animation index to PMDO animation name",
+        "entity type binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X56",
+      "occurrence_count": 72,
+      "source_opcode": "0x56",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Writes two values into the parent type's callback-specific sprite state; for lives this controls fields unk16A and unk16C.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1368,
+            2290
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "callback fields remain unnamed",
+        "no proven PMDO sprite-state equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X59",
+      "occurrence_count": 11,
+      "source_opcode": "0x59",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Applies an immediate relative pixel displacement to the parent and waits the command byte frame count.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            509,
+            2306
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:TeleportTo",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 429,
+          "member": "TeleportTo"
+        },
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [
+        "source collision callback behavior",
+        "entity type and coordinate binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X60",
+      "occurrence_count": 4,
+      "source_opcode": "0x60",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets parent height from 24.8 fixed-point input and waits the command byte frame count.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            514,
+            2380
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:TeleportTo",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 429,
+          "member": "TeleportTo"
+        },
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [
+        "height origin and fixed-point conversion",
+        "entity binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X62",
+      "occurrence_count": 114,
+      "source_opcode": "0x62",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Moves to a relative pixel target at a fixed 24.8 speed without changing facing, stopping on source collision.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            593,
+            2393
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "preserve active animation and facing",
+        "source collision-stop equivalence"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X70",
+      "occurrence_count": 13,
+      "source_opcode": "0x70",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Moves parent height toward a fixed target at a fixed 24.8 speed.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            742,
+            2558
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "height interpolation and parent action binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X72",
+      "occurrence_count": 2,
+      "source_opcode": "0x72",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Interpolates from current position to a relative target over an explicit frame duration without changing facing.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            678,
+            2459
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "preserve active animation and facing",
+        "coordinate binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X7E",
+      "occurrence_count": 9,
+      "source_opcode": "0x7E",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Interpolates to a relative target without changing facing; duration is computed from distance and supplied speed.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            684,
+            2461
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "fixed-point speed and duration rounding equivalence"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X84",
+      "occurrence_count": 3,
+      "source_opcode": "0x84",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Interpolates to a relative target at supplied speed while updating facing from the movement vector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            710,
+            2462
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "fixed-point speed and duration rounding equivalence"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X89",
+      "occurrence_count": 61,
+      "source_opcode": "0x89",
+      "source_macro": null,
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets an explicit direction, then walks in that direction at fixed 24.8 speed for the command byte frame count or until collision.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            758,
+            2564
+          ]
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:MoveInDirection",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 472,
+          "member": "_MoveInDirection"
+        }
+      ],
+      "remaining_blockers": [
+        "source collision-stop equivalence",
+        "direction-symbol remap",
+        "fixed-point speed conversion"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X97",
+      "occurrence_count": 13,
+      "source_opcode": "0x97",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Configures the source global camera/pan state with three numeric parameters.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1373,
+            2677
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:MoveCamera",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 314,
+          "member": "_MoveCamera"
+        }
+      ],
+      "remaining_blockers": [
+        "camera state fields and coordinate semantics remain unnamed"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0X9B",
+      "occurrence_count": 7,
+      "source_opcode": "0x9B",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Starts a blocking global camera movement targeting the current parent entity.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            855,
+            2719
+          ]
+        }
+      },
+      "adapter_status": "CAMERA_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:MoveCameraToChara",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 333,
+          "member": "_MoveCameraToChara"
+        }
+      ],
+      "remaining_blockers": [
+        "source camera speed/duration semantics",
+        "parent entity binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0XDE",
+      "occurrence_count": 33,
+      "source_opcode": "0xDE",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Blocks until the parent callback reports its sprite-related transition complete.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            542,
+            3177
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "callback-specific completion condition remains unnamed"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RAW_OPCODE_0XDF",
+      "occurrence_count": 32,
+      "source_opcode": "0xDF",
+      "source_macro": null,
+      "source_semantics_status": "PARTIAL",
+      "source_semantics": "Blocks until the shared source palette transition controller reports idle.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            557,
+            3178
+          ]
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "palette-controller equivalent remains unproved"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "RENAME_ALLY",
+      "occurrence_count": 1,
+      "source_opcode": "0x3D",
+      "source_macro": "RENAME_ALLY",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Opens source ally naming for the selected party identity and writes the accepted name.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1136,
+            2141
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 193
+        }
+      },
+      "adapter_status": "STATE_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "party identity and PMDO naming-menu flow"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "ROTATE_TO",
+      "occurrence_count": 185,
+      "source_opcode": "0x91",
+      "source_macro": "ROTATE_TO",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Rotates the current parent toward an explicit source direction using a source transition policy and step delay.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            780,
+            802,
+            2665
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 366
+        }
+      },
+      "adapter_status": "ADAPTER_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:CharAnimateTurn",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 351,
+          "member": "_CharAnimateTurn"
+        },
+        {
+          "api": "GROUND:CharAnimateTurnTo",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 370,
+          "member": "_CharAnimateTurnTo"
+        },
+        {
+          "api": "GROUND:EntTurn",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 331,
+          "member": "EntTurn"
+        },
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [
+        "current parent actor is compiler context"
+      ],
+      "runtime_ready": false,
+      "proved_adapter": {
+        "rule": "ROTATE_TO(step_frames, transition, direction) -> symbol-remapped PMDO animated turn with the same one-step or two-step policy",
+        "pmdo_calls": [
+          "GROUND:CharAnimateTurn",
+          "GROUND:CharAnimateTurnTo",
+          "GROUND:EntTurn",
+          "GAME:WaitFrames"
+        ],
+        "preconditions": [
+          "the compiler resolves the parent action to one GroundChar",
+          "transition is one of the four policies occurring in the 27-asset corpus",
+          "PMD Red direction symbols are remapped by name, never cast numerically",
+          "step_frames is a positive integer"
+        ],
+        "source_helper_proof": {
+          "path": "src/direction_util.c",
+          "blob_sha": "ba6d169507615e34988dae40135ba39011ef840f",
+          "lines": [
+            90,
+            153
+          ]
+        },
+        "proof": "The locked source rotates one direction per delay for forced left/right and shortest policy 10, or two directions per delay for shortest policy 11; the adapter reproduces those visible steps."
+      }
+    },
+    {
+      "kind": "SELECT_ANIMATION",
+      "occurrence_count": 223,
+      "source_opcode": "0x54",
+      "source_macro": "SELECT_ANIMATION",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects the parent entity animation/event index.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1366,
+            2278
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 239
+        }
+      },
+      "adapter_status": "ANIMATION_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:CharSetAnim",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 791,
+          "member": "CharSetAnim"
+        }
+      ],
+      "remaining_blockers": [
+        "source animation index to PMDO animation name",
+        "parent entity type"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_EFFECTS",
+      "occurrence_count": 3,
+      "source_opcode": "0x0F",
+      "source_macro": "SELECT_EFFECTS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects source effects for a group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1321,
+            1680,
+            1709
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 62
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source effects to PMDO VFX/controller binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_ENTITIES",
+      "occurrence_count": 40,
+      "source_opcode": "0x0C",
+      "source_macro": "SELECT_ENTITIES",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects lives, objects, effects and events for a source group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1318,
+            1677,
+            1694
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 56
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source entity tables to transient PMDO actors/controllers"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_EVENTS",
+      "occurrence_count": 7,
+      "source_opcode": "0x10",
+      "source_macro": "SELECT_EVENTS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects source events for a group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1322,
+            1681,
+            1713
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 64
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source events to PMDO controller binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_LIVES",
+      "occurrence_count": 19,
+      "source_opcode": "0x0D",
+      "source_macro": "SELECT_LIVES",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects source lives for a group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1319,
+            1678,
+            1701
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 58
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source lives to transient PMDO actor binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_MAP",
+      "occurrence_count": 59,
+      "source_opcode": "0x08",
+      "source_macro": "SELECT_MAP",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects a source Ground map and resets/reloads its map, link, lives and object state.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1314,
+            1618
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 44
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "certified immutable Ground assertion",
+        "source map id binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SELECT_OBJECTS",
+      "occurrence_count": 3,
+      "source_opcode": "0x0E",
+      "source_macro": "SELECT_OBJECTS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects source objects for a group/sector.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1320,
+            1679,
+            1705
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 60
+        }
+      },
+      "adapter_status": "GROUND_CONTEXT_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "source objects to transient PMDO entity binding"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "SET_DIR_WAIT",
+      "occurrence_count": 27,
+      "source_opcode": "0x8B",
+      "source_macro": "SET_DIR_WAIT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Sets the current parent direction unless it is -1, then waits an explicit frame count.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            515,
+            2580
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 353
+        }
+      },
+      "adapter_status": "ADAPTER_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:EntTurn",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 331,
+          "member": "EntTurn"
+        },
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [
+        "current parent actor is compiler context"
+      ],
+      "runtime_ready": false,
+      "proved_adapter": {
+        "rule": "SET_DIR_WAIT(direction, frames) -> optional GROUND:EntTurn(actor, mapped_direction), then GAME:WaitFrames(frames)",
+        "pmdo_calls": [
+          "GROUND:EntTurn",
+          "GAME:WaitFrames"
+        ],
+        "preconditions": [
+          "the compiler resolves the parent action to one GroundEntity",
+          "PMD Red direction symbols are remapped by name, never cast numerically",
+          "direction -1 preserves the current direction",
+          "frames is an integer greater than or equal to zero"
+        ],
+        "proof": "The source command sets the parent direction unless it is -1 and then waits; both exact PMDO primitives expose those operations."
+      }
+    },
+    {
+      "kind": "SET_DUNGEON_RES",
+      "occurrence_count": 13,
+      "source_opcode": "0xAB",
+      "source_macro": "SET_DUNGEON_RES",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Writes source DUNGEON_RESULT and DUNGEON_ENTER variables.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1382,
+            2869
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 420
+        }
+      },
+      "adapter_status": "ROUTE_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "PMDO result/entry state mapping and journey outcome contract"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "TEXTBOX_AUTO_PRESS",
+      "occurrence_count": 8,
+      "source_opcode": "0x2B",
+      "source_macro": "TEXTBOX_AUTO_PRESS",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Configures independent source mid-message and end-message automatic button timers.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1342,
+            1966
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 130
+        }
+      },
+      "adapter_status": "NO_EQUIVALENT_PROVEN",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "PMDO SetAutoFinish has no proved dual timer equivalent"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "UPDATE_VARINT",
+      "occurrence_count": 51,
+      "source_opcode": "0xA6",
+      "source_macro": "UPDATE_VARINT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Applies a source arithmetic/bit operation with an immediate value to a script variable.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1377,
+            2847
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 408
+        }
+      },
+      "adapter_status": "STATE_BINDING_REQUIRED",
+      "pmdo_api_candidates": [],
+      "remaining_blockers": [
+        "canonical variable identity and persistence mapping"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "VARIANT",
+      "occurrence_count": 130,
+      "source_opcode": "0xD0",
+      "source_macro": "VARIANT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects a source text variant from a script variable and contiguous variant records.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1418
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 499
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "script-variable model",
+        "exact EU French text variants"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "VARIANT_DEFAULT",
+      "occurrence_count": 98,
+      "source_opcode": "0xD1",
+      "source_macro": "VARIANT_DEFAULT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Selects a source text variant from a script variable and contiguous variant records.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            1419
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 501
+        }
+      },
+      "adapter_status": "CONTROL_FLOW_COMPILER_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "UI:WaitShowDialogue",
+          "source_path": "RogueEssence/Lua/ScriptUI.cs",
+          "source_blob_sha": "fb769d1d3fd701d76f0fc559d8ccb9ac27b6c2fe",
+          "line": 166,
+          "member": "WaitShowDialogue"
+        }
+      ],
+      "remaining_blockers": [
+        "script-variable model",
+        "exact EU French text variants"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WAIT",
+      "occurrence_count": 520,
+      "source_opcode": "0xDB",
+      "source_macro": "WAIT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Blocks the current source action for an explicit frame count.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            523,
+            3168
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 521
+        }
+      },
+      "adapter_status": "ADAPTER_PROVEN",
+      "pmdo_api_candidates": [
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [],
+      "runtime_ready": false,
+      "proved_adapter": {
+        "rule": "WAIT(frames) -> GAME:WaitFrames(frames)",
+        "pmdo_calls": [
+          "GAME:WaitFrames"
+        ],
+        "preconditions": [
+          "frames is an integer greater than or equal to zero"
+        ],
+        "proof": "Both engines block the current script for an explicit count of 60 Hz frames."
+      }
+    },
+    {
+      "kind": "WAIT_FANFARE1",
+      "occurrence_count": 10,
+      "source_opcode": "0xE1",
+      "source_macro": "WAIT_FANFARE1",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Blocks while the specified numeric source sound remains active.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            578,
+            3180
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 533
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:WaitFanfare",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 141,
+          "member": "_WaitFanfare"
+        }
+      ],
+      "remaining_blockers": [
+        "specific source sound id and channel semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WAIT_FANFARE2",
+      "occurrence_count": 31,
+      "source_opcode": "0xE2",
+      "source_macro": "WAIT_FANFARE2",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Blocks while the specified numeric source sound remains active.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            579,
+            3181
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 535
+        }
+      },
+      "adapter_status": "AUDIO_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "SOUND:WaitFanfare",
+          "source_path": "RogueEssence/Lua/ScriptSound.cs",
+          "source_blob_sha": "fccdc2fe0602bf8aa1d33a4fa2588c1edb529ade",
+          "line": 141,
+          "member": "_WaitFanfare"
+        }
+      ],
+      "remaining_blockers": [
+        "specific source sound id and channel semantics"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WALK_DIRECT",
+      "occurrence_count": 5,
+      "source_opcode": "0x7A",
+      "source_macro": "WALK_DIRECT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Interpolates toward a source Ground link while updating facing over an explicit duration.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            706,
+            2505
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 316
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:AnimateToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 618,
+          "member": "_AnimateToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "source link geometry",
+        "parent actor",
+        "duration parity"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WALK_GRID",
+      "occurrence_count": 29,
+      "source_opcode": "0x6B",
+      "source_macro": "WALK_GRID",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Walks to a source Ground link/waypoint at fixed 24.8 speed, updating facing and stopping on collision.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            633,
+            2404
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 286
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:MoveToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 491,
+          "member": "_MoveToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "source link geometry",
+        "parent actor",
+        "collision-stop equivalence"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WALK_RELATIVE",
+      "occurrence_count": 19,
+      "source_opcode": "0x6A",
+      "source_macro": "WALK_RELATIVE",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Walks from current position to a relative pixel target at fixed 24.8 speed, updating facing and stopping on collision.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            632,
+            2394
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 284
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:MoveToPosition",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 491,
+          "member": "_MoveToPosition"
+        }
+      ],
+      "remaining_blockers": [
+        "parent actor",
+        "fixed-point speed conversion",
+        "collision-stop equivalence"
+      ],
+      "runtime_ready": false
+    },
+    {
+      "kind": "WARP_WAYPOINT",
+      "occurrence_count": 13,
+      "source_opcode": "0x5B",
+      "source_macro": "WARP_WAYPOINT",
+      "source_semantics_status": "PROVEN",
+      "source_semantics": "Moves the parent immediately to a source Ground link position and optionally waits.",
+      "source_proof": {
+        "executor": {
+          "path": "src/ground_script.c",
+          "blob_sha": "87431714802987dedbc0330b7338ad90f390ce0b",
+          "case_lines": [
+            511,
+            2322
+          ]
+        },
+        "macro": {
+          "path": "include/data_script.h",
+          "blob_sha": "5ed91e16fcb93817cc7a098908b0a6542bb6c01e",
+          "line": 254
+        }
+      },
+      "adapter_status": "ENTITY_AND_GEOMETRY_BINDING_REQUIRED",
+      "pmdo_api_candidates": [
+        {
+          "api": "GROUND:TeleportTo",
+          "source_path": "RogueEssence/Lua/ScriptGround.cs",
+          "source_blob_sha": "a23124550a82a2daa30c5fb9d01f0d1d2302d447",
+          "line": 429,
+          "member": "TeleportTo"
+        },
+        {
+          "api": "GAME:WaitFrames",
+          "source_path": "RogueEssence/Lua/ScriptGame.cs",
+          "source_blob_sha": "87251bb66a58c4056b60c5ac10c903ee1ddb95d7",
+          "line": 1498,
+          "member": "_WaitFrames"
+        }
+      ],
+      "remaining_blockers": [
+        "source link geometry",
+        "parent entity"
+      ],
+      "runtime_ready": false
+    }
+  ],
+  "registry_sha256": "b26dcd25566890da37cd58f99ec8d3a911781b2331494ad5a26863bc10872388"
+}

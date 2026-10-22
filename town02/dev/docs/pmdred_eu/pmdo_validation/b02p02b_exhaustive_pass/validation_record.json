@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "ground": "b02p02b",
+  "validated_at": "2026-08-12",
+  "runtime": "PASS",
+  "visual_comparison": {
+    "result": "PASS",
+    "dimensions_pixels": [
+      480,
+      480
+    ],
+    "primary_sample_count": 1,
+    "reload_sample_count": 1,
+    "exact_sample_count": 2,
+    "unique_rgba_frame_count": 1,
+    "mismatched_pixel_count": 0,
+    "maximum_channel_delta": 0,
+    "all_full_rgba_exact": true,
+    "all_fully_opaque": true,
+    "comparative_png_paths": [
+      "docs/pmdred_eu/pmdo_validation/b02p02b_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/b02p02b_exhaustive_pass/comparisons/comparison_primary_tick0.png",
+      "docs/pmdred_eu/pmdo_validation/b02p02b_exhaustive_pass/comparisons/comparison_reload_tick0.png"
+    ],
+    "complete_metrics_report": "docs/pmdred_eu/pmdo_validation/b02p02b_exhaustive_pass/report.json"
+  },
+  "tile_palette_validation": {
+    "result": "PASS",
+    "reference": "independent authenticated raw EU BPL/BPC/BPA/BMA renderer",
+    "resource_hashes": {
+      "B01P02Bm": "535a529aceae7dd338a661ce9c298f7e9502c32926bedba88aa0367dad7d4e34",
+      "B01P02c": "502073ff87ce6a9fb54bc5f252ad152207e38b121d84ebe0f763341007f8dea4",
+      "B02P02B": "4c4bddb3179c7afdbe400190dc3fc1869103989174b6f81d1577626fe0aef9c1"
+    }
+  },
+  "animation_validation": {
+    "result": "PASS",
+    "primary_sample_count": 1,
+    "first_tick": 0,
+    "last_tick": 0,
+    "cell_local_schedule_count": 0,
+    "maximum_cell_local_cycle_ticks": 0,
+    "all_schedules_covered_through_two_complete_cycles": true,
+    "channels": [],
+    "unique_observed_rgba_frames": 1,
+    "reload_tick_zero_exact": true,
+    "orphaned_animation_observed": false
+  },
+  "collision_validation": {
+    "result": "PASS",
+    "source": "B01P02Bm",
+    "collision_layer_count": 1,
+    "solid_cells": 3178,
+    "collision_sha256": "008294d325d1e2808bebc637e8d8977b447e60761c9fb837d5054add83a4b973",
+    "successful_probe": {
+      "start": [
+        232,
+        232
+      ],
+      "direction": "Down",
+      "observed_delta": [
+        0,
+        8
+      ],
+      "result": "PASS"
+    },
+    "blocked_probe": {
+      "start": [
+        232,
+        208
+      ],
+      "direction": "Up",
+      "observed_delta": [
+        0,
+        0
+      ],
+      "result": "PASS"
+    }
+  },
+  "entry_exit_reentry": {
+    "result": "PASS",
+    "loads": 2,
+    "entries": 2,
+    "exits": 2,
+    "same_ground_reentries": 1,
+    "strict_native_lifecycle_order": "PASS"
+  },
+  "cleanup_reload": {
+    "result": "PASS",
+    "cleanup_probe_count": 4,
+    "ground_exit_cleanup_passes": 2,
+    "sink_cleanup": "PASS",
+    "final_cleanup": "PASS",
+    "reload_load": "LOAD_PASS",
+    "reload_tick_zero_full_rgba_exact": true,
+    "terminal_end_seen": true,
+    "state_leakage_observed": false,
+    "stale_assets_observed": false,
+    "permanent_lock_observed": false,
+    "orphan_process_check": "PASS"
+  },
+  "fixture_isolation": {
+    "canonical_source_ground_sha256": "28d28128dcc98ee7b3930e21020a74922e5be4fb9c1bd11fbe2553c8fe32ba25",
+    "canonical_source_tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+    "source_entity_counts": {
+      "markers": 0,
+      "spawners": 0,
+      "map_characters": 0,
+      "ground_objects": 0
+    },
+    "fixture_only_changes": [
+      "deterministic entry marker",
+      "ignored validator plumbing"
+    ],
+    "source_and_promoted_files_unchanged_by_fixture": true
+  },
+  "special_classification": {
+    "canonical_source": {
+      "category": "canonical_ground_map",
+      "ground_map_symbol": "MAP_TEAM_BASE_INSIDE_MEOWTH_FINAL",
+      "canonical_debug_id": 20,
+      "conversion_type": 2,
+      "debug_string": "__ground_amd_conversion_00020",
+      "debug_string_address": "0x0827B85C",
+      "ground_place_id": 11,
+      "map_file_id": 21,
+      "map_id": 20,
+      "stable_ground_id": "b02p02b",
+      "weather_id": -1,
+      "dimensions_tiles": [
+        60,
+        60
+      ],
+      "classification": "canonical_team_base_inside_meowth_final",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    },
+    "scope": {
+      "story_events": "NOT CLAIMED; Ground-only lifecycle and rendering validated",
+      "cinematic": false,
+      "arena": false,
+      "boss": false
+    }
+  },
+  "identity_validation": {
+    "result": "PASS",
+    "authenticated_map_id": 20,
+    "authenticated_map_file_id": 21,
+    "pinned_enum_symbol": "MAP_TEAM_BASE_INSIDE_MEOWTH_FINAL",
+    "conversion_type": 2,
+    "weather_id": -1
+  },
+  "definitive_destination": {
+    "ground": "Data/Ground/b02p02b.rsground",
+    "tile": "Content/Tile/b02p02b_Base.tile",
+    "zone_registry": "Data/Zone/master_zone.json",
+    "zone_registry_entry": "b02p02b",
+    "promotion_status": "PROMOTED_ADDITIVE_CANONICAL",
+    "preexisting_destinations": false,
+    "pre_promotion_record": "RESERVE/pmdred_pre_promotion/b02p02b/README.md",
+    "promoted_ground_sha256": "28d28128dcc98ee7b3930e21020a74922e5be4fb9c1bd11fbe2553c8fe32ba25",
+    "promoted_tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe"
+  },
+  "provenance": {
+    "rom_sha256": "0f9d125d513d9cba628d97e2c345382eba9ba73b402b24a8fdd81f604c14cbcd",
+    "reference_plan_sha256": "dcf498ae5f8970e15e44e044d000b6f28b342eae5e23f401516a9bb2738c0cb0",
+    "conversion_report_sha256": "91f3b460b3e3b7689bc608ece2006cb6103d653bcdc22ad028f4172c3a1b0fdc",
+    "candidate_ground_sha256": "28d28128dcc98ee7b3930e21020a74922e5be4fb9c1bd11fbe2553c8fe32ba25",
+    "candidate_tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+    "source_normalized_sha256": {
+      "B01P02Bm": "535a529aceae7dd338a661ce9c298f7e9502c32926bedba88aa0367dad7d4e34",
+      "B01P02c": "502073ff87ce6a9fb54bc5f252ad152207e38b121d84ebe0f763341007f8dea4",
+      "B02P02B": "4c4bddb3179c7afdbe400190dc3fc1869103989174b6f81d1577626fe0aef9c1"
+    },
+    "events_sha256": "3759317294bd5528f15789b0a3ac8d4dfa608d283a7fbc16482419a60e37a75d",
+    "report_sha256": "b682ef6a7e631742e7736dc585af4ab5c8b406b33b7c3ab2d10adbc221227f5c",
+    "fixture_manifest_sha256": "c0dfadeb1685984934d962c3db7d8a395726f7deb3fe11e8f50c0a073768beec",
+    "detailed_provenance": "docs/pmdred_eu/pmdo_validation/b02p02b_exhaustive_pass/provenance.json"
+  },
+  "execution_note": {
+    "terminal_event_and_all_required_captures_completed": true,
+    "post_terminal_shutdown": "bounded process-group termination after terminal evidence",
+    "evidence_impact": "NONE"
+  },
+  "dungeon_restitution": {
+    "affected": false,
+    "status": "27-relationship bundle retained"
+  },
+  "scope_note": "Ground-only; canonical story events, actors, entrances, music, variants, and routing are not claimed.",
+  "post_promotion_integration": {
+    "result": "PASS",
+    "exact_pmdo_index": "PASS",
+    "indexed_ground_sha256": "28d28128dcc98ee7b3930e21020a74922e5be4fb9c1bd11fbe2553c8fe32ba25",
+    "indexed_tile_sha256": "ec8f5ab4cfea9b73de418a74b4c104b3eb564386ad556a9e391e0e4f70aa6cbe",
+    "index_log_sha256": "3df47e3be040b124c5768b076c89fb586ff4b807890f154b22387667069c8ab8",
+    "zone_encoding_bom_preserved": true,
+    "zone_change": "one insertion after b02p02a",
+    "zone_ground_map_count": 211,
+    "canonical_index": 152,
+    "variant_and_routing_static_checks": "PASS"
+  }
+}

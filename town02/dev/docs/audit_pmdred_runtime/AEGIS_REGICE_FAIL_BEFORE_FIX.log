@@ -1,0 +1,545 @@
+Loading default script variable values..
+Script variables default values loaded! [build 2026-08-04-K]
+DebugTools:initialize()
+MenuTools:initialize()
+UpgradeTools:initialize()
+ConfigTools:initialize()
+NREProbe:initialize()
+[NREPROBE] build 2026-08-04-K charge (main.lua) — PREMIERE ligne attendue, au LANCEMENT du jeu. Si absente: la copie du mod chargee par le jeu n est PAS celle du depot.
+
+<!> DebugTools: Init..
+
+<!> ConfigTools: Init..
+[NREPROBE] service nre_probe ACTIF (EngineServiceEvents.Init) — build 2026-07-27-C
+[GROUND_VALIDATOR] {"event":"bootstrap_new_game"}
+Loading default script variable values..
+Script variables default values loaded! [build 2026-08-04-K]
+[NREPROBE] LoadSavedData <-- sauvegarde chargee (menu Continuer) | zone= seg=? map=? | Save.Team=0 leader=<nil> | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[GROUND_VALIDATOR] {"event":"arena_probe_begin","mode":"arena:cloven_ruins:1"}
+
+<!> ExampleSvc: Preparing debug save file
+[DevUnlock] exclu: barren_tundra
+[DevUnlock] exclu: bravery_road
+[DevUnlock] exclu: bug_maze
+[DevUnlock] exclu: cave_of_solace
+[DevUnlock] exclu: cave_of_whispers
+[DevUnlock] exclu: debug_zone
+[DevUnlock] exclu: deserted_fortress
+[DevUnlock] exclu: electric_maze
+[DevUnlock] exclu: energy_garden
+[DevUnlock] exclu: eon_island
+[DevUnlock] exclu: guildmaster_island
+[DevUnlock] exclu: hope_road
+[DevUnlock] exclu: inscribed_cave
+[DevUnlock] exclu: labyrinth_of_the_lost
+[DevUnlock] exclu: master_zone
+[DevUnlock] exclu: prism_isles
+[DevUnlock] exclu: royal_halls
+[DevUnlock] exclu: sacred_tower
+[DevUnlock] exclu: starfall_heights
+[DevUnlock] exclu: the_abyss
+[DevUnlock] exclu: the_sky
+[DevUnlock] exclu: training_maze
+[DevUnlock] exclu: uncharted_waters
+[DevUnlock] exclu: wisdom_road
+[NREPROBE] NewGame | zone= seg=? map=? | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[GROUND_VALIDATOR] {"event":"arena_probe_begin","mode":"arena:cloven_ruins:1"}
+[NREPROBE] ZoneInit | zone=mount_windswept seg=-1 map=-1 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[NREPROBE][mount_windswept.EnterSegment seg=-1] zone=mount_windswept seg=-1 Save.Team=4
+[NREPROBE] DungeonSegmentStart (Lua EnterSegment va tourner) | zone=mount_windswept seg=-1 map=-1 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[NREPROBE] GroundModeBegin | zone=mount_windswept seg=-1 map=2 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[NREPROBE][mount_windswept_guardian.Init] zone=mount_windswept seg=-1 Save.Team=4 leader=[color=#009CFF]BIG_AF_NAME[color] hero=OK partner=NIL
+=>> Init_mount_windswept_guardian
+[ARENA_RUNTIME] ground coroutine -> ContinueDungeon cloven_ruins segment=1
+[NREPROBE] GroundMapEnter | zone=mount_windswept seg=-1 map=2 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[NREPROBE] GroundMapExit | zone=mount_windswept seg=-1 map=2 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+=>_ENV pre-cleanup:187
+=>_ENV post cleanup:186
+[NREPROBE] GroundModeEnd | zone=mount_windswept seg=-1 map=-1 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+=>_ENV pre-cleanup:186
+=>_ENV post cleanup:185
+=>> Init_cloven_ruins
+[NREPROBE] ZoneInit | zone=cloven_ruins seg=-1 map=-1 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+Checking Mission: 1
+Checking Mission: 2
+Checking Mission: 3
+Checking Mission: 4
+Checking Mission: 5
+Checking Mission: 6
+Checking Mission: 7
+Checking Mission: 8
+[NREPROBE] DungeonSegmentStart (Lua EnterSegment va tourner) | zone=cloven_ruins seg=-1 map=-1 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap=nil TeamAttachee=n/a foes=n/a
+[2026/08/08 17:20:20.378] Could not deserialize file
+Exception Depth: 0
+System.IO.FileLoadException: Could not deserialize file
+File name: '/home/user/runtime/PMDO/MODS/NewEra/Data/Map/cloven_ruins_regice.rsmap'
+ ---> Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+Exception Depth: 1
+Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.591] Missing Data: cloven_ruins_regice
+Exception Depth: 0
+System.IO.FileNotFoundException: Missing Data: cloven_ruins_regice
+ ---> System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+Exception Depth: 1
+System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.691] Object reference not set to an instance of an object.
+Exception Depth: 0
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RogueEssence.LevelGen.BaseMapGenContext.get_Width()
+   at RogueEssence.LevelGen.BaseMapGenContext.FinishGen()
+   at RogueEssence.LevelGen.FloorMapGen`1.GenMap(ZoneGenContext zoneContext)
+   at RogueEssence.LevelGen.ZoneSegmentBase.GetMap(ZoneGenContext zoneContext)
+   at RogueEssence.Dungeon.Zone.GetMap(SegLoc id)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.730] Could not deserialize file
+Exception Depth: 0
+System.IO.FileLoadException: Could not deserialize file
+File name: '/home/user/runtime/PMDO/MODS/NewEra/Data/Map/cloven_ruins_regice.rsmap'
+ ---> Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+Exception Depth: 1
+Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.739] Missing Data: cloven_ruins_regice
+Exception Depth: 0
+System.IO.FileNotFoundException: Missing Data: cloven_ruins_regice
+ ---> System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+Exception Depth: 1
+System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.739] Object reference not set to an instance of an object.
+Exception Depth: 0
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RogueEssence.LevelGen.BaseMapGenContext.get_Width()
+   at RogueEssence.LevelGen.BaseMapGenContext.FinishGen()
+   at RogueEssence.LevelGen.FloorMapGen`1.GenMap(ZoneGenContext zoneContext)
+   at RogueEssence.LevelGen.ZoneSegmentBase.GetMap(ZoneGenContext zoneContext)
+   at RogueEssence.Dungeon.Zone.GetMap(SegLoc id)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.744] Could not deserialize file
+Exception Depth: 0
+System.IO.FileLoadException: Could not deserialize file
+File name: '/home/user/runtime/PMDO/MODS/NewEra/Data/Map/cloven_ruins_regice.rsmap'
+ ---> Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+Exception Depth: 1
+Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.745] Missing Data: cloven_ruins_regice
+Exception Depth: 0
+System.IO.FileNotFoundException: Missing Data: cloven_ruins_regice
+ ---> System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+Exception Depth: 1
+System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.745] Object reference not set to an instance of an object.
+Exception Depth: 0
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RogueEssence.LevelGen.BaseMapGenContext.get_Width()
+   at RogueEssence.LevelGen.BaseMapGenContext.FinishGen()
+   at RogueEssence.LevelGen.FloorMapGen`1.GenMap(ZoneGenContext zoneContext)
+   at RogueEssence.LevelGen.ZoneSegmentBase.GetMap(ZoneGenContext zoneContext)
+   at RogueEssence.Dungeon.Zone.GetMap(SegLoc id)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.746] Could not deserialize file
+Exception Depth: 0
+System.IO.FileLoadException: Could not deserialize file
+File name: '/home/user/runtime/PMDO/MODS/NewEra/Data/Map/cloven_ruins_regice.rsmap'
+ ---> Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+Exception Depth: 1
+Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.746] Missing Data: cloven_ruins_regice
+Exception Depth: 0
+System.IO.FileNotFoundException: Missing Data: cloven_ruins_regice
+ ---> System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+Exception Depth: 1
+System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.746] Object reference not set to an instance of an object.
+Exception Depth: 0
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RogueEssence.LevelGen.BaseMapGenContext.get_Width()
+   at RogueEssence.LevelGen.BaseMapGenContext.FinishGen()
+   at RogueEssence.LevelGen.FloorMapGen`1.GenMap(ZoneGenContext zoneContext)
+   at RogueEssence.LevelGen.ZoneSegmentBase.GetMap(ZoneGenContext zoneContext)
+   at RogueEssence.Dungeon.Zone.GetMap(SegLoc id)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.747] Could not deserialize file
+Exception Depth: 0
+System.IO.FileLoadException: Could not deserialize file
+File name: '/home/user/runtime/PMDO/MODS/NewEra/Data/Map/cloven_ruins_regice.rsmap'
+ ---> Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+Exception Depth: 1
+Newtonsoft.Json.JsonReaderException: Could not convert string to integer: cloven_ruins_regice. Path 'Object.ID', line 1, position 441.
+   at Newtonsoft.Json.JsonReader.ReadInt32String(String s)
+   at Newtonsoft.Json.JsonTextReader.FinishReadQuotedNumber(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadNumberValue(ReadType readType)
+   at Newtonsoft.Json.JsonTextReader.ReadAsInt32()
+   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ResolvePropertyAndCreatorValues(JsonObjectContract contract, JsonProperty containerProperty, JsonReader reader, Type objectType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObjectUsingCreatorWithParameters(JsonReader reader, JsonObjectContract contract, JsonProperty containerProperty, ObjectConstructor`1 creator, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewObject(JsonReader reader, JsonObjectContract objectContract, JsonProperty containerMember, JsonProperty containerProperty, String id, Boolean& createdFromNonDefaultCreator)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at RogueEssence.Data.Serializer.DeserializeData(Stream stream)
+   at RogueEssence.Data.DataManager.loadObject(Type t, String path, String[] diffpaths)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.748] Missing Data: cloven_ruins_regice
+Exception Depth: 0
+System.IO.FileNotFoundException: Missing Data: cloven_ruins_regice
+ ---> System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+Exception Depth: 1
+System.IO.FileNotFoundException: Could not find Map/ ID: 'cloven_ruins_regice'
+   at RogueEssence.Data.DataManager.LoadNamespacedData[T](String namespacedNum, String subPath, String ext)
+   at RogueEssence.Data.DataManager.GetMap(String name)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[2026/08/08 17:20:20.748] Object reference not set to an instance of an object.
+Exception Depth: 0
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RogueEssence.LevelGen.BaseMapGenContext.get_Width()
+   at RogueEssence.LevelGen.BaseMapGenContext.FinishGen()
+   at RogueEssence.LevelGen.FloorMapGen`1.GenMap(ZoneGenContext zoneContext)
+   at RogueEssence.LevelGen.ZoneSegmentBase.GetMap(ZoneGenContext zoneContext)
+   at RogueEssence.Dungeon.Zone.GetMap(SegLoc id)
+
+
+Lua Trace:
+stack traceback:
+
+Coroutine Trace:
+RogueEssence.GameManager+<MoveToZone>d__74
+RogueEssence.GameManager+<ScreenMainCoroutine>d__64
+
+[NREPROBE] DungeonModeBegin | zone=cloven_ruins seg=1 map=0 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap= TeamAttachee=NON <- IsGameOver() CRASHERAIT ICI foes=0
+[NREPROBE] DungeonMapInit map= | zone=cloven_ruins seg=1 map=0 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap= TeamAttachee=OUI(4) foes=0
+[NREPROBE] DungeonFloorEnter <-- equipe DOIT etre attachee ici | zone=cloven_ruins seg=1 map=0 | Save.Team=4 leader=BIG_AF_NAME | DungeonMap= TeamAttachee=OUI(4) foes=0
+[GROUND_VALIDATOR] {"event":"arena_battle_runtime","verdict":"RUNTIME_FAIL","error":"NLua.Exceptions.LuaScriptException: [string \"?\"]:1: exception indexing '0' Exception has been thrown by the target of an invocation.: 12502973"}
