@@ -1,0 +1,26 @@
+--- Scene: d15p01
+local d15p01 = {}
+function d15p01.Cutscene()
+  GAME:CutsceneMode(true)
+  GAME:PlayBGM('Theres Trouble', true)
+  -- GROUND:CharSetAction(ent, 2)
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_001"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_002"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_003"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_004"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_005"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_006"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_007"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_008"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_009"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_010"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_011"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_012"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_013"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_014"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_015"))
+  UI:WaitShowDialogue(STRINGS:FormatKey("SCENE_D15P01_016"))
+  -- GROUND:CharSetAction(ent, 2)
+  GAME:CutsceneMode(false)
+end
+return d15p01
