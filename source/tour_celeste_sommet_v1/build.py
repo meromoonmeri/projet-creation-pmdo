@@ -56,9 +56,7 @@ from tour_celeste_moteur_nuages import (  # type: ignore
 
 MAP_ID = "STC1"
 MAP_TITLE = "Sommet de la Tour Céleste — Arène de Rayquaza"
-RAW_DIR = REPO_ROOT / ".cache" / "tour_celeste_sommet_v1" / "raw"
-ENTREE_RAW_DIR = REPO_ROOT / ".cache" / "tour_celeste_entree_v1" / "raw"
-RELAIS_RAW_DIR = REPO_ROOT / ".cache" / "tour_celeste_relais_v1" / "raw"
+RAW_DIR = HERE / "bruts"
 REF_DIR = HERE / "references"
 RENDERS_DIR = REPO_ROOT / "renders" / "tour_celeste_sommet_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
@@ -187,7 +185,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     layer07_arr[crest_rim_mask] = couronne_arr[crest_rim_mask]
 
     # 2. Fond stratosphérique pur `b71` + étoiles discrètes + horizon planétaire courbe animé !
-    plume_src = Image.open(ENTREE_RAW_DIR / "nuages_courant_convergent.png").convert("RGB")
+    plume_src = Image.open(RAW_DIR / "nuages_courant_altitude.png").convert("RGB")
     layer00_img, frames_02, below_limb_mask = build_clean_b71_stratosphere_and_limb(
         b71_up, plume_src, w, h, palette
     )
@@ -302,7 +300,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     # Couche 09 (`Top` `Layer = 4`) : panaches éoliens et bouffées s'échappant sous les flancs de la couronne !
     summit_sprites = extract_whole_cloud_sprites(
-        ENTREE_RAW_DIR / "poses_nuages_magenta.png",
+        RAW_DIR / "poses_nuages_magenta.png",
         palette=wing_pal_near,
         scale_div=max(2, int(round(1450 / max(w, 1)))),
         min_area=24,

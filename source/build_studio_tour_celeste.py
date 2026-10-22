@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Génère les planches filmstrip 24 poses par calque (dans `.cache/studio_layers/`, hors Git)
-et l'interface interactive HTML5 `<canvas>` 60 FPS (`index.html` + `renders/tour_celeste_studio/index.html`)
-pour visualiser en direct les 3 cartes de « La Tour Céleste » (`ETC1`, `RTC1`, `STC1`), activer/désactiver
-chacun des 10 calques indépendamment en temps réel, afficher la grille de collisions piétonnes,
-comparer côte-à-côte avec les rips canoniques `D13P01` / `D13P02` / `b71`, et télécharger les `.zip` `0.8.12.0`.
+"""Génère les planches filmstrip 24 poses par calque (dans `.cache/studio_layers/STC1/`, hors Git)
+et l'interface interactive HTML5 `<canvas>` 60 FPS (`index.html` + `apercu_sommet_tour_celeste_stc1_pmdo.html`)
+dédiée exclusivement à `STC1 — Sommet de la Tour Céleste — Arène de Rayquaza` (`b71 / D13P03`),
+avec navigation directe vers les autres aperçus du dépôt.
 """
 
 from __future__ import annotations
@@ -14,7 +13,6 @@ import sys
 from pathlib import Path
 from typing import Dict, List
 
-import numpy as np
 from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -36,29 +34,13 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
-            "id": "ETC1",
-            "folder": "tour_celeste_entree_v1",
-            "ref_rel": "source/tour_celeste_entree_v1/references/D13P01.png",
-            "zip_rel": ".cache/virtual_zips/ETC1_PMDO_0.8.12.zip",
-            "subtitle": "D13P01 — Convergence symétrique vers le cyclone du portail nord",
-            "wind_summary": "Flanc gauche : (dx = +16, dy = -8) ↗ | Flanc droit : (dx = -16, dy = -8) ↖ | Vortex nord : rotation cyclonique 360°",
-        },
-        {
-            "id": "RTC1",
-            "folder": "tour_celeste_relais_v1",
-            "ref_rel": "source/tour_celeste_relais_v1/references/D13P02.png",
-            "zip_rel": ".cache/virtual_zips/RTC1_PMDO_0.8.12.zip",
-            "subtitle": "D13P02 — Courants thermiques ascendants multi-vitesses & murailles étoilées",
-            "wind_summary": "Brumes profondes : dy = -8 ↑ | Cumulus proches : dy = -16 ↑ | Murailles étoilées : dy = -8 ↑ + scintillement",
-        },
-        {
             "id": "STC1",
             "folder": "tour_celeste_sommet_v1",
             "ref_rel": "source/tour_celeste_sommet_v1/references/b71_sky_tower_summit.png",
             "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
             "subtitle": "b71 / D13P03 — Courbe planétaire, stratosphère étoilée & ailes de vent divergentes",
             "wind_summary": "Limbe terrestre : dx = +8 → | Aile gauche : (dx = -16, dy = +8) ↙ | Aile droite : (dx = +16, dy = +8) ↘",
-        },
+        }
     ]
 
     manifest_maps: List[Dict] = []
@@ -131,7 +113,7 @@ def build_html(manifest: Dict) -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trilogie La Tour Céleste — Studio Multicalque 24 Poses (PMDO 0.8.12.0)</title>
+  <title>Sommet de la Tour Céleste (STC1) — Studio Multicalque 24 Poses (PMDO 0.8.12.0)</title>
   <style>
     :root {{
       --bg: #081226;
@@ -172,28 +154,22 @@ def build_html(manifest: Dict) -> str:
       color: var(--muted);
       font-size: 0.88rem;
     }}
-    .tabs {{
+    .nav-links {{
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }}
-    .tab-btn {{
+    .nav-link {{
       background: var(--panel);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 9px 15px;
+      padding: 8px 13px;
       font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.14s ease;
+      font-size: 0.84rem;
+      text-decoration: none;
     }}
-    .tab-btn:hover {{ border-color: var(--accent); }}
-    .tab-btn.active {{
-      background: linear-gradient(180deg, #2556a8, #193b78);
-      border-color: var(--accent-2);
-      box-shadow: 0 0 0 1px rgba(168, 224, 255, 0.35);
-    }}
+    .nav-link:hover {{ border-color: var(--accent); }}
     main {{
       max-width: 1480px;
       margin: 0 auto;
@@ -360,10 +336,13 @@ def build_html(manifest: Dict) -> str:
 <body>
   <header>
     <div>
-      <h1>La Tour Céleste — Trilogie Multicalque Animée 24 Poses (RogueEssence / PMDO 0.8.12.0)</h1>
+      <h1>Sommet de la Tour Céleste — Arène de Rayquaza (<code>STC1</code> · 24 Poses Multicalques · PMDO 0.8.12.0)</h1>
       <p id="mapSubtitle">Chargement des planches pixel-art 1:1...</p>
     </div>
-    <div class="tabs" id="mapTabs"></div>
+    <nav class="nav-links">
+      <a class="nav-link" href="/apercu_traversee_cristal_d17_pmdo.html">Biome D17 — Traversée Cristal</a>
+      <a class="nav-link" href="/livrables_quest_pmdo_complet/apercu_quest_pmdo_3637_maps.html">Portail Quest PMDO (town02)</a>
+    </nav>
   </header>
 
   <main>
@@ -376,8 +355,8 @@ def build_html(manifest: Dict) -> str:
       <div class="canvas-wrap">
         <canvas id="stageCanvas" width="768" height="576"></canvas>
         <div class="ref-box" id="refBox">
-          <img id="refImg" class="ref-preview" width="384" height="288" alt="Référence canonique" />
-          <div class="ref-caption">Référence canonique GBA (échelle comparative)</div>
+          <img id="refImg" class="ref-preview" width="384" height="288" alt="Référence canonique b71" />
+          <div class="ref-caption">Référence canonique GBA (b71)</div>
         </div>
       </div>
 
@@ -403,13 +382,13 @@ def build_html(manifest: Dict) -> str:
         </div>
       </div>
       <div class="layer-list" id="layerList"></div>
-      <a class="dl-btn" id="zipDownload" href="#" download>Télécharger le mod PMDO 0.8.12.0 (.zip)</a>
+      <a class="dl-btn" id="zipDownload" href="#" download>Télécharger STC1_PMDO_0.8.12.zip</a>
     </aside>
   </main>
 
   <script>
     const MANIFEST = {manifest_json};
-    let currentMapIdx = 0;
+    const m = MANIFEST.maps[0];
     let playing = true;
     let speedMul = 1.0;
     let showCollisions = false;
@@ -435,14 +414,11 @@ def build_html(manifest: Dict) -> str:
       return p;
     }}
 
-    async function selectMap(idx) {{
-      currentMapIdx = idx;
-      const m = MANIFEST.maps[idx];
+    async function initMap() {{
       canvas.width = m.width;
       canvas.height = m.height;
       ctx.imageSmoothingEnabled = false;
 
-      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
       document.getElementById('mapSubtitle').textContent = `${{m.id}} — ${{m.title}} (${{m.subtitle}})`;
       document.getElementById('windSummary').textContent = m.wind_summary;
       document.getElementById('refImg').src = m.ref_url;
@@ -458,16 +434,15 @@ def build_html(manifest: Dict) -> str:
       `;
 
       const listEl = document.getElementById('layerList');
-      listEl.innerHTML = '';
       m.layers.forEach((L) => {{
         const key = `${{m.id}}:${{L.slug}}`;
-        if (!layerEnabled.has(key)) layerEnabled.set(key, true);
+        layerEnabled.set(key, true);
         const row = document.createElement('div');
         row.className = 'layer-row';
         const isAnim = L.poses > 1;
         row.innerHTML = `
           <label>
-            <input type="checkbox" data-key="${{key}}" ${{layerEnabled.get(key) ? 'checked' : ''}} />
+            <input type="checkbox" data-key="${{key}}" checked />
             <span><strong>${{String(L.index).padStart(2, '0')}}</strong> ${{L.name}}</span>
           </label>
           <span class="badge ${{isAnim ? 'anim' : ''}}">${{L.kind}} · ${{L.poses}}p · ${{L.unique_tiles}}t</span>
@@ -480,7 +455,6 @@ def build_html(manifest: Dict) -> str:
       }});
 
       const statusEl = document.getElementById('loadStatus');
-      statusEl.textContent = `Chargement des 10 calques de ${{m.id}}...`;
       let loaded = 0;
       await Promise.all(m.layers.map(async (L) => {{
         const strip = await loadImg(L.strip_url);
@@ -494,9 +468,8 @@ def build_html(manifest: Dict) -> str:
     }}
 
     function renderCurrentFrame() {{
-      const m = MANIFEST.maps[currentMapIdx];
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#071430';
+      ctx.fillStyle = '#0000a8';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       for (const L of m.layers) {{
@@ -526,7 +499,6 @@ def build_html(manifest: Dict) -> str:
     }}
 
     function tick(now) {{
-      const m = MANIFEST.maps[currentMapIdx];
       const intervalMs = (1000 * m.frame_ticks / 60) / speedMul;
       if (playing && (now - lastStepMs) >= intervalMs) {{
         poseIdx = (poseIdx + 1) % m.n_frames;
@@ -535,15 +507,6 @@ def build_html(manifest: Dict) -> str:
       }}
       requestAnimationFrame(tick);
     }}
-
-    const tabsEl = document.getElementById('mapTabs');
-    MANIFEST.maps.forEach((m, i) => {{
-      const b = document.createElement('button');
-      b.className = 'tab-btn';
-      b.textContent = `${{m.id}} — ${{m.title.split('—')[0].trim()}}`;
-      b.addEventListener('click', () => selectMap(i));
-      tabsEl.appendChild(b);
-    }});
 
     document.getElementById('playBtn').addEventListener('click', (e) => {{
       playing = !playing;
@@ -571,13 +534,11 @@ def build_html(manifest: Dict) -> str:
       document.getElementById('refBox').classList.toggle('visible', showRef);
     }});
     document.getElementById('allOnBtn').addEventListener('click', () => {{
-      const m = MANIFEST.maps[currentMapIdx];
       m.layers.forEach((L) => layerEnabled.set(`${{m.id}}:${{L.slug}}`, true));
       document.querySelectorAll('#layerList input[type="checkbox"]').forEach((c) => c.checked = true);
       renderCurrentFrame();
     }});
     document.getElementById('animOnlyBtn').addEventListener('click', () => {{
-      const m = MANIFEST.maps[currentMapIdx];
       m.layers.forEach((L) => layerEnabled.set(`${{m.id}}:${{L.slug}}`, L.poses > 1));
       document.querySelectorAll('#layerList input[type="checkbox"]').forEach((c, idx) => {{
         c.checked = m.layers[idx].poses > 1;
@@ -585,7 +546,7 @@ def build_html(manifest: Dict) -> str:
       renderCurrentFrame();
     }});
 
-    selectMap(0).then(() => requestAnimationFrame(tick));
+    initMap().then(() => requestAnimationFrame(tick));
   </script>
 </body>
 </html>
@@ -596,10 +557,8 @@ def main() -> None:
     manifest = export_filmstrips()
     html = build_html(manifest)
     (REPO_ROOT / "index.html").write_text(html, encoding="utf-8")
-    studio_dir = REPO_ROOT / "renders" / "tour_celeste_studio"
-    studio_dir.mkdir(parents=True, exist_ok=True)
-    (studio_dir / "index.html").write_text(html, encoding="utf-8")
-    print("[Studio] index.html et renders/tour_celeste_studio/index.html mis à jour.")
+    (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(html, encoding="utf-8")
+    print("[Studio] index.html et apercu_sommet_tour_celeste_stc1_pmdo.html mis à jour (STC1 uniquement).")
 
 
 if __name__ == "__main__":
