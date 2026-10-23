@@ -639,7 +639,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GMA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GME1"), encoding="utf-8")
     (REPO_ROOT / "apercu_grotte_meteore_deoxys_pmdo.html").write_text(
         build_html(manifest, default_map_id="GME1"), encoding="utf-8"
     )

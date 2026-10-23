@@ -196,6 +196,8 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=B74_REF,
+        namespace_override="grotte_meteore_gme1",
+        asset_name_override="grotte_meteore_entree",
     )
     meta["width"] = w
     meta["height"] = h
