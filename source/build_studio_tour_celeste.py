@@ -66,12 +66,12 @@ def export_filmstrips() -> Dict:
             "id": "FSE1",
             "group": "Faille Spatiale · Palkia",
             "folder": "faille_spatiale_entree_v1",
-            "ref_rel": "source/faille_spatiale_entree_v1/references/d46p41a_spatial_rift_canyon_native.png",
-            "ref_label": "Référence PMD Sky — Faille Spatiale Entrée (D46P41A 1×)",
+            "ref_rel": "source/faille_spatiale_entree_v1/bruts/paroi_rocheuse_canyon_avant_faille.png",
+            "ref_label": "Canyon Dimensionnel Rocheux Scellé (Avant Déchirure, Nuée des Zarbis & Cosmos Étoilé)",
             "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
             "bg_fill": "#120722",
-            "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
-            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers statiques",
+            "subtitle": "Chapitre I — Entrée Canyon Dimensionnel (24 poses) : Fond rocheux complet ──▶ Fissures Spatio-Rift & Distorsion avec nuée de 132 Zarbis PMDO (A–Z, !, ?) ──▶ Rupture vers Portail Nord & Cosmos distordu étoilé",
+            "wind_summary": "Fond rocheux fissuré -> rupture totale (24f @ 5t) | Distorsion & 132 Zarbis PMDO officiels BG + Top (A–Z, !, ?) | Portail Nord & Cosmos étoilé (24f) | Canyon statique",
         },
         {
             "id": "FSA0",
@@ -806,7 +806,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       const intervalMs = (1000 / 60) / speedMul;
       if (playing && (now - lastStepMs) >= intervalMs) {{
         const steps = Math.max(1, Math.min(4, Math.floor((now - lastStepMs) / intervalMs)));
-        hwTick = (hwTick + steps) % 34720;
+        hwTick = (hwTick + steps) % 34560;
         lastStepMs = now;
         renderCurrentFrame();
       }}
@@ -862,7 +862,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FSA0"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FSE1"), encoding="utf-8")
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
@@ -876,7 +876,7 @@ def main() -> None:
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
-        build_html(manifest, default_map_id="FSA0"), encoding="utf-8"
+        build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
     print("[Studio] index.html et les aperçus dédiés générés (15 cartes, 150 calques 60 FPS, grilles 2D <= 4608px).")
 
