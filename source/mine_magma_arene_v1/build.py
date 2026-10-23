@@ -221,20 +221,20 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         floor_rgb=q_decor,
     )
 
-    # 9. Couche 06 : Couronne Nord `100 %` basalte noir + gouffre noir profond & falaises périphériques (`POV PMD`)
+    # 9. Couche 06 : Couronne Nord `100 %` basalte noir sculpté + gouffre noir profond & falaises périphériques (`1` pose statique !)
     out_rock = np.zeros((h, w, 4), dtype=np.uint8)
     out_rock[all_non_walk_rock, :3] = q_decor[all_non_walk_rock]
     out_rock[all_non_walk_rock, 3] = 255
+    im_06_cliffs = Image.fromarray(out_rock, mode="RGBA")
     low_shore_contact = open_chasm & ndimage.binary_dilation(low_waterline_rock, iterations=2)
-    frames_06_cliffs = build_dark_crater_rim_glow_frames(out_rock, low_shore_contact)
-    # Superpose la roche noire intacte en dessous pour garantir 100 % d'opacité sur le massif Nord et les falaises
-    frames_06_rock_with_low_rim = []
-    for im_g in frames_06_cliffs:
-        base_r = out_rock.copy()
-        ga = np.asarray(im_g, dtype=np.uint8)
+    frames_low_rim = build_dark_crater_rim_glow_frames(out_rock, low_shore_contact)
+    # Fusionne la pulsation thermique basse directement dans `frames_03_viscous_shore` pour garder `06_falaises` 100 % statique (1 pose) !
+    for k_idx in range(len(frames_03_viscous_shore)):
+        arr_s = np.asarray(frames_03_viscous_shore[k_idx], dtype=np.uint8).copy()
+        ga = np.asarray(frames_low_rim[k_idx], dtype=np.uint8)
         m_g = ga[:, :, 3] > 0
-        base_r[m_g] = ga[m_g]
-        frames_06_rock_with_low_rim.append(Image.fromarray(base_r, mode="RGBA"))
+        arr_s[m_g] = ga[m_g]
+        frames_03_viscous_shore[k_idx] = Image.fromarray(arr_s, mode="RGBA")
 
     # 10. Couche 07 : **Lames Pangéennes (*Precipice Blades*) jaillissant de la lave autour de l'arène (`24 × 5 = 120` ticks)**
     frames_07_blades = build_precipice_blades_frames(
@@ -296,7 +296,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("03_rive_magma_visqueux_bordure", "Rive Magma Visqueux & Bordure Basse", "BG", frames_03_viscous_shore, frame_length=8),
         LayerEntry("04_plateau_et_pont_arene", "Plateau Cratere Noir & Pont Sud-Nord", "BG", [im_04_floor], frame_length=5),
         LayerEntry("05_rune_primo_groudon_sol", "Symbole Primo-Groudon Grave Pulsant", "BG", frames_05_rune, frame_length=10),
-        LayerEntry("06_falaises_roche_noire_magma", "Couronne Nord & Falaises Basalte Noir", "BG", frames_06_rock_with_low_rim, frame_length=8),
+        LayerEntry("06_falaises_roche_noire_magma", "Couronne Nord & Falaises Basalte Noir", "BG", [im_06_cliffs], frame_length=5),
         LayerEntry("07_lames_pangeennes_groudon", "Lames Pangeennes Jaillissantes Groudon", "BG", frames_07_blades, frame_length=5),
         LayerEntry("08_colonnes_geantes_magma_dcp", "Colonnes Geantes Ascendantes DCP", "BG", frames_08_cols, frame_length=5),
         LayerEntry("09_braises_volcaniques_w04_top", "Braises Volcaniques Canoniques W04", "Top", frames_09_embers, frame_length=7),

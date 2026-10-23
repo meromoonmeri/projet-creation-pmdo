@@ -73,7 +73,8 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
             opaque = lyr[:, :, 3] > 0
             self.assertGreater(int(opaque.sum()), 40_000)
             lum = 0.299 * lyr[opaque, 0] + 0.587 * lyr[opaque, 1] + 0.114 * lyr[opaque, 2]
-            self.assertLess(float(lum.mean()), 32.0, f"La couche {name} doit être en vraie roche noire volcanique POV PMD")
+            self.assertGreater(float(lum.mean()), 24.0, f"La couche {name} doit rester bien visible et sculptée (pas écrasée dans le noir)")
+            self.assertLess(float(lum.mean()), 46.0, f"La couche {name} doit rester en basalte noir volcanique POV PMD")
 
     def test_03_dark_abyss_mist_on_low_rims_only_not_tall_spires(self) -> None:
         layer_slugs = [l["slug"] for l in self.metrics["layers"]]

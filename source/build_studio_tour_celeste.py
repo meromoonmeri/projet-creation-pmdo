@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
-"""Génère les planches filmstrip 24 poses par calque (dans `.cache/studio_layers/<MAP_ID>/`, hors Git)
-et le Studio interactif HTML5 `<canvas>` 60 FPS (`index.html`, `apercu_sommet_tour_celeste_stc1_pmdo.html`,
-`apercu_mine_magma_multicalque_pmdo.html`) réunissant les 3 cartes multicalques PMDO 0.8.12.0 :
-- `STC1` — Sommet de la Tour Céleste — Arène de Rayquaza (alizés, couronne de référence & cumulus statiques),
-- `MME1` — Mine Magma — Entrée (`D12P01` + `D12P01.bpl` 10 couches multicalques),
-- `MMA1` — Mine Magma — Arène de Groudon (`b70` Hardware `1:1` + `b70canm` + Caldeira & Geysers 10 couches).
+"""Génère les planches filmstrip 2D compactes (`cols <= 6`, `largeur <= 4608 px << 8192 px` GPU limit)
+avec cache-busting SHA-256 (`?v=<hash>`) dans `.cache/studio_layers/<MAP_ID>/` (hors Git) et le Studio
+interactif HTML5 `<canvas>` 60 FPS (`index.html` + aperçus dédiés) réunissant les **14 cartes multicalques
+PMDO 0.8.12.0** (140 calques) :
+- **Mine Magma (Groudon)** : `MME1` (Entrée sans lave, roche noire visible) · `MMA1` (Arène, mer sombre, 8 Lames Pangéennes)
+- **Forêt Givrée (Artikodin)** : `FGE1` (Entrée `H10P02` + `W03P03`) · `FGA1` (Sanctuaire d'Artikodin `h24p01`)
+- **Mont Brasier (Sulfura)** : `MBE1` (Entrée `d09p01`) · `MBA1` (Cratère de Sulfura `h19p01`)
+- **Mont Foudre (Électhor)** : `MFE1` (Entrée `H17P01W`) · `MFA1` (Sommet d'Électhor `H18P01` vortex 360°)
+- **Mont Lointain (Ho-Oh)** : `MLE1` (Entrée `b72`) · `MLS1` (Sommet Arc-en-Ciel de Ho-Oh `b72`)
+- **Tour Céleste (Rayquaza)** : `TCE1` (Entrée Tornades 3D 360°) · `STC1` (Sommet Planète Terre)
+- **Faille Spatiale (Palkia)** : `FSE1` (Entrée `D46P41A`) · `FSA1` (Sanctuaire `D45P42A`)
 """
 
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Dict, List
@@ -22,6 +29,7 @@ if str(REPO_ROOT / "source") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "source"))
 
 STUDIO_CACHE = REPO_ROOT / ".cache" / "studio_layers"
+MAX_STRIP_COLS = 6
 
 
 def _load_builder(folder_name: str):
@@ -33,20 +41,151 @@ def _load_builder(folder_name: str):
     return mod
 
 
+def _file_hash(rel_path: str) -> str:
+    p = REPO_ROOT / rel_path.lstrip("/")
+    if not p.exists():
+        return "0"
+    h = hashlib.sha256()
+    with p.open("rb") as f:
+        while True:
+            chunk = f.read(131072)
+            if not chunk:
+                break
+            h.update(chunk)
+    return h.hexdigest()[:10]
+
+
+def _versioned_url(rel_path: str) -> str:
+    clean = "/" + rel_path.lstrip("/")
+    return f"{clean}?v={_file_hash(clean)}"
+
+
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "MMA1",
+            "group": "Mine Magma · Groudon",
+            "folder": "mine_magma_arene_v1",
+            "ref_rel": "source/mine_magma_arene_v1/references/dark_crater_pit/d41p41a_preview.png",
+            "ref_label": "Référence PMD Sky — Dark Crater Pit (d41p41a 1×)",
+            "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
+            "bg_fill": "#1a0504",
+            "subtitle": "POV PMD Arène de Groudon — Roche volcanique noire sculptée bien lisible, 0 lave à l'entrée Nord, mer de magma assombrie & 8 Lames Pangéennes jaillissantes",
+            "wind_summary": "8 Lames Pangéennes (24f @ 5t) | 4 colonnes ascendantes -8px/pose (24f @ 5t) | Mer magma assombrie (12f @ 10t) | Grotte Nord noire bien lisible",
+        },
+        {
+            "id": "MME1",
+            "group": "Mine Magma · Groudon",
+            "folder": "mine_magma_entree_v1",
+            "ref_rel": "source/mine_magma_entree_v1/references/d40p11a_dark_crater_entrance.png",
+            "ref_label": "Référence PMD Sky — Dark Crater Entrance (d40p11a 1×)",
+            "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
+            "bg_fill": "#0a0809",
+            "subtitle": "POV PMD Mine Magma — Entrée (d40p11a) — Roche volcanique noire sculptée bien visible, zéro lave à l'entrée & gouffres abyssaux de vapeur sombre",
+            "wind_summary": "Zéro lave à l'entrée | Gouffres abyssaux #FF00FF & vapeur sombre (12f @ 10t) | Brume rebord bas (15f @ 8t) | Cendres sombres Top (16f @ 7t)",
+        },
+        {
+            "id": "FGE1",
+            "group": "Oiseaux Légendaires · Artikodin",
+            "folder": "foret_givree_entree_v1",
+            "ref_rel": "source/foret_givree_entree_v1/references/d10p01_frosty_forest_native.png",
+            "ref_label": "Référence PMD Red — Forêt Givrée (D10P01 1×)",
+            "zip_rel": ".cache/virtual_zips/FGE1_PMDO_0.8.12.zip",
+            "bg_fill": "#3c5488",
+            "subtitle": "POV PMD Forêt Givrée — Entrée (D10P01) — Sapins enneigés, chaussée Sud-Nord, rivières glacées #FF00FF (H10P02), aurore polaire & neige W03P03",
+            "wind_summary": "Eau glacée canonique H10P02 #FF00FF | Aurore polaire boréale | Chute de neige GBA W03P03 Top | Sapins & montagnes statiques",
+        },
+        {
+            "id": "FGA1",
+            "group": "Oiseaux Légendaires · Artikodin",
+            "folder": "foret_givree_sanctuaire_v1",
+            "ref_rel": "source/foret_givree_sanctuaire_v1/references/h24p01_articuno_sanctuary_native.png",
+            "ref_label": "Référence PMD Red — Sanctuaire d'Artikodin (H24P01 1×)",
+            "zip_rel": ".cache/virtual_zips/FGA1_PMDO_0.8.12.zip",
+            "bg_fill": "#2f4a7d",
+            "subtitle": "POV PMD Forêt Givrée — Sanctuaire d'Artikodin (H24P01) — Trône de glace, grande rune flocon centrale, cascades gelées #FF00FF & neige W03P03",
+            "wind_summary": "Cascades & bassins glacés #FF00FF (H10P02) | Reflets cristallins du flocon | Neige canonique W03P03 Top | Architecture de glace statique",
+        },
+        {
+            "id": "MBE1",
+            "group": "Oiseaux Légendaires · Sulfura",
+            "folder": "mont_brasier_entree_v1",
+            "ref_rel": "source/mont_brasier_entree_v1/references/d09p01_mt_blaze_native.png",
+            "ref_label": "Référence PMD Red — Mont Brasier Entrée (D09P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MBE1_PMDO_0.8.12.zip",
+            "bg_fill": "#2b1008",
+            "subtitle": "POV PMD Mont Brasier — Entrée (D09P01) — Orgues basaltiques caverneuses, seuil Nord & rivières latérales #FF00FF en lave Dark Crater Pit 1×",
+            "wind_summary": "Rivières de lave #FF00FF Dark Crater Pit 1× (12f @ 10t) | Croûte visqueuse de rive (15f @ 8t) | Braises W04 Top (16f @ 7t)",
+        },
+        {
+            "id": "MBA1",
+            "group": "Oiseaux Légendaires · Sulfura",
+            "folder": "mont_brasier_sommet_v1",
+            "ref_rel": "source/mont_brasier_sommet_v1/references/h19p01_moltres_crater_native.png",
+            "ref_label": "Référence PMD Red — Cime de Sulfura (H19P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MBA1_PMDO_0.8.12.zip",
+            "bg_fill": "#361207",
+            "subtitle": "POV PMD Mont Brasier — Cratère de Sulfura (H19P01) — Arène volcanique fissurée, pont Sud-Nord & anneau de lave #FF00FF Dark Crater Pit 1×",
+            "wind_summary": "Caldeira & fissures #FF00FF Dark Crater Pit 1× (12f @ 10t) | Rive visqueuse (15f @ 8t) | Panaches thermiques & braises W04 Top",
+        },
+        {
+            "id": "MFE1",
+            "group": "Oiseaux Légendaires · Électhor",
+            "folder": "mont_foudre_entree_v1",
+            "ref_rel": "source/mont_foudre_entree_v1/references/d06p01_mt_thunder_native.png",
+            "ref_label": "Référence PMD Red — Mont Foudre Entrée (D06P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MFE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0c1428",
+            "subtitle": "POV PMD Mont Foudre — Entrée (D06P01 / H17P01W) — Prairie au pied du massif noir, pont de pierre Sud-Nord, rivières #FF00FF & vortex d'orage électrique",
+            "wind_summary": "Vortex orageux 360° & éclairs H18P01 (24f @ 5t) | Rivières H17P01W #FF00FF | Falaise, arbres & pont de pierre statiques",
+        },
+        {
+            "id": "MFA1",
+            "group": "Oiseaux Légendaires · Électhor",
+            "folder": "mont_foudre_sommet_v1",
+            "ref_rel": "source/mont_foudre_sommet_v1/references/v38p07a_storm_peak_electric_glow_native.png",
+            "ref_label": "Référence PMD Sky — Cime d'Orage Électrique (V38P07A 1×)",
+            "zip_rel": ".cache/virtual_zips/MFA1_PMDO_0.8.12.zip",
+            "bg_fill": "#090f20",
+            "subtitle": "POV PMD Mont Foudre — Sommet d'Électhor — Autel runique de basalte suspendu dans un vortex d'orage noir 360° #FF00FF parcouru d'arcs électriques",
+            "wind_summary": "Vortex électrique noir 360° #FF00FF (24f @ 5t) | Éclairs & arcs sur l'autel runique (24f @ 5t) | Socle rocheux Sud-Nord statique",
+        },
+        {
+            "id": "MLE1",
+            "group": "Oiseaux Légendaires · Ho-Oh",
+            "folder": "mont_lointain_entree_v1",
+            "ref_rel": "source/mont_lointain_entree_v1/references/b72_mt_faraway_hooh.png",
+            "ref_label": "Référence PMD Red — Mont Lointain / Ho-Oh (b72 1×)",
+            "zip_rel": ".cache/virtual_zips/MLE1_PMDO_0.8.12.zip",
+            "bg_fill": "#7ee0f5",
+            "subtitle": "POV PMD Mont Lointain — Entrée (b72) — Piliers karstiques dorés, escalier sacré Sud-Nord, mer de nuages #FF00FF & Arc-en-Ciel pastel de Ho-Oh",
+            "wind_summary": "Mer de nuages dorés b72 (24f @ 5t) | Arc-en-Ciel pastel de Ho-Oh (24f @ 5t) | Plumes dorées Top (24f) | Piliers karstiques statiques",
+        },
+        {
+            "id": "MLS1",
+            "group": "Oiseaux Légendaires · Ho-Oh",
+            "folder": "mont_lointain_sommet_v1",
+            "ref_rel": "source/mont_lointain_sommet_v1/references/b72_mt_faraway_hooh.png",
+            "ref_label": "Référence PMD Red — Sommet Arc-en-Ciel Ho-Oh (b72 1×)",
+            "zip_rel": ".cache/virtual_zips/MLS1_PMDO_0.8.12.zip",
+            "bg_fill": "#7ee0f5",
+            "subtitle": "POV PMD Mont Lointain — Sommet de Ho-Oh (b72) — Plateau sacré d'ivoire, escalier Sud-Nord, mer de nuages #FF00FF & Arc-en-Ciel sacré de Ho-Oh",
+            "wind_summary": "Rubans de nuages b72 (24f @ 5t) | Arc-en-Ciel sacré Ho-Oh (24f @ 5t) | Volutes & plumes dorées Top (24f) | Plateau & piliers statiques",
+        },
+        {
             "id": "TCE1",
+            "group": "Tour Céleste · Rayquaza",
             "folder": "tour_celeste_entree_v1",
             "ref_rel": "source/tour_celeste_entree_v1/references/ref_entree_tornades_user.png",
             "ref_label": "Référence Tour Céleste — Entrée (D13P01 Tornades 1×)",
             "zip_rel": ".cache/virtual_zips/TCE1_PMDO_0.8.12.zip",
             "bg_fill": "#0040e0",
             "subtitle": "POV PMD Tour Céleste — Entrée (D13P01) — Chemin de nuage continu Sud-Nord, portail Nord & 2 tornades géantes Chunsoft en rotation 3D 360° sur leur axe",
-            "wind_summary": "Tornade Gauche 3D 360° (24f @ 5t) | Tornade Droite 3D 360° (24f @ 5t) | Crochets d'écume 3D Top (24f) | Onde alizé D13P01 (24f) | Nuages 100 % statiques",
+            "wind_summary": "Tornade Gauche 3D 360° (24f @ 5t) | Tornade Droite 3D 360° (24f @ 5t) | Crochets d'écume 3D Top (24f) | Nuages 100 % statiques",
         },
         {
             "id": "STC1",
+            "group": "Tour Céleste · Rayquaza",
             "folder": "tour_celeste_sommet_v1",
             "ref_rel": "source/tour_celeste_sommet_v1/references/ref_sommet_planete_rayquaza.png",
             "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
@@ -56,44 +195,26 @@ def export_filmstrips() -> Dict:
             "wind_summary": "Statiques (1 pose) : Planète Terre & alizés, cumulonimbus, cuvette & pont, cumulus Top | Animés : Cosmos étoilé & reflets D13P01.bpl",
         },
         {
-            "id": "FSA1",
-            "folder": "faille_spatiale_sanctuaire_v1",
-            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
-            "ref_label": "Référence PMD Sky — Creux de la Faille Spatiale / Palkia (D45P42A 1×)",
-            "zip_rel": ".cache/virtual_zips/FSA1_PMDO_0.8.12.zip",
-            "bg_fill": "#140826",
-            "subtitle": "POV PMD Sky Faille Spatiale — Sanctuaire de Palkia (D45P42A) — Pont & arène circulaire Sud-Nord, brèche Spatio-Rift blanc-magenta #FF00FF & nébuleuse cosmique profonde",
-            "wind_summary": "Nébuleuse cosmique D45P42A (24f @ 5t) | Déchirure Spatio-Rift blanc-magenta (24f @ 5t) | Anneau d'ondes spatiales (24f) | Piliers & cristaux 100 % statiques",
-        },
-        {
             "id": "FSE1",
+            "group": "Faille Spatiale · Palkia",
             "folder": "faille_spatiale_entree_v1",
             "ref_rel": "source/faille_spatiale_entree_v1/references/d46p41a_spatial_rift_canyon_native.png",
             "ref_label": "Référence PMD Sky — Faille Spatiale Entrée (D46P41A 1×)",
             "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
             "bg_fill": "#120722",
             "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
-            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers & cristaux 100 % statiques",
+            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers statiques",
         },
         {
-            "id": "MME1",
-            "folder": "mine_magma_entree_v1",
-            "ref_rel": "source/mine_magma_entree_v1/references/d40p11a_dark_crater_entrance.png",
-            "ref_label": "Référence PMD Sky — Dark Crater Entrance (d40p11a 1×)",
-            "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
-            "bg_fill": "#0a0809",
-            "subtitle": "POV PMD 100 % Roche Noire Volcanique & Gouffres Sombres Sans Lave (d40p11a) — Zéro lave/magma à l'entrée, vapeur volcanique montante & seuil Nord noir profond",
-            "wind_summary": "Zéro lave à l'entrée | Gouffres abyssaux #FF00FF & vapeur sombre (12f @ 10t) | Brume de rebord bas uniquement (15f @ 8t) | Cendres sombres Top (16f @ 7t)",
-        },
-        {
-            "id": "MMA1",
-            "folder": "mine_magma_arene_v1",
-            "ref_rel": "source/mine_magma_arene_v1/references/dark_crater_pit/d41p41a_preview.png",
-            "ref_label": "Référence PMD Sky — Dark Crater Pit (d41p41a 1×)",
-            "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
-            "bg_fill": "#1a0504",
-            "subtitle": "POV PMD Arène de Groudon — Mer de magma assombrie (d41p41a 1×), 0 lave à l'entrée Nord, 8 Lames Pangéennes jaillissant autour de l'arène & 4 colonnes ascendantes",
-            "wind_summary": "8 Lames Pangéennes jaillissantes (24f @ 5t) | 4 colonnes ascendantes -8px/pose (24f @ 5t) | Mer magma assombrie (12f @ 10t) | Entrée Nord noire sans lave",
+            "id": "FSA1",
+            "group": "Faille Spatiale · Palkia",
+            "folder": "faille_spatiale_sanctuaire_v1",
+            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
+            "ref_label": "Référence PMD Sky — Creux de la Faille Spatiale / Palkia (D45P42A 1×)",
+            "zip_rel": ".cache/virtual_zips/FSA1_PMDO_0.8.12.zip",
+            "bg_fill": "#140826",
+            "subtitle": "POV PMD Sky Faille Spatiale — Sanctuaire de Palkia (D45P42A) — Pont & arène circulaire Sud-Nord, brèche Spatio-Rift blanc-magenta #FF00FF & nébuleuse cosmique",
+            "wind_summary": "Nébuleuse cosmique D45P42A (24f @ 5t) | Déchirure Spatio-Rift blanc-magenta (24f @ 5t) | Anneau d'ondes spatiales (24f) | Piliers statiques",
         },
     ]
 
@@ -103,6 +224,9 @@ def export_filmstrips() -> Dict:
         folder = item["folder"]
         out_dir = STUDIO_CACHE / mid
         out_dir.mkdir(parents=True, exist_ok=True)
+        # Nettoie les anciens filmstrips obsolètes éventuels dans out_dir
+        for old_p in out_dir.glob("*.png"):
+            old_p.unlink()
 
         mod = _load_builder(folder)
         built = mod.build_layers_for_size()
@@ -113,12 +237,19 @@ def export_filmstrips() -> Dict:
         for idx, layer in enumerate(layers):
             n_poses = len(layer.frames)
             w, h = layer.frames[0].size
-            strip = Image.new("RGBA", (w * n_poses, h), (0, 0, 0, 0))
+            # Grille 2D compacte (`cols <= 6` => largeur max `4608 px << 8192 px` limite GPU WebGL/Canvas !)
+            cols = min(n_poses, MAX_STRIP_COLS)
+            rows = max(1, math.ceil(n_poses / cols))
+            strip = Image.new("RGBA", (w * cols, h * rows), (0, 0, 0, 0))
             for t, fr in enumerate(layer.frames):
-                strip.paste(fr, (t * w, 0))
+                cx_t = (t % cols) * w
+                cy_t = (t // cols) * h
+                strip.paste(fr, (cx_t, cy_t))
             strip_path = out_dir / f"{layer.slug}.png"
             strip.save(strip_path, format="PNG", optimize=False, compress_level=6)
             sheet_key = f"{mid}_{idx:02d}_{layer.slug.upper()}"
+            strip_rel = f".cache/studio_layers/{mid}/{layer.slug}.png"
+            static_rel = f"renders/{folder}/layers/{layer.slug}.png"
             layer_entries.append(
                 {
                     "index": idx,
@@ -126,16 +257,19 @@ def export_filmstrips() -> Dict:
                     "name": layer.name,
                     "kind": meta["layers"][idx]["kind"],
                     "poses": n_poses,
+                    "cols": cols,
+                    "rows": rows,
                     "frame_length": meta["layers"][idx].get("frame_length", 5),
                     "unique_tiles": meta["unique_tiles_per_sheet"].get(sheet_key, 0),
-                    "strip_url": f"/.cache/studio_layers/{mid}/{layer.slug}.png",
-                    "static_url": f"/renders/{folder}/layers/{layer.slug}.png",
+                    "strip_url": _versioned_url(strip_rel),
+                    "static_url": _versioned_url(static_rel),
                 }
             )
 
         manifest_maps.append(
             {
                 "id": mid,
+                "group": item["group"],
                 "title": meta["title"],
                 "subtitle": item["subtitle"],
                 "wind_summary": item["wind_summary"],
@@ -151,15 +285,15 @@ def export_filmstrips() -> Dict:
                 "total_tiles": meta["total_tiles"],
                 "total_unique_tiles": meta["total_unique_tiles"],
                 "zip_bytes": meta["zip_bytes"],
-                "zip_url": "/" + item["zip_rel"],
-                "ref_url": "/" + item["ref_rel"],
-                "webp_url": f"/renders/{folder}/animation_24frames.webp",
-                "pose0_url": f"/renders/{folder}/composite_pose0.png",
+                "zip_url": _versioned_url(item["zip_rel"]),
+                "ref_url": _versioned_url(item["ref_rel"]),
+                "webp_url": _versioned_url(f"renders/{folder}/animation_24frames.webp"),
+                "pose0_url": _versioned_url(f"renders/{folder}/composite_pose0.png"),
                 "walk_grid": walk_grid.astype(int).tolist(),
                 "layers": layer_entries,
             }
         )
-        print(f"[Studio] {mid}: {len(layer_entries)} filmstrips écrits dans {out_dir}")
+        print(f"[Studio] {mid}: {len(layer_entries)} filmstrips 2D écrits dans {out_dir}")
 
     return {"maps": manifest_maps}
 
@@ -170,8 +304,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — Tour Céleste (TCE1 · STC1) · Faille Spatiale (FSA1 · FSE1) · Mine Magma (MME1 · MMA1)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — 14 Maps Légendaires (140 Calques Temps Réel)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -193,28 +329,33 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       min-height: 100vh;
     }}
     header {{
-      padding: 16px 24px;
+      padding: 14px 22px;
       border-bottom: 1px solid var(--border);
-      background: rgba(12, 18, 36, 0.94);
+      background: rgba(12, 18, 36, 0.96);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .header-top {{
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }}
     header h1 {{
       margin: 0;
-      font-size: 1.18rem;
+      font-size: 1.15rem;
       letter-spacing: 0.01em;
     }}
     header p {{
-      margin: 4px 0 0;
+      margin: 3px 0 0;
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
     }}
     .map-tabs {{
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       align-items: center;
     }}
@@ -222,10 +363,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       background: var(--panel);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 14px;
+      border-radius: 7px;
+      padding: 6px 11px;
       font-weight: 700;
-      font-size: 0.84rem;
+      font-size: 0.79rem;
       cursor: pointer;
     }}
     .map-tab.active {{
@@ -267,6 +408,20 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       font-size: 0.8rem;
       color: var(--accent-2);
     }}
+    .warn-banner {{
+      display: none;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 7px;
+      background: #4e2a0c;
+      border: 1px solid var(--accent-2);
+      color: #ffe7ba;
+      font-size: 0.8rem;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }}
+    .warn-banner.visible {{ display: flex; }}
     .canvas-wrap {{
       display: flex;
       gap: 14px;
@@ -398,9 +553,12 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 </head>
 <body>
   <header>
-    <div>
-      <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
-      <p id="mapSubtitle">Chargement des planches pixel-art...</p>
+    <div class="header-top">
+      <div>
+        <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
+        <p id="mapSubtitle">Chargement des planches pixel-art...</p>
+      </div>
+      <div class="status-line">14 Cartes · 140 Calques Temps Réel · Grille 2D GPU-Safe</div>
     </div>
     <nav class="map-tabs" id="mapTabs"></nav>
   </header>
@@ -410,6 +568,11 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       <div class="stage-top">
         <div class="wind-pill" id="windSummary"></div>
         <div class="status-line" id="loadStatus">Chargement des calques...</div>
+      </div>
+
+      <div class="warn-banner" id="terrainWarn">
+        <span>Les calques de terrain statiques (roche/sol/grotte) sont masqués.</span>
+        <button class="ctrl active" id="restoreTerrainBtn" style="padding:4px 9px; font-size:0.76rem;">Réafficher tout le terrain</button>
       </div>
 
       <div class="canvas-wrap">
@@ -437,8 +600,8 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <strong style="font-size:0.9rem;">Calques natifs (10 couches)</strong>
         <div style="display:flex; gap:6px;">
-          <button class="ctrl" id="allOnBtn" style="padding:4px 8px; font-size:0.76rem;">Tout afficher</button>
-          <button class="ctrl" id="animOnlyBtn" style="padding:4px 8px; font-size:0.76rem;">Animés seuls</button>
+          <button class="ctrl active" id="allOnBtn" style="padding:4px 8px; font-size:0.76rem;">Tout afficher</button>
+          <button class="ctrl" id="animOnlyBtn" style="padding:4px 8px; font-size:0.76rem;">Isoler animés</button>
         </div>
       </div>
       <div class="layer-list" id="layerList"></div>
@@ -456,7 +619,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     let showRef = false;
     let poseIdx = 0;
     let lastStepMs = performance.now();
-    const imageCache = new Map();
+    let loadToken = 0;
     const layerEnabled = new Map();
 
     const canvas = document.getElementById('stageCanvas');
@@ -464,15 +627,31 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     ctx.imageSmoothingEnabled = false;
 
     function loadImg(url) {{
-      if (imageCache.has(url)) return imageCache.get(url);
-      const p = new Promise((resolve) => {{
+      return new Promise((resolve) => {{
         const im = new Image();
         im.onload = () => resolve(im);
         im.onerror = () => resolve(null);
         im.src = url;
       }});
-      imageCache.set(url, p);
-      return p;
+    }}
+
+    function releaseInactiveMaps(activeId) {{
+      MANIFEST.maps.forEach((mp) => {{
+        if (mp.id === activeId) return;
+        mp.layers.forEach((L) => {{
+          if (L._img) {{
+            L._img.src = '';
+            L._img = null;
+          }}
+        }});
+      }});
+    }}
+
+    function updateTerrainWarning() {{
+      const anyStaticHidden = m.layers.some((L) => L.poses === 1 && !layerEnabled.get(`${{m.id}}:${{L.slug}}`));
+      document.getElementById('terrainWarn').classList.toggle('visible', anyStaticHidden);
+      document.getElementById('allOnBtn').classList.toggle('active', !anyStaticHidden);
+      document.getElementById('animOnlyBtn').classList.toggle('active', anyStaticHidden);
     }}
 
     function buildTabs() {{
@@ -498,6 +677,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     }}
 
     async function initMap() {{
+      const myToken = ++loadToken;
+      releaseInactiveMaps(m.id);
+
       canvas.width = m.width;
       canvas.height = m.height;
       ctx.imageSmoothingEnabled = false;
@@ -512,7 +694,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       dl.textContent = `⬇ Télécharger ${{m.id}}_PMDO_0.8.12.zip (${{(m.zip_bytes / 1048576).toFixed(2)}} Mio)`;
 
       document.getElementById('metricsBox').innerHTML = `
-        <div class="metric"><div class="k">Fidélité canonique</div><div class="v">${{m.fidelity.toFixed(2)}} &lt; 25</div></div>
+        <div class="metric"><div class="k">Fidélité canonique</div><div class="v">${{m.fidelity.toFixed(2)}}</div></div>
         <div class="metric"><div class="k">Cycle sans couture</div><div class="v">${{m.n_frames}} poses (${{m.n_frames * m.frame_ticks}} ticks)</div></div>
         <div class="metric"><div class="k">Tuiles praticables</div><div class="v">${{m.walkable_tiles}} / ${{m.total_tiles}}</div></div>
         <div class="metric"><div class="k">Tuiles uniques GPU</div><div class="v">${{m.total_unique_tiles.toLocaleString('fr-FR')}}</div></div>
@@ -535,12 +717,21 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         `;
         row.querySelector('input').addEventListener('change', (ev) => {{
           layerEnabled.set(key, ev.target.checked);
+          updateTerrainWarning();
           renderCurrentFrame();
         }});
         listEl.appendChild(row);
       }});
+      updateTerrainWarning();
 
       const statusEl = document.getElementById('loadStatus');
+      // Affiche immédiatement le composite pose0 pendant le décodage des calques 2D !
+      const pose0Preview = await loadImg(m.pose0_url);
+      if (myToken !== loadToken) return;
+      if (pose0Preview) {{
+        ctx.drawImage(pose0Preview, 0, 0, m.width, m.height);
+      }}
+
       let loaded = 0;
       await Promise.all(m.layers.map(async (L) => {{
         if (!L._img) {{
@@ -549,8 +740,11 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
           L._isStrip = Boolean(strip);
         }}
         loaded += 1;
-        statusEl.textContent = `Calques chargés : ${{loaded}} / ${{m.layers.length}}`;
+        if (myToken === loadToken) {{
+          statusEl.textContent = `Calques chargés : ${{loaded}} / ${{m.layers.length}}`;
+        }}
       }}));
+      if (myToken !== loadToken) return;
       statusEl.textContent = `✓ ${{m.layers.length}} / ${{m.layers.length}} calques temps réel prêts (échelle 1:1)`;
       renderCurrentFrame();
     }}
@@ -565,10 +759,17 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       for (const L of m.layers) {{
         const key = `${{m.id}}:${{L.slug}}`;
         if (!layerEnabled.get(key) || !L._img) continue;
-        if (L._isStrip) {{
+        if (L._isStrip && L.poses > 1) {{
           const fl = L.frame_length || m.frame_ticks || 5;
-          const frame = L.poses > 1 ? (Math.floor(hwTick / fl) % L.poses) : 0;
-          ctx.drawImage(L._img, frame * m.width, 0, m.width, m.height, 0, 0, m.width, m.height);
+          const frame = Math.floor(hwTick / fl) % L.poses;
+          const cols = L.cols || 6;
+          let sx = (frame % cols) * m.width;
+          let sy = Math.floor(frame / cols) * m.height;
+          if (sx + m.width > L._img.naturalWidth || sy + m.height > L._img.naturalHeight) {{
+            sx = 0;
+            sy = 0;
+          }}
+          ctx.drawImage(L._img, sx, sy, m.width, m.height, 0, 0, m.width, m.height);
         }} else {{
           ctx.drawImage(L._img, 0, 0, m.width, m.height);
         }}
@@ -601,6 +802,15 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       requestAnimationFrame(tick);
     }}
 
+    function setAllLayers(val) {{
+      m.layers.forEach((L) => layerEnabled.set(`${{m.id}}:${{L.slug}}`, val ? true : L.poses > 1));
+      document.querySelectorAll('#layerList input[type="checkbox"]').forEach((c, idx) => {{
+        c.checked = val ? true : m.layers[idx].poses > 1;
+      }});
+      updateTerrainWarning();
+      renderCurrentFrame();
+    }}
+
     document.getElementById('playBtn').addEventListener('click', (e) => {{
       playing = !playing;
       e.target.textContent = playing ? '⏸ Pause' : '▶ Lecture';
@@ -627,18 +837,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       e.target.classList.toggle('active', showRef);
       document.getElementById('refBox').classList.toggle('visible', showRef);
     }});
-    document.getElementById('allOnBtn').addEventListener('click', () => {{
-      m.layers.forEach((L) => layerEnabled.set(`${{m.id}}:${{L.slug}}`, true));
-      document.querySelectorAll('#layerList input[type="checkbox"]').forEach((c) => c.checked = true);
-      renderCurrentFrame();
-    }});
-    document.getElementById('animOnlyBtn').addEventListener('click', () => {{
-      m.layers.forEach((L) => layerEnabled.set(`${{m.id}}:${{L.slug}}`, L.poses > 1));
-      document.querySelectorAll('#layerList input[type="checkbox"]').forEach((c, idx) => {{
-        c.checked = m.layers[idx].poses > 1;
-      }});
-      renderCurrentFrame();
-    }});
+    document.getElementById('allOnBtn').addEventListener('click', () => setAllLayers(true));
+    document.getElementById('restoreTerrainBtn').addEventListener('click', () => setAllLayers(true));
+    document.getElementById('animOnlyBtn').addEventListener('click', () => setAllLayers(false));
 
     buildTabs();
     initMap().then(() => requestAnimationFrame(tick));
@@ -651,6 +852,12 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 def main() -> None:
     manifest = export_filmstrips()
     (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MMA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_oiseaux_legendaires_pmdo.html").write_text(
+        build_html(manifest, default_map_id="FGE1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_tour_celeste_trilogie_pmdo.html").write_text(
         build_html(manifest, default_map_id="TCE1"), encoding="utf-8"
     )
@@ -660,10 +867,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
     )
-    (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
-    )
-    print("[Studio] index.html et les aperçus dédiés générés (6 cartes, 60 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (14 cartes, 140 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":
