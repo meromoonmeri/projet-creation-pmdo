@@ -36,6 +36,26 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "TCE1",
+            "folder": "tour_celeste_entree_v1",
+            "ref_rel": "source/tour_celeste_entree_v1/references/ref_entree_tornades_user.png",
+            "ref_label": "Référence Tour Céleste — Entrée (D13P01 Tornades 1×)",
+            "zip_rel": ".cache/virtual_zips/TCE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0040e0",
+            "subtitle": "POV PMD Tour Céleste — Entrée (D13P01) — Chemin de nuage continu Sud-Nord, portail Nord & 2 tornades géantes en rotation 3D sur elles-mêmes",
+            "wind_summary": "Tornades gauche & droite en rotation cylindrique 3D 360° (24f @ 5t) | Volutes arrière BG + avant Top (24f) | Onde BPL D13P01 (24f)",
+        },
+        {
+            "id": "TCM1",
+            "folder": "tour_celeste_relais_v1",
+            "ref_rel": "source/tour_celeste_relais_v1/references/d13p02_native.png",
+            "ref_label": "Référence PMD Red — Relais Céleste (D13P02 1×)",
+            "zip_rel": ".cache/virtual_zips/TCM1_PMDO_0.8.12.zip",
+            "bg_fill": "#2f4ff7",
+            "subtitle": "POV PMD Tour Céleste — Relais Céleste (D13P02) — Pont de nuage Sud-Nord, octogone suspendu & colonnes cycloniques rotatives dans les gouffres",
+            "wind_summary": "Colonnes de tornades latérales en rotation 3D 360° (24f @ 5t) | Courants-jet Top (24f) | Brumes d'altitude & BPL D13P02 (24f)",
+        },
+        {
             "id": "GME1",
             "folder": "grotte_meteore_entree_v1",
             "ref_rel": "source/grotte_meteore_entree_v1/references/b74_meteor_cave_deoxys.png",
@@ -659,7 +679,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GME1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TCE1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_tour_celeste_trilogie_pmdo.html").write_text(
+        build_html(manifest, default_map_id="TCE1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_grotte_meteore_deoxys_pmdo.html").write_text(
         build_html(manifest, default_map_id="GME1"), encoding="utf-8"
     )
@@ -672,7 +695,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (7 cartes, 70 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (9 cartes, 90 calques 60 FPS).")
 
 
 if __name__ == "__main__":
