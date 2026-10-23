@@ -133,10 +133,10 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
             walk_grid[ty, tx] = float(blk.mean()) >= 0.65
 
     lbl_wg, n_wg = ndimage.label(walk_grid)
-    if n_wg > 1:
-        s_ids = set(lbl_wg[-1, :].tolist()) - {0}
-        if s_ids:
-            walk_grid = np.isin(lbl_wg, list(s_ids))
+    if n_wg >= 1:
+        sizes = ndimage.sum(walk_grid, lbl_wg, range(1, n_wg + 1))
+        walk_grid = lbl_wg == (int(np.argmax(sizes)) + 1)
+    walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
         LayerEntry("00_vide_cosmique_abyssal_b74", "Vide Cosmique Abyssal b74", "BG", frames_00, frame_length=5),

@@ -90,6 +90,18 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walkable_slab = np.isin(lbl_w0, south_ids) & main_island
 
     psi_circuits = walkable_slab & (r >= 155) & (b >= 145) & (~core_orb)
+    # Conduit psionique central `b74` prolongé tout le long du pont Sud jusqu'à `y = h - 1`
+    bridge_rows = walkable_slab & (yy >= int(0.67 * h))
+    if np.any(bridge_rows):
+        bx_mid = int(round(float(np.where(bridge_rows)[1].mean())))
+        lw = max(1, int(round(2 * w / 768.0)))
+        step_y = max(12, int(round(44 * h / 576.0)))
+        jag = np.where(((yy // step_y) % 2) == 0, -int(round(9 * w / 768.0)), int(round(9 * w / 768.0)))
+        vert_seg = bridge_rows & (np.abs(xx - (bx_mid + jag)) <= lw)
+        turn_seg = bridge_rows & ((yy % step_y) < (2 * lw)) & (np.abs(xx - bx_mid) <= int(round(9 * w / 768.0)) + lw)
+        bridge_psi = (vert_seg | turn_seg) & (~core_orb)
+        q_rgb[bridge_psi] = np.array([255, 39, 215], dtype=np.uint8)
+        psi_circuits = psi_circuits | bridge_psi
     static_slab_only = walkable_slab & (~psi_circuits) & (~core_orb)
 
     walls = main_island & (~walkable_slab)
@@ -130,10 +142,10 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
             walk_grid[ty, tx] = float(blk.mean()) >= 0.65
 
     lbl_wg, n_wg = ndimage.label(walk_grid)
-    if n_wg > 1:
-        s_ids = set(lbl_wg[-1, :].tolist()) - {0}
-        if s_ids:
-            walk_grid = np.isin(lbl_wg, list(s_ids))
+    if n_wg >= 1:
+        sizes = ndimage.sum(walk_grid, lbl_wg, range(1, n_wg + 1))
+        walk_grid = lbl_wg == (int(np.argmax(sizes)) + 1)
+    walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
         LayerEntry("00_vide_cosmique_abyssal_b74", "Vide Cosmique Abyssal b74", "BG", frames_00, frame_length=5),
