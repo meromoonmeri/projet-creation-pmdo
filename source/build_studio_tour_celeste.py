@@ -36,6 +36,26 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "GME1",
+            "folder": "grotte_meteore_entree_v1",
+            "ref_rel": "source/grotte_meteore_entree_v1/references/b74_meteor_cave_deoxys.png",
+            "ref_label": "Référence PMD Red — Meteor Cave (b74 1×)",
+            "zip_rel": ".cache/virtual_zips/GME1_PMDO_0.8.12.zip",
+            "bg_fill": "#00005f",
+            "subtitle": "POV PMD Grotte Météore — Entrée (b74) — Pont Sud-Nord, rotonde gravée, seuil Nord, onde psionique b74canm & météorites en lévitation",
+            "wind_summary": "Cosmos b74 & étoiles (24f @ 5t) | Onde psionique radiale b74canm (24f @ 5t) | Prismes cyan (24f) | 8 météorites entières Top (24f)",
+        },
+        {
+            "id": "GMA1",
+            "folder": "grotte_meteore_arene_v1",
+            "ref_rel": "source/grotte_meteore_arene_v1/references/b74_meteor_cave_deoxys.png",
+            "ref_label": "Référence PMD Red — Meteor Cave Deoxys (b74 1×)",
+            "zip_rel": ".cache/virtual_zips/GMA1_PMDO_0.8.12.zip",
+            "bg_fill": "#00005f",
+            "subtitle": "POV PMD Grotte Météore — Arène de Deoxys (b74) — Chambre gravée, cœur céruléen, pont Sud-Nord, prismes cyan & 10 météorites en lévitation",
+            "wind_summary": "Cosmos b74 & étoiles (24f @ 5t) | Onde psionique b74canm & cœur Deoxys (24f @ 5t) | Prismes cyan (24f) | 10 météorites entières Top (24f)",
+        },
+        {
             "id": "MME1",
             "folder": "mine_magma_entree_v1",
             "ref_rel": "source/mine_magma_entree_v1/references/d40p11a_dark_crater_entrance.png",
@@ -619,14 +639,17 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="STC1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GMA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_grotte_meteore_deoxys_pmdo.html").write_text(
+        build_html(manifest, default_map_id="GME1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MME1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html, apercu_mine_magma_multicalque_pmdo.html et apercu_sommet_tour_celeste_stc1_pmdo.html générés.")
+    print("[Studio] index.html et les aperçus dédiés générés (5 cartes, 50 calques 60 FPS).")
 
 
 if __name__ == "__main__":
