@@ -63,6 +63,28 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "ZKE1",
+            "group": "Montagne d'Orage · Zekrom",
+            "folder": "zekrom_montagne_entree_v1",
+            "ref_rel": "source/zekrom_montagne_entree_v1/references/ref_canon_zekrom_p14p01a_v38p07a.png",
+            "ref_label": "Références Natives 1× PMD Sky/Red — Orage V38P07A + Basalte H26P01 + Prairie P14P01A",
+            "zip_rel": ".cache/virtual_zips/ZKE1_PMDO_0.8.12.zip",
+            "bg_fill": "#09101f",
+            "subtitle": "POV PMD Entrée de Zekrom — Forêt de pins & clairière 1× P14P01A, rivière GBA H10P02.bpl 1× (#FF00FF), montagne basaltique à grotte noire & vortex d'éclairs bleus Charge Foudre",
+            "wind_summary": "Vortex nuages noirs & éclairs bleus GBA H17P01W1.bpa 1× (24f @ 5t) | Rivière GBA H10P02.bpl #FF00FF (12f @ 10t) | Lucioles & étincelles Top | Forêt 1× statique",
+        },
+        {
+            "id": "ZKA1",
+            "group": "Montagne d'Orage · Zekrom",
+            "folder": "zekrom_sommet_tornade_v1",
+            "ref_rel": "source/zekrom_sommet_tornade_v1/references/v38p07a_storm_peak_electric_glow_native.png",
+            "ref_label": "Référence PMD Sky — Cime d'Orage Électrique (V38P07A 1×)",
+            "zip_rel": ".cache/virtual_zips/ZKA1_PMDO_0.8.12.zip",
+            "bg_fill": "#060b18",
+            "subtitle": "POV PMD Sommet de Zekrom — Arène circulaire gravée de runes antiques & pitons de magnétite au cœur d'une Tornade 3D 360° de nuages noirs électriques bleus (#FF00FF)",
+            "wind_summary": "Tornade 3D 360° de nuages noirs électriques #FF00FF (24f @ 5t) | Arcs Charge Foudre & GBA H17P01W1.bpa 1× | Runes bleues pulsantes | Couronne Top en surplomb",
+        },
+        {
             "id": "FSE1",
             "group": "Faille Spatiale · Palkia",
             "folder": "faille_spatiale_entree_v1",
@@ -318,7 +340,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — 15 Maps Légendaires (150 Calques Temps Réel)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — 17 Maps Légendaires (170 Calques Temps Réel)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -569,7 +591,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
         <p id="mapSubtitle">Chargement des planches pixel-art...</p>
       </div>
-      <div class="status-line">15 Cartes · 150 Calques Temps Réel · Grille 2D GPU-Safe</div>
+      <div class="status-line">17 Cartes · 170 Calques Temps Réel · Grille 2D GPU-Safe</div>
     </div>
     <nav class="map-tabs" id="mapTabs"></nav>
   </header>
@@ -862,7 +884,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FSE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="ZKA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_zekrom_tornade_pmdo.html").write_text(
+        build_html(manifest, default_map_id="ZKA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
@@ -878,7 +903,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (15 cartes, 150 calques 60 FPS, grilles 2D <= 4608px).")
+    print("[Studio] index.html et les aperçus dédiés générés (17 cartes, 170 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":
