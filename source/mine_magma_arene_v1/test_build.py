@@ -94,10 +94,38 @@ class TestMineMagmaAreneV1(unittest.TestCase):
         self.assertEqual(int(((f0[:, :, 3] > 0) & (f0[:, :, 3] < 255)).sum()), 0)
         self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 2_500)
 
-        # Les 4 colonnes géantes `Dark Crater Pit` sortent par le haut `y = 0`, mais zéro cascade au centre à `y < 40` !
-        fall0 = np.asarray(fall_entry.frames[0], dtype=np.uint8)
+        # Les 4 colonnes géantes `Dark Crater Pit` : 24 poses × 5 ticks (`120` ticks),
+        # montée verticale pure `dy == -8 px/pose` sans étirement, bouche bouillonnante active,
+        # zéro écume de rive sur les pitons/falaises en hauteur, et entrée noire Nord-Sud de Groudon entre 2 fentes !
+        self.assertEqual(len(fall_entry.frames), 24)
+        self.assertEqual(fall_entry.frame_length, 5)
+        cols_np = [np.asarray(im, dtype=np.uint8) for im in fall_entry.frames]
+        fall0 = cols_np[0]
         self.assertGreater(int((fall0[0, :, 3] > 0).sum()), 60, "Les 4 colonnes géantes doivent sortir par le bord haut y = 0")
         self.assertEqual(int((fall0[:40, 260:508, 3] > 0).sum()), 0, "Zéro débordement de cascade centrale au-dessus des cornes Nord")
+
+        # Vérifie mathématiquement que chaque transition `t -> t+1` MONTE réellement vers le haut (`dy == -8 px`)
+        for t in range(24):
+            c0 = cols_np[t][60:340, 62:118, :3].astype(float)
+            c1 = cols_np[(t + 1) % 24][60:340, 62:118, :3].astype(float)
+            best_dy = min(
+                range(-16, 17),
+                key=lambda dy: float(
+                    np.abs(c1[max(0, -dy) + dy : min(c0.shape[0], c0.shape[0] - dy) + dy] - c0[max(0, -dy) : min(c0.shape[0], c0.shape[0] - dy)]).mean()
+                ),
+            )
+            self.assertEqual(best_dy, -8, f"La colonne doit s'élever de -8 px/pose à t={t} (obtenu {best_dy})")
+
+        # Zéro animation de rive sur la couronne haute Nord (`y < 305`) et sur les pitons hauts isolés (`(56, 110)`, `(712, 110)`)
+        self.assertEqual(int((f0[:305, :, 3] > 0).sum()), 0, "Zéro animation de rive sur les rochers hauts du Nord et pitons hauts")
+
+        # Entrée Nord-Sud de Groudon : noir profond au centre (`x ∈ [366..402], y ∈ [150..195]`) encadré par 2 fentes de magma distinctes !
+        cave_patch = self.pose0[150:195, 366:402, :3].astype(float)
+        self.assertLess(float(cave_patch.mean()), 8.0, "L'entrée Nord-Sud de Groudon doit laisser du noir profond au centre")
+        left_cleft_hot = (self.pose0[95:210, 310:348, 0] > 180).sum()
+        right_cleft_hot = (self.pose0[95:210, 420:458, 0] > 180).sum()
+        self.assertGreater(int(left_cleft_hot), 800, "Fente de coulée de magma gauche requise")
+        self.assertGreater(int(right_cleft_hot), 800, "Fente de coulée de magma droite requise")
 
     def test_05_canonical_palette_cycling_and_walkable_arena(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)

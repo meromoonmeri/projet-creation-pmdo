@@ -673,17 +673,18 @@ def render_dark_crater_viscous_shoreline(
         on_lip_crust = (dv <= crust_w) & (surge < 0.22) & (core > 0.24)
         on_lip_gold = (dv <= lip_w) & (~on_lip_crust)
 
-        # 2. Petits radeaux organiques isolés de croûte sombre flottant près des anses (`d <= 9.5 px`)
-        raft_seed = (dv > lip_w) & (dv <= 9.5) & (core > (0.45 + 0.022 * dv + 0.06 * surge))
+        # 2. Petits radeaux organiques isolés de croûte sombre flottant près des anses (`d <= 0.82 * band_px`)
+        raft_lim = max(9.5, 0.82 * band_px)
+        raft_seed = (dv > lip_w) & (dv <= raft_lim) & (core > (0.45 + 0.020 * dv + 0.06 * surge))
         raft_amber_rim = (
             (dv > lip_w)
-            & (dv <= 10.2)
+            & (dv <= raft_lim + 0.8)
             & (~raft_seed)
-            & (core > (0.39 + 0.022 * dv + 0.06 * surge))
+            & (core > (0.39 + 0.020 * dv + 0.06 * surge))
         )
 
         # 3. Ondes visqueuses ambrées douces roulant vers la paroi (`idx 8..10`, sans cerne jaune détaché)
-        ridge_env = np.clip((11.5 - dv) / 6.5, 0.0, 1.0)
+        ridge_env = np.clip((band_px - dv) / max(6.5, 0.56 * band_px), 0.0, 1.0)
         on_viscous_swell = (dv > lip_w) & (~raft_seed) & (~raft_amber_rim) & ((wave_main * ridge_env) > 0.50)
         swell_peak = on_viscous_swell & ((wave_main * ridge_env) > 0.78)
 
@@ -775,7 +776,8 @@ def build_dark_crater_cascade_and_giant_columns(
 
     casc_frames = None
     if int(north_breach_mask.sum()) >= 32:
-        casc_frames, _ = mg.cascade_phases(north_breach_mask, seed=11, falls=1, phases=n_phases, foot_rows=6)
+        n_falls = 2 if n_phases >= 16 else 1
+        casc_frames, _ = mg.cascade_phases(north_breach_mask, seed=11, falls=n_falls, phases=n_phases, foot_rows=5)
 
     col_frames = cg.column_frames(h, w, list(col_specs), open_sea_mask)
     out: List[Image.Image] = []

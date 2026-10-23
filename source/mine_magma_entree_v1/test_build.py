@@ -106,6 +106,8 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
         self.assertGreater(int((f0[:, :, 3] == 255).sum()), 3_000)
         shore_diff = np.abs(f0.astype(int) - f7.astype(int)).max(axis=2)
         self.assertGreater(int((shore_diff > 15).sum()), 2_500, "La rive visqueuse et la bordure rocher doivent s'animer")
+        # Zéro animation de rive sur les sommets des pitons pointus isolés dans la lave (`x=80..95, y=275..305`)
+        self.assertEqual(int((f0[275:305, 80:95, 3] > 0).sum()), 0, "Zéro animation de rive sur les rochers qui montent en hauteur")
 
     def test_04_canonical_palette_cycling_in_veins_and_chasms(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)

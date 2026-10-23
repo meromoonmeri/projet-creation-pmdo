@@ -82,8 +82,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence PMD Sky — Dark Crater Entrance (d40p11a 1×)",
             "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
             "bg_fill": "#0d0808",
-            "subtitle": "POV PMD 100 % Roche Noire Volcanique (d40p11a) + Lave Dark Crater Pit 1× (d41p41a) — Seuil Nord, cendre noire, 0 cascade & rive visqueuse",
-            "wind_summary": "POV PMD roche noire | Lave Dark Crater Pit 1× & veines #FF00FF (12f @ 10t) | Rive visqueuse & bordure rocher (15f @ 8t) | 0 cascade",
+            "subtitle": "POV PMD 100 % Roche Noire Volcanique (d40p11a) + Lave Dark Crater Pit 1× (d41p41a) — Seuil Nord noir profond, 0 cascade & rive uniquement au bas de la chaussée",
+            "wind_summary": "POV PMD roche noire | Lave Dark Crater Pit 1× & veines #FF00FF (12f @ 10t) | Rive basse uniquement, 0 halo sur rochers hauts (15f @ 8t)",
         },
         {
             "id": "MMA1",
@@ -92,8 +92,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence PMD Sky — Dark Crater Pit (d41p41a 1×)",
             "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
             "bg_fill": "#220604",
-            "subtitle": "POV PMD Roche Noire + Lave Dark Crater Pit 1× (d41p41a) — Île caldeira, symbole Ω gravé, cascade Nord, 4 colonnes géantes & rive visqueuse",
-            "wind_summary": "Lave Dark Crater Pit 1× (12f @ 10t) | Rive visqueuse & bordure rocher (15f @ 8t) | Symbole Ω (12f @ 10t) | Cascade & 4 colonnes (15f @ 8t)",
+            "subtitle": "POV PMD Roche Noire + Lave Dark Crater Pit 1× — Entrée Nord-Sud noire entre 2 fentes de magma, 4 colonnes ascendantes, bouches bouillonnantes & rive basse",
+            "wind_summary": "4 colonnes ascendantes -8px/pose & bouches d'ébullition (24f @ 5t) | Entrée noire entre 2 fentes magma | Rive basse uniquement (0 sur pitons hauts)",
         },
     ]
 
@@ -650,7 +650,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TCE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MMA1"), encoding="utf-8")
     (REPO_ROOT / "apercu_tour_celeste_trilogie_pmdo.html").write_text(
         build_html(manifest, default_map_id="TCE1"), encoding="utf-8"
     )
@@ -661,7 +661,7 @@ def main() -> None:
         build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
+        build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
     print("[Studio] index.html et les aperçus dédiés générés (6 cartes, 60 calques 60 FPS).")
 

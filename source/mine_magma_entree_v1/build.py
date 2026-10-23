@@ -178,12 +178,35 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     )
 
     # 7. Couche 04 : **ZÉRO cascade à l'entrée** -> Rive visqueuse & croûte de bordure rocher `Dark Crater Pit`
-    band_px = max(6.0, 11.5 * (w / float(W_CANON)))
-    frames_04_viscous_shore = render_dark_crater_viscous_shoreline(
-        open_chasm,
+    #    Strictement limitée aux SEULES rives basses (`low_waterline_bank`) de la chaussée centrale :
+    #    ZÉRO animation de rive sur les pitons pointus, parois hautes Nord et falaises latérales en hauteur !
+    sx = w / float(W_CANON)
+    dist_walk = ndimage.distance_transform_edt(~walkable_causeway)
+    tall_vertical_cones = (
+        sea_spires
+        | (((xx < int(0.305 * w)) | (xx > int(0.695 * w))) & (L_smooth < 28.5))
+    )
+    low_waterline_bank = (
+        rock_mask
+        & (yy >= int(0.495 * h))
+        & (xx >= int(0.145 * w))
+        & (xx <= int(0.855 * w))
+        & (dist_walk <= max(8.0, 28.0 * sx))
+        & (~tall_vertical_cones)
+    )
+    shore_open_mask = ~low_waterline_bank
+
+    band_px = max(11.0, 23.0 * sx)
+    frames_04_raw = render_dark_crater_viscous_shoreline(
+        shore_open_mask,
         n_frames=15,
         band_px=band_px,
     )
+    frames_04_viscous_shore = []
+    for im_s in frames_04_raw:
+        arr_s = np.asarray(im_s, dtype=np.uint8).copy()
+        arr_s[~open_chasm] = 0
+        frames_04_viscous_shore.append(Image.fromarray(arr_s, mode="RGBA"))
 
     def _layer_from_mask(m: np.ndarray) -> Image.Image:
         out = np.zeros((h, w, 4), dtype=np.uint8)
@@ -196,15 +219,26 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     im_06_arch = _layer_from_mask(upper_crater)
     im_07_spires = _layer_from_mask(rim_and_spires)
 
-    # 8. Couche 08 : Incandescence thermique synchronisée sur les bordures rocheuses (`15 × 8` ticks)
+    # 8. Couche 08 : Incandescence thermique uniquement sur les rives basses & veines internes (0 halo sur pitons/crêtes !)
     full_rock_rgba = np.zeros((h, w, 4), dtype=np.uint8)
     non_walk_rock = rock_mask & (~walkable_causeway) & (~cave_mouth)
     full_rock_rgba[non_walk_rock, :3] = q_decor[non_walk_rock]
     full_rock_rgba[non_walk_rock, 3] = 255
-    frames_08_glow = build_dark_crater_rim_glow_frames(full_rock_rgba, all_magenta)
+    low_shore_contact = open_chasm & ndimage.binary_dilation(low_waterline_bank, iterations=2)
+    frames_08_glow = build_dark_crater_rim_glow_frames(
+        full_rock_rgba,
+        low_shore_contact | rock_veins,
+    )
 
-    # 9. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques montantes `W04` `1×` (`16 × 7` ticks)
-    frames_09_embers = build_canonical_w04_embers_frames(w=w, h=h)
+    # 9. Couche 09 (`Top`, `Layer = 4`) : Braises volcaniques montantes `W04` `1×` (`16 × 7` ticks),
+    #    masquées devant le noir profond de la bouche caverneuse Nord !
+    cave_keepout = ndimage.binary_dilation(cave_mouth, iterations=max(2, int(round(4 * sx))))
+    frames_09_raw = build_canonical_w04_embers_frames(w=w, h=h)
+    frames_09_embers = []
+    for im_e in frames_09_raw:
+        arr_e = np.asarray(im_e, dtype=np.uint8).copy()
+        arr_e[cave_keepout] = 0
+        frames_09_embers.append(Image.fromarray(arr_e, mode="RGBA"))
 
     # 10. Grille de collision `96 × 72` : large chaussée `POV PMD` continue du bord Sud jusqu'à la grotte Nord !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
