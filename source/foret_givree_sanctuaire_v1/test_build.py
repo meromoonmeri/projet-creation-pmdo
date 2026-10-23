@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `foret_givree_sanctuaire_v1` (`FGA1`, Sanctuaire d'Artikodin)."""
+"""Tests unitaires d'acceptation — `foret_givree_sanctuaire_v1` (`FGA1`, Sanctuaire d'Artikodin `H24P01` `1×`)."""
 
 from __future__ import annotations
 
@@ -34,7 +34,8 @@ class TestForetGivreeSanctuaireV1(unittest.TestCase):
 
     def test_01_magenta_cutout_brut_and_zero_magenta_leak_in_renders(self) -> None:
         mag_raw = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
-        self.assertGreater(int(mag_raw[340:, :].sum()), 6_000, "Les vasques & cascades doivent être en #FF00FF sur le brut")
+        self.assertGreater(int(mag_raw.sum()), 45_000, "Le Médaillon Flocon & les crevasses H24P01 doivent être en #FF00FF sur le brut")
+        self.assertGreater(int(mag_raw[340:, :].sum()), 8_000)
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
@@ -42,13 +43,12 @@ class TestForetGivreeSanctuaireV1(unittest.TestCase):
 
     def test_02_ultra_high_fidelity_to_h24p01_and_ten_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
-        self.assertLess(self.metrics["fidelity_distance"], 12.0)
+        self.assertLess(self.metrics["fidelity_distance"], 3.0)
 
-    def test_03_waterfalls_animated_and_ice_totems_strictly_static(self) -> None:
-        water_zone = (self.raw[340:, :, 0] == 255) & (self.raw[340:, :, 1] == 0) & (self.raw[340:, :, 2] == 255)
-        diff = np.abs(self.pose0[340:, :, :3].astype(int) - self.pose12[340:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[water_zone] > 12).sum()), 500, "Les vasques & cascades H10P02 doivent s'animer")
-        # Vérifie que la couche 07 (Trône de Glace, totems-flocons & cristaux) est 100 % statique (`poses == 1`)
+    def test_03_crystal_glaciers_animated_and_ice_totems_strictly_static(self) -> None:
+        ice_zone = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
+        diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
+        self.assertGreater(int((diff[ice_zone] > 12).sum()), 4_000, "Le Médaillon Flocon & les crevasses H24P01 doivent scintiller")
         layer_07 = self.metrics["layers"][7]
         self.assertEqual(layer_07["poses"], 1)
 

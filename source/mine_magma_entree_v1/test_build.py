@@ -3,10 +3,10 @@
 
 Vérifie :
 1. Gouffres latéraux découpés en `#FF00FF` pur dans `decor_entree_veines_magenta.png` et zéro liseré prune.
-2. **Retrait intégral de toute lave / magma à l'entrée (`0` pixel rouge/orange/jaune sur `MME1`)** +
-   cohérence `100 %` roche noire volcanique (`d40p11a`) et bouche caverneuse Nord noire profonde (`#060505`).
-3. **Brume d'abysse animée strictement limitée aux rebords bas (`0` sur les pitons pointus en hauteur)**.
-4. Animation ascendante active des volutes de vapeur sombre dans les deux gouffres `#FF00FF`.
+2. **Mer et lacs de magma & lave restaurés dans les gouffres latéraux `#FF00FF` (`sea_darken=True`)** tout en
+   maintenant **ZÉRO lave sur le massif rocheux et l'arche de l'entrée Nord** + basalte noir sculpté bien visible.
+3. **Rive de magma visqueux strictement limitée aux berges basses (`0` sur les pitons pointus en hauteur)**.
+4. Animation active de la mer de magma, des courants en ébullition et des braises `W04`.
 5. Zéro mini-volcan et chaussée praticable Sud -> Nord continue de `y = 71` jusqu'au seuil de la grotte.
 6. Invariance d'échelle (`0.5×`) sans damier et zéro mention interdite dans tous les livrables.
 """
@@ -55,11 +55,15 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
             fringe = (r - g >= 18) & (b - g >= 12)
             self.assertEqual(int(fringe.sum()), 0, f"Liseré violet détecté sur pose {idx}: {int(fringe.sum())}")
 
-    def test_02_zero_lava_anywhere_and_black_volcanic_rock(self) -> None:
-        # Zéro lave / magma ardent sur l'ensemble des poses de MME1 (`les lave de magma a l'entrée retire les`)
+    def test_02_lateral_magma_lakes_restored_zero_arch_lava_and_sculpted_black_rock(self) -> None:
+        # 1. Les deux lacs latéraux contiennent bien le magma et la lave ardente assombrie (`R > 130` & `R > G + 40`)
         for idx, pose in enumerate((self.pose0, self.pose1, self.pose2)):
-            hot_lava = (pose[:, :, 0] > 125).sum()
-            self.assertEqual(int(hot_lava), 0, f"Zéro lave tolérée à l'entrée MME1 sur pose {idx} ({int(hot_lava)} px)")
+            hot_lava = (pose[:, :, 0].astype(int) > 130) & (pose[:, :, 0].astype(int) - pose[:, :, 1].astype(int) > 40)
+            self.assertGreater(int(hot_lava.sum()), 40_000, f"Les lacs de magma & lave doivent être présents dans MME1 (pose {idx})")
+            # 2. ZÉRO lave sur le massif rocheux et l'arche de l'entrée Nord (`[90:240, 290:478]`)
+            arch_box = pose[90:240, 290:478, :3]
+            arch_hot = (arch_box[:, :, 0] > 110).sum()
+            self.assertEqual(int(arch_hot), 0, f"Zéro lave sur le rocher de l'arche d'entrée Nord ({int(arch_hot)} px)")
 
         arch_layer = np.asarray(
             Image.open(self.renders / "layers" / "06_massif_et_arche_roche_noire.png").convert("RGBA"),
@@ -73,33 +77,31 @@ class TestMineMagmaEntreeV1(unittest.TestCase):
             opaque = lyr[:, :, 3] > 0
             self.assertGreater(int(opaque.sum()), 40_000)
             lum = 0.299 * lyr[opaque, 0] + 0.587 * lyr[opaque, 1] + 0.114 * lyr[opaque, 2]
-            self.assertGreater(float(lum.mean()), 24.0, f"La couche {name} doit rester bien visible et sculptée (pas écrasée dans le noir)")
+            self.assertGreater(float(lum.mean()), 24.0, f"La couche {name} doit rester bien visible et sculptée")
             self.assertLess(float(lum.mean()), 46.0, f"La couche {name} doit rester en basalte noir volcanique POV PMD")
 
-    def test_03_dark_abyss_mist_on_low_rims_only_not_tall_spires(self) -> None:
+    def test_03_viscous_shoreline_on_low_rims_only_not_tall_spires(self) -> None:
         layer_slugs = [l["slug"] for l in self.metrics["layers"]]
-        for slug in layer_slugs:
-            self.assertNotIn("cascade", slug.lower())
-        self.assertIn("04_brume_rebord_gouffres", layer_slugs)
+        self.assertIn("04_rive_magma_visqueux_bordure", layer_slugs)
 
         layers, _, _ = entree_build.build_layers_for_size()
-        mist_entry = [l for l in layers if l.slug == "04_brume_rebord_gouffres"][0]
-        self.assertEqual(len(mist_entry.frames), 15)
-        self.assertEqual(mist_entry.frame_length, 8)
+        shore_entry = [l for l in layers if l.slug == "04_rive_magma_visqueux_bordure"][0]
+        self.assertEqual(len(shore_entry.frames), 15)
+        self.assertEqual(shore_entry.frame_length, 8)
 
-        f0 = np.asarray(mist_entry.frames[0], dtype=np.uint8)
-        f7 = np.asarray(mist_entry.frames[7], dtype=np.uint8)
+        f0 = np.asarray(shore_entry.frames[0], dtype=np.uint8)
+        f7 = np.asarray(shore_entry.frames[7], dtype=np.uint8)
         self.assertEqual(int(((f0[:, :, 3] > 0) & (f0[:, :, 3] < 255)).sum()), 0)
-        self.assertGreater(int((f0[:, :, 3] == 255).sum()), 3_000)
-        mist_diff = np.abs(f0[:, :, 3].astype(int) - f7[:, :, 3].astype(int))
-        self.assertGreater(int((mist_diff > 0).sum()), 1_200, "La brume d'abysse doit respirer le long des rebords bas")
-        self.assertEqual(int((f0[275:305, 80:95, 3] > 0).sum()), 0, "Zéro animation de rebord sur les pitons en hauteur")
+        self.assertGreater(int((f0[:, :, 3] == 255).sum()), 1_500)
+        shore_diff = np.abs(f0[:, :, :3].astype(int) - f7[:, :, :3].astype(int)).max(axis=2)
+        self.assertGreater(int((shore_diff > 0).sum()), 600, "La rive visqueuse doit s'animer sur les berges basses")
+        self.assertEqual(int((f0[275:305, 80:95, 3] > 0).sum()), 0, "Zéro animation de rive sur les pitons en hauteur")
 
-    def test_04_rising_volcanic_abyss_smoke_animation(self) -> None:
+    def test_04_boiling_magma_sea_animation(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)
         diff12 = np.abs(self.pose1[:, :, :3].astype(int) - self.pose2[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff01 >= 4).sum()), 15_000)
-        self.assertGreater(int((diff12 >= 4).sum()), 15_000)
+        self.assertGreater(int((diff01 >= 6).sum()), 25_000)
+        self.assertGreater(int((diff12 >= 6).sum()), 25_000)
 
     def test_05_zero_mini_volcanoes_and_walkable_south_north_causeway(self) -> None:
         self.assertFalse((REPO_ROOT / "source" / "mine_magma_entree_v1" / "bruts" / "ilot_colonne_magma_magenta.png").exists())

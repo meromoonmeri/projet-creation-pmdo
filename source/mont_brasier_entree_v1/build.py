@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-MBE1 — Mont Brasier — Entrée (`POV PMD`, référence canonique `d09p01_mt_blaze_native.png`).
+MBE1 — Mont Brasier — Entrée (`1×` natif Chunsoft GBA `D09P01` + Flammèches `W04`).
 
-Fidélité maximale à `D09P01` (*Mt. Blaze Entrance — PMD Red*) + découpe stricte `#FF00FF` :
-- Seuls les pixels `#FF00FF` vrais (`R >= 220 & G <= 35 & B >= 220`) sont traités comme lave (0 confusion
-  avec les ombres gris-violet des piliers basaltiques de `D09P01` !) ;
-- Les 2 grandes cascades latérales s'écoulent strictement à l'intérieur des 2 chenaux `#FF00FF` ;
-- Le dallage craquelé et les colonnes hexagonales sont étalonnés directement sur la palette GBA de `D09P01`.
+Fidélité texture & pixel-art `100 %` native à `D09P01` (*Mt. Blaze Entrance — PMD Red*) :
+- Décodage matériel direct `D09P01.{bpl,bpc,bma}` (`6` poses matérielles GBA `.bpl` sur les bassins de lave,
+  les deux cascades verticales Nord et les parois de basalte chauffées) ;
+- Découpe `#FF00FF` pure sur `bruts/base_mont_brasier_entree.png` couvrant l'intégralité des lacs & cascades de lave ;
+- Flammèches volcaniques authentiques GBA `W04` (`W041.bpa`).
 """
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -26,23 +25,21 @@ REPO_ROOT = HERE.parents[1]
 if str(REPO_ROOT / "source") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "source"))
 
-from moteur_eau_et_glace_canonique_pmd import sanitize_palette_no_magenta  # type: ignore
-from moteur_magma_canonique_pmd_red import (  # type: ignore
-    DARK_CRATER_VISCOUS_PAL,
-    build_canonical_w04_embers_frames,
-    build_dark_crater_pit_magma_frames,
-    build_dark_crater_rim_glow_frames,
-    render_dark_crater_viscous_shoreline,
+from moteur_gba_pmd_red_natif import (  # type: ignore
+    PURE_MAGENTA,
+    build_gba_weather_overlay_frames,
+    load_gba_map_bundle,
+    make_layer_rgba,
+    render_gba_native,
+    resize_nearest_mask,
+    resize_nearest_rgba,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
     H_CANON,
-    N_FRAMES,
     TILE_SIZE,
     W_CANON,
     LayerEntry,
     build_rsground_package,
-    extract_canonical_palette,
-    quantize_rgb_to_palette,
 )
 
 MAP_ID = "MBE1"
@@ -54,136 +51,138 @@ D09P01_REF = REF_DIR / "d09p01_mt_blaze_native.png"
 RENDERS_DIR = REPO_ROOT / "renders" / "mont_brasier_entree_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
-
-def _build_twin_lava_cascades(w: int, h: int, shaft_mask: np.ndarray, n_phases: int = 24) -> List[Image.Image]:
-    """Écoulement vertical canonique `Dark Crater` strictement confiné dans `shaft_mask` (`left + right`)."""
-    sp_mg = importlib.util.spec_from_file_location("mbe_mg", REPO_ROOT / "source" / "magma_visqueux" / "magma.py")
-    mg = importlib.util.module_from_spec(sp_mg)  # type: ignore[arg-type]
-    sp_mg.loader.exec_module(mg)  # type: ignore[union-attr]
-
-    _, xx = np.mgrid[:h, :w]
-    left_shaft = shaft_mask & (xx < w // 2)
-    right_shaft = shaft_mask & (xx >= w // 2)
-
-    left_frames, _ = mg.cascade_phases(left_shaft, seed=17, falls=2, phases=n_phases, foot_rows=8)
-    right_frames, _ = mg.cascade_phases(right_shaft, seed=29, falls=2, phases=n_phases, foot_rows=8)
-
-    out: List[Image.Image] = []
-    for t in range(n_phases):
-        canvas = np.zeros((h, w, 4), dtype=np.uint8)
-        lf = left_frames[t]
-        rf = right_frames[t]
-        ml = (lf[:, :, 3] > 0) & shaft_mask
-        mr = (rf[:, :, 3] > 0) & shaft_mask
-        canvas[ml] = lf[ml]
-        canvas[mr] = rf[mr]
-        out.append(Image.fromarray(canvas, mode="RGBA"))
-    return out
+# Séquence ping-pong 10 poses × 12 ticks = 120 ticks sur les 6 frames matérielles `D09P01.bpl` :
+# - tick 0 (`pose0`, idx 0) = frame GBA `0` (fidélité `0.00` au repos !)
+# - tick 60 (`pose12`, idx 5) = frame GBA `5` (contraste thermique maximal !)
+GBA_PINGPONG_10 = [0, 1, 2, 3, 4, 5, 4, 3, 2, 1]
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
-    raw_im = Image.open(DECOR_MAGENTA_RAW).convert("RGB")
-    decor_rgb = np.asarray(raw_im.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
+    # Pré-décodage des 6 frames matérielles exactes de `D09P01.bpl`
+    gba_frames_rgb: List[np.ndarray] = []
+    nat_pm0 = None
+    for k in range(6):
+        nat_rgba_k, pm_k, _ = render_gba_native("D09P01", phase=(k / 6.0 if k > 0 else None), bpa_frame=0)
+        if nat_pm0 is None:
+            nat_pm0 = pm_k
+        gba_frames_rgb.append(resize_nearest_rgba(nat_rgba_k, w, h)[:, :, :3])
 
+    assert nat_pm0 is not None
+    rgb0 = gba_frames_rgb[0]
+
+    # Slots matériels Chunsoft de `D09P01` :
+    # - `pal_map ∈ {0, 3, 5}` : Bassins de lave en fusion + 2 cascades verticales de lave au Nord (`#FF00FF` dans le brut !)
+    # - `pal_map ∈ {2, 4}` : Colonnes & falaises de basalte rougies par la réverbération thermique
+    # - `pal_map ∈ {1, 6}` : Arche caverneuse Nord & sentier de pierre volcanique craquelée
+    # Détection exacte de la lave incandescente & des 2 cascades verticales de `D09P01` (`R - B >= 52 & R >= 104`)
+    # ZÉRO sélection des parois sombres de l'arche caverneuse Nord !
+    molten_rgb = (
+        ((rgb0[:, :, 0].astype(np.int16) - rgb0[:, :, 1].astype(np.int16) >= 28) & (rgb0[:, :, 0] >= 64))
+        | ((rgb0[:, :, 0].astype(np.int16) - rgb0[:, :, 2].astype(np.int16) >= 52) & (rgb0[:, :, 0] >= 104))
+    )
+    lava_mask = resize_nearest_mask(np.isin(nat_pm0, [0, 3, 5]), w, h) & molten_rgb
+    yy_tmp, _ = np.mgrid[:h, :w]
+    cascade_mask = lava_mask & (yy_tmp < int(0.42 * h))
+    lake_mask = lava_mask & (~cascade_mask)
+    heat_cliff_mask = resize_nearest_mask(np.isin(nat_pm0, [2, 4]), w, h) & (~lava_mask)
+
+    if w == W_CANON and h == H_CANON:
+        RAW_DIR.mkdir(parents=True, exist_ok=True)
+        brut = rgb0.copy()
+        brut[lava_mask] = PURE_MAGENTA
+        Image.fromarray(brut, mode="RGB").save(DECOR_MAGENTA_RAW)
+
+    rock_mask = ~lava_mask
     yy, xx = np.mgrid[:h, :w]
-    r_raw = decor_rgb[:, :, 0].astype(np.int16)
-    g_raw = decor_rgb[:, :, 1].astype(np.int16)
-    b_raw = decor_rgb[:, :, 2].astype(np.int16)
 
-    # 1. Détection stricte du pur `#FF00FF` (aucune confusion avec le basalte gris-violet sombre !)
-    all_magenta = (r_raw >= 220) & (g_raw <= 35) & (b_raw >= 220)
-    lbl_m, n_m = ndimage.label(all_magenta)
-    min_chasm = max(400, int(round(2500 * (w * h) / float(W_CANON * H_CANON))))
-    open_ids = [cid for cid in range(1, n_m + 1) if int((lbl_m == cid).sum()) >= min_chasm]
-    open_lava = np.isin(lbl_m, open_ids)
-    lava_veins = all_magenta & (~open_lava)
-    rock_mask = ~all_magenta
+    b_d09 = load_gba_map_bundle("D09P01")
+    pal = np.unique(b_d09["base_pals"][:, 1:, :3].reshape(-1, 3), axis=0).astype(np.uint8)
 
-    # 2. Chaussée craquelée terracotta praticable du Sud (`y = h - 1`) au gouffre Nord (`y ≈ 0.56h`)
-    cave_box = (yy >= int(0.28 * h)) & (yy <= int(0.58 * h)) & (xx >= int(0.39 * w)) & (xx <= int(0.61 * w))
-    cave_mouth = rock_mask & cave_box & (decor_rgb.max(axis=2) <= 45)
-
-    terracotta_cand = (
-        rock_mask
-        & (~cave_mouth)
-        & ((r_raw - b_raw) >= 34)
-        & (r_raw >= 108)
-        & (yy >= int(0.52 * h))
-        & (~ndimage.binary_dilation(all_magenta, iterations=max(1, int(round(3 * w / 768.0)))))
+    # Sentier central praticable Sud (`y = 71`) -> Arche de grotte Nord (`y = 24..31, x = 44..52`)
+    central_spine = (yy >= int(0.32 * h)) & (xx >= int(0.45 * w)) & (xx <= int(0.55 * w))
+    path_corridor = central_spine | (
+        (yy >= int(0.45 * h))
+        & (yy <= int(0.76 * h))
+        & (xx >= int(0.32 * w))
+        & (xx <= int(0.68 * w))
+        & rock_mask
     )
-    terracotta_smooth = ndimage.binary_closing(terracotta_cand, iterations=max(2, int(round(4 * w / 768.0)))) & rock_mask
-    lbl_t, _ = ndimage.label(terracotta_smooth)
-    south_ids = set(lbl_t[h - 6 :, int(0.35 * w) : int(0.65 * w)].ravel().tolist()) - {0}
-    walkable_floor = np.isin(lbl_t, list(south_ids)) & rock_mask & (~cave_mouth)
-    walkable_floor = ndimage.binary_fill_holes(walkable_floor) & rock_mask & (~cave_mouth)
+    walkable_pixels = path_corridor
+    path_rock_pixels = path_corridor & rock_mask
+    north_arch_and_columns = rock_mask & (~path_rock_pixels) & (yy < int(0.46 * h))
+    south_crags = rock_mask & (~path_rock_pixels) & (~north_arch_and_columns) & (yy >= int(0.68 * h))
+    side_basalt = rock_mask & (~path_rock_pixels) & (~north_arch_and_columns) & (~south_crags)
 
-    # 3. Étalonnage colorimétrique exact sur `D09P01` :
-    #    - Colonnes basaltiques gris-ardoise bleutées sombres (`D09P01` : `[104, 96, 128]`),
-    #    - Terracotta rouge-ocre chaud de `D09P01` (`#BC5C46`) sur `walkable_floor` & rochers ocres !
-    graded = decor_rgb.astype(np.float32).copy()
-    cool_basalt = rock_mask & (~cave_mouth) & ((r_raw - b_raw) < 28)
-    graded[cool_basalt, 0] = np.clip(graded[cool_basalt, 0] * 0.68, 0, 255)
-    graded[cool_basalt, 1] = np.clip(graded[cool_basalt, 1] * 0.74, 0, 255)
-    graded[cool_basalt, 2] = np.clip(graded[cool_basalt, 2] * 0.96 + 18.0, 0, 255)
+    # Couche 00 : Fond magmatique exact `D09P01` au repos
+    im_00_bg = make_layer_rgba(rgb0, np.ones((h, w), dtype=bool))
 
-    warm_stone = rock_mask & ((r_raw - b_raw) >= 28)
-    graded[warm_stone, 0] = np.clip(graded[warm_stone, 0] * 0.90, 0, 255)
-    graded[warm_stone, 1] = np.clip(graded[warm_stone, 1] * 0.74, 0, 255)
-    graded[warm_stone, 2] = np.clip(graded[warm_stone, 2] * 0.86 + 10.0, 0, 255)
+    # Couches 01 & 02 : Bassins de lave (`slots 0, 3`) & Cascades jumelles Nord (`slot 5`) animés par `D09P01.bpl` !
+    frames_01_lakes: List[Image.Image] = []
+    frames_02_cascades: List[Image.Image] = []
+    frames_08_heat_cliffs: List[Image.Image] = []
+    tau = 2.0 * np.pi
+    for idx_f, k_gba in enumerate([0, 1, 2, 3, 4, 3, 5, 4, 2, 1]):
+        rk = gba_frames_rgb[k_gba].copy()
+        # Sur les cœurs jaune d'or des bassins & cascades, onde descendante/radiale fidèle aux teintes `D09P01.bpl`
+        if idx_f > 0:
+            # Modulation thermique strictement proportionnelle sur le pixel-art `D09P01` (zéro aplat rectangulaire !)
+            pulse = 0.5 - 0.5 * np.cos(tau * idx_f / 10.0)
+            wave_lake = np.sin(tau * ((xx.astype(np.float32) * 0.5 + yy.astype(np.float32)) / max(48.0, w * 0.14) - idx_f / 10.0))
+            d_lake = np.round((16.0 + 10.0 * wave_lake) * pulse).astype(np.int32)
+            mod_l = rk.copy()
+            mod_l[:, :, 0] = np.clip(rk[:, :, 0].astype(np.int32) + d_lake, 0, 248).astype(np.uint8)
+            mod_l[:, :, 1] = np.clip(rk[:, :, 1].astype(np.int32) + d_lake, 0, 232).astype(np.uint8)
+            rk[lake_mask] = mod_l[lake_mask]
 
-    ref_pal = extract_canonical_palette([D09P01_REF], max_colors=72, min_pixels=4)
-    dark_anchors = np.array([[8, 6, 10], [18, 14, 20]], dtype=np.uint8)
-    pal = sanitize_palette_no_magenta(np.vstack([DARK_CRATER_VISCOUS_PAL, ref_pal, dark_anchors]), max_gap=24)
-    q_decor = quantize_rgb_to_palette(graded.astype(np.uint8), pal)
-    q_decor[cave_mouth] = np.array([8, 6, 10], dtype=np.uint8)
+            wave_fall = np.sin(tau * (yy.astype(np.float32) / max(28.0, h * 0.09) - idx_f / 10.0))
+            d_fall = np.round((18.0 + 12.0 * wave_fall) * pulse).astype(np.int32)
+            mod_c = rk.copy()
+            mod_c[:, :, 0] = np.clip(rk[:, :, 0].astype(np.int32) + d_fall, 0, 252).astype(np.uint8)
+            mod_c[:, :, 1] = np.clip(rk[:, :, 1].astype(np.int32) + d_fall, 0, 240).astype(np.uint8)
+            rk[cascade_mask] = mod_c[cascade_mask]
 
-    # Séparation des deux fûts verticaux de cascades (`y <= 0.67h`) et des deux bassins inférieurs
-    waterfall_shafts = open_lava & (yy <= int(0.68 * h))
-    pool_zone = open_lava & (yy >= int(0.58 * h))
+        frames_01_lakes.append(make_layer_rgba(rk, lake_mask))
+        frames_02_cascades.append(make_layer_rgba(rk, cascade_mask))
+        if idx_f == 0:
+            frames_08_heat_cliffs.append(Image.fromarray(np.zeros((h, w, 4), dtype=np.uint8), mode="RGBA"))
+        else:
+            changed_cliff = heat_cliff_mask & np.any(gba_frames_rgb[k_gba] != rgb0, axis=2)
+            frames_08_heat_cliffs.append(make_layer_rgba(gba_frames_rgb[k_gba], changed_cliff))
 
-    fg_basalt = rock_mask & (~walkable_floor) & (~cave_mouth) & (
-        (yy >= int(0.58 * h)) | (xx < int(0.11 * w)) | (xx > int(0.89 * w))
+    # Couche 03 : Remous de rive incandescents au pied des berges basses uniquement (`15 × 8 = 120` ticks, `pose0` vide)
+    shore_band = ndimage.binary_dilation(rock_mask, iterations=2) & lava_mask & (yy >= int(0.40 * h))
+    frames_03_shore: List[Image.Image] = []
+    for f in range(15):
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        if f > 0:
+            sw = np.sin(tau * ((xx.astype(np.float32) + yy.astype(np.float32)) / max(32.0, w * 0.09) - f / 15.0))
+            lit = shore_band & (sw > 0.45)
+            arr[lit, :3] = np.array([248, 208, 96], dtype=np.uint8)
+            arr[lit, 3] = 255
+        frames_03_shore.append(Image.fromarray(arr, mode="RGBA"))
+
+    im_04_path = make_layer_rgba(rgb0, path_rock_pixels)
+    im_05_south = make_layer_rgba(rgb0, south_crags)
+    im_06_sides = make_layer_rgba(rgb0, side_basalt)
+    im_07_arch = make_layer_rgba(rgb0, north_arch_and_columns)
+
+    # Couche 09 (`Top`) : Flammèches volcaniques authentiques GBA `W04` (`W041.bpa`, `15 × 8 = 120` ticks)
+    embers_top = build_gba_weather_overlay_frames(
+        "W04",
+        w=w,
+        h=h,
+        n_frames=15,
+        scroll_dx_per_loop=-24,
+        scroll_dy_per_loop=-64,
+        tint_palette=[(248, 152, 48), (248, 224, 120)],
+        subsample_keep_mod=6,
     )
-    north_basalt = (rock_mask & (~walkable_floor) & (~fg_basalt)) | cave_mouth
-
-    # Couches 00..09
-    frames_00_pools = build_dark_crater_pit_magma_frames(w=w, h=h, mask=open_lava, phase_offset=0)
-
-    base_arr = np.zeros((h, w, 4), dtype=np.uint8)
-    base_arr[rock_mask, :3] = np.array([72, 46, 48], dtype=np.uint8)
-    base_arr[rock_mask, 3] = 255
-    im_01_base = Image.fromarray(base_arr, mode="RGBA")
-
-    veins_dil = ndimage.binary_dilation(lava_veins, iterations=1) & all_magenta
-    frames_02_veins = build_dark_crater_pit_magma_frames(
-        w=w, h=h, mask=veins_dil, phase_offset=6, roll_xy=(32, 24)
-    )
-    frames_03_cascades = _build_twin_lava_cascades(w=w, h=h, shaft_mask=waterfall_shafts, n_phases=N_FRAMES)
-
-    band_px = max(5.0, 9.5 * (w / float(W_CANON)))
-    frames_04_shore = render_dark_crater_viscous_shoreline(pool_zone, n_frames=15, band_px=band_px)
-
-    def _mk_layer(m: np.ndarray) -> Image.Image:
-        out = np.zeros((h, w, 4), dtype=np.uint8)
-        out[m, :3] = q_decor[m]
-        out[m, 3] = 255
-        return Image.fromarray(out, mode="RGBA")
-
-    im_05_floor = _mk_layer(walkable_floor)
-    im_06_north = _mk_layer(north_basalt)
-    im_07_fg = _mk_layer(fg_basalt)
-
-    rock_rgba = np.zeros((h, w, 4), dtype=np.uint8)
-    rock_rgba[rock_mask, :3] = q_decor[rock_mask]
-    rock_rgba[rock_mask, 3] = 255
-    frames_08_glow = build_dark_crater_rim_glow_frames(rock_rgba, all_magenta)
-    frames_09_embers = build_canonical_w04_embers_frames(w=w, h=h)
 
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
         for tx in range(gw):
-            blk = walkable_floor[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
+            blk = walkable_pixels[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
             walk_grid[ty, tx] = float(blk.mean()) >= 0.55
 
     lbl_wg, n_wg = ndimage.label(walk_grid)
@@ -193,16 +192,16 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
-        LayerEntry("00_bassins_magma_d41p41a", "Bassins de Magma Canonique d41p41a 1×", "BG", frames_00_pools, frame_length=10),
-        LayerEntry("01_socle_volcanique_continu", "Socle Volcanique Continu D09P01", "BG", [im_01_base], frame_length=5),
-        LayerEntry("02_veines_fissures_magenta", "Poches & Veines de Magma #FF00FF", "BG", frames_02_veins, frame_length=10),
-        LayerEntry("03_cascades_lave_canoniques", "Double Cascade Verticale de Lave D09P01", "BG", frames_03_cascades, frame_length=5),
-        LayerEntry("04_rive_visqueuse_bordure_rocher", "Rive Visqueuse & Croûte de Bordure Rocher", "BG", frames_04_shore, frame_length=8),
-        LayerEntry("05_dalles_terracotta_chemin", "Chaussée Terracotta Praticable Sud-Nord", "BG", [im_05_floor], frame_length=5),
-        LayerEntry("06_colonnes_basalte_nord_seuil", "Colonnes Basaltiques D09P01 & Seuil Nord", "BG", [im_06_north], frame_length=5),
-        LayerEntry("07_colonnes_basalte_avant", "Colonnes Basaltiques & Rochers d'Avant-Plan", "BG", [im_07_fg], frame_length=5),
-        LayerEntry("08_incandescence_thermique_roche", "Incandescence Thermique de Bordure Rocher", "BG", frames_08_glow, frame_length=8),
-        LayerEntry("09_braises_w04_canoniques_top", "Braises Volcaniques Montantes W04 1×", "Top", frames_09_embers, frame_length=7),
+        LayerEntry("00_socle_magma_d09p01", "Socle de Lave Natif D09P01 1×", "BG", [im_00_bg], frame_length=5),
+        LayerEntry("01_bassins_lave_fusion_d09p01", "Bassins de Lave en Fusion GBA D09P01", "BG", frames_01_lakes, frame_length=12),
+        LayerEntry("02_cascades_lave_nord_d09p01", "Cascades Jumelles de Lave Nord GBA D09P01", "BG", frames_02_cascades, frame_length=12),
+        LayerEntry("03_remous_rives_lave_d09p01", "Remous Incandescents des Berges Basses", "BG", frames_03_shore, frame_length=8),
+        LayerEntry("04_sentier_basalte_craquele_d09p01", "Sentier Central de Pierre Volcanique D09P01", "BG", [im_04_path], frame_length=5),
+        LayerEntry("05_escarpements_sud_d09p01", "Escarpements Volcaniques Sud D09P01", "BG", [im_05_south], frame_length=5),
+        LayerEntry("06_colonnes_basalte_laterales_d09p01", "Colonnes Basaltiques Est & Ouest D09P01", "BG", [im_06_sides], frame_length=5),
+        LayerEntry("07_arche_caverneuse_nord_d09p01", "Arche Caverneuse Nord du Mont Brasier D09P01", "BG", [im_07_arch], frame_length=5),
+        LayerEntry("08_reflets_thermiques_parois_d09p01", "Reflets Thermiques GBA sur Parois D09P01", "BG", frames_08_heat_cliffs, frame_length=12),
+        LayerEntry("09_flammeches_volcaniques_w04_top", "Flammèches Volcaniques Canoniques GBA W04 1×", "Top", embers_top, frame_length=8),
     ]
     return layers, walk_grid, pal
 
@@ -221,7 +220,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=D09P01_REF,
-        max_fidelity_distance=34.0,
+        max_fidelity_distance=4.0,
         max_unique_tiles_per_bank=24000,
         namespace_override="mont_brasier_mbe1",
         asset_name_override="mont_brasier_entree",

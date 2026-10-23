@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `mont_brasier_sommet_v1` (`MBA1`, Mont Brasier — Cime de Sulfura)."""
+"""Tests unitaires d'acceptation — `mont_brasier_sommet_v1` (`MBA1`, Cime du Mont Brasier — Sulfura `H19P01` `1×`)."""
 
 from __future__ import annotations
 
@@ -34,27 +34,28 @@ class TestMontBrasierSommetV1(unittest.TestCase):
 
     def test_01_magenta_cutout_brut_and_zero_magenta_leak_in_renders(self) -> None:
         mag_raw = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
-        self.assertGreater(int(mag_raw.sum()), 100_000, "Caldeira, veines & ciel doivent être en #FF00FF sur le brut")
+        self.assertGreater(int(mag_raw.sum()), 120_000, "Le cratère concentrique H19P01 doit être en #FF00FF sur le brut")
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
             self.assertEqual(int(((np.minimum(r, b) - g) >= 40).sum()), 0, f"Fuite magenta sur pose {idx}")
 
-    def test_02_high_fidelity_to_h19p01_and_ten_layers(self) -> None:
+    def test_02_ultra_high_fidelity_to_h19p01_and_ten_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
-        self.assertLess(self.metrics["fidelity_distance"], 20.0)
+        self.assertLess(self.metrics["fidelity_distance"], 3.0)
 
-    def test_03_caldera_magma_veins_and_fumaroles_animated(self) -> None:
+    def test_03_concentric_magma_fumaroles_and_h19p01w_smoke_animated(self) -> None:
+        mag_zone = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff > 18).sum()), 25_000, "La caldeira d41p41a, les veines & fumées doivent s'animer")
+        self.assertGreater(int((diff[mag_zone] > 12).sum()), 15_000, "Le cratère concentrique, les fumerolles & panaches H19P01W doivent s'animer")
 
-    def test_04_continuous_south_bridge_to_sulfura_island(self) -> None:
+    def test_04_continuous_south_to_sulfura_heart_walkgrid(self) -> None:
         _, walk_grid, _ = mba_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 1_100)
+        self.assertGreater(int(walk_grid.sum()), 1_500)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        boss_ids = set(lbl[32:40, 44:52].ravel().tolist()) - {0}
-        self.assertTrue(bool(south_ids & boss_ids), "Le pont Sud doit rejoindre sans coupure l'îlot central de Sulfura")
+        heart_ids = set(lbl[32:40, 44:52].ravel().tolist()) - {0}
+        self.assertTrue(bool(south_ids & heart_ids), "Le chemin Sud-Nord doit rejoindre le cœur incandescent de Sulfura")
 
     def test_05_scale_invariance_half_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `mont_brasier_entree_v1` (`MBE1`, Mont Brasier — Entrée)."""
+"""Tests unitaires d'acceptation — `mont_brasier_entree_v1` (`MBE1`, Mont Brasier — Entrée `D09P01` `1×`)."""
 
 from __future__ import annotations
 
@@ -34,29 +34,28 @@ class TestMontBrasierEntreeV1(unittest.TestCase):
 
     def test_01_magenta_cutout_brut_and_zero_magenta_leak_in_renders(self) -> None:
         mag_raw = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
-        self.assertGreater(int(mag_raw.sum()), 80_000, "Toute la lave & les 2 cascades doivent être en #FF00FF sur le brut")
+        self.assertGreater(int(mag_raw.sum()), 45_000, "Les bassins & cascades de lave D09P01 doivent être en #FF00FF sur le brut")
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
             self.assertEqual(int(((np.minimum(r, b) - g) >= 40).sum()), 0, f"Fuite magenta sur pose {idx}")
 
-    def test_02_high_fidelity_to_d09p01_and_ten_layers(self) -> None:
+    def test_02_ultra_high_fidelity_to_d09p01_and_ten_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
-        self.assertLess(self.metrics["fidelity_distance"], 30.0)
+        self.assertLess(self.metrics["fidelity_distance"], 3.0)
 
-    def test_03_both_left_and_right_lava_waterfalls_and_pools_animated(self) -> None:
-        left_diff = np.abs(self.pose0[:, :260, :3].astype(int) - self.pose12[:, :260, :3].astype(int)).max(axis=2)
-        right_diff = np.abs(self.pose0[:, 508:, :3].astype(int) - self.pose12[:, 508:, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((left_diff > 18).sum()), 12_000, "La cascade & le bassin de lave gauche doivent s'animer")
-        self.assertGreater(int((right_diff > 18).sum()), 12_000, "La cascade & le bassin de lave droit doivent s'animer")
+    def test_03_canonical_d09p01_lava_lakes_and_waterfalls_animated(self) -> None:
+        lava_zone = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
+        diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
+        self.assertGreater(int((diff[lava_zone] > 14).sum()), 15_000, "Les bassins & cascades D09P01 doivent bouillonner")
 
-    def test_04_continuous_south_to_north_terracotta_path(self) -> None:
+    def test_04_continuous_south_to_north_cave_path(self) -> None:
         _, walk_grid, _ = mbe_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 1_400)
+        self.assertGreater(int(walk_grid.sum()), 800)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        north_ids = set(lbl[41:46, 42:54].ravel().tolist()) - {0}
-        self.assertTrue(bool(south_ids & north_ids), "La chaussée terracotta doit relier y=71 au gouffre Nord")
+        north_ids = set(lbl[24:31, 42:54].ravel().tolist()) - {0}
+        self.assertTrue(bool(south_ids & north_ids), "Le sentier Sud-Nord doit rejoindre l'arche caverneuse Nord")
 
     def test_05_scale_invariance_half_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

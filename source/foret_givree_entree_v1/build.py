@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-FGE1 — Forêt Givrée — Entrée (`POV PMD`, référence canonique `d10p01_frosty_forest_native.png`).
+FGE1 — Forêt Givrée — Entrée (`1×` natif Chunsoft GBA `D10P01` + Neige `W03P03`).
 
-Fidélité maximale à `D10P01` (*Frosty Forest Entrance — PMD Red*) + découpe 100 % `#FF00FF` :
-- `FGE1_00` (`BG`, `1` pose) : Ciel polaire étagé `D10P01` derrière la chaîne enneigée ;
-- `FGE1_01` (`BG`, `24` poses @ `5` ticks = `120` ticks) : Rideaux d'Aurore Boréale turquoise-émeraude ;
-- `FGE1_02` (`BG`, `4` poses @ `10` ticks = `40` ticks, `3×` par boucle `120`) : Eau glaciaire vive `1×`
-  native *PMD* (`Metano_Town_River_Animation_1..4.tile`) remplissant les 2 ruisseaux `#FF00FF` ;
-- `FGE1_03` (`BG`, `4` poses @ `10` ticks) : Écume de berge glacée & éclats spéculaires `1×` ;
-- `FGE1_04` (`BG`, `1` pose) : Socle continu de neige & roche froide ;
-- `FGE1_05` (`BG`, `1` pose) : Chaîne de montagnes enneigées lointaines `D10P01` ;
-- `FGE1_06` (`BG`, `1` pose) : Sentier enneigé praticable continu du Sud (`y = 71`) au seuil Nord ;
-- `FGE1_07` (`BG`, `1` pose) : Sapins enneigés étagés & souche givrée emblématique de `D10P01` ;
-- `FGE1_08` (`BG`, `24` poses @ `5` ticks = `120` ticks) : Nappes de brume glacée dérivant au seuil Nord ;
-- `FGE1_09` (`Top`, `24` poses @ `5` ticks = `120` ticks) : Chutes de flocons parallaxe sur toute la forêt.
+Fidélité texture & pixel-art `100 %` native à `D10P01` (*Frosty Forest Entrance — PMD Red*) :
+- Décodage matériel direct `D10P01.{bpl,bpc,bma}` (`0` rivière bleue inventée, `0` aurore verte, `0` lissage) ;
+- Découpe `#FF00FF` pure sur `bruts/base_foret_givree_entree.png` pour le ciel d'hiver & les plaques de glace vive ;
+- Neige tombante matérielle authentique GBA `W03P03` (`W03P031.bpa`, `16` poses matérielles).
 """
 
 from __future__ import annotations
@@ -32,22 +24,21 @@ REPO_ROOT = HERE.parents[1]
 if str(REPO_ROOT / "source") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "source"))
 
-from moteur_eau_et_glace_canonique_pmd import (  # type: ignore
-    build_canonical_pmd_water_frames,
-    build_canonical_pmd_waterfall_and_shore_frames,
-    build_frost_mist_and_snowfall_layers,
-    build_polar_sky_and_aurora_layers,
-    sanitize_palette_no_magenta,
+from moteur_gba_pmd_red_natif import (  # type: ignore
+    PURE_MAGENTA,
+    build_gba_weather_overlay_frames,
+    load_gba_map_bundle,
+    make_layer_rgba,
+    render_gba_native,
+    resize_nearest_mask,
+    resize_nearest_rgba,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
     H_CANON,
-    N_FRAMES,
     TILE_SIZE,
     W_CANON,
     LayerEntry,
     build_rsground_package,
-    extract_canonical_palette,
-    quantize_rgb_to_palette,
 )
 
 MAP_ID = "FGE1"
@@ -61,87 +52,131 @@ VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
-    raw_im = Image.open(DECOR_MAGENTA_RAW).convert("RGB")
-    raw_rgb = np.asarray(raw_im.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
+    nat_rgba, nat_pm, _ = render_gba_native("D10P01", phase=None, bpa_frame=0)
+    nh, nw, _ = nat_rgba.shape
+    nyy, nxx = np.mgrid[:nh, :nw]
+    nr = nat_rgba[:, :, 0].astype(np.int16)
+    ng = nat_rgba[:, :, 1].astype(np.int16)
+    nb = nat_rgba[:, :, 2].astype(np.int16)
 
+    # 1. Ciel d'hiver `D10P01` connecté au bord Nord (`0` coupe dans les sapins enneigés !)
+    sky_seed_candidates = (nyy < 145) & (nb >= 236) & (nb - nr >= 36) & (nr <= 212)
+    lbl_sky, _ = ndimage.label(sky_seed_candidates)
+    top_ids = set(lbl_sky[0, :].tolist()) - {0}
+    nat_sky = np.isin(lbl_sky, list(top_ids))
+
+    # 2. Plaques de glace vive & dalles gelées du sentier `D10P01` (`#FF00FF` dans le brut, `0` rivière bleue factice !)
+    nat_ice_patches = (~nat_sky) & (nyy >= 168) & (nb - nr >= 16) & (nr <= 176)
+
+    # 3. Souche givrée emblématique de `D10P01` (isolée nativement dans `pal_map == 1` par Chunsoft !)
+    nat_stump = (nat_pm == 1) & (~nat_sky) & (~nat_ice_patches)
+
+    full_rgba = resize_nearest_rgba(nat_rgba, w, h)
+    rgb = full_rgba[:, :, :3]
+    sky_mask = resize_nearest_mask(nat_sky, w, h)
+    ice_mask = resize_nearest_mask(nat_ice_patches, w, h) & (~sky_mask)
+    stump_mask = resize_nearest_mask(nat_stump, w, h) & (~sky_mask) & (~ice_mask)
+
+    # Sauvegarde du brut `#FF00FF` canonique à résolution nominale
+    if w == W_CANON and h == H_CANON:
+        RAW_DIR.mkdir(parents=True, exist_ok=True)
+        brut = rgb.copy()
+        brut[sky_mask | ice_mask] = PURE_MAGENTA
+        Image.fromarray(brut, mode="RGB").save(DECOR_MAGENTA_RAW)
+
+    terrain_mask = ~(sky_mask | ice_mask)
     yy, xx = np.mgrid[:h, :w]
-    r = raw_rgb[:, :, 0].astype(np.int16)
-    g = raw_rgb[:, :, 1].astype(np.int16)
-    b = raw_rgb[:, :, 2].astype(np.int16)
 
-    # 1. Découpe stricte des zones `#FF00FF` : ciel polaire Nord vs ruisseaux d'eau glaciaire Sud
-    all_magenta = (np.minimum(r, b) - g) >= 26
-    sky_mask = all_magenta & (yy < int(0.34 * h))
-    water_mask = all_magenta & (~sky_mask)
-    terrain_mask = ~all_magenta
+    # Palette exacte `D10P01.bpl` (couleurs matérielles Chunsoft exclusivement)
+    b_d10 = load_gba_map_bundle("D10P01")
+    pal = np.unique(b_d10["base_pals"][:, 1:, :3].reshape(-1, 3), axis=0).astype(np.uint8)
 
-    # 2. Palette canonique `D10P01` enrichie des nuances pierre/sapin du décor (sans aucune teinte magenta)
-    ref_pal = extract_canonical_palette([D10P01_REF], max_colors=64, min_pixels=8)
-    terr_px = raw_rgb[terrain_mask]
-    uniq, cnt = np.unique(terr_px, axis=0, return_counts=True)
-    top_terr = uniq[np.argsort(-cnt)[:64]]
-    pal = sanitize_palette_no_magenta(np.vstack([ref_pal, top_terr]), max_gap=22)
-    q_rgb = quantize_rgb_to_palette(raw_rgb, pal)
-
-    # 3. Partition sémantique du relief enneigé :
-    #    - `mountains_mask` : chaîne enneigée d'arrière-plan (`y < 0.27h` hors pointes de sapins proches),
-    #    - `walkable_path`  : allée centrale praticable du bord Sud (`y = h - 1`) jusqu'au seuil Nord (`y ≈ 0.44h`),
-    #    - `forest_pines`   : sapins enneigés, souche givrée et berges sculptées.
+    # Partition sémantique `1×` Chunsoft des sapins, congères et sentier enneigé
     path_corridor = (
-        terrain_mask
-        & (yy >= int(0.43 * h))
-        & (xx >= int(0.24 * w))
-        & (xx <= int(0.76 * w))
-        & (~ndimage.binary_dilation(water_mask, iterations=max(1, int(round(2 * w / 768.0)))))
+        ((yy >= int(0.46 * h)) & (xx >= int(0.30 * w)) & (xx <= int(0.68 * w)))
+        | ((yy >= int(0.72 * h)) & (xx >= int(0.24 * w)) & (xx <= int(0.76 * w)))
     )
-    # Seed depuis l'ouverture centrale au bord Sud (`x ∈ [0.35w, 0.65w]`, entre les deux ruisseaux `#FF00FF`)
-    lbl_path, _ = ndimage.label(path_corridor)
-    south_ids = set(lbl_path[h - 6 :, int(0.35 * w) : int(0.65 * w)].ravel().tolist()) - {0}
-    walkable_path = np.isin(lbl_path, list(south_ids)) & terrain_mask
-    walkable_path = ndimage.binary_fill_holes(walkable_path) & terrain_mask
+    walkable_pixels = (sky_mask == False) & (~stump_mask) & path_corridor & (yy >= int(0.45 * h))
+    snow_path_static = terrain_mask & (~stump_mask) & path_corridor & (yy >= int(0.50 * h))
+    rear_pines = terrain_mask & (~snow_path_static) & (~stump_mask) & (yy < int(0.44 * h))
+    lateral_drifts = (
+        terrain_mask & (~snow_path_static) & (~rear_pines) & (~stump_mask) & (yy >= int(0.62 * h))
+    )
+    fg_pines_and_stump = (
+        terrain_mask & (~snow_path_static) & (~rear_pines) & (~lateral_drifts)
+    ) | stump_mask
 
-    mountains_mask = terrain_mask & (~walkable_path) & (yy < int(0.245 * h))
-    forest_pines = terrain_mask & (~walkable_path) & (~mountains_mask)
+    # Couche 00 : Ciel d'hiver exact `D10P01`
+    im_00_sky = make_layer_rgba(rgb, np.ones((h, w), dtype=bool))
 
-    # 4. Couches 00 & 01 : Ciel d'hiver `D10P01` + Aurore Boréale polaire (`24 × 5 = 120` ticks)
-    im_00_sky, frames_01_aurora = build_polar_sky_and_aurora_layers(
-        w=w, h=h, sky_max_y_frac=0.30, n_frames=N_FRAMES
+    # Couche 01 : Nuées polaires d'horizon dérivant le long du relief `D10P01` (`12 × 10 = 120` ticks, `pose0` = repos exact)
+    sky_horizon_edge = ndimage.binary_dilation(~sky_mask, iterations=max(4, h // 48)) & sky_mask
+    frames_01_mist: List[Image.Image] = []
+    for f in range(12):
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        if f > 0:
+            sh = int(round(np.sin(2.0 * np.pi * f / 12.0) * max(6.0, w * 0.04)))
+            rolled_edge = np.roll(sky_horizon_edge, shift=sh, axis=1) & sky_mask
+            arr[rolled_edge, :3] = np.array([196, 208, 248], dtype=np.uint8)
+            arr[rolled_edge, 3] = 255
+        frames_01_mist.append(Image.fromarray(arr, mode="RGBA"))
+
+    # Couche 02 : Dalles & plaques de glace vive `#FF00FF` (`12 × 10 = 120` ticks, préserve 100 % du grain `D10P01` !)
+    frames_02_ice: List[Image.Image] = []
+    for f in range(12):
+        arr = make_layer_rgba(rgb, ice_mask)
+        a = np.asarray(arr, dtype=np.uint8).copy()
+        if f > 0:
+            # Modulation douce strictement additive sur la texture native `D10P01` (zéro bande géométrique !)
+            pulse = 0.5 - 0.5 * np.cos(2.0 * np.pi * f / 12.0)
+            delta = int(round(18.0 * pulse))
+            glint = ice_mask & (rgb[:, :, 2] >= 152)
+            a[glint, :3] = np.clip(rgb[glint].astype(np.int32) + delta, 0, 248).astype(np.uint8)
+        frames_02_ice.append(Image.fromarray(a, mode="RGBA"))
+
+    # Couche 03 : Scintillements cristallins sur les crêtes de neige (`15 × 8 = 120` ticks, `pose0` vide)
+    ice_edge = ndimage.binary_dilation(ice_mask, iterations=1) & terrain_mask
+    frames_03_glints: List[Image.Image] = []
+    for f in range(15):
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        if f > 0:
+            tw = ice_edge & ((((xx // 4) * 13 + (yy // 4) * 7 + f * 3) % 11) == 0)
+            arr[tw, :3] = np.array([248, 248, 248], dtype=np.uint8)
+            arr[tw, 3] = 255
+        frames_03_glints.append(Image.fromarray(arr, mode="RGBA"))
+
+    im_04_path = make_layer_rgba(rgb, snow_path_static)
+    im_05_rear = make_layer_rgba(rgb, rear_pines)
+    im_06_drifts = make_layer_rgba(rgb, lateral_drifts)
+    im_07_fg = make_layer_rgba(rgb, fg_pines_and_stump)
+
+    # Couches 08 & 09 : Chute de neige authentique GBA `W03P03` (`W03P031.bpa`, `pose0` sobre, `100 %` binaire)
+    snow_bg_raw = build_gba_weather_overlay_frames(
+        "W03P03",
+        w=w,
+        h=h,
+        n_frames=12,
+        scroll_dx_per_loop=-24,
+        scroll_dy_per_loop=48,
+        tint_palette=[(216, 224, 248), (240, 244, 252)],
+        subsample_keep_mod=5,
+    )
+    snow_top_raw = build_gba_weather_overlay_frames(
+        "W03P03",
+        w=w,
+        h=h,
+        n_frames=15,
+        scroll_dx_per_loop=-32,
+        scroll_dy_per_loop=72,
+        tint_palette=[(232, 240, 252), (248, 248, 252)],
+        subsample_keep_mod=6,
     )
 
-    # 5. Couches 02 & 03 : Eau glaciaire canonique `1×` PMD + écume/éclats dans les ruisseaux `#FF00FF`
-    frames_02_water = build_canonical_pmd_water_frames(w=w, h=h, water_mask=water_mask)
-    frames_03_foam = build_canonical_pmd_waterfall_and_shore_frames(
-        w=w, h=h, water_mask=water_mask, cascade_mask=None
-    )
-
-    # 6. Couches statiques 04..07 : socle neigeux, montagnes Nord, sentier Sud-Nord, sapins & souche
-    base_arr = np.zeros((h, w, 4), dtype=np.uint8)
-    base_arr[terrain_mask, :3] = np.array([216, 226, 246], dtype=np.uint8)
-    base_arr[terrain_mask, 3] = 255
-    im_04_base = Image.fromarray(base_arr, mode="RGBA")
-
-    def _mk_layer(m: np.ndarray) -> Image.Image:
-        out = np.zeros((h, w, 4), dtype=np.uint8)
-        out[m, :3] = q_rgb[m]
-        out[m, 3] = 255
-        return Image.fromarray(out, mode="RGBA")
-
-    im_05_mountains = _mk_layer(mountains_mask)
-    im_06_path = _mk_layer(walkable_path)
-    im_07_pines = _mk_layer(forest_pines)
-
-    # 7. Couches 08 & 09 : Brume glacée du seuil forestier Nord + flocons parallaxe `Top`
-    mist_band = terrain_mask & (yy >= int(0.32 * h)) & (yy <= int(0.58 * h)) & (xx >= int(0.28 * w)) & (xx <= int(0.72 * w))
-    frames_08_mist, frames_09_snow = build_frost_mist_and_snowfall_layers(
-        w=w, h=h, mist_band_mask=mist_band, n_frames=N_FRAMES
-    )
-
-    # 8. Grille `WallGrid` continue du bord Sud (`y = gh - 1`) jusqu'au seuil Nord (`y ≈ 0.45 * gh`)
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
         for tx in range(gw):
-            blk = walkable_path[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
+            blk = walkable_pixels[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
             walk_grid[ty, tx] = float(blk.mean()) >= 0.55
 
     lbl_wg, n_wg = ndimage.label(walk_grid)
@@ -151,16 +186,16 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
-        LayerEntry("00_ciel_polaire_d10p01", "Ciel Polaire d'Hiver D10P01", "BG", [im_00_sky], frame_length=5),
-        LayerEntry("01_aurore_boreale_polaire", "Aurore Boréale Polaire", "BG", frames_01_aurora, frame_length=5),
-        LayerEntry("02_ruisseaux_eau_pmd_canonique", "Ruisseaux d'Eau Glaciaire Canonique PMD 1×", "BG", frames_02_water, frame_length=10),
-        LayerEntry("03_ecume_et_scintillements_eau", "Écume de Berge & Scintillements PMD 1×", "BG", frames_03_foam, frame_length=10),
-        LayerEntry("04_socle_neigeux_continu", "Socle Neigeux Continu", "BG", [im_04_base], frame_length=5),
-        LayerEntry("05_montagnes_enneigees_d10p01", "Montagnes Enneigées Lointaines D10P01", "BG", [im_05_mountains], frame_length=5),
-        LayerEntry("06_chemin_enneige_sud_nord", "Sentier Enneigé Praticable Sud-Nord", "BG", [im_06_path], frame_length=5),
-        LayerEntry("07_sapins_enneiges_et_souche", "Sapins Givrés & Souche Enneigée D10P01", "BG", [im_07_pines], frame_length=5),
-        LayerEntry("08_brume_glacee_seuil_nord", "Brume Glacée du Seuil Nord", "BG", frames_08_mist, frame_length=5),
-        LayerEntry("09_flocons_neige_blizzard_top", "Blizzard Canonique GBA W03P03 1×", "Top", frames_09_snow, frame_length=5),
+        LayerEntry("00_ciel_hivernal_d10p01", "Ciel Hivernal Natif D10P01 1×", "BG", [im_00_sky], frame_length=5),
+        LayerEntry("01_brume_polaire_horizon_d10p01", "Brume Polaire d'Horizon D10P01", "BG", frames_01_mist, frame_length=10),
+        LayerEntry("02_plaques_glace_vive_d10p01", "Dalles & Plaques de Glace Vive D10P01", "BG", frames_02_ice, frame_length=10),
+        LayerEntry("03_scintillements_cristaux_givre", "Scintillements Cristallins de Givre", "BG", frames_03_glints, frame_length=8),
+        LayerEntry("04_sentier_enneige_continu_d10p01", "Sentier Enneigé Praticable Sud-Nord D10P01", "BG", [im_04_path], frame_length=5),
+        LayerEntry("05_sapins_arriere_plan_d10p01", "Sapins Enneigés d'Arrière-Plan D10P01", "BG", [im_05_rear], frame_length=5),
+        LayerEntry("06_congeres_neige_laterales_d10p01", "Congères Latérales de Neige D10P01", "BG", [im_06_drifts], frame_length=5),
+        LayerEntry("07_sapins_avant_et_souche_d10p01", "Sapins d'Avant-Plan & Souche Givrée D10P01", "BG", [im_07_fg], frame_length=5),
+        LayerEntry("08_poudreuse_arriere_w03p03", "Poudreuse Lointaine GBA W03P03 1×", "BG", snow_bg_raw, frame_length=10),
+        LayerEntry("09_flocons_neige_w03p03_top", "Chute de Neige Canonique GBA W03P03 1×", "Top", snow_top_raw, frame_length=8),
     ]
     return layers, walk_grid, pal
 
@@ -179,7 +214,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=D10P01_REF,
-        max_fidelity_distance=34.0,
+        max_fidelity_distance=6.0,
         max_unique_tiles_per_bank=24000,
         namespace_override="foret_givree_fge1",
         asset_name_override="foret_givree_entree",
