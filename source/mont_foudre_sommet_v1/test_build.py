@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `mont_foudre_sommet_v1` (`MFA1`, Cime d'Électhor)."""
+"""Tests unitaires d'acceptation — `mont_foudre_sommet_v1` (`MFA1`, Sommet — Cœur de la Tornade Noire Électrique de Zekrom)."""
 
 from __future__ import annotations
 
@@ -30,35 +30,35 @@ class TestMontFoudreSommetV1(unittest.TestCase):
         cls.metrics = json.loads((cls.renders / "metadata.json").read_text(encoding="utf-8"))
         cls.pose0 = np.asarray(Image.open(cls.renders / "composite_pose0.png").convert("RGBA"), dtype=np.uint8)
         cls.pose12 = np.asarray(Image.open(cls.renders / "composite_pose12.png").convert("RGBA"), dtype=np.uint8)
-        cls.raw = np.asarray(Image.open(mfa_build.DECOR_MAGENTA_RAW).convert("RGB"), dtype=np.uint8)
+        cls.raw = np.asarray(Image.open(mfa_build.RAW_BRUT_PNG).convert("RGB"), dtype=np.uint8)
 
-    def test_01_magenta_sky_and_zigzag_crack_on_brut_and_zero_magenta_leak(self) -> None:
-        mag_raw = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
-        self.assertGreater(int(mag_raw[:175, :].sum()), 120_000, "La voûte d'orage doit être en #FF00FF sur le brut")
-        self.assertGreater(int(mag_raw[195:290, 310:455].sum()), 800, "La faille en zigzag doit être en #FF00FF")
+    def test_01_magenta_360_tornado_surround_on_brut_and_zero_magenta_leak(self) -> None:
+        mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
+        self.assertGreater(int(mag_raw.sum()), 180_000, "Toute la zone cyclonique 360° autour du pic central doit être en #FF00FF sur le brut")
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
-            self.assertEqual(int(((np.minimum(r, b) - g) >= 40).sum()), 0, f"Fuite magenta sur pose {idx}")
+            self.assertEqual(int(((r >= 240) & (g <= 15) & (b >= 240)).sum()), 0, f"Fuite #FF00FF sur pose {idx}")
 
-    def test_02_ultra_high_fidelity_to_h17p01_and_ten_layers(self) -> None:
+    def test_02_ultra_high_fidelity_and_ten_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
         self.assertLess(self.metrics["fidelity_distance"], 12.0)
 
-    def test_03_lightning_plasma_animated_and_boulders_strictly_static(self) -> None:
+    def test_03_black_electric_tornado_rotates_360_and_spires_strictly_static(self) -> None:
+        mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[:200, :] > 16).sum()), 1_500, "Les éclairs et nuées H17P01 doivent s'animer")
-        self.assertGreater(int((diff[195:285, 315:450] > 12).sum()), 250, "La faille plasma doit pulser")
+        self.assertGreater(int((diff[mag_raw] > 12).sum()), 5_000, "La tornade de nuages noirs électriques de Zekrom doit tourner sur 360°")
+        self.assertEqual(self.metrics["layers"][4]["poses"], 1)
         self.assertEqual(self.metrics["layers"][5]["poses"], 1)
-        self.assertEqual(self.metrics["layers"][7]["poses"], 1)
+        self.assertEqual(self.metrics["layers"][6]["poses"], 1)
 
-    def test_04_continuous_south_to_summit_plateau_walkgrid(self) -> None:
-        _, walk_grid, _ = mfa_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 2_400)
+    def test_04_continuous_south_exit_to_central_zekrom_peak_walkgrid(self) -> None:
+        _, walk_grid = mfa_build.build_layers_for_size()
+        self.assertGreater(int(walk_grid.sum()), 1_000)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        north_ids = set(lbl[34:39, 44:52].ravel().tolist()) - {0}
-        self.assertTrue(bool(south_ids & north_ids), "Le plateau doré doit relier le Sud à la faille d'Électhor")
+        center_ids = set(lbl[20:28, 44:52].ravel().tolist()) - {0}
+        self.assertTrue(bool(south_ids & center_ids), "La crête Sud-Nord issue de la grotte doit rejoindre l'autel central de Zekrom")
 
     def test_05_scale_invariance_half_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,205 +1,182 @@
-#!/usr/bin/env python3
-"""Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-MFE1 — Mont Foudre — Entrée (`POV PMD`, référence canonique `d06p01_mt_thunder_native.png`).
+"""Constructeur PMDO 0.8.12.0 — MFE1 : Tiny Meadow — Entrée de la Montagne & Grotte de Zekrom.
 
-Architecture fidèle à `D06P01` (*Mt. Thunder Entrance — PMD Red*) + découpe 100 % `#FF00FF` :
-- La crête céleste d'orage au Nord et les 2 vasques rocheuses latérales sont détourées en `#FF00FF`
-  sur `bruts/base_mont_foudre_entree.png` (zéro eau ni ciel statiques cuits sur le brut) ;
-- `MFE1_00` (`BG`, `1` pose) : Voûte de cumulo-nimbus d'orage `H17P01` `1×` ;
-- `MFE1_01` (`BG`, `24` poses @ `5` ticks = `120` ticks) : Nuées d'orage dérivantes & flashs intra-nuageux ;
-- `MFE1_02` (`BG`, `24` poses @ `5` ticks = `120` ticks) : Arcs électriques GBA `H17P01W1.bpa` `1×` & éclairs ramifiés ;
-- `MFE1_03` (`BG`, `12` poses @ `10` ticks = `120` ticks) : Vasques d'eau d'orage GBA `H10P02.bpl` `1×` ;
-- `MFE1_04` (`BG`, `1` pose) : Socle minéral continu du Mont Foudre ;
-- `MFE1_05` (`BG`, `1` pose) : Sentier sablonneux Sud-Nord praticable ;
-- `MFE1_06` (`BG`, `1` pose) : Hautes parois calcaires escarpées `D06P01` (`100 %` statiques) ;
-- `MFE1_07` (`BG`, `1` pose) : Arbres foudroyés, aiguilles rocheuses & grotte Nord (`100 %` statiques) ;
-- `MFE1_08` (`BG`, `24` poses @ `5` ticks = `120` ticks) : Reflets d'éclairs sur les crêtes rocheuses ;
-- `MFE1_09` (`Top`, `24` poses @ `5` ticks = `120` ticks) : Étincelles statiques dorées & bleutées d'Électhor.
+Architecture multicalque 10 calques (768×576, 96×72 tuiles, boucle maîtresse 120 ticks) :
+  - Partie basse/médiane : Tiny Meadow / Plaine Tonnerre verdoyante (herbe PMD, fleurs, arbres,
+    pont de pierre, ruisseaux cristallins peints en #FF00FF -> eau canonique GBA H10P02.bpl 1×).
+  - Partie haute : Montagne sombre abrupte avec grande grotte sculptée au bout du chemin Sud -> Nord,
+    surmontée d'un ciel #FF00FF où s'amoncelle la tornade de nuages noirs électriques de Zekrom.
 """
-
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
+import sys
 from typing import List, Tuple
 
 import numpy as np
 from PIL import Image
 from scipy import ndimage
 
-HERE = Path(__file__).resolve().parent
-REPO_ROOT = HERE.parents[1]
-if str(REPO_ROOT / "source") not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT / "source"))
+SOURCE_DIR = Path(__file__).resolve().parent.parent
+if str(SOURCE_DIR) not in sys.path:
+    sys.path.insert(0, str(SOURCE_DIR))
 
-from moteur_eau_et_glace_canonique_pmd import (  # type: ignore
-    build_abyssal_water_and_current_layers,
-    build_electric_sparks_top_frames,
-    build_storm_and_lightning_layers,
-    sanitize_palette_no_magenta,
+from moteur_eau_et_glace_canonique_pmd import build_canonical_pmd_water_frames
+from moteur_legendaires_zekrom_dialga_palkia import (
+    build_zekrom_black_tornado_layers,
+    clean_brut_magenta_fringe,
 )
-from tour_celeste_moteur_nuages import (  # type: ignore
+from tour_celeste_moteur_nuages import (
     H_CANON,
     N_FRAMES,
     TILE_SIZE,
     W_CANON,
     LayerEntry,
     build_rsground_package,
-    extract_canonical_palette,
-    quantize_rgb_to_palette,
 )
 
 MAP_ID = "MFE1"
-MAP_TITLE = "Mont Foudre — Entrée"
-RAW_DIR = HERE / "bruts"
-DECOR_MAGENTA_RAW = RAW_DIR / "base_mont_foudre_entree.png"
-REF_DIR = HERE / "references"
-D06P01_REF = REF_DIR / "d06p01_mt_thunder_native.png"
+MAP_TITLE = "Tiny Meadow — Entrée Montagne & Grotte (Zekrom)"
+
+HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parent.parent
+BRUT_PATH = HERE / "bruts" / "base_mont_foudre_entree.png"
+RAW_BRUT_PNG = BRUT_PATH
+CANON_REF = HERE / "references" / "p14p01a_luminous_meadow_spring_native.png"
+ROM_DIR = HERE / "references" / "native_rom"
 RENDERS_DIR = REPO_ROOT / "renders" / "mont_foudre_entree_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 
-def build_ridge_flash_frames(
-    w: int,
-    h: int,
-    q_rgb: np.ndarray,
-    sky_mask: np.ndarray,
-    terrain_mask: np.ndarray,
-    n_frames: int = 24,
-) -> List[Image.Image]:
-    """Liseré d'illumination jaune-ivoire sur les arêtes rocheuses hautes synchronisé aux flashs d'orage."""
-    dil = ndimage.binary_dilation(sky_mask, iterations=max(2, int(round(4 * w / 768.0))))
-    rim = dil & terrain_mask & (q_rgb[:, :, 0] >= 180)
-    bright_rgb = np.clip(
-        q_rgb.astype(np.int16) + np.array([32, 30, 12], dtype=np.int16),
-        0,
-        255,
-    ).astype(np.uint8)
-    frames: List[Image.Image] = []
-    for t in range(n_frames):
-        arr = np.zeros((h, w, 4), dtype=np.uint8)
-        if t in (3, 4, 12, 13):
-            arr[rim, :3] = bright_rgb[rim]
-            arr[rim, 3] = 255
-        frames.append(Image.fromarray(arr, mode="RGBA"))
-    return frames
+def _to_imgs(arrs: List[np.ndarray]) -> List[Image.Image]:
+    return [Image.fromarray(a, mode="RGBA") for a in arrs]
 
 
-def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
-    raw_im = Image.open(DECOR_MAGENTA_RAW).convert("RGB")
-    raw_rgb = np.asarray(raw_im.resize((w, h), Image.Resampling.NEAREST), dtype=np.uint8).copy()
+def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray]:
+    im_raw = Image.open(BRUT_PATH).convert("RGB")
+    if im_raw.size != (w, h):
+        im_raw = im_raw.resize((w, h), Image.Resampling.NEAREST)
+    rgb_raw = np.asarray(im_raw, dtype=np.uint8).copy()
 
-    yy, xx = np.mgrid[:h, :w]
-    r = raw_rgb[:, :, 0].astype(np.int16)
-    g = raw_rgb[:, :, 1].astype(np.int16)
-    b = raw_rgb[:, :, 2].astype(np.int16)
+    r = rgb_raw[:, :, 0].astype(np.int32)
+    g = rgb_raw[:, :, 1].astype(np.int32)
+    b = rgb_raw[:, :, 2].astype(np.int32)
+    mag_mask = (r >= 215) & (g <= 50) & (b >= 215)
+    rgb = clean_brut_magenta_fringe(rgb_raw, mag_mask)
 
-    # 1. Découpe stricte des zones `#FF00FF` : crête céleste Nord vs vasques d'eau d'orage Sud-Ouest / Sud-Est
-    all_magenta = (r >= 220) & (g <= 35) & (b >= 220)
-    sky_mask = all_magenta & (yy < int(0.30 * h))
-    pool_mask = all_magenta & (~sky_mask)
-    terrain_mask = ~all_magenta
+    yy, xx = np.mgrid[0:h, 0:w]
+    sky_mask = mag_mask & (yy < int(0.42 * h))
+    water_mask = mag_mask & (~sky_mask)
+    solid_mask = ~mag_mask
 
-    # 2. Palette canonique `D06P01` sans aucune dérive magenta
-    ref_pal = extract_canonical_palette([D06P01_REF], max_colors=64, min_pixels=8)
-    terr_px = raw_rgb[terrain_mask]
-    uniq, cnt = np.unique(terr_px, axis=0, return_counts=True)
-    top_terr = uniq[np.argsort(-cnt)[:64]]
-    pal = sanitize_palette_no_magenta(np.vstack([ref_pal, top_terr]), max_gap=22)
-    q_rgb = quantize_rgb_to_palette(raw_rgb, pal)
-
-    # 3. Partition sémantique :
-    #    - `walkable_path` : sentier sablonneux Sud-Nord menant jusqu'à l'entrée de la grotte Nord
-    #    - `trees_and_cave` : arbres calcinés sombres, rochers isolés & ouverture sombre de la grotte
-    #    - `cliffs` : hautes parois calcaires latérales
-    pool_guard = ndimage.binary_dilation(pool_mask, iterations=max(2, int(round(4 * w / 768.0))))
-    is_dark_tree_or_cave = terrain_mask & (q_rgb[:, :, 0] < 135) & (q_rgb[:, :, 1] < 130)
-    sand_cand = (
-        terrain_mask
-        & (~pool_guard)
-        & (~is_dark_tree_or_cave)
-        & (yy >= int(0.30 * h))
-        & (q_rgb[:, :, 0] >= 196)
-        & (q_rgb[:, :, 1] >= 162)
-        & ((q_rgb[:, :, 0].astype(np.int16) - q_rgb[:, :, 2].astype(np.int16)) >= 38)
-    )
-    # Couloir central garantissant la continuité franche jusqu'au seuil de la grotte (`y = 0.305h..1.0h`)
-    corridor = (
-        terrain_mask
-        & (~pool_guard)
-        & (~is_dark_tree_or_cave)
-        & (yy >= int(0.305 * h))
-        & (xx >= int(0.41 * w))
-        & (xx <= int(0.59 * w))
-    )
-    walkable_area = ndimage.binary_closing(sand_cand | corridor, iterations=max(2, int(round(3 * w / 768.0))))
-    walkable_area = walkable_area & terrain_mask & (~pool_guard) & (~is_dark_tree_or_cave)
-
-    trees_and_cave = terrain_mask & (~walkable_area) & (
-        is_dark_tree_or_cave | ((yy >= int(0.42 * h)) & (q_rgb[:, :, 1] < 158))
-    )
-    cliffs = terrain_mask & (~walkable_area) & (~trees_and_cave)
-
-    # 4. Animations matérielles GBA (H17P01 + H17P01W1.bpa + H10P02.bpl)
-    im_00_sky, frames_01_clouds, frames_02_bolts, _ = build_storm_and_lightning_layers(
-        w=w,
+    # 1. Ciel d'orage noir en entonnoir + éclairs bleus Zekrom derrière la montagne (24 poses @ 5 ticks)
+    abyss_24, cloud_24, bolt_24, _ = build_zekrom_black_tornado_layers(
         h=h,
-        sky_mask=sky_mask,
-        fissure_mask=None,
-        bolt_anchors_xy=[(0.19, 0.01, 0.16), (0.50, 0.01, 0.12), (0.81, 0.01, 0.16)],
+        w=w,
+        vortex_mask=sky_mask,
+        rom_dir=ROM_DIR,
+        center_xy=(w * 0.50, h * 0.25),
+        rx_scale=0.82 * (768.0 / w),
+        ry_scale=1.65 * (576.0 / h),
         n_frames=N_FRAMES,
     )
-    frames_03_pools, _, _ = build_abyssal_water_and_current_layers(
-        w=w,
-        h=h,
-        water_mask=pool_mask,
-        mode="storm_pool",
+
+    # 2. Ruisseaux cristallins de Tiny Meadow en eau canonique GBA H10P02.bpl 1× (12 poses @ 10 ticks)
+    water_raw_imgs = build_canonical_pmd_water_frames(w=w, h=h, water_mask=water_mask, n_frames=12)
+    bank_rim = water_mask & (~ndimage.binary_erosion(water_mask, iterations=max(1, int(round(2 * w / 768.0)))))
+    water_12: List[Image.Image] = []
+    for f_i, wim in enumerate(water_raw_imgs):
+        frame = np.asarray(wim, dtype=np.uint8).copy()
+        shimmer = bank_rim & (((xx // 3 + yy // 3 + f_i * 2) % 7) < 2)
+        frame[shimmer] = (206, 246, 255, 255)
+        water_12.append(Image.fromarray(frame, mode="RGBA"))
+
+    # 3. Partition sémantique des calques statiques (poses = 1)
+    rr, gg, bb = rgb[:, :, 0].astype(np.int32), rgb[:, :, 1].astype(np.int32), rgb[:, :, 2].astype(np.int32)
+    is_path_or_bridge = solid_mask & (
+        ((rr >= 135) & (gg >= 115) & (bb <= 155) & (rr >= gg - 10) & (np.abs(xx - w // 2) <= int(0.16 * w)))
+        | ((np.abs(xx - w // 2) <= int(0.085 * w)) & (yy >= int(0.28 * h)))
     )
+    is_mountain_and_cave = solid_mask & (~is_path_or_bridge) & (
+        (yy < int(0.555 * h)) & (gg <= rr + 18) & (bb >= gg - 14)
+    )
+    is_trees_foliage = solid_mask & (~is_path_or_bridge) & (~is_mountain_and_cave) & (
+        ((xx < int(0.16 * w)) | (xx > int(0.84 * w)) | (yy < int(0.57 * h)))
+        & (gg > rr + 16)
+    )
+    is_meadow_base = solid_mask & (~is_path_or_bridge) & (~is_mountain_and_cave) & (~is_trees_foliage)
+    is_meadow_base |= solid_mask & (~(is_meadow_base | is_path_or_bridge | is_mountain_and_cave | is_trees_foliage))
 
-    base_arr = np.zeros((h, w, 4), dtype=np.uint8)
-    base_arr[terrain_mask, :3] = np.array([216, 192, 142], dtype=np.uint8)
-    base_arr[terrain_mask, 3] = 255
-    im_04_base = Image.fromarray(base_arr, mode="RGBA")
-
-    def _mk_layer(m: np.ndarray) -> Image.Image:
+    def mk_static(mask: np.ndarray) -> Image.Image:
         out = np.zeros((h, w, 4), dtype=np.uint8)
-        out[m, :3] = q_rgb[m]
-        out[m, 3] = 255
+        out[mask, :3] = rgb[mask]
+        out[mask, 3] = 255
         return Image.fromarray(out, mode="RGBA")
 
-    im_05_path = _mk_layer(walkable_area)
-    im_06_cliffs = _mk_layer(cliffs)
-    im_07_trees_cave = _mk_layer(trees_and_cave)
-    frames_08_flash = build_ridge_flash_frames(w=w, h=h, q_rgb=q_rgb, sky_mask=sky_mask, terrain_mask=terrain_mask)
-    frames_09_sparks = build_electric_sparks_top_frames(w=w, h=h, n_frames=N_FRAMES, seed=20261101)
+    # 4. Calque L8 : Reflet d'orage bleu Zekrom strictement sur la ligne de crête touchant le ciel #FF00FF !
+    mtn_crest = is_mountain_and_cave & ndimage.binary_dilation(sky_mask, iterations=2)
+    l8_glow: List[Image.Image] = []
+    for f in range(N_FRAMES):
+        fr = np.zeros((h, w, 4), dtype=np.uint8)
+        if f % 8 in (0, 1, 2):
+            fr[mtn_crest, :3] = np.clip(rgb[mtn_crest].astype(np.int32) + np.array([34, 82, 148]), 0, 255).astype(np.uint8)
+            fr[mtn_crest, 3] = 255
+        l8_glow.append(Image.fromarray(fr, mode="RGBA"))
 
+    # 5. Calque L9 Top : Lucioles dorées sur Tiny Meadow + étincelles électriques bleues Zekrom en altitude
+    rng = np.random.default_rng(64401)
+    fireflies = [(float(rng.uniform(40, max(42, w - 40))), float(rng.uniform(int(0.56 * h), max(int(0.58 * h), h - 18))), int(rng.choice([1, 3]))) for _ in range(38)]
+    sparks = [(float(rng.uniform(30, max(32, w - 30))), float(rng.uniform(8, max(10, int(0.28 * h)))), int(rng.choice([1, 3]))) for _ in range(44)]
+    l9_top: List[Image.Image] = []
+    for f in range(N_FRAMES):
+        ph1 = (2.0 * np.pi * f) / N_FRAMES
+        ph3 = (2.0 * np.pi * 3.0 * f) / N_FRAMES
+        fr = np.zeros((h, w, 4), dtype=np.uint8)
+        for fx0, fy0, hm in fireflies:
+            ang = ph1 if hm == 1 else ph3
+            px = int(round(fx0 + 7.0 * np.sin(ang + fy0 * 0.05)))
+            py = int(round(fy0 + 4.0 * np.cos(ang + fx0 * 0.04)))
+            if 1 <= px < w - 1 and 1 <= py < h - 1 and ((f + int(fx0)) % 6 < 4):
+                fr[py, px] = (248, 252, 168, 255)
+        for sx0, sy0, hm in sparks:
+            ang = ph1 if hm == 1 else ph3
+            px = int(round(sx0 + 14.0 * np.cos(ang + sy0 * 0.03))) % w
+            py = int(round(sy0 + 5.0 * np.sin(ang + sx0 * 0.03)))
+            if 0 <= py < h and sky_mask[py, px]:
+                fr[py, px] = (126, 214, 255, 255)
+        l9_top.append(Image.fromarray(fr, mode="RGBA"))
+
+    # Grille de collision Sud -> Nord continue (depuis y=h-1 sur le sentier, pont, escaliers jusqu'à la grotte !)
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
         for tx in range(gw):
-            blk = walkable_area[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            walk_grid[ty, tx] = float(blk.mean()) >= 0.50
-
-    lbl_wg, n_wg = ndimage.label(walk_grid)
-    if n_wg >= 1:
-        sizes = ndimage.sum(walk_grid, lbl_wg, range(1, n_wg + 1))
-        walk_grid = lbl_wg == (int(np.argmax(sizes)) + 1)
-    walk_grid[-1, :] |= walk_grid[-2, :]
+            sub_p = is_path_or_bridge[ty * TILE_SIZE:(ty + 1) * TILE_SIZE, tx * TILE_SIZE:(tx + 1) * TILE_SIZE]
+            sub_m = is_meadow_base[ty * TILE_SIZE:(ty + 1) * TILE_SIZE, tx * TILE_SIZE:(tx + 1) * TILE_SIZE]
+            sub_w = mag_mask[ty * TILE_SIZE:(ty + 1) * TILE_SIZE, tx * TILE_SIZE:(tx + 1) * TILE_SIZE]
+            if (float(sub_p.mean()) >= 0.45 or float(sub_m.mean()) >= 0.72) and float(sub_w.mean()) == 0.0:
+                walk_grid[ty, tx] = True
+    cx_t = gw // 2
+    cave_top_t = max(2, int(round(0.29 * gh)))
+    for ty in range(cave_top_t, gh):
+        walk_grid[ty, max(0, cx_t - 2):min(gw, cx_t + 3)] = True
+    walk_grid[:2, :] = False
+    walk_grid[:, :2] = False
+    walk_grid[:, -2:] = False
 
     layers = [
-        LayerEntry("00_ciel_orage_mont_foudre", "Voûte d'Orage H17P01 1×", "BG", [im_00_sky], frame_length=5),
-        LayerEntry("01_nuees_orageuses_et_flashs", "Nuées d'Orage & Flashs Intra-Nuageux", "BG", frames_01_clouds, frame_length=5),
-        LayerEntry("02_arcs_foudre_gba_h17p01w", "Arcs Électriques GBA H17P01W1.bpa 1×", "BG", frames_02_bolts, frame_length=5),
-        LayerEntry("03_vasques_eau_orage_h10p02", "Vasques d'Eau d'Orage GBA H10P02.bpl 1×", "BG", frames_03_pools, frame_length=10),
-        LayerEntry("04_socle_canyon_foudre", "Socle Minéral du Défilé Foudroyé", "BG", [im_04_base], frame_length=5),
-        LayerEntry("05_sentier_canyon_sud_nord", "Sentier Sablonneux Sud-Nord", "BG", [im_05_path], frame_length=5),
-        LayerEntry("06_falaises_calcaires_d06p01", "Hautes Falaises Escarpées D06P01", "BG", [im_06_cliffs], frame_length=5),
-        LayerEntry("07_arbres_foudroyes_et_grotte", "Arbres Foudroyés & Portail Caverneux Nord", "BG", [im_07_trees_cave], frame_length=5),
-        LayerEntry("08_reflets_foudre_cretes", "Reflets d'Éclairs sur les Crêtes", "BG", frames_08_flash, frame_length=5),
-        LayerEntry("09_etincelles_electhor_top", "Étincelles Électriques d'Orage Top", "Top", frames_09_sparks, frame_length=5),
+        LayerEntry("00_abysse_orage_montagne_zekrom", "Abysse d'Orage Noir au-dessus de la Montagne", "BG", _to_imgs(abyss_24), frame_length=5),
+        LayerEntry("01_tornade_nuages_noirs_lointaine", "Vortex de Nuages Noirs de Zekrom en Formation", "BG", _to_imgs(cloud_24), frame_length=5),
+        LayerEntry("02_eclairs_bleus_zekrom_h17p01w", "Éclairs Bleus Zekrom & Sprites GBA H17P01W1.bpa 1×", "BG", _to_imgs(bolt_24), frame_length=5),
+        LayerEntry("03_ruisseaux_tiny_meadow_h10p02", "Ruisseaux Cristallins GBA H10P02.bpl 1×", "BG", water_12, frame_length=10),
+        LayerEntry("04_prairie_fleurie_tiny_meadow", "Prairie Verdoyante Tiny Meadow", "BG", [mk_static(is_meadow_base)], frame_length=5),
+        LayerEntry("05_sentier_pont_et_marches_grotte", "Sentier Sud-Nord, Pont de Pierre & Escaliers", "BG", [mk_static(is_path_or_bridge)], frame_length=5),
+        LayerEntry("06_montagne_sombre_et_grotte_nord", "Montagne Rocheuse & Embouchure de la Grotte", "BG", [mk_static(is_mountain_and_cave)], frame_length=5),
+        LayerEntry("07_arbres_et_bosquets_statiques", "Arbres & Bosquets Statiques", "BG", [mk_static(is_trees_foliage)], frame_length=5),
+        LayerEntry("08_lueur_grotte_et_cretes_orage", "Lueur de la Grotte & Reflets Bleus sur les Crêtes", "BG", l8_glow, frame_length=5),
+        LayerEntry("09_lucioles_et_etincelles_zekrom_top", "Lucioles de Prairie & Étincelles Bleues Top", "Top", l9_top, frame_length=5),
     ]
-    return layers, walk_grid, pal
+    return layers, walk_grid
 
 
 def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
@@ -207,7 +184,8 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
     h = max(64, int(round(H_CANON * scale / TILE_SIZE)) * TILE_SIZE)
     out_dir = output_override if output_override is not None else RENDERS_DIR
     vzip = (out_dir / f"{MAP_ID}_PMDO_0.8.12.zip") if output_override is not None else VIRTUAL_ZIP
-    layers, walk_grid, _ = build_layers_for_size(w, h)
+    VIRTUAL_ZIP.parent.mkdir(parents=True, exist_ok=True)
+    layers, walk_grid = build_layers_for_size(w, h)
     meta = build_rsground_package(
         map_id=MAP_ID,
         map_title=MAP_TITLE,
@@ -215,7 +193,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         walk_grid=walk_grid,
         renders_dir=out_dir,
         virtual_zip_path=vzip,
-        canonical_ref_for_fidelity=D06P01_REF,
+        canonical_ref_for_fidelity=CANON_REF,
         max_fidelity_distance=30.0,
         max_unique_tiles_per_bank=24000,
         namespace_override="mont_foudre_mfe1",

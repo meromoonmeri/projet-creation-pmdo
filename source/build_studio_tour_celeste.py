@@ -36,6 +36,66 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "MFA1",
+            "folder": "mont_foudre_sommet_v1",
+            "ref_rel": "source/mont_foudre_sommet_v1/references/v38p07a_storm_peak_electric_glow_native.png",
+            "ref_label": "Référence PMD Sky — Pic d'Orage Noir Électrique de Zekrom (V38P07A 1×)",
+            "zip_rel": ".cache/virtual_zips/MFA1_PMDO_0.8.12.zip",
+            "bg_fill": "#0c1428",
+            "subtitle": "POV PMD Sommet de la Montagne — Cœur de la Tornade de Nuages Noirs Électriques de Zekrom (V38P07A + H17P01W1) — Crête Sud-Nord issue de la grotte, autel basaltique au centre de l'œil cyclonique 360°",
+            "wind_summary": "Tornade noire électrique 360° de Zekrom (24f @ 5t) | Arcs bleus H17P01W1.bpa 1× & éclairs d'arrivée (24f) | Runes électriques (24f) | Piliers rocheux 100 % statiques",
+        },
+        {
+            "id": "MFE1",
+            "folder": "mont_foudre_entree_v1",
+            "ref_rel": "source/mont_foudre_entree_v1/references/p14p01a_luminous_meadow_spring_native.png",
+            "ref_label": "Référence PMD Sky — Tiny Meadow / Clairière Lumineuse (P14P01A 1×)",
+            "zip_rel": ".cache/virtual_zips/MFE1_PMDO_0.8.12.zip",
+            "bg_fill": "#101a30",
+            "subtitle": "POV PMD Tiny Meadow — Entrée donnant sur la Montagne & Grotte de Zekrom (P14P01A + H17P01 + H10P02) — Sentier Sud-Nord, ruisseaux #FF00FF, pont de pierre, escalier vers la grotte & ciel de tornade noire électrique",
+            "wind_summary": "Ciel cyclonique noir & éclairs bleus Zekrom (24f @ 5t) | Ruisseaux Tiny Meadow H10P02.bpl 1× (24f @ 5t) | Montagne, grotte & arbres 100 % statiques",
+        },
+        {
+            "id": "TTA1",
+            "folder": "tour_du_temps_pinacle_v1",
+            "ref_rel": "source/tour_du_temps_pinacle_v1/references/d30p41a_temporal_pinnacle_primal_native.png",
+            "ref_label": "Référence PMD Sky — Pinacle du Temps / Dialga Primal (D30P41A 1×)",
+            "zip_rel": ".cache/virtual_zips/TTA1_PMDO_0.8.12.zip",
+            "bg_fill": "#8c3d38",
+            "subtitle": "POV PMD Sky Pinacle du Temps — Sanctuaire de Dialga Primal (D30P41A) — Dallage rose ruiné Sud-Nord, autel temporel Nord, ciel cramoisi #FF00FF, débris lévitants & Rouages du Temps",
+            "wind_summary": "Nuées temporelles cramoisies D30P41A (24f @ 5t) | Débris figés en lévitation & failles temporelles (24f) | Rouages du Temps Top (24f) | Colonnes 100 % statiques",
+        },
+        {
+            "id": "TTE1",
+            "folder": "tour_du_temps_entree_v1",
+            "ref_rel": "source/tour_du_temps_entree_v1/references/d30p32a_temporal_spire_native.png",
+            "ref_label": "Référence PMD Sky — Flèche de la Tour du Temps (D30P32A 1×)",
+            "zip_rel": ".cache/virtual_zips/TTE1_PMDO_0.8.12.zip",
+            "bg_fill": "#948c42",
+            "subtitle": "POV PMD Sky Tour du Temps — Entrée de la Flèche Temporelle (D30P32A) — Chaussée dorée Sud-Nord, arche horlogère Nord, mer de nuages ambrés #FF00FF & arcs cyan",
+            "wind_summary": "Mer de nuages ambrés D30P32A (24f @ 5t) | Arcs chronologiques cyan & brèches (24f @ 5t) | Spores temporelles Top (24f) | Colonnes 100 % statiques",
+        },
+        {
+            "id": "FSA1",
+            "folder": "faille_spatiale_sanctuaire_v1",
+            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
+            "ref_label": "Référence PMD Sky — Creux de la Faille Spatiale / Palkia (D45P42A 1×)",
+            "zip_rel": ".cache/virtual_zips/FSA1_PMDO_0.8.12.zip",
+            "bg_fill": "#140826",
+            "subtitle": "POV PMD Sky Faille Spatiale — Sanctuaire de Palkia (D45P42A) — Pont & arène circulaire Sud-Nord, brèche Spatio-Rift blanc-magenta #FF00FF & nébuleuse cosmique profonde",
+            "wind_summary": "Nébuleuse cosmique D45P42A (24f @ 5t) | Déchirure Spatio-Rift blanc-magenta (24f @ 5t) | Anneau d'ondes spatiales (24f) | Piliers & cristaux 100 % statiques",
+        },
+        {
+            "id": "FSE1",
+            "folder": "faille_spatiale_entree_v1",
+            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
+            "ref_label": "Référence PMD Sky — Faille Spatiale / Palkia (D46P41A · D45P42A 1×)",
+            "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
+            "bg_fill": "#120722",
+            "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
+            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers & cristaux 100 % statiques",
+        },
+        {
             "id": "MHA1",
             "folder": "mer_houleuse_sanctuaire_v1",
             "ref_rel": "source/mer_houleuse_sanctuaire_v1/references/h02p03_seafloor_cave_native.png",
@@ -54,26 +114,6 @@ def export_filmstrips() -> Dict:
             "bg_fill": "#0a2258",
             "subtitle": "POV PMD Mer Houleuse — Entrée de la Fosse Abyssale (H02P02) — Chaussée engloutie Sud-Nord, fosse & puits #FF00FF -> H10P02 + H02P02W 1× & vortex spiral",
             "wind_summary": "Abysse H10P02.bpl 1× (12f @ 10t) | Courants GBA H02P02W.bpl 1× & vortex (15f @ 8t) | Bulles GBA H02P03W 1× (15f @ 8t) | Stèles & plancton (24f)",
-        },
-        {
-            "id": "MFA1",
-            "folder": "mont_foudre_sommet_v1",
-            "ref_rel": "source/mont_foudre_sommet_v1/references/h17p01_thunder_meadow_native.png",
-            "ref_label": "Référence PMD Red — Plaine Éclair / Cime d'Électhor (H17P01 1×)",
-            "zip_rel": ".cache/virtual_zips/MFA1_PMDO_0.8.12.zip",
-            "bg_fill": "#485e5e",
-            "subtitle": "POV PMD Mont Foudre — Cime d'Électhor (H17P01) — Plateau doré Sud-Nord, voûte & faille zigzag #FF00FF -> nuées H17P01, arcs H17P01W1.bpa 1× & plasma",
-            "wind_summary": "Nuées d'orage H17P01 (24f @ 5t) | Arcs GBA H17P01W1.bpa 1× & éclairs fourchus (24f) | Faille plasma zigzag (24f) | Rochers & arbre 100 % statiques",
-        },
-        {
-            "id": "MFE1",
-            "folder": "mont_foudre_entree_v1",
-            "ref_rel": "source/mont_foudre_entree_v1/references/d06p01_mt_thunder_native.png",
-            "ref_label": "Référence PMD Red — Mont Foudre Entrée (D06P01 1×)",
-            "zip_rel": ".cache/virtual_zips/MFE1_PMDO_0.8.12.zip",
-            "bg_fill": "#4a5c5c",
-            "subtitle": "POV PMD Mont Foudre — Entrée (D06P01) — Falaises foudroyées, sentier Sud-Nord, ciel d'orage & vasques #FF00FF -> H17P01W + H10P02 1×",
-            "wind_summary": "Nuées & flashs H17P01 (24f @ 5t) | Arcs GBA H17P01W1.bpa 1× (24f @ 5t) | Vasques H10P02.bpl 1× (12f @ 10t) | Étincelles Top (24f @ 5t)",
         },
         {
             "id": "FGA1",
@@ -215,7 +255,8 @@ def export_filmstrips() -> Dict:
         out_dir.mkdir(parents=True, exist_ok=True)
 
         mod = _load_builder(folder)
-        layers, walk_grid, _ = mod.build_layers_for_size()
+        built = mod.build_layers_for_size()
+        layers, walk_grid = built[0], built[1]
         meta = json.loads((REPO_ROOT / "renders" / folder / "metadata.json").read_text(encoding="utf-8"))
 
         layer_entries = []
@@ -280,7 +321,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — Mine Magma (MME1 · MMA1) &amp; Tour Céleste (STC1)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — 21 Cartes Légendaires (Zekrom · Dialga · Palkia · Kyogre · Rayquaza)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -759,7 +800,13 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MHA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MFA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_tour_du_temps_dialga_pmdo.html").write_text(
+        build_html(manifest, default_map_id="TTA1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
+        build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_mer_houleuse_kyogre_pmdo.html").write_text(
         build_html(manifest, default_map_id="MHA1"), encoding="utf-8"
     )
@@ -787,7 +834,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (17 cartes, 170 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (21 cartes, 210 calques 60 FPS).")
 
 
 if __name__ == "__main__":
