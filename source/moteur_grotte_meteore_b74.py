@@ -2,23 +2,26 @@
 """Moteur partagé de la Grotte Météore (`GME1` & `GMA1`, *Meteor Cave — Deoxys*, `b74` PMD Red).
 
 Principes stricts :
-1. **Palette GBA native `b74_meteor_cave_deoxys.png` + cristaux cyan** :
-   - Vide spatial abyssal canonique `[0, 0, 95]` (`b74` exact) nuancé en bandes cosmiques nettes,
-   - Dalle d'astéroïde indigo royal `[79, 23, 199]` & gravures outremer `[31, 0, 239]`,
-   - Orbe central psionique céruléen de Deoxys `[31, 111, 239]`,
-   - Circuits psioniques néon `[255, 39, 215]` & facettes météoritiques pourpres/améthyste/cyan ;
-   - Zéro pixel vert résiduel (`G <= B - 6` partout hors noir profond de l'entrée de grotte).
-2. **Extraction par composantes connexes entières (`ndimage.label`)** :
-   - Chaque météorite flottante dans l'espace est extraite entière sans aucune découpe de cristal
-     et flotte en apesanteur (`±2 px`, `24` poses @ `5` ticks = `120` ticks).
-3. **Animation canonique `b74canm` d'onde psionique radiale (`24` poses @ `5` ticks = `120` ticks)** :
-   - Onde centrifuge parcourant les circuits gravés du sol et du pont depuis l'orbe central de Deoxys.
+1. **Zéro noir sur les roches (`0` pixel sombre `< 72` sur les parois/météorites)** :
+   - Toute ombre ou contour noir issu du brut est reconstruit en facettes minérales canoniques `b74`
+     (prune royale `[111, 0, 143]`, améthyste `[135, 0, 159]`, magenta cramoisi `[159, 0, 127]`,
+     contour indigo profond `[56, 12, 148]`), fidèles à `b74_meteor_cave_deoxys.png`.
+   - Zéro pixel verdâtre (`G <= B - 6` partout).
+2. **Fond spatial Bleu Nuit Profond, Voûte Étoilée Dense & Étoiles Filantes (`00` & `01`, `24` poses)** :
+   - Dégradé pixel-art bleu nuit profond de l'espace (`[4, 9, 42]` -> `[9, 18, 68]` -> `[15, 28, 94]`)
+     enrichi de voiles nébulaires saphir/indigo sans tramage damier ;
+   - Plus de `220` étoiles lointaines et moyennes scintillant de façon asynchrone ;
+   - `34` grandes étoiles à aigrettes en croix (`3×3` à `7×7`) + **`6` étoiles filantes pixel-art**
+     traversant en diagonale le ciel étoilé avec traînée ionisée et poussière d'étoiles (`24` poses @ `5` ticks).
+3. **Extraction par composantes connexes entières (`ndimage.label`) & Onde `b74canm`** :
+   - Météorites flottantes entières sans aucune découpe (`03` fixes, `09` `Top` en lévitation `±2.5 px`) ;
+   - Onde psionique radiale centrifuge `b74canm` sur les circuits néon et l'orbe central de Deoxys (`07`).
 """
 
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 import numpy as np
 from PIL import Image
@@ -26,7 +29,7 @@ from scipy import ndimage
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-B74_SPACE_RGB = np.array([0, 0, 95], dtype=np.uint8)
+B74_SPACE_MIDNIGHT = np.array([7, 14, 56], dtype=np.uint8)
 B74_SLAB_INDIGO = np.array([79, 23, 199], dtype=np.uint8)
 B74_GROOVE_BLUE = np.array([31, 0, 239], dtype=np.uint8)
 B74_CORE_CYAN = np.array([31, 111, 239], dtype=np.uint8)
@@ -34,39 +37,51 @@ B74_NEON_PSI = np.array([255, 39, 215], dtype=np.uint8)
 
 
 def build_b74_unified_palette(ref_png: Path, raw_rgb: np.ndarray, fg_mask: np.ndarray) -> np.ndarray:
-    """Construit la palette pixel-art unifiée fidèle à `b74_meteor_cave_deoxys.png` sans aucun ton vert."""
+    """Construit la palette pixel-art unifiée fidèle à `b74_meteor_cave_deoxys.png` :
+    - ZÉRO couleur noire ou grisâtre (`max(R, G, B) >= 95` sur toute la palette roche/sol !) ;
+    - ZÉRO ton verdâtre (`G <= 24` ou `G <= B - 6`)."""
     ref_arr = np.asarray(Image.open(ref_png).convert("RGB"), dtype=np.uint8)
     u_ref, c_ref = np.unique(ref_arr.reshape(-1, 3), axis=0, return_counts=True)
-    pal_ref = u_ref[np.argsort(-c_ref)[:64]]
+    pal_ref = u_ref[np.argsort(-c_ref)]
+    # Conserver toutes les vraies teintes minérales `b74` hors noirs/ombres trop sombres
+    pal_ref = pal_ref[(pal_ref.max(axis=1) >= 95) & ~((pal_ref[:, 0] == 0) & (pal_ref[:, 1] == 0))]
 
     fg_px = raw_rgb[fg_mask]
-    u_raw, c_raw = np.unique(fg_px, axis=0, return_counts=True)
-    pal_raw = u_raw[np.argsort(-c_raw)[:72]]
+    # Uniquement les tons lumineux/cristallins du brut (aucun noir ni gris sombre !)
+    bright_fg = fg_px[(fg_px.max(axis=1) >= 120) & ((fg_px[:, 2] >= 110) | (fg_px[:, 0] >= 145))]
+    if bright_fg.size > 0:
+        u_raw, c_raw = np.unique(bright_fg, axis=0, return_counts=True)
+        pal_raw = u_raw[np.argsort(-c_raw)[:48]]
+    else:
+        pal_raw = np.zeros((0, 3), dtype=np.uint8)
 
     anchors = np.array(
         [
-            [0, 0, 95],
-            [0, 0, 79],
-            [8, 0, 63],
-            [10, 4, 24],
-            [18, 6, 38],
-            [31, 0, 239],
+            [52, 12, 138],
+            [63, 15, 167],
             [79, 23, 199],
+            [31, 0, 239],
+            [95, 12, 159],
+            [111, 0, 143],
+            [127, 0, 127],
+            [135, 0, 159],
+            [159, 0, 127],
+            [167, 15, 183],
+            [199, 0, 151],
+            [255, 39, 215],
+            [127, 63, 223],
             [31, 111, 239],
             [47, 159, 255],
             [95, 207, 255],
-            [159, 235, 255],
-            [255, 39, 215],
-            [199, 0, 151],
-            [167, 15, 183],
-            [127, 63, 223],
-            [239, 247, 255],
+            [159, 232, 255],
+            [242, 246, 255],
         ],
         dtype=np.uint8,
     )
     pal = np.unique(np.vstack([pal_ref, pal_raw, anchors]), axis=0).astype(np.uint8)
-    # Sécurité absolue : zéro pixel verdâtre dans la palette (G <= max(24, B - 6))
-    valid = (pal[:, 1].astype(int) <= 24) | (pal[:, 1].astype(int) <= pal[:, 2].astype(int) - 6)
+    valid = (pal.max(axis=1) >= 95) & (
+        (pal[:, 1].astype(int) <= 24) | (pal[:, 1].astype(int) <= pal[:, 2].astype(int) - 6)
+    )
     return pal[valid]
 
 
@@ -82,78 +97,283 @@ def load_clean_meteor_raw(raw_path: Path, w: int, h: int) -> Tuple[np.ndarray, n
     return rgb, (~is_bg)
 
 
+def lift_dark_rock_shadows_to_b74(
+    raw_rgb: np.ndarray,
+    fg_mask: np.ndarray,
+    exclude_mask: np.ndarray | None = None,
+) -> np.ndarray:
+    """Élimine `100 %` des pixels noirs ou charbonneux sur toutes les roches et météorites :
+    - Les contours fins (`dist <= 2.2 px`) deviennent un contour pixel-art indigo royal `[54, 12, 142]` ;
+    - Les aplats d'ombre épais (`dist > 2.2 px`, ex. parois internes et dessous de falaises de `GME1`)
+      sont facettisés par cellules de Voronoï cristallines en pans rocheux `b74` prune/améthyste/cramoisi
+      (`[96, 12, 156]`, `[118, 8, 152]`, `[138, 12, 168]`, `[156, 10, 138]`) avec arêtes nettes `[58, 12, 146]` !
+    """
+    out = raw_rgb.copy()
+    h, w, _ = out.shape
+    work_fg = fg_mask & (~exclude_mask) if exclude_mask is not None else fg_mask
+
+    mx = out.max(axis=2)
+    very_dark = work_fg & (mx < 112)
+    if np.any(very_dark):
+        dist = ndimage.distance_transform_edt(very_dark)
+        thin_outline = very_dark & (dist <= 2.2)
+        thick_shadow = very_dark & (dist > 2.2)
+
+        # 1. Contours fins rocheux -> indigo cosmique profond (jamais noir !)
+        out[thin_outline] = np.array([54, 12, 142], dtype=np.uint8)
+
+        # 2. Grandes zones d'ombre -> vraies facettes rocheuses polygonales de météorite `b74`
+        if np.any(thick_shadow):
+            step = max(8, int(round(15 * w / 768.0)))
+            rng = np.random.default_rng(74028)
+            gy = np.arange(step // 2, h, step)
+            gx = np.arange(step // 2, w, step)
+            seeds_y, seeds_x, seed_tone = [], [], []
+            for iy, sy0 in enumerate(gy):
+                for ix, sx0 in enumerate(gx):
+                    jy = int(np.clip(sy0 + rng.integers(-step // 3, step // 3 + 1), 0, h - 1))
+                    jx = int(np.clip(sx0 + rng.integers(-step // 3, step // 3 + 1), 0, w - 1))
+                    seeds_y.append(jy)
+                    seeds_x.append(jx)
+                    seed_tone.append((iy * 7 + ix * 13 + int(rng.integers(0, 4))) % 4)
+
+            seed_map = np.ones((h, w), dtype=bool)
+            id_grid = np.zeros((h, w), dtype=np.int32)
+            for idx_s, (sy0, sx0) in enumerate(zip(seeds_y, seeds_x)):
+                seed_map[sy0, sx0] = False
+                id_grid[sy0, sx0] = idx_s
+            _, nearest_idx = ndimage.distance_transform_edt(seed_map, return_indices=True)
+            cell_id = id_grid[nearest_idx[0], nearest_idx[1]]
+
+            # Arête fine de 1 px entre deux facettes rocheuses adjacentes
+            edge_seam = (cell_id != np.roll(cell_id, 1, axis=1)) | (cell_id != np.roll(cell_id, 1, axis=0))
+            facet_shades = np.array(
+                [
+                    [96, 12, 156],   # violet royal ombré
+                    [118, 6, 148],   # prune météoritique b74
+                    [138, 12, 168],  # améthyste facettée b74
+                    [152, 8, 134],   # cramoisi pourpre b74
+                ],
+                dtype=np.uint8,
+            )
+            tone_lut = np.array(seed_tone, dtype=np.int32)
+            mapped = facet_shades[tone_lut[cell_id]]
+            out[thick_shadow] = mapped[thick_shadow]
+            out[thick_shadow & edge_seam] = np.array([62, 14, 158], dtype=np.uint8)
+
+    # 3. Relèvement doux des tons sombres intermédiaires (`112 <= max < 138`) pour garantir zéro tache terne
+    mid_dark = work_fg & (out.max(axis=2) < 118)
+    if np.any(mid_dark):
+        out[mid_dark, 0] = np.maximum(out[mid_dark, 0], 62)
+        out[mid_dark, 2] = np.maximum(out[mid_dark, 2], 142)
+
+    return out
+
+
+def _draw_shooting_star(
+    canvas: np.ndarray,
+    hx: int,
+    hy: int,
+    dx: float,
+    dy: float,
+    tail_len: int,
+    sparkle_seed: int,
+) -> None:
+    """Dessine une étoile filante pixel-art nette (tête diamant brillante + traînée cométaire dégradée
+    saphir/cyan + poussière d'étoiles scintillante, `G <= B - 6` partout)."""
+    h, w, _ = canvas.shape
+    norm = float(np.hypot(dx, dy)) or 1.0
+    ux, uy = dx / norm, dy / norm
+
+    c_head = np.array([245, 248, 255, 255], dtype=np.uint8)
+    c_cyan = np.array([132, 214, 255, 255], dtype=np.uint8)
+    c_blue = np.array([68, 142, 250, 255], dtype=np.uint8)
+    c_indigo = np.array([38, 78, 196, 255], dtype=np.uint8)
+    c_wake = np.array([22, 44, 136, 255], dtype=np.uint8)
+
+    # Traînée de la queue vers la tête pour que la tête recouvre toujours l'avant
+    for s in range(tail_len, 0, -1):
+        px = int(round(hx - ux * s))
+        py = int(round(hy - uy * s))
+        frac = s / float(max(1, tail_len))
+        if not (0 <= px < w and 0 <= py < h):
+            continue
+        if frac < 0.18:
+            col = c_head if frac < 0.07 else c_cyan
+            # Épaisseur 2 px près de la tête
+            for ox, oy in ((0, 0), (0, 1), (1, 0)):
+                if 0 <= px + ox < w and 0 <= py + oy < h:
+                    canvas[py + oy, px + ox] = col
+        elif frac < 0.45:
+            canvas[py, px] = c_blue
+            if s % 2 == 0 and 0 <= py + 1 < h:
+                canvas[py + 1, px] = c_indigo
+        elif frac < 0.75:
+            canvas[py, px] = c_indigo
+        else:
+            if s % 2 == 0:
+                canvas[py, px] = c_wake
+
+    # Poussière d'étoiles scintillante dans le sillage
+    for k in (5, 11, 18, 26):
+        if k < tail_len:
+            sx = int(round(hx - ux * k + ((k + sparkle_seed) % 3 - 1)))
+            sy = int(round(hy - uy * k + ((k * 2 + sparkle_seed) % 3 - 1)))
+            if 0 <= sx < w and 0 <= sy < h:
+                canvas[sy, sx] = c_cyan if k < 14 else c_blue
+
+    # Tête étoilée en croix diamant (`5×5`) à `(hx, hy)`
+    for d in range(-2, 3):
+        if 0 <= hx + d < w and 0 <= hy < h:
+            canvas[hy, hx + d] = c_head if abs(d) <= 1 else c_cyan
+        if 0 <= hx < w and 0 <= hy + d < h:
+            canvas[hy + d, hx] = c_head if abs(d) <= 1 else c_cyan
+    for ox, oy in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
+        if 0 <= hx + ox < w and 0 <= hy + oy < h:
+            canvas[hy + oy, hx + ox] = c_cyan
+
+
 def build_b74_cosmic_space_layers(
     w: int,
     h: int,
     n_frames: int = 24,
 ) -> Tuple[List[Image.Image], List[Image.Image]]:
-    """Construit le fond spatial abyssal canonique de `b74` (`[0, 0, 95]` au centre, `[0, 0, 79]` aux
-    marges) + les étoiles lointaines (`00`) et proches (`01`) scintillant sur `24` poses @ `5` ticks."""
+    """Construit :
+    - `00` : Vrai ciel **Bleu Nuit Profond de l'Espace** (`[5, 11, 46]` -> `[9, 18, 68]` -> `[15, 28, 96]`
+      + rubans nébulaires saphir/indigo sans damier) + **`220` étoiles lointaines et moyennes** scintillantes ;
+    - `01` : **`34` grandes étoiles brillantes à aigrettes** + **`6` étoiles filantes animées** traversant
+      le ciel étoilé sur `24` poses @ `5` ticks (`120` ticks sans coupure).
+    """
     yy, xx = np.mgrid[:h, :w].astype(np.float32)
-    rn = np.hypot((xx - 0.5 * w) / (0.55 * w), (yy - 0.5 * h) / (0.55 * h))
-    base_space = np.empty((h, w, 3), dtype=np.uint8)
-    base_space[:, :] = B74_SPACE_RGB
-    outer_ring = rn > 1.02
-    deep_corners = rn > 1.24
-    base_space[outer_ring] = np.array([0, 0, 82], dtype=np.uint8)
-    base_space[deep_corners] = np.array([4, 0, 68], dtype=np.uint8)
+    nx = (xx - 0.5 * w) / (0.5 * w)
+    ny = (yy - 0.5 * h) / (0.5 * h)
+    rn = np.hypot(nx, ny)
 
-    distant_stars = [
-        (0.05, 0.08, 1), (0.12, 0.22, 9), (0.07, 0.44, 17), (0.04, 0.72, 5),
-        (0.14, 0.88, 13), (0.24, 0.06, 21), (0.76, 0.07, 4), (0.88, 0.19, 12),
-        (0.94, 0.41, 20), (0.96, 0.69, 8), (0.86, 0.87, 16), (0.21, 0.93, 2),
-        (0.79, 0.92, 11), (0.09, 0.60, 19), (0.91, 0.29, 6), (0.16, 0.12, 15),
+    # Rubans nébulaires diagonaux organiques sans aucun damier
+    wave1 = 0.14 * np.sin(3.1 * nx + 2.2 * ny) + 0.08 * np.cos(5.3 * nx - 3.7 * ny)
+    neb_field = rn - wave1
+
+    base_space = np.empty((h, w, 3), dtype=np.uint8)
+    base_space[:, :] = np.array([12, 22, 94], dtype=np.uint8)          # halo bleu nuit cosmique autour de l'astéroïde
+    base_space[neb_field > 0.84] = np.array([9, 18, 76], dtype=np.uint8)
+    base_space[neb_field > 1.02] = np.array([7, 14, 58], dtype=np.uint8)
+    base_space[neb_field > 1.18] = np.array([5, 10, 44], dtype=np.uint8)  # bleu nuit abyssal des confins
+
+    # Voiles de nébuleuse saphir & indigo cosmique dans les ailes gauche/droite
+    ribbon_a = (np.abs((ny - 0.55 * nx - 0.18 * np.sin(4.0 * nx)) + 0.28) < 0.075) & (rn > 0.58)
+    ribbon_b = (np.abs((ny + 0.48 * nx + 0.15 * np.cos(3.6 * ny)) - 0.34) < 0.068) & (rn > 0.62)
+    base_space[ribbon_a] = np.array([20, 38, 118], dtype=np.uint8)
+    base_space[ribbon_b] = np.array([26, 30, 116], dtype=np.uint8)
+
+    # 220 étoiles de fond réparties sur toute la voûte spatiale (suite quasi-aléatoire déterministe)
+    bg_stars = []
+    for i in range(220):
+        # Suite de Halton base 2 / base 3 pour couvrir uniformément tout le ciel `w × h`
+        u2, f2, n2 = 0.0, 0.5, i + 1
+        while n2 > 0:
+            u2 += f2 * (n2 % 2)
+            n2 //= 2
+            f2 *= 0.5
+        u3, f3, n3 = 0.0, 1.0 / 3.0, i + 1
+        while n3 > 0:
+            u3 += f3 * (n3 % 3)
+            n3 //= 3
+            f3 /= 3.0
+        px = min(w - 2, max(1, int(u2 * (w - 2))))
+        py = min(h - 2, max(1, int(u3 * (h - 2))))
+        bg_stars.append((px, py, (i * 7) % n_frames, i % 5))
+
+    star_palette = [
+        np.array([238, 245, 255], dtype=np.uint8),  # blanc stellaire pur
+        np.array([142, 208, 255], dtype=np.uint8),  # bleu glacier
+        np.array([96, 158, 255], dtype=np.uint8),   # saphir clair
+        np.array([196, 178, 255], dtype=np.uint8),  # lavande céleste
+        np.array([172, 222, 255], dtype=np.uint8),  # cyan stellaire
     ]
-    c_dim = np.array([79, 63, 207], dtype=np.uint8)
-    c_mid = np.array([135, 167, 255], dtype=np.uint8)
+    star_dim = np.array([58, 96, 196], dtype=np.uint8)
 
     frames_00: List[Image.Image] = []
     for t in range(n_frames):
         arr = np.concatenate([base_space.copy(), np.full((h, w, 1), 255, dtype=np.uint8)], axis=2)
-        for fx, fy, ph in distant_stars:
-            px, py = int(w * fx), int(h * fy)
+        for idx_s, (px, py, ph, c_idx) in enumerate(bg_stars):
             sv = np.sin(2.0 * np.pi * ((t + ph) / float(n_frames)))
-            if sv > 0.10:
-                arr[py, px, :3] = c_mid if sv > 0.68 else c_dim
+            col = star_palette[c_idx]
+            if sv > -0.35:
+                arr[py, px, :3] = col if sv > 0.25 else star_dim
+                # 1 étoile sur 4 forme un petit doublet `2 px` au pic d'éclat
+                if idx_s % 4 == 0 and sv > 0.65 and px + 1 < w:
+                    arr[py, px + 1, :3] = star_dim
+            else:
+                # Toujours légèrement visible comme poussière d'étoile lointaine
+                arr[py, px, :3] = np.array([34, 62, 148], dtype=np.uint8)
         frames_00.append(Image.fromarray(arr, mode="RGBA"))
 
+    # 34 grandes étoiles scintillantes en croix (`+`) dans tout le ciel spatial
     hero_stars = [
-        (0.08, 0.14, 0, True),
-        (0.18, 0.09, 7, False),
-        (0.06, 0.33, 14, True),
-        (0.13, 0.79, 20, True),
-        (0.92, 0.13, 4, True),
-        (0.83, 0.08, 11, False),
-        (0.94, 0.54, 18, True),
-        (0.87, 0.78, 2, True),
-        (0.05, 0.89, 10, False),
-        (0.95, 0.90, 16, False),
+        (0.055, 0.085, 0, True), (0.145, 0.065, 5, False), (0.235, 0.115, 11, True),
+        (0.085, 0.215, 17, False), (0.175, 0.195, 3, True), (0.042, 0.355, 9, True),
+        (0.118, 0.445, 15, False), (0.062, 0.565, 21, True), (0.152, 0.655, 2, False),
+        (0.048, 0.745, 8, True), (0.132, 0.835, 14, True), (0.228, 0.895, 20, False),
+        (0.075, 0.935, 6, False), (0.315, 0.925, 12, True), (0.285, 0.055, 18, False),
+        (0.715, 0.058, 4, False), (0.785, 0.105, 10, True), (0.875, 0.072, 16, False),
+        (0.945, 0.128, 22, True), (0.835, 0.205, 1, True), (0.925, 0.265, 7, False),
+        (0.958, 0.385, 13, True), (0.885, 0.465, 19, False), (0.942, 0.575, 3, True),
+        (0.862, 0.665, 9, False), (0.952, 0.735, 15, True), (0.885, 0.835, 21, True),
+        (0.778, 0.905, 5, False), (0.928, 0.935, 11, True), (0.688, 0.932, 17, False),
+        (0.032, 0.155, 13, False), (0.968, 0.215, 20, False), (0.035, 0.645, 4, False),
+        (0.965, 0.825, 16, False),
     ]
-    c_white = np.array([239, 247, 255], dtype=np.uint8)
-    c_cyan = np.array([95, 207, 255], dtype=np.uint8)
-    c_lilac = np.array([199, 79, 239], dtype=np.uint8)
+    c_white = np.array([244, 248, 255], dtype=np.uint8)
+    c_cyan = np.array([124, 210, 255], dtype=np.uint8)
+    c_sapphire = np.array([68, 138, 248], dtype=np.uint8)
+    c_diag = np.array([168, 196, 255], dtype=np.uint8)
+
+    # 6 étoiles filantes échelonnées sur les 24 poses (dont 2 visibles dès pose 0, pose 6, pose 12, pose 18 !)
+    # Chaque tuple : (x_start_frac, y_start_frac, x_end_frac, y_end_frac, t_start, duration)
+    shooting_stars = [
+        (0.215, 0.055, 0.045, 0.235, 21, 8),   # active sur poses 21,22,23,0,1,2,3,4 (visible pose 0 !)
+        (0.955, 0.145, 0.785, 0.335, 23, 8),   # active sur poses 23,0,1,2,3,4,5,6 (visible pose 0 & 6 !)
+        (0.195, 0.565, 0.035, 0.755, 4, 8),    # active sur poses 4..11 (visible pose 6 !)
+        (0.965, 0.545, 0.795, 0.735, 9, 8),    # active sur poses 9..16 (visible pose 12 !)
+        (0.245, 0.735, 0.075, 0.925, 11, 8),   # active sur poses 11..18 (visible pose 12 & 18 !)
+        (0.935, 0.065, 0.765, 0.245, 15, 8),   # active sur poses 15..22 (visible pose 18 !)
+    ]
 
     frames_01: List[Image.Image] = []
+    tail_base = max(14, int(round(34 * w / 768.0)))
     for t in range(n_frames):
         st = np.zeros((h, w, 4), dtype=np.uint8)
+        # 1. Grandes étoiles à aigrettes scintillantes
         for fx, fy, ph, major in hero_stars:
             cx, cy = int(w * fx), int(h * fy)
             sv = np.sin(2.0 * np.pi * ((t + ph) / float(n_frames)))
-            if sv < -0.35:
-                st[cy, cx, :3] = c_lilac
-                st[cy, cx, 3] = 255
-            elif sv < 0.35:
-                st[cy, cx, :3] = c_cyan
-                st[cy, cx, 3] = 255
-            else:
-                arm_max = 2 if (major and sv > 0.76) else 1
-                for d in range(-arm_max, arm_max + 1):
-                    if 0 <= cx + d < w:
-                        st[cy, cx + d, :3] = c_white if d == 0 else (c_cyan if abs(d) == 1 else c_lilac)
-                        st[cy, cx + d, 3] = 255
-                    if 0 <= cy + d < h:
-                        st[cy + d, cx, :3] = c_white if d == 0 else (c_cyan if abs(d) == 1 else c_lilac)
-                        st[cy + d, cx, 3] = 255
+            arm_max = 3 if (major and sv > 0.62) else (2 if sv > -0.05 else 1)
+            for d in range(-arm_max, arm_max + 1):
+                col = c_white if d == 0 else (c_cyan if abs(d) == 1 else c_sapphire)
+                if 0 <= cx + d < w:
+                    st[cy, cx + d, :3] = col
+                    st[cy, cx + d, 3] = 255
+                if 0 <= cy + d < h:
+                    st[cy + d, cx, :3] = col
+                    st[cy + d, cx, 3] = 255
+            if arm_max >= 3:
+                for ox, oy in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
+                    if 0 <= cx + ox < w and 0 <= cy + oy < h:
+                        st[cy + oy, cx + ox, :3] = c_diag
+                        st[cy + oy, cx + ox, 3] = 255
+
+        # 2. Étoiles filantes cométaires traversant le cosmos
+        for idx_sh, (sx0, sy0, sx1, sy1, t0, dur) in enumerate(shooting_stars):
+            age = (t - t0) % n_frames
+            if age < dur:
+                u = (age + 0.5) / float(dur)
+                hx = int(round(w * (sx0 + (sx1 - sx0) * u)))
+                hy = int(round(h * (sy0 + (sy1 - sy0) * u)))
+                dx = w * (sx1 - sx0)
+                dy = h * (sy1 - sy0)
+                cur_tail = max(10, int(round(tail_base * np.sin(np.pi * min(0.92, max(0.25, u))))))
+                _draw_shooting_star(st, hx, hy, dx, dy, cur_tail, idx_sh + age)
+
         frames_01.append(Image.fromarray(st, mode="RGBA"))
 
     return frames_00, frames_01
@@ -167,7 +387,7 @@ def extract_whole_floating_meteorites(
 ) -> Tuple[np.ndarray, Image.Image, List[Image.Image]]:
     """Sépare l'île principale (`main_island`) de toutes les météorites flottantes entières
     (`ndimage.label`, `0` cristal coupé !), place la ceinture fixe sur `im_static_belt` et fait
-    léviter en apesanteur (`±2 px`) `n_levitating` météorites entières sur `frames_levitation`."""
+    léviter en apesanteur (`±2.5 px`) `n_levitating` météorites entières sur `frames_levitation`."""
     h, w = fg_mask.shape
     lbl, n_comp = ndimage.label(fg_mask)
     sizes = ndimage.sum(fg_mask, lbl, index=range(1, n_comp + 1))
@@ -291,7 +511,7 @@ def build_crystal_glint_frames(
     """Scintillement prismatique doux des pointes cristallines cyan des remparts (`24` poses)."""
     h, w, _ = q_rgb.shape
     lbl, n_c = ndimage.label(cyan_glint_mask)
-    c_peak = np.array([215, 247, 255], dtype=np.uint8)
+    c_peak = np.array([215, 244, 255], dtype=np.uint8)
     c_mid = np.array([95, 207, 255], dtype=np.uint8)
     frames: List[Image.Image] = []
     for t in range(n_frames):

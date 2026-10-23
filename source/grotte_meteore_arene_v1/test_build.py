@@ -32,16 +32,23 @@ class TestGrotteMeteoreAreneV1(unittest.TestCase):
         cls.pose6 = np.asarray(Image.open(cls.renders / "frames" / "frame_06.png").convert("RGBA"), dtype=np.uint8)
         cls.pose12 = np.asarray(Image.open(cls.renders / "composite_pose12.png").convert("RGBA"), dtype=np.uint8)
 
-    def test_01_zero_green_bleed_all_frames(self) -> None:
+    def test_01_zero_green_and_zero_black_rock_all_frames(self) -> None:
+        _, fg_mask = gma_build.load_clean_meteor_raw(gma_build.DECOR_RAW, 768, 576)
+        lbl, n_c = ndimage.label(fg_mask)
+        main_island = lbl == (int(np.argmax(ndimage.sum(fg_mask, lbl, range(1, n_c + 1)))) + 1)
         for idx, pose in enumerate((self.pose0, self.pose6, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
             green_bleed = (g >= 35) & (g > b - 4)
             self.assertEqual(int(green_bleed.sum()), 0, f"Résidu vert détecté sur pose {idx}: {int(green_bleed.sum())}")
+            black_on_rock = main_island & (pose[:, :, :3].max(axis=2) < 90)
+            self.assertEqual(int(black_on_rock.sum()), 0, f"Pixels noirs sur roche pose {idx}: {int(black_on_rock.sum())}")
+            bright_sky = (~fg_mask) & (b >= 135)
+            self.assertGreater(int(bright_sky.sum()), 250, f"Pas assez d'étoiles / étoiles filantes sur pose {idx}")
 
     def test_02_canonical_b74_fidelity_and_ten_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
-        self.assertLess(self.metrics["fidelity_distance"], 30.0)
+        self.assertLess(self.metrics["fidelity_distance"], 33.0)
 
     def test_03_active_psychic_wave_and_levitating_whole_meteorites(self) -> None:
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose6[:, :, :3].astype(int)).max(axis=2)

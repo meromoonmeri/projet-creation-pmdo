@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-GME1 — Grotte Météore — Entrée (`POV PMD` `b74_meteor_cave_deoxys.png` + Seuil Caverne Nord).
+GME1 — Grotte Météore — Entrée (`POV PMD` `b74_meteor_cave_deoxys.png` + Ciel Bleu Nuit Étoilé & Étoiles Filantes).
 
-Continuité totale `POV PMD` avec `GMA1` (*Arène de Deoxys*) :
-- Vide cosmique abyssal canonique `b74` (`[0, 0, 95]`) & étoiles scintillantes (`00`, `01` `24` poses) ;
-- Sol continu d'astéroïde indigo royal (`02`), ceinture fixe (`03`) et météorites entières en lévitation (`09` `Top`) ;
-- Pont Sud -> Nord et rotonde gravée praticable menant jusqu'à l'ouverture de grotte Nord (`donjon_seuil`) ;
-- Onde psionique radiale `b74canm` sur les circuits néon (`07`) et éclats prismatiques des cristaux cyan (`08`).
+Principes stricts :
+- **Zéro noir sur les roches** : toutes les ombres et contours des parois/météorites sont reconstruits en
+  facettes minérales `b74` prune/améthyste/indigo royal (`max(R, G, B) >= 95`), et l'arche caverneuse Nord
+  (`donjon_seuil`) s'enfonce en perspective indigo nuit cosmique traversée par un conduit psionique ;
+- **Vrai ciel Bleu Nuit Profond de l'Espace (`00`, `01`)** : voiles nébulaires saphir/indigo, plus de `250`
+  étoiles scintillantes et `6` étoiles filantes cométaires traversant le ciel sur `24 × 5 = 120` ticks ;
+- **Continuité Sud -> Nord** : pont praticable depuis `y = 71` jusqu'au seuil de la caverne Nord.
 """
 
 from __future__ import annotations
@@ -27,12 +29,14 @@ if str(REPO_ROOT / "source") not in sys.path:
 
 from moteur_grotte_meteore_b74 import (  # type: ignore
     B74_GROOVE_BLUE,
+    B74_NEON_PSI,
     B74_SLAB_INDIGO,
     build_b74_cosmic_space_layers,
     build_b74_psychic_wave_frames,
     build_b74_unified_palette,
     build_crystal_glint_frames,
     extract_whole_floating_meteorites,
+    lift_dark_rock_shadows_to_b74,
     load_clean_meteor_raw,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
@@ -57,26 +61,41 @@ VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
     raw_rgb, fg_mask = load_clean_meteor_raw(DECOR_RAW, w, h)
-    pal = build_b74_unified_palette(B74_REF, raw_rgb, fg_mask)
-    q_rgb = quantize_rgb_to_palette(raw_rgb, pal)
 
-    # 1. Bouche caverneuse Nord (`donjon_seuil`, `POV PMD` sombre au pied du rempart Nord)
+    # 1. Identification de la bouche caverneuse Nord (`donjon_seuil`, arche centrale au pied du rempart Nord)
     yy, xx = np.mgrid[:h, :w]
-    mouth_box = (yy >= int(0.18 * h)) & (yy <= int(0.36 * h)) & (xx >= int(0.42 * w)) & (xx <= int(0.58 * w))
-    cave_mouth = fg_mask & mouth_box & (raw_rgb.max(axis=2) <= 28)
-    q_rgb[cave_mouth] = np.array([10, 4, 24], dtype=np.uint8)
+    mouth_box = (yy >= int(0.19 * h)) & (yy <= int(0.35 * h)) & (xx >= int(0.43 * w)) & (xx <= int(0.57 * w))
+    cave_seed = fg_mask & mouth_box & (raw_rgb.max(axis=2) <= 28)
+    lbl_cm, n_cm = ndimage.label(cave_seed)
+    if n_cm > 0:
+        cm_sizes = ndimage.sum(cave_seed, lbl_cm, range(1, n_cm + 1))
+        cave_mouth = lbl_cm == (int(np.argmax(cm_sizes)) + 1)
+    else:
+        cave_mouth = cave_seed
 
-    # 2. Séparation sans découpe des météorites flottantes entières (`03` fixes, `09` `Top` en lévitation)
+    # 2. Suppression totale de tout noir sur les roches -> facettes minérales `b74` prune/améthyste/indigo !
+    clean_rgb = lift_dark_rock_shadows_to_b74(raw_rgb, fg_mask, exclude_mask=cave_mouth)
+    pal = build_b74_unified_palette(B74_REF, clean_rgb, fg_mask & (~cave_mouth))
+    q_rgb = quantize_rgb_to_palette(clean_rgb, pal)
+
+    # 3. Perspective bleu nuit / indigo cosmique dans l'arche d'entrée Nord (zéro trou noir plat !)
+    if np.any(cave_mouth):
+        dist_cm = ndimage.distance_transform_edt(cave_mouth)
+        q_rgb[cave_mouth] = np.array([52, 16, 152], dtype=np.uint8)
+        q_rgb[cave_mouth & (dist_cm > 3.0)] = np.array([34, 20, 124], dtype=np.uint8)
+        q_rgb[cave_mouth & (dist_cm > 7.5)] = np.array([20, 22, 98], dtype=np.uint8)
+        q_rgb[cave_mouth & (dist_cm > 12.5)] = np.array([13, 18, 78], dtype=np.uint8)
+
+    # 4. Séparation sans découpe des météorites flottantes entières (`03` fixes, `09` `Top` en lévitation)
     main_island, im_03_belt, frames_09_lev = extract_whole_floating_meteorites(
         q_rgb, fg_mask, n_levitating=8, n_frames=N_FRAMES
     )
 
-    # 3. Segmentation sémantique de l'île principale (`main_island`) :
+    # 5. Segmentation sémantique de l'île principale (`main_island`) :
     r = q_rgb[:, :, 0].astype(np.int16)
     g = q_rgb[:, :, 1].astype(np.int16)
     b = q_rgb[:, :, 2].astype(np.int16)
 
-    # Dalle praticable indigo/outremer + orbe + circuits psioniques (rotonde centrale + pont Sud -> Nord)
     slab_corridor = (
         ((yy >= int(0.30 * h)) & (yy <= int(0.70 * h)) & (xx >= int(0.20 * w)) & (xx <= int(0.80 * w)))
         | ((yy >= int(0.66 * h)) & (xx >= int(0.43 * w)) & (xx <= int(0.57 * w)))
@@ -92,15 +111,25 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     south_ids = [lid for lid in set(lbl_w0[h - 6 :, int(0.43 * w) : int(0.57 * w)].ravel().tolist()) if lid != 0]
     walkable_slab = np.isin(lbl_w0, south_ids) & main_island & (~cave_mouth)
 
+    # Prolongement discret du conduit psionique central jusque dans le seuil de la grotte Nord
     psi_circuits = walkable_slab & (r >= 155) & (b >= 145) & (~core_orb)
+    if np.any(cave_mouth):
+        cm_ys, cm_xs = np.where(cave_mouth)
+        cx_mouth = int(round(float(cm_xs.mean())))
+        cy_bot = int(cm_ys.max())
+        lw = max(1, int(round(1.6 * w / 768.0)))
+        portal_conduit = cave_mouth & (yy >= cy_bot - int(round(16 * h / 576.0))) & (np.abs(xx - cx_mouth) <= lw)
+        q_rgb[portal_conduit] = B74_NEON_PSI
+        psi_circuits = psi_circuits | portal_conduit
+
     static_slab_only = walkable_slab & (~psi_circuits) & (~core_orb)
 
     walls = main_island & (~walkable_slab)
     cyan_crystals = walls & (g >= 115) & (b >= 205) & (r < 130)
-    bright_facets = walls & (~cyan_crystals) & (~cave_mouth) & (r >= 170)
+    bright_facets = walls & (~cyan_crystals) & (~cave_mouth) & (r >= 165)
     dark_ramparts = walls & (~cyan_crystals) & (~bright_facets)
 
-    # 4. Couche 02 : Dalle météoritique continue sous toute l'île (zéro trou sous les animations)
+    # 6. Couche 02 : Dalle météoritique continue sous toute l'île
     sol_arr = np.zeros((h, w, 4), dtype=np.uint8)
     grid_line = ((xx % 24 == 0) | (yy % 24 == 0)) & main_island
     sol_arr[main_island, :3] = B74_SLAB_INDIGO
@@ -124,7 +153,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     frames_07_psi = build_b74_psychic_wave_frames(q_rgb, psi_circuits, core_orb, c_xy, n_frames=N_FRAMES)
     frames_08_glint = build_crystal_glint_frames(q_rgb, cyan_crystals, n_frames=N_FRAMES)
 
-    # Grille de collision `96 × 72` : pont Sud continu jusqu'à la rotonde et au seuil de grotte Nord !
+    # Grille de collision `96 × 72` : pont Sud continu depuis `y = 71` jusqu'au seuil de grotte Nord !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
@@ -139,12 +168,12 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
-        LayerEntry("00_vide_cosmique_abyssal_b74", "Vide Cosmique Abyssal b74", "BG", frames_00, frame_length=5),
-        LayerEntry("01_etoiles_et_eclats_cosmos", "Etoiles Scintillantes Cosmos", "BG", frames_01, frame_length=5),
+        LayerEntry("00_vide_cosmique_abyssal_b74", "Espace Bleu Nuit & Voûte Étoilée", "BG", frames_00, frame_length=5),
+        LayerEntry("01_etoiles_et_eclats_cosmos", "Étoiles Brillantes & Étoiles Filantes", "BG", frames_01, frame_length=5),
         LayerEntry("02_sol_dalle_meteorite_continu", "Dalle Meteorite Indigo Continue", "BG", [im_02_sol], frame_length=5),
         LayerEntry("03_meteorites_fixes_ceinture", "Ceinture Meteorites Flottantes", "BG", [im_03_belt], frame_length=5),
         LayerEntry("04_dalle_labyrinthe_et_pont", "Rotonde Gravee & Pont Sud-Nord", "BG", [im_04_floor], frame_length=5),
-        LayerEntry("05_remparts_meteorite_sombres", "Parois Cratere & Seuil Grotte Nord", "BG", [im_05_ramparts], frame_length=5),
+        LayerEntry("05_remparts_meteorite_sombres", "Parois Cratere & Arche Indigo Nord", "BG", [im_05_ramparts], frame_length=5),
         LayerEntry("06_facettes_pourpres_cristaux", "Facettes Vives Meteorite b74", "BG", [im_06_facets], frame_length=5),
         LayerEntry("07_onde_psionique_circuits_b74", "Onde Psionique Circuits b74canm", "BG", frames_07_psi, frame_length=5),
         LayerEntry("08_scintillement_cristaux_cyan", "Prismes Cristallins Cyan", "BG", frames_08_glint, frame_length=5),
@@ -167,20 +196,14 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=B74_REF,
-        max_fidelity_distance=32.0,
-        max_unique_tiles_per_bank=24000,
-        namespace_override="grotte_meteore_gme1",
-        asset_name_override="grotte_meteore_entree",
     )
     meta["width"] = w
     meta["height"] = h
+    if output_override is None:
+        (RENDERS_DIR / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
     return meta
 
 
-def main() -> None:
-    meta = build()
-    print(json.dumps(meta, indent=2, ensure_ascii=False))
-
-
 if __name__ == "__main__":
-    main()
+    info = build()
+    print(json.dumps(info, indent=2, ensure_ascii=False))

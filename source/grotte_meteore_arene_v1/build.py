@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-GMA1 — Grotte Météore — Arène de Deoxys (`POV PMD` `b74_meteor_cave_deoxys.png` améliorée).
+GMA1 — Grotte Météore — Arène de Deoxys (`POV PMD` `b74_meteor_cave_deoxys.png` + Ciel Bleu Nuit Étoilé & Étoiles Filantes).
 
-Suite directe de `GME1` et fidélité canonique à `b74` (*Meteor Cave — Deoxys*, *PMD Red*) :
-- Vide cosmique abyssal canonique `b74` (`[0, 0, 95]`) & étoiles scintillantes (`00`, `01` `24` poses) ;
-- Dalle carrée-octogonale indigo royal (`[79, 23, 199]`), anneaux sombres (`[31, 0, 239]`), orbe central
-  céruléen de Deoxys (`[31, 111, 239]`), circuits psioniques néon (`[255, 39, 215]`) animés par l'onde
-  radiale `b74canm` (`07` `24` poses) et pont cristallin Sud -> Nord continu depuis `y = 575` ;
-- Couronne Nord de météorites taillées & grands prismes cyan (`05`, `06`, `08`) et météorites entières
-  en lévitation douce (`09` `Top` `24` poses, `0` cristal coupé).
+Principes stricts :
+- **Zéro noir sur les roches** (`lift_dark_rock_shadows_to_b74`) & palette minérale `b74` pure ;
+- **Vrai ciel Bleu Nuit Profond de l'Espace (`00`, `01`)** avec voiles nébulaires saphir/indigo, plus de `250`
+  étoiles scintillantes et `6` étoiles filantes traversant le cosmos sur `24 × 5 = 120` ticks ;
+- **Chambre gravée `b74` de Deoxys**, cœur céruléen, pont Sud continu à conduit psionique, grands cristaux cyan
+  et **10 météorites entières en lévitation** (`09` `Top`).
 """
 
 from __future__ import annotations
@@ -35,6 +34,7 @@ from moteur_grotte_meteore_b74 import (  # type: ignore
     build_b74_unified_palette,
     build_crystal_glint_frames,
     extract_whole_floating_meteorites,
+    lift_dark_rock_shadows_to_b74,
     load_clean_meteor_raw,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
@@ -59,24 +59,24 @@ VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
     raw_rgb, fg_mask = load_clean_meteor_raw(DECOR_RAW, w, h)
-    pal = build_b74_unified_palette(B74_REF, raw_rgb, fg_mask)
-    q_rgb = quantize_rgb_to_palette(raw_rgb, pal)
+    clean_rgb = lift_dark_rock_shadows_to_b74(raw_rgb, fg_mask)
+    pal = build_b74_unified_palette(B74_REF, clean_rgb, fg_mask)
+    q_rgb = quantize_rgb_to_palette(clean_rgb, pal)
 
-    yy, xx = np.mgrid[:h, :w]
-
-    # 1. Extraction sans aucune découpe des météorites flottantes entières (`03` fixes, `09` `Top` lévitation)
+    # 1. Séparation sans découpe des météorites flottantes entières (`03` fixes, `09` `Top` en lévitation)
     main_island, im_03_belt, frames_09_lev = extract_whole_floating_meteorites(
         q_rgb, fg_mask, n_levitating=10, n_frames=N_FRAMES
     )
 
-    # 2. Segmentation fidèle à `b74` de la grande chambre carrée de Deoxys + pont Sud -> Nord :
+    # 2. Segmentation sémantique de la chambre de Deoxys & du pont Sud -> Nord :
+    yy, xx = np.mgrid[:h, :w]
     r = q_rgb[:, :, 0].astype(np.int16)
     g = q_rgb[:, :, 1].astype(np.int16)
     b = q_rgb[:, :, 2].astype(np.int16)
 
     arena_corridor = (
-        ((yy >= int(0.20 * h)) & (yy <= int(0.71 * h)) & (xx >= int(0.29 * w)) & (xx <= int(0.71 * w)))
-        | ((yy >= int(0.65 * h)) & (xx >= int(0.45 * w)) & (xx <= int(0.55 * w)))
+        ((yy >= int(0.22 * h)) & (yy <= int(0.70 * h)) & (xx >= int(0.29 * w)) & (xx <= int(0.71 * w)))
+        | ((yy >= int(0.60 * h)) & (np.abs(xx - 0.50 * w) <= 0.14 * w))
     )
     core_orb = main_island & (np.abs(xx - 0.50 * w) <= 0.08 * w) & (np.abs(yy - 0.455 * h) <= 0.09 * h) & (g >= 80) & (b >= 195) & (r < 95)
     is_indigo_slab = main_island & arena_corridor & (b >= 145) & (r < 110)
@@ -90,7 +90,6 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walkable_slab = np.isin(lbl_w0, south_ids) & main_island
 
     psi_circuits = walkable_slab & (r >= 155) & (b >= 145) & (~core_orb)
-    # Conduit psionique central `b74` prolongé tout le long du pont Sud jusqu'à `y = h - 1`
     bridge_rows = walkable_slab & (yy >= int(0.67 * h))
     if np.any(bridge_rows):
         bx_mid = int(round(float(np.where(bridge_rows)[1].mean())))
@@ -106,7 +105,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     walls = main_island & (~walkable_slab)
     cyan_crystals = walls & (g >= 115) & (b >= 205) & (r < 135)
-    bright_facets = walls & (~cyan_crystals) & (r >= 170)
+    bright_facets = walls & (~cyan_crystals) & (r >= 165)
     dark_ramparts = walls & (~cyan_crystals) & (~bright_facets)
 
     # 3. Couche 02 : Dalle météoritique continue sous toute l'île
@@ -133,7 +132,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     frames_07_psi = build_b74_psychic_wave_frames(q_rgb, psi_circuits, core_orb, c_xy, n_frames=N_FRAMES)
     frames_08_glint = build_crystal_glint_frames(q_rgb, cyan_crystals, n_frames=N_FRAMES)
 
-    # Grille de collision `96 × 72` : pont Sud continu jusqu'à l'orbe central de Deoxys !
+    # Grille de collision `96 × 72` : pont Sud continu depuis `y = 71` jusqu'à l'orbe central de Deoxys !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
@@ -148,8 +147,8 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[-1, :] |= walk_grid[-2, :]
 
     layers = [
-        LayerEntry("00_vide_cosmique_abyssal_b74", "Vide Cosmique Abyssal b74", "BG", frames_00, frame_length=5),
-        LayerEntry("01_etoiles_et_eclats_cosmos", "Etoiles Scintillantes Cosmos", "BG", frames_01, frame_length=5),
+        LayerEntry("00_vide_cosmique_abyssal_b74", "Espace Bleu Nuit & Voûte Étoilée", "BG", frames_00, frame_length=5),
+        LayerEntry("01_etoiles_et_eclats_cosmos", "Étoiles Brillantes & Étoiles Filantes", "BG", frames_01, frame_length=5),
         LayerEntry("02_sol_dalle_meteorite_continu", "Dalle Meteorite Indigo Continue", "BG", [im_02_sol], frame_length=5),
         LayerEntry("03_meteorites_fixes_ceinture", "Ceinture Meteorites Flottantes", "BG", [im_03_belt], frame_length=5),
         LayerEntry("04_chambre_deoxys_et_pont", "Chambre Gravee b74 & Pont Sud-Nord", "BG", [im_04_floor], frame_length=5),
@@ -176,20 +175,14 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=B74_REF,
-        max_fidelity_distance=32.0,
-        max_unique_tiles_per_bank=24000,
-        namespace_override="grotte_meteore_gma1",
-        asset_name_override="grotte_meteore_arene",
     )
     meta["width"] = w
     meta["height"] = h
+    if output_override is None:
+        (RENDERS_DIR / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
     return meta
 
 
-def main() -> None:
-    meta = build()
-    print(json.dumps(meta, indent=2, ensure_ascii=False))
-
-
 if __name__ == "__main__":
-    main()
+    info = build()
+    print(json.dumps(info, indent=2, ensure_ascii=False))
