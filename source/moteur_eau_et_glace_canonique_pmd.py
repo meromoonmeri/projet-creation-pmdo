@@ -397,3 +397,371 @@ def build_frost_mist_and_snowfall_layers(
 
     snow_frames = load_canonical_w03_snow_frames(w=w, h=h, n_frames=n_frames)
     return mist_frames, snow_frames
+
+
+# ---------------------------------------------------------------------------
+# Extensions matérielles GBA : Orage Électhor (H17P01 / H17P01W1.bpa)
+#                              & Abysses Kyogre (H02P02W.bpl / H02P03W1.bpa)
+# ---------------------------------------------------------------------------
+NATIVE_THUNDER_ROM = REPO_ROOT / "source" / "mont_foudre_entree_v1" / "references" / "native_rom"
+NATIVE_SEA_ROM = REPO_ROOT / "source" / "mer_houleuse_entree_v1" / "references" / "native_rom"
+
+
+def build_storm_and_lightning_layers(
+    w: int,
+    h: int,
+    sky_mask: np.ndarray,
+    fissure_mask: np.ndarray | None = None,
+    bolt_anchors_xy: List[Tuple[float, float, float]] | None = None,
+    n_frames: int = 24,
+) -> Tuple[Image.Image, List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Construit à partir des binaires matériels GBA `H17P01.{bpl,bpc,bma}` & `H17P01W1.bpa` (`1×` strict) :
+    - `im_storm_sky` (`BG`, `poses = 1`) : banc de cumulo-nimbus gris-ardoise `H17P01` tuilé horizontalement à `1×`,
+    - `frames_cloud_surge` (`BG`, `24 × 5 = 120` ticks) : flashs internes d'orage & dérive des nuées,
+    - `frames_sky_arcs` (`BG`, `24 × 5 = 120` ticks) : arcs électriques matériels `1×` `H17P01W1.bpa` + éclairs ramifiés,
+    - `frames_plasma_or_sparks` (`BG`/`Top`, `24 × 5 = 120` ticks) : plasma foudroyé dans la faille en zigzag (si fournie)
+      ou étincelles statiques dorées `1×` d'Électhor."""
+    h17_rgb = np.asarray(decode_red_bg("H17P01", tick=0, folder=NATIVE_THUNDER_ROM)[0][0].convert("RGB")).copy()
+    cloud_strip = h17_rgb[:148, :, :]  # 148 × 456 natif GBA 1×
+
+    # Tuilage horizontal miroir sans couture à l'échelle 1× stricte
+    strip_mirror = np.concatenate([cloud_strip, cloud_strip[:, ::-1, :]], axis=1)
+    reps_x = (w // strip_mirror.shape[1]) + 2
+    tiled_x = np.tile(strip_mirror, (1, reps_x, 1))[:, :w, :]
+
+    sky_ys = np.where(sky_mask.any(axis=1))[0]
+    max_sky_y = max(int(sky_ys.max()) + 8, 96) if sky_ys.size > 0 else max(96, h // 3)
+    sky_rgba = np.zeros((h, w, 4), dtype=np.uint8)
+    for y in range(min(h, max_sky_y + 16)):
+        sy = min(cloud_strip.shape[0] - 1, int(y * (cloud_strip.shape[0] - 1) / max(1, max_sky_y)))
+        sky_rgba[y, :, :3] = tiled_x[sy]
+    sky_rgba[:, :, 3] = 255
+    im_storm_sky = Image.fromarray(sky_rgba, mode="RGBA")
+
+    # Décodage matériel des sprites d'arcs jaunes `H17P01W1.bpa` (`tick = 0, 3, 6, ...`)
+    hw_arc_sprites: List[np.ndarray] = []
+    for k in range(8):
+        w_im = np.asarray(decode_red_bg("H17P01W", tick=k * 3, folder=NATIVE_THUNDER_ROM)[0][0].convert("RGBA"))
+        # Extraire la boîte englobante de l'arc gauche (autour de y=48..88, x=132..184)
+        sub = w_im[48:88, 132:184].copy()
+        bright = (sub[:, :, 3] > 0) & ((sub[:, :, 0] > 150) | (sub[:, :, 1] > 150))
+        out_s = np.zeros_like(sub)
+        out_s[bright, :3] = sub[bright, :3]
+        out_s[bright, 3] = 255
+        hw_arc_sprites.append(out_s)
+
+    # Nuées d'orage dérivantes & illumination des vraies crêtes de cumulo-nimbus GBA `H17P01` (0 halo circulaire !)
+    yy, xx = np.mgrid[0:h, 0:w]
+    sky_luma = sky_rgba[:, :, 1].astype(np.int16)
+    cloud_edge = np.zeros((h, w), dtype=bool)
+    cloud_edge[1:, :] = np.abs(sky_luma[1:, :] - sky_luma[:-1, :]) >= 6
+    cloud_edge[:, 1:] |= np.abs(sky_luma[:, 1:] - sky_luma[:, :-1]) >= 6
+    cloud_rim = ndimage.binary_dilation(cloud_edge, iterations=1) & sky_mask
+    cloud_light_band = (sky_luma >= 122) & sky_mask
+
+    c_rim_soft = np.array([150, 174, 166], dtype=np.uint8)
+    c_flash_mid = np.array([198, 214, 186], dtype=np.uint8)
+    c_flash_hi = np.array([248, 248, 198], dtype=np.uint8)
+
+    frames_cloud_surge: List[Image.Image] = []
+    for t in range(n_frames):
+        ph = 2.0 * np.pi * float(t) / float(n_frames)
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        wave_x = np.sin(2.0 * np.pi * (xx.astype(np.float32) / max(48.0, w * 0.25)) - ph)
+        drift_m = cloud_rim & (wave_x >= 0.25)
+        arr[drift_m, :3] = c_rim_soft
+        arr[drift_m, 3] = 255
+
+        if t in (3, 4, 12, 13):
+            fx = 0.27 * w if t < 8 else 0.73 * w
+            near_bolt = np.abs(xx.astype(np.float32) - fx) <= (0.18 * w)
+            core_bolt = np.abs(xx.astype(np.float32) - fx) <= (0.09 * w)
+            m_mid = cloud_rim & near_bolt
+            m_hi = cloud_edge & sky_mask & core_bolt
+            arr[m_mid, :3] = c_flash_mid
+            arr[m_mid, 3] = 255
+            arr[m_hi, :3] = c_flash_hi
+            arr[m_hi, 3] = 255
+        frames_cloud_surge.append(Image.fromarray(arr, mode="RGBA"))
+
+    # Arcs matériels GBA `H17P01W1.bpa` + éclairs zébrés 1× dans le ciel Nord
+    if bolt_anchors_xy is None:
+        bolt_anchors_xy = [(0.27, 0.02, 0.27), (0.73, 0.02, 0.27)]
+
+    frames_sky_arcs: List[Image.Image] = []
+    c_bolt_core = np.array([255, 254, 214], dtype=np.uint8)
+    c_bolt_gold = np.array([248, 224, 92], dtype=np.uint8)
+    c_bolt_cyan = np.array([186, 228, 232], dtype=np.uint8)
+
+    for t in range(n_frames):
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        sp = hw_arc_sprites[t % len(hw_arc_sprites)]
+        sh, sw = sp.shape[:2]
+        for fx_rel, mirror_x in [(0.31, False), (0.69, True)]:
+            sp_cur = sp[:, ::-1, :] if mirror_x else sp
+            px0 = int(round(fx_rel * w)) - sw // 2
+            py0 = max(4, int(round(0.11 * h)))
+            x0, x1 = max(0, px0), min(w, px0 + sw)
+            y0, y1 = max(0, py0), min(h, py0 + sh)
+            if x1 > x0 and y1 > y0:
+                sub_s = sp_cur[y0 - py0 : y1 - py0, x0 - px0 : x1 - px0]
+                m = (sub_s[:, :, 3] > 0) & sky_mask[y0:y1, x0:x1]
+                arr[y0:y1, x0:x1][m] = sub_s[m]
+
+        strike_specs = []
+        if t in (3, 4) and len(bolt_anchors_xy) >= 1:
+            strike_specs.append((0, bolt_anchors_xy[0]))
+        if t in (12, 13) and len(bolt_anchors_xy) >= 2:
+            strike_specs.append((1, bolt_anchors_xy[-1]))
+        for bi, (bx_rel, by0_rel, by1_rel) in strike_specs:
+            bx = int(round(bx_rel * w))
+            y_start = int(round(by0_rel * h))
+            y_end = int(round(by1_rel * h))
+            rng_b = np.random.default_rng(7717 + bi * 131 + (t % 2) * 17)
+            cur_x = bx
+            branch_y = (y_start + y_end) // 2
+            branch_x = bx
+            for yy_b in range(max(0, y_start), min(h, y_end)):
+                if (yy_b - y_start) % 5 == 0:
+                    cur_x += int(rng_b.choice([-4, -3, 3, 4]))
+                if yy_b == branch_y:
+                    branch_x = cur_x
+                for dx_b, col in [(-1, c_bolt_gold), (0, c_bolt_core), (1, c_bolt_cyan)]:
+                    xx_b = cur_x + dx_b
+                    if 0 <= xx_b < w and sky_mask[yy_b, xx_b]:
+                        arr[yy_b, xx_b, :3] = col
+                        arr[yy_b, xx_b, 3] = 255
+                if yy_b >= branch_y and (yy_b - branch_y) < (y_end - y_start) // 3:
+                    branch_x += 1 if (bi % 2 == 0) else -1
+                    if 0 <= branch_x < w and sky_mask[yy_b, branch_x]:
+                        arr[yy_b, branch_x, :3] = c_bolt_gold
+                        arr[yy_b, branch_x, 3] = 255
+        frames_sky_arcs.append(Image.fromarray(arr, mode="RGBA"))
+
+    # Faille plasma en zigzag (si `fissure_mask` fourni)
+    frames_fissure: List[Image.Image] = []
+    if fissure_mask is not None and np.any(fissure_mask):
+        dist_edge = ndimage.distance_transform_edt(fissure_mask).astype(np.float32)
+        max_d = max(1.0, float(dist_edge.max()))
+        f_pal = np.array(
+            [
+                [124, 96, 36],
+                [198, 162, 54],
+                [246, 224, 92],
+                [255, 252, 212],
+            ],
+            dtype=np.uint8,
+        )
+        for t in range(n_frames):
+            ph = 2.0 * np.pi * float(t) / float(n_frames)
+            surge = 0.55 + 0.45 * np.sin(2.0 * np.pi * (yy.astype(np.float32) / max(16.0, h * 0.08)) - ph)
+            core = np.clip((dist_edge / min(4.0, max_d)) * 0.68 + 0.44 * surge, 0.0, 1.25)
+            tier = np.clip((core * 3.1).astype(np.int32), 0, 3)
+            arr = np.zeros((h, w, 4), dtype=np.uint8)
+            arr[fissure_mask, :3] = f_pal[tier[fissure_mask]]
+            arr[fissure_mask, 3] = 255
+            frames_fissure.append(Image.fromarray(arr, mode="RGBA"))
+    else:
+        for _ in range(n_frames):
+            frames_fissure.append(Image.new("RGBA", (w, h), (0, 0, 0, 0)))
+
+    return im_storm_sky, frames_cloud_surge, frames_sky_arcs, frames_fissure
+
+
+def build_electric_sparks_top_frames(
+    w: int,
+    h: int,
+    n_frames: int = 24,
+    seed: int = 20261025,
+) -> List[Image.Image]:
+    """Étincelles électriques dorées & bleu-blanc `1×` (style `W04` / `H17P01W`) dérivant dans le vent d'orage."""
+    rng = np.random.default_rng(seed)
+    n_sparks = 44
+    sx0 = rng.integers(0, w, size=n_sparks)
+    sy0 = rng.integers(0, h, size=n_sparks)
+    kind = rng.integers(0, 3, size=n_sparks)
+    c_core = np.array([255, 253, 212], dtype=np.uint8)
+    c_gold = np.array([248, 216, 76], dtype=np.uint8)
+    c_ice = np.array([172, 232, 248], dtype=np.uint8)
+
+    frames: List[Image.Image] = []
+    for t in range(n_frames):
+        frac = float(t) / float(n_frames)
+        dx = int(round(frac * w))
+        dy = int(round(frac * (h // 2)))
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        for i in range(n_sparks):
+            # Scintillement bref caractéristique de l'électricité statique
+            if ((t + i * 3) % 6) == 5:
+                continue
+            jitter = int(round(2.0 * np.sin(2.0 * np.pi * frac * 3.0 + i)))
+            cx = (int(sx0[i]) + dx + jitter) % w
+            cy = (int(sy0[i]) + dy) % h
+            arr[cy, cx, :3] = c_core
+            arr[cy, cx, 3] = 255
+            if kind[i] == 0 and cx + 1 < w:
+                arr[cy, cx + 1, :3] = c_gold
+                arr[cy, cx + 1, 3] = 255
+            elif kind[i] == 1 and cx + 2 < w and cy + 1 < h:
+                arr[cy, cx + 1, :3] = c_gold
+                arr[cy, cx + 1, 3] = 255
+                arr[cy + 1, cx + 2, :3] = c_ice
+                arr[cy + 1, cx + 2, 3] = 255
+            elif kind[i] == 2:
+                for ox, oy, col in [(-1, 0, c_gold), (1, 0, c_gold), (0, -1, c_ice), (0, 1, c_ice)]:
+                    px, py = cx + ox, cy + oy
+                    if 0 <= px < w and 0 <= py < h:
+                        arr[py, px, :3] = col
+                        arr[py, px, 3] = 255
+        frames.append(Image.fromarray(arr, mode="RGBA"))
+    return frames
+
+
+def build_abyssal_water_and_current_layers(
+    w: int,
+    h: int,
+    water_mask: np.ndarray,
+    mode: str = "kyogre",
+    vortex_center_xy: Tuple[float, float, float] | None = None,
+) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Construit à partir des binaires matériels GBA `H10P02.bpl`, `H02P02W.{bpl,bpc,bma}` & `H02P03W1.bpa` (`1×` strict) :
+    - `water_frames` (`12` poses × `10` ticks = `120` ticks) : eau abyssale `H10P02.bpl` `1×` teintée outremer/saphir
+      profond + liseré d'écume dynamique au contact de la pierre et des récifs,
+    - `current_frames` (`15` poses × `8` ticks = `120` ticks) : **courants marins sinusoïdaux matériels GBA `H02P02W.bpl`**
+      à `1×` strict (+ vortex central si `vortex_center_xy` fourni),
+    - `bubble_frames` (`15` poses × `8` ticks = `120` ticks) : **colonnes de bulles matérielles GBA `H02P03W1.bpa` `1×`**."""
+    sheet_idx = build_quilted_h10p02_index_sheet((192, 192))
+    sh, sw = sheet_idx.shape
+    reps_y = (h // sh) + 2
+    reps_x = (w // sw) + 2
+    tiled_idx = np.tile(sheet_idx, (reps_y, reps_x))[:h, :w]
+
+    dist = ndimage.distance_transform_edt(water_mask).astype(np.float32)
+    shallow = water_mask & (dist <= 5.5)
+    rim = water_mask & (dist <= 2.2)
+
+    water_frames: List[Image.Image] = []
+    for f_idx in range(12):
+        hw_tick = f_idx * 10
+        rgb = colorize_h10p02_indices(tiled_idx, tick=hw_tick).astype(np.int16)
+        if mode == "kyogre":
+            # Abysse marin profond fidèle à H02P03 (bleu nuit saphir profond + rides H10P02.bpl 1×)
+            r_new = np.clip((rgb[:, :, 0] * 0.22) + 12, 10, 150)
+            g_new = np.clip((rgb[:, :, 1] * 0.38) + 20, 26, 196)
+            b_new = np.clip((rgb[:, :, 2] * 0.62) + 34, 82, 232)
+            rgb = np.stack([r_new, g_new, b_new], axis=-1).astype(np.int16)
+        elif mode == "trench":
+            # Profondeur abyssale saphir/outremer fidèle à H02P02 (0 teinte magenta : G >= min(R,B))
+            r_new = np.clip((rgb[:, :, 0] * 0.24) + 8, 6, 175)
+            g_new = np.clip((rgb[:, :, 1] * 0.56) + 22, 34, 224)
+            b_new = np.clip((rgb[:, :, 2] * 0.84) + 26, 98, 250)
+            rgb = np.stack([r_new, g_new, b_new], axis=-1).astype(np.int16)
+        elif mode == "storm_pool":
+            r_new = np.clip((rgb[:, :, 0] * 0.42) + 28, 24, 215)
+            g_new = np.clip((rgb[:, :, 1] * 0.68) + 34, 58, 236)
+            b_new = np.clip((rgb[:, :, 2] * 0.86) + 24, 96, 248)
+            rgb = np.stack([r_new, g_new, b_new], axis=-1).astype(np.int16)
+
+        rgb[shallow, 1] = np.clip(rgb[shallow, 1] + 28, 0, 245)
+        rgb[shallow, 2] = np.clip(rgb[shallow, 2] + 22, 0, 255)
+        pulse = int(round(12.0 * np.sin(2.0 * np.pi * f_idx / 12.0)))
+        rgb[rim, 0] = np.clip(112 + pulse, 0, 220)
+        rgb[rim, 1] = np.clip(198 + pulse, 0, 250)
+        rgb[rim, 2] = np.clip(236 + pulse // 2, 0, 255)
+
+        out = np.zeros((h, w, 4), dtype=np.uint8)
+        out[water_mask, :3] = rgb[water_mask].clip(0, 255).astype(np.uint8)
+        out[water_mask, 3] = 255
+        water_frames.append(Image.fromarray(out, mode="RGBA"))
+
+    # 2) Courants marins matériels GBA `H02P02W` (`15` poses × `8` ticks = `120` ticks exact !)
+    current_frames: List[Image.Image] = []
+    yy, xx = np.mgrid[0:h, 0:w]
+    for f_idx in range(15):
+        hw_tick = f_idx * 8
+        cur_full = np.asarray(decode_red_bg("H02P02W", tick=hw_tick, folder=NATIVE_SEA_ROM)[0][0].convert("RGBA"))
+        # Bande médiane abyssale pure (exclut les colonnes claires de surface `y < 84` et `y > 252` !)
+        cur_im = cur_full[84:252, :, :]
+        cur_mirror_x = np.concatenate([cur_im, cur_im[:, ::-1, :]], axis=1)
+        cur_mirror_xy = np.concatenate([cur_mirror_x, cur_mirror_x[::-1, :, :]], axis=0)
+        ry = (h // cur_mirror_xy.shape[0]) + 2
+        rx = (w // cur_mirror_xy.shape[1]) + 2
+        cur_tiled = np.tile(cur_mirror_xy, (ry, rx, 1))[:h, :w]
+
+        # Conserver uniquement les filets sinusoïdaux de courant marin GBA (`A > 0` et teinte saphir nette)
+        c_vis = (cur_tiled[:, :, 3] > 0) & (cur_tiled[:, :, 2] >= 95) & (cur_tiled[:, :, 0] <= 80) & water_mask
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        if np.any(c_vis):
+            # Rehausser légèrement la lisibilité turquoise-azur sur fond saphir profond
+            arr[c_vis, 0] = np.clip(cur_tiled[c_vis, 0].astype(np.int16) // 2 + 24, 18, 175).astype(np.uint8)
+            arr[c_vis, 1] = np.clip(cur_tiled[c_vis, 1].astype(np.int16) + 46, 84, 232).astype(np.uint8)
+            arr[c_vis, 2] = np.clip(cur_tiled[c_vis, 2].astype(np.int16) + 54, 150, 252).astype(np.uint8)
+            arr[c_vis, 3] = 255
+
+        # Si un puits tourbillonnant Nord est spécifié (MHE1), ajouter des bras spiraux abyssaux
+        if vortex_center_xy is not None:
+            vx = vortex_center_xy[0] * w
+            vy = vortex_center_xy[1] * h
+            vr = vortex_center_xy[2] * w
+            dx = (xx.astype(np.float32) - vx) / max(1.0, vr)
+            dy = (yy.astype(np.float32) - vy) / max(1.0, vr * 0.72)
+            rad = np.sqrt(dx * dx + dy * dy)
+            ang = np.arctan2(dy, dx)
+            ph = 2.0 * np.pi * float(f_idx) / 15.0
+            spiral = np.sin(3.0 * ang + 7.5 * rad - ph)
+            in_well = water_mask & (rad <= 0.96) & (rad >= 0.12) & (spiral >= 0.58)
+            bright_core = in_well & (spiral >= 0.84)
+            arr[in_well, :3] = [44, 158, 232]
+            arr[in_well, 3] = 255
+            arr[bright_core, :3] = [148, 232, 252]
+            arr[bright_core, 3] = 255
+
+        current_frames.append(Image.fromarray(arr, mode="RGBA"))
+
+    # 3) Colonnes de bulles matérielles GBA `H02P03W1.bpa` (`15` poses × `8` ticks = `120` ticks)
+    # Extraire les sprites de bulles claires uniquement (exclut 100 % des cercles noirs `R < 110`) !
+    bubble_strips: List[List[np.ndarray]] = []
+    for f_idx in range(15):
+        w_im = np.asarray(decode_red_bg("H02P03W", tick=f_idx * 7, folder=NATIVE_SEA_ROM)[0][0].convert("RGBA"))
+        # Deux colonnes de bulles nettes dans H02P03W : gauche [68:140, 92:118] et droite [52:124, 222:248]
+        pair = []
+        for y0, y1, x0, x1 in [(68, 140, 92, 118), (52, 124, 222, 248)]:
+            crop = w_im[y0:y1, x0:x1].copy()
+            keep = (crop[:, :, 3] > 0) & (crop[:, :, 0] >= 120) & (crop[:, :, 1] >= 120)
+            clean = np.zeros_like(crop)
+            clean[keep, 0] = np.clip(crop[keep, 0].astype(np.int16) - 20, 140, 235).astype(np.uint8)
+            clean[keep, 1] = np.clip(crop[keep, 1].astype(np.int16) + 12, 195, 252).astype(np.uint8)
+            clean[keep, 2] = 255
+            clean[keep, 3] = 255
+            pair.append(clean)
+        bubble_strips.append(pair)
+
+    ys_w, xs_w = np.where(water_mask)
+    emitters: List[Tuple[int, int]] = []
+    if ys_w.size > 0:
+        rng = np.random.default_rng(20261026)
+        for qx in [0.16, 0.28, 0.42, 0.58, 0.72, 0.84]:
+            band = np.where(np.abs(xs_w - int(qx * w)) <= max(16, w // 18))[0]
+            if band.size > 0:
+                pick = band[int(rng.integers(0, band.size))]
+                emitters.append((int(xs_w[pick]), int(ys_w[pick])))
+
+    bubble_frames: List[Image.Image] = []
+    for f_idx in range(15):
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        rise = int(round((float(f_idx) / 15.0) * 24.0))
+        for ei, (ex, ey) in enumerate(emitters):
+            sp = bubble_strips[(f_idx + ei * 3) % 15][ei % 2]
+            sh_b, sw_b = sp.shape[:2]
+            px0 = ex - sw_b // 2
+            py0 = ey - sh_b // 2 - rise
+            x0, x1 = max(0, px0), min(w, px0 + sw_b)
+            y0, y1 = max(0, py0), min(h, py0 + sh_b)
+            if x1 > x0 and y1 > y0:
+                sub = sp[y0 - py0 : y1 - py0, x0 - px0 : x1 - px0]
+                m = sub[:, :, 3] > 0
+                arr[y0:y1, x0:x1][m] = sub[m]
+        bubble_frames.append(Image.fromarray(arr, mode="RGBA"))
+
+    return water_frames, current_frames, bubble_frames
+

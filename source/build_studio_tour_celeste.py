@@ -36,6 +36,46 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "MHA1",
+            "folder": "mer_houleuse_sanctuaire_v1",
+            "ref_rel": "source/mer_houleuse_sanctuaire_v1/references/h02p03_seafloor_cave_native.png",
+            "ref_label": "Référence PMD Red — Caverne Fond-Marin / Kyogre (H02P03 1×)",
+            "zip_rel": ".cache/virtual_zips/MHA1_PMDO_0.8.12.zip",
+            "bg_fill": "#10164a",
+            "subtitle": "POV PMD Mer Houleuse — Sanctuaire Abyssal de Kyogre (H02P03) — Médaillon & runes Primo-Kyogre, lagon #FF00FF -> H10P02/H02P02W 1×, cristaux 100 % statiques",
+            "wind_summary": "Lagon H10P02.bpl 1× (12f @ 10t) | Courants GBA H02P02W 1× (15f @ 8t) | Runes Primo-Kyogre (24f @ 5t) | Bulles H02P03W 1× | Cristaux 100 % statiques",
+        },
+        {
+            "id": "MHE1",
+            "folder": "mer_houleuse_entree_v1",
+            "ref_rel": "source/mer_houleuse_entree_v1/references/h02p02_deep_sea_current_native.png",
+            "ref_label": "Référence PMD Red — Courant Marin Abyssal (H02P02 1×)",
+            "zip_rel": ".cache/virtual_zips/MHE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0a2258",
+            "subtitle": "POV PMD Mer Houleuse — Entrée de la Fosse Abyssale (H02P02) — Chaussée engloutie Sud-Nord, fosse & puits #FF00FF -> H10P02 + H02P02W 1× & vortex spiral",
+            "wind_summary": "Abysse H10P02.bpl 1× (12f @ 10t) | Courants GBA H02P02W.bpl 1× & vortex (15f @ 8t) | Bulles GBA H02P03W 1× (15f @ 8t) | Stèles & plancton (24f)",
+        },
+        {
+            "id": "MFA1",
+            "folder": "mont_foudre_sommet_v1",
+            "ref_rel": "source/mont_foudre_sommet_v1/references/h17p01_thunder_meadow_native.png",
+            "ref_label": "Référence PMD Red — Plaine Éclair / Cime d'Électhor (H17P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MFA1_PMDO_0.8.12.zip",
+            "bg_fill": "#485e5e",
+            "subtitle": "POV PMD Mont Foudre — Cime d'Électhor (H17P01) — Plateau doré Sud-Nord, voûte & faille zigzag #FF00FF -> nuées H17P01, arcs H17P01W1.bpa 1× & plasma",
+            "wind_summary": "Nuées d'orage H17P01 (24f @ 5t) | Arcs GBA H17P01W1.bpa 1× & éclairs fourchus (24f) | Faille plasma zigzag (24f) | Rochers & arbre 100 % statiques",
+        },
+        {
+            "id": "MFE1",
+            "folder": "mont_foudre_entree_v1",
+            "ref_rel": "source/mont_foudre_entree_v1/references/d06p01_mt_thunder_native.png",
+            "ref_label": "Référence PMD Red — Mont Foudre Entrée (D06P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MFE1_PMDO_0.8.12.zip",
+            "bg_fill": "#4a5c5c",
+            "subtitle": "POV PMD Mont Foudre — Entrée (D06P01) — Falaises foudroyées, sentier Sud-Nord, ciel d'orage & vasques #FF00FF -> H17P01W + H10P02 1×",
+            "wind_summary": "Nuées & flashs H17P01 (24f @ 5t) | Arcs GBA H17P01W1.bpa 1× (24f @ 5t) | Vasques H10P02.bpl 1× (12f @ 10t) | Étincelles Top (24f @ 5t)",
+        },
+        {
             "id": "FGA1",
             "folder": "foret_givree_sanctuaire_v1",
             "ref_rel": "source/foret_givree_sanctuaire_v1/references/h24p01_articuno_sanctuary_native.png",
@@ -719,7 +759,13 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FGA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MHA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_mer_houleuse_kyogre_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MHA1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_mont_foudre_electhor_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MFA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_foret_givree_artikodin_pmdo.html").write_text(
         build_html(manifest, default_map_id="FGA1"), encoding="utf-8"
     )
@@ -741,7 +787,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (13 cartes, 130 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (17 cartes, 170 calques 60 FPS).")
 
 
 if __name__ == "__main__":
