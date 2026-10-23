@@ -63,6 +63,39 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "FSE1",
+            "group": "Faille Spatiale · Palkia",
+            "folder": "faille_spatiale_entree_v1",
+            "ref_rel": "source/faille_spatiale_entree_v1/references/d46p41a_spatial_rift_canyon_native.png",
+            "ref_label": "Référence PMD Sky — Faille Spatiale Entrée (D46P41A 1×)",
+            "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
+            "bg_fill": "#120722",
+            "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
+            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers statiques",
+        },
+        {
+            "id": "FSA0",
+            "group": "Faille Spatiale · Palkia",
+            "folder": "faille_spatiale_sanctuaire_avant_portail_v1",
+            "ref_rel": "source/faille_spatiale_sanctuaire_avant_portail_v1/bruts/paroi_nord_scellee_avant_portail.png",
+            "ref_label": "Paroi Rocheuse Nord Scellée (Couture DP 1:1 D45P42A — Avant Ouverture)",
+            "zip_rel": ".cache/virtual_zips/FSA0_PMDO_0.8.12.zip",
+            "bg_fill": "#140826",
+            "subtitle": "Acte I Boss Palkia (Pré-Portail calé 1:1 sur FSA1) — Paroi Nord scellée se brisant en éclats de verre Spatio-Rift dans la silhouette exacte du portail + résonance du cercle central",
+            "wind_summary": "Brisure de réalité en tessons de verre Spatio-Rift (24f @ 5t) | Lueur de portail sous-jacente #FF00FF (24f) | Résonance cercle central (24f) | Dalles & remparts 1:1 FSA1",
+        },
+        {
+            "id": "FSA1",
+            "group": "Faille Spatiale · Palkia",
+            "folder": "faille_spatiale_sanctuaire_v1",
+            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
+            "ref_label": "Référence PMD Sky — Creux de la Faille Spatiale / Palkia (D45P42A 1×)",
+            "zip_rel": ".cache/virtual_zips/FSA1_PMDO_0.8.12.zip",
+            "bg_fill": "#140826",
+            "subtitle": "Acte II Boss Palkia (Portail Ouvert calé 1:1 sur FSA0) — Pont & arène circulaire Sud-Nord, brèche Spatio-Rift blanc-magenta #FF00FF & nébuleuse cosmique",
+            "wind_summary": "Nébuleuse cosmique D45P42A (24f @ 5t) | Déchirure Spatio-Rift blanc-magenta (24f @ 5t) | Anneau d'ondes spatiales (24f) | Piliers statiques",
+        },
+        {
             "id": "MMA1",
             "group": "Mine Magma · Groudon",
             "folder": "mine_magma_arene_v1",
@@ -194,28 +227,6 @@ def export_filmstrips() -> Dict:
             "subtitle": "Fond Planète Terre & Cosmos étoilé + Tour cumulonimbus, cuvette d'arène, croissants, pont Sud-Nord & cumulus Top fidèles à la référence",
             "wind_summary": "Statiques (1 pose) : Planète Terre & alizés, cumulonimbus, cuvette & pont, cumulus Top | Animés : Cosmos étoilé & reflets D13P01.bpl",
         },
-        {
-            "id": "FSE1",
-            "group": "Faille Spatiale · Palkia",
-            "folder": "faille_spatiale_entree_v1",
-            "ref_rel": "source/faille_spatiale_entree_v1/references/d46p41a_spatial_rift_canyon_native.png",
-            "ref_label": "Référence PMD Sky — Faille Spatiale Entrée (D46P41A 1×)",
-            "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
-            "bg_fill": "#120722",
-            "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
-            "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers statiques",
-        },
-        {
-            "id": "FSA1",
-            "group": "Faille Spatiale · Palkia",
-            "folder": "faille_spatiale_sanctuaire_v1",
-            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
-            "ref_label": "Référence PMD Sky — Creux de la Faille Spatiale / Palkia (D45P42A 1×)",
-            "zip_rel": ".cache/virtual_zips/FSA1_PMDO_0.8.12.zip",
-            "bg_fill": "#140826",
-            "subtitle": "POV PMD Sky Faille Spatiale — Sanctuaire de Palkia (D45P42A) — Pont & arène circulaire Sud-Nord, brèche Spatio-Rift blanc-magenta #FF00FF & nébuleuse cosmique",
-            "wind_summary": "Nébuleuse cosmique D45P42A (24f @ 5t) | Déchirure Spatio-Rift blanc-magenta (24f @ 5t) | Anneau d'ondes spatiales (24f) | Piliers statiques",
-        },
     ]
 
     manifest_maps: List[Dict] = []
@@ -307,7 +318,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — 14 Maps Légendaires (140 Calques Temps Réel)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — 15 Maps Légendaires (150 Calques Temps Réel)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -558,7 +569,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
         <p id="mapSubtitle">Chargement des planches pixel-art...</p>
       </div>
-      <div class="status-line">14 Cartes · 140 Calques Temps Réel · Grille 2D GPU-Safe</div>
+      <div class="status-line">15 Cartes · 150 Calques Temps Réel · Grille 2D GPU-Safe</div>
     </div>
     <nav class="map-tabs" id="mapTabs"></nav>
   </header>
@@ -851,7 +862,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MMA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FSA0"), encoding="utf-8")
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
@@ -865,9 +876,9 @@ def main() -> None:
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
-        build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
+        build_html(manifest, default_map_id="FSA0"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (14 cartes, 140 calques 60 FPS, grilles 2D <= 4608px).")
+    print("[Studio] index.html et les aperçus dédiés générés (15 cartes, 150 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":

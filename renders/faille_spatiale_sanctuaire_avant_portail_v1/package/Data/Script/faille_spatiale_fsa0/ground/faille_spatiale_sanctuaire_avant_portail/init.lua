@@ -1,0 +1,2 @@
+local faille_spatiale_sanctuaire_avant_portail = {}
+return faille_spatiale_sanctuaire_avant_portail
