@@ -81,9 +81,9 @@ def export_filmstrips() -> Dict:
             "ref_rel": "source/mine_magma_entree_v1/references/d40p11a_dark_crater_entrance.png",
             "ref_label": "Référence PMD Sky — Dark Crater Entrance (d40p11a 1×)",
             "zip_rel": ".cache/virtual_zips/MME1_PMDO_0.8.12.zip",
-            "bg_fill": "#0d0808",
-            "subtitle": "POV PMD 100 % Roche Noire Volcanique (d40p11a) + Lave Dark Crater Pit 1× (d41p41a) — Seuil Nord noir profond, 0 cascade & rive uniquement au bas de la chaussée",
-            "wind_summary": "POV PMD roche noire | Lave Dark Crater Pit 1× & veines #FF00FF (12f @ 10t) | Rive basse uniquement, 0 halo sur rochers hauts (15f @ 8t)",
+            "bg_fill": "#0a0809",
+            "subtitle": "POV PMD 100 % Roche Noire Volcanique & Gouffres Sombres Sans Lave (d40p11a) — Zéro lave/magma à l'entrée, vapeur volcanique montante & seuil Nord noir profond",
+            "wind_summary": "Zéro lave à l'entrée | Gouffres abyssaux #FF00FF & vapeur sombre (12f @ 10t) | Brume de rebord bas uniquement (15f @ 8t) | Cendres sombres Top (16f @ 7t)",
         },
         {
             "id": "MMA1",
@@ -91,9 +91,9 @@ def export_filmstrips() -> Dict:
             "ref_rel": "source/mine_magma_arene_v1/references/dark_crater_pit/d41p41a_preview.png",
             "ref_label": "Référence PMD Sky — Dark Crater Pit (d41p41a 1×)",
             "zip_rel": ".cache/virtual_zips/MMA1_PMDO_0.8.12.zip",
-            "bg_fill": "#220604",
-            "subtitle": "POV PMD Roche Noire + Lave Dark Crater Pit 1× — Entrée Nord-Sud noire entre 2 fentes de magma, 4 colonnes ascendantes, bouches bouillonnantes & rive basse",
-            "wind_summary": "4 colonnes ascendantes -8px/pose & bouches d'ébullition (24f @ 5t) | Entrée noire entre 2 fentes magma | Rive basse uniquement (0 sur pitons hauts)",
+            "bg_fill": "#1a0504",
+            "subtitle": "POV PMD Arène de Groudon — Mer de magma assombrie (d41p41a 1×), 0 lave à l'entrée Nord, 8 Lames Pangéennes jaillissant autour de l'arène & 4 colonnes ascendantes",
+            "wind_summary": "8 Lames Pangéennes jaillissantes (24f @ 5t) | 4 colonnes ascendantes -8px/pose (24f @ 5t) | Mer magma assombrie (12f @ 10t) | Entrée Nord noire sans lave",
         },
     ]
 

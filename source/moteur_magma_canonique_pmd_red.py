@@ -569,16 +569,75 @@ def load_dark_crater_pit_96x96() -> np.ndarray:
     return np.stack(arrs, axis=0)
 
 
+def _apply_volcanic_sea_darken(rgb: np.ndarray) -> np.ndarray:
+    """Assombrit légèrement et densifie la mer de magma `Dark Crater Pit` (`d41p41a` `1×`) :
+    conserve 100 % de la structure cellulaire native `96×96` mais calme nettement l'éblouissement
+    jaune vif vers un rouge volcanique sombre et ambre profond (`R >= G > B`, 0 dérive violette)."""
+    f = rgb.astype(np.float32) / 255.0
+    r = np.rint(255.0 * 0.74 * (f[..., 0] ** 1.12)).clip(0, 255)
+    g = np.rint(255.0 * 0.58 * (f[..., 1] ** 1.18)).clip(0, 255)
+    b = np.minimum(g * 0.50, np.rint(255.0 * 0.46 * (f[..., 2] ** 1.15))).clip(0, 255)
+    return np.stack([r, g, b], axis=-1).astype(np.uint8)
+
+
+def build_dark_abyss_chasm_frames(
+    w: int = 768,
+    h: int = 576,
+    mask: np.ndarray | None = None,
+    n_frames: int = 12,
+    smoke_layer: bool = False,
+) -> List[Image.Image]:
+    """Génère un gouffre volcanique sombre sans lave (`0` rouge/orange/jaune) pour `MME1` :
+    - `smoke_layer=False` : abysse basaltique noir profond (`RGB 7..20`) à houle de brume lente ;
+    - `smoke_layer=True`  : volutes ascendantes de vapeur volcanique gris-anthracite (`RGB 18..36`)."""
+    yy, xx = np.mgrid[:h, :w].astype(np.float32)
+    tau = 2.0 * np.pi
+    frames: List[Image.Image] = []
+    for f in range(n_frames):
+        s = float(f) / float(n_frames)
+        # Remontée lente des nappes de vapeur sombre (`+ s` => montée vers le haut)
+        w1 = np.sin(tau * (yy / 96.0 + s) + 1.15 * np.sin(tau * xx / 160.0))
+        w2 = np.cos(tau * (yy / 64.0 + 2.0 * s) - 0.90 * np.cos(tau * xx / 112.0))
+        field = 0.62 * w1 + 0.38 * w2
+        arr = np.zeros((h, w, 4), dtype=np.uint8)
+        if smoke_layer:
+            vis = field > 0.22
+            if mask is not None:
+                vis = vis & mask
+            val = np.rint(20.0 + 13.0 * np.clip((field - 0.22) / 0.78, 0.0, 1.0)).astype(np.uint8) & 0xFC
+            arr[vis, 0] = val[vis]
+            arr[vis, 1] = np.maximum(val[vis] - 2, 0)
+            arr[vis, 2] = val[vis]
+            arr[vis, 3] = 255
+        else:
+            val = np.rint(11.0 + 6.5 * (0.5 + 0.5 * field)).astype(np.uint8) & 0xFE
+            if mask is None:
+                arr[..., 0] = val
+                arr[..., 1] = np.maximum(val - 1, 0)
+                arr[..., 2] = val
+                arr[..., 3] = 255
+            else:
+                arr[mask, 0] = val[mask]
+                arr[mask, 1] = np.maximum(val[mask] - 1, 0)
+                arr[mask, 2] = val[mask]
+                arr[mask, 3] = 255
+        frames.append(Image.fromarray(arr, mode="RGBA"))
+    return frames
+
+
 def build_dark_crater_pit_magma_frames(
     w: int = 768,
     h: int = 576,
     mask: np.ndarray | None = None,
     phase_offset: int = 0,
     roll_xy: Tuple[int, int] = (0, 0),
+    sea_darken: bool = False,
 ) -> List[Image.Image]:
     """Assemble sans aucune couture ni interpolation (`1×` natif exact) les `12` phases matérielles
     (`FrameLength = 10` ticks, cycle `120` ticks) de la lave de `Dark Crater Pit` (`d41p41a`)."""
     canon_96 = load_dark_crater_pit_96x96()
+    if sea_darken:
+        canon_96 = _apply_volcanic_sea_darken(canon_96)
     rx, ry = roll_xy
     reps_y = h // 96 + 2
     reps_x = w // 96 + 2
@@ -603,6 +662,7 @@ def render_dark_crater_viscous_shoreline(
     open_magma_mask: np.ndarray,
     n_frames: int = 15,
     band_px: float = 11.5,
+    sea_darken: bool = False,
 ) -> List[Image.Image]:
     """Animation visqueuse de rive & croûte de bordure rocher calibrée à `100 %` sur la rampe
     exacte 13 tons de `Dark Crater Pit` (`d41p41a`, `0` damier, `alpha ∈ {0, 255}`) :
@@ -702,10 +762,11 @@ def render_dark_crater_viscous_shoreline(
         )
         pal_idx = np.where(on_lip_crust, np.where(dv <= 1.5, 0, np.where(dv <= 2.6, 1, 2)), pal_idx)
 
+        shore_pal = _apply_volcanic_sea_darken(DARK_CRATER_VISCOUS_PAL) if sea_darken else DARK_CRATER_VISCOUS_PAL
         arr = np.zeros((h, w, 4), dtype=np.uint8)
         vis_ys = ys[opaque]
         vis_xs = xs[opaque]
-        arr[vis_ys, vis_xs, :3] = DARK_CRATER_VISCOUS_PAL[pal_idx[opaque]]
+        arr[vis_ys, vis_xs, :3] = shore_pal[pal_idx[opaque]]
         arr[vis_ys, vis_xs, 3] = 255
         frames.append(Image.fromarray(arr, mode="RGBA"))
 

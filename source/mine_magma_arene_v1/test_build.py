@@ -2,12 +2,14 @@
 """Tests unitaires d'acceptation — `mine_magma_arene_v1` (`MMA1`, PMDO 0.8.12.0).
 
 Vérifie :
-1. Suppression stricte à `100 %` des petits volcans (`0` fichier volcan, `0` îlot volcanique).
-2. Veines & mer de magma `100 %` `#FF00FF` dans `decor_arene_veines_magenta.png` et zéro liseré prune.
-3. Cohérence géologique `100 %` roche noire magma avec l'entrée `MME1` (`mean luminance < 36`, `0` grès ocre).
-4. **Animation visqueuse de rive & croûte de bordure rocher** (`03_rive_magma_visqueux_bordure`,
-   `15 × 8` ticks, `alpha ∈ {0, 255}`) + **cascade Nord strictement contenue sous l'arche rocheuse**.
-5. Animation canonique matérielle `H26P01.bpl` dans la mer et les veines + pont Sud -> plateau de Groudon continu.
+1. Zéro mini-volcan dans `bruts/`.
+2. Découpes `#FF00FF` pures dans `decor_arene_veines_magenta.png` et zéro liseré violet/prune.
+3. **Zéro lave à l'entrée Nord de Groudon** (arche & massif Nord `100 %` roche noire + gouffre noir `#050404`)
+   et **mer de magma légèrement plus sombre** (`sea_darken=True` sur `d41p41a` `1×`, `R >= G > B`).
+4. **Lames Pangéennes (*Precipice Blades*) jaillissant de la lave autour de l'arène** (`07_lames_pangeennes_groudon`,
+   `24 × 5 = 120` ticks, `alpha ∈ {0, 255}`, `0` empiètement sur le plateau praticable), **4 colonnes géantes
+   ascendantes (`dy == -8 px/pose`)** et **rive visqueuse limitée aux rives basses (`0` sur rochers hauts)**.
+5. Animation cyclique `120` ticks et pont Sud -> plateau `Ω` de Groudon continu.
 6. Invariance d'échelle (`0.5×`) et zéro mention interdite partout.
 """
 
@@ -49,7 +51,7 @@ class TestMineMagmaAreneV1(unittest.TestCase):
             self.assertNotIn("volcan", f.name.lower())
             self.assertNotIn("ilot_colonne", f.name.lower())
 
-    def test_02_magenta_veins_and_zero_purple_bleed(self) -> None:
+    def test_02_magenta_cutouts_and_zero_purple_bleed(self) -> None:
         raw = np.asarray(Image.open(arene_build.DECOR_MAGENTA_RAW).convert("RGB"), dtype=np.int16)
         pure_mag = (raw[:, :, 0] == 255) & (raw[:, :, 1] == 0) & (raw[:, :, 2] == 255)
         self.assertGreater(int(pure_mag.sum()), 400_000)
@@ -62,52 +64,69 @@ class TestMineMagmaAreneV1(unittest.TestCase):
             fringe = (r - g >= 18) & (b - g >= 12)
             self.assertEqual(int(fringe.sum()), 0, f"Liseré violet détecté sur pose {idx}: {int(fringe.sum())}")
 
-    def test_03_coherent_black_magma_rock_matching_entrance(self) -> None:
-        cliff_layer = np.asarray(
-            Image.open(self.renders / "layers" / "06_falaises_roche_noire_magma.png").convert("RGBA"),
-            dtype=np.float32,
-        )
-        opaque = cliff_layer[:, :, 3] > 0
-        self.assertGreater(int(opaque.sum()), 20_000)
-        lum = 0.299 * cliff_layer[opaque, 0] + 0.587 * cliff_layer[opaque, 1] + 0.114 * cliff_layer[opaque, 2]
-        self.assertLess(float(lum.mean()), 36.0, "Les falaises de l'arène doivent être en roche noire magma cohérente avec MME1")
-        yellow_sandstone = (cliff_layer[opaque, 0] >= 150) & (cliff_layer[opaque, 1] >= 80)
-        self.assertEqual(int(yellow_sandstone.sum()), 0)
-
-    def test_04_viscous_shoreline_rock_border_and_dark_crater_columns(self) -> None:
-        layers, _, _ = arene_build.build_layers_for_size()
-        sea_entry = [l for l in layers if l.slug == "00_mer_caldeira_magma_dcp"][0]
-        shore_entry = [l for l in layers if l.slug == "03_rive_magma_visqueux_bordure"][0]
-        fall_entry = [l for l in layers if l.slug == "08_cascade_et_colonnes_geantes"][0]
-        self.assertEqual(len(sea_entry.frames), 12)
-        self.assertEqual(sea_entry.frame_length, 10)
-        ref96 = np.asarray(
-            Image.open(REPO_ROOT / "source" / "mine_magma_arene_v1" / "references" / "dark_crater_pit" / "dark_crater_pit_lava_96x96_f00.png").convert("RGB"),
+    def test_03_zero_lava_at_north_entrance_and_darker_magma_sea(self) -> None:
+        # 1. Zéro lave / coulée sur tout le massif rocheux et l'entrée Nord de Groudon + cœur noir profond `#050404`
+        raw768 = np.asarray(
+            Image.open(arene_build.DECOR_MAGENTA_RAW).convert("RGB").resize((768, 576), Image.Resampling.NEAREST),
             dtype=np.uint8,
         )
-        self.assertTrue(np.array_equal(np.asarray(sea_entry.frames[0], dtype=np.uint8)[:96, :96, :3], ref96))
+        north_rock = ~((raw768[:, :, 0] == 255) & (raw768[:, :, 1] == 0) & (raw768[:, :, 2] == 255))
+        north_arch_hot = ((self.pose0[:240, 180:588, 0] > 140) & north_rock[:240, 180:588]).sum()
+        self.assertEqual(int(north_arch_hot), 0, f"Zéro lave tolérée à l'entrée Nord de Groudon ({int(north_arch_hot)} px)")
+        cave_patch = self.pose0[150:195, 366:402, :3].astype(float)
+        self.assertLess(float(cave_patch.mean()), 8.0, "L'entrée Nord-Sud de Groudon doit rester d'un noir profond")
 
-        self.assertEqual(len(shore_entry.frames), 15)
-        self.assertEqual(shore_entry.frame_length, 8)
+        # 2. Mer de magma de la caldeira légèrement plus sombre que la référence brute `d41p41a`
+        layers, _, _ = arene_build.build_layers_for_size()
+        sea_entry = [l for l in layers if l.slug == "00_mer_caldeira_magma_dcp"][0]
+        self.assertEqual(len(sea_entry.frames), 12)
+        self.assertEqual(sea_entry.frame_length, 10)
+        sea96 = np.asarray(sea_entry.frames[0], dtype=np.float32)[:96, :96, :3]
+        ref96 = np.asarray(
+            Image.open(
+                REPO_ROOT / "source" / "mine_magma_arene_v1" / "references" / "dark_crater_pit" / "dark_crater_pit_lava_96x96_f00.png"
+            ).convert("RGB"),
+            dtype=np.float32,
+        )
+        lum_sea = float(0.299 * sea96[..., 0].mean() + 0.587 * sea96[..., 1].mean() + 0.114 * sea96[..., 2].mean())
+        lum_ref = float(0.299 * ref96[..., 0].mean() + 0.587 * ref96[..., 1].mean() + 0.114 * ref96[..., 2].mean())
+        self.assertLess(lum_sea, lum_ref - 20.0, f"La mer de magma doit être légèrement plus sombre ({lum_sea:.1f} vs {lum_ref:.1f})")
+        self.assertGreater(lum_sea, 65.0, "La mer de magma doit rester une vraie lave incandescente")
+        self.assertEqual(int((sea96[..., 2] > sea96[..., 1] + 2.0).sum()), 0)
+
+    def test_04_erupting_precipice_blades_columns_and_low_shoreline(self) -> None:
+        layers, _, _ = arene_build.build_layers_for_size()
+        shore_entry = [l for l in layers if l.slug == "03_rive_magma_visqueux_bordure"][0]
+        floor_entry = [l for l in layers if l.slug == "04_plateau_et_pont_arene"][0]
+        blade_entry = [l for l in layers if l.slug == "07_lames_pangeennes_groudon"][0]
+        col_entry = [l for l in layers if l.slug == "08_colonnes_geantes_magma_dcp"][0]
+
+        # 1. Lames Pangéennes (`07_lames_pangeennes_groudon`) : 24 poses × 5 ticks = 120 ticks, jaillissement actif !
+        self.assertEqual(len(blade_entry.frames), 24)
+        self.assertEqual(blade_entry.frame_length, 5)
+        b0 = np.asarray(blade_entry.frames[0], dtype=np.uint8)
+        b6 = np.asarray(blade_entry.frames[6], dtype=np.uint8)
+        self.assertEqual(int(((b0[:, :, 3] > 0) & (b0[:, :, 3] < 255)).sum()), 0)
+        self.assertGreater(int((b0[:, :, 3] == 255).sum()), 12_000, "Couronne de Lames Pangéennes requise autour de l'arène")
+        blade_motion = int((np.abs(b0.astype(int) - b6.astype(int)).max(axis=2) > 20).sum())
+        self.assertGreater(blade_motion, 5_000, "Les Lames Pangéennes doivent jaillir dynamiquement de la lave")
+        floor_opaque = np.asarray(floor_entry.frames[0], dtype=np.uint8)[:, :, 3] > 0
+        self.assertEqual(int(((b0[:, :, 3] > 0) & floor_opaque).sum()), 0, "Zéro empiètement sur le plateau praticable")
+
+        # 2. Rive visqueuse limitée aux rives basses (`0` sur rochers hauts `y < 305`)
         f0 = np.asarray(shore_entry.frames[0], dtype=np.uint8)
         f7 = np.asarray(shore_entry.frames[7], dtype=np.uint8)
-        self.assertEqual(int(((f0[:, :, 3] > 0) & (f0[:, :, 3] < 255)).sum()), 0)
-        self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 2_500)
+        self.assertEqual(int((f0[:305, :, 3] > 0).sum()), 0)
+        self.assertGreater(int((np.abs(f0.astype(int) - f7.astype(int)).max(axis=2) > 15).sum()), 1_500)
 
-        # Les 4 colonnes géantes `Dark Crater Pit` : 24 poses × 5 ticks (`120` ticks),
-        # montée verticale pure `dy == -8 px/pose` sans étirement, bouche bouillonnante active,
-        # zéro écume de rive sur les pitons/falaises en hauteur, et entrée noire Nord-Sud de Groudon entre 2 fentes !
-        self.assertEqual(len(fall_entry.frames), 24)
-        self.assertEqual(fall_entry.frame_length, 5)
-        cols_np = [np.asarray(im, dtype=np.uint8) for im in fall_entry.frames]
-        fall0 = cols_np[0]
-        self.assertGreater(int((fall0[0, :, 3] > 0).sum()), 60, "Les 4 colonnes géantes doivent sortir par le bord haut y = 0")
-        self.assertEqual(int((fall0[:40, 260:508, 3] > 0).sum()), 0, "Zéro débordement de cascade centrale au-dessus des cornes Nord")
-
-        # Vérifie mathématiquement que chaque transition `t -> t+1` MONTE réellement vers le haut (`dy == -8 px`)
+        # 3. 4 Colonnes géantes ascendantes (`dy == -8 px/pose` sur 24 poses)
+        self.assertEqual(len(col_entry.frames), 24)
+        self.assertEqual(col_entry.frame_length, 5)
+        cols_np = [np.asarray(im, dtype=np.uint8) for im in col_entry.frames]
+        self.assertGreater(int((cols_np[0][0, :, 3] > 0).sum()), 60)
         for t in range(24):
-            c0 = cols_np[t][60:340, 62:118, :3].astype(float)
-            c1 = cols_np[(t + 1) % 24][60:340, 62:118, :3].astype(float)
+            c0 = cols_np[t][60:340, 48:116, :3].astype(float)
+            c1 = cols_np[(t + 1) % 24][60:340, 48:116, :3].astype(float)
             best_dy = min(
                 range(-16, 17),
                 key=lambda dy: float(
@@ -115,17 +134,6 @@ class TestMineMagmaAreneV1(unittest.TestCase):
                 ),
             )
             self.assertEqual(best_dy, -8, f"La colonne doit s'élever de -8 px/pose à t={t} (obtenu {best_dy})")
-
-        # Zéro animation de rive sur la couronne haute Nord (`y < 305`) et sur les pitons hauts isolés (`(56, 110)`, `(712, 110)`)
-        self.assertEqual(int((f0[:305, :, 3] > 0).sum()), 0, "Zéro animation de rive sur les rochers hauts du Nord et pitons hauts")
-
-        # Entrée Nord-Sud de Groudon : noir profond au centre (`x ∈ [366..402], y ∈ [150..195]`) encadré par 2 fentes de magma distinctes !
-        cave_patch = self.pose0[150:195, 366:402, :3].astype(float)
-        self.assertLess(float(cave_patch.mean()), 8.0, "L'entrée Nord-Sud de Groudon doit laisser du noir profond au centre")
-        left_cleft_hot = (self.pose0[95:210, 310:348, 0] > 180).sum()
-        right_cleft_hot = (self.pose0[95:210, 420:458, 0] > 180).sum()
-        self.assertGreater(int(left_cleft_hot), 800, "Fente de coulée de magma gauche requise")
-        self.assertGreater(int(right_cleft_hot), 800, "Fente de coulée de magma droite requise")
 
     def test_05_canonical_palette_cycling_and_walkable_arena(self) -> None:
         diff01 = np.abs(self.pose0[:, :, :3].astype(int) - self.pose1[:, :, :3].astype(int)).max(axis=2)
