@@ -36,6 +36,46 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "FGA1",
+            "folder": "foret_givree_sanctuaire_v1",
+            "ref_rel": "source/foret_givree_sanctuaire_v1/references/h24p01_articuno_sanctuary_native.png",
+            "ref_label": "Référence PMD Red — Sanctuaire d'Artikodin (H24P01 1×)",
+            "zip_rel": ".cache/virtual_zips/FGA1_PMDO_0.8.12.zip",
+            "bg_fill": "#d8ecfc",
+            "subtitle": "POV PMD Forêt Givrée — Sanctuaire d'Artikodin (H24P01) — Médaillon Flocon, vasques & cascades #FF00FF -> eau H10P02 1× & cristaux 100 % statiques",
+            "wind_summary": "Eau & cascades GBA H10P02.bpl 1× (12f @ 10t) | Aurore Boréale (24f @ 5t) | Reflet Médaillon (24f) | Blizzard W03P03 Top (24f) | Cristaux 100 % statiques",
+        },
+        {
+            "id": "FGE1",
+            "folder": "foret_givree_entree_v1",
+            "ref_rel": "source/foret_givree_entree_v1/references/d10p01_frosty_forest_native.png",
+            "ref_label": "Référence PMD Red — Forêt Givrée Entrée (D10P01 1×)",
+            "zip_rel": ".cache/virtual_zips/FGE1_PMDO_0.8.12.zip",
+            "bg_fill": "#44609c",
+            "subtitle": "POV PMD Forêt Givrée — Entrée (D10P01) — Sentier enneigé Sud-Nord, ruisseaux #FF00FF -> eau GBA H10P02 1×, Aurore Boréale & blizzard W03P03",
+            "wind_summary": "Eau glaciaire GBA H10P02.bpl 1× (12f @ 10t) | Écume de berge (12f @ 10t) | Aurore Boréale (24f @ 5t) | Blizzard W03P03 Top (24f @ 5t)",
+        },
+        {
+            "id": "MBE1",
+            "folder": "mont_brasier_entree_v1",
+            "ref_rel": "source/mont_brasier_entree_v1/references/d09p01_mt_blaze_native.png",
+            "ref_label": "Référence PMD Red — Mont Brasier Entrée (D09P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MBE1_PMDO_0.8.12.zip",
+            "bg_fill": "#201620",
+            "subtitle": "POV PMD Mont Brasier — Entrée (D09P01) — Colonnes basaltiques, chaussée terracotta Sud-Nord, 2 cascades & bassins #FF00FF -> lave d41p41a 1×",
+            "wind_summary": "Double cascade verticale lave (24f @ 5t) | Bassins d41p41a 1× (12f @ 10t) | Rive visqueuse (15f @ 8t) | Braises W04 Top (16f @ 7t)",
+        },
+        {
+            "id": "MBA1",
+            "folder": "mont_brasier_sommet_v1",
+            "ref_rel": "source/mont_brasier_sommet_v1/references/h19p01_moltres_crater_native.png",
+            "ref_label": "Référence PMD Red — Cratère de Sulfura (H19P01 1×)",
+            "zip_rel": ".cache/virtual_zips/MBA1_PMDO_0.8.12.zip",
+            "bg_fill": "#38120c",
+            "subtitle": "POV PMD Mont Brasier — Cime de Sulfura (H19P01) — Pont Sud-Nord, rosace & caldeira #FF00FF -> magma d41p41a 1×, fumées cratériques & braises W04",
+            "wind_summary": "Caldeira & rosace d41p41a 1× (12f @ 10t) | Rive visqueuse (15f @ 8t) | Fumées H19P01 (24f @ 5t) | Braises W04 Top (16f @ 7t)",
+        },
+        {
             "id": "TCE1",
             "folder": "tour_celeste_entree_v1",
             "ref_rel": "source/tour_celeste_entree_v1/references/ref_entree_tornades_user.png",
@@ -679,7 +719,13 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TCE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FGA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_foret_givree_artikodin_pmdo.html").write_text(
+        build_html(manifest, default_map_id="FGA1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_mont_brasier_sulfura_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MBE1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_tour_celeste_trilogie_pmdo.html").write_text(
         build_html(manifest, default_map_id="TCE1"), encoding="utf-8"
     )
@@ -695,7 +741,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (9 cartes, 90 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (13 cartes, 130 calques 60 FPS).")
 
 
 if __name__ == "__main__":

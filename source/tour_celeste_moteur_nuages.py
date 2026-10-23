@@ -463,7 +463,14 @@ def compose_frame(layers: Sequence[LayerEntry], frame_idx: int) -> Image.Image:
     w, h = layers[0].frames[0].size
     canvas = Image.new("RGBA", (w, h), (0, 0, 0, 255))
     for layer in layers:
-        fr = layer.frames[frame_idx % len(layer.frames)]
+        n_lf = len(layer.frames)
+        if n_lf <= 1:
+            fr = layer.frames[0]
+        elif n_lf == N_FRAMES:
+            fr = layer.frames[frame_idx % n_lf]
+        else:
+            tick = frame_idx * FRAME_TICKS
+            fr = layer.frames[(tick // max(1, int(layer.frame_length))) % n_lf]
         canvas.alpha_composite(fr)
     return canvas
 
