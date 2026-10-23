@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Constructeur PMDO 0.8.12.0 — ZKA1 : Sommet de l'Orage Noir — Tornade Cyclonique 360° de Zekrom.
+"""Constructeur PMDO 0.8.12.0 — ZKA1 : Sommet Mt. Thunder — Cyclone Cylindrique Électrique 360° (Zekrom).
 
 Architecture multicalque 10 calques (`768 × 576`, `96 × 72` tuiles, boucle maîtresse `120` ticks) :
-  - Pic rocheux central en basalte/obsidienne sculpté avec grain minéral `1×` Chunsoft `H26P01`,
-    escalier Sud sortant de la grotte, pont d'arête rocheuse Sud -> Nord et arène circulaire runique
-    pour l'arrivée de Zekrom.
-  - Tout le pourtour `360°` peint en `#FF00FF` sur le brut est remplacé par une tornade cyclonique 3D
-    géante de nuages noirs électriques en rotation continue autour du sommet + éclairs bleus Zekrom
-    (`Charge Foudre` + sprites matériels GBA `H17P01W1.bpa` `1×` bleutés) + couronne en surplomb `Top`.
+  - Sommet rocheux naturel `1×` style *Mt. Thunder Summit* (`thunder.png` + `D06P01`) centré dans l'œil :
+    jupe d'escarpement vertical, pitons coniques périphériques, plateau d'arène craquelé dégagé au centre
+    et arête/escalier rocheux Sud menant du bord Sud jusqu'au sommet (`4` calques statiques `1` pose).
+  - Cyclone cylindrique creux 3D à `360°` animé autour du sommet (`24` poses @ `5` ticks) :
+    paroi interne arrière concave défilant de Gauche -> Droite, colonnes tangentielles Ouest/Est,
+    rubans hélicoïdaux de plasma électrique, éclairs bleus ramifiés `Charge Foudre`, reflets ionisés sur
+    les crêtes, et lèvre avant en surplomb `Top` défilant en sens inverse (Droite -> Gauche) pour fermer
+    le cylindre en 3D autour du joueur.
 """
-
 from __future__ import annotations
 
 import json
@@ -22,16 +23,19 @@ from PIL import Image
 from scipy import ndimage
 
 SOURCE_DIR = Path(__file__).resolve().parent.parent
-if str(SOURCE_DIR) not in sys.path:
-    sys.path.insert(0, str(SOURCE_DIR))
+REPO_ROOT = SOURCE_DIR.parent
+for p in (str(REPO_ROOT), str(SOURCE_DIR)):
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from moteur_legendaires_zekrom_dialga_palkia import (  # type: ignore
-    build_zekrom_black_tornado_layers,
-    clean_brut_magenta_fringe,
+from source.moteur_cyclones_cylindriques_unova import (
+    H as H_NAT,
+    W as W_NAT,
+    build_cylindrical_cyclone_layers,
+    sanitize_rgba_binary,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
     H_CANON,
-    N_FRAMES,
     TILE_SIZE,
     W_CANON,
     LayerEntry,
@@ -39,168 +43,94 @@ from tour_celeste_moteur_nuages import (  # type: ignore
 )
 
 MAP_ID = "ZKA1"
-MAP_TITLE = "Sommet de Zekrom — Tornade Noire Électrique 360°"
+MAP_TITLE = "Sommet Mt. Thunder — Cyclone Cylindrique Électrique 360° (Zekrom)"
 
 HERE = Path(__file__).resolve().parent
-REPO_ROOT = HERE.parent.parent
 BRUT_PATH = HERE / "bruts" / "base_zekrom_sommet_tornade.png"
 RAW_BRUT_PNG = BRUT_PATH
-CANON_REF = HERE / "references" / "v38p07a_storm_peak_electric_glow_native.png"
-ROM_DIR = SOURCE_DIR / "assets_gba_pmd_red"
+CANON_REF = HERE / "references" / "ref_canon_zekrom_sommet_tornade.png"
 RENDERS_DIR = REPO_ROOT / "renders" / "zekrom_sommet_tornade_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
 
-def _to_imgs(arrs: List[np.ndarray]) -> List[Image.Image]:
-    return [Image.fromarray(a, mode="RGBA") for a in arrs]
+def _resize_frames(frames: List[Image.Image], w: int, h: int) -> List[Image.Image]:
+    if (w, h) == (W_NAT, H_NAT):
+        return frames
+    return [im.resize((w, h), Image.Resampling.NEAREST) for im in frames]
 
 
-def sculpt_obsidian_summit_palette(rgb_in: np.ndarray, rock_mask: np.ndarray) -> np.ndarray:
-    """Rehausse le pic de basalte noir en ardoise/obsidienne PMD ciselée (zéro aplat noir bouché `#000000`
-    invisible dans le vide, tout en conservant des gravures runiques et contours pixel-art nets)."""
-    out = rgb_in.copy()
-    lum = (
-        0.299 * out[:, :, 0].astype(np.float32)
-        + 0.587 * out[:, :, 1].astype(np.float32)
-        + 0.114 * out[:, :, 2].astype(np.float32)
-    )
-    lifted = 24.0 + np.power(np.clip(lum / 88.0, 0.0, 1.35), 0.76) * 116.0
-    q = (np.rint(lifted / 8.0) * 8.0).astype(np.int32)
-    r_ch = np.clip((q * 88) // 100, 14, 174).astype(np.uint8)
-    g_ch = np.clip((q * 100) // 100 + 4, 18, 194).astype(np.uint8)
-    b_ch = np.clip((q * 126) // 100 + 14, 28, 228).astype(np.uint8)
-    seams = rock_mask & (lum < 14.0)
-    out[rock_mask, 0] = r_ch[rock_mask]
-    out[rock_mask, 1] = g_ch[rock_mask]
-    out[rock_mask, 2] = b_ch[rock_mask]
-    out[seams] = (14, 20, 34)
-    return out
+def _merge_frame_lists(a_list: List[Image.Image], b_list: List[Image.Image]) -> List[Image.Image]:
+    merged: List[Image.Image] = []
+    for a_im, b_im in zip(a_list, b_list):
+        c = a_im.copy()
+        c.alpha_composite(b_im)
+        merged.append(c)
+    return merged
 
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray]:
-    im_raw = Image.open(BRUT_PATH).convert("RGB")
-    if im_raw.size != (w, h):
-        im_raw = im_raw.resize((w, h), Image.Resampling.NEAREST)
-    rgb_raw = np.asarray(im_raw, dtype=np.uint8).copy()
+    rgb_nat = np.asarray(Image.open(BRUT_PATH).convert("RGB"), dtype=np.uint8)
+    yy_n, xx_n = np.mgrid[0:H_NAT, 0:W_NAT]
 
-    r = rgb_raw[:, :, 0].astype(np.int32)
-    g = rgb_raw[:, :, 1].astype(np.int32)
-    b = rgb_raw[:, :, 2].astype(np.int32)
-    vortex_mask = (r >= 215) & (g <= 50) & (b >= 215)
-    rgb_clean = clean_brut_magenta_fringe(rgb_raw, vortex_mask)
-    rock_mask = ~vortex_mask
-    rgb = sculpt_obsidian_summit_palette(rgb_clean, rock_mask)
+    vortex_nat = (rgb_nat[:, :, 0] >= 245) & (rgb_nat[:, :, 1] <= 12) & (rgb_nat[:, :, 2] >= 245)
+    rock_nat = ~vortex_nat
 
-    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    cx, cy = w * 0.50, h * 0.445
-    scale_x = 768.0 / w
-    scale_y = 576.0 / h
+    # Partition des 4 calques rocheux statiques 1x de Mt. Thunder Summit (indices 3, 4, 5, 6)
+    lum = (
+        0.299 * rgb_nat[:, :, 0].astype(np.float32)
+        + 0.587 * rgb_nat[:, :, 1].astype(np.float32)
+        + 0.114 * rgb_nat[:, :, 2].astype(np.float32)
+    )
+    is_south_stairs = rock_nat & (yy_n >= 374) & (np.abs(xx_n - 384) <= 68)
+    # Le sol plat sablo-minéral de Mt. Thunder Summit est clair et peu saturé au centre du pic
+    dist_void = ndimage.distance_transform_edt(rock_nat)
+    is_plateau_floor = (
+        rock_nat
+        & (~is_south_stairs)
+        & (yy_n <= 378)
+        & (dist_void >= 9.0)
+        & (lum >= 145.0)
+    )
+    is_plateau_floor = ndimage.binary_closing(is_plateau_floor, iterations=2) & rock_nat & (~is_south_stairs)
+    is_spires_rim = rock_nat & (~is_south_stairs) & (~is_plateau_floor) & (yy_n < 342)
+    is_cliff_skirt = rock_nat & (~is_south_stairs) & (~is_plateau_floor) & (~is_spires_rim)
 
-    abyss_24, cloud_24, bolt_24, canopy_24 = build_zekrom_black_tornado_layers(
-        h=h,
-        w=w,
-        vortex_mask=vortex_mask,
-        rom_dir=ROM_DIR,
-        center_xy=(cx, cy),
-        rx_scale=1.0 * scale_x,
-        ry_scale=1.22 * scale_y,
-        n_frames=N_FRAMES,
+    # Masque fin (<= 4 px du bord extérieur) pour les reflets électriques sur les crêtes & pitons
+    rim_glow_mask = rock_nat & (dist_void >= 1.5) & (dist_void <= 4.5) & (yy_n < 436)
+    arena_safe_mask = rock_nat & (yy_n <= 448)
+
+    cyc = build_cylindrical_cyclone_layers(
+        mode="zekrom_electric",
+        opaque_terrain_mask=rock_nat,
+        arena_safe_mask=arena_safe_mask,
+        rim_glow_mask=rim_glow_mask,
     )
 
-    ell_arena = np.hypot((xx - cx) / max(1.0, 0.205 * w), (yy - cy) / max(1.0, 0.215 * h))
-    is_bridge_stairs = rock_mask & (yy >= 0.62 * h) & (np.abs(xx - cx) <= 0.115 * w)
-    is_arena_floor = rock_mask & (ell_arena <= 0.94)
-    is_spires_rim = rock_mask & (~is_arena_floor) & (~is_bridge_stairs) & (yy < 0.56 * h)
-    is_cliff_base = rock_mask & (~is_arena_floor) & (~is_bridge_stairs) & (~is_spires_rim)
-    is_cliff_base |= rock_mask & (~(is_cliff_base | is_spires_rim | is_arena_floor | is_bridge_stairs))
+    l0_wall_abyss = _merge_frame_lists(cyc["00_gouffre"], cyc["01_paroi_arriere"])
+    l1_cols_helix = _merge_frame_lists(cyc["02_colonnes_laterales"], cyc["03_rubans_helicoidaux"])
 
-    def mk_static(mask: np.ndarray) -> Image.Image:
-        out = np.zeros((h, w, 4), dtype=np.uint8)
-        out[mask, :3] = rgb[mask]
+    def mk_static_scaled(mask: np.ndarray) -> Image.Image:
+        out = np.zeros((H_NAT, W_NAT, 4), dtype=np.uint8)
+        out[mask, :3] = rgb_nat[mask]
         out[mask, 3] = 255
-        return Image.fromarray(out, mode="RGBA")
-
-    # Pulsation électrique bleue `Charge Foudre` strictement dans les gravures runiques du disque.
-    raw_lum = (
-        0.299 * rgb_clean[:, :, 0].astype(np.float32)
-        + 0.587 * rgb_clean[:, :, 1].astype(np.float32)
-        + 0.114 * rgb_clean[:, :, 2].astype(np.float32)
-    )
-    local_mean = ndimage.uniform_filter(raw_lum, size=max(3, int(round(13 * w / 768.0))))
-    grooves = is_arena_floor & (raw_lum <= (local_mean - 7.0))
-    # Les gravures sont des sillons fins : on ne garde que leur contour 1 px (aucune tache pleine).
-    groove_lines = grooves & (~ndimage.binary_erosion(grooves, iterations=1))
-    groove_lines |= grooves & (~ndimage.binary_dilation(grooves, iterations=1))
-    groove_lines &= is_arena_floor
-
-    # Bande runique externe gravée (anneau) : glyphes clairs ciselés dans la pierre sombre.
-    deck_r = np.hypot((xx - cx) / max(1.0, 0.205 * w), (yy - cy) / max(1.0, 0.215 * h))
-    rune_band = is_arena_floor & (deck_r >= 0.80) & (deck_r <= 0.985) & (raw_lum >= (local_mean + 5.0))
-    rune_band &= (~grooves)
-
-    cliff_inner_rim = rock_mask & (~ndimage.binary_erosion(rock_mask, iterations=max(1, int(round(2 * w / 768.0)))))
-    theta_px = np.arctan2(yy - cy, xx - cx)
-    l7_runes: List[Image.Image] = []
-    for f in range(N_FRAMES):
-        ph1 = (2.0 * np.pi * f) / N_FRAMES
-        ph2 = (2.0 * np.pi * 2.0 * f) / N_FRAMES
-        ph3 = (2.0 * np.pi * 3.0 * f) / N_FRAMES
-        fr = np.zeros((h, w, 4), dtype=np.uint8)
-
-        # 1. Onde de courant continue qui parcourt toutes les gravures du dallage.
-        wave = np.sin(6.0 * theta_px - ph1) * 0.55 + np.sin(11.0 * deck_r - ph3) * 0.45
-        lit = groove_lines & (wave > 0.42)
-        hot = groove_lines & (wave > 0.86)
-        fr[lit] = (22, 78, 196, 255)
-        fr[hot] = (120, 210, 255, 255)
-
-        # 2. Allumage séquentiel des glyphes de l'anneau runique (balayage circulaire net).
-        sweep = np.mod(theta_px - ph2, 2.0 * np.pi) < (2.0 * np.pi * 0.26)
-        glyph = rune_band & sweep
-        fr[glyph] = (140, 226, 255, 255)
-
-        # 3. Liseré des pitons qui s'illumine en écho à l'orage.
-        rim_hit = cliff_inner_rim & (np.sin(5.0 * theta_px - ph1) > 0.72)
-        fr[rim_hit, :3] = np.clip(rgb[rim_hit].astype(np.int32) + np.array([22, 66, 132]), 0, 255).astype(np.uint8)
-        fr[rim_hit, 3] = 255
-        l7_runes.append(Image.fromarray(fr, mode="RGBA"))
-
-    rng = np.random.default_rng(64499)
-    sparks = [
-        (
-            float(rng.uniform(0.0, 2.0 * np.pi)),
-            float(rng.uniform(168.0, 355.0)) / scale_x,
-            int(rng.choice([1, 3])),
-            bool(rng.integers(0, 2)),
-        )
-        for _ in range(96)
-    ]
-    l9_sparks: List[Image.Image] = []
-    for f in range(N_FRAMES):
-        ph1 = (2.0 * np.pi * f) / N_FRAMES
-        ph3 = (2.0 * np.pi * 3.0 * f) / N_FRAMES
-        fr = np.zeros((h, w, 4), dtype=np.uint8)
-        for a0, rad0, hm, bright in sparks:
-            ang = a0 + (ph1 if hm == 1 else ph3)
-            px = int(round(cx + rad0 * np.cos(ang)))
-            py = int(round(cy + (rad0 / 1.22) * np.sin(ang)))
-            if 1 <= px < w - 1 and 1 <= py < h - 1:
-                fr[py, px] = (232, 250, 255, 255) if bright else (68, 174, 255, 255)
-                px2 = int(round(cx + rad0 * np.cos(ang - 0.045)))
-                py2 = int(round(cy + (rad0 / 1.22) * np.sin(ang - 0.045)))
-                if 0 <= px2 < w and 0 <= py2 < h:
-                    fr[py2, px2] = (28, 104, 236, 255)
-        l9_sparks.append(Image.fromarray(fr, mode="RGBA"))
+        im = Image.fromarray(sanitize_rgba_binary(out), mode="RGBA")
+        return im if (w, h) == (W_NAT, H_NAT) else im.resize((w, h), Image.Resampling.NEAREST)
 
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
+    scale_x, scale_y = W_NAT / float(w), H_NAT / float(h)
     walk_grid = np.zeros((gh, gw), dtype=bool)
+    walkable_px = (is_plateau_floor | (is_south_stairs & (np.abs(xx_n - 384) <= 36))) & (~vortex_nat)
     for ty in range(gh):
+        y0_n = int(round(ty * TILE_SIZE * scale_y))
+        y1_n = max(y0_n + 1, int(round((ty + 1) * TILE_SIZE * scale_y)))
         for tx in range(gw):
-            sub_a = is_arena_floor[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            sub_b = is_bridge_stairs[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            sub_v = vortex_mask[ty * TILE_SIZE : (ty + 1) * TILE_SIZE, tx * TILE_SIZE : (tx + 1) * TILE_SIZE]
-            if (float(sub_a.mean()) >= 0.65 or float(sub_b.mean()) >= 0.55) and float(sub_v.mean()) == 0.0:
+            x0_n = int(round(tx * TILE_SIZE * scale_x))
+            x1_n = max(x0_n + 1, int(round((tx + 1) * TILE_SIZE * scale_x)))
+            sub_w = walkable_px[y0_n:y1_n, x0_n:x1_n]
+            sub_v = vortex_nat[y0_n:y1_n, x0_n:x1_n]
+            if float(sub_w.mean()) >= 0.45 and float(sub_v.mean()) == 0.0:
                 walk_grid[ty, tx] = True
+
     cx_t = gw // 2
     arena_center_t = max(3, int(round(0.30 * gh)))
     for ty in range(arena_center_t, gh):
@@ -210,16 +140,16 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[:, -2:] = False
 
     layers = [
-        LayerEntry("00_abysse_oeil_tornade_noire", "Abysse Cyclonique de l'Œil de l'Orage", "BG", _to_imgs(abyss_24), frame_length=5),
-        LayerEntry("01_tornade_nuages_noirs_zekrom_360", "Tornade 360° de Nuages Noirs Électriques de Zekrom", "BG", _to_imgs(cloud_24), frame_length=5),
-        LayerEntry("02_eclairs_bleus_tornade_h17p01w", "Arcs Charge Foudre Bleus & GBA H17P01W1.bpa 1×", "BG", _to_imgs(bolt_24), frame_length=5),
-        LayerEntry("03_socle_falaise_basalte_sommet", "Socle Rocheux d'Obsidienne du Sommet", "BG", [mk_static(is_cliff_base)], frame_length=5),
-        LayerEntry("04_pitons_magnetite_statiques", "Pitons de Magnétite Noire 100 % Statiques", "BG", [mk_static(is_spires_rim)], frame_length=5),
-        LayerEntry("05_arene_circulaire_runique_zekrom", "Esplanade Circulaire Runique de Zekrom", "BG", [mk_static(is_arena_floor)], frame_length=5),
-        LayerEntry("06_pont_et_escalier_grotte_sud", "Pont d'Arête Sud-Nord & Sortie de Grotte", "BG", [mk_static(is_bridge_stairs)], frame_length=5),
-        LayerEntry("07_veines_runiques_charge_foudre", "Pulsation Électrique Bleue des Runes du Sommet", "BG", l7_runes, frame_length=5),
-        LayerEntry("08_couronne_cyclone_noir_top", "Couronne Supérieure de la Tornade Noire Top", "Top", _to_imgs(canopy_24), frame_length=5),
-        LayerEntry("09_etincelles_cycloniques_zekrom_top", "Étincelles Cycloniques Charge Foudre Top", "Top", l9_sparks, frame_length=5),
+        LayerEntry("00_paroi_arriere_et_oeil_cylindre", "Paroi Arrière Concave & Gouffre du Cylindre (G->D)", "BG", _resize_frames(l0_wall_abyss, w, h), frame_length=5),
+        LayerEntry("01_colonnes_tangentes_et_plasma_bleu", "Colonnes Latérales & Hélices de Plasma Électrique", "BG", _resize_frames(l1_cols_helix, w, h), frame_length=5),
+        LayerEntry("02_eclairs_cylindriques_charge_foudre", "Arcs & Éclairs Ramifiés Charge Foudre 360°", "BG", _resize_frames(cyc["04_decharges_ou_braises"], w, h), frame_length=5),
+        LayerEntry("03_escarpement_falaise_mont_thunder", "Escarpement Vertical Mt. Thunder Summit 1×", "BG", [mk_static_scaled(is_cliff_skirt)], frame_length=5),
+        LayerEntry("04_pitons_et_rebords_mont_thunder", "Pitons Coniques & Crêtes Mt. Thunder Summit 1×", "BG", [mk_static_scaled(is_spires_rim)], frame_length=5),
+        LayerEntry("05_plateau_arene_mont_thunder_summit", "Plateau Naturel Mt. Thunder Summit 1×", "BG", [mk_static_scaled(is_plateau_floor)], frame_length=5),
+        LayerEntry("06_eperon_et_escalier_rocheux_sud", "Éperon Rocheux & Escalier Sud 1×", "BG", [mk_static_scaled(is_south_stairs)], frame_length=5),
+        LayerEntry("07_reflets_ionises_rebords_sommet", "Reflets Électriques sur les Crêtes & Pitons", "BG", _resize_frames(cyc["07_reflets_rebords"], w, h), frame_length=5),
+        LayerEntry("08_levre_avant_cylindre_orage_top", "Lèvre Avant du Cyclone Cylindrique Top (D->G)", "Top", _resize_frames(cyc["08_levre_avant_top"], w, h), frame_length=5),
+        LayerEntry("09_eclairs_avant_plan_cyclone_top", "Arcs Électriques d'Avant-Plan Top (D->G)", "Top", _resize_frames(cyc["09_arcs_avant_top"], w, h), frame_length=5),
     ]
     return layers, walk_grid
 

@@ -64,25 +64,47 @@ def export_filmstrips() -> Dict:
     specs = [
         {
             "id": "ZKE1",
-            "group": "Montagne d'Orage · Zekrom",
+            "group": "Duo Unys · Zekrom",
             "folder": "zekrom_montagne_entree_v1",
-            "ref_rel": "source/zekrom_montagne_entree_v1/references/ref_canon_zekrom_p14p01a_v38p07a.png",
-            "ref_label": "Références Natives 1× PMD Sky/Red — Orage V38P07A + Basalte H26P01 + Prairie P14P01A",
+            "ref_rel": "source/zekrom_montagne_entree_v1/references/ref_canon_zekrom_montagne_entree.png",
+            "ref_label": "Références Natives 1× Halcyon/Chunsoft — Montagne D07P11A + Clairière Sky Peak/Tiny Woods + Eau Metano Town",
             "zip_rel": ".cache/virtual_zips/ZKE1_PMDO_0.8.12.zip",
             "bg_fill": "#09101f",
-            "subtitle": "POV PMD Entrée de Zekrom — Forêt de pins & clairière 1× P14P01A, rivière GBA H10P02.bpl 1× (#FF00FF), montagne basaltique à grotte noire & vortex d'éclairs bleus Charge Foudre",
-            "wind_summary": "Vortex nuages noirs & éclairs bleus GBA H17P01W1.bpa 1× (24f @ 5t) | Rivière GBA H10P02.bpl #FF00FF (12f @ 10t) | Lucioles & étincelles Top | Forêt 1× statique",
+            "subtitle": "Pied de Montagne & Clairière Metano (Zekrom) — Montagne rocheuse naturelle 1× D07P11A à grotte centrale, clairière Tiny Woods + Sky Peak Prairie, rivière & cascades animées style Metano Town (#FF00FF)",
+            "wind_summary": "Ciel d'orage & éclairs d'horizon (24f @ 5t) | Rivière, cascades & sparkles Metano Town #FF00FF (24f @ 5t) | Fleurs Sky Peak animées & canopée Top | Terrain 1× statique",
         },
         {
             "id": "ZKA1",
-            "group": "Montagne d'Orage · Zekrom",
+            "group": "Duo Unys · Zekrom",
             "folder": "zekrom_sommet_tornade_v1",
-            "ref_rel": "source/zekrom_sommet_tornade_v1/references/v38p07a_storm_peak_electric_glow_native.png",
-            "ref_label": "Référence PMD Sky — Cime d'Orage Électrique (V38P07A 1×)",
+            "ref_rel": "source/zekrom_sommet_tornade_v1/references/ref_canon_zekrom_sommet_tornade.png",
+            "ref_label": "Références Natives 1× PMD — Orage Électrique V38P07A + Sommet Rocheux Mt. Thunder Summit",
             "zip_rel": ".cache/virtual_zips/ZKA1_PMDO_0.8.12.zip",
             "bg_fill": "#060b18",
-            "subtitle": "POV PMD Sommet de Zekrom — Arène circulaire gravée de runes antiques & pitons de magnétite au cœur d'une Tornade 3D 360° de nuages noirs électriques bleus (#FF00FF)",
-            "wind_summary": "Tornade 3D 360° de nuages noirs électriques #FF00FF (24f @ 5t) | Arcs Charge Foudre & GBA H17P01W1.bpa 1× | Runes bleues pulsantes | Couronne Top en surplomb",
+            "subtitle": "Sommet du Mont Foudre & Cyclone Électrique (Zekrom) — Plateau rocheux naturel 1× style Mt. Thunder Summit centré dans le creux d'un Cyclone Cylindrique 3D 360° d'éclairs bleus (#FF00FF)",
+            "wind_summary": "Cyclone Cylindrique 3D 360° #FF00FF (paroi arrière G->D + lèvre avant Top D->G, 24f @ 5t) | Arcs électriques ramifiés | Reflets crêtes | Roc Mt. Thunder 1× statique",
+        },
+        {
+            "id": "RSE1",
+            "group": "Duo Unys · Reshiram",
+            "folder": "reshiram_montagne_entree_v1",
+            "ref_rel": "source/reshiram_montagne_entree_v1/references/ref_canon_reshiram_montagne_entree.png",
+            "ref_label": "Références Natives 1× Halcyon/Chunsoft — Montagne Solaire D07P11A + Clairière Sky Peak/Tiny Woods + Eau Metano Town",
+            "zip_rel": ".cache/virtual_zips/RSE1_PMDO_0.8.12.zip",
+            "bg_fill": "#1c0a0d",
+            "subtitle": "Pied de Montagne & Clairière Metano (Reshiram) — Montagne solaire ivoire 1× D07P11A à grotte centrale, clairière Tiny Woods + Sky Peak Prairie, rivière & cascades animées style Metano Town (#FF00FF)",
+            "wind_summary": "Aurore ardente & rubans Flamme Blanche (24f @ 5t) | Rivière, cascades & sparkles Metano Town #FF00FF (24f @ 5t) | Braises GBA W04 1× & canopée Top | Terrain 1× statique",
+        },
+        {
+            "id": "RSA1",
+            "group": "Duo Unys · Reshiram",
+            "folder": "reshiram_sommet_flamme_v1",
+            "ref_rel": "source/reshiram_sommet_flamme_v1/references/ref_canon_reshiram_sommet_flamme.png",
+            "ref_label": "Références Natives 1× PMD — Cratère Ardent H19P01 + Sommet Solaire Mt. Thunder Summit",
+            "zip_rel": ".cache/virtual_zips/RSA1_PMDO_0.8.12.zip",
+            "bg_fill": "#18080b",
+            "subtitle": "Sommet Solaire & Cyclone de Flamme Blanche (Reshiram) — Plateau rocheux naturel 1× style Mt. Thunder Summit centré dans le creux d'un Cyclone Cylindrique 3D 360° de Flamme Blanche sacrée (#FF00FF)",
+            "wind_summary": "Cyclone Cylindrique 3D 360° de Flamme Blanche #FF00FF (paroi arrière G->D + lèvre avant Top D->G, 24f @ 5t) | Braises GBA W04 1× | Roc Mt. Thunder 1× statique",
         },
         {
             "id": "FSE1",
@@ -340,7 +362,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — 17 Maps Légendaires (170 Calques Temps Réel)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — 19 Maps Légendaires (190 Calques Temps Réel)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -591,7 +613,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         <h1 id="headerTitle">Studio Multicalque 24 Poses · PMDO 0.8.12.0</h1>
         <p id="mapSubtitle">Chargement des planches pixel-art...</p>
       </div>
-      <div class="status-line">17 Cartes · 170 Calques Temps Réel · Grille 2D GPU-Safe</div>
+      <div class="status-line">19 Cartes · 190 Calques Temps Réel · Grille 2D GPU-Safe</div>
     </div>
     <nav class="map-tabs" id="mapTabs"></nav>
   </header>
@@ -888,6 +910,9 @@ def main() -> None:
     (REPO_ROOT / "apercu_zekrom_tornade_pmdo.html").write_text(
         build_html(manifest, default_map_id="ZKA1"), encoding="utf-8"
     )
+    (REPO_ROOT / "apercu_reshiram_flamme_pmdo.html").write_text(
+        build_html(manifest, default_map_id="RSA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
     )
@@ -903,7 +928,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (17 cartes, 170 calques 60 FPS, grilles 2D <= 4608px).")
+    print("[Studio] index.html et les aperçus dédiés générés (19 cartes, 190 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":
