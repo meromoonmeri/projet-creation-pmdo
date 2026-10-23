@@ -1,310 +1,361 @@
-#!/usr/bin/env python3
-"""Moteur 3D de rotation cylindrique authentique sur soi-même (`24` poses × `5` ticks = `120` ticks)
-extrait directement de la texture pixel-art canonique + canal alpha de `ref_entree_tornades_user.png` (`D13P01`).
+"""Moteur 3D par plumes de vent Chunsoft sur cylindre hélicoïdal 360° (écrit 100 % de zéro)
+pour la Tour Céleste — Entrée (`TCE1`, référence `ref_entree_tornades_user.png` / `D13P01`).
 
-Points clés :
-1. Extraction stricte de la **vraie colonne cyclonique S-courbe** de `image-1.png` (en excluant
-   totalement la voûte nuageuse blanche centrale `x > x_max_funnel(y)`, les nuages d'angle bas et
-   en conservant **`alpha = 0` transparent** dans toutes les échancrures de ciel bleu cobalt `[0, 64, 224]`
-   entre les mèches et crochets de vent Chunsoft !).
-2. Construction d'une nappe cylindrique RGBA `360°` `[h, n_phi, 4]` sans couture combinant deux
-   hémisphères de vraies bourrasques pixel-art Chunsoft décalées hélicoïdalement :
-   - **aucune bordure rectangulaire verticale** ni voile blanc parasite à aucune des `24` poses (`pose 0`,
-     `pose 6`, `pose 12`, `pose 18` ont toutes la même silhouette organique découpée en crochets de vent !) ;
-   - projection cylindrique vraie `θ = arcsin(u)` autour de l'axe S-courbe de chaque tornade ;
-   - croissants d'air en orbite `360°` passant derrière (`Layer 04`, `cos α < 0`) puis devant (`Layer 09`, `cos α >= 0`).
+Principe clé éliminant à la fois 100 % des glitches de découpe ET tout aspect « rayures régulières » :
+  1. Chaque tornade (Gauche et Droite) est un vrai entonnoir 3D courbe en S d'axe `x_c(y)` et rayon `R_0(y)`.
+  2. Au lieu d'un dépliage photo (qui crée des coupures verticales à mi-tour) ou de simples sinusoïdes
+     uniformes, la surface 360° complète du cylindre `[0, 2*pi)` est tapissée de **68 bourrasques de vent
+     Chunsoft individuelles effilées en croissant** (écailles de vent d'échelles variées : larges poches
+     céruléennes, nappes turquoise, crêtes d'écume blanche et grands crochets en C relevés vers le haut).
+  3. Vue sous l'angle 3/4 canonique PMD, toute bourrasque située à la longitude `phi` plonge vers le bas
+     sur le ventre avant puis remonte vivement en crochet vers le bord intérieur :
+         y_proj(y, phi) = y + R_0(y) * (0.66 * cos(phi - 0.34))
+     reproduisant fidèlement la courbure en berceau concave et les crochets montants de `D13P01` !
+  4. À chaque pose `t = 0 .. 23`, tout le manchon 360° tourne d'un bloc sur son axe (`Omega = 2*pi * t / 24`) :
+       - **zéro couture** sur 360° (toutes les distances angulaires sont calculées modulo `2*pi`),
+       - **boucle 24 poses 100 % exacte** au pixel près entre `pose 23` et `pose 0`,
+       - **anti-phase franche** entre `pose 0` et `pose 12` (`Omega = pi`, autres bourrasques visibles),
+       - **silhouette vivante** : chaque bourrasque franchissant le bord gauche (`-pi/2`) ou droit (`+pi/2`)
+         forme naturellement sa propre dent d'écume et ses crochets en C caractéristiques !
 """
-
 from __future__ import annotations
 
-from pathlib import Path
 from typing import List, Tuple
 
 import numpy as np
 from PIL import Image
 
-HERE = Path(__file__).resolve().parent
-USER_TORNADO_REF = HERE / "tour_celeste_entree_v1" / "references" / "ref_entree_tornades_user.png"
-
-# Palette pixel-art canonique exacte des tornades de `image-1.png` (`D13P01`)
-TORNADO_PALETTE = np.array(
+# Palette pixel-art canonique exacte extraite des tornades de `ref_entree_tornades_user.png` (D13P01)
+D13_TORNADO_PALETTE = np.array(
     [
-        [6, 98, 218],     # 0 : ombre céruléenne profonde
-        [0, 134, 212],    # 1 : creux cyclonique bleu-azur profond
-        [16, 178, 244],   # 2 : sillon de vent cyan vif
-        [76, 218, 250],   # 3 : courant turquoise
-        [124, 236, 252],  # 4 : souffle turquoise clair
-        [176, 246, 254],  # 5 : écume d'air glacé
-        [214, 252, 255],  # 6 : nuée blanc-cyan
-        [255, 255, 255],  # 7 : crête d'écume blanche pure
+        [6, 98, 218],      # 0 : ombre céruléenne profonde
+        [0, 134, 212],     # 1 : creux cyclonique bleu-azur profond
+        [16, 178, 244],    # 2 : sillon de vent cyan vif
+        [52, 204, 248],    # 3 : courant azur-turquoise
+        [88, 222, 252],    # 4 : souffle turquoise lumineux
+        [136, 238, 254],   # 5 : nappe glacée cyan clair
+        [184, 248, 255],   # 6 : écume d'air blanc-bleuté
+        [224, 253, 255],   # 7 : crête d'écume nacrée
+        [255, 255, 255],   # 8 : crête blanche pure Chunsoft
     ],
     dtype=np.uint8,
 )
 
 
-def _quantize_tornado_rgb(rgb_float: np.ndarray) -> np.ndarray:
-    pal_f = TORNADO_PALETTE.astype(np.float32)
-    flat = rgb_float.reshape(-1, 3)
-    d2 = ((flat[:, None, :] - pal_f[None, :, :]) ** 2).sum(axis=2)
-    idx = np.argmin(d2, axis=1)
-    return TORNADO_PALETTE[idx].reshape(rgb_float.shape).astype(np.uint8)
+def _left_funnel_axis_and_radius(h: int, w: int) -> Tuple[np.ndarray, np.ndarray]:
+    """Profil S-courbe canonique (x_c(y), R_0(y)) de la colonne cyclonique gauche sur w × h."""
+    yn = np.linspace(0.0, 1.0, h, dtype=np.float32)
+    xc = w * (
+        0.112
+        - 0.015 * np.sin(np.pi * np.clip(yn / 0.42, 0.0, 1.0))
+        + 0.088 * np.power(np.clip((yn - 0.30) / 0.70, 0.0, 1.0), 1.40)
+    )
+    r0 = w * (
+        0.124
+        - 0.016 * np.sin(np.pi * np.clip(yn / 0.50, 0.0, 1.0))
+        + 0.032 * np.power(np.clip((yn - 0.36) / 0.64, 0.0, 1.0), 1.30)
+    )
+    return xc.astype(np.float32), r0.astype(np.float32)
 
 
-def _extract_reference_tornado_sheet(
-    ref_h: int = 576, n_phi: int = 512
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Extrait la nappe cylindrique RGBA `[ref_h, n_phi, 4]` (`RGB` + `alpha` des mèches de vent !)
-    et le profil S-courbe exact `(xc_norm(y), r_norm(y))` de la tornade gauche de `image-1.png`.
+def _generate_cylindrical_gust_catalog(seed: int = 1301) -> np.ndarray:
+    """Génère un catalogue déterministe de 96 bourrasques Chunsoft réparties sans couture sur [0, 2*pi)
+    et sur toute la hauteur [-0.14 .. 1.14] :
+      colonnes : [phi_center, yn_center, half_arc, thick_norm, tilt, tone_boost, limb_jut]
     """
-    ref_im = Image.open(USER_TORNADO_REF).convert("RGB").resize((768, ref_h), Image.Resampling.BILINEAR)
-    arr = np.asarray(ref_im, dtype=np.float32)
-    r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
-
-    yy = np.arange(ref_h, dtype=np.float32)
-    yn = yy / float(max(1, ref_h - 1))
-
-    # Profil S-courbe analytique exact de la VRAIE colonne de tornade gauche dans `image-1.png`
-    # (exclut à 100 % la voûte nuageuse blanche centrale `x > 175` en haut et l'esplanade centrale !) :
-    #   y=0.00 : x ∈ [  2 .. 176]
-    #   y=0.25 : x ∈ [  4 .. 166]
-    #   y=0.52 : x ∈ [ 14 .. 224]
-    #   y=0.76 : x ∈ [ 12 .. 258]
-    #   y=0.92 : x ∈ [ 36 .. 248]
-    x_min_s = 768.0 * (
-        0.004
-        + 0.014 * np.power(np.clip(yn / 0.65, 0.0, 1.0), 1.4)
-        + 0.036 * np.power(np.clip((yn - 0.72) / 0.28, 0.0, 1.0), 1.8)
-    )
-    x_max_s = 768.0 * (
-        0.228
-        - 0.018 * np.sin(np.pi * np.clip(yn / 0.36, 0.0, 1.0))
-        + 0.098 * np.power(np.clip((yn - 0.24) / 0.56, 0.0, 1.0), 1.25)
-        - 0.020 * np.power(np.clip((yn - 0.80) / 0.20, 0.0, 1.0), 1.5)
-    )
-
-    xc_px = 0.5 * (x_min_s + x_max_s)
-    rad_px = np.maximum(24.0, 0.5 * (x_max_s - x_min_s))
-
-    # Masque alpha authentique dans `image-1.png` :
-    # - un vrai pixel de tornade est soit turquoise/cyan/céruléen (`b - r >= 26` hors ciel cobalt `[0,64,224]`),
-    #   soit une fine crête d'écume blanche adjacente (`<= 6 px`) à une veine turquoise de tornade !
-    # -> Exclut automatiquement et sans AUCUNE ligne droite les gros massifs blancs d'orage et de cumulus !
-    from scipy import ndimage as _ndi
-
-    is_deep_sky = (r < 30.0) & (g < 96.0) & (b > 188.0)
-    is_turquoise_core = (~is_deep_sky) & ((b - r) >= 28.0) & (b >= 175.0)
-    near_turquoise = _ndi.binary_dilation(is_turquoise_core, iterations=max(4, int(round(6 * ref_h / 576.0))))
-    alpha_mask = (~is_deep_sky) & near_turquoise
-    alpha_f = alpha_mask.astype(np.float32) * 255.0
-
-    # Dépliage cylindrique inverse de la face avant réelle `ψ ∈ [-π/2, +π/2]`
-    n_half = n_phi // 2
-    psi = np.linspace(-0.5 * np.pi, 0.5 * np.pi, n_half, endpoint=False, dtype=np.float32)[None, :]
-    sample_x = np.clip(xc_px[:, None] + rad_px[:, None] * np.sin(psi), 0.0, 270.0)
-    x0 = np.floor(sample_x).astype(np.int32)
-    x1 = np.minimum(x0 + 1, 270)
-    fx = (sample_x - x0)[:, :, None]
-    row_idx = np.arange(ref_h, dtype=np.int32)[:, None]
-
-    front_rgb = (1.0 - fx) * arr[row_idx, x0] + fx * arr[row_idx, x1]
-    front_a = (1.0 - fx[:, :, 0]) * alpha_f[row_idx, x0] + fx[:, :, 0] * alpha_f[row_idx, x1]
-
-    # Hémisphère arrière construit à partir des MÊMES bourrasques Chunsoft décalées hélicoïdalement
-    # (avec `mode='nearest'` en haut/bas pour ne jamais enrouler le bas de la tornade tout en haut !)
-    shift_rows = max(14, int(round(0.12 * ref_h)))
-    src_rows = np.clip(np.arange(ref_h, dtype=np.int32) + shift_rows, 0, ref_h - 1)
-    back_rgb = front_rgb[src_rows, ::-1, :].copy()
-    back_a = front_a[src_rows, ::-1].copy()
-
-    full_rgb = np.concatenate([front_rgb, back_rgb], axis=1)
-    full_a = np.concatenate([front_a, back_a], axis=1)
-
-    # Raccord doux sans couture aux deux jonctions `seam ∈ {0, n_half}`
-    blend_w = 18
-    for seam in (0, n_half):
-        for k in range(-blend_w, blend_w + 1):
-            idx = (seam + k) % n_phi
-            idx_l = (seam - blend_w - 1) % n_phi
-            idx_r = (seam + blend_w + 1) % n_phi
-            tb = (k + blend_w) / float(2 * blend_w + 1)
-            sm = tb * tb * (3.0 - 2.0 * tb)
-            w_edge = 1.0 - abs(k) / float(blend_w + 1)
-            full_rgb[:, idx, :] = (1.0 - 0.65 * w_edge) * full_rgb[:, idx, :] + (0.65 * w_edge) * (
-                (1.0 - sm) * full_rgb[:, idx_l, :] + sm * full_rgb[:, idx_r, :]
-            )
-            full_a[:, idx] = (1.0 - 0.65 * w_edge) * full_a[:, idx] + (0.65 * w_edge) * (
-                (1.0 - sm) * full_a[:, idx_l] + sm * full_a[:, idx_r]
-            )
-
-    xc_norm = xc_px / 768.0
-    r_norm = rad_px / 768.0
-    return full_rgb, full_a, xc_norm, r_norm
+    rng = np.random.default_rng(seed)
+    gusts = []
+    # 24 étages verticaux x 4 secteurs azimutaux décalés par le nombre d'or = 96 mèches variées !
+    n_tiers = 24
+    for tier in range(n_tiers):
+        yn_base = -0.10 + 1.22 * (tier / float(n_tiers - 1))
+        az_offset = (tier * 1.6180339) * 2.0 * np.pi
+        for sector in range(4):
+            phi_c = (az_offset + sector * (0.5 * np.pi) + rng.uniform(-0.24, 0.24)) % (2.0 * np.pi)
+            yn_c = yn_base + rng.uniform(-0.020, 0.020)
+            half_arc = rng.uniform(0.62, 1.24)
+            thick_n = rng.uniform(0.026, 0.056)
+            tilt = rng.uniform(-0.032, 0.022)
+            # Contraste Chunsoft franc : vraies crêtes blanches nacrées + sillons bleu céruléen profonds !
+            tone_b = rng.uniform(0.28, 0.60)
+            limb_jut = rng.uniform(0.06, 0.18)
+            gusts.append([phi_c, yn_c, half_arc, thick_n, tilt, tone_b, limb_jut])
+    return np.array(gusts, dtype=np.float32)
 
 
-def _draw_crescent_arc(
-    canvas: np.ndarray,
-    cx: float,
-    cy: float,
-    rx: float,
-    ry: float,
-    ang0: float,
-    ang1: float,
-    thickness: float,
-    col_inner: np.ndarray,
-    col_outer: np.ndarray,
+def _wrap_pi(delta: np.ndarray) -> np.ndarray:
+    """Ramène tout écart angulaire dans [-pi, +pi] sans aucune discontinuité à 0 / 2*pi."""
+    return (delta + np.pi) % (2.0 * np.pi) - np.pi
+
+
+def _draw_3d_hooked_crescents(
+    front_canvas: np.ndarray,
+    back_canvas: np.ndarray,
+    xc: np.ndarray,
+    r0: np.ndarray,
+    omega: float,
+    mirror_right: bool,
+    hooks: List[Tuple[float, float, float, float, float]],
 ) -> None:
-    """Trace un croissant de bourrasque effilé aux deux pointes en pixel-art net (`alpha ∈ {0, 255}`)."""
-    h, w, _ = canvas.shape
-    steps = max(24, int(round(max(rx, ry) * 2.0)))
-    angs = np.linspace(ang0, ang1, steps)
-    for idx, a in enumerate(angs):
-        u_taper = np.sin(np.pi * (idx / float(max(1, steps - 1))))
-        th = max(0.75, thickness * u_taper)
-        px = cx + rx * np.cos(a)
-        py = cy + ry * np.sin(a)
-        r_int = int(np.ceil(th))
-        ipx, ipy = int(round(px)), int(round(py))
-        if ipx + r_int < 0 or ipx - r_int >= w or ipy + r_int < 0 or ipy - r_int >= h:
+    """Dessine uniquement de vraies mèches latérales courtes en virgule / crochet d'écume Chunsoft
+    sur le flanc intérieur de la tornade (strictement à mi-hauteur 0.14*h .. 0.74*h, JAMAIS de longs
+    fils blancs en travers de toute la colonne ni sur les nuages blancs du bas !).
+    """
+    h, w, _ = front_canvas.shape
+    sy = h / 576.0
+    n_pts = 56
+    # Arc court concentré sur le rebord intérieur (fouet d'écume se détachant de la colonne vers le haut)
+    t_arc = np.linspace(0.0, 1.0, n_pts, dtype=np.float32)
+
+    for yn_mid, phi0, _, r_mul, rise_px in hooks:
+        # Phase orbitale sur le flanc intérieur [0.35 .. 2.35 rad] : n'apparaît que quand la mèche passe sur le bord !
+        vis_phase = _wrap_pi(np.array((phi0 + omega) - 1.15))
+        vis = float(np.cos(np.clip(abs(float(vis_phase)) / 1.05, 0.0, 1.0) * 0.5 * np.pi))
+        if vis <= 0.08:
             continue
-        for oy in range(-r_int, r_int + 1):
-            for ox in range(-r_int, r_int + 1):
-                if ox * ox + oy * oy <= th * th:
-                    yy0, xx0 = ipy + oy, ipx + ox
-                    if 0 <= yy0 < h and 0 <= xx0 < w:
-                        col = col_inner if (ox * ox + oy * oy <= (0.45 * th) ** 2 or u_taper > 0.72) else col_outer
-                        canvas[yy0, xx0, :3] = col
-                        canvas[yy0, xx0, 3] = 255
+
+        alpha = (0.55 + 0.92 * t_arc) + 0.35 * float(vis_phase)
+        hook_kick = rise_px * sy * np.power(t_arc, 1.85)
+        y_base = yn_mid * (h - 1)
+        y_idx0 = int(np.clip(round(y_base), 0, h - 1))
+        rc_mid = float(r0[y_idx0]) * (0.92 + 0.30 * vis * t_arc)
+
+        py_f = y_base + 0.30 * rc_mid * (1.0 - t_arc) - hook_kick
+        y_idx = np.clip(np.rint(py_f).astype(np.int32), 0, h - 1)
+        px_f = xc[y_idx] + r0[y_idx] * (0.86 + 0.34 * vis * np.sin(0.5 * np.pi * t_arc))
+        if mirror_right:
+            px_f = (w - 1.0) - px_f
+
+        # Mèche épaisse à sa racine dans la tornade, effilée en pointe fine en haut du crochet C !
+        env = np.maximum(0.0, (1.0 - t_arc) ** 0.62 * np.minimum(1.0, t_arc * 5.0)) * vis
+        half_w = (7.2 * sy) * env
+
+        for i in range(n_pts):
+            hw = float(half_w[i])
+            if hw < 0.65:
+                continue
+            cx_i = int(round(float(px_f[i])))
+            cy_i = int(round(float(py_f[i])))
+            if cy_i < int(0.08 * h) or cy_i > int(0.75 * h):
+                continue
+            ri = max(1, int(np.ceil(hw)))
+            for dy in range(-ri, ri + 1):
+                for dx in range(-ri, ri + 1):
+                    d2 = dx * dx + dy * dy
+                    if d2 > (hw + 0.25) ** 2:
+                        continue
+                    yy_p, xx_p = cy_i + dy, cx_i + dx
+                    if 0 <= yy_p < h and 0 <= xx_p < w:
+                        if d2 <= (0.48 * hw) ** 2 or dx <= int(round(-0.2 * hw)):
+                            col = (255, 255, 255, 255)
+                        elif d2 <= (0.80 * hw) ** 2:
+                            col = (184, 248, 255, 255)
+                        else:
+                            col = (52, 204, 248, 255)
+                        if front_canvas[yy_p, xx_p, 3] == 0 or col[0] > front_canvas[yy_p, xx_p, 0]:
+                            front_canvas[yy_p, xx_p] = col
 
 
-def build_twin_spinning_tornadoes(
+def render_single_tornado_pose(
     w: int,
     h: int,
+    pose_idx: int,
+    gusts: np.ndarray,
     n_frames: int = 24,
-    mode: str = "entrance",
-) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
-    """Génère les 3 séquences `24` poses (`back`, `body`, `front`) des deux tornades tournant sur elles-mêmes."""
-    n_phi = 512
-    sheet_rgb, sheet_a, xc_ref_norm, r_ref_norm = _extract_reference_tornado_sheet(ref_h=h, n_phi=n_phi)
+    mirror_right: bool = False,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Rend une pose RGBA 3D complète (h, w, 4) sans couture ni découpe."""
+    xc, r0 = _left_funnel_axis_and_radius(h, w)
+    omega = (2.0 * np.pi * pose_idx) / float(n_frames)
 
-    yy = np.arange(h, dtype=np.float32)[:, None]
-    xx = np.arange(w, dtype=np.float32)[None, :]
-    yn = yy / float(max(1, h - 1))
+    yy_1d = np.arange(h, dtype=np.float32)
+    yn_1d = yy_1d / max(float(h - 1), 1.0)
 
-    if mode == "entrance":
-        xc_left = (xc_ref_norm * float(w))[:, None]
-        rad_base = (r_ref_norm * float(w))[:, None]
-        y_bot_fade = 0.94
-        wobble_amp = max(1.5, 4.0 * (w / 768.0))
-        n_blades = 8
+    # 1) Silhouette organique vivante sur les flancs gauche (phi = -pi/2) et droit (phi = +pi/2)
+    #    calculée directement à partir des bourrasques franchissant chaque horizon !
+    jut_left = np.zeros(h, dtype=np.float32)
+    jut_right = np.zeros(h, dtype=np.float32)
+    phi_g = (gusts[:, 0] + omega) % (2.0 * np.pi)
+
+    for g_idx in range(len(gusts)):
+        ph_c = float(phi_g[g_idx])
+        yn_c = float(gusts[g_idx, 1])
+        h_arc = float(gusts[g_idx, 2])
+        th_n = float(gusts[g_idx, 3])
+        jut_a = float(gusts[g_idx, 6])
+
+        for limb_phi, target_jut, mul_side in ((-0.5 * np.pi, jut_left, 0.85), (0.5 * np.pi, jut_right, 1.25)):
+            dphi = abs(float(_wrap_pi(np.array(limb_phi - ph_c))))
+            if dphi < h_arc:
+                ang_w = np.cos(0.5 * np.pi * (dphi / h_arc)) ** 1.3
+                yn_limb = yn_c + (r0 / max(float(h), 1.0)) * 0.66 * float(np.cos(limb_phi - 0.34))
+                dy = (yn_1d - yn_limb) / th_n
+                prof = np.exp(-0.5 * dy * dy) * (1.0 - 0.35 * np.clip(dy, -1.0, 1.0))
+                contrib = mul_side * jut_a * ang_w * prof
+                np.maximum(target_jut, contrib, out=target_jut)
+
+    x_left_edge = xc - r0 * (0.94 + jut_left)
+    x_right_edge = xc + r0 * (0.95 + jut_right)
+    half_span = np.maximum(12.0, 0.5 * (x_right_edge - x_left_edge))
+    x_mid = 0.5 * (x_left_edge + x_right_edge)
+
+    max_col = min(w, int(np.ceil(float(x_right_edge.max()))) + 4)
+    xx_sub = np.arange(max_col, dtype=np.float32)[None, :]
+    yn_sub = yn_1d[:, None]
+    r0_norm_h = (r0 / max(float(h), 1.0))[:, None]
+
+    u = (xx_sub - x_mid[:, None]) / half_span[:, None]
+    inside = (np.abs(u) <= 1.0) & (yy_1d[:, None] <= float(h - 8))
+    u_clip = np.clip(u, -1.0, 1.0)
+    phi_px = np.arcsin(u_clip)  # [-pi/2, +pi/2]
+
+    # Décalage perspectif 3D Chunsoft : le ventre plonge vers le bas autour de phi = +0.34 rad
+    # et fouette vivement vers le haut en approchant du bord intérieur phi -> +pi/2 !
+    belly_drop = 0.66 * r0_norm_h * np.cos(phi_px - 0.34)
+    yn_surface = yn_sub - belly_drop
+
+    # Accumulation vectorisée des 76 bourrasques Chunsoft en écailles superposées (shingle painter's order)
+    # Niveau de base = turquoise-azur riche modulé par l'éclairage 3D cylindrique de D13P01
+    field = (
+        0.34
+        + 0.16 * u_clip
+        - 0.10 * yn_sub
+        + 0.05 * np.cos(phi_px - 0.45)
+    ).astype(np.float32)
+
+    for g_idx in range(len(gusts)):
+        ph_c = float(phi_g[g_idx])
+        yn_c = float(gusts[g_idx, 1])
+        h_arc = float(gusts[g_idx, 2])
+        th_n = float(gusts[g_idx, 3])
+        tilt = float(gusts[g_idx, 4])
+        tone_b = float(gusts[g_idx, 5])
+
+        # Seulement les bourrasques visibles sur la face avant [-pi/2 .. +pi/2] ont un poids non nul !
+        if abs(float(_wrap_pi(np.array(0.0 - ph_c)))) > (0.5 * np.pi + h_arc):
+            continue
+
+        dphi = _wrap_pi(phi_px - ph_c)
+        in_arc = np.abs(dphi) < h_arc
+        if not np.any(in_arc & inside):
+            continue
+
+        # Enveloppe effilée aux deux bouts du croissant
+        cos_w = np.maximum(0.0, np.cos(0.5 * np.pi * np.clip(np.abs(dphi) / h_arc, 0.0, 1.0)))
+        w_phi = np.where(in_arc, np.power(cos_w, 1.15), 0.0)
+        # Profil vertical asymétrique : ombre céruléenne nette JUSTE SOUS la mèche, crête blanche AU BORD SUPÉRIEUR !
+        s_vert = (yn_surface - (yn_c + tilt * dphi)) / th_n
+        in_band = in_arc & (s_vert > -1.35) & (s_vert < 1.65)
+        if not np.any(in_band):
+            continue
+
+        # s_vert < 0 = haut de la mèche (crête lumineuse blanche/cyan franche !)
+        # 0.55 < s_vert < 1.45 = sillon d'ombre céruléenne profonde sous la mèche !
+        crest = tone_b * np.exp(-2.1 * ((s_vert + 0.26) ** 2))
+        shadow_under = -0.42 * np.exp(-2.8 * ((s_vert - 0.86) ** 2))
+        stroke_delta = w_phi * (crest + shadow_under)
+        field = np.clip(field + stroke_delta, 0.0, 1.0)
+
+    # Écume blanche vive sur les crochets du rebord intérieur (comme dans `ref_entree_tornades_user.png`)
+    rim_boost = np.clip((u_clip - 0.68) / 0.32, 0.0, 1.0) * 0.22
+    field = np.clip(field + rim_boost * (field > 0.42), 0.0, 1.0)
+
+    pal_idx = np.clip(
+        np.rint(field * (len(D13_TORNADO_PALETTE) - 1)).astype(np.int32),
+        0,
+        len(D13_TORNADO_PALETTE) - 1,
+    )
+    sub_rgb = D13_TORNADO_PALETTE[pal_idx]
+
+    body = np.zeros((h, w, 4), dtype=np.uint8)
+    sub_rgba = np.zeros((h, max_col, 4), dtype=np.uint8)
+    sub_rgba[inside, :3] = sub_rgb[inside]
+    sub_rgba[inside, 3] = 255
+
+    if mirror_right:
+        body[:, w - max_col :, :] = sub_rgba[:, ::-1, :]
     else:
-        xc_left = w * (0.102 + 0.015 * np.sin(2.0 * np.pi * yn))
-        rad_base = w * (0.052 + 0.011 * np.cos(np.pi * yn) + 0.012 * np.exp(-(((yn - 0.50) / 0.24) ** 2)))
-        y_bot_fade = 1.01
-        wobble_amp = max(1.2, 2.8 * (w / 768.0))
-        n_blades = 6
+        body[:, :max_col, :] = sub_rgba
 
-    xc_right = (w - 1.0) - xc_left
-    k_wave = 2.0 * np.pi * yn * 3.5
+    # Crochets en C Chunsoft (notamment le grand double crochet central à mi-hauteur de `ref_entree_tornades_user.png` !)
+    hooks_spec = [
+        (0.14, 0.55, 1.05, 1.10, 42.0),
+        (0.28, 2.65, 1.12, 1.14, 48.0),
+        (0.45, 0.85, 1.22, 1.24, 68.0),   # Grand crochet d'écume iconique à mi-hauteur !
+        (0.48, 3.95, 1.20, 1.22, 64.0),   # Second grand crochet opposé (visible à mi-tour !)
+        (0.63, 2.15, 1.14, 1.16, 52.0),
+        (0.77, 5.20, 1.10, 1.12, 44.0),
+    ]
+    back_whips = np.zeros((h, w, 4), dtype=np.uint8)
+    front_whips = np.zeros((h, w, 4), dtype=np.uint8)
+    _draw_3d_hooked_crescents(
+        front_canvas=front_whips,
+        back_canvas=back_whips,
+        xc=xc,
+        r0=r0,
+        omega=omega,
+        mirror_right=mirror_right,
+        hooks=hooks_spec,
+    )
+    return body, back_whips, front_whips
 
-    frames_back: List[Image.Image] = []
-    frames_body: List[Image.Image] = []
-    frames_front: List[Image.Image] = []
 
-    for t in range(n_frames):
-        rot_angle = 2.0 * np.pi * (t / float(n_frames))
+def build_twin_tornado_layers(
+    w: int, h: int, n_frames: int = 24
+) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Génère les 4 calques 24 poses RGBA des deux tornades géantes de la Tour Céleste — Entrée."""
+    gusts_left = _generate_cylindrical_gust_catalog(seed=1301)
+    gusts_right = _generate_cylindrical_gust_catalog(seed=1302)
 
-        body = np.zeros((h, w, 4), dtype=np.uint8)
-        back = np.zeros((h, w, 4), dtype=np.uint8)
-        front = np.zeros((h, w, 4), dtype=np.uint8)
+    left_frames: List[Image.Image] = []
+    right_frames: List[Image.Image] = []
+    front_frames: List[Image.Image] = []
+    spark_frames: List[Image.Image] = []
 
-        for is_right, (xc_col, spin) in enumerate(((xc_left, 1.0), (xc_right, -1.0))):
-            bulge_l = wobble_amp * np.sin(k_wave - rot_angle)
-            bulge_r = wobble_amp * np.sin(k_wave - rot_angle + np.pi)
-            x_edge_l = xc_col - rad_base - bulge_l
-            x_edge_r = xc_col + rad_base + bulge_r
-            x_mid = 0.5 * (x_edge_l + x_edge_r)
-            r_half = np.maximum(4.0, 0.5 * (x_edge_r - x_edge_l))
+    rng = np.random.default_rng(38401)
+    motes = [
+        (
+            float(rng.choice([rng.uniform(0.03 * w, 0.30 * w), rng.uniform(0.70 * w, 0.97 * w)])),
+            float(rng.uniform(0.0, h)),
+            int(rng.choice([1, 2])),
+            bool(rng.integers(0, 2)),
+        )
+        for _ in range(48)
+    ]
 
-            u = (xx - x_mid) / r_half
-            inside_geom = (np.abs(u) <= 1.0) & (yn <= y_bot_fade)
-            if not np.any(inside_geom):
-                continue
+    for f in range(n_frames):
+        body_l, back_l, front_l = render_single_tornado_pose(
+            w=w, h=h, pose_idx=f, gusts=gusts_left, n_frames=n_frames, mirror_right=False
+        )
+        body_r, back_r, front_r = render_single_tornado_pose(
+            w=w, h=h, pose_idx=f, gusts=gusts_right, n_frames=n_frames, mirror_right=True
+        )
 
-            u_clip = np.clip(u, -1.0, 1.0)
-            u_oriented = -u_clip if is_right else u_clip
-            theta = np.arcsin(u_oriented)
+        l_comp = back_l.copy()
+        m_bl = body_l[:, :, 3] > 0
+        l_comp[m_bl] = body_l[m_bl]
 
-            phi = np.mod(theta + 0.5 * np.pi - rot_angle, 2.0 * np.pi)
-            phi_f = (phi / (2.0 * np.pi)) * float(n_phi)
-            p0 = np.floor(phi_f).astype(np.int32) % n_phi
-            p1 = (p0 + 1) % n_phi
-            fp = (phi_f - np.floor(phi_f))[:, :, None]
+        r_comp = back_r.copy()
+        m_br = body_r[:, :, 3] > 0
+        r_comp[m_br] = body_r[m_br]
 
-            row_i = yy.astype(np.int32)
-            sampled_rgb = (1.0 - fp) * sheet_rgb[row_i, p0] + fp * sheet_rgb[row_i, p1]
-            sampled_a = (1.0 - fp[:, :, 0]) * sheet_a[row_i, p0] + fp[:, :, 0] * sheet_a[row_i, p1]
+        f_whips = front_l.copy()
+        m_fr = front_r[:, :, 3] > 0
+        f_whips[m_fr] = front_r[m_fr]
 
-            # Effilage dentelé en mèches de vent aux bords extrêmes du cylindre (`|u| > 0.82`) : zéro bord coupé !
-            hook_feather = 0.5 + 0.5 * np.sin(9.0 * k_wave + 5.0 * theta - 2.0 * rot_angle)
-            edge_fade = 1.0 - 0.72 * np.clip((np.abs(u_clip) - 0.80) / 0.20, 0.0, 1.0) * hook_feather
-            vis = inside_geom & ((sampled_a * edge_fade) >= 126.0)
+        sparks = np.zeros((h, w, 4), dtype=np.uint8)
+        ang = (2.0 * np.pi * f) / float(n_frames)
+        for mx, my, speed_k, is_bright in motes:
+            py = int(round(my - (speed_k * h * f) / float(n_frames))) % h
+            px = int(round(mx + (6.0 * w / 768.0) * np.sin(ang + my * 0.04))) % w
+            col = (255, 255, 255, 255) if is_bright else (164, 245, 255, 255)
+            sparks[py, px] = col
+            if is_bright and px + 1 < w:
+                sparks[py, px + 1] = (204, 252, 255, 255)
 
-            rim_shade = 8.0 * (spin * u_clip) - 12.0 * (u_clip ** 4)
-            shaded = np.clip(sampled_rgb + rim_shade[:, :, None], 0.0, 255.0)
-            q_body = _quantize_tornado_rgb(shaded)
+        left_frames.append(Image.fromarray(l_comp, "RGBA"))
+        right_frames.append(Image.fromarray(r_comp, "RGBA"))
+        front_frames.append(Image.fromarray(f_whips, "RGBA"))
+        spark_frames.append(Image.fromarray(sparks, "RGBA"))
 
-            body[vis, :3] = q_body[vis]
-            body[vis, 3] = 255
-
-            # Croissants d'air cycloniques orbitant à `360°` autour de la tornade !
-            for b_idx in range(n_blades):
-                v_frac = ((b_idx + (t / float(n_frames))) / float(n_blades))
-                by = float(h * (0.08 + 0.76 * (1.0 - v_frac)))
-                yi = int(np.clip(round(by), 0, h - 1))
-                cx0 = float(xc_col[yi, 0])
-                rr0 = float(rad_base[yi, 0])
-
-                alpha = (b_idx * 2.39996) + spin * rot_angle
-                sin_a = float(np.sin(alpha))
-                cos_a = float(np.cos(alpha))
-
-                blade_cx = cx0 + 0.22 * rr0 * sin_a
-                blade_rx = 1.12 * rr0
-                blade_ry = max(5.0, 0.25 * rr0)
-                thick = max(1.3, 2.8 * (w / 768.0) * (0.65 + 0.35 * abs(cos_a)))
-
-                if cos_a >= 0.0:
-                    span = 0.34 * np.pi
-                    c0 = 0.5 * np.pi - span * (0.35 + 0.65 * (0.5 + 0.5 * sin_a))
-                    c1 = 0.5 * np.pi + span * (0.35 + 0.65 * (0.5 - 0.5 * sin_a))
-                    _draw_crescent_arc(
-                        front,
-                        blade_cx,
-                        by,
-                        blade_rx,
-                        blade_ry,
-                        c0,
-                        c1,
-                        thick,
-                        TORNADO_PALETTE[7],
-                        TORNADO_PALETTE[5],
-                    )
-                else:
-                    _draw_crescent_arc(
-                        back,
-                        blade_cx,
-                        by - 0.10 * rr0,
-                        1.16 * rr0,
-                        blade_ry,
-                        -0.86 * np.pi,
-                        -0.14 * np.pi,
-                        thick * 0.85,
-                        TORNADO_PALETTE[4],
-                        TORNADO_PALETTE[2],
-                    )
-
-        frames_back.append(Image.fromarray(back, mode="RGBA"))
-        frames_body.append(Image.fromarray(body, mode="RGBA"))
-        frames_front.append(Image.fromarray(front, mode="RGBA"))
-
-    return frames_back, frames_body, frames_front
+    return left_frames, right_frames, front_frames, spark_frames

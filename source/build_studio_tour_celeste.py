@@ -36,44 +36,24 @@ def _load_builder(folder_name: str):
 def export_filmstrips() -> Dict:
     specs = [
         {
-            "id": "MFA1",
-            "folder": "mont_foudre_sommet_v1",
-            "ref_rel": "source/mont_foudre_sommet_v1/references/v38p07a_storm_peak_electric_glow_native.png",
-            "ref_label": "Référence PMD Sky — Pic d'Orage Noir Électrique de Zekrom (V38P07A 1×)",
-            "zip_rel": ".cache/virtual_zips/MFA1_PMDO_0.8.12.zip",
-            "bg_fill": "#0c1428",
-            "subtitle": "POV PMD Sommet de la Montagne — Cœur de la Tornade de Nuages Noirs Électriques de Zekrom (V38P07A + H17P01W1) — Crête Sud-Nord issue de la grotte, autel basaltique au centre de l'œil cyclonique 360°",
-            "wind_summary": "Tornade noire électrique 360° de Zekrom (24f @ 5t) | Arcs bleus H17P01W1.bpa 1× & éclairs d'arrivée (24f) | Runes électriques (24f) | Piliers rocheux 100 % statiques",
+            "id": "TCE1",
+            "folder": "tour_celeste_entree_v1",
+            "ref_rel": "source/tour_celeste_entree_v1/references/ref_entree_tornades_user.png",
+            "ref_label": "Référence Tour Céleste — Entrée (D13P01 Tornades 1×)",
+            "zip_rel": ".cache/virtual_zips/TCE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0040e0",
+            "subtitle": "POV PMD Tour Céleste — Entrée (D13P01) — Chemin de nuage continu Sud-Nord, portail Nord & 2 tornades géantes Chunsoft en rotation 3D 360° sur leur axe",
+            "wind_summary": "Tornade Gauche 3D 360° (24f @ 5t) | Tornade Droite 3D 360° (24f @ 5t) | Crochets d'écume 3D Top (24f) | Onde alizé D13P01 (24f) | Nuages 100 % statiques",
         },
         {
-            "id": "MFE1",
-            "folder": "mont_foudre_entree_v1",
-            "ref_rel": "source/mont_foudre_entree_v1/references/p14p01a_luminous_meadow_spring_native.png",
-            "ref_label": "Référence PMD Sky — Tiny Meadow / Clairière Lumineuse (P14P01A 1×)",
-            "zip_rel": ".cache/virtual_zips/MFE1_PMDO_0.8.12.zip",
-            "bg_fill": "#101a30",
-            "subtitle": "POV PMD Tiny Meadow — Entrée donnant sur la Montagne & Grotte de Zekrom (P14P01A + H17P01 + H10P02) — Sentier Sud-Nord, ruisseaux #FF00FF, pont de pierre, escalier vers la grotte & ciel de tornade noire électrique",
-            "wind_summary": "Ciel cyclonique noir & éclairs bleus Zekrom (24f @ 5t) | Ruisseaux Tiny Meadow H10P02.bpl 1× (24f @ 5t) | Montagne, grotte & arbres 100 % statiques",
-        },
-        {
-            "id": "TTA1",
-            "folder": "tour_du_temps_pinacle_v1",
-            "ref_rel": "source/tour_du_temps_pinacle_v1/references/d30p41a_temporal_pinnacle_primal_native.png",
-            "ref_label": "Référence PMD Sky — Pinacle du Temps / Dialga Primal (D30P41A 1×)",
-            "zip_rel": ".cache/virtual_zips/TTA1_PMDO_0.8.12.zip",
-            "bg_fill": "#8c3d38",
-            "subtitle": "POV PMD Sky Pinacle du Temps — Sanctuaire de Dialga Primal (D30P41A) — Dallage rose ruiné Sud-Nord, autel temporel Nord, ciel cramoisi #FF00FF, débris lévitants & Rouages du Temps",
-            "wind_summary": "Nuées temporelles cramoisies D30P41A (24f @ 5t) | Débris figés en lévitation & failles temporelles (24f) | Rouages du Temps Top (24f) | Colonnes 100 % statiques",
-        },
-        {
-            "id": "TTE1",
-            "folder": "tour_du_temps_entree_v1",
-            "ref_rel": "source/tour_du_temps_entree_v1/references/d30p32a_temporal_spire_native.png",
-            "ref_label": "Référence PMD Sky — Flèche de la Tour du Temps (D30P32A 1×)",
-            "zip_rel": ".cache/virtual_zips/TTE1_PMDO_0.8.12.zip",
-            "bg_fill": "#948c42",
-            "subtitle": "POV PMD Sky Tour du Temps — Entrée de la Flèche Temporelle (D30P32A) — Chaussée dorée Sud-Nord, arche horlogère Nord, mer de nuages ambrés #FF00FF & arcs cyan",
-            "wind_summary": "Mer de nuages ambrés D30P32A (24f @ 5t) | Arcs chronologiques cyan & brèches (24f @ 5t) | Spores temporelles Top (24f) | Colonnes 100 % statiques",
+            "id": "STC1",
+            "folder": "tour_celeste_sommet_v1",
+            "ref_rel": "source/tour_celeste_sommet_v1/references/ref_sommet_planete_rayquaza.png",
+            "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
+            "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
+            "bg_fill": "#040a34",
+            "subtitle": "Fond Planète Terre & Cosmos étoilé + Tour cumulonimbus, cuvette d'arène, croissants, pont Sud-Nord & cumulus Top fidèles à la référence",
+            "wind_summary": "Statiques (1 pose) : Planète Terre & alizés, cumulonimbus, cuvette & pont, cumulus Top | Animés : Cosmos étoilé & reflets D13P01.bpl",
         },
         {
             "id": "FSA1",
@@ -88,132 +68,12 @@ def export_filmstrips() -> Dict:
         {
             "id": "FSE1",
             "folder": "faille_spatiale_entree_v1",
-            "ref_rel": "source/faille_spatiale_sanctuaire_v1/references/d45p42a_deep_spatial_rift_boss_native.png",
-            "ref_label": "Référence PMD Sky — Faille Spatiale / Palkia (D46P41A · D45P42A 1×)",
+            "ref_rel": "source/faille_spatiale_entree_v1/references/d46p41a_spatial_rift_canyon_native.png",
+            "ref_label": "Référence PMD Sky — Faille Spatiale Entrée (D46P41A 1×)",
             "zip_rel": ".cache/virtual_zips/FSE1_PMDO_0.8.12.zip",
             "bg_fill": "#120722",
             "subtitle": "POV PMD Sky Faille Spatiale — Entrée du Gouffre Dimensionnel (D46P41A) — Passerelle violette Sud-Nord, portail Spatio-Rift Nord #FF00FF & rubans stellaires",
             "wind_summary": "Cosmos violet D46P41A & étoiles scintillantes (24f @ 5t) | Portail Spatio-Rift Nord (24f @ 5t) | Veines dimensionnelles (24f) | Rochers & cristaux 100 % statiques",
-        },
-        {
-            "id": "MHA1",
-            "folder": "mer_houleuse_sanctuaire_v1",
-            "ref_rel": "source/mer_houleuse_sanctuaire_v1/references/h02p03_seafloor_cave_native.png",
-            "ref_label": "Référence PMD Red — Caverne Fond-Marin / Kyogre (H02P03 1×)",
-            "zip_rel": ".cache/virtual_zips/MHA1_PMDO_0.8.12.zip",
-            "bg_fill": "#10164a",
-            "subtitle": "POV PMD Mer Houleuse — Sanctuaire Abyssal de Kyogre (H02P03) — Médaillon & runes Primo-Kyogre, lagon #FF00FF -> H10P02/H02P02W 1×, cristaux 100 % statiques",
-            "wind_summary": "Lagon H10P02.bpl 1× (12f @ 10t) | Courants GBA H02P02W 1× (15f @ 8t) | Runes Primo-Kyogre (24f @ 5t) | Bulles H02P03W 1× | Cristaux 100 % statiques",
-        },
-        {
-            "id": "MHE1",
-            "folder": "mer_houleuse_entree_v1",
-            "ref_rel": "source/mer_houleuse_entree_v1/references/h02p02_deep_sea_current_native.png",
-            "ref_label": "Référence PMD Red — Courant Marin Abyssal (H02P02 1×)",
-            "zip_rel": ".cache/virtual_zips/MHE1_PMDO_0.8.12.zip",
-            "bg_fill": "#0a2258",
-            "subtitle": "POV PMD Mer Houleuse — Entrée de la Fosse Abyssale (H02P02) — Chaussée engloutie Sud-Nord, fosse & puits #FF00FF -> H10P02 + H02P02W 1× & vortex spiral",
-            "wind_summary": "Abysse H10P02.bpl 1× (12f @ 10t) | Courants GBA H02P02W.bpl 1× & vortex (15f @ 8t) | Bulles GBA H02P03W 1× (15f @ 8t) | Stèles & plancton (24f)",
-        },
-        {
-            "id": "FGA1",
-            "folder": "foret_givree_sanctuaire_v1",
-            "ref_rel": "source/foret_givree_sanctuaire_v1/references/h24p01_articuno_sanctuary_native.png",
-            "ref_label": "Référence PMD Red — Sanctuaire d'Artikodin (H24P01 1×)",
-            "zip_rel": ".cache/virtual_zips/FGA1_PMDO_0.8.12.zip",
-            "bg_fill": "#d8ecfc",
-            "subtitle": "POV PMD Forêt Givrée — Sanctuaire d'Artikodin (H24P01) — Médaillon Flocon, vasques & cascades #FF00FF -> eau H10P02 1× & cristaux 100 % statiques",
-            "wind_summary": "Eau & cascades GBA H10P02.bpl 1× (12f @ 10t) | Aurore Boréale (24f @ 5t) | Reflet Médaillon (24f) | Blizzard W03P03 Top (24f) | Cristaux 100 % statiques",
-        },
-        {
-            "id": "FGE1",
-            "folder": "foret_givree_entree_v1",
-            "ref_rel": "source/foret_givree_entree_v1/references/d10p01_frosty_forest_native.png",
-            "ref_label": "Référence PMD Red — Forêt Givrée Entrée (D10P01 1×)",
-            "zip_rel": ".cache/virtual_zips/FGE1_PMDO_0.8.12.zip",
-            "bg_fill": "#44609c",
-            "subtitle": "POV PMD Forêt Givrée — Entrée (D10P01) — Sentier enneigé Sud-Nord, ruisseaux #FF00FF -> eau GBA H10P02 1×, Aurore Boréale & blizzard W03P03",
-            "wind_summary": "Eau glaciaire GBA H10P02.bpl 1× (12f @ 10t) | Écume de berge (12f @ 10t) | Aurore Boréale (24f @ 5t) | Blizzard W03P03 Top (24f @ 5t)",
-        },
-        {
-            "id": "MBE1",
-            "folder": "mont_brasier_entree_v1",
-            "ref_rel": "source/mont_brasier_entree_v1/references/d09p01_mt_blaze_native.png",
-            "ref_label": "Référence PMD Red — Mont Brasier Entrée (D09P01 1×)",
-            "zip_rel": ".cache/virtual_zips/MBE1_PMDO_0.8.12.zip",
-            "bg_fill": "#201620",
-            "subtitle": "POV PMD Mont Brasier — Entrée (D09P01) — Colonnes basaltiques, chaussée terracotta Sud-Nord, 2 cascades & bassins #FF00FF -> lave d41p41a 1×",
-            "wind_summary": "Double cascade verticale lave (24f @ 5t) | Bassins d41p41a 1× (12f @ 10t) | Rive visqueuse (15f @ 8t) | Braises W04 Top (16f @ 7t)",
-        },
-        {
-            "id": "MBA1",
-            "folder": "mont_brasier_sommet_v1",
-            "ref_rel": "source/mont_brasier_sommet_v1/references/h19p01_moltres_crater_native.png",
-            "ref_label": "Référence PMD Red — Cratère de Sulfura (H19P01 1×)",
-            "zip_rel": ".cache/virtual_zips/MBA1_PMDO_0.8.12.zip",
-            "bg_fill": "#38120c",
-            "subtitle": "POV PMD Mont Brasier — Cime de Sulfura (H19P01) — Pont Sud-Nord, rosace & caldeira #FF00FF -> magma d41p41a 1×, fumées cratériques & braises W04",
-            "wind_summary": "Caldeira & rosace d41p41a 1× (12f @ 10t) | Rive visqueuse (15f @ 8t) | Fumées H19P01 (24f @ 5t) | Braises W04 Top (16f @ 7t)",
-        },
-        {
-            "id": "TCE1",
-            "folder": "tour_celeste_entree_v1",
-            "ref_rel": "source/tour_celeste_entree_v1/references/ref_entree_tornades_user.png",
-            "ref_label": "Référence Tour Céleste — Entrée (D13P01 Tornades 1×)",
-            "zip_rel": ".cache/virtual_zips/TCE1_PMDO_0.8.12.zip",
-            "bg_fill": "#0040e0",
-            "subtitle": "POV PMD Tour Céleste — Entrée (D13P01) — Chemin de nuage continu Sud-Nord, portail Nord & 2 tornades géantes en rotation 3D sur elles-mêmes",
-            "wind_summary": "Tornades gauche & droite en rotation cylindrique 3D 360° (24f @ 5t) | Volutes arrière BG + avant Top (24f) | Onde BPL D13P01 (24f)",
-        },
-        {
-            "id": "TCM1",
-            "folder": "tour_celeste_relais_v1",
-            "ref_rel": "source/tour_celeste_relais_v1/references/d13p02_native.png",
-            "ref_label": "Référence PMD Red — Relais Céleste (D13P02 1×)",
-            "zip_rel": ".cache/virtual_zips/TCM1_PMDO_0.8.12.zip",
-            "bg_fill": "#2f4ff7",
-            "subtitle": "POV PMD Tour Céleste — Relais Céleste (D13P02) — Pont de nuage Sud-Nord, octogone suspendu & colonnes cycloniques rotatives dans les gouffres",
-            "wind_summary": "Colonnes de tornades latérales en rotation 3D 360° (24f @ 5t) | Courants-jet Top (24f) | Brumes d'altitude & BPL D13P02 (24f)",
-        },
-        {
-            "id": "GME1",
-            "folder": "grotte_meteore_entree_v1",
-            "ref_rel": "source/grotte_meteore_entree_v1/references/b74_meteor_cave_deoxys.png",
-            "ref_label": "Référence PMD Red — Meteor Cave Deoxys (b74 1×)",
-            "zip_rel": ".cache/virtual_zips/GME1_PMDO_0.8.12.zip",
-            "bg_fill": "#050a2a",
-            "subtitle": "POV PMD Grotte Météore — Entrée (Météorite Fissurée Deoxys) — Chemin brisé Sud-Nord, cristaux statiques, plasma Deoxys & ciel étoilé",
-            "wind_summary": "Bleu nuit & 250+ étoiles (24f) | 6 étoiles filantes (24f) | Plasma failles Deoxys (24f) | Cristaux 100 % statiques | 10 éclats Top (24f)",
-        },
-        {
-            "id": "GMA1",
-            "folder": "grotte_meteore_arene_v1",
-            "ref_rel": "source/grotte_meteore_arene_v1/references/b74_meteor_cave_deoxys.png",
-            "ref_label": "Référence PMD Red — Meteor Cave Deoxys (b74 1×)",
-            "zip_rel": ".cache/virtual_zips/GMA1_PMDO_0.8.12.zip",
-            "bg_fill": "#050a2a",
-            "subtitle": "POV PMD Grotte Météore — Arène de Deoxys (b74) — Palette Deoxys vermeil/turquoise/indigo, cristaux statiques, onde ADN & étoiles filantes",
-            "wind_summary": "Bleu nuit & 250+ étoiles (24f) | 6 étoiles filantes (24f) | Onde ADN Deoxys (24f) | Cristaux 100 % statiques | 10 météorites Top (24f)",
-        },
-        {
-            "id": "MLE1",
-            "folder": "mont_lointain_entree_v1",
-            "ref_rel": "source/mont_lointain_entree_v1/references/b72_mt_faraway_hooh.png",
-            "ref_label": "Référence PMD Red — Mont Lointain (b72 1×)",
-            "zip_rel": ".cache/virtual_zips/MLE1_PMDO_0.8.12.zip",
-            "bg_fill": "#ffffd7",
-            "subtitle": "POV PMD Mont Lointain — Entrée (b72) — Piliers karstiques ocre/sauge, escalier d'ivoire Sud-Nord, mer de nuages dorée & plumes de Ho-Oh",
-            "wind_summary": "Rubans mer de nuages (24f @ 5t) | Arc-en-Ciel pastel Ho-Oh (24f) | Brumes karstiques (24f) | Plumes dorées Top (24f)",
-        },
-        {
-            "id": "MLS1",
-            "folder": "mont_lointain_sommet_v1",
-            "ref_rel": "source/mont_lointain_sommet_v1/references/b72_mt_faraway_hooh.png",
-            "ref_label": "Référence PMD Red — Sommet de Ho-Oh (b72 1×)",
-            "zip_rel": ".cache/virtual_zips/MLS1_PMDO_0.8.12.zip",
-            "bg_fill": "#ffffd7",
-            "subtitle": "POV PMD Mont Lointain — Sommet de Ho-Oh (b72) — Plateau sacré d'ivoire, grand escalier Sud, mer de nuages dorée & Arc-en-Ciel de Ho-Oh",
-            "wind_summary": "Rubans mer de nuages (24f @ 5t) | Arc-en-Ciel pastel Ho-Oh (24f) | Cumulus dorés (24f) | Plumes sacrées Top (24f)",
         },
         {
             "id": "MME1",
@@ -234,16 +94,6 @@ def export_filmstrips() -> Dict:
             "bg_fill": "#220604",
             "subtitle": "POV PMD Roche Noire + Lave Dark Crater Pit 1× (d41p41a) — Île caldeira, symbole Ω gravé, cascade Nord, 4 colonnes géantes & rive visqueuse",
             "wind_summary": "Lave Dark Crater Pit 1× (12f @ 10t) | Rive visqueuse & bordure rocher (15f @ 8t) | Symbole Ω (12f @ 10t) | Cascade & 4 colonnes (15f @ 8t)",
-        },
-        {
-            "id": "STC1",
-            "folder": "tour_celeste_sommet_v1",
-            "ref_rel": "source/tour_celeste_sommet_v1/references/ref_sommet_planete_rayquaza.png",
-            "ref_label": "Référence Sommet Planète & Couronne Nuageuse",
-            "zip_rel": ".cache/virtual_zips/STC1_PMDO_0.8.12.zip",
-            "bg_fill": "#040a34",
-            "subtitle": "Fond Planète Terre & Cosmos étoilé + Tour cumulonimbus, cuvette d'arène, croissants, pont Sud-Nord & cumulus Top fidèles à la référence",
-            "wind_summary": "Statiques (1 pose) : Planète Terre & alizés, cumulonimbus, cuvette & pont, cumulus Top | Animés : Cosmos étoilé & reflets D13P01.bpl",
         },
     ]
 
@@ -321,7 +171,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — 21 Cartes Légendaires (Zekrom · Dialga · Palkia · Kyogre · Rayquaza)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — Tour Céleste (TCE1 · STC1) · Faille Spatiale (FSA1 · FSE1) · Mine Magma (MME1 · MMA1)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -800,41 +650,20 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MFA1"), encoding="utf-8")
-    (REPO_ROOT / "apercu_tour_du_temps_dialga_pmdo.html").write_text(
-        build_html(manifest, default_map_id="TTA1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
-        build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_mer_houleuse_kyogre_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MHA1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_mont_foudre_electhor_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MFA1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_foret_givree_artikodin_pmdo.html").write_text(
-        build_html(manifest, default_map_id="FGA1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_mont_brasier_sulfura_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MBE1"), encoding="utf-8"
-    )
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TCE1"), encoding="utf-8")
     (REPO_ROOT / "apercu_tour_celeste_trilogie_pmdo.html").write_text(
         build_html(manifest, default_map_id="TCE1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_grotte_meteore_deoxys_pmdo.html").write_text(
-        build_html(manifest, default_map_id="GME1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_mont_lointain_hooh_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MLS1"), encoding="utf-8"
-    )
-    (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
-        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (21 cartes, 210 calques 60 FPS).")
+    (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
+        build_html(manifest, default_map_id="FSA1"), encoding="utf-8"
+    )
+    (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MME1"), encoding="utf-8"
+    )
+    print("[Studio] index.html et les aperçus dédiés générés (6 cartes, 60 calques 60 FPS).")
 
 
 if __name__ == "__main__":
