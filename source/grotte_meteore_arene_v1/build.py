@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Constructeur multicalque 10 couches (PMDO 0.8.12.0, `768 × 576`, `96 × 72` tuiles) :
-GMA1 — Grotte Météore — Arène de Deoxys (`POV PMD` `b74_meteor_cave_deoxys.png` + Ciel Bleu Nuit Étoilé & Étoiles Filantes).
+GMA1 — Grotte Météore — Arène de Deoxys (`POV PMD` `b74_meteor_cave_deoxys.png` + Palette Deoxys).
 
 Principes stricts :
-- **Zéro noir sur les roches** (`lift_dark_rock_shadows_to_b74`) & palette minérale `b74` pure ;
-- **Vrai ciel Bleu Nuit Profond de l'Espace (`00`, `01`)** avec voiles nébulaires saphir/indigo, plus de `250`
-  étoiles scintillantes et `6` étoiles filantes traversant le cosmos sur `24 × 5 = 120` ticks ;
-- **Chambre gravée `b74` de Deoxys**, cœur céruléen, pont Sud continu à conduit psionique, grands cristaux cyan
-  et **10 météorites entières en lévitation** (`09` `Top`).
+- Harmonisation chromatique Deoxys avec `GME1` : facettes éclairées **corail-vermeil Deoxys** (`#F0583C`),
+  **cristaux turquoise/écume Deoxys `100 %` STATIQUES** (`Couche 08`, `poses = 1` unique !), et chambre
+  gravée `b74` violet-indigo parcourue par l'onde ADN psionique turquoise/corail/magenta (`Couche 07`) ;
+- Ciel Bleu Nuit Profond de l'Espace, `250+` étoiles scintillantes & `6` étoiles filantes (`00`, `01`, `24` poses) ;
+- `10` météorites entières en lévitation (`09` `Top`, `24` poses) + pont Sud praticable continu depuis `y = 71`.
 """
 
 from __future__ import annotations
@@ -29,12 +29,16 @@ if str(REPO_ROOT / "source") not in sys.path:
 from moteur_grotte_meteore_b74 import (  # type: ignore
     B74_GROOVE_BLUE,
     B74_SLAB_INDIGO,
+    DEOXYS_CORAL_LIGHT,
+    DEOXYS_CORAL_MAIN,
+    DEOXYS_TEAL_DARK,
+    DEOXYS_TEAL_GLOW,
+    DEOXYS_TEAL_MAIN,
     build_b74_cosmic_space_layers,
     build_b74_psychic_wave_frames,
-    build_b74_unified_palette,
-    build_crystal_glint_frames,
+    build_deoxys_b74_palette,
     extract_whole_floating_meteorites,
-    lift_dark_rock_shadows_to_b74,
+    lift_dark_rock_shadows_to_deoxys,
     load_clean_meteor_raw,
 )
 from tour_celeste_moteur_nuages import (  # type: ignore
@@ -59,27 +63,51 @@ VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip
 
 def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[LayerEntry], np.ndarray, np.ndarray]:
     raw_rgb, fg_mask = load_clean_meteor_raw(DECOR_RAW, w, h)
-    clean_rgb = lift_dark_rock_shadows_to_b74(raw_rgb, fg_mask)
-    pal = build_b74_unified_palette(B74_REF, clean_rgb, fg_mask)
-    q_rgb = quantize_rgb_to_palette(clean_rgb, pal)
+    clean_rgb = lift_dark_rock_shadows_to_deoxys(raw_rgb, fg_mask)
 
-    # 1. Séparation sans découpe des météorites flottantes entières (`03` fixes, `09` `Top` en lévitation)
-    main_island, im_03_belt, frames_09_lev = extract_whole_floating_meteorites(
-        q_rgb, fg_mask, n_levitating=10, n_frames=N_FRAMES
-    )
-
-    # 2. Segmentation sémantique de la chambre de Deoxys & du pont Sud -> Nord :
+    # Harmonie chromatique Deoxys sur l'arène :
+    # - les facettes rocheuses les plus chaudes/lumineuses des remparts & météorites prennent la teinte
+    #   vermeil-corail Deoxys (`#F0583C` / `#FF7A56`) ;
+    # - les grands cristaux prennent le dégradé turquoise-écume Deoxys (`#1CA8B8` -> `#2CE4D4` -> `#84FFF2`) !
+    cr = clean_rgb[:, :, 0].astype(np.int16)
+    cg = clean_rgb[:, :, 1].astype(np.int16)
+    cb = clean_rgb[:, :, 2].astype(np.int16)
     yy, xx = np.mgrid[:h, :w]
-    r = q_rgb[:, :, 0].astype(np.int16)
-    g = q_rgb[:, :, 1].astype(np.int16)
-    b = q_rgb[:, :, 2].astype(np.int16)
 
     arena_corridor = (
         ((yy >= int(0.22 * h)) & (yy <= int(0.70 * h)) & (xx >= int(0.29 * w)) & (xx <= int(0.71 * w)))
         | ((yy >= int(0.60 * h)) & (np.abs(xx - 0.50 * w) <= 0.14 * w))
     )
-    core_orb = main_island & (np.abs(xx - 0.50 * w) <= 0.08 * w) & (np.abs(yy - 0.455 * h) <= 0.09 * h) & (g >= 80) & (b >= 195) & (r < 95)
-    is_indigo_slab = main_island & arena_corridor & (b >= 145) & (r < 110)
+    outer_rock = fg_mask & (~arena_corridor | ((cr >= 175) & (cb < 210)))
+    warm_deoxys_facets = outer_rock & (cr >= 185) & (cg < 90) & (cb <= 195)
+    clean_rgb[warm_deoxys_facets & (cr >= 220)] = DEOXYS_CORAL_LIGHT
+    clean_rgb[warm_deoxys_facets & (cr < 220)] = DEOXYS_CORAL_MAIN
+
+    cryst_raw = fg_mask & (cg >= 115) & (cb >= 205) & (cr < 145) & (
+        ~((np.abs(xx - 0.50 * w) <= 0.08 * w) & (np.abs(yy - 0.455 * h) <= 0.09 * h))
+    )
+    clean_rgb[cryst_raw & (cg >= 205)] = DEOXYS_TEAL_GLOW
+    clean_rgb[cryst_raw & (cg >= 160) & (cg < 205)] = DEOXYS_TEAL_MAIN
+    clean_rgb[cryst_raw & (cg < 160)] = DEOXYS_TEAL_DARK
+
+    pal = build_deoxys_b74_palette(B74_REF, clean_rgb, fg_mask)
+    q_rgb = quantize_rgb_to_palette(clean_rgb, pal)
+
+    # 1. Séparation sans découpe des météorites flottantes entières (`03` fixes, `09` `Top` `10` en lévitation)
+    main_island, im_03_belt, frames_09_lev = extract_whole_floating_meteorites(
+        q_rgb, fg_mask, n_levitating=10, n_frames=N_FRAMES
+    )
+
+    # 2. Segmentation sémantique de la chambre de Deoxys & du pont Sud -> Nord :
+    r = q_rgb[:, :, 0].astype(np.int16)
+    g = q_rgb[:, :, 1].astype(np.int16)
+    b = q_rgb[:, :, 2].astype(np.int16)
+
+    core_orb = main_island & (np.abs(xx - 0.50 * w) <= 0.08 * w) & (np.abs(yy - 0.455 * h) <= 0.09 * h) & (g >= 80) & (b >= 190) & (r < 110)
+    # Teinte turquoise-céruléenne Deoxys au cœur de l'orbe central
+    q_rgb[core_orb] = DEOXYS_TEAL_MAIN
+
+    is_indigo_slab = main_island & arena_corridor & (b >= 145) & (r < 115)
     floor_seed = is_indigo_slab | core_orb
     walkable_slab = ndimage.binary_fill_holes(
         ndimage.binary_closing(floor_seed, iterations=max(2, int(round(5 * w / 768.0))))
@@ -89,7 +117,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     south_ids = [lid for lid in set(lbl_w0[h - 6 :, int(0.45 * w) : int(0.55 * w)].ravel().tolist()) if lid != 0]
     walkable_slab = np.isin(lbl_w0, south_ids) & main_island
 
-    psi_circuits = walkable_slab & (r >= 155) & (b >= 145) & (~core_orb)
+    psi_circuits = walkable_slab & (r >= 155) & (~core_orb)
     bridge_rows = walkable_slab & (yy >= int(0.67 * h))
     if np.any(bridge_rows):
         bx_mid = int(round(float(np.where(bridge_rows)[1].mean())))
@@ -99,14 +127,14 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         vert_seg = bridge_rows & (np.abs(xx - (bx_mid + jag)) <= lw)
         turn_seg = bridge_rows & ((yy % step_y) < (2 * lw)) & (np.abs(xx - bx_mid) <= int(round(9 * w / 768.0)) + lw)
         bridge_psi = (vert_seg | turn_seg) & (~core_orb)
-        q_rgb[bridge_psi] = np.array([255, 39, 215], dtype=np.uint8)
+        q_rgb[bridge_psi] = DEOXYS_CORAL_MAIN
         psi_circuits = psi_circuits | bridge_psi
     static_slab_only = walkable_slab & (~psi_circuits) & (~core_orb)
 
     walls = main_island & (~walkable_slab)
-    cyan_crystals = walls & (g >= 115) & (b >= 205) & (r < 135)
-    bright_facets = walls & (~cyan_crystals) & (r >= 165)
-    dark_ramparts = walls & (~cyan_crystals) & (~bright_facets)
+    static_crystals = walls & (g >= 140) & (b >= 165) & (r < 165)
+    coral_facets = walls & (~static_crystals) & (r >= 175)
+    dark_ramparts = walls & (~static_crystals) & (~coral_facets)
 
     # 3. Couche 02 : Dalle météoritique continue sous toute l'île
     sol_arr = np.zeros((h, w, 4), dtype=np.uint8)
@@ -125,14 +153,14 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     frames_00, frames_01 = build_b74_cosmic_space_layers(w, h, n_frames=N_FRAMES)
     im_04_floor = _mk_layer(static_slab_only)
     im_05_ramparts = _mk_layer(dark_ramparts)
-    im_06_facets = _mk_layer(bright_facets)
+    im_06_facets = _mk_layer(coral_facets)
 
     ys_c, xs_c = np.where(core_orb)
     c_xy = (float(xs_c.mean()), float(ys_c.mean())) if ys_c.size else (0.5 * w, 0.455 * h)
     frames_07_psi = build_b74_psychic_wave_frames(q_rgb, psi_circuits, core_orb, c_xy, n_frames=N_FRAMES)
-    frames_08_glint = build_crystal_glint_frames(q_rgb, cyan_crystals, n_frames=N_FRAMES)
+    # COUCHE 08 : GRANDS CRISTAUX TURQUOISE DEOXYS 100 % STATIQUES (`poses = 1` !)
+    im_08_static_crystals = _mk_layer(static_crystals)
 
-    # Grille de collision `96 × 72` : pont Sud continu depuis `y = 71` jusqu'à l'orbe central de Deoxys !
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     walk_grid = np.zeros((gh, gw), dtype=bool)
     for ty in range(gh):
@@ -152,10 +180,10 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("02_sol_dalle_meteorite_continu", "Dalle Meteorite Indigo Continue", "BG", [im_02_sol], frame_length=5),
         LayerEntry("03_meteorites_fixes_ceinture", "Ceinture Meteorites Flottantes", "BG", [im_03_belt], frame_length=5),
         LayerEntry("04_chambre_deoxys_et_pont", "Chambre Gravee b74 & Pont Sud-Nord", "BG", [im_04_floor], frame_length=5),
-        LayerEntry("05_remparts_meteorite_sombres", "Couronne Nord & Remparts Sombres", "BG", [im_05_ramparts], frame_length=5),
-        LayerEntry("06_facettes_pourpres_cristaux", "Facettes Vives Meteorite b74", "BG", [im_06_facets], frame_length=5),
-        LayerEntry("07_onde_psionique_circuits_b74", "Onde Psionique Circuits b74canm", "BG", frames_07_psi, frame_length=5),
-        LayerEntry("08_scintillement_cristaux_cyan", "Grands Prismes Cristallins Cyan", "BG", frames_08_glint, frame_length=5),
+        LayerEntry("05_remparts_meteorite_sombres", "Couronne Nord & Remparts Indigo", "BG", [im_05_ramparts], frame_length=5),
+        LayerEntry("06_facettes_pourpres_cristaux", "Facettes Corail-Vermeil Deoxys", "BG", [im_06_facets], frame_length=5),
+        LayerEntry("07_onde_psionique_circuits_b74", "Onde ADN Deoxys & Cœur Turquoise", "BG", frames_07_psi, frame_length=5),
+        LayerEntry("08_cristaux_statiques_deoxys", "Grands Cristaux Turquoise (Statiques)", "BG", [im_08_static_crystals], frame_length=5),
         LayerEntry("09_levitation_meteorites_top", "Meteorites Entieres en Levitation", "Top", frames_09_lev, frame_length=5),
     ]
     return layers, walk_grid, pal
@@ -175,6 +203,7 @@ def build(scale: float = 1.0, output_override: Path | None = None) -> dict:
         renders_dir=out_dir,
         virtual_zip_path=vzip,
         canonical_ref_for_fidelity=B74_REF,
+        max_fidelity_distance=46.0,
         namespace_override="grotte_meteore_gma1",
         asset_name_override="grotte_meteore_arene",
     )

@@ -679,6 +679,19 @@ def build_rsground_package(
                 zi.compress_type = zipfile.ZIP_DEFLATED
                 zf.writestr(zi, file_p.read_bytes())
 
+    # Relocalisation transparente des binaires `.tile` vers `.cache/tiles/<slug>/` (hors snapshot Git/disque)
+    if renders_dir.resolve().parent == (REPO_ROOT / "renders").resolve():
+        cache_tile_dir = REPO_ROOT / ".cache" / "tiles" / renders_dir.name
+        cache_tile_dir.mkdir(parents=True, exist_ok=True)
+        for tfile in sorted((pkg_dir / "Content" / "Tile").glob("*.tile")):
+            if not tfile.is_symlink():
+                dst_cache = cache_tile_dir / tfile.name
+                shutil.move(str(tfile), str(dst_cache))
+                os.symlink(os.path.relpath(dst_cache, tfile.parent), tfile)
+        for fpng in sorted((renders_dir / "frames").glob("frame_*.png")):
+            if fpng.name not in ("frame_00.png", "frame_06.png", "frame_12.png", "frame_18.png"):
+                fpng.unlink(missing_ok=True)
+
     meta = {
         "map_id": map_id,
         "title": map_title,

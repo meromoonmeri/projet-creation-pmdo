@@ -39,11 +39,11 @@ def export_filmstrips() -> Dict:
             "id": "GME1",
             "folder": "grotte_meteore_entree_v1",
             "ref_rel": "source/grotte_meteore_entree_v1/references/b74_meteor_cave_deoxys.png",
-            "ref_label": "Référence PMD Red — Meteor Cave (b74 1×)",
+            "ref_label": "Référence PMD Red — Meteor Cave Deoxys (b74 1×)",
             "zip_rel": ".cache/virtual_zips/GME1_PMDO_0.8.12.zip",
-            "bg_fill": "#050a2e",
-            "subtitle": "POV PMD Grotte Météore — Entrée (b74) — Espace bleu nuit étoilé, étoiles filantes, roches pourpres sans noir, pont Sud-Nord & onde b74canm",
-            "wind_summary": "Bleu nuit profond & 250+ étoiles (24f @ 5t) | 6 étoiles filantes (24f) | Onde psionique b74canm (24f) | 8 météorites Top (24f)",
+            "bg_fill": "#050a2a",
+            "subtitle": "POV PMD Grotte Météore — Entrée (Météorite Fissurée Deoxys) — Chemin brisé Sud-Nord, cristaux statiques, plasma Deoxys & ciel étoilé",
+            "wind_summary": "Bleu nuit & 250+ étoiles (24f) | 6 étoiles filantes (24f) | Plasma failles Deoxys (24f) | Cristaux 100 % statiques | 10 éclats Top (24f)",
         },
         {
             "id": "GMA1",
@@ -51,9 +51,29 @@ def export_filmstrips() -> Dict:
             "ref_rel": "source/grotte_meteore_arene_v1/references/b74_meteor_cave_deoxys.png",
             "ref_label": "Référence PMD Red — Meteor Cave Deoxys (b74 1×)",
             "zip_rel": ".cache/virtual_zips/GMA1_PMDO_0.8.12.zip",
-            "bg_fill": "#050a2e",
-            "subtitle": "POV PMD Grotte Météore — Arène de Deoxys (b74) — Espace bleu nuit étoilé, étoiles filantes, chambre gravée, cœur céruléen & 10 météorites Top",
-            "wind_summary": "Bleu nuit profond & 250+ étoiles (24f @ 5t) | 6 étoiles filantes (24f) | Onde psionique b74canm (24f) | 10 météorites Top (24f)",
+            "bg_fill": "#050a2a",
+            "subtitle": "POV PMD Grotte Météore — Arène de Deoxys (b74) — Palette Deoxys vermeil/turquoise/indigo, cristaux statiques, onde ADN & étoiles filantes",
+            "wind_summary": "Bleu nuit & 250+ étoiles (24f) | 6 étoiles filantes (24f) | Onde ADN Deoxys (24f) | Cristaux 100 % statiques | 10 météorites Top (24f)",
+        },
+        {
+            "id": "MLE1",
+            "folder": "mont_lointain_entree_v1",
+            "ref_rel": "source/mont_lointain_entree_v1/references/b72_mt_faraway_hooh.png",
+            "ref_label": "Référence PMD Red — Mont Lointain (b72 1×)",
+            "zip_rel": ".cache/virtual_zips/MLE1_PMDO_0.8.12.zip",
+            "bg_fill": "#ffffd7",
+            "subtitle": "POV PMD Mont Lointain — Entrée (b72) — Piliers karstiques ocre/sauge, escalier d'ivoire Sud-Nord, mer de nuages dorée & plumes de Ho-Oh",
+            "wind_summary": "Rubans mer de nuages (24f @ 5t) | Arc-en-Ciel pastel Ho-Oh (24f) | Brumes karstiques (24f) | Plumes dorées Top (24f)",
+        },
+        {
+            "id": "MLS1",
+            "folder": "mont_lointain_sommet_v1",
+            "ref_rel": "source/mont_lointain_sommet_v1/references/b72_mt_faraway_hooh.png",
+            "ref_label": "Référence PMD Red — Sommet de Ho-Oh (b72 1×)",
+            "zip_rel": ".cache/virtual_zips/MLS1_PMDO_0.8.12.zip",
+            "bg_fill": "#ffffd7",
+            "subtitle": "POV PMD Mont Lointain — Sommet de Ho-Oh (b72) — Plateau sacré d'ivoire, grand escalier Sud, mer de nuages dorée & Arc-en-Ciel de Ho-Oh",
+            "wind_summary": "Rubans mer de nuages (24f @ 5t) | Arc-en-Ciel pastel Ho-Oh (24f) | Cumulus dorés (24f) | Plumes sacrées Top (24f)",
         },
         {
             "id": "MME1",
@@ -643,13 +663,16 @@ def main() -> None:
     (REPO_ROOT / "apercu_grotte_meteore_deoxys_pmdo.html").write_text(
         build_html(manifest, default_map_id="GME1"), encoding="utf-8"
     )
+    (REPO_ROOT / "apercu_mont_lointain_hooh_pmdo.html").write_text(
+        build_html(manifest, default_map_id="MLS1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MME1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_sommet_tour_celeste_stc1_pmdo.html").write_text(
         build_html(manifest, default_map_id="STC1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (5 cartes, 50 calques 60 FPS).")
+    print("[Studio] index.html et les aperçus dédiés générés (7 cartes, 70 calques 60 FPS).")
 
 
 if __name__ == "__main__":
