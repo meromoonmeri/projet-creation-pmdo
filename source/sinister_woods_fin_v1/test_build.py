@@ -47,19 +47,31 @@ class TestSinisterWoodsFinV1(unittest.TestCase):
         for sheet, count in self.metrics["unique_tiles_per_sheet"].items():
             self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_mist_pools_sparkles_mushrooms_animated_and_terrain_static(self) -> None:
+    def test_03_wastewater_pools_low_opacity_toxic_mist_wisps_and_zero_spectral_mist(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
+        yy = np.arange(self.raw.shape[0])[:, None]
+        wat_m = mag_raw & (yy >= 96)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 4).sum()), 10_000)
-        surf_px = (self.pose0[mag_raw, 0] == 131) & (self.pose0[mag_raw, 1] == 218) & (self.pose0[mag_raw, 2] == 230)
-        self.assertGreater(int(surf_px.sum()), 35_000)
-        for st_idx in (4, 5, 6, 7):
+        self.assertGreater(int((diff[wat_m] > 4).sum()), 4_000)
+        # Eau couleur "eau usée" trouble (olive-vase, 0 pixel cyan vif 131,218,230)
+        cyan_px = (self.pose0[wat_m, 0] == 131) & (self.pose0[wat_m, 1] == 218) & (self.pose0[wat_m, 2] == 230)
+        self.assertEqual(int(cyan_px.sum()), 0)
+        r_w, g_w, b_w = self.pose0[wat_m, 0].astype(int), self.pose0[wat_m, 1].astype(int), self.pose0[wat_m, 2].astype(int)
+        ww_px = (g_w >= r_w) & (r_w >= b_w + 18) & (g_w <= 145) & (b_w <= 80)
+        self.assertGreater(int(ww_px.sum()), 35_000)
+        # ZÉRO brume spectrale cyan dans les percées de ciel Nord (sky_m)
+        sky_m = mag_raw & (yy < 96)
+        r_n, g_n, b_n = self.pose0[sky_m, 0].astype(int), self.pose0[sky_m, 1].astype(int), self.pose0[sky_m, 2].astype(int)
+        self.assertEqual(int(((b_n > r_n + 65) & (g_n >= 135)).sum()), 0)
+        for st_idx in (0, 4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        for an_idx in (0, 1, 2, 3, 8, 9):
+        self.assertEqual(self.metrics["layers"][1]["poses"], 48)
+        for an_idx in (2, 3, 8, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
         u = self.metrics["unique_tiles_per_sheet"]
-        self.assertGreater([v for k, v in u.items() if "_03_" in k][0], 10)
-        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 500)
+        self.assertGreater([v for k, v in u.items() if "_01_" in k][0], 40)
+        self.assertGreater([v for k, v in u.items() if "_03_" in k][0], 6)
+        self.assertGreater([v for k, v in u.items() if "_09_" in k][0], 80)
 
     def test_04_continuous_south_to_boss_arena_walkgrid(self) -> None:
         _, walk_grid = swf_build.build_layers_for_size()

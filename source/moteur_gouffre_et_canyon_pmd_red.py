@@ -60,13 +60,7 @@ def _quantize_canyon_chasm_96c(rgb: np.ndarray, solid_mask: np.ndarray, mode: st
     q_im = Image.fromarray(work, mode="RGB").quantize(colors=88, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     out = np.asarray(q_im.convert("RGB"), dtype=np.uint8).copy()
 
-    if mode == "great_canyon_entry":
-        # Préserver le vert vif du cactus & touffes désertiques face à 99% d'ocre rouge
-        cactus_hi = _keep_compact_blobs(interior & (g0 >= 120) & (g0 > r0 + 18) & (g0 > b0 + 35), max_area=900)
-        cactus_lo = _keep_compact_blobs(interior & (~cactus_hi) & (g0 >= 80) & (g0 > r0 + 8) & (g0 > b0 + 22), max_area=900)
-        out[cactus_hi] = (108, 164, 76)
-        out[cactus_lo] = (72, 116, 52)
-    elif mode == "silent_chasm_end":
+    if mode == "silent_chasm_end":
         # Préserver les chapeaux turquoise-ardoise H13P02 des colonnes basaltiques
         teal_cap = interior & (b0 >= 155) & (g0 >= 165) & (g0 >= r0 + 12)
         out[teal_cap] = (156, 196, 192)
@@ -182,6 +176,48 @@ def assemble_gouffre_canyon_1x(
         if not np.any(rim):
             break
         solid_768 = solid_768 & (~rim)
+
+    # Sur GCE1 : retrait intégral et propre des cactus de l'entrée (corps vert + contour sombre + ombre portée)
+    if mode == "great_canyon_entry":
+        rc = rgb_768[:, :, 0].astype(np.int16)
+        gc = rgb_768[:, :, 1].astype(np.int16)
+        bc = rgb_768[:, :, 2].astype(np.int16)
+        cactus_core = solid_768 & (yy7 >= 340) & (gc >= rc - 14) & (gc > bc + 14)
+        if np.any(cactus_core):
+            cactus_halo = ndimage.binary_dilation(cactus_core, iterations=3) & solid_768
+            # Capte aussi le contour brun foncé et l'ombre immédiate au pied du cactus (jusqu'à +3 px supplémentaires)
+            cactus_shadow = (
+                ndimage.binary_dilation(cactus_halo, iterations=3)
+                & solid_768
+                & (rc < 158)
+                & (yy7 >= 370)
+            )
+            erase_m = ndimage.binary_dilation(cactus_halo | cactus_shadow, iterations=1) & solid_768
+            # Inpainting horizontal ligne par ligne pour prolonger exactement les strates de grès / replat
+            for y_row in np.where(erase_m.any(axis=1))[0].tolist():
+                row_bad = erase_m[y_row, :]
+                lbl_r, n_r = ndimage.label(row_bad)
+                for rid in range(1, n_r + 1):
+                    xs_b = np.where(lbl_r == rid)[0]
+                    x0_b, x1_b = int(xs_b[0]), int(xs_b[-1])
+                    xl = max(0, x0_b - 2)
+                    while xl > 0 and (erase_m[y_row, xl] or not solid_768[y_row, xl]):
+                        xl -= 1
+                    xr = min(W - 1, x1_b + 2)
+                    while xr < W - 1 and (erase_m[y_row, xr] or not solid_768[y_row, xr]):
+                        xr += 1
+                    col_l = rgb_768[y_row, xl].astype(np.float32)
+                    col_r = rgb_768[y_row, xr].astype(np.float32)
+                    # Privilégie le côté intérieur du replat si le côté bord touche un caillou voisin
+                    if x0_b < W // 2 and xr < W - 1:
+                        rgb_768[y_row, x0_b : x1_b + 1] = rgb_768[y_row, xr]
+                    elif x0_b >= W // 2 and xl > 0:
+                        rgb_768[y_row, x0_b : x1_b + 1] = rgb_768[y_row, xl]
+                    else:
+                        span = max(1, x1_b - x0_b + 1)
+                        for k_i, xx_b in enumerate(range(x0_b, x1_b + 1)):
+                            t_b = (k_i + 0.5) / float(span)
+                            rgb_768[y_row, xx_b] = np.round((1.0 - t_b) * col_l + t_b * col_r).astype(np.uint8)
 
     rgb_768 = _quantize_canyon_chasm_96c(rgb_768, solid_768, mode=mode)
     mag_768 = ~solid_768
@@ -532,8 +568,9 @@ def _render_wrapping_cloud_band(
     shift_per_pose: int,
     sky_mask: np.ndarray,
     single_pose_preview: bool = False,
+    n_poses: int = N_POSES,
 ) -> List[Image.Image]:
-    """Rend une bande de familles de nuages PMD bouclant périodiquement sans couture sur `24` poses."""
+    """Rend une bande de familles de nuages PMD bouclant périodiquement sans couture sur `n_poses` poses."""
     band_h = H
     proto = np.zeros((band_h, period_w, 4), dtype=np.uint8)
     for sp, x0, y0 in placements:
@@ -556,7 +593,7 @@ def _render_wrapping_cloud_band(
     else:
         full_proto = proto[:, :W, :]
 
-    n_iter = 1 if single_pose_preview else N_POSES
+    n_iter = 1 if single_pose_preview else n_poses
     frames: List[Image.Image] = []
     for f in range(n_iter):
         rolled = np.roll(full_proto, shift=(f * shift_per_pose) % W, axis=1).copy()
@@ -680,27 +717,34 @@ def build_great_canyon_sky_and_top_layers(
     sky_arr[:sy_max, :][sub_m, 3] = 255
     sky_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]
 
-    # Plan lointain (16 px/pose, période 384 px) : familles stratocumulus & flocons dérivant derrière le Soleil
+    # Plan lointain ultra-lent (64 poses @ 45 ticks = 2880t, 34560/2880=12 exact, 4 px/pose -> 5.3 px/s, 36× plus lent !)
     far_placements = [
-        (fams_far["strato"][0], 24, 92),
-        (fams_far["wisps"][0], 142, 118),
-        (fams_far["strato"][1], 216, 102),
-        (fams_far["wisps"][1], 324, 82),
+        (fams_far["strato"][0], 18, 92),
+        (fams_far["wisps"][0], 124, 118),
+        (fams_far["wisps"][1], 196, 82),
     ]
-    clouds_far_24 = _render_wrapping_cloud_band(
-        far_placements, period_w=384, shift_per_pose=16, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    clouds_far_64 = _render_wrapping_cloud_band(
+        far_placements,
+        period_w=256,
+        shift_per_pose=4,
+        sky_mask=sky_mask,
+        single_pose_preview=single_pose_preview,
+        n_poses=64,
     )
 
-    # Plan principal (32 px/pose, période 768 px) : grandes familles de cumulus PMD à base plate dans le haut du ciel
+    # Plan principal lent (64 poses @ 36 ticks = 2304t, 34560/2304=15 exact, 6 px/pose -> 10.0 px/s, 38.4× plus lent !)
     near_placements = [
-        (fams_near["majors"][0], 28, 12),
-        (fams_near["mediums"][0], 238, 48),
-        (fams_near["mediums"][2], 348, 8),
-        (fams_near["majors"][1], 492, 10),
-        (fams_near["mediums"][1], 668, 54),
+        (fams_near["majors"][0], 24, 10),
+        (fams_near["mediums"][0], 198, 48),
+        (fams_near["mediums"][2], 298, 8),
     ]
-    clouds_near_24 = _render_wrapping_cloud_band(
-        near_placements, period_w=768, shift_per_pose=32, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    clouds_near_64 = _render_wrapping_cloud_band(
+        near_placements,
+        period_w=384,
+        shift_per_pose=6,
+        sky_mask=sky_mask,
+        single_pose_preview=single_pose_preview,
+        n_poses=64,
     )
 
     # Soleil animé canonique de D07P02 niché dans l'échancrure centrale du Grand Canyon (x=284..484, y=140..206)
@@ -708,7 +752,7 @@ def build_great_canyon_sky_and_top_layers(
     sun_out: List[Image.Image] = []
     breeze_out: List[Image.Image] = []
     rng = np.random.default_rng(70701)
-    n_dust = 28
+    n_dust = 22
     dx0 = rng.integers(32, W - 32, size=n_dust)
     dy0 = rng.integers(220, H - 36, size=n_dust)
     dph = rng.uniform(0.0, 2.0 * math.pi, size=n_dust)
@@ -727,18 +771,18 @@ def build_great_canyon_sky_and_top_layers(
         sub_dst[keep_s, 3] = 255
         sun_out.append(Image.fromarray(sanitize_rgba_binary(sun_frame)))
 
-        # Brise chaude de grains de sable doré dans le canyon (zéro rayon/halo artificiel)
+        # Brise chaude douce et lente de grains de sable doré dans le canyon (zéro défilement rapide)
         top_fx = np.zeros((H, W, 4), dtype=np.uint8)
         if not single_pose_preview:
             for i in range(n_dust):
-                mx = int((dx0[i] + f * 32) % (W - 16)) + 8
-                my = int(round(dy0[i] + 4.0 * math.sin(theta + dph[i])))
+                mx = int(round(dx0[i] + 6.0 * math.sin(theta + dph[i])))
+                my = int(round(dy0[i] + 3.0 * math.cos(theta + dph[i])))
                 if 4 <= mx < W - 4 and 205 <= my < H - 4 and (not sky_mask[my, mx]):
                     if math.sin(2.0 * theta + dph[i]) > -0.15:
                         top_fx[my, mx : mx + 2] = (248, 216, 152, 255)
         breeze_out.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
-    return sky_static_1, clouds_far_24, sun_out, clouds_near_24, breeze_out
+    return sky_static_1, clouds_far_64, sun_out, clouds_near_64, breeze_out
 
 
 def build_hill_of_ancients_layers(
@@ -782,27 +826,34 @@ def build_hill_of_ancients_layers(
     _blit_native_star_band_768(sky_arr, static_stars_312, sky_mask, max_y_dst=106)
     starry_sunset_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]
 
-    # Plan lointain de nuages PMD du couchant (16 px/pose, période 384 px, derrière le Soleil canonique)
+    # Plan lointain ultra-lent de nuages PMD du couchant (64 poses @ 45 ticks = 2880t, 4 px/pose -> 5.3 px/s)
     far_placements = [
         (fams_far["strato"][0], 18, 138),
-        (fams_far["wisps"][0], 128, 156),
-        (fams_far["strato"][1], 212, 142),
-        (fams_far["wisps"][1], 320, 130),
+        (fams_far["wisps"][0], 124, 156),
+        (fams_far["wisps"][1], 198, 130),
     ]
-    clouds_sunset_far_24 = _render_wrapping_cloud_band(
-        far_placements, period_w=384, shift_per_pose=16, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    clouds_sunset_far_64 = _render_wrapping_cloud_band(
+        far_placements,
+        period_w=256,
+        shift_per_pose=4,
+        sky_mask=sky_mask,
+        single_pose_preview=single_pose_preview,
+        n_poses=64,
     )
 
-    # Plan médian de familles de cumulus PMD du couchant (32 px/pose, période 768 px, y = 104..150
-    # pile dans la bande crépusculaire pourpre-ambre, sous l'étoile filante et au-dessus du Soleil canonique !)
+    # Plan médian lent de familles de cumulus PMD du couchant (64 poses @ 36 ticks = 2304t, 6 px/pose -> 10.0 px/s)
     near_placements = [
         (fams_near["mediums"][0], 26, 108),
-        (fams_near["strato"][0], 184, 124),
-        (fams_near["mediums"][2], 472, 104),
-        (fams_near["mediums"][1], 628, 112),
+        (fams_near["strato"][0], 164, 124),
+        (fams_near["mediums"][2], 284, 104),
     ]
-    clouds_sunset_near_24 = _render_wrapping_cloud_band(
-        near_placements, period_w=768, shift_per_pose=32, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    clouds_sunset_near_64 = _render_wrapping_cloud_band(
+        near_placements,
+        period_w=384,
+        shift_per_pose=6,
+        sky_mask=sky_mask,
+        single_pose_preview=single_pose_preview,
+        n_poses=64,
     )
 
     # Calque canonique : Soleil animé D07P02 (x=284..484, y=150..216) + étoiles scintillantes & étoile filante A04P011.bpa
@@ -810,7 +861,7 @@ def build_hill_of_ancients_layers(
     sun_stars_24: List[Image.Image] = []
     breeze_24: List[Image.Image] = []
     rng_em = np.random.default_rng(770702)
-    n_motes = 26
+    n_motes = 22
     em_x0 = rng_em.integers(24, W - 24, size=n_motes)
     em_y0 = rng_em.integers(228, H - 28, size=n_motes)
     em_ph = rng_em.uniform(0.0, 2.0 * math.pi, size=n_motes)
@@ -834,15 +885,15 @@ def build_hill_of_ancients_layers(
         sub_dst[keep_s, 3] = 255
         sun_stars_24.append(Image.fromarray(sanitize_rgba_binary(cel)))
 
-        # 3) Fines poussières d'or thermiques s'élevant le long du promontoire (sans rayons en éventail !)
+        # 3) Fines poussières d'or thermiques flottant lentement le long du promontoire (zéro défilement rapide)
         top_fx = np.zeros((H, W, 4), dtype=np.uint8)
         if not single_pose_preview:
             for i in range(n_motes):
-                mx = int((em_x0[i] + f * 32) % (W - 16)) + 8
-                my = int(round(em_y0[i] + 4.0 * math.sin(theta + em_ph[i])))
+                mx = int(round(em_x0[i] + 5.0 * math.sin(theta + em_ph[i])))
+                my = int(round(em_y0[i] + 3.0 * math.cos(theta + em_ph[i])))
                 if 4 <= mx < W - 4 and 220 <= my < H - 4 and (not sky_mask[my, mx]):
                     if math.sin(2.0 * theta + em_ph[i]) > 0.05:
                         top_fx[my, mx] = (255, 232, 152, 255)
         breeze_24.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
-    return starry_sunset_static_1, clouds_sunset_far_24, sun_stars_24, clouds_sunset_near_24, breeze_24
+    return starry_sunset_static_1, clouds_sunset_far_64, sun_stars_24, clouds_sunset_near_64, breeze_24

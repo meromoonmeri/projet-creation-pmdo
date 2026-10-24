@@ -80,21 +80,8 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     g_c = rgb_nat[:, :, 1].astype(np.int16)
     b_c = rgb_nat[:, :, 2].astype(np.int16)
 
-    flora_seed = (
-        solid_nat
-        & (yy_n >= 210)
-        & (yy_n <= 460)
-        & (xx_n >= 160)
-        & (xx_n <= 608)
-        & (r_c >= 195)
-        & (g_c >= 215)
-        & (b_c <= 145)
-    )
-    lbl_f, _ = ndimage.label(ndimage.binary_dilation(flora_seed, iterations=1))
-    f_sizes = np.bincount(lbl_f.ravel())
-    keep_f = (f_sizes >= 3) & (f_sizes <= 120)
-    keep_f[0] = False
-    flora_mask = ndimage.binary_dilation(keep_f[lbl_f], iterations=1) & solid_nat
+    # Bûches & souches 100 % statiques : seules les fleurs natives Metano Town s'animent !
+    flora_mask = np.zeros_like(solid_nat)
 
     # Eau & scintillements 100 % natifs Metano Town (`Metano_Town_River_Animation_1..4` + `Sparkles`)
     water_24, sparkle_24 = build_forest_water_and_sparkles_layers(

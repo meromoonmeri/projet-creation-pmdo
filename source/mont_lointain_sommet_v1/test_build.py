@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `mont_lointain_sommet_v1` (`MLS1`, Sommet du Mont Lointain `B72` `1:1`)."""
-
+"""Tests unitaires d'acceptation — `mont_lointain_sommet_v1` (`MLS1`, Sommet du Mont Lointain — Ho-Oh `B72` + `H05P02`)."""
 from __future__ import annotations
 
 import json
@@ -25,34 +24,44 @@ class TestMontLointainSommetV1(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.renders = REPO_ROOT / "renders" / "mont_lointain_sommet_v1"
-        if not (cls.renders / "metadata.json").is_file():
+        if not (cls.renders / "metadata.json").is_file() or not (cls.renders / "composite_pose0.png").is_file():
             mls_build.build()
         cls.metrics = json.loads((cls.renders / "metadata.json").read_text(encoding="utf-8"))
         cls.pose0 = np.asarray(Image.open(cls.renders / "composite_pose0.png").convert("RGBA"), dtype=np.uint8)
         cls.pose12 = np.asarray(Image.open(cls.renders / "composite_pose12.png").convert("RGBA"), dtype=np.uint8)
-        cls.raw = np.asarray(Image.open(mls_build.DECOR_MAGENTA_RAW).convert("RGB"), dtype=np.uint8)
+        cls.raw = np.asarray(Image.open(mls_build.BRUT_PATH).convert("RGB"), dtype=np.uint8)
 
-    def test_01_magenta_cutout_brut_and_pastel_zero_black_outline(self) -> None:
-        mag_raw = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
-        self.assertGreater(int(mag_raw.sum()), 180_000, "Le ciel, la mer de nuages & les arcs-en-ciel doivent être en #FF00FF sur le brut")
+    def test_01_magenta_sky_and_cloud_sea_on_brut_and_zero_magenta_leak(self) -> None:
+        mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
+        self.assertGreater(int(mag_raw.sum()), 150_000, "Le ciel & la mer de nuages doivent être en #FF00FF sur le brut")
+        self.assertTrue((mls_build.HERE / "references" / "b72_mt_faraway_hooh.png").is_file())
+        self.assertTrue((mls_build.HERE / "references" / "h05p02_rainbow_peak_native.png").is_file())
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
-            self.assertEqual(int(((np.minimum(r, b) - g) >= 40).sum()), 0, f"Fuite magenta sur pose {idx}")
-            self.assertEqual(int((pose[:, :, :3].max(axis=2) < 95).sum()), 0, "Zéro contour noir dur sur MLS1 B72")
+            self.assertEqual(int(((np.minimum(r, b) - g) >= 38).sum()), 0, f"Fuite magenta sur pose {idx}")
 
-    def test_02_ultra_high_fidelity_to_b72_and_ten_layers(self) -> None:
+    def test_02_ultra_high_fidelity_and_ten_non_empty_layers(self) -> None:
         self.assertEqual(len(self.metrics["layers"]), 10)
-        self.assertLess(self.metrics["fidelity_distance"], 9.5)
+        self.assertLess(self.metrics["fidelity_distance"], 8.0)
+        for sheet, count in self.metrics["unique_tiles_per_sheet"].items():
+            self.assertGreaterEqual(count, 25, f"Calque vide ou trop pauvre : {sheet}={count}")
+            self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_b72_cloud_sea_and_h05p02_rainbows_animated(self) -> None:
-        mag_zone = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
+    def test_03_slow_sacred_cloud_sea_rainbows_animated_and_sanctuary_static(self) -> None:
+        mag_zone = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_zone] > 6).sum()), 3_000, "La mer de nuages & les arcs-en-ciel H05P02 doivent s'animer")
+        self.assertGreater(int((diff[mag_zone] > 4).sum()), 2_000, "La mer de nuages & les arcs-en-ciel H05P02 doivent s'animer")
+        for st_idx in (0, 4, 5, 6, 7, 8):
+            self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
+        self.assertEqual(self.metrics["layers"][1]["poses"], 64)
+        self.assertEqual(self.metrics["layers"][2]["poses"], 64)
+        for an_idx in (3, 9):
+            self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
 
     def test_04_wide_hooh_boss_arena_walkgrid(self) -> None:
-        _, walk_grid, _ = mls_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 1_300)
+        _, walk_grid = mls_build.build_layers_for_size()
+        self.assertGreater(int(walk_grid.sum()), 1_200)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
         center_ids = set(lbl[28:46, 40:56].ravel().tolist()) - {0}

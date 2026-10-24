@@ -48,19 +48,28 @@ class TestGreatCanyonEntreeV1(unittest.TestCase):
             self.assertGreaterEqual(count, 20, f"Calque vide ou quasi-vide : {sheet}={count}")
             self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_pmd_cloud_families_and_canonical_sun_animated_and_terrain_static(self) -> None:
+    def test_03_slow_pmd_clouds_canonical_sun_zero_cactus_and_static_terrain(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 4).sum()), 20_000)
+        self.assertGreater(int((diff[mag_raw] > 4).sum()), 3_000)
+        # Vérifie ZÉRO cactus vert sur le relief de l'entrée du Grand Canyon (y >= 260)
+        r_g = self.pose0[260:, :, 0].astype(int)
+        g_g = self.pose0[260:, :, 1].astype(int)
+        b_g = self.pose0[260:, :, 2].astype(int)
+        self.assertEqual(int(((g_g >= r_g - 8) & (g_g > b_g + 16)).sum()), 0, "Il reste des pixels de cactus vert sur GCE1")
         # Vérifie la présence du Soleil animé canonique (255, 207, 71) dans le col central (x=340..428, y=145..198)
         notch = self.pose0[145:198, 340:428, :3]
         sun_core = (notch[:, :, 0] == 255) & (notch[:, :, 1] == 207) & (notch[:, :, 2] == 71)
         self.assertGreater(int(sun_core.sum()), 1200)
         sun_diff = np.abs(self.pose0[142:202, 310:458, :3].astype(int) - self.pose12[142:202, 310:458, :3].astype(int)).max(axis=2)
         self.assertGreater(int((sun_diff > 4).sum()), 150)
-        for st_idx in (0, 4, 5, 6, 7):
+        for st_idx in (0, 4, 5, 6, 7, 8):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        for an_idx in (1, 2, 3, 8, 9):
+        self.assertEqual(self.metrics["layers"][1]["poses"], 64)
+        self.assertEqual(self.metrics["layers"][1]["frame_length"], 45)
+        self.assertEqual(self.metrics["layers"][3]["poses"], 64)
+        self.assertEqual(self.metrics["layers"][3]["frame_length"], 36)
+        for an_idx in (2, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
 
     def test_04_continuous_south_trail_to_slot_gorge_walkgrid(self) -> None:

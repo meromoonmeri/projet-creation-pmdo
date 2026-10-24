@@ -33,8 +33,8 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 from source.moteur_cyclones_cylindriques_unova import H as H_NAT, N_POSES, W as W_NAT, sanitize_rgba_binary
 from source.moteur_forets_pmd_red import (
     build_forest_flora_layer_24,
-    build_forest_sky_and_atmosphere_layers,
     build_forest_water_and_sparkles_layers,
+    build_sinister_toxic_mist_and_wisps_layers,
     inpaint_grass_under_flora,
 )
 from tour_celeste_moteur_nuages import H_CANON, TILE_SIZE, W_CANON, LayerEntry, build_rsground_package  # type: ignore
@@ -79,13 +79,13 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     flora_mask = solid_nat & (mushroom_red | mushroom_purple | stump_glow_spots)
     flora_mask = ndimage.binary_dilation(flora_mask, iterations=1) & solid_nat
 
-    sky_24, horizon_24, top_fx_24 = build_forest_sky_and_atmosphere_layers(
-        mode="sinister_woods_mist",
+    sky_1, toxic_bg_48, top_24 = build_sinister_toxic_mist_and_wisps_layers(
         sky_mask=sky_mask_nat,
-        base_rgb=rgb_nat,
+        canopy_nat=canopy_nat,
+        is_arena_fin=True,
     )
     water_24, sparkle_24 = build_forest_water_and_sparkles_layers(
-        mode="sinister_woods_mist",
+        mode="sinister_woods_wastewater",
         water_mask=water_mask_nat,
         bridge_mask=None,
     )
@@ -125,16 +125,6 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         im = Image.fromarray(sanitize_rgba_binary(rgba))
         return im if (w, h) == (W_NAT, H_NAT) else im.resize((w, h), Image.Resampling.NEAREST)
 
-    top_24: List[Image.Image] = []
-    can_op = canopy_nat[:, :, 3] >= 128
-    for f in range(N_POSES):
-        arr = np.zeros((H_NAT, W_NAT, 4), dtype=np.uint8)
-        arr[can_op] = canopy_nat[can_op]
-        sp = np.asarray(top_fx_24[f], dtype=np.uint8)
-        sp_op = sp[:, :, 3] >= 128
-        arr[sp_op] = sp[sp_op]
-        top_24.append(Image.fromarray(sanitize_rgba_binary(arr)))
-
     gw, gh = w // TILE_SIZE, h // TILE_SIZE
     bank_cliff = ndimage.binary_dilation(water_mask_nat, iterations=6)
     walk_nat = (is_arena_banks | is_south_causeway) & (~bank_cliff)
@@ -150,16 +140,16 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[:, -2:] = False
 
     layers = [
-        LayerEntry("00_ciel_nuit_bois_sinistre", "Ciel Nocturne-Crépusculaire Friend Area PMD Red (H07P08)", "BG", _resize_frames(sky_24, w, h), frame_length=5),
-        LayerEntry("01_voiles_brume_spectrale_h07", "Voiles de Brume Spectrale Friend Area (H07P01)", "BG", _resize_frames(horizon_24, w, h), frame_length=5),
-        LayerEntry("02_mare_sombre_bois_sinistre", "Mares Sombres du Bois Sinistre 4 Phases", "BG", _resize_frames(water_24, w, h), frame_length=5),
-        LayerEntry("03_lueurs_eau_bois_sinistre", "Lueurs Cyan-Jade sur les Mares 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
+        LayerEntry("00_ciel_nuit_bois_sinistre", "Ciel Nocturne Sombre du Bois Sinistre", "BG", _resize_frames(sky_1, w, h), frame_length=5),
+        LayerEntry("01_brume_toxique_mares_basse_opacite", "Brume Toxique Générée à Faible Opacité", "BG", _resize_frames(toxic_bg_48, w, h), frame_length=18),
+        LayerEntry("02_mares_eau_usee_bois_sinistre", "Mares d'Eau Usée Trouble Metano 4 Phases", "BG", _resize_frames(water_24, w, h), frame_length=5),
+        LayerEntry("03_reflets_troubles_mares_sinistres", "Reflets Troubles sur l'Eau Usée 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
         LayerEntry("04_arene_clairiere_equipe_mechants", "Arène Centrale de la Clairière & Berges", "BG", [mk_static_scaled(is_arena_banks, rgb_arena)], frame_length=5),
         LayerEntry("05_sentier_arene_bois_sinistre", "Chaussée Moussue d'Arrivée Sud", "BG", [mk_static_scaled(is_south_causeway)], frame_length=5),
         LayerEntry("06_souche_creuse_et_toiles_h07", "Souche Creuse Monolithique H07P01 & Toiles H07P08", "BG", [mk_static_scaled(is_monolith_cobwebs)], frame_length=5),
         LayerEntry("07_enceinte_arbres_bleutes_d04", "Enceinte d'Arbres Bleutés D04P01 & Souches", "BG", [mk_static_scaled(is_trees_props)], frame_length=5),
         LayerEntry("08_champignons_lueurs_spores", "Champignons Rouges & Violets à Spores Luminescentes", "BG", _resize_frames(flora_24, w, h), frame_length=5),
-        LayerEntry("09_canopee_brume_et_feux_follets_top", "Canopée Sombre, Brume H07P01 & Feux Follets Top", "Top", _resize_frames(top_24, w, h), frame_length=5),
+        LayerEntry("09_canopee_brume_toxique_feux_follets_top", "Canopée, Brume Toxique & Feux Follets Faible Opacité Top", "Top", _resize_frames(top_24, w, h), frame_length=8),
     ]
     return layers, walk_grid
 

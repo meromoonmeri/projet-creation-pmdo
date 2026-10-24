@@ -211,6 +211,29 @@ def assemble_foret_pmd_red_1x(
             hy, hx = np.where(top_hole)
             rgb_768[hy, hx] = rgb_768[n_idx[0, hy, hx], n_idx[1, hy, hx]]
             solid_768[top_hole] = True
+    else:
+        # Sur SWF1 : purge tout ruban cyan plat de brume spectrale pré-peint dans les coins Nord (y < 128)
+        if out_brut_path.name == "base_sinister_woods_fin.png":
+            r_f = rgb_768[:128, :, 0].astype(np.int16)
+            g_f = rgb_768[:128, :, 1].astype(np.int16)
+            b_f = rgb_768[:128, :, 2].astype(np.int16)
+            wing_x = (xx7[:128, :] < 276) | (xx7[:128, :] > W - 276)
+            # Cible uniquement le ruban plat de brume spectrale (sans texture d'arbre : couleur quasi uniforme)
+            med_g = ndimage.median_filter(g_f, size=5)
+            flat_cyan_mist = (
+                solid_768[:128, :]
+                & wing_x
+                & (g_f >= 124)
+                & (b_f >= 138)
+                & (r_f <= 64)
+                & (np.abs(g_f - med_g) <= 6)
+            )
+            lbl_cm, n_cm = ndimage.label(flat_cyan_mist)
+            for cid in range(1, n_cm + 1):
+                m_c = lbl_cm == cid
+                if int(m_c.sum()) >= 180:
+                    m_dil = ndimage.binary_dilation(m_c, iterations=1) & solid_768[:128, :] & wing_x
+                    rgb_768[:128, :][m_dil] = np.array([18, 66, 90], dtype=np.uint8)
 
     rgb_768 = _quantize_solid_96c(rgb_768, solid_768, mode=mode)
     mag_768 = ~solid_768
@@ -245,7 +268,9 @@ def assemble_foret_pmd_red_1x(
     out_canopy_path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(canopy_rgba, mode="RGBA").save(out_canopy_path)
 
-    # Référence composite `ref_canon` (Eau 100 % Metano Town `[131, 218, 230]` partout !)
+    # Référence composite `ref_canon` :
+    # - Tiny Woods : Eau claire Metano Town `[131, 218, 230]`
+    # - Sinister Woods : Eau trouble couleur "eau usée" `[82, 92, 54]`
     ref_rgb = rgb_768.copy()
     sky_m = mag_768 & (yy < 96)
     wat_m = mag_768 & (~sky_m)
@@ -256,7 +281,10 @@ def assemble_foret_pmd_red_1x(
         sky_top = sky_m.copy()
         sky_top[sh:, :] = False
         ref_rgb[sky_top] = sky_strip[:sh, :][sky_top[:sh, :]]
-    ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
+    if mode == "tiny_woods_sunlit":
+        ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
+    else:
+        ref_rgb[wat_m] = np.array([82, 92, 54], dtype=np.uint8)
     out_ref_canon_path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(ref_rgb, mode="RGB").save(out_ref_canon_path)
 
@@ -561,19 +589,45 @@ def extract_native_metano_river_profiles() -> np.ndarray:
     return prof4
 
 
+def _remap_metano_to_wastewater_rgb(rgb: np.ndarray) -> np.ndarray:
+    """Re-palette fidèlement les ondulations natives Metano Town vers une teinte trouble 'eau usée'
+    (vase olive-brunâtre stagnante, zéro bleu-cyan vif)."""
+    lum = (
+        0.299 * rgb[..., 0].astype(np.float32)
+        + 0.587 * rgb[..., 1].astype(np.float32)
+        + 0.114 * rgb[..., 2].astype(np.float32)
+    )
+    # Metano Town natif a des luminances entre ~95 (rive sombre) et ~225 (crête claire)
+    t = np.clip((lum - 95.0) / 125.0, 0.0, 1.0)
+    pal_ww = np.array(
+        [
+            [44, 50, 30],   # berge vaseuse sombre
+            [62, 70, 40],   # palier intermédiaire boueux
+            [82, 92, 54],   # eau usée olive-kaki trouble (surface principale)
+            [102, 114, 66], # ride d'eau trouble claire
+        ],
+        dtype=np.uint8,
+    )
+    idx = np.zeros(t.shape, dtype=np.int32)
+    idx[t >= 0.28] = 1
+    idx[t >= 0.56] = 2
+    idx[t >= 0.82] = 3
+    return pal_ww[idx]
+
+
 def build_forest_water_and_sparkles_layers(
     mode: str,
     water_mask: np.ndarray,
     bridge_mask: np.ndarray | None = None,
 ) -> Tuple[List[Image.Image], List[Image.Image]]:
-    """Construit `(water_24, sparkles_24)` **100 % Eau & Animations natives Metano Town** (`4 × 10` ticks) :
-    - Surface intérieure pure `(131, 218, 230)` (`Metano_Town_River_Animation_1..4.tile`, zéro pois/tache artificielle),
-    - Biseau de rive animé 4 phases extrait directement de `Metano_Town_River_Animation_1..4.tile`,
-    - Grappes scintillantes 100 % natives non retouchées `Metano_Town_River_Sparkles.tile` (`4` phases @ `10` ticks)."""
-    _ = mode  # Règle permanente : toujours utiliser l'eau et les animations natives de Metano Town partout !
+    """Construit `(water_24, sparkles_24)` avec l'animation native Metano Town (`4 × 10` ticks) :
+    - `tiny_woods_sunlit` (et défaut) : Eau claire native Metano Town `(131, 218, 230)` + `Sparkles.tile` natifs ;
+    - `sinister_woods_wastewater` : Même géométrie animée Metano Town teintée en 'eau usée' trouble `(82, 92, 54)`."""
+    is_wastewater = mode == "sinister_woods_wastewater"
     assets = extract_metano_water_and_flower_assets()
     sp_clusters: List[List[np.ndarray]] = assets["sparkle_clusters"]  # type: ignore[assignment]
-    prof4 = extract_native_metano_river_profiles()
+    prof4_raw = extract_native_metano_river_profiles()
+    prof4 = _remap_metano_to_wastewater_rgb(prof4_raw) if is_wastewater else prof4_raw
     n_prof = prof4.shape[1]
 
     yy, xx = np.mgrid[0:H, 0:W].astype(np.int32)
@@ -581,14 +635,19 @@ def build_forest_water_and_sparkles_layers(
     visible_water_open = (water_mask & (~bridge_mask)) if bridge_mask is not None else water_mask
     dist_bank = ndimage.distance_transform_edt(visible_water_open)
 
-    pal_surface = (131, 218, 230, 255)
-    pal_under_bridge = (87, 135, 191, 255)
+    if is_wastewater:
+        pal_surface = (82, 92, 54, 255)
+        pal_under_bridge = (50, 56, 34, 255)
+        max_sparkles = 14
+    else:
+        pal_surface = (131, 218, 230, 255)
+        pal_under_bridge = (87, 135, 191, 255)
+        max_sparkles = 28
 
     shore_mask = visible_water_open & (dist_bank >= 0.5) & (dist_bank <= 12.0)
     arc_idx = (xx + 2 * yy) % n_prof
     dist_idx = np.clip(np.round(dist_bank).astype(np.int32) - 1, 0, 11)
 
-    # Placement déterministe sans chevauchement des grappes 100 % natives `Metano_Town_River_Sparkles.tile`
     taken_sp = np.zeros((H, W), dtype=bool)
     sparkle_sites: List[Tuple[int, int, int, int]] = []
     rng_sp = np.random.default_rng(77)
@@ -606,14 +665,13 @@ def build_forest_water_and_sparkles_layers(
         ):
             taken_sp[sy : sy + sh_h, sx : sx + sh_w] = True
             sparkle_sites.append((sx, sy, fam_idx, len(sparkle_sites) % 4))
-            if len(sparkle_sites) >= 28:
+            if len(sparkle_sites) >= max_sparkles:
                 break
 
     water_frames: List[Image.Image] = []
     sparkle_frames: List[Image.Image] = []
 
     for pose in range(N_POSES):
-        # Cadence exacte de `metano_town.rsground` : 4 phases × 10 ticks (= 2 poses de 5 ticks)
         r_phase = (pose // 2) % 4
 
         riv = np.zeros((H, W, 4), dtype=np.uint8)
@@ -631,10 +689,243 @@ def build_forest_water_and_sparkles_layers(
             sub_sp = sp[sy : sy + sh_h, sx : sx + sh_w]
             sub_w = visible_water_open[sy : sy + sh_h, sx : sx + sh_w]
             keep = nz & sub_w
-            sub_sp[keep] = patch[keep]
+            if is_wastewater:
+                sub_sp[keep] = (122, 134, 76, 255)
+            else:
+                sub_sp[keep] = patch[keep]
         sparkle_frames.append(Image.fromarray(sanitize_rgba_binary(sp)))
 
     return water_frames, sparkle_frames
+
+
+@lru_cache(maxsize=2)
+def _extract_sinister_toxic_mist_and_wisps() -> Tuple[List[np.ndarray], List[np.ndarray]]:
+    """Extrait depuis `brume_toxique_et_feux_follets_magenta.png` (`#FF00FF`) :
+      1. `mist_sprites` : les 4 nappes effilées de brume toxique marécageuse (vert-olive vénéneux, faible opacité) ;
+      2. `wisp_frames_4` : les 4 poses séquentielles de flamme de feu follet (`feux follets`, faible opacité)."""
+    sheet_p = REPO_ROOT / "source" / "sinister_woods_entree_v1" / "bruts" / "brume_toxique_et_feux_follets_magenta.png"
+    raw = np.asarray(Image.open(sheet_p).convert("RGB"), dtype=np.uint8)
+    rf, gf, bf = raw[:, :, 0].astype(np.float32), raw[:, :, 1].astype(np.float32), raw[:, :, 2].astype(np.float32)
+
+    mag_core = (rf >= 195.0) & (gf <= 95.0) & (bf >= 185.0) & ((rf + bf - 2.0 * gf) >= 170.0)
+    fringe = ndimage.binary_dilation(mag_core, iterations=4) & (rf > gf + 16.0) & (bf > gf + 16.0)
+    fg_hi = ~(mag_core | fringe)
+
+    # Réduction sans mélange vers 512 x 286 pour des pixels GBA nets
+    rgb_lo, solid_lo = _downsample_non_mixing(raw, fg_hi, 512, 286)
+    rl, gl, bl = rgb_lo[:, :, 0].astype(np.int16), rgb_lo[:, :, 1].astype(np.int16), rgb_lo[:, :, 2].astype(np.int16)
+    solid_lo = solid_lo & ~((rl > gl + 12) & (bl > gl + 12))
+    solid_lo = ndimage.binary_opening(solid_lo, structure=np.ones((2, 2), dtype=bool))
+
+    # 1) Nappes de brume toxique dans la partie haute (y < 205) -> alpha translucide faible opacité (40..72 / 255)
+    mist_zone = solid_lo.copy()
+    mist_zone[205:, :] = False
+    lbl_m, n_m = ndimage.label(mist_zone)
+    pal_mist = np.array(
+        [
+            [84, 104, 44],   # bord de miasme olive sombre
+            [116, 144, 52],  # coeur de vapeur toxique kaki-chartreuse
+            [148, 176, 60],  # volute acide pâle
+        ],
+        dtype=np.uint8,
+    )
+    alpha_mist = np.array([38, 56, 72], dtype=np.uint8)
+    mist_list: List[Tuple[int, np.ndarray]] = []
+    for cid in range(1, n_m + 1):
+        ys, xs = np.where(lbl_m == cid)
+        if ys.size < 40:
+            continue
+        y0, y1 = int(ys.min()), int(ys.max()) + 1
+        x0, x1 = int(xs.min()), int(xs.max()) + 1
+        sub_m = lbl_m[y0:y1, x0:x1] == cid
+        sub_c = rgb_lo[y0:y1, x0:x1].astype(np.float32)
+        lum = 0.299 * sub_c[:, :, 0] + 0.587 * sub_c[:, :, 1] + 0.114 * sub_c[:, :, 2]
+        q35, q72 = np.percentile(lum[sub_m], [35.0, 72.0])
+        t_idx = np.zeros(sub_m.shape, dtype=np.int32)
+        t_idx[lum >= q35] = 1
+        t_idx[lum >= q72] = 2
+        # Adoucit encore le contour extérieur à alpha = 30
+        edge_m = sub_m & (~ndimage.binary_erosion(sub_m, iterations=1))
+        sp = np.zeros((y1 - y0, x1 - x0, 4), dtype=np.uint8)
+        sp[sub_m, :3] = _sanitize_rgb_no_magenta(pal_mist[t_idx], sub_m)[sub_m]
+        sp[sub_m, 3] = alpha_mist[t_idx][sub_m]
+        sp[edge_m, 3] = 28
+        mist_list.append((int(ys.size), sp))
+    mist_list.sort(key=lambda t: -t[0])
+    mist_sprites = [sp for _, sp in mist_list]
+    while len(mist_sprites) < 4:
+        mist_sprites.append(mist_sprites[-1])
+
+    # 2) Les 4 poses de feux follets dans la bande basse (y >= 205), triées de gauche à droite -> faible opacité (56..104 / 255)
+    wisp_zone = solid_lo.copy()
+    wisp_zone[:205, :] = False
+    lbl_w, n_w = ndimage.label(wisp_zone)
+    pal_wisp = np.array(
+        [
+            [116, 184, 88],  # aura externe jade-chartreuse translucide
+            [168, 228, 112], # flamme spectrale pâle
+            [216, 248, 156], # coeur pâle du feu follet
+        ],
+        dtype=np.uint8,
+    )
+    alpha_wisp = np.array([48, 76, 104], dtype=np.uint8)
+    wisp_raw: List[Tuple[int, np.ndarray]] = []
+    for cid in range(1, n_w + 1):
+        ys, xs = np.where(lbl_w == cid)
+        if ys.size < 16:
+            continue
+        y0, y1 = int(ys.min()), int(ys.max()) + 1
+        x0, x1 = int(xs.min()), int(xs.max()) + 1
+        sub_m = lbl_w[y0:y1, x0:x1] == cid
+        sub_c = rgb_lo[y0:y1, x0:x1].astype(np.float32)
+        lum = 0.299 * sub_c[:, :, 0] + 0.587 * sub_c[:, :, 1] + 0.114 * sub_c[:, :, 2]
+        q40, q78 = np.percentile(lum[sub_m], [40.0, 78.0])
+        t_idx = np.zeros(sub_m.shape, dtype=np.int32)
+        t_idx[lum >= q40] = 1
+        t_idx[lum >= q78] = 2
+        sp = np.zeros((y1 - y0, x1 - x0, 4), dtype=np.uint8)
+        sp[sub_m, :3] = _sanitize_rgb_no_magenta(pal_wisp[t_idx], sub_m)[sub_m]
+        sp[sub_m, 3] = alpha_wisp[t_idx][sub_m]
+        wisp_raw.append((x0, sp))
+    wisp_raw.sort(key=lambda t: t[0])
+    # Normalise la boîte englobante (centrée en bas) des 4 poses du feu follet
+    max_h = max(sp.shape[0] for _, sp in wisp_raw) + 2
+    max_w = max(sp.shape[1] for _, sp in wisp_raw) + 2
+    wisp_frames_4: List[np.ndarray] = []
+    for _, sp in wisp_raw[:4]:
+        canvas_w = np.zeros((max_h, max_w, 4), dtype=np.uint8)
+        sh, sw = sp.shape[:2]
+        oy = max_h - sh
+        ox = (max_w - sw) // 2
+        canvas_w[oy : oy + sh, ox : ox + sw] = sp
+        wisp_frames_4.append(canvas_w)
+    while len(wisp_frames_4) < 4:
+        wisp_frames_4.append(wisp_frames_4[-1])
+
+    return mist_sprites, wisp_frames_4
+
+
+def _blit_alpha_over(dst: np.ndarray, src: np.ndarray, x0: int, y0: int, wrap_x: bool = True) -> None:
+    """Compose un sprite RGBA translucide à faible opacité dans `dst` (`H × W × 4`) sans fuite magenta."""
+    sh, sw = src.shape[:2]
+    for dy in range(sh):
+        yy = y0 + dy
+        if yy < 0 or yy >= H:
+            continue
+        op = src[dy, :, 3] > 0
+        if not np.any(op):
+            continue
+        xs_s = np.where(op)[0]
+        for sx_i in xs_s.tolist():
+            xx = (x0 + sx_i) % W if wrap_x else (x0 + sx_i)
+            if xx < 0 or xx >= W:
+                continue
+            sa = int(src[dy, sx_i, 3])
+            da = int(dst[yy, xx, 3])
+            if da == 0:
+                dst[yy, xx] = src[dy, sx_i]
+            else:
+                out_a = sa + da * (255 - sa) // 255
+                if out_a > 0:
+                    for c in range(3):
+                        sc = int(src[dy, sx_i, c])
+                        dc = int(dst[yy, xx, c])
+                        dst[yy, xx, c] = (sc * sa + dc * da * (255 - sa) // 255) // out_a
+                    dst[yy, xx, 3] = min(255, out_a)
+
+
+def build_sinister_toxic_mist_and_wisps_layers(
+    sky_mask: np.ndarray,
+    canopy_nat: np.ndarray,
+    is_arena_fin: bool = False,
+) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Construit `(sky_static_1, toxic_water_mist_48, canopy_toxic_wisps_top_24)` pour *Sinister Woods* (`SWE1` & `SWF1`) :
+      - ZÉRO brume spectrale cyan `H07P01` ;
+      - Ciel nocturne sombre statique (`poses = 1`) ;
+      - Nappes de brume toxique générées à faible opacité (`alpha ~ 15%..28%`, dérive lente `48` poses @ `18` ticks) ;
+      - Feux follets marécageux générés à faible opacité (`alpha ~ 20%..40%`, 4 poses de flamme) + volutes toxiques Top."""
+    assets = _load_forest_sky_and_fx_assets("sinister_woods_mist")
+    sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
+    mist_sprites, wisp_frames_4 = _extract_sinister_toxic_mist_and_wisps()
+
+    y_max_sky = min(H, max(96, int(np.where(sky_mask)[0].max()) + 4) if np.any(sky_mask) else 96)
+    y_max_sky = min(y_max_sky, sky_strip.shape[0])
+    sky_arr = np.zeros((H, W, 4), dtype=np.uint8)
+    sub_m = sky_mask[:y_max_sky, :]
+    dark_sky = np.clip(sky_strip[:y_max_sky, :].astype(np.int16) - np.array([6, 12, 10], dtype=np.int16), 0, 255).astype(np.uint8)
+    dark_sky = _sanitize_rgb_no_magenta(dark_sky, sub_m)
+    sky_arr[:y_max_sky, :][sub_m, :3] = dark_sky[sub_m]
+    sky_arr[:y_max_sky, :][sub_m, 3] = 255
+    sky_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]
+
+    # Calque 01 (BG, 48 poses @ 18 ticks -> lente dérive 8 px/pose sur période 384 px) :
+    # Nappes de brume toxique à faible opacité flottant au-dessus de l'eau usée (ruisseau SWE1 / mares SWF1)
+    proto_bg = np.zeros((H, 384, 4), dtype=np.uint8)
+    y_water_mist = 418 if is_arena_fin else 296
+    bg_sites = [
+        (mist_sprites[0], 12, y_water_mist),
+        (mist_sprites[2], 196, y_water_mist + 18),
+        (mist_sprites[3], 88, 22),
+    ]
+    for sp, x0, y0 in bg_sites:
+        sh, sw = sp.shape[:2]
+        for dy in range(sh):
+            yy = y0 + dy
+            if 0 <= yy < H:
+                for dx in range(sw):
+                    if sp[dy, dx, 3] > 0:
+                        proto_bg[yy, (x0 + dx) % 384] = sp[dy, dx]
+    full_bg_proto = np.tile(proto_bg, (1, 2, 1))[:, :W, :]
+    toxic_bg_48: List[Image.Image] = []
+    for f in range(48):
+        rolled = np.roll(full_bg_proto, shift=(f * 8) % W, axis=1).copy()
+        toxic_bg_48.append(Image.fromarray(rolled, mode="RGBA"))
+
+    # Calque 09 (Top, 24 poses @ 5 ticks) : Canopée sombre + brume toxique légère + feux follets à faible opacité
+    can_op = canopy_nat[:, :, 3] >= 128
+    # Bande de miasme léger Top (période 384 px, 16 px/pose ? Non : plus lent, 8 px/pose sur période 192 px -> 24 * 8 = 192 px !)
+    proto_top_mist = np.zeros((H, 384, 4), dtype=np.uint8)
+    top_mist_sites = (
+        [(mist_sprites[1], 18, 212), (mist_sprites[3], 208, 356)]
+        if is_arena_fin
+        else [(mist_sprites[1], 24, 198), (mist_sprites[3], 214, 392)]
+    )
+    for sp, x0, y0 in top_mist_sites:
+        sh, sw = sp.shape[:2]
+        for dy in range(sh):
+            yy = y0 + dy
+            if 0 <= yy < H:
+                for dx in range(sw):
+                    if sp[dy, dx, 3] > 0:
+                        px = sp[dy, dx].copy()
+                        px[3] = max(22, int(px[3]) * 3 // 4)  # encore plus subtil en Top (~14%..21%)
+                        proto_top_mist[yy, (x0 + dx) % 384] = px
+    full_top_mist = np.tile(proto_top_mist, (1, 2, 1))[:, :W, :]
+
+    wisp_anchors = (
+        [(148, 430, 0), (602, 438, 1), (222, 248, 2), (532, 242, 3), (308, 474, 1)]
+        if is_arena_fin
+        else [(136, 314, 0), (598, 318, 2), (264, 214, 1), (496, 210, 3), (548, 428, 0)]
+    )
+
+    top_24: List[Image.Image] = []
+    for f in range(N_POSES):
+        theta = 2.0 * math.pi * f / float(N_POSES)
+        arr = np.roll(full_top_mist, shift=-((f * 16) % 384), axis=1).copy()
+        for wx0, wy0, ph_i in wisp_anchors:
+            w_step = ((f // 3) + ph_i) % 4
+            w_spr = wisp_frames_4[w_step].copy()
+            # Pulsation douce d'opacité (toujours faible opacité : ~20%..42%)
+            breath = 0.82 + 0.18 * math.sin(theta + ph_i * 1.5)
+            w_spr[:, :, 3] = np.clip(w_spr[:, :, 3].astype(np.float32) * breath, 0.0, 108.0).astype(np.uint8)
+            wx = int(round(wx0 + 5.0 * math.sin(theta + ph_i * 1.3)))
+            wy = int(round(wy0 + 4.0 * math.cos(theta + ph_i * 1.3)))
+            _blit_alpha_over(arr, w_spr, wx, wy, wrap_x=False)
+        # La canopée opaque des arbres couvre proprement par-dessus au besoin
+        arr[can_op] = canopy_nat[can_op]
+        top_24.append(Image.fromarray(arr, mode="RGBA"))
+
+    return sky_static_1, toxic_bg_48, top_24
 
 
 def build_tiny_woods_metano_flowers_and_canopy_layers(
@@ -646,9 +937,10 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
     seed: int = 101,
 ) -> Tuple[List[Image.Image], List[Image.Image]]:
     """Construit `(metano_flowers_24, canopy_top_24)` pour *Tiny Woods* (`TWE1` & `TWF1`) :
-    - Fleurs animées 100 % natives `Metano_Town_Animation_Tileset.tile` (`metano_flowers_color_4` + `metano_flowers_white_4`)
-      posées sur l'herbe franche de la prairie/clairière + ondulation des petites fleurs peintes,
-    - Canopée supérieure `Top` + quelques feuilles vertes dans la brise (**ZÉRO rayon lumineux, ZÉRO halo solaire**)."""
+    - Fleurs animées 100 % natives `Metano_Town_Animation_Tileset.tile` posées strictement sur l'herbe franche
+      (jamais sur les bûches/souches qui restent 100 % statiques !),
+    - Canopée supérieure `Top` + quelques feuilles vertes uniquement sur le mur d'arbres Nord (`y <= 185`)."""
+    del flora_mask, rgb_nat, solid_nat
     assets = extract_metano_water_and_flower_assets()
     fl_col_4: List[np.ndarray] = assets["metano_flowers_color_4"]  # type: ignore[assignment]
     fl_wht_4: List[np.ndarray] = assets["metano_flowers_white_4"]  # type: ignore[assignment]
@@ -660,7 +952,6 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
     cands = [(sy, sx) for sy in range(216, H - 36, 12) for sx in range(32, W - 48, 12)]
     rng.shuffle(cands)
     for sy, sx in cands:
-        # Éviter le sentier central (x = 330..438)
         if 322 <= sx <= 438:
             continue
         kind = "color" if (len(sites) % 3 != 2) else "white"
@@ -669,7 +960,7 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
         if sy + fh > H - 8 or sx + fw > W - 8:
             continue
         if (
-            float(dist_grass[sy : sy + fh, sx : sx + fw].min()) >= 6.0
+            float(dist_grass[sy : sy + fh, sx : sx + fw].min()) >= 9.0
             and not taken[max(0, sy - 18) : min(H, sy + fh + 18), max(0, sx - 22) : min(W, sx + fw + 22)].any()
         ):
             taken[sy : sy + fh, sx : sx + fw] = True
@@ -677,12 +968,10 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
             if len(sites) >= 14:
                 break
 
-    painted_sway = build_forest_flora_layer_24("tiny_woods_sunlit", flora_mask, rgb_nat, solid_nat)
-
-    # Quelques petites feuilles vertes de chêne (aucune lumière jaune !) dérivant sous les cimes
-    n_leaves = 10
+    # Feuilles vertes uniquement sur le mur d'arbres Nord (y = 24..175), jamais près des bûches/souches !
+    n_leaves = 8
     lx0 = rng.integers(48, W - 48, size=n_leaves)
-    ly0 = rng.integers(32, 320, size=n_leaves)
+    ly0 = rng.integers(24, 175, size=n_leaves)
     lph = rng.uniform(0.0, 2.0 * math.pi, size=n_leaves)
 
     can_op = canopy_nat[:, :, 3] >= 128
@@ -691,9 +980,8 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
 
     for pose in range(N_POSES):
         theta = 2.0 * math.pi * pose / float(N_POSES)
-        flw = np.asarray(painted_sway[pose], dtype=np.uint8).copy()
+        flw = np.zeros((H, W, 4), dtype=np.uint8)
         for fx, fy, kind, ph_off in sites:
-            # Cadence douce 4 étapes sur 24 poses (6 poses = 30 ticks par étape)
             f_step = ((pose + ph_off * 6) // 6) % 4
             spr = fl_col_4[f_step] if kind == "color" else fl_wht_4[f_step]
             fh, fw = spr.shape[:2]
@@ -704,9 +992,9 @@ def build_tiny_woods_metano_flowers_and_canopy_layers(
         top_arr = np.zeros((H, W, 4), dtype=np.uint8)
         top_arr[can_op] = canopy_nat[can_op]
         for i in range(n_leaves):
-            lx = int(round(lx0[i] + 9.0 * math.sin(theta + lph[i])))
-            ly = int(round(ly0[i] + 5.0 * math.cos(theta + lph[i])))
-            if 6 <= lx < W - 6 and 6 <= ly < H - 6 and math.sin(2.0 * theta + lph[i]) > -0.2:
+            lx = int(round(lx0[i] + 8.0 * math.sin(theta + lph[i])))
+            ly = int(round(ly0[i] + 4.0 * math.cos(theta + lph[i])))
+            if 6 <= lx < W - 6 and 6 <= ly < 185 and math.sin(2.0 * theta + lph[i]) > -0.2:
                 top_arr[ly, lx : lx + 2] = (104, 192, 64, 255)
                 top_arr[ly + 1, lx - 1 : lx + 1] = (56, 136, 48, 255)
         top_24.append(Image.fromarray(sanitize_rgba_binary(top_arr)))
@@ -720,7 +1008,7 @@ def build_forest_flora_layer_24(
     rgb_nat: np.ndarray,
     solid_nat: np.ndarray,
 ) -> List[Image.Image]:
-    """Anime en 24 poses les fleurs sauvages (*Tiny Woods*) ou les champignons rouges/violets & spores (*Sinister Woods*)."""
+    """Anime en 24 poses les fleurs sauvages ou la lueur bioluminescente des champignons (*Sinister Woods*, 0 décalage X)."""
     base_patch = np.zeros((H, W, 4), dtype=np.uint8)
     base_patch[flora_mask, :3] = rgb_nat[flora_mask]
     base_patch[flora_mask, 3] = 255
@@ -728,8 +1016,8 @@ def build_forest_flora_layer_24(
     frames: List[Image.Image] = []
     for f in range(N_POSES):
         theta = 2.0 * math.pi * f / float(N_POSES)
-        dx = int(round(math.sin(theta)))
-        shifted = np.roll(base_patch, shift=dx, axis=1)
+        dx = 0 if mode == "sinister_woods_mist" else int(round(math.sin(theta)))
+        shifted = base_patch.copy() if dx == 0 else np.roll(base_patch, shift=dx, axis=1)
         if dx > 0:
             shifted[:, :dx] = 0
         elif dx < 0:

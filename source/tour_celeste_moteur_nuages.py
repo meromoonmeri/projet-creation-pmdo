@@ -686,7 +686,7 @@ def build_rsground_package(
                 zi.compress_type = zipfile.ZIP_DEFLATED
                 zf.writestr(zi, file_p.read_bytes())
 
-    # Relocalisation transparente des binaires `.tile` vers `.cache/tiles/<slug>/` (hors snapshot Git/disque)
+    # Relocalisation transparente des binaires `.tile` & `.rsground` vers `.cache/tiles/<slug>/` (hors snapshot Git/disque)
     if renders_dir.resolve().parent == (REPO_ROOT / "renders").resolve():
         cache_tile_dir = REPO_ROOT / ".cache" / "tiles" / renders_dir.name
         cache_tile_dir.mkdir(parents=True, exist_ok=True)
@@ -695,6 +695,13 @@ def build_rsground_package(
                 dst_cache = cache_tile_dir / tfile.name
                 shutil.move(str(tfile), str(dst_cache))
                 os.symlink(os.path.relpath(dst_cache, tfile.parent), tfile)
+        cache_ground_dir = cache_tile_dir / "Data" / "Ground"
+        cache_ground_dir.mkdir(parents=True, exist_ok=True)
+        for gfile in sorted((pkg_dir / "Data" / "Ground").glob("*.rsground")):
+            if not gfile.is_symlink():
+                dst_g = cache_ground_dir / gfile.name
+                shutil.move(str(gfile), str(dst_g))
+                os.symlink(os.path.relpath(dst_g, gfile.parent), gfile)
         for fpng in sorted((renders_dir / "frames").glob("frame_*.png")):
             if fpng.name not in ("frame_00.png", "frame_06.png", "frame_12.png", "frame_18.png"):
                 fpng.unlink(missing_ok=True)

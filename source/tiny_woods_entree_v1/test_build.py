@@ -56,13 +56,16 @@ class TestTinyWoodsEntreeV1(unittest.TestCase):
         self.assertGreater(int(surf_px.sum()), 20_000)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
         self.assertGreater(int((diff[mag_raw] > 4).sum()), 4_000)
+        # Vérifie que TOUTES les bûches/souches sont 100 % statiques (0 pixel animé entre pose0 et pose12)
+        for x0, y0, x1, y1 in ((456, 250, 508, 292), (604, 308, 652, 346), (722, 272, 764, 310), (684, 458, 734, 500)):
+            self.assertEqual(int((diff[y0:y1, x0:x1] > 0).sum()), 0, f"Bûche animée détectée dans ({x0},{y0})..({x1},{y1})")
         for st_idx in (0, 1, 4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
         for an_idx in (2, 3, 8, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
         u = self.metrics["unique_tiles_per_sheet"]
         self.assertGreater([v for k, v in u.items() if "_03_" in k][0], 10)
-        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 40)
+        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 30)
 
     def test_04_continuous_south_over_bridge_to_forest_entrance_walkgrid(self) -> None:
         _, walk_grid = twe_build.build_layers_for_size()

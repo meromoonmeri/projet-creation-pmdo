@@ -84,15 +84,8 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     bridge_box = (xx_n >= 328) & (xx_n <= 440) & (yy_n >= 362) & (yy_n <= 470) & solid_nat
     water_full_nat = water_mask_nat | ((xx_n >= 332) & (xx_n <= 436) & (yy_n >= 398) & (yy_n <= 452))
 
-    # Petites fleurs éventuelles sur le brut
-    flora_mask = (
-        solid_nat
-        & (yy_n >= 220)
-        & (np.abs(xx_n - 384) > 56)
-        & (r_c >= 198)
-        & ((r_c > g_c + 22) | ((g_c >= 198) & (b_c <= 122) & (r_c >= 224)))
-    )
-    flora_mask = ndimage.binary_dilation(flora_mask, iterations=1) & solid_nat & (~bridge_box)
+    # Bûches & souches 100 % statiques : seules les fleurs natives Metano Town (posées sur l'herbe franche) s'animent !
+    flora_mask = np.zeros_like(solid_nat)
 
     # Eau & scintillements 100 % natifs Metano Town (`Metano_Town_River_Animation_1..4` + `Sparkles`)
     water_24, sparkle_24 = build_forest_water_and_sparkles_layers(

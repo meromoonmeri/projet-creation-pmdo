@@ -31,7 +31,6 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
         sys.path.insert(0, p)
 
 from source.moteur_cyclones_cylindriques_unova import H as H_NAT, N_POSES, W as W_NAT, sanitize_rgba_binary
-from source.moteur_forets_pmd_red import build_forest_flora_layer_24, inpaint_grass_under_flora
 from source.moteur_gouffre_et_canyon_pmd_red import build_hill_of_ancients_layers
 from tour_celeste_moteur_nuages import H_CANON, TILE_SIZE, W_CANON, LayerEntry, build_rsground_package  # type: ignore
 
@@ -83,37 +82,33 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     keep_g[0] = False
     glint_mask = ndimage.binary_dilation(keep_g[lbl_g], iterations=1) & solid_nat
 
-    sky_1, cld_far_24, sun_stars_24, cld_near_24, top_fx_24 = build_hill_of_ancients_layers(
+    sky_1, cld_far_64, sun_stars_24, cld_near_64, top_fx_24 = build_hill_of_ancients_layers(
         sky_mask=sky_mask_nat,
         abyss_mask=np.zeros_like(sky_mask_nat),
         base_rgb=rgb_nat,
     )
-    glint_24 = build_forest_flora_layer_24(
-        mode="sinister_woods_mist",
-        flora_mask=glint_mask,
-        rgb_nat=rgb_nat,
-        solid_nat=solid_nat,
-    )
-    rgb_clean_bg = inpaint_grass_under_flora(rgb_nat, solid_nat & (~glint_mask), glint_mask)
 
-    # Partition disjointe des 4 calques statiques du panorama D07P02 (04, 05, 06, 07)
+    # Partition disjointe des 5 calques statiques du panorama D07P02 (04, 05, 06, 07, 08)
     is_plateau_tan = (r_c >= 196) & (g_c >= 142) & (b_c >= 96) & (yy_n >= 262)
+
+    # Calque 08 (statique, poses=1) : Cailloux clairs & petits reliefs rocheux du promontoire
+    is_pebbles = glint_mask & solid_nat
 
     # Calque 05 : Sentier central usé des Anciens vers le belvédère de Xatu (x=316..452, y>=266)
     is_pale_trail = (xx_n >= 316) & (xx_n <= 452) & (yy_n >= 266) & (r_c >= 214) & (g_c >= 166) & (b_c >= 120)
-    is_xatu_trail = solid_nat & is_pale_trail
+    is_xatu_trail = solid_nat & (~is_pebbles) & is_pale_trail
 
     # Calque 06 : Mer panoramique de mesas étagées & buttes témoins à l'horizon (y=184..340 hors plateau central)
     in_central_promontory_box = (xx_n >= 168) & (xx_n <= 600) & (yy_n >= 264)
-    is_distant_mesas = solid_nat & (~is_xatu_trail) & (yy_n <= 340) & (~(is_plateau_tan & in_central_promontory_box))
+    is_distant_mesas = solid_nat & (~is_pebbles) & (~is_xatu_trail) & (yy_n <= 340) & (~(is_plateau_tan & in_central_promontory_box))
 
     # Calque 04 : Grand promontoire sacré de grès craquelé D07P02
-    is_promontory_sand = solid_nat & (~is_xatu_trail) & (~is_distant_mesas) & is_plateau_tan
+    is_promontory_sand = solid_nat & (~is_pebbles) & (~is_xatu_trail) & (~is_distant_mesas) & is_plateau_tan
 
     # Calque 07 : Parois escarpées du promontoire & ravins ombragés latéraux
-    is_flank_cliffs = solid_nat & (~is_xatu_trail) & (~is_distant_mesas) & (~is_promontory_sand)
+    is_flank_cliffs = solid_nat & (~is_pebbles) & (~is_xatu_trail) & (~is_distant_mesas) & (~is_promontory_sand)
 
-    def mk_static_scaled(mask_bool: np.ndarray, src_rgb: np.ndarray = rgb_clean_bg) -> Image.Image:
+    def mk_static_scaled(mask_bool: np.ndarray, src_rgb: np.ndarray = rgb_nat) -> Image.Image:
         rgba = np.zeros((H_NAT, W_NAT, 4), dtype=np.uint8)
         rgba[mask_bool, :3] = src_rgb[mask_bool]
         rgba[mask_bool, 3] = 255
@@ -145,14 +140,14 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     layers = [
         LayerEntry("00_ciel_crepusculaire_etoile_d07p02", "Ciel Crépusculaire Étoilé Natif D07P02", "BG", _resize_frames(sky_1, w, h), frame_length=5),
-        LayerEntry("01_nuages_pmd_couchant_lointains", "Familles de Nuages PMD Lointaines du Couchant", "BG", _resize_frames(cld_far_24, w, h), frame_length=5),
+        LayerEntry("01_nuages_pmd_couchant_lointains", "Familles de Nuages PMD Lointaines Ultra-Lentes", "BG", _resize_frames(cld_far_64, w, h), frame_length=45),
         LayerEntry("02_soleil_canonique_et_etoiles_bpa", "Soleil Animé Canonique D07P02 & Étoiles A04P011.bpa", "BG", _resize_frames(sun_stars_24, w, h), frame_length=5),
-        LayerEntry("03_familles_cumulus_pmd_couchant", "Familles de Cumulus Style PMD du Couchant", "BG", _resize_frames(cld_near_24, w, h), frame_length=5),
+        LayerEntry("03_familles_cumulus_pmd_couchant", "Familles de Cumulus Style PMD Dérive Lente", "BG", _resize_frames(cld_near_64, w, h), frame_length=36),
         LayerEntry("04_promontoire_gres_craquele_d07p02", "Promontoire Sacré de Grès Craquelé D07P02", "BG", [mk_static_scaled(is_promontory_sand)], frame_length=5),
         LayerEntry("05_sentier_anciens_belvedere_xatu", "Sentier des Anciens vers le Belvédère de Xatu", "BG", [mk_static_scaled(is_xatu_trail)], frame_length=5),
         LayerEntry("06_horizon_mesas_et_buttes_d07p02", "Horizon Panoramique de Mesas & Buttes D07P02", "BG", [mk_static_scaled(is_distant_mesas)], frame_length=5),
         LayerEntry("07_parois_escarpees_promontoire", "Parois Escarpées du Promontoire & Ravins", "BG", [mk_static_scaled(is_flank_cliffs)], frame_length=5),
-        LayerEntry("08_cailloux_sacres_reflets_couchant", "Cailloux Sacrés & Reflets Dorés du Couchant", "BG", _resize_frames(glint_24, w, h), frame_length=5),
+        LayerEntry("08_cailloux_sacres_promontoire", "Cailloux & Pierres Statiques du Promontoire D07P02", "BG", [mk_static_scaled(is_pebbles)], frame_length=5),
         LayerEntry("09_rebords_et_brise_thermique_top", "Crêtes Latérales & Brise Thermique d'Or Top", "Top", _resize_frames(top_24, w, h), frame_length=5),
     ]
     return layers, walk_grid

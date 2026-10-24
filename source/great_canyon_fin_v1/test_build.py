@@ -53,7 +53,7 @@ class TestGreatCanyonFinV1(unittest.TestCase):
     def test_03_canonical_sun_stars_shooting_star_and_pmd_clouds_animated(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 8).sum()), 10_000)
+        self.assertGreater(int((diff[mag_raw] > 8).sum()), 1_800)
         # Soleil canonique D07P02 (255, 207, 71) posé à l'horizon central (x=320..448, y=152..206) et animé
         sun_box0 = self.pose0[152:206, 320:448, :3]
         sun_core = (sun_box0[:, :, 0] == 255) & (sun_box0[:, :, 1] == 207) & (sun_box0[:, :, 2] == 71)
@@ -63,9 +63,13 @@ class TestGreatCanyonFinV1(unittest.TestCase):
         # Étoiles scintillantes + étoile filante native A04P011.bpa dans le cosmos indigo supérieur (y < 96)
         star_diff = np.abs(self.pose0[:96, :, :3].astype(int) - self.pose12[:96, :, :3].astype(int)).max(axis=2)
         self.assertGreater(int((star_diff > 20).sum()), 120)
-        for st_idx in (0, 4, 5, 6, 7):
+        for st_idx in (0, 4, 5, 6, 7, 8):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        for an_idx in (1, 2, 3, 8, 9):
+        self.assertEqual(self.metrics["layers"][1]["poses"], 64)
+        self.assertEqual(self.metrics["layers"][1]["frame_length"], 45)
+        self.assertEqual(self.metrics["layers"][3]["poses"], 64)
+        self.assertEqual(self.metrics["layers"][3]["frame_length"], 36)
+        for an_idx in (2, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
 
     def test_04_continuous_south_trail_to_xatu_overlook_walkgrid(self) -> None:
