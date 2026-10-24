@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Consolidation Unifiée town02 + Toutes Branches PMDO &amp; Guilde Treehouse</title>
+  <title>PROJET PMD — Architecture Palikadude/Halcyon (town02 + projet-creation-pmdo + Guilde Treehouse)</title>
   <style>
     :root {
       --bg: #0b101b;
@@ -229,13 +229,14 @@
   <header>
     <div class="top-row">
       <div>
-        <h1>Hub de Consolidation Unifiée : <code>town02</code> + Toutes Branches PMDO &amp; Guilde Treehouse</h1>
-        <div class="subtitle">Inventaire croisé vérifié sur 36+ branches Git &amp; assembleur PMDO 0.8.12.0 anti-damier mauve (<code>Content/Tile/index.idx</code> + Git LFS)</div>
+        <h1>PROJET PMD — Architecture <code>Palikadude/Halcyon</code> (<code>town02</code> + <code>projet-creation-pmdo</code> + <code>Guilde Treehouse</code>)</h1>
+        <div class="subtitle">Placement 100 % natif Halcyon / <code>town02</code> : <code>Mod.xml</code> (<code>halcyon</code>), <code>Content/Tile/index.idx</code>, <code>Data/Ground/*.rsground</code>, <code>Data/Script/halcyon/ground/*/init.lua</code> &amp; <code>Data/Zone/master_zone.json</code></div>
       </div>
       <div class="btn-row">
-        <a class="btn primary" href="./download/KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip" download="KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip">Télécharger le Kit Clé-en-Main (.zip)</a>
+        <a class="btn primary" href="./download/KIT_PROJET_PMD_HALCYON_TOWN02.zip" download="KIT_PROJET_PMD_HALCYON_TOWN02.zip">Kit « PROJET PMD » (.zip)</a>
+        <a class="btn primary" href="./download/GTH1_PMDO_0.8.12.zip" download="GTH1_PMDO_0.8.12.zip">Pack Halcyon Guilde Treehouse (84 .rsground, 12 Mo)</a>
         <button class="btn" id="copyCmdBtn" type="button">Copier la commande 1-clic</button>
-        <a class="btn" href="./index.html">Retour au Studio 60 FPS (33 maps)</a>
+        <a class="btn" href="./index.html">Studio 60 FPS (33 maps)</a>
       </div>
     </div>
   </header>
@@ -247,45 +248,46 @@
         <div class="lbl">Maps <code>.rsground</code> natives dans <code>town02</code> (+ <span id="kpiTownTiles">2 091</span> <code>.tile</code>)</div>
       </div>
       <div class="kpi">
+        <div class="val">84</div>
+        <div class="lbl"><code>.rsground</code> Guilde Treehouse Halcyon (12 salles × 6 ambiances + 35 <code>.tile</code>)</div>
+      </div>
+      <div class="kpi">
+        <div class="val">33</div>
+        <div class="lbl">Maps animées Studio (<code>KYE1</code>, <code>KYA1</code>, <code>FAS1</code>, <code>ZKA1</code>, <code>RSA1</code>, <code>MLS1</code>…)</div>
+      </div>
+      <div class="kpi">
+        <div class="val">391+</div>
+        <div class="lbl">Entrées <code>Data/Zone/master_zone.json</code> &amp; <code>Data/Zone/index.idx</code> synchronisées</div>
+      </div>
+      <div class="kpi">
         <div class="val" id="kpiSourceLots">416</div>
-        <div class="lbl">Lots <code>source/*</code> uniques fusionnés (<span id="kpiVariants">164</span> à variantes)</div>
+        <div class="lbl">Lots <code>source/*</code> disponibles (<span id="kpiVariants">164</span> variantes, <span id="kpiBranches">36+</span> br.)</div>
       </div>
       <div class="kpi">
-        <div class="val" id="kpiRendersLots">354</div>
-        <div class="lbl">Lots <code>renders/*</code> &amp; packages unifiés</div>
-      </div>
-      <div class="kpi">
-        <div class="val" id="kpiHtmlCount">331</div>
-        <div class="lbl">Aperçus HTML interactifs réunis</div>
-      </div>
-      <div class="kpi">
-        <div class="val" id="kpiBranches">36+</div>
-        <div class="lbl">Branches Git fusionnées (<code>projet-creation-pmdo</code> + <code>projet-pmdo</code> + <code>zone-pmdo</code> + <code>guilde</code>)</div>
-      </div>
-      <div class="kpi">
-        <div class="val">12 + 6</div>
-        <div class="lbl">Salles modulaires &amp; ambiances Guilde Treehouse + garde <code>0</code> damier mauve</div>
+        <div class="val">0</div>
+        <div class="lbl">Damier mauve — <code>Content/Tile/index.idx</code> &amp; <code>AssetName</code> contrôlés</div>
       </div>
     </section>
 
     <section class="cmd-box">
-      <h2>Créer et publier le nouveau dépôt GitHub unifié (~4,5 Go avec objets Git LFS) en 1 commande</h2>
+      <h2>Créer et pousser <code>meromoonmeri/PROJET-PMD</code> (« PROJET PMD » façon <code>Palikadude/Halcyon</code>) en 1 commande</h2>
       <p>
-        Le jeton d'application Arena étant restreint à la branche de session (<code>HTTP 403</code> sur <code>POST /user/repos</code> et plafond de snapshot de <code>128 Mo</code>), lancez cette commande unique depuis votre machine ou un Codespace connecté à <code>gh</code> pour créer automatiquement <code>meromoonmeri/town02-all-maps-pmdo</code> avec toutes les maps (y compris le dépôt privé <code>guilde-treehouse-pmd</code>) :
+        À l'image de <code>Palikadude/Halcyon</code> et <code>meromoonmeri/town02</code>, toutes les scènes hors-donjon (y compris les <strong>12 salles modulaires × 6 ambiances = 84 <code>.rsground</code></strong> de Guilde Treehouse et les <strong>33 maps du Studio</strong>) sont placées dans <code>Data/Ground/</code>, leurs banques dans <code>Content/Tile/</code> + <code>Content/Tile/index.idx</code>, leurs scripts Lua sous <code>Data/Script/halcyon/ground/&lt;id&gt;/init.lua</code> et leurs identifiants enregistrés dans <code>Data/Zone/master_zone.json</code> + <code>Data/Zone/index.idx</code> :
       </p>
-      <pre id="cmdText">git clone -b arena/637b0828-projet-creation-pmdo https://github.com/meromoonmeri/projet-creation-pmdo.git &amp;&amp; cd projet-creation-pmdo &amp;&amp; bash source/consolidation_unifiee_town02/CREER_REPO_UNIFIE_TOWN02.sh town02-all-maps-pmdo --public</pre>
+      <pre id="cmdText">git clone -b arena/637b0828-projet-creation-pmdo https://github.com/meromoonmeri/projet-creation-pmdo.git &amp;&amp; cd projet-creation-pmdo &amp;&amp; bash source/consolidation_unifiee_town02/CREER_PROJET_PMD.sh meromoonmeri/PROJET-PMD public</pre>
     </section>
 
     <section class="controls">
-      <button class="tab-btn active" data-tab="lots" type="button">Lots Custom &amp; Guilde (416)</button>
-      <button class="tab-btn" data-tab="branches" type="button">Toutes les Branches (36+)</button>
+      <button class="tab-btn active" data-tab="guilde" type="button">Guilde Treehouse Halcyon (84 .rsground)</button>
+      <button class="tab-btn" data-tab="lots" type="button">Lots Custom &amp; Studio (416)</button>
+      <button class="tab-btn" data-tab="branches" type="button">Branches Git (36+)</button>
       <button class="tab-btn" data-tab="town02" type="button">Maps Natives town02 (1 620)</button>
-      <input type="search" id="searchInput" placeholder="Rechercher une map, un lot, une branche (ex: kyurem, guilde, ETT2, a01p01)..." />
-      <select id="repoFilter">
+      <input type="search" id="searchInput" placeholder="Rechercher une salle, ambiance, map ou lot (ex: hall_missions, orageux, kyurem, guild_first_floor)..." />
+      <select id="repoFilter" style="display:none">
         <option value="">Tous les dépôts</option>
-        <option value="projet-creation-pmdo">projet-creation-pmdo (19 branches)</option>
-        <option value="projet-pmdo">projet-pmdo / Guilde Treehouse (15 branches)</option>
-        <option value="zone-pmdo">zone-pmdo (historique Guilde + calques)</option>
+        <option value="projet-creation-pmdo">projet-creation-pmdo (branche active + 19 br.)</option>
+        <option value="projet-pmdo">projet-pmdo / Guilde Treehouse (15 br.)</option>
+        <option value="zone-pmdo">zone-pmdo</option>
         <option value="all-zone-PMDO-project">all-zone-PMDO-project</option>
       </select>
       <div class="count-info" id="countInfo">Chargement du manifeste...</div>
@@ -301,7 +303,8 @@
 
   <script>
     let MANIFEST = null;
-    let currentTab = "lots";
+    let GUILDE_META = null;
+    let currentTab = "guilde";
 
     const searchInput = document.getElementById("searchInput");
     const repoFilter = document.getElementById("repoFilter");
@@ -325,7 +328,7 @@
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         currentTab = btn.dataset.tab;
-        repoFilter.style.display = currentTab === "town02" ? "none" : "";
+        repoFilter.style.display = (currentTab === "town02" || currentTab === "guilde") ? "none" : "";
         renderTable();
       });
     });
@@ -341,9 +344,51 @@
     }
 
     function renderTable() {
-      if (!MANIFEST) return;
       const q = searchInput.value.trim().toLowerCase();
       const rf = repoFilter.value;
+
+      if (currentTab === "guilde") {
+        tableHead.innerHTML = `<tr>
+          <th>Salle Guilde Treehouse</th>
+          <th>Carte Halcyon <code>Data/Ground/*.rsground</code></th>
+          <th>Ambiance</th>
+          <th>Taille (8 px)</th>
+          <th>Fenêtres vitrées</th>
+          <th>Script Lua <code>Data/Script/halcyon/ground/</code></th>
+        </tr>`;
+        if (!GUILDE_META) {
+          countInfo.textContent = "Chargement des 84 maps Guilde Treehouse Halcyon...";
+          tableBody.innerHTML = "";
+          return;
+        }
+        const rows = [];
+        for (const r of (GUILDE_META.rooms || [])) {
+          for (const gid of (r.grounds || [])) {
+            const isCanon = gid === `guilde_th_${r.dossier}`;
+            const amb = isCanon ? "canonique (SV dynamique)" : gid.replace(`guilde_th_${r.dossier}_`, "");
+            if (
+              !q ||
+              r.nom.toLowerCase().includes(q) ||
+              gid.toLowerCase().includes(q) ||
+              amb.toLowerCase().includes(q)
+            ) {
+              rows.push({ room: r, gid, amb, isCanon });
+            }
+          }
+        }
+        countInfo.textContent = `${rows.length} / 84 maps .rsground Halcyon affichées (12 salles × [canonique + 6 ambiances], 35 banques .tile)`;
+        tableBody.innerHTML = rows.map(({ room, gid, amb, isCanon }) => `<tr>
+          <td><strong>${esc(room.id)} — ${esc(room.nom)}</strong></td>
+          <td><code>Data/Ground/${esc(gid)}.rsground</code></td>
+          <td><span class="${isCanon ? "badge ok" : "badge"}">${esc(amb)}</span></td>
+          <td><code>${room.width_tiles}×${room.height_tiles}</code> (${room.width_px}×${room.height_px} px)</td>
+          <td>${room.window_holes > 0 ? `<span class="badge ok">${room.window_holes} découpe(s) transparente(s)</span>` : `<span class="badge warn">Intérieur pur</span>`}</td>
+          <td><code>Data/Script/halcyon/ground/${esc(gid)}/init.lua</code></td>
+        </tr>`).join("");
+        return;
+      }
+
+      if (!MANIFEST) return;
 
       if (currentTab === "lots") {
         tableHead.innerHTML = `<tr>
@@ -427,6 +472,14 @@
       }
     }
 
+    fetch("./renders/guilde_treehouse_halcyon_v1/metadata.json")
+      .then((r) => r.json())
+      .then((gdata) => {
+        GUILDE_META = gdata;
+        renderTable();
+      })
+      .catch(() => {});
+
     fetch("./source/consolidation_unifiee_town02/manifeste_complet_toutes_branches.json")
       .then((r) => r.json())
       .then((data) => {
@@ -437,13 +490,12 @@
         let brTotal = 1; // town02 main
         for (const r of Object.values(data.repos_scanned || {})) brTotal += (r.branch_count || 0);
 
-        document.getElementById("kpiTownGrounds").textContent = (t2.rsground_count || 1620).toLocaleString("fr-FR");
-        document.getElementById("kpiTownTiles").textContent = (t2.tile_count || 2091).toLocaleString("fr-FR");
-        document.getElementById("kpiSourceLots").textContent = srcEntries.length.toLocaleString("fr-FR");
-        document.getElementById("kpiVariants").textContent = varCount.toLocaleString("fr-FR");
-        document.getElementById("kpiRendersLots").textContent = Object.keys(data.all_renders_lots || {}).length.toLocaleString("fr-FR");
-        document.getElementById("kpiHtmlCount").textContent = Object.keys(data.all_html_previews || {}).length.toLocaleString("fr-FR");
-        document.getElementById("kpiBranches").textContent = `${brTotal}+`;
+        const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+        setTxt("kpiTownGrounds", (t2.rsground_count || 1620).toLocaleString("fr-FR"));
+        setTxt("kpiTownTiles", (t2.tile_count || 2091).toLocaleString("fr-FR"));
+        setTxt("kpiSourceLots", srcEntries.length.toLocaleString("fr-FR"));
+        setTxt("kpiVariants", varCount.toLocaleString("fr-FR"));
+        setTxt("kpiBranches", `${brTotal}+`);
         renderTable();
       })
       .catch((err) => {

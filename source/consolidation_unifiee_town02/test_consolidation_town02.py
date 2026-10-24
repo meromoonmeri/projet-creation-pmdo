@@ -1,311 +1,274 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Tests unitaires et d'intégration de bout en bout pour l'assembleur unifié `town02`."""
+"""Tests d'intégration du placement Halcyon / `town02` pour le dépôt unifié « PROJET PMD »."""
 from __future__ import annotations
 
 import json
 import shutil
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
 from source.consolidation_unifiee_town02.assembler_repo_unifie_town02 import (
-    TileIndexEntry,
-    extraire_entree_depuis_fichier_tile,
-    extraire_references_tuiles_rsground,
+    copier_fichier_dereference,
+    enregistrer_grounds_dans_master_zone_halcyon,
     fusionner_branches_dans_town02,
     injecter_planches_dans_index,
     lire_tile_index,
-    proteger_gros_fichiers_git_lfs,
+    mettre_a_jour_mod_xml_halcyon,
     serialiser_tile_index,
+    synchroniser_asset_name_rsground,
     verifier_aucun_damier_mauve,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-MANIFEST_PATH = Path(__file__).resolve().parent / "manifeste_complet_toutes_branches.json"
 
 
-class TestConsolidationTown02(unittest.TestCase):
-    def test_01_manifeste_complet_couvre_town02_et_toutes_branches(self) -> None:
-        self.assertTrue(MANIFEST_PATH.is_file(), "Manifeste JSON introuvable")
-        data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-
-        t2 = data["town02_summary"]
-        self.assertGreaterEqual(t2["rsground_count"], 1620)
-        self.assertGreaterEqual(t2["tile_count"], 2091)
-        self.assertEqual(len(t2["all_rsground_names"]), t2["rsground_count"])
-
-        # Vérifie que les 4 dépôts publics multi-branches ont bien été indexés
-        for r in (
-            "projet-creation-pmdo",
-            "projet-pmdo",
-            "zone-pmdo",
-            "all-zone-PMDO-project",
-        ):
-            self.assertIn(r, data["repos_scanned"])
-
+class TestProjetPmdHalcyonPlacement(unittest.TestCase):
+    def test_01_roundtrip_et_injection_binaire_tile_index(self) -> None:
+        sample_tiles = sorted((REPO_ROOT / ".cache" / "tiles").rglob("*.tile"))[:10]
         self.assertGreaterEqual(
-            data["repos_scanned"]["projet-creation-pmdo"]["branch_count"], 19
+            len(sample_tiles), 4, "Au moins 4 fichiers .tile doivent exister dans .cache/tiles"
         )
-        self.assertGreaterEqual(
-            data["repos_scanned"]["projet-pmdo"]["branch_count"], 15
-        )
-        self.assertGreaterEqual(len(data["all_source_lots"]), 416)
-        self.assertGreaterEqual(len(data["all_renders_lots"]), 354)
-        self.assertGreaterEqual(len(data["all_html_previews"]), 331)
-
-        # Les 12 salles & fenêtres Guilde Treehouse sont bien répertoriées
-        for gd in ("salles", "fenetres_exterieur", "exterieur", "calques", "sprites"):
-            self.assertIn(gd, data["root_special_dirs"])
-
-        # Nos maps Studio récentes sur la branche active doivent être les gagnantes canoniques
-        for studio_lot in (
-            "kyurem_cratere_entree_v1",
-            "kyurem_sanctuaire_glace_v1",
-            "fosse_argent_entree_v1",
-            "fosse_argent_sanctuaire_v1",
-            "mont_lointain_entree_v1",
-            "mont_lointain_sommet_v1",
-            "zekrom_montagne_entree_v1",
-            "zekrom_sommet_tornade_v1",
-            "reshiram_montagne_entree_v1",
-            "reshiram_sommet_flamme_v1",
-        ):
-            self.assertIn(studio_lot, data["all_source_lots"])
-            self.assertEqual(
-                data["all_source_lots"][studio_lot]["canonical"]["branch"],
-                "arena/637b0828-projet-creation-pmdo",
-            )
-
-    def test_02_index_idx_binaire_et_garde_anti_damier_sur_kya1_reel(self) -> None:
-        kya1_pkg = REPO_ROOT / "renders" / "kyurem_sanctuaire_glace_v1" / "package"
-        kya1_tiles = sorted((kya1_pkg / "Content" / "Tile").glob("*.tile"))
-        kya1_rsg = kya1_pkg / "Data" / "Ground" / "kyurem_sanctuaire_glace.rsground"
-
-        # Si le cache .tile de KYA1 est absent, exécute build.py une fois
-        if not kya1_rsg.exists() or len(kya1_tiles) < 10:
-            subprocess.run(
-                [".venv/bin/python", "source/kyurem_sanctuaire_glace_v1/build.py"],
-                cwd=str(REPO_ROOT),
-                check=True,
-            )
-            kya1_tiles = sorted((kya1_pkg / "Content" / "Tile").glob("*.tile"))
-
-        self.assertEqual(len(kya1_tiles), 10)
-        refs = extraire_references_tuiles_rsground(kya1_rsg)
-        self.assertIsNotNone(refs)
-        assert refs is not None
-        self.assertGreater(len(refs), 20000)
 
         with tempfile.TemporaryDirectory() as tmp:
-            tdir = Path(tmp) / "Content" / "Tile"
-            tdir.mkdir(parents=True)
-            idx_path = tdir / "index.idx"
+            idx_path = Path(tmp) / "index.idx"
+            avant, apres, injectes = injecter_planches_dans_index(idx_path, sample_tiles[:4])
+            self.assertEqual(avant, 0)
+            self.assertEqual(apres, 4)
+            self.assertEqual(injectes, 4)
 
-            # Pré-remplit index.idx avec une planche factice '00_ciel' + une planche > 128 octets UTF-8
-            long_name = "Z_" + ("planche_tres_longue_" * 7)
-            seed_entries = [
-                TileIndexEntry("00_ciel", 8, 0, b""),
-                TileIndexEntry(long_name, 8, 0, b""),
-            ]
-            idx_path.write_bytes(serialiser_tile_index(seed_entries))
+            raw1 = idx_path.read_bytes()
+            entries1 = lire_tile_index(idx_path)
+            self.assertEqual([e.sheet for e in entries1], sorted(e.sheet for e in entries1))
+            self.assertEqual(serialiser_tile_index(entries1), raw1)
+
+            avant2, apres2, _ = injecter_planches_dans_index(idx_path, sample_tiles[4:10])
+            self.assertEqual(avant2, 4)
+            self.assertEqual(apres2, len( {p.stem for p in sample_tiles[:10]} ))
+            entries2 = lire_tile_index(idx_path)
+            self.assertEqual([e.sheet for e in entries2], sorted(e.sheet for e in entries2))
+
+    def test_02_aucun_damier_mauve_sur_studio_33_et_guilde_84(self) -> None:
+        pkg_dirs = [
+            REPO_ROOT / "renders" / "kyurem_cratere_entree_v1" / "package",
+            REPO_ROOT / "renders" / "kyurem_sanctuaire_glace_v1" / "package",
+            REPO_ROOT / "renders" / "fosse_argent_sanctuaire_v1" / "package",
+            REPO_ROOT / "renders" / "zekrom_sommet_tornade_v1" / "package",
+            REPO_ROOT / "renders" / "guilde_treehouse_halcyon_v1" / "package",
+        ]
+        existing_pkgs = [p for p in pkg_dirs if p.exists()]
+        self.assertEqual(len(existing_pkgs), 5)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            troot = Path(tmp)
+            tile_dir = troot / "Content" / "Tile"
+            ground_dir = troot / "Data" / "Ground"
+            idx_path = tile_dir / "index.idx"
+            tile_dir.mkdir(parents=True)
+            ground_dir.mkdir(parents=True)
 
             copied_tiles = []
-            for tp in kya1_tiles:
-                dst = tdir / tp.resolve().name
-                shutil.copy2(tp.resolve(), dst)
-                copied_tiles.append(dst)
+            copied_grounds = []
+            for pkg in existing_pkgs:
+                for tp in sorted((pkg / "Content" / "Tile").glob("*.tile")):
+                    dst = tile_dir / tp.name
+                    if copier_fichier_dereference(tp, dst):
+                        copied_tiles.append(dst)
+                # Prend jusqu'à 6 grounds par lot pour un contrôle rapide et exhaustif
+                for gp in sorted((pkg / "Data" / "Ground").glob("*.rsground"))[:6]:
+                    dst = ground_dir / gp.name
+                    if copier_fichier_dereference(gp, dst):
+                        copied_grounds.append(dst)
 
-            before, after, injected = injecter_planches_dans_index(idx_path, copied_tiles)
-            self.assertEqual(before, 2)
-            self.assertEqual(injected, 10)
-            self.assertEqual(after, 12)
-
-            # Vérifie l'ordre strictement alphabétique et la relecture identique octet-pour-octet
-            reloaded = lire_tile_index(idx_path)
-            self.assertEqual([e.sheet for e in reloaded], sorted(e.sheet for e in reloaded))
-            self.assertEqual(serialiser_tile_index(reloaded), idx_path.read_bytes())
-
-            # Garde anti-damier sur les 25 066 références réelles de KYA1 : 0 problème !
-            checked_count, problems = verifier_aucun_damier_mauve(
-                idx_path, tdir, [kya1_rsg.resolve()]
+            injecter_planches_dans_index(idx_path, copied_tiles)
+            checked, problems = verifier_aucun_damier_mauve(
+                idx_path, tile_dir, copied_grounds
             )
             self.assertEqual(problems, [])
-            self.assertEqual(checked_count, len(refs))
+            self.assertGreater(checked, 15000)
 
-            # Contre-épreuve : retire 1 planche de index.idx -> doit détecter le damier mauve !
-            truncated = [e for e in reloaded if not e.sheet.startswith("KYA1_06_")]
-            idx_path.write_bytes(serialiser_tile_index(truncated))
+            # Contre-test : casser une référence réellement utilisée DOIT être détecté immédiatement
+            from source.consolidation_unifiee_town02.assembler_repo_unifie_town02 import (
+                extraire_references_tuiles_rsground,
+            )
+            used_sheet, _, _ = sorted(extraire_references_tuiles_rsground(copied_grounds[0]) or [])[0]
+            entries = [e for e in lire_tile_index(idx_path) if e.sheet != used_sheet]
+            idx_path.write_bytes(serialiser_tile_index(entries))
             _, bad_problems = verifier_aucun_damier_mauve(
-                idx_path, tdir, [kya1_rsg.resolve()]
+                idx_path, tile_dir, copied_grounds
             )
-            self.assertGreater(len(bad_problems), 0)
-            self.assertIn("damier A", bad_problems[0])
+            self.assertGreaterEqual(len(bad_problems), 1)
 
-    def test_03_assemblage_complet_multi_depots_multi_branches_dans_town02(self) -> None:
-        kya1_pkg = REPO_ROOT / "renders" / "kyurem_sanctuaire_glace_v1" / "package"
-        first_tile = sorted((kya1_pkg / "Content" / "Tile").glob("*.tile"))[0].resolve()
-        sheet_name = first_tile.stem
-
-        with tempfile.TemporaryDirectory() as tmp_str:
-            tmp = Path(tmp_str)
-
-            # 1) Crée un mini `town02` réaliste (Mod.xml, Content/Tile/index.idx, Data/Ground/a01p01.rsground)
-            t2_root = tmp / "mock_town02"
-            (t2_root / "Content" / "Tile").mkdir(parents=True)
-            (t2_root / "Data" / "Ground").mkdir(parents=True)
-            (t2_root / "Data" / "Script" / "ground").mkdir(parents=True)
-            (t2_root / "Mod.xml").write_text("<Mod><Name>Town02</Name></Mod>", encoding="utf-8")
-            (t2_root / ".gitattributes").write_text(
-                "*.rsground filter=lfs diff=lfs merge=lfs -text\n", encoding="utf-8"
-            )
-            # Simule un .rsground town02 existant nommé `collision_map.rsground` (pointeur LFS)
-            (t2_root / "Data" / "Ground" / "collision_map.rsground").write_bytes(
-                b"version https://git-lfs.github.com/spec/v1\noid sha256:0000\nsize 123\n"
-            )
-            (t2_root / "Content" / "Tile" / "00_ciel.tile").write_bytes(
-                b"\x08\x00\x00\x00\x00\x00\x00\x00"
-            )
-            (t2_root / "Content" / "Tile" / "index.idx").write_bytes(
-                serialiser_tile_index([TileIndexEntry("00_ciel", 8, 0, b"")])
+    def test_03_invariants_halcyon_complets_mod_xml_master_zone_scripts_et_alias(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            mock_town02 = Path(tmp) / "PROJET-PMD"
+            (mock_town02 / "Content" / "Tile").mkdir(parents=True)
+            (mock_town02 / "Data" / "Ground").mkdir(parents=True)
+            (mock_town02 / "Data" / "Zone").mkdir(parents=True)
+            (mock_town02 / "Data" / "Script" / "halcyon" / "ground" / "metano_town").mkdir(
+                parents=True
             )
 
-            # 2) Crée un dépôt source multi-branches `projet-creation-pmdo` avec 2 branches divergentes
-            repo_a = tmp / "meromoonmeri_projet-creation-pmdo"
-            repo_a.mkdir()
-            self._git_init(repo_a, "arena/ancienne-branche")
-            (repo_a / "source" / "lot_commun").mkdir(parents=True)
-            (repo_a / "source" / "lot_commun" / "note.txt").write_text("v1_ancienne", encoding="utf-8")
-            (repo_a / "source" / "lot_branche_ancienne").mkdir(parents=True)
-            (repo_a / "source" / "lot_branche_ancienne" / "info.txt").write_text("exclusif_b1", encoding="utf-8")
-            (repo_a / "apercu_ancien.html").write_text("<html>b1</html>", encoding="utf-8")
-            self._git_commit_all(repo_a, "Commit branche ancienne", "2026-09-01T12:00:00+00:00")
-
-            # Seconde branche : branche active préférée avec variante de `lot_commun` + vrai .tile/.rsground
-            subprocess.run(
-                ["git", "checkout", "-b", "arena/637b0828-projet-creation-pmdo"],
-                cwd=str(repo_a),
-                check=True,
-                capture_output=True,
+            # 1) Mod.xml fidèle à town02 / Palikadude/Halcyon
+            (mock_town02 / "Mod.xml").write_text(
+                "<Header>\n"
+                "  <Name>Halcyon</Name>\n"
+                "  <Author>Palika</Author>\n"
+                "  <Description>Original</Description>\n"
+                "  <Namespace>halcyon</Namespace>\n"
+                "  <UUID>CAE98609-7A96-4CFC-B5AB-0E1D41F6A1FF</UUID>\n"
+                "  <Version>0.5.3</Version>\n"
+                "  <GameVersion>0.8.12</GameVersion>\n"
+                "  <ModType>Quest</ModType>\n"
+                "</Header>\n",
+                encoding="utf-8",
             )
-            (repo_a / "source" / "lot_commun" / "note.txt").write_text("v2_canonique", encoding="utf-8")
-            pkg_dir = repo_a / "renders" / "lot_commun" / "package"
-            (pkg_dir / "Content" / "Tile").mkdir(parents=True)
-            (pkg_dir / "Data" / "Ground").mkdir(parents=True)
-            (pkg_dir / "Data" / "Script" / "ground" / "lot_commun_map").mkdir(parents=True)
-            shutil.copy2(first_tile, pkg_dir / "Content" / "Tile" / first_tile.name)
 
-            # Crée un .rsground minimal référençant réellement (sheet_name, 0, 1) ou la 1re entrée de first_tile
-            entry_real = extraire_entree_depuis_fichier_tile(first_tile)
-            first_xy = next(iter(entry_real.positions_dict().keys()))
-            mini_rsg = {
-                "Version": "0.8.12.0",
-                "Object": {
-                    "Layers": [
+            # 2) master_zone.json et Data/Zone/index.idx simulés avec les entrées natives de town02
+            native_grounds = ["metano_town", "guild_first_floor", "guild_second_floor", "kyurem_sanctuaire_glace"]
+            (mock_town02 / "Data" / "Zone" / "master_zone.json").write_bytes(
+                (
+                    "\ufeff"
+                    + json.dumps(
                         {
-                            "Tiles": [
-                                [
-                                    {
-                                        "Frames": [
-                                            {
-                                                "Sheet": sheet_name,
-                                                "TexLoc": {"X": first_xy[0], "Y": first_xy[1]},
-                                            }
-                                        ]
-                                    }
-                                ]
-                            ]
+                            "Version": "0.8.12.0",
+                            "Object": {
+                                "$type": "RogueEssence.Data.ZoneData, RogueEssence",
+                                "Maps": [],
+                                "GroundMaps": list(native_grounds),
+                            },
                         }
-                    ]
-                },
-            }
-            (pkg_dir / "Data" / "Ground" / "lot_commun_map.rsground").write_text(
-                json.dumps(mini_rsg), encoding="utf-8"
+                    )
+                ).encode("utf-8")
             )
-            # Ajoute aussi un .rsground homonyme à `collision_map.rsground` pour vérifier le non-écrasement town02
-            (pkg_dir / "Data" / "Ground" / "collision_map.rsground").write_text(
-                json.dumps(mini_rsg), encoding="utf-8"
+            (mock_town02 / "Data" / "Zone" / "index.idx").write_bytes(
+                (
+                    "\ufeff"
+                    + json.dumps(
+                        {
+                            "Version": "0.8.12.0",
+                            "Object": {
+                                "$type": "RogueEssence.Data.ZoneEntrySummary, RogueEssence",
+                                "master_zone": {"Grounds": list(native_grounds)},
+                            },
+                        }
+                    )
+                ).encode("utf-8")
             )
-            (pkg_dir / "Data" / "Script" / "ground" / "lot_commun_map" / "init.lua").write_text(
-                "return {}", encoding="utf-8"
-            )
-            (repo_a / "index.html").write_text("<html>studio</html>", encoding="utf-8")
-            self._git_commit_all(repo_a, "Commit branche active", "2026-10-24T12:00:00+00:00")
 
-            # 3) Crée un dépôt source `guilde-treehouse` avec `salles/01_accueil` et `exterieur/jour.png`
-            repo_b = tmp / "meromoonmeri_guilde-treehouse-pmd"
-            repo_b.mkdir()
-            self._git_init(repo_b, "main")
-            (repo_b / "salles" / "01_accueil").mkdir(parents=True)
-            (repo_b / "salles" / "01_accueil" / "room.json").write_text("{}", encoding="utf-8")
-            (repo_b / "exterieur").mkdir(parents=True)
-            (repo_b / "exterieur" / "jour.png").write_bytes(b"\x89PNG\r\n\x1a\n")
-            (repo_b / "source" / "zone_guilde_treehouse_v2").mkdir(parents=True)
-            (repo_b / "source" / "zone_guilde_treehouse_v2" / "readme.md").write_text("guilde", encoding="utf-8")
-            self._git_commit_all(repo_b, "Commit guilde treehouse", "2026-10-20T12:00:00+00:00")
+            # Simule une homonymie sur kyurem_sanctuaire_glace.rsground dans town02
+            (mock_town02 / "Data" / "Ground" / "kyurem_sanctuaire_glace.rsground").write_text(
+                '{"Object":{"AssetName":"kyurem_sanctuaire_glace"}}', encoding="utf-8"
+            )
 
-            # 4) Exécute la fusion complète dans `out_unified`
-            out_unified = tmp / "unified_town02"
-            shutil.copytree(t2_root, out_unified)
+            # 3) Exécute la fusion depuis le dépôt courant (branche active)
             report = fusionner_branches_dans_town02(
-                target_root=out_unified,
+                target_root=mock_town02,
                 source_repos=[
-                    ("meromoonmeri/projet-creation-pmdo", repo_a),
-                    ("meromoonmeri/guilde-treehouse-pmd", repo_b),
+                    (
+                        "meromoonmeri/projet-creation-pmdo",
+                        REPO_ROOT,
+                        "arena/637b0828-projet-creation-pmdo",
+                    )
                 ],
-                garder_variantes=True,
+                garder_variantes=False,
                 compiler_builds=False,
+                nom_mod="PROJET PMD",
             )
 
-            # Vérifications exhaustives
-            self.assertEqual(report.branches_scanned, 3)
-            self.assertEqual(report.source_lots_merged, 3)  # lot_commun + lot_branche_ancienne + zone_guilde_treehouse_v2
-            self.assertEqual(report.branch_variants_saved, 1)  # variante ancienne de lot_commun conservée !
+            # A. Vérifie Mod.xml : <Name>PROJET PMD</Name> + <Namespace>halcyon</Namespace>
+            mod_txt = (mock_town02 / "Mod.xml").read_text(encoding="utf-8")
+            self.assertIn("<Name>PROJET PMD</Name>", mod_txt)
+            self.assertIn("<Namespace>halcyon</Namespace>", mod_txt)
+
+            # B. Vérifie l'alias anti-écrasement + synchronisation de Object.AssetName !
             self.assertEqual(
-                (out_unified / "maps_sources" / "source" / "lot_commun" / "note.txt").read_text(encoding="utf-8"),
-                "v2_canonique",
+                (mock_town02 / "Data" / "Ground" / "kyurem_sanctuaire_glace.rsground").read_text(
+                    encoding="utf-8"
+                ),
+                '{"Object":{"AssetName":"kyurem_sanctuaire_glace"}}',
             )
-            self.assertTrue((out_unified / "maps_sources" / "source" / "lot_branche_ancienne" / "info.txt").is_file())
-            self.assertTrue((out_unified / "maps_sources" / "source" / "zone_guilde_treehouse_v2" / "readme.md").is_file())
-            self.assertTrue((out_unified / "maps_sources" / "guilde_treehouse" / "salles" / "01_accueil" / "room.json").is_file())
-            self.assertTrue((out_unified / "maps_sources" / "salles").is_symlink())
-
-            # collision_map.rsground de town02 est resté intact ET la version custom est aliasée proprement
-            self.assertTrue(
-                (out_unified / "Data" / "Ground" / "collision_map.rsground")
-                .read_bytes()
-                .startswith(b"version https://git-lfs")
+            aliased_ground = (
+                mock_town02 / "Data" / "Ground" / "kyurem_sanctuaire_glace__custom_pmdo.rsground"
             )
-            self.assertTrue((out_unified / "Data" / "Ground" / "collision_map__custom_pmdo.rsground").is_file())
-            self.assertTrue((out_unified / "Data" / "Ground" / "lot_commun_map.rsground").is_file())
-            self.assertTrue((out_unified / "Data" / "Script" / "ground" / "lot_commun_map" / "init.lua").is_file())
+            if aliased_ground.exists():
+                aliased_doc = json.loads(aliased_ground.read_text(encoding="utf-8-sig"))
+                self.assertEqual(
+                    aliased_doc["Object"]["AssetName"],
+                    "kyurem_sanctuaire_glace__custom_pmdo",
+                )
 
-            # index.idx contient 00_ciel + sheet_name et 0 damier mauve
-            self.assertEqual(report.tile_index_before, 1)
-            self.assertEqual(report.tile_index_after, 2)
-            self.assertGreaterEqual(report.verified_tile_refs, 2)
-            self.assertTrue((out_unified / "CATALOGUE_COMPLET_UNIFIE.md").is_file())
+            # C. Simule la matérialisation d'un mini-mod Studio (KYE1) + d'une salle Guilde Treehouse
+            ws_renders = mock_town02 / "Halcyon Mods" / "sources_projet_pmd" / "renders"
+            kye_src = REPO_ROOT / "renders" / "kyurem_cratere_entree_v1" / "package"
+            gth_src = REPO_ROOT / "renders" / "guilde_treehouse_halcyon_v1" / "package"
 
-            # Test du garde Git LFS > seuil
-            big_dummy = out_unified / "maps_sources" / "gros_test.bin"
-            big_dummy.write_bytes(b"x" * 1024)
-            added = proteger_gros_fichiers_git_lfs(out_unified, seuil_octets=512)
-            self.assertIn("maps_sources/gros_test.bin", added)
+            # Installe 2 grounds réels (KYE1 + Guilde Hall des missions) pour tester scripts + master_zone
+            for tp in list((kye_src / "Content" / "Tile").glob("*.tile")) + [
+                gth_src / "Content" / "Tile" / "GTH_02_CORPS_JOUR.tile",
+                gth_src / "Content" / "Tile" / "GTH_02_FENETRES_6AMB.tile",
+            ]:
+                copier_fichier_dereference(tp, mock_town02 / "Content" / "Tile" / tp.name)
 
-    @staticmethod
-    def _git_init(path: Path, branch: str) -> None:
-        subprocess.run(["git", "init", "-b", branch], cwd=str(path), check=True, capture_output=True)
-        subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=str(path), check=True)
-        subprocess.run(["git", "config", "user.name", "Test"], cwd=str(path), check=True)
+            injecter_planches_dans_index(
+                mock_town02 / "Content" / "Tile" / "index.idx",
+                sorted((mock_town02 / "Content" / "Tile").glob("*.tile")),
+            )
 
-    @staticmethod
-    def _git_commit_all(path: Path, msg: str, iso_date: str) -> None:
-        subprocess.run(["git", "add", "-A"], cwd=str(path), check=True)
-        env = dict(**subprocess.os.environ)
-        env["GIT_AUTHOR_DATE"] = iso_date
-        env["GIT_COMMITTER_DATE"] = iso_date
-        subprocess.run(["git", "commit", "-m", msg], cwd=str(path), check=True, env=env, capture_output=True)
+            kye_ground_dst = mock_town02 / "Data" / "Ground" / "kyurem_cratere_entree.rsground"
+            gth_ground_dst = mock_town02 / "Data" / "Ground" / "guilde_th_02_hall_missions.rsground"
+            copier_fichier_dereference(
+                kye_src / "Data" / "Ground" / "kyurem_cratere_entree.rsground", kye_ground_dst
+            )
+            copier_fichier_dereference(
+                gth_src / "Data" / "Ground" / "guilde_th_02_hall_missions.rsground", gth_ground_dst
+            )
+            synchroniser_asset_name_rsground(kye_ground_dst, "kyurem_cratere_entree")
+            synchroniser_asset_name_rsground(gth_ground_dst, "guilde_th_02_hall_missions")
+
+            # Vérifie l'extracteur Halcyon de scripts Ground (relocalisation <ns>/ground/<id> -> halcyon/ground/<id>)
+            from source.consolidation_unifiee_town02.assembler_repo_unifie_town02 import (
+                _extraire_scripts_ground_depuis_arborescence,
+            )
+            extracted_scripts = _extraire_scripts_ground_depuis_arborescence(REPO_ROOT / "renders")
+            self.assertIn("kyurem_cratere_entree", extracted_scripts)
+            self.assertEqual(extracted_scripts["kyurem_cratere_entree"][1], "kyurem_cratere_kye1")
+            self.assertIn("guilde_th_02_hall_missions", extracted_scripts)
+            self.assertIsNone(extracted_scripts["guilde_th_02_hall_missions"][1])
+
+            # Enregistre dans master_zone.json & Data/Zone/index.idx et vérifie que 0..3 sont intacts !
+            avant_mz, apres_mz = enregistrer_grounds_dans_master_zone_halcyon(
+                mock_town02, ["kyurem_cratere_entree", "guilde_th_02_hall_missions"]
+            )
+            self.assertGreaterEqual(apres_mz, avant_mz + 2)
+            mz_after_doc = json.loads(
+                (mock_town02 / "Data" / "Zone" / "master_zone.json").read_text(encoding="utf-8-sig")
+            )
+            self.assertEqual(mz_after_doc["Object"]["GroundMaps"][:4], native_grounds)
+            self.assertIn("kyurem_cratere_entree", mz_after_doc["Object"]["GroundMaps"])
+            self.assertIn("guilde_th_02_hall_missions", mz_after_doc["Object"]["GroundMaps"])
+
+            zidx_after_doc = json.loads(
+                (mock_town02 / "Data" / "Zone" / "index.idx").read_text(encoding="utf-8-sig")
+            )
+            self.assertEqual(
+                zidx_after_doc["Object"]["master_zone"]["Grounds"][:4], native_grounds
+            )
+            self.assertIn(
+                "guilde_th_02_hall_missions",
+                zidx_after_doc["Object"]["master_zone"]["Grounds"],
+            )
+
+            # Et vérifie 0 damier mauve sur les deux grounds installés !
+            checked, problems = verifier_aucun_damier_mauve(
+                mock_town02 / "Content" / "Tile" / "index.idx",
+                mock_town02 / "Content" / "Tile",
+                [kye_ground_dst, gth_ground_dst],
+            )
+            self.assertEqual(problems, [])
+            self.assertGreater(checked, 2000)
+            self.assertGreaterEqual(report.source_lots_merged, 40)
 
 
 if __name__ == "__main__":

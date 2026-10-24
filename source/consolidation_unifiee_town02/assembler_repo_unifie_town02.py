@@ -1,44 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Assembleur clé-en-main d'un dépôt unifié `town02` + TOUTES les maps PMDO.
+"""Assembleur clé-en-main du dépôt unique « PROJET PMD » basé sur `town02` / `Palikadude/Halcyon`.
 
-Ce script construit un dépôt unique basé intégralement sur `meromoonmeri/town02`
-(mod PMDO `0.8.12.0` complet : `Mod.xml`, `Content/`, `Data/`, `Strings/`,
-`CONVERSION/`, `converter/`, `dev/`, `dist/`, `installer/`) et y fusionne :
+Architecture de placement 100 % conforme à `Palikadude/Halcyon` & `meromoonmeri/town02`
+(`PMDO 0.8.12.0`, `<Namespace>halcyon</Namespace>`) :
 
-  1. Toutes les branches de `meromoonmeri/projet-creation-pmdo` (19+ branches,
-     416+ lots `source/*` cumulés avec les dépôts compagnons, incluant les 33
-     maps 10 calques du Studio 60 FPS jusqu'à `FAE1`/`FAS1` et `KYE1`/`KYA1`,
-     les mods unifiés entrées/fins, etc.) ;
-  2. Toutes les branches de `meromoonmeri/projet-pmdo` (15+ branches — Guilde
-     Treehouse PMD, trilogie Zénith, Mew, récifs étoilés, etc.) ;
-  3. `meromoonmeri/zone-pmdo` (`main` — historique complet `guilde-treehouse-pmd`
-     + lots en calques) et `meromoonmeri/all-zone-PMDO-project` (`main`) ;
-  4. `meromoonmeri/guilde-treehouse-pmd` (toutes ses branches si accessibles avec
-     les identifiants GitHub de l'utilisateur ; sinon repli transparent sur ses
-     12 salles modulaires `salles/`, `fenetres_exterieur/` et 6 ambiances
-     `exterieur/` déjà présentes dans les dépôts publics ci-dessus).
-
-Intégration native anti-damier mauve PMDO `0.8.12.0` :
-  - Déréférencement complet des liens symboliques (`follow_symlinks=True`) ;
-  - Exécution optionnelle des `source/<lot>/build.py` pour matérialiser les
-    `.tile`, `.rsground` et `init.lua` procéduraux ;
-  - Copie sécurisée des banques `.tile` dans `Content/Tile/`, des cartes
-    `.rsground` dans `Data/Ground/` (sans jamais écraser un `.rsground` natif de
-    `town02` : en cas d'homonymie, la variante custom est enregistrée sous
-    `<nom>__custom_pmdo.rsground`, sauf si `--remplacer-grounds-town02` est
-    activé), et des scripts Lua dans `Data/Script/ground/` ;
-  - Mise à jour atomique et triée alphabétiquement de `Content/Tile/index.idx`
-    selon le format binaire exact `RogueEssence.Content.TileGuide` ;
-  - Vérification intégrale anti-damier mauve (`0` planche absente, `0` `TexLoc`
-    manquant, signatures PNG `\x89PNG\r\n\x1a\n` contrôlées aux offsets exacts).
+  1. `Mod.xml` à la racine : `<Name>PROJET PMD</Name>`, `<Namespace>halcyon</Namespace>`,
+     `<GameVersion>0.8.12</GameVersion>`, `<ModType>Quest</ModType>`.
+  2. `Content/Tile/<Sheet>.tile` + mise à jour atomique triée alphabétiquement de
+     `Content/Tile/index.idx` (`RogueEssence.Content.TileGuide` binaire).
+  3. `Data/Ground/<ground_id>.rsground` (JSON UTF-8 avec BOM `\ufeff` et synchronisation
+     stricte `Object.AssetName == "<ground_id>"`, sans jamais écraser les grounds natifs
+     de `town02` : alias `<nom>__custom_pmdo.rsground` en cas d'homonymie).
+  4. `Data/Script/halcyon/ground/<ground_id>/init.lua` : relocalisation automatique des
+     scripts issus des mini-mods autonomes (`Data/Script/<ns>/ground/<id>/init.lua` ou
+     `Data/Script/ground/<id>/init.lua`) vers l'espace de noms `halcyon`, et génération
+     d'un `init.lua` Halcyon `0.8.12` valide (`COMMON.RespawnAllies()`, `GAME:FadeIn(20)`)
+     pour tout `.rsground` n'ayant pas encore de script dédié.
+  5. `Data/Zone/master_zone.json` (`Object.GroundMaps`) + `Data/Zone/index.idx`
+     (`Object["master_zone"]["Grounds"]`) : enregistrement de chaque nouveau `<ground_id>`
+     à la suite des indices existants de `town02` (`0..390` intacts) pour accès immédiat
+     via `GAME:EnterGroundMap(...)` et le menu Dev Warp de PMDO.
+  6. `Halcyon Mods/sources_projet_pmd/` : archivage propre des générateurs Python, du kit
+     Guilde Treehouse (`12` salles modulaires, `6` ambiances, `fenetres_exterieur/`,
+     `calques/`) et du Studio HTML 60 FPS, selon la convention racine de `Palikadude/Halcyon`.
 """
 from __future__ import annotations
 
 import argparse
-import io
 import json
-import os
 import re
 import shutil
 import struct
@@ -54,13 +44,22 @@ LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
 DEFAULT_OWNER = "meromoonmeri"
 DEFAULT_BASE_REPO = "meromoonmeri/town02"
 DEFAULT_PREFERRED_BRANCH = "arena/637b0828-projet-creation-pmdo"
+DEFAULT_MOD_NAME = "PROJET PMD"
 
-DEFAULT_SOURCE_REPOS: List[Tuple[str, bool]] = [
-    ("meromoonmeri/projet-creation-pmdo", True),
-    ("meromoonmeri/projet-pmdo", True),
-    ("meromoonmeri/zone-pmdo", True),
-    ("meromoonmeri/all-zone-PMDO-project", True),
-    ("meromoonmeri/guilde-treehouse-pmd", False),  # privé : optionnel si token restreint
+# Mode ciblé par défaut demandé par l'utilisateur :
+#   town02 + projet-creation-pmdo@arena/637b0828-projet-creation-pmdo + guilde-treehouse-pmd
+PROJET_PMD_TARGET_REPOS: List[Tuple[str, Optional[str], bool]] = [
+    ("meromoonmeri/projet-creation-pmdo", DEFAULT_PREFERRED_BRANCH, True),
+    ("meromoonmeri/guilde-treehouse-pmd", None, False),
+]
+
+# Mode élargi optionnel (--toutes-branches) couvrant les 36+ branches historiques
+ALL_BRANCHES_SOURCE_REPOS: List[Tuple[str, Optional[str], bool]] = [
+    ("meromoonmeri/projet-creation-pmdo", None, True),
+    ("meromoonmeri/projet-pmdo", None, True),
+    ("meromoonmeri/zone-pmdo", None, True),
+    ("meromoonmeri/all-zone-PMDO-project", None, True),
+    ("meromoonmeri/guilde-treehouse-pmd", None, False),
 ]
 
 GUILDE_ROOT_DIRS: Tuple[str, ...] = (
@@ -203,10 +202,7 @@ def extraire_entree_depuis_fichier_tile(tile_path: Path) -> TileIndexEntry:
 def injecter_planches_dans_index(
     idx_path: Path, tile_files: Iterable[Path]
 ) -> Tuple[int, int, int]:
-    """Insère ou met à jour un lot de fichiers `.tile` dans `Content/Tile/index.idx`.
-
-    Retourne `(nb_avant, nb_apres, nb_injectees)`.
-    """
+    """Insère ou met à jour un lot de fichiers `.tile` dans `Content/Tile/index.idx`."""
     if idx_path.exists():
         original_bytes = idx_path.read_bytes()
         if original_bytes.startswith(LFS_POINTER_PREFIX):
@@ -234,7 +230,6 @@ def injecter_planches_dans_index(
     idx_path.parent.mkdir(parents=True, exist_ok=True)
     idx_path.write_bytes(serialiser_tile_index(merged))
 
-    # Contrôle de relecture immédiat
     reloaded = lire_tile_index(idx_path)
     if len(reloaded) != len(merged):
         raise RuntimeError("Échec du contrôle après écriture de index.idx")
@@ -246,10 +241,7 @@ def injecter_planches_dans_index(
 # ============================================================================
 
 def extraire_references_tuiles_rsground(map_path: Path) -> Optional[Set[Tuple[str, int, int]]]:
-    """Retourne tous les triplets `(Sheet, X, Y)` d'un `.rsground` ou `.rsmap`.
-
-    Retourne `None` si le fichier est un pointeur Git LFS non matérialisé.
-    """
+    """Retourne tous les triplets `(Sheet, X, Y)` d'un `.rsground` ou `.rsmap`."""
     with map_path.open("rb") as fh:
         head = fh.read(64)
     if head.startswith(LFS_POINTER_PREFIX):
@@ -269,9 +261,7 @@ def extraire_references_tuiles_rsground(map_path: Path) -> Optional[Set[Tuple[st
     def _walk_cell(cell: Optional[dict]) -> None:
         if not isinstance(cell, dict):
             return
-        # Cas 1 : .rsground (AnimTex directe avec `Frames`)
         _walk_frames(cell.get("Frames"))
-        # Cas 2 : .rsmap (cellule avec sous-liste `Layers` -> `Frames`)
         for sub in cell.get("Layers") or []:
             if isinstance(sub, dict):
                 _walk_frames(sub.get("Frames"))
@@ -300,8 +290,6 @@ def verifier_aucun_damier_mauve(
     }
     problems: List[str] = []
     checked_refs = 0
-
-    # Cache par planche pour éviter de rouvrir 25 000 fois le même .tile
     checked_sheet_coords: Set[Tuple[str, int, int]] = set()
 
     for mp in map_paths:
@@ -354,7 +342,143 @@ def verifier_aucun_damier_mauve(
 
 
 # ============================================================================
-# Collecte multi-dépôts et multi-branches + fusion dans `town02`
+# Intégration Halcyon / town02 : Mod.xml, AssetName, Lua, master_zone & index.idx
+# ============================================================================
+
+def mettre_a_jour_mod_xml_halcyon(target_root: Path, nom_mod: str = DEFAULT_MOD_NAME) -> None:
+    """Met à jour `<Name>` dans `Mod.xml` tout en préservant `<Namespace>halcyon</Namespace>`."""
+    mod_xml = target_root / "Mod.xml"
+    if not mod_xml.is_file():
+        mod_xml.write_text(
+            f"<Header>\n"
+            f"  <Name>{nom_mod}</Name>\n"
+            f"  <Author>Minori</Author>\n"
+            f"  <Description>{nom_mod} — Mod unifié basé sur town02 / Halcyon.</Description>\n"
+            f"  <Namespace>halcyon</Namespace>\n"
+            f"  <UUID>CAE98609-7A96-4CFC-B5AB-0E1D41F6A1FF</UUID>\n"
+            f"  <Version>0.6.0</Version>\n"
+            f"  <GameVersion>0.8.12</GameVersion>\n"
+            f"  <ModType>Quest</ModType>\n"
+            f"</Header>\n",
+            encoding="utf-8",
+        )
+        return
+
+    txt = mod_xml.read_text(encoding="utf-8")
+    if "<Name>" in txt:
+        txt = re.sub(r"<Name>.*?</Name>", f"<Name>{nom_mod}</Name>", txt, count=1, flags=re.DOTALL)
+    if "<Description>" in txt:
+        txt = re.sub(
+            r"<Description>.*?</Description>",
+            f"<Description>{nom_mod} — Mod PMDO 0.8.12 unifié basé sur town02 / Halcyon incluant projet-creation-pmdo et Guilde Treehouse PMD.</Description>",
+            txt,
+            count=1,
+            flags=re.DOTALL,
+        )
+    mod_xml.write_text(txt, encoding="utf-8")
+
+
+def synchroniser_asset_name_rsground(rsground_path: Path, expected_ground_id: str) -> None:
+    """Garantit que `Object.AssetName` correspond exactement au nom du fichier `<id>.rsground`."""
+    with rsground_path.open("rb") as fh:
+        if fh.read(64).startswith(LFS_POINTER_PREFIX):
+            return
+    raw_text = rsground_path.read_text(encoding="utf-8-sig")
+    doc = json.loads(raw_text)
+    obj = doc.get("Object")
+    if isinstance(obj, dict) and obj.get("AssetName") != expected_ground_id:
+        obj["AssetName"] = expected_ground_id
+        out_bytes = ("\ufeff" + json.dumps(doc, ensure_ascii=False, separators=(",", ":"))).encode(
+            "utf-8"
+        )
+        rsground_path.write_bytes(out_bytes)
+    elif not rsground_path.read_bytes().startswith(b"\xef\xbb\xbf"):
+        # Normalise le BOM UTF-8 comme Halcyon / town02
+        rsground_path.write_bytes(b"\xef\xbb\xbf" + raw_text.encode("utf-8"))
+
+
+def generer_stub_lua_halcyon(ground_id: str) -> str:
+    """Génère un script `Data/Script/halcyon/ground/<ground_id>/init.lua` conforme PMDO 0.8.12."""
+    var = ground_id if re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", ground_id) else "ground_pkg"
+    return (
+        f"-- Script Ground Halcyon / town02 (PMDO 0.8.12.0) pour {ground_id}\n"
+        f"require 'origin.common'\n\n"
+        f"local {var} = {{}}\n\n"
+        f"function {var}.Init(map)\n"
+        f"  DEBUG.EnableDbgCoro()\n"
+        f"  COMMON.RespawnAllies()\n"
+        f"end\n\n"
+        f"function {var}.Enter(map)\n"
+        f"  GAME:FadeIn(20)\n"
+        f"end\n\n"
+        f"function {var}.Exit(map) end\n"
+        f"function {var}.Update(map) end\n"
+        f"function {var}.GameSave(map) end\n\n"
+        f"function {var}.GameLoad(map)\n"
+        f"  GAME:FadeIn(20)\n"
+        f"end\n\n"
+        f"return {var}\n"
+    )
+
+
+def enregistrer_grounds_dans_master_zone_halcyon(
+    target_root: Path, new_ground_ids: Sequence[str]
+) -> Tuple[int, int]:
+    """Ajoute chaque nouveau `<ground_id>` dans `Data/Zone/master_zone.json` et `Data/Zone/index.idx`.
+
+    Les indices existants de `town02` (`0..390`) sont intégralement préservés dans leur ordre exact.
+    Retourne `(nb_avant, nb_apres)` dans `master_zone`.
+    """
+    mz_path = target_root / "Data" / "Zone" / "master_zone.json"
+    zidx_path = target_root / "Data" / "Zone" / "index.idx"
+    before_count = 0
+    after_count = 0
+
+    if mz_path.is_file():
+        with mz_path.open("rb") as fh:
+            is_lfs = fh.read(64).startswith(LFS_POINTER_PREFIX)
+        if not is_lfs:
+            mz_doc = json.loads(mz_path.read_text(encoding="utf-8-sig"))
+            gmaps: List[str] = list(mz_doc.get("Object", {}).get("GroundMaps", []))
+            before_count = len(gmaps)
+            existing_set = set(gmaps)
+            for gid in sorted(set(new_ground_ids)):
+                if gid not in existing_set:
+                    gmaps.append(gid)
+                    existing_set.add(gid)
+            mz_doc["Object"]["GroundMaps"] = gmaps
+            after_count = len(gmaps)
+            mz_path.write_bytes(
+                ("\ufeff" + json.dumps(mz_doc, indent=2, ensure_ascii=False)).encode("utf-8")
+            )
+
+    if zidx_path.is_file():
+        with zidx_path.open("rb") as fh:
+            is_lfs_idx = fh.read(64).startswith(LFS_POINTER_PREFIX)
+        if not is_lfs_idx:
+            zidx_doc = json.loads(zidx_path.read_text(encoding="utf-8-sig"))
+            mz_entry = zidx_doc.get("Object", {}).get("master_zone")
+            if isinstance(mz_entry, dict) and isinstance(mz_entry.get("Grounds"), list):
+                grounds_list: List[str] = list(mz_entry["Grounds"])
+                if before_count == 0:
+                    before_count = len(grounds_list)
+                existing_idx_set = set(grounds_list)
+                for gid in sorted(set(new_ground_ids)):
+                    if gid not in existing_idx_set:
+                        grounds_list.append(gid)
+                        existing_idx_set.add(gid)
+                mz_entry["Grounds"] = grounds_list
+                if after_count == 0:
+                    after_count = len(grounds_list)
+                zidx_path.write_bytes(
+                    ("\ufeff" + json.dumps(zidx_doc, indent=1, ensure_ascii=False)).encode("utf-8")
+                )
+
+    return before_count, after_count
+
+
+# ============================================================================
+# Collecte multi-dépôts et multi-branches + fusion Halcyon dans `town02`
 # ============================================================================
 
 @dataclass
@@ -368,6 +492,8 @@ class BranchSnapshot:
 
 @dataclass
 class AssemblyReport:
+    mod_name: str = DEFAULT_MOD_NAME
+    workspace_rel_dir: str = "Halcyon Mods/sources_projet_pmd"
     base_town02_grounds: int = 0
     base_town02_tiles: int = 0
     branches_scanned: int = 0
@@ -382,6 +508,9 @@ class AssemblyReport:
     custom_grounds_installed: int = 0
     custom_grounds_aliased: List[str] = field(default_factory=list)
     custom_scripts_installed: int = 0
+    custom_scripts_autogenerated: int = 0
+    master_zone_grounds_before: int = 0
+    master_zone_grounds_after: int = 0
     tile_index_before: int = 0
     tile_index_after: int = 0
     verified_tile_refs: int = 0
@@ -408,9 +537,11 @@ def _sanitize_slug(text: str) -> str:
 
 
 def lister_branches_git_local(
-    repo_git_dir: Path, repo_label: str
+    repo_git_dir: Path,
+    repo_label: str,
+    only_branch: Optional[str] = None,
 ) -> List[BranchSnapshot]:
-    """Liste toutes les branches d'un dépôt Git local ou miroir bare."""
+    """Liste les branches d'un dépôt Git local ou miroir bare."""
     res = _run(
         [
             "git",
@@ -430,6 +561,8 @@ def lister_branches_git_local(
         if ref == "origin/HEAD" or ref.endswith("/HEAD"):
             continue
         bname = ref[len("origin/") :] if ref.startswith("origin/") else ref
+        if only_branch and bname != only_branch:
+            continue
         ts = int(ts_str) if ts_str.isdigit() else 0
         prev = seen.get(bname)
         if prev is None or ts >= prev.commit_timestamp:
@@ -456,7 +589,6 @@ def _priorite_branche(
 def _lister_entrees_arbre_git(
     repo_git_dir: Path, commit_sha: str, subpath: str = ""
 ) -> List[Tuple[str, str, str]]:
-    """Retourne `[(mode_type, sha, name), ...]` pour `commit_sha:subpath`."""
     spec = f"{commit_sha}:{subpath}" if subpath else commit_sha
     res = _run(["git", "ls-tree", spec], cwd=repo_git_dir, check=False)
     if res.returncode != 0:
@@ -475,7 +607,6 @@ def _lister_entrees_arbre_git(
 def extraire_sous_arbre_git(
     repo_git_dir: Path, commit_sha: str, tree_sha: str, dest_dir: Path
 ) -> None:
-    """Extrait le sous-arbre `tree_sha` dans `dest_dir` via `git archive`."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     p_arch = subprocess.Popen(
         ["git", "archive", "--format=tar", tree_sha],
@@ -500,19 +631,17 @@ def extraire_sous_arbre_git(
 
 
 def extraire_blob_git(repo_git_dir: Path, blob_sha: str, dest_file: Path) -> None:
-    """Écrit le contenu du blob `blob_sha` dans `dest_file`."""
     dest_file.parent.mkdir(parents=True, exist_ok=True)
     res = subprocess.run(
         ["git", "cat-file", "blob", blob_sha],
         cwd=str(repo_git_dir),
         check=True,
-         capture_output=True,
+        capture_output=True,
     )
     dest_file.write_bytes(res.stdout)
 
 
 def copier_fichier_dereference(src: Path, dst: Path) -> bool:
-    """Copie `src` vers `dst` en suivant les liens symboliques si la cible existe."""
     try:
         resolved = src.resolve(strict=True)
     except OSError:
@@ -524,35 +653,83 @@ def copier_fichier_dereference(src: Path, dst: Path) -> bool:
     return True
 
 
+def _extraire_scripts_ground_depuis_arborescence(
+    maps_ws: Path,
+) -> Dict[str, Tuple[Path, Optional[str]]]:
+    """Récolte tous les dossiers `ground/<ground_id>` dans `maps_ws/**/Data/Script/**`.
+
+    Retourne `{ground_id: (chemin_dossier_source, ancien_namespace_eventuel)}`.
+    """
+    collected: Dict[str, Tuple[Path, Optional[str]]] = {}
+    for sp_root in sorted(maps_ws.rglob("Data/Script")):
+        try:
+            real_sp_root = sp_root.resolve(strict=True)
+        except OSError:
+            continue
+        if not real_sp_root.is_dir():
+            continue
+        for child in sorted(real_sp_root.iterdir()):
+            if not child.is_dir():
+                continue
+            if child.name == "ground":
+                # Style Halcyon 0.7 : Data/Script/ground/<gid>/
+                for gdir in sorted(child.iterdir()):
+                    if gdir.is_dir() and gdir.name not in collected:
+                        collected[gdir.name] = (gdir, None)
+            else:
+                # Style PMDO 0.8.12 namespacé : Data/Script/<ns>/ground/<gid>/
+                ns = child.name
+                g_parent = child / "ground"
+                if g_parent.is_dir():
+                    for gdir in sorted(g_parent.iterdir()):
+                        if gdir.is_dir():
+                            # Priorité explicite aux scripts déjà écrits pour `halcyon`
+                            if gdir.name not in collected or ns == "halcyon":
+                                collected[gdir.name] = (gdir, None if ns == "halcyon" else ns)
+    return collected
+
+
 def fusionner_branches_dans_town02(
     target_root: Path,
-    source_repos: Sequence[Tuple[str, Path]],
+    source_repos: Sequence[Tuple[str, Path, Optional[str]]] | Sequence[Tuple[str, Path]],
     garder_variantes: bool = True,
     compiler_builds: bool = False,
     remplacer_grounds_town02: bool = False,
     ecraser_tiles_town02: bool = False,
     preferred_branch: str = DEFAULT_PREFERRED_BRANCH,
+    nom_mod: str = DEFAULT_MOD_NAME,
+    dossier_sources_rel: str = "Halcyon Mods/sources_projet_pmd",
 ) -> AssemblyReport:
-    """Fusionne tous les dépôts/branches sources dans une racine `town02` existante."""
-    report = AssemblyReport()
+    """Fusionne les dépôts/branches sources dans une racine `town02` selon le standard Halcyon."""
+    report = AssemblyReport(mod_name=nom_mod, workspace_rel_dir=dossier_sources_rel)
+    mettre_a_jour_mod_xml_halcyon(target_root, nom_mod=nom_mod)
+
     tile_dir = target_root / "Content" / "Tile"
     ground_dir = target_root / "Data" / "Ground"
-    script_ground_dir = target_root / "Data" / "Script" / "ground"
+    halcyon_script_ground_dir = target_root / "Data" / "Script" / "halcyon" / "ground"
     idx_path = tile_dir / "index.idx"
 
     tile_dir.mkdir(parents=True, exist_ok=True)
     ground_dir.mkdir(parents=True, exist_ok=True)
-    script_ground_dir.mkdir(parents=True, exist_ok=True)
+    halcyon_script_ground_dir.mkdir(parents=True, exist_ok=True)
 
     existing_town02_grounds = {p.name.lower() for p in ground_dir.glob("*.rsground")}
     existing_town02_tiles = {p.name.lower() for p in tile_dir.glob("*.tile")}
     report.base_town02_grounds = len(existing_town02_grounds)
     report.base_town02_tiles = len(existing_town02_tiles)
 
-    # Collecte et tri par priorité décroissante de toutes les branches
+    normalized_repos: List[Tuple[str, Path, Optional[str]]] = []
+    for item in source_repos:
+        if len(item) == 2:
+            lbl, gdir = item  # type: ignore[misc]
+            normalized_repos.append((lbl, gdir, None))
+        else:
+            lbl, gdir, bfilter = item  # type: ignore[misc]
+            normalized_repos.append((lbl, gdir, bfilter))
+
     all_snapshots: List[BranchSnapshot] = []
-    for label, git_dir in source_repos:
-        snaps = lister_branches_git_local(git_dir, label)
+    for label, git_dir, only_br in normalized_repos:
+        snaps = lister_branches_git_local(git_dir, label, only_branch=only_br)
         all_snapshots.extend(snaps)
     all_snapshots.sort(
         key=lambda s: _priorite_branche(s, preferred_branch=preferred_branch),
@@ -560,7 +737,7 @@ def fusionner_branches_dans_town02(
     )
     report.branches_scanned = len(all_snapshots)
 
-    maps_ws = target_root / "maps_sources"
+    maps_ws = target_root / dossier_sources_rel
     ws_source = maps_ws / "source"
     ws_variants = maps_ws / "variantes_branches"
     ws_renders = maps_ws / "renders"
@@ -569,7 +746,7 @@ def fusionner_branches_dans_town02(
     for d in (ws_source, ws_renders, ws_guilde, ws_html):
         d.mkdir(parents=True, exist_ok=True)
 
-    seen_source_canonical: Dict[str, str] = {}   # lot -> canonical tree_sha
+    seen_source_canonical: Dict[str, str] = {}
     seen_source_trees: Set[Tuple[str, str]] = set()
     seen_source_files: Set[str] = set()
     seen_renders_canonical: Set[str] = set()
@@ -581,12 +758,10 @@ def fusionner_branches_dans_town02(
     for snap in all_snapshots:
         root_entries = _lister_entrees_arbre_git(snap.repo_git_dir, snap.commit_sha)
         for etype, esha, ename in root_entries:
-            # 1) Documentation méthodologique & journaux
             if etype == "blob" and ename in ROOT_DOC_FILES and ename not in seen_docs:
                 extraire_blob_git(snap.repo_git_dir, esha, maps_ws / ename)
                 seen_docs.add(ename)
 
-            # 2) Aperçus HTML + Studio index.html
             elif (
                 etype == "blob"
                 and (ename == "index.html" or (ename.startswith("apercu_") and ename.endswith(".html")))
@@ -596,12 +771,10 @@ def fusionner_branches_dans_town02(
                 seen_html.add(ename)
                 report.html_previews_merged += 1
 
-            # 3) Fichiers .rsground racine éventuels (ex: cliffdaytest.rsground requis par certains build.py)
             elif etype == "blob" and ename.endswith(".rsground") and ename not in seen_root_rsgrounds:
                 extraire_blob_git(snap.repo_git_dir, esha, maps_ws / ename)
                 seen_root_rsgrounds.add(ename)
 
-            # 4) Dossiers racine Guilde Treehouse (12 salles, 6 ambiances, fenêtres, calques, sprites...)
             elif etype == "tree" and ename in GUILDE_ROOT_DIRS and ename not in seen_guilde_dirs:
                 extraire_sous_arbre_git(
                     snap.repo_git_dir, snap.commit_sha, esha, ws_guilde / ename
@@ -612,7 +785,6 @@ def fusionner_branches_dans_town02(
                 seen_guilde_dirs.add(ename)
                 report.guilde_dirs_merged.append(ename)
 
-            # 5) Lots `source/*` + moteurs partagés `source/*.py`
             elif etype == "tree" and ename == "source":
                 for stype, ssha, sname in _lister_entrees_arbre_git(
                     snap.repo_git_dir, snap.commit_sha, "source"
@@ -638,7 +810,6 @@ def fusionner_branches_dans_town02(
                             seen_source_trees.add((sname, ssha))
                             report.branch_variants_saved += 1
 
-            # 6) Lots `renders/*`
             elif etype == "tree" and ename == "renders":
                 for rtype, rsha, rname in _lister_entrees_arbre_git(
                     snap.repo_git_dir, snap.commit_sha, "renders"
@@ -650,7 +821,7 @@ def fusionner_branches_dans_town02(
                         seen_renders_canonical.add(rname)
                         report.renders_lots_merged += 1
 
-    # Exécution optionnelle des scripts `maps_sources/source/*/build.py`
+    # Compilation des générateurs `build.py` (Studio 33 maps + Guilde Treehouse Halcyon 84 maps + entrées/fins)
     if compiler_builds:
         for build_py in sorted(ws_source.glob("*/build.py")):
             res = subprocess.run(
@@ -664,16 +835,29 @@ def fusionner_branches_dans_town02(
             if res.returncode == 0:
                 report.builds_executed += 1
             else:
-                report.builds_failed.append(
-                    f"{build_py.parent.name}: rc={res.returncode}"
-                )
+                report.builds_failed.append(f"{build_py.parent.name}: rc={res.returncode}")
 
-    # Récolte de tous les `.tile`, `.rsground` et scripts Lua générés ou extraits
+        # Génération complémentaire des grounds autonomes compat_town02 si présent
+        compat_script = ws_source / "compat_town02" / "build_all_town02_grounds.py"
+        if compat_script.is_file():
+            res_c = subprocess.run(
+                [sys.executable, str(compat_script)],
+                cwd=str(maps_ws),
+                text=True,
+                capture_output=True,
+                timeout=300,
+                check=False,
+            )
+            if res_c.returncode == 0:
+                report.builds_executed += 1
+
+    # Récolte des planches `.tile` et des cartes `.rsground` (en ignorant les références de test)
     harvested_tiles: Dict[str, Path] = {}
     harvested_grounds: Dict[str, Path] = {}
-    harvested_script_dirs: Dict[str, Path] = {}
 
     for tp in sorted(maps_ws.rglob("*.tile")):
+        if "references" in tp.parts:
+            continue
         try:
             real_tp = tp.resolve(strict=True)
         except OSError:
@@ -682,6 +866,8 @@ def fusionner_branches_dans_town02(
             harvested_tiles[tp.name] = real_tp
 
     for gp in sorted(maps_ws.rglob("*.rsground")):
+        if "references" in gp.parts or gp.parent == maps_ws:
+            continue
         try:
             real_gp = gp.resolve(strict=True)
         except OSError:
@@ -689,28 +875,7 @@ def fusionner_branches_dans_town02(
         if real_gp.is_file() and gp.name not in harvested_grounds:
             harvested_grounds[gp.name] = real_gp
 
-    for sp_root in sorted(maps_ws.rglob("Data/Script")):
-        try:
-            real_sp_root = sp_root.resolve(strict=True)
-        except OSError:
-            continue
-        if not real_sp_root.is_dir():
-            continue
-        for child in sorted(real_sp_root.iterdir()):
-            if not child.is_dir():
-                continue
-            if child.name == "ground":
-                for gchild in sorted(child.iterdir()):
-                    if gchild.is_dir():
-                        rel_key = f"ground/{gchild.name}"
-                        if rel_key not in harvested_script_dirs:
-                            harvested_script_dirs[rel_key] = gchild
-            else:
-                rel_key = child.name
-                if rel_key not in harvested_script_dirs:
-                    harvested_script_dirs[rel_key] = child
-
-    # Installation sécurisée des planches `.tile` dans `Content/Tile/`
+    # 1) Placement Halcyon des `.tile` dans `Content/Tile/` + mise à jour de `Content/Tile/index.idx`
     tiles_to_index: List[Path] = []
     for tname, tsrc in sorted(harvested_tiles.items()):
         tdst = tile_dir / tname
@@ -720,7 +885,6 @@ def fusionner_branches_dans_town02(
             tiles_to_index.append(tdst)
             report.custom_tiles_installed += 1
 
-    # Mise à jour atomique de `Content/Tile/index.idx`
     if tiles_to_index or not idx_path.exists():
         before, after, _ = injecter_planches_dans_index(idx_path, tiles_to_index)
         report.tile_index_before = before
@@ -730,32 +894,73 @@ def fusionner_branches_dans_town02(
         report.tile_index_before = n_idx
         report.tile_index_after = n_idx
 
-    # Installation sécurisée des cartes `.rsground` dans `Data/Ground/`
+    # 2) Placement Halcyon des `.rsground` dans `Data/Ground/` + synchronisation `Object.AssetName`
     installed_ground_paths: List[Path] = []
+    installed_ground_ids: List[str] = []
+    alias_origin_map: Dict[str, str] = {}  # new_ground_id -> original_ground_id
+
     for gname, gsrc in sorted(harvested_grounds.items()):
+        orig_stem = Path(gname).stem
         if gname.lower() in existing_town02_grounds and not remplacer_grounds_town02:
-            stem = Path(gname).stem
-            aliased_name = f"{stem}__custom_pmdo.rsground"
-            gdst = ground_dir / aliased_name
-            report.custom_grounds_aliased.append(f"{gname} -> {aliased_name}")
+            final_id = f"{orig_stem}__custom_pmdo"
+            gdst = ground_dir / f"{final_id}.rsground"
+            report.custom_grounds_aliased.append(f"{gname} -> {final_id}.rsground")
+            alias_origin_map[final_id] = orig_stem
         else:
+            final_id = orig_stem
             gdst = ground_dir / gname
+
         if copier_fichier_dereference(gsrc, gdst):
+            synchroniser_asset_name_rsground(gdst, final_id)
             installed_ground_paths.append(gdst)
+            installed_ground_ids.append(final_id)
             report.custom_grounds_installed += 1
 
-    # Installation sécurisée des scripts Lua `Data/Script/<namespace>/...` et `Data/Script/ground/<id>/`
-    script_root_dir = target_root / "Data" / "Script"
-    for rel_key, ssrc in sorted(harvested_script_dirs.items()):
-        sdst = script_root_dir / rel_key
-        if sdst.exists():
+    # 3) Placement Halcyon des scripts Lua sous `Data/Script/halcyon/ground/<ground_id>/init.lua`
+    harvested_scripts = _extraire_scripts_ground_depuis_arborescence(maps_ws)
+    for gid in installed_ground_ids:
+        sdst_dir = halcyon_script_ground_dir / gid
+        if sdst_dir.exists():
             continue
-        sdst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(ssrc, sdst, symlinks=False)
+        lookup_key = gid if gid in harvested_scripts else alias_origin_map.get(gid, "")
+        if lookup_key and lookup_key in harvested_scripts:
+            ssrc_dir, old_ns = harvested_scripts[lookup_key]
+            shutil.copytree(ssrc_dir, sdst_dir, symlinks=False)
+            # Adapte les `require '<old_ns>.ground.` vers `require 'halcyon.ground.`
+            for lua_f in sdst_dir.rglob("*.lua"):
+                ltxt = lua_f.read_text(encoding="utf-8", errors="replace")
+                if old_ns:
+                    ltxt = ltxt.replace(f"require '{old_ns}.ground.", "require 'halcyon.ground.")
+                    ltxt = ltxt.replace(f'require "{old_ns}.ground.', 'require "halcyon.ground.')
+                lua_f.write_text(ltxt, encoding="utf-8")
+            report.custom_scripts_installed += 1
+        else:
+            sdst_dir.mkdir(parents=True, exist_ok=True)
+            (sdst_dir / "init.lua").write_text(generer_stub_lua_halcyon(gid), encoding="utf-8")
+            report.custom_scripts_autogenerated += 1
+
+    # Copie également tout script `halcyon/ground/<gid>` additionnel non encore présent
+    for gid, (ssrc_dir, old_ns) in sorted(harvested_scripts.items()):
+        sdst_dir = halcyon_script_ground_dir / gid
+        if sdst_dir.exists():
+            continue
+        shutil.copytree(ssrc_dir, sdst_dir, symlinks=False)
+        for lua_f in sdst_dir.rglob("*.lua"):
+            ltxt = lua_f.read_text(encoding="utf-8", errors="replace")
+            if old_ns:
+                ltxt = ltxt.replace(f"require '{old_ns}.ground.", "require 'halcyon.ground.")
+                ltxt = ltxt.replace(f'require "{old_ns}.ground.', 'require "halcyon.ground.')
+            lua_f.write_text(ltxt, encoding="utf-8")
         report.custom_scripts_installed += 1
 
-    # Contrôle anti-damier mauve sur tous les `.rsground` nouvellement installés
-    # dont toutes les planches référencées sont présentes localement
+    # 4) Enregistrement Halcyon dans `Data/Zone/master_zone.json` & `Data/Zone/index.idx`
+    mz_before, mz_after = enregistrer_grounds_dans_master_zone_halcyon(
+        target_root, installed_ground_ids
+    )
+    report.master_zone_grounds_before = mz_before
+    report.master_zone_grounds_after = mz_after
+
+    # 5) Contrôle anti-damier mauve sur tous les `.rsground` installés dont les `.tile` sont matérialisés
     verifiable_grounds: List[Path] = []
     idx_entries_names = (
         {e.sheet for e in lire_tile_index(idx_path)} if idx_path.exists() else set()
@@ -764,11 +969,14 @@ def fusionner_branches_dans_town02(
         refs = extraire_references_tuiles_rsground(gp)
         if refs is None:
             continue
-        # Vérifie que les .tile référencés ne sont pas des pointeurs LFS
         all_materialized = True
         for sheet, _, _ in refs:
             tp = tile_dir / f"{sheet}.tile"
-            if tp.exists():
+            if not tp.exists():
+                if report.base_town02_tiles == 0:
+                    all_materialized = False
+                    break
+            else:
                 with tp.open("rb") as tfh:
                     if tfh.read(64).startswith(LFS_POINTER_PREFIX):
                         all_materialized = False
@@ -787,16 +995,12 @@ def fusionner_branches_dans_town02(
                 f"Échec garde anti-damier mauve ({len(problems)} anomalies) :\n  - {preview}"
             )
 
-    # Protection automatique Git LFS pour tout fichier > 90 Mo hors .git
     proteger_gros_fichiers_git_lfs(target_root, seuil_octets=90 * 1024 * 1024)
-
-    # Génération du catalogue récapitulatif à la racine du dépôt unifié
-    ecrire_catalogue_racine(target_root, report, source_repos)
+    ecrire_catalogue_racine(target_root, report, normalized_repos)
     return report
 
 
 def proteger_gros_fichiers_git_lfs(root: Path, seuil_octets: int = 90 * 1024 * 1024) -> List[str]:
-    """Ajoute dans `.gitattributes` tout fichier > `seuil_octets` pour éviter le rejet GitHub 100 Mo."""
     gitattr = root / ".gitattributes"
     existing_text = gitattr.read_text(encoding="utf-8") if gitattr.exists() else ""
     added_rules: List[str] = []
@@ -806,7 +1010,7 @@ def proteger_gros_fichiers_git_lfs(root: Path, seuil_octets: int = 90 * 1024 * 1
             continue
         if p.stat().st_size > seuil_octets:
             rel = p.relative_to(root).as_posix()
-            rule = f'{rel} filter=lfs diff=lfs merge=lfs -text'
+            rule = f"{rel} filter=lfs diff=lfs merge=lfs -text"
             if rel not in existing_text:
                 existing_text = existing_text.rstrip("\n") + "\n" + rule + "\n"
                 added_rules.append(rel)
@@ -819,14 +1023,18 @@ def proteger_gros_fichiers_git_lfs(root: Path, seuil_octets: int = 90 * 1024 * 1
 def ecrire_catalogue_racine(
     target_root: Path,
     report: AssemblyReport,
-    source_repos: Sequence[Tuple[str, Path]],
+    source_repos: Sequence[Tuple[str, Path, Optional[str]]],
 ) -> Path:
-    """Écrit `CATALOGUE_COMPLET_UNIFIE.md` et `inventaire_unifie_final.json`."""
     inv = {
+        "mod_name": report.mod_name,
+        "namespace": "halcyon",
+        "workspace_rel_dir": report.workspace_rel_dir,
         "base_town02_grounds": report.base_town02_grounds,
         "base_town02_tiles": report.base_town02_tiles,
         "branches_scanned": report.branches_scanned,
-        "source_repos": [label for label, _ in source_repos],
+        "source_repos": [
+            f"{label}@{br}" if br else label for label, _, br in source_repos
+        ],
         "source_lots_merged": report.source_lots_merged,
         "branch_variants_saved": report.branch_variants_saved,
         "renders_lots_merged": report.renders_lots_merged,
@@ -838,6 +1046,9 @@ def ecrire_catalogue_racine(
         "custom_grounds_installed": report.custom_grounds_installed,
         "custom_grounds_aliased": report.custom_grounds_aliased,
         "custom_scripts_installed": report.custom_scripts_installed,
+        "custom_scripts_autogenerated": report.custom_scripts_autogenerated,
+        "master_zone_grounds_before": report.master_zone_grounds_before,
+        "master_zone_grounds_after": report.master_zone_grounds_after,
         "tile_index_before": report.tile_index_before,
         "tile_index_after": report.tile_index_after,
         "verified_tile_refs": report.verified_tile_refs,
@@ -847,31 +1058,19 @@ def ecrire_catalogue_racine(
     )
 
     md = [
-        "# Dépôt Unifié `town02` + Toutes les Maps PMDO & Guilde Treehouse",
+        f"# {report.mod_name} — Dépôt Unifié (`town02` / `Palikadude/Halcyon` + `projet-creation-pmdo` + `Guilde Treehouse`)",
         "",
-        "Ce dépôt rassemble au même endroit l'intégralité du mod **`town02`** (`PMDO 0.8.12.0`) ainsi que **toutes les maps de toutes les branches** de `projet-creation-pmdo`, `projet-pmdo`, `zone-pmdo`, `all-zone-PMDO-project` et `guilde-treehouse-pmd`.",
+        "Ce dépôt est structuré **exactement comme `Palikadude/Halcyon` et `meromoonmeri/town02`** (`PMDO 0.8.12.0`, `<Namespace>halcyon</Namespace>`) afin que chaque carte soit immédiatement reconnue, ouvrable et jouable au même endroit :",
         "",
-        "## Bilan de l'assemblage",
+        "## Placement natif façon `Palikadude/Halcyon`",
         "",
-        f"- **Cartes `.rsground` de base (`town02`)** : `{report.base_town02_grounds}`",
-        f"- **Planches `.tile` de base (`town02`)** : `{report.base_town02_tiles}`",
-        f"- **Branches Git inspectées et fusionnées** : `{report.branches_scanned}`",
-        f"- **Lots `maps_sources/source/*` unifiés** : `{report.source_lots_merged}` (+ `{report.branch_variants_saved}` variantes inter-branches conservées)",
-        f"- **Lots `maps_sources/renders/*` unifiés** : `{report.renders_lots_merged}`",
-        f"- **Aperçus interactifs HTML (`maps_sources/apercus_html/`)** : `{report.html_previews_merged}`",
-        f"- **Dossiers Guilde Treehouse (`maps_sources/guilde_treehouse/`)** : `{', '.join(report.guilde_dirs_merged) or 'aucun'}`",
-        f"- **Nouvelles planches `.tile` installées dans `Content/Tile/`** : `{report.custom_tiles_installed}` (`index.idx` : `{report.tile_index_before}` -> `{report.tile_index_after}` planches)",
-        f"- **Nouvelles cartes `.rsground` installées dans `Data/Ground/`** : `{report.custom_grounds_installed}`",
-        f"- **Scripts Lua installés dans `Data/Script/ground/`** : `{report.custom_scripts_installed}`",
-        f"- **Références de tuiles contrôlées sans damier mauve** : `{report.verified_tile_refs}` (`0` erreur)",
-        "",
-        "## Organisation du dépôt",
-        "",
-        "- `Mod.xml`, `Content/Tile/`, `Data/Ground/`, `Data/Script/`, `Strings/` : mod PMDO `0.8.12.0` directement ouvrable dans RogueEssence / PMDO Ground Editor.",
-        "- `maps_sources/source/` : tous les générateurs Python, kits et sources multi-branches (`projet-creation-pmdo` + `projet-pmdo` + `zone-pmdo`).",
-        "- `maps_sources/variantes_branches/` : versions alternatives issues des autres branches lorsqu'un même dossier a divergé.",
-        "- `maps_sources/guilde_treehouse/` : les 12 salles modulaires (`salles/`), fenêtres transparentes (`fenetres_exterieur/`), 6 ambiances (`exterieur/`), calques et sprites de la Guilde Treehouse PMD.",
-        "- `maps_sources/apercus_html/` : Studio 60 FPS et les 330+ aperçus HTML.",
+        f"- **`Mod.xml`** : `<Name>{report.mod_name}</Name>`, `<Namespace>halcyon</Namespace>`, `<GameVersion>0.8.12</GameVersion>`.",
+        f"- **`Content/Tile/*.tile` & `Content/Tile/index.idx`** : `{report.custom_tiles_installed}` nouvelles banques `.tile` ajoutées et indexées (`{report.tile_index_before}` -> `{report.tile_index_after}` planches).",
+        f"- **`Data/Ground/*.rsground`** : `{report.base_town02_grounds}` cartes natives `town02` + `{report.custom_grounds_installed}` nouvelles cartes installées avec `Object.AssetName` synchronisé.",
+        f"- **`Data/Script/halcyon/ground/<id>/init.lua`** : `{report.custom_scripts_installed}` scripts Ground importés/relocalisés sous `halcyon` + `{report.custom_scripts_autogenerated}` scripts d'entrée Halcyon auto-générés.",
+        f"- **`Data/Zone/master_zone.json` & `Data/Zone/index.idx`** : `{report.master_zone_grounds_before}` -> `{report.master_zone_grounds_after}` GroundMaps déclarées dans `master_zone` (indices `town02` d'origine intégralement préservés).",
+        f"- **`{report.workspace_rel_dir}/`** : sources Python (`{report.source_lots_merged}` lots), kit Guilde Treehouse (`12` salles modulaires × `6` ambiances) et `{report.html_previews_merged}` aperçus HTML.",
+        f"- **Contrôle anti-damier mauve** : `{report.verified_tile_refs}` références de tuiles vérifiées (`0` erreur).",
         "",
     ]
     cat_path = target_root / "CATALOGUE_COMPLET_UNIFIE.md"
@@ -884,26 +1083,31 @@ def ecrire_catalogue_racine(
 # ============================================================================
 
 def cloner_sources_github(
-    work_cache: Path, repos_spec: Sequence[Tuple[str, bool]] = DEFAULT_SOURCE_REPOS
-) -> List[Tuple[str, Path]]:
-    """Clone en miroir `--bare --filter=blob:none` chaque dépôt source accessible."""
+    work_cache: Path,
+    repos_spec: Sequence[Tuple[str, Optional[str], bool]] = PROJET_PMD_TARGET_REPOS,
+) -> List[Tuple[str, Path, Optional[str]]]:
     work_cache.mkdir(parents=True, exist_ok=True)
-    cloned: List[Tuple[str, Path]] = []
-    for slug, required in repos_spec:
+    cloned: List[Tuple[str, Path, Optional[str]]] = []
+    for slug, only_branch, required in repos_spec:
         dest = work_cache / (_sanitize_slug(slug) + ".git")
         url = f"https://github.com/{slug}.git"
         if dest.exists():
             print(f"[fetch] Mise à jour du miroir {slug}...")
             _run(["git", "fetch", "--all", "--prune"], cwd=dest, check=required)
-            cloned.append((slug, dest))
+            cloned.append((slug, dest, only_branch))
             continue
-        print(f"[clone] Récupération de toutes les branches de {slug}...")
-        res = _run(
-            ["git", "clone", "--bare", "--filter=blob:none", url, str(dest)],
-            check=False,
+        clone_cmd = ["git", "clone", "--bare", "--filter=blob:none"]
+        if only_branch:
+            clone_cmd.extend(["--branch", only_branch, "--single-branch"])
+        clone_cmd.extend([url, str(dest)])
+        print(
+            f"[clone] Récupération de {slug}"
+            + (f" ({only_branch})" if only_branch else " (toutes branches)")
+            + "..."
         )
+        res = _run(clone_cmd, check=False)
         if res.returncode == 0:
-            cloned.append((slug, dest))
+            cloned.append((slug, dest, only_branch))
         elif required:
             raise RuntimeError(
                 f"Impossible de cloner le dépôt requis {slug} :\n{res.stderr}"
@@ -911,24 +1115,34 @@ def cloner_sources_github(
         else:
             print(
                 f"[info] Dépôt privé/optionnel {slug} non accessible directement "
-                f"(ses salles/ambiances publiques restent incluses via zone-pmdo & projet-pmdo)."
+                f"(ses 12 salles modulaires × 6 ambiances Halcyon sont déjà incluses via guilde_treehouse_halcyon_v1)."
             )
     return cloned
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Construit le dépôt unifié town02 + toutes les maps PMDO & Guilde Treehouse."
+        description="Construit le dépôt unique 'PROJET PMD' basé sur town02 / Palikadude/Halcyon."
     )
     parser.add_argument(
         "--sortie",
         required=True,
-        help="Dossier cible du dépôt unifié (ex: ~/town02-all-maps-pmdo)",
+        help="Dossier cible du dépôt unifié (ex: ~/PROJET-PMD)",
+    )
+    parser.add_argument(
+        "--nom-mod",
+        default=DEFAULT_MOD_NAME,
+        help="Nom affiché dans Mod.xml (défaut: 'PROJET PMD')",
+    )
+    parser.add_argument(
+        "--toutes-branches",
+        action="store_true",
+        help="Fusionner aussi les 35 autres branches historiques (par défaut: town02 + projet-creation-pmdo@arena/637b0828-projet-creation-pmdo + guilde-treehouse-pmd)",
     )
     parser.add_argument(
         "--cache-clones",
         default="",
-        help="Dossier temporaire pour les miroirs Git multi-branches (défaut: <sortie>_cache)",
+        help="Dossier temporaire pour les miroirs Git (défaut: <sortie>_git_cache)",
     )
     parser.add_argument(
         "--town02-local",
@@ -939,33 +1153,33 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "--source-local",
         action="append",
         default=[],
-        help="Dépôt source local sous la forme label=/chemin/vers/repo (répétable, mode hors-ligne/test)",
+        help="Dépôt source local sous la forme label=/chemin/vers/repo (répétable)",
     )
     parser.add_argument(
         "--compiler-builds",
         action="store_true",
-        help="Exécuter tous les scripts source/<lot>/build.py pour matérialiser les .tile/.rsground procéduraux",
+        help="Exécuter les scripts source/<lot>/build.py pour matérialiser tous les .tile/.rsground",
     )
     parser.add_argument(
         "--sans-variantes",
         action="store_true",
-        help="Ne garder que la version canonique la plus récente de chaque dossier source/<lot>",
+        help="Ne garder que la version canonique de chaque dossier source/<lot>",
     )
     parser.add_argument(
         "--remplacer-grounds-town02",
         action="store_true",
-        help="Remplacer les .rsground natifs de town02 en cas de même nom de fichier",
+        help="Remplacer les .rsground natifs de town02 en cas d'homonymie",
     )
     parser.add_argument(
         "--creer-et-pousser",
         default="",
-        help="Créer et pousser vers ce dépôt GitHub via `gh repo create` (ex: meromoonmeri/town02-all-maps-pmdo)",
+        help="Créer et pousser vers ce dépôt GitHub via `gh repo create` (ex: meromoonmeri/PROJET-PMD)",
     )
     parser.add_argument(
         "--visibilite",
         choices=["public", "private"],
         default="public",
-        help="Visibilité du nouveau dépôt GitHub créé avec --creer-et-pousser (défaut: public)",
+        help="Visibilité du nouveau dépôt GitHub (défaut: public)",
     )
 
     args = parser.parse_args(argv)
@@ -976,7 +1190,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         else target_root.parent / f"{target_root.name}_git_cache"
     )
 
-    # 1. Préparation de la base `town02`
     if args.town02_local:
         src_t2 = Path(args.town02_local).expanduser().resolve()
         if target_root != src_t2:
@@ -999,47 +1212,52 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print("[1/4] Récupération des objets Git LFS de town02...")
         _run(["git", "lfs", "pull"], cwd=target_root, check=False)
 
-    # 2. Récupération des dépôts multi-branches
     if args.source_local:
-        source_repos: List[Tuple[str, Path]] = []
+        source_repos: List[Tuple[str, Path, Optional[str]]] = []
         for spec in args.source_local:
             if "=" in spec:
                 lbl, p_str = spec.split("=", 1)
             else:
                 p_str = spec
                 lbl = Path(p_str).name
-            source_repos.append((lbl, Path(p_str).expanduser().resolve()))
+            source_repos.append((lbl, Path(p_str).expanduser().resolve(), None))
     else:
-        print("[2/4] Récupération de toutes les branches PMDO & Guilde Treehouse...")
-        source_repos = cloner_sources_github(cache_dir, DEFAULT_SOURCE_REPOS)
+        spec_list = (
+            ALL_BRANCHES_SOURCE_REPOS if args.toutes_branches else PROJET_PMD_TARGET_REPOS
+        )
+        print("[2/4] Récupération des dépôts sources pour PROJET PMD...")
+        source_repos = cloner_sources_github(cache_dir, spec_list)
 
-    # 3. Fusion, indexation `Content/Tile/index.idx` et contrôle anti-damier
-    print("[3/4] Fusion multi-branches, injection .tile/.rsground et mise à jour de Content/Tile/index.idx...")
+    print("[3/4] Placement Halcyon (Content/Tile, Data/Ground, Data/Script/halcyon/ground, Data/Zone/master_zone)...")
     report = fusionner_branches_dans_town02(
         target_root=target_root,
         source_repos=source_repos,
         garder_variantes=not args.sans_variantes,
         compiler_builds=args.compiler_builds,
         remplacer_grounds_town02=args.remplacer_grounds_town02,
+        nom_mod=args.nom_mod,
     )
 
     print(
-        f"[OK] Fusion terminée :\n"
-        f"  - Base town02          : {report.base_town02_grounds} .rsground, {report.base_town02_tiles} .tile\n"
-        f"  - Branches fusionnées  : {report.branches_scanned}\n"
-        f"  - Lots source/*        : {report.source_lots_merged} (+ {report.branch_variants_saved} variantes)\n"
-        f"  - Lots renders/*       : {report.renders_lots_merged}\n"
-        f"  - Aperçus HTML         : {report.html_previews_merged}\n"
-        f"  - Planches .tile ajout.: {report.custom_tiles_installed} (index.idx: {report.tile_index_before} -> {report.tile_index_after})\n"
-        f"  - Grounds ajoutés      : {report.custom_grounds_installed}\n"
-        f"  - Tuiles vérifiées OK  : {report.verified_tile_refs} (0 damier mauve)"
+        f"[OK] Assemblage '{report.mod_name}' terminé (standard Halcyon / town02) :\n"
+        f"  - Base town02                 : {report.base_town02_grounds} .rsground, {report.base_town02_tiles} .tile\n"
+        f"  - Planches .tile ajoutées     : {report.custom_tiles_installed} (index.idx: {report.tile_index_before} -> {report.tile_index_after})\n"
+        f"  - Grounds installés           : {report.custom_grounds_installed}\n"
+        f"  - Scripts halcyon/ground/     : {report.custom_scripts_installed} importés + {report.custom_scripts_autogenerated} auto-générés\n"
+        f"  - master_zone.json & index.idx: {report.master_zone_grounds_before} -> {report.master_zone_grounds_after} GroundMaps\n"
+        f"  - Tuiles vérifiées OK         : {report.verified_tile_refs} (0 damier mauve)"
     )
 
-    # 4. Création et push optionnels vers un nouveau dépôt GitHub
     if args.creer_et_pousser:
-        repo_slug = args.creer_et_pousser
-        if "/" not in repo_slug:
-            repo_slug = f"{DEFAULT_OWNER}/{repo_slug}"
+        raw_slug = args.creer_et_pousser.strip()
+        if "/" in raw_slug:
+            owner_part, name_part = raw_slug.split("/", 1)
+        else:
+            owner_part, name_part = DEFAULT_OWNER, raw_slug
+        # GitHub convertit les espaces en tirets dans l'URL du dépôt tout en gardant "PROJET PMD" dans Mod.xml
+        clean_repo_name = re.sub(r"\s+", "-", name_part.strip())
+        repo_slug = f"{owner_part}/{clean_repo_name}"
+
         print(f"[4/4] Validation Git et publication vers https://github.com/{repo_slug} ...")
         _run(["git", "lfs", "install"], cwd=target_root, check=False)
         _run(["git", "add", "-A"], cwd=target_root)
@@ -1050,12 +1268,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     "git",
                     "commit",
                     "-m",
-                    "Consolidation complète town02 + toutes branches projet-creation-pmdo & Guilde Treehouse",
+                    f"{args.nom_mod} : intégration Halcyon complète (town02 + projet-creation-pmdo + Guilde Treehouse)",
                 ],
                 cwd=target_root,
             )
 
-        # Création du dépôt sur GitHub s'il n'existe pas encore
         chk = _run(["gh", "repo", "view", repo_slug], cwd=target_root, check=False)
         if chk.returncode != 0:
             vis_flag = f"--{args.visibilite}"
@@ -1067,21 +1284,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     repo_slug,
                     vis_flag,
                     "--description",
-                    "Mod unifié town02 + toutes les maps de toutes les branches de projet-creation-pmdo & Guilde Treehouse PMD",
+                    f"{args.nom_mod} — Mod PMDO 0.8.12 unifié basé sur town02 / Halcyon incluant projet-creation-pmdo et Guilde Treehouse PMD",
                 ],
                 cwd=target_root,
             )
 
         remote_url = f"https://github.com/{repo_slug}.git"
         remotes = _run(["git", "remote"], cwd=target_root).stdout.splitlines()
-        if "unified" in remotes:
-            _run(["git", "remote", "set-url", "unified", remote_url], cwd=target_root)
+        if "projet_pmd" in remotes:
+            _run(["git", "remote", "set-url", "projet_pmd", remote_url], cwd=target_root)
         else:
-            _run(["git", "remote", "add", "unified", remote_url], cwd=target_root)
+            _run(["git", "remote", "add", "projet_pmd", remote_url], cwd=target_root)
 
-        _run(["git", "lfs", "push", "--all", "unified", "HEAD:main"], cwd=target_root, check=False)
-        _run(["git", "push", "-u", "unified", "HEAD:main"], cwd=target_root)
-        print(f"[SUCCÈS] Dépôt unifié en ligne : https://github.com/{repo_slug}")
+        _run(["git", "lfs", "push", "--all", "projet_pmd", "HEAD:main"], cwd=target_root, check=False)
+        _run(["git", "push", "-u", "projet_pmd", "HEAD:main"], cwd=target_root)
+        print(f"[SUCCÈS] Dépôt '{args.nom_mod}' en ligne : https://github.com/{repo_slug}")
 
     return 0
 

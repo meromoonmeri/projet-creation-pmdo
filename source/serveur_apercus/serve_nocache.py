@@ -174,13 +174,18 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
         if clean_path == "":
             return False
 
-        # Kit clé-en-main d'assemblage du dépôt unifié `town02` + toutes branches PMDO & Guilde Treehouse
+        # Kit clé-en-main d'assemblage du dépôt unifié « PROJET PMD » façon Halcyon / `town02`
         if base_fname := posixpath.basename(clean_path):
-            if base_fname == "KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip":
+            if base_fname in (
+                "KIT_PROJET_PMD_HALCYON_TOWN02.zip",
+                "KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip",
+            ):
                 kit_dir = ROOT / "source" / "consolidation_unifiee_town02"
+                gth_dir = ROOT / "source" / "guilde_treehouse_halcyon_v1"
                 buf = io.BytesIO()
                 with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zout:
                     for fn in (
+                        "CREER_PROJET_PMD.sh",
                         "CREER_REPO_UNIFIE_TOWN02.sh",
                         "assembler_repo_unifie_town02.py",
                         "CATALOGUE_UNIFIE_TOWN02.md",
@@ -189,11 +194,15 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
                     ):
                         fp = kit_dir / fn
                         if fp.is_file():
-                            zout.write(fp, arcname=f"consolidation_unifiee_town02/{fn}")
+                            zout.write(fp, arcname=f"PROJET_PMD_KIT/{fn}")
+                    for fn in ("build.py", "test_build.py"):
+                        fp = gth_dir / fn
+                        if fp.is_file():
+                            zout.write(fp, arcname=f"PROJET_PMD_KIT/guilde_treehouse_halcyon_v1/{fn}")
                 _send_blob(
                     self,
                     buf.getvalue(),
-                    "KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip",
+                    base_fname,
                     send_body,
                     ctype="application/zip",
                     as_attachment=True,
