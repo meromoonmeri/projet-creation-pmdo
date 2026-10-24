@@ -57,10 +57,10 @@ H_MENU = 240
 HORIZON_MENU_Y = 160
 
 # Dimensions & centrage exacts du logo « plus petit et centré » (façon Pokémon Super Mystery Dungeon + Œuf Ailé incrusté)
-LOGO_W_320 = 152   # ~47.5 % de 320 px (compact, centré dans l'arche céleste)
-LOGO_Y_320 = 42    # Centré (y = 42..156) au-dessus de l'horizon (y=160) et de Enter (y=188)
-LOGO_W_768 = 364   # ~47.4 % de 768 px (202 px d'ouverture nuages à gauche et à droite !)
-LOGO_Y_768 = 100   # Centré (y = 100..374, juste au-dessus de l'horizon marin PMD Sky y = 384)
+LOGO_W_320 = 158   # ~49.4 % de 320 px (compact, centré dans l'arche céleste)
+LOGO_Y_320 = 42    # Centré (y = 42..155) au-dessus de l'horizon (y=160) et de Enter (y=188)
+LOGO_W_768 = 378   # ~49.2 % de 768 px (195 px d'ouverture nuages à gauche et à droite !)
+LOGO_Y_768 = 102   # Centré (y = 102..374, juste au-dessus de l'horizon marin PMD Sky y = 384)
 
 N_POSES = 24
 FRAME_TICKS_MENU = 10  # 10 ticks @ 60 FPS = 6 FPS fluides
@@ -177,7 +177,7 @@ def extract_destiny_logo_hd() -> Image.Image:
     b = raw[:, :, 2].astype(np.int16)
     diff = np.minimum(r, b) - g
 
-    # Flood-fill strict depuis les 4 bords extérieurs sur le fond #FF00FF :
+    # Flood-fill depuis les 4 bords extérieurs + ajourage des poches #FF00FF pures entre ailes et lettres :
     # préserve 100 % du dégradé lavande de Mystery Dungeon et du bas rose-corail de l'Œuf !
     mag_cand = (diff >= 65) & (r >= 175) & (b >= 175) & (g <= 125)
     lbl_bg, _ = ndimage.label(mag_cand)
@@ -188,7 +188,8 @@ def extract_destiny_logo_hd() -> Image.Image:
         | set(lbl_bg[:, -1].tolist())
     )
     border_ids.discard(0)
-    bg_mask = np.isin(lbl_bg, list(border_ids))
+    enclosed_mag = (diff >= 76) & (r >= 180) & (b >= 180) & (g <= 115)
+    bg_mask = np.isin(lbl_bg, list(border_ids)) | enclosed_mag
     fg_mask = ~bg_mask
 
     # Supprime toute poussière extérieure isolée < 48 px
