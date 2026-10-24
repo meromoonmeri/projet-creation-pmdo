@@ -63,6 +63,50 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "SCE1",
+            "group": "Gouffre Silencieux · Silent Chasm",
+            "folder": "silent_chasm_entree_v1",
+            "ref_rel": "source/silent_chasm_entree_v1/references/d05p01_silent_chasm_with_fog_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Silent Chasm Entrée + Brouillard BLDCNT (D05P01, 456×240)",
+            "zip_rel": ".cache/virtual_zips/SCE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0d141b",
+            "subtitle": "Gouffre Silencieux — Entrée (D05P01) : Éperon rocheux d'ardoise au-dessus de l'abîme sans fond (#FF00FF), gueule rocheuse Nord, versants d'épicéas & brouillard parallaxe GBA D05P01 Couche 0",
+            "wind_summary": "Ciel brumeux & nuages des crêtes (24f @ 5t) | Abîme & nappes parallaxe GBA D05P01 #FF00FF (24f @ 5t) | Courants ascendants & brume Top | Éperon 1× statique",
+        },
+        {
+            "id": "SCF1",
+            "group": "Gouffre Silencieux · Silent Chasm",
+            "folder": "silent_chasm_fin_v1",
+            "ref_rel": "source/silent_chasm_fin_v1/references/h13p02_cryptic_cave_native.png",
+            "ref_label": "Références Natives 1× GBA PMD Red — Fond du Gouffre (D05P02 + H13P02 Cryptic Cave)",
+            "zip_rel": ".cache/virtual_zips/SCF1_PMDO_0.8.12.zip",
+            "bg_fill": "#090e16",
+            "subtitle": "Gouffre Silencieux — Fond (D05P02 / Sauvetage de Tengalice & Descente d'Électhor) : Chaussée basaltique H13P02, plateau d'ocre D05P02, faille d'éclairs d'Électhor & brouillard GBA D05P01 (#FF00FF)",
+            "wind_summary": "Faille céleste d'orage & éclairs d'Électhor (24f @ 5t) | Gouffre souterrain, brume D05P01 & cristaux H13P02 #FF00FF | Résonance statique & stalagmites Top",
+        },
+        {
+            "id": "GCE1",
+            "group": "Grand Canyon · Xatu",
+            "folder": "great_canyon_entree_v1",
+            "ref_rel": "source/great_canyon_entree_v1/references/d07p01_great_canyon_entry_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Great Canyon Entrée (D07P01, 456×240)",
+            "zip_rel": ".cache/virtual_zips/GCE1_PMDO_0.8.12.zip",
+            "bg_fill": "#22100a",
+            "subtitle": "Grand Canyon — Entrée (D07P01) : Mesas striées de terre cuite guidées par le rip GBA natif D07P01 (#FF00FF), défilé étroit Nord, pont arche de grès rouge, oued turquoise 4×10t & cactus",
+            "wind_summary": "Ciel aride & cumulus dorés H06P05 (24f @ 5t) | Oued turquoise & sparkles Metano #FF00FF (4×10t) | Cactus dans le vent & rayons solaires Top | Mesas D07P01 statiques",
+        },
+        {
+            "id": "GCF1",
+            "group": "Grand Canyon · Xatu",
+            "folder": "great_canyon_fin_v1",
+            "ref_rel": "source/great_canyon_fin_v1/references/d07p02_hill_of_the_ancients_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Colline des Anciens / Xatu (D07P02 + A04P011.bpa, 312×600)",
+            "zip_rel": ".cache/virtual_zips/GCF1_PMDO_0.8.12.zip",
+            "bg_fill": "#140b24",
+            "subtitle": "Grand Canyon — Colline des Anciens / Xatu (D07P02) : Promontoire sacré de grès craquelé face au Soleil d'or scintillant natif A04P011.bpa + D07P02.bpl sous cosmos étoilé & mer de nuages ambrés (#FF00FF)",
+            "wind_summary": "Cosmos étoilé & Soleil d'or natif A04P011.bpa + D07P02.bpl (24f @ 5t) | Mer de nuages ambrés & paillettes #FF00FF | Couronne solaire de Xatu Top | Promontoire statique",
+        },
+        {
             "id": "TWE1",
             "group": "Petit Bois · Tiny Woods",
             "folder": "tiny_woods_entree_v1",
@@ -950,7 +994,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TWE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GCF1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_gouffre_et_canyon_pmdo.html").write_text(
+        build_html(manifest, default_map_id="GCF1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_forets_pmd_red_pmdo.html").write_text(
         build_html(manifest, default_map_id="TWE1"), encoding="utf-8"
     )
@@ -975,7 +1022,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (23 cartes, 230 calques 60 FPS, grilles 2D <= 4608px).")
+    print("[Studio] index.html et les aperçus dédiés générés (27 cartes, 270 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":

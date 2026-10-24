@@ -139,7 +139,7 @@ def render_entry(map_bg: Path, ent: Dict[str, object]) -> tuple[Image.Image, Lis
             all_t = base_tiles
         out_rgba = gba.np.zeros((ht * 8, wt * 8, 4), dtype=gba.np.uint8)
         out_rgba[:, :, 3] = 255
-        for ti_g, hf_g, vf_g, pi_g in layer_grids:
+        for l_idx, (ti_g, hf_g, vf_g, pi_g) in enumerate(layer_grids):
             valid = (ti_g > 0) & (ti_g < len(all_t))
             safe_ti = gba.np.where(valid, ti_g, 0)
             patches = all_t[safe_ti].copy()
@@ -152,7 +152,20 @@ def render_entry(map_bg: Path, ent: Dict[str, object]) -> tuple[Image.Image, Lis
             colored = gba.np.take_along_axis(pal_lut, patches.reshape(ht, wt, 64, 1), axis=2).reshape(ht, wt, 8, 8, 4)
             img = colored.transpose(0, 2, 1, 3, 4).reshape(ht * 8, wt * 8, 4)
             nz = img[:, :, 3] > 0
+            # Sur GBA (ex: D05P01 Silent Chasm), la couche 0 est un brouillard sur fond noir [0,0,0] combiné par BLDCNT
+            if l_idx > 0 and len(layer_grids) == 2:
+                black_bg = nz & (img[:, :, 0] == 0) & (img[:, :, 1] == 0) & (img[:, :, 2] == 0)
+                if int(black_bg.sum()) > int(nz.sum()) * 0.35:
+                    fog = nz & (~black_bg)
+                    out_rgba[fog, :3] = gba.np.clip(
+                        out_rgba[fog, :3].astype(gba.np.float32) + img[fog, :3].astype(gba.np.float32) * 0.55,
+                        0,
+                        255,
+                    ).astype(gba.np.uint8)
+                    continue
             out_rgba[nz] = img[nz]
+        if str(ent.get("code")) == "D05P01" and out_rgba.shape[1] > 456:
+            out_rgba = out_rgba[:, :456, :]
         return Image.fromarray(out_rgba, mode="RGBA")
 
     f0 = _draw_frame(None, 0)
