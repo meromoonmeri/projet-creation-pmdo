@@ -195,99 +195,116 @@ def assemble_entree_montagne_clairiere_metano(
     map_dir: Path,
     asset_name: str,
 ) -> dict[str, Path]:
-    """Construit le brut `768×576` de `ZKE1` ou `RSE1` depuis `decor_entree_genere_magenta.png`."""
+    """Construit le brut `768×576` sans ciel (`0 px` de ciel !) de `ZKE1` ou `RSE1` avec deux biomes distincts :
+      - `zekrom_electric` (`ZKE1`) : Taïga boréale d'orage, orgues basaltiques hexagonales jusqu'à `y=0`, grotte à cristaux cyan & pont runique ;
+      - `reshiram_white_flame` (`RSE1`) : Vallon doré d'automne (bouleaux/érables), falaise étagée de marbre ivoire jusqu'à `y=0`, arche à colonnes & passerelle claire."""
+    from source.moteur_forets_pmd_red import _downsample_non_mixing, _sanitize_rgb_no_magenta
+
     out_brut_path = map_dir / "bruts" / f"base_{asset_name}.png"
     out_canopy_path = map_dir / "bruts" / "canopee_arbres_top.png"
     out_ref_path = map_dir / "references" / f"ref_canon_{asset_name}.png"
-    rgb_hi = np.asarray(Image.open(MASTER_ENTREE_GEN).convert("RGB"), dtype=np.uint8)
-    mag_hi = key_magenta_hi_res(rgb_hi, dilate_fringe=3)
 
-    # Relier proprement le pied des 2 cascades à la rivière `#FF00FF` (supprime le mince filet blanc figé en y_768 ~ 176)
-    sh, sw = rgb_hi.shape[:2]
-    yy_hi, xx_hi = np.mgrid[0:sh, 0:sw]
-    sx = sw / float(W)
-    sy = sh / float(H)
-    gorge_foot_w = (
-        (yy_hi >= int(169 * sy))
-        & (yy_hi <= int(183 * sy))
-        & (xx_hi >= int(156 * sx))
-        & (xx_hi <= int(187 * sx))
+    if mode == "zekrom_electric":
+        raw_sheet = map_dir / "bruts" / "decor_zekrom_taiga_basalte_magenta.png"
+    else:
+        raw_sheet = map_dir / "bruts" / "decor_reshiram_vallon_dore_magenta.png"
+
+    rgb_hi = np.asarray(Image.open(raw_sheet).convert("RGB"), dtype=np.uint8)
+    rf, gf, bf = rgb_hi[:, :, 0].astype(np.float32), rgb_hi[:, :, 1].astype(np.float32), rgb_hi[:, :, 2].astype(np.float32)
+
+    # Graine #FF00FF stricte (uniquement le lit de la rivière/ruisseau) + absorption de toute frange rose/prune
+    core = (rf >= 218.0) & (gf <= 52.0) & (bf >= 215.0)
+    lbl_c, _ = ndimage.label(core)
+    sizes = np.bincount(lbl_c.ravel())
+    keep_c = sizes >= 300
+    keep_c[0] = False
+    seed_mag = keep_c[lbl_c]
+
+    near_mag = ndimage.binary_dilation(seed_mag, iterations=12)
+    plum_rim = near_mag & (
+        ((rf > gf + 22.0) & (bf > gf + 12.0))
+        | ((rf >= 185.0) & (rf > gf + 35.0) & (bf >= 115.0))
+        | ((rf >= 110.0) & (rf > gf + 45.0) & (bf >= 55.0) & (gf < 95.0))
     )
-    gorge_foot_e = (
-        (yy_hi >= int(169 * sy))
-        & (yy_hi <= int(183 * sy))
-        & (xx_hi >= int(594 * sx))
-        & (xx_hi <= int(625 * sx))
-    )
-    # Toute écume claire dans la jonction exacte cascade->rivière devient `#FF00FF` pour être animée par Metano !
-    bright_foam_hi = (rgb_hi[:, :, 0] > 180) & (rgb_hi[:, :, 2] > 180) & (gorge_foot_w | gorge_foot_e)
-    mag_hi = mag_hi | bright_foam_hi
+    solid_hi = ~(seed_mag | plum_rim)
 
-    rgb_768, mag_768 = downsample_non_mixing(rgb_hi, mag_hi, W, H, mag_vote_ratio=0.46)
-    tinted = _tint_palette_entries(rgb_768, mag_768, mode=mode, scene="entree")
-    quantized = quantize_non_magenta_mediancut(tinted, mag_768, n_colors=96)
+    rgb_768, solid_768 = _downsample_non_mixing(rgb_hi, solid_hi, W, H)
+    yy, xx = np.mgrid[0:H, 0:W]
 
-    # Abaisser doucement les crêtes secondaires latérales (y < 68, |x - 384| > 105) de 0..28 px
-    # en conservant 100 % des sommets rocheux dessinés et contours 1 px Chunsoft, afin d'ouvrir
-    # un véritable horizon panoramique Friend Area PMD Red autour du pic central sans toucher aux cascades (y >= 70).
-    u_flank = np.clip((np.abs(np.arange(W, dtype=np.float32) - 384.0) - 105.0) / 125.0, 0.0, 1.0)
-    drop_x = np.round(28.0 * (u_flank * u_flank * (3.0 - 2.0 * u_flank))).astype(np.int32)
-    band_h = 68
-    sculpted = quantized.copy()
-    for x_col in range(W):
-        d_px = int(drop_x[x_col])
-        if d_px <= 0:
-            continue
-        col_src = quantized[:band_h, x_col]
-        new_h = band_h - d_px
-        src_idx = np.round(np.linspace(0, band_h - 1, new_h)).astype(np.int32)
-        sculpted[:d_px, x_col] = MAGENTA
-        sculpted[d_px:band_h, x_col] = col_src[src_idx]
-    quantized = sculpted
+    # Purge post-downsampling de toute micro-frange rose/prune résiduelle en bordure d'eau
+    for _ in range(3):
+        mag_cur = ~solid_768
+        adj = ndimage.binary_dilation(mag_cur, iterations=1) & solid_768
+        r7, g7, b7 = rgb_768[:, :, 0].astype(np.int16), rgb_768[:, :, 1].astype(np.int16), rgb_768[:, :, 2].astype(np.int16)
+        fringe = adj & (
+            ((r7 > g7 + 22) & (b7 > g7 + 14))
+            | ((r7 >= 185) & (r7 > g7 + 35) & (b7 >= 115))
+        )
+        if not np.any(fringe):
+            break
+        solid_768 = solid_768 & (~fringe)
+
+    # Garantie stricte : ZÉRO pixel de ciel visible (toute la moitié Nord y < 275 est 100 % roche/terrain solide)
+    top_hole = (~solid_768) & (yy < 275)
+    if np.any(top_hole):
+        _, n_idx = ndimage.distance_transform_edt(~solid_768, return_indices=True)
+        hy, hx = np.where(top_hole)
+        rgb_768[hy, hx] = rgb_768[n_idx[0, hy, hx], n_idx[1, hy, hx]]
+        solid_768[top_hole] = True
+
+    rgb_768 = _sanitize_rgb_no_magenta(rgb_768, solid_768)
+    mag_768 = ~solid_768
+    quantized = quantize_non_magenta_mediancut(rgb_768, mag_768, n_colors=96)
     mag_final = (quantized[:, :, 0] == 255) & (quantized[:, :, 1] == 0) & (quantized[:, :, 2] == 255)
 
-    # Extraire la couronne feuillue supérieure des arbres Tiny Woods pour le calque 09 `Top`
-    yy, xx = np.mgrid[0:H, 0:W]
+    # Extraction de la canopée supérieure des arbres (`Layer 09 Top`) spécifique à chaque biome
     r_q = quantized[:, :, 0].astype(np.int16)
     g_q = quantized[:, :, 1].astype(np.int16)
     b_q = quantized[:, :, 2].astype(np.int16)
-    in_tree_border = (yy >= 268) & ((xx < 182) | (xx > 586) | ((yy >= 486) & (np.abs(xx - 384) > 84)))
-    is_deep_foliage = (~mag_final) & in_tree_border & (g_q > r_q + 22) & (g_q > b_q + 36) & (g_q < 192)
-    # Garder uniquement les dômes de feuillage (exclure les troncs bruns r_q > g_q)
-    is_deep_foliage = ndimage.binary_opening(is_deep_foliage, iterations=1)
-    canopy_rgba = np.zeros((H, W, 4), dtype=np.uint8)
-    canopy_rgba[is_deep_foliage, :3] = quantized[is_deep_foliage]
-    canopy_rgba[is_deep_foliage, 3] = 255
 
-    # Référence canonique composite 256x256 (ciel généré Friend Area PMD Red + montagne + rivière Metano + clairière)
-    ref_preview = quantized.copy()
-    sky_m = mag_final & (yy < 68)
-    wat_m = mag_final & (~sky_m)
     if mode == "zekrom_electric":
-        sky_gen_path = REPO_ROOT / "source" / "zekrom_montagne_entree_v1" / "bruts" / "ciel_orageux_pmd_red_genere.png"
-        if sky_gen_path.is_file():
-            sg = Image.open(sky_gen_path).convert("RGB")
-            sg_band = np.asarray(sg.crop((0, 286, sg.width, 454)).resize((W, 72), Image.Resampling.BOX), dtype=np.uint8)
-            ref_preview[:68][sky_m[:68]] = sg_band[:68][sky_m[:68]]
-        else:
-            ref_preview[sky_m] = (34, 58, 76)
+        # Cimes coniques des sapins bleutés de taïga sur les bordures Ouest/Est/Sud (hors rochers gris & cristaux cyan)
+        tree_zone = (yy >= 292) & ((xx < 146) | (xx > W - 146) | ((yy >= 492) & (np.abs(xx - 384) > 84)))
+        is_crystal = (b_q >= 195) & (g_q >= 145) & (r_q <= 105)
+        is_grey_boulder = (np.abs(r_q - g_q) <= 18) & (np.abs(g_q - b_q) <= 22) & (r_q >= 68)
+        is_moor_grass = (g_q >= 96) & (np.abs(g_q - b_q) <= 18) & (r_q >= 44) & (r_q <= 76)
+        is_foliage = (~mag_final) & tree_zone & (~is_crystal) & (~is_grey_boulder) & (~is_moor_grass) & (b_q >= 42) & (r_q <= 58)
     else:
-        sky_gen_path = REPO_ROOT / "source" / "reshiram_montagne_entree_v1" / "bruts" / "ciel_celeste_pmd_red_genere.png"
-        if sky_gen_path.is_file():
-            sg = Image.open(sky_gen_path).convert("RGB")
-            sg_band = np.asarray(sg.crop((0, 120, sg.width, 378)).resize((W, 72), Image.Resampling.BOX), dtype=np.uint8)
-            ref_preview[:68][sky_m[:68]] = sg_band[:68][sky_m[:68]]
-        else:
-            ref_preview[sky_m] = (232, 224, 188)
-    ref_preview[wat_m] = (131, 218, 230)
-    ref_256 = np.asarray(Image.fromarray(ref_preview).resize((256, 256), Image.Resampling.NEAREST), dtype=np.uint8)
+        # Couronnes dorées/ambrées/rousses des bouleaux et érables d'automne (hors troncs blancs de bouleau & herbe jaune)
+        tree_zone = (yy >= 170) & ((xx < 168) | (xx > W - 168) | ((yy >= 492) & (np.abs(xx - 384) > 84)))
+        is_birch_trunk = (r_q >= 180) & (g_q >= 175) & (b_q >= 165)
+        is_autumn_meadow = (r_q >= 175) & (r_q <= 225) & (g_q >= 168) & (g_q <= 205) & (b_q <= 58)
+        is_cliff_ivory = (yy < 245) & (r_q >= 210) & (g_q >= 175) & (b_q >= 110)
+        is_foliage = (
+            (~mag_final)
+            & tree_zone
+            & (~is_birch_trunk)
+            & (~is_autumn_meadow)
+            & (~is_cliff_ivory)
+            & (r_q >= 115)
+            & (r_q > b_q + 55)
+        )
+
+    below_non_foliage = ndimage.binary_dilation(
+        ~is_foliage,
+        structure=np.array([[0, 1, 0], [0, 1, 0], [0, 0, 0]], dtype=bool),
+        iterations=8,
+    )
+    canopy_top = ndimage.binary_opening(is_foliage & (~below_non_foliage), iterations=1)
+    canopy_rgba = np.zeros((H, W, 4), dtype=np.uint8)
+    canopy_rgba[canopy_top, :3] = quantized[canopy_top]
+    canopy_rgba[canopy_top, 3] = 255
+
+    # Référence canonique composite `768×576` : terrain 0% ciel + eau claire native Metano Town `(131, 218, 230)`
+    ref_preview = quantized.copy()
+    ref_preview[mag_final] = (131, 218, 230)
 
     out_brut_path.parent.mkdir(parents=True, exist_ok=True)
     out_canopy_path.parent.mkdir(parents=True, exist_ok=True)
     out_ref_path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(quantized, mode="RGB").save(out_brut_path)
     Image.fromarray(canopy_rgba, mode="RGBA").save(out_canopy_path)
-    Image.fromarray(ref_256, mode="RGB").save(out_ref_path)
+    Image.fromarray(ref_preview, mode="RGB").save(out_ref_path)
     return {
         "brut": out_brut_path,
         "canopy": out_canopy_path,

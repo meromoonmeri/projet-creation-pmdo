@@ -151,15 +151,37 @@ def export_filmstrips() -> Dict:
             "wind_summary": "Mares « eau usée » troubles Metano 4×10t #FF00FF | Brume toxique générée faible opacité (48f @ 18t) | Feux follets générés faible opacité Top (24f @ 8t) | 0 brume spectrale",
         },
         {
+            "id": "SWEN",
+            "group": "Bois Sinistre · Sinister Woods",
+            "folder": "sinister_woods_entree_nuit_v1",
+            "ref_rel": "source/sinister_woods_entree_v1/references/d04p01_sinister_woods_entry_native.png",
+            "ref_label": "Version Nuit GBA PMD — Sinister Woods Entrée (Parité géométrique 1:1 avec SWE1)",
+            "zip_rel": ".cache/virtual_zips/SWEN_PMDO_0.8.12.zip",
+            "bg_fill": "#040914",
+            "subtitle": "Bois Sinistre — Entrée (Version Nuit) : Forêt bleu-nuit sous ciel étoilé de minuit (0 brume spectrale), champignons écarlates bioluminescents, eau usée nocturne Metano 4×10t, brume toxique & feux follets faible opacité",
+            "wind_summary": "Ciel étoilé minuit (0 brume spectrale) | Eau usée nocturne Metano 4×10t #FF00FF | Champignons bioluminescents | Brume toxique (48f @ 18t) & feux follets Top (24f @ 8t)",
+        },
+        {
+            "id": "SWFN",
+            "group": "Bois Sinistre · Sinister Woods",
+            "folder": "sinister_woods_fin_nuit_v1",
+            "ref_rel": "source/sinister_woods_fin_v1/references/h07p08_secretive_forest_native.png",
+            "ref_label": "Version Nuit GBA PMD — Sinister Woods Clairière Fin (Parité géométrique 1:1 avec SWF1)",
+            "zip_rel": ".cache/virtual_zips/SWFN_PMDO_0.8.12.zip",
+            "bg_fill": "#030812",
+            "subtitle": "Bois Sinistre — Clairière Fin (Version Nuit) : Arène nocturne sous la lune, souche H07P01 & toiles H07P08 argentées, champignons bioluminescents, mares d'eau usée nocturne Metano 4×10t, brume toxique & feux follets",
+            "wind_summary": "Ciel étoilé minuit (0 brume spectrale) | Mares eau usée nocturne Metano 4×10t #FF00FF | Champignons bioluminescents | Brume toxique (48f @ 18t) & feux follets Top (24f @ 8t)",
+        },
+        {
             "id": "ZKE1",
             "group": "Duo Unys · Zekrom",
             "folder": "zekrom_montagne_entree_v1",
             "ref_rel": "source/zekrom_montagne_entree_v1/references/ref_canon_zekrom_montagne_entree.png",
-            "ref_label": "Références Natives 1× Halcyon/Chunsoft — Montagne D07P11A + Clairière Sky Peak/Tiny Woods + Eau Metano Town",
+            "ref_label": "Biome Taïga Boréale & Orgues Basaltiques sans Ciel (0 % Ciel) + Eau Native Metano Town",
             "zip_rel": ".cache/virtual_zips/ZKE1_PMDO_0.8.12.zip",
             "bg_fill": "#09101f",
-            "subtitle": "Pied de Montagne & Clairière Metano (Zekrom) — Montagne rocheuse naturelle 1× D07P11A à grotte centrale, clairière Tiny Woods + Sky Peak Prairie, rivière & cascades animées style Metano Town (#FF00FF)",
-            "wind_summary": "Ciel d'orage & éclairs d'horizon (24f @ 5t) | Rivière, cascades & sparkles Metano Town #FF00FF (24f @ 5t) | Fleurs Sky Peak animées & canopée Top | Terrain 1× statique",
+            "subtitle": "Taïga d'Orage & Orgues Basaltiques (Zekrom, 0 % ciel) — Rempart continu de colonnes basaltiques jusqu'à y=0, grotte à cristaux cyan, sapins bleutés, pont runique & torrent 100 % natif Metano Town (#FF00FF)",
+            "wind_summary": "0 % ciel (orgues basaltiques y=0..272) | Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Cristaux électriques résonnants & arcs cyan Top | Sapins & pont statiques",
         },
         {
             "id": "ZKA1",
@@ -177,11 +199,11 @@ def export_filmstrips() -> Dict:
             "group": "Duo Unys · Reshiram",
             "folder": "reshiram_montagne_entree_v1",
             "ref_rel": "source/reshiram_montagne_entree_v1/references/ref_canon_reshiram_montagne_entree.png",
-            "ref_label": "Références Natives 1× Halcyon/Chunsoft — Montagne Solaire D07P11A + Clairière Sky Peak/Tiny Woods + Eau Metano Town",
+            "ref_label": "Biome Vallon Doré d'Automne & Falaise de Marbre Ivoire sans Ciel (0 % Ciel) + Eau Native Metano Town",
             "zip_rel": ".cache/virtual_zips/RSE1_PMDO_0.8.12.zip",
-            "bg_fill": "#1c0a0d",
-            "subtitle": "Pied de Montagne & Clairière Metano (Reshiram) — Montagne solaire ivoire 1× D07P11A à grotte centrale, clairière Tiny Woods + Sky Peak Prairie, rivière & cascades animées style Metano Town (#FF00FF)",
-            "wind_summary": "Aurore ardente & rubans Flamme Blanche (24f @ 5t) | Rivière, cascades & sparkles Metano Town #FF00FF (24f @ 5t) | Braises GBA W04 1× & canopée Top | Terrain 1× statique",
+            "bg_fill": "#1c1208",
+            "subtitle": "Vallon Doré d'Automne & Falaise Ivoire (Reshiram, 0 % ciel) — Falaise étagée de marbre ivoire jusqu'à y=0, sanctuaire à colonnes, bouleaux/érables dorés, passerelle claire & ruisseau 100 % natif Metano Town (#FF00FF)",
+            "wind_summary": "0 % ciel (falaise marbre ivoire y=0..244) | Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Fleurs Metano, feuilles d'automne & braises W04 Top | Arbres & dalles statiques",
         },
         {
             "id": "RSA1",
@@ -450,7 +472,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Studio Multicalque PMDO 0.8.12.0 — 19 Maps Légendaires (190 Calques Temps Réel)</title>
+  <title>Studio Multicalque PMDO 0.8.12.0 — {len(manifest["maps"])} Maps Légendaires ({len(manifest["maps"]) * 10} Calques Temps Réel)</title>
   <style>
     :root {{
       --bg: #0b1020;
@@ -994,18 +1016,18 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GCF1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="ZKE1"), encoding="utf-8")
     (REPO_ROOT / "apercu_gouffre_et_canyon_pmdo.html").write_text(
         build_html(manifest, default_map_id="GCF1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_forets_pmd_red_pmdo.html").write_text(
-        build_html(manifest, default_map_id="TWE1"), encoding="utf-8"
+        build_html(manifest, default_map_id="SWEN"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_zekrom_tornade_pmdo.html").write_text(
-        build_html(manifest, default_map_id="ZKA1"), encoding="utf-8"
+        build_html(manifest, default_map_id="ZKE1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_reshiram_flamme_pmdo.html").write_text(
-        build_html(manifest, default_map_id="RSA1"), encoding="utf-8"
+        build_html(manifest, default_map_id="RSE1"), encoding="utf-8"
     )
     (REPO_ROOT / "apercu_mine_magma_multicalque_pmdo.html").write_text(
         build_html(manifest, default_map_id="MMA1"), encoding="utf-8"
@@ -1022,7 +1044,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (27 cartes, 270 calques 60 FPS, grilles 2D <= 4608px).")
+    print(f"[Studio] index.html et les aperçus dédiés générés ({len(manifest['maps'])} cartes, {len(manifest['maps']) * 10} calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":

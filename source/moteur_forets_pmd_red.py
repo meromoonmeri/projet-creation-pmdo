@@ -157,6 +157,57 @@ def _quantize_solid_96c(rgb: np.ndarray, solid_mask: np.ndarray, mode: str) -> n
     return out
 
 
+def _grade_sinister_woods_to_night(rgb: np.ndarray, solid_mask: np.ndarray) -> np.ndarray:
+    """Convertit un décor *Sinister Woods* (`D04P01`/`D04P02`) en véritable ambiance **Nuit profonde** GBA PMD :
+      - Feuillages cyan-sarcelle -> bleu-nuit indigo profond `(8, 26, 48)..(30, 82, 110)` ;
+      - Herbe sauge-menthe claire -> mousse nocturne sous clair de lune `(24, 54, 68)..(40, 84, 98)` ;
+      - Sentier, pont et souches -> bois/mousse baignés d'ombre bleutée nocturne ;
+      - Champignons écarlates/violets & spores bioluminescents préservés pour luire dans l'obscurité !"""
+    out = rgb.copy()
+    r = out[:, :, 0].astype(np.float32)
+    g = out[:, :, 1].astype(np.float32)
+    b = out[:, :, 2].astype(np.float32)
+
+    # 1) Préserver les chapeaux de champignons rouges/violets et leurs points de spores lumineux
+    red_cap = solid_mask & (r >= 145.0) & (r > g + 38.0) & (r > b + 28.0)
+    pur_cap = solid_mask & (b >= 145.0) & (r >= 85.0) & (b > g + 28.0) & ((np.minimum(r, b) - g) < 35.0)
+    near_cap = ndimage.binary_dilation(red_cap | pur_cap, iterations=3)
+    spore_dot = solid_mask & near_cap & (r >= 195.0) & (g >= 180.0) & (b >= 120.0)
+    stem_pale = solid_mask & ndimage.binary_dilation(red_cap | pur_cap, iterations=6) & (r >= 165.0) & (g >= 155.0) & (b >= 135.0)
+    keep_glow = red_cap | pur_cap | spore_dot
+
+    # 2) Assombrissement nocturne bleuté du reste du décor
+    dark_m = solid_mask & (~keep_glow)
+    # Détecte l'herbe claire / sentier mousseux vs feuillage cyan vs bois/troncs
+    is_bright_grass = dark_m & (g >= 135.0) & (g >= b - 8.0) & (r >= 75.0)
+    is_cyan_foliage = dark_m & (~is_bright_grass) & (b >= 80.0) & (g >= 60.0) & (r <= 75.0)
+    is_other_dark = dark_m & (~is_bright_grass) & (~is_cyan_foliage)
+
+    # Herbe & sentier nocturnes (bleu-ardoise mousseux de minuit)
+    lum_gr = 0.299 * r + 0.587 * g + 0.114 * b
+    t_gr = np.clip((lum_gr - 110.0) / 115.0, 0.0, 1.0)
+    out[is_bright_grass, 0] = np.round(20.0 + 36.0 * t_gr[is_bright_grass]).astype(np.uint8)
+    out[is_bright_grass, 1] = np.round(48.0 + 50.0 * t_gr[is_bright_grass]).astype(np.uint8)
+    out[is_bright_grass, 2] = np.round(64.0 + 44.0 * t_gr[is_bright_grass]).astype(np.uint8)
+
+    # Feuillage nocturne indigo-marine profond
+    out[is_cyan_foliage, 0] = np.clip(np.round(r[is_cyan_foliage] * 0.35 + 4.0), 4, 48).astype(np.uint8)
+    out[is_cyan_foliage, 1] = np.clip(np.round(g[is_cyan_foliage] * 0.38 + 6.0), 10, 96).astype(np.uint8)
+    out[is_cyan_foliage, 2] = np.clip(np.round(b[is_cyan_foliage] * 0.50 + 14.0), 18, 128).astype(np.uint8)
+
+    # Bois du pont, souches, monolithe creux & ombres au sol
+    out[is_other_dark, 0] = np.clip(np.round(r[is_other_dark] * 0.44 + 6.0), 4, 128).astype(np.uint8)
+    out[is_other_dark, 1] = np.clip(np.round(g[is_other_dark] * 0.48 + 8.0), 6, 138).astype(np.uint8)
+    out[is_other_dark, 2] = np.clip(np.round(b[is_other_dark] * 0.58 + 18.0), 12, 148).astype(np.uint8)
+
+    # Légère lueur lunaire sur les pieds blancs des champignons
+    out[stem_pale, 0] = 148
+    out[stem_pale, 1] = 164
+    out[stem_pale, 2] = 176
+
+    return _sanitize_rgb_no_magenta(out, solid_mask)
+
+
 def assemble_foret_pmd_red_1x(
     gen_path: Path,
     out_brut_path: Path,
@@ -212,8 +263,8 @@ def assemble_foret_pmd_red_1x(
             rgb_768[hy, hx] = rgb_768[n_idx[0, hy, hx], n_idx[1, hy, hx]]
             solid_768[top_hole] = True
     else:
-        # Sur SWF1 : purge tout ruban cyan plat de brume spectrale pré-peint dans les coins Nord (y < 128)
-        if out_brut_path.name == "base_sinister_woods_fin.png":
+        # Sur SWF1 / SWFN : purge tout ruban cyan plat de brume spectrale pré-peint dans les coins Nord (y < 128)
+        if out_brut_path.name.startswith("base_sinister_woods_fin"):
             r_f = rgb_768[:128, :, 0].astype(np.int16)
             g_f = rgb_768[:128, :, 1].astype(np.int16)
             b_f = rgb_768[:128, :, 2].astype(np.int16)
@@ -235,6 +286,9 @@ def assemble_foret_pmd_red_1x(
                     m_dil = ndimage.binary_dilation(m_c, iterations=1) & solid_768[:128, :] & wing_x
                     rgb_768[:128, :][m_dil] = np.array([18, 66, 90], dtype=np.uint8)
 
+    if mode == "sinister_woods_night":
+        rgb_768 = _grade_sinister_woods_to_night(rgb_768, solid_768)
+
     rgb_768 = _quantize_solid_96c(rgb_768, solid_768, mode=mode)
     mag_768 = ~solid_768
 
@@ -249,6 +303,8 @@ def assemble_foret_pmd_red_1x(
 
     if mode == "tiny_woods_sunlit":
         is_foliage = solid_768 & (g16 >= 88) & (g16 > r16 + 32) & (r16 <= 118) & (b16 <= 118)
+    elif mode == "sinister_woods_night":
+        is_foliage = solid_768 & (b16 >= 38) & (g16 >= 24) & (r16 <= 38) & (b16 > r16 + 14)
     else:
         is_foliage = solid_768 & (b16 >= 95) & (g16 >= 70) & (r16 <= 65)
 
@@ -270,19 +326,25 @@ def assemble_foret_pmd_red_1x(
 
     # Référence composite `ref_canon` :
     # - Tiny Woods : Eau claire Metano Town `[131, 218, 230]`
-    # - Sinister Woods : Eau trouble couleur "eau usée" `[82, 92, 54]`
+    # - Sinister Woods (Jour/Crépuscule) : Eau trouble couleur "eau usée" `[82, 92, 54]`
+    # - Sinister Woods (Nuit) : Ciel étoilé minuit `[8, 16, 36]` + Eau usée nocturne `[40, 48, 30]`
     ref_rgb = rgb_768.copy()
     sky_m = mag_768 & (yy < 96)
     wat_m = mag_768 & (~sky_m)
     if np.any(sky_m) and mode != "tiny_woods_sunlit":
-        assets = _load_forest_sky_and_fx_assets(mode)
-        sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
-        sh = min(H, sky_strip.shape[0])
-        sky_top = sky_m.copy()
-        sky_top[sh:, :] = False
-        ref_rgb[sky_top] = sky_strip[:sh, :][sky_top[:sh, :]]
+        if mode == "sinister_woods_night":
+            ref_rgb[sky_m] = np.array([8, 16, 36], dtype=np.uint8)
+        else:
+            assets = _load_forest_sky_and_fx_assets(mode)
+            sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
+            sh = min(H, sky_strip.shape[0])
+            sky_top = sky_m.copy()
+            sky_top[sh:, :] = False
+            ref_rgb[sky_top] = sky_strip[:sh, :][sky_top[:sh, :]]
     if mode == "tiny_woods_sunlit":
         ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
+    elif mode == "sinister_woods_night":
+        ref_rgb[wat_m] = np.array([40, 48, 30], dtype=np.uint8)
     else:
         ref_rgb[wat_m] = np.array([82, 92, 54], dtype=np.uint8)
     out_ref_canon_path.parent.mkdir(parents=True, exist_ok=True)
@@ -615,6 +677,32 @@ def _remap_metano_to_wastewater_rgb(rgb: np.ndarray) -> np.ndarray:
     return pal_ww[idx]
 
 
+def _remap_metano_to_wastewater_night_rgb(prof4: np.ndarray) -> np.ndarray:
+    """Version Nuit de l''eau usée' Metano Town (`SWEN` & `SWFN`) : marais fétide nocturne sombre."""
+    pal_ww_n = np.array(
+        [
+            [20, 24, 16],  # vase profonde de minuit
+            [30, 36, 22],  # eau croupie nocturne
+            [40, 48, 30],  # surface sombre d'eau usée
+            [56, 68, 40],  # ride d'écume verdâtre sous la lune
+        ],
+        dtype=np.uint8,
+    )
+    lum = (
+        0.299 * prof4[..., 0].astype(np.float32)
+        + 0.587 * prof4[..., 1].astype(np.float32)
+        + 0.114 * prof4[..., 2].astype(np.float32)
+    )
+    l_min = float(lum.min())
+    l_max = max(l_min + 1.0, float(lum.max()))
+    t = np.clip((lum - l_min) / (l_max - l_min), 0.0, 1.0)
+    idx = np.zeros(prof4.shape[:-1], dtype=np.int32)
+    idx[t >= 0.28] = 1
+    idx[t >= 0.56] = 2
+    idx[t >= 0.82] = 3
+    return pal_ww_n[idx]
+
+
 def build_forest_water_and_sparkles_layers(
     mode: str,
     water_mask: np.ndarray,
@@ -622,12 +710,20 @@ def build_forest_water_and_sparkles_layers(
 ) -> Tuple[List[Image.Image], List[Image.Image]]:
     """Construit `(water_24, sparkles_24)` avec l'animation native Metano Town (`4 × 10` ticks) :
     - `tiny_woods_sunlit` (et défaut) : Eau claire native Metano Town `(131, 218, 230)` + `Sparkles.tile` natifs ;
-    - `sinister_woods_wastewater` : Même géométrie animée Metano Town teintée en 'eau usée' trouble `(82, 92, 54)`."""
-    is_wastewater = mode == "sinister_woods_wastewater"
+    - `sinister_woods_wastewater` : Même géométrie animée Metano Town teintée en 'eau usée' trouble `(82, 92, 54)` ;
+    - `sinister_woods_wastewater_night` : Version Nuit de l'eau usée trouble `(40, 48, 30)`."""
+    is_wastewater_day = mode == "sinister_woods_wastewater"
+    is_wastewater_night = mode == "sinister_woods_wastewater_night"
+    is_wastewater = is_wastewater_day or is_wastewater_night
     assets = extract_metano_water_and_flower_assets()
     sp_clusters: List[List[np.ndarray]] = assets["sparkle_clusters"]  # type: ignore[assignment]
     prof4_raw = extract_native_metano_river_profiles()
-    prof4 = _remap_metano_to_wastewater_rgb(prof4_raw) if is_wastewater else prof4_raw
+    if is_wastewater_night:
+        prof4 = _remap_metano_to_wastewater_night_rgb(prof4_raw)
+    elif is_wastewater_day:
+        prof4 = _remap_metano_to_wastewater_rgb(prof4_raw)
+    else:
+        prof4 = prof4_raw
     n_prof = prof4.shape[1]
 
     yy, xx = np.mgrid[0:H, 0:W].astype(np.int32)
@@ -635,7 +731,11 @@ def build_forest_water_and_sparkles_layers(
     visible_water_open = (water_mask & (~bridge_mask)) if bridge_mask is not None else water_mask
     dist_bank = ndimage.distance_transform_edt(visible_water_open)
 
-    if is_wastewater:
+    if is_wastewater_night:
+        pal_surface = (40, 48, 30, 255)
+        pal_under_bridge = (22, 26, 18, 255)
+        max_sparkles = 14
+    elif is_wastewater_day:
         pal_surface = (82, 92, 54, 255)
         pal_under_bridge = (50, 56, 34, 255)
         max_sparkles = 14
@@ -689,7 +789,9 @@ def build_forest_water_and_sparkles_layers(
             sub_sp = sp[sy : sy + sh_h, sx : sx + sh_w]
             sub_w = visible_water_open[sy : sy + sh_h, sx : sx + sh_w]
             keep = nz & sub_w
-            if is_wastewater:
+            if is_wastewater_night:
+                sub_sp[keep] = (78, 90, 52, 255)
+            elif is_wastewater_day:
                 sub_sp[keep] = (122, 134, 76, 255)
             else:
                 sub_sp[keep] = patch[keep]
@@ -838,12 +940,13 @@ def build_sinister_toxic_mist_and_wisps_layers(
     sky_mask: np.ndarray,
     canopy_nat: np.ndarray,
     is_arena_fin: bool = False,
+    is_night: bool = False,
 ) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
-    """Construit `(sky_static_1, toxic_water_mist_48, canopy_toxic_wisps_top_24)` pour *Sinister Woods* (`SWE1` & `SWF1`) :
+    """Construit `(sky_static_1, toxic_water_mist_48, canopy_toxic_wisps_top_24)` pour *Sinister Woods* (`SWE1`/`SWF1`/`SWEN`/`SWFN`) :
       - ZÉRO brume spectrale cyan `H07P01` ;
-      - Ciel nocturne sombre statique (`poses = 1`) ;
+      - Ciel nocturne sombre statique (`poses = 1`, étoilé minuit en mode `is_night=True`) ;
       - Nappes de brume toxique générées à faible opacité (`alpha ~ 15%..28%`, dérive lente `48` poses @ `18` ticks) ;
-      - Feux follets marécageux générés à faible opacité (`alpha ~ 20%..40%`, 4 poses de flamme) + volutes toxiques Top."""
+      - Feux follets marécageux générés à faible opacité (`alpha ~ 20%..44%`, 4 poses de flamme) + volutes toxiques Top."""
     assets = _load_forest_sky_and_fx_assets("sinister_woods_mist")
     sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
     mist_sprites, wisp_frames_4 = _extract_sinister_toxic_mist_and_wisps()
@@ -852,8 +955,27 @@ def build_sinister_toxic_mist_and_wisps_layers(
     y_max_sky = min(y_max_sky, sky_strip.shape[0])
     sky_arr = np.zeros((H, W, 4), dtype=np.uint8)
     sub_m = sky_mask[:y_max_sky, :]
-    dark_sky = np.clip(sky_strip[:y_max_sky, :].astype(np.int16) - np.array([6, 12, 10], dtype=np.int16), 0, 255).astype(np.uint8)
-    dark_sky = _sanitize_rgb_no_magenta(dark_sky, sub_m)
+    if is_night:
+        yy_s, xx_s = np.mgrid[0:y_max_sky, 0:W]
+        t_s = yy_s.astype(np.float32) / max(1.0, float(y_max_sky - 1))
+        night_sky = np.zeros((y_max_sky, W, 3), dtype=np.uint8)
+        night_sky[:, :, 0] = np.round(5.0 + 7.0 * t_s).astype(np.uint8)
+        night_sky[:, :, 1] = np.round(10.0 + 14.0 * t_s).astype(np.uint8)
+        night_sky[:, :, 2] = np.round(24.0 + 24.0 * t_s).astype(np.uint8)
+        # Étoiles pixelisées GBA dans les trouées du ciel de minuit
+        rng_st = np.random.default_rng(404)
+        for _ in range(96):
+            sx = int(rng_st.integers(4, W - 4))
+            sy = int(rng_st.integers(2, max(4, y_max_sky - 4)))
+            if sub_m[sy, sx]:
+                if rng_st.random() < 0.35:
+                    night_sky[sy, sx] = (188, 214, 248)
+                else:
+                    night_sky[sy, sx] = (112, 148, 204)
+        dark_sky = _sanitize_rgb_no_magenta(night_sky, sub_m)
+    else:
+        dark_sky = np.clip(sky_strip[:y_max_sky, :].astype(np.int16) - np.array([6, 12, 10], dtype=np.int16), 0, 255).astype(np.uint8)
+        dark_sky = _sanitize_rgb_no_magenta(dark_sky, sub_m)
     sky_arr[:y_max_sky, :][sub_m, :3] = dark_sky[sub_m]
     sky_arr[:y_max_sky, :][sub_m, 3] = 255
     sky_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]

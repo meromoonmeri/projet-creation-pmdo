@@ -25,7 +25,7 @@ class TestZekromSommetTornadeV1(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.renders = REPO_ROOT / "renders" / "zekrom_sommet_tornade_v1"
-        if not (cls.renders / "metadata.json").is_file():
+        if not (cls.renders / "metadata.json").is_file() or not (cls.renders / "composite_pose0.png").is_file():
             zka_build.build()
         cls.metrics = json.loads((cls.renders / "metadata.json").read_text(encoding="utf-8"))
         cls.pose0 = np.asarray(Image.open(cls.renders / "composite_pose0.png").convert("RGBA"), dtype=np.uint8)
