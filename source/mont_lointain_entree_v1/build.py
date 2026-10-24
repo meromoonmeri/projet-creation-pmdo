@@ -151,19 +151,15 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     im_00_sky = make_layer_rgba(cloud_bg_rgb, np.ones((h, w), dtype=bool))
 
-    # Couche 01 : Mer de nuages dorés `H05P02` en dérive horizontale douce (`12 × 10 = 120` ticks, `pose0` = 0 décalage !)
-    frames_01_clouds: List[Image.Image] = []
-    for f in range(12):
-        sh = 0 if f == 0 else int(round(np.sin(2.0 * np.pi * f / 12.0) * max(4.0, w * 0.025)))
-        rolled = np.roll(cloud_bg_rgb, shift=sh, axis=1)
-        frames_01_clouds.append(make_layer_rgba(rolled, clouds_mask | rainbows_mask))
+    # Couche 01 : Mer de nuages dorés `H05P02` 100 % statique (`poses = 1`)
+    frames_01_clouds: List[Image.Image] = [make_layer_rgba(cloud_bg_rgb, clouds_mask | rainbows_mask)]
 
-    # Couche 02 : Les 4 Arcs-en-Ciel Pixel-Art Chunsoft `H05P02` (`slots 5..9`, chatoiement pastel `12 × 10 = 120` ticks)
+    # Couche 02 : Les 4 Arcs-en-Ciel Pixel-Art Chunsoft `H05P02` (`slots 5..9`, chatoiement pastel `24 × 5 = 120` ticks)
     frames_02_rainbows: List[Image.Image] = []
-    for f in range(12):
+    for f in range(24):
         rb_rgb = rgb.copy()
         if f > 0:
-            wave = np.sin(2.0 * np.pi * (yy.astype(np.float32) / max(32.0, h * 0.14) - f / 12.0))
+            wave = np.sin(2.0 * np.pi * (yy.astype(np.float32) / max(32.0, h * 0.14) - f / 24.0))
             shimmer = rainbows_mask & (wave > 0.15)
             rb_rgb[shimmer] = np.clip(rb_rgb[shimmer].astype(np.int32) + 14, 96, 252).astype(np.uint8)
         frames_02_rainbows.append(make_layer_rgba(rb_rgb, rainbows_mask))
@@ -174,16 +170,11 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     im_06_karst_fg = make_layer_rgba(rgb, fg_karst_and_ferns & (rgb[:, :, 1].astype(int) - rgb[:, :, 0].astype(int) <= 12))
     im_07_ferns = make_layer_rgba(rgb, fg_karst_and_ferns & (rgb[:, :, 1].astype(int) - rgb[:, :, 0].astype(int) > 12))
 
-    # Couches 08 & 09 : Volutes nuageuses naturelles `H05P02` & poussière irisée de Ho-Oh (`0` strie géométrique !)
+    # Couche 08 : Crêtes nuageuses dorées `H05P02` 100 % statiques (`poses = 1`)
     cloud_crests = clouds_mask & (rgb[:, :, 0] >= 246) & (rgb[:, :, 1] >= 244) & (rgb[:, :, 2] >= 220)
-    frames_08_mist: List[Image.Image] = []
-    for f in range(12):
-        arr = np.zeros((h, w, 4), dtype=np.uint8)
-        if f > 0:
-            sh = int(round(np.sin(2.0 * np.pi * f / 12.0) * max(8.0, w * 0.04)))
-            wisp = np.roll(cloud_crests, shift=sh, axis=1) & clouds_mask
-            arr[wisp] = np.array([252, 250, 228, 255], dtype=np.uint8)
-        frames_08_mist.append(Image.fromarray(arr, mode="RGBA"))
+    arr_08 = np.zeros((h, w, 4), dtype=np.uint8)
+    arr_08[cloud_crests] = np.array([252, 250, 228, 255], dtype=np.uint8)
+    frames_08_mist: List[Image.Image] = [Image.fromarray(arr_08, mode="RGBA")]
 
     spark_colors = [
         (252, 236, 176),
@@ -218,14 +209,14 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     layers = [
         LayerEntry("00_ciel_azur_stratosphere_h05p02", "Ciel Azur Stratosphérique H05P02 1×", "BG", [im_00_sky], frame_length=5),
-        LayerEntry("01_mer_nuages_doree_h05p02", "Mer de Nuages Dorés GBA H05P02", "BG", frames_01_clouds, frame_length=10),
-        LayerEntry("02_quatre_arcs_en_ciel_h05p02", "Quadruple Arc-en-Ciel Pixel-Art H05P02", "BG", frames_02_rainbows, frame_length=10),
+        LayerEntry("01_mer_nuages_doree_h05p02", "Mer de Nuages Dorés GBA H05P02 Statique", "BG", frames_01_clouds, frame_length=5),
+        LayerEntry("02_quatre_arcs_en_ciel_h05p02", "Quadruple Arc-en-Ciel Pixel-Art H05P02", "BG", frames_02_rainbows, frame_length=5),
         LayerEntry("03_aiguilles_karst_lointaines_h05p02", "Aiguilles Karstiques d'Horizon H05P02", "BG", [im_03_distant], frame_length=5),
         LayerEntry("04_grand_escalier_et_portail_h05p02", "Grand Escalier Sacré & Portail Nord H05P02", "BG", [im_04_stairs], frame_length=5),
         LayerEntry("05_massif_central_sacree_h05p02", "Massif Karstique Central H05P02", "BG", [im_05_massif], frame_length=5),
         LayerEntry("06_piliers_karstiques_avant_h05p02", "Piliers Karstiques d'Avant-Plan H05P02", "BG", [im_06_karst_fg], frame_length=5),
         LayerEntry("07_fougeres_emeraude_suspendues_h05p02", "Fougères Émeraude Suspendues H05P02", "BG", [im_07_ferns], frame_length=5),
-        LayerEntry("08_brumes_dorees_ascendantes_h05p02", "Écharpes de Brume Dorée H05P02", "BG", frames_08_mist, frame_length=10),
+        LayerEntry("08_brumes_dorees_ascendantes_h05p02", "Crêtes Nuageuses Dorées H05P02 Statiques", "BG", frames_08_mist, frame_length=5),
         LayerEntry("09_eclats_irises_hooh_top", "Éclats Irisés de Plume Arc-en-Ciel", "Top", frames_09_sparks, frame_length=8),
     ]
     return layers, walk_grid, pal

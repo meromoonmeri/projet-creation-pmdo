@@ -133,8 +133,8 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     layers = [
         LayerEntry("00_ciel_azur_celeste_h05p02", "Voûte Céleste Azur Courbée H05P02", "BG", _resize_frames(sky_1, w, h), frame_length=5),
-        LayerEntry("01_mer_nuages_lointaine_doree", "Mer de Nuages Sacrée Dorée B72 Ultra-Lente", "BG", _resize_frames(cld_far_64, w, h), frame_length=45),
-        LayerEntry("02_vagues_cumulus_sacres_pmd", "Vagues de Cumulus Sacrés PMD Dérive Lente", "BG", _resize_frames(cld_near_64, w, h), frame_length=36),
+        LayerEntry("01_mer_nuages_lointaine_doree", "Mer de Nuages Sacrée Dorée B72 Statique", "BG", _resize_frames(cld_far_64, w, h), frame_length=5),
+        LayerEntry("02_vagues_cumulus_sacres_pmd", "Vagues de Cumulus Sacrés PMD Statiques", "BG", _resize_frames(cld_near_64, w, h), frame_length=5),
         LayerEntry("03_arcs_en_ciel_sacres_h05p02", "Arcs-en-Ciel Pixel-Art GBA H05P02 de Ho-Oh", "BG", _resize_frames(rainbows_24, w, h), frame_length=5),
         LayerEntry("04_aiguilles_karst_horizon_h05", "Aiguilles Karstiques d'Horizon H05P02", "BG", [mk_static_scaled(is_distant_spires)], frame_length=5),
         LayerEntry("05_grand_escalier_et_terrasses_sud", "Grand Escalier Sacré Sud & Terrasses B72", "BG", [mk_static_scaled(is_grand_stairs)], frame_length=5),

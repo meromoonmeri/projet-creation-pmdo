@@ -48,14 +48,13 @@ class TestMontLointainSommetV1(unittest.TestCase):
             self.assertGreaterEqual(count, 25, f"Calque vide ou trop pauvre : {sheet}={count}")
             self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_slow_sacred_cloud_sea_rainbows_animated_and_sanctuary_static(self) -> None:
+    def test_03_static_clouds_rainbows_animated_and_sanctuary_static(self) -> None:
         mag_zone = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_zone] > 4).sum()), 2_000, "La mer de nuages & les arcs-en-ciel H05P02 doivent s'animer")
-        for st_idx in (0, 4, 5, 6, 7, 8):
+        self.assertGreater(int((diff[mag_zone] > 3).sum()), 20, "Les arcs-en-ciel H05P02 & plumes de Ho-Oh doivent s'animer")
+        # Nuages (01, 02) ET sanctuaire (00, 04..08) 100 % statiques (`poses = 1`)
+        for st_idx in (0, 1, 2, 4, 5, 6, 7, 8):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        self.assertEqual(self.metrics["layers"][1]["poses"], 64)
-        self.assertEqual(self.metrics["layers"][2]["poses"], 64)
         for an_idx in (3, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
 

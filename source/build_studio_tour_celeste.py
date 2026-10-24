@@ -345,8 +345,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence PMD Red — Mont Lointain / Rainbow Peak (H05P02 1×)",
             "zip_rel": ".cache/virtual_zips/MLE1_PMDO_0.8.12.zip",
             "bg_fill": "#7ee0f5",
-            "subtitle": "1× Natif GBA Mont Lointain — Entrée (H05P02) — Massif karstique sacré, grand escalier & portail Nord, mer de nuages dorés & 4 arcs-en-ciel #FF00FF",
-            "wind_summary": "Mer de nuages dorés H05P02 #FF00FF (12f @ 10t) | Quadruple arc-en-ciel pixel-art H05P02 (12f @ 10t) | Éclats irisés Ho-Oh Top | Karst & fougères 1× statiques",
+            "subtitle": "1× Natif GBA Mont Lointain — Entrée (H05P02) — Massif karstique sacré, grand escalier & portail Nord, mer de nuages dorés 100 % statique (poses=1) & 4 arcs-en-ciel #FF00FF",
+            "wind_summary": "Nuages H05P02 100 % statiques (poses=1) | Quadruple arc-en-ciel pixel-art H05P02 (24f @ 5t) | Éclats irisés Ho-Oh Top | Karst & fougères 1× statiques",
         },
         {
             "id": "MLS1",
@@ -356,8 +356,30 @@ def export_filmstrips() -> Dict:
             "ref_label": "Références GBA PMD Red — Sommet Mont Lointain Ho-Oh (B72 + H05P02 Rainbow Peak)",
             "zip_rel": ".cache/virtual_zips/MLS1_PMDO_0.8.12.zip",
             "bg_fill": "#5094e0",
-            "subtitle": "Sommet du Mont Lointain — Sanctuaire de Ho-Oh (B72 + H05P02, 10 calques 4:3) : Grand escalier sacré Sud, plateau d'ivoire & autel concentrique Nord, aiguilles karstiques à fougères, mer de nuages dorés PMD 2 parallaxes & triple arc-en-ciel H05P02",
-            "wind_summary": "Mer de nuages sacrés PMD 2 parallaxes lentes (64f @ 45t & 36t) | Triple arc-en-ciel pixel-art GBA H05P02 (24f @ 5t) | Colliers d'écume, brume légère & plumes irisées Top | Sanctuaire statique",
+            "subtitle": "Sommet du Mont Lointain — Sanctuaire de Ho-Oh (B72 + H05P02, 10 calques 4:3) : Grand escalier sacré Sud, plateau d'ivoire & autel concentrique Nord, aiguilles karstiques à fougères, mer de nuages dorés PMD 100 % statique (poses=1) & triple arc-en-ciel H05P02",
+            "wind_summary": "Mer de nuages & cumulus PMD 100 % statiques (poses=1) | Triple arc-en-ciel pixel-art GBA H05P02 (24f @ 5t) | Plumes irisées de Ho-Oh Top (24f @ 6t) | Sanctuaire statique",
+        },
+        {
+            "id": "FAE1",
+            "group": "Oiseaux Légendaires · Lugia",
+            "folder": "fosse_argent_entree_v1",
+            "ref_rel": "source/fosse_argent_entree_v1/references/H01P03_native_pmd_red.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Temple Englouti / Serene Sea (H01P03, 528×360)",
+            "zip_rel": ".cache/virtual_zips/FAE1_PMDO_0.8.12.zip",
+            "bg_fill": "#062c52",
+            "subtitle": "Fosse d'Argent — Entrée Engloutie (H01P03 1× + H02P02W, 0 % ciel) : Portail Nord englouti à colonnes cannelées, marches antiques, récifs de coraux turquoises, courants 4 phases & sparkles Metano Town + 5 faisceaux sous-marins H02P02W",
+            "wind_summary": "Courants sous-marins Metano 4×30t & sparkles 6×20t #FF00FF | 5 rayons sous-marins officiels H02P02W Top (8f @ 15t) | Bulles d'argent | Colonnes & coraux H01P03 statiques",
+        },
+        {
+            "id": "FAS1",
+            "group": "Oiseaux Légendaires · Lugia",
+            "folder": "fosse_argent_sanctuaire_v1",
+            "ref_rel": "source/fosse_argent_sanctuaire_v1/references/H02P02_deep_sea_current_pmd_red.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Courant Marin Profond / Sanctuaire de Lugia (H02P02 + H02P02W)",
+            "zip_rel": ".cache/virtual_zips/FAS1_PMDO_0.8.12.zip",
+            "bg_fill": "#04234a",
+            "subtitle": "Fosse d'Argent — Sanctuaire Abyssal de Lugia (99F, Généré + H02P02 + H02P02W, 0 % ciel) : Grand escalier d'argent Sud, arène circulaire & autel Nord aux anneaux d'argent, anémones bioluminescentes, vortex H02P02 & 5 rayons sous-marins H02P02W",
+            "wind_summary": "Grand Vortex Courant Marin H02P02 + eau Metano #FF00FF (8f @ 15t) | 5 rayons sous-marins H02P02W & souffle marin Top (8f @ 15t) | Bioluminescence & bulles | Autel d'argent statique",
         },
         {
             "id": "TCE1",
@@ -450,7 +472,7 @@ def export_filmstrips() -> Dict:
                 "total_tiles": meta["total_tiles"],
                 "total_unique_tiles": meta["total_unique_tiles"],
                 "zip_bytes": meta["zip_bytes"],
-                "zip_url": _versioned_url(item["zip_rel"]),
+                "zip_url": f"/download/{mid}_PMDO_0.8.12.zip",
                 "ref_url": _versioned_url(item["ref_rel"]),
                 "webp_url": _versioned_url(f"renders/{folder}/animation_24frames.webp"),
                 "pose0_url": _versioned_url(f"renders/{folder}/composite_pose0.png"),
@@ -771,6 +793,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       </div>
       <div class="layer-list" id="layerList"></div>
       <a class="dl-btn" id="zipDownload" href="#" download>Télécharger le package .rsground</a>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:6px; font-size:0.76rem; color:var(--muted);">
+        <span id="dlStatus">Archive PMDO 0.8.12 complète (.rsground + .tile + Mod.xml)</span>
+        <a id="zipDirectTab" href="#" target="_blank" rel="noopener" style="color:var(--accent-2); text-decoration:underline; white-space:nowrap;">↗ Lien direct</a>
+      </div>
     </aside>
   </main>
 
@@ -855,8 +881,14 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       document.getElementById('refImg').src = m.ref_url;
       document.getElementById('refCaption').textContent = m.ref_label;
       const dl = document.getElementById('zipDownload');
+      const dlFname = `${{m.id}}_PMDO_0.8.12.zip`;
       dl.href = m.zip_url;
-      dl.textContent = `⬇ Télécharger ${{m.id}}_PMDO_0.8.12.zip (${{(m.zip_bytes / 1048576).toFixed(2)}} Mio)`;
+      dl.setAttribute('download', dlFname);
+      dl.textContent = `⬇ Télécharger ${{dlFname}} (${{(m.zip_bytes / 1048576).toFixed(2)}} Mio)`;
+      const dlTab = document.getElementById('zipDirectTab');
+      if (dlTab) dlTab.href = m.zip_url;
+      const dlStatus = document.getElementById('dlStatus');
+      if (dlStatus) dlStatus.textContent = 'Archive PMDO 0.8.12 complète (.rsground + .tile + Mod.xml)';
 
       document.getElementById('metricsBox').innerHTML = `
         <div class="metric"><div class="k">Fidélité canonique</div><div class="v">${{m.fidelity.toFixed(2)}}</div></div>
@@ -1006,6 +1038,66 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
     document.getElementById('restoreTerrainBtn').addEventListener('click', () => setAllLayers(true));
     document.getElementById('animOnlyBtn').addEventListener('click', () => setAllLayers(false));
 
+    let dlBusy = false;
+    document.getElementById('zipDownload').addEventListener('click', async (ev) => {{
+      ev.preventDefault();
+      if (dlBusy) return;
+      dlBusy = true;
+      const dlBtn = document.getElementById('zipDownload');
+      const dlStatus = document.getElementById('dlStatus');
+      const fname = `${{m.id}}_PMDO_0.8.12.zip`;
+      const absUrl = new URL(m.zip_url, window.location.href).href;
+      const origLabel = dlBtn.textContent;
+      dlBtn.textContent = `⏳ Préparation de ${{fname}}…`;
+      if (dlStatus) dlStatus.textContent = 'Assemblage / téléchargement en cours…';
+      try {{
+        const resp = await fetch(absUrl, {{ cache: 'no-store' }});
+        if (!resp.ok) throw new Error(`HTTP ${{resp.status}}`);
+        const buf = await resp.arrayBuffer();
+        const sig = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
+        if (buf.byteLength < 256 || sig[0] !== 0x50 || sig[1] !== 0x4b) {{
+          throw new Error('Archive ZIP invalide');
+        }}
+        const blob = new Blob([buf], {{ type: 'application/zip' }});
+        let savedViaPicker = false;
+        if (typeof window.showSaveFilePicker === 'function') {{
+          try {{
+            const handle = await window.showSaveFilePicker({{
+              suggestedName: fname,
+              types: [{{ description: 'Archive Mod PMDO (.zip)', accept: {{ 'application/zip': ['.zip'] }} }}],
+            }});
+            const writable = await handle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+            savedViaPicker = true;
+          }} catch (pickerErr) {{
+            if (pickerErr && pickerErr.name === 'AbortError') {{
+              if (dlStatus) dlStatus.textContent = 'Téléchargement annulé.';
+              return;
+            }}
+          }}
+        }}
+        if (!savedViaPicker) {{
+          const objUrl = URL.createObjectURL(blob);
+          const tmpA = document.createElement('a');
+          tmpA.href = objUrl;
+          tmpA.download = fname;
+          tmpA.rel = 'noopener';
+          document.body.appendChild(tmpA);
+          tmpA.click();
+          tmpA.remove();
+          setTimeout(() => URL.revokeObjectURL(objUrl), 60000);
+        }}
+        if (dlStatus) dlStatus.textContent = `✓ ${{fname}} téléchargé (${{(buf.byteLength / 1048576).toFixed(2)}} Mio)`;
+      }} catch (err) {{
+        window.open(absUrl, '_blank', 'noopener');
+        if (dlStatus) dlStatus.textContent = 'Ouverture du téléchargement dans un nouvel onglet…';
+      }} finally {{
+        dlBtn.textContent = origLabel;
+        dlBusy = false;
+      }}
+    }});
+
     buildTabs();
     initMap().then(() => requestAnimationFrame(tick));
   </script>
@@ -1016,7 +1108,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="ZKE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FAS1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_fosse_argent_lugia_pmdo.html").write_text(
+        build_html(manifest, default_map_id="FAS1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_gouffre_et_canyon_pmdo.html").write_text(
         build_html(manifest, default_map_id="GCF1"), encoding="utf-8"
     )

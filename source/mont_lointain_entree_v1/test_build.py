@@ -45,10 +45,12 @@ class TestMontLointainEntreeV1(unittest.TestCase):
         self.assertEqual(len(self.metrics["layers"]), 10)
         self.assertLess(self.metrics["fidelity_distance"], 4.0)
 
-    def test_03_h05p02_clouds_and_quadruple_rainbows_animated(self) -> None:
+    def test_03_static_clouds_and_quadruple_rainbows_animated(self) -> None:
         mag_zone = (self.raw[:, :, 0] == 255) & (self.raw[:, :, 1] == 0) & (self.raw[:, :, 2] == 255)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_zone] > 6).sum()), 2_500, "Les arcs-en-ciel pixel-art & la mer de nuages H05P02 doivent s'animer")
+        self.assertGreater(int((diff[mag_zone] > 6).sum()), 500, "Les arcs-en-ciel pixel-art H05P02 doivent s'animer")
+        for st_idx in (0, 1, 3, 4, 5, 6, 7, 8):
+            self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
 
     def test_04_continuous_south_stairway_to_north_portal(self) -> None:
         _, walk_grid, _ = mle_build.build_layers_for_size()

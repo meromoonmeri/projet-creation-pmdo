@@ -193,14 +193,10 @@ def build_sommet_hooh_atmosphere_layers(
         (fams_far["wisps"][1], 204, 108),
     ]
     _blit_periodic_cloud_band(sea_base, far_placements, period_w=256)
-    full_far = np.tile(sea_base, (1, 3, 1))[:, :W, :]
-
-    n_far = 1 if single_pose_preview else 64
-    cloud_sea_far_64: List[Image.Image] = []
-    for f in range(n_far):
-        rolled = np.roll(full_far, shift=(f * 4) % W, axis=1).copy()
-        rolled[~mag_mask, :] = 0
-        cloud_sea_far_64.append(Image.fromarray(sanitize_rgba_binary(rolled)))
+    full_far = np.tile(sea_base, (1, 3, 1))[:, :W, :].copy()
+    full_far[~mag_mask, :] = 0
+    # Nuages 100 % statiques (`poses = 1`) conformément à la consigne utilisateur
+    cloud_sea_far_1: List[Image.Image] = [Image.fromarray(sanitize_rgba_binary(full_far))]
 
     # 3. Calque 02 (24 poses @ 5 ticks) : Arcs-en-ciel sacrés pixel-art GBA H05P02 (Rainbow Peak) !
     #    - Grand arc céleste couronnant le sanctuaire Nord (cx=384, cy=252, R=226)
@@ -226,7 +222,7 @@ def build_sommet_hooh_atmosphere_layers(
     for f in range(n_rb):
         theta = 2.0 * math.pi * f / float(N_POSES)
         rb_canvas = np.zeros((H, W, 4), dtype=np.uint8)
-        shimmer = int(round(4.0 * math.sin(theta)))
+        shimmer = int(round(8.0 * (0.5 - 0.5 * math.cos(theta))))
         for acx, acy, r_in, bw, ymax_vis in arcs_spec:
             dist_r = np.sqrt((xx - acx) ** 2 + (yy - acy) ** 2)
             # Quantification pixel-art GBA sur pas de 2 px
@@ -258,14 +254,10 @@ def build_sommet_hooh_atmosphere_layers(
         (fams_near["wisps"][1], 246, 32),
     ]
     _blit_periodic_cloud_band(proto_near, near_placements, period_w=384)
-    full_near = np.tile(proto_near, (1, 2, 1))[:, :W, :]
-
-    n_near = 1 if single_pose_preview else 64
-    cloud_billows_near_64: List[Image.Image] = []
-    for f in range(n_near):
-        rolled = np.roll(full_near, shift=-((f * 6) % W), axis=1).copy()
-        rolled[~mag_mask, :] = 0
-        cloud_billows_near_64.append(Image.fromarray(sanitize_rgba_binary(rolled)))
+    full_near = np.tile(proto_near, (1, 2, 1))[:, :W, :].copy()
+    full_near[~mag_mask, :] = 0
+    # Vagues de cumulus PMD 100 % statiques (`poses = 1`)
+    cloud_billows_near_1: List[Image.Image] = [Image.fromarray(sanitize_rgba_binary(full_near))]
 
     # 5. Calque 09 Top (24 poses @ 6 ticks) :
     #    Couronnes des piliers périphériques + colliers d'écume nuageuse au pied des aiguilles flottantes
@@ -325,16 +317,9 @@ def build_sommet_hooh_atmosphere_layers(
     top_24: List[Image.Image] = []
     for f in range(n_top):
         theta = 2.0 * math.pi * f / float(N_POSES)
-        arr = np.roll(full_top_mist, shift=(f * 16) % 384, axis=1).copy()
-        # Légère respiration horizontale (+/- 2 px) des colliers de nuages au pied des piliers
-        dx_col = int(round(2.0 * math.sin(theta)))
-        col_shifted = np.roll(base_collars, shift=dx_col, axis=1) if dx_col != 0 else base_collars
-        if dx_col > 0:
-            col_shifted[:, :dx_col] = 0
-        elif dx_col < 0:
-            col_shifted[:, dx_col:] = 0
-        c_hit = col_shifted[:, :, 3] == 255
-        arr[c_hit] = col_shifted[c_hit]
+        # Voiles et colliers de nuages 100 % statiques (zéro dérive de nuage) ; seules les plumes irisées de Ho-Oh s'animent
+        arr = full_top_mist.copy()
+        arr[col_op] = base_collars[col_op]
         if not single_pose_preview:
             for i in range(n_motes):
                 px = int(round(mx0[i] + 6.0 * math.sin(theta + mph[i])))
@@ -347,7 +332,7 @@ def build_sommet_hooh_atmosphere_layers(
         arr[can_op & (~col_op)] = canopy_nat[can_op & (~col_op)]
         top_24.append(Image.fromarray(arr, mode="RGBA"))
 
-    return sky_1, cloud_sea_far_64, rainbows_24, cloud_billows_near_64, top_24
+    return sky_1, cloud_sea_far_1, rainbows_24, cloud_billows_near_1, top_24
 
 
 def assemble_mont_lointain_sommet_1x() -> Dict[str, str]:
