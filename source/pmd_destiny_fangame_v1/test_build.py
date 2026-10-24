@@ -88,13 +88,13 @@ class TestPMDDestinyDayNightAndAnimeOpening(unittest.TestCase):
         cx_logo = 0.5 * (float(xs.min()) + float(xs.max()))
         cy_logo = 0.5 * (float(ys.min()) + float(ys.max()))
 
-        # Plus petit (~48 % de 320 px) et parfaitement centré !
+        # Plein centre horizontal ET vertical sur l'image 320x240 (`(160, 120)`) !
         self.assertGreaterEqual(w_logo, 140)
         self.assertLessEqual(w_logo, 180)
-        self.assertLess(abs(cx_logo - 160.0), 2.5, "Logo parfaitement centré horizontalement")
-        self.assertGreaterEqual(int(ys.min()), 38, "Espace libre en haut pour le ciel et les nuages")
-        self.assertLessEqual(int(ys.max()), 162, "Ne déborde pas sur la mer ni sur Enter.png")
-        self.assertTrue(88.0 <= cy_logo <= 118.0)
+        self.assertLess(abs(cx_logo - 160.0), 2.5, "Logo parfaitement centré horizontalement (x=160)")
+        self.assertLess(abs(cy_logo - 120.0), 2.5, "Logo parfaitement centré verticalement (y=120)")
+        self.assertGreaterEqual(int(ys.min()), 58, "Espace libre en haut pour le ciel et les nuages")
+        self.assertLessEqual(int(ys.max()), 182, "Ne déborde pas sur Enter.png (y >= 190)")
 
         r, g, b = arr[:, :, 0].astype(np.int16), arr[:, :, 1].astype(np.int16), arr[:, :, 2].astype(np.int16)
         # 0 px #FF00FF néon partout (tout en préservant le dégradé lavande intérieur de Mystery Dungeon)
@@ -114,6 +114,14 @@ class TestPMDDestinyDayNightAndAnimeOpening(unittest.TestCase):
         # Frame 0..2 : entièrement transparentes (anticipation mer & ciel)
         f0_alpha = arr_o[0:240, 0:320, 3]
         self.assertEqual(int(f0_alpha.max()), 0)
+
+        # Battement d'ailes subtil à l'arrivée (entre frames 14 et 16 à échelle 1.0x constante)
+        f14 = arr_o[480:720, 640:960]   # idx 14 -> row 2, col 2
+        f16 = arr_o[480:720, 1280:1600] # idx 16 -> row 2, col 4
+        left_wing_diff = float(np.abs(f14[70:135, 80:135, :3].astype(np.float32) - f16[70:135, 80:135, :3].astype(np.float32)).mean())
+        right_wing_diff = float(np.abs(f14[70:135, 185:240, :3].astype(np.float32) - f16[70:135, 185:240, :3].astype(np.float32)).mean())
+        self.assertGreater(left_wing_diff, 0.35, "L'aile gauche bat subtilement à l'arrivée")
+        self.assertGreater(right_wing_diff, 0.35, "L'aile droite bat subtilement à l'arrivée")
 
         # Frame 21, 22, 23 : logo stabilisé identique à la fin (ne repart jamais en boucle arrière !)
         f21 = arr_o[720:960, 960:1280]

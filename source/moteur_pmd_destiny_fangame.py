@@ -56,11 +56,11 @@ W_MENU = 320
 H_MENU = 240
 HORIZON_MENU_Y = 160
 
-# Dimensions & centrage exacts du logo « plus petit et centré » (façon Pokémon Super Mystery Dungeon + Œuf Ailé incrusté)
-LOGO_W_320 = 158   # ~49.4 % de 320 px (compact, centré dans l'arche céleste)
-LOGO_Y_320 = 42    # Centré (y = 42..155) au-dessus de l'horizon (y=160) et de Enter (y=188)
-LOGO_W_768 = 378   # ~49.2 % de 768 px (195 px d'ouverture nuages à gauche et à droite !)
-LOGO_Y_768 = 102   # Centré (y = 102..374, juste au-dessus de l'horizon marin PMD Sky y = 384)
+# Dimensions & centrage exacts plein centre sur l'image (`(W/2, H/2)`) du blason Œuf Ailé
+LOGO_W_320 = 158   # ~49.4 % de 320 px
+LOGO_Y_320 = 63    # Plein centre vertical de 320x240 : y = 63..176 -> cy = 119.5 ≈ 120 = 240/2 !
+LOGO_W_768 = 378   # ~49.2 % de 768 px
+LOGO_Y_768 = 151   # Plein centre vertical de 768x576 : y = 151..423 -> cy = 287.5 ≈ 288 = 576/2 !
 
 N_POSES = 24
 FRAME_TICKS_MENU = 10  # 10 ticks @ 60 FPS = 6 FPS fluides
@@ -935,8 +935,85 @@ def build_destiny_separate_scene(mode: ModeKind) -> Dict[str, object]:
 
 
 # ============================================================================
-# 5. ANIMATION D'OPENING D'ANIME EN UNE SEULE FOIS (`arrive en une seule fois`)
+# 5. RIG D'AILES ARTICULÉ & ANIMATION D'OPENING D'ANIME EN UNE SEULE FOIS
 # ============================================================================
+
+@lru_cache(maxsize=2)
+def decompose_destiny_logo_wings() -> Tuple[Image.Image, Image.Image, Image.Image, Tuple[int, int], Tuple[int, int]]:
+    """Décompose le logo HD (`extract_destiny_logo_hd`) en 3 calques articulés sans couture :
+      - `left_wing_rgba`  (aile gauche 3 lobes + languette d'épaule interne sous le corps)
+      - `right_wing_rgba` (aile droite 3 lobes + languette d'épaule interne sous le corps)
+      - `core_body_rgba`  (`Pokémon` + Œuf central + `Mystery Dungeon` + `DESTINY` 100 % nets)
+      - `pivot_left`, `pivot_right` (articulations d'épaules pour le battement d'ailes subtil)."""
+    hd = extract_destiny_logo_hd()
+    arr = np.asarray(hd, dtype=np.uint8)
+    h, w, _ = arr.shape
+    r = arr[:, :, 0].astype(np.int16)
+    g = arr[:, :, 1].astype(np.int16)
+    b = arr[:, :, 2].astype(np.int16)
+    fg = arr[:, :, 3] >= 128
+    yy, xx = np.mgrid[0:h, 0:w]
+
+    # Zone protégée autour de l'arche Pokémon (haut)
+    poke_blue = fg & (b >= 135) & ((b - r) >= 45) & (yy < 245)
+    poke_yellow = fg & (r >= 225) & (g >= 165) & (b <= 75) & (yy < 235) & (xx >= 155) & (xx <= 720)
+    poke_protected = ndimage.binary_dilation(poke_blue | poke_yellow, iterations=11)
+
+    # Zone protégée autour du bandeau Mystery Dungeon (bas)
+    md_letters = fg & (yy >= 338) & (((b > r + 20)) | ((b > 165) & (r < 200)))
+    md_protected = ndimage.binary_dilation(md_letters, iterations=14)
+
+    lw_raw = fg & (xx < 276) & (yy < 395) & (~poke_protected) & (~md_protected)
+    rw_raw = fg & (xx > 596) & (yy < 395) & (~poke_protected) & (~md_protected)
+
+    def _main_wing_comp(mask_in: np.ndarray) -> np.ndarray:
+        lbl, n_c = ndimage.label(mask_in)
+        if n_c == 0:
+            return mask_in
+        sizes = ndimage.sum(mask_in, lbl, range(1, n_c + 1))
+        best = int(np.argmax(sizes)) + 1
+        return ndimage.binary_fill_holes(lbl == best) & fg
+
+    lw_outer = _main_wing_comp(lw_raw)
+    rw_outer = _main_wing_comp(rw_raw)
+    core_mask = fg & (~lw_outer) & (~rw_outer)
+
+    lw_tab = ndimage.binary_dilation(lw_outer, iterations=26) & (xx >= 236) & (xx <= 314) & (yy >= 170) & (yy <= 382)
+    rw_tab = ndimage.binary_dilation(rw_outer, iterations=26) & (xx >= 558) & (xx <= 636) & (yy >= 170) & (yy <= 382)
+
+    lw_rgba = np.zeros_like(arr)
+    lw_rgba[lw_tab] = (252, 245, 178, 255)
+    lw_rgba[lw_outer] = arr[lw_outer]
+
+    rw_rgba = np.zeros_like(arr)
+    rw_rgba[rw_tab] = (252, 245, 178, 255)
+    rw_rgba[rw_outer] = arr[rw_outer]
+
+    core_rgba = np.zeros_like(arr)
+    core_rgba[core_mask] = arr[core_mask]
+
+    return (
+        Image.fromarray(lw_rgba, mode="RGBA"),
+        Image.fromarray(rw_rgba, mode="RGBA"),
+        Image.fromarray(core_rgba, mode="RGBA"),
+        (274, 335),
+        (598, 335),
+    )
+
+
+def render_logo_with_wing_flap_hd(wing_deg: float) -> Image.Image:
+    """Rend le blason HD complet avec les deux ailes pivotées subtilement de `wing_deg` degrés."""
+    if abs(wing_deg) < 0.05:
+        return extract_destiny_logo_hd()
+    lw_im, rw_im, core_im, piv_l, piv_r = decompose_destiny_logo_wings()
+    rot_l = lw_im.rotate(-wing_deg, resample=Image.Resampling.BICUBIC, center=piv_l)
+    rot_r = rw_im.rotate(+wing_deg, resample=Image.Resampling.BICUBIC, center=piv_r)
+    comp = Image.new("RGBA", core_im.size, (0, 0, 0, 0))
+    comp.alpha_composite(rot_l)
+    comp.alpha_composite(rot_r)
+    comp.alpha_composite(core_im)
+    return comp
+
 
 def render_anime_opening_logo_sequence(
     canvas_w: int = W_MENU,
@@ -970,6 +1047,25 @@ def render_anime_opening_logo_sequence(
         for _ in range(14)
     ]
 
+    # Angles subtils de battement d'ailes à l'arrivée du logo (frames 6..20, stabilisé à 0.0° sur 21..23)
+    wing_flap_angles = {
+        6: 7.5,
+        7: 4.6,
+        8: -4.2,
+        9: -1.8,
+        10: 4.5,
+        11: 2.0,
+        12: -2.6,
+        13: -1.0,
+        14: 2.1,
+        15: 0.9,
+        16: -1.2,
+        17: -0.4,
+        18: 0.7,
+        19: 0.2,
+        20: -0.2,
+    }
+
     seq: List[Image.Image] = []
     for f in range(n_frames):
         frame = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
@@ -992,7 +1088,7 @@ def render_anime_opening_logo_sequence(
                 fill=(255, 255, 244, min(255, int(a_fl * 1.1))),
             )
 
-        # Phase C..E (frames 6..23) : Apparition en UNE SEULE FOIS + stabilisation + reflet diagonal
+        # Phase C..E (frames 6..23) : Apparition en UNE SEULE FOIS + battement subtil des deux ailes
         if f >= 6:
             if f <= 13:
                 u = (f - 6) / 7.0
@@ -1010,7 +1106,13 @@ def render_anime_opening_logo_sequence(
 
             cur_w = max(16, int(round(base_w * scale)))
             cur_h = max(16, int(round(base_h * scale)))
-            scaled_im = logo_1x if (cur_w, cur_h) == (base_w, base_h) else scale_cutout_clean(hd, cur_w, cur_h, binary_alpha=False)
+            w_deg = wing_flap_angles.get(f, 0.0)
+            hd_flapped = render_logo_with_wing_flap_hd(w_deg)
+            scaled_im = (
+                logo_1x
+                if ((cur_w, cur_h) == (base_w, base_h) and abs(w_deg) < 0.05)
+                else scale_cutout_clean(hd_flapped, cur_w, cur_h, binary_alpha=False)
+            )
             s_arr = np.asarray(scaled_im, dtype=np.uint8).copy()
 
             # Silhouette blanc-or au moment de l'impact qui révèle les vraies couleurs

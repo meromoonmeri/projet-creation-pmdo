@@ -33,6 +33,7 @@ from source.moteur_pmd_destiny_fangame import (
     build_enter_ui_png_74x11,
     build_title_ui_png_320x240,
     decode_pmdo_dir_sheet,
+    decompose_destiny_logo_wings,
     encode_pmdo_dir_sheet,
     extract_destiny_logo_hd,
     render_anime_opening_logo_sequence,
@@ -181,6 +182,25 @@ def export_destiny_menu_and_fangame_pack(out_root: Path) -> dict:
     title_ui.save(apercus_dir / "Title_320x240.png", format="PNG", optimize=True)
     enter_ui.save(apercus_dir / "Enter_74x11.png", format="PNG", optimize=True)
 
+    # Calques articulés des 2 ailes et du corps central pour le battement d'ailes subtil 60 FPS
+    lw_im, rw_im, core_im, piv_l, piv_r = decompose_destiny_logo_wings()
+    lw_im.save(apercus_dir / "logo_rig_left_wing.png", format="PNG", optimize=True)
+    rw_im.save(apercus_dir / "logo_rig_right_wing.png", format="PNG", optimize=True)
+    core_im.save(apercus_dir / "logo_rig_core_body.png", format="PNG", optimize=True)
+    (apercus_dir / "logo_rig_meta.json").write_text(
+        json.dumps(
+            {
+                "width": core_im.width,
+                "height": core_im.height,
+                "pivot_left": list(piv_l),
+                "pivot_right": list(piv_r),
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
     # Planches HD 768x576 de fond (pose 0..23) pour le simulateur Opening Anime 60 FPS
     atlas_day.save(STUDIO_MENU_CACHE / "BG_Jour_320x240_atlas_6x4.png", format="PNG", optimize=True)
     atlas_night.save(STUDIO_MENU_CACHE / "BG_Nuit_320x240_atlas_6x4.png", format="PNG", optimize=True)
@@ -188,7 +208,7 @@ def export_destiny_menu_and_fangame_pack(out_root: Path) -> dict:
     enter_ui.save(STUDIO_MENU_CACHE / "Enter_74x11.png", format="PNG", optimize=True)
     logo_hd.save(STUDIO_MENU_CACHE / "Logo_PMD_Destiny_Oeuf_Ailes_HD.png", format="PNG", optimize=True)
 
-    # Keyframes d'inspection visuelle (320x240 et 768x576, Jour & Nuit séparés, sans et avec logo centré)
+    # Keyframes d'inspection visuelle (320x240 et 768x576, Jour & Nuit séparés, sans et avec logo plein centre)
     bg_day_320[0].save(apercus_dir / "fond_jour_sans_logo_320x240.png", format="PNG", optimize=True)
     bg_night_320[12].save(apercus_dir / "fond_nuit_sans_logo_320x240.png", format="PNG", optimize=True)
 
@@ -198,7 +218,7 @@ def export_destiny_menu_and_fangame_pack(out_root: Path) -> dict:
     ):
         scr = bg_im.copy()
         scr.alpha_composite(title_ui, (0, 0))
-        scr.alpha_composite(enter_ui, ((320 - enter_ui.width) // 2, 188))
+        scr.alpha_composite(enter_ui, ((320 - enter_ui.width) // 2, 196))
         scr.save(apercus_dir / tag, format="PNG", optimize=True)
 
     hd_day_logo = bg_day_768[0].copy()
