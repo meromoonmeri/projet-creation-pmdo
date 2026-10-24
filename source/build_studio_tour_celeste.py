@@ -63,6 +63,17 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "DST1",
+            "group": "PMD : Destiny · Écran-Titre",
+            "folder": "pmd_destiny_fangame_v1",
+            "ref_rel": "source/pmd_destiny_fangame_v1/references/ref_composition_ciel_nuages_mer.png",
+            "ref_label": "Référence Composition Nuages Cathédrale + Mer en Contrebas & Logo Super Mystery Dungeon : Destiny",
+            "zip_rel": ".cache/virtual_zips/PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip",
+            "bg_fill": "#0a1432",
+            "subtitle": "Pokémon Mystery Dungeon : Destiny — Écran-Titre Multicalque Animé (Crépuscule Doré ──▶ Heure Bleue ──▶ Soir & Nuit Étoilée Scintillante, 24p×12t) : Voûte céleste, pilier solaire/astral, ~96 étoiles scintillantes & étoile filante, mer saphir→nuit, reflets horizontaux, cumulus cathédrale & logo Super PMD (calque 09 commutable)",
+            "wind_summary": "Content/BG/Title_Screen_Background.dir (320×240, 24 poses sans logo) | Content/UI/Title.png séparé | Ciel & Mer Crépuscule→Soir Étoilé + Étoile Filante | Architecture Quest Halcyon/town02",
+        },
+        {
             "id": "MWE1",
             "group": "Grotte Ouest · Mewtwo",
             "folder": "grotte_ouest_entree_v1",
@@ -812,8 +823,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         <p id="mapSubtitle">Chargement des planches pixel-art...</p>
       </div>
       <div class="status-line">
-        33 Cartes · 330 Calques Temps Réel · Grille 2D GPU-Safe
-        <a href="./apercu_consolidation_town02_unifiee.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:#1b6ca8;border:1px solid #4cc9f0;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Hub Unifié town02 + Toutes Branches</a>
+        38 Cartes · 380 Calques Temps Réel · Grille 2D GPU-Safe
+        <a href="./apercu_fangame_pmd_destiny.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#d97706,#92400e);border:1px solid #fcd34d;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Écran-Titre 320×240 PMD : Destiny (.dir + TopMenu)</a>
+        <a href="./apercu_consolidation_town02_unifiee.html" style="display:inline-block;margin-left:6px;padding:5px 11px;border-radius:7px;background:#1b6ca8;border:1px solid #4cc9f0;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Hub Unifié town02 + Toutes Branches</a>
       </div>
     </div>
     <nav class="map-tabs" id="mapTabs"></nav>
@@ -1177,7 +1189,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MWA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DST1"), encoding="utf-8")
     (REPO_ROOT / "apercu_kanto_mewtwo_mew_pmdo.html").write_text(
         build_html(manifest, default_map_id="RUA1"), encoding="utf-8"
     )

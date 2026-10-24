@@ -514,6 +514,7 @@ class AssemblyReport:
     tile_index_before: int = 0
     tile_index_after: int = 0
     verified_tile_refs: int = 0
+    destiny_title_installed: bool = False
 
 
 def _run(
@@ -689,6 +690,65 @@ def _extraire_scripts_ground_depuis_arborescence(
     return collected
 
 
+def installer_ecran_titre_pmd_destiny(target_root: Path, maps_ws: Path) -> bool:
+    """Installe l'écran-titre multicalque animé de **Pokémon Mystery Dungeon : Destiny** dans `target_root` :
+      - `Content/BG/Title_Screen_Background.dir` (`320×240`, `24` poses Crépuscule ──▶ Nuit Étoilée sans logo)
+      - `Content/UI/Title.png` (`320×240` RGBA style *Super Mystery Dungeon*) & `Content/UI/Enter.png` (`74×11`)
+      - `Content/ContentParams.xml` (`<TitleBG>Title_Screen_Background</TitleBG>` si absent)
+      - `Data/Script/halcyon/services/destiny_title_anim/init.lua` + `require 'halcyon.services.destiny_title_anim'`
+        injecté proprement dans `Data/Script/halcyon/main.lua`."""
+    fb = maps_ws / "renders" / "pmd_destiny_fangame_v1" / "fangame_base"
+    build_py = maps_ws / "source" / "pmd_destiny_fangame_v1" / "build.py"
+    if not (fb / "Content" / "BG" / "Title_Screen_Background.dir").is_file() and build_py.is_file():
+        subprocess.run(
+            [sys.executable, str(build_py)],
+            cwd=str(maps_ws),
+            text=True,
+            capture_output=True,
+            timeout=300,
+            check=False,
+        )
+    if not (fb / "Content" / "BG" / "Title_Screen_Background.dir").is_file():
+        return False
+
+    for rel in (
+        "Content/BG/Title_Screen_Background.dir",
+        "Content/UI/Title.png",
+        "Content/UI/Enter.png",
+        "Data/Script/halcyon/services/destiny_title_anim/init.lua",
+    ):
+        src = fb / rel
+        if src.is_file():
+            dst = target_root / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+
+    cparams_dst = target_root / "Content" / "ContentParams.xml"
+    cparams_src = fb / "Content" / "ContentParams.xml"
+    if not cparams_dst.is_file() and cparams_src.is_file():
+        cparams_dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(cparams_src, cparams_dst)
+
+    main_lua = target_root / "Data" / "Script" / "halcyon" / "main.lua"
+    req_line = "require 'halcyon.services.destiny_title_anim'"
+    main_lua.parent.mkdir(parents=True, exist_ok=True)
+    if main_lua.is_file():
+        txt = main_lua.read_text(encoding="utf-8", errors="replace")
+        if req_line not in txt:
+            anchor = "require 'halcyon.services.menu_tools'"
+            if anchor in txt:
+                txt = txt.replace(anchor, anchor + "\n" + req_line, 1)
+            else:
+                txt = txt.rstrip("\n") + "\n" + req_line + "\n"
+            main_lua.write_text(txt, encoding="utf-8")
+    else:
+        main_lua.write_text(
+            "function PrintInfo(msg)\n  print(tostring(msg))\nend\n" + req_line + "\n",
+            encoding="utf-8",
+        )
+    return True
+
+
 def fusionner_branches_dans_town02(
     target_root: Path,
     source_repos: Sequence[Tuple[str, Path, Optional[str]]] | Sequence[Tuple[str, Path]],
@@ -699,6 +759,7 @@ def fusionner_branches_dans_town02(
     preferred_branch: str = DEFAULT_PREFERRED_BRANCH,
     nom_mod: str = DEFAULT_MOD_NAME,
     dossier_sources_rel: str = "Halcyon Mods/sources_projet_pmd",
+    installer_ecran_titre_destiny: Optional[bool] = None,
 ) -> AssemblyReport:
     """Fusionne les dépôts/branches sources dans une racine `town02` selon le standard Halcyon."""
     report = AssemblyReport(mod_name=nom_mod, workspace_rel_dir=dossier_sources_rel)
@@ -850,6 +911,14 @@ def fusionner_branches_dans_town02(
             )
             if res_c.returncode == 0:
                 report.builds_executed += 1
+
+    use_destiny_title = (
+        installer_ecran_titre_destiny
+        if installer_ecran_titre_destiny is not None
+        else ("destiny" in nom_mod.lower())
+    )
+    if use_destiny_title:
+        report.destiny_title_installed = installer_ecran_titre_pmd_destiny(target_root, maps_ws)
 
     # Récolte des planches `.tile` et des cartes `.rsground` (en ignorant les références de test)
     harvested_tiles: Dict[str, Path] = {}
@@ -1052,6 +1121,7 @@ def ecrire_catalogue_racine(
         "tile_index_before": report.tile_index_before,
         "tile_index_after": report.tile_index_after,
         "verified_tile_refs": report.verified_tile_refs,
+        "destiny_title_installed": report.destiny_title_installed,
     }
     (target_root / "inventaire_unifie_final.json").write_text(
         json.dumps(inv, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -1171,6 +1241,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="Remplacer les .rsground natifs de town02 en cas d'homonymie",
     )
     parser.add_argument(
+        "--installer-ecran-titre-destiny",
+        action="store_true",
+        help="Installer l'écran-titre animé multicalque (Title_Screen_Background.dir 24p + Title.png + destiny_title_anim) de Pokémon Mystery Dungeon : Destiny",
+    )
+    parser.add_argument(
         "--creer-et-pousser",
         default="",
         help="Créer et pousser vers ce dépôt GitHub via `gh repo create` (ex: meromoonmeri/PROJET-PMD)",
@@ -1236,6 +1311,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         compiler_builds=args.compiler_builds,
         remplacer_grounds_town02=args.remplacer_grounds_town02,
         nom_mod=args.nom_mod,
+        installer_ecran_titre_destiny=True if args.installer_ecran_titre_destiny else None,
     )
 
     print(

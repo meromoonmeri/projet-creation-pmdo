@@ -14,6 +14,7 @@ from source.consolidation_unifiee_town02.assembler_repo_unifie_town02 import (
     enregistrer_grounds_dans_master_zone_halcyon,
     fusionner_branches_dans_town02,
     injecter_planches_dans_index,
+    installer_ecran_titre_pmd_destiny,
     lire_tile_index,
     mettre_a_jour_mod_xml_halcyon,
     serialiser_tile_index,
@@ -26,6 +27,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 class TestProjetPmdHalcyonPlacement(unittest.TestCase):
     SAMPLE_LOTS = (
+        "pmd_destiny_fangame_v1",
         "grotte_ouest_entree_v1",
         "grotte_ouest_sanctuaire_v1",
         "ruines_enfouies_entree_v1",
@@ -292,6 +294,30 @@ class TestProjetPmdHalcyonPlacement(unittest.TestCase):
             self.assertEqual(problems, [])
             self.assertGreater(checked, 2000)
             self.assertGreaterEqual(report.source_lots_merged, 40)
+
+    def test_07_installer_ecran_titre_pmd_destiny_dans_town02(self) -> None:
+        """Vérifie l'installation Halcyon/`town02` complète de `Pokemon Mystery Dungeon: Destiny`."""
+        with tempfile.TemporaryDirectory() as tmp:
+            mock_root = Path(tmp) / "Pokemon-Mystery-Dungeon-Destiny"
+            (mock_root / "Data" / "Script" / "halcyon").mkdir(parents=True, exist_ok=True)
+            (mock_root / "Data" / "Script" / "halcyon" / "main.lua").write_text(
+                "function PrintInfo(msg) print(tostring(msg)) end\nrequire 'halcyon.services.menu_tools'\n",
+                encoding="utf-8",
+            )
+            mettre_a_jour_mod_xml_halcyon(mock_root, nom_mod="Pokemon Mystery Dungeon: Destiny")
+            ok = installer_ecran_titre_pmd_destiny(mock_root, REPO_ROOT)
+            self.assertTrue(ok)
+            self.assertTrue((mock_root / "Content" / "BG" / "Title_Screen_Background.dir").is_file())
+            self.assertTrue((mock_root / "Content" / "UI" / "Title.png").is_file())
+            self.assertTrue((mock_root / "Content" / "UI" / "Enter.png").is_file())
+            self.assertTrue(
+                (mock_root / "Data" / "Script" / "halcyon" / "services" / "destiny_title_anim" / "init.lua").is_file()
+            )
+            main_txt = (mock_root / "Data" / "Script" / "halcyon" / "main.lua").read_text(encoding="utf-8")
+            self.assertIn("require 'halcyon.services.destiny_title_anim'", main_txt)
+            mod_txt = (mock_root / "Mod.xml").read_text(encoding="utf-8")
+            self.assertIn("<Name>Pokemon Mystery Dungeon: Destiny</Name>", mod_txt)
+            self.assertIn("<Namespace>halcyon</Namespace>", mod_txt)
 
 
 if __name__ == "__main__":
