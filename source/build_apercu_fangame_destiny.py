@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Génère `apercu_fangame_pmd_destiny.html` : simulateur interactif 60 FPS de l'écran-titre
-`320 × 240` (`Content/BG/Title_Screen_Background.dir` + `Content/UI/Title.png` + `TopMenu`)
-et tableau de bord d'architecture Halcyon / `town02` pour **Pokémon Mystery Dungeon : Destiny**."""
+"""Génère `apercu_fangame_pmd_destiny.html` : simulateur interactif 60 FPS
+de **Pokémon Mystery Dungeon : Destiny** avec :
+  - **Fonds JOUR et NUIT séparés** (`.dir` 24 poses en boucle avec mer pixel-art générée)
+  - **Blason Œuf + Deux Ailes de chaque côté** plus petit et centré (`Content/UI/Title.png`)
+  - **Animation d'apparition unique façon Opening d'Anime** (`arrive en une seule fois`,
+    `source-atop` flash blanc-or + zoom impact `1.42× → 0.985× → 1.00×` + plumes de lumière +
+    reflet diagonal « Shing! » puis maintien fixe définitif au centre).
+"""
 from __future__ import annotations
 
 import hashlib
@@ -21,19 +26,21 @@ def _vurl(rel_path: str) -> str:
 
 
 def build_destiny_html() -> str:
-    atlas_url = _vurl(".cache/studio_layers/DST1_MENU/Title_Screen_Background_atlas_6x4.png")
-    title_url = _vurl(".cache/studio_layers/DST1_MENU/Title_320x240.png")
-    enter_url = _vurl(".cache/studio_layers/DST1_MENU/Enter_74x11.png")
-    logo_hd_url = _vurl(".cache/studio_layers/DST1_MENU/Logo_PMD_Destiny_HD.png")
+    day_atlas_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/BG_Jour_320x240_atlas_6x4.png")
+    night_atlas_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/BG_Nuit_320x240_atlas_6x4.png")
+    enter_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/Enter_74x11.png")
+    logo_hd_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/Logo_PMD_Destiny_Oeuf_Ailes_HD.png")
+
     pack_zip_url = "/.cache/virtual_zips/PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip"
-    dst1_zip_url = "/.cache/virtual_zips/DST1_PMDO_0.8.12.zip"
+    dstj_zip_url = "/.cache/virtual_zips/DSTJ_PMDO_0.8.12.zip"
+    dstn_zip_url = "/.cache/virtual_zips/DSTN_PMDO_0.8.12.zip"
 
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pokémon Mystery Dungeon : Destiny — Écran-Titre .dir Animé &amp; Architecture Halcyon / town02</title>
+  <title>Pokémon Mystery Dungeon : Destiny — Opening d'Anime, Fonds Jour &amp; Nuit Séparés &amp; Blason Œuf Ailé</title>
   <style>
     :root {{
       --bg: #070d1f;
@@ -55,9 +62,9 @@ def build_destiny_html() -> str:
       min-height: 100vh;
     }}
     header {{
-      padding: 16px 24px;
+      padding: 15px 24px;
       border-bottom: 1px solid var(--border);
-      background: rgba(9, 16, 38, 0.92);
+      background: rgba(9, 16, 38, 0.94);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -66,13 +73,12 @@ def build_destiny_html() -> str:
     }}
     header h1 {{
       margin: 0;
-      font-size: 1.22rem;
+      font-size: 1.2rem;
       color: var(--gold-soft);
-      letter-spacing: 0.2px;
     }}
     header p {{
       margin: 4px 0 0;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       color: var(--muted);
     }}
     .nav-links {{
@@ -87,50 +93,75 @@ def build_destiny_html() -> str:
       border: 1px solid var(--cyan);
       color: #fff;
       text-decoration: none;
-      font-size: 0.81rem;
+      font-size: 0.8rem;
       font-weight: 700;
     }}
     main {{
-      max-width: 1420px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 18px 20px;
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr);
+      grid-template-columns: minmax(0, 1.38fr) minmax(340px, 0.92fr);
       gap: 20px;
     }}
     @media (max-width: 1060px) {{
       main {{ grid-template-columns: 1fr; }}
     }}
     .card {{
-      background: rgba(15, 27, 56, 0.92);
+      background: rgba(15, 27, 56, 0.93);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px 18px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.44);
     }}
-    .mode-bar {{
+    .top-bars {{
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }}
-    .mode-btn {{
-      flex: 1;
-      min-width: 170px;
-      padding: 9px 12px;
+    .daynight-group, .mode-group {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }}
+    .pill-btn {{
+      padding: 8px 13px;
       border-radius: 8px;
       border: 1px solid #35589c;
       background: #132347;
       color: #dbeafe;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.14s ease;
     }}
-    .mode-btn.active {{
+    .pill-btn.active-day {{
+      background: linear-gradient(180deg, #0284c7, #0369a1);
+      border-color: #7dd3fc;
+      color: #fff;
+    }}
+    .pill-btn.active-night {{
+      background: linear-gradient(180deg, #4338ca, #1e1b4b);
+      border-color: #a5b4fc;
+      color: #fff;
+    }}
+    .pill-btn.active-mode {{
       background: linear-gradient(180deg, #d97706, #92400e);
       border-color: var(--gold-soft);
       color: #fff;
+    }}
+    .replay-btn {{
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #fde68a;
+      background: linear-gradient(180deg, #eab308, #b45309);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.28);
     }}
     .screen-shell {{
       display: flex;
@@ -139,44 +170,27 @@ def build_destiny_html() -> str:
       background: #030712;
       border: 2px solid #2e4f8f;
       border-radius: 10px;
-      padding: 14px;
-      position: relative;
+      padding: 12px;
     }}
     canvas#pmdoCanvas {{
       width: 100%;
       max-width: 768px;
       aspect-ratio: 4 / 3;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-      border-radius: 4px;
-      box-shadow: 0 0 28px rgba(56, 189, 248, 0.18);
+      border-radius: 5px;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
       cursor: pointer;
     }}
-    .controls-grid {{
-      margin-top: 14px;
+    .status-row {{
+      margin-top: 12px;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
       justify-content: space-between;
     }}
-    .ctrl-btn {{
-      padding: 6px 11px;
-      border-radius: 7px;
-      border: 1px solid #35589c;
-      background: #172b56;
-      color: #eef4ff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-    }}
-    .ctrl-btn.active {{
-      background: #1d4ed8;
-      border-color: #93c5fd;
-    }}
     .phase-pill {{
-      font-size: 0.82rem;
-      padding: 5px 11px;
+      font-size: 0.81rem;
+      padding: 5px 12px;
       border-radius: 999px;
       background: #1b3163;
       border: 1px solid #4973c4;
@@ -187,316 +201,467 @@ def build_destiny_html() -> str:
       display: block;
       width: 100%;
       text-align: center;
-      padding: 12px 14px;
+      padding: 11px 14px;
       margin-top: 10px;
       border-radius: 9px;
       background: linear-gradient(180deg, #d97706, #92400e);
       border: 1px solid var(--gold-soft);
       color: #fff;
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       text-decoration: none;
+    }}
+    .dl-row {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
     }}
     .dl-secondary {{
       display: block;
-      width: 100%;
       text-align: center;
-      padding: 10px 14px;
-      margin-top: 8px;
-      border-radius: 9px;
+      padding: 9px 10px;
+      border-radius: 8px;
       background: #183468;
       border: 1px solid var(--cyan);
       color: #e0f2fe;
       font-weight: 700;
-      font-size: 0.84rem;
+      font-size: 0.79rem;
       text-decoration: none;
+    }}
+    .logo-preview-box {{
+      background: repeating-conic-gradient(#111c38 0% 25%, #0b1329 0% 50%) 50% / 16px 16px;
+      border: 1px solid #2b4985;
+      border-radius: 9px;
+      padding: 10px;
+      text-align: center;
+      margin-top: 8px;
+    }}
+    .logo-preview-box img {{
+      max-width: 82%;
+      max-height: 138px;
+      height: auto;
     }}
     pre.tree {{
       background: #071024;
       border: 1px solid #243f75;
       border-radius: 8px;
-      padding: 11px 13px;
-      font-size: 0.76rem;
-      line-height: 1.45;
+      padding: 10px 12px;
+      font-size: 0.74rem;
+      line-height: 1.42;
       color: #cfe2ff;
       overflow-x: auto;
-      margin: 10px 0;
-    }}
-    .logo-preview-box {{
-      background: repeating-conic-gradient(#111c38 0% 25%, #0b1329 0% 50%) 50% / 18px 18px;
-      border: 1px solid #2b4985;
-      border-radius: 9px;
-      padding: 10px;
-      text-align: center;
-      margin-top: 10px;
-    }}
-    .logo-preview-box img {{
-      max-width: 100%;
-      max-height: 150px;
-      height: auto;
+      margin: 9px 0;
     }}
     h2 {{
-      margin: 0 0 8px;
-      font-size: 1.02rem;
+      margin: 0 0 6px;
+      font-size: 1rem;
       color: var(--gold-soft);
     }}
     .spec-list {{
       margin: 8px 0;
       padding-left: 18px;
-      font-size: 0.83rem;
+      font-size: 0.81rem;
       color: #d6e4ff;
-      line-height: 1.5;
+      line-height: 1.46;
     }}
   </style>
 </head>
 <body>
   <header>
     <div>
-      <h1>Pokémon Mystery Dungeon : Destiny — Simulateur Écran-Titre PMDO 0.8.12 (`320 × 240`)</h1>
-      <p>Fond <code>Title_Screen_Background.dir</code> animé en boucle (Crépuscule ──▶ Soir &amp; Nuit Étoilée, sans logo) + <code>Content/UI/Title.png</code> séparé + Architecture Quest Halcyon / <code>town02</code></p>
+      <h1>Pokémon Mystery Dungeon : Destiny — Opening d'Anime &amp; Fonds Jour / Nuit Séparés</h1>
+      <p>Mer pixel-art générée (Jour &amp; Nuit séparés) · Blason <strong>Œuf + 2 Ailes de chaque côté</strong> plus petit &amp; centré · Apparition unique façon Opening d'Anime</p>
     </div>
     <div class="nav-links">
-      <a class="btn-nav" href="./index.html">Studio 10 Calques HD (DST1 + 38 Maps)</a>
-      <a class="btn-nav" href="./apercu_consolidation_town02_unifiee.html">Architecture Unifiée town02 (122 Grounds)</a>
+      <a class="btn-nav" href="./index.html">Studio 10 Calques (DSTJ Jour · DSTN Nuit · 39 Maps)</a>
+      <a class="btn-nav" href="./apercu_consolidation_town02_unifiee.html">Architecture Unifiée town02</a>
     </div>
   </header>
 
   <main>
     <section class="card">
-      <div class="mode-bar">
-        <button class="mode-btn" data-mode="dir_only">1. Fond <code>.dir</code> Pur (Sans Logo, comme Halcyon)</button>
-        <button class="mode-btn active" data-mode="title_scene">2. Écran-Titre PMDO (<code>.dir</code> + <code>Title.png</code>)</button>
-        <button class="mode-btn" data-mode="top_menu">3. Menu Principal <code>TopMenu</code> (Lua Live)</button>
+      <div class="top-bars">
+        <div class="daynight-group">
+          <button class="pill-btn active-day" id="btnJour">☀ Fond JOUR (Mer Diurne)</button>
+          <button class="pill-btn" id="btnNuit">🌙 Fond NUIT (Mer &amp; Étoiles)</button>
+          <button class="replay-btn" id="btnReplayOpening">🎬 Rejouer l'Opening d'Anime</button>
+        </div>
+        <div class="mode-group">
+          <button class="pill-btn active-mode" data-mode="opening_title">Opening + Titre</button>
+          <button class="pill-btn" data-mode="dir_only">Fond <code>.dir</code> Pur (Sans Logo)</button>
+          <button class="pill-btn" data-mode="top_menu">Menu <code>TopMenu</code></button>
+        </div>
       </div>
 
       <div class="screen-shell">
-        <canvas id="pmdoCanvas" width="320" height="240" title="Cliquez ou appuyez sur Entrée pour basculer entre Écran-Titre et TopMenu"></canvas>
+        <canvas id="pmdoCanvas" width="640" height="480" title="Cliquez pour rejouer l'Opening ou appuyez sur Entrée pour ouvrir TopMenu"></canvas>
       </div>
 
-      <div class="controls-grid">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-          <button class="ctrl-btn active" id="playBtn">⏸ Pause</button>
-          <button class="ctrl-btn" data-jump="0">Pose 0 · Crépuscule Doré</button>
-          <button class="ctrl-btn" data-jump="6">Pose 6 · Heure Bleue</button>
-          <button class="ctrl-btn" data-jump="12">Pose 12 · Nuit Étoilée</button>
-          <button class="ctrl-btn" data-jump="13">Pose 13 · Étoile Filante</button>
+      <div class="status-row">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="pill-btn" id="btnPauseBg">⏸ Pause Mer/Ciel</button>
+          <label style="font-size:0.8rem;color:var(--muted);">
+            <input type="checkbox" id="chkReplayOnSwitch" checked style="vertical-align:middle;" />
+            Rejouer l'apparition du logo au changement Jour/Nuit
+          </label>
         </div>
-        <span class="phase-pill" id="phaseLabel">Pose 00 / 24 · Crépuscule Doré</span>
-      </div>
-
-      <div style="margin-top:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-        <label style="font-size:0.81rem;color:var(--muted);flex:1;min-width:220px;">
-          Curseur de pose (<code>0..23</code>) :
-          <input type="range" id="poseSlider" min="0" max="23" value="0" style="width:100%;vertical-align:middle;" />
-        </label>
-        <label style="font-size:0.81rem;color:var(--muted);">
-          Cadence PMDO :
-          <select id="ticksSelect" style="background:#132347;color:#fff;border:1px solid #35589c;border-radius:6px;padding:4px 8px;">
-            <option value="8">8 ticks/pose (rapide · 3,2 s)</option>
-            <option value="12" selected>12 ticks/pose (standard · 4,8 s)</option>
-            <option value="18">18 ticks/pose (contemplatif · 7,2 s)</option>
-          </select>
-        </label>
+        <span class="phase-pill" id="statusBadge">☀ JOUR · Opening Anime en cours…</span>
       </div>
     </section>
 
     <aside class="card">
-      <h2>Assets Officiels &amp; Organisation Halcyon / <code>town02</code></h2>
+      <h2>Blason « Œuf + Deux Ailes de chaque côté » &amp; Packs PMDO <code>0.8.12</code></h2>
       <div class="logo-preview-box">
-        <img src="{logo_hd_url}" alt="Logo Pokémon Mystery Dungeon : Destiny HD" />
-        <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">
-          <code>Content/UI/Title.png</code> (<code>320×240</code>) &amp; Cutout HD (<code>1369×752</code>, <code>0 px</code> <code>#FF00FF</code>)
+        <img src="{logo_hd_url}" alt="Blason Pokémon Mystery Dungeon : Destiny — Œuf &amp; Deux Ailes" />
+        <div style="font-size:0.74rem;color:var(--muted);margin-top:4px;">
+          <code>Content/UI/Title.png</code> centré &amp; réduit (<code>55 %</code> de largeur, anneaux dorés 100 % ajourés, <code>0 px #FF00FF</code>)
         </div>
       </div>
 
       <a class="dl-primary" href="{pack_zip_url}" download="PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip">
-        ⬇ Télécharger PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip
+        ⬇ Télécharger PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip (Jour + Nuit + Opening)
       </a>
-      <a class="dl-secondary" href="{dst1_zip_url}" download="DST1_PMDO_0.8.12.zip">
-        ⬇ Télécharger Scène 10 Calques Ground DST1_PMDO_0.8.12.zip
-      </a>
+      <div class="dl-row">
+        <a class="dl-secondary" href="{dstj_zip_url}" download="DSTJ_PMDO_0.8.12.zip">⬇ Ground 10 Calques JOUR (DSTJ)</a>
+        <a class="dl-secondary" href="{dstn_zip_url}" download="DSTN_PMDO_0.8.12.zip">⬇ Ground 10 Calques NUIT (DSTN)</a>
+      </div>
 
       <ul class="spec-list">
-        <li><strong><code>Content/BG/Title_Screen_Background.dir</code></strong> : <code>320×240</code>, <code>24</code> poses en boucle parfaite <strong>100 % sans logo</strong> (trailer <code>&lt;iiii (320, 240, 0, 24)</code>).</li>
-        <li><strong>Cycle Ciel &amp; Mer</strong> : Crépuscule doré-corail ──▶ Heure bleue ──▶ Soir &amp; Nuit étoilée (~96 étoiles scintillantes + étoile filante poses <code>11..15</code> + reflets marins).</li>
-        <li><strong><code>Data/Script/halcyon/services/destiny_title_anim/init.lua</code></strong> : Souscrit à <code>EngineServiceEvents.AddMenu</code> et anime le <code>.dir</code> sous <code>TopMenu</code> via <code>LowerSummaryMenus</code> + <code>MenuDirTex(TexType.BG)</code>.</li>
+        <li><strong>Fonds Jour &amp; Nuit 100 % séparés</strong> : <code>Title_Screen_Background_Jour.dir</code> et <code>Title_Screen_Background_Nuit.dir</code> (<code>320×240</code>, <code>24</code> poses en boucle sans logo) avec mer pixel-art générée et animée.</li>
+        <li><strong>Blason Œuf &amp; Ailes plus petit et centré</strong> : inspiré de la référence (l'Œuf mystique remplace le bouclier au centre, encadré de deux ailes déployées de chaque côté), centré à <code>55 %</code> de l'écran pour dégager la mer et les nuages.</li>
+        <li><strong>Apparition unique façon Opening d'Anime</strong> : anticipation mer/ciel ──▶ éclat anamorphique ──▶ arrivée en bloc unique (<code>easeOutBack</code> + flash silhouette blanc-or + plumes de lumière) ──▶ reflet métallique diagonal « Shing! » ──▶ maintien fixe définitif.</li>
       </ul>
 
       <pre class="tree">Pokemon-Mystery-Dungeon-Destiny/
-├── Mod.xml                         (&lt;Name&gt;Pokemon Mystery Dungeon: Destiny&lt;/Name&gt;, &lt;Namespace&gt;halcyon&lt;/Namespace&gt;)
+├── Mod.xml  (&lt;Name&gt;Pokemon Mystery Dungeon: Destiny&lt;/Name&gt;)
 ├── Content/
-│   ├── ContentParams.xml           (&lt;TitleBG&gt;Title_Screen_Background&lt;/TitleBG&gt;)
-│   ├── BG/Title_Screen_Background.dir  (320×240 × 24 poses animées SANS logo)
-│   ├── UI/Title.png &amp; Enter.png    (Logo Super PMD : Destiny séparé + PRESS ENTER)
-│   └── Tile/*.tile + index.idx     (town02 + 38 maps Studio + 84 maps Guilde = 0 damier mauve)
-├── Data/
-│   ├── Ground/*.rsground           (town02 + pmd_destiny_menu_titre + 121 Grounds custom)
-│   ├── Zone/master_zone.json &amp; index.idx
-│   └── Script/halcyon/
-│       ├── main.lua                (inclut require 'halcyon.services.destiny_title_anim')
-│       ├── services/destiny_title_anim/init.lua
-│       └── ground/&lt;id&gt;/init.lua
-└── Strings/strings.reon &amp; strings.fr.reon</pre>
-
-      <div style="font-size:0.78rem;color:var(--muted);">
-        Commande unique pour assembler tout le fangame (<code>town02</code> + écran-titre <em>Destiny</em> + 122 cartes) :<br/>
-        <code style="color:var(--gold-soft);">./CREER_FANGAME_PMD_DESTINY.sh</code>
-      </div>
+│   ├── BG/Title_Screen_Background_Jour.dir  (Jour 24p sans logo)
+│   ├── BG/Title_Screen_Background_Nuit.dir  (Nuit 24p sans logo)
+│   ├── Obj/Destiny_Logo_Anime_Opening.dir   (Opening 24p en 1 fois)
+│   └── UI/Title.png &amp; Enter.png             (Blason Œuf+Ailes centré)
+└── Data/Script/halcyon/services/destiny_title_anim/init.lua</pre>
     </aside>
   </main>
 
   <script>
     const canvas = document.getElementById('pmdoCanvas');
     const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
 
-    const N_POSES = 24;
+    // Offscreen canvas pour composer proprement la silhouette blanc-or et le reflet diagonal 'source-atop' sur le blason !
+    const logoOff = document.createElement('canvas');
+    logoOff.width = 520;
+    logoOff.height = 300;
+    const lctx = logoOff.getContext('2d');
+
     const COLS = 6;
-    let mode = 'title_scene';
-    let playing = true;
-    let pose = 0;
-    let frameTick = 0;
-    let ticksPerPose = 12;
+    const N_POSES = 24;
+    let envMode = 'jour';         // 'jour' | 'nuit'
+    let viewMode = 'opening_title'; // 'opening_title' | 'dir_only' | 'top_menu'
+    let bgPlaying = true;
+    let bgPose = 0;
+    let bgTick = 0;
+    const TICKS_PER_POSE = 10;
+
+    // Chronomètre 60 FPS de l'Opening d'Anime (apparition EN UNE SEULE FOIS, ne repart jamais en arrière !)
+    let openStartMs = performance.now();
     let menuCursor = 0;
     const menuItems = ['New Game', 'Records', 'Options', 'Exit Quest', 'Mods', 'Quit'];
 
-    const atlasImg = new Image();
-    const titleImg = new Image();
+    const dayAtlas = new Image();
+    const nightAtlas = new Image();
+    const logoHd = new Image();
     const enterImg = new Image();
-    let loaded = 0;
-    const onAsset = () => {{ loaded++; }};
-    atlasImg.onload = onAsset;
-    titleImg.onload = onAsset;
-    enterImg.onload = onAsset;
-    atlasImg.src = '{atlas_url}';
-    titleImg.src = '{title_url}';
+    dayAtlas.src = '{day_atlas_url}';
+    nightAtlas.src = '{night_atlas_url}';
+    logoHd.src = '{logo_hd_url}';
     enterImg.src = '{enter_url}';
 
-    const phaseNames = (p) => {{
-      if (p <= 3 || p >= 22) return 'Crépuscule Doré';
-      if (p <= 7) return 'Heure Bleue & Premières Étoiles';
-      if (p >= 11 && p <= 15) return 'Soir & Nuit Étoilée (Étoile Filante)';
-      if (p <= 16) return 'Soir & Nuit Étoilée Scintillante';
-      return 'Aube Crépusculaire (Boucle)';
-    }};
+    // 18 particules de plumes / étoiles d'impact d'opening
+    const feathers = Array.from({{ length: 18 }}, (_, i) => ({{
+      ang: (i / 18) * Math.PI * 2 + (i % 3) * 0.19,
+      speed: 95 + (i % 5) * 28,
+      len: 7 + (i % 3) * 4,
+    }}));
 
-    function drawPmdoWindow(x, y, w, h) {{
-      ctx.fillStyle = 'rgba(12, 24, 58, 0.88)';
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
-      ctx.strokeStyle = '#38bdf8';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(x + 3.5, y + 3.5, w - 7, h - 7);
+    function restartOpening() {{
+      openStartMs = performance.now();
     }}
 
-    function render() {{
-      ctx.clearRect(0, 0, 320, 240);
-      if (atlasImg.complete && atlasImg.naturalWidth > 0) {{
-        const sx = (pose % COLS) * 320;
-        const sy = Math.floor(pose / COLS) * 240;
-        ctx.drawImage(atlasImg, sx, sy, 320, 240, 0, 0, 320, 240);
+    function easeOutBack(x) {{
+      const c1 = 1.65;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+    }}
+
+    function drawPmdoBox(x, y, w, h) {{
+      ctx.fillStyle = 'rgba(10, 22, 54, 0.88)';
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(x + 2, y + 2, w - 4, h - 4);
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 7, y + 7, w - 14, h - 14);
+    }}
+
+    function render(nowMs) {{
+      const tSec = Math.max(0, (nowMs - openStartMs) / 1000.0);
+      const W = canvas.width;   // 640 (2x exact de 320)
+      const H = canvas.height;  // 480 (2x exact de 240)
+      ctx.clearRect(0, 0, W, H);
+
+      // 1) Fond pixel-art Jour ou Nuit (320x240 étiré net en 640x480 avec léger dézoom caméra d'opening 0..0.85s)
+      const atlas = envMode === 'jour' ? dayAtlas : nightAtlas;
+      if (atlas.complete && atlas.naturalWidth > 0) {{
+        const sx = (bgPose % COLS) * 320;
+        const sy = Math.floor(bgPose / COLS) * 240;
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        let camScale = 1.0;
+        if (viewMode === 'opening_title' && tSec < 0.90) {{
+          camScale = 1.0 + 0.045 * Math.pow(1.0 - tSec / 0.90, 2);
+        }}
+        if (camScale > 1.0005) {{
+          const dw = W * camScale;
+          const dh = H * camScale;
+          ctx.drawImage(atlas, sx, sy, 320, 240, (W - dw) * 0.5, (H - dh) * 0.5, dw, dh);
+        }} else {{
+          ctx.drawImage(atlas, sx, sy, 320, 240, 0, 0, W, H);
+        }}
+        ctx.restore();
       }}
 
-      if (mode === 'title_scene') {{
-        if (titleImg.complete && titleImg.naturalWidth > 0) {{
-          ctx.drawImage(titleImg, 0, 0);
+      const cx = W * 0.5;
+      // Logo plus petit et centré : largeur 352 px sur 640 (55%), hauteur ~182 px, centré à y = 132..314 (cy = 223)
+      const baseLogoW = 352;
+      const baseLogoH = (logoHd.complete && logoHd.naturalWidth > 0)
+        ? Math.round(baseLogoW * (logoHd.naturalHeight / logoHd.naturalWidth))
+        : 182;
+      const cy = 132 + baseLogoH * 0.5;
+
+      let phaseText = 'Logo centré stabilisé (boucle mer & ciel)';
+
+      if (viewMode === 'opening_title') {{
+        // Phase A (0.00 -> 0.58s) : Ciel & mer seuls
+        if (tSec < 0.58) {{
+          phaseText = 'Opening Anime · Plan mer & ciel…';
         }}
-        if (enterImg.complete && enterImg.naturalWidth > 0) {{
-          if (Math.floor(frameTick / 30) % 2 === 0) {{
-            const ex = Math.floor((320 - enterImg.naturalWidth) / 2);
-            ctx.drawImage(enterImg, ex, 180);
+        // Phase B (0.52 -> 0.92s) : Éclat horizontal anamorphique d'opening d'anime
+        if (tSec >= 0.52 && tSec <= 0.98) {{
+          const fu = (tSec - 0.52) / 0.46;
+          const env = Math.sin(Math.PI * fu);
+          ctx.save();
+          const flareGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, W * 0.46);
+          const flareTint = envMode === 'jour' ? '255, 248, 200' : '190, 235, 255';
+          flareGrad.addColorStop(0, `rgba(255, 255, 255, ${{0.95 * env}})`);
+          flareGrad.addColorStop(0.35, `rgba(${{flareTint}}, ${{0.75 * env}})`);
+          flareGrad.addColorStop(1, `rgba(${{flareTint}}, 0)`);
+          ctx.fillStyle = flareGrad;
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, W * (0.18 + 0.30 * fu), Math.max(3, 18 * env), 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Étoile centrale à 4 branches
+          ctx.fillStyle = `rgba(255, 255, 248, ${{0.92 * env}})`;
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 4, 58 * env, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+          if (tSec < 0.72) phaseText = 'Opening Anime · Éclat céleste…';
+        }}
+
+        // Phase C..E (>= 0.68s) : Apparition EN UNE SEULE FOIS du blason Œuf + Ailes puis maintien définitif !
+        if (tSec >= 0.68 && logoHd.complete && logoHd.naturalWidth > 0) {{
+          let scale = 1.0;
+          let alpha = 1.0;
+          let whiteSil = 0.0;
+
+          if (tSec < 1.24) {{
+            const u = (tSec - 0.68) / (1.24 - 0.68);
+            const e = easeOutBack(Math.min(1, u));
+            scale = 1.42 + (1.0 - 1.42) * e;
+            alpha = Math.min(1.0, (tSec - 0.68) / 0.16);
+            whiteSil = Math.max(0.0, 1.0 - (tSec - 0.68) / 0.36);
+            phaseText = 'Opening Anime · Impact du Blason Œuf Ailé !';
+          }}
+
+          // Onde de choc circulaire & plumes de lumière au moment de l'impact (0.76 -> 1.55s)
+          if (tSec >= 0.76 && tSec <= 1.55) {{
+            const pu = (tSec - 0.76) / 0.79;
+            const pAlpha = Math.pow(1.0 - pu, 1.6);
+            ctx.save();
+            ctx.strokeStyle = envMode === 'jour'
+              ? `rgba(255, 250, 215, ${{0.65 * pAlpha}})`
+              : `rgba(175, 230, 255, ${{0.65 * pAlpha}})`;
+            ctx.lineWidth = Math.max(1.5, 6 * (1.0 - pu));
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, (55 + 185 * pu), (34 + 112 * pu), 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            feathers.forEach(ft => {{
+              const dist = 36 + ft.speed * pu;
+              const fx = cx + Math.cos(ft.ang) * dist;
+              const fy = cy + Math.sin(ft.ang) * dist * 0.62;
+              ctx.save();
+              ctx.translate(fx, fy);
+              ctx.rotate(ft.ang);
+              ctx.fillStyle = envMode === 'jour'
+                ? `rgba(255, 252, 224, ${{0.9 * pAlpha}})`
+                : `rgba(205, 240, 255, ${{0.9 * pAlpha}})`;
+              ctx.beginPath();
+              ctx.ellipse(0, 0, ft.len, 2.3, 0, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.restore();
+            }});
+            ctx.restore();
+          }}
+
+          // Composition du blason dans logoOff avec source-atop (silhouette blanc-or + reflet diagonal Shing!)
+          lctx.clearRect(0, 0, logoOff.width, logoOff.height);
+          lctx.save();
+          lctx.imageSmoothingEnabled = true;
+          lctx.imageSmoothingQuality = 'high';
+          const oxOff = (logoOff.width - baseLogoW) * 0.5;
+          const oyOff = (logoOff.height - baseLogoH) * 0.5;
+          lctx.drawImage(logoHd, oxOff, oyOff, baseLogoW, baseLogoH);
+
+          lctx.globalCompositeOperation = 'source-atop';
+          if (whiteSil > 0.005) {{
+            lctx.fillStyle = envMode === 'jour'
+              ? `rgba(255, 252, 228, ${{whiteSil}})`
+              : `rgba(220, 244, 255, ${{whiteSil}})`;
+            lctx.fillRect(0, 0, logoOff.width, logoOff.height);
+          }}
+
+          // Phase D (1.30 -> 1.85s) : Reflet métallique diagonal unique (« Shing! »)
+          if (tSec >= 1.30 && tSec <= 1.88) {{
+            phaseText = 'Opening Anime · Reflet métallique « Shing! »';
+            const su = (tSec - 1.30) / 0.58;
+            const sheenX = -120 + su * (logoOff.width + 240);
+            const sGrad = lctx.createLinearGradient(sheenX - 42, 0, sheenX + 42, 70);
+            sGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+            sGrad.addColorStop(0.5, 'rgba(255, 253, 228, 0.82)');
+            sGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            lctx.fillStyle = sGrad;
+            lctx.fillRect(0, 0, logoOff.width, logoOff.height);
+          }}
+          lctx.restore();
+
+          ctx.save();
+          ctx.globalAlpha = alpha;
+          const drawW = logoOff.width * scale;
+          const drawH = logoOff.height * scale;
+          ctx.drawImage(logoOff, cx - drawW * 0.5, cy - drawH * 0.5, drawW, drawH);
+          ctx.restore();
+        }}
+
+        // Invite PRESS ENTER clignotante douce une fois le logo arrivé (>= 1.65s)
+        if (tSec >= 1.65 && enterImg.complete && enterImg.naturalWidth > 0) {{
+          const enterFade = Math.min(1.0, (tSec - 1.65) / 0.35);
+          if (Math.floor(bgTick / 32) % 2 === 0) {{
+            ctx.save();
+            ctx.globalAlpha = enterFade;
+            ctx.imageSmoothingEnabled = false;
+            const ew = enterImg.naturalWidth * 2;
+            const eh = enterImg.naturalHeight * 2;
+            ctx.drawImage(enterImg, Math.round(cx - ew * 0.5), 376, ew, eh);
+            ctx.restore();
           }}
         }}
-      }} else if (mode === 'top_menu') {{
-        // Reproduit fidèlement TopMenu.cs (Loc(16,16)) + TOP_TITLE_SUMMARY en haut à droite !
-        drawPmdoWindow(16, 16, 92, 108);
-        ctx.font = 'bold 10px monospace';
+      }} else if (viewMode === 'dir_only') {{
+        phaseText = 'Fond .dir pur sans logo (24 poses en boucle)';
+      }} else if (viewMode === 'top_menu') {{
+        phaseText = 'TopMenu PMDO 0.8.12 + fond .dir animé en direct';
+        drawPmdoBox(32, 32, 188, 216);
+        ctx.font = 'bold 19px monospace';
         ctx.textBaseline = 'top';
         menuItems.forEach((item, idx) => {{
-          const iy = 24 + idx * 15;
+          const iy = 48 + idx * 30;
           if (idx === menuCursor) {{
             ctx.fillStyle = '#fde68a';
-            ctx.fillText('▶', 22, iy);
+            ctx.fillText('▶', 46, iy);
           }}
           ctx.fillStyle = idx === menuCursor ? '#fde68a' : '#f8fafc';
-          ctx.fillText(item, 33, iy);
+          ctx.fillText(item, 68, iy);
         }});
 
-        drawPmdoWindow(124, 16, 180, 28);
+        drawPmdoBox(248, 32, 360, 54);
         ctx.fillStyle = '#fde68a';
-        ctx.font = 'bold 8px monospace';
+        ctx.font = 'bold 16px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('Pokemon Mystery Dungeon: Destiny', 214, 26);
+        ctx.fillText('Pokemon Mystery Dungeon: Destiny', 428, 50);
         ctx.textAlign = 'left';
       }}
 
-      document.getElementById('phaseLabel').textContent =
-        `Pose ${{String(pose).padStart(2, '0')}} / 24 · ${{phaseNames(pose)}}`;
-      document.getElementById('poseSlider').value = String(pose);
+      const icon = envMode === 'jour' ? '☀ JOUR' : '🌙 NUIT';
+      document.getElementById('statusBadge').textContent = `${{icon}} · Pose ${{String(bgPose).padStart(2, '0')}}/24 · ${{phaseText}}`;
     }}
 
-    function loop() {{
-      frameTick++;
-      if (playing && frameTick % ticksPerPose === 0) {{
-        pose = (pose + 1) % N_POSES;
+    function tick(nowMs) {{
+      bgTick++;
+      if (bgPlaying && bgTick % TICKS_PER_POSE === 0) {{
+        bgPose = (bgPose + 1) % N_POSES;
       }}
-      render();
-      requestAnimationFrame(loop);
+      render(nowMs);
+      requestAnimationFrame(tick);
     }}
 
-    document.querySelectorAll('.mode-btn').forEach(btn => {{
+    function setEnv(nextEnv) {{
+      envMode = nextEnv;
+      document.getElementById('btnJour').classList.toggle('active-day', envMode === 'jour');
+      document.getElementById('btnNuit').classList.toggle('active-night', envMode === 'nuit');
+      if (document.getElementById('chkReplayOnSwitch').checked && viewMode === 'opening_title') {{
+        restartOpening();
+      }}
+    }}
+
+    document.getElementById('btnJour').addEventListener('click', () => setEnv('jour'));
+    document.getElementById('btnNuit').addEventListener('click', () => setEnv('nuit'));
+    document.getElementById('btnReplayOpening').addEventListener('click', () => {{
+      viewMode = 'opening_title';
+      document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active-mode', b.dataset.mode === 'opening_title'));
+      restartOpening();
+    }});
+
+    document.querySelectorAll('[data-mode]').forEach(btn => {{
       btn.addEventListener('click', () => {{
-        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        mode = btn.dataset.mode;
-        render();
+        viewMode = btn.dataset.mode;
+        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active-mode', b === btn));
+        if (viewMode === 'opening_title') restartOpening();
       }});
     }});
 
-    document.getElementById('playBtn').addEventListener('click', (e) => {{
-      playing = !playing;
-      e.target.textContent = playing ? '⏸ Pause' : '▶ Lecture';
-      e.target.classList.toggle('active', playing);
-    }});
-
-    document.querySelectorAll('[data-jump]').forEach(btn => {{
-      btn.addEventListener('click', () => {{
-        pose = Number(btn.dataset.jump) % N_POSES;
-        render();
-      }});
-    }});
-
-    document.getElementById('poseSlider').addEventListener('input', (e) => {{
-      pose = Number(e.target.value) % N_POSES;
-      render();
-    }});
-
-    document.getElementById('ticksSelect').addEventListener('change', (e) => {{
-      ticksPerPose = Number(e.target.value) || 12;
+    document.getElementById('btnPauseBg').addEventListener('click', (e) => {{
+      bgPlaying = !bgPlaying;
+      e.target.textContent = bgPlaying ? '⏸ Pause Mer/Ciel' : '▶ Lecture Mer/Ciel';
     }});
 
     canvas.addEventListener('click', () => {{
-      const next = mode === 'title_scene' ? 'top_menu' : (mode === 'top_menu' ? 'dir_only' : 'title_scene');
-      mode = next;
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+      if (viewMode === 'opening_title') {{
+        restartOpening();
+      }} else {{
+        viewMode = 'opening_title';
+        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active-mode', b.dataset.mode === 'opening_title'));
+        restartOpening();
+      }}
     }});
 
     window.addEventListener('keydown', (e) => {{
       if (e.key === 'Enter') {{
-        mode = mode === 'top_menu' ? 'title_scene' : 'top_menu';
-        document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-      }} else if (mode === 'top_menu' && e.key === 'ArrowDown') {{
+        viewMode = viewMode === 'top_menu' ? 'opening_title' : 'top_menu';
+        document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active-mode', b.dataset.mode === viewMode));
+        if (viewMode === 'opening_title') restartOpening();
+      }} else if (viewMode === 'top_menu' && e.key === 'ArrowDown') {{
         e.preventDefault();
         menuCursor = (menuCursor + 1) % menuItems.length;
-      }} else if (mode === 'top_menu' && e.key === 'ArrowUp') {{
+      }} else if (viewMode === 'top_menu' && e.key === 'ArrowUp') {{
         e.preventDefault();
         menuCursor = (menuCursor + menuItems.length - 1) % menuItems.length;
       }}
     }});
 
-    requestAnimationFrame(loop);
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>

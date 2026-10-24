@@ -2,19 +2,37 @@
   destiny_title_anim/init.lua
   Service persistant pour Pokemon Mystery Dungeon : Destiny (PMDO 0.8.12).
 
-  Anime en boucle temps reel les 24 poses de Content/BG/Title_Screen_Background.dir
-  (Crepuscule Dore -> Heure Bleue -> Soir & Nuit Etoilee Scintillante -> Retour)
-  sous TopMenu et tous ses sous-menus via LowerSummaryMenus + MenuDirTex(TexType.BG).
+  Fonctionnalites :
+  1) Fonds separes JOUR (`Title_Screen_Background_Jour.dir`) et NUIT (`Title_Screen_Background_Nuit.dir`)
+     avec selection automatique selon l'heure locale (06h-19h = Jour, 19h-06h = Nuit) ou forcage manuel
+     via `DestinyTitleAnim.ForceMode = 'jour' | 'nuit'`.
+  2) Animation en direct des 24 poses sous `TopMenu` via `LowerSummaryMenus` + `MenuDirTex(TexType.BG)`.
+  3) Helper `DestinyTitleAnim.PlayAnimeOpening(mode)` pour jouer en scene d'ouverture l'apparition
+     unique du blason Oeuf Aile (`Destiny_Logo_Anime_Opening`) sur le fond Jour ou Nuit.
 ]]--
 require 'origin.common'
 require 'origin.services.baseservice'
 
 local DestinyTitleAnim = Class('DestinyTitleAnim', BaseService)
+DestinyTitleAnim.ForceMode = nil -- nil = auto Jour/Nuit selon l'heure locale, ou 'jour' / 'nuit'
+
+function DestinyTitleAnim:GetActiveBGName()
+  if self.ForceMode == 'jour' then
+    return 'Title_Screen_Background_Jour'
+  elseif self.ForceMode == 'nuit' then
+    return 'Title_Screen_Background_Nuit'
+  end
+  local ok, hr = pcall(function() return tonumber(os.date('%H')) end)
+  if ok and hr ~= nil and (hr < 6 or hr >= 19) then
+    return 'Title_Screen_Background_Nuit'
+  end
+  return 'Title_Screen_Background_Jour'
+end
 
 function DestinyTitleAnim:initialize()
   BaseService.initialize(self)
   if PrintInfo then
-    PrintInfo('[PMD:Destiny] Service destiny_title_anim initialise (24p x 12t).')
+    PrintInfo('[PMD:Destiny] Service destiny_title_anim (Jour & Nuit separes + Opening) initialise.')
   end
 end
 
@@ -24,12 +42,12 @@ function DestinyTitleAnim:OnAddMenu(menu)
   end
   pcall(function()
     if menu.Label == RogueEssence.Menu.MenuLabel.TOP_MENU then
-      -- Cadre hors-ecran (-16,-16,352,272) masquant la bordure MenuBG tout en dessinant (16,16)->(0,0) !
+      local bg_name = self:GetActiveBGName()
       local bg_summary = RogueEssence.Menu.SummaryMenu(
         "DESTINY_TITLE_BG_SUMMARY",
         RogueElements.Rect(-16, -16, 352, 272)
       )
-      local anim = RogueEssence.Content.AnimData("Title_Screen_Background", 12)
+      local anim = RogueEssence.Content.AnimData(bg_name, 10)
       local dir_tex = RogueEssence.Menu.MenuDirTex(
         "DESTINY_TITLE_BG_TEX",
         RogueElements.Loc(16, 16),
@@ -53,5 +71,6 @@ end
 function DestinyTitleAnim:UnSubscribe(med)
 end
 
-SCRIPT:AddService("DestinyTitleAnim", DestinyTitleAnim:new())
-return DestinyTitleAnim
+local instance = DestinyTitleAnim:new()
+SCRIPT:AddService("DestinyTitleAnim", instance)
+return instance

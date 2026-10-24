@@ -28,6 +28,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 class TestProjetPmdHalcyonPlacement(unittest.TestCase):
     SAMPLE_LOTS = (
         "pmd_destiny_fangame_v1",
+        "pmd_destiny_nuit_v1",
         "grotte_ouest_entree_v1",
         "grotte_ouest_sanctuaire_v1",
         "ruines_enfouies_entree_v1",
@@ -308,6 +309,9 @@ class TestProjetPmdHalcyonPlacement(unittest.TestCase):
             ok = installer_ecran_titre_pmd_destiny(mock_root, REPO_ROOT)
             self.assertTrue(ok)
             self.assertTrue((mock_root / "Content" / "BG" / "Title_Screen_Background.dir").is_file())
+            self.assertTrue((mock_root / "Content" / "BG" / "Title_Screen_Background_Jour.dir").is_file())
+            self.assertTrue((mock_root / "Content" / "BG" / "Title_Screen_Background_Nuit.dir").is_file())
+            self.assertTrue((mock_root / "Content" / "Obj" / "Destiny_Logo_Anime_Opening.dir").is_file())
             self.assertTrue((mock_root / "Content" / "UI" / "Title.png").is_file())
             self.assertTrue((mock_root / "Content" / "UI" / "Enter.png").is_file())
             self.assertTrue(

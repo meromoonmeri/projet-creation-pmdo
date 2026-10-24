@@ -63,15 +63,26 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
-            "id": "DST1",
-            "group": "PMD : Destiny · Écran-Titre",
+            "id": "DSTJ",
+            "group": "PMD : Destiny · JOUR",
             "folder": "pmd_destiny_fangame_v1",
-            "ref_rel": "source/pmd_destiny_fangame_v1/references/ref_composition_ciel_nuages_mer.png",
-            "ref_label": "Référence Composition Nuages Cathédrale + Mer en Contrebas & Logo Super Mystery Dungeon : Destiny",
+            "ref_rel": "source/pmd_destiny_fangame_v1/references/ref_logo_friends_of_honor_embleme.png",
+            "ref_label": "Référence Blason ( remplacé par Œuf + 2 Ailes de chaque côté ) & Mer Diurne Générée",
             "zip_rel": ".cache/virtual_zips/PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip",
-            "bg_fill": "#0a1432",
-            "subtitle": "Pokémon Mystery Dungeon : Destiny — Écran-Titre Multicalque Animé (Crépuscule Doré ──▶ Heure Bleue ──▶ Soir & Nuit Étoilée Scintillante, 24p×12t) : Voûte céleste, pilier solaire/astral, ~96 étoiles scintillantes & étoile filante, mer saphir→nuit, reflets horizontaux, cumulus cathédrale & logo Super PMD (calque 09 commutable)",
-            "wind_summary": "Content/BG/Title_Screen_Background.dir (320×240, 24 poses sans logo) | Content/UI/Title.png séparé | Ciel & Mer Crépuscule→Soir Étoilé + Étoile Filante | Architecture Quest Halcyon/town02",
+            "bg_fill": "#0c4a8a",
+            "subtitle": "Pokémon Mystery Dungeon : Destiny — Écran-Titre JOUR Séparé (Mer pixel-art diurne générée & animée + Blason Œuf & Deux Ailes de chaque côté plus petit et centré)",
+            "wind_summary": "Title_Screen_Background_Jour.dir (24 poses sans logo) | Mer diurne générée + écume/reflets | Blason Œuf+Ailes centré (55%) | Opening d'Anime sur apercu_fangame_pmd_destiny.html",
+        },
+        {
+            "id": "DSTN",
+            "group": "PMD : Destiny · NUIT",
+            "folder": "pmd_destiny_nuit_v1",
+            "ref_rel": "source/pmd_destiny_fangame_v1/references/ref_composition_ciel_nuages_mer.png",
+            "ref_label": "Référence Composition Nuages Cathédrale + Mer Nocturne Générée & Voûte Étoilée",
+            "zip_rel": ".cache/virtual_zips/DSTN_PMDO_0.8.12.zip",
+            "bg_fill": "#070f2b",
+            "subtitle": "Pokémon Mystery Dungeon : Destiny — Écran-Titre NUIT Séparé (Mer pixel-art nocturne générée, ~105 étoiles scintillantes + étoile filante & Blason Œuf Ailé centré)",
+            "wind_summary": "Title_Screen_Background_Nuit.dir (24 poses sans logo) | Mer nocturne générée + reflets stellaires | ~105 étoiles + étoile filante | Blason Œuf+Ailes centré (55%)",
         },
         {
             "id": "MWE1",
@@ -823,8 +834,8 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
         <p id="mapSubtitle">Chargement des planches pixel-art...</p>
       </div>
       <div class="status-line">
-        38 Cartes · 380 Calques Temps Réel · Grille 2D GPU-Safe
-        <a href="./apercu_fangame_pmd_destiny.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#d97706,#92400e);border:1px solid #fcd34d;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Écran-Titre 320×240 PMD : Destiny (.dir + TopMenu)</a>
+        39 Cartes · 390 Calques Temps Réel · Grille 2D GPU-Safe
+        <a href="./apercu_fangame_pmd_destiny.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#d97706,#92400e);border:1px solid #fcd34d;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">🎬 Opening d'Anime + Jour/Nuit PMD : Destiny</a>
         <a href="./apercu_consolidation_town02_unifiee.html" style="display:inline-block;margin-left:6px;padding:5px 11px;border-radius:7px;background:#1b6ca8;border:1px solid #4cc9f0;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Hub Unifié town02 + Toutes Branches</a>
       </div>
     </div>
@@ -1189,7 +1200,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DST1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DSTJ"), encoding="utf-8")
     (REPO_ROOT / "apercu_kanto_mewtwo_mew_pmdo.html").write_text(
         build_html(manifest, default_map_id="RUA1"), encoding="utf-8"
     )

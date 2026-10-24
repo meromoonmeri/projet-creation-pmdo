@@ -713,6 +713,9 @@ def installer_ecran_titre_pmd_destiny(target_root: Path, maps_ws: Path) -> bool:
 
     for rel in (
         "Content/BG/Title_Screen_Background.dir",
+        "Content/BG/Title_Screen_Background_Jour.dir",
+        "Content/BG/Title_Screen_Background_Nuit.dir",
+        "Content/Obj/Destiny_Logo_Anime_Opening.dir",
         "Content/UI/Title.png",
         "Content/UI/Enter.png",
         "Data/Script/halcyon/services/destiny_title_anim/init.lua",
