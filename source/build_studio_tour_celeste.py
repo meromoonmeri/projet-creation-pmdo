@@ -92,8 +92,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Native 1× GBA PMD Red — Great Canyon Entrée (D07P01, 456×240)",
             "zip_rel": ".cache/virtual_zips/GCE1_PMDO_0.8.12.zip",
             "bg_fill": "#22100a",
-            "subtitle": "Grand Canyon — Entrée (D07P01) : Mesas striées de terre cuite guidées par le rip GBA natif D07P01 (#FF00FF), défilé étroit Nord, pont arche de grès rouge, eau & sparkles 100 % natifs Metano Town",
-            "wind_summary": "Ciel aride & cumulus dorés H06P05 (24f @ 5t) | Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Cactus dans le vent & rayons solaires Top | Mesas statiques",
+            "subtitle": "Grand Canyon — Entrée (D07P01) : Parois étagées de terre cuite & défilé étroit Nord (#FF00FF), piste de grès craquelé, familles de nuages style PMD générées (2 parallaxes) & Soleil animé canonique D07P02",
+            "wind_summary": "Soleil animé canonique D07P02 A04P011.bpa (24f @ 5t) | Familles de nuages PMD générées 2 parallaxes #FF00FF (16 & 32 px/pose) | Cactus & brise Top | Canyon 1× statique",
         },
         {
             "id": "GCF1",
@@ -103,8 +103,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Native 1× GBA PMD Red — Colline des Anciens / Xatu (D07P02 + A04P011.bpa, 312×600)",
             "zip_rel": ".cache/virtual_zips/GCF1_PMDO_0.8.12.zip",
             "bg_fill": "#140b24",
-            "subtitle": "Grand Canyon — Colline des Anciens / Xatu (D07P02) : Promontoire sacré de grès craquelé face au Soleil d'or scintillant natif A04P011.bpa + D07P02.bpl sous cosmos étoilé & mer de nuages ambrés (#FF00FF)",
-            "wind_summary": "Cosmos étoilé & Soleil d'or natif A04P011.bpa + D07P02.bpl (24f @ 5t) | Mer de nuages ambrés & paillettes #FF00FF | Couronne solaire de Xatu Top | Promontoire statique",
+            "subtitle": "Grand Canyon — Colline des Anciens / Xatu (D07P02) : Promontoire sacré de grès & mer panoramique de mesas face au Soleil animé canonique D07P02, étoiles scintillantes + étoile filante A04P011.bpa & familles de nuages PMD du couchant (#FF00FF)",
+            "wind_summary": "Soleil animé canonique D07P02 + étoiles & étoile filante A04P011.bpa (24f @ 5t) | Familles de nuages PMD du couchant 2 parallaxes | Promontoire & mesas 1× statiques",
         },
         {
             "id": "TWE1",
@@ -994,7 +994,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TWE1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GCF1"), encoding="utf-8")
     (REPO_ROOT / "apercu_gouffre_et_canyon_pmdo.html").write_text(
         build_html(manifest, default_map_id="GCF1"), encoding="utf-8"
     )

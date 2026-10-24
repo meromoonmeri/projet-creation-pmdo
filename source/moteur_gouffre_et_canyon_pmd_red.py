@@ -122,7 +122,30 @@ def assemble_gouffre_canyon_1x(
     mag_hi = valid_core | fringe
     fg_hi = ~mag_hi
 
-    rgb_768, solid_768 = _downsample_non_mixing(raw, fg_hi, W, H)
+    if mode == "great_canyon_entry":
+        # Détourage intégral sans rogner le bas (hoodoos & cactus intacts) : on loge tout le relief [y_top..gh]
+        # dans y = 120..576 pour dégager un grand ciel panoramique (y = 0..198 au col central du canyon) !
+        fg_rows = np.where(fg_hi.any(axis=1))[0]
+        y_src0 = int(fg_rows[0]) if fg_rows.size else 0
+        dst_y0 = 120
+        sub_rgb, sub_solid = _downsample_non_mixing(raw[y_src0:, :], fg_hi[y_src0:, :], W, H - dst_y0)
+        rgb_768 = np.tile(PURE_MAGENTA, (H, W, 1))
+        solid_768 = np.zeros((H, W), dtype=bool)
+        rgb_768[dst_y0:, :] = sub_rgb
+        solid_768[dst_y0:, :] = sub_solid
+    elif mode == "hill_of_ancients":
+        # Détourage intégral sans rogner les falaises basses : tout le panorama de mesas + promontoire de Xatu
+        # se loge dans y = 184..576, ouvrant ~208 px de ciel étoilé + couchant + Soleil canonique D07P02 !
+        fg_rows = np.where(fg_hi.any(axis=1))[0]
+        y_src0 = int(fg_rows[0]) if fg_rows.size else 0
+        dst_y0 = 184
+        sub_rgb, sub_solid = _downsample_non_mixing(raw[y_src0:, :], fg_hi[y_src0:, :], W, H - dst_y0)
+        rgb_768 = np.tile(PURE_MAGENTA, (H, W, 1))
+        solid_768 = np.zeros((H, W), dtype=bool)
+        rgb_768[dst_y0:, :] = sub_rgb
+        solid_768[dst_y0:, :] = sub_solid
+    else:
+        rgb_768, solid_768 = _downsample_non_mixing(raw, fg_hi, W, H)
 
     # Sur SCE1 (D05P01), le massif central de roche d'ardoise monte jusqu'en haut de l'écran (y=0) sans coupe plate :
     if mode == "silent_chasm_entry":
@@ -143,27 +166,14 @@ def assemble_gouffre_canyon_1x(
                 rgb_768[y_dst, row_use] = rgb_768[src_y, row_use]
                 solid_768[y_dst, row_use] = True
 
-    # Sur GCF1 (Colline des Anciens / Xatu), on décale le panorama de +80 px vers le bas pour ouvrir
-    # 180 px de ciel étoilé + coucher de soleil + Soleil d'or D07P02 au-dessus de l'horizon des mesas !
-    if mode == "hill_of_ancients":
-        shift_y = 80
-        shifted_rgb = np.tile(PURE_MAGENTA, (H, W, 1))
-        shifted_solid = np.zeros((H, W), dtype=bool)
-        shifted_rgb[shift_y:, :] = rgb_768[: H - shift_y, :]
-        shifted_solid[shift_y:, :] = solid_768[: H - shift_y, :]
-        rgb_768 = shifted_rgb
-        solid_768 = shifted_solid
-
     # Absorption itérative (jusqu'à 7 px) de toute frange rose/prune/bordeaux collée aux zones #FF00FF
     yy7, xx7 = np.mgrid[0:H, 0:W]
-    not_bridge = ~((mode == "great_canyon_entry") & (xx7 >= 270) & (xx7 <= 500) & (yy7 >= 340) & (yy7 <= 490))
     r7, g7, b7 = rgb_768[:, :, 0].astype(np.int16), rgb_768[:, :, 1].astype(np.int16), rgb_768[:, :, 2].astype(np.int16)
     for _ in range(7):
         adj_mag = ndimage.binary_dilation(~solid_768, iterations=1)
         rim = (
             solid_768
             & adj_mag
-            & not_bridge
             & (
                 ((r7 > g7 + 22) & (b7 > g7 + 14))
                 | ((r7 >= 185) & (r7 > g7 + 35) & (b7 >= 120))
@@ -186,9 +196,12 @@ def assemble_gouffre_canyon_1x(
     elif mode == "silent_chasm_end":
         top_mask = solid_768 & ((xx7 < 132) | (xx7 > W - 132)) & ((yy7 < 180) | (yy7 > 380))
     elif mode == "great_canyon_entry":
-        top_mask = solid_768 & (yy7 < 118) & ((xx7 < 312) | (xx7 > 456)) & (r16 >= 135)
+        top_mask = solid_768 & (
+            ((yy7 >= 120) & (yy7 < 196) & ((xx7 < 252) | (xx7 > W - 252)) & (r16 >= 145))
+            | ((yy7 >= 492) & ((xx7 < 96) | (xx7 > W - 96)) & (r16 < 185))
+        )
     else:
-        top_mask = solid_768 & ((xx7 < 108) | (xx7 > W - 108)) & (yy7 >= 150) & (yy7 <= 340)
+        top_mask = solid_768 & ((xx7 < 104) | (xx7 > W - 104)) & (yy7 >= 256) & (yy7 <= 468)
 
     canopy_rgba = np.zeros((H, W, 4), dtype=np.uint8)
     canopy_rgba[top_mask, :3] = rgb_768[top_mask]
@@ -215,19 +228,14 @@ def assemble_gouffre_canyon_1x(
             m = (la[:, :, 3] == 255) & mag_768
             ref_rgb[m] = la[m, :3]
     elif mode == "great_canyon_entry":
-        sky_m = mag_768 & (yy7 < 140)
-        wat_m = mag_768 & (~sky_m)
-        sky0, hor0, _ = build_great_canyon_sky_and_top_layers(sky_m, rgb_768, single_pose_preview=True)
-        for lay_im in (sky0[0], hor0[0]):
+        sky0, far0, sun0, near0, _ = build_great_canyon_sky_and_top_layers(mag_768, rgb_768, single_pose_preview=True)
+        for lay_im in (sky0[0], far0[0], sun0[0], near0[0]):
             la = np.asarray(lay_im, dtype=np.uint8)
-            m = (la[:, :, 3] == 255) & sky_m
+            m = (la[:, :, 3] == 255) & mag_768
             ref_rgb[m] = la[m, :3]
-        ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
     else:
-        sky_m = mag_768 & (yy7 < 250)
-        aby_m = mag_768 & (~sky_m)
-        sky0, sun0, cld0, _, _ = build_hill_of_ancients_layers(sky_m, aby_m, rgb_768, single_pose_preview=True)
-        for lay_im in (sky0[0], sun0[0], cld0[0]):
+        sky0, far0, sun0, near0, _ = build_hill_of_ancients_layers(mag_768, np.zeros_like(mag_768), rgb_768, single_pose_preview=True)
+        for lay_im in (sky0[0], far0[0], sun0[0], near0[0]):
             la = np.asarray(lay_im, dtype=np.uint8)
             m = (la[:, :, 3] == 255) & mag_768
             ref_rgb[m] = la[m, :3]
@@ -439,99 +447,298 @@ def build_silent_chasm_layers(
     return sky_out, hor_out, aby_out, spk_out, top_out
 
 
+@lru_cache(maxsize=8)
+def _extract_pmd_cloud_families(
+    palette_mode: str = "day_canyon",
+    target_w: int = 480,
+    target_h: int = 268,
+) -> Dict[str, List[np.ndarray]]:
+    """Extrait les 9 nuages pixel-art PMD générés sur `#FF00FF` (`nuages_pmd_canyon_magenta.png`)
+    et les classe en 4 familles (`majors`, `mediums`, `strato`, `wisps`) quantifiées GBA 4 tons."""
+    cld_p = REPO_ROOT / "source" / "great_canyon_entree_v1" / "bruts" / "nuages_pmd_canyon_magenta.png"
+    raw = np.asarray(Image.open(cld_p).convert("RGB"), dtype=np.uint8)
+    rf, gf, bf = raw[:, :, 0].astype(np.float32), raw[:, :, 1].astype(np.float32), raw[:, :, 2].astype(np.float32)
+
+    mag_core = (rf >= 200.0) & (gf <= 95.0) & (bf >= 190.0) & ((rf + bf - 2.0 * gf) >= 180.0)
+    near_mag = ndimage.binary_dilation(mag_core, iterations=4)
+    fringe = near_mag & (rf > gf + 22.0) & (bf > gf + 18.0)
+    fg_hi = ~(mag_core | fringe)
+
+    rgb_lo, solid_lo = _downsample_non_mixing(raw, fg_hi, target_w, target_h)
+    r_l, g_l, b_l = rgb_lo[:, :, 0].astype(np.int16), rgb_lo[:, :, 1].astype(np.int16), rgb_lo[:, :, 2].astype(np.int16)
+    solid_lo = solid_lo & ~((r_l > g_l + 18) & (b_l > g_l + 14))
+    solid_lo = ndimage.binary_opening(solid_lo, structure=np.ones((2, 2), dtype=bool))
+
+    if palette_mode == "sunset_canyon":
+        pal = np.array(
+            [
+                [160, 88, 64],    # base ombre terre cuite crépusculaire
+                [208, 128, 64],   # mi-ton ambre brûlé
+                [240, 176, 88],   # corps doré couchant
+                [255, 224, 136],  # crête illuminée d'or
+            ],
+            dtype=np.uint8,
+        )
+    else:
+        pal = np.array(
+            [
+                [200, 152, 96],   # base plate ombrée ocre doux
+                [232, 192, 136],  # mi-ton chaud sable doré
+                [248, 224, 176],  # corps crème solaire
+                [255, 248, 224],  # couronne ivoire lumineuse
+            ],
+            dtype=np.uint8,
+        )
+
+    lbl, n_comp = ndimage.label(solid_lo)
+    comps: List[Tuple[int, np.ndarray]] = []
+    for cid in range(1, n_comp + 1):
+        ys, xs = np.where(lbl == cid)
+        if ys.size < 16:
+            continue
+        y0, y1 = int(ys.min()), int(ys.max()) + 1
+        x0, x1 = int(xs.min()), int(xs.max()) + 1
+        sub_m = lbl[y0:y1, x0:x1] == cid
+        sub_rgb = rgb_lo[y0:y1, x0:x1].astype(np.float32)
+        lum = 0.299 * sub_rgb[:, :, 0] + 0.587 * sub_rgb[:, :, 1] + 0.114 * sub_rgb[:, :, 2]
+        vals = lum[sub_m]
+        q25, q55, q80 = np.percentile(vals, [25.0, 55.0, 80.0])
+        idx = np.zeros(sub_m.shape, dtype=np.int32)
+        idx[lum >= q25] = 1
+        idx[lum >= q55] = 2
+        idx[lum >= q80] = 3
+
+        sp = np.zeros((y1 - y0, x1 - x0, 4), dtype=np.uint8)
+        q_rgb = _sanitize_rgb_no_magenta(pal[idx], sub_m)
+        sp[sub_m, :3] = q_rgb[sub_m]
+        sp[sub_m, 3] = 255
+        comps.append((int(ys.size), sp))
+
+    comps.sort(key=lambda t: -t[0])
+    sprites = [sp for _, sp in comps]
+    while len(sprites) < 9:
+        sprites.append(sprites[-1])
+    return {
+        "majors": sprites[:2],
+        "mediums": sprites[2:5],
+        "strato": sprites[5:7],
+        "wisps": sprites[7:9],
+    }
+
+
+def _render_wrapping_cloud_band(
+    placements: List[Tuple[np.ndarray, int, int]],
+    period_w: int,
+    shift_per_pose: int,
+    sky_mask: np.ndarray,
+    single_pose_preview: bool = False,
+) -> List[Image.Image]:
+    """Rend une bande de familles de nuages PMD bouclant périodiquement sans couture sur `24` poses."""
+    band_h = H
+    proto = np.zeros((band_h, period_w, 4), dtype=np.uint8)
+    for sp, x0, y0 in placements:
+        sh, sw = sp.shape[:2]
+        for dy in range(sh):
+            yy = y0 + dy
+            if yy < 0 or yy >= band_h:
+                continue
+            op = sp[dy, :, 3] == 255
+            if not np.any(op):
+                continue
+            xs_src = np.where(op)[0]
+            xs_dst = (x0 + xs_src) % period_w
+            proto[yy, xs_dst, :3] = sp[dy, xs_src, :3]
+            proto[yy, xs_dst, 3] = 255
+
+    if period_w < W:
+        reps = (W + period_w - 1) // period_w
+        full_proto = np.tile(proto, (1, reps, 1))[:, :W, :]
+    else:
+        full_proto = proto[:, :W, :]
+
+    n_iter = 1 if single_pose_preview else N_POSES
+    frames: List[Image.Image] = []
+    for f in range(n_iter):
+        rolled = np.roll(full_proto, shift=(f * shift_per_pose) % W, axis=1).copy()
+        rolled[~sky_mask, :] = 0
+        frames.append(Image.fromarray(sanitize_rgba_binary(rolled)))
+    return frames
+
+
+@lru_cache(maxsize=2)
+def _extract_canonical_d07p02_sun_and_stars() -> Tuple[List[np.ndarray], np.ndarray, np.ndarray, List[np.ndarray]]:
+    """Extrait à l'identique depuis `d07p02_sunset_12frames_native.png` (`D07P02.bpl` + `A04P011.bpa`) :
+      1. `sun_12_2x` : les 12 poses canoniques du Soleil GBA (`200 × 66` en `2× NEAREST`, `0` halo artificiel) ;
+      2. `sky_row_med` : le profil vertical exact de couleur du ciel `D07P02` (`226 × 3`) ;
+      3. `static_stars_mask_rgb` : les étoiles fixes natives (`136 × 312 × 4`) ;
+      4. `anim_stars_12` : les 12 poses natives d'étoiles scintillantes + étoile filante (`136 × 312 × 4`)."""
+    d07_frames = _load_d07p02_sunset_12frames()  # 12 x (236, 312, 3)
+    ref0 = d07_frames[0]
+
+    # 1. Soleil animé canonique (toutes ses barres de réfraction thermique R==255, G>=155, B<=120)
+    sun_12_2x: List[np.ndarray] = []
+    for nat_f in d07_frames:
+        crop = nat_f[196:229, 108:208, :]  # (33, 100, 3)
+        c2x = np.asarray(Image.fromarray(crop).resize((200, 66), Image.Resampling.NEAREST), dtype=np.uint8)
+        sr, sg, sb = c2x[:, :, 0].astype(np.int16), c2x[:, :, 1].astype(np.int16), c2x[:, :, 2].astype(np.int16)
+        m_sun = (sr == 255) & (sg >= 155) & (sb <= 120)
+        rgba = np.zeros((66, 200, 4), dtype=np.uint8)
+        clean_rgb = _sanitize_rgb_no_magenta(c2x, m_sun)
+        rgba[m_sun, :3] = clean_rgb[m_sun]
+        rgba[m_sun, 3] = 255
+        sun_12_2x.append(rgba)
+
+    # 2. Couleur médiane exacte par ligne du ciel D07P02 (y = 0..226)
+    sky_row_med = np.median(ref0[:226, :, :], axis=1).astype(np.uint8)  # (226, 3)
+
+    # 3. Séparation étoiles fixes vs étoiles scintillantes & étoile filante sur le cosmos indigo (y = 0..136)
+    star_h = 136
+    med_top = sky_row_med[:star_h, None, :].astype(np.int16)
+    stack_top = np.stack([f[:star_h, :, :] for f in d07_frames], axis=0).astype(np.int16)  # (12, 136, 312, 3)
+    varies_across_time = (np.abs(stack_top - stack_top[0:1]).max(axis=(0, 3))) > 0
+    diff_from_sky0 = np.abs(stack_top[0] - med_top).max(axis=2) > 4
+
+    static_m = diff_from_sky0 & (~varies_across_time)
+    static_stars = np.zeros((star_h, 312, 4), dtype=np.uint8)
+    st_rgb = _sanitize_rgb_no_magenta(ref0[:star_h, :, :], static_m)
+    static_stars[static_m, :3] = st_rgb[static_m]
+    static_stars[static_m, 3] = 255
+
+    anim_stars_12: List[np.ndarray] = []
+    for k in range(12):
+        fk_top = d07_frames[k][:star_h, :, :]
+        m_k = varies_across_time & (np.abs(fk_top.astype(np.int16) - med_top).max(axis=2) > 4)
+        a_rgba = np.zeros((star_h, 312, 4), dtype=np.uint8)
+        ak_rgb = _sanitize_rgb_no_magenta(fk_top, m_k)
+        a_rgba[m_k, :3] = ak_rgb[m_k]
+        a_rgba[m_k, 3] = 255
+        anim_stars_12.append(a_rgba)
+
+    return sun_12_2x, sky_row_med, static_stars, anim_stars_12
+
+
+def _blit_native_star_band_768(
+    dst_rgba: np.ndarray,
+    star_band_312: np.ndarray,
+    sky_mask: np.ndarray,
+    max_y_dst: int,
+) -> None:
+    """Projette une bande céleste native `136 × 312` en pixels nets `2×2` sur toute la largeur `768 px`."""
+    ys, xs = np.where(star_band_312[:, :, 3] == 255)
+    if not ys.size:
+        return
+    # Centre 2x (624 px sur x = 72..696) + rappel latéral doux sur les ailes x = 0..72 et x = 696..768
+    for y_n, x_n in zip(ys.tolist(), xs.tolist()):
+        col = star_band_312[y_n, x_n, :3]
+        yd = int(round(y_n * 0.775))
+        if yd < 2 or yd + 2 > max_y_dst:
+            continue
+        xd_main = 72 + x_n * 2
+        candidates = [xd_main]
+        if x_n < 34:
+            candidates.append(696 + x_n * 2)
+        elif x_n >= 278:
+            candidates.append((x_n - 278) * 2)
+        for xd in candidates:
+            if 0 <= xd and xd + 2 <= W:
+                sub_s = sky_mask[yd : yd + 2, xd : xd + 2]
+                if np.all(sub_s):
+                    dst_rgba[yd : yd + 2, xd : xd + 2, :3] = col
+                    dst_rgba[yd : yd + 2, xd : xd + 2, 3] = 255
+
+
 def build_great_canyon_sky_and_top_layers(
     sky_mask: np.ndarray,
     base_rgb: np.ndarray,
     single_pose_preview: bool = False,
-) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image]]:
-    """Construit `(sky_24, cumulus_24, top_sun_dust_24)` pour `GCE1` (*Great Canyon — Entrée D07P01*)."""
-    bayer01 = np.tile(BAYER_4X4, (H // 4 + 1, W // 4 + 1))[:H, :W]
-    ray_p = REPO_ROOT / "source" / "reshiram_montagne_entree_v1" / "bruts" / "rayons_lumiere_friend_area_pmd_red_magenta.png"
-    ray_raw = np.asarray(Image.open(ray_p).convert("RGB"), dtype=np.uint8)
-    rr, rg, rb = ray_raw[:, :, 0].astype(np.float32), ray_raw[:, :, 1].astype(np.float32), ray_raw[:, :, 2].astype(np.float32)
-    rmag = (rr > 70.0) & (rb > 70.0) & (rr > rg * 1.35) & (rb > rg * 1.35)
-    rfg = ~(rmag | (ndimage.binary_dilation(rmag, iterations=2) & (rr > rg * 1.05) & (rb > rg * 1.05)))
-    ray_cov = np.asarray(Image.fromarray((rfg[365:815, 290:1035] * 255).astype(np.uint8)).resize((272, 180), Image.Resampling.BOX), dtype=np.float32) / 255.0
+) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image], List[Image.Image], List[Image.Image]]:
+    """Construit `(sky_static_1, clouds_far_24, canonical_sun_24, clouds_near_24, canyon_breeze_top_24)`
+    pour `GCE1` (*Grand Canyon — Entrée D07P01*) :
+      - Ciel chaud du Grand Canyon s'embrasant vers `(255, 143, 23)` dans le col central ;
+      - Familles de nuages style PMD générées (`nuages_pmd_canyon_magenta.png`) sur 2 plans de parallaxe ;
+      - Soleil animé canonique de la map de référence (`D07P02.bpl` + `A04P011.bpa`, `2× NEAREST`)."""
+    sun_12_2x, _, _, _ = _extract_canonical_d07p02_sun_and_stars()
+    fams_near = _extract_pmd_cloud_families("day_canyon", target_w=464, target_h=260)
+    fams_far = _extract_pmd_cloud_families("day_canyon", target_w=340, target_h=190)
 
+    sy_max = min(H, (int(np.where(sky_mask)[0].max()) + 2) if np.any(sky_mask) else 204)
+    s_yy = np.arange(sy_max, dtype=np.float32)[:, None]
+    # Dégradé GBA chaud en paliers nets : azur doré au zénith -> abricot -> orange solaire canonique (255, 143, 23) au col
+    t_top = np.clip(s_yy / 146.0, 0.0, 1.0)
+    r_col = np.where(s_yy < 146.0, 104.0 + 151.0 * (t_top**0.82), 255.0)
+    g_col = np.where(s_yy < 146.0, 176.0 - 33.0 * (t_top**1.15), 143.0)
+    b_col = np.where(s_yy < 146.0, 232.0 - 209.0 * (t_top**0.92), 23.0)
+    grad_row = np.broadcast_to(np.stack([r_col, g_col, b_col], axis=-1), (sy_max, W, 3)).copy()
+    sub_m = sky_mask[:sy_max, :]
+    s_q = _sanitize_rgb_no_magenta(_q8_u8(grad_row), sub_m)
+    # Force la teinte exacte (255, 143, 23) de D07P02 autour du Soleil canonique (y >= 140)
+    hor_band = sub_m & (np.arange(sy_max)[:, None] >= 140)
+    s_q[hor_band] = (255, 143, 23)
+
+    sky_arr = np.zeros((H, W, 4), dtype=np.uint8)
+    sky_arr[:sy_max, :][sub_m, :3] = s_q[sub_m]
+    sky_arr[:sy_max, :][sub_m, 3] = 255
+    sky_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]
+
+    # Plan lointain (16 px/pose, période 384 px) : familles stratocumulus & flocons dérivant derrière le Soleil
+    far_placements = [
+        (fams_far["strato"][0], 24, 92),
+        (fams_far["wisps"][0], 142, 118),
+        (fams_far["strato"][1], 216, 102),
+        (fams_far["wisps"][1], 324, 82),
+    ]
+    clouds_far_24 = _render_wrapping_cloud_band(
+        far_placements, period_w=384, shift_per_pose=16, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    )
+
+    # Plan principal (32 px/pose, période 768 px) : grandes familles de cumulus PMD à base plate dans le haut du ciel
+    near_placements = [
+        (fams_near["majors"][0], 28, 12),
+        (fams_near["mediums"][0], 238, 48),
+        (fams_near["mediums"][2], 348, 8),
+        (fams_near["majors"][1], 492, 10),
+        (fams_near["mediums"][1], 668, 54),
+    ]
+    clouds_near_24 = _render_wrapping_cloud_band(
+        near_placements, period_w=768, shift_per_pose=32, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    )
+
+    # Soleil animé canonique de D07P02 niché dans l'échancrure centrale du Grand Canyon (x=284..484, y=140..206)
+    n_iter = 1 if single_pose_preview else N_POSES
+    sun_out: List[Image.Image] = []
+    breeze_out: List[Image.Image] = []
     rng = np.random.default_rng(70701)
-    n_dust = 24
+    n_dust = 28
     dx0 = rng.integers(32, W - 32, size=n_dust)
-    dy0 = rng.integers(40, H - 48, size=n_dust)
+    dy0 = rng.integers(220, H - 36, size=n_dust)
     dph = rng.uniform(0.0, 2.0 * math.pi, size=n_dust)
 
-    sy_max = min(H, (int(np.where(sky_mask)[0].max()) + 2) if np.any(sky_mask) else 110)
-    s_yy, s_xx = np.mgrid[0:sy_max, 0:W].astype(np.float32)
-    t_y = np.clip(s_yy / max(float(sy_max), 1.0), 0.0, 1.0)
-
-    n_iter = 1 if single_pose_preview else N_POSES
-    sky_out: List[Image.Image] = []
-    cum_out: List[Image.Image] = []
-    top_out: List[Image.Image] = []
-
+    y0_sun, x0_sun = 140, 384 - 100
     for f in range(n_iter):
         theta = 2.0 * math.pi * f / float(N_POSES)
-        # Ciel désertique H06P05 : bleu azur ardent en haut -> jaune-ambre chaud sur la crête des mesas
-        shimmer = 10.0 * np.cos(theta - 0.009 * s_xx)
-        r_s = 92.0 + 148.0 * (t_y**0.85) + shimmer * 0.9
-        g_s = 168.0 + 64.0 * (t_y**0.90) + shimmer * 0.7
-        b_s = 236.0 - 92.0 * (t_y**0.95) + shimmer * 0.3
-        sub_m = sky_mask[:sy_max, :]
-        s_rgb = _sanitize_rgb_no_magenta(_q8_u8(np.stack([r_s, g_s, b_s], axis=-1)), sub_m)
+        bpa_idx = (f // 2) % 12
+        sun_frame = np.zeros((H, W, 4), dtype=np.uint8)
+        sp_sun = sun_12_2x[bpa_idx]
+        y1_sun = min(H, y0_sun + sp_sun.shape[0])
+        hs = y1_sun - y0_sun
+        keep_s = (sp_sun[:hs, :, 3] == 255) & sky_mask[y0_sun:y1_sun, x0_sun : x0_sun + 200]
+        sub_dst = sun_frame[y0_sun:y1_sun, x0_sun : x0_sun + 200]
+        sub_dst[keep_s, :3] = sp_sun[:hs, :, :3][keep_s]
+        sub_dst[keep_s, 3] = 255
+        sun_out.append(Image.fromarray(sanitize_rgba_binary(sun_frame)))
 
-        sky = np.zeros((H, W, 4), dtype=np.uint8)
-        sky[:sy_max, :][sub_m, :3] = s_rgb[sub_m]
-        sky[:sy_max, :][sub_m, 3] = 255
-        sky_out.append(Image.fromarray(sanitize_rgba_binary(sky)))
-
-        # Cumulus dorés style H06P05 (Scorched Plains) dérivant doucement à l'horizon
-        cum = np.zeros((H, W, 4), dtype=np.uint8)
-        cx_shift = (s_xx + f * 32.0) % float(W)
-        cloud_h = (
-            sy_max * 0.56
-            - 16.0 * np.exp(-(((cx_shift - 180.0) / 78.0) ** 2))
-            - 18.0 * np.exp(-(((cx_shift - 580.0) / 84.0) ** 2))
-            + 5.0 * np.sin(cx_shift * 0.09)
-        )
-        in_cld = sub_m & (s_yy >= cloud_h)
-        in_rim = in_cld & (s_yy <= cloud_h + 6.0)
-        cum[:sy_max, :][in_cld] = (248, 216, 144, 255)
-        cum[:sy_max, :][in_rim] = (255, 240, 192, 255)
-        cum_out.append(Image.fromarray(sanitize_rgba_binary(cum)))
-
-        # Rayons solaires chauds sur les mesas + poussière d'ocre dans le vent chaud
+        # Brise chaude de grains de sable doré dans le canyon (zéro rayon/halo artificiel)
         top_fx = np.zeros((H, W, 4), dtype=np.uint8)
         if not single_pose_preview:
-            rh_f, rw_f = ray_cov.shape
-            taper = np.clip(1.18 - np.arange(rh_f, dtype=np.float32)[:, None] / float(rh_f), 0.0, 1.0)
-            breath = 0.92 + 0.16 * math.cos(theta)
-            sweep = int(round(9.0 * math.cos(theta)))
-            for base_rx0 in (16, 480):
-                rx0 = max(0, min(W - rw_f, base_rx0 + sweep))
-                inten = ray_cov * taper * breath
-                on_mesa = ~sky_mask[:rh_f, rx0 : rx0 + rw_f]
-                xg = np.arange(rx0, rx0 + rw_f)[None, :]
-                on_mesa = on_mesa & ~((xg >= 316) & (xg <= 452))
-                by_s = bayer01[:rh_f, rx0 : rx0 + rw_f]
-                r_hi = on_mesa & (inten > 0.44)
-                r_lo = on_mesa & (~r_hi) & (inten > 0.22) & ((inten * 2.2) > by_s)
-                b_sub = base_rgb[:rh_f, rx0 : rx0 + rw_f].astype(np.int16)
-                lit = b_sub.copy()
-                lit[r_hi] = np.clip(b_sub[r_hi] + np.array([44, 34, 14], dtype=np.int16), 0, 255)
-                lit[r_lo] = np.clip(b_sub[r_lo] + np.array([24, 18, 8], dtype=np.int16), 0, 255)
-                hit = r_hi | r_lo
-                lit_q = _sanitize_rgb_no_magenta(((lit // 8) * 8).clip(0, 255).astype(np.uint8), hit)
-                sub_t = top_fx[:rh_f, rx0 : rx0 + rw_f]
-                sub_t[hit, :3] = lit_q[hit]
-                sub_t[hit, 3] = 255
-
             for i in range(n_dust):
                 mx = int((dx0[i] + f * 32) % (W - 16)) + 8
-                my = int(round(dy0[i] + 5.0 * math.sin(theta + dph[i])))
-                if 4 <= mx < W - 4 and 4 <= my < H - 4 and math.sin(2.0 * theta + dph[i]) > -0.2:
-                    top_fx[my, mx : mx + 2] = (255, 232, 168, 255)
-        top_out.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
+                my = int(round(dy0[i] + 4.0 * math.sin(theta + dph[i])))
+                if 4 <= mx < W - 4 and 205 <= my < H - 4 and (not sky_mask[my, mx]):
+                    if math.sin(2.0 * theta + dph[i]) > -0.15:
+                        top_fx[my, mx : mx + 2] = (248, 216, 152, 255)
+        breeze_out.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
-    return sky_out, cum_out, top_out
+    return sky_static_1, clouds_far_24, sun_out, clouds_near_24, breeze_out
 
 
 def build_hill_of_ancients_layers(
@@ -540,165 +747,102 @@ def build_hill_of_ancients_layers(
     base_rgb: np.ndarray,
     single_pose_preview: bool = False,
 ) -> Tuple[List[Image.Image], List[Image.Image], List[Image.Image], List[Image.Image], List[Image.Image]]:
-    """Construit `(starry_sunset_24, xatu_sun_24, canyon_clouds_24, solar_embers_24, solar_corona_top_24)`
-    pour `GCF1` (*Colline des Anciens / Xatu*, `D07P02` + `A04P011.bpa` + `D07P02.bpl`)."""
-    d07_frames = _load_d07p02_sunset_12frames()  # 12 x (236, 312, 3)
-    fog_tile = _load_d05p01_fog_tile_768()
-    bayer01 = np.tile(BAYER_4X4, (H // 4 + 1, W // 4 + 1))[:H, :W]
+    """Construit `(starry_sunset_static_1, clouds_sunset_far_24, canonical_sun_and_stars_24, clouds_sunset_near_24, breeze_top_24)`
+    pour `GCF1` (*Colline des Anciens / Xatu*, `D07P02` + `A04P011.bpa` + `D07P02.bpl`) :
+      - Ciel crépusculaire étoilé natif `D07P02` (indigo profond -> ambre ardent `(255, 143, 23)`) + étoiles fixes natives ;
+      - Soleil animé canonique `100 %` fidèle `D07P02` (`2× NEAREST`, sans aucun ovale ni rayon procédural)
+        + étoiles scintillantes natives + étoile filante native (`A04P011.bpa`) ;
+      - Familles de nuages style PMD générées aux teintes du couchant dérivant sur 2 plans de parallaxe."""
+    del abyss_mask, base_rgb
+    sun_12_2x, sky_row_med, static_stars_312, anim_stars_12 = _extract_canonical_d07p02_sun_and_stars()
+    fams_near = _extract_pmd_cloud_families("sunset_canyon", target_w=328, target_h=184)
+    fams_far = _extract_pmd_cloud_families("sunset_canyon", target_w=272, target_h=152)
 
-    sy_max = min(H, (int(np.where(sky_mask)[0].max()) + 2) if np.any(sky_mask) else 200)
-    # Profil vertical exact du ciel D07P02 prélevé sur la colonne x=24 (hors étoiles/soleil) de la pose 0 :
-    ref0 = d07_frames[0]  # (236, 312, 3)
-    # On adapte les 230 premières lignes de D07P02 sur [0 .. 184] pour caler l'horizon pile sur les mesas (y~165..184)
-    sky_h_target = min(sy_max, 192)
+    sy_max = min(H, (int(np.where(sky_mask)[0].max()) + 2) if np.any(sky_mask) else 212)
+    # Projection verticale 100 % sans couture du profil D07P02 :
+    # - lignes natives 0..196 (cosmos indigo + les 8 paliers GBA violet/pourpre/orange brûlé -> (255,143,23))
+    #   projetées sur y = 0..152, puis horizon ardent (255,143,23) sur y = 152..sy_max autour du Soleil canonique !
+    grad_top_h = min(sy_max, 152)
     grad_col = np.asarray(
-        Image.fromarray(ref0[:228, 18:26, :]).resize((1, sky_h_target), Image.Resampling.BILINEAR),
-        dtype=np.float32,
-    )[:, 0, :]  # (sky_h_target, 3)
+        Image.fromarray(sky_row_med[:196, None, :]).resize((1, grad_top_h), Image.Resampling.NEAREST),
+        dtype=np.uint8,
+    )[:, 0, :]  # (grad_top_h, 3)
 
-    # Constellations d'étoiles pixel-art sur la bande indigo supérieure (y = 6..82)
-    rng_st = np.random.default_rng(210702)
-    n_stars = 46
-    st_x = rng_st.integers(18, W - 18, size=n_stars)
-    st_y = rng_st.integers(6, 82, size=n_stars)
-    st_ph = rng_st.uniform(0.0, 2.0 * math.pi, size=n_stars)
-    st_cross = rng_st.integers(0, 3, size=n_stars) == 0
+    grad_full = np.zeros((sy_max, W, 3), dtype=np.uint8)
+    grad_full[:grad_top_h, :, :] = grad_col[:, None, :]
+    if sy_max > grad_top_h:
+        grad_full[grad_top_h:, :, :] = (255, 143, 23)
 
-    rng_em = np.random.default_rng(770702)
-    n_embers = 32
-    em_x0 = rng_em.integers(16, W - 16, size=n_embers)
-    em_y0 = rng_em.integers(260, H - 16, size=n_embers)
-    em_ph = rng_em.uniform(0.0, 2.0 * math.pi, size=n_embers)
+    sub_m = sky_mask[:sy_max, :]
+    sky_clean = _sanitize_rgb_no_magenta(grad_full, sub_m)
+    sky_arr = np.zeros((H, W, 4), dtype=np.uint8)
+    sky_arr[:sy_max, :][sub_m, :3] = sky_clean[sub_m]
+    sky_arr[:sy_max, :][sub_m, 3] = 255
+    # Ajoute toutes les étoiles fixes natives D07P02 sur le cosmos indigo supérieur (y = 2..106)
+    _blit_native_star_band_768(sky_arr, static_stars_312, sky_mask, max_y_dst=106)
+    starry_sunset_static_1 = [Image.fromarray(sanitize_rgba_binary(sky_arr))]
 
-    dist_aby = ndimage.distance_transform_edt(abyss_mask)
+    # Plan lointain de nuages PMD du couchant (16 px/pose, période 384 px, derrière le Soleil canonique)
+    far_placements = [
+        (fams_far["strato"][0], 18, 138),
+        (fams_far["wisps"][0], 128, 156),
+        (fams_far["strato"][1], 212, 142),
+        (fams_far["wisps"][1], 320, 130),
+    ]
+    clouds_sunset_far_24 = _render_wrapping_cloud_band(
+        far_placements, period_w=384, shift_per_pose=16, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    )
 
+    # Plan médian de familles de cumulus PMD du couchant (32 px/pose, période 768 px, y = 104..150
+    # pile dans la bande crépusculaire pourpre-ambre, sous l'étoile filante et au-dessus du Soleil canonique !)
+    near_placements = [
+        (fams_near["mediums"][0], 26, 108),
+        (fams_near["strato"][0], 184, 124),
+        (fams_near["mediums"][2], 472, 104),
+        (fams_near["mediums"][1], 628, 112),
+    ]
+    clouds_sunset_near_24 = _render_wrapping_cloud_band(
+        near_placements, period_w=768, shift_per_pose=32, sky_mask=sky_mask, single_pose_preview=single_pose_preview
+    )
+
+    # Calque canonique : Soleil animé D07P02 (x=284..484, y=150..216) + étoiles scintillantes & étoile filante A04P011.bpa
     n_iter = 1 if single_pose_preview else N_POSES
-    sky_out: List[Image.Image] = []
-    sun_out: List[Image.Image] = []
-    cld_out: List[Image.Image] = []
-    emb_out: List[Image.Image] = []
-    top_out: List[Image.Image] = []
+    sun_stars_24: List[Image.Image] = []
+    breeze_24: List[Image.Image] = []
+    rng_em = np.random.default_rng(770702)
+    n_motes = 26
+    em_x0 = rng_em.integers(24, W - 24, size=n_motes)
+    em_y0 = rng_em.integers(228, H - 28, size=n_motes)
+    em_ph = rng_em.uniform(0.0, 2.0 * math.pi, size=n_motes)
 
-    yy_s, xx_s = np.mgrid[0:sy_max, 0:W].astype(np.float32)
-
+    y0_sun, x0_sun = 150, 384 - 100
     for f in range(n_iter):
         theta = 2.0 * math.pi * f / float(N_POSES)
-        bpa_idx = (f // 2) % 12  # 12 frames BPA A04P011 x 2 poses (10 ticks) = 24 poses exactes !
+        bpa_idx = (f // 2) % 12
 
-        # --- Calque 00 : Ciel Crépusculaire Étoilé Natif D07P02 (Indigo profond -> Ambre ardent) ---
-        sky = np.zeros((H, W, 4), dtype=np.uint8)
-        sub_m = sky_mask[:sy_max, :]
-        grad_full = np.zeros((sy_max, W, 3), dtype=np.float32)
-        grad_full[:sky_h_target, :, :] = grad_col[:, None, :]
-        if sy_max > sky_h_target:
-            grad_full[sky_h_target:, :, :] = grad_col[-1, None, None, :]
-        # Respiration solaire chaude autour de x=384 près de l'horizon
-        glow_x = np.exp(-(((xx_s - 384.0) / 210.0) ** 2)) * np.clip((yy_s - 72.0) / 100.0, 0.0, 1.0)
-        pulse_s = 12.0 * math.cos(theta) + 18.0 * glow_x
-        grad_full[:, :, 0] = np.clip(grad_full[:, :, 0] + pulse_s * 1.0, 0.0, 255.0)
-        grad_full[:, :, 1] = np.clip(grad_full[:, :, 1] + pulse_s * 0.65, 0.0, 255.0)
-        s_q = _sanitize_rgb_no_magenta(_q8_u8(grad_full), sub_m)
-        sky[:sy_max, :][sub_m, :3] = s_q[sub_m]
-        sky[:sy_max, :][sub_m, 3] = 255
+        cel = np.zeros((H, W, 4), dtype=np.uint8)
+        # 1) Étoiles scintillantes natives + étoile filante diagonale (frames 3..8) dans le cosmos indigo
+        _blit_native_star_band_768(cel, anim_stars_12[bpa_idx], sky_mask, max_y_dst=106)
 
-        # Scintillement doux des étoiles de D07P02 dans le cosmos indigo supérieur
-        for i in range(n_stars):
-            sx, sy = int(st_x[i]), int(st_y[i])
-            if sy < sy_max and sub_m[sy, sx]:
-                tw = math.sin(theta * (2.0 if st_cross[i] else 1.0) + st_ph[i])
-                if tw > -0.35:
-                    sky[sy, sx] = (248, 248, 255, 255) if tw > 0.25 else (168, 176, 224, 255)
-                    if st_cross[i] and tw > 0.45:
-                        for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-                            if 0 <= sy + dy < sy_max and 0 <= sx + dx < W and sub_m[sy + dy, sx + dx]:
-                                sky[sy + dy, sx + dx] = (144, 160, 224, 255)
-        sky_out.append(Image.fromarray(sanitize_rgba_binary(sky)))
+        # 2) Soleil animé canonique de D07P02 posé sur l'horizon central des mesas (sans aucun halo ovale !)
+        sp_sun = sun_12_2x[bpa_idx]
+        y1_sun = min(H, y0_sun + sp_sun.shape[0])
+        hs = y1_sun - y0_sun
+        keep_s = (sp_sun[:hs, :, 3] == 255) & sky_mask[y0_sun:y1_sun, x0_sun : x0_sun + 200]
+        sub_dst = cel[y0_sun:y1_sun, x0_sun : x0_sun + 200]
+        sub_dst[keep_s, :3] = sp_sun[:hs, :, :3][keep_s]
+        sub_dst[keep_s, 3] = 255
+        sun_stars_24.append(Image.fromarray(sanitize_rgba_binary(cel)))
 
-        # --- Calque 01 : Soleil d'Or Scintillant authentique A04P011.bpa + D07P02.bpl à x=384 ---
-        sun = np.zeros((H, W, 4), dtype=np.uint8)
-        nat_f = d07_frames[bpa_idx]
-        # Découpe la boîte exacte du Soleil natif (y=194..230, x=108..208 -> 100x36) et l'agrandit 2x NEAREST (200x72)
-        sun_crop = nat_f[194:230, 108:208, :]
-        sun_2x = np.asarray(
-            Image.fromarray(sun_crop).resize((200, 72), Image.Resampling.NEAREST),
-            dtype=np.uint8,
-        )
-        sr, sg, sb = sun_2x[:, :, 0].astype(np.int16), sun_2x[:, :, 1].astype(np.int16), sun_2x[:, :, 2].astype(np.int16)
-        # Disque solaire doré (R>=245, G>=185, B<=115) :
-        is_sun_disc = (sr >= 244) & (sg >= 182) & (sb <= 120)
-        # Positionne le Soleil juste derrière la crête des mesas centrales (y = 114..186, x = 284..484)
-        y0_sun, x0_sun = 114, 384 - 100
-        y1_sun = min(sy_max, y0_sun + 72)
-        h_s = y1_sun - y0_sun
-        if h_s > 0:
-            sub_sky_s = sub_m[y0_sun:y1_sun, x0_sun : x0_sun + 200]
-            keep_sun = is_sun_disc[:h_s, :] & sub_sky_s
-            # Halo ambré concentrique complet (sans aucune corde coupée en haut !) autour du Soleil
-            halo_dist = np.sqrt(((xx_s - 384.0) / 1.32) ** 2 + ((yy_s - 166.0) * 1.28) ** 2)
-            in_halo = sub_m & (halo_dist <= 108.0 + 6.0 * math.sin(theta)) & (yy_s >= 40.0)
-            in_inner = sub_m & (halo_dist <= 76.0 + 4.0 * math.cos(theta)) & (yy_s >= 48.0)
-            sun[:sy_max, :][in_halo] = (248, 144, 24, 255)
-            sun[:sy_max, :][in_inner] = (255, 184, 48, 255)
-            sun_sub = sun[y0_sun:y1_sun, x0_sun : x0_sun + 200]
-            sun_rgb_clean = _sanitize_rgb_no_magenta(sun_2x[:h_s, :, :], keep_sun)
-            sun_sub[keep_sun, :3] = sun_rgb_clean[keep_sun]
-            sun_sub[keep_sun, 3] = 255
-        sun_out.append(Image.fromarray(sanitize_rgba_binary(sun)))
-
-        # --- Calque 02 : Mer de Nuages Ambrés dans les 2 Abysses du Canyon (y >= 250) ---
-        cld = np.zeros((H, W, 4), dtype=np.uint8)
-        if np.any(abyss_mask):
-            d_n = np.clip(dist_aby / 38.0, 0.0, 1.0)
-            f1 = np.roll(fog_tile, shift=(f * 32) % W, axis=1)
-            f2 = np.roll(fog_tile[::-1, :], shift=-((f * 32) % W), axis=1)
-            fm = np.clip(0.65 * np.vstack([f1, f1])[:H, :] + 0.50 * np.vstack([f2, f2])[:H, :], 0.0, 1.0)
-            val = fm * (0.86 + 0.16 * math.cos(theta)) * (0.30 + 0.70 * d_n)
-            deep_canyon = np.array([88.0, 40.0, 28.0])
-            gold_cloud = np.array([248.0, 176.0, 88.0])
-            c_f = deep_canyon[None, None, :] * (1.0 - val[:, :, None]) + gold_cloud[None, None, :] * val[:, :, None]
-            c_q = _sanitize_rgb_no_magenta(_q8_u8(c_f), abyss_mask)
-            c_q[abyss_mask & (dist_aby <= 4.0)] = (64, 28, 20)
-            cld[abyss_mask, :3] = c_q[abyss_mask]
-            cld[abyss_mask, 3] = 255
-        cld_out.append(Image.fromarray(sanitize_rgba_binary(cld)))
-
-        # --- Calque 03 : Paillettes Solaires Ascendantes dans les Abysses ---
-        emb = np.zeros((H, W, 4), dtype=np.uint8)
-        for i in range(n_embers):
-            ex = int(round(em_x0[i] + 7.0 * math.sin(theta + em_ph[i])))
-            ey = int((em_y0[i] - f * 2) % (H - 270)) + 260
-            if 6 <= ex < W - 6 and 6 <= ey < H - 6 and abyss_mask[ey, ex] and dist_aby[ey, ex] >= 5.5:
-                if math.sin(2.0 * theta + em_ph[i]) > -0.1:
-                    emb[ey, ex : ex + 2] = (255, 232, 128, 255)
-        emb_out.append(Image.fromarray(sanitize_rgba_binary(emb)))
-
-        # --- Calque 09 Top : Couronne de Rayons Solaires de Xatu & Poussière d'Or ---
+        # 3) Fines poussières d'or thermiques s'élevant le long du promontoire (sans rayons en éventail !)
         top_fx = np.zeros((H, W, 4), dtype=np.uint8)
         if not single_pose_preview:
-            yg, xg = np.mgrid[140:340, 0:W].astype(np.float32)
-            dx_s = xg - 384.0
-            dy_s = yg - 162.0
-            ang = np.arctan2(dy_s, dx_s)
-            rad = np.sqrt(dx_s**2 + dy_s**2)
-            # Éventail de rayons dorés émanant du Soleil vers les mesas et le belvédère
-            fan = np.maximum(0.0, np.cos(ang * 7.0 + 0.35 * math.sin(theta))) ** 4
-            inten = fan * np.clip(1.0 - rad / 250.0, 0.0, 1.0) * (0.85 + 0.20 * math.cos(theta))
-            on_rock = (~sky_mask[140:340, :]) & (~abyss_mask[140:340, :])
-            by_r = bayer01[140:340, :]
-            hit_r = on_rock & (inten > 0.24) & ((inten * 2.1) > by_r)
-            b_sub = base_rgb[140:340, :].astype(np.int16)
-            lit = b_sub.copy()
-            lit[hit_r] = np.clip(b_sub[hit_r] + np.array([40, 28, 8], dtype=np.int16), 0, 255)
-            lit_q = _sanitize_rgb_no_magenta(((lit // 8) * 8).clip(0, 255).astype(np.uint8), hit_r)
-            sub_t = top_fx[140:340, :]
-            sub_t[hit_r, :3] = lit_q[hit_r]
-            sub_t[hit_r, 3] = 255
-
-            for i in range(18):
+            for i in range(n_motes):
                 mx = int((em_x0[i] + f * 32) % (W - 16)) + 8
-                my = 190 + (i * 19) % 340
-                if math.sin(theta + em_ph[i]) > 0.15:
-                    top_fx[my, mx] = (255, 240, 168, 255)
-        top_out.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
+                my = int(round(em_y0[i] + 4.0 * math.sin(theta + em_ph[i])))
+                if 4 <= mx < W - 4 and 220 <= my < H - 4 and (not sky_mask[my, mx]):
+                    if math.sin(2.0 * theta + em_ph[i]) > 0.05:
+                        top_fx[my, mx] = (255, 232, 152, 255)
+        breeze_24.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
-    return sky_out, sun_out, cld_out, emb_out, top_out
+    return starry_sunset_static_1, clouds_sunset_far_24, sun_stars_24, clouds_sunset_near_24, breeze_24
