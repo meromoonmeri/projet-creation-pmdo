@@ -226,6 +226,24 @@ def assemble_entree_montagne_clairiere_metano(
     rgb_768, mag_768 = downsample_non_mixing(rgb_hi, mag_hi, W, H, mag_vote_ratio=0.46)
     tinted = _tint_palette_entries(rgb_768, mag_768, mode=mode, scene="entree")
     quantized = quantize_non_magenta_mediancut(tinted, mag_768, n_colors=96)
+
+    # Abaisser doucement les crêtes secondaires latérales (y < 68, |x - 384| > 105) de 0..28 px
+    # en conservant 100 % des sommets rocheux dessinés et contours 1 px Chunsoft, afin d'ouvrir
+    # un véritable horizon panoramique Friend Area PMD Red autour du pic central sans toucher aux cascades (y >= 70).
+    u_flank = np.clip((np.abs(np.arange(W, dtype=np.float32) - 384.0) - 105.0) / 125.0, 0.0, 1.0)
+    drop_x = np.round(28.0 * (u_flank * u_flank * (3.0 - 2.0 * u_flank))).astype(np.int32)
+    band_h = 68
+    sculpted = quantized.copy()
+    for x_col in range(W):
+        d_px = int(drop_x[x_col])
+        if d_px <= 0:
+            continue
+        col_src = quantized[:band_h, x_col]
+        new_h = band_h - d_px
+        src_idx = np.round(np.linspace(0, band_h - 1, new_h)).astype(np.int32)
+        sculpted[:d_px, x_col] = MAGENTA
+        sculpted[d_px:band_h, x_col] = col_src[src_idx]
+    quantized = sculpted
     mag_final = (quantized[:, :, 0] == 255) & (quantized[:, :, 1] == 0) & (quantized[:, :, 2] == 255)
 
     # Extraire la couronne feuillue supérieure des arbres Tiny Woods pour le calque 09 `Top`
@@ -241,12 +259,27 @@ def assemble_entree_montagne_clairiere_metano(
     canopy_rgba[is_deep_foliage, :3] = quantized[is_deep_foliage]
     canopy_rgba[is_deep_foliage, 3] = 255
 
-    # Référence canonique composite 256x256 (ciel + montagne + rivière Metano + clairière Sky Peak)
+    # Référence canonique composite 256x256 (ciel généré Friend Area PMD Red + montagne + rivière Metano + clairière)
     ref_preview = quantized.copy()
-    sky_m = mag_final & (yy < 62)
-    wat_m = mag_final & (yy >= 65)
-    ref_preview[sky_m] = (24, 40, 74) if mode == "zekrom_electric" else (148, 64, 34)
-    ref_preview[wat_m] = (118, 212, 230)
+    sky_m = mag_final & (yy < 68)
+    wat_m = mag_final & (~sky_m)
+    if mode == "zekrom_electric":
+        sky_gen_path = REPO_ROOT / "source" / "zekrom_montagne_entree_v1" / "bruts" / "ciel_orageux_pmd_red_genere.png"
+        if sky_gen_path.is_file():
+            sg = Image.open(sky_gen_path).convert("RGB")
+            sg_band = np.asarray(sg.crop((0, 286, sg.width, 454)).resize((W, 72), Image.Resampling.BOX), dtype=np.uint8)
+            ref_preview[:68][sky_m[:68]] = sg_band[:68][sky_m[:68]]
+        else:
+            ref_preview[sky_m] = (34, 58, 76)
+    else:
+        sky_gen_path = REPO_ROOT / "source" / "reshiram_montagne_entree_v1" / "bruts" / "ciel_celeste_pmd_red_genere.png"
+        if sky_gen_path.is_file():
+            sg = Image.open(sky_gen_path).convert("RGB")
+            sg_band = np.asarray(sg.crop((0, 120, sg.width, 378)).resize((W, 72), Image.Resampling.BOX), dtype=np.uint8)
+            ref_preview[:68][sky_m[:68]] = sg_band[:68][sky_m[:68]]
+        else:
+            ref_preview[sky_m] = (232, 224, 188)
+    ref_preview[wat_m] = (131, 218, 230)
     ref_256 = np.asarray(Image.fromarray(ref_preview).resize((256, 256), Image.Resampling.NEAREST), dtype=np.uint8)
 
     out_brut_path.parent.mkdir(parents=True, exist_ok=True)

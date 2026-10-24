@@ -503,47 +503,135 @@ def _filter_small_ember_sparks(rgba_list: list[Image.Image], max_area: int = 56)
     return cleaned
 
 
+def _load_generated_friend_area_sky_and_fx(mode: str) -> dict[str, object]:
+    """Charge, détoure (`key()` #FF00FF) et quantifie sans tramage les ciels, éclairs et rayons
+    générés style Friend Area PMD Red (`H17P01` Thunder Meadow / `H05P02` Rainbow Peak)."""
+    if mode == "zekrom_electric":
+        sky_path = REPO_ROOT / "source" / "zekrom_montagne_entree_v1" / "bruts" / "ciel_orageux_pmd_red_genere.png"
+        bolt_path = (
+            REPO_ROOT / "source" / "zekrom_montagne_entree_v1" / "bruts" / "eclairs_friend_area_pmd_red_magenta.png"
+        )
+        sky_raw = Image.open(sky_path).convert("RGB")
+        # Bande isotrope 1:1 des cumulonimbus d'orage festonnés style H17P01 -> 768x76 MEDIANCUT 20 couleurs
+        sky_iso = sky_raw.crop((0, 286, sky_raw.width, 454)).resize((W, 76), Image.Resampling.BOX)
+        sky_arr = np.array(
+            sky_iso.quantize(colors=20, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGB"),
+            dtype=np.uint8,
+        )
+        # Période horizontale sans couture de 384 px (= 24 poses * 16 px/pose, harmonique impaire w=1)
+        sky_pal = np.unique(sky_arr.reshape(-1, 3), axis=0).astype(np.float32)
+        half_w = W // 2
+        half_strip = sky_arr[:, :half_w].astype(np.float32).copy()
+        blend_w = 40
+        for k in range(blend_w):
+            wk = k / float(blend_w)
+            bl = (1.0 - wk) * sky_arr[:, half_w - blend_w + k].astype(np.float32) + wk * sky_arr[:, k].astype(np.float32)
+            half_strip[:, k] = bl
+            half_strip[:, half_w - blend_w + k] = (
+                (1.0 - wk) * sky_arr[:, half_w - blend_w + k].astype(np.float32) + wk * bl
+            )
+        half_q = sky_pal[((half_strip[:, :, None, :] - sky_pal[None, None, :, :]) ** 2).sum(-1).argmin(-1)].astype(
+            np.uint8
+        )
+        sky_tileable = np.concatenate([half_q, half_q], axis=1)
+
+        # Détourage `key()` #FF00FF de l'éclair ramifié généré style Friend Area PMD Red
+        b_raw = np.array(Image.open(bolt_path).convert("RGB"), dtype=np.uint8)
+        br, bg_, bb = b_raw[:, :, 0].astype(np.float32), b_raw[:, :, 1].astype(np.float32), b_raw[:, :, 2].astype(np.float32)
+        b_mag = (br > 70.0) & (bb > 70.0) & (br > bg_ * 1.45) & (bb > bg_ * 1.45)
+        b_fg = ~(b_mag | (ndimage.binary_dilation(b_mag, iterations=2) & (br > bg_ * 1.08) & (bb > bg_ * 1.08)))
+        bys, bxs = np.where(b_fg)
+        b_mask = b_fg[bys.min() : bys.max() + 1, bxs.min() : bxs.max() + 1]
+        b_branches = ndimage.binary_erosion(b_mask, iterations=1)
+        hb_src = b_mask.shape[0]
+        top_z = np.arange(hb_src)[:, None] < int(0.45 * hb_src)
+        b_comb = np.where(
+            top_z,
+            ndimage.binary_erosion(b_mask, iterations=5)
+            | (b_branches & (~ndimage.binary_dilation(ndimage.binary_erosion(b_mask, iterations=9), iterations=5))),
+            b_branches,
+        )
+
+        def _mk_bolt(target_h: int, flip_x: bool = False, afterglow: bool = False) -> np.ndarray:
+            sh_b, sw_b = b_comb.shape[:2]
+            tw_b = max(16, int(round(sw_b * target_h / float(sh_b))))
+            m_im = Image.fromarray((b_comb * 255).astype(np.uint8)).resize((tw_b, target_h), Image.Resampling.BILINEAR)
+            m_s = np.array(m_im) >= (92 if afterglow else 78)
+            if flip_x:
+                m_s = m_s[:, ::-1]
+            core = ndimage.binary_erosion(m_s, iterations=1)
+            white = ndimage.binary_erosion(m_s, iterations=2)
+            out_b = np.zeros((target_h, tw_b, 4), dtype=np.uint8)
+            if afterglow:
+                out_b[m_s] = (24, 138, 226, 255)
+                out_b[core] = (96, 224, 255, 255)
+                out_b[white] = (212, 250, 255, 255)
+            else:
+                out_b[m_s] = (32, 198, 255, 255)
+                out_b[core] = (255, 250, 140, 255)
+                out_b[white] = (255, 255, 255, 255)
+            return sanitize_rgba_binary(out_b)
+
+        return {
+            "sky_strip": sky_tileable,
+            "bolt_fg_l": (_mk_bolt(94, False, False), _mk_bolt(94, False, True)),
+            "bolt_fg_r": (_mk_bolt(90, True, False), _mk_bolt(90, True, True)),
+            "bolt_mid_l": (_mk_bolt(72, False, False), _mk_bolt(72, False, True)),
+            "bolt_sky_l": (_mk_bolt(66, False, False), _mk_bolt(66, False, True)),
+            "bolt_sky_r": (_mk_bolt(66, True, False), _mk_bolt(66, True, True)),
+        }
+
+    sky_path = REPO_ROOT / "source" / "reshiram_montagne_entree_v1" / "bruts" / "ciel_celeste_pmd_red_genere.png"
+    ray_path = (
+        REPO_ROOT / "source" / "reshiram_montagne_entree_v1" / "bruts" / "rayons_lumiere_friend_area_pmd_red_magenta.png"
+    )
+    sky_raw = Image.open(sky_path).convert("RGB")
+    sky_iso = sky_raw.crop((0, 120, sky_raw.width, 378)).resize((W, 76), Image.Resampling.BOX)
+    sky_arr = np.array(
+        sky_iso.quantize(colors=24, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGB"),
+        dtype=np.uint8,
+    )
+
+    ray_raw = np.array(Image.open(ray_path).convert("RGB"), dtype=np.uint8)
+    rr, rg, rb = ray_raw[:, :, 0].astype(np.float32), ray_raw[:, :, 1].astype(np.float32), ray_raw[:, :, 2].astype(np.float32)
+    ray_mag = (rr > 70.0) & (rb > 70.0) & (rr > rg * 1.35) & (rb > rg * 1.35)
+    ray_fg = ~(ray_mag | (ndimage.binary_dilation(ray_mag, iterations=2) & (rr > rg * 1.05) & (rb > rg * 1.05)))
+    # Section basse-médiane (y=365..815) où les 5 faisceaux obliques Friend Area sont nettement séparés dès y=0 !
+    ray_sub = ray_fg[365:815, 290:1035]
+    cov_264 = (
+        np.array(
+            Image.fromarray((ray_sub * 255).astype(np.uint8)).resize((264, 166), Image.Resampling.BOX),
+            dtype=np.float32,
+        )
+        / 255.0
+    )
+    return {
+        "sky_strip": sky_arr,
+        "ray_cov": cov_264,
+    }
+
+
 def build_mountain_horizon_sky_layers(
     mode: str,
     sky_mask: np.ndarray,
+    base_rgb: np.ndarray | None = None,
 ) -> tuple[list[Image.Image], list[Image.Image], list[Image.Image]]:
-    """Construit les 3 calques atmosphériques (2 fond `Ground` + 1 crêtes `Top`)
-    au-dessus de la montagne de l'Entrée (`zekrom_electric` ou `reshiram_white_flame`)."""
+    """Construit les 3 calques atmosphériques 24 poses à partir des ciels, éclairs et rayons de lumière
+    générés style Friend Area PMD Red (`H17P01` orageux pour Zekrom / `H05P02` céleste pour Reshiram)."""
+    if mode not in ("zekrom_electric", "reshiram_white_flame"):
+        raise ValueError(f"Mode inconnu : {mode}")
+
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-    bayer = BAYER_4X4[np.arange(H)[:, None] % 4, np.arange(W)[None, :] % 4]
+    bayer01 = BAYER_4X4[np.arange(H)[:, None] % 4, np.arange(W)[None, :] % 4] + 0.5  # dans [0..1]
 
     # Masque élargi de 4 px sous la crête pour éviter tout interstice sur le ciel
     active_sky = ndimage.binary_dilation(sky_mask, iterations=4)
     ys_sky = np.where(active_sky)[0]
-    y_max_sky = int(ys_sky.max()) + 1 if len(ys_sky) else 160
+    y_max_sky = min(76, int(ys_sky.max()) + 1 if len(ys_sky) else 72)
 
-    if mode == "zekrom_electric":
-        pal_sky = [
-            (8, 12, 26),
-            (14, 22, 44),
-            (22, 36, 68),
-            (34, 56, 98),
-            (52, 86, 138),
-            (78, 126, 184),
-        ]
-        bolt_core = (232, 250, 255)
-        bolt_halo = (66, 168, 246)
-    elif mode == "reshiram_white_flame":
-        pal_sky = [
-            (26, 10, 14),
-            (54, 18, 22),
-            (96, 32, 24),
-            (156, 62, 28),
-            (218, 118, 42),
-            (248, 192, 92),
-            (255, 242, 212),
-        ]
-        bolt_core = (255, 250, 232)
-        bolt_halo = (246, 152, 52)
-    else:
-        raise ValueError(f"Mode inconnu : {mode}")
+    gen = _load_generated_friend_area_sky_and_fx(mode)
+    sky_strip: np.ndarray = gen["sky_strip"]  # type: ignore[assignment]
 
-    # Braises matérielles GBA W04 filtrées (flammèches 1x pures sans colonnes solaires) pour Reshiram
     w04_overlays: list[np.ndarray] = []
     if mode == "reshiram_white_flame":
         raw_w04 = build_gba_weather_overlay_frames(
@@ -554,100 +642,185 @@ def build_mountain_horizon_sky_layers(
             scroll_dx_per_loop=48,
             scroll_dy_per_loop=-48,
         )
-        w04_overlays = _filter_small_ember_sparks(raw_w04, max_area=52)
+        w04_overlays = _filter_small_ember_sparks(raw_w04, max_area=44)
+
+    def _paste_rgba(dst: np.ndarray, spr: np.ndarray, x0: int, y0: int, clip_mask: np.ndarray | None = None) -> None:
+        sh_s, sw_s = spr.shape[:2]
+        x_lo, y_lo = max(0, x0), max(0, y0)
+        x_hi, y_hi = min(W, x0 + sw_s), min(H, y0 + sh_s)
+        if x_hi <= x_lo or y_hi <= y_lo:
+            return
+        sub_s = spr[y_lo - y0 : y_hi - y0, x_lo - x0 : x_hi - x0]
+        m = sub_s[:, :, 3] > 0
+        if clip_mask is not None:
+            m = m & clip_mask[y_lo:y_hi, x_lo:x_hi]
+        dst[y_lo:y_hi, x_lo:x_hi][m] = sub_s[m]
 
     sky_frames: list[Image.Image] = []
     plume_frames: list[Image.Image] = []
     ridge_top_frames: list[Image.Image] = []
 
-    sub_yy = yy[:y_max_sky, :]
-    sub_xx = xx[:y_max_sky, :]
-    sub_bayer = bayer[:y_max_sky, :]
     sub_mask = active_sky[:y_max_sky, :]
+    sub_xx = xx[:y_max_sky, :]
+    sub_yy = yy[:y_max_sky, :]
 
     for pose in range(N_POSES):
         theta = 2.0 * math.pi * pose / N_POSES
 
-        # --- Calque 0 : Ciel d'orage / Aurore ardente ---
-        sky = np.zeros((H, W, 4), dtype=np.uint8)
-        grad = np.clip(sub_yy / max(float(y_max_sky), 1.0), 0.0, 1.0)
-        clouds = (
-            0.5
-            + 0.28 * np.sin(0.018 * sub_xx - theta + 0.03 * sub_yy)
-            + 0.16 * np.cos(0.034 * sub_xx + 3.0 * theta - 0.04 * sub_yy)
-        )
-        val = np.clip(0.55 * grad + 0.45 * clouds, 0.0, 1.0)
-        rgb = palette_lookup_dithered(val, pal_sky, sub_bayer, dither_strength=0.62)
-        sub_out = sky[:y_max_sky, :]
-        sub_out[sub_mask, :3] = rgb[sub_mask]
-        sub_out[sub_mask, 3] = 255
-        sky_frames.append(Image.fromarray(sanitize_rgba_binary(sky)))
-
-        # --- Calque 1 : Éclairs lointains (Zekrom) ou Volutes de Flamme Blanche (Reshiram) ---
-        plume = np.zeros((H, W, 4), dtype=np.uint8)
         if mode == "zekrom_electric":
-            # Trois foyers d'éclairs décalés au-dessus des crêtes montagneuses
-            anchors = [(190, 6, 224, 112, 0), (384, 4, 368, 96, 8), (576, 8, 548, 116, 16)]
-            for ax0, ay0, ax1, ay1, p_start in anchors:
-                rel = (pose - p_start) % N_POSES
-                if rel < 5:
-                    pts = []
-                    for s in range(7):
-                        t_s = s / 6.0
-                        bx = int(round(ax0 + (ax1 - ax0) * t_s + (11 if s % 2 == 1 else -9) * (0 < s < 6)))
-                        by = int(round(ay0 + (ay1 - ay0) * t_s))
-                        pts.append((bx, by))
-                    draw_pixel_bolt_rgba(
-                        plume,
-                        pts,
-                        core_rgb=bolt_core if rel < 3 else (130, 214, 255),
-                        halo_rgb=bolt_halo,
-                        core_half_w=1 if rel < 2 else 0,
-                        halo_half_w=2 if rel < 3 else 1,
-                    )
-        else:
-            # Rubans ascendants de Flamme Blanche sacrée & Or solaire derrière le pic central
-            dx_c = (sub_xx - 384.0) / 290.0
-            rib = np.sin(5.0 * dx_c + 0.075 * sub_yy + theta) + 0.5 * np.cos(
-                9.0 * dx_c + 0.11 * sub_yy + 3.0 * theta
-            )
-            env = np.exp(-1.6 * dx_c * dx_c) * np.clip(1.15 - 0.35 * grad, 0.2, 1.0)
-            warm = sub_mask & ((rib * env + sub_bayer * 0.35) > 0.58)
-            hot = sub_mask & ((rib * env + sub_bayer * 0.28) > 0.80)
-            core = sub_mask & ((rib * env + sub_bayer * 0.20) > 1.02)
-            sub_p = plume[:y_max_sky, :]
-            sub_p[warm] = (232, 118, 38, 255)
-            sub_p[hot] = (252, 202, 86, 255)
-            sub_p[core] = (255, 252, 238, 255)
+            # --- Calque 0 : Ciel orageux généré style Friend Area H17P01 en défilement continu (16 px/pose, période 384 px) ---
+            shift_x = (pose * 16) % (W // 2)
+            scrolled_sky = np.roll(sky_strip[:y_max_sky, :], -shift_x, axis=1).copy()
 
-        plume[~active_sky] = 0
-        plume_frames.append(Image.fromarray(sanitize_rgba_binary(plume)))
+            # Illumination radiale des ourlets cyan des nuages d'orage synchronisée avec les impacts d'éclairs
+            flash_centers: list[tuple[float, float]] = []
+            if pose in (0, 1, 2):
+                flash_centers.extend([(102.0, 1.0 if pose < 2 else 0.5), (636.0, 0.75 if pose < 2 else 0.35)])
+            elif pose in (8, 9, 10):
+                flash_centers.extend([(652.0, 1.0 if pose < 10 else 0.5), (156.0, 0.75 if pose < 10 else 0.35)])
+            elif pose in (16, 17, 18):
+                flash_centers.extend([(214.0, 0.85 if pose < 18 else 0.4), (568.0, 0.85 if pose < 18 else 0.4)])
 
-        # --- Calque 9 (`Top`) : Étincelles de crête (Zekrom) ou Braises sacrées GBA W04 (Reshiram) ---
-        top_fx = np.zeros((H, W, 4), dtype=np.uint8)
-        if mode == "zekrom_electric":
+            if flash_centers:
+                s_float = scrolled_sky.astype(np.float32)
+                rim_px = scrolled_sky[:, :, 2] >= 92
+                for fcx, f_str in flash_centers:
+                    d2 = (sub_xx - fcx) ** 2 + (sub_yy - 22.0) ** 2
+                    falloff = np.clip(1.0 - d2 / (145.0 * 145.0), 0.0, 1.0) * f_str
+                    boost_m = rim_px & (falloff > 0.08)
+                    s_float[boost_m, 0] = np.clip(s_float[boost_m, 0] + 34.0 * falloff[boost_m], 0, 255)
+                    s_float[boost_m, 1] = np.clip(s_float[boost_m, 1] + 56.0 * falloff[boost_m], 0, 255)
+                    s_float[boost_m, 2] = np.clip(s_float[boost_m, 2] + 78.0 * falloff[boost_m], 0, 255)
+                scrolled_sky = (np.round(s_float / 4.0) * 4.0).clip(0, 255).astype(np.uint8)
+
+            sky = np.zeros((H, W, 4), dtype=np.uint8)
+            sky[:y_max_sky, :][sub_mask, :3] = scrolled_sky[sub_mask]
+            sky[:y_max_sky, :][sub_mask, 3] = 255
+            sky_frames.append(Image.fromarray(sanitize_rgba_binary(sky)))
+
+            # --- Calque 1 (`BG`) : Éclairs ramifiés lointains Friend Area derrière les crêtes ---
+            plume = np.zeros((H, W, 4), dtype=np.uint8)
+            b_sky_l_main, b_sky_l_glow = gen["bolt_sky_l"]  # type: ignore[misc]
+            b_sky_r_main, b_sky_r_glow = gen["bolt_sky_r"]  # type: ignore[misc]
+            if pose in (0, 1, 2):
+                _paste_rgba(plume, b_sky_r_main if pose < 2 else b_sky_r_glow, 610, 0, clip_mask=active_sky)
+            elif pose in (8, 9, 10):
+                _paste_rgba(plume, b_sky_l_main if pose < 10 else b_sky_l_glow, 132, 0, clip_mask=active_sky)
+            elif pose in (16, 17, 18):
+                _paste_rgba(plume, b_sky_l_main if pose < 18 else b_sky_l_glow, 192, 0, clip_mask=active_sky)
+                _paste_rgba(plume, b_sky_r_main if pose < 18 else b_sky_r_glow, 542, 0, clip_mask=active_sky)
+            plume_frames.append(Image.fromarray(sanitize_rgba_binary(plume)))
+
+            # --- Calque 9 (`Top`) : Grands éclairs ramifiés Friend Area PMD Red frappant les crêtes + étincelles ---
+            top_fx = np.zeros((H, W, 4), dtype=np.uint8)
+            b_fg_l_main, b_fg_l_glow = gen["bolt_fg_l"]  # type: ignore[misc]
+            b_fg_r_main, b_fg_r_glow = gen["bolt_fg_r"]  # type: ignore[misc]
+            b_mid_l_main, b_mid_l_glow = gen["bolt_mid_l"]  # type: ignore[misc]
+            if pose in (0, 1, 2):
+                _paste_rgba(top_fx, b_fg_l_main if pose < 2 else b_fg_l_glow, 68, 0)
+            elif pose in (8, 9, 10):
+                _paste_rgba(top_fx, b_fg_r_main if pose < 10 else b_fg_r_glow, 624, 0)
+            elif pose in (17, 18):
+                _paste_rgba(top_fx, b_mid_l_main if pose == 17 else b_mid_l_glow, 224, 0)
+
             rng = np.random.default_rng(9100)
-            base_sparks = rng.integers(0, [W, 180], size=(28, 2))
+            base_sparks = rng.integers(0, [W, 136], size=(18, 2))
             for k, (sx0, sy0) in enumerate(base_sparks):
-                px = int((sx0 + round(pose * 4 + 6 * math.sin(theta + k))) % W)
-                py = int(12 + (sy0 - pose * 3 + k * 7) % 148)
+                px = int((sx0 + round(pose * 4 + 5 * math.sin(theta + k))) % W)
+                py = int(8 + (sy0 - pose * 3 + k * 7) % 124)
                 if 0 <= py < H - 2 and 0 <= px < W - 2:
                     top_fx[py : py + 2, px : px + 2] = (
-                        (226, 248, 255, 255) if (k + pose) % 2 == 0 else (92, 192, 252, 255)
+                        (236, 252, 255, 255) if (k + pose) % 2 == 0 else (72, 198, 255, 255)
                     )
-        else:
-            # Braises GBA W04 recolorées en blanc-or sacré dans le tiers nord (y < 196)
-            ov = w04_overlays[pose][:196, :]
-            em = ov[:, :, 3] > 0
-            # Rehausser vers l'or blanc sacré de Reshiram
-            lum = ov[:, :, 0].astype(np.int16)
-            sub_t = top_fx[:196, :]
-            bright_e = em & (lum >= 210)
-            warm_e = em & (lum < 210)
-            sub_t[warm_e] = (248, 182, 68, 255)
-            sub_t[bright_e] = (255, 248, 226, 255)
+            ridge_top_frames.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
-        ridge_top_frames.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
+        else:
+            # --- Mode `reshiram_white_flame` : Ciel céleste H05P02 + Rayons de lumière style Friend Area PMD Red ---
+            # Brise céleste douce (+/- 7 px en cos(theta)) + pulsation BPL dorée-azur (w=1 -> pose 0 != pose 12 franc)
+            breeze_dx = int(round(7.0 * math.cos(theta)))
+            xs_clamped = np.clip(np.arange(W, dtype=np.int32) - breeze_dx, 0, W - 1)
+            cel_sky = sky_strip[:y_max_sky, xs_clamped].astype(np.float32)
+            bpl_wave = 14.0 * np.cos(theta - 0.008 * sub_xx) + 4.0 * np.sin(3.0 * theta + 0.04 * sub_yy)
+            cel_sky[:, :, 0] = np.clip(cel_sky[:, :, 0] + bpl_wave * 1.15, 0, 255)
+            cel_sky[:, :, 1] = np.clip(cel_sky[:, :, 1] + bpl_wave * 0.95, 0, 255)
+            cel_sky[:, :, 2] = np.clip(cel_sky[:, :, 2] + bpl_wave * 0.55, 0, 255)
+            cel_sky_q = (np.round(cel_sky / 8.0) * 8.0).clip(0, 255).astype(np.uint8)
+
+            sky = np.zeros((H, W, 4), dtype=np.uint8)
+            sky[:y_max_sky, :][sub_mask, :3] = cel_sky_q[sub_mask]
+            sky[:y_max_sky, :][sub_mask, 3] = 255
+            sky_frames.append(Image.fromarray(sanitize_rgba_binary(sky)))
+
+            # --- Calques 1 (`BG` ciel) & 9 (`Top` montagne) : Faisceaux obliques générés style Friend Area PMD Red ---
+            ray_cov: np.ndarray = gen["ray_cov"]  # type: ignore[assignment]
+            rh_f, rw_f = ray_cov.shape[:2]
+            taper_y = np.clip(1.22 - np.arange(rh_f, dtype=np.float32)[:, None] / float(rh_f), 0.0, 1.0)
+            breath = 0.96 + 0.14 * math.cos(theta)
+            sweep_dx = int(round(12.0 * math.cos(theta)))
+
+            plume = np.zeros((H, W, 4), dtype=np.uint8)
+            top_fx = np.zeros((H, W, 4), dtype=np.uint8)
+
+            # Deux éventails symétriques de 5 rayons obliques séparés laissant voir l'azur et les nuages célestes entre chaque rayon !
+            for base_rx0 in (8, 492):
+                rx0 = max(0, min(W - rw_f, base_rx0 + sweep_dx))
+                inten = ray_cov * taper_y * breath
+                by_sub = bayer01[0:rh_f, rx0 : rx0 + rw_f]
+                in_sky_sub = active_sky[0:rh_f, rx0 : rx0 + rw_f]
+
+                # 1) Dans le ciel (`Layer 01 BG`) : rehaussement additif GBA BLDCNT sur les nuages & l'azur céleste
+                sky_h = min(y_max_sky, rh_f)
+                in_s = in_sky_sub[:sky_h]
+                int_s = inten[:sky_h]
+                by_s = by_sub[:sky_h]
+                sky_core = in_s & (int_s > 0.42)
+                sky_mid = in_s & (~sky_core) & (int_s > 0.20)
+                sky_edge = in_s & (~sky_core) & (~sky_mid) & (int_s > 0.10) & ((int_s * 3.0) > by_s)
+                base_s = cel_sky_q[:sky_h, rx0 : rx0 + rw_f].astype(np.float32)
+                lit_s = base_s.copy()
+                lit_s[sky_core] = np.clip(base_s[sky_core] * 0.46 + np.array([255.0, 250.0, 216.0]) * 0.54, 0, 255)
+                lit_s[sky_mid] = np.clip(base_s[sky_mid] * 0.68 + np.array([254.0, 243.0, 194.0]) * 0.32, 0, 255)
+                lit_s[sky_edge] = np.clip(base_s[sky_edge] * 0.82 + np.array([252.0, 236.0, 180.0]) * 0.18, 0, 255)
+                lit_s_q = (np.round(lit_s / 8.0) * 8.0).clip(0, 255).astype(np.uint8)
+                hit_s = sky_core | sky_mid | sky_edge
+                sub_p = plume[:sky_h, rx0 : rx0 + rw_f]
+                sub_p[hit_s, :3] = lit_s_q[hit_s]
+                sub_p[hit_s, 3] = 255
+
+                # 2) Devant la montagne (`Layer 09 Top`, y < 166) : éclaircissement additif GBA BLDCNT sans damier gris
+                if base_rgb is not None:
+                    solid_mtn = (~sky_mask[0:rh_f, rx0 : rx0 + rw_f]) & (
+                        ~(
+                            (base_rgb[0:rh_f, rx0 : rx0 + rw_f, 0] >= 245)
+                            & (base_rgb[0:rh_f, rx0 : rx0 + rw_f, 1] <= 12)
+                            & (base_rgb[0:rh_f, rx0 : rx0 + rw_f, 2] >= 245)
+                        )
+                    )
+                    mtn_t2 = solid_mtn & (inten > 0.50)
+                    mtn_t1 = solid_mtn & (~mtn_t2) & (inten > 0.23)
+                    mtn_tip = solid_mtn & (~mtn_t2) & (~mtn_t1) & (inten > 0.10) & ((inten * 3.2) > by_sub)
+                    src_mtn = base_rgb[0:rh_f, rx0 : rx0 + rw_f].astype(np.float32)
+                    lit_mtn = src_mtn.copy()
+                    lit_mtn[mtn_t2] = np.clip(src_mtn[mtn_t2] + np.array([56.0, 46.0, 24.0]), 0, 255)
+                    lit_mtn[mtn_t1] = np.clip(src_mtn[mtn_t1] + np.array([32.0, 26.0, 13.0]), 0, 255)
+                    lit_mtn[mtn_tip] = np.clip(src_mtn[mtn_tip] + np.array([18.0, 15.0, 7.0]), 0, 255)
+                    lit_q = (np.round(lit_mtn / 8.0) * 8.0).clip(0, 255).astype(np.uint8)
+                    any_hit = mtn_t2 | mtn_t1 | mtn_tip
+                    sub_t = top_fx[0:rh_f, rx0 : rx0 + rw_f]
+                    sub_t[any_hit, :3] = lit_q[any_hit]
+                    sub_t[any_hit, 3] = 255
+
+            # Particules de lumière dorée céleste GBA W04 flottant doucement près des crêtes
+            ov = w04_overlays[pose][:164, :]
+            em = ov[:, :, 3] > 0
+            lum_e = ov[:, :, 0].astype(np.int16)
+            sub_em = top_fx[:164, :]
+            sub_em[em & (lum_e < 210)] = (252, 218, 124, 255)
+            sub_em[em & (lum_e >= 210)] = (255, 252, 232, 255)
+
+            plume[~active_sky] = 0
+            plume_frames.append(Image.fromarray(sanitize_rgba_binary(plume)))
+            ridge_top_frames.append(Image.fromarray(sanitize_rgba_binary(top_fx)))
 
     return sky_frames, plume_frames, ridge_top_frames
 

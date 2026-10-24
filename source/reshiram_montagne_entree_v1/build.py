@@ -67,7 +67,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     yy_n, xx_n = np.mgrid[0:H_NAT, 0:W_NAT]
     mag_nat = (rgb_nat[:, :, 0] >= 245) & (rgb_nat[:, :, 1] <= 12) & (rgb_nat[:, :, 2] >= 245)
-    sky_mask_nat = mag_nat & (yy_n < 62)
+    sky_mask_nat = mag_nat & (yy_n < 68)
     water_mask_nat = mag_nat & (~sky_mask_nat)
     solid_nat = ~mag_nat
 
@@ -96,6 +96,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     sky_24, plume_24, ridge_embers_24 = build_mountain_horizon_sky_layers(
         mode="reshiram_white_flame",
         sky_mask=sky_mask_nat,
+        base_rgb=rgb_nat,
     )
     river_24, sparkle_24, flower_24 = build_metano_river_and_skypeak_layers(
         water_mask=water_full_nat,
@@ -159,8 +160,8 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     walk_grid[:, -2:] = False
 
     layers = [
-        LayerEntry("00_ciel_aurore_flamme_blanche", "Ciel d'Aurore Ardente au-dessus de la Montagne", "BG", _resize_frames(sky_24, w, h), frame_length=5),
-        LayerEntry("01_volutes_flamme_croix_horizon", "Rubans de Flamme Blanche & Flamme Bleue sur l'Horizon", "BG", _resize_frames(plume_24, w, h), frame_length=5),
+        LayerEntry("00_ciel_aurore_flamme_blanche", "Ciel Céleste Généré Style Friend Area PMD Red (H05P02)", "BG", _resize_frames(sky_24, w, h), frame_length=5),
+        LayerEntry("01_volutes_flamme_croix_horizon", "Rayons de Lumière Célestes Friend Area PMD Red (Ciel)", "BG", _resize_frames(plume_24, w, h), frame_length=5),
         LayerEntry("02_riviere_et_cascades_metano_4phases", "Rivière Metano Town & Cascades Fluides 1×", "BG", _resize_frames(river_24, w, h), frame_length=5),
         LayerEntry("03_sparkles_et_ecume_riviere_metano", "Reflets Scintillants Rivière Metano Town 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
         LayerEntry("04_clairiere_skypeak_et_berges_metano", "Clairière Sky Peak Prairie & Berges Naturelles", "BG", [mk_static_scaled(is_meadow_banks, rgb_meadow)], frame_length=5),
@@ -168,7 +169,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("06_paroi_montagne_solaire_et_grotte", "Montagne Solaire D07P11A 1× & Grotte Centrale", "BG", [mk_static_scaled(is_mountain)], frame_length=5),
         LayerEntry("07_arbres_tiny_woods_buissons_rochers", "Arbres Ronds Tiny Woods, Buissons & Rochers 1×", "BG", [mk_static_scaled(is_forest_props)], frame_length=5),
         LayerEntry("08_fleurs_skypeak_metano_brise", "Écume de Cascade Metano & Fleurs Sky Peak", "BG", _resize_frames(flower_24, w, h), frame_length=5),
-        LayerEntry("09_canopee_tiny_woods_et_braises_w04_top", "Canopée Tiny Woods & Braises GBA W04 Top", "Top", _resize_frames(top_24, w, h), frame_length=5),
+        LayerEntry("09_canopee_tiny_woods_et_braises_w04_top", "Canopée Tiny Woods & Rayons de Lumière Friend Area Top", "Top", _resize_frames(top_24, w, h), frame_length=5),
     ]
     return layers, walk_grid
 

@@ -70,6 +70,11 @@ class TestZekromMontagneEntreeV1(unittest.TestCase):
             c_cur = riv_f[t][80:162, 158:185, :3]
             c_nxt = riv_f[(t + 1) % 24][80:162, 158:185, :3]
             self.assertGreater(int(np.abs(c_cur.astype(int) - c_nxt.astype(int)).max(axis=2).sum()), 500)
+        # 4) Ciel orageux + éclairs ramifiés Friend Area PMD Red générés présents et animés (calques 00, 01, 09)
+        self.assertTrue((zke_build.HERE / "bruts" / "ciel_orageux_pmd_red_genere.png").is_file())
+        self.assertTrue((zke_build.HERE / "bruts" / "eclairs_friend_area_pmd_red_magenta.png").is_file())
+        self.assertGreater(int((np.asarray(layers[1].frames[0], dtype=np.uint8)[:, :, 3] == 255).sum()), 200)
+        self.assertGreater(int((np.asarray(layers[9].frames[0], dtype=np.uint8)[:100, :, 3] == 255).sum()), 400)
 
     def test_04_continuous_south_to_cave_walkgrid(self) -> None:
         _, walk_grid = zke_build.build_layers_for_size()
