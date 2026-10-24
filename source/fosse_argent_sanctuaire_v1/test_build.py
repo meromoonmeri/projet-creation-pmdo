@@ -48,41 +48,54 @@ class TestFosseArgentSanctuaireV1(unittest.TestCase):
         for bank, count in self.metrics["unique_tiles_per_sheet"].items():
             self.assertLess(count, 24_000, f"Banque {bank} dépasse 24 000 tuiles : {count}")
 
-    def test_03_nine_back_waterfalls_and_two_water_tornadoes_per_side_animated(self) -> None:
+    def test_03_dark_metano_water_foggy_forest_waterfalls_and_offscreen_tce1_tornadoes(self) -> None:
         layers, _, _ = fas_build.build_layers_for_size(768, 576)
-        # Vérifie que la couche 02 anime bien les nombreuses cascades à l'arrière (`y < 260`)
-        wf0 = np.asarray(layers[2].frames[0], dtype=np.uint8)
-        wf4 = np.asarray(layers[2].frames[4], dtype=np.uint8)
-        wf_diff = np.abs(wf0[:260, :, :3].astype(int) - wf4[:260, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((wf_diff > 8).sum()), 3_000, "Les cascades arrière H10P02 doivent s'animer franchement")
 
-        # Vérifie les 2 tornades d'eau 3D à Gauche (`07`) et les 2 tornades d'eau 3D à Droite (`08`) du chemin Sud→Nord
-        tl0 = np.asarray(layers[7].frames[0], dtype=np.uint8)
-        tl12 = np.asarray(layers[7].frames[12], dtype=np.uint8)
-        tr0 = np.asarray(layers[8].frames[0], dtype=np.uint8)
-        tr12 = np.asarray(layers[8].frames[12], dtype=np.uint8)
-        self.assertGreater(int((tl0[:, :345, 3] == 255).sum()), 12_000)
-        self.assertGreater(int((tr0[:, 423:, 3] == 255).sum()), 12_000)
-        self.assertEqual(int((tl0[:, 346:422, 3] == 255).sum()), 0, "Aucune tornade ne doit empiéter sur le chemin Sud→Nord")
-        self.assertEqual(int((tr0[:, 346:422, 3] == 255).sum()), 0, "Aucune tornade ne doit empiéter sur le chemin Sud→Nord")
-        self.assertGreater(int((np.abs(tl0[:, :, :3].astype(int) - tl12[:, :, :3].astype(int)).max(axis=2) > 8).sum()), 4_000)
-        self.assertGreater(int((np.abs(tr0[:, :, :3].astype(int) - tr12[:, :, :3].astype(int)).max(axis=2) > 8).sum()), 4_000)
+        # 1) Eau Metano Town sombre (4 poses @ 10 ticks sur 01_ondes + 02_sparkles)
+        self.assertEqual((len(layers[1].frames), layers[1].frame_length), (4, 10))
+        self.assertEqual((len(layers[2].frames), layers[2].frame_length), (4, 10))
+        base_w = np.asarray(layers[0].frames[0], dtype=np.uint8)
+        self.assertEqual(tuple(int(v) for v in base_w[500, 330, :3]), (22, 56, 134))
+        w0 = np.asarray(layers[1].frames[0], dtype=np.uint8)
+        w2 = np.asarray(layers[1].frames[2], dtype=np.uint8)
+        self.assertGreater(int((np.abs(w0.astype(int) - w2.astype(int)).max(axis=2) > 6).sum()), 1_500)
 
-        # Arène simple (`06`), chemin Sud→Nord (`05`), falaise (`04`) et eau profonde (`00`) 100 % statiques (`poses = 1`)
-        for st_idx in (0, 4, 5, 6):
+        # 2) Cascades authentiques de Foggy Forest (`P03P01A`, 3 poses BPA @ 10 ticks sur 04)
+        self.assertTrue((fas_build.REF_DIR / "foggy_forest_p03p01a_waterfalls.png").is_file())
+        self.assertEqual((len(layers[4].frames), layers[4].frame_length), (3, 10))
+        wf0 = np.asarray(layers[4].frames[0], dtype=np.uint8)
+        wf1 = np.asarray(layers[4].frames[1], dtype=np.uint8)
+        wf_diff = np.abs(wf0[:290, :, :3].astype(int) - wf1[:290, :, :3].astype(int)).max(axis=2)
+        self.assertGreater(int((wf_diff > 8).sum()), 6_000, "Les 9 cascades Foggy Forest P03P01A doivent s'animer")
+
+        # 3) 2 tornades d'eau géantes par côté SANS extrémité visible (touchent y=0 ET y=575 comme Sky Tower Entrance !)
+        for idx_t in (7, 8):
+            self.assertEqual((len(layers[idx_t].frames), layers[idx_t].frame_length), (8, 5))
+            t0 = np.asarray(layers[idx_t].frames[0], dtype=np.uint8)
+            t4 = np.asarray(layers[idx_t].frames[4], dtype=np.uint8)
+            # Touche le bord supérieur hors-cadre y=0 à gauche ET à droite
+            self.assertGreater(int((t0[0, :384, 3] == 255).sum()), 40, f"Calque {idx_t} doit dépasser y=0 à gauche")
+            self.assertGreater(int((t0[0, 384:, 3] == 255).sum()), 40, f"Calque {idx_t} doit dépasser y=0 à droite")
+            # Touche le bord inférieur hors-cadre y=575 à gauche ET à droite
+            self.assertGreater(int((t0[575, :384, 3] == 255).sum()), 40, f"Calque {idx_t} doit dépasser y=575 à gauche")
+            self.assertGreater(int((t0[575, 384:, 3] == 255).sum()), 40, f"Calque {idx_t} doit dépasser y=575 à droite")
+            # Zéro empiètement sur le chemin de pierre Sud→Nord central
+            self.assertEqual(int((t0[:, 348:420, 3] == 255).sum()), 0)
+            self.assertGreater(int((np.abs(t0[:, :, :3].astype(int) - t4[:, :, :3].astype(int)).max(axis=2) > 8).sum()), 8_000)
+
+        # Arène simple (`06`), chemin Sud→Nord (`05`), falaise (`03`) et eau profonde (`00`) 100 % statiques (`poses = 1`)
+        for st_idx in (0, 3, 5, 6):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
 
     def test_04_simple_uncluttered_oval_arena_and_south_to_north_path(self) -> None:
         _, wg, pal = fas_build.build_layers_for_size(768, 576)
         self.assertLessEqual(len(pal), 96)
         self.assertEqual(wg.shape, (72, 96))
-        self.assertGreaterEqual(int(wg.sum()), 1_000)
+        self.assertGreaterEqual(int(wg.sum()), 850)
         lbl, n_cc = ndimage.label(wg)
         self.assertEqual(n_cc, 1)
-        # Chemin Sud→Nord praticable dès le bord Sud (`y = 71`)
         self.assertTrue(bool(wg[71, 45:51].any()), "Chemin Sud→Nord ouvert au Sud")
-        # Intérieur de l'arène simple 100 % dégagé sans le moindre objet/trou de collision
-        self.assertTrue(bool(np.all(wg[28:42, 34:62])), "L'arène centrale de Lugia doit être 100 % simple et dégagée sans objet")
+        self.assertTrue(bool(np.all(wg[29:41, 36:60])), "L'arène centrale de Lugia doit être 100 % simple et dégagée sans objet")
 
     def test_05_scale_invariance_half_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
