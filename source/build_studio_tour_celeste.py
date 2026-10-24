@@ -217,6 +217,28 @@ def export_filmstrips() -> Dict:
             "wind_summary": "Cyclone Cylindrique 3D 360° de Flamme Blanche #FF00FF (paroi arrière G->D + lèvre avant Top D->G, 24f @ 5t) | Braises GBA W04 1× | Roc Mt. Thunder 1× statique",
         },
         {
+            "id": "KYE1",
+            "group": "Duo Unys · Kyurem",
+            "folder": "kyurem_cratere_entree_v1",
+            "ref_rel": "source/kyurem_cratere_entree_v1/references/ref_canon_kyurem_cratere_entree.png",
+            "ref_label": "Biome Grotte Cyclopéenne sans Ciel (0 % Ciel, réf. sapins D10P01) + Eau Native Metano Town Gelée",
+            "zip_rel": ".cache/virtual_zips/KYE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0c1828",
+            "subtitle": "Grotte Cyclopéenne — Cratère Boisé Gelé (Kyurem, 0 % ciel) — Rempart météoritique & corniches de glace vive jusqu'à y=0, bouche caverneuse à cristaux cryo, sapins enneigés façon D10P01, pont de glace & chenal Metano Town gelé (#FF00FF)",
+            "wind_summary": "0 % ciel (cratère & glace y=0..234) | Eau & sparkles 1× natifs Metano Town refroidis #FF00FF (4×10t) | Cristaux cryo & fleurs Metano givrées | Neige GBA W03P03 1× Top",
+        },
+        {
+            "id": "KYA1",
+            "group": "Duo Unys · Kyurem",
+            "folder": "kyurem_sanctuaire_glace_v1",
+            "ref_rel": "source/kyurem_sanctuaire_glace_v1/references/h24p01_frigid_cavern_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Frigid Cavern (H24P01) + Sanctuaire de Glace Noire Généré (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/KYA1_PMDO_0.8.12.zip",
+            "bg_fill": "#081222",
+            "subtitle": "Grotte Cyclopéenne — Sanctuaire de Glace Noire & Blizzard 360° (Kyurem) — Arène nue de glace noire, douve annulaire d'Eau Metano Town gelée enroulée dans une couronne de pitons cyan, au cœur d'un Blizzard Cyclonique 3D 360° (#FF00FF)",
+            "wind_summary": "Blizzard Cylindrique 3D 360° #FF00FF (paroi arrière G->D + lèvre avant Top D->G, 24f @ 5t) | Douve Eau & Sparkles 1× Metano Town gelée (4×10t) | Neige GBA W03P03 1× | Arène glace noire nue statique",
+        },
+        {
             "id": "FSE1",
             "group": "Faille Spatiale · Palkia",
             "folder": "faille_spatiale_entree_v1",
@@ -1108,7 +1130,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="FAS1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="KYA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_grotte_cyclopeenne_kyurem_pmdo.html").write_text(
+        build_html(manifest, default_map_id="KYA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_fosse_argent_lugia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FAS1"), encoding="utf-8"
     )
