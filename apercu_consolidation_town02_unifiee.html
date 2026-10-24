@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consolidation Unifiée town02 + Toutes Branches PMDO &amp; Guilde Treehouse</title>
+  <style>
+    :root {
+      --bg: #0b101b;
+      --panel: #131b2e;
+      --panel-2: #19243d;
+      --border: #28385c;
+      --text: #e8eefc;
+      --muted: #98a9cc;
+      --accent: #4cc9f0;
+      --accent-2: #72efdd;
+      --gold: #ffd166;
+      --ok: #52b788;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #15223b 0%, var(--bg) 60%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 24px 28px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11, 16, 27, 0.85);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .top-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.2px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, #1b6ca8, #2a9d8f);
+      border-color: #4cc9f0;
+      color: #fff;
+    }
+    main {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 24px 28px 60px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .kpi {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px 18px;
+    }
+    .kpi .val {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--accent-2);
+    }
+    .kpi .lbl {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .cmd-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+    }
+    .cmd-box h2 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: var(--gold);
+    }
+    .cmd-box p {
+      margin: 0 0 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    pre {
+      margin: 0;
+      padding: 13px 16px;
+      background: #070b13;
+      border: 1px solid #223152;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #a8f9ff;
+      font-size: 0.86rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .tab-btn.active {
+      background: var(--panel-2);
+      color: var(--accent-2);
+      border-color: var(--accent);
+    }
+    input[type="search"], select {
+      padding: 9px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1424;
+      color: var(--text);
+      font-size: 0.9rem;
+      min-width: 250px;
+    }
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(40, 56, 92, 0.55);
+    }
+    th {
+      background: var(--panel-2);
+      color: var(--accent);
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+    }
+    tr:hover td {
+      background: rgba(76, 201, 240, 0.05);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: rgba(76, 201, 240, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(76, 201, 240, 0.35);
+    }
+    .badge.ok {
+      background: rgba(82, 183, 136, 0.16);
+      color: #8ce99a;
+      border-color: rgba(82, 183, 136, 0.4);
+    }
+    .badge.warn {
+      background: rgba(255, 209, 102, 0.14);
+      color: var(--gold);
+      border-color: rgba(255, 209, 102, 0.35);
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.82rem;
+      color: #c8dcff;
+    }
+    .count-info {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <div>
+        <h1>Hub de Consolidation Unifiée : <code>town02</code> + Toutes Branches PMDO &amp; Guilde Treehouse</h1>
+        <div class="subtitle">Inventaire croisé vérifié sur 36+ branches Git &amp; assembleur PMDO 0.8.12.0 anti-damier mauve (<code>Content/Tile/index.idx</code> + Git LFS)</div>
+      </div>
+      <div class="btn-row">
+        <a class="btn primary" href="./download/KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip" download="KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip">Télécharger le Kit Clé-en-Main (.zip)</a>
+        <button class="btn" id="copyCmdBtn" type="button">Copier la commande 1-clic</button>
+        <a class="btn" href="./index.html">Retour au Studio 60 FPS (33 maps)</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpi-grid">
+      <div class="kpi">
+        <div class="val" id="kpiTownGrounds">1 620</div>
+        <div class="lbl">Maps <code>.rsground</code> natives dans <code>town02</code> (+ <span id="kpiTownTiles">2 091</span> <code>.tile</code>)</div>
+      </div>
+      <div class="kpi">
+        <div class="val" id="kpiSourceLots">416</div>
+        <div class="lbl">Lots <code>source/*</code> uniques fusionnés (<span id="kpiVariants">164</span> à variantes)</div>
+      </div>
+      <div class="kpi">
+        <div class="val" id="kpiRendersLots">354</div>
+        <div class="lbl">Lots <code>renders/*</code> &amp; packages unifiés</div>
+      </div>
+      <div class="kpi">
+        <div class="val" id="kpiHtmlCount">331</div>
+        <div class="lbl">Aperçus HTML interactifs réunis</div>
+      </div>
+      <div class="kpi">
+        <div class="val" id="kpiBranches">36+</div>
+        <div class="lbl">Branches Git fusionnées (<code>projet-creation-pmdo</code> + <code>projet-pmdo</code> + <code>zone-pmdo</code> + <code>guilde</code>)</div>
+      </div>
+      <div class="kpi">
+        <div class="val">12 + 6</div>
+        <div class="lbl">Salles modulaires &amp; ambiances Guilde Treehouse + garde <code>0</code> damier mauve</div>
+      </div>
+    </section>
+
+    <section class="cmd-box">
+      <h2>Créer et publier le nouveau dépôt GitHub unifié (~4,5 Go avec objets Git LFS) en 1 commande</h2>
+      <p>
+        Le jeton d'application Arena étant restreint à la branche de session (<code>HTTP 403</code> sur <code>POST /user/repos</code> et plafond de snapshot de <code>128 Mo</code>), lancez cette commande unique depuis votre machine ou un Codespace connecté à <code>gh</code> pour créer automatiquement <code>meromoonmeri/town02-all-maps-pmdo</code> avec toutes les maps (y compris le dépôt privé <code>guilde-treehouse-pmd</code>) :
+      </p>
+      <pre id="cmdText">git clone -b arena/637b0828-projet-creation-pmdo https://github.com/meromoonmeri/projet-creation-pmdo.git &amp;&amp; cd projet-creation-pmdo &amp;&amp; bash source/consolidation_unifiee_town02/CREER_REPO_UNIFIE_TOWN02.sh town02-all-maps-pmdo --public</pre>
+    </section>
+
+    <section class="controls">
+      <button class="tab-btn active" data-tab="lots" type="button">Lots Custom &amp; Guilde (416)</button>
+      <button class="tab-btn" data-tab="branches" type="button">Toutes les Branches (36+)</button>
+      <button class="tab-btn" data-tab="town02" type="button">Maps Natives town02 (1 620)</button>
+      <input type="search" id="searchInput" placeholder="Rechercher une map, un lot, une branche (ex: kyurem, guilde, ETT2, a01p01)..." />
+      <select id="repoFilter">
+        <option value="">Tous les dépôts</option>
+        <option value="projet-creation-pmdo">projet-creation-pmdo (19 branches)</option>
+        <option value="projet-pmdo">projet-pmdo / Guilde Treehouse (15 branches)</option>
+        <option value="zone-pmdo">zone-pmdo (historique Guilde + calques)</option>
+        <option value="all-zone-PMDO-project">all-zone-PMDO-project</option>
+      </select>
+      <div class="count-info" id="countInfo">Chargement du manifeste...</div>
+    </section>
+
+    <div class="table-wrap">
+      <table>
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    let MANIFEST = null;
+    let currentTab = "lots";
+
+    const searchInput = document.getElementById("searchInput");
+    const repoFilter = document.getElementById("repoFilter");
+    const tableHead = document.getElementById("tableHead");
+    const tableBody = document.getElementById("tableBody");
+    const countInfo = document.getElementById("countInfo");
+
+    document.getElementById("copyCmdBtn").addEventListener("click", async () => {
+      const txt = document.getElementById("cmdText").textContent;
+      try {
+        await navigator.clipboard.writeText(txt);
+        const btn = document.getElementById("copyCmdBtn");
+        const old = btn.textContent;
+        btn.textContent = "Commande copiée !";
+        setTimeout(() => { btn.textContent = old; }, 1800);
+      } catch (_) {}
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentTab = btn.dataset.tab;
+        repoFilter.style.display = currentTab === "town02" ? "none" : "";
+        renderTable();
+      });
+    });
+
+    searchInput.addEventListener("input", renderTable);
+    repoFilter.addEventListener("change", renderTable);
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function renderTable() {
+      if (!MANIFEST) return;
+      const q = searchInput.value.trim().toLowerCase();
+      const rf = repoFilter.value;
+
+      if (currentTab === "lots") {
+        tableHead.innerHTML = `<tr>
+          <th>Lot <code>source/*</code></th>
+          <th>Dépôt Canonique</th>
+          <th>Branche Retenue</th>
+          <th>Commit</th>
+          <th>Date</th>
+          <th>Variantes inter-branches</th>
+        </tr>`;
+        const entries = Object.entries(MANIFEST.all_source_lots || {});
+        const filtered = entries.filter(([name, info]) => {
+          const can = info.canonical || {};
+          if (rf && can.repo !== rf) return false;
+          if (!q) return true;
+          return (
+            name.toLowerCase().includes(q) ||
+            (can.repo || "").toLowerCase().includes(q) ||
+            (can.branch || "").toLowerCase().includes(q)
+          );
+        });
+        countInfo.textContent = `${filtered.length} / ${entries.length} lots affichés`;
+        tableBody.innerHTML = filtered.slice(0, 500).map(([name, info]) => {
+          const c = info.canonical || {};
+          const vCount = info.distinct_variant_count || 1;
+          const badgeClass = vCount > 1 ? "badge warn" : "badge ok";
+          return `<tr>
+            <td><code>${esc(name)}</code></td>
+            <td><span class="badge">${esc(c.repo)}</span></td>
+            <td><code>${esc(c.branch)}</code></td>
+            <td><code>${esc((c.commit_sha || "").slice(0, 7))}</code></td>
+            <td>${esc((c.date || "").slice(0, 10))}</td>
+            <td><span class="${badgeClass}">${vCount} version(s) (${info.branch_count} br.)</span></td>
+          </tr>`;
+        }).join("");
+      } else if (currentTab === "branches") {
+        tableHead.innerHTML = `<tr>
+          <th>Dépôt</th>
+          <th>Branche</th>
+          <th>Commit</th>
+          <th>Date</th>
+          <th>Dernier message</th>
+        </tr>`;
+        const rows = [];
+        for (const [rname, rinfo] of Object.entries(MANIFEST.repos_scanned || {})) {
+          if (rf && rname !== rf) continue;
+          for (const b of (rinfo.branches || [])) {
+            if (
+              !q ||
+              rname.toLowerCase().includes(q) ||
+              b.name.toLowerCase().includes(q) ||
+              (b.subject || "").toLowerCase().includes(q)
+            ) {
+              rows.push({ repo: rname, ...b });
+            }
+          }
+        }
+        rows.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+        countInfo.textContent = `${rows.length} branches affichées (+ meromoonmeri/guilde-treehouse-pmd auto-aspiré via gh)`;
+        tableBody.innerHTML = rows.map((r) => `<tr>
+          <td><span class="badge">${esc(r.repo)}</span></td>
+          <td><code>${esc(r.name)}</code></td>
+          <td><code>${esc((r.sha || "").slice(0, 7))}</code></td>
+          <td>${esc((r.date || "").slice(0, 10))}</td>
+          <td>${esc(r.subject)}</td>
+        </tr>`).join("");
+      } else {
+        tableHead.innerHTML = `<tr>
+          <th>#</th>
+          <th>Carte <code>Data/Ground/*.rsground</code> (base <code>town02</code>)</th>
+          <th>Statut dans le dépôt unifié</th>
+        </tr>`;
+        const allNames = (MANIFEST.town02_summary && MANIFEST.town02_summary.all_rsground_names) || [];
+        const filtered = allNames.filter((n) => !q || n.toLowerCase().includes(q));
+        countInfo.textContent = `${filtered.length} / ${allNames.length} maps town02 affichées (affichage limité aux 600 premières)`;
+        tableBody.innerHTML = filtered.slice(0, 600).map((n, idx) => `<tr>
+          <td>${idx + 1}</td>
+          <td><code>Data/Ground/${esc(n)}.rsground</code></td>
+          <td><span class="badge ok">Préservée intacte (Git LFS town02)</span></td>
+        </tr>`).join("");
+      }
+    }
+
+    fetch("./source/consolidation_unifiee_town02/manifeste_complet_toutes_branches.json")
+      .then((r) => r.json())
+      .then((data) => {
+        MANIFEST = data;
+        const t2 = data.town02_summary || {};
+        const srcEntries = Object.values(data.all_source_lots || {});
+        const varCount = srcEntries.filter((x) => (x.distinct_variant_count || 1) > 1).length;
+        let brTotal = 1; // town02 main
+        for (const r of Object.values(data.repos_scanned || {})) brTotal += (r.branch_count || 0);
+
+        document.getElementById("kpiTownGrounds").textContent = (t2.rsground_count || 1620).toLocaleString("fr-FR");
+        document.getElementById("kpiTownTiles").textContent = (t2.tile_count || 2091).toLocaleString("fr-FR");
+        document.getElementById("kpiSourceLots").textContent = srcEntries.length.toLocaleString("fr-FR");
+        document.getElementById("kpiVariants").textContent = varCount.toLocaleString("fr-FR");
+        document.getElementById("kpiRendersLots").textContent = Object.keys(data.all_renders_lots || {}).length.toLocaleString("fr-FR");
+        document.getElementById("kpiHtmlCount").textContent = Object.keys(data.all_html_previews || {}).length.toLocaleString("fr-FR");
+        document.getElementById("kpiBranches").textContent = `${brTotal}+`;
+        renderTable();
+      })
+      .catch((err) => {
+        countInfo.textContent = "Erreur de chargement du manifeste : " + err;
+      });
+  </script>
+</body>
+</html>

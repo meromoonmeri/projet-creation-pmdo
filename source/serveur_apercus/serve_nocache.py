@@ -174,6 +174,32 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
         if clean_path == "":
             return False
 
+        # Kit clé-en-main d'assemblage du dépôt unifié `town02` + toutes branches PMDO & Guilde Treehouse
+        if base_fname := posixpath.basename(clean_path):
+            if base_fname == "KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip":
+                kit_dir = ROOT / "source" / "consolidation_unifiee_town02"
+                buf = io.BytesIO()
+                with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zout:
+                    for fn in (
+                        "CREER_REPO_UNIFIE_TOWN02.sh",
+                        "assembler_repo_unifie_town02.py",
+                        "CATALOGUE_UNIFIE_TOWN02.md",
+                        "manifeste_complet_toutes_branches.json",
+                        "test_consolidation_town02.py",
+                    ):
+                        fp = kit_dir / fn
+                        if fp.is_file():
+                            zout.write(fp, arcname=f"consolidation_unifiee_town02/{fn}")
+                _send_blob(
+                    self,
+                    buf.getvalue(),
+                    "KIT_CONSOLIDATION_UNIFIEE_TOWN02.zip",
+                    send_body,
+                    ctype="application/zip",
+                    as_attachment=True,
+                )
+                return True
+
         # A) Route dédiée `/download/<MAP_ID>_PMDO_0.8.12.zip` ou `/.cache/virtual_zips/<MAP_ID>_PMDO_0.8.12.zip`
         base_fname = posixpath.basename(clean_path)
         if base_fname.endswith("_PMDO_0.8.12.zip") and (
