@@ -75,7 +75,9 @@ class TestPMDDestinyDayNightAndAnimeOpening(unittest.TestCase):
         self.assertGreater(float(np.abs(p0_j[160:] - p6_j[160:]).mean()), 0.5)
 
     def test_02_winged_egg_logo_smaller_centered_and_zero_magenta(self) -> None:
-        """Vérifie que le blason Œuf+Ailes `Title.png` est plus petit (~55 %), centré et 0 px magenta/rose."""
+        """Vérifie que le logo façon Super Mystery Dungeon (Œuf+Ailes incrusté) `Title.png` est compact, centré et 0 px #FF00FF."""
+        from scipy import ndimage
+
         title_p = self.fb / "Content" / "UI" / "Title.png"
         im = Image.open(title_p).convert("RGBA")
         self.assertEqual(im.size, (320, 240))
@@ -86,16 +88,21 @@ class TestPMDDestinyDayNightAndAnimeOpening(unittest.TestCase):
         cx_logo = 0.5 * (float(xs.min()) + float(xs.max()))
         cy_logo = 0.5 * (float(ys.min()) + float(ys.max()))
 
-        # Plus petit (entre 160 et 188 px sur 320 px, soit ~55 %) et parfaitement centré !
-        self.assertGreaterEqual(w_logo, 160)
-        self.assertLessEqual(w_logo, 188)
+        # Plus petit (~48 % de 320 px) et parfaitement centré !
+        self.assertGreaterEqual(w_logo, 140)
+        self.assertLessEqual(w_logo, 180)
         self.assertLess(abs(cx_logo - 160.0), 2.5, "Logo parfaitement centré horizontalement")
-        self.assertGreaterEqual(int(ys.min()), 55, "Espace libre en haut pour le ciel et les nuages")
-        self.assertLessEqual(int(ys.max()), 164, "Ne déborde pas sur la mer ni sur Enter.png")
-        self.assertTrue(95.0 <= cy_logo <= 125.0)
+        self.assertGreaterEqual(int(ys.min()), 38, "Espace libre en haut pour le ciel et les nuages")
+        self.assertLessEqual(int(ys.max()), 162, "Ne déborde pas sur la mer ni sur Enter.png")
+        self.assertTrue(88.0 <= cy_logo <= 118.0)
 
         r, g, b = arr[:, :, 0].astype(np.int16), arr[:, :, 1].astype(np.int16), arr[:, :, 2].astype(np.int16)
-        self.assertEqual(int((fg & ((np.minimum(r, b) - g) >= 32)).sum()), 0, "0 halo rose/magenta")
+        # 0 px #FF00FF néon partout (tout en préservant le dégradé lavande intérieur de Mystery Dungeon)
+        neon_mag = fg & (r >= 205) & (g <= 70) & (b >= 205)
+        self.assertEqual(int(neon_mag.sum()), 0, "0 px #FF00FF néon")
+        dist = ndimage.distance_transform_edt(fg)
+        perim = fg & (dist <= 2.5)
+        self.assertEqual(int((perim & ((np.minimum(r, b) - g) >= 32)).sum()), 0, "0 halo rose sur le contour")
 
     def test_03_one_shot_anime_opening_sequence(self) -> None:
         """Vérifie que `Destiny_Logo_Anime_Opening.dir` arrive en une seule fois et reste fixe à la fin."""

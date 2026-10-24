@@ -56,11 +56,11 @@ W_MENU = 320
 H_MENU = 240
 HORIZON_MENU_Y = 160
 
-# Dimensions & centrage exacts du logo « plus petit et centré » (Blason Œuf+Ailes PMD façon Friends of Honor)
-LOGO_W_320 = 166   # ~51.9 % de 320 px (compact, centré dans l'arche céleste)
-LOGO_Y_320 = 58    # Centré (y = 58..158) au-dessus de l'horizon (y=160) et de Enter (y=188)
-LOGO_W_768 = 398   # ~51.8 % de 768 px (185 px d'ouverture nuages à gauche et à droite !)
-LOGO_Y_768 = 136   # Centré (y = 136..378, juste au-dessus de l'horizon marin PMD Sky y = 384)
+# Dimensions & centrage exacts du logo « plus petit et centré » (façon Pokémon Super Mystery Dungeon + Œuf Ailé incrusté)
+LOGO_W_320 = 152   # ~47.5 % de 320 px (compact, centré dans l'arche céleste)
+LOGO_Y_320 = 42    # Centré (y = 42..156) au-dessus de l'horizon (y=160) et de Enter (y=188)
+LOGO_W_768 = 364   # ~47.4 % de 768 px (202 px d'ouverture nuages à gauche et à droite !)
+LOGO_Y_768 = 100   # Centré (y = 100..374, juste au-dessus de l'horizon marin PMD Sky y = 384)
 
 N_POSES = 24
 FRAME_TICKS_MENU = 10  # 10 ticks @ 60 FPS = 6 FPS fluides
@@ -167,9 +167,10 @@ def decode_pmdo_dir_sheet(dir_path: Path) -> Tuple[Image.Image, Tuple[int, int, 
 
 @lru_cache(maxsize=2)
 def extract_destiny_logo_hd() -> Image.Image:
-    """Détoure `logo_pmd_destiny_oeuf_ailes_magenta.png` par flood-fill strict depuis les 4 bords
-    extérieurs : `0 px` `#FF00FF`, contour sticker blanc net façon *Friends of Honor*, et partie
-    basse rose-corail canonique du badge Œuf+Ailes PMD préservée à `100 %` d'opacité."""
+    """Détoure `logo_pmd_destiny_oeuf_ailes_magenta.png` (façon *Pokémon Super Mystery Dungeon*
+    avec l'Œuf aux deux ailes incrusté à la place du fond doré) par flood-fill strict depuis les
+    4 bords extérieurs : `0 px` `#FF00FF`, préservation intégrale du dégradé cyan→lavande officiel
+    de `Mystery Dungeon` et du bas rose-corail de l'Œuf PMD."""
     raw = np.asarray(Image.open(LOGO_WINGED_EGG_RAW_PATH).convert("RGB"), dtype=np.uint8)
     r = raw[:, :, 0].astype(np.int16)
     g = raw[:, :, 1].astype(np.int16)
@@ -177,8 +178,8 @@ def extract_destiny_logo_hd() -> Image.Image:
     diff = np.minimum(r, b) - g
 
     # Flood-fill strict depuis les 4 bords extérieurs sur le fond #FF00FF :
-    # garantit que 100 % de l'intérieur du blason (dont le bas rose-corail de l'Œuf PMD !) reste intact.
-    mag_cand = (diff >= 52) & (r >= 165) & (b >= 165) & (g <= 145)
+    # préserve 100 % du dégradé lavande de Mystery Dungeon et du bas rose-corail de l'Œuf !
+    mag_cand = (diff >= 65) & (r >= 175) & (b >= 175) & (g <= 125)
     lbl_bg, _ = ndimage.label(mag_cand)
     border_ids = (
         set(lbl_bg[0, :].tolist())
@@ -198,17 +199,21 @@ def extract_destiny_logo_hd() -> Image.Image:
         fg_mask = np.isin(lbl, keep_ids)
 
     dist = ndimage.distance_transform_edt(fg_mask)
-    outer_spill = fg_mask & (dist <= 1.5) & (diff >= 26)
+    outer_spill = fg_mask & (dist <= 1.6) & (diff >= 24)
     fg_mask = fg_mask & (~outer_spill)
 
     dist2 = ndimage.distance_transform_edt(fg_mask)
-    fringe = fg_mask & (dist2 <= 4.0) & (diff >= 12)
-    clean_donors = fg_mask & (~fringe) & (diff < 12)
+    fringe = fg_mask & (dist2 <= 4.5) & (diff >= 12)
+    clean_donors = fg_mask & (~fringe) & ((dist2 > 4.5) | (diff < 12))
     _, nearest = ndimage.distance_transform_edt(~clean_donors, return_indices=True)
 
     rgb_clean = raw.copy()
     rgb_clean[fringe] = raw[nearest[0][fringe], nearest[1][fringe]]
-    rgb_clean = clamp_bg_non_magenta(rgb_clean, max_rb_over_g=20)
+    # Décontamine uniquement le périmètre extérieur (dist2 <= 5 px) pour ne jamais altérer
+    # le dégradé lavande intérieur officiel de "Mystery Dungeon" !
+    perim = fg_mask & (dist2 <= 5.0)
+    rgb_clamped = clamp_bg_non_magenta(rgb_clean, max_rb_over_g=18)
+    rgb_clean[perim] = rgb_clamped[perim]
 
     ys, xs = np.where(fg_mask)
     y0, y1 = int(ys.min()), int(ys.max()) + 1
@@ -228,7 +233,7 @@ def scale_cutout_clean(
     binary_alpha: bool = True,
 ) -> Image.Image:
     """Redimensionne le blason Œuf+Ailes en dilatant ses couleurs vers l'extérieur avant LANCZOS
-    (0 liseré sombre, 0 pixel magenta)."""
+    (0 liseré sombre, 0 pixel magenta sur le contour, dégradé lavande intérieur intact)."""
     arr = np.asarray(cutout_rgba.convert("RGBA"), dtype=np.uint8)
     fg = arr[:, :, 3] >= 128
     _, nearest = ndimage.distance_transform_edt(~fg, return_indices=True)
@@ -239,7 +244,6 @@ def scale_cutout_clean(
         Image.fromarray(rgb_dilated, mode="RGB").resize((target_w, target_h), Image.Resampling.LANCZOS),
         dtype=np.uint8,
     )
-    rgb_scaled = clamp_bg_non_magenta(rgb_scaled, max_rb_over_g=22)
     a_scaled = np.asarray(
         Image.fromarray(arr[:, :, 3], mode="L").resize((target_w, target_h), Image.Resampling.LANCZOS),
         dtype=np.uint8,
@@ -254,6 +258,11 @@ def scale_cutout_clean(
         mask = a_scaled >= 16
         out[mask, :3] = rgb_scaled[mask]
         out[mask, 3] = a_scaled[mask]
+
+    dist_s = ndimage.distance_transform_edt(out[:, :, 3] >= 16)
+    perim_s = (out[:, :, 3] >= 16) & (dist_s <= 3.0)
+    clamped_s = clamp_bg_non_magenta(out[:, :, :3], max_rb_over_g=20)
+    out[perim_s, :3] = clamped_s[perim_s]
     return Image.fromarray(out, mode="RGBA")
 
 
@@ -271,7 +280,7 @@ def build_title_ui_png_320x240() -> Image.Image:
 
 
 def build_logo_ground_layer_768x576() -> Image.Image:
-    """Construit le calque `09_logo_oeuf_ailes_centre` (`768 × 576`, plus petit & centré, `<= 84` couleurs)."""
+    """Construit le calque `09_logo_oeuf_ailes_centre` (`768 × 576`, plus petit & centré, `<= 88` couleurs)."""
     hd = extract_destiny_logo_hd()
     logo_w = LOGO_W_768
     logo_h = int(round(logo_w * hd.height / float(hd.width)))
@@ -286,8 +295,12 @@ def build_logo_ground_layer_768x576() -> Image.Image:
     _, nearest = ndimage.distance_transform_edt(~mask, return_indices=True)
     rgb_solid = arr[:, :, :3].copy()
     rgb_solid[~mask] = arr[:, :, :3][nearest[0][~mask], nearest[1][~mask]]
-    q_im = Image.fromarray(rgb_solid, mode="RGB").quantize(colors=84, method=Image.Quantize.FASTOCTREE).convert("RGB")
-    q_rgb = clamp_bg_non_magenta(np.asarray(q_im, dtype=np.uint8), max_rb_over_g=22)
+    q_im = Image.fromarray(rgb_solid, mode="RGB").quantize(colors=88, method=Image.Quantize.FASTOCTREE).convert("RGB")
+    q_rgb = np.asarray(q_im, dtype=np.uint8).copy()
+    dist_m = ndimage.distance_transform_edt(mask)
+    perim_m = mask & (dist_m <= 3.0)
+    q_clamped = clamp_bg_non_magenta(q_rgb, max_rb_over_g=20)
+    q_rgb[perim_m] = q_clamped[perim_m]
     out = np.zeros((H_CANON, W_CANON, 4), dtype=np.uint8)
     out[mask, :3] = q_rgb[mask]
     out[mask, 3] = 255
