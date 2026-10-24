@@ -81,23 +81,23 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         + 0.587 * rgb_nat[:, :, 1].astype(np.float32)
         + 0.114 * rgb_nat[:, :, 2].astype(np.float32)
     )
-    is_south_stairs = rock_nat & (yy_n >= 374) & (np.abs(xx_n - 384) <= 68)
+    is_south_stairs = rock_nat & (yy_n >= 388) & (np.abs(xx_n - 384) <= 74)
     # Le sol plat sablo-minéral de Mt. Thunder Summit est clair et peu saturé au centre du pic
     dist_void = ndimage.distance_transform_edt(rock_nat)
     is_plateau_floor = (
         rock_nat
         & (~is_south_stairs)
-        & (yy_n <= 378)
-        & (dist_void >= 9.0)
+        & (yy_n <= 394)
+        & (dist_void >= 12.0)
         & (lum >= 145.0)
     )
     is_plateau_floor = ndimage.binary_closing(is_plateau_floor, iterations=2) & rock_nat & (~is_south_stairs)
-    is_spires_rim = rock_nat & (~is_south_stairs) & (~is_plateau_floor) & (yy_n < 342)
+    is_spires_rim = rock_nat & (~is_south_stairs) & (~is_plateau_floor) & (yy_n < 350)
     is_cliff_skirt = rock_nat & (~is_south_stairs) & (~is_plateau_floor) & (~is_spires_rim)
 
     # Masque fin (<= 4 px du bord extérieur) pour les reflets électriques sur les crêtes & pitons
-    rim_glow_mask = rock_nat & (dist_void >= 1.5) & (dist_void <= 4.5) & (yy_n < 436)
-    arena_safe_mask = rock_nat & (yy_n <= 448)
+    rim_glow_mask = rock_nat & (dist_void >= 1.5) & (dist_void <= 4.5) & (yy_n < 448)
+    arena_safe_mask = rock_nat & (yy_n <= 462)
 
     cyc = build_cylindrical_cyclone_layers(
         mode="zekrom_electric",

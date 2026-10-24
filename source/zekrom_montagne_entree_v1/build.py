@@ -53,19 +53,8 @@ CANON_REF = HERE / "references" / "ref_canon_zekrom_montagne_entree.png"
 RENDERS_DIR = REPO_ROOT / "renders" / "zekrom_montagne_entree_v1"
 VIRTUAL_ZIP = REPO_ROOT / ".cache" / "virtual_zips" / f"{MAP_ID}_PMDO_0.8.12.zip"
 
-CASCADE_ORIGINS = [(128, 184), (576, 184)]
-FLOWER_SITES = [
-    (212, 316, "skypeak_flower_4", 0),
-    (528, 318, "skypeak_flower_4", 2),
-    (298, 292, "metano_flowers_color_4", 1),
-    (446, 294, "metano_flowers_white_4", 3),
-    (234, 456, "skypeak_flower_4", 1),
-    (506, 458, "skypeak_flower_4", 3),
-    (308, 504, "metano_flowers_color_4", 2),
-    (436, 502, "metano_flowers_white_4", 0),
-    (184, 502, "metano_flowers_white_4", 1),
-    (556, 500, "metano_flowers_color_4", 3),
-]
+CASCADE_ORIGINS = [(148, 70), (586, 70)]
+FLOWER_SITES: list[tuple[int, int, str, int]] = []
 
 
 def _resize_frames(frames: List[Image.Image], w: int, h: int) -> List[Image.Image]:
@@ -80,15 +69,33 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
 
     yy_n, xx_n = np.mgrid[0:H_NAT, 0:W_NAT]
     mag_nat = (rgb_nat[:, :, 0] >= 245) & (rgb_nat[:, :, 1] <= 12) & (rgb_nat[:, :, 2] >= 245)
-    sky_mask_nat = mag_nat & (yy_n < 176)
+    sky_mask_nat = mag_nat & (yy_n < 62)
     water_mask_nat = mag_nat & (~sky_mask_nat)
     solid_nat = ~mag_nat
 
-    # Pont en rondins Metano Town (x=352..416, y=349..415) : l'eau coule aussi dessous
-    bridge_box = (xx_n >= 352) & (xx_n < 416) & (yy_n >= 349) & (yy_n < 415) & solid_nat
+    r_c = rgb_nat[:, :, 0].astype(np.int16)
+    g_c = rgb_nat[:, :, 1].astype(np.int16)
+    b_c = rgb_nat[:, :, 2].astype(np.int16)
+
+    # Pont de bois central (x=344..424, y=176..274) : l'eau Metano coule aussi en continu dessous
+    bridge_box = (xx_n >= 344) & (xx_n <= 424) & (yy_n >= 176) & (yy_n <= 274) & solid_nat
     water_full_nat = water_mask_nat | (
-        (xx_n >= 350) & (xx_n < 418) & (yy_n >= 358) & (yy_n < 406)
+        (xx_n >= 344) & (xx_n <= 424) & (yy_n >= 198) & (yy_n <= 258)
     )
+
+    # Extraire les massifs de fleurs roses & jaunes Sky Peak du décor généré pour les animer dans la brise
+    gen_flower_mask = (
+        solid_nat
+        & (yy_n >= 268)
+        & (np.abs(xx_n - 384) > 48)
+        & (xx_n >= 150)
+        & (xx_n <= 624)
+        & (r_c >= 195)
+        & ((r_c > g_c + 24) | ((g_c >= 178) & (b_c <= 112)))
+    )
+    gen_flower_rgba = np.zeros((H_NAT, W_NAT, 4), dtype=np.uint8)
+    gen_flower_rgba[gen_flower_mask, :3] = rgb_nat[gen_flower_mask]
+    gen_flower_rgba[gen_flower_mask, 3] = 255
 
     sky_24, plume_24, ridge_sparks_24 = build_mountain_horizon_sky_layers(
         mode="zekrom_electric",
@@ -99,30 +106,30 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         cascade_origins=CASCADE_ORIGINS,
         flower_sites=FLOWER_SITES,
         bridge_mask=bridge_box,
+        generated_flower_rgba=gen_flower_rgba,
     )
 
-    # Partition sémantique nette des 4 calques statiques 1x (indices 4, 5, 6, 7)
-    r_c = rgb_nat[:, :, 0].astype(np.int16)
-    g_c = rgb_nat[:, :, 1].astype(np.int16)
-    b_c = rgb_nat[:, :, 2].astype(np.int16)
-
-    # Montagne au Nord : zone y < 258 hors herbe franche (g <= b + 28)
-    is_mountain = solid_nat & (yy_n < 258) & ((g_c - b_c) <= 32)
-    # Sentier Sud->Nord & Pont de bois Metano Town
+    # Partition sémantique nette des 4 calques statiques (indices 4, 5, 6, 7)
+    is_mountain = solid_nat & (yy_n < 176) & ((g_c - b_c) <= 32) & (~bridge_box) & (
+        ~((np.abs(xx_n - 384) <= 36) & (yy_n >= 142) & (r_c >= 185))
+    )
     is_path_bridge = solid_nat & (~is_mountain) & (
-        bridge_box | ((np.abs(xx_n - 384) <= 34) & (yy_n >= 238) & ((r_c - b_c) >= 48) & (r_c >= 180))
+        bridge_box | ((np.abs(xx_n - 384) <= 38) & (yy_n >= 140) & ((r_c - b_c) >= 42) & (r_c >= 175))
     )
-    # Arbres Tiny Woods, buissons & rochers sur les flancs de la clairière
-    is_forest_props = solid_nat & (~is_mountain) & (~is_path_bridge) & (
+    is_forest_props = solid_nat & (~is_mountain) & (~is_path_bridge) & (~gen_flower_mask) & (
         (canopy_nat[:, :, 3] > 0)
-        | ((g_c < 178) & (yy_n >= 224) & ((xx_n < 208) | (xx_n > 560) | (g_c > b_c + 45)))
-        | ((r_c > 155) & (g_c < 155) & (b_c < 95) & (yy_n >= 270) & (np.abs(xx_n - 384) > 56))
+        | ((g_c < 172) & (yy_n >= 210) & ((xx_n < 188) | (xx_n > 580) | (yy_n >= 488)))
+        | ((np.abs(r_c - b_c) < 35) & (g_c < 165) & (yy_n >= 270) & (np.abs(xx_n - 384) > 52))
     )
     is_meadow_banks = solid_nat & (~is_mountain) & (~is_path_bridge) & (~is_forest_props)
 
-    def mk_static_scaled(mask: np.ndarray) -> Image.Image:
+    # Remplir le fond d'herbe sous les pétales animés pour éviter tout trou lors de l'ondulation 1 px
+    rgb_meadow = rgb_nat.copy()
+    rgb_meadow[gen_flower_mask] = (142, 224, 72)
+
+    def mk_static_scaled(mask: np.ndarray, src_rgb: np.ndarray = rgb_nat) -> Image.Image:
         out = np.zeros((H_NAT, W_NAT, 4), dtype=np.uint8)
-        out[mask, :3] = rgb_nat[mask]
+        out[mask, :3] = src_rgb[mask]
         out[mask, 3] = 255
         im = Image.fromarray(sanitize_rgba_binary(out), mode="RGBA")
         return im if (w, h) == (W_NAT, H_NAT) else im.resize((w, h), Image.Resampling.NEAREST)
@@ -151,9 +158,9 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
             if float(sub_w.mean()) >= 0.65 and float(sub_m.mean()) == 0.0:
                 walk_grid[ty, tx] = True
 
-    # Garantir le corridor continu Sud -> Pont -> Marches -> Embouchure de grotte (ty = 21..gh-1)
+    # Garantir le corridor continu Sud -> Pont -> Seuil sablonneux -> Embouchure de grotte (ty = 15..gh-1)
     cx_t = gw // 2
-    cave_top_t = max(2, int(round(0.28 * gh)))
+    cave_top_t = max(2, int(round(0.20 * gh)))
     for ty in range(cave_top_t, gh):
         walk_grid[ty, max(0, cx_t - 2) : min(gw, cx_t + 2)] = True
     walk_grid[:2, :] = False
@@ -165,7 +172,7 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
         LayerEntry("01_eclairs_horizon_charge_foudre", "Éclairs Bleus Charge Foudre sur l'Horizon", "BG", _resize_frames(plume_24, w, h), frame_length=5),
         LayerEntry("02_riviere_et_cascades_metano_4phases", "Rivière & Cascades Metano Town 1× (4 Phases)", "BG", _resize_frames(river_24, w, h), frame_length=5),
         LayerEntry("03_sparkles_et_ecume_riviere_metano", "Reflets Sparkles & Écume Metano Town 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
-        LayerEntry("04_clairiere_skypeak_et_berges_metano", "Clairière Sky Peak Prairie & Berges Metano 1×", "BG", [mk_static_scaled(is_meadow_banks)], frame_length=5),
+        LayerEntry("04_clairiere_skypeak_et_berges_metano", "Clairière Sky Peak Prairie & Berges Naturelles", "BG", [mk_static_scaled(is_meadow_banks, rgb_meadow)], frame_length=5),
         LayerEntry("05_sentier_et_pont_bois_metano", "Sentier Sablonneux & Pont en Rondins Metano 1×", "BG", [mk_static_scaled(is_path_bridge)], frame_length=5),
         LayerEntry("06_paroi_montagne_et_grotte_orage", "Montagne d'Orage D07P11A 1× & Grotte Centrale", "BG", [mk_static_scaled(is_mountain)], frame_length=5),
         LayerEntry("07_arbres_tiny_woods_buissons_rochers", "Arbres Ronds Tiny Woods, Buissons & Rochers 1×", "BG", [mk_static_scaled(is_forest_props)], frame_length=5),

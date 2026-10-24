@@ -263,6 +263,7 @@ def build_metano_river_and_skypeak_layers(
     cascade_origins: list[tuple[int, int]],
     flower_sites: list[tuple[int, int, str, int]],
     bridge_mask: np.ndarray | None = None,
+    generated_flower_rgba: np.ndarray | None = None,
 ) -> tuple[list[Image.Image], list[Image.Image], list[Image.Image]]:
     """Construit les 3 calques animés 24 poses de la clairière & rivière Metano Town :
     - `river_frames` : courant turquoise Metano 4 phases + dérive harmonique + cascades 4 phases
@@ -291,15 +292,15 @@ def build_metano_river_and_skypeak_layers(
     c_body_light = np.array([150, 230, 241], dtype=np.uint8)
     c_ripple = np.array([208, 248, 255], dtype=np.uint8)
 
-    # Sites de sparkles le long du lit ouvert de la rivière
+    # Sites de sparkles le long du lit ouvert de la rivière générée (y = 172..272)
     sparkle_sites: list[tuple[int, int, int]] = []
-    for sy in range(280, 460, 26):
-        for sx in range(88, 680, 44):
-            jx = sx + ((sy * 7) % 19) - 9
-            jy = sy + ((sx * 5) % 13) - 6
-            if 16 <= jx < W - 24 and 16 <= jy < H - 24:
+    for sy in range(174, 268, 20):
+        for sx in range(20, 744, 38):
+            jx = sx + ((sy * 7) % 15) - 7
+            jy = sy + ((sx * 5) % 11) - 5
+            if 8 <= jx < W - 20 and 8 <= jy < H - 20:
                 sub = visible_water_open[jy : jy + 16, jx : jx + 16]
-                if sub.all() and dist_bank[jy + 8, jx + 8] >= 6.5:
+                if float(sub.mean()) >= 0.85 and dist_bank[jy + 8, jx + 8] >= 4.5:
                     sparkle_sites.append((jx, jy, len(sparkle_sites)))
 
     river_out: list[Image.Image] = []
@@ -334,45 +335,65 @@ def build_metano_river_and_skypeak_layers(
         riv[edge1, :3] = c_edge_dark
         riv[edge_rip, :3] = c_ripple
 
-        # Plaquer les cascades natives 4 phases de Metano Town aux embouchures de la montagne
-        casc_sprite = cascades_4[phase4]
-        ch, cw = casc_sprite.shape[:2]
+        # Plaquer les cascades natives 4 phases de Metano Town (eau vive pure 112x48 sans buses en bois)
+        # découpées exactement dans la silhouette des gorges rocheuses générées !
+        casc_pure = cascades_4[phase4][24:136, 8:56]  # 112 x 48 eau pure 1x Metano
+        ch, cw = casc_pure.shape[:2]
         for cx0, cy0 in cascade_origins:
-            # Garder une hauteur propre (96 px) pour tomber pile dans la rivière
-            use_h = min(96, ch, H - cy0)
-            sub_c = casc_sprite[:use_h, :]
-            mask_c = sub_c[:, :, 3] > 0
-            dst = riv[cy0 : cy0 + use_h, cx0 : cx0 + cw]
+            use_h = min(ch, H - cy0)
+            use_w = min(cw, W - cx0)
+            sub_c = casc_pure[:use_h, :use_w]
+            sub_vis = visible_water[cy0 : cy0 + use_h, cx0 : cx0 + use_w]
+            mask_c = (sub_c[:, :, 3] > 0) & sub_vis
+            dst = riv[cy0 : cy0 + use_h, cx0 : cx0 + use_w]
             dst[mask_c] = sub_c[mask_c]
 
         river_out.append(Image.fromarray(sanitize_rgba_binary(riv)))
 
-        # --- Calque B : Reflets Sparkles Metano + Écume vivante au pied des cascades ---
+        # --- Calque B : Reflets Sparkles Metano + Écume vivante au pied des gorges de cascades ---
         spk = np.zeros((H, W, 4), dtype=np.uint8)
         for sx, sy, idx in sparkle_sites:
-            # Allumage progressif décalé sur harmonique impaire w=1
             local_p = (pose + idx * 5) % N_POSES
             if local_p < 12:
                 sp_img = sp_bank[(local_p // 2) % len(sp_bank)]
-                m = sp_img[:, :, 3] > 0
+                sub_vis = visible_water_open[sy : sy + 16, sx : sx + 16]
+                m = (sp_img[:, :, 3] > 0) & sub_vis
                 dst = spk[sy : sy + 16, sx : sx + 16]
                 dst[m] = sp_img[m]
 
-        # Bouillonnement d'écume pixel-art au pied de chaque cascade Metano
+        # Bouillonnement d'écume pixel-art au pied exact de chaque gorge de cascade
         for k_c, (cx0, cy0) in enumerate(cascade_origins):
-            foam_y = cy0 + 92
-            for fx in range(cx0 + 4, cx0 + cw - 4, 4):
-                bob = int(round(2.2 * math.sin(theta + 0.35 * fx + k_c)))
+            foam_y = cy0 + 104
+            for fx in range(cx0 + 4, cx0 + cw - 4, 3):
+                bob = int(round(2.0 * math.sin(theta + 0.35 * fx + k_c)))
                 fy = foam_y + bob
-                if 0 <= fy < H - 4 and 0 <= fx < W - 4:
-                    spk[fy : fy + 3, fx : fx + 4] = (238, 252, 255, 255)
-                    if ((fx // 4 + pose) % 3) == 0:
-                        spk[fy + 3 : fy + 5, fx + 1 : fx + 3] = (176, 238, 248, 255)
+                if 0 <= fy < H - 5 and 0 <= fx < W - 4:
+                    sub_v = visible_water_open[fy : fy + 3, fx : fx + 3]
+                    if sub_v.any():
+                        spk[fy : fy + 3, fx : fx + 3][sub_v] = (238, 252, 255, 255)
+                    if ((fx // 3 + pose) % 3) == 0:
+                        sub_v2 = visible_water_open[fy + 3 : fy + 5, fx : fx + 2]
+                        if sub_v2.any():
+                            spk[fy + 3 : fy + 5, fx : fx + 2][sub_v2] = (176, 238, 248, 255)
 
         sparkle_out.append(Image.fromarray(sanitize_rgba_binary(spk)))
 
-        # --- Calque C : Fleurs animées Sky Peak Prairie & Metano Town ---
+        # --- Calque C : Fleurs Sky Peak Prairie du décor généré ondulant dans la brise + bouquets Metano ---
         flw = np.zeros((H, W, 4), dtype=np.uint8)
+        if generated_flower_rgba is not None:
+            # Ondulation douce 1 px par bandes spatiales (harmonique impaire w=1 -> pose 0 != pose 12)
+            sway_l = int(round(math.sin(theta)))
+            sway_r = int(round(math.sin(theta + 1.6)))
+            src_f = generated_flower_rgba
+            for half_mask_x, dx_s in [((slice(None), slice(0, 384)), sway_l), ((slice(None), slice(384, W)), sway_r)]:
+                sub_src = src_f[half_mask_x]
+                if dx_s == 0:
+                    flw[half_mask_x] = sub_src
+                elif dx_s > 0:
+                    flw[half_mask_x][:, dx_s:] = sub_src[:, :-dx_s]
+                else:
+                    flw[half_mask_x][:, :dx_s] = sub_src[:, -dx_s:]
+
         for fx, fy, kind, phase_off in flower_sites:
             f_phase = ((pose + phase_off * 3) // 6) % 4
             bank = assets[kind]  # type: ignore[index]
@@ -958,9 +979,9 @@ def build_cylindrical_cyclone_layers(
         front_helix = np.sin(4.0 * (phi_back + theta) - 0.036 * z_front) + 0.35 * np.cos(
             7.0 * (phi_back + theta) + 0.028 * z_front - 3.0 * theta
         )
-        # Zone géométrique de la lèvre avant : couronne haute courbe et coins Sud-Ouest / Sud-Est
-        in_top_rim = px_y < (34.0 + 44.0 * (1.0 - cos_phi))
-        in_bot_corners = (px_y > (538.0 - 84.0 * side_wall_weight)) & (np.abs(dx) > 96.0)
+        # Zone géométrique de la lèvre avant : couronne haute (y < 54 au-dessus du sommet y=60) et coins Sud-Ouest / Sud-Est
+        in_top_rim = px_y < (24.0 + 30.0 * (1.0 - cos_phi))
+        in_bot_corners = (px_y > (534.0 - 94.0 * side_wall_weight)) & (np.abs(dx) > 106.0)
         front_zone_g = (in_top_rim | in_bot_corners) & (~arena_clear_top_g)
 
         front_mask_g = front_zone_g & ((front_helix + bayer_g * 0.45) > 0.34)

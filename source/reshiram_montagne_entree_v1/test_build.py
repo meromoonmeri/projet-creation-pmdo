@@ -33,7 +33,7 @@ class TestReshiramMontagneEntreeV1(unittest.TestCase):
 
     def test_01_magenta_sky_and_river_on_brut_and_zero_magenta_leak(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
-        self.assertGreater(int(mag_raw.sum()), 90_000)
+        self.assertGreater(int(mag_raw.sum()), 42_000)
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
             self.assertEqual(int((a < 255).sum()), 0)
