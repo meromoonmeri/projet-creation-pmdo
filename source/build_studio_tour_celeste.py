@@ -63,6 +63,50 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "TWE1",
+            "group": "Petit Bois · Tiny Woods",
+            "folder": "tiny_woods_entree_v1",
+            "ref_rel": "source/tiny_woods_entree_v1/references/d01p01_tiny_woods_entry_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red Rescue Team — Tiny Woods Entrée (D01P01, 432×360)",
+            "zip_rel": ".cache/virtual_zips/TWE1_PMDO_0.8.12.zip",
+            "bg_fill": "#0c2214",
+            "subtitle": "Petit Bois — Entrée (D01P01) : Clairière ensoleillée guidée par le rip GBA natif D01P01 (#FF00FF), arche feuillue Nord, pont en rondins, ruisseau Metano 4×10t & rayons solaires Friend Area",
+            "wind_summary": "Ciel & rayons solaires Friend Area PMD Red (24f @ 5t) | Ruisseau limpide & sparkles Metano #FF00FF (4×10t) | Fleurs sauvages & canopée Top | Terrain 1× statique",
+        },
+        {
+            "id": "TWF1",
+            "group": "Petit Bois · Tiny Woods",
+            "folder": "tiny_woods_fin_v1",
+            "ref_rel": "source/tiny_woods_fin_v1/references/h07p06_healing_forest_native.png",
+            "ref_label": "Références Natives 1× GBA PMD Red — Clairière Fin (D01P02 + H07P06 Healing Forest)",
+            "zip_rel": ".cache/virtual_zips/TWF1_PMDO_0.8.12.zip",
+            "bg_fill": "#0d2415",
+            "subtitle": "Petit Bois — Clairière Fin (D01P02 / Sauvetage de Chenipan) : Grand Chêne Ancestral H07P06, bassins de source jumeaux #FF00FF animés 4×10t, rayons dorés & pollen dans la brise",
+            "wind_summary": "Ciel doré-azur & halo solaire Grand Chêne (24f @ 5t) | Bassins jumeaux & sparkles Metano #FF00FF (4×10t) | Bourgeons dorés & canopée Top | Terrain 1× statique",
+        },
+        {
+            "id": "SWE1",
+            "group": "Bois Sinistre · Sinister Woods",
+            "folder": "sinister_woods_entree_v1",
+            "ref_rel": "source/sinister_woods_entree_v1/references/d04p01_sinister_woods_entry_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red Rescue Team — Sinister Woods Entrée (D04P01, 456×384)",
+            "zip_rel": ".cache/virtual_zips/SWE1_PMDO_0.8.12.zip",
+            "bg_fill": "#06161d",
+            "subtitle": "Bois Sinistre — Entrée (D04P01) : Forêt bleu-sarcelle guidée par le rip GBA natif D04P01 (#FF00FF), tunnel sombre Nord, champignons écarlates, vieux pont de bois & brume spectrale H07P01",
+            "wind_summary": "Ciel crépusculaire H07P08 & voiles de brume H07P01 (24f @ 5t) | Ruisseau sarcelle & sparkles #FF00FF (4×10t) | Champignons rouges & feux follets Top | Terrain 1× statique",
+        },
+        {
+            "id": "SWF1",
+            "group": "Bois Sinistre · Sinister Woods",
+            "folder": "sinister_woods_fin_v1",
+            "ref_rel": "source/sinister_woods_fin_v1/references/h07p08_secretive_forest_native.png",
+            "ref_label": "Références Natives 1× GBA PMD Red — Arène Fin (D04P02 + H07P08 Secretive + H07P01 Mist-Rise)",
+            "zip_rel": ".cache/virtual_zips/SWF1_PMDO_0.8.12.zip",
+            "bg_fill": "#05131a",
+            "subtitle": "Bois Sinistre — Clairière Fin (D04P02 / Boss Équipe Méchants) : Souche creuse monolithique H07P01 & toiles H07P08, champignons écarlates/indigo H07P05, mares sombres #FF00FF & brume spectrale",
+            "wind_summary": "Ciel nocturne & rubans de brume spectrale H07P01 (24f @ 5t) | Mares sarcelle-jade & lueurs #FF00FF (4×10t) | Champignons rouges/indigo & spores Top | Terrain 1× statique",
+        },
+        {
             "id": "ZKE1",
             "group": "Duo Unys · Zekrom",
             "folder": "zekrom_montagne_entree_v1",
@@ -906,7 +950,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="ZKA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TWE1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_forets_pmd_red_pmdo.html").write_text(
+        build_html(manifest, default_map_id="TWE1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_zekrom_tornade_pmdo.html").write_text(
         build_html(manifest, default_map_id="ZKA1"), encoding="utf-8"
     )
@@ -928,7 +975,7 @@ def main() -> None:
     (REPO_ROOT / "apercu_faille_spatiale_palkia_pmdo.html").write_text(
         build_html(manifest, default_map_id="FSE1"), encoding="utf-8"
     )
-    print("[Studio] index.html et les aperçus dédiés générés (19 cartes, 190 calques 60 FPS, grilles 2D <= 4608px).")
+    print("[Studio] index.html et les aperçus dédiés générés (23 cartes, 230 calques 60 FPS, grilles 2D <= 4608px).")
 
 
 if __name__ == "__main__":
