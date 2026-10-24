@@ -30,6 +30,7 @@ from source.moteur_cyclones_cylindriques_unova import (
     H,
     N_POSES,
     W,
+    decode_pmdo_tile,
     extract_metano_water_and_flower_assets,
     sanitize_rgba_binary,
 )
@@ -143,9 +144,11 @@ def _quantize_solid_96c(rgb: np.ndarray, solid_mask: np.ndarray, mode: str) -> n
         glow_hi = _keep_compact_blobs(interior_solid & (r0 >= 230) & (g0 >= 180) & (b0 >= 115) & (r0 > b0 + 35), max_area=180)
         out[glow_hi] = (252, 216, 136)
     else:
-        # Pétales corail-rose & boutons d'or de Tiny Woods / Sky Peak (uniquement petits bouquets <= 260 px, hors berges !)
-        pink_fl = _keep_compact_blobs(interior_solid & (r0 >= 205) & (r0 > g0 + 35) & (b0 >= 125), max_area=260)
-        gold_fl = _keep_compact_blobs(interior_solid & (r0 >= 225) & (g0 >= 195) & (b0 <= 125), max_area=260)
+        # Pétales corail-rose & boutons d'or de Tiny Woods (hors sentier sablonneux central x=328..440 et hors berges !)
+        xx = np.arange(rgb.shape[1])[None, :]
+        off_path = interior_solid & (np.abs(xx - 384) > 56)
+        pink_fl = _keep_compact_blobs(off_path & (r0 >= 210) & (r0 > g0 + 42) & (b0 >= 135), max_area=220)
+        gold_fl = _keep_compact_blobs(off_path & (r0 >= 228) & (g0 >= 198) & (b0 <= 118), max_area=220)
         out[pink_fl] = (240, 148, 172)
         out[gold_fl] = (248, 216, 88)
 
@@ -181,7 +184,7 @@ def assemble_foret_pmd_red_1x(
     rgb_768, solid_768 = _downsample_non_mixing(raw, fg_hi, W, H)
     # Nettoyage complet (jusqu'à 7 px itératifs) de toute bande rose/prune/bordeaux collée à l'eau (hors pont de bois)
     yy7, xx7 = np.mgrid[0:H, 0:W]
-    not_bridge = ~((xx7 >= 324) & (xx7 <= 444) & (yy7 >= 268) & (yy7 <= 390))
+    not_bridge = ~((xx7 >= 324) & (xx7 <= 444) & (yy7 >= 268) & (yy7 <= 476))
     r7, g7, b7 = rgb_768[:, :, 0].astype(np.int16), rgb_768[:, :, 1].astype(np.int16), rgb_768[:, :, 2].astype(np.int16)
     for _ in range(7):
         wat7 = (~solid_768) & (yy7 >= 180)
@@ -200,6 +203,15 @@ def assemble_foret_pmd_red_1x(
             break
         solid_768 = solid_768 & (~pink_or_plum_rim)
 
+    # Sur Tiny Woods : ZÉRO ciel visible (100 % couvert par le mur d'arbres au Nord)
+    if mode == "tiny_woods_sunlit":
+        top_hole = (~solid_768) & (yy7 < 240)
+        if np.any(top_hole):
+            _, n_idx = ndimage.distance_transform_edt(~solid_768, return_indices=True)
+            hy, hx = np.where(top_hole)
+            rgb_768[hy, hx] = rgb_768[n_idx[0, hy, hx], n_idx[1, hy, hx]]
+            solid_768[top_hole] = True
+
     rgb_768 = _quantize_solid_96c(rgb_768, solid_768, mode=mode)
     mag_768 = ~solid_768
 
@@ -213,12 +225,12 @@ def assemble_foret_pmd_red_1x(
     b16 = rgb_768[:, :, 2].astype(np.int16)
 
     if mode == "tiny_woods_sunlit":
-        is_foliage = solid_768 & (g16 >= 95) & (g16 > r16 + 38) & (r16 <= 115) & (b16 <= 115)
+        is_foliage = solid_768 & (g16 >= 88) & (g16 > r16 + 32) & (r16 <= 118) & (b16 <= 118)
     else:
         is_foliage = solid_768 & (b16 >= 95) & (g16 >= 70) & (r16 <= 65)
 
     perim_zone = (yy < 115) | (xx < 155) | (xx > W - 155) | ((yy > 435) & (np.abs(xx - W // 2) > 95))
-    not_central_portal = ~((xx >= 296) & (xx <= 472) & (yy >= 52) & (yy <= 215))
+    not_central_portal = ~((xx >= 286) & (xx <= 482) & (yy >= 72) & (yy <= 228))
     canopy_mask = is_foliage & perim_zone & not_central_portal
     below_non_foliage = ndimage.binary_dilation(
         ~is_foliage,
@@ -233,20 +245,18 @@ def assemble_foret_pmd_red_1x(
     out_canopy_path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(canopy_rgba, mode="RGBA").save(out_canopy_path)
 
-    # Référence composite `ref_canon`
+    # Référence composite `ref_canon` (Eau 100 % Metano Town `[131, 218, 230]` partout !)
     ref_rgb = rgb_768.copy()
     sky_m = mag_768 & (yy < 96)
     wat_m = mag_768 & (~sky_m)
-    assets = _load_forest_sky_and_fx_assets(mode)
-    sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
-    sh = min(H, sky_strip.shape[0])
-    sky_top = sky_m.copy()
-    sky_top[sh:, :] = False
-    ref_rgb[sky_top] = sky_strip[:sh, :][sky_top[:sh, :]]
-    if mode == "tiny_woods_sunlit":
-        ref_rgb[wat_m] = np.array([124, 212, 228], dtype=np.uint8)
-    else:
-        ref_rgb[wat_m] = np.array([42, 146, 166], dtype=np.uint8)
+    if np.any(sky_m) and mode != "tiny_woods_sunlit":
+        assets = _load_forest_sky_and_fx_assets(mode)
+        sky_strip: np.ndarray = assets["sky_strip"]  # type: ignore[assignment]
+        sh = min(H, sky_strip.shape[0])
+        sky_top = sky_m.copy()
+        sky_top[sh:, :] = False
+        ref_rgb[sky_top] = sky_strip[:sh, :][sky_top[:sh, :]]
+    ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
     out_ref_canon_path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(ref_rgb, mode="RGB").save(out_ref_canon_path)
 
@@ -501,47 +511,93 @@ def build_forest_sky_and_atmosphere_layers(
     return sky_frames, horizon_frames, top_frames
 
 
+@lru_cache(maxsize=1)
+def extract_native_metano_river_profiles() -> np.ndarray:
+    """Extrait directement à l'échelle `1×` native les 4 phases (`Metano_Town_River_Animation_1..4.tile`)
+    du profil de berge de Metano Town (`(4, N, 12, 3)`), sans rondins ni écume blanche de rive."""
+    eau_dir = REPO_ROOT / "source" / "eau_metano" / "natifs"
+    sub_list = [
+        np.asarray(decode_pmdo_tile(eau_dir / f"Metano_Town_River_Animation_{i}.tile"))[200:450, 832:1136]
+        for i in range(1, 5)
+    ]
+    op0 = sub_list[0][:, :, 3] > 0
+    good_rows: List[Tuple[int, int]] = []
+    for y in range(sub_list[0].shape[0]):
+        xs = np.flatnonzero(op0[y])
+        if len(xs) < 30:
+            continue
+        x0 = int(xs[0])
+        if x0 + 14 >= sub_list[0].shape[1] or not np.all(op0[y, x0 : x0 + 14]):
+            continue
+        seg0 = sub_list[0][y, x0 : x0 + 12, :3]
+        if np.all((seg0[:, 2].astype(np.int32) > seg0[:, 0].astype(np.int32) + 20) & (seg0[:, 0] < 235)):
+            good_rows.append((y, x0))
+
+    n_rows = len(good_rows)
+    prof4 = np.zeros((4, n_rows, 12, 3), dtype=np.uint8)
+    for k in range(4):
+        for idx, (y, x0) in enumerate(good_rows):
+            x_lo = max(0, x0 - 3)
+            row_op = sub_list[k][y, x_lo : x0 + 16, 3] > 0
+            off = int(np.flatnonzero(row_op)[0]) + x_lo
+            seg = sub_list[k][y, off : off + 12, :3].copy()
+            foam_px = (seg[:, 0] >= 235) & (seg[:, 1] >= 245) & (seg[:, 2] >= 245)
+            seg[foam_px] = (148, 230, 238)
+            prof4[k, idx] = seg
+
+    # Couture cyclique douce sur 16 lignes recalée sur la palette aquatique exacte de Metano Town
+    aq_pal = np.unique(prof4.reshape(-1, 3), axis=0).astype(np.float32)
+    seam = 16
+    for k in range(4):
+        p_f = prof4[k].astype(np.float32)
+        for s in range(seam):
+            w_s = (s + 0.5) / float(seam) * 0.5
+            b_top = p_f[s] * (0.5 + w_s) + p_f[n_rows - 1 - s] * (0.5 - w_s)
+            b_bot = p_f[n_rows - 1 - s] * (0.5 + w_s) + p_f[s] * (0.5 - w_s)
+            d_top = ((b_top[:, None, :] - aq_pal[None, :, :]) ** 2).sum(axis=2).argmin(axis=1)
+            d_bot = ((b_bot[:, None, :] - aq_pal[None, :, :]) ** 2).sum(axis=2).argmin(axis=1)
+            prof4[k, s] = aq_pal[d_top].astype(np.uint8)
+            prof4[k, n_rows - 1 - s] = aq_pal[d_bot].astype(np.uint8)
+    return prof4
+
+
 def build_forest_water_and_sparkles_layers(
     mode: str,
     water_mask: np.ndarray,
     bridge_mask: np.ndarray | None = None,
 ) -> Tuple[List[Image.Image], List[Image.Image]]:
-    """Construit `(water_24, sparkles_24)` @ `4 × 10` ticks avec ondulations de courant et grappes
-    natives `Metano_Town_River_Sparkles` placées sur toute la hauteur (`y = 160..568`, `0 px` d'écume)."""
+    """Construit `(water_24, sparkles_24)` **100 % Eau & Animations natives Metano Town** (`4 × 10` ticks) :
+    - Surface intérieure pure `(131, 218, 230)` (`Metano_Town_River_Animation_1..4.tile`, zéro pois/tache artificielle),
+    - Biseau de rive animé 4 phases extrait directement de `Metano_Town_River_Animation_1..4.tile`,
+    - Grappes scintillantes 100 % natives non retouchées `Metano_Town_River_Sparkles.tile` (`4` phases @ `10` ticks)."""
+    _ = mode  # Règle permanente : toujours utiliser l'eau et les animations natives de Metano Town partout !
     assets = extract_metano_water_and_flower_assets()
     sp_clusters: List[List[np.ndarray]] = assets["sparkle_clusters"]  # type: ignore[assignment]
+    prof4 = extract_native_metano_river_profiles()
+    n_prof = prof4.shape[1]
 
-    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.int32)
     visible_water = water_mask.copy()
     visible_water_open = (water_mask & (~bridge_mask)) if bridge_mask is not None else water_mask
     dist_bank = ndimage.distance_transform_edt(visible_water_open)
 
-    jag_raw = ndimage.gaussian_filter(np.random.default_rng(17).random((H, W)), 1.2)
-    jag = (jag_raw - jag_raw.min()) / max(float(np.ptp(jag_raw)), 1e-6)
+    pal_surface = (131, 218, 230, 255)
+    pal_under_bridge = (87, 135, 191, 255)
 
-    if mode == "tiny_woods_sunlit":
-        # Palette turquoise limpide exacte de Metano Town / Waterfall Lake (sans trait blanc d'écume)
-        pal_surface = (131, 218, 230, 255)
-        pal_accent = (111, 207, 231, 255)
-        pal_inter = (95, 183, 207, 255)
-        pal_bande = (87, 135, 191, 255)
-    else:
-        # Palette sarcelle-jade mystique de Sinister Woods / Mist-Rise & Healing Forest (H07P01/H07P06)
-        pal_surface = (44, 152, 170, 255)
-        pal_accent = (64, 178, 192, 255)
-        pal_inter = (30, 118, 142, 255)
-        pal_bande = (20, 84, 114, 255)
+    shore_mask = visible_water_open & (dist_bank >= 0.5) & (dist_bank <= 12.0)
+    arc_idx = (xx + 2 * yy) % n_prof
+    dist_idx = np.clip(np.round(dist_bank).astype(np.int32) - 1, 0, 11)
 
-    # Placement déterministe sans chevauchement des grappes natives `Metano_Town_River_Sparkles` sur TOUTE l'eau ouverte !
+    # Placement déterministe sans chevauchement des grappes 100 % natives `Metano_Town_River_Sparkles.tile`
     taken_sp = np.zeros((H, W), dtype=bool)
     sparkle_sites: List[Tuple[int, int, int, int]] = []
     rng_sp = np.random.default_rng(77)
-    cands_sp = [(sy, sx) for sy in range(160, H - 32, 8) for sx in range(16, W - 32, 8)]
+    cands_sp = [(sy, sx) for sy in range(140, H - 24, 8) for sx in range(8, W - 28, 8)]
     rng_sp.shuffle(cands_sp)
     for sy, sx in cands_sp:
         fam_idx = len(sparkle_sites) % len(sp_clusters)
         sh_h, sh_w = sp_clusters[fam_idx][0].shape[:2]
-        if sy + sh_h > H - 8 or sx + sh_w > W - 8:
+        if sy + sh_h > H - 4 or sx + sh_w > W - 4:
             continue
         if (
             visible_water_open[sy : sy + sh_h, sx : sx + sh_w].all()
@@ -550,45 +606,28 @@ def build_forest_water_and_sparkles_layers(
         ):
             taken_sp[sy : sy + sh_h, sx : sx + sh_w] = True
             sparkle_sites.append((sx, sy, fam_idx, len(sparkle_sites) % 4))
-            if len(sparkle_sites) >= 26:
+            if len(sparkle_sites) >= 28:
                 break
 
     water_frames: List[Image.Image] = []
     sparkle_frames: List[Image.Image] = []
 
     for pose in range(N_POSES):
-        # 4 phases × 10 ticks (= 2 poses de 5 ticks par phase -> pose 0 = phase 0 != pose 12 = phase 2 !)
+        # Cadence exacte de `metano_town.rsground` : 4 phases × 10 ticks (= 2 poses de 5 ticks)
         r_phase = (pose // 2) % 4
-        ph = 2.0 * math.pi * r_phase / 4.0
-
-        # Ondes de courant à travers TOUT le lit du ruisseau / bassin (pour une animation riche même au centre !)
-        n_wave = 0.6 * np.sin(yy * 0.21 + xx * 0.07 - ph) + 0.4 * np.sin(yy * 0.08 - xx * 0.16 + 1.1 - ph)
-        curr_band = np.sin(xx * 0.065 + yy * 0.14 - ph) + 0.55 * np.cos(xx * 0.11 - yy * 0.09 + ph)
-        t_bevel = 4.5 + 1.1 * n_wave
-        jr = np.roll(jag, r_phase * 3, axis=0)
-        fringe = t_bevel + 1.2 + 3.0 * jr
 
         riv = np.zeros((H, W, 4), dtype=np.uint8)
         riv[visible_water] = pal_surface
-        # Veines de courant animées au coeur du ruisseau / des bassins (amplitude RGB >= 20 entre phase 0 et phase 2 !)
-        riv[visible_water_open & (dist_bank > fringe) & (curr_band > 0.58)] = pal_accent
-        riv[visible_water_open & (dist_bank > fringe) & (curr_band < -0.68)] = pal_inter
-        riv[visible_water & (dist_bank <= fringe)] = pal_inter
-        riv[visible_water & (dist_bank <= fringe) & (jr > 0.60)] = pal_accent
-        riv[visible_water & (dist_bank <= t_bevel)] = pal_inter
-        riv[visible_water & (dist_bank <= t_bevel - 1.0)] = pal_bande
-        riv[visible_water & (~visible_water_open)] = pal_bande
+        riv[shore_mask, :3] = prof4[r_phase, arc_idx[shore_mask], dist_idx[shore_mask]]
+        riv[shore_mask, 3] = 255
+        riv[visible_water & (~visible_water_open)] = pal_under_bridge
         water_frames.append(Image.fromarray(sanitize_rgba_binary(riv)))
 
         sp = np.zeros((H, W, 4), dtype=np.uint8)
         for sx, sy, fam_idx, ph0 in sparkle_sites:
-            patch = sp_clusters[fam_idx][(r_phase + ph0) % 4].copy()
+            patch = sp_clusters[fam_idx][(r_phase + ph0) % 4]
             sh_h, sh_w = patch.shape[:2]
             nz = patch[:, :, 3] == 255
-            if mode != "tiny_woods_sunlit" and np.any(nz):
-                patch[nz, 0] = np.clip(patch[nz, 0].astype(np.int16) - 65, 110, 225).astype(np.uint8)
-                patch[nz, 1] = np.clip(patch[nz, 1].astype(np.int16) + 8, 215, 255).astype(np.uint8)
-                patch[nz, 2] = np.clip(patch[nz, 2].astype(np.int16) + 8, 225, 255).astype(np.uint8)
             sub_sp = sp[sy : sy + sh_h, sx : sx + sh_w]
             sub_w = visible_water_open[sy : sy + sh_h, sx : sx + sh_w]
             keep = nz & sub_w
@@ -596,6 +635,83 @@ def build_forest_water_and_sparkles_layers(
         sparkle_frames.append(Image.fromarray(sanitize_rgba_binary(sp)))
 
     return water_frames, sparkle_frames
+
+
+def build_tiny_woods_metano_flowers_and_canopy_layers(
+    pure_grass_mask: np.ndarray,
+    flora_mask: np.ndarray,
+    rgb_nat: np.ndarray,
+    solid_nat: np.ndarray,
+    canopy_nat: np.ndarray,
+    seed: int = 101,
+) -> Tuple[List[Image.Image], List[Image.Image]]:
+    """Construit `(metano_flowers_24, canopy_top_24)` pour *Tiny Woods* (`TWE1` & `TWF1`) :
+    - Fleurs animées 100 % natives `Metano_Town_Animation_Tileset.tile` (`metano_flowers_color_4` + `metano_flowers_white_4`)
+      posées sur l'herbe franche de la prairie/clairière + ondulation des petites fleurs peintes,
+    - Canopée supérieure `Top` + quelques feuilles vertes dans la brise (**ZÉRO rayon lumineux, ZÉRO halo solaire**)."""
+    assets = extract_metano_water_and_flower_assets()
+    fl_col_4: List[np.ndarray] = assets["metano_flowers_color_4"]  # type: ignore[assignment]
+    fl_wht_4: List[np.ndarray] = assets["metano_flowers_white_4"]  # type: ignore[assignment]
+
+    dist_grass = ndimage.distance_transform_edt(pure_grass_mask)
+    taken = np.zeros((H, W), dtype=bool)
+    sites: List[Tuple[int, int, str, int]] = []
+    rng = np.random.default_rng(seed)
+    cands = [(sy, sx) for sy in range(216, H - 36, 12) for sx in range(32, W - 48, 12)]
+    rng.shuffle(cands)
+    for sy, sx in cands:
+        # Éviter le sentier central (x = 330..438)
+        if 322 <= sx <= 438:
+            continue
+        kind = "color" if (len(sites) % 3 != 2) else "white"
+        spr0 = fl_col_4[0] if kind == "color" else fl_wht_4[0]
+        fh, fw = spr0.shape[:2]
+        if sy + fh > H - 8 or sx + fw > W - 8:
+            continue
+        if (
+            float(dist_grass[sy : sy + fh, sx : sx + fw].min()) >= 6.0
+            and not taken[max(0, sy - 18) : min(H, sy + fh + 18), max(0, sx - 22) : min(W, sx + fw + 22)].any()
+        ):
+            taken[sy : sy + fh, sx : sx + fw] = True
+            sites.append((sx, sy, kind, len(sites) % 4))
+            if len(sites) >= 14:
+                break
+
+    painted_sway = build_forest_flora_layer_24("tiny_woods_sunlit", flora_mask, rgb_nat, solid_nat)
+
+    # Quelques petites feuilles vertes de chêne (aucune lumière jaune !) dérivant sous les cimes
+    n_leaves = 10
+    lx0 = rng.integers(48, W - 48, size=n_leaves)
+    ly0 = rng.integers(32, 320, size=n_leaves)
+    lph = rng.uniform(0.0, 2.0 * math.pi, size=n_leaves)
+
+    can_op = canopy_nat[:, :, 3] >= 128
+    flowers_24: List[Image.Image] = []
+    top_24: List[Image.Image] = []
+
+    for pose in range(N_POSES):
+        theta = 2.0 * math.pi * pose / float(N_POSES)
+        flw = np.asarray(painted_sway[pose], dtype=np.uint8).copy()
+        for fx, fy, kind, ph_off in sites:
+            # Cadence douce 4 étapes sur 24 poses (6 poses = 30 ticks par étape)
+            f_step = ((pose + ph_off * 6) // 6) % 4
+            spr = fl_col_4[f_step] if kind == "color" else fl_wht_4[f_step]
+            fh, fw = spr.shape[:2]
+            m = spr[:, :, 3] > 0
+            flw[fy : fy + fh, fx : fx + fw][m] = spr[m]
+        flowers_24.append(Image.fromarray(sanitize_rgba_binary(flw)))
+
+        top_arr = np.zeros((H, W, 4), dtype=np.uint8)
+        top_arr[can_op] = canopy_nat[can_op]
+        for i in range(n_leaves):
+            lx = int(round(lx0[i] + 9.0 * math.sin(theta + lph[i])))
+            ly = int(round(ly0[i] + 5.0 * math.cos(theta + lph[i])))
+            if 6 <= lx < W - 6 and 6 <= ly < H - 6 and math.sin(2.0 * theta + lph[i]) > -0.2:
+                top_arr[ly, lx : lx + 2] = (104, 192, 64, 255)
+                top_arr[ly + 1, lx - 1 : lx + 1] = (56, 136, 48, 255)
+        top_24.append(Image.fromarray(sanitize_rgba_binary(top_arr)))
+
+    return flowers_24, top_24
 
 
 def build_forest_flora_layer_24(

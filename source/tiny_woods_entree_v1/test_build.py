@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests unitaires d'acceptation — `tiny_woods_entree_v1` (`TWE1`, Petit Bois — Entrée D01P01)."""
+"""Tests unitaires d'acceptation — `tiny_woods_entree_v1` (`TWE1`, Petit Bois — Lisière & Entrée D01P01)."""
 from __future__ import annotations
 
 import json
@@ -31,9 +31,12 @@ class TestTinyWoodsEntreeV1(unittest.TestCase):
         cls.pose12 = np.asarray(Image.open(cls.renders / "composite_pose12.png").convert("RGBA"), dtype=np.uint8)
         cls.raw = np.asarray(Image.open(twe_build.BRUT_PATH).convert("RGB"), dtype=np.uint8)
 
-    def test_01_magenta_sky_and_stream_on_brut_and_zero_magenta_leak(self) -> None:
+    def test_01_zero_sky_lisiere_stream_and_zero_magenta_leak(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
-        self.assertGreater(int(mag_raw.sum()), 28_000)
+        yy = np.arange(self.raw.shape[0])[:, None]
+        # ZÉRO ciel visible en haut de Tiny Woods
+        self.assertEqual(int((mag_raw & (yy < 240)).sum()), 0, "Aucun ciel ne doit apparaître en haut de Tiny Woods")
+        self.assertGreater(int(mag_raw.sum()), 30_000)
         self.assertTrue((twe_build.HERE / "references" / "d01p01_tiny_woods_entry_native.png").is_file())
         for idx, pose in enumerate((self.pose0, self.pose12)):
             r, g, b, a = pose[:, :, 0].astype(int), pose[:, :, 1].astype(int), pose[:, :, 2].astype(int), pose[:, :, 3]
@@ -46,25 +49,28 @@ class TestTinyWoodsEntreeV1(unittest.TestCase):
         for sheet, count in self.metrics["unique_tiles_per_sheet"].items():
             self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_sky_stream_sparkles_flora_animated_and_terrain_static(self) -> None:
+    def test_03_native_metano_water_no_light_rays_and_static_terrain(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
+        # Vérifie l'eau 100 % Metano Town (surface exacte 131,218,230 + rives 4 phases + sparkles)
+        surf_px = (self.pose0[mag_raw, 0] == 131) & (self.pose0[mag_raw, 1] == 218) & (self.pose0[mag_raw, 2] == 230)
+        self.assertGreater(int(surf_px.sum()), 20_000)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 8).sum()), 12_000)
-        for st_idx in (4, 5, 6, 7):
+        self.assertGreater(int((diff[mag_raw] > 4).sum()), 4_000)
+        for st_idx in (0, 1, 4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        for an_idx in (0, 1, 2, 3, 8, 9):
+        for an_idx in (2, 3, 8, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
         u = self.metrics["unique_tiles_per_sheet"]
         self.assertGreater([v for k, v in u.items() if "_03_" in k][0], 10)
-        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 100)
+        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 40)
 
-    def test_04_continuous_south_over_bridge_to_portal_walkgrid(self) -> None:
+    def test_04_continuous_south_over_bridge_to_forest_entrance_walkgrid(self) -> None:
         _, walk_grid = twe_build.build_layers_for_size()
-        self.assertGreater(int(walk_grid.sum()), 1200)
+        self.assertGreater(int(walk_grid.sum()), 2000)
         lbl, _ = ndimage.label(walk_grid)
         south_ids = set(lbl[71, :].tolist()) - {0}
-        portal_ids = set(lbl[18:24, 44:52].ravel().tolist()) - {0}
-        self.assertTrue(bool(south_ids & portal_ids), "Le sentier Sud doit franchir le pont jusqu'à l'arche Nord")
+        portal_ids = set(lbl[18:26, 44:52].ravel().tolist()) - {0}
+        self.assertTrue(bool(south_ids & portal_ids), "La prairie Sud doit franchir le pont jusqu'à l'entrée Nord")
 
     def test_05_scale_invariance_half_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

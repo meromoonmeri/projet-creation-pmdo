@@ -49,7 +49,9 @@ class TestSinisterWoodsEntreeV1(unittest.TestCase):
     def test_03_twilight_mist_creek_mushrooms_animated_and_terrain_static(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 8).sum()), 12_000)
+        self.assertGreater(int((diff[mag_raw] > 4).sum()), 8_000)
+        surf_px = (self.pose0[mag_raw, 0] == 131) & (self.pose0[mag_raw, 1] == 218) & (self.pose0[mag_raw, 2] == 230)
+        self.assertGreater(int(surf_px.sum()), 18_000)
         for st_idx in (4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
         for an_idx in (0, 1, 2, 3, 8, 9):

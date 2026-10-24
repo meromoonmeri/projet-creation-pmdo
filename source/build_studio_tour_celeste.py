@@ -92,8 +92,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Native 1× GBA PMD Red — Great Canyon Entrée (D07P01, 456×240)",
             "zip_rel": ".cache/virtual_zips/GCE1_PMDO_0.8.12.zip",
             "bg_fill": "#22100a",
-            "subtitle": "Grand Canyon — Entrée (D07P01) : Mesas striées de terre cuite guidées par le rip GBA natif D07P01 (#FF00FF), défilé étroit Nord, pont arche de grès rouge, oued turquoise 4×10t & cactus",
-            "wind_summary": "Ciel aride & cumulus dorés H06P05 (24f @ 5t) | Oued turquoise & sparkles Metano #FF00FF (4×10t) | Cactus dans le vent & rayons solaires Top | Mesas D07P01 statiques",
+            "subtitle": "Grand Canyon — Entrée (D07P01) : Mesas striées de terre cuite guidées par le rip GBA natif D07P01 (#FF00FF), défilé étroit Nord, pont arche de grès rouge, eau & sparkles 100 % natifs Metano Town",
+            "wind_summary": "Ciel aride & cumulus dorés H06P05 (24f @ 5t) | Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Cactus dans le vent & rayons solaires Top | Mesas statiques",
         },
         {
             "id": "GCF1",
@@ -114,8 +114,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Native 1× GBA PMD Red Rescue Team — Tiny Woods Entrée (D01P01, 432×360)",
             "zip_rel": ".cache/virtual_zips/TWE1_PMDO_0.8.12.zip",
             "bg_fill": "#0c2214",
-            "subtitle": "Petit Bois — Entrée (D01P01) : Clairière ensoleillée guidée par le rip GBA natif D01P01 (#FF00FF), arche feuillue Nord, pont en rondins, ruisseau Metano 4×10t & rayons solaires Friend Area",
-            "wind_summary": "Ciel & rayons solaires Friend Area PMD Red (24f @ 5t) | Ruisseau limpide & sparkles Metano #FF00FF (4×10t) | Fleurs sauvages & canopée Top | Terrain 1× statique",
+            "subtitle": "Petit Bois — Lisière & Entrée (D01P01) : Prairie ouverte Sud vers la lisière et le mur d'arbres denses (0 % ciel, 0 lumière), pont en bois, eau & fleurs animées 100 % natives Metano Town (#FF00FF)",
+            "wind_summary": "Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Fleurs animées natives Metano Town | Cimes surplombantes & feuilles Top (0 % ciel, 0 lumière) | Terrain 1× statique",
         },
         {
             "id": "TWF1",
@@ -125,8 +125,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Références Natives 1× GBA PMD Red — Clairière Fin (D01P02 + H07P06 Healing Forest)",
             "zip_rel": ".cache/virtual_zips/TWF1_PMDO_0.8.12.zip",
             "bg_fill": "#0d2415",
-            "subtitle": "Petit Bois — Clairière Fin (D01P02 / Sauvetage de Chenipan) : Grand Chêne Ancestral H07P06, bassins de source jumeaux #FF00FF animés 4×10t, rayons dorés & pollen dans la brise",
-            "wind_summary": "Ciel doré-azur & halo solaire Grand Chêne (24f @ 5t) | Bassins jumeaux & sparkles Metano #FF00FF (4×10t) | Bourgeons dorés & canopée Top | Terrain 1× statique",
+            "subtitle": "Petit Bois — Clairière Fin (D01P02 / Sauvetage de Chenipan) : Grand Chêne Ancestral H07P06 sous mur continu de cimes (0 % ciel, 0 lumière), bassins & fleurs animées 100 % natifs Metano Town (#FF00FF)",
+            "wind_summary": "Eau des bassins & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Fleurs animées natives Metano Town | Cimes surplombantes Top (0 % ciel, 0 lumière) | Terrain 1× statique",
         },
         {
             "id": "SWE1",
@@ -136,8 +136,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Référence Native 1× GBA PMD Red Rescue Team — Sinister Woods Entrée (D04P01, 456×384)",
             "zip_rel": ".cache/virtual_zips/SWE1_PMDO_0.8.12.zip",
             "bg_fill": "#06161d",
-            "subtitle": "Bois Sinistre — Entrée (D04P01) : Forêt bleu-sarcelle guidée par le rip GBA natif D04P01 (#FF00FF), tunnel sombre Nord, champignons écarlates, vieux pont de bois & brume spectrale H07P01",
-            "wind_summary": "Ciel crépusculaire H07P08 & voiles de brume H07P01 (24f @ 5t) | Ruisseau sarcelle & sparkles #FF00FF (4×10t) | Champignons rouges & feux follets Top | Terrain 1× statique",
+            "subtitle": "Bois Sinistre — Entrée (D04P01) : Forêt bleu-sarcelle guidée par le rip GBA natif D04P01 (#FF00FF), tunnel sombre Nord, champignons écarlates, vieux pont, eau native Metano Town & brume H07P01",
+            "wind_summary": "Ciel crépusculaire H07P08 & voiles de brume H07P01 (24f @ 5t) | Eau & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Champignons rouges & feux follets Top | Terrain statique",
         },
         {
             "id": "SWF1",
@@ -147,8 +147,8 @@ def export_filmstrips() -> Dict:
             "ref_label": "Références Natives 1× GBA PMD Red — Arène Fin (D04P02 + H07P08 Secretive + H07P01 Mist-Rise)",
             "zip_rel": ".cache/virtual_zips/SWF1_PMDO_0.8.12.zip",
             "bg_fill": "#05131a",
-            "subtitle": "Bois Sinistre — Clairière Fin (D04P02 / Boss Équipe Méchants) : Souche creuse monolithique H07P01 & toiles H07P08, champignons écarlates/indigo H07P05, mares sombres #FF00FF & brume spectrale",
-            "wind_summary": "Ciel nocturne & rubans de brume spectrale H07P01 (24f @ 5t) | Mares sarcelle-jade & lueurs #FF00FF (4×10t) | Champignons rouges/indigo & spores Top | Terrain 1× statique",
+            "subtitle": "Bois Sinistre — Clairière Fin (D04P02 / Boss Équipe Méchants) : Souche creuse monolithique H07P01 & toiles H07P08, champignons écarlates/indigo, bassins d'eau native Metano Town #FF00FF & brume",
+            "wind_summary": "Ciel nocturne & rubans de brume spectrale H07P01 (24f @ 5t) | Bassins & sparkles 100 % natifs Metano Town #FF00FF (4×10t) | Champignons rouges/indigo & spores Top | Terrain statique",
         },
         {
             "id": "ZKE1",
@@ -994,7 +994,7 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="GCF1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="TWE1"), encoding="utf-8")
     (REPO_ROOT / "apercu_gouffre_et_canyon_pmdo.html").write_text(
         build_html(manifest, default_map_id="GCF1"), encoding="utf-8"
     )

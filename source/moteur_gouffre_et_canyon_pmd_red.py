@@ -222,7 +222,7 @@ def assemble_gouffre_canyon_1x(
             la = np.asarray(lay_im, dtype=np.uint8)
             m = (la[:, :, 3] == 255) & sky_m
             ref_rgb[m] = la[m, :3]
-        ref_rgb[wat_m] = np.array([112, 204, 224], dtype=np.uint8)
+        ref_rgb[wat_m] = np.array([131, 218, 230], dtype=np.uint8)
     else:
         sky_m = mag_768 & (yy7 < 250)
         aby_m = mag_768 & (~sky_m)

@@ -31,9 +31,11 @@ class TestTinyWoodsFinV1(unittest.TestCase):
         cls.pose12 = np.asarray(Image.open(cls.renders / "composite_pose12.png").convert("RGBA"), dtype=np.uint8)
         cls.raw = np.asarray(Image.open(twf_build.BRUT_PATH).convert("RGB"), dtype=np.uint8)
 
-    def test_01_magenta_sky_and_pools_on_brut_and_zero_magenta_leak(self) -> None:
+    def test_01_zero_sky_twin_pools_and_zero_magenta_leak(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
-        self.assertGreater(int(mag_raw.sum()), 40_000)
+        yy = np.arange(self.raw.shape[0])[:, None]
+        self.assertEqual(int((mag_raw & (yy < 240)).sum()), 0, "Aucun ciel ne doit apparaître en haut de Tiny Woods Fin")
+        self.assertGreater(int(mag_raw.sum()), 35_000)
         self.assertTrue((twf_build.HERE / "references" / "d01p02_tiny_woods_end_native.png").is_file())
         self.assertTrue((twf_build.HERE / "references" / "h07p06_healing_forest_native.png").is_file())
         for idx, pose in enumerate((self.pose0, self.pose12)):
@@ -47,17 +49,19 @@ class TestTinyWoodsFinV1(unittest.TestCase):
         for sheet, count in self.metrics["unique_tiles_per_sheet"].items():
             self.assertLess(count, 24_000, f"Banque trop lourde : {sheet}={count}")
 
-    def test_03_sky_pools_sparkles_flora_animated_and_terrain_static(self) -> None:
+    def test_03_native_metano_water_no_light_rays_and_static_terrain(self) -> None:
         mag_raw = (self.raw[:, :, 0] >= 245) & (self.raw[:, :, 1] <= 12) & (self.raw[:, :, 2] >= 245)
+        surf_px = (self.pose0[mag_raw, 0] == 131) & (self.pose0[mag_raw, 1] == 218) & (self.pose0[mag_raw, 2] == 230)
+        self.assertGreater(int(surf_px.sum()), 25_000)
         diff = np.abs(self.pose0[:, :, :3].astype(int) - self.pose12[:, :, :3].astype(int)).max(axis=2)
-        self.assertGreater(int((diff[mag_raw] > 8).sum()), 18_000)
-        for st_idx in (4, 5, 6, 7):
+        self.assertGreater(int((diff[mag_raw] > 4).sum()), 4_000)
+        for st_idx in (0, 1, 4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
-        for an_idx in (0, 1, 2, 3, 8, 9):
+        for an_idx in (2, 3, 8, 9):
             self.assertEqual(self.metrics["layers"][an_idx]["poses"], 24)
         u = self.metrics["unique_tiles_per_sheet"]
         self.assertGreater([v for k, v in u.items() if "_03_" in k][0], 10)
-        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 100)
+        self.assertGreater([v for k, v in u.items() if "_08_" in k][0], 30)
 
     def test_04_continuous_south_to_great_oak_clearing_walkgrid(self) -> None:
         _, walk_grid = twf_build.build_layers_for_size()
