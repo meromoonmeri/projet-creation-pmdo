@@ -63,6 +63,50 @@ def _versioned_url(rel_path: str) -> str:
 def export_filmstrips() -> Dict:
     specs = [
         {
+            "id": "MWE1",
+            "group": "Grotte Ouest · Mewtwo",
+            "folder": "grotte_ouest_entree_v1",
+            "ref_rel": "source/grotte_ouest_entree_v1/references/h13p02_cryptic_cave_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Cryptic Cave (H13P02) + Crique Côtière en S sans Pont (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/MWE1_PMDO_0.8.12.zip",
+            "bg_fill": "#091523",
+            "subtitle": "Grotte Ouest — Crique Marine Secrète & Orgues Psychiques (Mewtwo, 0 % ciel, 0 pont) : Escalier naturel d'ardoise sinuant en S entre deux anses d'Eau Metano Town abyssale jusqu'à la faille caverneuse Nord & orgues stalagmitiques bleu-jade façon H13P02",
+            "wind_summary": "0 % ciel (falaise maritime y=0..262) | Crique marine Eau & Sparkles 1× Metano Town abyssale #FF00FF (4×10t) | Orgues stalagmitiques & étoiles 4 branches H13P02 (24×5t) | Péninsule en S statique",
+        },
+        {
+            "id": "MWA1",
+            "group": "Grotte Ouest · Mewtwo",
+            "folder": "grotte_ouest_sanctuaire_v1",
+            "ref_rel": "source/grotte_ouest_sanctuaire_v1/references/h13p02_cryptic_cave_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Cryptic Cave / Zone d'Accueil de Mewtwo (H13P02, 272×288)",
+            "zip_rel": ".cache/virtual_zips/MWA1_PMDO_0.8.12.zip",
+            "bg_fill": "#0b1119",
+            "subtitle": "Grotte Ouest 99É — Gouffre Stalagmitique de Mewtwo (H13P02, 0 % ciel, 0 anneau circulaire) : Étroite arête d'ardoise Sud→Nord franchissant deux gouffres abyssaux #FF00FF vers un promontoire hexagonal gris-jade 100 % simple et nu adossé à une cathédrale d'orgues stalagmitiques",
+            "wind_summary": "Gouffre abyssal noir-ardoise H13P02 & courants télékinétiques jade-cyan #FF00FF (24×5t) | Fragments rocheux en lévitation & étoiles 4 branches H13P02 Top | Promontoire hexagonal nu statique",
+        },
+        {
+            "id": "RUE1",
+            "group": "Ruines Enfouies · Mew",
+            "folder": "ruines_enfouies_entree_v1",
+            "ref_rel": "source/ruines_enfouies_entree_v1/references/h22p01_ancient_relic_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Ancient Relic (H22P01, 240×248) + Ziggourat sans Pont (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/RUE1_PMDO_0.8.12.zip",
+            "bg_fill": "#1c241b",
+            "subtitle": "Ruines Enfouies — Ziggourat à Double Escalier & Bassins Sacrés (Mew, H22P01, 0 % ciel, 0 pont) : Chaussée centrale en dalles craquelées 3×3 bordée de deux bassins sacrés rectangulaires d'Eau Metano Town, double escalier convergeant en diagonale, 5 stèles hiéroglyphiques, lianes d'émeraude & porte Nord",
+            "wind_summary": "0 % ciel (ziggourat étagée) | 2 bassins rectangulaires Eau & Sparkles 1× Metano Town sacrée #FF00FF (4×10t) | Pulsation dorée des 5 stèles H22P01 & fleurs Metano | Lianes & bulles de Mew Top",
+        },
+        {
+            "id": "RUA1",
+            "group": "Ruines Enfouies · Mew",
+            "folder": "ruines_enfouies_sanctuaire_v1",
+            "ref_rel": "source/ruines_enfouies_sanctuaire_v1/references/h29p04_final_island_native.png",
+            "ref_label": "Référence Native 1× GBA PMD Red — Final Island / Zone d'Accueil de Mew (H29P04, 336×288)",
+            "zip_rel": ".cache/virtual_zips/RUA1_PMDO_0.8.12.zip",
+            "bg_fill": "#0c70dc",
+            "subtitle": "Ruines Enfouies 99É — Île Finale & Archipel Céleste de Mew (H29P04, archipel ouvert sans mur annulaire) : Ciel céruléen & cumulus d'horizon 100 % statiques (poses=1), mer céleste Metano Town lointaine, 11 îlots rocheux-herbeux en lévitation douce & prairie centrale nue autour du sceau circulaire de Mew",
+            "wind_summary": "Ciel & cumulus d'horizon H29P04 100 % statiques (poses=1) | Mer céleste & sparkles 1× Metano Town (4×10t) | 11 îlots flottants en lévitation douce (24×5t) | Fleurs Metano & bulles rose-nacré de Mew Top",
+        },
+        {
             "id": "SCE1",
             "group": "Gouffre Silencieux · Silent Chasm",
             "folder": "silent_chasm_entree_v1",
@@ -1133,7 +1177,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="KYA1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="MWA1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_kanto_mewtwo_mew_pmdo.html").write_text(
+        build_html(manifest, default_map_id="RUA1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_grotte_cyclopeenne_kyurem_pmdo.html").write_text(
         build_html(manifest, default_map_id="KYA1"), encoding="utf-8"
     )

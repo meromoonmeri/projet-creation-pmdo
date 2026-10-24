@@ -25,6 +25,35 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class TestProjetPmdHalcyonPlacement(unittest.TestCase):
+    SAMPLE_LOTS = (
+        "grotte_ouest_entree_v1",
+        "grotte_ouest_sanctuaire_v1",
+        "ruines_enfouies_entree_v1",
+        "ruines_enfouies_sanctuaire_v1",
+        "kyurem_cratere_entree_v1",
+        "kyurem_sanctuaire_glace_v1",
+        "fosse_argent_sanctuaire_v1",
+        "zekrom_sommet_tornade_v1",
+        "guilde_treehouse_halcyon_v1",
+    )
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        import importlib.util
+        for lot in cls.SAMPLE_LOTS:
+            pkg = REPO_ROOT / "renders" / lot / "package"
+            valid_rs = [
+                p for p in (pkg / "Data" / "Ground").glob("*.rsground")
+                if p.exists()
+            ] if (pkg / "Data" / "Ground").is_dir() else []
+            if not valid_rs:
+                bp = REPO_ROOT / "source" / lot / "build.py"
+                spec = importlib.util.spec_from_file_location(f"test_hal_{lot}", bp)
+                assert spec and spec.loader
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                mod.build()
+
     def test_01_roundtrip_et_injection_binaire_tile_index(self) -> None:
         sample_tiles = sorted((REPO_ROOT / ".cache" / "tiles").rglob("*.tile"))[:10]
         self.assertGreaterEqual(
@@ -49,16 +78,10 @@ class TestProjetPmdHalcyonPlacement(unittest.TestCase):
             entries2 = lire_tile_index(idx_path)
             self.assertEqual([e.sheet for e in entries2], sorted(e.sheet for e in entries2))
 
-    def test_02_aucun_damier_mauve_sur_studio_33_et_guilde_84(self) -> None:
-        pkg_dirs = [
-            REPO_ROOT / "renders" / "kyurem_cratere_entree_v1" / "package",
-            REPO_ROOT / "renders" / "kyurem_sanctuaire_glace_v1" / "package",
-            REPO_ROOT / "renders" / "fosse_argent_sanctuaire_v1" / "package",
-            REPO_ROOT / "renders" / "zekrom_sommet_tornade_v1" / "package",
-            REPO_ROOT / "renders" / "guilde_treehouse_halcyon_v1" / "package",
-        ]
+    def test_02_aucun_damier_mauve_sur_studio_37_et_guilde_84(self) -> None:
+        pkg_dirs = [REPO_ROOT / "renders" / lot / "package" for lot in self.SAMPLE_LOTS]
         existing_pkgs = [p for p in pkg_dirs if p.exists()]
-        self.assertEqual(len(existing_pkgs), 5)
+        self.assertEqual(len(existing_pkgs), len(self.SAMPLE_LOTS))
 
         with tempfile.TemporaryDirectory() as tmp:
             troot = Path(tmp)

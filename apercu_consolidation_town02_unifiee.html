@@ -236,7 +236,8 @@
         <a class="btn primary" href="./download/KIT_PROJET_PMD_HALCYON_TOWN02.zip" download="KIT_PROJET_PMD_HALCYON_TOWN02.zip">Kit « PROJET PMD » (.zip)</a>
         <a class="btn primary" href="./download/GTH1_PMDO_0.8.12.zip" download="GTH1_PMDO_0.8.12.zip">Pack Halcyon Guilde Treehouse (84 .rsground, 12 Mo)</a>
         <button class="btn" id="copyCmdBtn" type="button">Copier la commande 1-clic</button>
-        <a class="btn" href="./index.html">Studio 60 FPS (33 maps)</a>
+        <a class="btn" href="./apercu_kanto_mewtwo_mew_pmdo.html">Mewtwo &amp; Mew (4 maps)</a>
+        <a class="btn" href="./index.html">Studio 60 FPS (37 maps)</a>
       </div>
     </div>
   </header>
@@ -252,15 +253,15 @@
         <div class="lbl"><code>.rsground</code> Guilde Treehouse Halcyon (12 salles × 6 ambiances + 35 <code>.tile</code>)</div>
       </div>
       <div class="kpi">
-        <div class="val">33</div>
-        <div class="lbl">Maps animées Studio (<code>KYE1</code>, <code>KYA1</code>, <code>FAS1</code>, <code>ZKA1</code>, <code>RSA1</code>, <code>MLS1</code>…)</div>
+        <div class="val">37</div>
+        <div class="lbl">Maps animées Studio (<code>MWE1</code>, <code>MWA1</code>, <code>RUE1</code>, <code>RUA1</code>, <code>KYA1</code>, <code>FAS1</code>…)</div>
       </div>
       <div class="kpi">
         <div class="val">391+</div>
         <div class="lbl">Entrées <code>Data/Zone/master_zone.json</code> &amp; <code>Data/Zone/index.idx</code> synchronisées</div>
       </div>
       <div class="kpi">
-        <div class="val" id="kpiSourceLots">416</div>
+        <div class="val" id="kpiSourceLots">420</div>
         <div class="lbl">Lots <code>source/*</code> disponibles (<span id="kpiVariants">164</span> variantes, <span id="kpiBranches">36+</span> br.)</div>
       </div>
       <div class="kpi">
@@ -272,7 +273,7 @@
     <section class="cmd-box">
       <h2>Créer et pousser <code>meromoonmeri/PROJET-PMD</code> (« PROJET PMD » façon <code>Palikadude/Halcyon</code>) en 1 commande</h2>
       <p>
-        À l'image de <code>Palikadude/Halcyon</code> et <code>meromoonmeri/town02</code>, toutes les scènes hors-donjon (y compris les <strong>12 salles modulaires × 6 ambiances = 84 <code>.rsground</code></strong> de Guilde Treehouse et les <strong>33 maps du Studio</strong>) sont placées dans <code>Data/Ground/</code>, leurs banques dans <code>Content/Tile/</code> + <code>Content/Tile/index.idx</code>, leurs scripts Lua sous <code>Data/Script/halcyon/ground/&lt;id&gt;/init.lua</code> et leurs identifiants enregistrés dans <code>Data/Zone/master_zone.json</code> + <code>Data/Zone/index.idx</code> :
+        À l'image de <code>Palikadude/Halcyon</code> et <code>meromoonmeri/town02</code>, toutes les scènes hors-donjon (y compris les <strong>12 salles modulaires × 6 ambiances = 84 <code>.rsground</code></strong> de Guilde Treehouse et les <strong>37 maps du Studio</strong>) sont placées dans <code>Data/Ground/</code>, leurs banques dans <code>Content/Tile/</code> + <code>Content/Tile/index.idx</code>, leurs scripts Lua sous <code>Data/Script/halcyon/ground/&lt;id&gt;/init.lua</code> et leurs identifiants enregistrés dans <code>Data/Zone/master_zone.json</code> + <code>Data/Zone/index.idx</code> :
       </p>
       <pre id="cmdText">git clone -b arena/637b0828-projet-creation-pmdo https://github.com/meromoonmeri/projet-creation-pmdo.git &amp;&amp; cd projet-creation-pmdo &amp;&amp; bash source/consolidation_unifiee_town02/CREER_PROJET_PMD.sh meromoonmeri/PROJET-PMD public</pre>
     </section>
