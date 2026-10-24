@@ -176,50 +176,94 @@ def draw_pixel_bolt_rgba(
 
 
 def extract_metano_water_and_flower_assets() -> dict[str, object]:
-    """Extrait à l'échelle 1x native les cascades, sparkles et fleurs de Metano Town & Sky Peak."""
+    """Extrait à l'échelle 1x native le rideau de cascade périodique, l'écume de pied de cascade,
+    les grappes `Metano_Town_River_Sparkles` (4 phases) et les fleurs de Metano Town & Sky Peak."""
     eau_dir = REPO_ROOT / "source" / "eau_metano" / "natifs"
     anim_sheet = np.array(decode_pmdo_tile(eau_dir / "Metano_Town_Animation_Tileset.tile"))
     sparkles_sheet = np.array(decode_pmdo_tile(eau_dir / "Metano_Town_River_Sparkles.tile"))
 
-    # 1. Quatre frames natives de la cascade à rondins Metano Town (64 x 136 px chacune)
+    # 1. Quatre frames natives de la cascade Metano Town (64 x 136 px chacune) + rideau périodique fluide (48 x 48 px)
     cascades = []
     for i in range(4):
         crop = anim_sheet[496:632, 8 + 72 * i : 72 + 72 * i].copy()
         cascades.append(sanitize_rgba_binary(crop))
 
-    # 2. Séquence de sparkles sur l'eau de Metano Town (cellules 16x16 dans la colonne x=0..16)
-    sparkle_frames = []
-    for row in range(6):
-        sp = sparkles_sheet[row * 16 : (row + 1) * 16, 0:16].copy()
-        # Ne garder que les pixels blancs/cyan brillants de reflet (pas le fond turquoise)
-        bright = (sp[:, :, 3] > 0) & (
-            (sp[:, :, 0] > 180) & (sp[:, :, 1] > 235) & (sp[:, :, 2] > 240)
-        )
-        out = np.zeros_like(sp)
-        out[bright] = sp[bright]
-        out[bright, 3] = 255
-        sparkle_frames.append(sanitize_rgba_binary(out))
+    # Rideau d'eau vive continu sans buse en bois (lignes 36..132, colonnes 8..56) rendu périodique sur FALL_P=48 px
+    c1_sub = cascades[1][36:132, 8:56]
+    c1_rgb = c1_sub[:, :, :3].astype(np.float32)
+    casc_pal = np.unique(c1_sub[c1_sub[:, :, 3] > 0][:, :3], axis=0).astype(np.float32)
+    fall_p, fall_b = 48, 16
+    t_strip = c1_rgb[0:fall_p].copy()
+    for k in range(fall_b):
+        w_b = k / float(fall_b)
+        t_strip[k] = (1.0 - w_b) * c1_rgb[fall_p + k] + w_b * t_strip[k]
+    cascade_fluid_strip = casc_pal[
+        ((t_strip[:, :, None, :] - casc_pal[None, None, :, :]) ** 2).sum(-1).argmin(-1)
+    ].astype(np.uint8)
 
-    # 3. Fleurs animées 3 phases de Metano_Town_Animation_Tileset (touffes colorées & blanches)
-    # Ligne y=32..56 : x=8..32, 48..72, 88..112 (fleurs colorées 24x24)
+    # 2. Écume officielle de pied de cascade Metano Town (3 frames dans Metano_Town_Animation_Tileset y=378..434)
+    # Réduction exacte par blocs 2x2 vers l'échelle 1x (51 x 28 px) recalée sur la palette native 8 couleurs d'écume
+    foam_raws = [
+        anim_sheet[378:434, 18:120],
+        anim_sheet[378:434, 178:280],
+        anim_sheet[378:434, 320:422],
+    ]
+    foam_pal = np.unique(foam_raws[0][foam_raws[0][:, :, 3] > 0][:, :3], axis=0).astype(np.float32)
+    metano_cascade_foam_3: list[np.ndarray] = []
+    for fr in foam_raws:
+        cov = (fr[:, :, 3] > 0).reshape(28, 2, 51, 2).mean((1, 3))
+        rgb_sum = (fr[:, :, :3].astype(np.float32) * (fr[:, :, 3:4] > 0)).reshape(28, 2, 51, 2, 3).sum((1, 3))
+        cnt = np.maximum((fr[:, :, 3:4] > 0).reshape(28, 2, 51, 2, 1).sum((1, 3)), 1.0)
+        avg = rgb_sum / cnt
+        f_out = np.zeros((28, 51, 4), dtype=np.uint8)
+        keep_f = cov >= 0.5
+        f_out[keep_f, :3] = foam_pal[
+            ((avg[:, :, None, :] - foam_pal[None, None, :, :]) ** 2).sum(-1).argmin(-1)
+        ][keep_f].astype(np.uint8)
+        f_out[keep_f, 3] = 255
+        metano_cascade_foam_3.append(sanitize_rgba_binary(f_out))
+
+    # 3. Grappes natives `Metano_Town_River_Sparkles.tile` (4 phases @ 10 ticks dans `metano_town.rsground`)
+    m_surface = np.array([131, 218, 230], dtype=np.int16)
+
+    def _sparkle_cluster(cols: list[int], rows: list[int], step: int) -> list[np.ndarray]:
+        seq: list[np.ndarray] = []
+        for k in range(4):
+            a = np.zeros((len(rows) * 8, len(cols) * 8, 4), dtype=np.uint8)
+            for j, r_idx in enumerate(rows):
+                for i, c_idx in enumerate(cols):
+                    sy, sx = (r_idx + step * k) * 8, c_idx * 8
+                    a[j * 8 : (j + 1) * 8, i * 8 : (i + 1) * 8] = sparkles_sheet[sy : sy + 8, sx : sx + 8]
+            # Retirer uniquement l'aplat turquoise de surface pour isoler les scintillements natifs Metano
+            keep_sp = (a[:, :, 3] == 255) & (
+                np.abs(a[:, :, :3].astype(np.int16) - m_surface[None, None, :]).sum(axis=2) > 6
+            )
+            a[~keep_sp] = 0
+            seq.append(sanitize_rgba_binary(a))
+        return seq
+
+    sparkle_clusters = [
+        _sparkle_cluster([0, 1], [0, 1, 2], 3),      # A_16x24
+        _sparkle_cluster([2, 3, 4], [0, 1], 2),      # B_24x16
+        _sparkle_cluster([0, 1], [12, 13, 14, 15], 4),  # C_16x32
+    ]
+
+    # 4. Fleurs animées 3 phases de Metano_Town_Animation_Tileset (touffes colorées & blanches)
     metano_flowers_color = [
         sanitize_rgba_binary(anim_sheet[32:56, 8 + 40 * i : 32 + 40 * i].copy())
         for i in range(3)
     ]
-    # Ligne y=96..128 : x=8..32, 48..72, 88..112 (fleurs blanches hautes 24x32)
     metano_flowers_white = [
         sanitize_rgba_binary(anim_sheet[96:128, 8 + 40 * i : 32 + 40 * i].copy())
         for i in range(3)
     ]
 
-    # 4. Fleurs corail 1x de Sky Peak Prairie (`skypeak_decoupe_x2.png[::2, ::2]`)
+    # 5. Fleurs corail 1x de Sky Peak Prairie (`skypeak_decoupe_x2.png[::2, ::2]`)
     sk_1x = np.array(
         Image.open(REPO_ROOT / "source" / "zone_zero_v2" / "reference" / "skypeak_decoupe_x2.png").convert("RGBA")
     )[::2, ::2]
-    # Extraire un bouquet isolé de fleurs roses Sky Peak (autour de x=96..120, y=14..42 en 1x)
     patch = sk_1x[12:44, 94:122].copy()
     r, g, b = patch[:, :, 0].astype(np.int16), patch[:, :, 1].astype(np.int16), patch[:, :, 2].astype(np.int16)
-    # Isoler les pétales corail/blancs et leur couronne vert foncé immédiate
     petal = (r > 175) & (r > b + 15)
     stem = ndimage.binary_dilation(petal, iterations=1) & (g < 210)
     keep = petal | stem
@@ -227,7 +271,6 @@ def extract_metano_water_and_flower_assets() -> dict[str, object]:
     base_sk_flower[keep] = patch[keep]
     base_sk_flower[keep, 3] = 255
     base_sk_flower = sanitize_rgba_binary(base_sk_flower)
-    # 4 phases d'ondulation douce 1 px pixel-art (0, +1x, 0, -1x sur les pétales hauts)
     skypeak_flower_4 = []
     for dx in (0, 1, 0, -1):
         shifted = np.zeros_like(base_sk_flower)
@@ -241,7 +284,9 @@ def extract_metano_water_and_flower_assets() -> dict[str, object]:
 
     return {
         "cascades_4": cascades,
-        "sparkle_frames": sparkle_frames,
+        "cascade_fluid_strip": cascade_fluid_strip,
+        "metano_cascade_foam_3": metano_cascade_foam_3,
+        "sparkle_clusters": sparkle_clusters,
         "metano_flowers_color_4": [
             metano_flowers_color[0],
             metano_flowers_color[1],
@@ -266,42 +311,76 @@ def build_metano_river_and_skypeak_layers(
     generated_flower_rgba: np.ndarray | None = None,
 ) -> tuple[list[Image.Image], list[Image.Image], list[Image.Image]]:
     """Construit les 3 calques animés 24 poses de la clairière & rivière Metano Town :
-    - `river_frames` : courant turquoise Metano 4 phases + dérive harmonique + cascades 4 phases
-    - `sparkle_frames` : reflets scintillants `Metano_Town_River_Sparkles` + écume de pied de cascade
-    - `flower_frames` : fleurs Sky Peak Prairie & Metano Town ondulant dans la brise
+    - `river_frames` : animation exacte de la rivière de Metano Town (4 phases @ 10 ticks, palette exacte
+      `Metano_Town_River_Animation_1..4` SANS aucune écume sur la rivière ni les berges) + rideaux de
+      cascades fluides défilant en continu à chaque pose (24 poses @ 5 ticks).
+    - `sparkle_frames` : grappes scintillantes natives `Metano_Town_River_Sparkles` (4 phases @ 10 ticks)
+      sur la rivière ouverte uniquement (zéro écume sur la rivière).
+    - `flower_frames` : uniquement l'écume officielle Metano Town en bas des cascades (`Metano_Town_Animation_Tileset`)
+      + fleurs Sky Peak Prairie ondulant dans la brise.
     """
     assets = extract_metano_water_and_flower_assets()
-    cascades_4: list[np.ndarray] = assets["cascades_4"]  # type: ignore[assignment]
-    sp_bank: list[np.ndarray] = assets["sparkle_frames"]  # type: ignore[assignment]
+    cascade_strip: np.ndarray = assets["cascade_fluid_strip"]  # type: ignore[assignment]
+    foam_3: list[np.ndarray] = assets["metano_cascade_foam_3"]  # type: ignore[assignment]
+    sp_clusters: list[list[np.ndarray]] = assets["sparkle_clusters"]  # type: ignore[assignment]
 
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-    bayer = BAYER_4X4[np.arange(H)[:, None] % 4, np.arange(W)[None, :] % 4]
 
-    # Distance aux berges de la rivière pour reproduire exactement le biseau turquoise de Metano Town
-    dist_bank = ndimage.distance_transform_edt(water_mask)
     visible_water = water_mask.copy()
     if bridge_mask is not None:
         visible_water_open = water_mask & (~bridge_mask)
     else:
         visible_water_open = water_mask
 
-    # Palette exacte relevée dans Metano_Town_River_Animation_1..4.tile
-    c_edge_dark = np.array([53, 132, 188], dtype=np.uint8)
-    c_edge_mid = np.array([86, 178, 214], dtype=np.uint8)
-    c_body = np.array([124, 218, 232], dtype=np.uint8)
-    c_body_light = np.array([150, 230, 241], dtype=np.uint8)
-    c_ripple = np.array([208, 248, 255], dtype=np.uint8)
+    # Distance aux rives ouvertes + champ organique reproductible pour l'animation 4 phases de Metano Town
+    # (exactement la formulation canonique sans `clair`, donc ZÉRO trait blanc d'écume contre les rives !)
+    river_only_open = visible_water_open & (yy >= 175)
+    dist_bank = ndimage.distance_transform_edt(visible_water_open)
+    jag_raw = ndimage.gaussian_filter(np.random.default_rng(9).random((H, W)), 1.0)
+    jag = (jag_raw - jag_raw.min()) / max(float(np.ptp(jag_raw)), 1e-6)
 
-    # Sites de sparkles le long du lit ouvert de la rivière générée (y = 172..272)
-    sparkle_sites: list[tuple[int, int, int]] = []
-    for sy in range(174, 268, 20):
-        for sx in range(20, 744, 38):
-            jx = sx + ((sy * 7) % 15) - 7
-            jy = sy + ((sx * 5) % 11) - 5
-            if 8 <= jx < W - 20 and 8 <= jy < H - 20:
-                sub = visible_water_open[jy : jy + 16, jx : jx + 16]
-                if float(sub.mean()) >= 0.85 and dist_bank[jy + 8, jx + 8] >= 4.5:
-                    sparkle_sites.append((jx, jy, len(sparkle_sites)))
+    # Palette exacte mesurée sur `Metano_Town_River_Animation_1..4.tile` (sans `clair` d'écume)
+    pal_surface = (131, 218, 230, 255)
+    pal_bande = (87, 135, 191, 255)
+    pal_inter = (95, 183, 207, 255)
+    pal_accent = (111, 207, 231, 255)
+
+    # Profil de vitesse continu du rideau de cascade Metano (période 48 px -> raccord 23->0 exact) :
+    # rubans centraux à 4 px/pose (48 px/s) et rubans latéraux à 2 px/pose (24 px/s, harmonique impaire w=1)
+    fall_p = cascade_strip.shape[0]
+    cw = cascade_strip.shape[1]
+    ch = 110
+    cols_idx = np.arange(cw, dtype=np.int32)
+    rib_idx = cols_idx // 3
+    speed_col = np.where(np.abs(cols_idx - (cw // 2)) <= 9, 4, 2).astype(np.int32)
+    phase_col = ((rib_idx * 6) % fall_p).astype(np.int32)
+    rows_rel = np.arange(ch, dtype=np.int32)[:, None]
+
+    # Placement déterministe sans chevauchement des grappes natives `Metano_Town_River_Sparkles`
+    # sur le lit calme de la rivière (hors berges et hors vasques de pied de cascade)
+    cascade_centers_x = [cx0 + (cw // 2) for cx0, _ in cascade_origins]
+    taken_sp = np.zeros((H, W), dtype=bool)
+    sparkle_sites: list[tuple[int, int, int, int]] = []
+    rng_sp = np.random.default_rng(42)
+    cands_sp = [(sy, sx) for sy in range(184, 268, 8) for sx in range(16, W - 32, 8)]
+    rng_sp.shuffle(cands_sp)
+    for sy, sx in cands_sp:
+        fam_idx = len(sparkle_sites) % len(sp_clusters)
+        sh_h, sh_w = sp_clusters[fam_idx][0].shape[:2]
+        if sy + sh_h > H - 8 or sx + sh_w > W - 8:
+            continue
+        cx_sp = sx + sh_w // 2
+        if any(abs(cx_sp - gx) < 38 and sy < 210 for gx in cascade_centers_x):
+            continue
+        if (
+            river_only_open[sy : sy + sh_h, sx : sx + sh_w].all()
+            and float(dist_bank[sy : sy + sh_h, sx : sx + sh_w].min()) >= 6.5
+            and not taken_sp[max(0, sy - 6) : sy + sh_h + 6, max(0, sx - 8) : sx + sh_w + 8].any()
+        ):
+            taken_sp[sy : sy + sh_h, sx : sx + sh_w] = True
+            sparkle_sites.append((sx, sy, fam_idx, len(sparkle_sites) % 4))
+            if len(sparkle_sites) >= 22:
+                break
 
     river_out: list[Image.Image] = []
     sparkle_out: list[Image.Image] = []
@@ -309,77 +388,62 @@ def build_metano_river_and_skypeak_layers(
 
     for pose in range(N_POSES):
         theta = 2.0 * math.pi * pose / N_POSES
-        phase4 = (pose // 6) % 4  # 4 phases Metano Town calées sur la boucle de 24 poses
+        # Cadence exacte de `metano_town.rsground` : 4 phases x 10 ticks (= 2 poses de 5 ticks, w=3 sur 120 ticks)
+        r_phase = (pose // 2) % 4
+        ph = 2.0 * math.pi * r_phase / 4.0
 
-        # --- Calque A : Rivière Metano Town + Cascades 4 phases ---
+        # --- Calque A : Rivière Metano Town (sans écume) + Cascades fluides (progression à chaque pose) ---
+        n_wave = 0.6 * np.sin(yy * 0.23 + xx * 0.08 - ph) + 0.4 * np.sin(yy * 0.09 - xx * 0.19 + 1.3 - ph)
+        t_bevel = 4.5 + 1.1 * n_wave
+        jr = np.roll(jag, r_phase * 2, axis=0)
+        fringe = t_bevel + 0.6 + 2.6 * jr
+
         riv = np.zeros((H, W, 4), dtype=np.uint8)
-        riv[visible_water, :3] = c_body
-        riv[visible_water, 3] = 255
+        riv[visible_water] = pal_surface
+        riv[visible_water & (dist_bank <= fringe)] = pal_inter
+        riv[visible_water & (dist_bank <= fringe) & (jr > 0.62)] = pal_accent
+        riv[visible_water & (dist_bank <= t_bevel)] = pal_inter
+        riv[visible_water & (dist_bank <= t_bevel - 1.0)] = pal_bande
+        riv[visible_water & (~visible_water_open)] = pal_bande
 
-        # Ondes douces de courant le long du chenal (w=1 et w=3 -> pose 0 != pose 12)
-        flow_phase = (
-            0.055 * np.abs(xx - 384.0)
-            - 0.045 * yy
-            - 1.0 * theta
-            + 0.35 * np.sin(0.04 * xx + 3.0 * theta)
-        )
-        light_band = visible_water & (dist_bank > 5.0) & ((np.sin(flow_phase) + bayer * 0.45) > 0.58)
-        riv[light_band, :3] = c_body_light
-
-        # Biseau de berge exact style Metano Town (sombre 1..2 px, moyen 2..4 px, vaguelette animée 4..6 px)
-        edge1 = visible_water & (dist_bank <= 2.0)
-        edge2 = visible_water & (dist_bank > 2.0) & (dist_bank <= 4.2)
-        shore_wave = np.sin(0.16 * xx + 0.14 * yy - 0.5 * math.pi * phase4 - theta)
-        edge_rip = visible_water & (dist_bank > 3.6) & (dist_bank <= 6.2) & (shore_wave > 0.38)
-        riv[edge2, :3] = c_edge_mid
-        riv[edge1, :3] = c_edge_dark
-        riv[edge_rip, :3] = c_ripple
-
-        # Plaquer les cascades natives 4 phases de Metano Town (eau vive pure 112x48 sans buses en bois)
-        # découpées exactement dans la silhouette des gorges rocheuses générées !
-        casc_pure = cascades_4[phase4][24:136, 8:56]  # 112 x 48 eau pure 1x Metano
-        ch, cw = casc_pure.shape[:2]
+        # Rideau d'eau fluide Metano défilant vers le bas à chaque pose dans les 2 gorges rocheuses
+        y_lookup = (rows_rel - pose * speed_col[None, :] + phase_col[None, :]) % fall_p
+        curtain_rgb = cascade_strip[y_lookup, cols_idx[None, :]]
         for cx0, cy0 in cascade_origins:
             use_h = min(ch, H - cy0)
             use_w = min(cw, W - cx0)
-            sub_c = casc_pure[:use_h, :use_w]
             sub_vis = visible_water[cy0 : cy0 + use_h, cx0 : cx0 + use_w]
-            mask_c = (sub_c[:, :, 3] > 0) & sub_vis
             dst = riv[cy0 : cy0 + use_h, cx0 : cx0 + use_w]
-            dst[mask_c] = sub_c[mask_c]
+            dst[sub_vis, :3] = curtain_rgb[:use_h, :use_w][sub_vis]
+            dst[sub_vis, 3] = 255
 
         river_out.append(Image.fromarray(sanitize_rgba_binary(riv)))
 
-        # --- Calque B : Reflets Sparkles Metano + Écume vivante au pied des gorges de cascades ---
+        # --- Calque B : Uniquement les grappes natives `Metano_Town_River_Sparkles` (zéro écume sur la rivière) ---
         spk = np.zeros((H, W, 4), dtype=np.uint8)
-        for sx, sy, idx in sparkle_sites:
-            local_p = (pose + idx * 5) % N_POSES
-            if local_p < 12:
-                sp_img = sp_bank[(local_p // 2) % len(sp_bank)]
-                sub_vis = visible_water_open[sy : sy + 16, sx : sx + 16]
-                m = (sp_img[:, :, 3] > 0) & sub_vis
-                dst = spk[sy : sy + 16, sx : sx + 16]
-                dst[m] = sp_img[m]
-
-        # Bouillonnement d'écume pixel-art au pied exact de chaque gorge de cascade
-        for k_c, (cx0, cy0) in enumerate(cascade_origins):
-            foam_y = cy0 + 104
-            for fx in range(cx0 + 4, cx0 + cw - 4, 3):
-                bob = int(round(2.0 * math.sin(theta + 0.35 * fx + k_c)))
-                fy = foam_y + bob
-                if 0 <= fy < H - 5 and 0 <= fx < W - 4:
-                    sub_v = visible_water_open[fy : fy + 3, fx : fx + 3]
-                    if sub_v.any():
-                        spk[fy : fy + 3, fx : fx + 3][sub_v] = (238, 252, 255, 255)
-                    if ((fx // 3 + pose) % 3) == 0:
-                        sub_v2 = visible_water_open[fy + 3 : fy + 5, fx : fx + 2]
-                        if sub_v2.any():
-                            spk[fy + 3 : fy + 5, fx : fx + 2][sub_v2] = (176, 238, 248, 255)
+        for sx, sy, fam_idx, ph_off in sparkle_sites:
+            sp_frame = (r_phase + ph_off) % 4
+            sp_img = sp_clusters[fam_idx][sp_frame]
+            sh_h, sh_w = sp_img.shape[:2]
+            sub_vis = river_only_open[sy : sy + sh_h, sx : sx + sh_w]
+            m = (sp_img[:, :, 3] > 0) & sub_vis
+            dst = spk[sy : sy + sh_h, sx : sx + sh_w]
+            dst[m] = sp_img[m]
 
         sparkle_out.append(Image.fromarray(sanitize_rgba_binary(spk)))
 
-        # --- Calque C : Fleurs Sky Peak Prairie du décor généré ondulant dans la brise + bouquets Metano ---
+        # --- Calque C : Écume officielle Metano Town uniquement en bas des cascades + Fleurs Sky Peak ---
         flw = np.zeros((H, W, 4), dtype=np.uint8)
+        for k_c, (cx0, cy0) in enumerate(cascade_origins):
+            foam_idx = [0, 1, 2, 1][(r_phase + k_c) % 4]
+            f_spr = foam_3[foam_idx]
+            fh_s, fw_s = f_spr.shape[:2]
+            fx0 = cx0 + (cw // 2) - (fw_s // 2)
+            fy0 = cy0 + 95
+            if 0 <= fx0 and fx0 + fw_s <= W and 0 <= fy0 and fy0 + fh_s <= H:
+                mf = f_spr[:, :, 3] > 0
+                flw[fy0 : fy0 + fh_s, fx0 : fx0 + fw_s][mf] = f_spr[mf]
+
         if generated_flower_rgba is not None:
             # Ondulation douce 1 px par bandes spatiales (harmonique impaire w=1 -> pose 0 != pose 12)
             sway_l = int(round(math.sin(theta)))
@@ -388,11 +452,15 @@ def build_metano_river_and_skypeak_layers(
             for half_mask_x, dx_s in [((slice(None), slice(0, 384)), sway_l), ((slice(None), slice(384, W)), sway_r)]:
                 sub_src = src_f[half_mask_x]
                 if dx_s == 0:
-                    flw[half_mask_x] = sub_src
+                    sub_shifted = sub_src
                 elif dx_s > 0:
-                    flw[half_mask_x][:, dx_s:] = sub_src[:, :-dx_s]
+                    sub_shifted = np.zeros_like(sub_src)
+                    sub_shifted[:, dx_s:] = sub_src[:, :-dx_s]
                 else:
-                    flw[half_mask_x][:, :dx_s] = sub_src[:, -dx_s:]
+                    sub_shifted = np.zeros_like(sub_src)
+                    sub_shifted[:, :dx_s] = sub_src[:, -dx_s:]
+                mf_gen = sub_shifted[:, :, 3] > 0
+                flw[half_mask_x][mf_gen] = sub_shifted[mf_gen]
 
         for fx, fy, kind, phase_off in flower_sites:
             f_phase = ((pose + phase_off * 3) // 6) % 4

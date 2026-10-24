@@ -50,6 +50,21 @@ class TestReshiramMontagneEntreeV1(unittest.TestCase):
         for st_idx in (4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
 
+        layers, _ = rse_build.build_layers_for_size()
+        riv_f = [np.asarray(im, dtype=np.uint8) for im in layers[2].frames]
+        flw_f = [np.asarray(im, dtype=np.uint8) for im in layers[8].frames]
+        riv0 = riv_f[0][198:265, :, :]
+        open_riv = riv0[:, :, 3] == 255
+        white_on_river = open_riv & (riv0[:, :, 0] >= 180) & (riv0[:, :, 1] >= 235) & (riv0[:, :, 2] >= 240)
+        self.assertEqual(int(white_on_river.sum()), 0, "Aucune écume ne doit apparaître sur la rivière")
+        self.assertGreater(int((flw_f[0][165:193, 146:198, 3] == 255).sum()), 600)
+        self.assertGreater(int((flw_f[0][165:193, 584:636, 3] == 255).sum()), 600)
+        self.assertEqual(int((flw_f[0][198:264, :, 3] == 255).sum()), 0)
+        for t in range(24):
+            c_cur = riv_f[t][80:162, 158:185, :3]
+            c_nxt = riv_f[(t + 1) % 24][80:162, 158:185, :3]
+            self.assertGreater(int(np.abs(c_cur.astype(int) - c_nxt.astype(int)).max(axis=2).sum()), 500)
+
     def test_04_continuous_south_to_cave_walkgrid(self) -> None:
         _, walk_grid = rse_build.build_layers_for_size()
         self.assertGreater(int(walk_grid.sum()), 900)

@@ -170,13 +170,13 @@ def build_layers_for_size(w: int = W_CANON, h: int = H_CANON) -> Tuple[List[Laye
     layers = [
         LayerEntry("00_ciel_orage_montagne_zekrom", "Ciel d'Orage Électrique au-dessus de la Montagne", "BG", _resize_frames(sky_24, w, h), frame_length=5),
         LayerEntry("01_eclairs_horizon_charge_foudre", "Éclairs Bleus Charge Foudre sur l'Horizon", "BG", _resize_frames(plume_24, w, h), frame_length=5),
-        LayerEntry("02_riviere_et_cascades_metano_4phases", "Rivière & Cascades Metano Town 1× (4 Phases)", "BG", _resize_frames(river_24, w, h), frame_length=5),
-        LayerEntry("03_sparkles_et_ecume_riviere_metano", "Reflets Sparkles & Écume Metano Town 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
+        LayerEntry("02_riviere_et_cascades_metano_4phases", "Rivière Metano Town & Cascades Fluides 1×", "BG", _resize_frames(river_24, w, h), frame_length=5),
+        LayerEntry("03_sparkles_et_ecume_riviere_metano", "Reflets Scintillants Rivière Metano Town 1×", "BG", _resize_frames(sparkle_24, w, h), frame_length=5),
         LayerEntry("04_clairiere_skypeak_et_berges_metano", "Clairière Sky Peak Prairie & Berges Naturelles", "BG", [mk_static_scaled(is_meadow_banks, rgb_meadow)], frame_length=5),
         LayerEntry("05_sentier_et_pont_bois_metano", "Sentier Sablonneux & Pont en Rondins Metano 1×", "BG", [mk_static_scaled(is_path_bridge)], frame_length=5),
         LayerEntry("06_paroi_montagne_et_grotte_orage", "Montagne d'Orage D07P11A 1× & Grotte Centrale", "BG", [mk_static_scaled(is_mountain)], frame_length=5),
         LayerEntry("07_arbres_tiny_woods_buissons_rochers", "Arbres Ronds Tiny Woods, Buissons & Rochers 1×", "BG", [mk_static_scaled(is_forest_props)], frame_length=5),
-        LayerEntry("08_fleurs_skypeak_metano_brise", "Fleurs Sky Peak Prairie & Metano dans la Brise", "BG", _resize_frames(flower_24, w, h), frame_length=5),
+        LayerEntry("08_fleurs_skypeak_metano_brise", "Écume de Cascade Metano & Fleurs Sky Peak", "BG", _resize_frames(flower_24, w, h), frame_length=5),
         LayerEntry("09_canopee_tiny_woods_et_etincelles_top", "Canopée Tiny Woods & Étincelles d'Orage Top", "Top", _resize_frames(top_24, w, h), frame_length=5),
     ]
     return layers, walk_grid

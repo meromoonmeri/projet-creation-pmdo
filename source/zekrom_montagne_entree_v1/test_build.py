@@ -51,6 +51,26 @@ class TestZekromMontagneEntreeV1(unittest.TestCase):
         for st_idx in (4, 5, 6, 7):
             self.assertEqual(self.metrics["layers"][st_idx]["poses"], 1)
 
+        # Vérifie l'eau Metano sans écume sur la rivière, l'écume Metano uniquement au pied des cascades,
+        # et la fluidité continue pose-par-pose (0..23) des rideaux de cascades.
+        layers, _ = zke_build.build_layers_for_size()
+        riv_f = [np.asarray(im, dtype=np.uint8) for im in layers[2].frames]
+        flw_f = [np.asarray(im, dtype=np.uint8) for im in layers[8].frames]
+        # 1) Surface calme Metano (131, 218, 230) majoritaire et zéro écume blanche sur la rivière ouverte (y >= 198)
+        riv0 = riv_f[0][198:265, :, :]
+        open_riv = riv0[:, :, 3] == 255
+        white_on_river = open_riv & (riv0[:, :, 0] >= 180) & (riv0[:, :, 1] >= 235) & (riv0[:, :, 2] >= 240)
+        self.assertEqual(int(white_on_river.sum()), 0, "Aucune écume ne doit apparaître sur la rivière")
+        # 2) Écume officielle Metano présente aux pieds des 2 cascades (x~172 & x~610, y=165..193) et nulle sur la rivière (y=198..264)
+        self.assertGreater(int((flw_f[0][165:193, 146:198, 3] == 255).sum()), 600)
+        self.assertGreater(int((flw_f[0][165:193, 584:636, 3] == 255).sum()), 600)
+        self.assertEqual(int((flw_f[0][198:264, :, 3] == 255).sum()), 0)
+        # 3) Cascades fluides : l'eau des gorges (y=80..162, x=158..185) avance à chaque pose consécutive t -> t+1
+        for t in range(24):
+            c_cur = riv_f[t][80:162, 158:185, :3]
+            c_nxt = riv_f[(t + 1) % 24][80:162, 158:185, :3]
+            self.assertGreater(int(np.abs(c_cur.astype(int) - c_nxt.astype(int)).max(axis=2).sum()), 500)
+
     def test_04_continuous_south_to_cave_walkgrid(self) -> None:
         _, walk_grid = zke_build.build_layers_for_size()
         self.assertGreater(int(walk_grid.sum()), 900)
