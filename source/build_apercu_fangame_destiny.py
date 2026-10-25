@@ -1,31 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Génère `apercu_fangame_pmd_destiny.html` : Cinéma d'Opening Studio 60 FPS & Simulateur
-Écran-Titre PMDO `0.8.12.0` de **Pokémon Mystery Dungeon : Destiny** :
-  1. **Centrage intégral sur l'image et sur le logo** (`(W/2, H/2)` en 16:9 cinéma comme en `320×240` PMDO,
-     et scène centrée au milieu de la page).
-  2. **Battement subtil des deux ailes à l'arrivée du logo** (rig articulé 3 pièces sans couture
-     `logo_rig_{left_wing,right_wing,core_body}.png` pivotant autour des épaules `(274,335)` & `(598,335)`).
-  3. **Opening d'Anime Studio 100 % Pokémon suivant le schéma & la musique de
-     `Simple and Clean -Ray of Hope MIX-` (`https://youtu.be/2aafI3XvKxo`, *KH HD 2.8*, `02:33`, `128 BPM`)** :
-       - Acte I   : Plongée en apesanteur dans l'abysse océanique, multiples bulles montantes & rosace
-                    vitrail circulaire *Dive to the Heart* PMD (Riolu & Évoli).
-       - Acte II  : Remontée des bulles à travers les rayons sous-marins avec Tiplouf & Manaphy
-                    jusqu'à percer la surface étincelante de la mer vers le ciel.
-       - Acte III : Sprint d'aventure sur la falaise côtière (Riolu & Évoli) puis montée pré-refrain
-                    dans le Donjon Mystère de cristal runique.
-       - Acte IV  : Drop *Ray of Hope* (`128 BPM`) — rubans prismatiques célestes, envol de Latias & Latios
-                    et coupes sakuga synchronisées au tempo.
-       - Acte V   : Promontoire fleuri vu de dos face à l'océan infini et au Rayon d'Espoir à l'horizon.
-       - Acte VI  : Panoramique céleste vers l'Écran-Titre Jour/Nuit *PMD Sky* + arrivée centrée en une
-                    seule fois du blason Œuf Ailé et battement subtil des deux ailes.
-  4. **Double moteur musical synchronisé** : lecteur officiel **YouTube IFrame API (`2aafI3XvKxo`, `02:33`)**
-     synchronisé image par image + **synthétiseur polyphonique WebAudio `128 BPM` *Ray of Hope*** intégré
-     (autonome hors-ligne, coupe Cinéma `00:52` ou intégrale `02:33`) + import audio local.
+"""Génère `apercu_fangame_pmd_destiny.html` : Cinématique d'Opening **100 % POV Map PMD 3/4**
+(`320 × 240` natif PMDO `×3 = 960 × 720` pixel-perfect) + **Sprites PMD Multi-Poses 8 Directions**
+suivant plan par plan le schéma & la musique de `Simple and Clean -Ray of Hope MIX-` (`2aafI3XvKxo`) :
+
+  1. **Cohérence totale POV & échelle PMD (`Explorers of Sky` / PMDO `0.8.12.0`)** :
+     5 Maps d'Opening en vue 3/4 top-down pixel-art (`576 × 320` = `72 × 40` tuiles `8×8`, `<= 96` couleurs)
+     parcourues par une vraie caméra PMDO `320 × 240` (`GAME:MoveCamera`, zoom, shake, hit-stop, fondus).
+  2. **Vraie animation multi-poses 8 directions (`PMDCollab` `AnimData.xml`)** :
+     Chaque geste (`Walk`, `Hop`, `LeapForth`, `Pull`, `Pose`, `DeepBreath`, `TumbleBack`, `Float`,
+     `Rotate`, `Strike`, `QuickStrike`, `Double`, `Swing`, `RearUp`, `Shoot`, `Hurt`, `HitGround`,
+     `Pain`, `Twirl`, `Sink`, `Wake`, `LookUp`) est enchaîné logiquement sur les dalles et l'eau miroir,
+     avec reflets inversés dans l'eau, ondes de pas, arcs de mêlée pixel-art et boîtes de portraits PMDO.
+  3. **Image & Logo plein centre `(W/2, H/2)` (`(160, 120)` sur `320×240`) + Battement subtil des 2 ailes**
+     à l'arrivée unique du blason Œuf Ailé, sur fonds **Jour** et **Nuit** séparés (`.dir` 24 poses).
+  4. **Double synchro musicale** : lecteur officiel **YouTube IFrame API (`2aafI3XvKxo`, `02:33`)** +
+     **synthétiseur polyphonique WebAudio `128 BPM` *Ray of Hope*** intégré (`00:56`) + fichier audio local.
 """
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -41,6 +36,28 @@ def _vurl(rel_path: str) -> str:
 
 
 def build_destiny_html() -> str:
+    manifest_p = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1" / "opening_assets" / "manifest.json"
+    manifest = json.loads(manifest_p.read_text(encoding="utf-8"))
+    pmd_cat = manifest["pmd_catalog"]
+
+    # Ajout de cache-busting sur chaque feuille de sprite et portrait
+    base_sp = "renders/pmd_destiny_fangame_v1/opening_assets/pmd_sprites"
+    for pid, pdata in pmd_cat["pokemon"].items():
+        for aname, ainfo in pdata["anims"].items():
+            ainfo["url"] = _vurl(f"{base_sp}/{ainfo['file']}")
+        pt_urls = {}
+        for emo, rel_f in pdata.get("portraits", {}).items():
+            pt_urls[emo] = _vurl(f"{base_sp}/{rel_f}")
+        pdata["portraitUrls"] = pt_urls
+
+    credits_list = []
+    for item in pmd_cat.get("credits_summary", []):
+        if item.get("authors"):
+            credits_list.append(f"{item['name']} ({', '.join(item['authors'][:4])})")
+    credits_html = " · ".join(credits_list)
+
+    pmd_cat_json = json.dumps(pmd_cat["pokemon"], ensure_ascii=False)
+
     day_atlas_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/BG_Jour_320x240_atlas_6x4.png")
     night_atlas_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/BG_Nuit_320x240_atlas_6x4.png")
     enter_url = _vurl(".cache/studio_layers/DST_MENU_DUAL/Enter_74x11.png")
@@ -50,25 +67,20 @@ def build_destiny_html() -> str:
     rig_rw_url = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/logo_rig_right_wing.png")
     rig_core_url = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/logo_rig_core_body.png")
 
-    bg_ocean_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/bg_ocean_profondeurs.jpg")
-    bg_cliff_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/bg_falaise_aventure.jpg")
-    bg_dungeon_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/bg_donjon_cristal_ruines.jpg")
-    bg_prom_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/bg_promontoire_horizon.jpg")
-    vitrail_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/vitrail_destin_pmd.png")
+    opm1_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/maps/opm1_plage_cristal.png")
+    opm2_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/maps/opm2_abysse_vitrail.png")
+    opm3_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/maps/opm3_arene_eau_miroir.png")
+    opm4_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/maps/opm4_ciel_astral.png")
+    opm5_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/maps/opm5_falaise_promontoire.png")
 
-    sp_riolu_abysse = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/riolu_abysse.png")
-    sp_evoli_abysse = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/evoli_abysse.png")
-    sp_tiplouf_ocean = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/tiplouf_ocean.png")
-    sp_manaphy_ocean = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/manaphy_ocean.png")
-    sp_riolu_course = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/riolu_course.png")
-    sp_evoli_course = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/evoli_course.png")
-    sp_latias_ciel = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/latias_latios_ciel.png")
-    sp_equipe_dos = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/equipe_dos_horizon.png")
+    vitrail_dais_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/vitrail_dais_pmd_pixel.png")
+    wf_cyan_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/wayfinder_cyan.png")
+    wf_emerald_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/wayfinder_emerald.png")
+    wf_amber_url = _vurl("renders/pmd_destiny_fangame_v1/opening_assets/wayfinder_amber.png")
 
     scr_jour_320 = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/ecran_titre_jour_320x240.png")
     scr_nuit_320 = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/ecran_titre_nuit_320x240.png")
-    scr_jour_768 = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/scene_768x576_jour_logo_centre.png")
-    scr_nuit_768 = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/scene_768x576_nuit_logo_centre.png")
+    planche_maps = _vurl("renders/pmd_destiny_fangame_v1/apercus_menu/planche_4_maps_opening_pmd_320x240.png")
 
     pack_zip_url = "/.cache/virtual_zips/PACK_MENU_ET_BASE_PMD_DESTINY_0.8.12.zip"
     dstj_zip_url = "/.cache/virtual_zips/DSTJ_PMDO_0.8.12.zip"
@@ -79,7 +91,7 @@ def build_destiny_html() -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pokémon Mystery Dungeon : Destiny — Opening « Ray of Hope MIX » (100 % Pokémon), Logo Centré &amp; Ailes Animées</title>
+  <title>Pokémon Mystery Dungeon : Destiny — Cinématique POV Map PMD 3/4 « Ray of Hope MIX », Logo Centré &amp; Ailes</title>
   <style>
     :root {{
       --bg: #050b1a;
@@ -89,7 +101,6 @@ def build_destiny_html() -> str:
       --gold: #fbbf24;
       --gold-soft: #fde68a;
       --cyan: #38bdf8;
-      --pink: #f472b6;
       --text: #eef5ff;
       --muted: #9db6e0;
     }}
@@ -98,7 +109,7 @@ def build_destiny_html() -> str:
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       background:
-        radial-gradient(circle at 50% 12%, rgba(56, 189, 248, 0.16) 0%, transparent 48%),
+        radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 48%),
         radial-gradient(circle at 50% 0%, #132859 0%, var(--bg) 68%);
       color: var(--text);
       min-height: 100vh;
@@ -108,25 +119,23 @@ def build_destiny_html() -> str:
     }}
     header {{
       width: 100%;
-      padding: 14px 24px;
+      padding: 13px 22px;
       border-bottom: 1px solid var(--border);
-      background: rgba(6, 12, 28, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(6, 12, 28, 0.94);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 16px;
       text-align: center;
     }}
     header h1 {{
       margin: 0;
-      font-size: 1.16rem;
-      letter-spacing: 0.02em;
+      font-size: 1.13rem;
       color: var(--gold-soft);
     }}
     header .sub {{
-      font-size: 0.82rem;
+      font-size: 0.80rem;
       color: var(--muted);
       margin-top: 3px;
     }}
@@ -138,79 +147,67 @@ def build_destiny_html() -> str:
     }}
     .btn-link {{
       text-decoration: none;
-      padding: 7px 13px;
+      padding: 7px 12px;
       border-radius: 8px;
-      font-size: 0.81rem;
+      font-size: 0.80rem;
       font-weight: 600;
       border: 1px solid var(--border);
       background: var(--panel-2);
       color: var(--text);
-      transition: transform 0.12s ease, border-color 0.15s ease;
     }}
-    .btn-link:hover {{
-      transform: translateY(-1px);
-      border-color: var(--cyan);
-    }}
+    .btn-link:hover {{ border-color: var(--cyan); }}
     .btn-link.gold {{
       background: linear-gradient(180deg, #f59e0b, #d97706);
       border-color: #fde68a;
       color: #160d00;
     }}
 
-    /* Conteneur maître 100 % centré */
     main {{
       width: 100%;
-      max-width: 1040px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 20px 16px 48px;
+      padding: 18px 14px 44px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }}
-
     .cinema-card {{
       width: 100%;
       background: linear-gradient(180deg, rgba(14, 27, 58, 0.96), rgba(8, 16, 36, 0.98));
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 22px 58px rgba(0, 0, 0, 0.62);
+      padding: 16px;
+      box-shadow: 0 22px 58px rgba(0, 0, 0, 0.65);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }}
-
     .top-bar {{
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
     }}
-
     button.ctrl {{
       cursor: pointer;
-      padding: 8px 14px;
+      padding: 7px 13px;
       border-radius: 9px;
       border: 1px solid var(--border);
       background: var(--panel-2);
       color: var(--text);
       font-weight: 600;
-      font-size: 0.82rem;
-      transition: all 0.14s ease;
+      font-size: 0.80rem;
+      transition: all 0.12s ease;
     }}
-    button.ctrl:hover {{
-      border-color: var(--cyan);
-      background: #1a3163;
-    }}
+    button.ctrl:hover {{ border-color: var(--cyan); background: #1a3163; }}
     button.ctrl.active {{
       border-color: var(--gold);
       background: linear-gradient(180deg, #27488a, #193161);
       color: var(--gold-soft);
-      box-shadow: 0 0 14px rgba(251, 191, 36, 0.28);
     }}
     button.ctrl.primary {{
       background: linear-gradient(180deg, #38bdf8, #0284c7);
@@ -225,17 +222,17 @@ def build_destiny_html() -> str:
       font-weight: 700;
     }}
 
-    /* Viewport image & logo plein centre */
+    /* Écran PMDO 320x240 (x3 = 768x576 / max 800px) 100 % centré au milieu de la page */
     .stage-frame {{
       position: relative;
       width: 100%;
-      max-width: 960px;
+      max-width: 780px;
       margin: 0 auto;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 2px solid #355da6;
+      border: 2px solid #3964b3;
       background: #020612;
-      box-shadow: 0 14px 42px rgba(0, 0, 0, 0.7), 0 0 32px rgba(56, 189, 248, 0.14);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.72), 0 0 28px rgba(56, 189, 248, 0.14);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -245,20 +242,16 @@ def build_destiny_html() -> str:
       width: 100%;
       height: auto;
       margin: 0 auto;
-    }}
-    canvas#destinyStage.pixel-crisp {{
-      max-width: 768px;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
     }}
 
-    /* Scrubber & chapitres */
     .timeline-wrap {{
       width: 100%;
-      max-width: 960px;
+      max-width: 820px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }}
     .scrubber-row {{
       display: flex;
@@ -272,93 +265,83 @@ def build_destiny_html() -> str:
     }}
     .time-readout {{
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: var(--gold-soft);
-      min-width: 108px;
+      min-width: 106px;
       text-align: right;
     }}
     .chapters {{
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 6px;
+      gap: 5px;
     }}
-    @media (max-width: 780px) {{
+    @media (max-width: 760px) {{
       .chapters {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
     }}
     .chap-btn {{
       cursor: pointer;
-      padding: 6px 6px;
+      padding: 6px 5px;
       border-radius: 7px;
       border: 1px solid #243f74;
       background: rgba(12, 24, 52, 0.88);
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       text-align: center;
-      transition: all 0.14s ease;
     }}
-    .chap-btn:hover {{
-      border-color: var(--cyan);
-      color: var(--text);
-    }}
+    .chap-btn:hover {{ border-color: var(--cyan); color: var(--text); }}
     .chap-btn.current {{
       border-color: var(--gold);
-      background: rgba(39, 72, 138, 0.65);
+      background: rgba(39, 72, 138, 0.68);
       color: var(--gold-soft);
       font-weight: 700;
     }}
 
-    /* Dock Audio Synchronisé (YouTube 2aafI3XvKxo + Synthé Ray of Hope 128 BPM) */
     .audio-dock {{
       width: 100%;
-      max-width: 960px;
+      max-width: 820px;
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
-      background: rgba(7, 14, 32, 0.86);
+      background: rgba(7, 14, 32, 0.88);
       border: 1px solid #244075;
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 11px 13px;
     }}
-    @media (max-width: 760px) {{
+    @media (max-width: 720px) {{
       .audio-dock {{ grid-template-columns: 1fr; justify-items: center; text-align: center; }}
     }}
-    .audio-info {{
-      font-size: 0.81rem;
-      line-height: 1.48;
-      color: var(--muted);
-    }}
+    .audio-info {{ font-size: 0.79rem; line-height: 1.46; color: var(--muted); }}
     .audio-info strong {{ color: var(--text); }}
     .yt-mini-box {{
-      width: 256px;
-      height: 144px;
-      border-radius: 9px;
+      width: 240px;
+      height: 135px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid #35599e;
       background: #02050d;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }}
     .yt-mini-placeholder {{
-      font-size: 0.73rem;
+      font-size: 0.71rem;
       color: var(--muted);
-      padding: 10px;
+      padding: 8px;
       text-align: center;
     }}
 
     .status-strip {{
       width: 100%;
-      max-width: 960px;
+      max-width: 820px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
     }}
     .pill {{
-      font-size: 0.76rem;
-      padding: 4px 11px;
+      font-size: 0.74rem;
+      padding: 4px 10px;
       border-radius: 999px;
       background: rgba(15, 29, 64, 0.9);
       border: 1px solid var(--border);
@@ -366,57 +349,54 @@ def build_destiny_html() -> str:
     }}
     .pill strong {{ color: var(--gold-soft); }}
 
-    /* Grille de vérification du centrage & fiches techniques */
     .details-grid {{
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
     }}
-    @media (max-width: 820px) {{
+    @media (max-width: 800px) {{
       .details-grid {{ grid-template-columns: 1fr; }}
     }}
     .info-card {{
       background: rgba(12, 23, 50, 0.94);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px;
+      padding: 15px;
     }}
     .info-card h2 {{
-      margin: 0 0 10px 0;
-      font-size: 0.96rem;
+      margin: 0 0 9px 0;
+      font-size: 0.94rem;
       color: var(--gold-soft);
       border-bottom: 1px solid rgba(56, 189, 248, 0.22);
-      padding-bottom: 7px;
+      padding-bottom: 6px;
       text-align: center;
+    }}
+    .info-card img.full {{
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #315496;
+      image-rendering: pixelated;
     }}
     .preview-pair {{
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      align-items: center;
-      justify-items: center;
+      margin-top: 10px;
     }}
-    .preview-pair figure {{
-      margin: 0;
-      text-align: center;
-    }}
+    .preview-pair figure {{ margin: 0; text-align: center; }}
     .preview-pair img {{
       width: 100%;
       border-radius: 8px;
       border: 1px solid #315496;
       image-rendering: pixelated;
     }}
-    .preview-pair figcaption {{
-      margin-top: 5px;
-      font-size: 0.74rem;
-      color: var(--muted);
-    }}
+    .preview-pair figcaption {{ margin-top: 4px; font-size: 0.73rem; color: var(--muted); }}
     ul.spec {{
       margin: 0;
-      padding-left: 18px;
-      font-size: 0.81rem;
-      line-height: 1.54;
+      padding-left: 17px;
+      font-size: 0.79rem;
+      line-height: 1.5;
       color: var(--muted);
     }}
     ul.spec li {{ margin-bottom: 5px; }}
@@ -425,15 +405,15 @@ def build_destiny_html() -> str:
       padding: 1px 5px;
       border-radius: 4px;
       color: #bae6fd;
-      font-size: 0.77rem;
+      font-size: 0.75rem;
     }}
   </style>
 </head>
 <body>
   <header>
     <div>
-      <h1>Pokémon Mystery Dungeon : Destiny — Opening « Ray of Hope MIX » &amp; Blason Œuf Ailé Centré</h1>
-      <div class="sub">Schéma &amp; synchro musicale sur <code>youtu.be/2aafI3XvKxo</code> (100 % Pokémon) · Image &amp; Logo plein centre <code>(W/2, H/2)</code> · Battement subtil des 2 ailes à l'arrivée</div>
+      <h1>Pokémon Mystery Dungeon : Destiny — Cinématique POV Map PMD 3/4 « Ray of Hope MIX »</h1>
+      <div class="sub">5 Maps d'Opening PMD en vue 3/4 Pixel-Art (<code>320×240</code> caméra PMDO) · Sprites Multi-Poses 8 Directions · Mêlée <code>128 BPM</code> · Logo plein centre &amp; Ailes animées</div>
     </div>
     <div class="nav-links">
       <a class="btn-link" href="/index.html">← Galerie Studio (39 cartes)</a>
@@ -445,111 +425,96 @@ def build_destiny_html() -> str:
 
   <main>
     <section class="cinema-card">
-      <!-- Barre principale de modes centrée -->
       <div class="top-bar">
-        <button class="ctrl primary" id="btnPlayCinema">▶ Relancer l'Opening Pokémon (Synthé 128 BPM)</button>
+        <button class="ctrl primary" id="btnPlayCinema">▶ Relancer la Cinématique PMD (Synthé 128 BPM)</button>
         <button class="ctrl yt-btn" id="btnPlayYT">▶ Synchro YouTube Officielle (2aafI3XvKxo · 02:33)</button>
-        <button class="ctrl" id="btnModeTitle">🎮 Écran-Titre PMDO Direct (320×240)</button>
+        <button class="ctrl" id="btnModeTitle">🎮 Écran-Titre PMDO Direct</button>
         <button class="ctrl" id="btnFlapNow">🪽 Battre des ailes</button>
         <button class="ctrl active" id="btnThemeDay">☀️ Jour</button>
         <button class="ctrl" id="btnThemeNight">🌙 Nuit</button>
         <button class="ctrl" id="btnPause">⏸ Pause</button>
       </div>
 
-      <!-- Scène Cinéma / Écran-Titre 100 % centrée -->
+      <!-- Écran natif PMDO 320x240 x3 = 960x720 (4:3 cohérent de bout en bout, centré plein milieu) -->
       <div class="stage-frame">
-        <canvas id="destinyStage" width="960" height="540"></canvas>
+        <canvas id="destinyStage" width="960" height="720"></canvas>
       </div>
 
-      <!-- Timeline & 6 Actes du schéma Simple and Clean -Ray of Hope MIX- -->
       <div class="timeline-wrap">
         <div class="scrubber-row">
           <input type="range" id="timeScrub" min="0" max="1000" value="0" />
-          <div class="time-readout" id="timeReadout">00:00 / 00:52</div>
+          <div class="time-readout" id="timeReadout">00:00 / 00:56</div>
         </div>
         <div class="chapters">
-          <button class="chap-btn current" data-jump="0.00">I · Abysse, Bulles &amp; Vitrail</button>
-          <button class="chap-btn" data-jump="0.18">II · Remontée Océan → Surface</button>
-          <button class="chap-btn" data-jump="0.34">III · Falaise &amp; Donjon Cristal</button>
-          <button class="chap-btn" data-jump="0.54">IV · Drop « Ray of Hope » 128 BPM</button>
-          <button class="chap-btn" data-jump="0.75">V · Promontoire &amp; Horizon</button>
-          <button class="chap-btn" data-jump="0.86">VI · Logo Centré &amp; Ailes</button>
+          <button class="chap-btn current" data-jump="0.00">I · OPM1 Plage &amp; Patte</button>
+          <button class="chap-btn" data-jump="0.15">II · OPM2 Abysse &amp; Vitrail</button>
+          <button class="chap-btn" data-jump="0.31">III · OPM3 Eau-Miroir</button>
+          <button class="chap-btn" data-jump="0.40">IV · Mêlée 128 BPM &amp; Trio</button>
+          <button class="chap-btn" data-jump="0.67">V · OPM4 Ciel &amp; Darkrai</button>
+          <button class="chap-btn" data-jump="0.83">VI · OPM5 Falaise → Titre</button>
         </div>
       </div>
 
-      <!-- Dock Audio : YouTube IFrame API (2aafI3XvKxo) + Synthé WebAudio 128 BPM + Fichier local -->
       <div class="audio-dock">
         <div class="audio-info">
-          <div><strong id="audioModeLabel">🎹 Audio actif : Hommage WebAudio « Ray of Hope » 128 BPM intégré (Coupe Cinéma 00:52)</strong></div>
+          <div><strong id="audioModeLabel">🎹 Audio actif : Synthé WebAudio « Ray of Hope » 128 BPM intégré (Coupe PMD 00:56)</strong></div>
           <div style="margin-top:4px;">
-            • Cliquez sur <strong>« Synchro YouTube Officielle (2aafI3XvKxo · 02:33) »</strong> pour charger le lecteur YouTube officiel de
-            <em>Simple and Clean -Ray of Hope MIX-</em> et caler les 6 actes 100 % Pokémon sur son horloge exacte (<code>02:33</code>).<br/>
-            • Ou importez un fichier audio local (<code>.mp3/.ogg/.wav</code>) :
+            • <strong>« Synchro YouTube Officielle (2aafI3XvKxo · 02:33) »</strong> cale toutes les maps PMD, les déplacements, la mêlée et l'arrivée du logo sur l'horloge exacte de la vidéo YouTube officielle.<br/>
+            • Ou importez un audio local :
             <label style="cursor:pointer;color:var(--cyan);font-weight:600;text-decoration:underline;">
-              📂 Charger un fichier audio<input type="file" id="localAudioInput" accept="audio/*" style="display:none;" />
+              📂 Charger MP3/WAV<input type="file" id="localAudioInput" accept="audio/*" style="display:none;" />
             </label>
-            · <label style="cursor:pointer;"><input type="checkbox" id="chkMuteSynth" /> Couper le synthé intégré</label>
-            · <label style="cursor:pointer;"><input type="checkbox" id="chkCenterCrosshair" /> Repère de centrage <code>(W/2, H/2)</code></label>
+            · <label style="cursor:pointer;"><input type="checkbox" id="chkMuteSynth" /> Couper synthé</label>
+            · <label style="cursor:pointer;"><input type="checkbox" id="chkCenterCrosshair" /> Axe centre <code>(160, 120)</code></label>
           </div>
         </div>
-        <div class="yt-mini-box" id="ytContainer">
+        <div class="yt-mini-box">
           <div class="yt-mini-placeholder" id="ytPlaceholder">
-            Lecteur YouTube <code>2aafI3XvKxo</code><br/>(cliquez sur le bouton rouge ci-dessus pour activer la synchro 02:33)
+            Lecteur YouTube <code>2aafI3XvKxo</code><br/>(cliquez sur le bouton rouge ci-dessus)
           </div>
           <div id="ytPlayerSlot"></div>
         </div>
       </div>
 
       <div class="status-strip">
-        <span class="pill">Acte : <strong id="lblAct">I · Plongée Abysse &amp; Bulles</strong></span>
-        <span class="pill">Centre Logo : <strong id="lblCenter">(480, 270) = 50.0% × 50.0%</strong></span>
-        <span class="pill">Angle des 2 Ailes : <strong id="lblWingDeg">0.0°</strong></span>
-        <span class="pill">Fond PMD Sky : <strong id="lblTheme">JOUR (24 poses .dir)</strong></span>
+        <span class="pill">Map PMD active : <strong id="lblMap">OPM1 · Plage Cristal (576×320)</strong></span>
+        <span class="pill">Caméra PMDO : <strong id="lblCam">320×240</strong></span>
+        <span class="pill">Centre Logo : <strong id="lblCenter">(160, 120) = 50% × 50%</strong></span>
+        <span class="pill">2 Ailes : <strong id="lblWingDeg">0.0°</strong></span>
       </div>
     </section>
 
     <section class="details-grid">
       <div class="info-card">
-        <h2>Centrage Exact Image &amp; Logo <code>(W/2, H/2)</code> — Jour &amp; Nuit</h2>
+        <h2>Cohérence POV 3/4 Map PMD &amp; Échelle Sprites (<code>320×240</code>)</h2>
+        <img class="full" src="{planche_maps}" alt="Planche des Maps d'Opening PMD 3/4" />
         <div class="preview-pair">
           <figure>
-            <img src="{scr_jour_320}" alt="Écran-Titre Jour 320x240 Centré" />
-            <figcaption><code>320×240</code> JOUR — Logo à <code>(160, 120)</code> + <code>PRESS ENTER</code></figcaption>
+            <img src="{scr_jour_320}" alt="Écran-Titre Jour 320x240" />
+            <figcaption><code>320×240</code> JOUR — Logo centré <code>(160, 120)</code></figcaption>
           </figure>
           <figure>
-            <img src="{scr_nuit_320}" alt="Écran-Titre Nuit 320x240 Centré" />
-            <figcaption><code>320×240</code> NUIT — Logo à <code>(160, 120)</code> + mer nocturne</figcaption>
-          </figure>
-          <figure>
-            <img src="{scr_jour_768}" alt="Scène 768x576 Jour Logo Centré" />
-            <figcaption><code>768×576</code> <code>DSTJ</code> — Plein centre <code>(384, 288)</code></figcaption>
-          </figure>
-          <figure>
-            <img src="{scr_nuit_768}" alt="Scène 768x576 Nuit Logo Centré" />
-            <figcaption><code>768×576</code> <code>DSTN</code> — Plein centre <code>(384, 288)</code></figcaption>
+            <img src="{scr_nuit_320}" alt="Écran-Titre Nuit 320x240" />
+            <figcaption><code>320×240</code> NUIT — Logo centré <code>(160, 120)</code></figcaption>
           </figure>
         </div>
       </div>
 
       <div class="info-card">
-        <h2>Architecture Technique (Opening « Ray of Hope MIX » &amp; Rig d'Ailes)</h2>
+        <h2>Architecture des 5 Maps Opening PMD &amp; Crédits Sprites</h2>
         <ul class="spec">
-          <li><strong>Schéma chorégraphique <code>2aafI3XvKxo</code> (100 % Pokémon, zéro humain)</strong> :
-            Plongée en apesanteur de <strong>Riolu &amp; Évoli</strong> dans les bulles abyssales sur la rosace vitrail circulaire PMD →
-            remontée des bulles jusqu'à percer la surface avec <strong>Tiplouf &amp; Manaphy</strong> →
-            course sur la falaise côtière &amp; montée pré-refrain dans le donjon de cristal →
-            drop électronique <code>128 BPM</code> avec rubans lumineux, <strong>Latias &amp; Latios</strong> et coupes sakuga →
-            promontoire fleuri vu de dos face au Rayon d'Espoir sur l'océan → panoramique vers le ciel et révélation du titre.</li>
-          <li><strong>Centrage géométrique strict <code>(W/2, H/2)</code></strong> :
-            <code>LOGO_Y_320 = 63</code> (<code>y = 63..176</code>, centre <code>(160, 120)</code>) sur <code>Content/UI/Title.png</code> et
-            <code>LOGO_Y_768 = 151</code> (<code>y = 151..423</code>, centre <code>(384, 288)</code>) sur les cartes <code>DSTJ</code> / <code>DSTN</code>.</li>
-          <li><strong>Battement subtil des deux ailes à l'arrivée</strong> :
-            Décomposition sans couture en 3 calques (<code>logo_rig_left_wing.png</code>, <code>logo_rig_right_wing.png</code>,
-            <code>logo_rig_core_body.png</code>) articulés aux épaules <code>(274, 335)</code> &amp; <code>(598, 335)</code>, intégrés à la fois en
-            <code>60 FPS</code> continu et dans les 24 poses PMDO de <code>Content/Obj/Destiny_Logo_Anime_Opening.dir</code>.</li>
-          <li><strong>Provenance honnête</strong> : Le flux officiel <em>Simple and Clean -Ray of Hope MIX-</em> est lu directement depuis
-            YouTube (<code>2aafI3XvKxo</code>) via l'API IFrame officielle ; aucun fichier audio sous droits d'auteur n'est copié dans le dépôt,
-            et un synthétiseur polyphonique WebAudio <code>128 BPM</code> original assure l'écoute immédiate hors-ligne.</li>
+          <li><strong>POV 100 % Map PMD 3/4 Orthographique (<code>576×320</code> = <code>72×40</code> tuiles <code>8×8</code>, <code>&lt;= 96</code> couleurs)</strong> :
+            <code>OPM1</code> Plage Cristal &amp; Lagon · <code>OPM2</code> Temple Marin Abyssal &amp; Rosace Vitrail 3/4 incrustée dans la pierre ·
+            <code>OPM3</code> Arène Eau-Miroir à 16 piliers runiques · <code>OPM4</code> Plateforme Mosaïque Astrale · <code>OPM5</code> Promontoire Fleuri &amp; Océan.</li>
+          <li><strong>Vraie Mêlée &amp; Gestes Liés sur les Tuiles (<code>AnimData.xml</code> 8 directions)</strong> :
+            Chaque déplacement calcule automatiquement l'orientation <code>Dir8 (0..7)</code>, projette le reflet inversé ondulant dans l'eau miroir,
+            génère des ondes de pas pixel-art et synchronise <code>Strike</code>, <code>QuickStrike</code>, <code>Double</code>, <code>Swing</code>,
+            <code>Hop</code>, <code>TumbleBack</code>, <code>Pain</code>, <code>RearUp</code>, <code>Pull</code> et <code>Pose</code> avec <em>hit-stop</em> et <em>camera shake</em>.</li>
+          <li><strong>Arrivée Centrée &amp; Battement Subtil des 2 Ailes</strong> :
+            Panoramique caméra vertical depuis l'océan d'<code>OPM5</code> vers le fond <code>.dir</code> Jour/Nuit *PMD Sky*, impact unique plein centre
+            <code>(160, 120)</code> et oscillation amortie des deux ailes (<code>logo_rig_left_wing.png</code> / <code>right_wing.png</code>).</li>
+          <li><strong>Crédits Sprites &amp; Portraits (<code>PMDCollab / SpriteCollab</code>, CC-BY)</strong> :
+            {credits_html}. Audio officiel lu via YouTube IFrame API (<code>2aafI3XvKxo</code>) sans copie de piste protégée dans le dépôt.</li>
         </ul>
       </div>
     </section>
@@ -559,43 +524,36 @@ def build_destiny_html() -> str:
 
   <script>
   (() => {{
-    const canvas = document.getElementById('destinyStage');
-    const ctx = canvas.getContext('2d');
+    const PMD_CATALOG = {pmd_cat_json};
 
-    // Chargement de tous les assets (PMDO Jour/Nuit + Rig 3 pièces + 9 planches Studio Opening Pokémon)
-    function loadImg(src) {{
-      const im = new Image();
-      im.decoding = 'async';
-      im.src = src;
-      return im;
-    }}
+    const outCanvas = document.getElementById('destinyStage');
+    const outCtx = outCanvas.getContext('2d');
+    outCtx.imageSmoothingEnabled = false;
 
-    const ASSETS = {{
-      dayAtlas: loadImg("{day_atlas_url}"),
-      nightAtlas: loadImg("{night_atlas_url}"),
-      enterUI: loadImg("{enter_url}"),
-      logoHD: loadImg("{logo_hd_url}"),
-      rigLW: loadImg("{rig_lw_url}"),
-      rigRW: loadImg("{rig_rw_url}"),
-      rigCore: loadImg("{rig_core_url}"),
+    // Framebuffer virtuel natif PMDO 320 x 240 !
+    const VW = 320, VH = 240;
+    const vCanvas = document.createElement('canvas');
+    vCanvas.width = VW;
+    vCanvas.height = VH;
+    const vCtx = vCanvas.getContext('2d');
+    vCtx.imageSmoothingEnabled = false;
 
-      bgOcean: loadImg("{bg_ocean_url}"),
-      bgCliff: loadImg("{bg_cliff_url}"),
-      bgDungeon: loadImg("{bg_dungeon_url}"),
-      bgProm: loadImg("{bg_prom_url}"),
-      vitrail: loadImg("{vitrail_url}"),
+    // Tampon monde 576 x 320 pour composer la map PMD active + reflets d'eau + sprites Y-triés + VFX pixel
+    const MW = 576, MH = 320;
+    const mCanvas = document.createElement('canvas');
+    mCanvas.width = MW;
+    mCanvas.height = MH;
+    const mCtx = mCanvas.getContext('2d');
+    mCtx.imageSmoothingEnabled = false;
 
-      rioluAbysse: loadImg("{sp_riolu_abysse}"),
-      evoliAbysse: loadImg("{sp_evoli_abysse}"),
-      tiploufOcean: loadImg("{sp_tiplouf_ocean}"),
-      manaphyOcean: loadImg("{sp_manaphy_ocean}"),
-      rioluCourse: loadImg("{sp_riolu_course}"),
-      evoliCourse: loadImg("{sp_evoli_course}"),
-      latiasCiel: loadImg("{sp_latias_ciel}"),
-      equipeDos: loadImg("{sp_equipe_dos}"),
-    }};
+    // Tampon d'inversion/ondulation pour les reflets dans l'eau miroir
+    const refCanvas = document.createElement('canvas');
+    refCanvas.width = 160;
+    refCanvas.height = 160;
+    const refCtx = refCanvas.getContext('2d');
+    refCtx.imageSmoothingEnabled = false;
 
-    // Tampons hors-écran pour le blason articulé (battement d'ailes + flash blanc-or + reflet Shing!)
+    // Tampons HD pour le blason articulé 3 pièces (battement subtil des deux ailes)
     const rigCanvas = document.createElement('canvas');
     rigCanvas.width = 872;
     rigCanvas.height = 629;
@@ -606,58 +564,83 @@ def build_destiny_html() -> str:
     tintCanvas.height = 629;
     const tintCtx = tintCanvas.getContext('2d');
 
-    // État principal
-    let viewMode = 'opening';       // 'opening' (16:9 960x540) | 'title320' (4:3 960x720 pixel-crisp)
+    const IMG_CACHE = new Map();
+    function getImg(url) {{
+      if (!url) return null;
+      if (IMG_CACHE.has(url)) return IMG_CACHE.get(url);
+      const im = new Image();
+      im.decoding = 'async';
+      im.src = url;
+      IMG_CACHE.set(url, im);
+      return im;
+    }}
+
+    // Préchargement immédiat des maps PMD 3/4, fonds .dir, rig d'ailes et feuilles de sprites
+    const MAPS = {{
+      opm1: getImg("{opm1_url}"),
+      opm2: getImg("{opm2_url}"),
+      opm3: getImg("{opm3_url}"),
+      opm4: getImg("{opm4_url}"),
+      opm5: getImg("{opm5_url}"),
+      vitrailDais: getImg("{vitrail_dais_url}"),
+      wfCyan: getImg("{wf_cyan_url}"),
+      wfEmerald: getImg("{wf_emerald_url}"),
+      wfAmber: getImg("{wf_amber_url}"),
+      dayAtlas: getImg("{day_atlas_url}"),
+      nightAtlas: getImg("{night_atlas_url}"),
+      enterUI: getImg("{enter_url}"),
+      logoHD: getImg("{logo_hd_url}"),
+      rigLW: getImg("{rig_lw_url}"),
+      rigRW: getImg("{rig_rw_url}"),
+      rigCore: getImg("{rig_core_url}"),
+    }};
+
+    Object.values(PMD_CATALOG).forEach((p) => {{
+      Object.values(p.anims).forEach((a) => getImg(a.url));
+      Object.values(p.portraitUrls || {{}}).forEach((u) => getImg(u));
+    }});
+
+    // État global
+    let viewMode = 'opening';       // 'opening' | 'title320'
     let theme = 'jour';             // 'jour' | 'nuit'
-    let audioSource = 'synth';      // 'synth' (52s) | 'youtube' (153s) | 'local'
-    let durationSec = 52.0;
+    let audioSource = 'synth';      // 'synth' (56s) | 'youtube' (153s) | 'local'
+    let durationSec = 56.0;
     let curTime = 0.0;
     let paused = false;
     let scrubbing = false;
     let lastNow = performance.now();
-    let manualFlapStart = -999.0;   // Déclencheur manuel du bouton « Battre des ailes »
-    let titleModeRevealStart = 0.0; // Horloge dédiée au mode Écran-Titre PMDO Direct
+    let manualFlapStart = -999.0;
+    let titleModeRevealStart = 0.0;
 
-    // Particules persistantes : 95 bulles océaniques réfractives + 55 lucioles/étoiles
-    const BUBBLES = Array.from({{ length: 95 }}, (_, i) => ({{
-      seed: i * 1.6180339,
-      xFrac: ((i * 73 + 19) % 100) / 100.0,
-      yOffset: ((i * 41 + 7) % 100) / 100.0,
-      r: 3.0 + (i % 9) * 2.6 + (i % 19 === 0 ? 9.0 : 0.0),
-      speed: 0.065 + (i % 7) * 0.019,
-      wobbleAmp: 8.0 + (i % 6) * 5.5,
-      wobbleFreq: 1.3 + (i % 5) * 0.42,
-    }}));
-
-    const MOTES = Array.from({{ length: 64 }}, (_, i) => ({{
-      xFrac: ((i * 59 + 11) % 100) / 100.0,
-      yFrac: ((i * 37 + 23) % 100) / 100.0,
-      r: 1.5 + (i % 4) * 1.4,
-      phase: i * 0.91,
+    // Bulles pixel-art persistantes (coordonnées écran 320x240)
+    const PIXEL_BUBBLES = Array.from({{ length: 72 }}, (_, i) => ({{
+      x: (i * 47 + 13) % VW,
+      yOff: ((i * 61 + 7) % 100) / 100.0,
+      r: 1 + (i % 4) + (i % 13 === 0 ? 2 : 0),
+      spd: 0.14 + (i % 6) * 0.045,
+      wob: 2.5 + (i % 5) * 1.4,
+      ph: i * 1.37,
     }}));
 
     // =========================================================================
-    // SYNTHÉTISEUR WEBAUDIO POLYPHONIQUE 128 BPM « RAY OF HOPE » (AUTONOME)
+    // SYNTHÉTISEUR WEBAUDIO POLYPHONIQUE 128 BPM « RAY OF HOPE »
     // =========================================================================
     let audioCtx = null;
-    let synthTimer = null;
     let synthStepPlayed = -1;
     const BPM = 128.0;
-    const STEP_SEC = (60.0 / BPM) / 2.0; // Croche = 0.234375s
+    const STEP_SEC = (60.0 / BPM) / 2.0;
 
-    // Fréquences MIDI
     function m2f(m) {{ return 440.0 * Math.pow(2.0, (m - 69.0) / 12.0); }}
 
-    // Progression lumineuse style J-Pop électronique 128 BPM (Fmaj7 -> G6 -> Em7 -> Am7 / Dm7 -> G7 -> Cmaj9)
     const CHORDS = [
-      [53, 60, 64, 69], // Fmaj7
-      [55, 62, 67, 71], // G6
-      [52, 59, 64, 67], // Em7
-      [57, 64, 67, 72], // Am7
-      [50, 57, 62, 65], // Dm7
-      [55, 59, 62, 67], // G
-      [48, 55, 60, 64], // C
-      [52, 59, 64, 71], // Em7add11
+      [53, 60, 64, 69],
+      [55, 62, 67, 71],
+      [52, 59, 64, 67],
+      [57, 64, 67, 72],
+      [50, 57, 62, 65],
+      [55, 59, 62, 67],
+      [48, 55, 60, 64],
+      [52, 59, 64, 71],
     ];
     const MELODY_DROP = [
       76, 79, 81, 79, 76, 74, 72, 74,
@@ -671,57 +654,44 @@ def build_destiny_html() -> str:
         const AC = window.AudioContext || window.webkitAudioContext;
         if (AC) audioCtx = new AC();
       }}
-      if (audioCtx && audioCtx.state === 'suspended') {{
-        audioCtx.resume();
-      }}
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     }}
 
-    function playPluckOrBell(freq, dur, gainVal, type = 'triangle', cutoff = 3200) {{
+    function playNote(freq, dur, gainVal, type = 'triangle', cutoff = 3200) {{
       if (!audioCtx || document.getElementById('chkMuteSynth').checked) return;
       const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const osc2 = audioCtx.createOscillator();
+      const o1 = audioCtx.createOscillator();
+      const o2 = audioCtx.createOscillator();
       const flt = audioCtx.createBiquadFilter();
       const g = audioCtx.createGain();
-      osc.type = type;
-      osc2.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
-      osc2.frequency.setValueAtTime(freq * 2.0, now);
-      osc2.detune.setValueAtTime(5, now);
-
+      o1.type = type;
+      o2.type = 'sine';
+      o1.frequency.setValueAtTime(freq, now);
+      o2.frequency.setValueAtTime(freq * 2.0, now);
       flt.type = 'lowpass';
       flt.frequency.setValueAtTime(cutoff, now);
-      flt.frequency.exponentialRampToValueAtTime(Math.max(280, cutoff * 0.28), now + dur);
-
+      flt.frequency.exponentialRampToValueAtTime(Math.max(260, cutoff * 0.3), now + dur);
       g.gain.setValueAtTime(0.0001, now);
-      g.gain.linearRampToValueAtTime(gainVal, now + 0.012);
+      g.gain.linearRampToValueAtTime(gainVal, now + 0.01);
       g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-
-      osc.connect(flt);
-      osc2.connect(flt);
-      flt.connect(g);
-      g.connect(audioCtx.destination);
-      osc.start(now);
-      osc2.start(now);
-      osc.stop(now + dur + 0.02);
-      osc2.stop(now + dur + 0.02);
+      o1.connect(flt); o2.connect(flt); flt.connect(g); g.connect(audioCtx.destination);
+      o1.start(now); o2.start(now);
+      o1.stop(now + dur + 0.02); o2.stop(now + dur + 0.02);
     }}
 
-    function playSupersawChord(midiNotes, dur, gainVal) {{
+    function playSupersaw(notes, dur, gainVal) {{
       if (!audioCtx || document.getElementById('chkMuteSynth').checked) return;
       const now = audioCtx.currentTime;
       const flt = audioCtx.createBiquadFilter();
       flt.type = 'lowpass';
-      flt.frequency.setValueAtTime(4400, now);
+      flt.frequency.setValueAtTime(4200, now);
       const g = audioCtx.createGain();
       g.gain.setValueAtTime(0.0001, now);
-      g.gain.linearRampToValueAtTime(gainVal, now + 0.025);
+      g.gain.linearRampToValueAtTime(gainVal, now + 0.02);
       g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-      flt.connect(g);
-      g.connect(audioCtx.destination);
-
-      midiNotes.forEach((m) => {{
-        [-9, 0, +9].forEach((det) => {{
+      flt.connect(g); g.connect(audioCtx.destination);
+      notes.forEach((m) => {{
+        [-8, 0, +8].forEach((det) => {{
           const o = audioCtx.createOscillator();
           o.type = 'sawtooth';
           o.frequency.setValueAtTime(m2f(m), now);
@@ -733,7 +703,7 @@ def build_destiny_html() -> str:
       }});
     }}
 
-    function playKick(gainVal = 0.16) {{
+    function playKick(gainVal = 0.15) {{
       if (!audioCtx || document.getElementById('chkMuteSynth').checked) return;
       const now = audioCtx.currentTime;
       const o = audioCtx.createOscillator();
@@ -742,35 +712,31 @@ def build_destiny_html() -> str:
       o.frequency.setValueAtTime(145, now);
       o.frequency.exponentialRampToValueAtTime(42, now + 0.13);
       g.gain.setValueAtTime(gainVal, now);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
-      o.connect(g);
-      g.connect(audioCtx.destination);
-      o.start(now);
-      o.stop(now + 0.19);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.17);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(now); o.stop(now + 0.18);
     }}
 
-    function playHiHatOrSnare(dur = 0.06, gainVal = 0.035, bandFreq = 6500) {{
+    function playNoiseHit(dur = 0.06, gainVal = 0.035, freq = 6500) {{
       if (!audioCtx || document.getElementById('chkMuteSynth').checked) return;
       const now = audioCtx.currentTime;
       const len = Math.max(256, Math.floor(audioCtx.sampleRate * dur));
       const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
       const src = audioCtx.createBufferSource();
       src.buffer = buf;
       const flt = audioCtx.createBiquadFilter();
       flt.type = 'bandpass';
-      flt.frequency.setValueAtTime(bandFreq, now);
+      flt.frequency.setValueAtTime(freq, now);
       const g = audioCtx.createGain();
       g.gain.setValueAtTime(gainVal, now);
       g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-      src.connect(flt);
-      flt.connect(g);
-      g.connect(audioCtx.destination);
+      src.connect(flt); flt.connect(g); g.connect(audioCtx.destination);
       src.start(now);
     }}
 
-    function tickSynthForProgress(u, tSec) {{
+    function tickSynth(u, tSec) {{
       if (audioSource !== 'synth' || paused || viewMode !== 'opening' || !audioCtx) return;
       const step = Math.floor(tSec / STEP_SEC);
       if (step === synthStepPlayed || u >= 0.995) return;
@@ -780,57 +746,45 @@ def build_destiny_html() -> str:
       const inBar = step % 8;
       const chord = CHORDS[bar % CHORDS.length];
 
-      if (u < 0.18) {{
-        // Acte I : Piano cristallin sous-marin & harpe de bulles
-        const note = chord[inBar % chord.length] + (inBar >= 4 ? 12 : 0);
-        playPluckOrBell(m2f(note), 0.55, 0.036, 'sine', 1900);
-      }} else if (u < 0.34) {{
-        // Acte II : Pulsation aquatique montante + arpège lumineux
-        if (inBar % 2 === 0) playKick(0.09);
-        const note = chord[(step) % chord.length] + 12;
-        playPluckOrBell(m2f(note), 0.36, 0.042, 'triangle', 3000);
-      }} else if (u < 0.54) {{
-        // Acte III : Course 128 BPM + Riser pré-refrain vers le drop
-        if (inBar % 2 === 0) playKick(0.13);
-        playHiHatOrSnare(0.05, 0.025, 7200);
-        if (u > 0.45) {{
-          // Roulement de caisse claire pré-drop
-          playHiHatOrSnare(0.08, 0.042, 2400 + (u - 0.45) * 28000);
-        }}
-        if (inBar === 0) playSupersawChord(chord, 0.9, 0.018);
-        playPluckOrBell(m2f(chord[inBar % 4] + 12), 0.25, 0.04, 'sawtooth', 2800);
-      }} else if (u < 0.75) {{
-        // Acte IV : DROP EUPHORIQUE « RAY OF HOPE » 128 BPM !
+      if (u < 0.15) {{
+        playNote(m2f(chord[inBar % 4] + (inBar >= 4 ? 12 : 0)), 0.50, 0.036, 'sine', 2000);
+      }} else if (u < 0.31) {{
+        if (inBar % 2 === 0) playKick(0.08);
+        playNote(m2f(chord[step % 4] + 12), 0.36, 0.04, 'triangle', 2900);
+      }} else if (u < 0.40) {{
+        if (inBar % 2 === 0) playKick(0.12);
+        playNoiseHit(0.06, 0.032, 3000 + (u - 0.31) * 35000);
+        if (inBar === 0) playSupersaw(chord, 0.85, 0.018);
+        playNote(m2f(chord[inBar % 4] + 12), 0.24, 0.04, 'sawtooth', 3000);
+      }} else if (u < 0.67) {{
+        // DROP MÊLÉE 128 BPM !
         if (inBar % 2 === 0) playKick(0.17);
-        if (inBar === 2 || inBar === 6) playHiHatOrSnare(0.13, 0.055, 2200);
-        else playHiHatOrSnare(0.045, 0.026, 8000);
-        if (inBar === 0 || inBar === 4) playSupersawChord(chord, 0.82, 0.026);
-        const mel = MELODY_DROP[step % MELODY_DROP.length];
-        playPluckOrBell(m2f(mel), 0.30, 0.048, 'sawtooth', 4800);
-      }} else if (u < 0.86) {{
-        // Acte V : Promontoire & Rayon d'Espoir — accords aériens apaisés
-        if (inBar === 0) playSupersawChord(chord, 1.65, 0.016);
-        if (inBar % 2 === 0) playPluckOrBell(m2f(chord[(inBar / 2) % 4] + 12), 0.75, 0.032, 'sine', 2400);
+        if (inBar === 2 || inBar === 6) playNoiseHit(0.12, 0.055, 2200);
+        else playNoiseHit(0.045, 0.025, 7800);
+        if (inBar === 0 || inBar === 4) playSupersaw(chord, 0.80, 0.026);
+        playNote(m2f(MELODY_DROP[step % MELODY_DROP.length]), 0.28, 0.048, 'sawtooth', 4800);
+      }} else if (u < 0.83) {{
+        if (inBar % 4 === 0) playKick(0.10);
+        if (inBar === 0) playSupersaw(chord, 1.5, 0.018);
+        if (inBar % 2 === 0) playNote(m2f(chord[(inBar / 2) % 4] + 12), 0.65, 0.034, 'triangle', 2600);
       }} else {{
-        // Acte VI : Carillon céleste d'arrivée du blason Pokémon Mystery Dungeon : Destiny
-        if (inBar === 0 && u < 0.92) {{
-          playSupersawChord([53, 60, 65, 69, 72], 2.2, 0.022);
-          playPluckOrBell(m2f(84), 1.4, 0.05, 'triangle', 5200);
+        if (inBar === 0 && u < 0.93) {{
+          playSupersaw([53, 60, 65, 69, 72], 2.2, 0.022);
+          playNote(m2f(84), 1.4, 0.05, 'triangle', 5200);
         }}
       }}
     }}
 
     // =========================================================================
-    // LECTEUR YOUTUBE OFFICIEL `2aafI3XvKxo` (Simple and Clean -Ray of Hope MIX-)
+    // YOUTUBE IFRAME API OFFICIELLE (`2aafI3XvKxo`)
     // =========================================================================
     let ytPlayer = null;
     let ytApiRequested = false;
 
     function activateYouTubeSync() {{
       viewMode = 'opening';
-      updateCanvasAspect();
       audioSource = 'youtube';
-      durationSec = 153.0; // 02:33 officiels de 2aafI3XvKxo
+      durationSec = 153.0;
       paused = false;
       document.getElementById('audioModeLabel').textContent =
         '🎬 Audio actif : YouTube Officiel 2aafI3XvKxo — Simple and Clean: Ray of Hope MIX (02:33)';
@@ -846,56 +800,251 @@ def build_destiny_html() -> str:
         ytApiRequested = true;
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
-        tag.onerror = () => fallbackFromYT('Réseau restreint vers youtube.com : bascule automatique sur le synthé 128 BPM intégré.');
+        tag.onerror = () => fallbackFromYT('YouTube indisponible sur ce réseau : synthé 128 BPM Ray of Hope maintenu.');
         document.head.appendChild(tag);
       }}
     }}
 
-    function fallbackFromYT(reason) {{
+    function fallbackFromYT(msg) {{
       audioSource = 'synth';
-      durationSec = 52.0;
+      durationSec = 56.0;
       curTime = 0.0;
       synthStepPlayed = -1;
       ensureAudioCtx();
-      document.getElementById('audioModeLabel').textContent = '🎹 ' + reason;
+      document.getElementById('audioModeLabel').textContent = '🎹 ' + msg;
     }}
 
     window.onYouTubeIframeAPIReady = function() {{
       ytPlayer = new YT.Player('ytPlayerSlot', {{
-        width: '256',
-        height: '144',
+        width: '240',
+        height: '135',
         videoId: '2aafI3XvKxo',
-        playerVars: {{
-          autoplay: 1,
-          controls: 1,
-          rel: 0,
-          modestbranding: 1,
-          playsinline: 1,
-        }},
+        playerVars: {{ autoplay: 1, controls: 1, rel: 0, modestbranding: 1, playsinline: 1 }},
         events: {{
           onReady: (ev) => {{
             const d = ev.target.getDuration();
             if (d && d > 30) durationSec = d;
             ev.target.playVideo();
           }},
-          onError: () => {{
-            fallbackFromYT('Intégration YouTube bloquée par l’ayant-droit sur ce domaine : synthé 128 BPM Ray of Hope activé.');
-          }},
+          onError: () => fallbackFromYT('Lecture intégrée restreinte : synthé 128 BPM Ray of Hope activé.'),
         }},
       }});
     }};
 
     // =========================================================================
-    // RENDU DU BLASON ARTICULÉ (2 AILES PIVOTANTES + CORPS NET + SHING!)
+    // MOTEUR DE SPRITES PMD MULTI-POSES 8 DIRECTIONS (`AnimData.xml`) & VFX PIXEL
+    // =========================================================================
+    function lerp(a, b, t) {{ return a + (b - a) * Math.max(0, Math.min(1, t)); }}
+    function smoothstep(t) {{
+      const u = Math.max(0, Math.min(1, t));
+      return u * u * (3 - 2 * u);
+    }}
+
+    // Calcule l'indice Dir8 PMDO (0=Down, 1=DR, 2=Right, 3=UR, 4=Up, 5=UL, 6=Left, 7=DL)
+    function vecToDir8(dx, dy, fallback = 0) {{
+      if (Math.hypot(dx, dy) < 0.4) return fallback;
+      // En écran RPG (x droite, y bas) : (0, +1) -> 0 Down ; (+1, 0) -> 2 Right ; (0, -1) -> 4 Up ; (-1, 0) -> 6 Left
+      const ang = Math.atan2(dx, dy); // 0 = Down, +pi/2 = Right, +-pi = Up, -pi/2 = Left
+      const idx = Math.round(ang / (Math.PI / 4));
+      return ((idx % 8) + 8) % 8;
+    }}
+
+    function resolveAnimFrame(pid, animName, tick60, loop = true) {{
+      const p = PMD_CATALOG[pid];
+      if (!p) return null;
+      const anim = p.anims[animName] || p.anims.Idle || Object.values(p.anims)[0];
+      if (!anim) return null;
+      const im = getImg(anim.url);
+      if (!im || !im.complete || im.naturalWidth === 0) return null;
+
+      const durs = anim.durations;
+      const totalTicks = durs.reduce((s, d) => s + d, 0) || 1;
+      let t = Math.max(0, Math.floor(tick60));
+      if (loop) t = t % totalTicks;
+      else t = Math.min(totalTicks - 1, t);
+
+      let col = 0;
+      let acc = 0;
+      for (let i = 0; i < durs.length; i++) {{
+        acc += durs[i];
+        if (t < acc) {{ col = i; break; }}
+        col = i;
+      }}
+      col = col % anim.cols;
+      return {{ im, anim, col }};
+    }}
+
+    function drawWaterRipplePixel(ctx, wx, wy, radius, color = 'rgba(186, 230, 253, 0.75)') {{
+      if (radius <= 1) return;
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(Math.round(wx), Math.round(wy), Math.round(radius), Math.max(1, Math.round(radius * 0.48)), 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }}
+
+    function drawSlashArcPixel(ctx, wx, wy, dirAngleRad, radius, progress, colorOuter, colorInner) {{
+      if (progress <= 0 || progress >= 1) return;
+      ctx.save();
+      ctx.translate(Math.round(wx), Math.round(wy));
+      ctx.rotate(dirAngleRad);
+      const span = 1.9 * Math.sin(Math.PI * progress);
+      ctx.strokeStyle = colorOuter;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, -span * 0.5, span * 0.5);
+      ctx.stroke();
+
+      ctx.strokeStyle = colorInner;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius - 1, -span * 0.42, span * 0.42);
+      ctx.stroke();
+      ctx.restore();
+    }}
+
+    function drawProtectHexSphere(ctx, wx, wy, rad, tSec) {{
+      ctx.save();
+      const x = Math.round(wx), y = Math.round(wy);
+      const g = ctx.createRadialGradient(x - rad * 0.25, y - rad * 0.25, 2, x, y, rad);
+      g.addColorStop(0, 'rgba(224, 247, 255, 0.22)');
+      g.addColorStop(0.75, 'rgba(56, 189, 248, 0.38)');
+      g.addColorStop(1, 'rgba(186, 230, 253, 0.85)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {{
+        const a = tSec * 1.6 + (i * Math.PI) / 3;
+        const px = x + Math.cos(a) * rad;
+        const py = y + Math.sin(a) * rad;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }}
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(240, 253, 255, 0.92)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+    }}
+
+    // Dessine un acteur PMD (reflet d'eau optionnel + ombre + sprite net)
+    function drawActorOnMap(ctx, actor, tSec, pass) {{
+      const res = resolveAnimFrame(actor.pid, actor.anim, actor.tick, actor.loop !== false);
+      if (!res) return;
+      const {{ im, anim, col }} = res;
+      const fw = anim.fw, fh = anim.fh;
+      const row = anim.rows >= 8 ? ((actor.dir8 % 8) + 8) % 8 : 0;
+      const sx = col * fw, sy = row * fh;
+      const wx = Math.round(actor.wx), wy = Math.round(actor.wy);
+      const alpha = actor.alpha !== undefined ? actor.alpha : 1.0;
+
+      if (pass === 'reflection') {{
+        if (!actor.reflect) return;
+        refCtx.clearRect(0, 0, fw, fh);
+        refCtx.drawImage(im, sx, sy, fw, fh, 0, 0, fw, fh);
+        ctx.save();
+        ctx.globalAlpha = 0.30 * alpha;
+        // Ondulation aquatique ligne par ligne sous les pieds du Pokémon
+        const footY = wy + 10;
+        for (let ly = 0; ly < fh; ly += 2) {{
+          const waveX = Math.round(Math.sin(tSec * 6.0 + ly * 0.35) * 1.4);
+          const dstY = footY + Math.round((fh - 1 - ly) * 0.58);
+          ctx.drawImage(refCanvas, 0, ly, fw, 2, wx - Math.floor(fw / 2) + waveX, dstY, fw, 1);
+        }}
+        ctx.restore();
+        return;
+      }}
+
+      if (actor.reflectOnly) return;
+
+      // Ombre elliptique PMD au sol (sauf en pleine chute céleste)
+      if (!actor.noShadow) {{
+        ctx.save();
+        ctx.fillStyle = `rgba(4, 10, 28, ${{(0.36 * alpha).toFixed(2)}})`;
+        ctx.beginPath();
+        ctx.ellipse(wx, wy + 9, 9, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }}
+
+      // Aura optionnelle autour du Pokémon (combat / ténèbres)
+      if (actor.auraColor) {{
+        ctx.save();
+        ctx.fillStyle = actor.auraColor;
+        ctx.beginPath();
+        ctx.arc(wx, wy - 2, 16 + Math.sin(tSec * 12) * 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }}
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(im, sx, sy, fw, fh, wx - Math.floor(fw / 2), wy - Math.floor(fh / 2) - (actor.zLift || 0), fw, fh);
+      ctx.restore();
+    }}
+
+    // Boîte de portrait d'émotion style PMD Explorers of Sky (40x40 dans cadre PMDO sur vCtx 320x240)
+    function drawPMDPortrait(pid, emo, side = 'left', alpha = 1.0) {{
+      const p = PMD_CATALOG[pid];
+      if (!p || !p.portraitUrls || !p.portraitUrls[emo]) return;
+      const im = getImg(p.portraitUrls[emo]);
+      if (!im || !im.complete || im.naturalWidth === 0) return;
+
+      const bx = side === 'left' ? 8 : VW - 52;
+      const by = VH - 52;
+      vCtx.save();
+      vCtx.globalAlpha = alpha;
+      vCtx.fillStyle = '#0d1b3a';
+      vCtx.fillRect(bx - 2, by - 2, 44, 44);
+      vCtx.strokeStyle = '#fbbf24';
+      vCtx.lineWidth = 1;
+      vCtx.strokeRect(bx - 1.5, by - 1.5, 43, 43);
+      vCtx.drawImage(im, 0, 0, im.naturalWidth, im.naturalHeight, bx, by, 40, 40);
+      vCtx.restore();
+    }}
+
+    function drawPixelBubblesOnScreen(tSec, count, speedMul = 1.0, alpha = 0.85) {{
+      vCtx.save();
+      for (let i = 0; i < count; i++) {{
+        const b = PIXEL_BUBBLES[i];
+        const y = Math.round((1.06 - ((b.yOff + tSec * b.spd * speedMul) % 1.16)) * VH);
+        const x = Math.round(b.x + Math.sin(tSec * 2.6 + b.ph) * b.wob);
+        vCtx.strokeStyle = `rgba(186, 242, 255, ${{alpha.toFixed(2)}})`;
+        vCtx.lineWidth = 1;
+        vCtx.beginPath();
+        vCtx.arc(x, y, b.r, 0, Math.PI * 2);
+        vCtx.stroke();
+        vCtx.fillStyle = `rgba(255, 255, 255, ${{(alpha * 0.9).toFixed(2)}})`;
+        vCtx.fillRect(x - Math.max(0, b.r - 1), y - Math.max(0, b.r - 1), 1, 1);
+      }}
+      vCtx.restore();
+    }}
+
+    // Projette la caméra PMDO (camX, camY, zoom) depuis mCanvas (576x320) vers vCanvas (320x240)
+    function blitMapCameraToScreen(camX, camY, zoom = 1.0, shakeAmp = 0.0, tSec = 0.0) {{
+      const srcW = VW / zoom;
+      const srcH = VH / zoom;
+      const shX = shakeAmp > 0 ? Math.sin(tSec * 58.0) * shakeAmp : 0;
+      const shY = shakeAmp > 0 ? Math.cos(tSec * 67.0) * shakeAmp : 0;
+      const sx = Math.max(0, Math.min(MW - srcW, camX - srcW / 2 + shX));
+      const sy = Math.max(0, Math.min(MH - srcH, camY - srcH / 2 + shY));
+      vCtx.clearRect(0, 0, VW, VH);
+      vCtx.drawImage(mCanvas, sx, sy, srcW, srcH, 0, 0, VW, VH);
+      document.getElementById('lblCam').textContent =
+        `(${{Math.round(camX)}}, ${{Math.round(camY)}}) · ${{zoom.toFixed(2)}}×`;
+    }}
+
+    // =========================================================================
+    // RIG D'AILES ARTICULÉ & ARRIVÉE EN UNE SEULE FOIS PLEIN CENTRE
     // =========================================================================
     function computeWingAngleDeg(dtSinceArrival, nowSec) {{
       let deg = 0.0;
       if (dtSinceArrival >= 0.0 && dtSinceArrival < 3.4) {{
-        // Battement subtil amorti à l'arrivée du logo (+8.2° -> -4.6° -> +3.8° -> -1.9° -> 0°)
         deg += 8.2 * Math.exp(-1.55 * dtSinceArrival) * Math.cos(2.0 * Math.PI * 2.25 * dtSinceArrival);
       }} else if (dtSinceArrival >= 3.4) {{
-        // Très légère respiration vivante des plumes (+/- 0.65°)
-        deg += 0.65 * Math.sin((dtSinceArrival - 3.4) * 1.9);
+        deg += 0.60 * Math.sin((dtSinceArrival - 3.4) * 1.9);
       }}
       const dtManual = nowSec - manualFlapStart;
       if (dtManual >= 0.0 && dtManual < 2.4) {{
@@ -904,71 +1053,63 @@ def build_destiny_html() -> str:
       return deg;
     }}
 
-    function drawArticulatedLogo(targetCtx, cx, cy, baseW, revealSec, nowSec) {{
-      if (!ASSETS.rigCore.complete || ASSETS.rigCore.naturalWidth === 0) return 0.0;
+    function drawArticulatedLogoOnOut(cx, cy, baseW, revealSec, nowSec) {{
+      if (!MAPS.rigCore.complete || MAPS.rigCore.naturalWidth === 0) return 0.0;
       const hdW = 872, hdH = 629;
       const baseH = baseW * (hdH / hdW);
 
-      // Phases identiques au moteur Python :
-      // 0.00..0.32s : Éclat horizontal d'opening
-      // >= 0.22s    : Arrivée en UNE SEULE FOIS au centre exact (cx, cy) + battement subtil des deux ailes
-      if (revealSec >= 0.05 && revealSec <= 0.52) {{
-        const fu = (revealSec - 0.05) / 0.47;
+      if (revealSec >= 0.04 && revealSec <= 0.48) {{
+        const fu = (revealSec - 0.04) / 0.44;
         const env = Math.sin(Math.PI * Math.min(1, Math.max(0, fu)));
-        targetCtx.save();
-        const halfLen = canvas.width * (0.16 + 0.32 * fu);
-        const fh = Math.max(3, 15 * env);
-        const grad = targetCtx.createRadialGradient(cx, cy, 2, cx, cy, halfLen);
-        grad.addColorStop(0, `rgba(255,255,245,${{(0.96 * env).toFixed(3)}})`);
-        grad.addColorStop(0.35, `rgba(254,240,138,${{(0.78 * env).toFixed(3)}})`);
+        outCtx.save();
+        const halfLen = outCanvas.width * (0.18 + 0.30 * fu);
+        const fh = Math.max(4, 16 * env);
+        const grad = outCtx.createRadialGradient(cx, cy, 2, cx, cy, halfLen);
+        grad.addColorStop(0, `rgba(255,255,245,${{(0.95 * env).toFixed(3)}})`);
+        grad.addColorStop(0.4, `rgba(254,240,138,${{(0.75 * env).toFixed(3)}})`);
         grad.addColorStop(1, 'rgba(254,240,138,0)');
-        targetCtx.fillStyle = grad;
-        targetCtx.beginPath();
-        targetCtx.ellipse(cx, cy, halfLen, fh, 0, 0, Math.PI * 2);
-        targetCtx.fill();
-        targetCtx.restore();
+        outCtx.fillStyle = grad;
+        outCtx.beginPath();
+        outCtx.ellipse(cx, cy, halfLen, fh, 0, 0, Math.PI * 2);
+        outCtx.fill();
+        outCtx.restore();
       }}
 
-      if (revealSec < 0.20) return 0.0;
-      const dtLogo = revealSec - 0.20;
+      if (revealSec < 0.18) return 0.0;
+      const dtLogo = revealSec - 0.18;
 
-      // Courbe easeOutBack (1.42x -> 0.985x -> 1.000x) en une seule fois
-      let scale = 1.0;
-      let alpha = 1.0;
-      let whiteFlash = 0.0;
-      if (dtLogo < 0.62) {{
-        const u = dtLogo / 0.62;
+      let scale = 1.0, alpha = 1.0, whiteFlash = 0.0;
+      if (dtLogo < 0.60) {{
+        const u = dtLogo / 0.60;
         const c1 = 1.70158, c3 = c1 + 1.0;
         const ease = 1.0 + c3 * Math.pow(u - 1.0, 3) + c1 * Math.pow(u - 1.0, 2);
-        scale = 1.42 + (1.0 - 1.42) * ease;
+        scale = 1.40 + (1.0 - 1.40) * ease;
         alpha = Math.min(1.0, dtLogo / 0.18);
-        whiteFlash = Math.max(0.0, 1.0 - dtLogo / 0.36);
+        whiteFlash = Math.max(0.0, 1.0 - dtLogo / 0.35);
       }}
 
       const wingDeg = computeWingAngleDeg(dtLogo, nowSec);
       const rad = (wingDeg * Math.PI) / 180.0;
 
-      // Assemblage des 3 pièces sur rigCanvas (872x629) autour des épaules (274,335) & (598,335)
       rigCtx.clearRect(0, 0, hdW, hdH);
-      if (ASSETS.rigLW.complete && ASSETS.rigRW.complete) {{
+      if (MAPS.rigLW.complete && MAPS.rigRW.complete) {{
         rigCtx.save();
         rigCtx.translate(274, 335);
-        rigCtx.rotate(rad); // Aile gauche monte quand wingDeg > 0
-        rigCtx.drawImage(ASSETS.rigLW, -274, -335);
+        rigCtx.rotate(rad);
+        rigCtx.drawImage(MAPS.rigLW, -274, -335);
         rigCtx.restore();
 
         rigCtx.save();
         rigCtx.translate(598, 335);
-        rigCtx.rotate(-rad); // Aile droite monte symétriquement quand wingDeg > 0
-        rigCtx.drawImage(ASSETS.rigRW, -598, -335);
+        rigCtx.rotate(-rad);
+        rigCtx.drawImage(MAPS.rigRW, -598, -335);
         rigCtx.restore();
 
-        rigCtx.drawImage(ASSETS.rigCore, 0, 0);
+        rigCtx.drawImage(MAPS.rigCore, 0, 0);
       }} else {{
-        rigCtx.drawImage(ASSETS.logoHD, 0, 0);
+        rigCtx.drawImage(MAPS.logoHD, 0, 0);
       }}
 
-      // Application du flash d'impact blanc-or + reflet diagonal Shing! en source-atop
       tintCtx.clearRect(0, 0, hdW, hdH);
       tintCtx.globalCompositeOperation = 'source-over';
       tintCtx.drawImage(rigCanvas, 0, 0);
@@ -978,8 +1119,8 @@ def build_destiny_html() -> str:
         tintCtx.fillStyle = `rgba(255, 250, 218, ${{whiteFlash.toFixed(3)}})`;
         tintCtx.fillRect(0, 0, hdW, hdH);
       }}
-      if (dtLogo >= 0.65 && dtLogo <= 1.35) {{
-        const su = (dtLogo - 0.65) / 0.70;
+      if (dtLogo >= 0.64 && dtLogo <= 1.32) {{
+        const su = (dtLogo - 0.64) / 0.68;
         const sx = -180 + su * (hdW + 360);
         tintCtx.globalCompositeOperation = 'source-atop';
         const sg = tintCtx.createLinearGradient(sx - 95, 0, sx + 95, 95);
@@ -992,481 +1133,650 @@ def build_destiny_html() -> str:
 
       const drawW = baseW * scale;
       const drawH = baseH * scale;
-
-      // Halo doré subtil derrière l'Œuf Ailé à l'impact
-      if (dtLogo < 1.15) {{
-        const hEnv = Math.sin(Math.PI * Math.min(1, dtLogo / 1.15));
-        const hg = targetCtx.createRadialGradient(cx, cy, 8, cx, cy, drawW * 0.56);
-        hg.addColorStop(0, `rgba(255,247,195,${{(0.44 * hEnv).toFixed(3)}})`);
-        hg.addColorStop(1, 'rgba(255,247,195,0)');
-        targetCtx.fillStyle = hg;
-        targetCtx.beginPath();
-        targetCtx.arc(cx, cy, drawW * 0.56, 0, Math.PI * 2);
-        targetCtx.fill();
-      }}
-
-      targetCtx.save();
-      targetCtx.globalAlpha = alpha;
-      targetCtx.drawImage(tintCanvas, cx - drawW / 2.0, cy - drawH / 2.0, drawW, drawH);
-      targetCtx.restore();
+      outCtx.save();
+      outCtx.imageSmoothingEnabled = true;
+      outCtx.globalAlpha = alpha;
+      outCtx.drawImage(tintCanvas, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
+      outCtx.imageSmoothingEnabled = false;
+      outCtx.restore();
 
       return wingDeg;
     }}
 
     // =========================================================================
-    // OUTILS DE DESSIN CINÉMA (BULLES RÉFRACTIVES, RUBANS RAY OF HOPE, FOND .DIR)
+    // CHORÉGRAPHIE PLAN PAR PLAN SUR LES 5 MAPS PMD 3/4 (`Simple and Clean: Ray of Hope MIX`)
     // =========================================================================
-    function drawCover(im, panX = 0.5, panY = 0.5, zoom = 1.0) {{
-      if (!im || !im.complete || im.naturalWidth === 0) return;
-      const cw = canvas.width, ch = canvas.height;
-      const ir = im.naturalWidth / im.naturalHeight;
-      const cr = cw / ch;
-      let dw, dh;
-      if (ir > cr) {{
-        dh = ch * zoom;
-        dw = dh * ir;
-      }} else {{
-        dw = cw * zoom;
-        dh = dw / ir;
-      }}
-      const ox = (cw - dw) * panX;
-      const oy = (ch - dh) * panY;
-      ctx.drawImage(im, ox, oy, dw, dh);
-    }}
-
-    function drawBubbles(tSec, count, riseBoost = 1.0, alphaMul = 1.0, starMorph = 0.0) {{
-      const cw = canvas.width, ch = canvas.height;
-      ctx.save();
-      for (let i = 0; i < count; i++) {{
-        const b = BUBBLES[i];
-        const yNorm = 1.08 - (((b.yOffset + tSec * b.speed * riseBoost) % 1.22));
-        const y = yNorm * ch;
-        const x = b.xFrac * cw + Math.sin(tSec * b.wobbleFreq + b.seed) * b.wobbleAmp;
-        const r = b.r * (cw / 960.0);
-
-        if (starMorph < 0.99) {{
-          const ba = alphaMul * (1.0 - starMorph);
-          const g = ctx.createRadialGradient(x - r * 0.32, y - r * 0.32, r * 0.08, x, y, r);
-          g.addColorStop(0, `rgba(255,255,255,${{(0.92 * ba).toFixed(3)}})`);
-          g.addColorStop(0.45, `rgba(165,243,252,${{(0.34 * ba).toFixed(3)}})`);
-          g.addColorStop(0.86, `rgba(56,189,248,${{(0.58 * ba).toFixed(3)}})`);
-          g.addColorStop(1, 'rgba(224,242,254,0)');
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fill();
-
-          ctx.strokeStyle = `rgba(224,247,255,${{(0.68 * ba).toFixed(3)}})`;
-          ctx.lineWidth = Math.max(1, r * 0.13);
-          ctx.beginPath();
-          ctx.arc(x, y, r * 0.88, 0, Math.PI * 2);
-          ctx.stroke();
-        }}
-        if (starMorph > 0.01) {{
-          const sa = alphaMul * starMorph;
-          ctx.fillStyle = `rgba(254,249,195,${{(0.85 * sa).toFixed(3)}})`;
-          ctx.beginPath();
-          ctx.arc(x, y, Math.max(1.8, r * 0.36), 0, Math.PI * 2);
-          ctx.fill();
-        }}
-      }}
-      ctx.restore();
-    }}
-
-    function drawPrismRibbons(tSec, intensity = 1.0) {{
-      const cw = canvas.width, ch = canvas.height;
-      const colors = [
-        'rgba(56, 189, 248, 0.52)',
-        'rgba(244, 114, 182, 0.46)',
-        'rgba(251, 191, 36, 0.50)',
-      ];
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      colors.forEach((col, idx) => {{
-        ctx.strokeStyle = col;
-        ctx.lineWidth = (18 - idx * 4) * intensity;
-        ctx.beginPath();
-        for (let x = -40; x <= cw + 40; x += 24) {{
-          const u = x / cw;
-          const y =
-            ch * (0.28 + idx * 0.16) +
-            Math.sin(u * 5.2 - tSec * (3.4 + idx * 0.5) + idx * 1.7) * (58 + idx * 16);
-          if (x === -40) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }}
-        ctx.stroke();
-      }});
-      ctx.restore();
-    }}
-
-    function drawSpriteCentered(im, cx, cy, targetH, rotRad = 0.0, alpha = 1.0) {{
-      if (!im || !im.complete || im.naturalWidth === 0) return;
-      const targetW = targetH * (im.naturalWidth / im.naturalHeight);
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      ctx.translate(cx, cy);
-      if (rotRad !== 0) ctx.rotate(rotRad);
-      ctx.drawImage(im, -targetW / 2, -targetH / 2, targetW, targetH);
-      ctx.restore();
-    }}
-
-    function drawPMDSkyBackground(tSec, w, h) {{
-      const atlas = theme === 'jour' ? ASSETS.dayAtlas : ASSETS.nightAtlas;
-      if (!atlas.complete || atlas.naturalWidth === 0) return;
-      // 12 poses/seconde (5 ticks PMDO @ 60 FPS = 2.0s par cycle de 24 poses)
-      const pose = Math.floor(tSec * 12.0) % 24;
-      const sx = (pose % 6) * 320;
-      const sy = Math.floor(pose / 6) * 240;
-
-      // Mise à l'échelle propre centrée sur l'horizon
-      ctx.save();
-      ctx.imageSmoothingEnabled = viewMode !== 'title320';
-      if (Math.abs(w / h - 320 / 240) < 0.05) {{
-        ctx.drawImage(atlas, sx, sy, 320, 240, 0, 0, w, h);
-      }} else {{
-        // En 16:9 (960x540), recadrage centré gardant le faisceau céleste, les nuages cathédrale et la mer PMD Sky !
-        ctx.drawImage(atlas, sx, sy + 18, 320, 180, 0, 0, w, h);
-      }}
-      ctx.restore();
-    }}
-
-    // =========================================================================
-    // RENDU DES 6 ACTES DU SCHÉMA « SIMPLE AND CLEAN : RAY OF HOPE MIX »
-    // =========================================================================
-    function renderOpeningFrame(u, tSec, nowSec) {{
-      const cw = canvas.width, ch = canvas.height;
-      ctx.clearRect(0, 0, cw, ch);
-      let actLabel = '';
+    function renderPMDOpening(u, tSec, nowSec) {{
+      const ticks = tSec * 60.0;
+      mCtx.clearRect(0, 0, MW, MH);
+      let actors = [];
       let wingDeg = 0.0;
+      let portraitOverlay = null;
+      let screenFlash = 0.0;
 
-      if (u < 0.18) {{
-        // ACTE I (0%..18%) : Plongée en apesanteur dans l'abysse, rosace vitrail PMD & bulles montantes
-        actLabel = 'I · Plongée Abysse, Bulles & Vitrail PMD';
-        const loc = u / 0.18;
-        drawCover(ASSETS.bgOcean, 0.5, 0.96 - loc * 0.22, 1.12);
+      // -----------------------------------------------------------------------
+      // ACTE I (0.00 .. 0.15) : OPM1 PLAGE CRISTAL ↔ LAGON & PATTE DANS L'EAU
+      // -----------------------------------------------------------------------
+      if (u < 0.15) {{
+        document.getElementById('lblMap').textContent = 'OPM1 · Plage Cristal & Lagon (576×320)';
+        if (MAPS.opm1.complete) mCtx.drawImage(MAPS.opm1, 0, 0, MW, MH);
+        const loc = u / 0.15;
 
-        // Assombrissement abyssal progressif + rayons caustiques
-        ctx.fillStyle = `rgba(3, 12, 38, ${{(0.42 - loc * 0.18).toFixed(3)}})`;
-        ctx.fillRect(0, 0, cw, ch);
-
-        // Rosace vitrail circulaire Dive to the Heart PMD tournant lentement en perspective
-        if (ASSETS.vitrail.complete && ASSETS.vitrail.naturalWidth > 0) {{
-          ctx.save();
-          ctx.globalAlpha = 0.34 + 0.36 * Math.sin(Math.PI * Math.min(1, loc * 1.25));
-          ctx.translate(cw * 0.5, ch * (0.62 - loc * 0.08));
-          ctx.scale(1.0, 0.52);
-          ctx.rotate(tSec * 0.22);
-          const vs = ch * (0.86 + loc * 0.14);
-          ctx.drawImage(ASSETS.vitrail, -vs / 2, -vs / 2, vs, vs);
-          ctx.restore();
+        // Charme Étoile Wayfinder englouti brillant au fond du lagon (288, 214)
+        const wfPulse = 0.65 + 0.35 * Math.sin(tSec * 4.5);
+        drawWaterRipplePixel(mCtx, 288, 214, 10 + (tSec * 14) % 24, `rgba(125, 249, 255, ${{(0.55 * wfPulse).toFixed(2)}})`);
+        if (MAPS.wfCyan.complete) {{
+          mCtx.save();
+          mCtx.globalAlpha = 0.88;
+          mCtx.drawImage(MAPS.wfCyan, 288 - 14, 214 - 14);
+          mCtx.restore();
         }}
 
-        // Riolu & Évoli flottant en apesanteur et tendant la patte l'un vers l'autre au milieu des bulles
-        const drift = Math.sin(tSec * 1.6) * 10;
-        drawSpriteCentered(
-          ASSETS.rioluAbysse,
-          cw * (0.31 + loc * 0.06),
-          ch * (0.50 - loc * 0.04) + drift,
-          ch * 0.44,
-          Math.sin(tSec * 1.1) * 0.05
-        );
-        drawSpriteCentered(
-          ASSETS.evoliAbysse,
-          cw * (0.69 - loc * 0.06),
-          ch * (0.48 + loc * 0.03) - drift,
-          ch * 0.43,
-          -Math.sin(tSec * 1.2) * 0.05
-        );
+        if (loc < 0.25) {{
+          // Plan 1a : Fond de l'eau avec bulles -> remontée caméra vers le rivage
+          const s = smoothstep(loc / 0.25);
+          blitMapCameraToScreen(288, lerp(222, 138, s), lerp(1.22, 1.05, s), 0, tSec);
+          drawPixelBubblesOnScreen(tSec, 48, 1.0, 0.85 * (1.0 - s * 0.6));
+          if (loc < 0.08) screenFlash = -(1.0 - loc / 0.08); // fondu noir d'ouverture
+        }} else if (loc < 0.62) {{
+          // Plan 1b : Riolu, Évoli & Tiplouf courent et jouent sur le sable doré
+          const s = (loc - 0.25) / 0.37;
+          const rx = lerp(215, 294, s), ry = lerp(96, 106, s);
+          const ex = lerp(175, 244, s), ey = lerp(90, 98, s);
+          const px = lerp(374, 330, s), py = lerp(94, 102, s);
+          actors.push({{ pid: '0447', anim: s > 0.72 ? 'Hop' : 'Walk', dir8: vecToDir8(79, 10), tick: ticks * 1.2, wx: rx, wy: ry }});
+          actors.push({{ pid: '0133', anim: s > 0.75 ? 'TailWhip' : 'Walk', dir8: 2, tick: ticks * 1.15, wx: ex, wy: ey }});
+          actors.push({{ pid: '0393', anim: s > 0.68 ? 'Hover' : 'Walk', dir8: 6, tick: ticks * 1.15, wx: px, wy: py }});
 
-        // Multiples bulles océaniques montant des profondeurs
-        drawBubbles(tSec, 90, 1.0, 0.95, 0.0);
-
-        // Fondu d'ouverture doux depuis le noir profond
-        if (loc < 0.14) {{
-          ctx.fillStyle = `rgba(2, 6, 18, ${{(1.0 - loc / 0.14).toFixed(3)}})`;
-          ctx.fillRect(0, 0, cw, ch);
-        }}
-
-      }} else if (u < 0.34) {{
-        // ACTE II (18%..34%) : Remontée avec les bulles à travers l'océan (Tiplouf & Manaphy) -> percée de la surface !
-        actLabel = 'II · Remontée des Bulles Océan → Ciel';
-        const loc = (u - 0.18) / 0.16;
-        // La caméra remonte tout le long de la colonne d'eau (panY : 0.74 -> 0.02 !)
-        drawCover(ASSETS.bgOcean, 0.5, Math.max(0.0, 0.74 * (1.0 - loc)), 1.08 + loc * 0.08);
-
-        const swimBob = Math.sin(tSec * 3.1) * 12;
-        drawSpriteCentered(
-          ASSETS.tiploufOcean,
-          cw * (0.34 + loc * 0.05),
-          ch * (0.66 - loc * 0.34) + swimBob,
-          ch * 0.38,
-          -0.06
-        );
-        drawSpriteCentered(
-          ASSETS.manaphyOcean,
-          cw * (0.66 - loc * 0.05),
-          ch * (0.60 - loc * 0.36) - swimBob,
-          ch * 0.37,
-          0.07
-        );
-
-        // Flux accéléré de bulles perçant la surface vers le ciel !
-        drawBubbles(tSec, 95, 1.85, 1.0, Math.max(0, (loc - 0.75) * 3.2));
-
-        // Éclat solaire aquatique en crevant la surface (fin Acte II)
-        if (loc > 0.76) {{
-          const su = (loc - 0.76) / 0.24;
-          ctx.fillStyle = `rgba(235, 252, 255, ${{(Math.sin(su * Math.PI * 0.5) * 0.88).toFixed(3)}})`;
-          ctx.fillRect(0, 0, cw, ch);
-        }}
-
-      }} else if (u < 0.54) {{
-        // ACTE III (34%..54%) : Sprint sur la falaise côtière (Riolu & Évoli) + Riser Donjon Cristal & Vitrail
-        const loc = (u - 0.34) / 0.20;
-        if (loc < 0.54) {{
-          actLabel = 'IIIa · Sprint Côtier (Riolu & Évoli)';
-          const sub = loc / 0.54;
-          drawCover(ASSETS.bgCliff, 0.15 + sub * 0.70, 0.5, 1.12);
-
-          // Foulée dynamique 128 BPM de Riolu & Évoli courant ensemble vers la droite
-          const stride = Math.abs(Math.sin(tSec * (BPM / 60.0) * Math.PI));
-          const xBase = cw * (0.36 + sub * 0.22);
-          drawSpriteCentered(
-            ASSETS.evoliCourse,
-            xBase - cw * 0.14,
-            ch * 0.69 - stride * 18,
-            ch * 0.37,
-            (stride - 0.5) * 0.08
-          );
-          drawSpriteCentered(
-            ASSETS.rioluCourse,
-            xBase + cw * 0.07,
-            ch * 0.67 - Math.abs(Math.cos(tSec * (BPM / 60.0) * Math.PI)) * 20,
-            ch * 0.41,
-            (0.5 - stride) * 0.08
-          );
-          // Bulles résiduelles s'élevant dans la brise marine
-          drawBubbles(tSec, 38, 1.25, 0.62, 0.35);
-
-          if (sub < 0.16) {{
-            ctx.fillStyle = `rgba(235, 252, 255, ${{(1.0 - sub / 0.16) * 0.82}})`;
-            ctx.fillRect(0, 0, cw, ch);
-          }}
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(lerp(268, 288, s), 112, 1.08, 0, tSec);
+          if (s > 0.45) portraitOverlay = {{ pid: '0133', emo: 'Joyous', side: 'left' }};
+        }} else if (loc < 0.76) {{
+          // Plan 1c : Intercut rapide sous l'eau sur le Wayfinder qui pulse (comme dans 2aafI3XvKxo !)
+          blitMapCameraToScreen(288, 214, 1.32, 0, tSec);
+          drawPixelBubblesOnScreen(tSec, 44, 1.2, 0.8);
         }} else {{
-          actLabel = 'IIIb · Riser Donjon Cristal & Vitrail';
-          const sub = (loc - 0.54) / 0.46;
-          drawCover(ASSETS.bgDungeon, 0.5, 0.65 - sub * 0.35, 1.06 + sub * 0.16);
-
-          // Anneau vitrail géant en rotation accélérée (tension pré-drop Ray of Hope !)
-          if (ASSETS.vitrail.complete && ASSETS.vitrail.naturalWidth > 0) {{
-            ctx.save();
-            ctx.globalCompositeOperation = 'screen';
-            ctx.globalAlpha = 0.28 + sub * 0.42;
-            ctx.translate(cw * 0.5, ch * 0.5);
-            ctx.rotate(-tSec * (0.45 + sub * 1.4));
-            const s = ch * (1.05 - sub * 0.18);
-            ctx.drawImage(ASSETS.vitrail, -s / 2, -s / 2, s, s);
-            ctx.restore();
-          }}
-          drawBubbles(tSec, 55, 2.2, 0.8, 0.7);
-
-          // Montée lumineuse blanche du snare-roll juste avant le Drop !
-          if (sub > 0.72) {{
-            const ru = (sub - 0.72) / 0.28;
-            ctx.fillStyle = `rgba(255, 253, 240, ${{(ru * ru * 0.95).toFixed(3)}})`;
-            ctx.fillRect(0, 0, cw, ch);
-          }}
-        }}
-
-      }} else if (u < 0.75) {{
-        // ACTE IV (54%..75%) : DROP CHORUS « RAY OF HOPE MIX » (128 BPM, Latias/Latios, Rubans & Coupes Sakuga)
-        actLabel = 'IV · Drop « Ray of Hope » 128 BPM (Envol Céleste)';
-        const loc = (u - 0.54) / 0.21;
-
-        // Ciel PMD Sky + Îles célestes en fond dynamique
-        drawPMDSkyBackground(tSec * 1.35, cw, ch);
-        ctx.save();
-        ctx.globalAlpha = 0.42;
-        drawCover(ASSETS.bgDungeon, 0.5 + Math.sin(tSec * 0.5) * 0.25, 0.25, 1.18);
-        ctx.restore();
-
-        // Rubans prismatiques Wayfinder traversant tout le ciel au rythme 128 BPM
-        const beatPulse = 0.85 + 0.25 * Math.pow(Math.max(0, Math.cos(tSec * (BPM / 60.0) * Math.PI * 2)), 2);
-        drawPrismRibbons(tSec, beatPulse);
-
-        if (loc < 0.55) {{
-          // Plan 1 du refrain : Latias & Latios fendant le ciel au milieu des bulles d'étoiles
-          const sub = loc / 0.55;
-          drawSpriteCentered(
-            ASSETS.latiasCiel,
-            cw * (0.36 + sub * 0.28),
-            ch * (0.44 - sub * 0.08) + Math.sin(tSec * 3.2) * 12,
-            ch * 0.62,
-            -0.04
-          );
-        }} else {{
-          // Plan 2 du refrain : Triptyque Sakuga diagonal (Riolu + Évoli + Tiplouf & Manaphy) façon KH Opening !
-          const pW = cw / 3.0;
-          const panels = [
-            {{ bg: 'rgba(14, 116, 144, 0.52)', sp: ASSETS.rioluCourse, h: 0.52 }},
-            {{ bg: 'rgba(180, 83, 9, 0.48)', sp: ASSETS.evoliCourse, h: 0.48 }},
-            {{ bg: 'rgba(29, 78, 216, 0.52)', sp: ASSETS.manaphyOcean, h: 0.48 }},
-          ];
-          panels.forEach((p, idx) => {{
-            ctx.save();
-            ctx.beginPath();
-            ctx.rect(idx * pW + 3, 18, pW - 6, ch - 36);
-            ctx.clip();
-            ctx.fillStyle = p.bg;
-            ctx.fillRect(idx * pW, 0, pW, ch);
-            drawSpriteCentered(
-              p.sp,
-              idx * pW + pW * 0.5,
-              ch * 0.54 + Math.sin(tSec * 4.5 + idx) * 10,
-              ch * p.h
-            );
-            ctx.strokeStyle = 'rgba(254, 243, 199, 0.85)';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(idx * pW + 3, 18, pW - 6, ch - 36);
-            ctx.restore();
+          // Plan 1d : Riolu s'avance dans l'écume (288, 120) et tend la patte dans l'eau !
+          const s = (loc - 0.76) / 0.24;
+          const ry = lerp(108, 122, Math.min(1, s * 1.6));
+          actors.push({{ pid: '0133', anim: 'Idle', dir8: 1, tick: ticks, wx: 244, wy: 100 }});
+          actors.push({{ pid: '0393', anim: 'Idle', dir8: 7, tick: ticks, wx: 332, wy: 102 }});
+          actors.push({{
+            pid: '0447',
+            anim: s < 0.42 ? 'Walk' : 'Pull',
+            dir8: 0,
+            tick: s < 0.42 ? ticks : (s - 0.42) * 55,
+            loop: s < 0.42,
+            wx: 288,
+            wy: ry,
+            reflect: true,
           }});
+          if (s >= 0.42) {{
+            const rp = (s - 0.42) / 0.58;
+            drawWaterRipplePixel(mCtx, 288, 132, rp * 42, 'rgba(224, 247, 255, 0.92)');
+            drawWaterRipplePixel(mCtx, 288, 132, Math.max(0, rp * 42 - 12), 'rgba(56, 189, 248, 0.82)');
+          }}
+          actors.forEach((a) => drawActorOnMap(mCtx, a, tSec, 'reflection'));
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(288, lerp(128, 142, s), lerp(1.16, 1.28, s), 0, tSec);
+          portraitOverlay = {{ pid: '0447', emo: 'Surprised', side: 'left' }};
+          if (s > 0.86) screenFlash = (s - 0.86) / 0.14 * 0.75;
         }}
 
-        drawBubbles(tSec, 70, 2.0, 0.9, 0.65);
+      // -----------------------------------------------------------------------
+      // ACTE II (0.15 .. 0.31) : OPM2 TEMPLE ABYSSAL, CHUTE & VITRAIL DU DESTIN
+      // -----------------------------------------------------------------------
+      }} else if (u < 0.31) {{
+        document.getElementById('lblMap').textContent = 'OPM2 · Abysse & Vitrail Dive to the Heart (576×320)';
+        if (MAPS.opm2.complete) mCtx.drawImage(MAPS.opm2, 0, 0, MW, MH);
+        const loc = (u - 0.15) / 0.16;
 
-        // Flash d'impact initial du Drop !
-        if (loc < 0.12) {{
-          ctx.fillStyle = `rgba(255, 255, 245, ${{(1.0 - loc / 0.12) * 0.92}})`;
-          ctx.fillRect(0, 0, cw, ch);
+        // Illumination progressive de la Rosace Vitrail PMD incrustée dans le cercle de pierre (288, 160)
+        const vitAlpha = loc < 0.18 ? loc / 0.18 * 0.25 : Math.min(0.84, 0.25 + ((loc - 0.18) / 0.35) * 0.59);
+        if (MAPS.vitrailDais.complete) {{
+          mCtx.save();
+          mCtx.globalAlpha = vitAlpha;
+          mCtx.drawImage(MAPS.vitrailDais, 288 - 96, 160 - 87);
+          mCtx.restore();
         }}
 
-      }} else if (u < 0.86) {{
-        // ACTE V (75%..86%) : Promontoire fleuri de dos face au Rayon d'Espoir sur l'océan infini
-        actLabel = 'V · Promontoire & Rayon d’Espoir à l’Horizon';
-        const loc = (u - 0.75) / 0.11;
-        drawCover(ASSETS.bgProm, 0.5, 0.55 - loc * 0.25, 1.06 + loc * 0.06);
+        // Projecteur sous-marin zénithal
+        const spot = mCtx.createRadialGradient(288, 156, 8, 288, 156, 125);
+        spot.addColorStop(0, 'rgba(165, 243, 252, 0.25)');
+        spot.addColorStop(1, 'rgba(3, 10, 28, 0.52)');
+        mCtx.fillStyle = spot;
+        mCtx.fillRect(0, 0, MW, MH);
 
-        // Colonne lumineuse « Ray of Hope » pulsant exactement au centre (cx = cw / 2)
-        const rg = ctx.createLinearGradient(cw * 0.43, 0, cw * 0.57, 0);
-        rg.addColorStop(0, 'rgba(255,255,240,0)');
-        rg.addColorStop(0.5, `rgba(255,252,220,${{(0.26 + 0.14 * Math.sin(tSec * 2.5)).toFixed(3)}})`);
-        rg.addColorStop(1, 'rgba(255,255,240,0)');
-        ctx.fillStyle = rg;
-        ctx.fillRect(cw * 0.43, 0, cw * 0.14, ch * 0.68);
+        if (loc < 0.36) {{
+          // Lucario seul dans le rayon sous-marin serrant le Wayfinder puis basculant en arrière (TumbleBack -> Float)
+          const s = loc / 0.36;
+          actors.push({{
+            pid: '0448',
+            anim: s < 0.45 ? 'DeepBreath' : (s < 0.75 ? 'TumbleBack' : 'Float'),
+            dir8: 0,
+            tick: ticks,
+            wx: 288,
+            wy: lerp(152, 162, s),
+            zLift: s >= 0.45 ? Math.sin((s - 0.45) * Math.PI) * 10 : 0,
+          }});
+          if (MAPS.wfCyan.complete) {{
+            mCtx.drawImage(MAPS.wfCyan, 288 - 10, Math.round(lerp(156, 144, s)) - 10, 20, 20);
+          }}
+          actors.forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(288, 158, lerp(1.26, 1.08, s), 0, tSec);
+          drawPixelBubblesOnScreen(tSec, 62, 1.25, 0.88);
+          portraitOverlay = {{ pid: '0448', emo: s < 0.55 ? 'Sad' : 'Inspired', side: 'left' }};
+        }} else if (loc < 0.78) {{
+          // Les 3 Wayfinders plongent sur le Vitrail -> Massko & Celebi apparaissent aux côtés de Lucario !
+          const s = (loc - 0.36) / 0.42;
+          const dropT = Math.min(1, s * 2.2);
+          if (MAPS.wfCyan.complete && MAPS.wfEmerald.complete && MAPS.wfAmber.complete) {{
+            mCtx.drawImage(MAPS.wfCyan, 288 - 10, Math.round(lerp(40, 132, dropT)) - 10, 20, 20);
+            mCtx.drawImage(MAPS.wfEmerald, Math.round(lerp(260, 238, dropT)) - 10, Math.round(lerp(30, 162, dropT)) - 10, 20, 20);
+            mCtx.drawImage(MAPS.wfAmber, Math.round(lerp(316, 338, dropT)) - 10, Math.round(lerp(30, 162, dropT)) - 10, 20, 20);
+          }}
+          const friendAlpha = s < 0.32 ? s / 0.32 : 1.0;
+          actors.push({{ pid: '0448', anim: 'Pose', dir8: 0, tick: ticks * 0.7, wx: 288, wy: 144 }});
+          actors.push({{ pid: '0253', anim: 'Pose', dir8: 1, tick: ticks * 0.7, wx: 238, wy: 172, alpha: friendAlpha }});
+          actors.push({{ pid: '0251', anim: 'Twirl', dir8: 7, tick: ticks * 0.9, wx: 338, wy: 172, alpha: friendAlpha }});
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(288, 160, lerp(1.06, 1.18, s), 0, tSec);
+          drawPixelBubblesOnScreen(tSec, 52, 1.1, 0.78);
+          if (s > 0.35) portraitOverlay = {{ pid: '0448', emo: 'Joyous', side: 'left' }};
+        }} else {{
+          // Massko & Celebi se dissipent, leurs charmes filent vers le nord -> Lucario s'élance pour les rattraper !
+          const s = (loc - 0.78) / 0.22;
+          const fade = Math.max(0, 1.0 - s * 2.0);
+          actors.push({{ pid: '0253', anim: 'Sink', dir8: 4, tick: ticks, wx: 238, wy: 172, alpha: fade }});
+          actors.push({{ pid: '0251', anim: 'Sink', dir8: 4, tick: ticks, wx: 338, wy: 172, alpha: fade }});
+          actors.push({{
+            pid: '0448',
+            anim: s < 0.5 ? 'LeapForth' : 'Pull',
+            dir8: 4,
+            tick: ticks * 1.2,
+            wx: 288,
+            wy: lerp(144, 104, s),
+          }});
+          // Étoiles filantes sombres filant au nord
+          if (MAPS.wfEmerald.complete && MAPS.wfAmber.complete) {{
+            mCtx.drawImage(MAPS.wfEmerald, Math.round(lerp(238, 268, s)) - 9, Math.round(lerp(162, 24, s)) - 9, 18, 18);
+            mCtx.drawImage(MAPS.wfAmber, Math.round(lerp(338, 308, s)) - 9, Math.round(lerp(162, 24, s)) - 9, 18, 18);
+          }}
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(288, lerp(156, 112, s), 1.16, 0, tSec);
+          drawPixelBubblesOnScreen(tSec, 56, 1.6, 0.82);
+        }}
 
-        // Riolu & Évoli vus de dos au centre du promontoire regardant l'océan et le rayon céleste
-        drawSpriteCentered(
-          ASSETS.equipeDos,
-          cw * 0.50,
-          ch * (0.76 + loc * 0.03),
-          ch * 0.52,
-          Math.sin(tSec * 1.8) * 0.012
-        );
+      // -----------------------------------------------------------------------
+      // ACTE III & IV (0.31 .. 0.67) : OPM3 ARÈNE EAU-MIROIR — REFLETS & MÊLÉE 128 BPM !
+      // -----------------------------------------------------------------------
+      }} else if (u < 0.67) {{
+        document.getElementById('lblMap').textContent = 'OPM3 · Arène Eau-Miroir (Mêlée 128 BPM · 576×320)';
+        if (MAPS.opm3.complete) mCtx.drawImage(MAPS.opm3, 0, 0, MW, MH);
+        const loc = (u - 0.31) / 0.36; // 0..1 sur toute la séquence d'arène
 
-        // Pétales & bulles de lumière s'élevant vers le ciel
-        drawBubbles(tSec, 42, 1.1, 0.75, 0.85);
+        let camX = 288, camY = 166, camZ = 1.12, shake = 0.0;
+        let fxDraw = null;
 
+        if (loc < 0.24) {{
+          // III (Pré-Refrain) : Lucario avance sur l'eau miroir ; les reflets inversés de Massko & Celebi tournent le dos et s'éloignent ;
+          // Zoroark-Ombre & Massko-Ombre se retournent brusquement (Rotate) !
+          const s = loc / 0.24;
+          const ly = lerp(228, 182, Math.min(1, s * 1.4));
+          drawWaterRipplePixel(mCtx, 288, ly + 9, (tSec * 22) % 18, 'rgba(125, 211, 252, 0.68)');
+
+          if (s < 0.62) {{
+            const rfFade = 1.0 - s / 0.62;
+            actors.push({{ pid: '0253', anim: 'Walk', dir8: 4, tick: ticks, wx: 266, wy: lerp(164, 134, s), reflect: true, reflectOnly: true, alpha: rfFade }});
+            actors.push({{ pid: '0251', anim: 'Walk', dir8: 4, tick: ticks, wx: 310, wy: lerp(164, 134, s), reflect: true, reflectOnly: true, alpha: rfFade }});
+          }}
+
+          const turnS = Math.max(0, (s - 0.55) / 0.45);
+          actors.push({{
+            pid: 'shadow_0571',
+            anim: turnS > 0 && turnS < 0.7 ? 'Rotate' : 'Charge',
+            dir8: turnS < 0.35 ? 4 : 0,
+            tick: ticks * 1.3,
+            wx: 256,
+            wy: 118,
+            reflect: true,
+            auraColor: turnS > 0.3 ? 'rgba(147, 51, 234, 0.22)' : null,
+          }});
+          actors.push({{
+            pid: 'shadow_0253',
+            anim: turnS > 0 && turnS < 0.7 ? 'Rotate' : 'Charge',
+            dir8: turnS < 0.35 ? 4 : 0,
+            tick: ticks * 1.3,
+            wx: 320,
+            wy: 118,
+            reflect: true,
+            auraColor: turnS > 0.3 ? 'rgba(147, 51, 234, 0.22)' : null,
+          }});
+          actors.push({{ pid: '0448', anim: s < 0.7 ? 'Walk' : 'Charge', dir8: 4, tick: ticks, wx: 288, wy: ly, reflect: true }});
+
+          camY = lerp(192, 152, s);
+          camZ = lerp(1.06, 1.20, s);
+          if (s > 0.86) screenFlash = ((s - 0.86) / 0.14) * 0.9; // Riser vers le Drop !
+
+        }} else if (loc < 0.38) {{
+          // IV-A (Échange 1 du Drop 128 BPM) : Ruée frontale Zoroark-Ombre (Attack) vs Parade Aura de Lucario (Strike) !
+          const s = (loc - 0.24) / 0.14;
+          const rush = Math.min(1, s * 2.2);
+          const zx = lerp(256, 276, rush), zy = lerp(118, 150, rush);
+          const lx = 288, ly = lerp(182, 166, rush);
+
+          actors.push({{ pid: 'shadow_0571', anim: 'Attack', dir8: 0, tick: s * 48, loop: false, wx: zx, wy: zy, reflect: true, auraColor: 'rgba(168, 85, 247, 0.26)' }});
+          actors.push({{ pid: 'shadow_0253', anim: 'Walk', dir8: 0, tick: ticks * 1.6, wx: lerp(320, 336, s), wy: lerp(118, 146, s), reflect: true }});
+          actors.push({{ pid: '0448', anim: 'Strike', dir8: 4, tick: s * 38, loop: false, wx: lx, wy: ly, reflect: true, auraColor: 'rgba(56, 189, 248, 0.25)' }});
+
+          fxDraw = () => {{
+            drawSlashArcPixel(mCtx, zx + 4, zy + 8, Math.PI * 0.35, 22, s, '#a855f7', '#fde047');
+            drawSlashArcPixel(mCtx, lx, ly - 8, -Math.PI * 0.65, 24, s, '#0284c7', '#e0f2fe');
+            if (s > 0.38) {{
+              const imp = (s - 0.38) / 0.62;
+              drawWaterRipplePixel(mCtx, 282, 162, imp * 46, 'rgba(254, 240, 138, 0.92)');
+              drawWaterRipplePixel(mCtx, 282, 162, imp * 28, 'rgba(56, 189, 248, 0.90)');
+            }}
+          }};
+          camX = 284; camY = 158; camZ = 1.28;
+          shake = s > 0.35 && s < 0.72 ? 3.2 : 0.6;
+          if (s < 0.14) screenFlash = (1.0 - s / 0.14) * 0.85;
+
+        }} else if (loc < 0.52) {{
+          // IV-B (Échange 2 lié) : Massko-Ombre bondit sur le flanc droit (Hop -> Swing) ->
+          // Lucario pivote instantanément (QuickStrike dir=2 Right) et l'éjecte sur l'eau !
+          const s = (loc - 0.38) / 0.14;
+          const hit = s > 0.46;
+          const mx = !hit ? lerp(336, 310, s / 0.46) : lerp(310, 378, (s - 0.46) / 0.54);
+          const my = 164;
+          actors.push({{ pid: 'shadow_0571', anim: 'Hop', dir8: 7, tick: s * 42, wx: lerp(276, 244, s), wy: lerp(150, 164, s), reflect: true }});
+          actors.push({{
+            pid: 'shadow_0253',
+            anim: !hit ? 'Swing' : 'Hurt',
+            dir8: 6,
+            tick: !hit ? s * 52 : ticks,
+            wx: mx,
+            wy: my,
+            reflect: true,
+            auraColor: 'rgba(168, 85, 247, 0.24)',
+          }});
+          actors.push({{
+            pid: '0448',
+            anim: s < 0.22 ? 'Rotate' : 'QuickStrike',
+            dir8: 2,
+            tick: (s - 0.22) * 58,
+            loop: false,
+            wx: lerp(288, 298, Math.min(1, s * 2)),
+            wy: 164,
+            reflect: true,
+            auraColor: 'rgba(56, 189, 248, 0.28)',
+          }});
+          fxDraw = () => {{
+            drawSlashArcPixel(mCtx, 304, 162, 0.0, 26, s, '#38bdf8', '#ffffff');
+            if (hit) drawWaterRipplePixel(mCtx, mx, my + 8, ((s - 0.46) / 0.54) * 34, 'rgba(186, 230, 253, 0.9)');
+          }};
+          camX = lerp(292, 316, s); camY = 164; camZ = 1.26;
+          shake = hit && s < 0.72 ? 2.8 : 0.4;
+
+        }} else if (loc < 0.64) {{
+          // IV-C (Échange 3 : Tenaille d'Ombres -> Lucario projeté à genoux sur l'eau miroir !)
+          const s = (loc - 0.52) / 0.12;
+          const knocked = s > 0.36;
+          const ly = !knocked ? 164 : lerp(164, 204, smoothstep((s - 0.36) / 0.64));
+          actors.push({{ pid: 'shadow_0571', anim: 'Double', dir8: 1, tick: s * 65, wx: lerp(244, 266, Math.min(1, s * 2.5)), wy: lerp(164, 156, s), reflect: true, auraColor: 'rgba(168, 85, 247, 0.3)' }});
+          actors.push({{ pid: 'shadow_0253', anim: 'Strike', dir8: 7, tick: s * 55, wx: lerp(378, 310, Math.min(1, s * 2.5)), wy: lerp(164, 156, s), reflect: true, auraColor: 'rgba(168, 85, 247, 0.3)' }});
+          actors.push({{
+            pid: '0448',
+            anim: !knocked ? 'Hurt' : (s < 0.74 ? 'TumbleBack' : 'Pain'),
+            dir8: 4,
+            tick: ticks * 1.2,
+            wx: 288,
+            wy: ly,
+            reflect: true,
+          }});
+          if (knocked) drawWaterRipplePixel(mCtx, 288, ly + 8, ((s - 0.36) / 0.64) * 32, 'rgba(165, 243, 252, 0.85)');
+          camX = 288; camY = lerp(164, 184, s); camZ = 1.24;
+          shake = s > 0.32 && s < 0.55 ? 3.5 : 0.0;
+          if (s > 0.55) portraitOverlay = {{ pid: '0448', emo: 'Pain', side: 'left' }};
+
+        }} else if (loc < 0.80) {{
+          // IV-D : ÉRUPTION DU VITRAIL SOUS L'EAU MIROIR -> RIOLU & ÉVOLI BONDISSENT DANS L'ARÈNE !
+          const s = (loc - 0.64) / 0.16;
+          if (MAPS.vitrailDais.complete) {{
+            mCtx.save();
+            mCtx.globalAlpha = Math.min(0.88, s * 1.8) * (1.0 - Math.max(0, (s - 0.8) * 2));
+            mCtx.drawImage(MAPS.vitrailDais, 288 - 84, 174 - 76, 168, 152);
+            mCtx.restore();
+          }}
+          const leap = Math.min(1, s * 1.8);
+          actors.push({{ pid: 'shadow_0571', anim: s > 0.45 ? 'Hurt' : 'Attack', dir8: 0, tick: ticks, wx: 260, wy: lerp(148, 134, s), reflect: true }});
+          actors.push({{ pid: 'shadow_0253', anim: s > 0.45 ? 'Hurt' : 'Attack', dir8: 0, tick: ticks, wx: 316, wy: lerp(148, 134, s), reflect: true }});
+          actors.push({{ pid: '0448', anim: s < 0.5 ? 'Wake' : 'Pose', dir8: 4, tick: ticks, wx: 288, wy: 192, reflect: true }});
+          actors.push({{
+            pid: '0447',
+            anim: s < 0.45 ? 'Hop' : 'QuickStrike',
+            dir8: 4,
+            tick: s * 65,
+            wx: lerp(288, 260, leap),
+            wy: lerp(176, 154, leap),
+            zLift: s < 0.45 ? Math.sin((s / 0.45) * Math.PI) * 22 : 0,
+            reflect: true,
+            auraColor: 'rgba(56, 189, 248, 0.28)',
+          }});
+          actors.push({{
+            pid: '0133',
+            anim: s < 0.45 ? 'Hop' : 'Double',
+            dir8: 4,
+            tick: s * 65,
+            wx: lerp(288, 316, leap),
+            wy: lerp(176, 154, leap),
+            zLift: s < 0.45 ? Math.sin((s / 0.45) * Math.PI) * 22 : 0,
+            reflect: true,
+            auraColor: 'rgba(251, 191, 36, 0.28)',
+          }});
+          fxDraw = () => {{
+            if (s >= 0.42) {{
+              drawSlashArcPixel(mCtx, 260, 142, -Math.PI * 0.5, 24, (s - 0.42) / 0.58, '#38bdf8', '#ffffff');
+              drawSlashArcPixel(mCtx, 316, 142, -Math.PI * 0.5, 24, (s - 0.42) / 0.58, '#f59e0b', '#fef9c3');
+            }}
+          }};
+          camX = 288; camY = 164; camZ = 1.22;
+          if (s < 0.16) screenFlash = (1.0 - s / 0.16) * 0.92;
+          portraitOverlay = {{ pid: '0447', emo: 'Determined', side: 'right' }};
+
+        }} else {{
+          // IV-E : COMBO TRIO SYNCHRONISÉ (Lucario + Riolu + Évoli) + Vol de Latias & Latios -> Bris des Ombres !
+          const s = (loc - 0.80) / 0.20;
+          const shAlpha = Math.max(0, 1.0 - Math.max(0, (s - 0.52) / 0.42));
+          actors.push({{ pid: 'shadow_0571', anim: 'Hurt', dir8: 0, tick: ticks, wx: 256, wy: lerp(134, 114, s), reflect: true, alpha: shAlpha }});
+          actors.push({{ pid: 'shadow_0253', anim: 'Hurt', dir8: 0, tick: ticks, wx: 320, wy: lerp(134, 114, s), reflect: true, alpha: shAlpha }});
+
+          actors.push({{ pid: '0447', anim: 'RearUp', dir8: 4, tick: s * 52, wx: 258, wy: 164, reflect: true, auraColor: 'rgba(56, 189, 248, 0.28)' }});
+          actors.push({{ pid: '0133', anim: 'Shoot', dir8: 4, tick: s * 52, wx: 318, wy: 164, reflect: true, auraColor: 'rgba(251, 191, 36, 0.28)' }});
+          actors.push({{ pid: '0448', anim: 'RearUp', dir8: 4, tick: s * 52, wx: 288, wy: 158, reflect: true, auraColor: 'rgba(125, 249, 255, 0.34)' }});
+
+          // Latias & Latios traversant majestueusement l'arène en diagonale
+          actors.push({{ pid: '0380', anim: 'Walk', dir8: 3, tick: ticks * 1.4, wx: lerp(155, 415, s), wy: lerp(215, 78, s), zLift: 16, noShadow: true }});
+          actors.push({{ pid: '0381', anim: 'Walk', dir8: 3, tick: ticks * 1.4, wx: lerp(135, 395, s), wy: lerp(232, 92, s), zLift: 18, noShadow: true }});
+
+          fxDraw = () => {{
+            if (s > 0.28) {{
+              const b = (s - 0.28) / 0.72;
+              const by = lerp(152, 112, Math.min(1, b * 1.5));
+              const r = 8 + b * 28;
+              const g = mCtx.createRadialGradient(288, by, 2, 288, by, r);
+              g.addColorStop(0, 'rgba(255, 255, 255, 0.96)');
+              g.addColorStop(0.5, 'rgba(56, 189, 248, 0.78)');
+              g.addColorStop(1, 'rgba(251, 191, 36, 0)');
+              mCtx.fillStyle = g;
+              mCtx.beginPath();
+              mCtx.arc(288, by, r, 0, Math.PI * 2);
+              mCtx.fill();
+            }}
+          }};
+          camX = 288; camY = 148; camZ = lerp(1.22, 1.08, s);
+          shake = s > 0.45 && s < 0.78 ? 2.6 : 0.0;
+          if (s > 0.85) screenFlash = ((s - 0.85) / 0.15) * 0.95;
+        }}
+
+        actors.forEach((a) => drawActorOnMap(mCtx, a, tSec, 'reflection'));
+        actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+        if (fxDraw) fxDraw();
+        blitMapCameraToScreen(camX, camY, camZ, shake, tSec);
+
+      // -----------------------------------------------------------------------
+      // ACTE V (0.67 .. 0.83) : OPM4 PLATEFORME ASTRALE — RONDE À 3, DARKRAI & BARRIÈRE
+      // -----------------------------------------------------------------------
+      }} else if (u < 0.83) {{
+        document.getElementById('lblMap').textContent = 'OPM4 · Ciel Astral & Autel Étoilé (576×320)';
+        if (MAPS.opm4.complete) mCtx.drawImage(MAPS.opm4, 0, 0, MW, MH);
+        const loc = (u - 0.67) / 0.16;
+
+        if (loc < 0.38) {{
+          // Ronde joyeuse à trois pattes jointes sur l'étoile centrale (288, 162) — rotation 8 directions !
+          const s = loc / 0.38;
+          const baseAng = tSec * 2.8;
+          const trio = [
+            {{ pid: '0448', off: 0 }},
+            {{ pid: '0253', off: (Math.PI * 2) / 3 }},
+            {{ pid: '0251', off: (Math.PI * 4) / 3 }},
+          ];
+          trio.forEach((t) => {{
+            const a = baseAng + t.off;
+            const wx = 288 + Math.cos(a) * 24;
+            const wy = 162 + Math.sin(a) * 16;
+            // Regard tourné vers le centre de la ronde !
+            actors.push({{
+              pid: t.pid,
+              anim: t.pid === '0251' ? 'Twirl' : 'Float',
+              dir8: vecToDir8(288 - wx, 162 - wy),
+              tick: ticks,
+              wx,
+              wy,
+            }});
+          }});
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(288, 162, lerp(1.12, 1.24, s), 0, tSec);
+          if (s < 0.15) screenFlash = (1.0 - s / 0.15) * 0.85;
+          portraitOverlay = {{ pid: '0253', emo: 'Joyous', side: 'left' }};
+
+        }} else if (loc < 0.68) {{
+          // Darkrai surgit au nord (288, 92) et libère l'onde de choc du Néant Noir !
+          const s = (loc - 0.38) / 0.30;
+          actors.push({{
+            pid: '0491',
+            anim: s < 0.35 ? 'RearUp' : 'Shoot',
+            dir8: 0,
+            tick: s * 75,
+            wx: 288,
+            wy: 92,
+            auraColor: 'rgba(153, 27, 27, 0.32)',
+          }});
+          const blast = Math.max(0, (s - 0.28) / 0.72);
+          actors.push({{ pid: '0253', anim: blast > 0 ? 'Hurt' : 'Idle', dir8: 4, tick: ticks, wx: lerp(266, 232, blast), wy: lerp(156, 146, blast) }});
+          actors.push({{ pid: '0251', anim: blast > 0 ? 'Hurt' : 'Idle', dir8: 4, tick: ticks, wx: lerp(310, 344, blast), wy: lerp(156, 146, blast) }});
+          actors.push({{ pid: '0448', anim: blast > 0 ? 'Hurt' : 'Idle', dir8: 4, tick: ticks, wx: 288, wy: lerp(168, 198, blast) }});
+
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          if (blast > 0) {{
+            mCtx.save();
+            mCtx.strokeStyle = `rgba(220, 38, 38, ${{(1.0 - blast * 0.7).toFixed(2)}})`;
+            mCtx.lineWidth = 3;
+            mCtx.beginPath();
+            mCtx.arc(288, 112, blast * 115, 0, Math.PI * 2);
+            mCtx.stroke();
+            mCtx.restore();
+          }}
+          blitMapCameraToScreen(288, 146, 1.14, blast > 0 && blast < 0.45 ? 3.4 : 0.0, tSec);
+          portraitOverlay = {{ pid: '0251', emo: 'Stunned', side: 'right' }};
+
+        }} else {{
+          // Sacrifice protecteur façon Aqua : Lucario projette 2 sphères Protect hexagonales autour de Massko & Celebi
+          // qui s'élèvent vers le pont d'étoiles NE tandis que Lucario coule doucement au sud !
+          const s = (loc - 0.68) / 0.32;
+          const mx = lerp(232, 368, s), my = lerp(146, 86, s);
+          const cx2 = lerp(344, 404, s), cy2 = lerp(146, 72, s);
+          actors.push({{ pid: '0491', anim: 'Idle', dir8: 0, tick: ticks, wx: 288, wy: 92, alpha: Math.max(0, 1.0 - s * 1.6) }});
+          actors.push({{ pid: '0253', anim: 'Float', dir8: 3, tick: ticks, wx: mx, wy: my, noShadow: true }});
+          actors.push({{ pid: '0251', anim: 'Float', dir8: 3, tick: ticks, wx: cx2, wy: cy2, noShadow: true }});
+          actors.push({{
+            pid: '0448',
+            anim: s < 0.42 ? 'RearUp' : 'Sink',
+            dir8: 4,
+            tick: ticks,
+            wx: 288,
+            wy: lerp(198, 246, Math.max(0, (s - 0.35) / 0.65)),
+            noShadow: s > 0.45,
+          }});
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          drawProtectHexSphere(mCtx, mx, my - 2, 16, tSec);
+          drawProtectHexSphere(mCtx, cx2, cy2 - 2, 16, tSec);
+          blitMapCameraToScreen(lerp(288, 304, s), lerp(156, 178, s), 1.12, 0, tSec);
+          portraitOverlay = {{ pid: '0448', emo: 'Sigh', side: 'left' }};
+          if (s > 0.85) screenFlash = -((s - 0.85) / 0.15) * 0.7;
+        }}
+
+      // -----------------------------------------------------------------------
+      // ACTE VI (0.83 .. 1.00) : OPM5 PROMONTOIRE -> PATTE PLONGÉE DANS L'OCÉAN ->
+      // PANORAMIQUE ÉCRAN-TITRE PMD SKY + LOGO PLEIN CENTRE & BATTEMENT D'AILES !
+      // -----------------------------------------------------------------------
       }} else {{
-        // ACTE VI (86%..100%) : Panoramique céleste vers le fond PMD Sky Jour/Nuit +
-        // ARRIVÉE PLEIN CENTRE (cw/2, ch/2) DU BLASON ŒUF AILÉ & BATTEMENT SUBTIL DES DEUX AILES !
-        actLabel = 'VI · Écran-Titre Destiny — Logo Centré & Battement d’Ailes';
-        const loc = (u - 0.86) / 0.14;
-        drawPMDSkyBackground(tSec, cw, ch);
+        const loc = (u - 0.83) / 0.17;
 
-        if (loc < 0.16) {{
-          ctx.save();
-          ctx.globalAlpha = 1.0 - loc / 0.16;
-          drawCover(ASSETS.bgProm, 0.5, 0.15, 1.12);
-          ctx.restore();
+        if (loc < 0.42) {{
+          // VI-A : Riolu & Évoli courent jusqu'à la pointe du promontoire fleuri (OPM5) ;
+          // un Rayon d'Espoir brille sous les vagues -> Riolu plonge la patte tendue et saisit celle de Lucario !
+          document.getElementById('lblMap').textContent = 'OPM5 · Promontoire & Rayon d’Espoir Marin (576×320)';
+          if (MAPS.opm5.complete) mCtx.drawImage(MAPS.opm5, 0, 0, MW, MH);
+          const s = loc / 0.42;
+
+          // Faisceau lumineux sous-marin au pied nord-est de la falaise (368, 108)
+          const rayG = mCtx.createRadialGradient(368, 108, 4, 368, 108, 46);
+          rayG.addColorStop(0, 'rgba(255, 255, 240, 0.92)');
+          rayG.addColorStop(0.5, 'rgba(56, 189, 248, 0.55)');
+          rayG.addColorStop(1, 'rgba(56, 189, 248, 0)');
+          mCtx.fillStyle = rayG;
+          mCtx.beginPath();
+          mCtx.arc(368, 108, 46, 0, Math.PI * 2);
+          mCtx.fill();
+
+          const dive = Math.max(0, (s - 0.52) / 0.48);
+          const rx = dive === 0 ? lerp(256, 342, s / 0.52) : lerp(342, 364, dive);
+          const ry = dive === 0 ? lerp(212, 148, s / 0.52) : lerp(148, 114, dive);
+          actors.push({{ pid: '0133', anim: dive > 0 ? 'Pose' : 'Walk', dir8: 3, tick: ticks * 1.2, wx: lerp(236, 322, Math.min(1, s / 0.55)), wy: lerp(224, 158, Math.min(1, s / 0.55)) }});
+          if (dive > 0.25) {{
+            // Lucario remonte vers la surface à la rencontre de la patte de Riolu !
+            actors.push({{ pid: '0448', anim: 'Pose', dir8: 4, tick: ticks, wx: 368, wy: lerp(134, 116, dive), reflect: true, alpha: Math.min(1, dive * 1.5) }});
+          }}
+          actors.push({{
+            pid: '0447',
+            anim: dive === 0 ? 'Walk' : (dive < 0.55 ? 'LeapForth' : 'Pull'),
+            dir8: 3,
+            tick: ticks * 1.3,
+            wx: rx,
+            wy: ry,
+            zLift: dive > 0 && dive < 0.55 ? Math.sin((dive / 0.55) * Math.PI) * 16 : 0,
+          }});
+          if (dive > 0.35) {{
+            drawWaterRipplePixel(mCtx, 366, 114, (dive - 0.35) * 52, 'rgba(255, 255, 255, 0.95)');
+          }}
+          actors.sort((a, b) => a.wy - b.wy).forEach((a) => drawActorOnMap(mCtx, a, tSec, 'main'));
+          blitMapCameraToScreen(lerp(295, 352, s), lerp(182, 126, s), lerp(1.08, 1.26, s), 0, tSec);
+          if (dive > 0.25) drawPixelBubblesOnScreen(tSec, 48, 1.8, 0.85);
+          portraitOverlay = {{ pid: dive < 0.45 ? '0448' : '0447', emo: dive < 0.45 ? 'Surprised' : 'Inspired', side: 'left' }};
+          if (s > 0.84) screenFlash = ((s - 0.84) / 0.16) * 0.96;
+
+        }} else {{
+          // VI-B : PANORAMIQUE VERTICAL DE L'OCÉAN VERS LE CIEL/MER PMD SKY (.DIR JOUR/NUIT) +
+          // ARRIVÉE EN UNE SEULE FOIS PLEIN CENTRE (480, 360 <-> 160, 120) & BATTEMENT SUBTIL DES 2 AILES !
+          document.getElementById('lblMap').textContent =
+            theme === 'jour' ? 'Title_Screen_Background_Jour.dir (320×240)' : 'Title_Screen_Background_Nuit.dir (320×240)';
+          const s = (loc - 0.42) / 0.58;
+          const atlas = theme === 'jour' ? MAPS.dayAtlas : MAPS.nightAtlas;
+          if (atlas.complete && atlas.naturalWidth > 0) {{
+            const pose = Math.floor(tSec * 12.0) % 24;
+            const ax = (pose % 6) * 320, ay = Math.floor(pose / 6) * 240;
+            vCtx.clearRect(0, 0, VW, VH);
+            vCtx.drawImage(atlas, ax, ay, 320, 240, 0, 0, VW, VH);
+          }}
+          if (s < 0.16) {{
+            // Fondu lumineux de percée de la surface océanique + dernières bulles montant au ciel
+            drawPixelBubblesOnScreen(tSec, 36, 2.0, (1.0 - s / 0.16) * 0.85);
+            screenFlash = (1.0 - s / 0.16) * 0.85;
+          }}
+          document.getElementById('lblCam').textContent = '320×240 Natif PMDO (×3)';
         }}
+      }}
 
-        // Temps écoulé en secondes depuis le début de l'Acte VI pour le reveal one-shot
-        const revealSec = (u - 0.86) * durationSec;
-        // Centre géométrique exact de l'image : (cw / 2, ch / 2) = (480, 270) !
-        wingDeg = drawArticulatedLogo(ctx, cw * 0.5, ch * 0.5, cw * 0.44, revealSec, nowSec);
+      // Portrait PMDO éventuel sur vCtx (320x240)
+      if (portraitOverlay) {{
+        drawPMDPortrait(portraitOverlay.pid, portraitOverlay.emo, portraitOverlay.side, 0.96);
+      }}
 
-        // Clignotement PRESS ENTER sous le blason centré une fois stabilisé
-        if (revealSec > 1.35 && ASSETS.enterUI.complete && ASSETS.enterUI.naturalWidth > 0) {{
+      // Flash blanc ou fondu noir sur vCtx
+      if (screenFlash > 0.01) {{
+        vCtx.fillStyle = `rgba(255, 253, 242, ${{Math.min(1, screenFlash).toFixed(3)}})`;
+        vCtx.fillRect(0, 0, VW, VH);
+      }} else if (screenFlash < -0.01) {{
+        vCtx.fillStyle = `rgba(2, 6, 18, ${{Math.min(1, -screenFlash).toFixed(3)}})`;
+        vCtx.fillRect(0, 0, VW, VH);
+      }}
+
+      // Blit 3x pixel-perfect (320x240 -> 960x720) plein centre !
+      outCtx.imageSmoothingEnabled = false;
+      outCtx.clearRect(0, 0, outCanvas.width, outCanvas.height);
+      outCtx.drawImage(vCanvas, 0, 0, VW, VH, 0, 0, outCanvas.width, outCanvas.height);
+
+      // Si on est dans VI-B (u >= 0.83 + 0.17*0.42 = 0.9014), dessin du Blason Articulé plein centre (480, 360) !
+      const titleThreshold = 0.83 + 0.17 * 0.42;
+      if (u >= titleThreshold) {{
+        const revealSec = (u - titleThreshold) * durationSec;
+        wingDeg = drawArticulatedLogoOnOut(outCanvas.width * 0.5, outCanvas.height * 0.5, 158 * 3, revealSec, nowSec);
+        if (revealSec > 1.25 && MAPS.enterUI.complete && MAPS.enterUI.naturalWidth > 0) {{
           const blink = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(tSec * 5.0));
-          ctx.save();
-          ctx.imageSmoothingEnabled = false;
-          ctx.globalAlpha = blink;
-          const ew = 74 * 2.4, eh = 11 * 2.4;
-          ctx.drawImage(ASSETS.enterUI, (cw - ew) / 2, ch * 0.83, ew, eh);
-          ctx.restore();
+          outCtx.save();
+          outCtx.imageSmoothingEnabled = false;
+          outCtx.globalAlpha = blink;
+          outCtx.drawImage(MAPS.enterUI, (outCanvas.width - 74 * 3) / 2, 196 * 3, 74 * 3, 11 * 3);
+          outCtx.restore();
         }}
       }}
 
-      drawOptionalCrosshair();
-      document.getElementById('lblAct').textContent = actLabel;
+      drawCrosshairIfChecked();
       document.getElementById('lblWingDeg').textContent = (wingDeg >= 0 ? '+' : '') + wingDeg.toFixed(1) + '°';
     }}
 
-    // =========================================================================
-    // MODE ÉCRAN-TITRE PMDO DIRECT (320×240 × 3 = 960×720, PLEIN CENTRE)
-    // =========================================================================
-    function renderTitle320Frame(nowSec) {{
-      const cw = canvas.width, ch = canvas.height; // 960 x 720 (exact 3x de 320x240)
+    function renderDirectTitleMode(nowSec) {{
+      document.getElementById('lblMap').textContent =
+        theme === 'jour' ? 'Title_Screen_Background_Jour.dir (320×240)' : 'Title_Screen_Background_Nuit.dir (320×240)';
+      document.getElementById('lblCam').textContent = '320×240 Natif PMDO (×3)';
       const tSec = nowSec - titleModeRevealStart;
-      drawPMDSkyBackground(nowSec, cw, ch);
-
-      // Plein centre exact de 320x240 (x3) : (480, 360) <-> (160, 120) ; largeur 158*3 = 474 px !
-      const wingDeg = drawArticulatedLogo(ctx, cw * 0.5, ch * 0.5, 158 * 3, tSec, nowSec);
-
-      if (tSec > 1.25 && ASSETS.enterUI.complete && ASSETS.enterUI.naturalWidth > 0) {{
-        const blink = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(nowSec * 5.0));
-        ctx.save();
-        ctx.imageSmoothingEnabled = false;
-        ctx.globalAlpha = blink;
-        const ew = 74 * 3, eh = 11 * 3;
-        ctx.drawImage(ASSETS.enterUI, (cw - ew) / 2, 196 * 3, ew, eh);
-        ctx.restore();
+      const atlas = theme === 'jour' ? MAPS.dayAtlas : MAPS.nightAtlas;
+      if (atlas.complete && atlas.naturalWidth > 0) {{
+        const pose = Math.floor(nowSec * 12.0) % 24;
+        const ax = (pose % 6) * 320, ay = Math.floor(pose / 6) * 240;
+        vCtx.clearRect(0, 0, VW, VH);
+        vCtx.drawImage(atlas, ax, ay, 320, 240, 0, 0, VW, VH);
       }}
+      outCtx.imageSmoothingEnabled = false;
+      outCtx.drawImage(vCanvas, 0, 0, VW, VH, 0, 0, outCanvas.width, outCanvas.height);
 
-      drawOptionalCrosshair();
-      document.getElementById('lblAct').textContent = 'Écran-Titre PMDO Natif 320×240 (×3)';
+      const wingDeg = drawArticulatedLogoOnOut(outCanvas.width * 0.5, outCanvas.height * 0.5, 158 * 3, tSec, nowSec);
+      if (tSec > 1.20 && MAPS.enterUI.complete && MAPS.enterUI.naturalWidth > 0) {{
+        const blink = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(nowSec * 5.0));
+        outCtx.save();
+        outCtx.imageSmoothingEnabled = false;
+        outCtx.globalAlpha = blink;
+        outCtx.drawImage(MAPS.enterUI, (outCanvas.width - 74 * 3) / 2, 196 * 3, 74 * 3, 11 * 3);
+        outCtx.restore();
+      }}
+      drawCrosshairIfChecked();
       document.getElementById('lblWingDeg').textContent = (wingDeg >= 0 ? '+' : '') + wingDeg.toFixed(1) + '°';
     }}
 
-    function drawOptionalCrosshair() {{
+    function drawCrosshairIfChecked() {{
       if (!document.getElementById('chkCenterCrosshair').checked) return;
-      const cw = canvas.width, ch = canvas.height;
-      ctx.save();
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.78)';
-      ctx.setLineDash([6, 6]);
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(cw / 2, 0); ctx.lineTo(cw / 2, ch);
-      ctx.moveTo(0, ch / 2); ctx.lineTo(cw, ch / 2);
-      ctx.stroke();
-      ctx.fillStyle = '#fbbf24';
-      ctx.beginPath();
-      ctx.arc(cw / 2, ch / 2, 5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      const cw = outCanvas.width, ch = outCanvas.height;
+      outCtx.save();
+      outCtx.strokeStyle = 'rgba(56, 189, 248, 0.80)';
+      outCtx.setLineDash([6, 6]);
+      outCtx.lineWidth = 1.5;
+      outCtx.beginPath();
+      outCtx.moveTo(cw / 2, 0); outCtx.lineTo(cw / 2, ch);
+      outCtx.moveTo(0, ch / 2); outCtx.lineTo(cw, ch / 2);
+      outCtx.stroke();
+      outCtx.fillStyle = '#fbbf24';
+      outCtx.beginPath();
+      outCtx.arc(cw / 2, ch / 2, 5, 0, Math.PI * 2);
+      outCtx.fill();
+      outCtx.restore();
     }}
 
     // =========================================================================
-    // BOUCLE PRINCIPALE 60 FPS & INTERACTIONS UI
+    // BOUCLE 60 FPS & CONTRÔLES UI
     // =========================================================================
     function fmtTime(s) {{
-      const m = Math.floor(s / 60);
-      const r = Math.floor(s % 60);
-      return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
-    }}
-
-    function updateCanvasAspect() {{
-      if (viewMode === 'title320') {{
-        canvas.width = 960;
-        canvas.height = 720;
-        canvas.classList.add('pixel-crisp');
-        document.getElementById('lblCenter').textContent = '(160, 120) sur 320×240 = 50.0% × 50.0%';
-      }} else {{
-        canvas.width = 960;
-        canvas.height = 540;
-        canvas.classList.remove('pixel-crisp');
-        document.getElementById('lblCenter').textContent = '(480, 270) sur 960×540 = 50.0% × 50.0%';
-      }}
+      return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
     }}
 
     const scrubEl = document.getElementById('timeScrub');
@@ -1501,39 +1811,34 @@ def build_destiny_html() -> str:
         }}
 
         const u = Math.min(1.0, Math.max(0.0, curTime / durationSec));
-        tickSynthForProgress(u, curTime);
-        renderOpeningFrame(u, curTime, nowSec);
+        tickSynth(u, curTime);
+        renderPMDOpening(u, curTime, nowSec);
 
         if (!scrubbing) scrubEl.value = String(Math.round(u * 1000));
         readoutEl.textContent = `${{fmtTime(curTime)}} / ${{fmtTime(durationSec)}}`;
 
-        // Surbrillance du chapitre actif
-        const cuts = [0.0, 0.18, 0.34, 0.54, 0.75, 0.86, 1.01];
-        chapBtns.forEach((b, idx) => {{
-          b.classList.toggle('current', u >= cuts[idx] && u < cuts[idx + 1]);
-        }});
+        const cuts = [0.0, 0.15, 0.31, 0.40, 0.67, 0.83, 1.01];
+        chapBtns.forEach((b, idx) => b.classList.toggle('current', u >= cuts[idx] && u < cuts[idx + 1]));
       }} else {{
-        renderTitle320Frame(nowSec);
+        renderDirectTitleMode(nowSec);
       }}
 
       requestAnimationFrame(frameLoop);
     }}
 
-    // Boutons de contrôle
     document.getElementById('btnPlayCinema').addEventListener('click', () => {{
       ensureAudioCtx();
-      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
       localAudio.pause();
       viewMode = 'opening';
       audioSource = 'synth';
-      durationSec = 52.0;
+      durationSec = 56.0;
       curTime = 0.0;
       synthStepPlayed = -1;
       paused = false;
-      updateCanvasAspect();
       document.getElementById('btnModeTitle').classList.remove('active');
       document.getElementById('audioModeLabel').textContent =
-        '🎹 Audio actif : Hommage WebAudio « Ray of Hope » 128 BPM intégré (Coupe Cinéma 00:52)';
+        '🎹 Audio actif : Synthé WebAudio « Ray of Hope » 128 BPM intégré (Coupe PMD 00:56)';
     }});
 
     document.getElementById('btnPlayYT').addEventListener('click', () => {{
@@ -1544,34 +1849,31 @@ def build_destiny_html() -> str:
 
     document.getElementById('btnModeTitle').addEventListener('click', () => {{
       ensureAudioCtx();
-      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
+      if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
       localAudio.pause();
       viewMode = 'title320';
       titleModeRevealStart = performance.now() / 1000.0;
       paused = false;
-      updateCanvasAspect();
       document.getElementById('btnModeTitle').classList.add('active');
-      playSupersawChord([53, 60, 65, 69, 72], 1.8, 0.02);
+      playSupersaw([53, 60, 65, 69, 72], 1.8, 0.02);
     }});
 
     document.getElementById('btnFlapNow').addEventListener('click', () => {{
       ensureAudioCtx();
       manualFlapStart = performance.now() / 1000.0;
-      playPluckOrBell(m2f(79), 0.35, 0.04, 'triangle', 3800);
+      playNote(m2f(79), 0.35, 0.04, 'triangle', 3800);
     }});
 
     document.getElementById('btnThemeDay').addEventListener('click', () => {{
       theme = 'jour';
       document.getElementById('btnThemeDay').classList.add('active');
       document.getElementById('btnThemeNight').classList.remove('active');
-      document.getElementById('lblTheme').textContent = 'JOUR (24 poses .dir)';
     }});
 
     document.getElementById('btnThemeNight').addEventListener('click', () => {{
       theme = 'nuit';
       document.getElementById('btnThemeNight').classList.add('active');
       document.getElementById('btnThemeDay').classList.remove('active');
-      document.getElementById('lblTheme').textContent = 'NUIT (24 poses .dir)';
     }});
 
     document.getElementById('btnPause').addEventListener('click', (ev) => {{
@@ -1589,13 +1891,10 @@ def build_destiny_html() -> str:
     scrubEl.addEventListener('input', () => {{
       scrubbing = true;
       viewMode = 'opening';
-      updateCanvasAspect();
-      const u = Number(scrubEl.value) / 1000.0;
-      curTime = u * durationSec;
+      curTime = (Number(scrubEl.value) / 1000.0) * durationSec;
     }});
     scrubEl.addEventListener('change', () => {{
-      const u = Number(scrubEl.value) / 1000.0;
-      curTime = u * durationSec;
+      curTime = (Number(scrubEl.value) / 1000.0) * durationSec;
       if (audioSource === 'youtube' && ytPlayer && ytPlayer.seekTo) ytPlayer.seekTo(curTime, true);
       if (audioSource === 'local') localAudio.currentTime = curTime;
       scrubbing = false;
@@ -1605,10 +1904,8 @@ def build_destiny_html() -> str:
       btn.addEventListener('click', () => {{
         ensureAudioCtx();
         viewMode = 'opening';
-        updateCanvasAspect();
         document.getElementById('btnModeTitle').classList.remove('active');
-        const u = Number(btn.dataset.jump || '0');
-        curTime = u * durationSec;
+        curTime = Number(btn.dataset.jump || '0') * durationSec;
         synthStepPlayed = -1;
         paused = false;
         if (audioSource === 'youtube' && ytPlayer && ytPlayer.seekTo) ytPlayer.seekTo(curTime, true);
@@ -1624,7 +1921,6 @@ def build_destiny_html() -> str:
       localAudio.onloadedmetadata = () => {{
         audioSource = 'local';
         viewMode = 'opening';
-        updateCanvasAspect();
         durationSec = localAudio.duration || 153.0;
         curTime = 0.0;
         paused = false;
@@ -1634,10 +1930,7 @@ def build_destiny_html() -> str:
       }};
     }});
 
-    // Déblocage WebAudio dès le premier clic n'importe où sur la page
     window.addEventListener('pointerdown', () => ensureAudioCtx(), {{ once: true }});
-
-    updateCanvasAspect();
     requestAnimationFrame(frameLoop);
   }})();
   </script>
