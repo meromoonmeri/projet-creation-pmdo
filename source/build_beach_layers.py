@@ -94,3 +94,26 @@ def skyfall(scale: float = 0.5) -> dict:
     assert leak == 0, f"{leak} px magenta"
     Image.fromarray(out, "RGBA").save(B / "skyfall_clouds_layer.png")
     return {"size": (w, h), "leak": int(leak)}
+
+
+def meteor(width: int = 480) -> dict:
+    """Météorite générée (boule de feu + traînée de flammes/fumée) : clé magenta retirée, réduite en pixel-art (alpha binaire, palette 64 couleurs)."""
+    src = Image.open(B / "meteor_gen.png").convert("RGB")
+    a = np.asarray(src).astype(np.int32)
+    key = (a[..., 0] > 190) & (a[..., 2] > 190) & (a[..., 1] < 150) & (a[..., 0] - a[..., 1] > 80) & (a[..., 2] - a[..., 1] > 80)
+    key = ndi.binary_dilation(key, iterations=1)
+    alpha = np.where(key, 0, 255).astype(np.uint8)
+    ys, xs = np.where(alpha > 0)
+    box = (max(0, xs.min() - 4), max(0, ys.min() - 4), min(src.width, xs.max() + 5), min(src.height, ys.max() + 5))
+    rgba = Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA").crop(box)
+    h = round(rgba.height * width / rgba.width)
+    r, g, b, al = [np.asarray(c.resize((width, h), Image.BOX)) for c in rgba.split()]
+    op = al >= 128
+    rgb = Image.fromarray(np.dstack([r, g, b]).astype(np.uint8), "RGB").quantize(colors=64, method=Image.MEDIANCUT, dither=Image.NONE).convert("RGB")
+    out = np.dstack([np.asarray(rgb), np.where(op, 255, 0).astype(np.uint8)])
+    lk = (out[..., 0] > 200) & (out[..., 2] > 170) & (out[..., 1] < 100)
+    out[..., 3] = np.where(lk, 0, out[..., 3])
+    leak = ((out[..., 0] > 200) & (out[..., 2] > 170) & (out[..., 1] < 100) & (out[..., 3] == 255)).sum()
+    assert leak == 0, f"{leak} px magenta"
+    Image.fromarray(out, "RGBA").save(B / "meteor_layer.png")
+    return {"size": (width, h), "leak": int(leak)}
