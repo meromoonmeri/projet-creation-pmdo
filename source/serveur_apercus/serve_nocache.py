@@ -302,9 +302,53 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
         if not self._try_virtual_deliverable(send_body=False):
             super().do_HEAD()
 
+    def _serve_range(self) -> bool:
+        """Requêtes `Range` (lecture / saut dans une vidéo MP4) : réponse 206 sur les fichiers statiques."""
+        rng = self.headers.get("Range")
+        if not rng or not rng.startswith("bytes="):
+            return False
+        fp = Path(self.translate_path(self.path))
+        if not fp.is_file():
+            return False
+        size = fp.stat().st_size
+        a, _, b = rng[6:].split(",")[0].partition("-")
+        try:
+            start = int(a) if a else max(0, size - int(b))
+            end = int(b) if (a and b) else size - 1
+        except ValueError:
+            return False
+        end = min(end, size - 1)
+        if start > end or start >= size:
+            self.send_response(416)
+            self.send_header("Content-Range", f"bytes */{size}")
+            self.end_headers()
+            return True
+        self.send_response(206)
+        self.send_header("Content-Type", self.guess_type(str(fp)))
+        self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Content-Length", str(end - start + 1))
+        self.send_header("Accept-Ranges", "bytes")
+        self.end_headers()
+        with open(fp, "rb") as fh:
+            fh.seek(start)
+            left = end - start + 1
+            while left > 0:
+                chunk = fh.read(min(1 << 16, left))
+                if not chunk:
+                    break
+                try:
+                    self.wfile.write(chunk)
+                except (BrokenPipeError, ConnectionResetError):
+                    break
+                left -= len(chunk)
+        return True
+
     def do_GET(self) -> None:
-        if not self._try_virtual_deliverable(send_body=True):
-            super().do_GET()
+        if self._try_virtual_deliverable(send_body=True):
+            return
+        if self._serve_range():
+            return
+        super().do_GET()
 
     def end_headers(self) -> None:
         if getattr(self, "_skip_auto_headers", False):
@@ -320,6 +364,7 @@ class NoCachePMDOHandler(SimpleHTTPRequestHandler):
             self.send_header("Pragma", "no-cache")
             self.send_header("Expires", "0")
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Accept-Ranges", "bytes")
         clean_path = unquote(parts.path)
         fname = posixpath.basename(clean_path)
         if fname and ("dl" in qs or fname.lower().endswith(FORCE_DOWNLOAD_EXTS)):
