@@ -1,0 +1,76 @@
+"""Tests de l'Opening ULTIME (Voyage 0-31 s + course lunaire 31-46 s + opening sprites 46-153 s)."""
+import json
+import re
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+HTML = ROOT / "apercu_fangame_pmd_destiny_ultime.html"
+ENGINE = ROOT / "source" / "opening_ultime_engine.js"
+META = ROOT / "renders" / "pmd_destiny_fangame_v1" / "opening_ultime" / "metadata.json"
+
+
+class TestOpeningUltime(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.html = HTML.read_text(encoding="utf-8")
+        cls.eng = ENGINE.read_text(encoding="utf-8")
+        i0 = cls.html.index("const ASSETS = ") + len("const ASSETS = ")
+        i1 = cls.html.index(";\n</script>", i0)
+        cls.assets = json.loads(cls.html[i0:i1])
+
+    def test_autonome_sans_requete_externe(self):
+        self.assertIsNone(re.search(r"""(src|href)=["']/renders""", self.html))
+        self.assertIsNone(re.search(r"""["']/renders/""", self.html))
+        self.assertTrue(all(v.startswith("data:") for v in self.assets["imgs"].values()))
+
+    def test_duree_et_musique(self):
+        self.assertIn("D = 153.0", self.eng)
+        self.assertIn("TITLE_T = 148.0", self.eng)
+        self.assertIn("2aafI3XvKxo", self.html)
+        self.assertEqual(json.loads(META.read_text(encoding="utf-8"))["duration_seconds"], 153.0)
+
+    def test_trois_moteurs_assembles(self):
+        for g in ("PMDDestinyVoyage", "PMDDestinySprite", "PMDDestinyUltime"):
+            self.assertIn("root." + g + " =", self.html)
+        self.assertIn("PMDDestinyUltime.create", self.html)
+        self.assertIn("const MT0 = 31.0, MT1 = 46.0", self.eng)
+        self.assertIn("if (t < MT0) return V.render", self.eng)
+        self.assertIn("if (t >= MT1)", self.eng)
+
+    def test_passage_46_68_conserve(self):
+        self.assertIn("id: 'OC', t0: 46, t1: 52.5", self.html)
+        self.assertIn("id: '3d', t0: 62, t1: 68", self.html)
+        self.assertIn("OC: 0,", self.html)
+
+    def test_course_lunaire_trio_et_decor_lune(self):
+        self.assertIsNotNone(re.search(r"const RUN = \[.*'0393'.*'0133'.*'0447'", self.eng, re.S))
+        self.assertIn("'moonBg'", self.eng)
+        self.assertIn("'moonFg'", self.eng)
+        for k in ("moonBg", "moonFg", "plainsTree"):
+            self.assertIn(k, self.assets["imgs"])
+
+    def test_personnages_en_gros_plan(self):
+        m = re.search(r"const MEMORIES = \[(.*?)\n    \];", self.eng, re.S)
+        self.assertIsNotNone(m)
+        pids = set(re.findall(r"\['(\d{4})', '", m.group(1)))
+        self.assertGreaterEqual(len(pids), 12)
+        scales = [float(x) for x in re.findall(r"\d+, \d+, (\d+(?:\.\d+)?), [01]\]", m.group(1))]
+        self.assertGreaterEqual(min(scales), 5.0)
+        cat = self.assets["catalog"]["pokemon"]
+        for pid in pids:
+            self.assertIn(pid, cat)
+        self.assertNotIn("pt_", self.eng)  # aucun portrait fixe
+        self.assertIsNone(re.search(r"bateau|ship", self.eng, re.I))
+
+    def test_catalogue_et_images_resolus(self):
+        cat = self.assets["catalog"]["pokemon"]
+        for pid, anim in re.findall(r"\['(\d{4})', '(\w+)', \d", self.eng):
+            self.assertIn(anim, cat[pid]["anims"], (pid, anim))
+            self.assertIn(cat[pid]["anims"][anim]["file"], self.assets["sheets"])
+        for k in ("rigCore", "rigLW", "rigRW", "enterUI", "daySeaAtlas", "nightSeaAtlas", "laprasSky", "opm2", "opm3", "opm4"):
+            self.assertIn(k, self.assets["imgs"])
+
+
+if __name__ == "__main__":
+    unittest.main()
