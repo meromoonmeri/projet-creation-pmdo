@@ -28,7 +28,16 @@ class TestCombat(unittest.TestCase):
             for an in ("Idle", "Charge", "Attack", "RearUp"):
                 self.assertIn(an, A["catalog"]["pokemon"]["9448"]["anims"])
                 self.assertIn(A["catalog"]["pokemon"]["9448"]["anims"][an]["file"], A["sheets"])
-            self.assertIn("function megaSphere(", h)
+            self.assertIn("function megaColumn(", h)
+            for k in ("megaColumn", "megaSymbol", "megaShatter"):  # Méga-Évolution sans pierres : colonne, emblème en flammes, explosion qui fracture la réalité
+                self.assertIn(k, A["imgs"], page + " : " + k)
+                self.assertTrue(A["imgs"][k].startswith("data:image/webp;base64,"))
+            for an in ("Tumble", "EventSleep", "DeepBreath", "Nod", "Wake", "LookUp"):  # gestes d'Évoli de la fin
+                self.assertIn(an, A["catalog"]["pokemon"]["0133"]["anims"], page + " : Évoli " + an)
+            for an in ("Pull", "Pose", "Hop", "Nod"):
+                self.assertIn(an, A["catalog"]["pokemon"]["0447"]["anims"], page + " : Riolu " + an)
+            for an in ("Hop", "Pose", "LookUp", "Nod"):
+                self.assertIn(an, A["catalog"]["pokemon"]["0393"]["anims"], page + " : Tiplouf " + an)
             for k in ("skyStrato", "skyDeck", "cloudPortal"):
                 self.assertIn(k, A["imgs"], page + " : " + k)
             for sid in ("shadow_0133", "shadow_0393", "shadow_0302"):
@@ -38,8 +47,19 @@ class TestCombat(unittest.TestCase):
 
     def test_scenes_combat(self):
         for needle in ("id: '4a'", "id: '4b'", "id: '4c'", "id: '4d'", "pid: '9448'", "pid: '0491'", "function arenaBack(", "function rocks(", "function mistLayer(", "function skyBolts(",
-                       "function riftDraw(", "function megaSymbol(", "function rainbowThread(", "function tendril(", "function pool(", "TEXP = 103.3", "fx(ctx, 'rrmet'"):
+                       "function riftDraw(", "function megaColumn(", "function silMorph(", "function silField(", "function rainbowBolt(", "function megaFlames(", "function realityCracks(", "function tendril(", "function pool(", "TEXP = 103.3", "I.megaShatter"):
             self.assertIn(needle, SPR)
+        for banned in ("function stoneDraw(", "function megaSphere(", "function rainbowThread(", "KS0", "Pierre de Key"):  # plus de pierres dans la Méga-Évolution
+            self.assertNotIn(banned, SPR)
+        for needle in ("rainbowBolt(ctx, boltShape(", "megaFlames(ctx, t, LUX", "silMorph(ctx, LUX", "megaColumn(ctx, t, LUX"):
+            self.assertIn(needle, SPR)
+        # trio final : Riolu, Évoli et Tiplouf réunis avant le titre (plan SP) ; réveil d'Évoli par les vraies animations
+        sp = SPR[SPR.index("id: 'SP'"):SPR.index("id: 'SP'") + 1400]
+        for pid in ("'0447'", "'0133'", "'0393'"):
+            self.assertIn("pid: " + pid, sp)
+        for needle in ("'EventSleep'", "'Wake'", "'DeepBreath'", "id: 'tiplouf', pid: '0393', keys: [[142, 340, 190]"):
+            self.assertIn(needle, SPR)
+        self.assertNotIn("'Sink', 0, { loop: false }], [134.6", SPR)
         for banned in ("crystalsAndRune", "AR.crystals", "AR.rune"):  # la plateforme est nue : ni cristaux ni cercle magique
             self.assertNotIn(banned, SPR)
         self.assertIn("shadow_0302", SPR)  # Ténéfix (Sableye) d'ombre

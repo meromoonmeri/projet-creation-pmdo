@@ -59,16 +59,19 @@ def new_resources():
     for key, src in (("skyStrato", "skyStrato_raw.png"), ("skyDeck", "skyCloudDeck_raw.png"), ("cloudPortal", "cloudPortalNew_raw.png")):
         buf = io.BytesIO(); Image.open(SOURCE_DIR / "pmd_destiny_fangame_v1" / "decors_peints" / src).convert("RGB").save(buf, "JPEG", quality=84, optimize=True)
         imgs[key] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+    for key in ("megaColumn", "megaSymbol", "megaShatter"):  # Méga-Évolution : colonne arc-en-ciel, emblème en flammes, explosion qui fracture la réalité (WebP + alpha)
+        imgs[key] = uri(BR / f"{key}.webp", "image/webp")
     vfx = json.loads((BR / "vfx_catalog.json").read_text())
     arena = json.loads((BR / "arena_meta.json").read_text())
     cat = json.loads((BR / "sprites_catalog.json").read_text())
     sheets: dict = {}
     from source.build_opening_ray_of_hope_pokemon import make_shadow_corrupted_sheet as shadow  # type: ignore
+    from source.build_combat_resources import SHADOW  # type: ignore
     for pid, anims in list(cat.items()):
         for name, meta in anims.items():
             f = BR / "sprites" / meta["file"]
             sheets[meta["file"]] = uri(f)
-            if pid in ("0447", "0133", "0393", "0302"):  # ombres corrompues (possédés par Darkrai, Ténéfix)
+            if pid in SHADOW and (SHADOW[pid] is None or name in SHADOW[pid]):  # ombres corrompues (possédés par Darkrai, Ténéfix)
                 sh = shadow(Image.open(f).convert("RGBA"))
                 if pid != "0447":  # possédés : yeux et éclats rouge sang au lieu d'ambre
                     arr = np.asarray(sh).copy(); m = (arr[..., 0] == 255) & (arr[..., 1] == 196) & (arr[..., 2] == 38) & (arr[..., 3] > 0)

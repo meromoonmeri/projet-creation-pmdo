@@ -96,7 +96,7 @@ class TestOpeningUltime(unittest.TestCase):
         for needle in ("function fSkyFall(", "function meteorDraw(", "S.SC.find((q) => q.id === '5a').custom = fSkyFall", "const PULSES = [", "SKSEQ", "function bang(", "'Hurt'", "'Wake'", "'Pull'", "'Swing'"):
             self.assertIn(needle, self.eng)
         self.assertIn("fx_rrmet", self.assets["imgs"])  # météore de PMD Rouge (9 images) à la place de l'ancienne image générée
-        for needle in ("'LookUp', 0, { loop: false }], [134.6", "'Swing', 0, { loop: false }], [141.1", "id: 'tiplouf', pid: '0393', keys: [[142, 340, 190]"):
+        for needle in ("'EventSleep', 0, { speed: 0.4 }], [133.5, 'Wake'", "'Nod', 0, { loop: false }], [139.5, 'Hop'", "id: 'tiplouf', pid: '0393', keys: [[142, 340, 190]", "id: 'tiplouf', pid: '0393', keys: [[145.2, 127, 493]"):
             self.assertIn(needle, self.html)
 
 

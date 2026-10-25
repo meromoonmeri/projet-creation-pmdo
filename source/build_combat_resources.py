@@ -26,6 +26,11 @@ WANT = {  # uniquement les animations employées par le combat (les autres sont 
     # Méga-Lucario = forme 0001 du dossier 0448
     "9448": ["Idle", "Charge", "Attack", "RearUp", "Hop", "Swing", "Walk", "Strike"],
 }
+# animations du final (réveil, hélice, groupe) : ajoutées au catalogue, mais sans version « ombre » corrompue
+SHADOW = {pid: set(WANT[pid]) for pid in ("0133", "0393", "0302", "0447")}
+WANT["0133"] += ["Tumble", "EventSleep", "Laying", "DeepBreath", "Nod", "Sit", "Wake", "LookUp", "Float", "Pose"]
+WANT["0447"] += ["Nod", "DeepBreath", "Wake", "Cringe", "Idle", "Float", "Pull", "Pose", "Hop", "LookUp", "LeapForth"]
+WANT["0393"] += ["Nod", "Hop", "Pose", "LookUp", "Float"]
 SRC_DIR = {"9448": "0448/0001"}
 
 

@@ -613,45 +613,72 @@
       for (let i = 0; i < 12; i++) { const ph = ((t - t0) * 0.5 + rnd(i, 41)) % 1; fx(ctx, 'sparkle', ph * 8, cx + (rnd(i, 42) - 0.5) * 40 * k, cy + (rnd(i, 43) - 0.5) * h * 0.8 + ph * 12, 0.25, k * (1 - ph), { add: true, tint: '230,200,255' }); }
       const u = (t - t0) * 0.9; for (let j = 0; j < 2; j++) { const ph = (u + j * 0.5) % 1; ring(ctx, cx, cy, h * (0.15 + 0.4 * ph), 1.2, '200,160,255', 0.4 * k * (1 - ph), 1.3); }
     }
-    // ---- Méga-Évolution canonique (jeux 3D / pixel) : Pierre de Key et Méga-Gemme reliées par des fils arc-en-ciel, sphère irisée, silhouette blanche, éclat, emblème ----
-    function stoneDraw(ctx, t, x, y, s, a, hue0) { // gemme étincelante : cœur blanc, halo qui parcourt le spectre
-      if (a <= 0.003) return; glow(ctx, x, y, 17 * s, hueRgb((hue0 + t * 110) % 360, 0.6), 0.75 * a); glow(ctx, x, y, 8 * s, '255,255,255', 0.9 * a);
-      ctx.save(); ctx.globalAlpha = a; const g = ctx.createRadialGradient(x - 1, y - 1, 0, x, y, 4.2 * s); g.addColorStop(0, '#ffffff'); g.addColorStop(0.55, 'rgb(' + hueRgb((hue0 + t * 110) % 360, 0.8) + ')'); g.addColorStop(1, 'rgb(' + hueRgb((hue0 + 180 + t * 110) % 360, 0.45) + ')');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x, y - 4.6 * s); ctx.lineTo(x + 3.6 * s, y - 0.8 * s); ctx.lineTo(x + 2.2 * s, y + 3.8 * s); ctx.lineTo(x - 2.2 * s, y + 3.8 * s); ctx.lineTo(x - 3.6 * s, y - 0.8 * s); ctx.closePath(); ctx.fill(); ctx.restore();
-      starBurst(ctx, x, y, 11 * s, 0.55 * a * (0.6 + 0.4 * Math.sin(t * 14)), 4, t * 0.9);
+    // ---- Méga-Évolution : colonne opaque multicolore, silhouette de Lucario qui se transforme, éclairs arc-en-ciel, emblème en flammes ----
+    function dtMask(m, w, h) { // distance au pixel « vrai » le plus proche (chanfrein 1 / 1,414)
+      const d = new Float32Array(w * h), R2 = 1.414; for (let i = 0; i < w * h; i++) d[i] = m[i] ? 0 : 1e6;
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = y * w + x; let v = d[i];
+        if (x > 0) v = Math.min(v, d[i - 1] + 1); if (y > 0) { v = Math.min(v, d[i - w] + 1); if (x > 0) v = Math.min(v, d[i - w - 1] + R2); if (x < w - 1) v = Math.min(v, d[i - w + 1] + R2); } d[i] = v; }
+      for (let y = h - 1; y >= 0; y--) for (let x = w - 1; x >= 0; x--) { const i = y * w + x; let v = d[i];
+        if (x < w - 1) v = Math.min(v, d[i + 1] + 1); if (y < h - 1) { v = Math.min(v, d[i + w] + 1); if (x < w - 1) v = Math.min(v, d[i + w + 1] + R2); if (x > 0) v = Math.min(v, d[i + w - 1] + R2); } d[i] = v; }
+      return d;
     }
-    function rainbowThread(ctx, t, x0, y0, x1, y1, k, seed) { // double fil torsadé de lumière arc-en-ciel entre les deux gemmes
-      if (k <= 0.003) return; const n = 34, dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-      for (let s = 0; s < 2; s++) { let px = x0, py = y0;
-        for (let i = 1; i <= n; i++) { const u = (i / n) * Math.min(1, k), wob = Math.sin(u * 17 - t * 9 + s * Math.PI + seed) * 5.5 * Math.sin(Math.PI * i / n) * (0.5 + 0.5 * k), qx = x0 + dx * u + nx * wob, qy = y0 + dy * u + ny * wob;
-          const rgb = hueRgb((i * 13 + t * 140 + s * 170) % 360, 0.55);
-          ctx.strokeStyle = 'rgba(' + rgb + ',0.14)'; ctx.lineWidth = 3.4; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke();
-          ctx.strokeStyle = 'rgba(' + rgb + ',0.8)'; ctx.lineWidth = 1.0; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke(); px = qx; py = qy; } }
-      for (let i = 0; i < 8; i++) { const ph = (t * 1.1 + i / 8) % 1, u = ph * Math.min(1, k); fx(ctx, 'sparkle', ph * 8, x0 + dx * u, y0 + dy * u, 0.2, 0.9, { add: true, tint: hueRgb((i * 45 + t * 90) % 360) }); }
+    const SIL = { ready: false };
+    function silField(pid, anim, dir, W2, H2) { // champ de distance signé (négatif dedans) de la 1re image d'une animation, centré sur le centre de la case
+      const info = animInfo(pid, anim), im = info && SH[info.file]; if (!im || !im.width) return null;
+      const c = mk(W2, H2), g = c.getContext('2d'); g.imageSmoothingEnabled = false;
+      g.drawImage(im, 0, (info.rows > 1 ? dir % info.rows : 0) * info.fh, info.fw, info.fh, Math.round((W2 - info.fw) / 2), Math.round((H2 - info.fh) / 2), info.fw, info.fh);
+      const px = g.getImageData(0, 0, W2, H2).data, ins = new Uint8Array(W2 * H2), out = new Uint8Array(W2 * H2);
+      for (let i = 0; i < W2 * H2; i++) { ins[i] = px[i * 4 + 3] > 100 ? 1 : 0; out[i] = 1 - ins[i]; }
+      const dI = dtMask(ins, W2, H2), dO = dtMask(out, W2, H2), f = new Float32Array(W2 * H2);
+      for (let i = 0; i < W2 * H2; i++) f[i] = dI[i] - dO[i]; return f;
+    }
+    function silMorph(ctx, x, y, sc, m, a, t) { // Lucario → Méga-Lucario : interpolation des champs de distance des deux silhouettes, tracée en blanc pastel
+      if (!SIL.ready) {
+        const pa = animInfo('0448', 'Idle'), pb = animInfo('9448', 'Idle'); if (!pa || !pb) return;
+        SIL.w = Math.max(pa.fw, pb.fw) + 4; SIL.h = Math.max(pa.fh, pb.fh) + 4;
+        SIL.A = silField('0448', 'Idle', 2, SIL.w, SIL.h); SIL.B = silField('9448', 'Idle', 2, SIL.w, SIL.h); SIL.ready = true;
+        SIL.cv = mk(SIL.w, SIL.h); SIL.cx = SIL.cv.getContext('2d'); SIL.img = SIL.cx.createImageData(SIL.w, SIL.h); SIL.cv2 = mk(SIL.w, SIL.h); SIL.cx2 = SIL.cv2.getContext('2d'); SIL.img2 = SIL.cx2.createImageData(SIL.w, SIL.h);
+      }
+      if (!SIL.A || !SIL.B || a <= 0.003) return;
+      const n = SIL.w * SIL.h, d = SIL.img.data, d2 = SIL.img2.data, A = SIL.A, B = SIL.B, mm = clamp(m, 0, 1);
+      for (let i = 0; i < n; i++) { const f = A[i] + (B[i] - A[i]) * mm, al = clamp(0.5 - f * 1.5, 0, 1), o = i * 4; d[o] = 255; d[o + 1] = 255; d[o + 2] = 255; d[o + 3] = Math.round(al * 255); d2[o] = 38; d2[o + 1] = 10; d2[o + 2] = 96; d2[o + 3] = d[o + 3]; }
+      SIL.cx.putImageData(SIL.img, 0, 0); SIL.cx2.putImageData(SIL.img2, 0, 0);
+      const hue = (t * 180) % 360, w = SIL.w * sc, h = SIL.h * sc;
+      ctx.save(); ctx.translate(x, y); ctx.imageSmoothingEnabled = true;
+      ctx.globalAlpha = a * 0.9; ctx.drawImage(SIL.cv2, -w * 0.56, -h * 0.56, w * 1.12, h * 1.12); // contour sombre : la forme se lit sur la colonne
+      ctx.globalAlpha = a; ctx.drawImage(SIL.cv, -w / 2, -h / 2, w, h); ctx.restore();
+      ctx.save(); ctx.imageSmoothingEnabled = false; // les vrais traits des deux sprites se fondent dans la silhouette (détails du visage, des membres, des piques)
+      drawSprite(ctx, '0448', 'Idle', 2, 0, false, x, y + 2, { s: sc, a: 0.5 * a * (1 - mm), noShadow: true });
+      drawSprite(ctx, '9448', 'Idle', 2, 0, false, x, y + 2, { s: sc, a: 0.5 * a * mm, noShadow: true }); ctx.restore();
+    }
+    function megaColumn(ctx, t, x, yBase, k, a, wc, hmax) { // colonne multicolore opaque : texture générée défilant vers le haut (tuiles en miroir)
+      const im = I.megaColumn; if (!im || !im.width || k <= 0.003 || a <= 0.003) return;
+      const h = wc * im.height / im.width, off = (t * 46) % (2 * h), top = yBase - hmax * k;
+      ctx.save(); ctx.beginPath(); ctx.rect(x - wc, top, wc * 2, yBase + 6 - top); ctx.clip(); ctx.imageSmoothingEnabled = true;
+      for (let j = -1; j <= 3; j++) { const y0 = yBase - (j + 1) * h + off; ctx.save(); ctx.globalAlpha = a;
+        if (j & 1) { ctx.translate(x, y0 + h); ctx.scale(1, -1); } else ctx.translate(x, y0);
+        ctx.drawImage(im, -wc / 2, 0, wc, h); ctx.restore(); }
+      ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a * 0.35; // second passage plus fin, à contre-courant : l'énergie vibre
+      for (let j = -1; j <= 3; j++) { const y0 = yBase - (j + 1) * h * 0.8 - off * 1.4; ctx.save(); if (j & 1) { ctx.translate(x, y0 + h * 0.8); ctx.scale(1, -1); } else ctx.translate(x, y0); ctx.drawImage(im, -wc * 0.42, 0, wc * 0.84, h * 0.8); ctx.restore(); }
+      ctx.restore();
+      glow(ctx, x, yBase - 6, wc * 0.9, hueRgb((t * 120) % 360, 0.7), 0.5 * a * k);
+    }
+    function rainbowBolt(ctx, pts, a, w, hue) { // éclair multicolore : halo teinté, corps pastel, cœur blanc
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      for (const [lw, col] of [[w * 3.4, `rgba(${hueRgb(hue, 0.6)},${(a * 0.34).toFixed(3)})`], [w * 1.6, `rgba(${hueRgb((hue + 40) % 360, 0.72)},${(a * 0.62).toFixed(3)})`], [w * 0.6, `rgba(255,255,255,${a.toFixed(3)})`]]) {
+        ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.beginPath(); pts.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.stroke(); }
       ctx.restore();
     }
-    function megaSphere(ctx, t, x, y, r, a) { // sphère irisée (bulle arc-en-ciel) qui enveloppe Lucario
-      if (a <= 0.003 || r < 1) return; ctx.save(); ctx.translate(x, y); ctx.globalAlpha = a;
-      let g = ctx.createRadialGradient(0, 0, r * 0.15, 0, 0, r); g.addColorStop(0, 'rgba(255,255,255,0.16)'); g.addColorStop(0.7, 'rgba(225,236,255,0.18)'); g.addColorStop(1, 'rgba(255,255,255,0.55)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.fill();
-      ctx.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < 14; i++) { const a0 = (i / 14) * TAU + t * 1.3, a1 = a0 + TAU / 14 * 1.15, gg = ctx.createRadialGradient(0, 0, r * 0.25, 0, 0, r);
-        gg.addColorStop(0, 'rgba(255,255,255,0)'); gg.addColorStop(1, 'hsla(' + ((i * 26 + t * 90) % 360).toFixed(0) + ',100%,62%,0.42)'); ctx.fillStyle = gg; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, r, a0, a1); ctx.closePath(); ctx.fill(); }
-      for (let i = 0; i < 64; i++) { const a0 = (i / 64) * TAU, a1 = ((i + 1.3) / 64) * TAU; ctx.strokeStyle = 'hsla(' + ((i * 5.6 - t * 120) % 360).toFixed(0) + ',100%,70%,0.95)'; ctx.lineWidth = Math.max(0.8, r * 0.06); ctx.beginPath(); ctx.arc(0, 0, r, a0, a1); ctx.stroke(); }
-      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = Math.max(0.6, r * 0.03); ctx.beginPath(); ctx.arc(-r * 0.12, -r * 0.1, r * 0.78, Math.PI * 1.08, Math.PI * 1.46); ctx.stroke(); // reflet de la bulle
-      ctx.beginPath(); ctx.arc(r * 0.1, r * 0.1, r * 0.82, Math.PI * 0.05, Math.PI * 0.3); ctx.stroke();
-      ctx.restore();
-    }
-    function megaSymbol(ctx, t, x, y, R, a) { // emblème de la Méga-Évolution : anneau irisé et double hélice
-      if (a <= 0.003 || R < 1) return; glow(ctx, x, y, R * 2.4, '255,255,255', 0.5 * a); glow(ctx, x, y, R * 1.8, hueRgb((t * 100) % 360, 0.6), 0.3 * a);
-      ctx.save(); ctx.translate(x, y); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-      for (let i = 0; i < 72; i++) { const a0 = (i / 72) * TAU, a1 = ((i + 1.4) / 72) * TAU; ctx.strokeStyle = 'hsla(' + ((i * 5 + t * 80) % 360).toFixed(0) + ',100%,68%,' + (0.95 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.14; ctx.beginPath(); ctx.arc(0, 0, R, a0, a1); ctx.stroke(); }
-      ctx.strokeStyle = 'rgba(255,255,255,' + (0.9 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.035; ctx.beginPath(); ctx.arc(0, 0, R * 1.08, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.arc(0, 0, R * 0.92, 0, TAU); ctx.stroke();
-      for (let s = 0; s < 2; s++) { let px = 0, py = 0;
-        for (let i = 0; i <= 32; i++) { const v = i / 32, yy = (v - 0.5) * R * 1.55, xx = Math.sin(v * TAU + s * Math.PI + t * 1.2) * R * 0.4; if (i) { ctx.strokeStyle = 'hsla(' + ((v * 300 + s * 150 + t * 90) % 360).toFixed(0) + ',100%,72%,' + (0.98 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.11; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(xx, yy); ctx.stroke(); } px = xx; py = yy; }
-        ctx.fillStyle = 'rgba(255,255,255,' + (0.95 * a).toFixed(3) + ')'; for (const v of [0, 1]) { ctx.beginPath(); ctx.arc(Math.sin(v * TAU + s * Math.PI + t * 1.2) * R * 0.4, (v - 0.5) * R * 1.55, R * 0.09, 0, TAU); ctx.fill(); } }
-      ctx.restore(); starBurst(ctx, x, y, R * 1.7, 0.45 * a, 8, t * 0.5);
+    function megaFlames(ctx, t, x, y, R, u, a) { // emblème de la Méga-Évolution en flammes arc-en-ciel ; se dissipe en cendres lumineuses
+      const im = I.megaSymbol; if (!im || !im.width || a <= 0.003) return;
+      const k = clamp(u, 0, 1), dis = clamp((u - 1.0) / 1.0, 0, 1), rise = 14 * sstep(u / 1.6) + 30 * dis, sw = R * 2 * (0.7 + 0.3 * sstep(k / 0.5)) * (1 + 0.12 * dis), sh = sw * im.height / im.width * (1 + 0.6 * dis);
+      glow(ctx, x, y - rise, R * 2.3, hueRgb((t * 90) % 360, 0.6), 0.34 * a); glow(ctx, x, y - rise, R * 1.4, '255,255,255', 0.28 * a);
+      ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(x, y - rise);
+      ctx.globalAlpha = a * (1 - dis * 0.75); ctx.drawImage(im, -sw / 2, -sh / 2, sw, sh);
+      ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a * 0.45 * (1 - dis); ctx.drawImage(im, -sw * 0.53, -sh * 0.53, sw * 1.06, sh * 1.06); ctx.restore();
+      for (let i = 0; i < 20; i++) { const ph = ((u * 0.9 + rnd(i, 61)) % 1), an = rnd(i, 62) * TAU, px = x + Math.cos(an) * R * (0.7 + 0.25 * rnd(i, 63)) * (1 - 0.3 * ph), py = y - rise + Math.sin(an) * R * 0.7 - ph * (26 + 40 * dis);
+        fx(ctx, 'flame', ph * 10 + i * 3, px, py, 0.2 + 0.22 * rnd(i, 64), a * (1 - ph) * (0.8 - 0.3 * dis), { add: true, bottom: true, tint: hueRgb((i * 41 + t * 120) % 360, 0.62) }); }
+      for (let i = 0; i < 16 * dis + 1; i++) { const ph = ((u * 0.7 + rnd(i, 65)) % 1); fx(ctx, 'sparkle', ph * 8, x + (rnd(i, 66) - 0.5) * R * 2.4, y - rise - ph * 50 - 6, 0.2, a * (1 - ph) * dis, { add: true, tint: hueRgb((i * 53 + t * 80) % 360) }); }
     }
     function megaBurst(ctx, t, x, y, u) { // libération : ondes arc-en-ciel, éclats, éclair de lumière blanche
       if (u < 0 || u > 2.6) return; const e = sstep(u / 1.2), f = 1 - sstep(u / 2.4);
@@ -724,11 +751,8 @@
       screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.6, r: 1.6, vy: -0.8, vx: -1.2, add: true, tw: true }); speedLines(ctx, t, 14, W / 2, H / 2, '230,210,255', 0.2, 280); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255');
         for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
     });
-    // 4c — Riolu à terre, cerné. Le ciel se fend : Lucario tombe de la fissure de la réalité, atterrit, puis Méga-Évolue (animation canonique des jeux)
+    // 4c — Riolu à terre, cerné. Le ciel se fend : Lucario tombe de la fissure de la réalité, atterrit, puis Méga-Évolue : colonne multicolore opaque, silhouette qui se transforme, éclairs arc-en-ciel, emblème en flammes (sans les pierres)
     const LUX = 232, LUY = 182, RFX = 232, RFY = 108, T_LAND = 91.1, T_BURST = 95.6;
-    const KS0 = 92.3; // la Pierre de Key surgit de la fissure
-    const ksPos = (t) => { const e = sstep((t - KS0) / 1.1); return [lerp(RFX, LUX - 26, e), lerp(RFY + 4, LUY - 56, e) + Math.sin(t * 5) * 1.2 * e]; };
-    const msPos = (t) => [LUX + 2, LUY - 23 + Math.sin(t * 6) * 0.5]; // Méga-Gemme sur le torse de Lucario
     SC.push({
       id: '4c', t0: 88, t1: 98, map: 'opm3', melee: false, grade: PAL_ARENA,
       cam: [[88, 228, 160, 1.5, 0.0], [89.8, 230, 148, 1.34, 0.0], [91.2, 230, 152, 1.55, 0.0], [93, 232, 150, 1.8, 0.0], [95, 232, 152, 1.9, 0.0], [95.8, 232, 142, 1.4, 0.0], [96.8, 234, 142, 1.35, 0.0], [98, 250, 160, 1.5, 0.0]],
@@ -747,9 +771,9 @@
           an: [[88, 'Idle', { toId: 'riolu' }], [89.2, 'MultiStrike', { toId: 'riolu' }, { loop: false }], [90.6, 'Hurt', 2, { loop: false }], [91.5, 'Hurt', { toId: 'lucario' }, { loop: false }], [93.0, 'Idle', { toId: 'lucario' }]] },
         { id: 'sab3', pid: 'shadow_0302', keys: [[88, 254, 172], [91.0, 254, 172], [91.5, 276, 160], [98, 276, 160]], a: [[88, 1], [95.9, 1], [96.7, 0]], aura: VIO,
           an: [[88, 'Idle', { toId: 'riolu' }], [89.6, 'Hop', { toId: 'riolu' }, { loop: false }], [90.6, 'Hurt', 2, { loop: false }], [91.5, 'Hurt', { toId: 'lucario' }, { loop: false }], [93.0, 'Idle', { toId: 'lucario' }]] },
-        { id: 'lucario', pid: '0448', keys: [[90.2, LUX, LUY, 78], [T_LAND, LUX, LUY, 0], [98, LUX, LUY, 0]], rot: [[90.2, 0.5], [90.7, -0.25], [T_LAND, 0], [98, 0]], a: [[90.2, 0], [90.32, 1], [95.4, 1], [95.62, 0]], aura: '110,230,255',
+        { id: 'lucario', pid: '0448', keys: [[90.2, LUX, LUY, 78], [T_LAND, LUX, LUY, 0], [98, LUX, LUY, 0]], rot: [[90.2, 0.5], [90.7, -0.25], [T_LAND, 0], [98, 0]], a: [[90.2, 0], [90.32, 1], [93.3, 1], [93.75, 0]], aura: '110,230,255',
           an: [[90.2, 'LeapForth', { toId: 'darkrai' }, { loop: false }], [T_LAND, 'Hop', { toId: 'darkrai' }, { loop: false }], [92.0, 'Charge', { toId: 'darkrai' }], [93.4, 'Idle', { toId: 'darkrai' }], [94.4, 'Charge', { toId: 'darkrai' }]],
-          tint: (t) => ['#ffffff', clamp((t - 94.3) / 1.0, 0, 1)] },
+          },
         { id: 'mega', pid: '9448', keys: [[95.4, LUX, LUY], [98, LUX, LUY]], sk: [[95.4, 1.0], [95.75, 1.22], [96.5, 1.0], [98, 1.0]], a: [[95.4, 0], [95.62, 1]], aura: '255,226,120',
           an: [[95.4, 'Charge', { toId: 'darkrai' }], [96.4, 'RearUp', { toId: 'darkrai' }, { loop: false }], [97.4, 'Idle', { toId: 'darkrai' }]],
           tint: (t) => ['#ffffff', 1 - clamp((t - 95.7) / 0.5, 0, 1)] },
@@ -767,17 +791,20 @@
         for (const [sx, sy, on] of [[196, 172, 95.9], [164, 198, 95.9], [276, 160, 95.9]]) { const d = (t - on) / 0.8; if (d > 0 && d < 1) for (let i = 0; i < 10; i++) { const ph2 = (d + rnd(i + sx, 2)) % 1; fx(ctx, 'sparkle', ph2 * 8, sx + (rnd(i, 3) - 0.5) * 24, sy - 8 - ph2 * 36, 0.25, 0.9 * (1 - d), { add: true, tint: VIO }); } }
         for (const [sx, sy] of [[204, 206], [256, 216]]) { const d = (t - 95.9) / 0.9; if (d > 0 && d < 1) { ring(ctx, sx, sy, d * 34, 1.8, '255,255,255', 0.8 * (1 - d), 0.4); glow(ctx, sx, sy - 8, 28 * (1 - d) + 8, '255,230,230', 0.5 * (1 - d)); } }
         possessFx(ctx, t, 220, 202, t < 95.9 ? 0.8 : 0);
-        // —— Méga-Évolution ——
-        const [kx, ky] = ksPos(t), [mx, my] = msPos(t), ka = sstep((t - KS0) / 0.5) * (1 - sstep((t - (T_BURST - 0.05)) / 0.12));
-        if (t >= 92.3 && t < T_BURST) { // Pierre de Key + Méga-Gemme, reliées par des fils arc-en-ciel qui se tendent puis se resserrent
-          const th = sstep((t - 93.3) / 0.9), tc = 1 - sstep((t - 94.7) / 0.9);
-          rainbowThread(ctx, t, kx, ky, mx, my, th * (0.6 + 0.4 * tc), 0); rainbowThread(ctx, t + 0.4, kx, ky, mx, my, th * (0.6 + 0.4 * tc) * 0.9, 2.1);
-          stoneDraw(ctx, t, kx, ky, 1.0 + 0.2 * th, ka, 20); stoneDraw(ctx, t, mx, my, 0.8 + 0.3 * th, sstep((t - 92.8) / 0.5) * (1 - sstep((t - T_BURST + 0.1) / 0.1)), 200);
+        // —— Méga-Évolution (sans pierres) : une colonne multicolore opaque se dresse, la silhouette de Lucario s'y transforme, des éclairs arc-en-ciel la cernent ——
+        const cg = sstep((t - 92.9) / 0.8), cb = sstep((t - (T_BURST - 0.05)) / 0.5), cA = 0.98 * (1 - cb);
+        if (t >= 92.5 && t < T_BURST + 0.6) {
+          const gk = sstep((t - 92.5) / 0.6); ring(ctx, LUX, LUY + 6, 6 + 30 * gk + 6 * Math.sin(t * 9), 1.8, hueRgb((t * 140) % 360, 0.65), 0.9 * (1 - cb), 0.38); ring(ctx, LUX, LUY + 6, 3 + 20 * gk, 1.2, '255,255,255', 0.7 * (1 - cb), 0.38);
+          for (let i = 0; i < 14; i++) { const ph = (t * 0.8 + rnd(i, 71)) % 1, an = rnd(i, 72) * TAU; fx(ctx, 'sparkle', ph * 8, LUX + Math.cos(an) * (12 + 24 * ph), LUY + 6 - ph * (60 + 60 * rnd(i, 73)), 0.22, 0.9 * (1 - ph) * gk * (1 - cb), { add: true, tint: hueRgb((i * 37 + t * 90) % 360) }); }
+          megaColumn(ctx, t, LUX, LUY + 6, cg, cA, 66 * (1 + 0.9 * cb) + 2 * Math.sin(t * 17), 118);
+          const sm = sstep((t - 93.7) / 1.7), sa2 = sstep((t - 93.55) / 0.2) * (1 - sstep((t - (T_BURST - 0.02)) / 0.06));
+          silMorph(ctx, LUX, LUY - 2, 1.25 + 0.1 * sm + 0.015 * Math.sin(t * 22), sm + 0.015 * Math.sin(t * 13), sa2, t);
+          const bi = sstep((t - 93.0) / 0.9), fl = Math.floor(t * 24); // éclairs multicolores autour de la colonne
+          for (let i = 0; i < Math.round(2 + 3 * bi); i++) { const sd = fl * 17 + i, sg = rnd(sd, 1) < 0.5 ? -1 : 1, y0 = LUY - 4 - rnd(sd, 2) * 100 * cg, x0 = LUX + sg * (26 + rnd(sd, 3) * 6), x1 = x0 + sg * (22 + rnd(sd, 4) * 62), y1 = y0 + (rnd(sd, 5) - 0.5) * 56 + (rnd(sd, 6) < 0.3 ? 40 : 0);
+            rainbowBolt(ctx, boltShape(sd, x0, y0, x1, Math.min(y1, LUY + 14), 6, 12), (0.6 + 0.4 * rnd(sd, 7)) * bi * (1 - cb), 0.55, (rnd(sd, 8) * 360 + t * 200) % 360); }
+          for (let i = 0; i < Math.round(1 + 2 * bi); i++) { const sd = fl * 29 + i + 400, sg = i % 2 ? -1 : 1, hx = LUX + sg * (30 + rnd(sd, 1) * 50); rainbowBolt(ctx, boltShape(sd, LUX + sg * 6, LUY - 90 * cg, hx, LUY + 12, 8, 16), 0.7 * bi * (1 - cb), 0.5, (rnd(sd, 2) * 360 + t * 150) % 360); fx(ctx, 'sparkle', fl * 3 + i, hx, LUY + 12, 0.35, 0.8 * bi, { add: true, tint: hueRgb((rnd(sd, 3) * 360) % 360) }); }
         }
-        const sa = sstep((t - 94.2) / 1.0), sr = lerp(6, 36, sstep((t - 94.2) / 1.2)) * (1 + 0.04 * Math.sin(t * 12) + 0.1 * Math.max(0, (t - 95.2)) );
-        if (t >= 94.2 && t < T_BURST) { megaSphere(ctx, t, LUX, LUY - 20, sr, sa); glow(ctx, LUX, LUY - 20, sr * 1.2, '255,255,255', 0.5 * sstep((t - 94.8) / 0.8)); }
-        if (t >= 92.8 && t < T_BURST) for (let i = 0; i < 36; i++) { const ph2 = ((t * 0.7 + i / 36) % 1), r = (1 - ph2) * 48, an = (i % 2 ? 1 : -1) * ph2 * 9 + i * 0.7; fx(ctx, 'sparkle', ph2 * 8, LUX + Math.cos(an) * r, LUY - 22 + Math.sin(an) * r * 0.6, 0.22, 0.9 * ph2 * sstep((t - 92.8) / 1.0), { add: true, tint: hueRgb((i * 29 + t * 80) % 360) }); }
-        const bu = t - T_BURST; if (bu >= 0) { megaBurst(ctx, t, LUX, LUY, bu); if (bu < 2.4) { const sy = LUY - 56 - 8 * sstep(bu / 1.5), sA = sstep(bu / 0.35) * (1 - sstep((bu - 1.4) / 0.9)); megaSymbol(ctx, t, LUX, sy, 17 * (0.5 + 0.6 * sstep(bu / 0.5)), sA); } }
+        const bu = t - T_BURST; if (bu >= 0) { megaBurst(ctx, t, LUX, LUY, bu); if (bu < 2.4) { const sA = sstep((bu - 0.1) / 0.4) * (1 - sstep((bu - 1.6) / 0.8)); megaFlames(ctx, t, LUX, LUY - 62, 30, (bu - 0.1) / 1.8, sA); } }
       },
       screen(ctx, t) {
         particlesScreen(ctx, t, { n: 28, rgb: '230,220,255', a: 0.7, r: 1.8, vy: -1.0, add: true, tw: true });
@@ -787,7 +814,23 @@
         const sf = t - 95.7; if (sf > 0 && sf < 2.0) { const a = Math.sin(Math.PI * clamp(sf / 2.0, 0, 1)); fx(ctx, 'sunfl', sf * 8, W * 0.28, H * 0.14, 3.6, 0.45 * a, { add: true }); }
       },
     });
-    // 4d — Méga-Lucario au premier plan face à Darkrai : choc des sphères, explosion, retour au plan suivant
+    function realityCracks(ctx, cx, cy, k, ex, fade) { // la réalité se fend : fissures de verre noires à cœur blanc, franges arc-en-ciel
+      if (k <= 0.003 || fade <= 0.003) return; ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const N = 22, paths = [];
+      for (let i = 0; i < N; i++) { const base = (i / N) * TAU + (rnd(i, 91) - 0.5) * 0.25, L = (260 + rnd(i, 92) * 900) * k, pts = [[cx, cy]]; let x = cx, y = cy, an = base;
+        for (let j = 1; j <= 14; j++) { an += (rnd(i * 31 + j, 93) - 0.5) * 0.7; const st = L / 14 * (0.6 + rnd(i * 17 + j, 94) * 0.8); x += Math.cos(an) * st; y += Math.sin(an) * st; pts.push([x, y]);
+          if (j % 4 === 2 && rnd(i * 7 + j, 95) < 0.7) { let bx = x, by = y, ba = an + (rnd(i + j, 96) < 0.5 ? -1 : 1) * (0.7 + rnd(i + j, 97) * 0.6); const br = [[bx, by]]; for (let q = 0; q < 4; q++) { ba += (rnd(i * 5 + j + q, 98) - 0.5) * 0.8; bx += Math.cos(ba) * L / 14 * 0.7; by += Math.sin(ba) * L / 14 * 0.7; br.push([bx, by]); } paths.push([br, 0.5]); } }
+        paths.push([pts, 1]); }
+      const tr = (pts, dx, dy) => { ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0] + dx, p[1] + dy) : ctx.moveTo(p[0] + dx, p[1] + dy))); ctx.stroke(); };
+      ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = `rgba(2,0,10,${(0.9 * fade).toFixed(3)})`;
+      for (const [pts, w] of paths) { ctx.lineWidth = 9 * w; tr(pts, 0, 0); }
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < paths.length; i++) { const [pts, w] = paths[i], hh = (i * 37 + ex * 160) % 360;
+        ctx.strokeStyle = `rgba(${hueRgb(hh, 0.6)},${(0.8 * fade).toFixed(3)})`; ctx.lineWidth = 3 * w; tr(pts, 4, 1); ctx.strokeStyle = `rgba(${hueRgb((hh + 180) % 360, 0.6)},${(0.6 * fade).toFixed(3)})`; tr(pts, -4, -1);
+        ctx.strokeStyle = `rgba(255,255,255,${(0.95 * fade).toFixed(3)})`; ctx.lineWidth = 1.5 * w; tr(pts, 0, 0); }
+      ctx.restore();
+    }
+    // 4d — Méga-Lucario au premier plan face à Darkrai : choc des sphères, explosion sombre et lumineuse qui fracture la réalité, retour au plan suivant
     const CLX = 302, CLY = 160, TEXP = 103.3;
     SC.push({
       id: '4d', t0: 98, t1: 106, map: 'opm3', melee: true, grade: PAL_ARENA,
@@ -812,23 +855,33 @@
           strokeBolt(ctx, boltShape(Math.floor(t * 30), 222, 176, CLX, CLY, 7, 8), 0.7, 0.7); strokeBolt(ctx, boltShape(Math.floor(t * 30) + 9, 336, 150, CLX, CLY, 7, 8), 0.7, 0.7);
           ring(ctx, CLX, CLY, r * (1 + 0.3 * Math.sin(t * 20)), 1.6, '255,246,210', 0.7, 0.8);
         }
-        if (ex > 0) { // explosion : la boule de feu du météore RRT, ondes de choc, éclats, flammes
-          const e = clamp(ex / 1.6, 0, 1), ee = 1 - Math.pow(1 - e, 2.4);
-          glow(ctx, CLX, CLY, 40 + 420 * ee, '255,180,70', 0.9 * (1 - e * 0.5)); glow(ctx, CLX, CLY, 30 + 230 * ee, '255,246,200', 0.95 * (1 - e * 0.3));
-          fx(ctx, 'rrmet', ex * 12, CLX, CLY + 10, 0.25 + 1.5 * ee, 1 - 0.35 * e, {});
-          fx(ctx, 'rrmet', ex * 12 + 4, CLX, CLY, 0.15 + 1.05 * ee, 0.9, { add: true });
-          for (let i = 0; i < 3; i++) ring(ctx, CLX, CLY + 8, Math.max(0.5, ex - i * 0.12) * (260 + i * 60), 4 - i, i === 1 ? '255,230,160' : '255,250,230', 0.9 * Math.exp(-ex * 1.1), 0.5);
-          starBurst(ctx, CLX, CLY, 60 + 300 * ee, 0.9 * (1 - e), 14, ex * 0.5);
-          shardsW(ctx, CLX, CLY, ex * 1.4, 40, 77, ['#ffd45a', '#fff', '#ff8a3a', '#b46bff', '#6ae8ff'], 150, 4);
-          for (let i = 0; i < 9; i++) { const an = rnd(i, 5) * TAU, d = ee * (60 + rnd(i, 6) * 110); fx(ctx, 'flame', ex * 14 + i * 3, CLX + Math.cos(an) * d, CLY + Math.sin(an) * d * 0.55 + 12, 0.35 + 0.5 * ee, 0.9 * (1 - e * 0.8), { bottom: true }); }
-          if (ex < 0.4) hitFx(ctx, CLX, CLY, ex, 5, '255,240,180', 1.8);
+        if (ex > 0) { // explosion sombre et lumineuse : le vide avale la lumière, le noyau blanc-violet fracture la réalité, éclats et lueurs arc-en-ciel
+          const e = clamp(ex / 1.8, 0, 1), ee = 1 - Math.pow(1 - e, 2.2), R0 = 20 + 380 * ee;
+          ctx.save(); const gv = ctx.createRadialGradient(CLX, CLY, R0 * 0.1, CLX, CLY, R0); gv.addColorStop(0, 'rgba(2,0,8,0.95)'); gv.addColorStop(0.72, `rgba(8,0,22,${(0.95 * (1 - e * 0.3)).toFixed(3)})`); gv.addColorStop(1, 'rgba(30,0,60,0)');
+          ctx.fillStyle = gv; ctx.fillRect(CLX - R0, CLY - R0, R0 * 2, R0 * 2); ctx.restore();
+          for (let i = 0; i < 16; i++) { const an = rnd(i, 81) * TAU, d = ee * (40 + rnd(i, 82) * 150), sz = 0.5 + 0.8 * rnd(i, 83); const px = CLX + Math.cos(an) * d, py = CLY + Math.sin(an) * d * 0.62, rr = 18 * sz * (0.5 + ee), gs = ctx.createRadialGradient(px, py, 0, px, py, rr); gs.addColorStop(0, `rgba(6,0,16,${(0.8 * (1 - e * 0.6)).toFixed(3)})`); gs.addColorStop(1, 'rgba(6,0,16,0)'); ctx.fillStyle = gs; ctx.fillRect(px - rr, py - rr, rr * 2, rr * 2); }
+          const ia = I.megaShatter; // plaque générée : fissures arc-en-ciel et éclats de verre, additive
+          if (ia && ia.width) { const k = sstep(ex / 0.5), wd = lerp(120, 640, ee), hh = wd * ia.height / ia.width, fa = (1 - sstep((ex - 1.25) / 0.8));
+            ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true; ctx.translate(CLX, CLY); ctx.rotate(0.05 * Math.sin(ex * 5)); ctx.globalAlpha = clamp(0.8 * k * fa, 0, 1); ctx.drawImage(ia, -wd / 2, -hh / 2, wd, hh);
+            ctx.globalAlpha = clamp(0.5 * k * fa, 0, 1); ctx.rotate(0.3); ctx.drawImage(ia, -wd * 0.36, -hh * 0.36, wd * 0.72, hh * 0.72); ctx.restore(); }
+          glow(ctx, CLX, CLY, 24 + 95 * ee, '255,255,255', 0.9 * (1 - e * 0.85)); glow(ctx, CLX, CLY, 40 + 150 * ee, '150,70,255', 0.55 * (1 - e * 0.6));
+          for (let i = 0; i < 5; i++) glow(ctx, CLX + Math.cos(ex * 3 + i * 1.26) * 60 * ee, CLY + Math.sin(ex * 3 + i * 1.26) * 38 * ee, 50 + 90 * ee, hueRgb((i * 72 + ex * 160) % 360, 0.6), 0.2 * (1 - e * 0.7));
+          for (let i = 0; i < 4; i++) { const rr = Math.max(0.5, ex - i * 0.1) * (270 + i * 70);
+            ctx.save(); ctx.translate(CLX, CLY + 8); ctx.scale(1, 0.5); ctx.strokeStyle = `rgba(4,0,14,${(0.8 * Math.exp(-ex * 1.0)).toFixed(3)})`; ctx.lineWidth = 7 - i; ctx.beginPath(); ctx.arc(0, 0, rr, 0, TAU); ctx.stroke(); ctx.restore();
+            ring(ctx, CLX, CLY + 8, rr * 0.985, 2.4 - i * 0.3, hueRgb((i * 90 + ex * 120) % 360, 0.7), 0.9 * Math.exp(-ex * 1.1), 0.5); }
+          starBurst(ctx, CLX, CLY, 60 + 200 * ee, 0.5 * (1 - e), 14, ex * 0.5);
+          shardsW(ctx, CLX, CLY, ex * 1.4, 44, 77, ['#ffffff', '#b46bff', '#6ae8ff', '#ff7ad9', '#ffe45a', '#7dffa8'], 170, 4);
+          for (let i = 0; i < 22; i++) { const an = rnd(i, 85) * TAU, d = ee * (40 + rnd(i, 86) * 200), ph = (ex * 1.2 + rnd(i, 87)) % 1; fx(ctx, 'sparkle', ph * 8, CLX + Math.cos(an) * d, CLY + Math.sin(an) * d * 0.6, 0.25 + 0.35 * rnd(i, 88), (1 - e * 0.6) * (0.4 + 0.6 * ph), { add: true, tint: hueRgb((i * 47 + ex * 200) % 360) }); }
+          if (ex < 0.4) hitFx(ctx, CLX, CLY, ex, 5, '255,255,255', 1.1);
         }
       },
-      screen(ctx, t) {
+      screen(ctx, t, c) {
         particlesScreen(ctx, t, { n: 28, rgb: '255,230,150', a: 0.8, r: 1.8, vy: -1.0, add: true, tw: true });
         flash(ctx, 0.06 * boltFlash(t, 3), '170,120,255');
         const cl = t - 101; if (cl > 0 && t < TEXP) { speedLines(ctx, t, 30, W * 0.55, H * 0.5, '255,246,200', 0.12 + 0.3 * (cl / 2.3), 200 - 80 * (cl / 2.3)); flash(ctx, 0.12 * (cl / 2.3) * (0.5 + 0.5 * Math.sin(t * 40)), '255,240,200'); }
         const ex = t - TEXP; if (ex >= 0 && ex < 0.12) impactFrame(ctx, 1 - ex / 0.12);
+        if (ex > 0.03 && c) realityCracks(ctx, W / 2 + (CLX - c.cx) * c.S, H / 2 + (CLY - c.cy) * c.S, sstep(ex / 0.55), ex, 1 - sstep((t - 104.9) / 0.5));
+        if (ex > 0 && ex < 1.6) { const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 0.95); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, `rgba(6,0,18,${(0.75 * sstep(ex / 0.2) * (1 - sstep((t - 104.6) / 0.6))).toFixed(3)})`); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H); }
         flash(ctx, ex > 0 ? clamp(0.6 * Math.exp(-ex * 6) + 0.99 * sstep((t - 104.5) / 0.9), 0, 1) : 0, '255,250,235');
       },
     });
@@ -871,7 +924,7 @@
     SC.push({
       id: '6a', t0: 132, t1: 137, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(80,120,200)',
       cam: [[132, 288, 130, 1.6, 0.04], [137, 288, 160, 2.8, -0.02]],
-      actors: [{ id: 'evoli', pid: '0133', keys: [[132, 288, 152]], an: [[132, 'Sink', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],
+      actors: [{ id: 'evoli', pid: '0133', keys: [[132, 288, 152]], an: [[132, 'EventSleep', 0, { speed: 0.4 }], [133.5, 'Wake', 0, { loop: false, speed: 0.55 }], [135.1, 'DeepBreath', 0, { loop: false, speed: 0.8 }], [136.3, 'LookUp', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],
       props: [{ img: 'wfCyan', keys: [[132, 306, 150, 0]], s: 0.9 }],
       world(ctx, t, c, ph) { if (ph !== 'over') return; bubblesWorld(ctx, t, 26, 61, 200, 380, 40, 230, 1.0); sparklesWorld(ctx, t, 50, 62, 200, 40, 380, 230, '255,244,190', 1); },
       screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.6 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.3 * ra); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.35 * ra, { add: true }); },
@@ -880,8 +933,8 @@
       id: '6b', t0: 137, t1: 142, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(110,160,235)',
       cam: [[137, 288, 262, 1.5, 0.0], [142, 288, 40, 1.3, 0.0]],
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[137, 0, 0]], attach: [[137, 0, 14], [142, 0, 0]], an: [[137, 'Pose', 0, { loop: false, hold: 18 }], [140.6, 'Idle', 0]], noShadow: true, aura: '150,235,255', s: 1.3 },
-        { id: 'riolu', pid: '0447', keys: [[137, 0, 0]], attach: [[137, 6, -170], [140.1, 14, -40], [142, 14, -36]], an: [[137, 'Float', 0, { speed: 0.6 }], [139.6, 'Pull', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2, a: [[137, 0], [137.8, 1]] },
+        { id: 'evoli', pid: '0133', keys: [[137, 0, 0]], attach: [[137, 0, 14], [142, 0, 0]], an: [[137, 'LookUp', 0, { loop: false }], [138.4, 'Nod', 0, { loop: false }], [139.5, 'Hop', 0, { loop: false, speed: 0.8 }], [140.9, 'Pose', 0, { loop: true }]], noShadow: true, aura: '150,235,255', s: 1.3 },
+        { id: 'riolu', pid: '0447', keys: [[137, 0, 0]], attach: [[137, 6, -170], [140.1, 14, -40], [142, 14, -36]], an: [[137, 'Float', 0, { speed: 0.6 }], [139.0, 'Pull', 0, { loop: true }], [141.0, 'Pose', 0, { loop: true }]], noShadow: true, aura: '120,200,255', s: 1.2, a: [[137, 0], [137.8, 1]] },
       ],
       world(ctx, t, c, ph) {
         if (ph !== 'over') return; const ex = c.cx, ey = c.cy + lerp(14, 0, sstep((t - 137) / 5));
@@ -897,10 +950,11 @@
     SC.push({
       id: '6c', t0: 142, t1: 145.2, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
       cam: [[142, 288, 100, 1.0, 0.1], [144.5, 288, 105, 1.5, 0.0], [146.5, 288, 108, 2.8, -0.06]],
-      follow: ['riolu', 'evoli'],
+      follow: ['riolu', 'evoli', 'tiplouf'],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.0, 286, 98], [146.5, 286, 100]], an: [[142, 'LeapForth', 0, { loop: false }], [143.4, 'Charge', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
-        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
+        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.0, 286, 98], [146.5, 286, 100]], an: [[142, 'Pull', 0, { loop: true }], [143.5, 'Hop', 0, { loop: false }], [144.7, 'Pose', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
+        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Hop', 0, { loop: false }], [143.5, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
+        { id: 'tiplouf', pid: '0393', keys: [[142, 340, 190], [145.0, 304, 124], [146.5, 304, 124]], an: [[142, 'Hop', 6, { loop: false }], [143.5, 'Nod', 0, { loop: false }], [144.6, 'Pose', 0, { loop: true }]], noShadow: true, aura: '255,210,120' },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 145) / 1.5); glow(ctx, 288, 122, 160, '255,246,210', 0.25 + 0.6 * k); starBurst(ctx, 288, 122, 260, 0.6 * k, 12, t * 0.5); bubblesWorld(ctx, t, 34, 71, 180, 400, 0, 260, 1.4); sparklesWorld(ctx, t, 80, 72, 190, 0, 390, 260, '255,246,200', 1); },
       screen(ctx, t) { godRays(ctx, t, 0.45, W * 0.62, -30, 8, 0.8, H * 1.2, '255,240,190'); },
@@ -1031,8 +1085,11 @@
         rainbowHalo(ctx, ex, ey, sc * 27, u, pulse * kh, kh);
         if (kh < 1) matBurst(ctx, ex, ey, kh, null, sc * 0.6);
       }
-      ctx.save(); ctx.translate(ex, ey); ctx.rotate(Math.sin(u * 0.8) * 0.3 + u * 0.1); ctx.scale(sc, sc); ctx.imageSmoothingEnabled = false;
-      drawSprite(ctx, '0133', 'Pose', 4, Math.min(u * 60, 18), false, 0, 0, { noShadow: true, aura: '170,235,255' }); ctx.restore();
+      ctx.save(); ctx.translate(ex, ey); ctx.rotate(Math.sin(u * 0.8) * 0.3 * (u < 3.4 ? 0.5 : 1) + u * 0.1 * sstep((u - 3.4) / 1)); ctx.scale(sc, sc); ctx.imageSmoothingEnabled = false;
+      { const tinf = animInfo('0133', 'Tumble'), TT_ = 3.4; // culbute en chute libre (une seule fois, sans boucle) puis pose de face, bras ouverts
+        if (tinf && u < TT_) { let tot = 0; for (const q of tinf.durations) tot += q; drawSprite(ctx, '0133', 'Tumble', 0, u / TT_ * tot, false, 0, 0, { noShadow: true, aura: '170,235,255' }); }
+        else drawSprite(ctx, '0133', 'Pose', 0, Math.min((u - TT_) * 60, 18), false, 0, 0, { noShadow: true, aura: '170,235,255' }); }
+      ctx.restore();
       particlesScreen(ctx, t, { n: 36, rgb: '255,250,230', a: 0.8, r: 2, vy: -4, add: true, tw: true });
       if (C.fadeIn) { ctx.fillStyle = 'rgba(0,0,0,' + (1 - sstep(u / C.fadeIn)).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
       if (C.end === 'white') flash(ctx, sstep((t - (C.t1 - 0.8)) / 0.8)); else if (C.end === 'black') { ctx.fillStyle = 'rgba(0,0,0,' + sstep((t - (C.t1 - 1.2)) / 1.2).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
@@ -1063,8 +1120,9 @@
       id: 'SP', t0: 145.2, t1: TITLE_T, map: 'opm5', free: true, bg: '#2c70e0',
       cam: [[145.2, 128, 494, 1.7, 0.0], [146.5, 128, 486, 1.6, 0.0], [147.3, 128, 270, 1.35, 0.0], [148, 128, 110, 1.27, 0.0]],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[145.2, 108, 484]], an: [[145.2, 'LookUp', 4, { loop: false }]], ys: 0 },
-        { id: 'evoli', pid: '0133', keys: [[145.2, 142, 490]], an: [[145.2, 'LookUp', 4, { loop: false }]] },
+        { id: 'riolu', pid: '0447', keys: [[145.2, 98, 486]], an: [[145.2, 'Idle', 4], [145.5, 'LookUp', 4, { loop: false }], [146.8, 'Hop', 4, { loop: false }]], ys: 0 },
+        { id: 'tiplouf', pid: '0393', keys: [[145.2, 127, 493]], an: [[145.2, 'Idle', 4], [145.7, 'LookUp', 4, { loop: false }], [146.9, 'Hop', 4, { loop: false }]], ys: 0 },
+        { id: 'evoli', pid: '0133', keys: [[145.2, 156, 488]], an: [[145.2, 'Idle', 4], [145.6, 'LookUp', 4, { loop: false }], [146.85, 'Hop', 4, { loop: false }]] },
       ],
       draw(ctx, t, c) { layer(ctx, 'skyPeak', 0, 0); glow(ctx, 128, 70, 120, '255,250,220', 0.5); starBurst(ctx, 128, 70, 140, 0.5, 8, t * 0.2); },
       world(ctx, t, c, ph) { if (ph === 'over') petals(ctx, t, 40, 30, 230, c.cy - 80, c.cy + 80, 9); },

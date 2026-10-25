@@ -135,17 +135,7 @@ def patch_skyfall(spr: str) -> str:
     return patch_ending(spr)
 
 
-# Gestes de la fin (plans 6a → 6c) : le héros lève les yeux, tend la main, attrape ; Riolu tire, Tiplouf les rejoint (animations réelles des planches PMDO)
-ENDING_PATCHES = [
-    ("an: [[132, 'Sink', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],",
-     "an: [[132, 'Sink', 0, { loop: false }], [133.5, 'LookUp', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],"),
-    ("an: [[137, 'Pose', 0, { loop: false, hold: 18 }], [140.6, 'Idle', 0]], noShadow: true, aura: '150,235,255', s: 1.3 },",
-     "an: [[137, 'LookUp', 0, { loop: false }], [138.9, 'Hop', 2, { loop: false }], [140.2, 'Swing', 0, { loop: false }], [141.1, 'Pose', 0, { loop: false }]], noShadow: true, aura: '150,235,255', s: 1.3 },"),
-    ("an: [[137, 'Float', 0, { speed: 0.6 }], [139.6, 'Pull', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2,",
-     "an: [[137, 'Float', 0, { speed: 0.6 }], [139.0, 'Pull', 0, { loop: true }], [141.2, 'Pose', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2,"),
-    ("an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },\n      ],",
-     "an: [[142, 'Hop', 2, { loop: false }], [143.4, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },\n        { id: 'tiplouf', pid: '0393', keys: [[142, 340, 190], [145.0, 304, 124], [146.5, 304, 124]], an: [[142, 'Hop', 6, { loop: false }], [143.4, 'Pose', 0, { loop: true }]], noShadow: true, aura: '255,210,120' },\n      ],"),
-]
+ENDING_PATCHES: list = []  # les gestes de la fin (réveil, hélice, trio Riolu · Évoli · Tiplouf) sont désormais dans le moteur sprites
 
 
 def patch_ending(spr: str) -> str:
