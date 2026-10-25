@@ -69,11 +69,13 @@ class TestOpeningUltime(unittest.TestCase):
         self.assertIn("function fBeach(", self.eng)
         self.assertNotIn("beachSky", self.eng)
         self.assertEqual(len(re.findall(r"function flock\(", self.eng)), 1)  # un seul groupe
-        self.assertEqual(self.eng.count("flock(ctx, t, 0.2"), 1)
+        self.assertEqual(self.eng.count("flock(ctx, t, seaTop"), 1)
         self.assertIn("'0278', 'Hover', 2", self.eng)  # vrais sprites Goélise
         self.assertIn("'0279', 'Walk', 2", self.eng)  # Bekipan de profil
         self.assertIn("function wfPos(", self.eng)  # l'étoile-badge tombe en dernier sur le logo
         self.assertIn("starPath(ctx, LX(), LY(), R, rot); ctx.clip();", self.eng)  # l'étoile ouvre la scène suivante
+        self.assertIn("function tide(", self.eng)  # marée animée sur le sable
+        self.assertIn("fx(ctx, 'bubble', 6 + ", self.eng)  # éclatement des bulles (sprite généré)
         self.assertIn("function logoDraw(", self.eng)  # logo généré : construction en vague + reflet
         self.assertIn("BUBBLES.forEach", self.eng)  # bulles animées (remontée, balancement, bouclage)
         self.assertIn("function skyFallDecor(", self.html)  # chute dans le ciel : décor généré multicalque

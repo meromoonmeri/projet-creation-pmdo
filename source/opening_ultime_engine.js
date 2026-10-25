@@ -504,12 +504,12 @@
 
     // ---------- Plage de PMD Sky : textures canoniques (mer au soleil couchant + sable, écume et rochers) · caméra qui s'incline du ciel vers la plage ----------
     const SEA_S = 2.581, SAND_S = 5.254, SEA_OV = 120, TILT0 = 23.6, TILT1 = 27.4;
-    const LGS = 1.7, LGY = 58, LGPAD = 90, LGSTRIP = 5; // logo généré (448×241 px) affiché ×1,7 ; marge haute pour la chute des bandes
+    const LGS = 1.5, LGY = 58, LGPAD = 90, LGSTRIP = 5; // logo généré (448×241 px) affiché ×1,7 ; marge haute pour la chute des bandes
     let LG2 = null, LG2X = null;
     const BUBBLES = [[66, 30, 15], [252, 62, 32], [462, 50, 21], [198, 115, 15], [248, 230, 22], [95, 350, 16], [472, 330, 15], [85, 440, 38], [404, 428, 31], [295, 485, 16], [160, 555, 49], [323, 603, 37], [4, 587, 14], [418, 542, 16], [188, 718, 22], [355, 705, 16]]; // [x, y, rayon] dans la texture
-    const lgDim = () => { const L = I.pmdLogo; return L && L.width ? [L.width, L.height] : [448, 241]; };
+    const lgDim = () => { const L = I.pmdLogo; return L && L.width ? [L.width, L.height] : [520, 282]; };
     const LGX = () => (W - lgDim()[0] * LGS) / 2;
-    const LX = () => LGX() + 0.84 * lgDim()[0] * LGS, LY = () => LGY + 0.2 * lgDim()[1] * LGS, TL = 30.0; // l'étoile-badge atterrit sur le logo à la mesure 64 (30,0 s)
+    const LX = () => LGX() + 0.8 * lgDim()[0] * LGS, LY = () => LGY + 0.16 * lgDim()[1] * LGS, TL = 30.0; // l'étoile-badge atterrit sur le logo à la mesure 64 (30,0 s)
     const IR0 = 30.4688, IR1 = 31.55; // l'étoile s'ouvre sur la course lunaire (mesure 65 → 31,5 s)
     let SANDC = null;
     function sandPlate() { // sable : le haut est fondu avec le bas de la mer du couchant (dégradé tramé)
@@ -528,7 +528,7 @@
       c.restore();
       const kk = clamp((t - T0) / 1.4, 0, 1); glow(ctx, W / 2, LGY + h * LGS / 2, 560, '255,230,150', 0.34 * Math.sin(Math.PI * kk));
       ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(LG2, 0, 0, w, h + LGPAD, LGX(), LGY - LGPAD * LGS, w * LGS, (h + LGPAD) * LGS); ctx.restore();
-      if (t > T0 + 1.2) for (let j = 0; j < 4; j++) { const P = [[0.2, 0.86], [0.8, 0.86], [0.5, 0.12], [0.36, 0.5]][j]; fx(ctx, 'sparkle', ((t * 1.1 + j * 0.27) % 1) * 8, LGX() + P[0] * w * LGS, LGY + P[1] * h * LGS, 0.55, 0.95, { add: true, tint: '255,240,170' }); }
+      if (t > T0 + 1.2) for (let j = 0; j < 4; j++) { const P = [[0.14, 0.4], [0.9, 0.42], [0.5, 0.08], [0.27, 0.57]][j]; fx(ctx, 'sparkle', ((t * 1.1 + j * 0.27) % 1) * 8, LGX() + P[0] * w * LGS, LGY + P[1] * h * LGS, 0.55, 0.95, { add: true, tint: '255,240,170' }); }
     }
     function wfPos(t) { // trajet du badge-étoile (espace écran) : il arrive en volant, se tient au-dessus de Riolu, s'élève hors champ, puis TOMBE sur le logo en dernier
       if (t < 23.3) return null;
@@ -542,10 +542,29 @@
     // UN SEUL groupe — un Bekipan (sprite PMDO de profil) mène cinq Goélise (sprites PMDO) — qui voyage au loin vers la droite en rapetissant
     const FLOCK = [[-110, -38, 3.9, 0], [-126, 46, 3.8, 4], [-224, -82, 4.0, 8], [-242, 88, 3.7, 2], [-346, -120, 3.9, 6]]; // [dx, dy, échelle, phase]
     function flock(ctx, t, dyScroll) {
-      const u = t - 20.2, sc = 1 - 0.03 * Math.max(0, u), fx0 = -230 + u * 190, fy0 = 300 + Math.sin(t * 0.9) * 5 - dyScroll;
-      if (u < 0 || fx0 - 300 > W + 100 || fy0 < -200) return;
+      const u = t - 20.2, sc = 1 - 0.03 * Math.max(0, u), fx0 = -230 + u * 240, fy0 = dyScroll + Math.sin(t * 0.9) * 5;
+      if (u < 0 || fx0 - 300 > W + 100) return;
       spr(ctx, '0279', 'Walk', 2, t * 60 * 0.8, fx0, fy0 + Math.sin(t * 3.6) * 3, 4.4 * sc, { fly: true });
       FLOCK.forEach((F, i) => spr(ctx, '0278', 'Hover', 2, t * 60 * 0.8 + F[3] * 3, fx0 + F[0] * sc, fy0 + F[1] * sc + Math.sin(t * 2.2 + i * 1.9) * 4, F[2] * sc, { fly: true }));
+    }
+    // Marée : l'eau monte sur le sable et se retire (frange d'écume en blocs de pixels, 2 vagues déphasées, sable mouillé qui sèche) + bandes de lumière qui glissent sur la mer
+    const SHORE = 396, TIDEW = 900;
+    function tideEdge(t, ph, x) { return SHORE + 46 + 44 * Math.sin(t * 1.15 - ph) + Math.sin(x * 0.011 + t * 0.9 + ph) * 7 + Math.sin(x * 0.027 - t * 1.3) * 3; }
+    function tide(ctx, t) {
+      ctx.save();
+      for (let k = 0; k < 7; k++) { const y = 20 + ((t * 20 + k * 48) % 330); ctx.globalAlpha = 0.07 + 0.05 * Math.sin(t * 1.3 + k); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgb(120,200,255)'; ctx.fillRect(0, Math.round(y / 5) * 5, 1280, 5); }
+      ctx.globalCompositeOperation = 'source-over';
+      const wetY = SHORE + 62 + 26 * Math.sin(t * 1.15 - 0.9);
+      for (let x = 0; x < TIDEW; x += 5) { const fall = 1 - sstep((x - 700) / 200); if (fall <= 0.01) continue;
+        const y1 = Math.round(tideEdge(t, 0, x) / 5) * 5, y2 = Math.round(tideEdge(t, 0.9, x) / 5) * 5 - 20;
+        ctx.globalAlpha = 0.2 * fall; ctx.fillStyle = 'rgb(120,86,40)'; ctx.fillRect(x, SHORE, 5, Math.max(0, wetY - SHORE + Math.sin(x * 0.02) * 10));
+        ctx.globalAlpha = 0.5 * fall; ctx.fillStyle = 'rgb(120,200,225)'; ctx.fillRect(x, SHORE - 10, 5, Math.max(0, y1 - SHORE + 10));
+        ctx.globalAlpha = 0.3 * fall; ctx.fillStyle = 'rgb(150,215,235)'; ctx.fillRect(x, SHORE - 10, 5, Math.max(0, y2 - SHORE + 10));
+        ctx.globalAlpha = 0.95 * fall; ctx.fillStyle = '#fff'; ctx.fillRect(x, y1, 5, 10); ctx.fillStyle = 'rgb(205,235,245)'; ctx.fillRect(x, y1 + 10, 5, 5);
+        ctx.globalAlpha = 0.7 * fall; ctx.fillStyle = '#fff'; ctx.fillRect(x, y2, 5, 5);
+        if (((x * 7 + Math.floor(t * 3)) % 23) === 0) { ctx.globalAlpha = 0.9 * fall; ctx.fillStyle = '#fff'; ctx.fillRect(x, y1 + 15, 5, 5); }
+      }
+      ctx.restore();
     }
     function fBeach(ctx, t) {
       const u = t - 20, sea = I.beachSea, sandI = I.beachSand; if (!sea || !sandI) return;
@@ -562,25 +581,29 @@
       if (bb && bb.width) {
         ctx.save(); ctx.imageSmoothingEnabled = false; const per = bb.height + 110;
         BUBBLES.forEach((B, i) => {
-          const r = B[2] + 3, sp = 9 + (i % 5) * 4.5, sc = SEA_S * (0.8 + 0.3 * ((i * 7) % 5) / 4);
+          const r = B[2] + 3, sp = 9 + (i % 5) * 4.5, sc = SEA_S * (0.8 + 0.3 * ((i * 7) % 5) / 4), pr = B[1] - (18 + 45 * rnd(i, 21)); // pr : rangée où la bulle éclate
           let row = (((B[1] - u * sp) % per) + per) % per; if (row > bb.height + 55) row -= per;
-          const sx = Math.max(0, B[0] - r), sy = Math.max(0, B[1] - r), sw2 = Math.min(bb.width, B[0] + r) - sx, sh2 = Math.min(bb.height, B[1] + r) - sy;
           const cx = B[0] * SEA_S + Math.sin(u * 0.8 + i * 1.7) * 14, cy = seaTop + row * SEA_S;
+          if (row < pr) { const d = (pr - row) / sp; // éclatement : 4 images du sprite de bulle générée + étincelles + anneau
+            if (d < 0.36) { fx(ctx, 'bubble', 6 + Math.min(3, Math.floor(d / 0.09)), cx, cy, r * 2 * sc / 20, 1 - d / 0.5); ring(ctx, cx, cy, d * 260, 1.5, '210,245,255', 0.8 * (1 - d / 0.36), 1);
+              for (let j = 0; j < 6; j++) { const a = j / 6 * TAU + i; fx(ctx, 'sparkle', (d * 20 + j) % 8, cx + Math.cos(a) * d * 330, cy + Math.sin(a) * d * 330, 0.3, 1 - d / 0.36, { add: true }); } }
+            return; }
+          const sx = Math.max(0, B[0] - r), sy = Math.max(0, B[1] - r), sw2 = Math.min(bb.width, B[0] + r) - sx, sh2 = Math.min(bb.height, B[1] + r) - sy;
           ctx.drawImage(bb, sx, sy, sw2, sh2, cx + (sx - B[0]) * sc, cy + (sy - B[1]) * sc, sw2 * sc, sh2 * sc);
         });
         ctx.restore();
       }
       const sp = sandPlate(); if (sp) {
         ctx.drawImage(sp, -1, 0);
-        const fr = 58, fh = 22; for (let b = 0; b < 2; b++) { const ox = Math.round(Math.sin(t * 1.4 + b * 2) * 1.6 + Math.sin(t * 0.7) * 1.2); ctx.save(); ctx.globalAlpha = 0.5; ctx.drawImage(sandI, 0, fr, 150, fh, -1 + ox * SAND_S, fr * SAND_S + b * 3, 150 * SAND_S, fh * SAND_S); ctx.restore(); }
+        tide(ctx, t);
         [[300, 0.0], [1010, 0.5], [640, 0.9]].forEach((q) => { const sf = Math.floor((t + q[1]) * 7) % 16; if (sf < 8) fx(ctx, 'splash', sf, q[0], 392, 1.3, 0.8, { bottom: true }); });
         for (let i = 0; i < 16; i++) fx(ctx, 'sparkle', ((t * 0.8 + rnd(i, 13)) % 1) * 8, 60 + rnd(i, 11) * 1160, 60 + rnd(i, 12) * 220, 0.24, 0.85, { add: true });
       }
-      const xs = [840, 560, 700], gy = [770, 766, 780];
+      flock(ctx, t, seaTop + 770); // les oiseaux sont dans le ciel du décor : quand la caméra descend ils sortent du champ par le haut
+      const xs = [840, 560, 700], gy = [796, 792, 806];
       spr(ctx, '0393', 'Idle', 6, (t - 20) * 60, xs[0], gy[0], 5.2); spr(ctx, '0133', 'Idle', 6, (t - 20) * 60 + 11, xs[2], gy[2], 5.2);
       const rp = u > 8 ? 'Pose' : 'Idle'; spr(ctx, '0447', rp, 6, u > 8 ? (u - 8) * 60 : u * 60, xs[1], gy[1], 5.2, { loop: u <= 8 });
       ctx.restore();
-      flock(ctx, t, 0.2 * (Yc - Y0));
       petalWind(ctx, t, Math.round(60 * sstep((t - 24) / 4)), 5, -1, 60, 0.07, 1.6);
       godRays(ctx, t, 0.2, W * 0.5, -30, 6, 0.9, H * 1.3, '255,214,150');
       const env = sstep((t - 27.2) / 0.8); if (env > 0.003) { ctx.save(); ctx.fillStyle = 'rgba(10,20,60,' + (0.34 * env).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); ctx.restore(); }

@@ -57,9 +57,9 @@ if __name__ == "__main__":
     print(build())
 
 
-def logo(width: int = 448) -> dict:
+def logo(width: int = 520, fname: str = "logo_destiny_super_gen.png") -> dict:
     """Logo « Pokémon Mystery Dungeon : DESTINY » généré (ruban doré) : clé magenta retirée, réduit en pixel-art (alpha binaire, palette 96 couleurs)."""
-    src = Image.open(B / "logo_destiny_gen.png").convert("RGB")
+    src = Image.open(B / fname).convert("RGB")
     a = np.asarray(src).astype(np.int32)
     key = (a[..., 0] > 190) & (a[..., 2] > 190) & (a[..., 1] < 140) & (a[..., 0] - a[..., 1] > 90) & (a[..., 2] - a[..., 1] > 90)
     key = ndi.binary_dilation(key, iterations=1)  # retire la frange rose
@@ -72,7 +72,9 @@ def logo(width: int = 448) -> dict:
     op = al >= 128
     rgb = Image.fromarray(np.dstack([r, g, b]).astype(np.uint8), "RGB").quantize(colors=96, method=Image.MEDIANCUT, dither=Image.NONE).convert("RGB")
     out = np.dstack([np.asarray(rgb), np.where(op, 255, 0).astype(np.uint8)])
-    leak = ((out[..., 0] > 200) & (out[..., 2] > 200) & (out[..., 1] < 90) & op).sum()
+    lk = (out[..., 0] > 200) & (out[..., 2] > 200) & (out[..., 1] < 90)
+    out[..., 3] = np.where(lk, 0, out[..., 3])  # retire les rares pixels résiduels de la clé
+    leak = ((out[..., 0] > 200) & (out[..., 2] > 200) & (out[..., 1] < 90) & (out[..., 3] == 255)).sum()
     assert leak == 0, f"{leak} px magenta"
     Image.fromarray(out, "RGBA").save(B / "pmd_logo_destiny.png")
     return {"size": (width, h), "leak": int(leak)}
