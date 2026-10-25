@@ -283,7 +283,7 @@ def export_pmd_sprites_and_manifest() -> dict:
         catalog["credits_summary"].append({"id": pid, "name": label, "authors": authors})
         catalog["pokemon"][pid] = {"name": label, "anims": anim_meta, "portraits": pt_meta, "authors": authors}
 
-        if pid in ("0253", "0571"):
+        if pid in ("0253", "0571", "0447", "0393"):
             sh_id = f"shadow_{pid}"
             dst_sh = PMD_OUT_DIR / sh_id
             dst_sh.mkdir(parents=True, exist_ok=True)

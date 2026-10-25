@@ -269,7 +269,7 @@ def build_embedded_assets() -> Dict[str, str]:
 
 TEMPLATE_PATH = SOURCE_DIR / "opening_aaa_template.html"
 ENGINE_PATH = SOURCE_DIR / "opening_aaa_engine.js"
-OUT_HTML = REPO_ROOT / "apercu_fangame_pmd_destiny.html"
+OUT_HTML = REPO_ROOT / "apercu_fangame_pmd_destiny_aaa_illustre.html"
 DURATION_S = 153.0
 
 

@@ -15,7 +15,7 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parent
-HTML = REPO_ROOT / "apercu_fangame_pmd_destiny.html"
+HTML = REPO_ROOT / "apercu_fangame_pmd_destiny_aaa_illustre.html"
 AAA = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1" / "opening_cinema_aaa"
 
 

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pokémon Mystery Dungeon : Destiny — Opening Cinématique Sprites PMDO (02:33)</title>
+<style>
+  :root { --bg:#04091a; --panel:#0b1530; --panel2:#132349; --border:#284785; --gold:#fbbf24; --gold2:#fde68a; --cyan:#38bdf8; --text:#eef5ff; --muted:#9db6e0; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--text); min-height:100vh;
+    background: radial-gradient(circle at 50% 0%, #11265a 0%, var(--bg) 62%); display:flex; flex-direction:column; align-items:center; }
+  header { width:100%; padding:10px 18px; border-bottom:1px solid var(--border); background:rgba(5,10,24,.95);
+    display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; text-align:center; }
+  header h1 { margin:0; font-size:1.05rem; color:var(--gold2); }
+  header .sub { font-size:.78rem; color:var(--muted); margin-top:2px; }
+  .nav { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; }
+  .nav a { text-decoration:none; color:var(--text); background:var(--panel2); border:1px solid var(--border); padding:6px 11px; border-radius:8px; font-size:.78rem; font-weight:600; }
+  .nav a:hover { border-color:var(--cyan); }
+  main { width:100%; max-width:1180px; padding:14px 12px 40px; display:flex; flex-direction:column; gap:16px; align-items:center; }
+  .card { width:100%; background:linear-gradient(180deg, rgba(14,27,58,.96), rgba(8,16,36,.98)); border:1px solid var(--border); border-radius:16px; padding:14px; box-shadow:0 20px 50px rgba(0,0,0,.6); }
+  .stage { position:relative; width:100%; aspect-ratio:16/9; background:#000; border-radius:10px; overflow:hidden; border:2px solid #1f3a73; }
+  .stage canvas { width:100%; height:100%; display:block; }
+  .overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:rgba(2,6,16,.82); text-align:center; padding:20px; }
+  .overlay.hidden { display:none; }
+  .overlay h2 { margin:0; color:var(--gold2); font-size:1.3rem; }
+  .overlay p { margin:0; color:var(--muted); font-size:.85rem; }
+  .bar { height:6px; width:min(380px,70%); background:#13224a; border-radius:5px; overflow:hidden; }
+  .bar > i { display:block; height:100%; width:0%; background:linear-gradient(90deg,#38bdf8,#fbbf24); transition:width .15s; }
+  .sound-chip { position:absolute; right:12px; top:12px; background:rgba(5,12,30,.78); border:1px solid #fbbf24; color:var(--gold2); border-radius:999px; padding:6px 13px; font-size:.78rem; font-weight:700; cursor:pointer; }
+  .sound-chip.hidden { display:none; }
+  .ctrls { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-top:11px; }
+  button.c { cursor:pointer; padding:7px 13px; border-radius:9px; border:1px solid var(--border); background:var(--panel2); color:var(--text); font-weight:600; font-size:.8rem; }
+  button.c:hover { border-color:var(--cyan); background:#1a3163; }
+  button.c.on { border-color:var(--gold); color:var(--gold2); background:linear-gradient(180deg,#27488a,#193161); }
+  button.c.prim { background:linear-gradient(180deg,#38bdf8,#0284c7); border-color:#bae6fd; color:#041326; font-weight:800; }
+  button.c.yt { background:linear-gradient(180deg,#f43f5e,#be123c); border-color:#fecdd3; color:#fff; font-weight:700; }
+  .scrub { display:flex; align-items:center; gap:10px; margin-top:11px; }
+  .scrub input { flex:1; accent-color:#fbbf24; }
+  .scrub .tm { font-variant-numeric:tabular-nums; font-size:.85rem; color:var(--gold2); min-width:96px; text-align:right; }
+  .chaps { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center; }
+  .chaps button { cursor:pointer; padding:5px 10px; font-size:.74rem; border-radius:7px; border:1px solid var(--border); background:#0e1d3f; color:var(--muted); }
+  .chaps button.cur { border-color:var(--gold); color:var(--gold2); background:#1b3166; }
+  .status { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:10px; font-size:.74rem; color:var(--muted); }
+  .pill { background:#0e1d3f; border:1px solid #223a73; border-radius:999px; padding:3px 10px; }
+  .pill b { color:var(--gold2); }
+  .ytbox { margin-top:10px; display:none; }
+  .ytbox.on { display:block; }
+  .ytbox #ytSlot { width:100%; max-width:420px; aspect-ratio:16/9; margin:0 auto; }
+  .grid2 { display:grid; grid-template-columns:1.2fr 1fr; gap:14px; width:100%; }
+  @media (max-width:900px){ .grid2 { grid-template-columns:1fr; } }
+  h2.t { margin:0 0 8px; font-size:1rem; color:var(--gold2); }
+  table.shots { width:100%; border-collapse:collapse; font-size:.78rem; }
+  table.shots th, table.shots td { text-align:left; padding:5px 7px; border-bottom:1px solid #1d3263; vertical-align:top; }
+  table.shots th { color:var(--gold2); }
+  table.shots td:first-child { white-space:nowrap; color:var(--cyan); font-variant-numeric:tabular-nums; }
+  img.sheet { width:100%; border-radius:8px; border:1px solid #223a73; display:block; }
+  .small { font-size:.76rem; color:var(--muted); line-height:1.5; }
+  ul.s { margin:6px 0 0 18px; padding:0; font-size:.78rem; color:#cfe0ff; line-height:1.55; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Pokémon Mystery Dungeon : Destiny — Opening Animé Image par Image</h1>
+    <div class="sub">Sprites PMDO SpriteCollab animés image par image · caméra immersive · 1280×720 · 60 FPS · durée exacte <b>02:33</b> = vidéo de référence « Simple and Clean -Ray of Hope MIX- » · 100 % Pokémon</div>
+  </div>
+  <div class="nav">
+    <a href="index.html">← Galerie Studio</a>
+    <a href="apercu_fangame_pmd_destiny_aaa_illustre.html">Version plans illustrés</a>
+    <a href="apercu_fangame_pmd_destiny_pixel_opm.html">Opening pixel OPM</a>
+    <a href="apercu_destiny_chapitre2_pmdo.html">Chapitre II</a>
+    <a href="apercu_destiny_chapitre1_pmdo.html">Chapitre I</a>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <div class="stage" id="stage">
+      <canvas id="cv" width="1280" height="720"></canvas>
+      <div class="sound-chip hidden" id="soundChip">🔊 Cliquez pour activer le son</div>
+      <div class="overlay" id="loading">
+        <h2>Pokémon Mystery Dungeon : Destiny</h2>
+        <p id="loadMsg">Chargement de la cinématique…</p>
+        <div class="bar"><i id="loadBar"></i></div>
+      </div>
+      <div class="overlay hidden" id="endOv"></div>
+    </div>
+
+    <div class="scrub">
+      <button class="c prim" id="bPlay">⏸ Pause</button>
+      <input type="range" id="scrub" min="0" max="15300" value="0" />
+      <div class="tm" id="tm">00:00 / 02:33</div>
+    </div>
+    <div class="chaps" id="chaps"></div>
+    <div class="ctrls">
+      <button class="c" id="bRestart">⏮ Relancer depuis 00:00</button>
+      <button class="c on" id="bSound">🔊 Son : synthé 128 BPM</button>
+      <button class="c yt" id="bYT">▶ Synchro YouTube (2aafI3XvKxo)</button>
+      <label class="c" style="display:inline-flex;align-items:center;cursor:pointer;">📂 Audio local<input type="file" id="fileAudio" accept="audio/*" style="display:none" /></label>
+      <button class="c" id="bTitle">🎮 Écran-titre direct</button>
+      <button class="c" id="bFlap">🪽 Battre des ailes</button>
+      <button class="c on" id="bDay">☀️ Jour</button>
+      <button class="c" id="bNight">🌙 Nuit</button>
+      <button class="c" id="bFull">⛶ Plein écran</button>
+    </div>
+    <div class="status">
+      <span class="pill">Plan : <b id="lblShot">—</b></span>
+      <span class="pill">Horloge : <b id="lblClock">0.00 s / 153.00 s</b></span>
+      <span class="pill">Ailes : <b id="lblWing">0.0°</b></span>
+      <span class="pill">Logo : <b>(W/2, H/2) = (640, 360)</b></span>
+    </div>
+    <div class="ytbox" id="ytBox"><div id="ytSlot"></div></div>
+    <audio id="aud" preload="auto" style="display:none"></audio>
+    <p class="small" style="text-align:center;margin:8px 0 0;">Raccourcis : <b>Espace</b> pause · <b>R</b> relancer · <b>M</b> son · <b>F</b> plein écran. Toutes les images sont intégrées dans cette page (aucun fichier externe requis) : la cinématique démarre immédiatement dans n'importe quel visualiseur.</p>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2 class="t">Découpage plan par plan (calé sur la vidéo de référence)</h2>
+      <table class="shots">
+        <tr><th>Temps</th><th>Séquence (sprites PMDO + caméra)</th></tr>
+        <tr><td>00:00 – 00:24</td><td><b>Fond de l'océan ↔ rivage</b> : grue montante sur la dalle abyssale, Wayfinder au sol, Manaphy qui nage ; travelling bas sur la plage où <b>Riolu, Évoli et Tiplouf</b> jouent (Walk / Hop / Swing) ; très gros plan, Riolu <i>LookUp → Pose → Pull</i> vers l'eau ; le Wayfinder s'embrase.</td></tr>
+        <tr><td>00:24 – 00:46</td><td><b>Chute arrière &amp; Vitrail</b> : Évoli en <i>Sink</i> avec rotation, dérive scintillante, Celebi, le vitrail s'allume, caméra en orbite avec roulis.</td></tr>
+        <tr><td>00:46 – 01:08</td><td><b>Trois Wayfinders plongent</b> dans la mer (deux éclatent, un coule) ; Évoli le reprend ; puis les <b>13 sièges de ténèbres</b> s'embrasent un à un.</td></tr>
+        <tr><td>01:08 – 01:46</td><td><b>Mêlée dans l'Arène Eau-Miroir</b> : Évoli contre ses doubles corrompus (Riolu &amp; Tiplouf <i>ombres</i>), <i>hit-stop</i> + impact frames sur chaque coup ; <b>Lucario</b> jaillit du vitrail ; Darkrai entre en scène.</td></tr>
+        <tr><td>01:46 – 02:12</td><td><b>Chute céleste</b> : les trois (+ Latias &amp; Latios) tombent en sprites pivotés, onde noire à 01:58, deux <b>sphères-barrières</b> protègent Riolu et Tiplouf, Évoli sombre.</td></tr>
+        <tr><td>02:12 – 02:33</td><td><b>Rayon d'Espoir</b> : fond de l'abysse, reflet dans la pupille, Riolu plonge la patte, saisie, remontée dans l'écume → <b>écran-titre</b>, logo plein centre.</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2 class="t">Contact-sheet des plans</h2>
+      <img class="sheet" id="sheetImg" alt="Planche storyboard de la cinématique" />
+      <ul class="s">
+        <li><b>Vrais sprites PMDO</b> (PMDCollab/SpriteCollab) : durées <code>AnimData</code> image par image (60 ticks/s), 8 directions calculées d'après la trajectoire, ombres, reflets sur l'eau.</li>
+        <li><b>Décors</b> : les 5 maps d'Opening <code>OPM1..5</code> (pixel-art PMD 3/4) + vitrail et 3 Wayfinders.</li>
+        <li><b>Caméra immersive à clés Catmull-Rom</b> : grues, travellings, orbites avec roulis, push-in, secousses, <i>hit-stop</i>, rayons de lumière, parallaxe de particules.</li>
+        <li><b>Acteurs</b> : Riolu, Évoli, Tiplouf, Lucario, Darkrai, ombres corrompues, Manaphy, Celebi, Latias, Latios. 100 % Pokémon.</li>
+      </ul>
+      <p class="small">Crédits sprites : PMDCollab (CHUNSOFT &amp; contributeurs, voir <code>opening_assets/manifest.json</code>). Musique : synthé WebAudio original 128 BPM (6 mouvements). Pour la bande-son officielle, utilisez « Synchro YouTube » (2aafI3XvKxo) ou chargez votre propre fichier audio : la cinématique se cale sur son horloge.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/*__ENGINE__*/
+</script>
+<script>
+const ASSETS = /*__ASSETS__*/;
+</script>
+<script>
+(() => {
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  const $ = (id) => document.getElementById(id);
+  const D = 153.0, STEP = 60 / 128 / 4;
+  let cin = null, curTime = 0, paused = true, lastWall = performance.now();
+  let viewMode = 'opening', theme = 'jour', titleStart = 0, flapStart = -99;
+  let audioMode = 'synth', soundOn = true, scrubbing = false;
+  const IM = {}, SHEETS = {};
+
+  function fmt(s) { s = Math.max(0, Math.floor(s)); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+
+  // ---------------- Chargement ----------------
+  const jobs = [];
+  Object.keys(ASSETS.imgs).forEach((k) => jobs.push([IM, k, ASSETS.imgs[k]]));
+  Object.keys(ASSETS.sheets).forEach((k) => jobs.push([SHEETS, k, ASSETS.sheets[k]]));
+  let loaded = 0;
+  Promise.all(jobs.map(([dst, k, uri]) => new Promise((res) => {
+    const im = new Image();
+    im.onload = () => { loaded++; $('loadBar').style.width = Math.round(loaded / jobs.length * 100) + '%'; res(); };
+    im.onerror = () => { console.warn('asset KO', k); loaded++; res(); };
+    im.src = uri; dst[k] = im;
+  }))).then(start);
+  $('sheetImg').src = ASSETS.imgs.storyboardSheet;
+
+  function start() {
+    cin = PMDDestinySprite.create({ imgs: IM, sheets: SHEETS, catalog: ASSETS.catalog, mk: (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; } });
+    const chaps = $('chaps');
+    cin.CHAPTERS.forEach((c) => {
+      const b = document.createElement('button'); b.textContent = fmt(c.t) + ' · ' + c.short;
+      b.addEventListener('click', () => { viewMode = 'opening'; $('bTitle').classList.remove('on'); seek(c.t); setPaused(false); });
+      chaps.appendChild(b);
+    });
+    $('loading').classList.add('hidden');
+    paused = false; lastWall = performance.now();
+    tryAudio();
+    requestAnimationFrame(loop);
+  }
+
+  // ---------------- Audio : synthé 128 BPM ----------------
+  let actx = null, master = null, noiseBuf = null, lastStep = -1, lastT = 0;
+  function ensureAudio() {
+    if (!actx) {
+      const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+      actx = new AC();
+      const comp = actx.createDynamicsCompressor(); master = actx.createGain(); master.gain.value = 0.6;
+      master.connect(comp); comp.connect(actx.destination);
+      noiseBuf = actx.createBuffer(1, actx.sampleRate * 2, actx.sampleRate);
+      const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (actx.state === 'suspended') actx.resume();
+    return actx.state !== 'closed';
+  }
+  function tryAudio() {
+    try { ensureAudio(); } catch (e) {}
+    refreshChip();
+  }
+  function audioLive() { return actx && actx.state === 'running'; }
+  function refreshChip() { $('soundChip').classList.toggle('hidden', audioLive() || !soundOn || audioMode !== 'synth'); }
+  const m2f = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  function tone(f, when, dur, vol, type, cut, atk, det) {
+    const o = actx.createOscillator(), g = actx.createGain(), fl = actx.createBiquadFilter();
+    o.type = type || 'sawtooth'; o.frequency.value = f; if (det) o.detune.value = det;
+    fl.type = 'lowpass'; fl.frequency.value = cut || 3000;
+    g.gain.setValueAtTime(0.0001, when); g.gain.linearRampToValueAtTime(vol, when + (atk || 0.004));
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    o.connect(fl); fl.connect(g); g.connect(master); o.start(when); o.stop(when + dur + 0.05);
+  }
+  function pad(notes, dur, vol, when) {
+    notes.forEach((n) => { [-9, 0, 9].forEach((dt) => {
+      const o = actx.createOscillator(), g = actx.createGain(), fl = actx.createBiquadFilter();
+      o.type = 'sawtooth'; o.frequency.value = m2f(n); o.detune.value = dt;
+      fl.type = 'lowpass'; fl.frequency.value = 1300;
+      g.gain.setValueAtTime(0.0001, when); g.gain.linearRampToValueAtTime(vol / 3, when + 0.5);
+      g.gain.linearRampToValueAtTime(vol / 4, when + dur * 0.7); g.gain.linearRampToValueAtTime(0.0001, when + dur + 0.5);
+      o.connect(fl); fl.connect(g); g.connect(master); o.start(when); o.stop(when + dur + 0.6);
+    }); });
+  }
+  function noise(when, dur, vol, type, freq, q, sweepTo) {
+    const s = actx.createBufferSource(); s.buffer = noiseBuf;
+    const fl = actx.createBiquadFilter(), g = actx.createGain();
+    fl.type = type; fl.frequency.setValueAtTime(freq, when); fl.Q.value = q || 1;
+    if (sweepTo) fl.frequency.exponentialRampToValueAtTime(sweepTo, when + dur);
+    g.gain.setValueAtTime(vol, when); g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    s.connect(fl); fl.connect(g); g.connect(master); s.start(when, Math.random()); s.stop(when + dur + 0.05);
+  }
+  function kick(w, v) { const o = actx.createOscillator(), g = actx.createGain(); o.frequency.setValueAtTime(150, w); o.frequency.exponentialRampToValueAtTime(42, w + 0.13);
+    g.gain.setValueAtTime(v, w); g.gain.exponentialRampToValueAtTime(0.0001, w + 0.3); o.connect(g); g.connect(master); o.start(w); o.stop(w + 0.32); }
+  function snare(w, v) { noise(w, 0.18, v, 'bandpass', 1900, 0.8); tone(190, w, 0.12, v * 0.5, 'triangle', 1200); }
+  function hat(w, v) { noise(w, 0.045, v, 'highpass', 7500, 0.7); }
+  function boom(w, v) { const o = actx.createOscillator(), g = actx.createGain(); o.frequency.setValueAtTime(90, w); o.frequency.exponentialRampToValueAtTime(30, w + 1.2);
+    g.gain.setValueAtTime(v, w); g.gain.exponentialRampToValueAtTime(0.0001, w + 1.4); o.connect(g); g.connect(master); o.start(w); o.stop(w + 1.5); noise(w, 0.9, v * 0.5, 'lowpass', 900, 0.7, 120); }
+  function riser(w, dur, v) { noise(w, dur, v, 'bandpass', 300, 2.5, 7000); }
+  const CH = [{ r: 33, n: [57, 60, 64] }, { r: 29, n: [53, 57, 60] }, { r: 36, n: [55, 60, 64] }, { r: 31, n: [55, 59, 62] }];
+  const EVENTS = [[62, () => riser(actx.currentTime + 0.02, 6, 0.22)], [70, () => riser(actx.currentTime + 0.02, 6, 0.25)], [76, () => boom(actx.currentTime + 0.02, 0.9)],
+    [118, () => boom(actx.currentTime + 0.02, 1.0)], [140, () => riser(actx.currentTime + 0.02, 8, 0.28)],
+    [148, () => { const w = actx.currentTime + 0.02; boom(w, 0.8); [48, 55, 60, 64, 67, 72, 76].forEach((n) => pad([n], 5, 0.16, w)); [60, 64, 67, 72].forEach((n) => tone(m2f(n + 12), w, 4, 0.1, 'sawtooth', 5000, 0.01, 12)); }]];
+  function playStep(s) {
+    const w = actx.currentTime + 0.02, T = s * STEP, bar = Math.floor(s / 16), pos = s % 16, ch = CH[bar % 4];
+    if (T >= 148) { if (pos % 2 === 0) tone(m2f(ch.n[(pos >> 1) % 3] + 24), w, 0.4, 0.045, 'triangle', 6000); return; }
+    const dark = T >= 122 && T < 132, calm = T < 24 || (T >= 132);
+    if (pos === 0 && T >= 1.5) pad(ch.n, 1.9, T < 24 ? 0.07 : T < 76 ? 0.1 : T < 106 ? 0.12 : 0.1, w);
+    if (T < 24 || (T >= 132 && T < 148)) { // piano / carillon
+      if (pos % 8 === 0) tone(m2f(ch.n[pos === 0 ? 2 : 1] + 24), w, 1.6, 0.11, 'triangle', 5000);
+      if (pos === 6 || pos === 14) tone(m2f(ch.n[0] + 24), w, 1.1, 0.06, 'sine', 4000);
+    }
+    if (T >= 24 && !dark && T < 148) { // arpège
+      const idx = [0, 1, 2, 1][pos & 3] + (pos >= 8 ? 0 : 0);
+      const base = ch.n[idx % 3] + (T >= 76 && T < 106 ? 24 : 12);
+      const v = T < 46 ? 0.04 : T < 76 ? 0.06 : T < 106 ? 0.075 : 0.06;
+      if (!(T >= 132)) tone(m2f(base), w, 0.2, v, 'square', 2600);
+    }
+    if (T >= 46 && !dark && T < 148) { // basse
+      const eighth = T >= 68 && T < 122; if (eighth ? pos % 2 === 0 : pos % 8 === 0) tone(m2f(ch.r), w, eighth ? 0.2 : 0.8, 0.2, 'sawtooth', 380);
+    }
+    if (dark) { if (pos === 0) tone(m2f(ch.r - 12), w, 1.8, 0.2, 'sine', 300); if (pos % 4 === 0) tone(m2f(ch.n[pos / 4 % 3] + 12), w, 0.5, 0.04, 'triangle', 2400); }
+    // percussions
+    if ((T >= 62 && T < 76 && pos % 4 === 0) || (T >= 76 && T < 122 && pos % 4 === 0)) kick(w, T < 76 ? 0.5 : 0.85);
+    if (T >= 76 && T < 106 && (pos === 4 || pos === 12)) snare(w, 0.4);
+    if (T >= 68 && T < 106 && pos % 2 === 0) hat(w, pos % 4 === 2 ? 0.14 : 0.07);
+    if (T >= 106 && T < 118 && (pos === 4 || pos === 12)) snare(w, 0.18);
+    if (T >= 132 && T < 148 && pos === 0) kick(w, 0.3 + (T - 132) / 40);
+  }
+  function tickSynth(t, prev) {
+    if (!actx || !audioLive() || !soundOn || audioMode !== 'synth' || paused) { lastStep = Math.floor(t / STEP); return; }
+    const step = Math.floor(t / STEP);
+    if (lastStep < 0 || step < lastStep || step > lastStep + 8) { lastStep = step; return; }
+    for (let s = lastStep + 1; s <= step; s++) playStep(s);
+    lastStep = step;
+    for (const [te, fn] of EVENTS) if (prev < te && t >= te && t - prev < 1) fn();
+    for (const ti of cin.IMPACTS) if (prev < ti && t >= ti && t - prev < 1) { const w = actx.currentTime + 0.02; boom(w, 0.55); noise(w, 0.25, 0.3, 'highpass', 3000, 1); }
+  }
+
+  // ---------------- YouTube / audio local ----------------
+  let ytPlayer = null, ytReady = false;
+  function loadYT(cb) {
+    if (window.YT && YT.Player) return cb();
+    const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api';
+    s.onerror = () => { $('bYT').textContent = 'YouTube indisponible ici'; };
+    window.onYouTubeIframeAPIReady = cb; document.head.appendChild(s);
+  }
+  $('bYT').addEventListener('click', () => {
+    audioMode = 'youtube'; soundOn = false; $('bSound').classList.remove('on'); $('aud').pause(); $('ytBox').classList.add('on'); refreshChip();
+    loadYT(() => {
+      if (ytPlayer) { ytPlayer.seekTo(0, true); ytPlayer.playVideo(); curTime = 0; return; }
+      ytPlayer = new YT.Player('ytSlot', { videoId: '2aafI3XvKxo', playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1 }, events: { onReady: (e) => { ytReady = true; e.target.playVideo(); curTime = 0; } } });
+    });
+  });
+  $('fileAudio').addEventListener('change', (ev) => {
+    const f = ev.target.files[0]; if (!f) return;
+    const a = $('aud'); a.src = URL.createObjectURL(f); audioMode = 'local'; soundOn = false; $('bSound').classList.remove('on');
+    if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); $('ytBox').classList.remove('on');
+    a.currentTime = 0; a.play().catch(() => {}); curTime = 0; viewMode = 'opening'; paused = false; refreshChip();
+  });
+  $('bSound').addEventListener('click', () => {
+    if (audioMode !== 'synth') { audioMode = 'synth'; $('aud').pause(); if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); $('ytBox').classList.remove('on'); soundOn = true; }
+    else soundOn = !soundOn;
+    if (soundOn) ensureAudio();
+    $('bSound').classList.toggle('on', soundOn); $('bSound').textContent = soundOn ? '🔊 Son : synthé 128 BPM' : '🔇 Son coupé'; refreshChip();
+  });
+
+  // ---------------- Contrôles ----------------
+  function setPaused(p) {
+    paused = p; $('bPlay').textContent = p ? '▶ Lecture' : '⏸ Pause';
+    if (audioMode === 'youtube' && ytPlayer && ytReady) p ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+    if (audioMode === 'local') p ? $('aud').pause() : $('aud').play().catch(() => {});
+  }
+  function seek(t) {
+    curTime = Math.max(0, Math.min(D, t)); lastT = curTime; lastStep = Math.floor(curTime / STEP);
+    if (audioMode === 'youtube' && ytPlayer && ytReady) ytPlayer.seekTo(curTime, true);
+    if (audioMode === 'local') $('aud').currentTime = curTime;
+  }
+  function restart() { viewMode = 'opening'; $('bTitle').classList.remove('on'); $('endOv').classList.add('hidden'); seek(0); setPaused(false); ensureAudio(); refreshChip(); }
+  $('bPlay').addEventListener('click', () => { ensureAudio(); if (curTime >= D - 0.01) restart(); else setPaused(!paused); refreshChip(); });
+  $('bRestart').addEventListener('click', restart);
+  $('bTitle').addEventListener('click', () => { ensureAudio(); viewMode = 'title'; titleStart = performance.now() / 1000; $('bTitle').classList.add('on'); });
+  $('bFlap').addEventListener('click', () => { ensureAudio(); flapStart = performance.now() / 1000; if (audioLive()) tone(m2f(91), actx.currentTime + 0.01, 0.4, 0.06, 'triangle', 4000); });
+  $('bDay').addEventListener('click', () => { theme = 'jour'; $('bDay').classList.add('on'); $('bNight').classList.remove('on'); });
+  $('bNight').addEventListener('click', () => { theme = 'nuit'; $('bNight').classList.add('on'); $('bDay').classList.remove('on'); });
+  $('bFull').addEventListener('click', () => { const s = $('stage'); (s.requestFullscreen || s.webkitRequestFullscreen || (() => {})).call(s); });
+  $('soundChip').addEventListener('click', () => { ensureAudio(); refreshChip(); });
+  const sc = $('scrub');
+  sc.addEventListener('input', () => { scrubbing = true; viewMode = 'opening'; seek(Number(sc.value) / 100); });
+  sc.addEventListener('change', () => { scrubbing = false; });
+  document.addEventListener('pointerdown', () => { if (actx && actx.state === 'suspended') { actx.resume().then(refreshChip); } }, { passive: true });
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') { e.preventDefault(); $('bPlay').click(); }
+    else if (e.key === 'r' || e.key === 'R') restart();
+    else if (e.key === 'm' || e.key === 'M') $('bSound').click();
+    else if (e.key === 'f' || e.key === 'F') $('bFull').click();
+    else if (e.key === 'Enter' && viewMode !== 'opening') flapStart = performance.now() / 1000;
+    if (actx && actx.state === 'suspended') actx.resume().then(refreshChip);
+  });
+
+  // ---------------- Boucle ----------------
+  const shotLbl = $('lblShot');
+  function loop(now) {
+    const dt = Math.min(5, Math.max(0, (now - lastWall) / 1000)); lastWall = now;
+    const nowSec = now / 1000;
+    if (viewMode === 'opening') {
+      const prev = curTime;
+      if (!paused && !scrubbing) {
+        if (audioMode === 'youtube' && ytPlayer && ytReady && ytPlayer.getPlayerState && ytPlayer.getPlayerState() === 1) curTime = Math.min(D, ytPlayer.getCurrentTime());
+        else if (audioMode === 'local' && !$('aud').paused) curTime = Math.min(D, $('aud').currentTime);
+        else curTime = Math.min(D, curTime + dt);
+      }
+      tickSynth(curTime, prev);
+      const r = cin.render(ctx, curTime, { theme, nowSec, flapStart });
+      $('lblWing').textContent = (r.wing >= 0 ? '+' : '') + r.wing.toFixed(1) + '°';
+      if (!scrubbing) sc.value = String(Math.round(curTime * 100));
+      $('tm').textContent = fmt(curTime) + ' / ' + fmt(D);
+      $('lblClock').textContent = curTime.toFixed(2) + ' s / ' + D.toFixed(2) + ' s';
+      let ci = 0; cin.CHAPTERS.forEach((c, i) => { if (curTime >= c.t) ci = i; });
+      shotLbl.textContent = curTime >= cin.TITLE_T ? 'Écran-titre PMD : Destiny' : cin.CHAPTERS[ci].short;
+      Array.from($('chaps').children).forEach((b, i) => b.classList.toggle('cur', curTime < cin.TITLE_T ? i === ci : false));
+      if (curTime >= D && !paused) { setPaused(true); }
+    } else {
+      const r = cin.renderTitleMode(ctx, nowSec - titleStart, theme, nowSec, flapStart);
+      $('lblWing').textContent = (r.wing >= 0 ? '+' : '') + r.wing.toFixed(1) + '°';
+      shotLbl.textContent = 'Écran-titre direct'; $('lblClock').textContent = 'mode titre';
+    }
+    window.__cinemaState = { t: curTime, mode: viewMode, ready: true };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
