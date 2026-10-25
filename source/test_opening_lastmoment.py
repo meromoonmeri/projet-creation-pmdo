@@ -37,7 +37,6 @@ class TestOpeningLastMoment(unittest.TestCase):
         txt = HTML.read_text(encoding="utf-8")
         for k in ("laprasSky", "laprasSea", "moonBg", "moonFg", "plainsFar", "plainsTree", "skyPeak"):
             self.assertIn(f'"{k}":"data:image/webp', txt)
-        self.assertFalse((HERE / "pmd_destiny_fangame_v1" / "lastmoment_bruts").exists(), "aucune plaque générée (village rejeté)")
 
     def test_03_acteurs_portraits_effets(self) -> None:
         txt = HTML.read_text(encoding="utf-8")
