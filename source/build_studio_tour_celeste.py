@@ -85,6 +85,50 @@ def export_filmstrips() -> Dict:
             "wind_summary": "Title_Screen_Background_Nuit.dir (24 poses sans logo) | Mer nocturne générée + reflets stellaires | ~105 étoiles + étoile filante | Blason Œuf+Ailes centré (55%)",
         },
         {
+            "id": "DSV1",
+            "group": "PMD : Destiny · Chapitre I",
+            "folder": "destiny_village_port_aube_v1",
+            "ref_rel": "source/destiny_village_port_aube_v1/references/ref_canon_village_port_aube.png",
+            "ref_label": "Textures Canoniques PMD — Falaise Altere Pond + Huttes Pokémon + Pelouse Vast Steppe (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSV1_PMDO_0.8.12.zip",
+            "bg_fill": "#125c98",
+            "subtitle": "PMD : Destiny (Chapitre I · Village) — Bourg-Écume, Village Portuaire des Explorateurs (0 % ciel) : Falaise étagée Altere Pond & grand escalier Nord, parvis pavé à Fontaine de l'Œuf Ailé, 2 huttes Pokémon à toits feuillus Top, quai en bois, Eau Portuaire Métano Turquoise (4×10t), fleurs Vast Steppe (4×12t) & VFX fontaine/lanternes/bulles (24×5t)",
+            "wind_summary": "Eau portuaire & sparkles 1× Metano Town #FF00FF (4×10t) | Fleurs 1× Vast Steppe (4×12t) | VFX Fontaine Œuf Ailé & ressac pilotis (24×5t) | Toits feuillus, lanternes & bulles Top (24×5t)",
+        },
+        {
+            "id": "DSR1",
+            "group": "PMD : Destiny · Chapitre I",
+            "folder": "destiny_route_passe_corail_v1",
+            "ref_rel": "source/destiny_route_passe_corail_v1/references/ref_canon_route_passe_corail.png",
+            "ref_label": "Textures Rocheuses Canoniques PMD — Mt. Cleft (H04P02) + Altere Pond + Cascades P03P01A (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSR1_PMDO_0.8.12.zip",
+            "bg_fill": "#104472",
+            "subtitle": "PMD : Destiny (Chapitre I · Route Rocheuse) — Passe Rocheuse des Écumes (0 % ciel) : Gorge côtière rocheuse étagée Mt. Cleft / Altere Pond, pont naturel en arche de pierre, cristaux d'aigue-marine, Torrent Vif Métano (4×10t), 3 cascades natives 1× Foggy Forest P03P01A (3×10t) & VFX rapides/brise côtière (24×5t)",
+            "wind_summary": "Torrent vif & sparkles 1× Metano Town #FF00FF (4×10t) | 3 cascades rocheuses 1× Foggy Forest P03P01A (3×10t) | VFX rapides d'écume & halo cristaux (24×5t) | Rubans de brise Top (24×5t)",
+        },
+        {
+            "id": "DSD1",
+            "group": "PMD : Destiny · Chapitre I",
+            "folder": "destiny_donjon1_grotte_maree_entree_v1",
+            "ref_rel": "source/destiny_donjon1_grotte_maree_entree_v1/references/ref_canon_grotte_maree_entree.png",
+            "ref_label": "Textures Rocheuses Canoniques PMD — Brine Cave (PMD Sky) + Boulder Cave (H13P04) (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSD1_PMDO_0.8.12.zip",
+            "bg_fill": "#0a2652",
+            "subtitle": "PMD : Destiny (1er Donjon · Entrée) — Grotte des Marées Prismatiques (0 % ciel) : Paroi rocheuse humide stratifiée Brine Cave & bouche caverneuse Nord, chaussée rocheuse Sud→Nord, cristaux cyan & ambre, Courants de Marée Métano Saphir (4×10t), 4 cascades 1× P03P01A (3×10t) & VFX tourbillons en spirale + gouttes d'eau (24×5t)",
+            "wind_summary": "Courants de marée & sparkles 1× Metano saphir #FF00FF (4×10t) | 4 cascades 1× Foggy Forest P03P01A (3×10t) | VFX 2 tourbillons spirale & cristaux (24×5t) | Gouttes & impacts Top (24×5t)",
+        },
+        {
+            "id": "DSB1",
+            "group": "PMD : Destiny · Chapitre I",
+            "folder": "destiny_donjon1_grotte_maree_boss_v1",
+            "ref_rel": "source/destiny_donjon1_grotte_maree_boss_v1/references/ref_canon_grotte_maree_boss.png",
+            "ref_label": "Textures Rocheuses Canoniques PMD — Amphithéâtre Boulder Cave (H13P04) + Brine Cave (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSB1_PMDO_0.8.12.zip",
+            "bg_fill": "#081836",
+            "subtitle": "PMD : Destiny (1er Donjon · Boss) — Cœur Rocheux de l'Écho Marin (0 % ciel) : Grande arène circulaire nue en roche humide (0 obstacle), escalier Sud, autel Nord à Sceau Spiral, Eau Abyssale Métano (4×10t), 2 cascades géantes 1× P03P01A (3×10t) & VFX spirale runique, geysers et anneaux soniques (24×5t)",
+            "wind_summary": "Eau abyssale & sparkles 1× Metano #FF00FF (4×10t) | 2 cascades géantes 1× Foggy Forest P03P01A (3×10t) | VFX spirale autel, onde arène & 2 geysers (24×5t) | Anneaux soniques & bulles Top (24×5t)",
+        },
+        {
             "id": "MWE1",
             "group": "Grotte Ouest · Mewtwo",
             "folder": "grotte_ouest_entree_v1",
@@ -1200,7 +1244,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DSTJ"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DSV1"), encoding="utf-8")
+    (REPO_ROOT / "apercu_destiny_chapitre1_pmdo.html").write_text(
+        build_html(manifest, default_map_id="DSV1"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_kanto_mewtwo_mew_pmdo.html").write_text(
         build_html(manifest, default_map_id="RUA1"), encoding="utf-8"
     )
