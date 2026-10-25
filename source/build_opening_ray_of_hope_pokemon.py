@@ -212,8 +212,12 @@ POKEMON_SPECS: List[Tuple[str, str, List[str], List[str]]] = [
     ("0380", "Latias", ["Idle", "Walk", "Attack", "Shoot", "Hop", "Rotate"], []),
     ("0381", "Latios", ["Idle", "Walk", "Attack", "Shoot", "Hop", "Rotate"], []),
     ("0571", "Zoroark", ["Idle", "Walk", "Attack", "Double", "Swing", "Shoot", "Charge", "Hop", "Rotate", "Hurt"], []),
+    ("0492", "Shaymin (Sky)", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Appeal"], []),
     ("0491", "Darkrai", ["Idle", "Walk", "Attack", "QuickStrike", "Double", "Swing", "Shoot", "RearUp", "Charge", "Rotate", "Hurt"], []),
 ]
+
+
+SUBFORMS = {"0492": "0492/0001"}  # Shaymin forme Céleste
 
 
 def export_pmd_sprites_and_manifest() -> dict:
@@ -224,7 +228,7 @@ def export_pmd_sprites_and_manifest() -> dict:
     catalog: dict = {"pokemon": {}, "credits_summary": []}
 
     for pid, label, wanted_anims, wanted_portraits in POKEMON_SPECS:
-        src_sp = SPRITECOLLAB_DIR / "sprite" / pid
+        src_sp = SPRITECOLLAB_DIR / "sprite" / SUBFORMS.get(pid, pid)
         src_pt = SPRITECOLLAB_DIR / "portrait" / pid
         dst_sp = PMD_OUT_DIR / pid
         dst_sp.mkdir(parents=True, exist_ok=True)

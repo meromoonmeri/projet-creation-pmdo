@@ -40,9 +40,21 @@ class TestOpeningSprite(unittest.TestCase):
 
     def test_04b_couches_pmd_sky(self) -> None:
         txt = HTML.read_text(encoding="utf-8")
-        for k in ("ttSky", "moonBg", "plainsFar", "plainsTree", "skyPeak", "laprasSky", "anticWall", "tm12", "th6", "sh12", "lap2", "it5"):
+        for k in ("ttSky", "moonBg", "plainsFar", "plainsTree", "skyPeak", "laprasSky", "anticWall", "tm12", "th6", "lap2", "it5"):
             self.assertIn(f'"{k}":"data:image/webp', txt)
         self.assertIn("A1", txt)
+
+    def test_04c_sprites_effets_et_shaymin(self) -> None:
+        txt = HTML.read_text(encoding="utf-8")
+        for k in ("petal", "sparkle", "bubble", "hit", "flame", "splash", "shard", "slash"):
+            self.assertIn(f'"fx_{k}":"data:image/webp', txt)
+            self.assertRegex(txt, r'"%s":\{"fw":\d+,"fh":\d+,"n":\d+' % k)
+        self.assertIn('"0492"', txt)  # vrai sprite PMDO de Shaymin
+        self.assertNotIn('"sh12"', txt)  # plus de Shaymin « ripé »
+        eng = (HERE / "opening_sprite_engine.js").read_text(encoding="utf-8")
+        for fn in ("function petals(", "function flames(", "function shardsW("):
+            self.assertIn("fx(ctx", eng[eng.index(fn):eng.index(fn) + 700])  # effets = sprites, plus de dessin procédural
+        self.assertIn("attach:", eng)  # chutes : sprite suivi par la caméra, décor qui défile
 
     def test_05_page_aaa_conservee(self) -> None:
         self.assertTrue((REPO_ROOT / "apercu_fangame_pmd_destiny_aaa_illustre.html").is_file())

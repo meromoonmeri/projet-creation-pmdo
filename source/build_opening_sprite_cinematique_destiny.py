@@ -27,6 +27,7 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 
 from source.moteur_pmd_destiny_fangame import decode_pmdo_dir_sheet  # type: ignore
 from source.build_opening_sky_layers import build_layers  # type: ignore
+from source.build_opening_vfx_sprites import build_vfx  # type: ignore
 
 RENDERS = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1"
 ASSETS_DIR = RENDERS / "opening_assets"
@@ -37,6 +38,8 @@ TEMPLATE = SOURCE_DIR / "opening_sprite_template.html"
 ENGINE = SOURCE_DIR / "opening_sprite_engine.js"
 OUT_HTML = REPO_ROOT / "apercu_fangame_pmd_destiny.html"
 DURATION_S = 153.0
+VFX_DIR = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1" / "opening_vfx"
+VFX_DIR.mkdir(parents=True, exist_ok=True)
 
 # Acteurs et animations réellement utilisés par la chorégraphie
 ACTORS = {
@@ -49,6 +52,7 @@ ACTORS = {
     "0491": ["Idle", "Charge", "Attack", "Shoot", "Swing", "Hurt"],
     "0490": ["Idle", "Walk"],
     "0251": ["Idle", "Float"],
+    "0492": ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Appeal"],  # Shaymin (forme Ciel) — vrai sprite PMDO
     "0380": ["Idle"],
     "0381": ["Idle"],
 }
@@ -90,7 +94,7 @@ def build_assets() -> Dict[str, object]:
     L = build_layers()
     lossless = {"ttSky", "moonBg", "moonFg", "plainsFar", "plainsTree", "skyPeak", "skyPeakFront", "laprasSky", "laprasSea", "anticWall"}
     for k, v in L.items():
-        if k == "anticPos":
+        if k in ("anticPos", "shaymin"):  # le Shaymin « ripé » est remplacé par le vrai sprite PMDO 0492
             continue
         if isinstance(v, list):
             pref = {"shaymin": "sh", "lapras": "lap", "anticItems": "it", "timeTravel": "tm", "thunder": "th"}[k]
@@ -103,6 +107,12 @@ def build_assets() -> Dict[str, object]:
                     imgs[f"{pref}{i}"] = uri_im(im, "WEBP", lossless=True)
         elif k in lossless:
             imgs[k] = uri_im(v, "WEBP", lossless=True)
+    # Sprites d'effets animés (planches générées : pétales, scintillements, bulles, impacts, flammes, éclaboussures…)
+    vfx_meta: Dict[str, dict] = {}
+    for name, v in build_vfx().items():
+        imgs[f"fx_{name}"] = uri_im(v["sheet"], "WEBP", lossless=True)
+        vfx_meta[name] = {k: v[k] for k in v if k != "sheet"}
+        v["sheet"].save(VFX_DIR / f"fx_{name}.png")
     sb = OUT_DIR / "contact_sheet.webp"
     if sb.is_file():
         imgs["storyboardSheet"] = "data:image/webp;base64," + base64.b64encode(sb.read_bytes()).decode("ascii")
@@ -119,7 +129,7 @@ def build_assets() -> Dict[str, object]:
             a = P["anims"][n]
             sheets[a["file"]] = uri_png(ASSETS_DIR / "pmd_sprites" / a["file"])
             catalog[pid]["anims"][n] = {k: a[k] for k in ("file", "fw", "fh", "cols", "rows", "durations")}
-    return {"imgs": imgs, "sheets": sheets, "catalog": {"pokemon": catalog, "antic": L["anticPos"]}}
+    return {"imgs": imgs, "sheets": sheets, "catalog": {"pokemon": catalog, "antic": L["anticPos"], "vfx": vfx_meta}}
 
 
 def build_html() -> Path:

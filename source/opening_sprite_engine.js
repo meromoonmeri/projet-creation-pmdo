@@ -67,6 +67,16 @@
     const MW = 576, MH = 320;
 
     // ---------- Primitives écran ----------
+    const FXC = (EV.catalog && EV.catalog.vfx) || {};
+    // Sprite d'effet animé (planche d'images générée) : idx = numéro d'image, o.bottom = ancrage bas, o.add = addition
+    function fx(ctx, name, idx, x, y, s, a, o) {
+      const m = FXC[name], im = I['fx_' + name]; if (!m || !im || !im.width) return;
+      o = o || {}; const n = m.n; let f = Math.floor(idx); f = m.loop === false ? clamp(f, 0, n - 1) : ((f % n) + n) % n;
+      ctx.save(); ctx.imageSmoothingEnabled = false; if (a != null && a < 1) ctx.globalAlpha = Math.max(0, a); if (o.add) ctx.globalCompositeOperation = 'lighter';
+      ctx.translate(x, y); if (o.rot) ctx.rotate(o.rot); const sc = s || 1; ctx.scale(sc, sc);
+      ctx.drawImage(im, f * m.fw, 0, m.fw, m.fh, -m.fw / 2, o.bottom ? -m.fh : -m.fh / 2, m.fw, m.fh); ctx.restore();
+    }
+    function hitFx(ctx, ix, iy, d, ti) { const f = d / 0.4; fx(ctx, 'hit', f * 8, ix, iy, 0.85, 1); fx(ctx, 'slash', f * 6, ix + 4, iy - 2, 0.9, 1, { rot: (rnd(ti, 3) - 0.5) * 3.0 }); }
     function glow(ctx, x, y, r, rgb, a) {
       if (a <= 0.003) return;
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -137,6 +147,9 @@
         const x = (px + W) % W, y = (py + H) % H;
         const r = (o.r || 2) * depth * (0.6 + rnd(i, 3));
         const tw = o.tw ? 0.4 + 0.6 * Math.abs(Math.sin(t * (1 + rnd(i, 4) * 3) + i)) : 1;
+        if (o.bubble) { fx(ctx, 'bubble', Math.floor(t * 8 + i * 2) % 6, x, y, 0.8 + r * 0.3, o.a); continue; }
+        if (o.tw && o.rgb.indexOf('255,120') === 0) { fx(ctx, 'flame', t * 12 + i * 3, x, y, 0.25 + r * 0.06, o.a, { bottom: true }); continue; }
+        if (o.tw) { fx(ctx, 'sparkle', ((t * (0.6 + rnd(i, 4)) + rnd(i, 5)) % 1) * 8, x, y, 0.5 + r * 0.15, 1, { add: true }); continue; }
         if (o.bubble) { ctx.strokeStyle = `rgba(${o.rgb},${(o.a * tw).toFixed(3)})`; ctx.lineWidth = Math.max(1, r * 0.2); ctx.beginPath(); ctx.arc(x, y, r * 2.2, 0, TAU); ctx.stroke(); ctx.fillStyle = `rgba(255,255,255,${(o.a).toFixed(3)})`; ctx.fillRect(x - r, y - r, Math.max(1, r * 0.5), Math.max(1, r * 0.5)); }
         else { ctx.fillStyle = `rgba(${o.rgb},${(o.a * tw).toFixed(3)})`; const s = Math.max(1, Math.round(r)); ctx.fillRect(Math.round(x), Math.round(y), s, s); }
       }
@@ -184,7 +197,8 @@
     const ACT = {};
     function posOf(def, t) { const p = lin(def.keys, t) || [0, 0, 0]; return { x: p[0], y: p[1], z: p[2] || 0 }; }
     function resolveActor(def, t, sceneActors) {
-      const pos = posOf(def, t);
+      let pos = posOf(def, t);
+      if (def.attach && def._sc) { const cc = camAt(def._sc, t), ao = lin(def.attach, t); pos = { x: cc.cx + ao[0], y: cc.cy + ao[1], z: 0 }; }
       const an = def.an; let e = an[0]; for (const q of an) if (q[0] <= t) e = q; else break;
       let dir = e[2];
       if (dir === 'auto') {
@@ -200,7 +214,7 @@
       const al = def.a ? lin(def.a, t)[0] : 1;
       const rot = def.rot ? lin(def.rot, t)[0] : 0;
       const sc = def.sk ? lin(def.sk, t)[0] : (def.s || 1);
-      return { pos, anim: e[1], dir: dir | 0, tick: tAnim * 60 * (opt.speed || 1), loop: opt.loop !== false, al, rot, sc };
+      return { pos, anim: e[1], dir: dir | 0, tick: Math.min(tAnim * 60 * (opt.speed || 1), opt.hold != null ? opt.hold : 1e9), loop: opt.loop !== false, al, rot, sc };
     }
 
     // ---------- Décors animés ----------
@@ -218,44 +232,33 @@
         if (water[1] < MH) ctx.drawImage(im, 0, water[1], MW, MH - water[1], 0, water[1], MW, MH - water[1]);
       } else ctx.drawImage(im, 0, 0, MW, MH);
     }
-    function sparklesWorld(ctx, t, n, seed, x0, y0, x1, y1, rgb, size) { // scintillement pixel 4 branches
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    function sparklesWorld(ctx, t, n, seed, x0, y0, x1, y1, rgb, size) { // scintillements = sprites générés (échelle 8 images)
+      const s = 0.22 * (size || 1);
       for (let i = 0; i < n; i++) {
-        const ph = (t * (0.5 + rnd(i, seed + 2) * 0.8) + rnd(i, seed)) % 1, a = Math.sin(ph * Math.PI);
-        if (a < 0.1) continue;
-        const x = Math.round(lerp(x0, x1, rnd(i, seed + 1))), y = Math.round(lerp(y0, y1, rnd(i, seed + 3)));
-        ctx.fillStyle = `rgba(${rgb},${a.toFixed(2)})`; const s = size || 1;
-        ctx.fillRect(x, y, s, s); if (a > 0.5) { ctx.fillRect(x - s, y, s, s); ctx.fillRect(x + s, y, s, s); ctx.fillRect(x, y - s, s, s); ctx.fillRect(x, y + s, s, s); }
+        const ph = (t * (0.5 + rnd(i, seed + 2) * 0.8) + rnd(i, seed)) % 1;
+        fx(ctx, 'sparkle', ph * 8, Math.round(lerp(x0, x1, rnd(i, seed + 1))), Math.round(lerp(y0, y1, rnd(i, seed + 3))), s, 1, { add: true });
       }
-      ctx.restore();
     }
-    function bubblesWorld(ctx, t, n, seed, x0, x1, y0, y1, speed) {
-      ctx.save(); ctx.lineWidth = 0.7;
+    function bubblesWorld(ctx, t, n, seed, x0, x1, y0, y1, speed) { // bulles = sprites générés (6 images de flottement + 4 d'éclatement)
       for (let i = 0; i < n; i++) {
         const x = lerp(x0, x1, rnd(i, seed)) + Math.sin(t * 1.4 + i * 2.3) * 2.2;
         const k = ((t * speed * (0.5 + rnd(i, seed + 2)) * 0.05 + rnd(i, seed + 1)) % 1);
         const y = lerp(y1, y0, k), r = 0.8 + rnd(i, seed + 3) * 2.4;
-        ctx.strokeStyle = `rgba(200,244,255,${(0.7 * Math.sin(k * Math.PI)).toFixed(2)})`; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
-        ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fillRect(x - r * 0.4, y - r * 0.4, 0.8, 0.8);
+        const idx = k > 0.92 ? 6 + Math.min(3, Math.floor((k - 0.92) / 0.08 * 4)) : Math.floor(t * 8 + i * 2) % 6;
+        fx(ctx, 'bubble', idx, x, y, 0.1 + r / 3.2 * 0.16, 0.92);
       }
-      ctx.restore();
     }
     function wayfinder(ctx, key, x, y, s, t, a, rgb) {
       const im = I[key]; if (!im) return;
       glow(ctx, x, y, 26 * s, rgb, 0.55 * a * (0.75 + 0.25 * Math.sin(t * 4)));
       ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.scale(s, s); ctx.drawImage(im, -14, -14, 28, 28); ctx.restore();
     }
-    function shardsW(ctx, x, y, u, n, seed, cols, speed, size) {
+    function shardsW(ctx, x, y, u, n, seed, cols, speed, size) { // éclats de cristal = sprite généré (8 rotations)
       if (u < 0 || u > 1.5) return;
-      ctx.save();
       for (let i = 0; i < n; i++) {
         const a = rnd(i, seed) * TAU, v = speed * (0.35 + rnd(i, seed + 1));
-        const px = x + Math.cos(a) * v * u, py = y + Math.sin(a) * v * u * 0.7 + 60 * u * u, s = size * (0.5 + rnd(i, seed + 3));
-        ctx.globalAlpha = clamp(1 - u / 1.4, 0, 1); ctx.fillStyle = cols[i % cols.length];
-        ctx.save(); ctx.translate(px, py); ctx.rotate(u * (rnd(i, seed + 2) - 0.5) * 16);
-        ctx.beginPath(); ctx.moveTo(-s, s * 0.6); ctx.lineTo(s * 0.2, -s); ctx.lineTo(s, s * 0.5); ctx.closePath(); ctx.fill(); ctx.restore();
+        fx(ctx, 'shard', u * 18 + i, x + Math.cos(a) * v * u, y + Math.sin(a) * v * u * 0.7 + 60 * u * u, 0.09 * size * (0.5 + rnd(i, seed + 3)), clamp(1 - u / 1.4, 0, 1));
       }
-      ctx.restore();
     }
     function barrierWorld(ctx, x, y, r, a, t) {
       if (a <= 0.003) return;
@@ -308,7 +311,7 @@
       // acteurs + props triés en profondeur
       const items = [];
       (sc.actors || []).forEach((a) => {
-        const vis = a.vis || [sc.t0 - 1, sc.t1 + 1]; if (t < vis[0] || t > vis[1]) return;
+        a._sc = sc; const vis = a.vis || [sc.t0 - 1, sc.t1 + 1]; if (t < vis[0] || t > vis[1]) return;
         const r = resolveActor(a, t, sc.actors); if (r.al <= 0.003) return;
         items.push({ y: r.pos.y + (a.ys || 0), fn: () => drawSprite(ctx, a.pid, r.anim, r.dir, r.tick, r.loop, r.pos.x, r.pos.y, { z: r.pos.z, a: r.al, rot: r.rot, s: r.sc, aura: a.aura, reflect: a.reflect || sc.reflect, wob: Math.sin(t * 3 + (a.ph || 0)) * 0.8, noShadow: a.noShadow, flip: a.flip, tint: a.tint && a.tint(t) }) });
       });
@@ -366,8 +369,8 @@
     const fall = (t) => 30 + (t - 24) * 6.2; // altitude de chute d'Évoli (y monde)
     SC.push({
       id: '2b', t0: 36, t1: 46, map: 'opm2', free: true, bg: '#010208', grade: (t) => `rgb(${Math.round(lerp(80, 220, sstep((t - 40) / 5)))},${Math.round(lerp(120, 240, sstep((t - 40) / 5)))},255)`,
-      cam: [[36, 288, 150, 2.0, 0.06], [41, 288, 160, 1.4, -0.04], [46, 288, 150, 1.5, 0.0]],
-      actors: [{ id: 'evoli', pid: '0133', keys: [[36, 262, 130], [46, 330, 168]], an: [[36, 'Sink', 0, { speed: 0.4 }]], rot: [[36, -0.5], [46, -0.2]], s: 1.0, aura: '130,235,255', noShadow: true }],
+      cam: [[36, 288, 30, 1.7, 0.06], [41, 288, 150, 1.35, -0.05], [46, 288, 250, 1.6, 0.04]],
+      actors: [{ id: 'evoli', pid: '0133', keys: [[36, 288, 150]], attach: [[36, 0, -6], [41, 6, 0], [46, -4, 2]], an: [[36, 'Sink', 0, { loop: false, hold: 21, speed: 0.5 }]], rot: [[36, -0.5], [41, 0.3], [46, -0.3]], s: 1.5, aura: '130,235,255', noShadow: true }],
       world(ctx, t, c, ph) { if (ph === 'under') { ctx.save(); ctx.globalAlpha = 1; ctx.drawImage(I.vitrail, 288 - 130, 150 - 118, 260, 236); ctx.restore(); const lit = sstep((t - 40) / 4.5); glow(ctx, 288, 150, 220, '255,255,255', 0.7 * lit); }
         if (ph === 'over') { sparklesWorld(ctx, t, 90, 22, 100, 20, 480, 300, '255,246,200', 1); starBurst(ctx, 288, 150, 360, 0.5 * sstep((t - 40) / 4), 12, t * 0.3); } },
       screen(ctx, t) { flash(ctx, sstep((t - 44.6) / 1.4)); },
@@ -394,17 +397,12 @@
     });
     // 13 sièges
     const PIL = [[107, 168], [106, 68], [136, 46], [174, 21], [212, 7], [249, 7], [327, 7], [364, 7], [402, 21], [440, 44], [470, 66], [469, 168], [288, 160]]; // 13 sièges (haut des piliers d'OPM3)
-    function flames(ctx, t, ign) {
+    function flames(ctx, t, ign) { // flammes sombres des 13 sièges = sprite généré (8 images de flicker)
       for (let i = 0; i < PIL.length; i++) {
-        const k = sstep(ign[i]); if (k <= 0) continue; const x = PIL[i][0], y = PIL[i][1] - 3;
-        glow(ctx, x, y - 8, 46, '255,90,200', 0.75 * k * (0.75 + 0.25 * Math.sin(t * 8 + i)));
-        ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        for (let f = 0; f < 9; f++) {
-          const ph = (t * 1.25 + f / 9 + i * 0.13) % 1, fy = y - ph * 30, a = (1 - ph) * k, w = Math.max(1, Math.round(5 * (1 - ph) + 1));
-          ctx.fillStyle = `rgba(${f % 3 === 0 ? '255,230,250' : f % 2 ? '255,110,220' : '190,80,255'},${a.toFixed(2)})`;
-          ctx.fillRect(Math.round(x - w / 2 + Math.sin(t * 6 + f * 1.7 + i) * 2 * ph), Math.round(fy), w, 3);
-        }
-        ctx.restore();
+        const k = sstep(ign[i]); if (k <= 0) continue; const x = PIL[i][0], y = PIL[i][1] - 3, sc = 0.62 * (0.4 + 0.6 * k);
+        glow(ctx, x, y - 8, 46, '255,90,200', 0.6 * k * (0.75 + 0.25 * Math.sin(t * 8 + i)));
+        fx(ctx, 'flame', t * 12 + i * 3, x, y, sc, 1, { bottom: true });
+        fx(ctx, 'flame', t * 12 + i * 3 + 4, x, y - 2, sc * 1.05, 0.35 * k, { bottom: true, add: true });
       }
     }
     SC.push({
@@ -441,7 +439,7 @@
         { id: 'sriolu', pid: 'shadow_0447', keys: [[77, 332, 150], [79.0, 304, 164], [80.4, 332, 150], [82.2, 306, 162], [83.2, 296, 170], [85.2, 300, 176], [88, 270, 182]], an: [[77, 'Idle', 6], [78.6, 'Attack', { toId: 'evoli' }, { loop: false }], [80.2, 'Walk', 'auto'], [81.4, 'Strike', { toId: 'evoli' }, { loop: false }], [83.2, 'Strike', { toId: 'evoli' }, { loop: false }], [85.0, 'Double', { toId: 'evoli' }, { loop: false }], [86.6, 'Attack', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
         { id: 'stiplouf', pid: 'shadow_0393', keys: [[77, 360, 190], [80.2, 332, 184], [81.4, 316, 182], [83.4, 318, 184], [86.4, 290, 190], [88, 276, 188]], an: [[77, 'Idle', 6], [80.0, 'Walk', 'auto'], [81.5, 'Swing', { toId: 'evoli' }, { loop: false }], [83.8, 'Attack', { toId: 'evoli' }, { loop: false }], [86.2, 'Shoot', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 40, iy = 168 + (rnd(ti, 2) - 0.5) * 18; starBurst(ctx, ix, iy, 50 * (0.4 + d * 3), 1 - d / 0.4, 10, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } } },
+      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 40, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } } },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 80, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); speedLines(ctx, t, 18, W / 2, H / 2, '255,244,210', 0.25, 260);
         for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
     });
@@ -459,7 +457,7 @@
         if (ph === 'under') { const g = sstep((t - 90.2) / 1.0) * (1 - sstep((t - 96) / 2)); if (g > 0) { glow(ctx, 288, 152, 130, '120,230,255', 0.55 * g); ctx.save(); ctx.globalAlpha = 0.9 * g; ctx.drawImage(I.vitrail, 288 - 52, 152 - 47, 104, 94); ctx.restore(); } }
         if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1));
         const s = t - 91.1; if (s > 0 && s < 2) shardsW(ctx, 288, 150, s * 0.9, 34, 81, ['#4aa8ff', '#ffd45a', '#4be8a8', '#fff', '#6a7bff'], 110, 4);
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 50, iy = 168 + (rnd(ti, 2) - 0.5) * 18; starBurst(ctx, ix, iy, 56 * (0.4 + d * 3), 1 - d / 0.4, 10, ti); glow(ctx, ix, iy, 36, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
+        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 50, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 36, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
         if (t > 96.4 && t < 98) { for (let i = 0; i < 40; i++) { const ph2 = ((t - 96.4) * 0.9 + rnd(i, 3)) % 1; ctx.fillStyle = `rgba(190,60,255,${(0.9 * (1 - ph2)).toFixed(2)})`; ctx.fillRect(Math.round(250 + rnd(i, 1) * 100), Math.round(170 - ph2 * 50), 2, 2); } } },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
         flash(ctx, 0.9 * Math.exp(-Math.abs(t - 91.2) * 6), '200,245,255'); speedLines(ctx, t, 22, W / 2, H / 2, '160,240,255', 0.3, 260); },
@@ -474,7 +472,7 @@
         { id: 'darkrai', pid: '0491', keys: [[98, 400, 150, 20], [100.2, 346, 168, 6], [106, 340, 168, 6]], an: [[98, 'Charge', 6, { loop: true }], [100.4, 'Attack', { toId: 'lucario' }, { loop: false }], [102.4, 'Shoot', { toId: 'lucario' }, { loop: false }]], a: [[98, 0], [99, 1]], reflect: true, aura: '190,40,255', s: 1.15 },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1));
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 306, iy = 170; starBurst(ctx, ix, iy, 66 * (0.4 + d * 3), 1 - d / 0.4, 12, ti); glow(ctx, ix, iy, 40, '255,240,180', 0.9 * (1 - d / 0.4)); } }
+        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 306, iy = 170; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 40, '255,240,180', 0.9 * (1 - d / 0.4)); } }
         const k = sstep((t - 102.8) / 3); glow(ctx, 340, 150, lerp(30, 360, k), '190,60,255', 0.55 * k); ring(ctx, 340, 168, k * 280, 3, '200,100,255', 0.8 * (1 - k), 0.5); },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 60, rgb: '255,120,220', a: 0.8, r: 2, vy: -2.0, add: true, tw: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
         flash(ctx, sstep((t - 105.0) / 1.0)); },
@@ -486,11 +484,11 @@
       id: '5a', t0: 106, t1: 122, map: 'opm4', free: true, bg: '#04061a',
       cam: [[106, 288, 20, 1.3, 0.5], [110, 330, 130, 1.1, -0.35], [114, 250, 210, 1.2, 0.3], [118, 288, 170, 1.9, 0.0], [122, 288, 165, 2.6, 0.0]],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[106, 250, 40], [110, 262, 120], [114, 268, 160], [118, 262, 170]], an: [[106, 'Float', 0, { speed: 1.4 }]], rot: [[106, 0.6], [110, -0.4], [114, 0.5], [118, 0.0]], noShadow: true, aura: '120,200,255', vis: [105, 122] },
-        { id: 'evoli', pid: '0133', keys: [[106, 300, 30], [110, 292, 110], [114, 288, 158], [118, 288, 168]], an: [[106, 'Float', 0, { speed: 1.4 }]], rot: [[106, -0.5], [110, 0.5], [114, -0.3], [118, 0.0]], noShadow: true, aura: '120,230,255', vis: [105, 122] },
+        { id: 'riolu', pid: '0447', keys: [[106, 0, 0]], attach: [[106, -30, 2], [118, -30, 4]], an: [[106, 'Sink', 0, { loop: false, hold: 21, speed: 0.6 }]], rot: [[106, 0.6], [110, -0.4], [114, 0.5], [118, 0.0]], s: 1.25, noShadow: true, aura: '120,200,255', vis: [105, 122] },
+        { id: 'evoli', pid: '0133', keys: [[106, 0, 0]], attach: [[106, 0, -4], [118, 0, -2]], an: [[106, 'Sink', 0, { loop: false, hold: 21, speed: 0.6 }]], rot: [[106, -0.5], [110, 0.5], [114, -0.3], [118, 0.0]], s: 1.25, noShadow: true, aura: '120,230,255', vis: [105, 122] },
         { id: 'latias', pid: '0380', keys: [[108, 150, 70], [114, 200, 200]], an: [[108, 'Idle', 0]], noShadow: true, aura: '255,120,160', a: [[108, 0], [109, 0.85], [117, 0.85], [119, 0]], rot: [[108, 0.5], [114, -0.3]], vis: [107, 120], s: 0.9 },
         { id: 'latios', pid: '0381', keys: [[108, 430, 60], [114, 380, 190]], an: [[108, 'Idle', 0]], noShadow: true, aura: '120,160,255', a: [[108, 0], [109, 0.85], [117, 0.85], [119, 0]], rot: [[108, -0.5], [114, 0.3]], vis: [107, 120], s: 0.9 },
-        { id: 'tiplouf', pid: '0393', keys: [[106, 336, 50], [110, 318, 126], [114, 310, 162], [118, 314, 172]], an: [[106, 'Float', 0, { speed: 1.4 }]], rot: [[106, 0.4], [110, -0.6], [114, 0.3], [118, 0.0]], noShadow: true, aura: '255,210,120', vis: [105, 122] },
+        { id: 'tiplouf', pid: '0393', keys: [[106, 0, 0]], attach: [[106, 30, 4], [118, 30, 6]], an: [[106, 'Sink', 0, { loop: false, hold: 21, speed: 0.6 }]], rot: [[106, 0.4], [110, -0.6], [114, 0.3], [118, 0.0]], s: 1.25, noShadow: true, aura: '255,210,120', vis: [105, 122] },
       ],
       props: [{ img: 'wfCyan', keys: [[114, 262, 150, 0], [118, 282, 164, 0]], s: 0.8, a: [[114, 0], [115, 1]] }, { img: 'wfEmerald', rgb: '120,255,190', keys: [[114, 288, 140, 0], [118, 288, 160, 0]], s: 0.8, a: [[114, 0], [115, 1]] }, { img: 'wfAmber', rgb: '255,210,100', keys: [[114, 316, 150, 0], [118, 296, 164, 0]], s: 0.8, a: [[114, 0], [115, 1]] }],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 115) / 3); const kf = k * (1 - sstep((t - 117.6) / 0.8)); glow(ctx, 288, 164, 90, '255,235,170', 0.5 * kf); starBurst(ctx, 288, 164, 140, 0.4 * kf, 10, t * 0.4); sparklesWorld(ctx, t, 90, 91, 0, 0, 576, 320, '255,246,210', 1);
@@ -500,11 +498,11 @@
     });
     SC.push({
       id: '5b', t0: 122, t1: 132, map: 'opm4', free: true, bg: '#04010c', grade: 'rgb(120,100,200)',
-      cam: [[122, 288, 160, 2.2, 0.0], [127, 288, 180, 1.7, 0.08], [132, 288, 230, 1.3, -0.06]],
+      free: true, cam: [[122, 288, 168, 2.2, 0.0], [127, 288, 250, 1.7, 0.06], [132, 288, 340, 1.3, -0.05]],
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[122, 288, 168], [132, 288, 330]], an: [[122, 'Sink', 0, { speed: 0.5 }]], rot: [[122, -0.3], [132, 0.2]], noShadow: true, aura: '130,235,255', a: [[122, 1], [130, 1], [132, 0]] },
-        { id: 'riolu', pid: '0447', keys: [[122, 262, 170], [124, 240, 168], [132, 240, -40]], an: [[122, 'Float', 0, { speed: 0.6 }]], noShadow: true, aura: '120,200,255', vis: [121, 133] },
-        { id: 'tiplouf', pid: '0393', keys: [[122, 314, 172], [124, 336, 170], [132, 336, -40]], an: [[122, 'Float', 0, { speed: 0.6 }]], noShadow: true, aura: '255,210,120', vis: [121, 133] },
+        { id: 'evoli', pid: '0133', keys: [[122, 288, 168]], attach: [[122, 0, 0], [132, 0, 0]], an: [[122, 'Sink', 0, { loop: false, hold: 21, speed: 0.5 }]], rot: [[122, -0.3], [127, 0.15], [132, -0.2]], s: 1.5, noShadow: true, aura: '130,235,255', a: [[122, 1], [130, 1], [132, 0]] },
+        { id: 'riolu', pid: '0447', keys: [[122, 262, 171], [124, 240, 168]].concat(Array.from({ length: 11 }, (_, i) => [126 + i * 0.5, 240, lerp(170, -40, sstep(i / 10))])), an: [[122, 'Float', 0, { speed: 0.6 }]], noShadow: true, aura: '120,200,255', vis: [121, 133] },
+        { id: 'tiplouf', pid: '0393', keys: [[122, 314, 171], [124, 336, 168]].concat(Array.from({ length: 11 }, (_, i) => [126 + i * 0.5, 336, lerp(170, -40, sstep(i / 10))])), an: [[122, 'Float', 0, { speed: 0.6 }]], noShadow: true, aura: '255,210,120', vis: [121, 133] },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 123.5) / 1.6); const up = sstep((t - 126) / 5); const by = lerp(170, -40, up);
         barrierWorld(ctx, 240, by, 24, k, t); barrierWorld(ctx, 336, by, 24, k, t); if (t < 126) { ring(ctx, 240, 170, (t - 123.5) * 40, 1.6, '160,250,255', 0.8 * (1 - clamp((t - 123.5) / 2.5, 0, 1)), 1); ring(ctx, 336, 170, (t - 123.5) * 40, 1.6, '160,250,255', 0.8 * (1 - clamp((t - 123.5) / 2.5, 0, 1)), 1); }
@@ -543,13 +541,11 @@
     const ANTIC = (EV.catalog && EV.catalog.antic) || [];
     function layer(ctx, k, x, y, a) { const im = I[k]; if (!im || !im.width) return; if (a != null) { ctx.save(); ctx.globalAlpha = a; ctx.drawImage(im, x, y); ctx.restore(); } else ctx.drawImage(im, x, y); }
     const par = (ctx, k, c, kf, ref, y) => layer(ctx, k, (1 - kf) * (c.cx - ref), y);
-    function petals(ctx, t, n, x0, x1, y0, y1, seed) {
-      ctx.save();
+    function petals(ctx, t, n, x0, x1, y0, y1, seed) { // pétales = sprite généré (rotation 3D en 16 images)
       for (let i = 0; i < n; i++) {
         const ph = (t * (0.08 + rnd(i, seed + 2) * 0.08) + rnd(i, seed)) % 1, x = lerp(x0, x1, rnd(i, seed + 1)) + Math.sin(t * 1.6 + i) * 6 + ph * 30, y = lerp(y0, y1, ph);
-        ctx.save(); ctx.translate(x, y); ctx.rotate(t * (1 + rnd(i, seed + 3)) + i); ctx.fillStyle = i % 3 ? '#f8b0a4' : '#ffd6c8'; ctx.fillRect(-2, -1, 4, 2); ctx.fillStyle = '#e4806e'; ctx.fillRect(1, -1, 1, 2); ctx.restore();
+        fx(ctx, 'petal', t * 12 * (0.7 + rnd(i, seed + 3) * 0.6) + i * 5, x, y, 0.38, 1);
       }
-      ctx.restore();
     }
     // --- A1 : le mur antique (Antic Wall) — les objets surgissent, le Wayfinder s'éveille
     const AI = [[2, 0.2], [4, 0.5], [1, 0.8], [5, 1.1], [3, 1.5], [0, 1.9]]; // [index objet, instant d'apparition]
@@ -579,8 +575,8 @@
       draw(ctx, t, c) {
         layer(ctx, 'ttSky', 0, 0);
         glow(ctx, 130, 82, 90, '255,250,220', 0.6 + 0.2 * Math.sin(t * 2)); starBurst(ctx, 130, 82, 90, 0.55, 8, t * 0.15);
-        const u = clamp((t - 3.1) / 2.7, 0, 1), idx = Math.min(12, Math.floor(u * 13)), im = I['sh' + idx];
-        if (im && im.width) { const sx = lerp(30, 200, u) + Math.sin(u * 7) * 14, sy = c.cy - 16 + Math.sin(u * 4) * 10; ctx.save(); ctx.globalAlpha = Math.min(1, u * 6); ctx.drawImage(im, Math.round(sx - im.width / 2), Math.round(sy - im.height / 2)); ctx.restore(); }
+        const u = clamp((t - 3.1) / 2.7, 0, 1), LAD = [0.4, 0.5, 0.62, 0.75, 0.9, 1.05, 1.25, 1.5, 1.8, 2.1], si = Math.min(LAD.length - 1, Math.floor(u * LAD.length));
+        { const sx = lerp(30, 200, u) + Math.sin(u * 7) * 14, sy = c.cy - 16 + Math.sin(u * 4) * 10; ctx.save(); ctx.globalAlpha = Math.min(1, u * 6); drawSprite(ctx, '0492', 'Walk', 1, (t - 3.1) * 60, true, sx, sy, { s: LAD[si], noShadow: true, aura: '255,250,200' }); ctx.restore(); }
         petals(ctx, t, 26, 20, 240, c.cy - 90, c.cy + 90, 3);
       },
       screen(ctx, t) { godRays(ctx, t, 0.35, W * 0.5, -20, 7, 1.1, H, '255,246,206'); },
@@ -602,7 +598,7 @@
     SC.push({
       id: 'MN', t0: 24, t1: 31, map: 'opm2', free: true, bg: '#001040',
       cam: [[24, 156, 120, 1.1, 0.08], [28, 156, 118, 1.4, -0.08], [31, 156, 120, 1.7, 0.05]],
-      actors: [{ id: 'evoli', pid: '0133', keys: [[24, 156, 112], [27, 150, 118], [31, 162, 114]], an: [[24, 'Sink', 0, { loop: true, speed: 0.45 }]], rot: [[24, -0.9], [27, -0.55], [31, -0.7]], aura: '120,230,255', noShadow: true, a: [[24, 0], [25.5, 1]] }],
+      actors: [{ id: 'evoli', pid: '0133', keys: [[24, 156, 112]], attach: [[24, 0, -8], [27, -6, -2], [31, 6, -6]], an: [[24, 'Sink', 0, { loop: false, hold: 21, speed: 0.5 }]], rot: [[24, -0.9], [27, -0.55], [31, -0.7]], s: 1.5, aura: '120,230,255', noShadow: true, a: [[24, 0], [25.5, 1]] }],
       props: [{ img: 'wfCyan', keys: [[24, 176, 100, 0], [31, 184, 104, 0]], s: 0.7, a: [[24, 0], [25.5, 1]] }],
       draw(ctx, t, c) {
         const u = t - 24; ctx.fillStyle = '#001040'; ctx.fillRect(-200, -300, 900, 900);
@@ -621,7 +617,7 @@
       if (tm && tm.width) { ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(tm, W / 2 - dw / 2, H / 2 - dh / 2, dw, dh); ctx.restore(); }
       glow(ctx, W / 2, H / 2, 380, '190,245,255', 0.35);
       ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(6, 6); ctx.imageSmoothingEnabled = false;
-      drawSprite(ctx, '0133', 'Sink', 0, u * 60 * 0.5, true, 0, 0, { noShadow: true, aura: '150,235,255', rot: u * 1.6 - 0.6 }); ctx.restore();
+      drawSprite(ctx, '0133', 'Sink', 0, Math.min(u * 60 * 0.5, 21), false, 0, 0, { noShadow: true, aura: '150,235,255', rot: u * 1.6 - 0.6 }); ctx.restore();
       speedLines(ctx, t, 36, W / 2, H / 2, '255,255,255', 0.35, 200);
       flash(ctx, sstep((t - 35.2) / 0.8));
     }
@@ -639,7 +635,7 @@
       world(ctx, t, c, ph) {
         if (ph !== 'over') return; const u = t - 46;
         for (let i = 0; i < 3; i++) { const ti = 0.4 + i * 0.75 + 1.7, w = u - ti, X = 100 + i * 44;
-          if (w >= 0) { const k = Math.exp(-w * 3); glow(ctx, X, 240, 50 * (0.5 + k), '255,255,255', 0.8 * k); starBurst(ctx, X, 240, 70 * (0.5 + k), 0.9 * k, 9, i);
+          if (w >= 0) { const k = Math.exp(-w * 3); glow(ctx, X, 240, 50 * (0.5 + k), '255,255,255', 0.8 * k); fx(ctx, 'splash', w * 14, X, 246, 0.9, 1, { bottom: true }); fx(ctx, 'hit', w * 14, X, 230, 0.32, 0.9);
             for (let r = 0; r < 3; r++) { const pr = clamp(w * 1.1 - r * 0.2, 0, 1.6); ring(ctx, X, 244, 4 + pr * 46, 0.9, '235,255,255', 0.8 * (1 - pr / 1.6), 0.35); }
             if (i < 2) shardsW(ctx, X, 236, w, 22, 40 + i, i ? ['#fff', '#ff9ac6', '#ffe08a'] : ['#fff', '#9ff4ff', '#ffd45a'], 80, 3); } }
         for (let k = 0; k < 6; k++) { const d = u - (0.9 + k * 0.78); if (d > 0 && d < 0.22) starBurst(ctx, 60 + rnd(k, 3) * 190, 40 + rnd(k, 4) * 40, 40, 1 - d / 0.22, 6, k); }
