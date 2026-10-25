@@ -1939,9 +1939,36 @@ def build_destiny_html() -> str:
 """
 
 
+def inline_assets(html: str) -> str:
+    """Intègre chaque image référencée par un chemin absolu `/renders/...` (avec `?v=hash`) en `data:` URI :
+    la page devient autonome et se lance aussi dans l'aperçu (iframe) où les chemins absolus ne résolvent pas."""
+    import base64
+    import re
+
+    cache: dict = {}
+
+    def sub(m: "re.Match") -> str:
+        rel = m.group(1)
+        if rel not in cache:
+            f = REPO_ROOT / rel.lstrip("/")
+            if f.is_file():
+                import io
+
+                from PIL import Image
+
+                buf = io.BytesIO()
+                Image.open(f).convert("RGBA").save(buf, format="WEBP", lossless=True)  # WEBP sans perte : ~2× plus léger que le PNG
+                cache[rel] = "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+            else:
+                cache[rel] = rel
+        return '"' + cache[rel] + '"'
+
+    return re.sub(r'"(/renders/[^"?]+\.png)(?:\?v=[0-9a-f]+)?"', sub, html)
+
+
 def main() -> None:
     out_path = REPO_ROOT / "apercu_fangame_pmd_destiny_pixel_opm.html"
-    out_path.write_text(build_destiny_html(), encoding="utf-8")
+    out_path.write_text(inline_assets(build_destiny_html()), encoding="utf-8")
     print(f"OK — {out_path} généré ({out_path.stat().st_size:,} octets)")
 
 

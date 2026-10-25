@@ -43,21 +43,14 @@ VFX_DIR.mkdir(parents=True, exist_ok=True)
 
 # Acteurs et animations réellement utilisés par la chorégraphie
 ACTORS = {
-    "0447": ["Idle", "Walk"],  # Riolu, le héros
-    "0393": ["Idle", "Hover"],  # Tiplouf
-    "0253": ["Idle"],  # Massko
-    "0151": ["Float"],  # Mew
-    "0490": ["Float"],  # Manaphy
-    "0251": ["Float"],  # Celebi
-    "0571": ["Idle"],  # Zoroark
-    "0491": ["Idle"],  # Darkrai
-    "0448": ["Idle"],  # Lucario
-    "0133": ["Hop"],  # Évoli
-    "0278": ["Hover"],  # Goélise
-    "0279": ["Walk"],  # Bekipan
-}
-PORTRAITS = {  # portraits officiels utilisés pour les arrêts sur image
-    "0447": ["Determined"], "0393": ["Determined"], "0253": ["Determined"], "0492": ["Sad"],
+    "0447": ["Idle", "Walk", "Pose"],  # Riolu, le héros
+    "0393": ["Idle"], "0253": ["Idle"], "0133": ["Idle", "Hop"], "0448": ["Idle"], "0571": ["Idle"], "0491": ["Idle"],
+    "0151": ["Float"], "0490": ["Float"], "0251": ["Float"], "0492": ["Sit"],
+    "0279": ["Walk"],  # Bekipan (vue de profil : directions 2 / 6)
+    # Guilde de Grodoudou + Gardevoir + anciens héros de PMD
+    "0282": ["Idle", "Appeal"], "0040": ["Idle", "Hop"], "0441": ["Idle", "Float"], "0294": ["Idle"], "0050": ["Idle"], "0051": ["Idle"],
+    "0399": ["Idle"], "0341": ["Idle"], "0453": ["Idle"], "0192": ["Idle"], "0025": ["Idle"], "0004": ["Idle"], "0007": ["Idle"],
+    "0001": ["Idle"], "0052": ["Idle"], "0054": ["Idle"],
 }
 
 def uri_png(path: Path) -> str:
@@ -83,12 +76,9 @@ def build_assets() -> Dict[str, object]:
     an, _ = decode_pmdo_dir_sheet(BG_DIR / "Title_Screen_Background_Nuit.dir")
     imgs["daySeaAtlas"] = uri_im(aj.convert("RGB"), "WEBP", quality=86)
     imgs["nightSeaAtlas"] = uri_im(an.convert("RGB"), "WEBP", quality=86)
-    # Décors = textures canoniques des intros de PMD Sky (Lapras, Plains, Moonlight, Sky Peak Summit)
+    # Décors = textures canoniques des intros de PMD Sky (Plains, Moonlight, Sky Peak) + mer / soleil / canyon générés
     for k, v in build_lastmoment_layers().items():
         imgs[k] = uri_im(v, "WEBP", lossless=True)
-    for pid, emos in PORTRAITS.items():
-        for emo in emos:
-            imgs[f"pt_{pid}_{emo}"] = uri_im(Image.open(ASSETS_DIR / "pmd_sprites" / pid / f"pt_{emo}.png").convert("RGBA"), "WEBP", lossless=True)
     # Sprites d'effets animés (planches générées : pétales, scintillements, bulles, impacts, flammes, éclaboussures…)
     vfx_meta: Dict[str, dict] = {}
     for name, v in build_vfx().items():

@@ -216,6 +216,23 @@ POKEMON_SPECS: List[Tuple[str, str, List[str], List[str]]] = [
     ("0151", "Mew", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Twirl", "Charge", "Double", "Nod", "LookUp", "Hurt", "Sleep", "Shoot", "Attack"], ["Normal", "Joyous", "Determined", "Surprised"]),
     ("0278", "Goélise", ["Idle", "Walk", "Hover", "Sleep", "Hurt", "Shoot", "Attack", "Swing", "Hop", "Rotate"], []),
     ("0279", "Bekipan", ["Idle", "Walk", "Sleep", "Hurt", "Shoot", "SpAttack", "Attack", "Swing", "Hop", "Rotate"], []),
+    # Guilde de Grodoudou (Explorers), Gardevoir et anciens héros de PMD (Rescue Team) : apparitions de l'Opening « Last Moment »
+    ("0282", "Gardevoir", ["Idle", "Appeal"], []),
+    ("0040", "Grodoudou", ["Idle", "Hop"], []),
+    ("0441", "Perroquel", ["Idle", "Float"], []),
+    ("0294", "Chuchmur", ["Idle"], []),
+    ("0050", "Taupiqueur", ["Idle"], []),
+    ("0051", "Triopikeur", ["Idle"], []),
+    ("0399", "Keunotor", ["Idle"], []),
+    ("0341", "Écrapince", ["Idle"], []),
+    ("0453", "Cradopaud", ["Idle"], []),
+    ("0192", "Héliatronc", ["Idle"], []),
+    ("0025", "Pikachu", ["Idle"], []),
+    ("0004", "Salamèche", ["Idle"], []),
+    ("0007", "Carapuce", ["Idle"], []),
+    ("0001", "Bulbizarre", ["Idle"], []),
+    ("0052", "Miaouss", ["Idle"], []),
+    ("0054", "Psykokwak", ["Idle"], []),
     ("0491", "Darkrai", ["Idle", "Walk", "Attack", "QuickStrike", "Double", "Swing", "Shoot", "RearUp", "Charge", "Rotate", "Hurt"], []),
 ]
 
