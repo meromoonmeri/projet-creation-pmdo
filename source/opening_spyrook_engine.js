@@ -12,7 +12,7 @@
   const hash = (x, y, s) => { const v = Math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return v - Math.floor(v); };
 
   function create(EV) {
-    const U = root.PMDDestinyUltime.create(EV), mk = EV.mk;
+    const U = root.PMDDestinyUltime.create(Object.assign({}, EV, { inbetween: true })), mk = EV.mk;
     const src = mk(W, H), sx = src.getContext('2d');
     const small = mk(SW, SH), smx = small.getContext('2d', { willReadFrequently: true });
     const out = mk(SW, SH), ox = out.getContext('2d'), outId = ox.createImageData(SW, SH), od = outId.data;

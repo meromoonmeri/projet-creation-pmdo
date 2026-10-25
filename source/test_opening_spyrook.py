@@ -37,6 +37,13 @@ class TestOpeningSpyrook(unittest.TestCase):
             self.assertTrue((ROOT / "source" / "pmd_destiny_fangame_v1" / "decors_peints" / (n + ".png")).exists(), n)
         self.assertGreaterEqual(len(list((VIDEO.parent / "keyframes").glob("*.jpg"))), 4)
 
+    def test_images_intermediaires_60fps(self):
+        e = ENGINE.read_text(encoding="utf-8")
+        u = (ROOT / "source" / "opening_ultime_engine.js").read_text(encoding="utf-8")
+        self.assertIn("inbetween: true", e)
+        for needle in ("const IBT", "frameNext(", "hold(", "respiration"):
+            self.assertIn(needle, u)
+
 
 if __name__ == "__main__":
     unittest.main()

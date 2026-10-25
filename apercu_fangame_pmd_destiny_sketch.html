@@ -1803,6 +1803,8 @@
 
   function create(EV) {
     const I = EV.imgs, SH = EV.sheets, CAT = EV.catalog.pokemon, mk = EV.mk;
+    const IBT = !!EV.inbetween; // images intermédiaires : chaque animation de sprite / d'effet est fondue vers l'image suivante (mouvement continu à 60 images/s)
+    const hold = (f) => clamp((f - 0.3) / 0.7, 0, 1);
     const scr = mk(W, H), sctx = scr.getContext('2d');
     const RW = 872, RH = 629; // logo complet pleine définition : fond de rattrapage / ailes / corps (découpe propre par segmentation)
     const rigC = mk(RW, RH), rigX = rigC.getContext('2d');
@@ -1831,7 +1833,13 @@
       ctx.translate(x, y); if (o.rot) ctx.rotate(o.rot); const sc = s || 1; ctx.scale(sc, sc);
       const dx = -m.fw / 2, dy = o.bottom ? -m.fh : -m.fh / 2;
       if ((o.mat != null && o.mat < 1) || o.tint) dith(ctx, im, f * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh, o.mat == null ? 1 : o.mat, o.tint);
-      else ctx.drawImage(im, f * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh);
+      else {
+        ctx.drawImage(im, f * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh);
+        if (IBT && n > 1) {
+          const fr = idx - Math.floor(idx), g = m.loop === false ? clamp(Math.floor(idx) + 1, 0, n - 1) : (f + 1) % n;
+          if (g !== f && fr > 0.001) { const pa = ctx.globalAlpha; ctx.globalAlpha = pa * fr; ctx.drawImage(im, g * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh); ctx.globalAlpha = pa; }
+        }
+      }
       ctx.restore();
     }
     function matBurst(ctx, x, y, k, tint, s) { // points de lumière qui convergent puis éclair en croix
@@ -1958,6 +1966,13 @@
       let i = 0; while (i < d.length - 1 && k >= d[i]) { k -= d[i]; i++; }
       return Math.min(i, info.cols - 1);
     }
+    function frameNext(info, tick, loop) { // [image suivante, avancement 0..1 dans l'image courante]
+      const d = info.durations; let total = 0; for (const x of d) total += x; total = Math.max(1, total);
+      let k = loop ? ((tick % total) + total) % total : Math.min(Math.max(tick, 0), total - 1);
+      let i = 0; while (i < d.length - 1 && k >= d[i]) { k -= d[i]; i++; }
+      const j = loop ? (i + 1) % Math.min(d.length, info.cols) : Math.min(i + 1, info.cols - 1);
+      return [Math.min(j, info.cols - 1), clamp(k / Math.max(1, d[i]), 0, 1)];
+    }
     function freezeBefore(t) { let f = 0; for (const ti of IMPACTS) if (t > ti) f += Math.min(t - ti, HITSTOP); return f; }
 
     function drawSprite(ctx, pid, anim, dir, tick, loop, x, y, o) {
@@ -1979,7 +1994,11 @@
       if (o.aura) glow(ctx, x, y - 8 - z, 34 * sc, o.aura, 0.35 * al);
       ctx.save(); ctx.globalAlpha = al; ctx.translate(x, y - 2 - z); if (o.rot) ctx.rotate(o.rot); ctx.scale(sc * (o.flip ? -1 : 1), sc);
       if (o.mat != null && o.mat < 1) dith(ctx, im, col * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh, o.mat);
-      else ctx.drawImage(im, col * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh);
+      else {
+        if (IBT && info.cols <= 2) { const br = Math.sin(tick * 0.11 + x * 0.013); ctx.scale(1 - 0.012 * br, 1 + 0.02 * br); } // respiration : même une pose fixe reste vivante
+        ctx.drawImage(im, col * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh);
+        if (IBT && info.cols > 1) { const nx = frameNext(info, tick, loop), g = hold(nx[1]); if (nx[0] !== col && g > 0.01) { ctx.globalAlpha = al * g; ctx.drawImage(im, nx[0] * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh); ctx.globalAlpha = al; } }
+      }
       if (o.tint) { ctx.globalCompositeOperation = 'source-atop'; ctx.globalAlpha = o.tint[1]; ctx.fillStyle = o.tint[0]; ctx.fillRect(-fw / 2, -fh / 2, fw, fh); }
       ctx.restore();
     }
