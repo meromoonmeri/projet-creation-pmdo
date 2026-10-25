@@ -303,7 +303,7 @@
       ctx.imageSmoothingEnabled = false;
       ctx.translate(W / 2, H / 2); ctx.rotate(c.roll); ctx.scale(c.S, c.S); ctx.translate(-c.cx, -c.cy);
       if (sc.preMap) sc.preMap(ctx, t, c);
-      drawMap(ctx, sc.map, t, sc.water);
+      if (sc.draw) sc.draw(ctx, t, c); else drawMap(ctx, sc.map, t, sc.water);
       if (sc.world) sc.world(ctx, t, c, 'under');
       // acteurs + props triés en profondeur
       const items = [];
@@ -322,6 +322,7 @@
       // grade + effets écran
       if (sc.grade) { ctx.save(); ctx.globalCompositeOperation = 'multiply'; const g = typeof sc.grade === 'function' ? sc.grade(t) : sc.grade; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
       if (sc.screen) sc.screen(ctx, t, c);
+      if (sc.thunderT) thunderFx(ctx, sc.thunderT, t);
       return c;
     }
 
@@ -329,29 +330,8 @@
     const SC = [];
     const dais = [288, 152];
     // ---- Chapitre I ----
-    // 1a : fond de l'océan, grue montante, le Wayfinder gît sur la dalle
-    SC.push({
-      id: '1a', t0: 0, t1: 6, map: 'opm2', grade: 'rgb(150,200,255)',
-      cam: [[0, 288, 205, 3.4, -0.06], [3, 288, 170, 2.4, 0.02], [6, 288, 118, 1.5, 0.0]],
-      props: [{ img: 'wfCyan', keys: [[0, 288, 150, 0]], s: 1.2 }],
-      actors: [{ id: 'manaphy', pid: '0490', keys: [[0, 170, 230, 0], [6, 380, 130, 0]], an: [[0, 'Walk', 'auto', { speed: 0.7 }]], noShadow: true, aura: '120,230,255', s: 0.9, a: [[0, 0], [1.5, 0.8], [5, 0.8], [6, 0]] }],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; bubblesWorld(ctx, t, 26, 5, 150, 430, 20, 270, 1.0); sparklesWorld(ctx, t, 40, 6, 190, 60, 390, 250, '190,250,255', 1);
-        glow(ctx, 288, 150, 90, '120,240,255', 0.2 + 0.1 * Math.sin(t * 3)); },
-      screen(ctx, t, c) { godRays(ctx, t, 0.5, W * 0.5, -20, 9, 1.4, H * 1.1, '210,250,255'); particlesScreen(ctx, t, { n: 24, rgb: '190,245,255', a: 0.5, r: 2, vy: -0.6, bubble: true, camY: c.cy * 4 }); },
-    });
     // 1b : le trio joue sur la plage — travelling latéral bas
     const trioWalk = (pid, id, x0, y0, x1, y1, tA, tB, extra) => ({ id, pid, keys: [[tA - 6, x0, y0], [tB, x1, y1]], reflect: true, ...extra });
-    SC.push({
-      id: '1b', t0: 6, t1: 11, map: 'opm1', water: [112, 320, 0.7, 0.3], reflect: false,
-      cam: [[6, 380, 108, 2.0, 0.03], [8.5, 320, 112, 2.2, 0.0], [11, 262, 112, 2.4, -0.03]],
-      actors: [
-        { id: 'riolu', pid: '0447', keys: [[6, 242, 100], [8, 250, 106], [9, 262, 112]], an: [[6, 'Walk', 'auto'], [8, 'Hop', 0, { loop: false }], [9.3, 'Idle', 0]] },
-        { id: 'evoli', pid: '0133', keys: [[6, 292, 96], [11, 300, 98]], an: [[6, 'Hop', 0, { loop: false }], [7, 'Idle', 6], [8.4, 'Hop', 2, { loop: false }], [9.5, 'Idle', 2]] },
-        { id: 'tiplouf', pid: '0393', keys: [[6, 336, 100], [8, 322, 104], [11, 318, 106]], an: [[6, 'Walk', 'auto'], [8, 'Swing', 6, { loop: false }], [9.5, 'Idle', 6]] },
-      ],
-      world(ctx, t, c, ph) { if (ph === 'over') { sparklesWorld(ctx, t, 60, 8, 0, 130, 576, 260, '255,255,230', 1); ring(ctx, 262, 118, 4 + ((t * 0.7) % 1) * 18, 0.6, '230,255,255', 0.6 * (1 - (t * 0.7) % 1), 0.4); } },
-      screen(ctx, t, c) { godRays(ctx, t, 0.18, W * 0.1, 40, 6, 1.0, H, '255,236,180'); particlesScreen(ctx, t, { n: 18, rgb: '255,250,210', a: 0.8, r: 2, vx: 0.4, vy: -0.2, tw: true, add: true, camX: c.cx * 4 }); },
-    });
     // 1c : très gros plan sur le Wayfinder — le cœur de l'étoile bat
     SC.push({
       id: '1c', t0: 11, t1: 14.5, map: 'opm2', grade: 'rgb(140,195,255)',
@@ -376,27 +356,14 @@
     // 1e : le Wayfinder s'embrase
     SC.push({
       id: '1e', t0: 19, t1: 24, map: 'opm2', grade: 'rgb(150,205,255)',
-      cam: [[19, 288, 150, 5.0, 0.0], [24, 288, 150, 2.2, 0.1]],
-      props: [{ img: 'wfCyan', keys: [[19, 288, 150, 0]], s: [[19, 1.5], [24, 2.4]] }],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 19) / 4.4); glow(ctx, 288, 150, lerp(120, 520, k), '150,245,255', 0.5 + 0.5 * k); starBurst(ctx, 288, 150, lerp(160, 700, k), 0.5 + 0.4 * k, 10, t * 0.4); bubblesWorld(ctx, t, 26, 15, 200, 380, 40, 230, 1.6); },
-      screen(ctx, t) { flash(ctx, sstep((t - 23.0) / 1.0)); },
+      cam: [[19, 288, 150, 2.3, 0.0], [24, 288, 150, 1.6, 0.1]],
+      props: [{ img: 'wfCyan', keys: [[19, 288, 150, 0]], s: [[19, 1.0], [24, 1.5]] }],
+      world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 21.8) / 2.2); glow(ctx, 288, 150, lerp(120, 520, k), '150,245,255', 0.5 + 0.12 * Math.sin(t * 5) + 0.4 * k); starBurst(ctx, 288, 150, lerp(70, 500, k), 0.1 + 0.08 * Math.sin(t * 3) ** 2 + 0.5 * k, 10, t * 0.4); for (let r = 0; r < 4; r++) { const pr = ((t - 19) * 0.6 + r * 0.25) % 1; ring(ctx, 288, 150, 10 + pr * 120, 1.2, '210,255,255', 0.7 * (1 - pr), 0.8); } bubblesWorld(ctx, t, 26, 15, 200, 380, 40, 230, 1.6); },
+      screen(ctx, t) { godRays(ctx, t, 0.16, W * 0.5, -20, 8, 1.2, H, '210,250,255'); flash(ctx, sstep((t - 23.0) / 1.0)); },
     });
 
     // ---- Chapitre II : projecteur, chute arrière, vitrail ----
     const fall = (t) => 30 + (t - 24) * 6.2; // altitude de chute d'Évoli (y monde)
-    SC.push({
-      id: '2a', t0: 24, t1: 36, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(70,110,190)',
-      cam: [[24, 288, -8, 3.0, 0.1], [30, 288, 72, 2.4, -0.08], [36, 288, 150, 2.0, 0.06]],
-      actors: [{ id: 'evoli', pid: '0133', keys: [[24, 288, -22], [30, 280, 70], [36, 262, 140]], an: [[24, 'Sink', 0, { loop: true, speed: 0.45 }]], rot: [[24, -0.9], [36, -0.5]], s: 1.0, a: [[24, 0], [26, 1]], aura: '120,230,255', noShadow: true },
-        { id: 'celebi', pid: '0251', keys: [[30, 360, 20], [36, 330, 120]], an: [[30, 'Float', 0]], noShadow: true, aura: '120,255,160', a: [[30, 0], [31.5, 0.9]], rot: [[30, 0.3], [36, -0.2]] }],
-      props: [{ img: 'wfCyan', keys: [[24, 296, -28], [36, 296, 142]], s: 0.6, a: [[24, 0], [26, 1]] }],
-      world(ctx, t, c, ph) {
-        if (ph === 'over') { sparklesWorld(ctx, t, 90, 21, 120, -40, 460, 330, '200,240,255', 1);
-          const gk = sstep((t - 29) / 4); if (gk > 0) { ctx.save(); ctx.globalAlpha = gk; const vm = I.vitrail; ctx.drawImage(vm, 288 - 130, 150 - 118, 260, 236); ctx.restore(); glow(ctx, 288, 150, 190, '120,200,255', 0.35 * gk); } }
-      },
-      screen(ctx, t) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(210,250,255,0.5)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(W * 0.43, 0); ctx.lineTo(W * 0.57, 0); ctx.lineTo(W * 0.85, H); ctx.lineTo(W * 0.15, H); ctx.closePath(); ctx.fill(); ctx.restore();
-        particlesScreen(ctx, t, { n: 50, rgb: '190,245,255', a: 0.7, r: 2, vy: -1.4, bubble: true }); },
-    });
     SC.push({
       id: '2b', t0: 36, t1: 46, map: 'opm2', free: true, bg: '#010208', grade: (t) => `rgb(${Math.round(lerp(80, 220, sstep((t - 40) / 5)))},${Math.round(lerp(120, 240, sstep((t - 40) / 5)))},255)`,
       cam: [[36, 288, 150, 2.0, 0.06], [41, 288, 160, 1.4, -0.04], [46, 288, 150, 1.5, 0.0]],
@@ -406,25 +373,6 @@
       screen(ctx, t) { flash(ctx, sstep((t - 44.6) / 1.4)); },
     });
 
-    // ---- Chapitre III : trois Wayfinders, 13 sièges de ténèbres ----
-    SC.push({
-      id: '3a', t0: 46, t1: 52.5, map: 'opm1', water: [112, 320, 0.7, 0.3], grade: 'rgb(170,175,220)',
-      cam: [[46, 300, 150, 1.0, 0.0], [49, 286, 112, 1.5, 0.05], [52.5, 262, 118, 2.2, -0.04]],
-      actors: [
-        { id: 'riolu', pid: '0447', keys: [[46, 250, 104]], an: [[46, 'Pose', 0, { loop: false }], [49.2, 'Hop', 0, { loop: false }]] },
-        { id: 'evoli', pid: '0133', keys: [[46, 288, 108]], an: [[46, 'Hurt', 0], [48.6, 'Idle', 0]] },
-        { id: 'tiplouf', pid: '0393', keys: [[46, 326, 106]], an: [[46, 'Idle', 6], [48, 'Hop', 6, { loop: false }]] },
-      ],
-      props: [0, 1, 2].map((i) => ({ img: ['wfCyan', 'wfEmerald', 'wfAmber'][i], rgb: ['120,235,255', '120,255,190', '255,210,100'][i], keys: [[46 + 0.4 + i * 0.75, 200 + i * 80, -30, 0], [46 + 0.4 + i * 0.75 + 1.7, 200 + i * 80, 165, 0]], s: 1.0, a: [[46 + 0.4 + i * 0.75, 1], [46 + 0.4 + i * 0.75 + 1.69, 1], [46 + 0.4 + i * 0.75 + 1.72, i === 2 ? 1 : 0]] })),
-      world(ctx, t, c, ph) { if (ph !== 'over') return; const u = t - 46;
-        for (let i = 0; i < 3; i++) { const ti = 0.4 + i * 0.75 + 1.7, w = u - ti, X = 200 + i * 80;
-          if (u > 0.4 + i * 0.75 && w < 0) { for (let k = 1; k < 9; k++) glow(ctx, X, lerp(-30, 165, clamp((u - 0.4 - i * 0.75) / 1.7, 0, 1)) - k * 8, 10 - k, '150,240,255', 0.3 - k * 0.03); }
-          if (w >= 0) { const k = Math.exp(-w * 3); glow(ctx, X, 165, 60 * (0.5 + k), '255,255,255', 0.8 * k); starBurst(ctx, X, 165, 80 * (0.5 + k), 0.9 * k, 9, i);
-            for (let r = 0; r < 3; r++) { const pr = clamp(w * 1.1 - r * 0.2, 0, 1.6); ring(ctx, X, 165, 4 + pr * 50, 0.8, '230,255,255', 0.8 * (1 - pr / 1.6), 0.35); }
-            if (i < 2) shardsW(ctx, X, 160, w, 22, 40 + i, i ? ['#fff', '#ff9ac6', '#ffe08a'] : ['#fff', '#9ff4ff', '#ffd45a'], 90, 3); } }
-        for (let k = 0; k < 6; k++) { const tf = 0.9 + k * 0.78, d = u - tf; if (d > 0 && d < 0.22) starBurst(ctx, 100 + rnd(k, 3) * 400, 130 + rnd(k, 4) * 40, 50, 1 - d / 0.22, 6, k); } },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 30, rgb: '255,240,200', a: 0.8, r: 2, vy: -0.3, tw: true, add: true }); flash(ctx, sstep((t - 51.8) / 0.7)); },
-    });
     SC.push({
       id: '3b', t0: 52.5, t1: 58, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(110,150,220)',
       cam: [[52.5, 288, 20, 2.2, 0.08], [55, 288, 90, 2.6, -0.04], [58, 288, 150, 3.0, 0.0]],
@@ -578,26 +526,145 @@
       cam: [[137, 288, 160, 1.0, 0.0]], screen() { },
     });
     SC.push({
-      id: '6c', t0: 142, t1: 146.5, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
+      id: '6c', t0: 142, t1: 145.2, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
       cam: [[142, 288, 100, 1.0, 0.1], [144.5, 288, 105, 1.5, 0.0], [146.5, 288, 108, 2.8, -0.06]],
       follow: ['riolu', 'evoli'],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.6, 286, 98], [146.5, 286, 100]], an: [[142, 'LeapForth', 0, { loop: false }], [143.4, 'Charge', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
-        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.6, 290, 120], [146.5, 290, 120]], an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
+        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.0, 286, 98], [146.5, 286, 100]], an: [[142, 'LeapForth', 0, { loop: false }], [143.4, 'Charge', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
+        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 145) / 1.5); glow(ctx, 288, 122, 160, '255,246,210', 0.25 + 0.6 * k); starBurst(ctx, 288, 122, 260, 0.6 * k, 12, t * 0.5); bubblesWorld(ctx, t, 34, 71, 180, 400, 0, 260, 1.4); sparklesWorld(ctx, t, 80, 72, 190, 0, 390, 260, '255,246,200', 1); },
       screen(ctx, t) { godRays(ctx, t, 0.7, W * 0.62, -30, 8, 0.8, H * 1.2, '255,240,190'); },
     });
+
+    // ================== PLANCHES « PMD EXPLORERS OF SKY » (méthode d'intro de la série) ==================
+    // Couches 256×192 superposées, défilement indépendant par couche (parallaxe), échelle de zoom du Shaymin,
+    // tunnel Time Travel en boucle, nuages d'orage additifs, mer en tuile — + sprites PMDO image par image.
+    const ANTIC = (EV.catalog && EV.catalog.antic) || [];
+    function layer(ctx, k, x, y, a) { const im = I[k]; if (!im || !im.width) return; if (a != null) { ctx.save(); ctx.globalAlpha = a; ctx.drawImage(im, x, y); ctx.restore(); } else ctx.drawImage(im, x, y); }
+    const par = (ctx, k, c, kf, ref, y) => layer(ctx, k, (1 - kf) * (c.cx - ref), y);
+    function petals(ctx, t, n, x0, x1, y0, y1, seed) {
+      ctx.save();
+      for (let i = 0; i < n; i++) {
+        const ph = (t * (0.08 + rnd(i, seed + 2) * 0.08) + rnd(i, seed)) % 1, x = lerp(x0, x1, rnd(i, seed + 1)) + Math.sin(t * 1.6 + i) * 6 + ph * 30, y = lerp(y0, y1, ph);
+        ctx.save(); ctx.translate(x, y); ctx.rotate(t * (1 + rnd(i, seed + 3)) + i); ctx.fillStyle = i % 3 ? '#f8b0a4' : '#ffd6c8'; ctx.fillRect(-2, -1, 4, 2); ctx.fillStyle = '#e4806e'; ctx.fillRect(1, -1, 1, 2); ctx.restore();
+      }
+      ctx.restore();
+    }
+    // --- A1 : le mur antique (Antic Wall) — les objets surgissent, le Wayfinder s'éveille
+    const AI = [[2, 0.2], [4, 0.5], [1, 0.8], [5, 1.1], [3, 1.5], [0, 1.9]]; // [index objet, instant d'apparition]
     SC.push({
-      id: '6d', t0: 146.5, t1: TITLE_T, map: 'opm5', free: true, water: [0, 320, 0.8, 0.3], grade: 'rgb(235,250,255)',
-      cam: [[146.5, 150, 190, 2.8, 0.0], [148, 150, 170, 2.2, 0.0]],
-      actors: [
-        { id: 'riolu', pid: '0447', keys: [[146.5, 150, 222, -10], [147.0, 150, 190, 24], [148, 150, 196, 0]], an: [[146.5, 'Hop', 0, { loop: false }]], reflect: false },
-        { id: 'evoli', pid: '0133', keys: [[146.5, 170, 226, -10], [147.1, 170, 194, 20], [148, 170, 200, 0]], an: [[146.5, 'Hop', 0, { loop: false }]] },
-      ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; const u = t - 146.5; for (let r = 0; r < 3; r++) ring(ctx, 160, 206, clamp(u * 40 - r * 10, 0, 90), 1.2, '255,255,255', 0.8 * (1 - clamp((u * 40 - r * 10) / 90, 0, 1)), 0.4); sparklesWorld(ctx, t, 80, 81, 100, 150, 230, 240, '255,255,255', 1); },
-      screen(ctx, t) { flash(ctx, sstep((t - 147.2) / 0.8)); },
+      id: 'A1', t0: 0, t1: 3, map: 'opm2', free: true, bg: '#120a05',
+      cam: [[0, 180, 235, 1.5, 0.0], [1.5, 180, 190, 1.1, 0.0], [3, 180, 128, 0.95, 0.0]],
+      draw(ctx, t, c) {
+        layer(ctx, 'anticWall', 0, 0);
+        glow(ctx, 180, 192, 130, '255,190,90', 0.22 + 0.12 * Math.sin(t * 3));
+        AI.forEach(([k, ti]) => {
+          const b = ANTIC[k]; const im = I['it' + k]; if (!b || !im || !im.width) return; const u = clamp((t - ti) / 0.42, 0, 1); if (u <= 0) return;
+          const e = 1 + 2.7 * Math.pow(u - 1, 3) + 1.7 * Math.pow(u - 1, 2); const cx = b[0] + b[2] / 2, cy = b[1] + b[3] / 2;
+          ctx.save(); ctx.globalAlpha = Math.min(1, u * 2); ctx.translate(cx, cy + (1 - u) * -14); ctx.scale(e, e); ctx.drawImage(im, -b[2] / 2, -b[3] / 2); ctx.restore();
+          if (u < 1) glow(ctx, cx, cy, 60 * (1 - u * 0.5), '255,240,190', 0.6 * (1 - u));
+        });
+        const w = sstep((t - 1.1) / 1.6);
+        glow(ctx, 180, 192, 90 + 70 * w, '150,235,255', 0.55 * w);
+        wayfinder(ctx, 'wfCyan', 180, 192 - 12 * w, 0.4 + 1.1 * w, t, w, '120,235,255');
+        starBurst(ctx, 180, 192, 120 * w, 0.35 * w, 8, t * 0.4);
+      },
+      screen(ctx, t) { particlesScreen(ctx, t, { n: 30, rgb: '255,220,150', a: 0.7, r: 2, vy: -0.3, tw: true, add: true }); },
     });
+    // --- A2 : plaque verticale — panoramique du ciel vers la côte, le Shaymin approche (échelle de zoom en images)
+    SC.push({
+      id: 'A2', t0: 3, t1: 6, map: 'opm1', free: true, bg: '#2a6fd0',
+      cam: [[3, 128, 74, 1.27, 0.0], [4, 128, 150, 1.27, 0.0], [5, 128, 330, 1.27, 0.0], [6, 128, 430, 1.27, 0.0]],
+      draw(ctx, t, c) {
+        layer(ctx, 'ttSky', 0, 0);
+        glow(ctx, 130, 82, 90, '255,250,220', 0.6 + 0.2 * Math.sin(t * 2)); starBurst(ctx, 130, 82, 90, 0.55, 8, t * 0.15);
+        const u = clamp((t - 3.1) / 2.7, 0, 1), idx = Math.min(12, Math.floor(u * 13)), im = I['sh' + idx];
+        if (im && im.width) { const sx = lerp(30, 200, u) + Math.sin(u * 7) * 14, sy = c.cy - 16 + Math.sin(u * 4) * 10; ctx.save(); ctx.globalAlpha = Math.min(1, u * 6); ctx.drawImage(im, Math.round(sx - im.width / 2), Math.round(sy - im.height / 2)); ctx.restore(); }
+        petals(ctx, t, 26, 20, 240, c.cy - 90, c.cy + 90, 3);
+      },
+      screen(ctx, t) { godRays(ctx, t, 0.35, W * 0.5, -20, 7, 1.1, H, '255,246,206'); },
+    });
+    // --- P1 : les Plaines — les trois amis courent, deux plans de parallaxe (plan lointain + arbres)
+    SC.push({
+      id: 'P1', t0: 6, t1: 11, map: 'opm1', free: true, bg: '#6ab4f0',
+      cam: [[6, 150, 130, 1.25, 0.02], [8.5, 200, 130, 1.35, -0.02], [11, 250, 130, 1.45, 0.02]],
+      actors: [
+        { id: 'riolu', pid: '0447', keys: [[6, 132, 170], [8, 190, 168], [11, 290, 172]], an: [[6, 'Walk', 'auto', { speed: 1.2 }]], reflect: false },
+        { id: 'evoli', pid: '0133', keys: [[6, 168, 176], [8, 226, 178], [11, 318, 176]], an: [[6, 'Walk', 'auto', { speed: 1.2 }], [8.4, 'Hop', 2, { loop: false }], [9.4, 'Walk', 'auto', { speed: 1.2 }]] },
+        { id: 'tiplouf', pid: '0393', keys: [[6, 104, 180], [8, 164, 178], [11, 262, 180]], an: [[6, 'Walk', 'auto', { speed: 1.2 }]] },
+      ],
+      draw(ctx, t, c) { ctx.fillStyle = '#7cc0f4'; ctx.fillRect(-100, -100, 700, 120); par(ctx, 'plainsFar', c, 0.55, 192, 0); par(ctx, 'plainsTree', c, 0.85, 192, 0); },
+      world(ctx, t, c, ph) { if (ph === 'over') { sparklesWorld(ctx, t, 40, 91, c.cx - 128, 120, c.cx + 128, 200, '255,255,230', 1); } },
+      screen(ctx, t) { godRays(ctx, t, 0.16, W * 0.1, 30, 5, 1.0, H, '255,236,180'); },
+    });
+    // --- MN : chute arrière au clair de lune (couches Moonlight défilant à des vitesses différentes)
+    SC.push({
+      id: 'MN', t0: 24, t1: 31, map: 'opm2', free: true, bg: '#001040',
+      cam: [[24, 156, 120, 1.1, 0.08], [28, 156, 118, 1.4, -0.08], [31, 156, 120, 1.7, 0.05]],
+      actors: [{ id: 'evoli', pid: '0133', keys: [[24, 156, 112], [27, 150, 118], [31, 162, 114]], an: [[24, 'Sink', 0, { loop: true, speed: 0.45 }]], rot: [[24, -0.9], [27, -0.55], [31, -0.7]], aura: '120,230,255', noShadow: true, a: [[24, 0], [25.5, 1]] }],
+      props: [{ img: 'wfCyan', keys: [[24, 176, 100, 0], [31, 184, 104, 0]], s: 0.7, a: [[24, 0], [25.5, 1]] }],
+      draw(ctx, t, c) {
+        const u = t - 24; ctx.fillStyle = '#001040'; ctx.fillRect(-200, -300, 900, 900);
+        const off = (u * 70) % 240; for (let k = -1; k <= 2; k++) layer(ctx, 'moonBg', 0, -off + k * 240 - 120);
+        const f = 1 - sstep((u - 2.5) / 2.5); layer(ctx, 'moonFg', 0, -u * 40, f);
+        if (f > 0) glow(ctx, 156, 100 - u * 40, 150, '255,244,200', 0.25 * f);
+      },
+      screen(ctx, t) { speedLines(ctx, t, 26, W / 2, H / 2, '190,230,255', 0.28, 220, -Math.PI / 2); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(210,250,255,0.35)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(W * 0.43, 0); ctx.lineTo(W * 0.57, 0); ctx.lineTo(W * 0.85, H); ctx.lineTo(W * 0.15, H); ctx.closePath(); ctx.fill(); ctx.restore(); },
+    });
+    // --- TT : tunnel Time Travel (13 images en boucle, fenêtres blanches = souvenirs du monde)
+    function drawTunnel(ctx, t) {
+      const u = t - 31; ctx.fillStyle = '#02051a'; ctx.fillRect(0, 0, W, H);
+      const mem = ['opm1', 'opm3', 'opm2', 'opm4'][Math.floor(u / 1.2) % 4], im = I[mem];
+      ctx.save(); ctx.translate(W / 2, H / 2); ctx.rotate(u * 0.45); ctx.imageSmoothingEnabled = false; const s = 4.5 + u * 0.7; if (im) ctx.drawImage(im, -MW * s / 2, -MH * s / 2, MW * s, MH * s); ctx.restore();
+      const tm = I['tm' + (Math.floor(u * 20) % 13)], z = 1 + 0.04 * Math.sin(u * 5), dw = 1280 * z, dh = dw * 240 / 312;
+      if (tm && tm.width) { ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(tm, W / 2 - dw / 2, H / 2 - dh / 2, dw, dh); ctx.restore(); }
+      glow(ctx, W / 2, H / 2, 380, '190,245,255', 0.35);
+      ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(6, 6); ctx.imageSmoothingEnabled = false;
+      drawSprite(ctx, '0133', 'Sink', 0, u * 60 * 0.5, true, 0, 0, { noShadow: true, aura: '150,235,255', rot: u * 1.6 - 0.6 }); ctx.restore();
+      speedLines(ctx, t, 36, W / 2, H / 2, '255,255,255', 0.35, 200);
+      flash(ctx, sstep((t - 35.2) / 0.8));
+    }
+    SC.push({ id: 'TT', t0: 31, t1: 36, map: 'opm2', free: true, cam: [[31, 288, 150, 1, 0]], custom: drawTunnel });
+    // --- OC : l'océan de Lapras — trois Wayfinders tombent du ciel dans la mer
+    SC.push({
+      id: 'OC', t0: 46, t1: 52.5, map: 'opm1', free: true, bg: '#1d6cc8',
+      cam: [[46, 144, 62, 1.2, 0.0], [47.5, 144, 150, 1.2, 0.0], [49, 144, 215, 1.3, 0.0], [52.5, 144, 262, 1.45, 0.0]],
+      props: [0, 1, 2].map((i) => { const t0 = 46.4 + i * 0.75, ti = t0 + 1.7; return { img: ['wfCyan', 'wfEmerald', 'wfAmber'][i], rgb: ['120,235,255', '120,255,190', '255,210,100'][i], keys: [[t0, 100 + i * 44, -10, 0], [ti, 100 + i * 44, 240, 0], [ti + 2, 100 + i * 44, 320, 0]], s: 1.0, a: [[t0, 1], [ti - 0.01, 1], [ti + 0.02, i === 2 ? 1 : 0], [ti + 1.8, i === 2 ? 0.1 : 0]] }; }),
+      draw(ctx, t, c) {
+        layer(ctx, 'laprasSky', 0, 0); layer(ctx, 'laprasSea', 0, 264);
+        const o = (t * 14) % 288; ctx.save(); ctx.globalAlpha = 0.28; for (let k = -1; k <= 1; k++) ctx.drawImage(I.laprasSea, k * 288 + o, 176, 288, 90); ctx.restore();
+        const lw = I['lap' + (Math.floor(t * 5) % 3)]; if (lw && lw.width) { const lx = lerp(330, -90, (t - 46) / 6.5), ly = 232 + Math.sin(t * 2.4) * 2.5; ctx.drawImage(lw, Math.round(lx), Math.round(ly)); }
+      },
+      world(ctx, t, c, ph) {
+        if (ph !== 'over') return; const u = t - 46;
+        for (let i = 0; i < 3; i++) { const ti = 0.4 + i * 0.75 + 1.7, w = u - ti, X = 100 + i * 44;
+          if (w >= 0) { const k = Math.exp(-w * 3); glow(ctx, X, 240, 50 * (0.5 + k), '255,255,255', 0.8 * k); starBurst(ctx, X, 240, 70 * (0.5 + k), 0.9 * k, 9, i);
+            for (let r = 0; r < 3; r++) { const pr = clamp(w * 1.1 - r * 0.2, 0, 1.6); ring(ctx, X, 244, 4 + pr * 46, 0.9, '235,255,255', 0.8 * (1 - pr / 1.6), 0.35); }
+            if (i < 2) shardsW(ctx, X, 236, w, 22, 40 + i, i ? ['#fff', '#ff9ac6', '#ffe08a'] : ['#fff', '#9ff4ff', '#ffd45a'], 80, 3); } }
+        for (let k = 0; k < 6; k++) { const d = u - (0.9 + k * 0.78); if (d > 0 && d < 0.22) starBurst(ctx, 60 + rnd(k, 3) * 190, 40 + rnd(k, 4) * 40, 40, 1 - d / 0.22, 6, k); }
+      },
+      screen(ctx, t) { godRays(ctx, t, 0.28, W * 0.5, -20, 7, 1.0, H, '255,246,206'); flash(ctx, sstep((t - 51.9) / 0.6)); },
+    });
+    // --- SP : sommet fleuri (Sky Peak Summit) — Riolu et Évoli, la caméra se redresse vers le soleil → écran-titre
+    SC.push({
+      id: 'SP', t0: 145.2, t1: TITLE_T, map: 'opm5', free: true, bg: '#2c70e0',
+      cam: [[145.2, 128, 494, 1.7, 0.0], [146.5, 128, 486, 1.6, 0.0], [147.3, 128, 270, 1.35, 0.0], [148, 128, 110, 1.27, 0.0]],
+      actors: [
+        { id: 'riolu', pid: '0447', keys: [[145.2, 108, 484]], an: [[145.2, 'LookUp', 4, { loop: false }]], ys: 0 },
+        { id: 'evoli', pid: '0133', keys: [[145.2, 142, 490]], an: [[145.2, 'LookUp', 4, { loop: false }]] },
+      ],
+      draw(ctx, t, c) { layer(ctx, 'skyPeak', 0, 0); glow(ctx, 128, 70, 120, '255,250,220', 0.5); starBurst(ctx, 128, 70, 140, 0.5, 8, t * 0.2); },
+      world(ctx, t, c, ph) { if (ph === 'over') petals(ctx, t, 40, 30, 230, c.cy - 80, c.cy + 80, 9); },
+      screen(ctx, t) { godRays(ctx, t, 0.35 * sstep((t - 146.5) / 1.2), W * 0.5, -20, 7, 1.1, H, '255,246,206'); flash(ctx, sstep((t - 147.4) / 0.6)); },
+    });
+    // --- Orage (Thunderclouds) : images brutes en addition, synchronisées sur les impacts
+    function thunderFx(ctx, times, t) {
+      let idx = 0, a = 0;
+      for (const ti of times) { const d = t - ti; if (d >= 0 && d < 0.6) { idx = Math.min(6, 1 + Math.floor(d * 16)); a = Math.exp(-d * 2.4) * 0.85; } }
+      if (a < 0.02) return; const im = I['th' + idx]; if (!im || !im.width) return;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a; const dw = W, dh = W * 240 / 335; ctx.drawImage(im, 0, (H - dh) / 2, dw, dh); ctx.restore();
+    }
 
     // ---------- Œil (plan 6b) : reflet de Riolu plongeant dans la pupille d'Évoli ----------
     function miniScene(t) {
@@ -666,7 +733,10 @@
     }
 
     // ---------- Compositeur ----------
-    const XF = { '1b': 0.5, '1c': 0.4, '1d': 0.5, '1e': 0.5, '2a': 1.0, '2b': 0.6, '3a': 0.8, '3b': 0.6, '3c': 0.6, '3d': 0.9, '4a': 0.3, '4b': 0, '4c': 0, '4d': 0, '5a': 0, '5b': 0.8, '6a': 1.0, '6b': 0.8, '6c': 0.8, '6d': 0.3 };
+    SC.sort((a, b) => a.t0 - b.t0);
+    ['4b', '4c', '4d'].forEach((id) => { SC.find((q) => q.id === id).thunderT = IMPACTS; });
+    SC.find((q) => q.id === '5a').thunderT = [118.0, 119.1, 120.2];
+    const XF = { A2: 0.6, P1: 0.7, MN: 1.0, TT: 0.6, OC: 0.8, SP: 0.5, '1c': 0.4, '1d': 0.5, '1e': 0.5, '2b': 0.6, '3b': 0.6, '3c': 0.6, '3d': 0.9, '4a': 0.3, '4b': 0, '4c': 0, '4d': 0, '5a': 0, '5b': 0.8, '6a': 1.0, '6b': 0.8, '6c': 0.8 };
     function drawShot(ctx, sc, t) { if (sc.custom) { sc.custom(ctx, t); return null; } return renderScene(ctx, sc, t); }
     function caption(ctx, t) {
       let ch = null; for (const c of CHAPTERS) if (t >= c.t) ch = c; if (!ch) return;

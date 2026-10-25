@@ -120,18 +120,19 @@
       <h2 class="t">Découpage plan par plan (calé sur la vidéo de référence)</h2>
       <table class="shots">
         <tr><th>Temps</th><th>Séquence (sprites PMDO + caméra)</th></tr>
-        <tr><td>00:00 – 00:24</td><td><b>Fond de l'océan ↔ rivage</b> : grue montante sur la dalle abyssale, Wayfinder au sol, Manaphy qui nage ; travelling bas sur la plage où <b>Riolu, Évoli et Tiplouf</b> jouent (Walk / Hop / Swing) ; très gros plan, Riolu <i>LookUp → Pose → Pull</i> vers l'eau ; le Wayfinder s'embrase.</td></tr>
-        <tr><td>00:24 – 00:46</td><td><b>Chute arrière &amp; Vitrail</b> : Évoli en <i>Sink</i> avec rotation, dérive scintillante, Celebi, le vitrail s'allume, caméra en orbite avec roulis.</td></tr>
-        <tr><td>00:46 – 01:08</td><td><b>Trois Wayfinders plongent</b> dans la mer (deux éclatent, un coule) ; Évoli le reprend ; puis les <b>13 sièges de ténèbres</b> s'embrasent un à un.</td></tr>
-        <tr><td>01:08 – 01:46</td><td><b>Mêlée dans l'Arène Eau-Miroir</b> : Évoli contre ses doubles corrompus (Riolu &amp; Tiplouf <i>ombres</i>), <i>hit-stop</i> + impact frames sur chaque coup ; <b>Lucario</b> jaillit du vitrail ; Darkrai entre en scène.</td></tr>
+        <tr><td>00:00 – 00:24</td><td><b>Mur antique</b> (les objets surgissent, le Wayfinder s'éveille) → <b>panoramique ciel → côte</b> avec le Shaymin → <b>Plaines</b> en parallaxe où <b>Riolu, Évoli et Tiplouf</b> courent → très gros plan du Wayfinder dans l'abysse, Riolu <i>LookUp → Pose → Pull</i> vers l'eau ; le Wayfinder s'embrase.</td></tr>
+        <tr><td>00:24 – 00:46</td><td><b>Chute arrière au clair de lune</b> (couches Moonlight) → <b>tunnel Time Travel</b> → le <b>Vitrail</b> s'allume, caméra en orbite avec roulis.</td></tr>
+        <tr><td>00:46 – 01:08</td><td><b>Trois Wayfinders plongent</b> dans l'océan de Lapras (deux éclatent, un coule) ; Évoli le reprend ; puis les <b>13 sièges de ténèbres</b> s'embrasent un à un.</td></tr>
+        <tr><td>01:08 – 01:46</td><td><b>Mêlée dans l'Arène Eau-Miroir</b> : Évoli contre ses doubles corrompus (Riolu &amp; Tiplouf <i>ombres</i>), <i>hit-stop</i> + impact frames + éclairs d'orage sur chaque coup ; <b>Lucario</b> jaillit du vitrail ; Darkrai entre en scène.</td></tr>
         <tr><td>01:46 – 02:12</td><td><b>Chute céleste</b> : les trois (+ Latias &amp; Latios) tombent en sprites pivotés, onde noire à 01:58, deux <b>sphères-barrières</b> protègent Riolu et Tiplouf, Évoli sombre.</td></tr>
-        <tr><td>02:12 – 02:33</td><td><b>Rayon d'Espoir</b> : fond de l'abysse, reflet dans la pupille, Riolu plonge la patte, saisie, remontée dans l'écume → <b>écran-titre</b>, logo plein centre.</td></tr>
+        <tr><td>02:12 – 02:33</td><td><b>Rayon d'Espoir</b> : fond de l'abysse, reflet dans la pupille, Riolu plonge la patte, saisie, remontée dans le <b>sommet fleuri</b>, tilt vers le soleil → <b>écran-titre</b>, logo plein centre.</td></tr>
       </table>
     </div>
     <div class="card">
       <h2 class="t">Contact-sheet des plans</h2>
       <img class="sheet" id="sheetImg" alt="Planche storyboard de la cinématique" />
       <ul class="s">
+        <li><b>Méthode d'intro de PMD Sky</b> (planches de référence <i>Explorers of Sky</i>) : plaques 256×192 en couches à défilement indépendant (parallaxe), panoramique vertical ciel → terre avec l'échelle de zoom du Shaymin, mur antique, Plaines (arbres / plan lointain), clair de lune, tunnel <i>Time Travel</i> en boucle de 13 images, nuages d'orage additifs sur les impacts, océan de Lapras, sommet fleuri.</li>
         <li><b>Vrais sprites PMDO</b> (PMDCollab/SpriteCollab) : durées <code>AnimData</code> image par image (60 ticks/s), 8 directions calculées d'après la trajectoire, ombres, reflets sur l'eau.</li>
         <li><b>Décors</b> : les 5 maps d'Opening <code>OPM1..5</code> (pixel-art PMD 3/4) + vitrail et 3 Wayfinders.</li>
         <li><b>Caméra immersive à clés Catmull-Rom</b> : grues, travellings, orbites avec roulis, push-in, secousses, <i>hit-stop</i>, rayons de lumière, parallaxe de particules.</li>

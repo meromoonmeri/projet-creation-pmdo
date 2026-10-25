@@ -38,6 +38,12 @@ class TestOpeningSprite(unittest.TestCase):
         r = subprocess.run(["node", "--check", str(HERE / "opening_sprite_engine.js")], capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stderr)
 
+    def test_04b_couches_pmd_sky(self) -> None:
+        txt = HTML.read_text(encoding="utf-8")
+        for k in ("ttSky", "moonBg", "plainsFar", "plainsTree", "skyPeak", "laprasSky", "anticWall", "tm12", "th6", "sh12", "lap2", "it5"):
+            self.assertIn(f'"{k}":"data:image/webp', txt)
+        self.assertIn("A1", txt)
+
     def test_05_page_aaa_conservee(self) -> None:
         self.assertTrue((REPO_ROOT / "apercu_fangame_pmd_destiny_aaa_illustre.html").is_file())
         self.assertTrue((REPO_ROOT / "apercu_fangame_pmd_destiny_pixel_opm.html").is_file())

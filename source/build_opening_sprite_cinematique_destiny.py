@@ -26,6 +26,7 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
         sys.path.insert(0, p)
 
 from source.moteur_pmd_destiny_fangame import decode_pmdo_dir_sheet  # type: ignore
+from source.build_opening_sky_layers import build_layers  # type: ignore
 
 RENDERS = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1"
 ASSETS_DIR = RENDERS / "opening_assets"
@@ -40,7 +41,7 @@ DURATION_S = 153.0
 # Acteurs et animations réellement utilisés par la chorégraphie
 ACTORS = {
     "0447": ["Idle", "Walk", "Hop", "LookUp", "Pose", "Pull", "Rotate", "Float", "Sink", "Charge", "LeapForth"],
-    "0133": ["Idle", "Walk", "Hop", "Pose", "Hurt", "Pain", "Attack", "Double", "Swing", "Shoot", "Float", "Sink", "Wake"],
+    "0133": ["Idle", "Walk", "Hop", "LookUp", "Pose", "Hurt", "Pain", "Attack", "Double", "Swing", "Shoot", "Float", "Sink", "Wake"],
     "0393": ["Idle", "Walk", "Hop", "Swing", "Rotate", "Float", "Attack", "Shoot", "Hurt", "Pain"],
     "shadow_0447": ["Idle", "Walk", "Attack", "Strike", "Double", "Charge", "Hurt", "Pain", "Rotate"],
     "shadow_0393": ["Idle", "Walk", "Swing", "Attack", "Shoot", "Hurt", "Pain", "Rotate"],
@@ -85,6 +86,23 @@ def build_assets() -> Dict[str, object]:
     an, _ = decode_pmdo_dir_sheet(BG_DIR / "Title_Screen_Background_Nuit.dir")
     imgs["daySeaAtlas"] = uri_im(aj.convert("RGB"), "WEBP", quality=86)
     imgs["nightSeaAtlas"] = uri_im(an.convert("RGB"), "WEBP", quality=86)
+    # Couches « PMD Explorers of Sky » (méthode d'intro de la série) : parallaxe, tunnel, orage, mer en tuile…
+    L = build_layers()
+    lossless = {"ttSky", "moonBg", "moonFg", "plainsFar", "plainsTree", "skyPeak", "skyPeakFront", "laprasSky", "laprasSea", "anticWall"}
+    for k, v in L.items():
+        if k == "anticPos":
+            continue
+        if isinstance(v, list):
+            pref = {"shaymin": "sh", "lapras": "lap", "anticItems": "it", "timeTravel": "tm", "thunder": "th"}[k]
+            for i, im in enumerate(v):
+                if k == "thunder":
+                    imgs[f"{pref}{i}"] = uri_im(im.convert("RGB"), "WEBP", quality=80)
+                elif k == "timeTravel":
+                    imgs[f"{pref}{i}"] = uri_im(im, "WEBP", quality=82, method=6)
+                else:
+                    imgs[f"{pref}{i}"] = uri_im(im, "WEBP", lossless=True)
+        elif k in lossless:
+            imgs[k] = uri_im(v, "WEBP", lossless=True)
     sb = OUT_DIR / "contact_sheet.webp"
     if sb.is_file():
         imgs["storyboardSheet"] = "data:image/webp;base64," + base64.b64encode(sb.read_bytes()).decode("ascii")
@@ -101,7 +119,7 @@ def build_assets() -> Dict[str, object]:
             a = P["anims"][n]
             sheets[a["file"]] = uri_png(ASSETS_DIR / "pmd_sprites" / a["file"])
             catalog[pid]["anims"][n] = {k: a[k] for k in ("file", "fw", "fh", "cols", "rows", "durations")}
-    return {"imgs": imgs, "sheets": sheets, "catalog": {"pokemon": catalog}}
+    return {"imgs": imgs, "sheets": sheets, "catalog": {"pokemon": catalog, "antic": L["anticPos"]}}
 
 
 def build_html() -> Path:
