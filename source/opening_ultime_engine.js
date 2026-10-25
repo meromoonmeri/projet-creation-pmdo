@@ -778,7 +778,7 @@
       ctx.restore(); return { wing: 0, shot: t < IR0 ? 'SF' : 'MR' };
     }
     function renderTitleMode(ctx, tl, theme, nowSec, flapStart) { return S.renderTitleMode(ctx, tl, theme, nowSec, flapStart); }
-    return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC };
+    return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC, SHOTS: [].concat(V.SC.map((q) => [q.id, q.t0, q.t1]), S.SC.map((q) => [q.id, q.t0, q.t1]), SC.map((q) => [q.id, q.t0, q.t1])) };
   }
   root.PMDDestinyUltime = { create, W, H, D, CHAPTERS, TITLE_T, IMPACTS, BEAT };
 })(typeof window !== 'undefined' ? window : globalThis);

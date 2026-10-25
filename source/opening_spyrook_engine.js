@@ -1,127 +1,119 @@
-/* Opening « PMD : Destiny » — traitement « DA Spyrook » (illustration numérique douce) appliqué à tout l'opening ULTIME (153 s).
-   Références visuelles étudiées : les illustrations de Spyrook (Pokémon / Mystery Dungeon) — formes rondes et lisses, aplats doux, contours fins brun-violet,
-   ombres violettes, lumière chaude qui déborde (bloom), couleurs vives et saturées, aucune trame pixel.
-   Technique : chaque image du montage est rendue, puis (1) les pixels sont arrondis par un filtre de Kuwahara (peinture numérique), (2) étalonnage chaud/froid saturé,
-   (3) halo lumineux, (4) contour fin sur les silhouettes, (5) grain très léger. Les mouvements restent ceux des animations image par image : la fluidité vient du rendu 60 i/s
-   (une image dessinée par image vidéo). Fonction pure du temps : render(ctx, t, opts). Aucune dépendance DOM (le tampon vient de EV.mk). */
+/* Opening « PMD : Destiny » — rendu « Peinture HD » : tout le montage de l'ULTIME (153 s) en 1920×1080 NET, avec une caméra de dessin animé.
+   (1) L'opening est dessiné directement en 1920×1080 (le moteur est mis à l'échelle ×1,5 : traits, dégradés, effets et textes restent nets).
+   (2) Contours arrondis SANS flou : on lisse légèrement, puis chaque pixel reprend la couleur d'origine voisine la plus proche du lissé (aplats purs, frontières courbes).
+   (3) Contour fin brun-violet sur les silhouettes ; étalonnage naturel (aucune sursaturation, pas de grain, pas de halo qui baveux).
+   (4) Caméra d'animation : un mouvement par plan (avancée lente / recul, dérive vers un coin), tremblement amorti sur chaque impact, bandes de cinéma fixes.
+   Fonction pure du temps : render(ctx, t, opts). Aucune dépendance DOM (les tampons viennent de EV.mk). */
 (function (root) {
   'use strict';
-  const W = 1280, H = 720, D = 153.0, SW = 960, SH = 540, N = SW * SH, R = 5;
+  const K = 1.5, W = 1920, H = 1080, D = 153.0, N = W * H;
   const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
   const sstep = (x) => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
-  const hash = (x, y, s) => { const v = Math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return v - Math.floor(v); };
+  // limites des plans : OC1 / SF / MR, puis les plans du clip « sprites » (≥ 46 s) — une caméra différente par plan
+  const BOUNDS_DEFAULT = [0, 20, 31, 46, 52.5, 58, 62, 68, 77, 88, 98, 106, 122, 132, 137, 142, 145.2, 148, 153];
 
   function create(EV) {
     const U = root.PMDDestinyUltime.create(Object.assign({}, EV, { inbetween: true })), mk = EV.mk;
-    const src = mk(W, H), sx = src.getContext('2d');
-    const small = mk(SW, SH), smx = small.getContext('2d', { willReadFrequently: true });
-    const out = mk(SW, SH), ox = out.getContext('2d'), outId = ox.createImageData(SW, SH), od = outId.data;
-    const bl = mk(SW >> 2, SH >> 2), blx = bl.getContext('2d', { willReadFrequently: true });
-    const frame = mk(W, H), fx = frame.getContext('2d');
-    const gnoise = new Int8Array(N); for (let i = 0; i < N; i++) gnoise[i] = Math.round((hash(i % SW, (i / SW) | 0, 5) - 0.5) * 7);
+    const src = mk(W, H), sx = src.getContext('2d', { willReadFrequently: true });
+    const out = mk(W, H), ox = out.getContext('2d'), outId = ox.createImageData(W, H), od = outId.data;
+    const IMP = (U.IMPACTS || []).slice();
+    // décors repeints en haute définition : le moteur croit dessiner l'image d'origine (petite) ; au dessin on substitue la version HD (lissée), coordonnées de source mises à l'échelle
+    const HI = new Map(); if (EV.hires) for (const k in EV.hires) { const lo = EV.imgs[k], hi = EV.hires[k]; if (lo && hi) HI.set(lo, { hi, fx: hi.width / lo.width, fy: hi.height / lo.height }); }
+    if (HI.size) {
+      const d0 = sx.drawImage.bind(sx);
+      sx.drawImage = function (img, a, b, c, d, e, f, g, h) {
+        const m = HI.get(img), n = arguments.length; if (!m) return d0.apply(null, arguments);
+        const sm = sx.imageSmoothingEnabled; sx.imageSmoothingEnabled = true; sx.imageSmoothingQuality = 'high';
+        if (n === 3) d0(m.hi, a, b, img.width, img.height); else if (n === 5) d0(m.hi, a, b, c, d); else d0(m.hi, a * m.fx, b * m.fy, c * m.fx, d * m.fy, e, f, g, h);
+        sx.imageSmoothingEnabled = sm;
+      };
+    }
+    let BOUNDS = BOUNDS_DEFAULT;
+    if (U.SHOTS) { const b = new Set([0, 153]); U.SHOTS.forEach((q) => { if (q[1] >= 46 || ['OC1', 'SF', 'MR'].includes(q[0])) { b.add(q[1]); b.add(Math.min(153, q[2])); } }); BOUNDS = [...b].sort((p, q) => p - q).filter((v, i, a) => i === 0 || v - a[i - 1] > 0.5); }
 
-    // images intégrales (R, G, B, L, L²) pour le filtre de Kuwahara en O(1) par quadrant
-    const IW = SW + 1, IR = new Float64Array(IW * (SH + 1)), IG = new Float64Array(IR.length), IB = new Float64Array(IR.length), IL = new Float64Array(IR.length), IL2 = new Float64Array(IR.length);
-    const Lb = new Int16Array(N), A1 = new Int16Array(N), A2 = new Int16Array(N), Gm = new Uint8Array(N);
-    const tmp = new Uint8ClampedArray(N * 4);
-    const KR = new Uint8ClampedArray(N), KG = new Uint8ClampedArray(N), KB = new Uint8ClampedArray(N);
-
-    function kuwahara(d) {
-      for (let y = 0; y < SH; y++) {
-        let sr = 0, sg = 0, sb = 0, sl = 0, sl2 = 0;
-        for (let x = 0; x < SW; x++) {
-          const j = (y * SW + x) * 4, r = d[j], g = d[j + 1], b = d[j + 2], l = (r * 77 + g * 150 + b * 29) >> 8;
-          sr += r; sg += g; sb += b; sl += l; sl2 += l * l;
-          const a = (y + 1) * IW + x + 1, u = y * IW + x + 1;
-          IR[a] = IR[u] + sr; IG[a] = IG[u] + sg; IB[a] = IB[u] + sb; IL[a] = IL[u] + sl; IL2[a] = IL2[u] + sl2;
-        }
-      }
-      const box = (I, x0, y0, x1, y1) => I[(y1 + 1) * IW + x1 + 1] - I[y0 * IW + x1 + 1] - I[(y1 + 1) * IW + x0] + I[y0 * IW + x0];
-      const q = [[-R, -R, 0, 0], [0, -R, R, 0], [-R, 0, 0, R], [0, 0, R, R]];
-      for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
-        let best = 1e18, br = 0, bg = 0, bb = 0;
-        for (let k = 0; k < 4; k++) {
-          const x0 = Math.max(0, x + q[k][0]), y0 = Math.max(0, y + q[k][1]), x1 = Math.min(SW - 1, x + q[k][2]), y1 = Math.min(SH - 1, y + q[k][3]);
-          const n = (x1 - x0 + 1) * (y1 - y0 + 1), sl = box(IL, x0, y0, x1, y1), v = box(IL2, x0, y0, x1, y1) / n - (sl / n) * (sl / n);
-          if (v < best) { best = v; br = box(IR, x0, y0, x1, y1) / n; bg = box(IG, x0, y0, x1, y1) / n; bb = box(IB, x0, y0, x1, y1) / n; }
-        }
-        const i = y * SW + x; KR[i] = br; KG[i] = bg; KB[i] = bb;
-      }
+    // ---------------- caméra de dessin animé ----------------
+    const PAN = [[-1, 0.4], [1, -0.3], [0.6, 0.7], [-0.8, -0.5], [0, 0.9], [1, 0.2], [-0.5, 0.8], [0.9, -0.6]];
+    function camAt(t) {
+      let i = 0; while (i < BOUNDS.length - 2 && t >= BOUNDS[i + 1]) i++;
+      const b0 = BOUNDS[i], b1 = BOUNDS[i + 1], dur = Math.max(0.5, b1 - b0), u = clamp((t - b0) / dur, 0, 1), e = u * u * (3 - 2 * u) * 0.55 + u * 0.45; // départ et arrivée doux, vitesse presque constante
+      const push = i % 2 === 0, amp = dur > 12 ? 0.05 : dur > 6 ? 0.04 : 0.03, live = 1 - sstep((t - 146.4) / 1.0); // le titre final reste immobile
+      const z = (1.014 + amp * (push ? e : 1 - e)) * live + (1 - live), pz = (z - 1) * live;
+      const p = PAN[i % PAN.length];
+      let px = pz * (W / 2) * 0.8 * p[0] * (push ? 1 : -1) * 0.8, py = pz * (H / 2) * 0.8 * p[1] * 0.8;
+      // tremblement amorti sur chaque impact (±10 px à 1080p), jamais plus que la réserve de zoom
+      let sh = 0; for (const ti of IMP) { const d = t - ti; if (d >= 0 && d < 0.5) sh = Math.max(sh, Math.exp(-d * 9)); }
+      if (sh > 0.01) { const a = 9 * sh * live; px += Math.sin(t * 131) * a; py += Math.cos(t * 97) * a * 0.8; }
+      const mx = (z - 1) * (W / 2), my = (z - 1) * (H / 2); px = clamp(px, -mx, mx); py = clamp(py, -my, my);
+      return { z, px, py };
     }
 
-    // Arrondi des pixels : on floute (gaussienne ≈ 3 px), puis chaque pixel prend, parmi les couleurs voisines d'origine (centre + 8 voisins à ±4 px),
-    // celle qui est la plus proche du flou. Les aplats restent purs, mais les frontières suivent les courbes lissées → silhouettes rondes, sans escalier.
-    const BA = new Float32Array(N), BB = new Float32Array(N), BR_ = new Float32Array(N), BG_ = new Float32Array(N), BB_ = new Float32Array(N), TT = new Float32Array(N);
+    // ---------------- contours arrondis nets ----------------
+    const BR_ = new Float32Array(N), BG_ = new Float32Array(N), BB_ = new Float32Array(N), TT = new Float32Array(N);
+    const KR = new Uint8ClampedArray(N), KG = new Uint8ClampedArray(N), KB = new Uint8ClampedArray(N);
+    const Lb = new Int16Array(N), A1 = new Int16Array(N), A2 = new Int16Array(N), Gm = new Uint8Array(N);
     function boxPass(a, r) {
       const n = 2 * r + 1;
-      for (let y = 0; y < SH; y++) { const o = y * SW; let s = 0; for (let x = -r; x <= r; x++) s += a[o + clamp(x, 0, SW - 1)];
-        for (let x = 0; x < SW; x++) { TT[o + x] = s / n; s += a[o + Math.min(SW - 1, x + r + 1)] - a[o + Math.max(0, x - r)]; } }
-      for (let x = 0; x < SW; x++) { let s = 0; for (let y = -r; y <= r; y++) s += TT[clamp(y, 0, SH - 1) * SW + x];
-        for (let y = 0; y < SH; y++) { a[y * SW + x] = s / n; s += TT[Math.min(SH - 1, y + r + 1) * SW + x] - TT[Math.max(0, y - r) * SW + x]; } }
+      for (let y = 0; y < H; y++) {
+        const o = y * W; let s = 0; for (let x = -r; x <= r; x++) s += a[o + clamp(x, 0, W - 1)];
+        for (let x = 0; x < W; x++) { TT[o + x] = s / n; s += a[o + Math.min(W - 1, x + r + 1)] - a[o + Math.max(0, x - r)]; }
+      }
+      for (let x = 0; x < W; x++) {
+        let s = 0; for (let y = -r; y <= r; y++) s += TT[clamp(y, 0, H - 1) * W + x];
+        for (let y = 0; y < H; y++) { a[y * W + x] = s / n; s += TT[Math.min(H - 1, y + r + 1) * W + x] - TT[Math.max(0, y - r) * W + x]; }
+      }
     }
-    const offs = (m) => [[0, 0], [-m, 0], [m, 0], [0, -m], [0, m], [-m, -m], [m, -m], [-m, m], [m, m]];
     function smoothSnap(d, rad, m) {
-      const OFF = offs(m);
       for (let i = 0, j = 0; i < N; i++, j += 4) { BR_[i] = d[j]; BG_[i] = d[j + 1]; BB_[i] = d[j + 2]; }
-      for (let k = 0; k < 3; k++) { boxPass(BR_, rad); boxPass(BG_, rad); boxPass(BB_, rad); }
-      for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
-        const i = y * SW + x, br = BR_[i], bg = BG_[i], bb = BB_[i]; let best = 1e9, bj = 0;
+      for (let k = 0; k < 2; k++) { boxPass(BR_, rad); boxPass(BG_, rad); boxPass(BB_, rad); }
+      const o = [0, -m, m, -m * W, m * W, -m * W - m, -m * W + m, m * W - m, m * W + m].map((v) => v * 4);
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        const i = y * W + x, j0 = i * 4;
+        if (x < m || y < m || x >= W - m || y >= H - m) { KR[i] = d[j0]; KG[i] = d[j0 + 1]; KB[i] = d[j0 + 2]; continue; }
+        const br = BR_[i], bg = BG_[i], bb = BB_[i]; let best = 1e9, bj = j0;
         for (let k = 0; k < 9; k++) {
-          const xx = clamp(x + OFF[k][0], 0, SW - 1), yy = clamp(y + OFF[k][1], 0, SH - 1), j = (yy * SW + xx) * 4;
-          const dr = d[j] - br, dg = d[j + 1] - bg, db = d[j + 2] - bb, e = dr * dr + dg * dg + db * db;
+          const j = j0 + o[k], dr = d[j] - br, dg = d[j + 1] - bg, db = d[j + 2] - bb, e = dr * dr + dg * dg + db * db;
           if (e < best) { best = e; bj = j; }
         }
         KR[i] = d[bj]; KG[i] = d[bj + 1]; KB[i] = d[bj + 2];
       }
     }
     function sobel(a, k, first) {
-      for (let y = 1; y < SH - 1; y++) {
-        const o = y * SW;
-        for (let x = 1; x < SW - 1; x++) {
+      for (let y = 1; y < H - 1; y++) {
+        const o = y * W;
+        for (let x = 1; x < W - 1; x++) {
           const i = o + x;
-          const gx = a[i - SW + 1] + 2 * a[i + 1] + a[i + SW + 1] - a[i - SW - 1] - 2 * a[i - 1] - a[i + SW - 1];
-          const gy = a[i + SW - 1] + 2 * a[i + SW] + a[i + SW + 1] - a[i - SW - 1] - 2 * a[i - SW] - a[i - SW + 1];
+          const gx = a[i - W + 1] + 2 * a[i + 1] + a[i + W + 1] - a[i - W - 1] - 2 * a[i - 1] - a[i + W - 1];
+          const gy = a[i + W - 1] + 2 * a[i + W] + a[i + W + 1] - a[i - W - 1] - 2 * a[i - W] - a[i - W + 1];
           let g = (Math.abs(gx) + Math.abs(gy)) * k * 0.25; if (g > 255) g = 255;
           if (first || g > Gm[i]) Gm[i] = g;
         }
       }
     }
 
-    function paint(kt, draw, res) { // kt = 0 → traitement complet ; 1 → allégé (écran-titre)
-      sx.setTransform(1, 0, 0, 1, 0, 0);
-      const r = draw(sx); res.wing = r.wing; res.shot = r.shot;
-      smx.imageSmoothingEnabled = true; smx.drawImage(src, 0, 0, SW, SH);
-      const d = smx.getImageData(0, 0, SW, SH).data;
-      smoothSnap(d, 2, 4); // une seule passe : silhouettes rondes sans perdre les yeux / détails des personnages
+    function paint(kt, draw, res, cam) { // kt = 0 → traitement complet ; 1 → écran-titre allégé
+      sx.setTransform(1, 0, 0, 1, 0, 0); sx.globalAlpha = 1; sx.globalCompositeOperation = 'source-over'; sx.fillStyle = '#000'; sx.fillRect(0, 0, W, H);
+      sx.save(); sx.translate(W / 2 + cam.px, H / 2 + cam.py); sx.scale(cam.z * K, cam.z * K); sx.translate(-W / (2 * K), -H / (2 * K));
+      const r = draw(sx); res.wing = r.wing; res.shot = r.shot; sx.restore();
+      const d = sx.getImageData(0, 0, W, H).data;
+      smoothSnap(d, 3, 6);
       for (let i = 0; i < N; i++) { Lb[i] = (KR[i] * 77 + KG[i] * 150 + KB[i] * 29) >> 8; A1[i] = KR[i] - KB[i]; A2[i] = KG[i] - ((KR[i] + KB[i]) >> 1); }
       sobel(Lb, 1.0, true); sobel(A1, 0.6, false); sobel(A2, 0.7, false);
-      // halo : zones claires floutées (échelle 1/4) rajoutées en lumière
-      blx.imageSmoothingEnabled = true; blx.clearRect(0, 0, SW >> 2, SH >> 2); blx.drawImage(small, 0, 0, SW >> 2, SH >> 2);
-      const bdat = blx.getImageData(0, 0, SW >> 2, SH >> 2).data, BW = SW >> 2, BH = SH >> 2, bloom = new Uint8ClampedArray(BW * BH * 3);
-      for (let i = 0; i < BW * BH; i++) { const l = (bdat[i * 4] * 77 + bdat[i * 4 + 1] * 150 + bdat[i * 4 + 2] * 29) >> 8, k = Math.max(0, l - 150) / 105; bloom[i * 3] = bdat[i * 4] * k; bloom[i * 3 + 1] = bdat[i * 4 + 1] * k * 0.95; bloom[i * 3 + 2] = bdat[i * 4 + 2] * k * 0.8; }
-      const TH = 40 + 30 * kt, SOFT = 50, sat = 1.1 - 0.08 * kt, kb = 0.5 * (1 - 0.4 * kt);
-      for (let y = 0; y < SH; y++) {
-        const by = Math.min(BH - 1, y >> 2);
-        for (let x = 0; x < SW; x++) {
-          const i = y * SW + x, o = i * 4;
-          let r = KR[i], g = KG[i], b = KB[i];
-          // étalonnage : saturation, contraste doux, ombres violettes / lumières chaudes
-          const l = Lb[i], lu = l;
-          r = lu + (r - lu) * sat; g = lu + (g - lu) * sat; b = lu + (b - lu) * sat;
-          const sh = clamp((120 - l) / 120, 0, 1), hi = clamp((l - 150) / 105, 0, 1);
-          r += 16 * sh * (1 - kt) - 6 * sh + 12 * hi; g += -6 * sh + 6 * hi; b += 26 * sh * (1 - kt) - 10 * hi;
-          r = (r - 128) * 1.07 + 130; g = (g - 128) * 1.07 + 130; b = (b - 128) * 1.07 + 132;
-          // halo
-          const bx = Math.min(BW - 1, x >> 2), bi = (by * BW + bx) * 3;
-          r += bloom[bi] * kb; g += bloom[bi + 1] * kb; b += bloom[bi + 2] * kb;
-          // contour fin brun-violet (sur les silhouettes seulement)
-          const a = clamp((Gm[i] - TH) / SOFT, 0, 1) * 0.88 * (1 - 0.5 * kt);
-          if (a > 0.004) { r = r * (1 - a) + (KR[i] * 0.22 + 34) * a; g = g * (1 - a) + (KG[i] * 0.18 + 18) * a; b = b * (1 - a) + (KB[i] * 0.25 + 44) * a; }
-          const gn = gnoise[i];
-          od[o] = clamp(r + gn, 0, 255); od[o + 1] = clamp(g + gn, 0, 255); od[o + 2] = clamp(b + gn, 0, 255); od[o + 3] = 255;
-        }
+      const TH = 46 + 30 * kt, SOFT = 60, sat = 1.0 - 0.02 * kt;
+      for (let i = 0; i < N; i++) {
+        const o = i * 4; let r = KR[i], g = KG[i], b = KB[i];
+        const l = Lb[i]; // étalonnage naturel : saturation d'origine, ombres à peine violettes, hautes lumières à peine chaudes
+        r = l + (r - l) * sat; g = l + (g - l) * sat; b = l + (b - l) * sat;
+        const sh = clamp((110 - l) / 110, 0, 1), hi = clamp((l - 170) / 85, 0, 1);
+        r += -3 * sh + 5 * hi; g += -5 * sh + 3 * hi; b += 9 * sh * (1 - kt) - 5 * hi;
+        // contour fin brun-violet (sur les silhouettes seulement)
+        const a = clamp((Gm[i] - TH) / SOFT, 0, 1) * 0.8 * (1 - 0.5 * kt);
+        if (a > 0.004) { r = r * (1 - a) + (KR[i] * 0.25 + 30) * a; g = g * (1 - a) + (KG[i] * 0.2 + 16) * a; b = b * (1 - a) + (KB[i] * 0.28 + 40) * a; }
+        od[o] = clamp(r, 0, 255); od[o + 1] = clamp(g, 0, 255); od[o + 2] = clamp(b, 0, 255); od[o + 3] = 255;
       }
       ox.putImageData(outId, 0, 0);
+      // bandes de cinéma fixes (par-dessus la caméra)
+      const bh = 52 * K * sstep((cam.t - 0.2) / 1.2) * (1 - sstep((cam.t - 146.8) / 0.8));
+      if (bh > 0.5) { ox.fillStyle = '#000'; ox.fillRect(0, 0, W, bh); ox.fillRect(0, H - bh, W, bh); }
     }
 
     let cache = { idx: -1, wing: 0, shot: '', theme: null };
@@ -129,19 +121,18 @@
       opts = opts || {}; t = clamp(t, 0, D);
       const idx = Math.floor(t * 60 + 1e-6);
       if (idx !== cache.idx || opts.theme !== cache.theme) {
-        const res = {}; paint(sstep((t - 147.6) / 0.9), (c) => U.render(c, t, opts), res);
-        fx.setTransform(1, 0, 0, 1, 0, 0); fx.globalCompositeOperation = 'source-over'; fx.globalAlpha = 1; fx.imageSmoothingEnabled = true; fx.imageSmoothingQuality = 'high'; fx.drawImage(out, 0, 0, W, H);
+        const res = {}, cam = camAt(t); cam.t = t;
+        paint(sstep((t - 147.6) / 0.9), (c) => U.render(c, t, opts), res, cam);
         cache = { idx, wing: res.wing, shot: res.shot, theme: opts.theme };
       }
-      ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(frame, 0, 0); ctx.restore();
+      ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(out, 0, 0); ctx.restore();
       return { wing: cache.wing, shot: cache.shot };
     }
     function renderTitleMode(ctx, tl, theme, nowSec, flapStart) {
-      const res = {}; paint(1, (c) => U.renderTitleMode(c, tl, theme, nowSec, flapStart), res);
-      fx.setTransform(1, 0, 0, 1, 0, 0); fx.imageSmoothingEnabled = true; fx.drawImage(out, 0, 0, W, H); cache.idx = -1;
-      ctx.save(); ctx.globalAlpha = 1; ctx.drawImage(frame, 0, 0); ctx.restore(); return { wing: res.wing || 0 };
+      const res = {}; paint(1, (c) => U.renderTitleMode(c, tl, theme, nowSec, flapStart), res, { z: 1, px: 0, py: 0, t: 150 }); cache.idx = -1;
+      ctx.save(); ctx.globalAlpha = 1; ctx.drawImage(out, 0, 0); ctx.restore(); return { wing: res.wing || 0 };
     }
-    return { render, renderTitleMode, W, H, D, CHAPTERS: U.CHAPTERS, TITLE_T: U.TITLE_T, IMPACTS: U.IMPACTS, SC: U.SC };
+    return { render, renderTitleMode, W, H, D, CHAPTERS: U.CHAPTERS, TITLE_T: U.TITLE_T, IMPACTS: U.IMPACTS, SC: U.SC, SHOTS: U.SHOTS, BOUNDS, camAt };
   }
   root.PMDDestinySpyrook = { create, W, H, D };
 })(typeof window !== 'undefined' ? window : globalThis);

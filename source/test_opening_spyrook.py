@@ -25,7 +25,7 @@ class TestOpeningSpyrook(unittest.TestCase):
 
     def test_traitement_pictural(self):
         e = ENGINE.read_text(encoding="utf-8")
-        for needle in ("D = 153.0", "smoothSnap(", "boxPass(", "bloom", "renderTitleMode", "PMDDestinySpyrook"):
+        for needle in ("D = 153.0", "smoothSnap(", "boxPass(", "renderTitleMode", "PMDDestinySpyrook"):
             self.assertIn(needle, e)
 
     def test_decors_repeints(self):
@@ -43,6 +43,20 @@ class TestOpeningSpyrook(unittest.TestCase):
         self.assertIn("inbetween: true", e)
         for needle in ("const IBT", "frameNext(", "hold(", "respiration"):
             self.assertIn(needle, u)
+
+    def test_hd_nette_et_camera_dessin_anime(self):
+        e = ENGINE.read_text(encoding="utf-8")
+        self.assertIn("W = 1920, H = 1080", e)  # vrai 1080p, dessiné directement (pas de réduction/agrandissement flou)
+        for needle in ("camAt(", "BOUNDS", "tremblement", "bandes de cinéma", "HI.set("):
+            self.assertIn(needle, e)
+        for banni in ("kuwahara(", "gnoise", "bloom["):  # pas de grain ni de halo baveux
+            self.assertNotIn(banni, e)
+
+    def test_calques_hd_decors(self):
+        from PIL import Image
+        d = ROOT / "source" / "pmd_destiny_fangame_v1" / "decors_peints"
+        for f in d.glob("*.png"):
+            self.assertGreaterEqual(Image.open(f).width, 650, f.name)
 
 
 if __name__ == "__main__":

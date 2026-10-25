@@ -1,4 +1,5 @@
-"""Opening « Peinture » — remplace les décors-textures de l'Ultime par des décors repeints à la main (crayon + encre + couleur) et lisse les sprites.
+"""Opening « Peinture » — remplace les décors-textures de l'Ultime par des décors repeints à la main (crayon + encre + couleur).
+La page contient les décors à la taille d'origine ; le rendu vidéo HD (source/render_sketch_video.js, HIRES=…/decors_peints) substitue les versions haute définition au dessin.
 Sortie : page intermédiaire pour le rendu vidéo (source/render_sketch_video.js + opening_spyrook_engine.js).
 Usage : python source/build_opening_peinture.py [sortie.html]"""
 import base64
@@ -28,7 +29,9 @@ def main(out: Path) -> None:
         im.save(buf, "WEBP", quality=94)
         A["imgs"][k] = "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode()
     h = h[:i0] + json.dumps(A, separators=(",", ":")) + h[i1:]
-    h = h.replace("imageSmoothingEnabled = false", "imageSmoothingEnabled = true")
+    old = "return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC };"
+    if old in h:  # liste des plans (pour la caméra « dessin animé ») : même export que opening_ultime_engine.js
+        h = h.replace(old, "return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC, SHOTS: [].concat(V.SC.map((q) => [q.id, q.t0, q.t1]), S.SC.map((q) => [q.id, q.t0, q.t1]), SC.map((q) => [q.id, q.t0, q.t1])) };")
     out.write_text(h, encoding="utf-8")
     print(out, out.stat().st_size // 1024, "Ko")
 
