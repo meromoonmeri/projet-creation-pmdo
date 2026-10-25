@@ -28,6 +28,15 @@ class TestOpeningSpyrook(unittest.TestCase):
         for needle in ("D = 153.0", "smoothSnap(", "boxPass(", "bloom", "renderTitleMode", "PMDDestinySpyrook"):
             self.assertIn(needle, e)
 
+    def test_decors_repeints(self):
+        b = (ROOT / "source" / "build_opening_peinture.py").read_text(encoding="utf-8")
+        keys = re.search(r"KEYS = \[(.*?)\]", b).group(1)
+        names = re.findall(r'"(\w+)"', keys)
+        self.assertGreaterEqual(len(names), 8)
+        for n in names:
+            self.assertTrue((ROOT / "source" / "pmd_destiny_fangame_v1" / "decors_peints" / (n + ".png")).exists(), n)
+        self.assertGreaterEqual(len(list((VIDEO.parent / "keyframes").glob("*.jpg"))), 4)
+
 
 if __name__ == "__main__":
     unittest.main()
