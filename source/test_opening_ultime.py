@@ -34,8 +34,8 @@ class TestOpeningUltime(unittest.TestCase):
         for g in ("PMDDestinyVoyage", "PMDDestinySprite", "PMDDestinyUltime"):
             self.assertIn("root." + g + " =", self.html)
         self.assertIn("PMDDestinyUltime.create", self.html)
-        self.assertIn("const MT0 = 31.0, MT1 = 46.0", self.eng)
-        self.assertIn("if (t < MT0) return V.render", self.eng)
+        self.assertIn("const BT0 = 20.0, MT0 = 31.0, MT1 = 46.0", self.eng)
+        self.assertIn("if (t < BT0) return V.render", self.eng)
         self.assertIn("if (t >= MT1)", self.eng)
 
     def test_passage_46_68_conserve(self):
@@ -62,6 +62,19 @@ class TestOpeningUltime(unittest.TestCase):
             self.assertIn(pid, cat)
         self.assertNotIn("pt_", self.eng)  # aucun portrait fixe
         self.assertIsNone(re.search(r"bateau|ship", self.eng, re.I))
+
+    def test_plage_pmd_sky_et_un_seul_groupe_de_profil(self):
+        self.assertIn("beachSky", self.assets["imgs"])
+        self.assertIn("laprasSky", self.assets["imgs"])  # ciel + mer canoniques (rip Lapras)
+        self.assertIn("function fBeach(", self.eng)
+        self.assertIn("I.laprasSky", self.eng)
+        self.assertIn("function gullFrame(", self.eng)  # Goélise de profil (sprite procédural animé)
+        self.assertEqual(len(re.findall(r"function flock\(", self.eng)), 1)  # un seul groupe
+        self.assertEqual(self.eng.count("flock(ctx, t);"), 1)
+        self.assertIn("'0279', 'Walk', 2", self.eng)  # Bekipan de profil (direction 2 = droite)
+        self.assertNotIn("'0278'", self.eng)  # aucun Goélise « vu de dessus »
+        self.assertNotIn("beachFg", self.assets["imgs"])
+        self.assertNotIn("surfaceSky", self.assets["imgs"])
 
     def test_catalogue_et_images_resolus(self):
         cat = self.assets["catalog"]["pokemon"]

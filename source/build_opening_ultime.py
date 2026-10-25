@@ -25,10 +25,14 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 
 from source import build_opening_sprite_cinematique_destiny as SPR  # type: ignore
 from source import build_opening_voyage as VOY  # type: ignore
+from source import build_opening_voyage_layers as VL  # type: ignore
+from PIL import Image  # noqa: E402
+import numpy as np  # noqa: E402
 
 RENDERS = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1"
 ASSETS_DIR = RENDERS / "opening_assets"
 OUT_DIR = RENDERS / "opening_ultime"
+BRUTS = SOURCE_DIR / "pmd_destiny_fangame_v1" / "ultime_bruts"
 TEMPLATE = SOURCE_DIR / "opening_ultime_template.html"
 ENGINES = [SOURCE_DIR / "opening_voyage_engine.js", SOURCE_DIR / "opening_sprite_engine.js", SOURCE_DIR / "opening_ultime_engine.js"]
 OUT_HTML = REPO_ROOT / "apercu_fangame_pmd_destiny_ultime.html"
@@ -43,13 +47,32 @@ EXTRA_ACTORS = {
     "0282": ["Appeal"], "0040": ["Hop"], "0253": ["Pose"], "0441": ["Float"],
 }
 # Calques du clip « sprites » que la nouvelle ligne de temps ne montre plus (plans avant 46 s) : retirés pour alléger la page
-PRUNE = {"anticWall", "ttSky", "opm1", "opm5", "plainsFar", "skyPeakFront", "forestFar", "forestMid", "forestRoad", "forestFg"}
+PRUNE = {"beachFg", "surfaceSky", "meadow", "clouds", "anticWall", "ttSky", "opm1", "opm5", "plainsFar", "skyPeakFront", "forestFar", "forestMid", "forestRoad", "forestFg"}
 PRUNE_PREFIX = ("it", "sh", "tm")
+
+
+def beach_layer() -> str:
+    """Plage « PMD Sky » générée (clé magenta retirée, alpha binaire, palette limitée) — même traitement que les calques du Voyage."""
+    old = VL.SRC
+    VL.SRC = BRUTS
+    VL.LAYERS["beachSky"] = ("beach_pmd_sky", "magenta", 72)
+    try:
+        im = VL.load_layer("beachSky")
+    finally:
+        VL.SRC = old
+        del VL.LAYERS["beachSky"]
+    a = np.asarray(im)
+    assert set(np.unique(a[..., 3]).tolist()) <= {0, 255}, "alpha non binaire"
+    op = a[..., 3] == 255
+    leak = ((a[..., 0] > 200) & (a[..., 1] < 90) & (a[..., 2] > 200) & op).sum()
+    assert leak == 0, f"{leak} px magenta"
+    return SPR.uri_im(im, "WEBP", lossless=True)
 
 
 def build_assets() -> Dict[str, object]:
     a = SPR.build_assets()
     b = VOY.build_assets()
+    b["imgs"]["beachSky"] = beach_layer()
     imgs: Dict[str, str] = dict(a["imgs"])
     for k, v in b["imgs"].items():
         if k in imgs and imgs[k] != v:
