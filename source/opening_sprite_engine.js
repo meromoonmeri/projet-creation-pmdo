@@ -96,6 +96,45 @@
       if (k <= 0 || k >= 1) return; const sc = s || 0.8;
       fx(ctx, 'mat', k * 8, x, y, sc, 1, { tint: tint, add: true }); glow(ctx, x, y, 22 * sc, tint || '255,255,255', 0.5 * Math.sin(Math.PI * k));
     }
+    function shadowMat(ctx, x, y, k, s, t, seed) { // Ball'Ombre : les ténèbres se creusent, spiralent et se referment sur la sphère
+      if (k <= 0 || k > 1.5) return; const sc = s || 1, kk = clamp(k, 0, 1), R = 46 * sc;
+      const g = ctx.createRadialGradient(x, y, 1, x, y, R * (0.35 + 0.7 * kk));
+      g.addColorStop(0, `rgba(8,0,20,${(0.7 * kk).toFixed(3)})`); g.addColorStop(0.55, `rgba(48,0,88,${(0.4 * kk).toFixed(3)})`); g.addColorStop(1, 'rgba(48,0,88,0)');
+      ctx.save(); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, R * (0.35 + 0.7 * kk), 0, TAU); ctx.fill(); ctx.restore();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; // volutes d'ombre aspirées en spirale
+      for (let i = 0; i < 7; i++) { const a0 = rnd(i, seed) * TAU + t * 2.1, sw = 1 - kk;
+        ctx.strokeStyle = `rgba(150,50,255,${(0.45 * kk).toFixed(3)})`; ctx.lineWidth = 2.1 * sc; ctx.beginPath();
+        for (let j = 0; j <= 12; j++) { const u = j / 12, rr = R * (1 - u) * (0.25 + 0.95 * sw) + 4, an = a0 + u * 2.7 + t * 1.1;
+          const px = x + Math.cos(an) * rr, py = y + Math.sin(an) * rr * 0.7; j ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+        ctx.stroke(); }
+      ctx.restore();
+      for (let i = 0; i < 12; i++) { const ph = ((t * 1.25 + rnd(i, seed + 1)) % 1), an = rnd(i, seed + 2) * TAU + t * 3.1;
+        const rr = R * (1.15 - 0.95 * ph) * (1 - 0.55 * kk);
+        fx(ctx, 'sparkle', ph * 8, x + Math.cos(an) * rr, y + Math.sin(an) * rr * 0.68, 0.16 * sc, 0.85 * kk * (1 - 0.4 * ph), { add: true, tint: '150,60,255' }); }
+      ring(ctx, x, y, R * (1.25 - 0.85 * kk) + 3, 2.0 * sc, '170,60,255', 0.7 * kk * (1 - 0.35 * kk), 0.72);
+      if (k > 0.94) { const u = (k - 0.94) / 0.5; // éclosion : l'ombre éclate, la sphère part
+        ring(ctx, x, y, 8 + u * 74 * sc, 2.6 * sc, '190,80,255', 0.8 * (1 - u), 0.7);
+        for (let i = 0; i < 8; i++) { const an = rnd(i, seed + 3) * TAU; fx(ctx, 'sparkle', u * 8 + i, x + Math.cos(an) * u * 48 * sc, y + Math.sin(an) * u * 30 * sc, 0.19 * sc, 0.8 * (1 - u), { add: true, tint: '170,60,255' }); } }
+    }
+    function auraMat(ctx, x, y, k, s, t, seed) { // Aurasphère : anneaux d'aura qui se resserrent, rubans de lumière, cœur qui éclôt
+      if (k <= 0 || k > 1.5) return; const sc = s || 1, kk = clamp(k, 0, 1), R = 52 * sc;
+      for (let i = 0; i < 3; i++) { const u = clamp(kk * 1.35 - i * 0.18, 0, 1); if (u <= 0) continue;
+        ring(ctx, x, y, R * (1.15 - 0.85 * u) + 2, (1.6 + 0.5 * i) * sc, '120,235,255', 0.5 * u * (1 - 0.35 * u), 0.8); }
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+      for (let i = 0; i < 5; i++) { const a0 = rnd(i, seed) * TAU - t * 2.5;
+        ctx.strokeStyle = `rgba(130,240,255,${(0.4 * kk).toFixed(3)})`; ctx.lineWidth = 1.9 * sc; ctx.beginPath();
+        for (let j = 0; j <= 14; j++) { const u = j / 14, rr = R * (1 - u) * (0.2 + 0.9 * (1 - kk)) + 3, an = a0 - u * 3.2;
+          const px = x + Math.cos(an) * rr, py = y + Math.sin(an) * rr * 0.62; j ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+        ctx.stroke(); }
+      ctx.restore();
+      for (let i = 0; i < 14; i++) { const ph = ((t * 1.45 + rnd(i, seed + 1)) % 1), an = rnd(i, seed + 2) * TAU - t * 3.5;
+        const rr = R * (1.2 - 1.0 * ph) * (1 - 0.6 * kk);
+        fx(ctx, 'sparkle', ph * 8, x + Math.cos(an) * rr, y + Math.sin(an) * rr * 0.6, 0.15 * sc, 0.9 * kk * (1 - 0.35 * ph), { add: true, tint: '140,245,255' }); }
+      glow(ctx, x, y, 24 * sc * (0.4 + 0.85 * kk), '120,235,255', 0.4 * kk);
+      if (k > 0.94) { const u = (k - 0.94) / 0.5;
+        ring(ctx, x, y, 6 + u * 80 * sc, 2.4 * sc, '190,250,255', 0.85 * (1 - u), 0.75);
+        starBurst(ctx, x, y, 30 + u * 60 * sc, 0.7 * (1 - u), 8, t * 0.4); }
+    }
     function hitFx(ctx, ix, iy, d, ti, tint, s) { const f = d / 0.4, sc = s || 1; fx(ctx, 'hit', f * 8, ix, iy, 0.85 * sc, 1, { tint: tint }); fx(ctx, 'slash', f * 6, ix + 4, iy - 2, 0.9 * sc, 1, { rot: (rnd(ti, 3) - 0.5) * 3.0, tint: tint }); }
     // ---- attaques Pokémon : Ball'Ombre, Aurasphère, Météores, Bulles d'O — charge matérialisée → vol → impact ----
     const KIND = { shadowball: { fps: 16, s: 0.55, tint: '170,60,255', glow: '190,60,255' }, aurasphere: { fps: 16, s: 0.5, tint: '90,230,255', glow: '120,235,255' }, swift: { sheet: 'swiftstar', fps: 18, s: 0.5, tint: '255,220,90', glow: '255,230,120' }, bubble: { sheet: 'bubble', fps: 8, s: 0.35, tint: '150,230,255', glow: '150,230,255' } };
@@ -109,11 +148,16 @@
         const ui = u - (n > 1 ? i * st : 0); if (ui < 0) continue; const spread = n > 1 ? (i - (n - 1) / 2) * 7 : 0;
         if (ui < ch) { // matérialisation au point de départ
           const k = ui / ch;
-          if (i === 0) matBurst(ctx, x0, y0, k, K.tint, A.kind === 'bubble' ? 0.45 : 0.9 * (A.s || 1));
+          if (i === 0) { if (A.kind === 'shadowball') shadowMat(ctx, x0, y0, k, A.s || 1, t, A.t0 * 13.7);
+            else if (A.kind === 'aurasphere') auraMat(ctx, x0, y0, k, A.s || 1, t, A.t0 * 13.7);
+            else matBurst(ctx, x0, y0, k, K.tint, A.kind === 'bubble' ? 0.45 : 0.9 * (A.s || 1)); }
           glow(ctx, x0, y0, 30 * sS, K.glow, 0.5 * k);
           fx(ctx, sheet, A.kind === 'bubble' ? Math.floor(t * 8 + i) % 6 : t * K.fps + i, x0 + nx * spread * 0.25, y0 + ny * spread * 0.25, sS * (0.3 + 0.7 * k), 1, { mat: k });
         } else if (ui < ch + fl) {
           const k = (ui - ch) / fl, e = Math.pow(k, 1.5);
+          if (i === 0 && ui - ch < 0.2) { const kp = 1 + (ui - ch) / 0.2 * 0.45; // éclosion de la sphère au départ
+            if (A.kind === 'shadowball') shadowMat(ctx, x0, y0, kp, A.s || 1, t, A.t0 * 13.7);
+            else if (A.kind === 'aurasphere') auraMat(ctx, x0, y0, kp, A.s || 1, t, A.t0 * 13.7); }
           for (let j = 3; j >= 1; j--) { const kj = Math.max(0, k - j * 0.06), ej = Math.pow(kj, 1.5); if (kj <= 0) continue; fx(ctx, sheet, A.kind === 'bubble' ? Math.floor(t * 8 + i) % 6 : t * K.fps + i, lerp(x0, x1, ej) + nx * spread * ej, lerp(y0, y1, ej) + ny * spread * ej, sS * (1 - j * 0.1), 0.2 * (4 - j) / 3, { add: true }); }
           const px = lerp(x0, x1, e) + nx * spread * e, py = lerp(y0, y1, e) + ny * spread * e - Math.sin(e * Math.PI) * (A.arc || 0);
           glow(ctx, px, py, 34 * sS, K.glow, 0.55);
@@ -992,11 +1036,19 @@
       cam: [[142, 288, 100, 1.0, 0.1], [144.5, 288, 105, 1.5, 0.0], [146.5, 288, 108, 2.8, -0.06]],
       follow: ['riolu', 'evoli', 'tiplouf'],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.0, 286, 98], [146.5, 286, 100]], an: [[142, 'Pull', 0, { loop: true }], [143.5, 'Hop', 0, { loop: false }], [144.7, 'Pose', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
-        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Hop', 0, { loop: false }], [143.5, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
-        { id: 'tiplouf', pid: '0393', keys: [[142, 340, 190], [145.0, 304, 124], [146.5, 304, 124]], an: [[142, 'Hop', 6, { loop: false }], [143.5, 'Nod', 0, { loop: false }], [144.6, 'Pose', 0, { loop: true }]], noShadow: true, aura: '255,210,120' },
+        { id: 'riolu', pid: '0447', keys: [[142, 280, 28], [145.0, 286, 98], [146.5, 286, 100]], an: [[142, 'Pull', 0, { loop: true }], [143.0, 'Hop', 0, { loop: false }], [143.6, 'Idle', 2, { loop: true }], [144.2, 'Pose', 0, { loop: true }]], rot: [[142, 0]], noShadow: true, aura: '120,200,255' },
+        { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Hop', 0, { loop: false }], [142.5, 'Idle', 0, { loop: true }], [143.2, 'Nod', 0, { loop: false }], [143.7, 'Idle', 6, { loop: true }], [144.3, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
+        { id: 'tiplouf', pid: '0393', keys: [[142, 340, 190], [145.0, 304, 124], [146.5, 304, 124]], an: [[142, 'Hop', 6, { loop: false }], [142.6, 'Idle', 0, { loop: true }], [143.35, 'Nod', 0, { loop: false }], [143.8, 'Idle', 4, { loop: true }], [144.4, 'Pose', 0, { loop: true }]], noShadow: true, aura: '255,210,120' },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 145) / 1.5); glow(ctx, 288, 122, 160, '255,246,210', 0.25 + 0.6 * k); starBurst(ctx, 288, 122, 260, 0.6 * k, 12, t * 0.5); bubblesWorld(ctx, t, 34, 71, 180, 400, 0, 260, 1.4); sparklesWorld(ctx, t, 80, 72, 190, 0, 390, 260, '255,246,200', 1); },
+      world(ctx, t, c, ph) {
+        if (ph !== 'over') return; const k = sstep((t - 145) / 1.5); glow(ctx, 288, 122, 160, '255,246,210', 0.25 + 0.6 * k); starBurst(ctx, 288, 122, 260, 0.6 * k, 12, t * 0.5); bubblesWorld(ctx, t, 34, 71, 180, 400, 0, 260, 1.4); sparklesWorld(ctx, t, 80, 72, 190, 0, 390, 260, '255,246,200', 1);
+        for (const [ht, hx, hy] of [[142, 298, 180], [142, 340, 190], [143.0, 282, 51]]) { // réceptions : la lumière jaillit sous les pattes
+          const d = t - ht; if (d < 0 || d >= 0.45) continue; const u = d / 0.45;
+          ring(ctx, hx, hy, 5 + u * 30, 2.2, '255,246,200', 0.6 * (1 - u), 0.45);
+          for (let i = 0; i < 5; i++) { const an = rnd(i, 171) * TAU + 1.6; fx(ctx, 'sparkle', u * 8 + i, hx + Math.cos(an) * u * 24, hy - Math.sin(an) * u * 11, 0.18, 0.75 * (1 - u), { add: true, tint: '255,244,190' }); }
+        }
+        if (t > 144.4) { const p = clamp((t - 144.4) / 0.7, 0, 1); ring(ctx, 293, 118, 20 + p * 70, 2.4, '255,246,210', 0.7 * (1 - p), 0.5); } // pose d'équipe
+      },
       screen(ctx, t) { godRays(ctx, t, 0.45, W * 0.62, -30, 8, 0.8, H * 1.2, '255,240,190'); },
     });
 
@@ -1160,12 +1212,20 @@
       id: 'SP', t0: 145.2, t1: TITLE_T, map: 'opm5', free: true, bg: '#2c70e0',
       cam: [[145.2, 128, 494, 1.7, 0.0], [146.5, 128, 486, 1.6, 0.0], [147.3, 128, 270, 1.35, 0.0], [148, 128, 110, 1.27, 0.0]],
       actors: [
-        { id: 'riolu', pid: '0447', keys: [[145.2, 98, 486]], an: [[145.2, 'Idle', 4], [145.5, 'LookUp', 4, { loop: false }], [146.8, 'Hop', 4, { loop: false }]], ys: 0 },
-        { id: 'tiplouf', pid: '0393', keys: [[145.2, 127, 493]], an: [[145.2, 'Idle', 4], [145.7, 'LookUp', 4, { loop: false }], [146.9, 'Hop', 4, { loop: false }]], ys: 0 },
-        { id: 'evoli', pid: '0133', keys: [[145.2, 156, 488]], an: [[145.2, 'Idle', 4], [145.6, 'LookUp', 4, { loop: false }], [146.85, 'Hop', 4, { loop: false }]] },
+        { id: 'riolu', pid: '0447', keys: [[145.2, 98, 486]], an: [[145.2, 'Idle', 4], [145.4, 'LookUp', 4, { loop: false }], [145.85, 'Idle', 2, { loop: true }], [146.05, 'Hop', 4, { loop: false }], [146.45, 'Pose', 4, { loop: true }]], ys: 0 },
+        { id: 'tiplouf', pid: '0393', keys: [[145.2, 127, 493]], an: [[145.2, 'Idle', 4], [145.55, 'LookUp', 4, { loop: false }], [145.9, 'Nod', 4, { loop: false }], [146.2, 'Hop', 4, { loop: false }], [146.6, 'Pose', 4, { loop: true }]], ys: 0 },
+        { id: 'evoli', pid: '0133', keys: [[145.2, 156, 488]], an: [[145.2, 'Idle', 4], [145.7, 'LookUp', 4, { loop: false }], [146.0, 'Idle', 6, { loop: true }], [146.1, 'Hop', 4, { loop: false }], [146.5, 'Pose', 4, { loop: true }]] },
       ],
       draw(ctx, t, c) { layer(ctx, 'skyPeak', 0, 0); glow(ctx, 128, 70, 120, '255,250,220', 0.5); starBurst(ctx, 128, 70, 140, 0.5, 8, t * 0.2); },
-      world(ctx, t, c, ph) { if (ph === 'over') petals(ctx, t, 40, 30, 230, c.cy - 80, c.cy + 80, 9); },
+      world(ctx, t, c, ph) {
+        if (ph === 'over') petals(ctx, t, 40, 30, 230, c.cy - 80, c.cy + 80, 9);
+        for (const [ht, hx, hy] of [[146.05, 98, 486], [146.1, 156, 488], [146.2, 127, 493]]) { // bonds groupés : la lumière jaillit sous les pattes
+          const d = t - ht; if (d < -0.04 || d >= 0.45) continue; const u = clamp((d + 0.04) / 0.45, 0, 1);
+          ring(ctx, hx, hy, 4 + u * 26, 2.0, '255,246,200', 0.6 * (1 - u), 0.4);
+          for (let i = 0; i < 5; i++) { const an = rnd(i, 181) * TAU + 1.6; fx(ctx, 'sparkle', u * 8 + i, hx + Math.cos(an) * u * 22, hy - Math.sin(an) * u * 10, 0.16, 0.75 * (1 - u), { add: true, tint: '255,244,190' }); }
+        }
+        if (t > 146.6) { const p = clamp((t - 146.6) / 0.8, 0, 1); ring(ctx, 127, 490, 16 + p * 64, 2.2, '255,246,210', 0.6 * (1 - p), 0.45); } // le trio réuni
+      },
       screen(ctx, t) { godRays(ctx, t, 0.35 * sstep((t - 146.5) / 1.2), W * 0.5, -20, 7, 1.1, H, '255,246,206'); flash(ctx, sstep((t - 147.4) / 0.6)); },
     });
     // --- Orage (Thunderclouds) : images brutes en addition, synchronisées sur les impacts
@@ -1184,17 +1244,48 @@
       const dm = nowSec - (flapStart == null ? -99 : flapStart); if (dm >= 0 && dm < 2.4) d += 8.8 * Math.exp(-1.75 * dm) * Math.sin(TAU * 2.6 * dm);
       return d;
     }
+    function logoSpawn(ctx, cx, cy, tl, nowSec) { // l'étoile tombe, la lumière converge, le badge vient se poser sur le logo
+      const starAt = (u) => { const f = clamp(u, 0, 1), e = sstep(Math.pow(f, 0.8)); return [cx + 470 * Math.pow(1 - f, 3), -40 + (cy - 152 + 40) * e]; };
+      if (tl < 0.76) { // 1) étoile filante
+        const fall = clamp(tl / 0.5, 0, 1), sp = starAt(fall);
+        for (let i = 0; i < 12; i++) { const p = (i + 1) / 12, q = starAt(fall - 0.03 - p * 0.3);
+          fx(ctx, 'sparkle', (tl * 2.4 + i * 0.7) % 8, q[0], q[1], 0.26 * (1 - p * 0.7), 0.8 * (1 - p * 0.8), { add: true, tint: '255,232,150' }); }
+        wayfinder(ctx, 'wfAmber', sp[0], sp[1], 0.72 + 0.5 * fall, nowSec, 1, '255,222,130');
+      }
+      if (tl > 0.46 && tl < 1.05) { // 2) l'étoile se plante au sommet du logo : la lumière éclate
+        const k = (tl - 0.46) / 0.59, ix = cx, iy = cy - 152;
+        ring(ctx, ix, iy, 14 + k * 250, 3.0 * (1 - k) + 0.6, '255,238,170', 0.7 * (1 - k), 0.55);
+        glow(ctx, ix, iy, 190 * (0.3 + k), '255,240,180', 0.45 * (1 - k));
+        for (let i = 0; i < 14; i++) { const an = rnd(i, 141) * TAU, d = k * (90 + rnd(i, 142) * 190);
+          fx(ctx, 'sparkle', k * 8 + i, ix + Math.cos(an) * d, iy + Math.sin(an) * d * 0.6, 0.28, 0.8 * (1 - k), { add: true, tint: '255,236,160' }); }
+      }
+      if (tl > 0.24 && tl < 0.9) { // 3) la lumière converge en spirale vers le cœur du logo
+        const k = clamp((tl - 0.24) / 0.4, 0, 1);
+        for (let i = 0; i < 20; i++) { const ph = ((tl * 1.5 + rnd(i, 143)) % 1), u = clamp(1 - ph * (0.45 + 0.55 * k), 0, 1);
+          const an = rnd(i, 144) * TAU + tl * 4.5, rr = 34 + u * (290 + 130 * rnd(i, 145));
+          fx(ctx, 'sparkle', ph * 8, cx + Math.cos(an) * rr, cy + Math.sin(an) * rr * 0.62, 0.24, 0.8 * k * (1 - 0.5 * ph), { add: true, tint: '255,246,200' }); }
+      }
+      if (tl > 0.78) { // 5) le badge étoile se pose au sommet du logo et y reste
+        const k = sstep((tl - 0.78) / 0.4), by = lerp(cy - 138, cy - 152, k), bs = lerp(1.0, 0.68, k);
+        ctx.save(); ctx.translate(cx, by); ctx.rotate(Math.sin(nowSec * 1.5) * 0.14 * k);
+        wayfinder(ctx, 'wfAmber', 0, 0, bs, nowSec, 1, '255,222,130'); ctx.restore();
+        if (k < 1) ring(ctx, cx, by, 8 + (1 - k) * 46, 2.2, '255,236,170', 0.6 * (1 - k), 0.7);
+      }
+    }
     function drawTitle(ctx, tl, theme, nowSec, flapStart) {
       const atlas = theme === 'nuit' ? I.nightSeaAtlas : I.daySeaAtlas, pose = Math.floor(nowSec * 12) % 24;
       ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(atlas, (pose % 6) * 320, Math.floor(pose / 6) * 240, 320, 240, 0, -120, W, 960); ctx.restore();
       const cx = W / 2, cy = H / 2; let out = 0;
+      logoSpawn(ctx, cx, cy, tl, nowSec);
       if (tl >= 0.04 && tl <= 0.6) { const fu = (tl - 0.04) / 0.56, env = Math.sin(Math.PI * clamp(fu, 0, 1)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const hl = W * (0.2 + 0.32 * fu);
         const g = ctx.createRadialGradient(cx, cy, 2, cx, cy, hl); g.addColorStop(0, `rgba(255,255,245,${(0.95 * env).toFixed(3)})`); g.addColorStop(0.4, `rgba(254,240,138,${(0.7 * env).toFixed(3)})`); g.addColorStop(1, 'rgba(254,240,138,0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, hl, Math.max(6, 28 * env), 0, 0, TAU); ctx.fill(); ctx.restore(); }
-      if (tl >= 0.18) {
-        const dt = tl - 0.18; let scale = 1, alpha = 1, wf = 0;
-        if (dt < 0.6) { const uu = dt / 0.6, c1 = 1.70158, c3 = c1 + 1, e = 1 + c3 * Math.pow(uu - 1, 3) + c1 * Math.pow(uu - 1, 2); scale = 1.4 + (1 - 1.4) * e; alpha = Math.min(1, dt / 0.18); wf = Math.max(0, 1 - dt / 0.35); }
-        const deg = wingAngle(dt, nowSec, flapStart) * 0.55, rad = deg * Math.PI / 180; out = deg / 0.55;
+      if (tl >= 0.5) {
+        const dt = tl - 0.5; let scale = 1, alpha = 1;
+        const uu = clamp(dt / 0.52, 0, 1), c1 = 1.70158, c3 = c1 + 1, e = 1 + c3 * Math.pow(uu - 1, 3) + c1 * Math.pow(uu - 1, 2);
+        scale = 1.5 + (1 - 1.5) * e; alpha = Math.min(1, dt / 0.16);
+        const fold = 15 * Math.max(0, 1 - dt / 0.55); // les ailes sont repliées puis se déploient
+        const deg = wingAngle(dt, nowSec, flapStart) * 0.55 - fold, rad = deg * Math.PI / 180; out = wingAngle(dt, nowSec, flapStart);
         const pl = [274, 335], pr = [598, 335];
         rigX.clearRect(0, 0, RW, RH);
         if (I.rigBack) rigX.drawImage(I.rigBack, 0, 0);
@@ -1203,9 +1294,20 @@
         rigX.drawImage(I.rigCore, 0, 0);
         const bw = 560 * scale, bh = bw * RH / RW;
         glow(ctx, cx, cy, 420 * scale, '255,236,160', 0.18 + 0.1 * Math.sin(nowSec * 2));
-        ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(rigC, cx - bw / 2, cy - bh / 2, bw, bh); ctx.restore();
+        const rev = sstep(clamp(dt / 0.36, 0, 1)); // matérialisation : le logo apparaît depuis son cœur
+        ctx.save();
+        if (rev < 1) { ctx.beginPath(); ctx.arc(cx, cy, (18 + 560 * rev) * scale, 0, TAU); ctx.clip(); }
+        ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(rigC, cx - bw / 2, cy - bh / 2, bw, bh);
+        if (rev < 1) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = alpha * (1 - rev) * 0.8; ctx.drawImage(rigC, cx - bw / 2, cy - bh / 2, bw, bh); }
+        ctx.restore();
+        if (rev < 1) { // front de matérialisation : anneau de lumière et étincelles
+          ctx.save(); ctx.globalCompositeOperation = 'lighter'; ring(ctx, cx, cy, (18 + 560 * rev) * scale, 3.2, '255,248,205', 0.65 * (1 - 0.4 * rev), 0.62); ctx.restore();
+          for (let i = 0; i < 10; i++) { const an = rnd(i, 146) * TAU + dt * 3, rr = (18 + 560 * rev) * scale;
+            fx(ctx, 'sparkle', dt * 9 + i, cx + Math.cos(an) * rr * 0.98, cy + Math.sin(an) * rr * 0.6, 0.28, 0.75 * (1 - rev), { add: true, tint: '255,244,190' }); }
+        }
       }
-      if (tl > 1.25) { const bl = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(nowSec * 5)); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = bl; ctx.drawImage(I.enterUI, (W - 74 * 4) / 2, 590, 74 * 4, 11 * 4); ctx.restore(); }
+      if (tl > 1.12) { const bl = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(nowSec * 5)); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = bl; ctx.drawImage(I.enterUI, (W - 74 * 4) / 2, 590, 74 * 4, 11 * 4); ctx.restore(); }
       return out;
     }
 
@@ -1221,7 +1323,7 @@
       ctx.save(); ctx.imageSmoothingEnabled = true; ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       if (t >= TITLE_T) {
         const tl = t - TITLE_T; wing = drawTitle(ctx, tl, opts.theme || 'jour', opts.nowSec || 0, opts.flapStart);
-        flash(ctx, 1 - sstep(tl / 1.3)); vignette(ctx, 0.3);
+        flash(ctx, 0.82 * Math.exp(-tl * 4.2), '255,250,235'); vignette(ctx, 0.3);
       } else {
         let i = SC.findIndex((s) => t >= s.t0 && t < s.t1); if (i < 0) i = SC.length - 1; const sc = SC[i], xf = XF[sc.id] || 0;
         if (xf > 0 && i > 0 && t < sc.t0 + xf) {
