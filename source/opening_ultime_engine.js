@@ -504,9 +504,12 @@
 
     // ---------- Plage de PMD Sky : textures canoniques (mer au soleil couchant + sable, écume et rochers) · caméra qui s'incline du ciel vers la plage ----------
     const SEA_S = 2.581, SAND_S = 5.254, SEA_OV = 120, TILT0 = 23.6, TILT1 = 27.4;
-    const LGW = 245, LGH = 112, LG2 = mk(LGW, LGH), LG2X = LG2.getContext('2d'), LPT = [];
-    const LGS = 3.4, LGX = (W - LGW * LGS) / 2, LGY = 70, LSPLIT = 62;
-    const LX = LGX + 0.83 * LGW * LGS, LY = LGY + 0.2 * LGH * LGS, TL = 30.0; // l'étoile-badge atterrit sur le logo à la mesure 64 (30,0 s)
+    const LGS = 1.7, LGY = 58, LGPAD = 90, LGSTRIP = 5; // logo généré (448×241 px) affiché ×1,7 ; marge haute pour la chute des bandes
+    let LG2 = null, LG2X = null;
+    const BUBBLES = [[66, 30, 15], [252, 62, 32], [462, 50, 21], [198, 115, 15], [248, 230, 22], [95, 350, 16], [472, 330, 15], [85, 440, 38], [404, 428, 31], [295, 485, 16], [160, 555, 49], [323, 603, 37], [4, 587, 14], [418, 542, 16], [188, 718, 22], [355, 705, 16]]; // [x, y, rayon] dans la texture
+    const lgDim = () => { const L = I.pmdLogo; return L && L.width ? [L.width, L.height] : [448, 241]; };
+    const LGX = () => (W - lgDim()[0] * LGS) / 2;
+    const LX = () => LGX() + 0.84 * lgDim()[0] * LGS, LY = () => LGY + 0.2 * lgDim()[1] * LGS, TL = 30.0; // l'étoile-badge atterrit sur le logo à la mesure 64 (30,0 s)
     const IR0 = 30.4688, IR1 = 31.55; // l'étoile s'ouvre sur la course lunaire (mesure 65 → 31,5 s)
     let SANDC = null;
     function sandPlate() { // sable : le haut est fondu avec le bas de la mer du couchant (dégradé tramé)
@@ -514,19 +517,18 @@
       const w = Math.round(im.width * SAND_S), h = Math.round(im.height * SAND_S); SANDC = mk(w, h); const c = SANDC.getContext('2d'); c.imageSmoothingEnabled = false; c.drawImage(im, 0, 0, w, h);
       c.globalCompositeOperation = 'destination-in'; const g = c.createLinearGradient(0, 0, 0, 170); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)'); c.fillStyle = g; c.fillRect(0, 0, w, h); return SANDC;
     }
-    function lpat(L) { if (LPT[L]) return LPT[L]; const tc = mk(4, 4), tx = tc.getContext('2d'); tx.fillStyle = '#fff'; for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) if (BAYM[y][x] < L) tx.fillRect(x, y, 1, 1); return (LPT[L] = LG2X.createPattern(tc, 'repeat')); }
-    function logoPart(ctx, t, sy0, sy1, t0, rgb) { // le logo « Pokémon Mystery Dungeon » se matérialise (trame) en deux temps, avec reflet qui le balaie
-      const L = I.pmdLogo, k = clamp((t - t0) / 0.5, 0, 1); if (!L || !L.width || k <= 0) return;
-      const e = sstep(k), lv = Math.round(k * 16), sh = clamp((t - 28.7) / 0.8, 0, 1);
-      LG2X.save(); LG2X.setTransform(1, 0, 0, 1, 0, 0); LG2X.globalAlpha = 1; LG2X.globalCompositeOperation = 'source-over'; LG2X.clearRect(0, 0, LGW, LGH);
-      LG2X.drawImage(L, 0, sy0, LGW, sy1 - sy0, 0, sy0, LGW, sy1 - sy0);
-      if (sh > 0 && sh < 1) { LG2X.globalCompositeOperation = 'source-atop'; const gx = lerp(-70, LGW + 70, sh), g = LG2X.createLinearGradient(gx - 28, 0, gx + 28, 46); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,0.85)'); g.addColorStop(1, 'rgba(255,255,255,0)'); LG2X.fillStyle = g; LG2X.fillRect(0, 0, LGW, LGH); }
-      if (lv < 16) { LG2X.globalCompositeOperation = 'destination-in'; LG2X.fillStyle = lpat(lv); LG2X.fillRect(0, 0, LGW, LGH); }
-      LG2X.restore();
-      const drop = -46 * (1 - e) * (1 - e), cy = LGY + (sy0 + sy1) / 2 * LGS;
-      glow(ctx, W / 2, cy, 520, rgb, 0.42 * (1 - k) * k * 2);
-      ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(LG2, 0, sy0, LGW, sy1 - sy0, LGX, LGY + sy0 * LGS + drop, LGW * LGS, (sy1 - sy0) * LGS); ctx.restore();
-      const q = t - t0; if (q < 0.9) for (let j = 0; j < 16; j++) fx(ctx, 'sparkle', (q * 14 + j) % 8, LGX + rnd(j, sy0) * LGW * LGS, LGY + (sy0 + rnd(j, 9) * (sy1 - sy0)) * LGS + drop, 0.5 + rnd(j, 4) * 0.4, 1 - q / 0.9, { add: true, tint: '255,235,150' });
+    const easeBack = (k) => { const c1 = 2.2, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+    function logoDraw(ctx, t) { // le logo se construit en vague (bandes verticales qui retombent avec rebond, de gauche à droite), puis un reflet le balaie et des étincelles dansent sur le ruban
+      const L = I.pmdLogo; if (!L || !L.width) return; const w = L.width, h = L.height, T0 = 27.66;
+      if (t < T0) return; if (!LG2) { LG2 = mk(w, h + LGPAD); LG2X = LG2.getContext('2d'); }
+      const c = LG2X; c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.clearRect(0, 0, w, h + LGPAD);
+      for (let x = 0; x < w; x += LGSTRIP) { const k = clamp((t - T0 - (x / w) * 0.85) / 0.55, 0, 1); if (k <= 0) continue; c.globalAlpha = Math.min(1, k * 3); c.drawImage(L, x, 0, LGSTRIP, h, x, LGPAD - (1 - easeBack(k)) * 70, LGSTRIP, h); }
+      const sh = clamp((t - 29.0) / 0.8, 0, 1);
+      if (sh > 0 && sh < 1) { c.globalAlpha = 1; c.globalCompositeOperation = 'source-atop'; const gx = lerp(-60, w + 60, sh), g = c.createLinearGradient(gx - 26, 0, gx + 26, 60); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,0.8)'); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h + LGPAD); }
+      c.restore();
+      const kk = clamp((t - T0) / 1.4, 0, 1); glow(ctx, W / 2, LGY + h * LGS / 2, 560, '255,230,150', 0.34 * Math.sin(Math.PI * kk));
+      ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(LG2, 0, 0, w, h + LGPAD, LGX(), LGY - LGPAD * LGS, w * LGS, (h + LGPAD) * LGS); ctx.restore();
+      if (t > T0 + 1.2) for (let j = 0; j < 4; j++) { const P = [[0.2, 0.86], [0.8, 0.86], [0.5, 0.12], [0.36, 0.5]][j]; fx(ctx, 'sparkle', ((t * 1.1 + j * 0.27) % 1) * 8, LGX() + P[0] * w * LGS, LGY + P[1] * h * LGS, 0.55, 0.95, { add: true, tint: '255,240,170' }); }
     }
     function wfPos(t) { // trajet du badge-étoile (espace écran) : il arrive en volant, se tient au-dessus de Riolu, s'élève hors champ, puis TOMBE sur le logo en dernier
       if (t < 23.3) return null;
@@ -534,8 +536,8 @@
       if (t < 27.4) return [585, 430 + Math.sin(t * 3) * 4, 3.0];
       if (t < 28.5) { const w = (t - 27.4) / 1.1; return [585 + Math.sin(w * 6) * 10, 430 - 760 * w * w, 3.0]; }
       if (t < 29.0) return null;
-      if (t < TL) { const q = (t - 29.0) / (TL - 29.0); return [LX + 120 * (1 - q), lerp(-150, LY, q * q), 4.8]; }
-      return [LX, LY + Math.sin((t - TL) * 7) * 2, 4.8 + 1.0 * Math.max(0, 1 - (t - TL) / 0.3)];
+      if (t < TL) { const q = (t - 29.0) / (TL - 29.0); return [LX() + 120 * (1 - q), lerp(-150, LY(), q * q), 4.8]; }
+      return [LX(), LY() + Math.sin((t - TL) * 7) * 2, 4.8 + 1.0 * Math.max(0, 1 - (t - TL) / 0.3)];
     }
     // UN SEUL groupe — un Bekipan (sprite PMDO de profil) mène cinq Goélise (sprites PMDO) — qui voyage au loin vers la droite en rapetissant
     const FLOCK = [[-110, -38, 3.9, 0], [-126, 46, 3.8, 4], [-224, -82, 4.0, 8], [-242, 88, 3.7, 2], [-346, -120, 3.9, 6]]; // [dx, dy, échelle, phase]
@@ -556,13 +558,25 @@
       for (let r = 330; r < sea.height; r += 2) { const y = seaTop + r * SEA_S; if (y > Yc + H + 10 || y + 2 * SEA_S < Yc - 10) continue; const ox = Math.round(Math.sin(r * 0.21 + t * 1.6) * (0.3 + (r - 330) / 420 * 1.3) * SEA_S * 0.5); ctx.drawImage(sea, 0, r, sea.width, 2, -30 + ox, y, sw + 60, 2 * SEA_S + 1); }
       glow(ctx, 645, seaTop + 282 * SEA_S, 300, '255,236,170', 0.4 + 0.05 * Math.sin(t * 2));
       for (let i = 0; i < 40; i++) fx(ctx, 'sparkle', ((t * 0.9 + rnd(i, 3)) % 1) * 8, 90 + rnd(i, 1) * 1100, seaTop + (345 + rnd(i, 2) * 330) * SEA_S, 0.26, 0.9, { add: true });
+      const bb = I.beachBubbles; // bulles de la texture, animées : remontée + balancement + bouclage (elles ressortent en bas après avoir quitté le haut)
+      if (bb && bb.width) {
+        ctx.save(); ctx.imageSmoothingEnabled = false; const per = bb.height + 110;
+        BUBBLES.forEach((B, i) => {
+          const r = B[2] + 3, sp = 9 + (i % 5) * 4.5, sc = SEA_S * (0.8 + 0.3 * ((i * 7) % 5) / 4);
+          let row = (((B[1] - u * sp) % per) + per) % per; if (row > bb.height + 55) row -= per;
+          const sx = Math.max(0, B[0] - r), sy = Math.max(0, B[1] - r), sw2 = Math.min(bb.width, B[0] + r) - sx, sh2 = Math.min(bb.height, B[1] + r) - sy;
+          const cx = B[0] * SEA_S + Math.sin(u * 0.8 + i * 1.7) * 14, cy = seaTop + row * SEA_S;
+          ctx.drawImage(bb, sx, sy, sw2, sh2, cx + (sx - B[0]) * sc, cy + (sy - B[1]) * sc, sw2 * sc, sh2 * sc);
+        });
+        ctx.restore();
+      }
       const sp = sandPlate(); if (sp) {
         ctx.drawImage(sp, -1, 0);
         const fr = 58, fh = 22; for (let b = 0; b < 2; b++) { const ox = Math.round(Math.sin(t * 1.4 + b * 2) * 1.6 + Math.sin(t * 0.7) * 1.2); ctx.save(); ctx.globalAlpha = 0.5; ctx.drawImage(sandI, 0, fr, 150, fh, -1 + ox * SAND_S, fr * SAND_S + b * 3, 150 * SAND_S, fh * SAND_S); ctx.restore(); }
         [[300, 0.0], [1010, 0.5], [640, 0.9]].forEach((q) => { const sf = Math.floor((t + q[1]) * 7) % 16; if (sf < 8) fx(ctx, 'splash', sf, q[0], 392, 1.3, 0.8, { bottom: true }); });
         for (let i = 0; i < 16; i++) fx(ctx, 'sparkle', ((t * 0.8 + rnd(i, 13)) % 1) * 8, 60 + rnd(i, 11) * 1160, 60 + rnd(i, 12) * 220, 0.24, 0.85, { add: true });
       }
-      const xs = [840, 560, 700], gy = [748, 744, 758];
+      const xs = [840, 560, 700], gy = [770, 766, 780];
       spr(ctx, '0393', 'Idle', 6, (t - 20) * 60, xs[0], gy[0], 5.2); spr(ctx, '0133', 'Idle', 6, (t - 20) * 60 + 11, xs[2], gy[2], 5.2);
       const rp = u > 8 ? 'Pose' : 'Idle'; spr(ctx, '0447', rp, 6, u > 8 ? (u - 8) * 60 : u * 60, xs[1], gy[1], 5.2, { loop: u <= 8 });
       ctx.restore();
@@ -571,18 +585,18 @@
       godRays(ctx, t, 0.2, W * 0.5, -30, 6, 0.9, H * 1.3, '255,214,150');
       const env = sstep((t - 27.2) / 0.8); if (env > 0.003) { ctx.save(); ctx.fillStyle = 'rgba(10,20,60,' + (0.34 * env).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
       const pul = 1 + 0.045 * Math.max(0, 1 - (t - TL) / 0.28) * (t >= TL ? 1 : 0);
-      ctx.save(); ctx.translate(W / 2, LGY + LGH * LGS / 2); ctx.scale(pul, pul); ctx.translate(-W / 2, -(LGY + LGH * LGS / 2));
-      logoPart(ctx, t, 0, LSPLIT, 27.66, '255,236,150'); logoPart(ctx, t, LSPLIT, LGH, 28.125, '255,200,120');
+      ctx.save(); ctx.translate(W / 2, LGY + lgDim()[1] * LGS / 2); ctx.scale(pul, pul); ctx.translate(-W / 2, -(LGY + lgDim()[1] * LGS / 2));
+      logoDraw(ctx, t);
       ctx.restore();
       const wp = wfPos(t);
       if (wp) { wayfinder(ctx, 'wfCyan', wp[0], wp[1], wp[2], t, 1, '120,235,255'); trail(ctx, t, (tt) => { const p = wfPos(tt); return p ? [p[0], p[1]] : [-999, -999]; }, 23.3, 12, 0.05, 0.4, '170,245,255'); }
       const d = t - TL; // impact de l'étoile sur le logo
       if (d >= 0 && d < 0.7) {
-        flash(ctx, 0.45 * Math.max(0, 1 - d / 0.22), '255,245,200'); ring(ctx, LX, LY, d * 520, 2.5, '255,230,140', 0.9 * (1 - d / 0.7), 1); ring(ctx, LX, LY, d * 300, 1.5, '170,245,255', 0.8 * (1 - d / 0.7), 1);
-        fx(ctx, 'hit', d / 0.4 * 8, LX, LY, 1.6, 1, { tint: '255,235,150' });
-        for (let j = 0; j < 20; j++) { const a = j / 20 * TAU, r = d * (260 + rnd(j, 1) * 260); fx(ctx, 'sparkle', (d * 16 + j) % 8, LX + Math.cos(a) * r, LY + Math.sin(a) * r * 0.8, 0.5, 1 - d / 0.7, { add: true, tint: '255,240,160' }); }
+        flash(ctx, 0.45 * Math.max(0, 1 - d / 0.22), '255,245,200'); ring(ctx, LX(), LY(), d * 520, 2.5, '255,230,140', 0.9 * (1 - d / 0.7), 1); ring(ctx, LX(), LY(), d * 300, 1.5, '170,245,255', 0.8 * (1 - d / 0.7), 1);
+        fx(ctx, 'hit', d / 0.4 * 8, LX(), LY(), 1.6, 1, { tint: '255,235,150' });
+        for (let j = 0; j < 20; j++) { const a = j / 20 * TAU, r = d * (260 + rnd(j, 1) * 260); fx(ctx, 'sparkle', (d * 16 + j) % 8, LX() + Math.cos(a) * r, LY() + Math.sin(a) * r * 0.8, 0.5, 1 - d / 0.7, { add: true, tint: '255,240,160' }); }
       }
-      if (t >= 29.0 && t < TL) glow(ctx, LX, LY - 60, 120, '170,245,255', 0.4);
+      if (t >= 29.0 && t < TL) glow(ctx, LX(), LY() - 60, 120, '170,245,255', 0.4);
       flash(ctx, 1 - sstep(u / 0.7), '255,255,255');
       ctx.restore();
     }
@@ -611,8 +625,8 @@
       else if (t < IR0) frameBeach(ctx, t);
       else if (t < IR1) { // l'étoile-badge s'ouvre : la course lunaire apparaît à l'intérieur de l'étoile qui grandit
         fBeach(ctx, t); const R = irisR(t), rot = (t - IR0) * 1.6;
-        ctx.save(); starPath(ctx, LX, LY, R, rot); ctx.clip(); fMoon(ctx, Math.max(t, MT0)); ctx.restore();
-        ctx.save(); starPath(ctx, LX, LY, R, rot); ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(255,238,160,' + (1 - sstep((t - IR0) / (IR1 - IR0))).toFixed(3) + ')'; ctx.lineWidth = 7; ctx.stroke(); ctx.restore();
+        ctx.save(); starPath(ctx, LX(), LY(), R, rot); ctx.clip(); fMoon(ctx, Math.max(t, MT0)); ctx.restore();
+        ctx.save(); starPath(ctx, LX(), LY(), R, rot); ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(255,238,160,' + (1 - sstep((t - IR0) / (IR1 - IR0))).toFixed(3) + ')'; ctx.lineWidth = 7; ctx.stroke(); ctx.restore();
         vignette(ctx, 0.5); bars(ctx, t);
       } else { fMoon(ctx, t); vignette(ctx, 0.5); bars(ctx, t); }
       const wf = sstep((t - 45.1) / 0.9); if (wf > 0.003 && t >= MT0) flash(ctx, wf, '255,255,255');

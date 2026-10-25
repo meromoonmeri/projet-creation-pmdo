@@ -64,7 +64,7 @@ class TestOpeningUltime(unittest.TestCase):
         self.assertIsNone(re.search(r"bateau|ship", self.eng, re.I))
 
     def test_plage_pmd_sky_logo_etoile_et_un_seul_groupe(self):
-        for k in ("beachSea", "beachSand", "pmdLogo"):
+        for k in ("beachSea", "beachBubbles", "beachSand", "pmdLogo", "skyCloud"):
             self.assertIn(k, self.assets["imgs"])  # textures canoniques fournies + logo « Pokémon Mystery Dungeon »
         self.assertIn("function fBeach(", self.eng)
         self.assertNotIn("beachSky", self.eng)
@@ -73,7 +73,11 @@ class TestOpeningUltime(unittest.TestCase):
         self.assertIn("'0278', 'Hover', 2", self.eng)  # vrais sprites Goélise
         self.assertIn("'0279', 'Walk', 2", self.eng)  # Bekipan de profil
         self.assertIn("function wfPos(", self.eng)  # l'étoile-badge tombe en dernier sur le logo
-        self.assertIn("starPath(ctx, LX, LY, R, rot); ctx.clip();", self.eng)  # l'étoile ouvre la scène suivante
+        self.assertIn("starPath(ctx, LX(), LY(), R, rot); ctx.clip();", self.eng)  # l'étoile ouvre la scène suivante
+        self.assertIn("function logoDraw(", self.eng)  # logo généré : construction en vague + reflet
+        self.assertIn("BUBBLES.forEach", self.eng)  # bulles animées (remontée, balancement, bouclage)
+        self.assertIn("function skyFallDecor(", self.html)  # chute dans le ciel : décor généré multicalque
+        self.assertIn("function handLinks(", self.html)  # le trio se tient par la main
         self.assertNotIn("mat: k < 1", self.eng)  # les personnages ne se dissolvent plus : ils sortent avec le mouvement de caméra
 
     def test_catalogue_et_images_resolus(self):

@@ -26,6 +26,7 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 from source import build_opening_sprite_cinematique_destiny as SPR  # type: ignore
 from source import build_opening_voyage as VOY  # type: ignore
 from source import build_opening_voyage_layers as VL  # type: ignore
+from source import build_beach_layers as BL  # type: ignore
 from PIL import Image  # noqa: E402
 import numpy as np  # noqa: E402
 
@@ -52,14 +53,15 @@ PRUNE_PREFIX = ("it", "sh", "tm")
 
 
 def beach_assets() -> Dict[str, str]:
-    """Plage « PMD Sky » : textures canoniques fournies (mer au soleil couchant + sable/écume/rochers) et logo « Pokémon Mystery Dungeon » (rip du Title Screen, fond bleu retiré)."""
+    """Plage « PMD Sky » en calques (textures canoniques fournies) + logo généré + nuages de la chute :
+    beachSea = ciel + mer SANS bulles · beachBubbles = bulles seules (animées en boucle) · beachSand = sable/écume/rochers · pmdLogo = logo « Pokémon Mystery Dungeon : Destiny » (généré) · skyCloud = nuages générés."""
+    BL.build(); BL.logo(); BL.skyfall()
     out: Dict[str, str] = {}
-    for key, fn in (("beachSea", "beach_sea_sunset_pmdsky"), ("beachSand", "beach_sand_pmdsky"), ("pmdLogo", "pmd_logo_mystery_dungeon")):
+    for key, fn in (("beachSea", "beach_sea_clean"), ("beachBubbles", "beach_bubbles"), ("beachSand", "beach_sand_pmdsky"), ("pmdLogo", "pmd_logo_destiny"), ("skyCloud", "skyfall_clouds_layer")):
         im = Image.open(BRUTS / f"{fn}.png")
-        if key == "pmdLogo":
-            im = im.convert("RGBA")
+        if im.mode == "RGBA":
             a = np.asarray(im)
-            assert set(np.unique(a[..., 3]).tolist()) <= {0, 255}, "alpha non binaire"
+            assert set(np.unique(a[..., 3]).tolist()) <= {0, 255}, f"alpha non binaire : {key}"
         else:
             im = im.convert("RGB")
         out[key] = SPR.uri_im(im, "WEBP", lossless=True)
@@ -99,11 +101,45 @@ def build_assets() -> Dict[str, object]:
     return {"imgs": imgs, "sheets": sheets, "catalog": cat}
 
 
+SKYFALL_JS = r"""
+    // ---- chute dans le ciel (plan 5a) : décor GÉNÉRÉ multicalque — dégradé de ciel + 3 couches de nuages qui filent vers le haut (échelles/vitesses différentes, bouclage sans raccord) ----
+    function skyFallDecor(ctx, t) {
+      const u = Math.max(0, t - 106), cl = I.skyCloud, cw = cl.width, ch = cl.height;
+      const g = ctx.createLinearGradient(0, -260, 0, 560); g.addColorStop(0, 'rgb(34,74,190)'); g.addColorStop(0.45, 'rgb(96,170,240)'); g.addColorStop(1, 'rgb(206,232,255)');
+      ctx.fillStyle = g; ctx.fillRect(-520, -320, 1700, 960);
+      [[0.2, 34, 0.6, false, 0], [0.32, 78, 0.85, true, 120], [0.52, 170, 1, false, 260]].forEach((L, li) => { // [échelle, vitesse, alpha, miroir, déphasage]
+        const s = L[0], w = cw * s, h = ch * s, off = (u * L[1] * (1 + 0.5 * sstep(u / 3)) + L[4]) % h;
+        ctx.save(); ctx.globalAlpha = L[2]; ctx.imageSmoothingEnabled = false;
+        for (let iy = -1; -300 + iy * h - off < 520; iy++) for (let ix = 0; -500 + ix * w < 1080; ix++) {
+          const x = -500 + ix * w + li * 53, y = -300 + iy * h - off;
+          if (L[3]) { ctx.save(); ctx.translate(x + w, y); ctx.scale(-1, 1); ctx.drawImage(cl, 0, 0, w, h); ctx.restore(); } else ctx.drawImage(cl, x, y, w, h);
+        }
+        ctx.restore();
+      });
+    }
+    function handLinks(ctx, t, c) { // le trio se tient par la main : éclat de lumière à chaque main jointe + fil lumineux
+      const e = sstep((t - 106.3) / 1.0) * (1 - sstep((t - 117.6) / 0.8)); if (e <= 0.003) return;
+      [[-15, -16], [15, -15]].forEach((p, i) => { const x = c.cx + p[0], y = c.cy + p[1] + Math.sin(t * 5 + i) * 1.2; glow(ctx, x, y, 16, '255,236,170', 0.8 * e); fx(ctx, 'sparkle', (t * 12 + i * 3) % 8, x, y, 0.35, e, { add: true }); });
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = 'rgba(255,240,190,' + (0.55 * e).toFixed(3) + ')'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(c.cx - 30, c.cy - 14); ctx.quadraticCurveTo(c.cx, c.cy - 8 + Math.sin(t * 4) * 1.5, c.cx + 30, c.cy - 12); ctx.stroke(); ctx.restore();
+    }
+"""
+
+
+def patch_skyfall(spr: str) -> str:
+    old = "    function drawMap(ctx, key, t, water) {\n      const im = I[key];"
+    assert old in spr, "drawMap introuvable"
+    spr = spr.replace(old, SKYFALL_JS + "    function drawMap(ctx, key, t, water) {\n      if (key === 'opm4' && t >= 105.5 && t < 122 && I.skyCloud && I.skyCloud.width) { skyFallDecor(ctx, t); return; }\n      const im = I[key];", 1)
+    w = "world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 115) / 3);"
+    assert w in spr, "monde 5a introuvable"
+    return spr.replace(w, "world(ctx, t, c, ph) { if (ph !== 'over') return; handLinks(ctx, t, c); const k = sstep((t - 115) / 3);", 1)
+
+
 def engine_source() -> str:
     voy, spr, ult = (p.read_text(encoding="utf-8") for p in ENGINES)
     old = "OC: 0.8,"
     assert old in spr, "XF.OC introuvable dans le moteur sprites"
     spr = spr.replace(old, "OC: 0,", 1)  # plus de fondu depuis le plan « chute » (supprimé) : l'océan arrive après le flash blanc de la course lunaire
+    spr = patch_skyfall(spr)
     return "\n".join((voy, spr, ult))
 
 
