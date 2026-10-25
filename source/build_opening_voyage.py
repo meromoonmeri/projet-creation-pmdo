@@ -50,6 +50,8 @@ ACTORS = {
     "0151": ["Idle", "Walk", "Twirl", "Float"],  # Mew
     "0251": ["Idle", "Walk", "Twirl", "Float"],  # Celebi
     "0490": ["Idle", "Walk", "Float"],  # Manaphy
+    "0278": ["Idle", "Walk", "Hover"],  # Goélise
+    "0279": ["Idle", "Walk"],  # Bekipan
 }
 
 def uri_png(path: Path) -> str:

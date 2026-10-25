@@ -33,7 +33,7 @@ class TestOpeningVoyage(unittest.TestCase):
     def test_03_acteurs_et_effets(self) -> None:
         txt = HTML.read_text(encoding="utf-8")
         meta = json.loads(META.read_text(encoding="utf-8"))
-        for pid in ("0447", "0133", "0393", "0151", "0251", "0490"):  # Riolu, Évoli, Tiplouf, Mew, Celebi, Manaphy
+        for pid in ("0447", "0133", "0393", "0151", "0251", "0490", "0278", "0279"):  # Riolu, Évoli, Tiplouf, Mew, Celebi, Manaphy, Goélise, Bekipan
             self.assertIn(pid, meta["actors"])
         for k in ("petal", "sparkle", "bubble", "splash", "halo", "mat", "badge_cyan"):
             self.assertIn(f'"fx_{k}":"data:image/webp', txt)
@@ -58,6 +58,13 @@ class TestOpeningVoyage(unittest.TestCase):
         for a in ("Walk", "Idle", "LookUp", "Pose", "Hop", "Float"):
             for pid in ("0393", "0447", "0133"):
                 self.assertIn(a, cat[pid]["anims"])
+
+    def test_05b_abysse_et_goelands(self) -> None:
+        eng = ENGINE.read_text(encoding="utf-8")
+        self.assertIn("function abyss(", eng)
+        self.assertIn("function gulls(", eng)
+        self.assertIn("'0278', 'Hover'", eng)
+        self.assertIn("'0279', 'Walk'", eng)
 
     def test_06_liens_entre_versions(self) -> None:
         self.assertIn("apercu_fangame_pmd_destiny.html", HTML.read_text(encoding="utf-8"))

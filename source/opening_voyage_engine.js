@@ -429,6 +429,33 @@
     }
     function trio(ctx, t, t0, xs, gy, s, anim, dir, sp, o) { ['0393', '0447', '0133'].forEach((pid, i) => { const a = (o && o.anims && o.anims[i]) || anim; spr(ctx, pid, a, (o && o.dirs && o.dirs[i] != null) ? o.dirs[i] : dir, (t - t0) * 60 * sp + i * 7, xs[i], gy[i], s, o && o.o); }); }
 
+    // ---- Abysse d'ouverture : nuage lumineux de bulles dans le bleu profond (comme le début d'un générique de One Piece) ----
+    function abyss(ctx, t, a) {
+      if (a <= 0.003) return;
+      const cx0 = W / 2, cy0 = H / 2 + 10, k = 1 + 0.13 * t;
+      ctx.save(); ctx.globalAlpha = a;
+      const g = ctx.createRadialGradient(cx0, cy0, 20, cx0, cy0, 780); g.addColorStop(0, 'rgb(46,140,255)'); g.addColorStop(0.32, 'rgb(10,62,196)'); g.addColorStop(1, 'rgb(2,8,50)');
+      ctx.fillStyle = g; ctx.fillRect(-80, -80, W + 160, H + 160); ctx.restore();
+      glow(ctx, cx0, cy0, 330 + Math.sin(t * 1.3) * 18, '110,190,255', 0.5 * a);
+      for (let i = 0; i < 12; i++) glow(ctx, cx0 + (rnd(i, 41) - 0.5) * 900 + Math.sin(t * 0.3 + i) * 30, cy0 + (rnd(i, 42) - 0.5) * 520, 50 + rnd(i, 43) * 70, '90,170,255', 0.14 * a); // bokeh
+      for (let i = 0; i < 420; i++) { // nuage de bulles : spirale lente qui s'élargit
+        const z = rnd(i, 1), r0 = 150 * Math.sqrt(-2 * Math.log(1 - rnd(i, 2) * 0.985)), ang = rnd(i, 3) * TAU + t * 0.16 / (0.4 + r0 / 200) * (i % 2 ? 1 : -0.7);
+        const r = r0 * k * (1 + 0.07 * Math.sin(t * 0.7 + i)), x = cx0 + Math.cos(ang) * r * 1.2, y = cy0 + Math.sin(ang) * r * 0.9 - t * 4 * (0.3 + z);
+        if (x < -60 || x > W + 60 || y < -60 || y > H + 60) continue;
+        fx(ctx, 'bubble', t * 5 + i * 3, x, y, 0.2 + z * z * 0.9, a * (0.55 + 0.45 * z), { add: true });
+      }
+      for (let i = 0; i < 70; i++) { const ang = rnd(i, 7) * TAU + t * 0.3, r = 40 + rnd(i, 8) * 260 * k; fx(ctx, 'sparkle', t * 8 + i, cx0 + Math.cos(ang) * r * 1.2, cy0 + Math.sin(ang) * r * 0.8, 0.22 + rnd(i, 9) * 0.25, a * 0.9, { add: true }); }
+    }
+    function gulls(ctx, t, t0, dur, n, seed, y0, y1, a, rev) { // troupe de Goélise menée par un Bekipan
+      const u = (t - t0) / dur; if (u < -0.2 || u > 1.25) return;
+      for (let i = 0; i < n; i++) {
+        const uu = u - (i ? 0.05 + 0.035 * i : 0) - rnd(i, seed) * 0.03, x = rev ? lerp(W + 140, -140, uu) : lerp(-140, W + 140, uu), y = lerp(y0, y1, uu) + Math.sin(uu * 13 + i * 2) * 16 + (i % 3) * 44 - 36;
+        if (x < -170 || x > W + 170) continue;
+        if (i === 0) spr(ctx, '0279', 'Walk', 0, t * 60 * 0.9, x, y, 4.4, { fly: true, a: a });
+        else spr(ctx, '0278', 'Hover', 0, t * 60 * 0.8 + i * 5, x, y, 3.6 + rnd(i, seed + 1) * 1.0, { fly: true, a: a });
+      }
+    }
+
     // ---- Chapitre I : l'océan, la remontée, la surface ----
     const OR = (t) => 2600 * sstep((t - 4) / 16);               // altitude gagnée par la caméra (px)
     const SURF = (t) => lerp(-260, 170, sstep((t - 12) / 8));   // ligne de surface vue d'en dessous
@@ -448,12 +475,13 @@
         godRays(ctx, t, 0.3 + 0.45 * sstep((t - 6) / 12), W * 0.5, -40, 8, 1.1, H * 1.4, '190,245,255');
         bubbles(ctx, t, 18, 11, 38, 1.2, 2.0, 0.35, R, ys, 0.75);
         for (let i = 0; i < 40; i++) fx(ctx, 'sparkle', ((t * 0.7 + rnd(i, 3)) % 1) * 8, rnd(i, 1) * W, (rnd(i, 2) * H + t * 12 * (0.4 + rnd(i, 4)) + R * 0.5) % (H + 40), 0.2, 0.5, { add: true });
-        if (t > 2.5 && t < 11) { const mu = (t - 2.5) / 8.5, mx = lerp(-140, W + 140, mu), my = 290 + Math.sin(t * 1.7) * 30 + R * 0.6; spr(ctx, '0490', 'Walk', 2, t * 60, mx, my, 4.2, { fly: true }); if (t % 0.4 < 0.05) fx(ctx, 'bubble', 0, mx - 70, my - 20, 1.4, 0.9); }
+        if (t > 4.6 && t < 12.1) { const mu = (t - 4.6) / 7.5, mx = lerp(-140, W + 140, mu), my = 290 + Math.sin(t * 1.7) * 30 + R * 0.6; spr(ctx, '0490', 'Walk', 2, t * 60, mx, my, 4.2, { fly: true }); if (t % 0.4 < 0.05) fx(ctx, 'bubble', 0, mx - 70, my - 20, 1.4, 0.9); }
         tileH(ctx, 'ocFloor', cx, -48 + R, 2);
-        const kc = sstep((t - 6) / 3), bx0 = 977 - cx, by0 = 566 + R - 44 + Math.sin(t * 2) * 5;
-        let bx = lerp(bx0, W / 2, kc), byy = lerp(by0, 380, kc); if (t > 16) byy = lerp(380, ys + 150, sstep((t - 16) / 4));
+        abyss(ctx, t, 1 - sstep((t - 3.6) / 3));
+        const kc = sstep((t - 8.5) / 3), ks = sstep((t - 3.8) / 3.4), bx0 = 977 - cx, by0 = 566 + R - 44 + Math.sin(t * 2) * 5;
+        let bx = lerp(lerp(W / 2, bx0, ks), W / 2, kc), byy = lerp(lerp(H / 2, by0, ks), 380, kc); if (t > 16) byy = lerp(380, ys + 150, sstep((t - 16) / 4));
         if (ys > -200 && t > 16) bx = lerp(W / 2, 520, sstep((t - 16) / 4));
-        const bap = t < 1 ? t : 1; wayfinder(ctx, 'wfCyan', bx, byy, 2.3, t, bap, '120,235,255'); if (t > 6) trail(ctx, t, (tt) => [lerp(bx0, W / 2, sstep((tt - 6) / 3)), lerp(by0, 380, sstep((tt - 6) / 3)) + 10], 6, 10, 0.07, 0.35, '170,245,255');
+        const bap = sstep((t - 0.8) / 2.4); wayfinder(ctx, 'wfCyan', bx, byy, lerp(3.4, 2.3, ks), t, bap, '120,235,255'); if (t > 8.5) trail(ctx, t, (tt) => [lerp(bx0, W / 2, sstep((tt - 8.5) / 3)), lerp(by0, 380, sstep((tt - 8.5) / 3)) + 10], 8.5, 10, 0.07, 0.35, '170,245,255');
         bubbles(ctx, t, 14, 21, 70, 2.6, 4.2, 1.2, R, ys, 0.9);
         if (ys > -220) { // le plafond d'argent de la surface vu d'en dessous
           ctx.save(); ctx.beginPath(); ctx.moveTo(-200, -300); ctx.lineTo(W + 200, -300);
@@ -482,6 +510,7 @@
         const rp = u > 7 ? 'Pose' : 'Idle'; spr(ctx, '0447', rp, 6, u > 7 ? (u - 7) * 60 : u * 60, xs[1], gy[1], 5.2, { loop: u <= 7 });
         const kb = sstep((u - 1) / 6), bx = lerp(190, 585, kb), by = lerp(500, 500, kb) - Math.sin(kb * Math.PI) * 120 + Math.sin(t * 3) * 3 - (u > 7 ? 26 * sstep((u - 7) / 2) : 0);
         wayfinder(ctx, 'wfCyan', bx, by, 2.3, t, 1, '120,235,255'); trail(ctx, t, (tt) => { const q = sstep((tt - 21) / 6); return [lerp(190, 585, q), 500 - Math.sin(q * Math.PI) * 120]; }, 21, 12, 0.06, 0.4, '170,245,255');
+        gulls(ctx, t, 21.2, 8, 6, 3, 250, 170, 1, false); gulls(ctx, t, 25.5, 8.5, 4, 11, 190, 270, 1, true);
         petalWind(ctx, t, Math.round(70 * sstep((u - 5) / 5)), 5, -1, 60, 0.07, 1.6);
       });
       godRays(ctx, t, 0.22, W * 0.8, -30, 6, 0.9, H * 1.3, '255,244,200');
@@ -639,7 +668,7 @@
       vgrad(ctx, lerpC([40, 50, 120], [255, 190, 150], k), lerpC([90, 90, 160], [255, 230, 190], k));
       camWrap(ctx, t, 128, 1.06, 1.12, W / 2, H / 2, 9, () => {
         plate(ctx, 'surfaceSky', -48, -270, 2, 1); glow(ctx, 924, 146, 380, '255,225,170', 0.75);
-        tileH(ctx, 'clouds', u * 22, -40, 2, 0.85); tileH(ctx, 'meadow', off * 0.5, -70, 1.4, 0.9); tileH(ctx, 'meadow', off, 24, 2);
+        tileH(ctx, 'clouds', u * 22, -40, 2, 0.85); gulls(ctx, t, 131, 9, 5, 7, 250, 170, 1, false); tileH(ctx, 'meadow', off * 0.5, -70, 1.4, 0.9); tileH(ctx, 'meadow', off, 24, 2);
         const xs = [440, 580, 730];
         trio(ctx, t, 128, xs, [618, 606, 624], 5.2, 'Walk', 2, 1.9);
         const hk = sstep((u - 5) / 3); if (hk > 0) fx(ctx, 'halo', u * 10, 924, 146, 5.6, 0.55 * hk * (0.9 + 0.1 * Math.sin(u * 3)), {});
@@ -656,7 +685,7 @@
       camWrap(ctx, t, 140, z, z, lerp(640, 760, sstep(u / 8)), lerp(451, 340, sstep(u / 8)), 6, () => {
         plate(ctx, 'surfaceSky', -48, -270, 2); glow(ctx, 924, 146, 440, '255,230,180', 0.85);
         const hk = 1; fx(ctx, 'halo', t * 10, 924, 146, 5.8, 0.6 * (0.9 + 0.1 * Math.sin(t * 3)), {});
-        tileH(ctx, 'clouds', t * 18, -40, 2, 0.8); tileH(ctx, 'meadow', 0, 24, 2);
+        tileH(ctx, 'clouds', t * 18, -40, 2, 0.8); gulls(ctx, t, 141.5, 6, 4, 9, 230, 180, 1, true); tileH(ctx, 'meadow', 0, 24, 2);
         const e = sstep((u - 1.2) / 3);
         const pose = u > 3.2, xs = [520, 660, 800];
         trio(ctx, t, 140 + 3.2, xs, [562, 550, 568], 5.6, pose ? 'Pose' : 'Idle', 0, 1.0, { o: { loop: false } });

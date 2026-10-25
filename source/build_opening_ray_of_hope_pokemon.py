@@ -206,14 +206,16 @@ POKEMON_SPECS: List[Tuple[str, str, List[str], List[str]]] = [
     (
         "0490",
         "Manaphy",
-        ["Idle", "Walk", "Double", "RearUp", "Hop", "Rotate", "Float", "Pose"],
+        ["Idle", "Walk", "Double", "RearUp", "Hop", "Rotate", "Float", "Pose", "Hurt", "Sleep", "Shoot", "Attack"],
         ["Normal", "Joyous", "Inspired"],
     ),
     ("0380", "Latias", ["Idle", "Walk", "Attack", "Shoot", "Hop", "Rotate"], []),
     ("0381", "Latios", ["Idle", "Walk", "Attack", "Shoot", "Hop", "Rotate"], []),
     ("0571", "Zoroark", ["Idle", "Walk", "Attack", "Double", "Swing", "Shoot", "Charge", "Hop", "Rotate", "Hurt"], []),
-    ("0492", "Shaymin (Sky)", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Appeal"], []),
-    ("0151", "Mew", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Twirl", "Charge", "Double", "Nod", "LookUp"], []),
+    ("0492", "Shaymin (Sky)", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Appeal", "Hurt", "Sleep", "Eat", "Shoot", "Attack", "Sit", "Wake", "Nod", "LookUp", "Pull", "Pain", "Laying"], []),
+    ("0151", "Mew", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Twirl", "Charge", "Double", "Nod", "LookUp", "Hurt", "Sleep", "Shoot", "Attack"], []),
+    ("0278", "Goélise", ["Idle", "Walk", "Hover", "Sleep", "Hurt", "Shoot", "Attack", "Swing", "Hop", "Rotate"], []),
+    ("0279", "Bekipan", ["Idle", "Walk", "Sleep", "Hurt", "Shoot", "SpAttack", "Attack", "Swing", "Hop", "Rotate"], []),
     ("0491", "Darkrai", ["Idle", "Walk", "Attack", "QuickStrike", "Double", "Swing", "Shoot", "RearUp", "Charge", "Rotate", "Hurt"], []),
 ]
 
