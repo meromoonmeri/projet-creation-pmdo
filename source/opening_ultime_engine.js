@@ -458,18 +458,19 @@
         const qg = t - g.t0; if (qg < -0.05 || qg > MEM_DUR + 0.6) return;
         const ge = bump(t, g.t0, g.t0 + MEM_DUR + 0.5, 0.3);
         starBurst(ctx, W / 2, 330, 1000, 0.11 * ge, 16, qg * 0.08 + gi); glow(ctx, W / 2, 330, 560, g.rgb, 0.16 * ge);
-        if (qg >= 0 && qg < 0.35) { speedLines(ctx, t, 30, W / 2, 330, g.rgb, 0.5 * (1 - qg / 0.35), 120); flash(ctx, 0.34 * (1 - qg / 0.35), g.rgb); }
-        g.m.forEach((M, i) => {
-          const q = qg - i * 0.2; if (q < 0 || q > MEM_DUR) return;
-          const k = Math.min(sstep(q / 0.5), 1 - sstep((q - (MEM_DUR - 0.5)) / 0.5)); if (k <= 0.003) return;
+        
+        g.m.forEach((M, i) => { // plus de fondu : le personnage traverse le champ avec le mouvement de caméra (panoramique rapide, comme le plan de Lapras), il glisse jusqu'à sa pose puis repart de l'autre côté
+          const q = qg - i * 0.2; if (q < -0.1 || q > MEM_DUR + 0.1) return;
+          const TIN = 0.62, TOUT = 0.62, shAt = (qq) => 1750 * Math.pow(1 - clamp(qq / TIN, 0, 1), 3) - 1750 * Math.pow(clamp((qq - (MEM_DUR - TOUT)) / TOUT, 0, 1), 3);
+          const sh = shAt(q), vx = (sh - shAt(q - 0.03)) / 0.03, sp = Math.min(1, Math.abs(vx) / 1500);
           const info = animInfo(M[0], M[1]), h = info ? info.fh * M[6] : 300, fly = !!M[7];
-          const y = fly ? M[5] + Math.sin(t * 2.1 + i * 1.7) * 12 - q * 6 : M[5] - q * 5, x = M[4] + Math.sin(t * 0.9 + i) * 5;
-          glow(ctx, x, fly ? y : y - h * 0.5, 120 + M[6] * 20, M[3], 0.42 * k);
-          if (fly) spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, x, y, M[6], { fly: true, mat: k < 1 ? k : undefined, aura: M[3] });
-          else spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, x, y, M[6], { mat: k < 1 ? k : undefined, aura: M[3] });
-          if (q < 0.7) fx(ctx, 'mat', (q / 0.7) * 8, x, fly ? y : y - h * 0.5, 0.9 + M[6] * 0.28, 1, { tint: M[3], add: true });
-          if (q > MEM_DUR - 0.55) fx(ctx, 'mat', (1 - (MEM_DUR - q) / 0.55) * 8, x, fly ? y : y - h * 0.5, 0.9 + M[6] * 0.28, 1, { tint: M[3], add: true });
-          for (let s = 0; s < 6; s++) fx(ctx, 'sparkle', ((t * (0.7 + rnd(s, i)) + rnd(s, 5 + i)) % 1) * 8, x + (rnd(s, 3 + i) - 0.5) * M[6] * 34, (fly ? y : y - h * 0.5) + (rnd(s, 4 + i) - 0.5) * h, 0.34, 0.9 * k, { add: true, tint: M[3] });
+          const y = fly ? M[5] + Math.sin(t * 2.1 + i * 1.7) * 12 - q * 6 : M[5] - q * 5, x = M[4] + sh + Math.sin(t * 0.9 + i) * 5, cyy = fly ? y : y - h * 0.5;
+          if (x < -320 || x > W + 320) return;
+          glow(ctx, x, cyy, 120 + M[6] * 20, M[3], 0.42);
+          if (sp > 0.05) { for (let gI = 4; gI >= 1; gI--) { const gx = x - vx * 0.013 * gI; ctx.save(); ctx.globalAlpha = 0.3 * sp / gI * 1.6; if (fly) spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, gx, y, M[6], { fly: true, a: 0.5 * sp }); else spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, gx, y, M[6], { a: 0.5 * sp, shadow: false }); ctx.restore(); } speedLines(ctx, t, Math.round(12 * sp), x, cyy, M[3], 0.5 * sp, 90, vx > 0 ? 0 : Math.PI); }
+          if (fly) spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, x, y, M[6], { fly: true, aura: M[3] });
+          else spr(ctx, M[0], M[1], M[2], q * 60 * 0.9, x, y, M[6], { aura: M[3] });
+          for (let s2 = 0; s2 < 6; s2++) fx(ctx, 'sparkle', ((t * (0.7 + rnd(s2, i)) + rnd(s2, 5 + i)) % 1) * 8, x + (rnd(s2, 3 + i) - 0.5) * M[6] * 34, cyy + (rnd(s2, 4 + i) - 0.5) * h, 0.34, 0.9, { add: true, tint: M[3] });
         });
       });
     }
@@ -501,83 +502,92 @@
     }
     SC.push({ id: 'MR', t0: MT0, t1: MT1, custom: fMoon });
 
-    // ---------- Goélise de PROFIL : sprite procédural pixel-art (12 images, battement d'ailes à 2,6 Hz) ----------
-    const GCW = 52, GCH = 46, GF = [];
-    function gullFrame(k) {
-      if (GF[k]) return GF[k];
-      const c = mk(GCW, GCH), g = c.getContext('2d'), ph = (k / 12) * TAU, SX = 20, SY = 17; g.translate(3, 13);
-      function seg(x0, y0, a, len, w0, w1, col) { // segment d'aile effilé
-        const nx = -Math.sin(a), ny = Math.cos(a), x1 = x0 + Math.cos(a) * len, y1 = y0 + Math.sin(a) * len;
-        g.fillStyle = col; g.beginPath(); g.moveTo(x0 + nx * w0 / 2, y0 + ny * w0 / 2); g.lineTo(x1 + nx * w1 / 2, y1 + ny * w1 / 2); g.lineTo(x1 - nx * w1 / 2, y1 - ny * w1 / 2); g.lineTo(x0 - nx * w0 / 2, y0 - ny * w0 / 2); g.closePath(); g.fill();
-        return [x1, y1];
-      }
-      function wing(ox, oy, lag, c1, c2, c3) { // aile à deux segments ; θ = 0 vers l'arrière, + vers le haut
-        const th1 = -Math.sin(ph - lag) * 0.85, th2 = th1 - Math.sin(ph - lag - 0.8) * 0.5;
-        const p = seg(SX + ox, SY + oy, Math.PI + th1, 9, 9, 7.2, c1), q = seg(p[0], p[1], Math.PI + th2, 10.5, 7.2, 2.4, c2);
-        seg(p[0] + (q[0] - p[0]) * 0.55, p[1] + (q[1] - p[1]) * 0.55, Math.PI + th2, 5.6, 4.6, 2.0, c3);
-      }
-      wing(1, -1, 0.35, '#4f86c6', '#4478b8', '#27467e'); // aile lointaine (plus sombre)
-      g.fillStyle = '#f4f8ff'; g.beginPath(); g.moveTo(11, 15.5); g.lineTo(2.5, 14.2); g.lineTo(2.5, 19.4); g.lineTo(11, 20.6); g.closePath(); g.fill(); // queue
-      g.fillStyle = '#7a9cc8'; g.fillRect(2.5, 14.5, 3, 4.6);
-      g.fillStyle = '#f4f8ff'; g.beginPath(); g.ellipse(SX, SY + 1, 10.5, 4.8, 0, 0, TAU); g.fill();       // corps
-      g.fillStyle = '#c4d4ec'; g.beginPath(); g.ellipse(SX - 1, SY + 3.4, 8.4, 2.2, 0, 0, TAU); g.fill();    // ventre
-      g.fillStyle = '#f4f8ff'; g.beginPath(); g.ellipse(27.4, 14.6, 4.2, 3.2, -0.5, 0, TAU); g.fill();       // cou
-      g.beginPath(); g.arc(29.6, 13.2, 3.9, 0, TAU); g.fill();                                              // tête
-      g.fillStyle = '#f6a63c'; g.beginPath(); g.moveTo(32.6, 12.0); g.lineTo(41.6, 13.8); g.lineTo(32.9, 15.4); g.closePath(); g.fill(); // bec
-      wing(0, 0, 0, '#74b4f0', '#5da0e4', '#2f62a6'); // aile proche
-      const id = g.getImageData(0, 0, GCW, GCH), d = id.data, op = new Uint8Array(GCW * GCH);
-      for (let i = 0; i < GCW * GCH; i++) { op[i] = d[i * 4 + 3] >= 120 ? 1 : 0; d[i * 4 + 3] = op[i] ? 255 : 0; }
-      for (let y = 0; y < GCH; y++) for (let x = 0; x < GCW; x++) { // contour sombre 1 px (jamais sur les pixels du sprite)
-        const i = y * GCW + x; if (op[i]) continue;
-        if ((x > 0 && op[i - 1]) || (x < GCW - 1 && op[i + 1]) || (y > 0 && op[i - GCW]) || (y < GCH - 1 && op[i + GCW])) { d[i * 4] = 33; d[i * 4 + 1] = 52; d[i * 4 + 2] = 96; d[i * 4 + 3] = 255; }
-      }
-      const e = (34 + 25 * GCW) * 4; d[e] = 16; d[e + 1] = 22; d[e + 2] = 48; d[e + 3] = 255; // œil
-      g.putImageData(id, 0, 0); return (GF[k] = c);
+    // ---------- Plage de PMD Sky : textures canoniques (mer au soleil couchant + sable, écume et rochers) · caméra qui s'incline du ciel vers la plage ----------
+    const SEA_S = 2.581, SAND_S = 5.254, SEA_OV = 120, TILT0 = 23.6, TILT1 = 27.4;
+    const LGW = 245, LGH = 112, LG2 = mk(LGW, LGH), LG2X = LG2.getContext('2d'), LPT = [];
+    const LGS = 3.4, LGX = (W - LGW * LGS) / 2, LGY = 70, LSPLIT = 62;
+    const LX = LGX + 0.83 * LGW * LGS, LY = LGY + 0.2 * LGH * LGS, TL = 30.0; // l'étoile-badge atterrit sur le logo à la mesure 64 (30,0 s)
+    const IR0 = 30.4688, IR1 = 31.55; // l'étoile s'ouvre sur la course lunaire (mesure 65 → 31,5 s)
+    let SANDC = null;
+    function sandPlate() { // sable : le haut est fondu avec le bas de la mer du couchant (dégradé tramé)
+      if (SANDC) return SANDC; const im = I.beachSand; if (!im || !im.width) return null;
+      const w = Math.round(im.width * SAND_S), h = Math.round(im.height * SAND_S); SANDC = mk(w, h); const c = SANDC.getContext('2d'); c.imageSmoothingEnabled = false; c.drawImage(im, 0, 0, w, h);
+      c.globalCompositeOperation = 'destination-in'; const g = c.createLinearGradient(0, 0, 0, 170); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)'); c.fillStyle = g; c.fillRect(0, 0, w, h); return SANDC;
     }
-    function gull(ctx, t, x, y, s, a, ph) { // Goélise de profil, tournée vers la droite
-      const im = gullFrame(((Math.floor(t * 2.6 * 12 + ph) % 12) + 12) % 12);
-      ctx.save(); ctx.imageSmoothingEnabled = false; if (a != null && a < 1) ctx.globalAlpha = a; ctx.drawImage(im, 0, 0, GCW, GCH, Math.round(x - GCW * s / 2), Math.round(y - GCH * s / 2), Math.round(GCW * s), Math.round(GCH * s)); ctx.restore();
+    function lpat(L) { if (LPT[L]) return LPT[L]; const tc = mk(4, 4), tx = tc.getContext('2d'); tx.fillStyle = '#fff'; for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) if (BAYM[y][x] < L) tx.fillRect(x, y, 1, 1); return (LPT[L] = LG2X.createPattern(tc, 'repeat')); }
+    function logoPart(ctx, t, sy0, sy1, t0, rgb) { // le logo « Pokémon Mystery Dungeon » se matérialise (trame) en deux temps, avec reflet qui le balaie
+      const L = I.pmdLogo, k = clamp((t - t0) / 0.5, 0, 1); if (!L || !L.width || k <= 0) return;
+      const e = sstep(k), lv = Math.round(k * 16), sh = clamp((t - 28.7) / 0.8, 0, 1);
+      LG2X.save(); LG2X.setTransform(1, 0, 0, 1, 0, 0); LG2X.globalAlpha = 1; LG2X.globalCompositeOperation = 'source-over'; LG2X.clearRect(0, 0, LGW, LGH);
+      LG2X.drawImage(L, 0, sy0, LGW, sy1 - sy0, 0, sy0, LGW, sy1 - sy0);
+      if (sh > 0 && sh < 1) { LG2X.globalCompositeOperation = 'source-atop'; const gx = lerp(-70, LGW + 70, sh), g = LG2X.createLinearGradient(gx - 28, 0, gx + 28, 46); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,0.85)'); g.addColorStop(1, 'rgba(255,255,255,0)'); LG2X.fillStyle = g; LG2X.fillRect(0, 0, LGW, LGH); }
+      if (lv < 16) { LG2X.globalCompositeOperation = 'destination-in'; LG2X.fillStyle = lpat(lv); LG2X.fillRect(0, 0, LGW, LGH); }
+      LG2X.restore();
+      const drop = -46 * (1 - e) * (1 - e), cy = LGY + (sy0 + sy1) / 2 * LGS;
+      glow(ctx, W / 2, cy, 520, rgb, 0.42 * (1 - k) * k * 2);
+      ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(LG2, 0, sy0, LGW, sy1 - sy0, LGX, LGY + sy0 * LGS + drop, LGW * LGS, (sy1 - sy0) * LGS); ctx.restore();
+      const q = t - t0; if (q < 0.9) for (let j = 0; j < 16; j++) fx(ctx, 'sparkle', (q * 14 + j) % 8, LGX + rnd(j, sy0) * LGW * LGS, LGY + (sy0 + rnd(j, 9) * (sy1 - sy0)) * LGS + drop, 0.5 + rnd(j, 4) * 0.4, 1 - q / 0.9, { add: true, tint: '255,235,150' });
     }
-    // UN SEUL groupe — un Bekipan (vrai sprite PMDO de profil) mène cinq Goélise de profil — qui voyage au loin vers la droite, en rapetissant
-    const FLOCK = [[-74, -28, 2.3, 3], [-84, 32, 2.2, 7], [-150, -58, 2.4, 1], [-160, 62, 2.1, 9], [-226, -86, 2.2, 5]]; // [dx, dy, échelle, phase] — formation en V derrière le Bekipan
-    function flock(ctx, t) {
-      const u = t - 20.4, sc = 1 - 0.022 * Math.max(0, u), fx0 = -190 + u * 116, fy0 = 312 - u * 4 + Math.sin(t * 0.9) * 5;
-      if (u < -0.3 || fx0 - 200 > W + 100) return;
-      spr(ctx, '0279', 'Walk', 2, t * 60 * 0.8, fx0, fy0 + Math.sin(t * 3.6) * 3, 3.2 * sc, { fly: true, a: 0.95 });
-      FLOCK.forEach((F, i) => gull(ctx, t, fx0 + F[0] * sc, fy0 + F[1] * sc + Math.sin(t * 2.2 + i * 1.9) * 4, F[2] * sc, 0.95, F[3]));
+    function wfPos(t) { // trajet du badge-étoile (espace écran) : il arrive en volant, se tient au-dessus de Riolu, s'élève hors champ, puis TOMBE sur le logo en dernier
+      if (t < 23.3) return null;
+      if (t < 27.0) { const q = sstep((t - 23.3) / 3.7); return [lerp(-80, 585, q), lerp(150, 430, q) - Math.sin(q * Math.PI) * 80, 3.0]; }
+      if (t < 27.4) return [585, 430 + Math.sin(t * 3) * 4, 3.0];
+      if (t < 28.5) { const w = (t - 27.4) / 1.1; return [585 + Math.sin(w * 6) * 10, 430 - 760 * w * w, 3.0]; }
+      if (t < 29.0) return null;
+      if (t < TL) { const q = (t - 29.0) / (TL - 29.0); return [LX + 120 * (1 - q), lerp(-150, LY, q * q), 4.8]; }
+      return [LX, LY + Math.sin((t - TL) * 7) * 2, 4.8 + 1.0 * Math.max(0, 1 - (t - TL) / 0.3)];
     }
-    // ---------- Plage de PMD Sky : ciel + mer canoniques (rip « Lapras ») + plage générée (sable clair, écume, galets, coquillages) ----------
+    // UN SEUL groupe — un Bekipan (sprite PMDO de profil) mène cinq Goélise (sprites PMDO) — qui voyage au loin vers la droite en rapetissant
+    const FLOCK = [[-110, -38, 3.9, 0], [-126, 46, 3.8, 4], [-224, -82, 4.0, 8], [-242, 88, 3.7, 2], [-346, -120, 3.9, 6]]; // [dx, dy, échelle, phase]
+    function flock(ctx, t, dyScroll) {
+      const u = t - 20.2, sc = 1 - 0.03 * Math.max(0, u), fx0 = -230 + u * 190, fy0 = 300 + Math.sin(t * 0.9) * 5 - dyScroll;
+      if (u < 0 || fx0 - 300 > W + 100 || fy0 < -200) return;
+      spr(ctx, '0279', 'Walk', 2, t * 60 * 0.8, fx0, fy0 + Math.sin(t * 3.6) * 3, 4.4 * sc, { fly: true });
+      FLOCK.forEach((F, i) => spr(ctx, '0278', 'Hover', 2, t * 60 * 0.8 + F[3] * 3, fx0 + F[0] * sc, fy0 + F[1] * sc + Math.sin(t * 2.2 + i * 1.9) * 4, F[2] * sc, { fly: true }));
+    }
     function fBeach(ctx, t) {
-      const u = t - 20, S = 4.5, py = -356, hz = py + 177 * S, Y0 = 112;
-      vgrad(ctx, [120, 200, 255], [60, 160, 230]);
-      camWrap(ctx, t, 20, 1.2, 1.06, W / 2, H * 0.62, 7, () => {
-        const sky = I.laprasSky;
-        if (sky && sky.width) {
-          ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(sky, 0, 0, sky.width, 177, -8, py, sky.width * S, 177 * S);
-          for (let r = 177; r < Math.min(sky.height, 262); r++) { const ox = Math.round(Math.sin(r * 0.33 + t * 1.8) * (0.4 + (r - 177) * 0.03) * S * 0.5); ctx.drawImage(sky, 0, r, sky.width, 1, -28 + ox, py + r * S, sky.width * S + 40, S + 1); }
-          ctx.restore();
-        }
-        glow(ctx, 1010, hz - 70, 330, '255,242,200', 0.45); starBurst(ctx, 1010, hz - 40, 300, 0.12, 10, t * 0.05);
-        for (let i = 0; i < 34; i++) fx(ctx, 'sparkle', ((t * 0.9 + rnd(i, 3)) % 1) * 8, 120 + rnd(i, 1) * 1100, hz + 10 + rnd(i, 2) * 85, 0.26, 0.9, { add: true });
-        flock(ctx, t);
-        const bi = I.beachSky;
-        if (bi && bi.width) { // plage : l'écume du rivage ondule (rangées décalées)
-          const w = bi.width, h = bi.height, b0 = 188, b1 = 262; ctx.save(); ctx.imageSmoothingEnabled = false;
-          ctx.drawImage(bi, 0, 0, w, b0, -48, Y0, w * 2, b0 * 2);
-          for (let r = b0; r < b1; r++) { const ox = Math.round(Math.sin(r * 0.17 + t * 1.5) * 2.2 + Math.sin(r * 0.05 - t * 0.9) * 2.4); ctx.drawImage(bi, 0, r, w, 1, -48 + ox * 2, Y0 + r * 2, w * 2, 2); }
-          ctx.drawImage(bi, 0, b1, w, h - b1, -48, Y0 + b1 * 2, w * 2, (h - b1) * 2); ctx.restore();
-        }
-        [[300, 0.0], [1010, 0.5]].forEach((q) => { const sp = Math.floor((t + q[1]) * 7) % 16; if (sp < 8) fx(ctx, 'splash', sp, q[0], Y0 + 436, 1.3, 0.8, { bottom: true }); });
-        const xs = [840, 560, 700], gy = [648, 646, 660];
-        spr(ctx, '0393', 'Idle', 6, (t - 20) * 60, xs[0], gy[0], 5.2); spr(ctx, '0133', 'Idle', 6, (t - 20) * 60 + 11, xs[2], gy[2], 5.2);
-        const rp = u > 7 ? 'Pose' : 'Idle'; spr(ctx, '0447', rp, 6, u > 7 ? (u - 7) * 60 : u * 60, xs[1], gy[1], 5.2, { loop: u <= 7 });
-        const kb = sstep((u - 1) / 6), bx = lerp(190, 585, kb), by = 506 - Math.sin(kb * Math.PI) * 120 + Math.sin(t * 3) * 3 - (u > 7 ? 26 * sstep((u - 7) / 2) : 0);
-        wayfinder(ctx, 'wfCyan', bx, by, 2.3, t, 1, '120,235,255'); trail(ctx, t, (tt) => { const q = sstep((tt - 21) / 6); return [lerp(190, 585, q), 506 - Math.sin(q * Math.PI) * 120]; }, 21, 12, 0.06, 0.4, '170,245,255');
-        petalWind(ctx, t, Math.round(70 * sstep((u - 5) / 5)), 5, -1, 60, 0.07, 1.6);
-      });
-      godRays(ctx, t, 0.22, W * 0.8, -30, 6, 0.9, H * 1.3, '255,244,200');
+      const u = t - 20, sea = I.beachSea, sandI = I.beachSand; if (!sea || !sandI) return;
+      const SEA_H = sea.height * SEA_S, seaTop = -SEA_H + SEA_OV, Y0 = seaTop + 514, Y1 = 150, e = sstep((t - TILT0) / (TILT1 - TILT0)), Yc = lerp(Y0, Y1, e);
+      const shk = (t >= TL && t < TL + 0.3) ? (1 - (t - TL) / 0.3) * 12 : 0;
+      ctx.save(); if (shk) ctx.translate((rnd(Math.floor(t * 60), 1) - 0.5) * shk, (rnd(Math.floor(t * 60), 2) - 0.5) * shk);
+      ctx.fillStyle = '#0a7fd0'; ctx.fillRect(-20, -20, W + 40, H + 40);
+      ctx.save(); ctx.translate(0, -Yc); ctx.imageSmoothingEnabled = false;
+      const sw = sea.width * SEA_S; ctx.drawImage(sea, 0, 0, sea.width, 330, -10, seaTop, sw + 20, 330 * SEA_S);
+      for (let r = 330; r < sea.height; r += 2) { const y = seaTop + r * SEA_S; if (y > Yc + H + 10 || y + 2 * SEA_S < Yc - 10) continue; const ox = Math.round(Math.sin(r * 0.21 + t * 1.6) * (0.3 + (r - 330) / 420 * 1.3) * SEA_S * 0.5); ctx.drawImage(sea, 0, r, sea.width, 2, -30 + ox, y, sw + 60, 2 * SEA_S + 1); }
+      glow(ctx, 645, seaTop + 282 * SEA_S, 300, '255,236,170', 0.4 + 0.05 * Math.sin(t * 2));
+      for (let i = 0; i < 40; i++) fx(ctx, 'sparkle', ((t * 0.9 + rnd(i, 3)) % 1) * 8, 90 + rnd(i, 1) * 1100, seaTop + (345 + rnd(i, 2) * 330) * SEA_S, 0.26, 0.9, { add: true });
+      const sp = sandPlate(); if (sp) {
+        ctx.drawImage(sp, -1, 0);
+        const fr = 58, fh = 22; for (let b = 0; b < 2; b++) { const ox = Math.round(Math.sin(t * 1.4 + b * 2) * 1.6 + Math.sin(t * 0.7) * 1.2); ctx.save(); ctx.globalAlpha = 0.5; ctx.drawImage(sandI, 0, fr, 150, fh, -1 + ox * SAND_S, fr * SAND_S + b * 3, 150 * SAND_S, fh * SAND_S); ctx.restore(); }
+        [[300, 0.0], [1010, 0.5], [640, 0.9]].forEach((q) => { const sf = Math.floor((t + q[1]) * 7) % 16; if (sf < 8) fx(ctx, 'splash', sf, q[0], 392, 1.3, 0.8, { bottom: true }); });
+        for (let i = 0; i < 16; i++) fx(ctx, 'sparkle', ((t * 0.8 + rnd(i, 13)) % 1) * 8, 60 + rnd(i, 11) * 1160, 60 + rnd(i, 12) * 220, 0.24, 0.85, { add: true });
+      }
+      const xs = [840, 560, 700], gy = [748, 744, 758];
+      spr(ctx, '0393', 'Idle', 6, (t - 20) * 60, xs[0], gy[0], 5.2); spr(ctx, '0133', 'Idle', 6, (t - 20) * 60 + 11, xs[2], gy[2], 5.2);
+      const rp = u > 8 ? 'Pose' : 'Idle'; spr(ctx, '0447', rp, 6, u > 8 ? (u - 8) * 60 : u * 60, xs[1], gy[1], 5.2, { loop: u <= 8 });
+      ctx.restore();
+      flock(ctx, t, 0.2 * (Yc - Y0));
+      petalWind(ctx, t, Math.round(60 * sstep((t - 24) / 4)), 5, -1, 60, 0.07, 1.6);
+      godRays(ctx, t, 0.2, W * 0.5, -30, 6, 0.9, H * 1.3, '255,214,150');
+      const env = sstep((t - 27.2) / 0.8); if (env > 0.003) { ctx.save(); ctx.fillStyle = 'rgba(10,20,60,' + (0.34 * env).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+      const pul = 1 + 0.045 * Math.max(0, 1 - (t - TL) / 0.28) * (t >= TL ? 1 : 0);
+      ctx.save(); ctx.translate(W / 2, LGY + LGH * LGS / 2); ctx.scale(pul, pul); ctx.translate(-W / 2, -(LGY + LGH * LGS / 2));
+      logoPart(ctx, t, 0, LSPLIT, 27.66, '255,236,150'); logoPart(ctx, t, LSPLIT, LGH, 28.125, '255,200,120');
+      ctx.restore();
+      const wp = wfPos(t);
+      if (wp) { wayfinder(ctx, 'wfCyan', wp[0], wp[1], wp[2], t, 1, '120,235,255'); trail(ctx, t, (tt) => { const p = wfPos(tt); return p ? [p[0], p[1]] : [-999, -999]; }, 23.3, 12, 0.05, 0.4, '170,245,255'); }
+      const d = t - TL; // impact de l'étoile sur le logo
+      if (d >= 0 && d < 0.7) {
+        flash(ctx, 0.45 * Math.max(0, 1 - d / 0.22), '255,245,200'); ring(ctx, LX, LY, d * 520, 2.5, '255,230,140', 0.9 * (1 - d / 0.7), 1); ring(ctx, LX, LY, d * 300, 1.5, '170,245,255', 0.8 * (1 - d / 0.7), 1);
+        fx(ctx, 'hit', d / 0.4 * 8, LX, LY, 1.6, 1, { tint: '255,235,150' });
+        for (let j = 0; j < 20; j++) { const a = j / 20 * TAU, r = d * (260 + rnd(j, 1) * 260); fx(ctx, 'sparkle', (d * 16 + j) % 8, LX + Math.cos(a) * r, LY + Math.sin(a) * r * 0.8, 0.5, 1 - d / 0.7, { add: true, tint: '255,240,160' }); }
+      }
+      if (t >= 29.0 && t < TL) glow(ctx, LX, LY - 60, 120, '170,245,255', 0.4);
       flash(ctx, 1 - sstep(u / 0.7), '255,255,255');
+      ctx.restore();
     }
+    function starPath(ctx, cx, cy, R, rot) { ctx.beginPath(); for (let i = 0; i < 10; i++) { const a = rot - Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? R * 0.46 : R; if (i) ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); else ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); } ctx.closePath(); }
+    function irisR(t) { const k = clamp((t - IR0) / (IR1 - IR0), 0, 1); return 52 * Math.pow(3200 / 52, Math.pow(k, 1.6)); }
 
     // ---------- Compositeur : Voyage (0 → 31) · Course lunaire (31 → 46) · Opening sprites (46 → 153) ----------
     const V = root.PMDDestinyVoyage.create(EV), S = root.PMDDestinySprite.create(EV);
@@ -597,16 +607,19 @@
         drawA(ctx); sctx.save(); sctx.globalAlpha = 1; sctx.globalCompositeOperation = 'source-over'; sctx.clearRect(0, 0, W, H); drawB(sctx); sctx.restore();
         ctx.globalAlpha = k; ctx.drawImage(scr, 0, 0); ctx.globalAlpha = 1;
       };
-      const xf = 1.3;
       if (t < BT0 + 0.5) blend((c) => { OC1.custom(c, t); vignette(c, 0.5); bars(c, t); }, (c) => frameBeach(c, t), sstep((t - BT0) / 0.5));
-      else if (t < MT0) frameBeach(ctx, t);
-      else if (t < MT0 + xf) blend((c) => frameBeach(c, t), (c) => { fMoon(c, t); vignette(c, 0.5); bars(c, t); }, sstep((t - MT0) / xf));
-      else { fMoon(ctx, t); vignette(ctx, 0.5); bars(ctx, t); }
+      else if (t < IR0) frameBeach(ctx, t);
+      else if (t < IR1) { // l'étoile-badge s'ouvre : la course lunaire apparaît à l'intérieur de l'étoile qui grandit
+        fBeach(ctx, t); const R = irisR(t), rot = (t - IR0) * 1.6;
+        ctx.save(); starPath(ctx, LX, LY, R, rot); ctx.clip(); fMoon(ctx, Math.max(t, MT0)); ctx.restore();
+        ctx.save(); starPath(ctx, LX, LY, R, rot); ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(255,238,160,' + (1 - sstep((t - IR0) / (IR1 - IR0))).toFixed(3) + ')'; ctx.lineWidth = 7; ctx.stroke(); ctx.restore();
+        vignette(ctx, 0.5); bars(ctx, t);
+      } else { fMoon(ctx, t); vignette(ctx, 0.5); bars(ctx, t); }
       const wf = sstep((t - 45.1) / 0.9); if (wf > 0.003 && t >= MT0) flash(ctx, wf, '255,255,255');
-      ctx.restore(); return { wing: 0, shot: t < MT0 ? 'SF' : 'MR' };
+      ctx.restore(); return { wing: 0, shot: t < IR0 ? 'SF' : 'MR' };
     }
     function renderTitleMode(ctx, tl, theme, nowSec, flapStart) { return S.renderTitleMode(ctx, tl, theme, nowSec, flapStart); }
-    return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC, gullFrame };
+    return { render, renderTitleMode, W, H, D, CHAPTERS, TITLE_T, IMPACTS: S.IMPACTS, SC };
   }
   root.PMDDestinyUltime = { create, W, H, D, CHAPTERS, TITLE_T, IMPACTS, BEAT };
 })(typeof window !== 'undefined' ? window : globalThis);

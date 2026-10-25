@@ -51,28 +51,25 @@ PRUNE = {"beachFg", "surfaceSky", "meadow", "clouds", "anticWall", "ttSky", "opm
 PRUNE_PREFIX = ("it", "sh", "tm")
 
 
-def beach_layer() -> str:
-    """Plage « PMD Sky » générée (clé magenta retirée, alpha binaire, palette limitée) — même traitement que les calques du Voyage."""
-    old = VL.SRC
-    VL.SRC = BRUTS
-    VL.LAYERS["beachSky"] = ("beach_pmd_sky", "magenta", 72)
-    try:
-        im = VL.load_layer("beachSky")
-    finally:
-        VL.SRC = old
-        del VL.LAYERS["beachSky"]
-    a = np.asarray(im)
-    assert set(np.unique(a[..., 3]).tolist()) <= {0, 255}, "alpha non binaire"
-    op = a[..., 3] == 255
-    leak = ((a[..., 0] > 200) & (a[..., 1] < 90) & (a[..., 2] > 200) & op).sum()
-    assert leak == 0, f"{leak} px magenta"
-    return SPR.uri_im(im, "WEBP", lossless=True)
+def beach_assets() -> Dict[str, str]:
+    """Plage « PMD Sky » : textures canoniques fournies (mer au soleil couchant + sable/écume/rochers) et logo « Pokémon Mystery Dungeon » (rip du Title Screen, fond bleu retiré)."""
+    out: Dict[str, str] = {}
+    for key, fn in (("beachSea", "beach_sea_sunset_pmdsky"), ("beachSand", "beach_sand_pmdsky"), ("pmdLogo", "pmd_logo_mystery_dungeon")):
+        im = Image.open(BRUTS / f"{fn}.png")
+        if key == "pmdLogo":
+            im = im.convert("RGBA")
+            a = np.asarray(im)
+            assert set(np.unique(a[..., 3]).tolist()) <= {0, 255}, "alpha non binaire"
+        else:
+            im = im.convert("RGB")
+        out[key] = SPR.uri_im(im, "WEBP", lossless=True)
+    return out
 
 
 def build_assets() -> Dict[str, object]:
     a = SPR.build_assets()
     b = VOY.build_assets()
-    b["imgs"]["beachSky"] = beach_layer()
+    b["imgs"].update(beach_assets())
     imgs: Dict[str, str] = dict(a["imgs"])
     for k, v in b["imgs"].items():
         if k in imgs and imgs[k] != v:

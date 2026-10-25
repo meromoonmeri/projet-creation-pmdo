@@ -63,18 +63,18 @@ class TestOpeningUltime(unittest.TestCase):
         self.assertNotIn("pt_", self.eng)  # aucun portrait fixe
         self.assertIsNone(re.search(r"bateau|ship", self.eng, re.I))
 
-    def test_plage_pmd_sky_et_un_seul_groupe_de_profil(self):
-        self.assertIn("beachSky", self.assets["imgs"])
-        self.assertIn("laprasSky", self.assets["imgs"])  # ciel + mer canoniques (rip Lapras)
+    def test_plage_pmd_sky_logo_etoile_et_un_seul_groupe(self):
+        for k in ("beachSea", "beachSand", "pmdLogo"):
+            self.assertIn(k, self.assets["imgs"])  # textures canoniques fournies + logo « Pokémon Mystery Dungeon »
         self.assertIn("function fBeach(", self.eng)
-        self.assertIn("I.laprasSky", self.eng)
-        self.assertIn("function gullFrame(", self.eng)  # Goélise de profil (sprite procédural animé)
+        self.assertNotIn("beachSky", self.eng)
         self.assertEqual(len(re.findall(r"function flock\(", self.eng)), 1)  # un seul groupe
-        self.assertEqual(self.eng.count("flock(ctx, t);"), 1)
-        self.assertIn("'0279', 'Walk', 2", self.eng)  # Bekipan de profil (direction 2 = droite)
-        self.assertNotIn("'0278'", self.eng)  # aucun Goélise « vu de dessus »
-        self.assertNotIn("beachFg", self.assets["imgs"])
-        self.assertNotIn("surfaceSky", self.assets["imgs"])
+        self.assertEqual(self.eng.count("flock(ctx, t, 0.2"), 1)
+        self.assertIn("'0278', 'Hover', 2", self.eng)  # vrais sprites Goélise
+        self.assertIn("'0279', 'Walk', 2", self.eng)  # Bekipan de profil
+        self.assertIn("function wfPos(", self.eng)  # l'étoile-badge tombe en dernier sur le logo
+        self.assertIn("starPath(ctx, LX, LY, R, rot); ctx.clip();", self.eng)  # l'étoile ouvre la scène suivante
+        self.assertNotIn("mat: k < 1", self.eng)  # les personnages ne se dissolvent plus : ils sortent avec le mouvement de caméra
 
     def test_catalogue_et_images_resolus(self):
         cat = self.assets["catalog"]["pokemon"]
