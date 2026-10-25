@@ -1,0 +1,2 @@
+local destiny_caldeira_coeur_solaire_boss = {}
+return destiny_caldeira_coeur_solaire_boss

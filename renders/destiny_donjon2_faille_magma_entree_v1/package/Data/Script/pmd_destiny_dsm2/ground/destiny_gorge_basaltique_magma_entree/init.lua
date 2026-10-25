@@ -1,0 +1,2 @@
+local destiny_gorge_basaltique_magma_entree = {}
+return destiny_gorge_basaltique_magma_entree

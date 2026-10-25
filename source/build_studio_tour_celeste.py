@@ -129,6 +129,50 @@ def export_filmstrips() -> Dict:
             "wind_summary": "Eau abyssale & sparkles 1× Metano #FF00FF (4×10t) | 2 cascades géantes 1× Foggy Forest P03P01A (3×10t) | VFX spirale autel, onde arène & 2 geysers (24×5t) | Anneaux soniques & bulles Top (24×5t)",
         },
         {
+            "id": "DSF2",
+            "group": "PMD : Destiny · Chapitre II",
+            "folder": "destiny_foret_mycelium_sentier_v1",
+            "ref_rel": "source/destiny_foret_mycelium_sentier_v1/references/ref_canon_foret_mycelium.png",
+            "ref_label": "Textures Forestières Canoniques PMD — Forêt Champignon (H07P05) + Healing Forest (H07P06) (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSF2_PMDO_0.8.12.zip",
+            "bg_fill": "#0c2e38",
+            "subtitle": "PMD : Destiny (Chapitre II · Sentier Forestier) — Sentier du Sous-Bois Mycelien (0 % ciel) : Grands champignons tachetés canoniques H07P05, arche de racines moussues Nord, pont de tronc creux, Ruisseau Sylvestre Métano 1× (4×10t), 2 cascades 1× P03P01A (3×10t), fleurs Vast Steppe (4×12t), bioluminescence fongique (16×6t) & VFX spores/lucioles Top (24×5t)",
+            "wind_summary": "Ruisseau sylvestre & sparkles 1× Metano #FF00FF (4×10t) | 2 cascades moussues 1× P03P01A (3×10t) | Flore 1× Vast Steppe (4×12t) | Bioluminescence H07P05 (16×6t) + Spores & lucioles Top (24×5t)",
+        },
+        {
+            "id": "DSS2",
+            "group": "PMD : Destiny · Chapitre II",
+            "folder": "destiny_clairiere_source_lumineuse_v1",
+            "ref_rel": "source/destiny_clairiere_source_lumineuse_v1/references/ref_canon_clairiere_source.png",
+            "ref_label": "Textures Sacrées Canoniques PMD — Source Lumineuse / Luminous Spring (P14P01A, Explorers of Sky) (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSS2_PMDO_0.8.12.zip",
+            "bg_fill": "#0a302e",
+            "subtitle": "PMD : Destiny (Chapitre II · Clairière Sacrée) — Clairière de la Source Lumineuse (0 % ciel) : Couronne d'arbres anciens P14P01A, stèles runiques Sud, promontoire en escalier, stèle cristalline d'évolution Nord, Eau Sacrée Émeraude-Turquoise 1× (4×10t), ondes concentriques (16×6t), 2 cascades 1× P03P01A (3×10t) & VFX rayon sacré zénithal Top (24×5t)",
+            "wind_summary": "Eau sacrée émeraude-turquoise & sparkles 1× #FF00FF (4×10t) | Ondes lumineuses concentriques P14P01A (16×6t) | 2 cascades 1× P03P01A (3×10t) | Fleurs Vast Steppe + Rayon sacré d'évolution Top (24×5t)",
+        },
+        {
+            "id": "DSM2",
+            "group": "PMD : Destiny · Chapitre II",
+            "folder": "destiny_donjon2_faille_magma_entree_v1",
+            "ref_rel": "source/destiny_donjon2_faille_magma_entree_v1/references/ref_canon_gorge_basaltique.png",
+            "ref_label": "Textures Rocheuses Volcaniques Canoniques PMD — Mt. Blaze (D09P01) + Magma Natif H26P01 & W04 (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSM2_PMDO_0.8.12.zip",
+            "bg_fill": "#220c0a",
+            "subtitle": "PMD : Destiny (2e Donjon · Entrée) — Gorge Basaltique des Sources Brûlantes (0 % ciel) : Colonnes de basalte gris-cendré & chaussée d'ocre craquelé D09P01, bouche caverneuse Nord à cristaux ignés, Magma en Fusion 1× H26P01 GBA (12×8t), bordure visqueuse (8×8t), 2 cascades cylindriques de lave 1× H26P01 (8×4t), braises GBA W04 (16×7t) & VFX étincelles Top (24×5t)",
+            "wind_summary": "Magma en fusion 1× H26P01 GBA #FF00FF (12×8t) + rive visqueuse (8×8t) | 2 cascades cylindriques de lave 1× H26P01 (8×4t) | Cristaux ignés & rives (16×6t) | Braises GBA W04 (16×7t) + Étincelles Top (24×5t)",
+        },
+        {
+            "id": "DSB2",
+            "group": "PMD : Destiny · Chapitre II",
+            "folder": "destiny_donjon2_caldeira_boss_v1",
+            "ref_rel": "source/destiny_donjon2_caldeira_boss_v1/references/ref_canon_caldeira_boss.png",
+            "ref_label": "Textures Volcaniques Canoniques PMD — Caldeira Basalte D09P01 / Dark Crater + Magma H26P01 & Sceau Solaire (#FF00FF)",
+            "zip_rel": ".cache/virtual_zips/DSB2_PMDO_0.8.12.zip",
+            "bg_fill": "#180a0c",
+            "subtitle": "PMD : Destiny (2e Donjon · Boss) — Caldeira du Cœur Solaire (0 % ciel) : Plateforme octogonale de basalte gravée du Sceau Solaire incandescent, pont Sud, orgues d'obsidienne & autel du Cristal Rubis-Ambre Nord, Mer Annulaire de Magma 1× H26P01 (10×9t), 2 cascades de lave 1× H26P01 (8×4t), braises GBA W04 (16×7t) & VFX vortex solaire Top (24×5t)",
+            "wind_summary": "Mer annulaire de magma 1× H26P01 #FF00FF (10×9t) + rive visqueuse (8×8t) | 2 cascades de lave 1× H26P01 (8×4t) | VFX Sceau Solaire gravé & Cristal Rubis (8×8t) | Braises GBA W04 + Vortex solaire Top (24×5t)",
+        },
+        {
             "id": "MWE1",
             "group": "Grotte Ouest · Mewtwo",
             "folder": "grotte_ouest_entree_v1",
@@ -543,6 +587,31 @@ def export_filmstrips() -> Dict:
         folder = item["folder"]
         out_dir = STUDIO_CACHE / mid
         out_dir.mkdir(parents=True, exist_ok=True)
+        meta_path = REPO_ROOT / "renders" / folder / "metadata.json"
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        cache_sig = hashlib.sha256(
+            (
+                _file_hash(f"renders/{folder}/metadata.json")
+                + ":"
+                + _file_hash(f"source/{folder}/build.py")
+                + ":"
+                + json.dumps(item, sort_keys=True, ensure_ascii=False)
+            ).encode("utf-8")
+        ).hexdigest()[:16]
+        cache_file = out_dir / "entry_cache.json"
+        if cache_file.is_file():
+            try:
+                cached = json.loads(cache_file.read_text(encoding="utf-8"))
+                if cached.get("sig") == cache_sig:
+                    c_entry = cached["entry"]
+                    expected_pngs = [out_dir / f"{le['slug']}.png" for le in c_entry["layers"]]
+                    if len(expected_pngs) == len(meta["layers"]) and all(p.is_file() for p in expected_pngs):
+                        manifest_maps.append(c_entry)
+                        print(f"[Studio] {mid}: cache réutilisé ({len(expected_pngs)} filmstrips)")
+                        continue
+            except Exception:
+                pass
+
         # Nettoie les anciens filmstrips obsolètes éventuels dans out_dir
         for old_p in out_dir.glob("*.png"):
             old_p.unlink()
@@ -550,7 +619,6 @@ def export_filmstrips() -> Dict:
         mod = _load_builder(folder)
         built = mod.build_layers_for_size()
         layers, walk_grid = built[0], built[1]
-        meta = json.loads((REPO_ROOT / "renders" / folder / "metadata.json").read_text(encoding="utf-8"))
 
         layer_entries = []
         for idx, layer in enumerate(layers):
@@ -585,33 +653,33 @@ def export_filmstrips() -> Dict:
                 }
             )
 
-        manifest_maps.append(
-            {
-                "id": mid,
-                "group": item["group"],
-                "title": meta["title"],
-                "subtitle": item["subtitle"],
-                "wind_summary": item["wind_summary"],
-                "bg_fill": item["bg_fill"],
-                "ref_label": item["ref_label"],
-                "folder": folder,
-                "width": meta["size_px"][0],
-                "height": meta["size_px"][1],
-                "n_frames": meta["n_frames"],
-                "frame_ticks": meta["frame_ticks"],
-                "fidelity": meta["fidelity_distance"],
-                "walkable_tiles": meta["walkable_tiles"],
-                "total_tiles": meta["total_tiles"],
-                "total_unique_tiles": meta["total_unique_tiles"],
-                "zip_bytes": meta["zip_bytes"],
-                "zip_url": f"/download/{mid}_PMDO_0.8.12.zip",
-                "ref_url": _versioned_url(item["ref_rel"]),
-                "webp_url": _versioned_url(f"renders/{folder}/animation_24frames.webp"),
-                "pose0_url": _versioned_url(f"renders/{folder}/composite_pose0.png"),
-                "walk_grid": walk_grid.astype(int).tolist(),
-                "layers": layer_entries,
-            }
-        )
+        entry_obj = {
+            "id": mid,
+            "group": item["group"],
+            "title": meta["title"],
+            "subtitle": item["subtitle"],
+            "wind_summary": item["wind_summary"],
+            "bg_fill": item["bg_fill"],
+            "ref_label": item["ref_label"],
+            "folder": folder,
+            "width": meta["size_px"][0],
+            "height": meta["size_px"][1],
+            "n_frames": meta["n_frames"],
+            "frame_ticks": meta["frame_ticks"],
+            "fidelity": meta["fidelity_distance"],
+            "walkable_tiles": meta["walkable_tiles"],
+            "total_tiles": meta["total_tiles"],
+            "total_unique_tiles": meta["total_unique_tiles"],
+            "zip_bytes": meta["zip_bytes"],
+            "zip_url": f"/download/{mid}_PMDO_0.8.12.zip",
+            "ref_url": _versioned_url(item["ref_rel"]),
+            "webp_url": _versioned_url(f"renders/{folder}/animation_24frames.webp"),
+            "pose0_url": _versioned_url(f"renders/{folder}/composite_pose0.png"),
+            "walk_grid": walk_grid.astype(int).tolist(),
+            "layers": layer_entries,
+        }
+        cache_file.write_text(json.dumps({"sig": cache_sig, "entry": entry_obj}, ensure_ascii=False), encoding="utf-8")
+        manifest_maps.append(entry_obj)
         print(f"[Studio] {mid}: {len(layer_entries)} filmstrips 2D écrits dans {out_dir}")
 
     return {"maps": manifest_maps}
@@ -1244,7 +1312,10 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
 
 def main() -> None:
     manifest = export_filmstrips()
-    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DSV1"), encoding="utf-8")
+    (REPO_ROOT / "index.html").write_text(build_html(manifest, default_map_id="DSF2"), encoding="utf-8")
+    (REPO_ROOT / "apercu_destiny_chapitre2_pmdo.html").write_text(
+        build_html(manifest, default_map_id="DSF2"), encoding="utf-8"
+    )
     (REPO_ROOT / "apercu_destiny_chapitre1_pmdo.html").write_text(
         build_html(manifest, default_map_id="DSV1"), encoding="utf-8"
     )
