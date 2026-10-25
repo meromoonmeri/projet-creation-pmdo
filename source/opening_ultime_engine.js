@@ -157,7 +157,21 @@
       }
       ctx.restore();
     }
+    // rayons de lumière : planche de faisceaux de PMD Rouge (image-1) teintée, balancée en éventail ; repli procédural si la planche manque
     function godRays(ctx, t, a, ox, oy, n, spread, len, rgb) {
+      const im = tintRays(rgb || '255,246,206'); if (!im) return godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
+      for (let i = 0; i < 3; i++) {
+        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 1.15, 0, 1);
+        if (al < 0.01) continue; ctx.globalAlpha = al;
+        for (let k = 0; k < 2; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
+      }
+      ctx.restore();
+    }
+    const TINTR = {};
+    function tintRays(rgb) { const im = I.rrRays; if (!im || !im.width) return null; if (TINTR[rgb]) return TINTR[rgb];
+      const c = mk(im.width, im.height), g = c.getContext('2d'); g.drawImage(im, 0, 0); g.globalCompositeOperation = 'multiply'; g.fillStyle = `rgb(${rgb})`; g.fillRect(0, 0, c.width, c.height); return (TINTR[rgb] = c); }
+    function godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb) {
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < n; i++) {
         const ang = Math.PI / 2 + (-0.5 + i / (n - 1)) * spread + Math.sin(t * 0.3 + i) * 0.035;
@@ -674,11 +688,12 @@
       });
     }
     function meteorAt(t) { const k = clamp((t - MET0) / (SKIMP - MET0), 0, 1), e = Math.pow(k, 2.2); return { k, x: lerp(1250, 640, e), y: lerp(100, 330, e), s: lerp(0.1, 2.7, e) }; }
-    function meteorDraw(ctx, t) {
-      const im = I.meteor; if (!im || !im.width || t < MET0 || t > SKIMP + 0.2) return;
-      const m = meteorAt(t), hx = 0.3 * im.width, hy = 0.55 * im.height;
+    function meteorDraw(ctx, t) { // la météorite : animation du météore de PMD Rouge (9 images), inclinée selon sa trajectoire
+      if (!I.fx_rrmet || !I.fx_rrmet.width || t < MET0 || t > SKIMP + 0.2) return;
+      const m = meteorAt(t), e = Math.pow(m.k, 1.4), rot = 1.15 * (1 - e) + 0.05 * Math.sin(t * 9), js = m.s * 1.25 * (1 + 0.02 * Math.sin(t * 37));
       glow(ctx, m.x, m.y, 300 * m.s + 50, '255,150,50', 0.5); glow(ctx, m.x, m.y, 130 * m.s + 24, '255,240,170', 0.75);
-      ctx.save(); ctx.translate(m.x, m.y); const j = m.s * (1 + 0.012 * Math.sin(t * 37)); ctx.scale(j, j); ctx.imageSmoothingEnabled = false; ctx.drawImage(im, -hx, -hy); ctx.restore();
+      fx(ctx, 'rrmet', t * 12, m.x, m.y, js, 1, { rot });
+      fx(ctx, 'rrmet', t * 12 + 3, m.x, m.y, js * 1.06, 0.35, { rot, add: true });
       for (let i = 0; i < 14; i++) { // braises qui filent le long de la traînée
         const ph = (t * (0.7 + rnd(i, 5) * 0.6) + rnd(i, 6)) % 1, d = ph * 520 * m.s, off = (rnd(i, 7) - 0.5) * 120 * m.s;
         fx(ctx, 'sparkle', ph * 8, m.x + 0.93 * d - 0.37 * off, m.y - 0.37 * d - 0.93 * off, 0.35 + 0.5 * m.s, 1 - ph, { add: true, tint: '255,190,90' });

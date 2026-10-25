@@ -20,7 +20,7 @@
     { t: 106.0, name: '', short: 'V' },
     { t: 132.0, name: '', short: 'VI' },
   ];
-  const IMPACTS = [77.0, 79.2, 81.0, 83.4, 85.6, 87.4, 92.6, 94.2, 96.0, 98.2, 100.4, 102.2, 104.0];
+  const IMPACTS = [74.0, 75.4, 78.6, 79.0, 80.4, 81.9, 82.4, 84.0, 85.6, 86.2, 92.2, 101.0, 103.3];
   const HITSTOP = 0.075;
 
   // ---------- Interpolation ----------
@@ -123,23 +123,20 @@
       if (d >= 0 && d < 0.4) { const big = A.kind === 'aurasphere' || A.kind === 'shadowball'; hitFx(ctx, x1, y1, d, A.t0 * 7.3, K.tint, (A.s || 1) * (big ? 1 : 0.7)); glow(ctx, x1, y1, 38 * (A.s || 1), K.glow, 0.8 * (1 - d / 0.4)); ring(ctx, x1, y1 + 8, d * 90, 1.2, K.glow, 0.8 * (1 - d / 0.4), 0.4); }
     }
     const BOLTS = [
-      // 4b : Évoli (Météores) contre les ombres de Riolu (Ball'Ombre) et de Tiplouf (Bulles d'O)
-      { kind: 'swift', t0: 78.2, from: [274, 172], to: [322, 160], n: 5, charge: 0.45, fly: 0.55 },
-      { kind: 'shadowball', t0: 80.0, from: [324, 154], to: [266, 180] },
-      { kind: 'shadowball', t0: 82.4, from: [318, 160], to: [266, 182], s: 1.1 },
-      { kind: 'bubble', t0: 84.6, from: [318, 186], to: [250, 186], n: 7, charge: 0.45, fly: 0.55 },
-      { kind: 'shadowball', t0: 86.4, from: [296, 178], to: [244, 186] },
-      // 4c : Lucario (Aurasphère) intervient
-      { kind: 'bubble', t0: 89.4, from: [276, 188], to: [238, 186], n: 6, charge: 0.45, fly: 0.55 },
-      { kind: 'shadowball', t0: 90.0, from: [270, 184], to: [238, 186] },
-      { kind: 'aurasphere', t0: 91.6, from: [274, 170], to: [256, 184] },
-      { kind: 'aurasphere', t0: 93.2, from: [268, 174], to: [300, 194] },
-      { kind: 'aurasphere', t0: 95.0, from: [276, 176], to: [312, 182], s: 1.4 },
-      // 4d : Dark Rai (Ball'Ombre) contre Lucario (Aurasphère) et Évoli (Météores)
-      { kind: 'shadowball', t0: 97.2, from: [400, 150], to: [290, 176], s: 1.3 },
-      { kind: 'aurasphere', t0: 99.4, from: [294, 174], to: [342, 166], s: 1.2 },
-      { kind: 'swift', t0: 101.45, from: [266, 176], to: [322, 170], n: 6, charge: 0.3, fly: 0.45 },
-      { kind: 'shadowball', t0: 103.0, from: [340, 160], to: [290, 176], s: 1.7 },
+      // 4a : Darkrai bombarde les trois héros
+      { kind: 'shadowball', t0: 73.0, from: [352, 126], to: [238, 190], s: 1.2 },
+      { kind: 'shadowball', t0: 74.4, from: [352, 128], to: [232, 194], s: 1.4 },
+      // 4b : mêlée — Météores d'Évoli, Bulles d'O de Tiplouf, Ball'Ombre de Darkrai
+      { kind: 'swift', t0: 77.6, from: [262, 186], to: [306, 174], n: 5, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 79.4, from: [348, 132], to: [266, 182] },
+      { kind: 'bubble', t0: 80.9, from: [278, 204], to: [318, 194], n: 7, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 83.0, from: [344, 134], to: [250, 184], s: 1.3 },
+      { kind: 'shadowball', t0: 84.6, from: [342, 136], to: [236, 186], s: 1.6 },
+      // 4c : Darkrai tente d'interrompre l'évolution
+      { kind: 'shadowball', t0: 91.2, from: [336, 130], to: [222, 172], s: 1.8 },
+      // 4d : Aurasphère du Méga-Lucario contre Ball'Ombre de Darkrai — les deux sphères se percutent
+      { kind: 'aurasphere', t0: 99.6, from: [226, 184], to: [302, 160], s: 2.0, charge: 0.8, fly: 0.6 },
+      { kind: 'shadowball', t0: 99.6, from: [338, 134], to: [302, 160], s: 2.2, charge: 0.8, fly: 0.6 },
     ];
     function fightFx(ctx, t) { for (const A of BOLTS) bolt(ctx, t, A); }
     function glow(ctx, x, y, r, rgb, a) {
@@ -169,7 +166,18 @@
       }
       ctx.restore();
     }
+    // rayons de lumière : planche de faisceaux de PMD Rouge (image-1) teintée, balancée en éventail ; repli procédural si la planche manque
     function godRays(ctx, t, a, ox, oy, n, spread, len, rgb) {
+      const im = tintRays(rgb || '255,246,206'); if (!im) return godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
+      for (let i = 0; i < 3; i++) {
+        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 1.15, 0, 1);
+        if (al < 0.01) continue; ctx.globalAlpha = al;
+        for (let k = 0; k < 2; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
+      }
+      ctx.restore();
+    }
+    function godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb) {
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < n; i++) {
         const ang = Math.PI / 2 + (-0.5 + i / (n - 1)) * spread + Math.sin(t * 0.3 + i) * 0.035;
@@ -481,70 +489,241 @@
       screen(ctx, t) { particlesScreen(ctx, t, { n: 40, rgb: '255,120,220', a: 0.8, r: 2, vy: -1.0, add: true, tw: true }); },
     });
 
-    // ---- Chapitre IV : Mêlée ----
+    // ---- Chapitre IV : le combat de l'arène (décor peint animé, Méga-Évolution, explosion) ----
+    const AR = (EV.catalog && EV.catalog.arena) || null, AKX = MW / (AR ? AR.dw : 1376), AKY = MH / (AR ? AR.dh : 768);
+    const ARC = { x: 288, y: 170, a: 215, b: 106 }; // dais : centre et demi-axes en unités du monde
+    const EYE = AR ? [AR.eye[0] * AKX, AR.eye[1] * AKY] : [288, 155];
+    const mistK = (t) => (t < 91.4 ? 1 : t < 98 ? 1 - 0.85 * sstep((t - 91.4) / 1.0) : 0.15 + 0.85 * sstep((t - 98) / 4));
+    function arImg(ctx, key, x, y, s, a, o) { // image seule (anneau, orbe, boules du soleil RRT) centrée en (x,y)
+      const im = I[key]; if (!im || !im.width || a <= 0.003) return; o = o || {};
+      ctx.save(); ctx.globalAlpha = clamp(a, 0, 1); if (o.add !== false) ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = false;
+      ctx.translate(x, y); if (o.rot) ctx.rotate(o.rot); ctx.scale(s * (o.sx || 1), s * (o.sy || 1)); ctx.drawImage(im, -im.width / 2, -im.height / 2); ctx.restore();
+    }
+    const ROCKS = AR ? AR.rocks.map((r, i) => ({ r, ph: rnd(i, 91) * TAU, w: 0.07 + rnd(i, 92) * 0.05, ka: 1 + rnd(i, 93) * 0.1, sc: 0.3 + rnd(i, 94) * 0.1, tilt: (rnd(i, 95) - 0.5) * 0.5 })) : [];
+    function rockPos(R, t) { const ph = R.ph + t * R.w, a = 262 * R.ka, b = 134 * R.ka; return { x: ARC.x + a * Math.cos(ph), y: ARC.y + 4 + b * Math.sin(ph) + Math.sin(t * 0.9 + R.ph) * 4, d: Math.sin(ph) }; }
+    function rocks(ctx, t, front) { // les roches dérivent en orbite autour de l'arène, sans jamais la toucher
+      const im = I.arRocks; if (!im || !im.width) return;
+      for (const R of ROCKS) {
+        const p = rockPos(R, t); if ((p.d > 0) !== front) continue;
+        const s = R.sc * (0.82 + 0.3 * p.d) * (MW / (AR.rw || 1364)) * 2.2, [sx, sy, sw, sh] = R.r;
+        ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(p.x, p.y); ctx.rotate(R.tilt + Math.sin(t * 0.6 + R.ph) * 0.08); ctx.scale(s, s);
+        ctx.globalAlpha = 0.9 + 0.1 * p.d; ctx.drawImage(im, sx, sy, sw, sh, -sw / 2, -sh / 2, sw, sh);
+        ctx.restore();
+      }
+    }
+    function arenaBack(ctx, t) { // vortex de nuages en spirale autour de l'arène + roches du fond + dais
+      const v = I.arVortex, d = I.arDais; if (!v || !d) { drawMap(ctx, 'opm3', t); return; }
+      ctx.fillStyle = '#120c26'; ctx.fillRect(-300, -200, MW + 600, MH + 400);
+      ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(EYE[0], EYE[1]); ctx.scale(1, 0.55); ctx.rotate(t * 0.14); ctx.scale(1, 1 / 0.55); ctx.scale(1.5, 1.5); ctx.translate(-EYE[0], -EYE[1]);
+      ctx.drawImage(v, 0, 0, MW, MH); ctx.restore();
+      ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(EYE[0], EYE[1]); ctx.scale(1, 0.55); ctx.rotate(-t * 0.05 + 1.3); ctx.scale(1, 1 / 0.55); ctx.scale(1.9, 1.9); ctx.translate(-EYE[0], -EYE[1]);
+      ctx.globalAlpha = 0.22; ctx.globalCompositeOperation = 'screen'; ctx.drawImage(v, 0, 0, MW, MH); ctx.restore(); // seconde couche à contre-sens : profondeur
+      rocks(ctx, t, false);
+      ctx.save(); ctx.imageSmoothingEnabled = true; ctx.drawImage(d, 0, 0, MW, MH); ctx.restore();
+    }
+    function mistLayer(ctx, t, lo) { // brume noire qui imprègne l'arène : elle rampe des bords vers le cercle en spirale
+      const im = I.arMist; if (!im || !im.width) return; const k = mistK(t);
+      for (let i = 0; i < 16; i++) {
+        if ((i & 1) !== (lo ? 1 : 0)) continue;
+        const u = (t * (0.035 + rnd(i, 3) * 0.03) + rnd(i, 1)) % 1, rf = 1.3 - 1.15 * u, ph = rnd(i, 2) * TAU + t * 0.22 - u * 2.6, al = Math.sin(Math.PI * u) * (lo ? 0.8 : 0.55) * k;
+        const x = ARC.x + rf * ARC.a * Math.cos(ph), y = ARC.y + 8 + rf * ARC.b * Math.sin(ph), w = (110 + rnd(i, 4) * 120) * (lo ? 1 : 0.8);
+        ctx.save(); ctx.globalAlpha = clamp(al, 0, 1); ctx.imageSmoothingEnabled = true; ctx.translate(x, y); ctx.rotate(Math.sin(t * 0.3 + i) * 0.15); ctx.drawImage(im, -w / 2, -w / 4, w, w / 2); ctx.restore();
+      }
+    }
+    function crystalsAndRune(ctx, t, runeRgb, runeK) { // cristaux qui palpitent + cercle magique qui bat au tempo
+      if (!AR) return; runeRgb = runeRgb || '200,90,255'; const bt = 0.5 + 0.5 * Math.cos(((t % BEAT) / BEAT) * TAU), rk = runeK == null ? 1 : runeK;
+      AR.crystals.forEach((c, i) => {
+        const x = c[0] * AKX, y = c[1] * AKY, p = 0.55 + 0.45 * Math.sin(t * (2.2 + rnd(i, 7)) + i * 1.9);
+        glow(ctx, x, y, c[2] * AKX * 2.4, '190,90,255', 0.38 * p);
+        const sp = ((t * (0.5 + rnd(i, 8) * 0.4) + rnd(i, 9)) % 1);
+        fx(ctx, 'sparkle', sp * 8, x + (rnd(i, 10) - 0.5) * 8, y - sp * 16, 0.28, 1 - sp, { add: true, tint: '220,150,255' });
+      });
+      const cx = AR.rune[0] * AKX, cy = AR.rune[1] * AKY, rx = AR.rune[2] * AKX;
+      ctx.save(); ctx.translate(cx, cy); ctx.scale(1, 0.53); glow(ctx, 0, 0, rx * (1.2 + 0.2 * bt), runeRgb, (0.14 + 0.12 * bt) * rk); ctx.restore();
+      const u = (t * 0.6) % 1; ring(ctx, cx, cy, rx * (0.9 + u * 1.1), 1.2, runeRgb, 0.4 * (1 - u) * rk, 0.53);
+      ctx.save(); ctx.translate(cx, cy); ctx.scale(1, 0.53); ctx.rotate(t * 0.5); starBurst(ctx, 0, 0, rx * 1.1, 0.1 * rk * (0.6 + 0.4 * bt), 6, 0); ctx.restore();
+    }
+    function boltShape(s, x0, y0, x1, y1, n, jag) { // éclair déchiqueté, forme fixée par la graine
+      const pts = [[x0, y0]]; const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+      for (let i = 1; i < n; i++) { const u = i / n, o = (rnd(s, 20 + i) - 0.5) * jag * (1 - Math.abs(u - 0.5) * 0.6); pts.push([x0 + dx * u + nx * o, y0 + dy * u + ny * o]); }
+      pts.push([x1, y1]); return pts;
+    }
+    function strokeBolt(ctx, pts, a, w) {
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      for (const [lw, col] of [[w * 3.2, `rgba(150,70,255,${(a * 0.38).toFixed(3)})`], [w * 1.5, `rgba(205,150,255,${(a * 0.6).toFixed(3)})`], [w * 0.6, `rgba(255,248,255,${a.toFixed(3)})`]]) {
+        ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    const BSLOT = 0.34;
+    function skyBolts(ctx, t, sc, n) { // éclairs un peu partout dans les nuages et sur les roches
+      let fl = 0;
+      for (let k = Math.floor(t / BSLOT) - 1; k <= Math.floor(t / BSLOT); k++) for (let j = 0; j < (n || 3); j++) {
+        const s = k * 11 + j * 3, tb = (k + rnd(s, 1) * 0.85) * BSLOT, d = t - tb; if (d < 0 || d > 0.24) continue;
+        const cc = cr(sc.cam, clamp(tb, sc.t0, sc.t1)), x0 = cc[0] + (rnd(s, 2) - 0.5) * 330 / cc[2], y0 = cc[1] - 105 / cc[2], x1 = x0 + (rnd(s, 3) - 0.5) * 110, y1 = cc[1] + (rnd(s, 4) - 0.55) * 120 / cc[2];
+        const a = (1 - d / 0.24) * (0.55 + 0.45 * (Math.floor(d * 60) % 2)); fl = Math.max(fl, a);
+        const pts = boltShape(s, x0, y0, x1, y1, 9, 22 / Math.sqrt(cc[2])); strokeBolt(ctx, pts, a, 0.9);
+        const m = pts[4], f = boltShape(s + 1, m[0], m[1], m[0] + (rnd(s, 5) - 0.5) * 70, m[1] + 40, 5, 12); strokeBolt(ctx, f, a * 0.7, 0.6);
+        glow(ctx, x1, y1, 46, '190,120,255', 0.55 * a);
+      }
+      return fl;
+    }
+    function boltFlash(t, n) { let fl = 0; for (let k = Math.floor(t / BSLOT) - 1; k <= Math.floor(t / BSLOT); k++) for (let j = 0; j < (n || 3); j++) { const s = k * 11 + j * 3, d = t - (k + rnd(s, 1) * 0.85) * BSLOT; if (d >= 0 && d < 0.24) fl = Math.max(fl, (1 - d / 0.24) * (0.55 + 0.45 * (Math.floor(d * 60) % 2))); } return fl; }
+    function arenaOver(ctx, t, sc) { mistLayer(ctx, t, false); rocks(ctx, t, true); const f = skyBolts(ctx, t, sc, 3); if (f > 0.05) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgba(120,70,200,${(0.1 * f).toFixed(3)})`; ctx.fillRect(-300, -200, MW + 600, MH + 400); ctx.restore(); } }
+    // ---- Méga-Évolution : hélices de lumière, anneau et orbes du soleil RRT, piliers de rayons ----
+    function pillarBeams(ctx, t, x, y, w, h, a, rgb) { const im = tintRays(rgb); if (!im || a <= 0.003) return;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
+      for (let i = 0; i < 3; i++) { ctx.globalAlpha = clamp(a * 0.75 * (0.55 + 0.45 * Math.sin(t * (1.5 + i) + i * 2)), 0, 1); ctx.save(); ctx.translate(x + (i - 1) * w * 0.12, y); ctx.scale(w / 212 * (1 - i * 0.18), -h / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
+      ctx.restore(); }
+    function megaFx(ctx, t, x, y, k, u) { // k 0→1 : montée de l'énergie ; u = secondes depuis la libération
+      const hue = (i) => ['255,90,120', '255,200,90', '120,255,170', '110,200,255', '210,130,255'][i % 5];
+      if (k > 0 && k < 1.001) for (let i = 0; i < 44; i++) {
+        const ph = ((t * 0.8 + i / 44) % 1), r = (1 - ph) * (80 - 20 * k), an = (i % 2 ? 1 : -1) * (ph * 8.5) + i * 0.6, px = x + Math.cos(an) * r, py = y - 22 + Math.sin(an) * r * 0.55 - (1 - ph) * 12 * (i % 2 ? 1 : -1);
+        fx(ctx, 'sparkle', ph * 8, px, py, 0.3 + 0.2 * k, k * (0.4 + 0.6 * ph), { add: true, tint: hue(i) });
+      }
+      if (k > 0) {
+        const p = 0.5 + 0.5 * Math.sin(t * 9); arImg(ctx, 'sunOrb', x, y - 24, (0.14 + 0.26 * k) * (0.9 + 0.15 * p), 0.7 * Math.min(1, k * 1.4), { add: true });
+        glow(ctx, x, y - 24, 22 + 42 * k, '255,236,150', 0.34 * k);
+        for (let i = 0; i < 5; i++) { const an = t * 4.5 * (i % 2 ? 1 : -1) + i * 1.26, r = (60 - 28 * k) * (0.7 + 0.3 * Math.sin(t * 3 + i)); arImg(ctx, i % 2 ? 'sunBallA' : 'sunBallB', x + Math.cos(an) * r, y - 22 + Math.sin(an) * r * 0.5, 0.22 + 0.14 * k, 0.9 * k, { add: true }); }
+        arImg(ctx, 'sunRing', x, y - 4, 0.32 + 0.3 * k + 0.05 * Math.sin(t * 6), 0.6 * k, { sy: 0.45 });
+        arImg(ctx, 'sunRing', x, y - 26, 0.22 + 0.25 * k, 0.5 * k, { rot: t * 1.3 });
+        pillarBeams(ctx, t, x, y - 2, 34 + 26 * k, 110 + 70 * k, 0.4 * k, '255,236,170');
+      }
+      if (u != null && u >= 0) {
+        const e = sstep(u / 1.3);
+        arImg(ctx, 'sunRing', x, y - 24, 0.3 + 2.4 * e, 0.9 * (1 - e), { rot: u });
+        arImg(ctx, 'sunRing', x, y - 4, 0.4 + 3.2 * sstep(u / 1.6), 0.9 * (1 - sstep(u / 1.6)), { sy: 0.45 });
+        ring(ctx, x, y - 6, u * 140, 2.2, '255,246,200', 0.8 * Math.exp(-u * 1.6), 0.5);
+        starBurst(ctx, x, y - 24, 30 + 90 * e, 0.8 * (1 - e), 12, u * 0.4);
+        glow(ctx, x, y - 24, 40 + 110 * e, '255,240,170', 0.6 * (1 - e));
+        pillarBeams(ctx, t, x, y - 2, 60, 200, 0.5 * (1 - sstep(u / 2.2)), '255,246,200');
+      }
+    }
+    const TINTR = {};
+    function tintRays(rgb) { const im = I.rrRays; if (!im || !im.width) return null; if (TINTR[rgb]) return TINTR[rgb];
+      const c = mk(im.width, im.height), g = c.getContext('2d'); g.drawImage(im, 0, 0); g.globalCompositeOperation = 'multiply'; g.fillStyle = `rgb(${rgb})`; g.fillRect(0, 0, c.width, c.height); return (TINTR[rgb] = c); }
     const HER = { x: 232, y: 178 };
+    const PAL_ARENA = 'rgb(236,226,255)';
+    // 4a — Darkrai surgit des nuées, les trois héros lèvent les yeux
     SC.push({
-      id: '4a', t0: 68, t1: 77, map: 'opm3', water: [60, 290, 0.5, 0.4], melee: false, grade: 'rgb(170,170,235)',
-      cam: [[68, 288, 170, 1.1, 0.0], [72, 262, 190, 1.9, 0.03], [77, 260, 175, 2.6, 0.0]],
+      id: '4a', t0: 68, t1: 77, map: 'opm3', melee: false, grade: PAL_ARENA,
+      cam: [[68, 250, 150, 0.85, 0.0], [71.5, 288, 150, 1.15, 0.02], [74.5, 300, 150, 1.4, -0.02], [77, 296, 150, 1.5, 0.0]],
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[68, 232, 205], [72, 232, 190], [76, 232, 178]], an: [[68, 'Walk', 'auto'], [73.4, 'Pose', 0, { loop: false }], [75.6, 'Idle', 2]], reflect: true, aura: '130,235,255' },
-        { id: 'riolu', pid: '0447', keys: [[68, 332, 150], [76, 332, 150]], an: [[68, 'Idle', 4], [72.2, 'Rotate', 4, { loop: false }], [73.6, 'Idle', 6]], reflect: true },
-        { id: 'tiplouf', pid: '0393', keys: [[68, 360, 190], [76, 360, 190]], an: [[68, 'Idle', 4], [72.6, 'Rotate', 4, { loop: false }], [73.8, 'Idle', 6]], reflect: true },
-        { id: 'sriolu', pid: 'shadow_0447', keys: [[72.0, 332, 150]], an: [[72.0, 'Idle', 6]], a: [[72.0, 0], [73.6, 1]], reflect: true, aura: '190,60,255' },
-        { id: 'stiplouf', pid: 'shadow_0393', keys: [[72.3, 360, 190]], an: [[72.3, 'Idle', 6]], a: [[72.3, 0], [73.8, 1]], reflect: true, aura: '190,60,255' },
+        { id: 'evoli', pid: '0133', keys: [[68, 130, 200], [71.3, 232, 198]], an: [[68, 'Walk', 'auto'], [71.4, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [74.3, 'Hop', 2, { loop: false }], [75.4, 'Hurt', 2, { loop: false }]], reflect: false, aura: '130,235,255' },
+        { id: 'riolu', pid: '0447', keys: [[68, 108, 186], [71.0, 204, 182]], an: [[68, 'Walk', 'auto'], [71.1, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [75.4, 'Hurt', 2, { loop: false }]] },
+        { id: 'tiplouf', pid: '0393', keys: [[68, 120, 212], [71.5, 260, 208]], an: [[68, 'Walk', 'auto'], [71.6, 'Idle', 2], [72.6, 'LookUp', 2, { loop: false }], [74.4, 'Hop', 2, { loop: false }], [75.5, 'Hurt', 2, { loop: false }]] },
+        { id: 'darkrai', pid: '0491', keys: [[68, 350, 50, 90], [72.6, 346, 158, 8], [77, 346, 158, 6]], an: [[68, 'Charge', 6], [72.8, 'Attack', { toId: 'evoli' }, { loop: false }], [74.0, 'Charge', { toId: 'evoli' }]], a: [[68, 0], [70, 1]], aura: '190,40,255', s: 1.1 },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t); ring(ctx, 232, 184, 6 + ((t * 0.6) % 1) * 30, 0.8, '230,255,255', 0.6 * (1 - (t * 0.6) % 1), 0.4); },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '180,190,255', a: 0.5, r: 1.4, vy: 5, vx: -1, add: true }); particlesScreen(ctx, t, { n: 30, rgb: '255,120,220', a: 0.8, r: 2, vy: -1.0, add: true, tw: true }); if (t > 75.3) flash(ctx, 0.5 * (1 - (t - 75.3) / 0.7) * (t < 76 ? 1 : 0), '255,255,255'); },
-    });
-    // 4b..4e : mêlée complète — l'arène, hit-stop sur chaque impact, caméras « sakuga »
-    const hero = (extra) => ({ id: 'evoli', pid: '0133', reflect: true, aura: '130,235,255', ...extra });
-    SC.push({
-      id: '4b', t0: 77, t1: 88, map: 'opm3', water: [60, 290, 0.5, 0.4], melee: true, grade: 'rgb(180,180,235)',
-      cam: [[77, 262, 176, 2.3, 0.0], [79.5, 276, 172, 2.5, 0.08], [82, 290, 166, 2.2, -0.1], [85, 276, 172, 2.6, 0.05], [88, 258, 176, 2.1, 0.0]],
-      follow: ['evoli', 'sriolu', 'stiplouf'],
-      actors: [
-        hero({ keys: [[77, 232, 178], [77.8, 262, 176], [79.2, 292, 168], [80.6, 262, 182], [82.4, 296, 166], [83.4, 270, 176], [85.4, 250, 182], [87.4, 240, 186], [88, 236, 186]],
-          an: [[77, 'Double', 'auto', { loop: false }], [78.4, 'Attack', { to: [300, 170] }, { loop: false }], [79.9, 'Walk', 'auto'], [80.6, 'Swing', { toId: 'stiplouf' }, { loop: false }], [82.0, 'Attack', { to: [320, 168] }, { loop: false }], [83.4, 'Hurt', 6, { loop: false }], [84.6, 'Pain', 6, { loop: false }], [86.2, 'Idle', 6], [87.4, 'Hurt', 6, { loop: false }]] }),
-        { id: 'sriolu', pid: 'shadow_0447', keys: [[77, 332, 150], [79.0, 304, 164], [80.4, 332, 150], [82.2, 306, 162], [83.2, 296, 170], [85.2, 300, 176], [88, 270, 182]], an: [[77, 'Idle', 6], [78.6, 'Attack', { toId: 'evoli' }, { loop: false }], [80.2, 'Walk', 'auto'], [81.4, 'Strike', { toId: 'evoli' }, { loop: false }], [83.2, 'Strike', { toId: 'evoli' }, { loop: false }], [85.0, 'Double', { toId: 'evoli' }, { loop: false }], [86.6, 'Attack', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
-        { id: 'stiplouf', pid: 'shadow_0393', keys: [[77, 360, 190], [80.2, 332, 184], [81.4, 316, 182], [83.4, 318, 184], [86.4, 290, 190], [88, 276, 188]], an: [[77, 'Idle', 6], [80.0, 'Walk', 'auto'], [81.5, 'Swing', { toId: 'evoli' }, { loop: false }], [83.8, 'Attack', { toId: 'evoli' }, { loop: false }], [86.2, 'Shoot', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
-      ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 280 + (rnd(ti, 1) - 0.5) * 40, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } } },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 80, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); speedLines(ctx, t, 18, W / 2, H / 2, '255,244,210', 0.25, 260);
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
-    });
-    SC.push({
-      id: '4c', t0: 88, t1: 98, map: 'opm3', water: [60, 290, 0.5, 0.4], melee: true, grade: 'rgb(180,180,235)',
-      cam: [[88, 258, 176, 2.1, 0.0], [90, 288, 172, 3.0, -0.05], [92.2, 288, 168, 2.2, 0.0], [95, 300, 168, 2.1, 0.08], [98, 300, 164, 1.9, -0.04]],
-      follow: ['evoli', 'sriolu', 'stiplouf', 'lucario'],
-      actors: [
-        hero({ keys: [[88, 236, 186], [90, 236, 186], [91, 236, 186]], an: [[88, 'Hurt', 6], [88.9, 'Pain', 6, { loop: false }], [90.6, 'Idle', 6]] }),
-        { id: 'sriolu', pid: 'shadow_0447', keys: [[88, 270, 182], [91.8, 256, 184], [94.2, 296, 168], [96, 322, 160]], an: [[88, 'Idle', 6], [90.2, 'Charge', { toId: 'evoli' }, { loop: false }], [91.2, 'Hurt', 2, { loop: false }], [94.0, 'Hurt', 2, { loop: false }], [95.6, 'Pain', 2, { loop: false }]], a: [[88, 1], [96.4, 1], [97.4, 0]], reflect: true, aura: '190,60,255' },
-        { id: 'stiplouf', pid: 'shadow_0393', keys: [[88, 276, 188], [92, 262, 190], [95, 330, 196]], an: [[88, 'Idle', 6], [90.4, 'Shoot', { toId: 'evoli' }, { loop: false }], [92.2, 'Hurt', 2, { loop: false }], [94.4, 'Hurt', 2]], a: [[88, 1], [96.6, 1], [97.6, 0]], reflect: true, aura: '190,60,255' },
-        { id: 'lucario', pid: '0448', keys: [[91.2, 288, 150, 0], [92.4, 266, 170, 0], [93.2, 262, 176, 0], [95.4, 292, 168, 0], [98, 270, 176]], an: [[91.2, 'LeapForth', 0, { loop: false }], [92.4, 'Hop', 6, { loop: false }], [93.4, 'Strike', { toId: 'sriolu' }, { loop: false }], [94.4, 'Swing', { toId: 'stiplouf' }, { loop: false }], [96.0, 'Pose', 6, { loop: false }]], a: [[91.2, 0], [91.5, 1]], reflect: true, aura: '90,230,255', vis: [91.1, 99] },
-      ],
+      draw(ctx, t) { arenaBack(ctx, t); },
       world(ctx, t, c, ph) {
-        if (ph === 'under') { const g = sstep((t - 90.2) / 1.0) * (1 - sstep((t - 96) / 2)); if (g > 0) { glow(ctx, 288, 152, 130, '120,230,255', 0.55 * g); ctx.save(); ctx.globalAlpha = 0.9 * g; ctx.drawImage(I.vitrail, 288 - 52, 152 - 47, 104, 94); ctx.restore(); } }
-        if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t);
-        const s = t - 91.1; if (s > 0 && s < 2) shardsW(ctx, 288, 150, s * 0.9, 34, 81, ['#4aa8ff', '#ffd45a', '#4be8a8', '#fff', '#6a7bff'], 110, 4);
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 280 + (rnd(ti, 1) - 0.5) * 50, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 36, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
-        if (t > 96.4 && t < 98) { for (let i = 0; i < 40; i++) { const ph2 = ((t - 96.4) * 0.9 + rnd(i, 3)) % 1; ctx.fillStyle = `rgba(190,60,255,${(0.9 * (1 - ph2)).toFixed(2)})`; ctx.fillRect(Math.round(250 + rnd(i, 1) * 100), Math.round(170 - ph2 * 50), 2, 2); } } },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
-        flash(ctx, 0.9 * Math.exp(-Math.abs(t - 91.2) * 6), '200,245,255'); speedLines(ctx, t, 22, W / 2, H / 2, '160,240,255', 0.3, 260); },
+        if (ph === 'under') { crystalsAndRune(ctx, t); mistLayer(ctx, t, true); return; }
+        const u = t - 72.6; if (u > 0 && u < 1.3) { ring(ctx, 346, 158, u * 120, 3, '170,70,255', 0.8 * (1 - u / 1.3), 0.5); glow(ctx, 346, 130, 60 * (1 - u / 1.3), '150,60,230', 0.5); }
+        arenaOver(ctx, t, this); fightFx(ctx, t);
+      },
+      screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.7, r: 1.8, vy: -0.8, vx: -0.6, add: true, tw: true }); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255'); flash(ctx, 0.5 * Math.exp(-Math.abs(t - 72.6) * 7), '210,160,255'); flash(ctx, 0.6 * (1 - sstep((t - 68) / 0.7)), '255,255,255'); },
     });
+    // 4b — mêlée : Évoli, Riolu et Tiplouf contre les ombres, Darkrai bombarde
+    const SHD = (id, pid, keys, an, a) => ({ id, pid, keys, an, a, aura: '190,60,255' });
     SC.push({
-      id: '4d', t0: 98, t1: 106, map: 'opm3', water: [60, 290, 0.5, 0.4], melee: true, grade: 'rgb(170,170,235)',
-      cam: [[98, 300, 164, 2.0, -0.05], [101, 330, 160, 2.1, 0.05], [104, 310, 164, 1.6, 0.0], [106, 300, 160, 1.1, 0.0]],
-      follow: ['evoli', 'lucario', 'darkrai'],
+      id: '4b', t0: 77, t1: 88, map: 'opm3', melee: true, grade: PAL_ARENA,
+      cam: [[77, 296, 150, 1.5, 0.0], [79.5, 290, 156, 1.7, 0.05], [82, 288, 160, 1.9, -0.05], [85, 270, 160, 1.7, 0.04], [88, 252, 166, 1.6, 0.0]],
       actors: [
-        hero({ id: 'evoli', keys: [[98, 270, 178], [101, 262, 176]], an: [[98, 'Idle', 2], [100.0, 'Attack', 2, { loop: false }], [102.0, 'Shoot', 2, { loop: false }]] }),
-        { id: 'lucario', pid: '0448', keys: [[98, 280, 184], [101, 290, 172]], an: [[98, 'Idle', 2], [99.9, 'Strike', 2, { loop: false }], [101.8, 'QuickStrike', 2, { loop: false }]], reflect: true, aura: '90,230,255' },
-        { id: 'darkrai', pid: '0491', keys: [[98, 400, 150, 20], [100.2, 346, 168, 6], [106, 340, 168, 6]], an: [[98, 'Charge', 6, { loop: true }], [100.4, 'Attack', { toId: 'lucario' }, { loop: false }], [102.4, 'Shoot', { toId: 'lucario' }, { loop: false }]], a: [[98, 0], [99, 1]], reflect: true, aura: '190,40,255', s: 1.15 },
+        { id: 'evoli', pid: '0133', keys: [[77, 232, 198], [78.0, 262, 188], [79.0, 292, 176], [80.6, 262, 190], [82.4, 298, 178], [83.4, 252, 196], [86, 238, 200], [88, 238, 200]],
+          an: [[77, 'Double', 'auto', { loop: false }], [78.0, 'Attack', { to: [302, 174] }, { loop: false }], [79.6, 'Walk', 'auto'], [80.8, 'Swing', { to: [316, 196] }, { loop: false }], [82.2, 'Attack', { to: [322, 176] }, { loop: false }], [83.4, 'Hurt', 6, { loop: false }], [84.6, 'Pain', 6, { loop: false }], [86.2, 'Idle', 6]], aura: '130,235,255' },
+        { id: 'riolu', pid: '0447', keys: [[77, 204, 182], [79, 238, 178], [80.6, 214, 180], [82.2, 262, 176], [84, 240, 184], [85.6, 190, 190], [88, 170, 194]],
+          an: [[77, 'Idle', 2], [78.8, 'Attack', { to: [300, 172] }, { loop: false }], [80.6, 'Walk', 'auto'], [82.0, 'Strike', { to: [310, 176] }, { loop: false }], [84.0, 'Hurt', 2, { loop: false }], [85.6, 'Pain', 2, { loop: false }], [87.0, 'Hurt', 2]] },
+        { id: 'tiplouf', pid: '0393', keys: [[77, 260, 208], [80, 276, 202], [82, 282, 200], [85.4, 268, 208], [88, 250, 210]],
+          an: [[77, 'Idle', 2], [80.7, 'Shoot', { to: [320, 190] }, { loop: false }], [83.2, 'Hurt', 2, { loop: false }], [85.4, 'Hurt', 2, { loop: false }], [87, 'Idle', 6]] },
+        SHD('sriolu', 'shadow_0447', [[77, 306, 172], [80.4, 314, 172], [83, 300, 178], [87.2, 300, 178]], [[77, 'Idle', 6], [79.0, 'Hurt', 6, { loop: false }], [81.6, 'Attack', { toId: 'evoli' }, { loop: false }], [86.2, 'Hurt', 6, { loop: false }]], [[77, 1], [86.6, 1], [87.8, 0]]),
+        SHD('stiplouf', 'shadow_0393', [[77, 320, 198], [81, 322, 194], [84, 306, 196], [87.2, 306, 196]], [[77, 'Idle', 6], [79.4, 'Swing', { toId: 'evoli' }, { loop: false }], [82.6, 'Hurt', 6, { loop: false }], [84.6, 'Attack', { toId: 'tiplouf' }, { loop: false }]], [[77, 1], [86.6, 1], [87.8, 0]]),
+        { id: 'darkrai', pid: '0491', keys: [[77, 346, 158, 6], [84, 336, 160, 8], [88, 336, 160, 6]], an: [[77, 'Idle', 6], [79.0, 'Attack', { toId: 'evoli' }, { loop: false }], [82.6, 'Shoot', { toId: 'riolu' }, { loop: false }], [84.4, 'Attack', { toId: 'riolu' }, { loop: false }], [86.0, 'Charge', 6]], aura: '190,40,255', s: 1.1 },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t);
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 306, iy = 170; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 40, '255,240,180', 0.9 * (1 - d / 0.4)); } }
-        const k = sstep((t - 102.8) / 3); glow(ctx, 340, 150, lerp(30, 360, k), '190,60,255', 0.55 * k); ring(ctx, 340, 168, k * 280, 3, '200,100,255', 0.8 * (1 - k), 0.5); },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 60, rgb: '255,120,220', a: 0.8, r: 2, vy: -2.0, add: true, tw: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
-        flash(ctx, sstep((t - 105.0) / 1.0)); },
+      draw(ctx, t) { arenaBack(ctx, t); },
+      world(ctx, t, c, ph) {
+        if (ph === 'under') { crystalsAndRune(ctx, t); mistLayer(ctx, t, true); return; }
+        arenaOver(ctx, t, this); fightFx(ctx, t);
+        for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.4 && !covered(ti)) { const ix = 292 + (rnd(ti, 1) - 0.5) * 40, iy = 176 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
+        const dsp = sstep((t - 86.6) / 1.2); if (dsp > 0 && dsp < 1) for (let i = 0; i < 24; i++) { const ph2 = ((t - 86.6) * 0.8 + rnd(i, 3)) % 1; fx(ctx, 'sparkle', ph2 * 8, 300 + (rnd(i, 1) - 0.5) * 40, 190 - ph2 * 50, 0.3, 0.8 * (1 - ph2), { add: true, tint: '190,60,255' }); }
+      },
+      screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.6, r: 1.6, vy: -0.8, vx: -1.2, add: true, tw: true }); speedLines(ctx, t, 14, W / 2, H / 2, '230,210,255', 0.2, 280); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255');
+        for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
+    });
+    // 4c — Riolu se relève : Lucario, puis Méga-Lucario dans un déluge de lumière
+    const LUX = 214, LUY = 178;
+    SC.push({
+      id: '4c', t0: 88, t1: 98, map: 'opm3', melee: false, grade: PAL_ARENA,
+      cam: [[88, 232, 172, 1.9, 0.0], [90.5, 218, 168, 2.2, 0.0], [92.6, 214, 166, 2.4, 0.02], [94.2, 214, 166, 2.4, 0.0], [95.5, 214, 164, 2.2, 0.0], [96.4, 220, 160, 1.9, -0.03], [98, 250, 160, 1.5, 0.0]],
+      actors: [
+        { id: 'evoli', pid: '0133', keys: [[88, 238, 200], [98, 246, 202]], an: [[88, 'Pain', 6, { loop: false }], [92.0, 'LookUp', 2, { loop: false }], [95.6, 'Hop', 2, { loop: false }]], aura: '130,235,255' },
+        { id: 'tiplouf', pid: '0393', keys: [[88, 250, 210], [98, 262, 212]], an: [[88, 'Hurt', 2, { loop: false }], [92.4, 'LookUp', 2, { loop: false }], [95.8, 'Hop', 2, { loop: false }]] },
+        { id: 'riolu', pid: '0447', keys: [[88, 170, 194], [90.0, 176, 190], [91.5, LUX, LUY]], an: [[88, 'Hurt', 2, { loop: false }], [89.6, 'Pain', 2, { loop: false }], [90.4, 'Charge', 2]], a: [[88, 1], [91.4, 1], [91.6, 0]], aura: '120,230,255' },
+        { id: 'lucario', pid: '0448', keys: [[91.4, LUX, LUY], [95.6, LUX, LUY]], an: [[91.4, 'Charge', 2], [93.0, 'Idle', 2], [94.2, 'Charge', 2]], a: [[91.4, 0], [91.7, 1], [95.4, 1], [95.7, 0]], aura: '110,230,255' },
+        { id: 'mega', pid: '9448', keys: [[95.4, LUX, LUY], [98, LUX + 6, LUY + 2]], an: [[95.4, 'Charge', 2], [96.4, 'RearUp', 2, { loop: false }], [97.4, 'Idle', 2]], a: [[95.4, 0], [95.8, 1]], aura: '255,226,120' },
+        { id: 'darkrai', pid: '0491', keys: [[88, 336, 160, 6], [98, 336, 160, 6]], an: [[88, 'Idle', 6], [92.2, 'Shoot', { to: [222, 176] }, { loop: false }], [94.0, 'Charge', 6]], aura: '190,40,255', s: 1.1 },
+      ],
+      draw(ctx, t) { arenaBack(ctx, t); },
+      world(ctx, t, c, ph) {
+        const k1 = sstep((t - 89.2) / 2.2) * (t < 91.6 ? 1 : 0), k2 = sstep((t - 93.0) / 2.5) * (t < 95.6 ? 1 : 0), u = t - 95.6;
+        if (ph === 'under') { crystalsAndRune(ctx, t, t < 91.5 ? '200,90,255' : '255,226,120', 0.6 + 0.8 * sstep((t - 91.4) / 2)); mistLayer(ctx, t, true);
+          if (k1 > 0) { glow(ctx, 176, 190, 30 * k1 + 12, '200,245,255', 0.4 * k1); pillarBeams(ctx, t, 176, 190, 34, 120 * k1, 0.4 * k1, '180,240,255'); }
+          return; }
+        arenaOver(ctx, t, this);
+        const ev = t - 91.5; if (ev > 0 && ev < 1.4) { const e = sstep(ev / 1.4); starBurst(ctx, LUX, LUY - 22, 26 + 80 * e, 0.8 * (1 - e), 10, ev); ring(ctx, LUX, LUY - 4, ev * 90, 2, '200,250,255', 0.8 * (1 - e), 0.5); glow(ctx, LUX, LUY - 22, 50 * (1 - e) + 14, '210,250,255', 0.6 * (1 - e)); pillarBeams(ctx, t, LUX, LUY - 2, 44, 150 * (1 - e * 0.4), 0.5 * (1 - e), '200,248,255'); }
+        if (t >= 91.6 && t < 95.7) megaFx(ctx, t, LUX, LUY, k2, null); else if (t >= 95.7) megaFx(ctx, t, LUX + 3, LUY, 0, u);
+      },
+      screen(ctx, t) {
+        particlesScreen(ctx, t, { n: 28, rgb: '255,230,150', a: 0.8, r: 1.8, vy: -1.0, add: true, tw: true });
+        flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255');
+        flash(ctx, 0.7 * Math.exp(-Math.abs(t - 91.5) * 8), '220,252,255');
+        const f2 = t - 95.55; flash(ctx, f2 > -0.35 && f2 < 0 ? 0.1 * (1 + f2 / 0.35) : 0.8 * Math.exp(-Math.max(0, f2) * 5) * (f2 >= 0 ? 1 : 0), '255,248,210');
+        const sf = t - 95.7; if (sf > 0 && sf < 2.4) { const a = Math.sin(Math.PI * clamp(sf / 2.4, 0, 1)); fx(ctx, 'sunfl', sf * 8, W * 0.28, H * 0.12, 4.2, 0.9 * a, { add: true }); }
+        if (t > 95.6 && t < 97.4) speedLines(ctx, t, 26, W * 0.5, H * 0.55, '255,240,190', 0.35 * (1 - (t - 95.6) / 1.8), 220);
+      },
+    });
+    // 4d — Méga-Lucario au premier plan face à Darkrai : choc des sphères, explosion, retour au plan suivant
+    const CLX = 302, CLY = 160, TEXP = 103.3;
+    SC.push({
+      id: '4d', t0: 98, t1: 106, map: 'opm3', melee: true, grade: PAL_ARENA,
+      cam: [[98, 272, 160, 1.45, 0.0], [99.4, 268, 166, 1.55, 0.03], [101.0, 272, 164, 1.65, -0.04], [102.6, 276, 162, 1.8, 0.0], [103.3, 282, 162, 1.7, 0.05], [104.4, 296, 162, 1.1, 0.0], [106, 296, 162, 0.9, 0.0]],
+      shake: (t) => (t > 101 && t < TEXP ? 0.8 + (t - 101) * 1.5 : t >= TEXP && t < TEXP + 0.9 ? 6 * Math.exp(-(t - TEXP) * 3) : 0),
+      actors: [
+        { id: 'mega', pid: '9448', keys: [[98, 208, 206], [106, 208, 206]], sk: [[98, 1.55], [106, 1.7]], an: [[98, 'Idle', { toId: 'darkrai' }], [99.1, 'Charge', { toId: 'darkrai' }], [100.2, 'Attack', { toId: 'darkrai' }, { loop: false }], [101.6, 'Charge', { toId: 'darkrai' }]], aura: '255,226,120' },
+        { id: 'darkrai', pid: '0491', keys: [[98, 340, 158, 8], [106, 340, 158, 8]], s: 1.0, an: [[98, 'Idle', { toId: 'mega' }], [99.0, 'Charge', { toId: 'mega' }], [100.1, 'Attack', { toId: 'mega' }, { loop: false }], [101.6, 'Charge', { toId: 'mega' }]], aura: '190,40,255' },
+      ],
+      draw(ctx, t) { arenaBack(ctx, t); },
+      world(ctx, t, c, ph) {
+        const ex = t - TEXP;
+        if (ph === 'under') { crystalsAndRune(ctx, t, '255,226,120', 1.2 + (ex > 0 ? 1.5 * Math.exp(-ex * 2) : 0)); mistLayer(ctx, t, true); return; }
+        arenaOver(ctx, t, this); fightFx(ctx, t);
+        const cl = t - 101.0;
+        if (cl > 0 && ex < 0) { // choc des deux sphères : elle grossit, se tord et crache des arcs
+          const g = clamp(cl / 2.3, 0, 1), r = lerp(12, 62, g * g), a = 0.55 + 0.45 * Math.sin(t * 60);
+          glow(ctx, CLX, CLY, r * 2.4, '255,236,170', 0.16 + 0.16 * g); glow(ctx, CLX, CLY, r * 1.8, '180,90,255', 0.3 + 0.2 * g);
+          fx(ctx, 'aurasphere', t * 16, CLX - 4 - 4 * g, CLY, 0.5 * (1 + 2.0 * g), 1, {}); fx(ctx, 'shadowball', t * 16, CLX + 4 + 4 * g, CLY, 0.5 * (1 + 2.0 * g), 0.95, {});
+          arImg(ctx, 'sunRing', CLX, CLY, 0.25 + 0.7 * g, 0.55, { sy: 0.8 });
+          for (let i = 0; i < 4; i++) { const s = Math.floor(t * 30) * 5 + i, ang = rnd(s, 1) * TAU, L = r * (1 + rnd(s, 2) * 1.6); strokeBolt(ctx, boltShape(s, CLX, CLY, CLX + Math.cos(ang) * L, CLY + Math.sin(ang) * L * 0.7, 6, 10), 0.7 * a, 0.8); }
+          strokeBolt(ctx, boltShape(Math.floor(t * 30), 222, 176, CLX, CLY, 7, 8), 0.7, 0.7); strokeBolt(ctx, boltShape(Math.floor(t * 30) + 9, 336, 150, CLX, CLY, 7, 8), 0.7, 0.7);
+          ring(ctx, CLX, CLY, r * (1 + 0.3 * Math.sin(t * 20)), 1.6, '255,246,210', 0.7, 0.8);
+        }
+        if (ex > 0) { // explosion : la boule de feu du météore RRT, ondes de choc, éclats, flammes
+          const e = clamp(ex / 1.6, 0, 1), ee = 1 - Math.pow(1 - e, 2.4);
+          glow(ctx, CLX, CLY, 40 + 420 * ee, '255,180,70', 0.9 * (1 - e * 0.5)); glow(ctx, CLX, CLY, 30 + 230 * ee, '255,246,200', 0.95 * (1 - e * 0.3));
+          fx(ctx, 'rrmet', ex * 12, CLX, CLY + 10, 0.25 + 1.5 * ee, 1 - 0.35 * e, {});
+          fx(ctx, 'rrmet', ex * 12 + 4, CLX, CLY, 0.15 + 1.05 * ee, 0.9, { add: true });
+          for (let i = 0; i < 3; i++) ring(ctx, CLX, CLY + 8, Math.max(0.5, ex - i * 0.12) * (260 + i * 60), 4 - i, i === 1 ? '255,230,160' : '255,250,230', 0.9 * Math.exp(-ex * 1.1), 0.5);
+          starBurst(ctx, CLX, CLY, 60 + 300 * ee, 0.9 * (1 - e), 14, ex * 0.5);
+          shardsW(ctx, CLX, CLY, ex * 1.4, 40, 77, ['#ffd45a', '#fff', '#ff8a3a', '#b46bff', '#6ae8ff'], 150, 4);
+          for (let i = 0; i < 9; i++) { const an = rnd(i, 5) * TAU, d = ee * (60 + rnd(i, 6) * 110); fx(ctx, 'flame', ex * 14 + i * 3, CLX + Math.cos(an) * d, CLY + Math.sin(an) * d * 0.55 + 12, 0.35 + 0.5 * ee, 0.9 * (1 - e * 0.8), { bottom: true }); }
+          if (ex < 0.4) hitFx(ctx, CLX, CLY, ex, 5, '255,240,180', 1.8);
+        }
+      },
+      screen(ctx, t) {
+        particlesScreen(ctx, t, { n: 28, rgb: '255,230,150', a: 0.8, r: 1.8, vy: -1.0, add: true, tw: true });
+        flash(ctx, 0.06 * boltFlash(t, 3), '170,120,255');
+        const cl = t - 101; if (cl > 0 && t < TEXP) { speedLines(ctx, t, 30, W * 0.55, H * 0.5, '255,246,200', 0.12 + 0.3 * (cl / 2.3), 200 - 80 * (cl / 2.3)); flash(ctx, 0.12 * (cl / 2.3) * (0.5 + 0.5 * Math.sin(t * 40)), '255,240,200'); }
+        const ex = t - TEXP; if (ex >= 0 && ex < 0.12) impactFrame(ctx, 1 - ex / 0.12);
+        flash(ctx, ex > 0 ? clamp(0.6 * Math.exp(-ex * 6) + 0.99 * sstep((t - 104.5) / 0.9), 0, 1) : 0, '255,250,235');
+      },
     });
 
     // ---- Chapitre V : chute céleste ----
@@ -588,7 +767,7 @@
       actors: [{ id: 'evoli', pid: '0133', keys: [[132, 288, 152]], an: [[132, 'Sink', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],
       props: [{ img: 'wfCyan', keys: [[132, 306, 150, 0]], s: 0.9 }],
       world(ctx, t, c, ph) { if (ph !== 'over') return; bubblesWorld(ctx, t, 26, 61, 200, 380, 40, 230, 1.0); sparklesWorld(ctx, t, 50, 62, 200, 40, 380, 230, '255,244,190', 1); },
-      screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.9 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.55 * ra); },
+      screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.9 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.55 * ra); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.7 * ra, { add: true }); },
     });
     SC.push({ // 6b : remontée — les 3 badges étoile se matérialisent, tournent autour d'Évoli, Riolu lui tend la main
       id: '6b', t0: 137, t1: 142, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(110,160,235)',
@@ -606,7 +785,7 @@
           wayfinder(ctx, keys[i], ex + Math.cos(an) * R, ey - 6 + Math.sin(an) * R * 0.38, 0.95, t, a * (1 - join), rgb[i]); }
         if (t > 140.6) { const k = clamp((t - 140.6) / 1.4, 0, 1); glow(ctx, ex, ey - 6, 130 * k + 20, '255,246,210', 0.7 * (1 - k * 0.5)); ring(ctx, ex, ey - 6, k * 90, 2.2, '255,246,210', 0.8 * (1 - k), 0.5); fx(ctx, 'hit', Math.min(7, k * 8), ex, ey - 6, 0.7, 1 - k * 0.6, { tint: '255,246,210' }); }
       },
-      screen(ctx, t) { const ra = sstep((t - 138) / 3); godRays(ctx, t, 0.7 * ra, W * 0.5, -30, 7, 0.8, H * 1.2, '255,246,210'); flash(ctx, 0.6 * Math.exp(-Math.abs(t - 140.7) * 6), '255,246,210'); },
+      screen(ctx, t) { const ra = sstep((t - 138) / 3); godRays(ctx, t, 0.7 * ra, W * 0.5, -30, 7, 0.8, H * 1.2, '255,246,210'); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.6 * ra, { add: true }); flash(ctx, 0.6 * Math.exp(-Math.abs(t - 140.7) * 6), '255,246,210'); },
     });
     SC.push({
       id: '6c', t0: 142, t1: 145.2, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
@@ -808,7 +987,6 @@
 
     // ---------- Compositeur ----------
     SC.sort((a, b) => a.t0 - b.t0);
-    ['4b', '4c', '4d'].forEach((id) => { SC.find((q) => q.id === id).thunderT = IMPACTS; });
     SC.find((q) => q.id === '5a').thunderT = [118.0, 119.1, 120.2];
     const XF = { A2: 0.6, P1: 0.7, MN: 1.0, TT: 0.6, OC: 0.8, SP: 0.5, '1c': 0.4, '1d': 0.5, '1e': 0.5, '2b': 0.6, '3b': 0.6, '3c': 0.6, '3d': 0.9, '4a': 0.3, '4b': 0, '4c': 0, '4d': 0, '5a': 0, '5b': 0.8, '6a': 1.0, '6b': 0.8, '6c': 0.8 };
     function drawShot(ctx, sc, t) { if (sc.custom) { sc.custom(ctx, t); return null; } return renderScene(ctx, sc, t); }

@@ -95,7 +95,7 @@ class TestOpeningUltime(unittest.TestCase):
         # grammaire de la cinématique « Crise de la Météorite » du dépôt PMD-RED-PMDO-PORT (flashs 2/8/15/60 images, tremblement, silence) + gestes réels
         for needle in ("function fSkyFall(", "function meteorDraw(", "S.SC.find((q) => q.id === '5a').custom = fSkyFall", "const PULSES = [", "SKSEQ", "function bang(", "'Hurt'", "'Wake'", "'Pull'", "'Swing'"):
             self.assertIn(needle, self.eng)
-        self.assertIn("meteor", self.assets["imgs"])
+        self.assertIn("fx_rrmet", self.assets["imgs"])  # météore de PMD Rouge (9 images) à la place de l'ancienne image générée
         for needle in ("'LookUp', 0, { loop: false }], [134.6", "'Swing', 0, { loop: false }], [141.1", "id: 'tiplouf', pid: '0393', keys: [[142, 340, 190]"):
             self.assertIn(needle, self.html)
 
