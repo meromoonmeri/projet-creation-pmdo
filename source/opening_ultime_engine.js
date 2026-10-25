@@ -162,9 +162,9 @@
       const im = tintRays(rgb || '255,246,206'); if (!im) return godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
       for (let i = 0; i < 3; i++) {
-        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 1.15, 0, 1);
+        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 0.42, 0, 1);
         if (al < 0.01) continue; ctx.globalAlpha = al;
-        for (let k = 0; k < 2; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
+        for (let k = 0; k < 1; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
       }
       ctx.restore();
     }
@@ -671,7 +671,40 @@
     const PULSES = [109.6, 110.9, 111.8, 112.5, 113.0, 113.5, 114.0];
     const SKYCOL = [[106, [255, 255, 255]], [109.5, [255, 255, 255]], [112, [255, 238, 170]], [115, [245, 170, 100]], [118.3, [190, 95, 70]]];
     function skyTint(t) { let a = SKYCOL[0]; for (let i = 0; i < SKYCOL.length - 1; i++) if (t >= SKYCOL[i][0]) a = SKYCOL[i]; const b = SKYCOL[Math.min(SKYCOL.indexOf(a) + 1, SKYCOL.length - 1)]; return lerpC(a[1], b[1], b === a ? 0 : sstep((t - a[0]) / (b[0] - a[0]))); }
+    // ---- 5a : décor GÉNÉRÉ de la chute — stratosphère étoilée → mer de nuages peinte (le trio y plonge) ; la météorite traverse le tout ----
+    let STRC = null, DECKC = null;
+    function fadeCanvas(img, y0, y1, top) { const c = mk(img.width, img.height), g = c.getContext('2d'); g.drawImage(img, 0, 0); g.globalCompositeOperation = 'destination-in';
+      const gr = g.createLinearGradient(0, y0 * c.height, 0, y1 * c.height); gr.addColorStop(0, top ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,1)'); gr.addColorStop(1, top ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, c.width, c.height); return c; }
+    function fallDist(u) { return 16 * u + 9 * u * u; } // pixels parcourus par la caméra (accélère comme une vraie chute)
+    function deckTiles(ctx, img0, img, y0, d, alpha, scale, ox, mir) { // pavage vertical en miroir (raccord invisible)
+      const h = H * scale, w = W * scale; ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true;
+      for (let k = 0; k < 14; k++) { const y = y0 + k * h - d; if (y > H) break; if (y + h < 0) continue;
+        const im = k === 0 && img0 ? img0 : img; ctx.save(); ctx.translate(ox - W / 2, y + (k % 2 ? h : 0)); ctx.scale(1, k % 2 ? -1 : 1); ctx.drawImage(im, -(w - W) / 2, 0, w, h); ctx.restore(); }
+      ctx.restore(); }
     function skyBack(ctx, t) {
+      const u = Math.max(0, t - SK0), S = I.skyStrato, D = I.skyDeck;
+      if (!S || !S.width || !D || !D.width) { skyBackLegacy(ctx, t); return; }
+      if (!STRC) { STRC = fadeCanvas(S, 0.5, 1, false); DECKC = fadeCanvas(D, 0, 0.3, true); }
+      const d = fallDist(u), g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#a9d2f4'); g.addColorStop(1, '#e8f4ff');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      const sk = 1 - sstep((d - 470) / 360);
+      if (sk > 0.004) { // stratosphère : l'aurore et les étoiles défilent vers le haut
+        ctx.save(); ctx.imageSmoothingEnabled = true; ctx.drawImage(STRC, 0, -d * 0.92, W, H); ctx.restore();
+        for (let i = 0; i < 70; i++) { const y = rnd(i, 2) * 0.5 * H - d * 0.92 + Math.sin(u * 0.4) * 2, tw = 0.5 + 0.5 * Math.sin(t * (2 + rnd(i, 4) * 3) + i * 3.1);
+          if (y < -10 || y > H) continue; fx(ctx, 'sparkle', (t * 6 + i) % 8, rnd(i, 1) * W, y, 0.1 + 0.2 * rnd(i, 3), tw * 0.9 * sk, { add: true }); }
+      }
+      deckTiles(ctx, DECKC, D, 520, d, 1, 1, W / 2, true);
+      if (d > 300) { const a1 = sstep((d - 560) / 500); deckTiles(ctx, null, D, 0, d * 1.9 + 300, 0.5 * a1, 1.7, W * 0.58, true); }
+      if (d > 800) { const a2 = sstep((d - 950) / 600); deckTiles(ctx, null, D, 0, d * 3.1 + 900, 0.42 * a2, 2.6, W * 0.4, true); }
+      const sp = clamp((d - 150) / 900, 0, 1);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+      for (let i = 0; i < 26; i++) { const x = rnd(i, 8) * W, L = 80 + rnd(i, 9) * 220, y = ((rnd(i, 10) * H * 2 - u * (500 + 700 * rnd(i, 11))) % (H + 300) + H + 300) % (H + 300) - 150;
+        ctx.strokeStyle = 'rgba(235,245,255,' + (0.22 * sp * (0.5 + 0.5 * rnd(i, 12))).toFixed(3) + ')'; ctx.lineWidth = 1 + rnd(i, 13) * 2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + L); ctx.stroke(); }
+      ctx.restore();
+      const fg = sstep((u - 8.2) / 5.5) * 0.3; if (fg > 0.004) { ctx.fillStyle = 'rgba(255,248,235,' + fg.toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); } // la brume s'épaissit en approchant du portail
+    }
+    function skyBackLegacy(ctx, t) {
       const u = Math.max(0, t - SK0), cl = I.skyCloud;
       const g = ctx.createLinearGradient(0, -80, 0, H + 80); g.addColorStop(0, 'rgb(34,74,190)'); g.addColorStop(0.45, 'rgb(96,170,240)'); g.addColorStop(1, 'rgb(206,232,255)');
       ctx.fillStyle = g; ctx.fillRect(-100, -100, W + 200, H + 200);
@@ -687,17 +720,25 @@
         ctx.restore();
       });
     }
-    function meteorAt(t) { const k = clamp((t - MET0) / (SKIMP - MET0), 0, 1), e = Math.pow(k, 2.2); return { k, x: lerp(1250, 640, e), y: lerp(100, 330, e), s: lerp(0.1, 2.7, e) }; }
-    function meteorDraw(ctx, t) { // la météorite : animation du météore de PMD Rouge (9 images), inclinée selon sa trajectoire
+    function meteorAt(t) { const k = clamp((t - MET0) / (SKIMP - MET0), 0, 1), e = Math.pow(k, 1.45); return { k, x: lerp(1130, 640, e), y: lerp(70, 340, e), s: lerp(0.55, 2.9, e) }; }
+    function meteorDraw(ctx, t) { // la météorite : boule de feu de PMD Rouge, longue traînée de braises et de fumée, onde de chaleur — elle fend le ciel étoilé puis les nuages
       if (!I.fx_rrmet || !I.fx_rrmet.width || t < MET0 || t > SKIMP + 0.2) return;
       const m = meteorAt(t), e = Math.pow(m.k, 1.4), rot = 1.15 * (1 - e) + 0.05 * Math.sin(t * 9), js = m.s * 1.25 * (1 + 0.02 * Math.sin(t * 37));
-      glow(ctx, m.x, m.y, 300 * m.s + 50, '255,150,50', 0.5); glow(ctx, m.x, m.y, 130 * m.s + 24, '255,240,170', 0.75);
+      const lit = sstep((t - MET0) / 1.2); // le ciel s'embrase sur son passage
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gl = ctx.createRadialGradient(m.x, m.y, 10, m.x, m.y, 900); gl.addColorStop(0, 'rgba(255,150,60,' + (0.22 * lit).toFixed(3) + ')'); gl.addColorStop(1, 'rgba(255,100,30,0)'); ctx.fillStyle = gl; ctx.fillRect(0, 0, W, H); ctx.restore();
+      const TR = 26, DT = 0.05; // traînée : la météorite telle qu'elle était, il y a j × 0,05 s
+      for (let j = TR; j >= 1; j--) { const tt = t - j * DT; if (tt < MET0) continue; const q = meteorAt(tt), f = 1 - j / TR, ss = q.s * 1.25 * (0.35 + 0.65 * f);
+        if (j % 2 === 0 && I.arMist && I.arMist.width) { ctx.save(); ctx.globalAlpha = 0.34 * f; ctx.imageSmoothingEnabled = true; ctx.translate(q.x + Math.sin(j * 1.7) * 14 * q.s, q.y + Math.cos(j * 2.3) * 10 * q.s); const w = 260 * q.s * (0.6 + 0.8 * (1 - f)); ctx.drawImage(I.arMist, -w / 2, -w / 4, w, w / 2); ctx.restore(); }
+        fx(ctx, 'rrmet', tt * 12 + j, q.x, q.y, ss, 0.62 * f * f, { rot, add: true }); glow(ctx, q.x, q.y, 70 * q.s * f + 12, '255,120,40', 0.28 * f); }
+      glow(ctx, m.x, m.y, 330 * m.s + 60, '255,150,50', 0.5); glow(ctx, m.x, m.y, 140 * m.s + 26, '255,240,170', 0.8);
       fx(ctx, 'rrmet', t * 12, m.x, m.y, js, 1, { rot });
-      fx(ctx, 'rrmet', t * 12 + 3, m.x, m.y, js * 1.06, 0.35, { rot, add: true });
-      for (let i = 0; i < 14; i++) { // braises qui filent le long de la traînée
-        const ph = (t * (0.7 + rnd(i, 5) * 0.6) + rnd(i, 6)) % 1, d = ph * 520 * m.s, off = (rnd(i, 7) - 0.5) * 120 * m.s;
-        fx(ctx, 'sparkle', ph * 8, m.x + 0.93 * d - 0.37 * off, m.y - 0.37 * d - 0.93 * off, 0.35 + 0.5 * m.s, 1 - ph, { add: true, tint: '255,190,90' });
+      fx(ctx, 'rrmet', t * 12 + 3, m.x, m.y, js * 1.06, 0.4, { rot, add: true });
+      const q0 = meteorAt(t - 0.1), dx = m.x - q0.x, dy = m.y - q0.y, L = Math.hypot(dx, dy) || 1, ux = -dx / L, uy = -dy / L; // direction de la traînée
+      for (let i = 0; i < 40; i++) { // braises et éclats qui filent en arrière
+        const ph = (t * (0.7 + rnd(i, 5) * 0.6) + rnd(i, 6)) % 1, d = ph * 640 * m.s, off = (rnd(i, 7) - 0.5) * 150 * m.s;
+        fx(ctx, 'sparkle', ph * 8, m.x + ux * d - uy * off, m.y + uy * d + ux * off, 0.3 + 0.5 * m.s, 1 - ph, { add: true, tint: i % 3 ? '255,190,90' : '255,120,50' });
       }
+      const sh = clamp((m.k - 0.35) / 0.65, 0, 1); if (sh > 0) { ring(ctx, m.x, m.y, 60 * m.s + ((t * 1.4) % 1) * 220 * m.s, 2.4, '255,220,160', 0.45 * sh * (1 - (t * 1.4) % 1), 1); } // onde de chaleur
     }
     // gestes (chaque personnage a sa partition : [instant, animation, direction, boucle, vitesse, image figée])
     const SKSEQ = {

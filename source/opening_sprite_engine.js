@@ -20,7 +20,7 @@
     { t: 106.0, name: '', short: 'V' },
     { t: 132.0, name: '', short: 'VI' },
   ];
-  const IMPACTS = [74.0, 75.4, 78.6, 79.0, 80.4, 81.9, 82.4, 84.0, 85.6, 86.2, 92.2, 101.0, 103.3];
+  const IMPACTS = [74.0, 75.9, 78.6, 79.4, 80.4, 81.3, 81.9, 82.9, 84.0, 85.6, 86.2, 91.1, 101.0, 103.3];
   const HITSTOP = 0.075;
 
   // ---------- Interpolation ----------
@@ -123,17 +123,14 @@
       if (d >= 0 && d < 0.4) { const big = A.kind === 'aurasphere' || A.kind === 'shadowball'; hitFx(ctx, x1, y1, d, A.t0 * 7.3, K.tint, (A.s || 1) * (big ? 1 : 0.7)); glow(ctx, x1, y1, 38 * (A.s || 1), K.glow, 0.8 * (1 - d / 0.4)); ring(ctx, x1, y1 + 8, d * 90, 1.2, K.glow, 0.8 * (1 - d / 0.4), 0.4); }
     }
     const BOLTS = [
-      // 4a : Darkrai bombarde les trois héros
-      { kind: 'shadowball', t0: 73.0, from: [352, 126], to: [238, 190], s: 1.2 },
-      { kind: 'shadowball', t0: 74.4, from: [352, 128], to: [232, 194], s: 1.4 },
-      // 4b : mêlée — Météores d'Évoli, Bulles d'O de Tiplouf, Ball'Ombre de Darkrai
-      { kind: 'swift', t0: 77.6, from: [262, 186], to: [306, 174], n: 5, charge: 0.45, fly: 0.55 },
-      { kind: 'shadowball', t0: 79.4, from: [348, 132], to: [266, 182] },
-      { kind: 'bubble', t0: 80.9, from: [278, 204], to: [318, 194], n: 7, charge: 0.45, fly: 0.55 },
-      { kind: 'shadowball', t0: 83.0, from: [344, 134], to: [250, 184], s: 1.3 },
-      { kind: 'shadowball', t0: 84.6, from: [342, 136], to: [236, 186], s: 1.6 },
-      // 4c : Darkrai tente d'interrompre l'évolution
-      { kind: 'shadowball', t0: 91.2, from: [336, 130], to: [222, 172], s: 1.8 },
+      // 4a : Darkrai tire sur Riolu pendant que ses tentacules saisissent les deux partenaires
+      { kind: 'shadowball', t0: 73.0, from: [352, 126], to: [208, 184], s: 1.3 },
+      // 4b : les partenaires possédés — Météores d'Évoli, Bulles d'O de Tiplouf — et Ball'Ombre de Darkrai contre Riolu
+      { kind: 'swift', t0: 77.6, from: [244, 190], to: [212, 184], n: 5, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 79.4, from: [348, 132], to: [214, 184] },
+      { kind: 'bubble', t0: 80.9, from: [262, 204], to: [212, 188], n: 7, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 83.0, from: [344, 134], to: [210, 186], s: 1.3 },
+      { kind: 'shadowball', t0: 84.6, from: [342, 136], to: [206, 190], s: 1.6 },
       // 4d : Aurasphère du Méga-Lucario contre Ball'Ombre de Darkrai — les deux sphères se percutent
       { kind: 'aurasphere', t0: 99.6, from: [226, 184], to: [302, 160], s: 2.0, charge: 0.8, fly: 0.6 },
       { kind: 'shadowball', t0: 99.6, from: [338, 134], to: [302, 160], s: 2.2, charge: 0.8, fly: 0.6 },
@@ -171,9 +168,9 @@
       const im = tintRays(rgb || '255,246,206'); if (!im) return godRaysProc(ctx, t, a, ox, oy, n, spread, len, rgb);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
       for (let i = 0; i < 3; i++) {
-        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 1.15, 0, 1);
+        const ang = (i - 1) * spread * 0.3 + Math.sin(t * 0.3 + i * 2.1) * 0.05, sx = (W / 212) * (0.5 + 0.22 * i) * (0.6 + 0.5 * spread), al = clamp(a * (0.5 + 0.5 * Math.sin(t * 0.8 + i * 1.7) ** 2) * 0.42, 0, 1);
         if (al < 0.01) continue; ctx.globalAlpha = al;
-        for (let k = 0; k < 2; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
+        for (let k = 0; k < 1; k++) { ctx.save(); ctx.translate(ox + (i - 1) * W * 0.16, oy); ctx.rotate(-ang); ctx.scale(sx, len / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
       }
       ctx.restore();
     }
@@ -242,6 +239,7 @@
     }
     function freezeBefore(t) { let f = 0; for (const ti of IMPACTS) if (t > ti) f += Math.min(t - ti, HITSTOP); return f; }
 
+    let TINTBUF = null;
     function drawSprite(ctx, pid, anim, dir, tick, loop, x, y, o) {
       const info = animInfo(pid, anim); if (!info) return;
       const im = SH[info.file]; if (!im || !im.width) return;
@@ -260,8 +258,13 @@
       }
       if (o.aura) glow(ctx, x, y - 8 - z, 34 * sc, o.aura, 0.35 * al);
       ctx.save(); ctx.globalAlpha = al; ctx.translate(x, y - 2 - z); if (o.rot) ctx.rotate(o.rot); ctx.scale(sc * (o.flip ? -1 : 1), sc);
-      ctx.drawImage(im, col * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh);
-      if (o.tint) { ctx.globalCompositeOperation = 'source-atop'; ctx.globalAlpha = o.tint[1]; ctx.fillStyle = o.tint[0]; ctx.fillRect(-fw / 2, -fh / 2, fw, fh); }
+      if (o.tint) { // silhouette teintée : on teinte la seule image du sprite dans un tampon (sans toucher au décor déjà peint)
+        if (!TINTBUF || TINTBUF.width < fw || TINTBUF.height < fh) { TINTBUF = mk(Math.max(fw, 64), Math.max(fh, 64)); }
+        const g = TINTBUF.getContext('2d'); g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, TINTBUF.width, TINTBUF.height);
+        g.imageSmoothingEnabled = false; g.drawImage(im, col * fw, row * fh, fw, fh, 0, 0, fw, fh);
+        g.globalCompositeOperation = 'source-atop'; g.globalAlpha = o.tint[1]; g.fillStyle = o.tint[0]; g.fillRect(0, 0, fw, fh); g.restore();
+        ctx.drawImage(TINTBUF, 0, 0, fw, fh, -fw / 2, -fh / 2, fw, fh);
+      } else ctx.drawImage(im, col * fw, row * fh, fw, fh, -fw / 2, -fh / 2, fw, fh);
       ctx.restore();
     }
 
@@ -530,19 +533,6 @@
         ctx.save(); ctx.globalAlpha = clamp(al, 0, 1); ctx.imageSmoothingEnabled = true; ctx.translate(x, y); ctx.rotate(Math.sin(t * 0.3 + i) * 0.15); ctx.drawImage(im, -w / 2, -w / 4, w, w / 2); ctx.restore();
       }
     }
-    function crystalsAndRune(ctx, t, runeRgb, runeK) { // cristaux qui palpitent + cercle magique qui bat au tempo
-      if (!AR) return; runeRgb = runeRgb || '200,90,255'; const bt = 0.5 + 0.5 * Math.cos(((t % BEAT) / BEAT) * TAU), rk = runeK == null ? 1 : runeK;
-      AR.crystals.forEach((c, i) => {
-        const x = c[0] * AKX, y = c[1] * AKY, p = 0.55 + 0.45 * Math.sin(t * (2.2 + rnd(i, 7)) + i * 1.9);
-        glow(ctx, x, y, c[2] * AKX * 2.4, '190,90,255', 0.38 * p);
-        const sp = ((t * (0.5 + rnd(i, 8) * 0.4) + rnd(i, 9)) % 1);
-        fx(ctx, 'sparkle', sp * 8, x + (rnd(i, 10) - 0.5) * 8, y - sp * 16, 0.28, 1 - sp, { add: true, tint: '220,150,255' });
-      });
-      const cx = AR.rune[0] * AKX, cy = AR.rune[1] * AKY, rx = AR.rune[2] * AKX;
-      ctx.save(); ctx.translate(cx, cy); ctx.scale(1, 0.53); glow(ctx, 0, 0, rx * (1.2 + 0.2 * bt), runeRgb, (0.14 + 0.12 * bt) * rk); ctx.restore();
-      const u = (t * 0.6) % 1; ring(ctx, cx, cy, rx * (0.9 + u * 1.1), 1.2, runeRgb, 0.4 * (1 - u) * rk, 0.53);
-      ctx.save(); ctx.translate(cx, cy); ctx.scale(1, 0.53); ctx.rotate(t * 0.5); starBurst(ctx, 0, 0, rx * 1.1, 0.1 * rk * (0.6 + 0.4 * bt), 6, 0); ctx.restore();
-    }
     function boltShape(s, x0, y0, x1, y1, n, jag) { // éclair déchiqueté, forme fixée par la graine
       const pts = [[x0, y0]]; const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
       for (let i = 1; i < n; i++) { const u = i / n, o = (rnd(s, 20 + i) - 0.5) * jag * (1 - Math.abs(u - 0.5) * 0.6); pts.push([x0 + dx * u + nx * o, y0 + dy * u + ny * o]); }
@@ -570,121 +560,238 @@
     }
     function boltFlash(t, n) { let fl = 0; for (let k = Math.floor(t / BSLOT) - 1; k <= Math.floor(t / BSLOT); k++) for (let j = 0; j < (n || 3); j++) { const s = k * 11 + j * 3, d = t - (k + rnd(s, 1) * 0.85) * BSLOT; if (d >= 0 && d < 0.24) fl = Math.max(fl, (1 - d / 0.24) * (0.55 + 0.45 * (Math.floor(d * 60) % 2))); } return fl; }
     function arenaOver(ctx, t, sc) { mistLayer(ctx, t, false); rocks(ctx, t, true); const f = skyBolts(ctx, t, sc, 3); if (f > 0.05) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgba(120,70,200,${(0.1 * f).toFixed(3)})`; ctx.fillRect(-300, -200, MW + 600, MH + 400); ctx.restore(); } }
-    // ---- Méga-Évolution : hélices de lumière, anneau et orbes du soleil RRT, piliers de rayons ----
-    function pillarBeams(ctx, t, x, y, w, h, a, rgb) { const im = tintRays(rgb); if (!im || a <= 0.003) return;
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true;
-      for (let i = 0; i < 3; i++) { ctx.globalAlpha = clamp(a * 0.75 * (0.55 + 0.45 * Math.sin(t * (1.5 + i) + i * 2)), 0, 1); ctx.save(); ctx.translate(x + (i - 1) * w * 0.12, y); ctx.scale(w / 212 * (1 - i * 0.18), -h / 200); ctx.drawImage(im, -106, 0); ctx.restore(); }
-      ctx.restore(); }
-    function megaFx(ctx, t, x, y, k, u) { // k 0→1 : montée de l'énergie ; u = secondes depuis la libération
-      const hue = (i) => ['255,90,120', '255,200,90', '120,255,170', '110,200,255', '210,130,255'][i % 5];
-      if (k > 0 && k < 1.001) for (let i = 0; i < 44; i++) {
-        const ph = ((t * 0.8 + i / 44) % 1), r = (1 - ph) * (80 - 20 * k), an = (i % 2 ? 1 : -1) * (ph * 8.5) + i * 0.6, px = x + Math.cos(an) * r, py = y - 22 + Math.sin(an) * r * 0.55 - (1 - ph) * 12 * (i % 2 ? 1 : -1);
-        fx(ctx, 'sparkle', ph * 8, px, py, 0.3 + 0.2 * k, k * (0.4 + 0.6 * ph), { add: true, tint: hue(i) });
+    // ---- Possession par Darkrai : tentacules d'ombre, aura sanglante, flaques noires d'où surgissent les Ténéfix ----
+    function tendril(ctx, t, x0, y0, x1, y1, k, seed, wd) { // tentacule d'ombre qui se faufile de Darkrai jusqu'à sa victime
+      if (k <= 0.003) return; const n = 22, dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, pts = [];
+      for (let i = 0; i <= n; i++) { const u = (i / n) * Math.min(1, k), env = Math.sin(Math.PI * Math.min(1, i / n)) * (6 + 5 * rnd(seed, 3)); const w = Math.sin(u * 11 - t * 6.5 + seed * 2.3) * env + Math.sin(u * 23 + t * 4 + seed) * 1.6;
+        pts.push([x0 + dx * u + nx * w, y0 + dy * u + ny * w - Math.sin(Math.PI * u) * 10]); }
+      ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (const [lw, col, op] of [[wd * 2.6, 'rgba(14,0,28,0.85)', 'source-over'], [wd * 1.5, 'rgba(120,30,200,0.55)', 'lighter'], [wd * 0.5, 'rgba(255,70,110,0.9)', 'lighter']]) {
+        ctx.globalCompositeOperation = op; ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
       }
-      if (k > 0) {
-        const p = 0.5 + 0.5 * Math.sin(t * 9); arImg(ctx, 'sunOrb', x, y - 24, (0.14 + 0.26 * k) * (0.9 + 0.15 * p), 0.7 * Math.min(1, k * 1.4), { add: true });
-        glow(ctx, x, y - 24, 22 + 42 * k, '255,236,150', 0.34 * k);
-        for (let i = 0; i < 5; i++) { const an = t * 4.5 * (i % 2 ? 1 : -1) + i * 1.26, r = (60 - 28 * k) * (0.7 + 0.3 * Math.sin(t * 3 + i)); arImg(ctx, i % 2 ? 'sunBallA' : 'sunBallB', x + Math.cos(an) * r, y - 22 + Math.sin(an) * r * 0.5, 0.22 + 0.14 * k, 0.9 * k, { add: true }); }
-        arImg(ctx, 'sunRing', x, y - 4, 0.32 + 0.3 * k + 0.05 * Math.sin(t * 6), 0.6 * k, { sy: 0.45 });
-        arImg(ctx, 'sunRing', x, y - 26, 0.22 + 0.25 * k, 0.5 * k, { rot: t * 1.3 });
-        pillarBeams(ctx, t, x, y - 2, 34 + 26 * k, 110 + 70 * k, 0.4 * k, '255,236,170');
-      }
-      if (u != null && u >= 0) {
-        const e = sstep(u / 1.3);
-        arImg(ctx, 'sunRing', x, y - 24, 0.3 + 2.4 * e, 0.9 * (1 - e), { rot: u });
-        arImg(ctx, 'sunRing', x, y - 4, 0.4 + 3.2 * sstep(u / 1.6), 0.9 * (1 - sstep(u / 1.6)), { sy: 0.45 });
-        ring(ctx, x, y - 6, u * 140, 2.2, '255,246,200', 0.8 * Math.exp(-u * 1.6), 0.5);
-        starBurst(ctx, x, y - 24, 30 + 90 * e, 0.8 * (1 - e), 12, u * 0.4);
-        glow(ctx, x, y - 24, 40 + 110 * e, '255,240,170', 0.6 * (1 - e));
-        pillarBeams(ctx, t, x, y - 2, 60, 200, 0.5 * (1 - sstep(u / 2.2)), '255,246,200');
-      }
+      const e = pts[pts.length - 1]; glow(ctx, e[0], e[1], 12, '255,60,100', 0.7); ctx.restore();
+    }
+    function possessFx(ctx, t, x, y, k) { // aura de possession : fumée sombre qui monte, lueur rouge
+      if (k <= 0.003) return; glow(ctx, x, y - 12, 26, '255,30,70', 0.2 * k);
+      for (let i = 0; i < 7; i++) { const ph = (t * (0.55 + rnd(i, 3) * 0.4) + rnd(i, 4)) % 1, w = 26 + 10 * rnd(i, 5);
+        if (I.arMist && I.arMist.width) { ctx.save(); ctx.globalAlpha = 0.7 * k * Math.sin(Math.PI * ph); ctx.imageSmoothingEnabled = true; ctx.drawImage(I.arMist, x + (rnd(i, 6) - 0.5) * 18 - w / 2, y - 6 - ph * 34 - w / 4, w, w / 2); ctx.restore(); }
+        fx(ctx, 'sparkle', ph * 8, x + (rnd(i, 7) - 0.5) * 20, y - 8 - ph * 30, 0.2, k * (1 - ph), { add: true, tint: '255,60,90' }); }
+    }
+    function pool(ctx, t, x, y, k, a) { // flaque noire : l'ombre que Darkrai étend sur le sol (les Ténéfix en surgissent)
+      if (k <= 0.003 || a <= 0.003) return; const rx = 17 * Math.min(1, k * 1.3), ry = rx * 0.4;
+      ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y + 4); ctx.scale(1, 0.4);
+      const g = ctx.createRadialGradient(0, 0, 1, 0, 0, rx); g.addColorStop(0, 'rgba(2,0,8,0.96)'); g.addColorStop(0.75, 'rgba(10,0,24,0.9)'); g.addColorStop(1, 'rgba(60,10,110,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, rx, 0, TAU); ctx.fill(); ctx.restore();
+      ring(ctx, x, y + 4, rx * (0.7 + 0.3 * ((t * 1.3 + x) % 1)), 1, '170,60,255', 0.5 * a * (1 - ((t * 1.3 + x) % 1)), 0.4);
+      for (let i = 0; i < 5; i++) { const ph = (t * 0.7 + rnd(i + x, 2)) % 1; fx(ctx, 'sparkle', ph * 8, x + (rnd(i + x, 3) - 0.5) * rx, y - ph * 18, 0.18, a * (1 - ph) * 0.8, { add: true, tint: '190,60,255' }); }
+    }
+    function dustPuffs(ctx, x, y, d, big) { // poussière de l'atterrissage
+      if (d < 0 || d > 1.3) return; const e = d / 1.3;
+      for (let i = 0; i < 9; i++) { const an = Math.PI * (i / 8) * 2 + 0.3 * i, r = (6 + 34 * Math.sqrt(e)) * (0.6 + 0.6 * rnd(i, 21)) * (big || 1), px = x + Math.cos(an) * r, py = y + 4 + Math.sin(an) * r * 0.32 - e * 6, s = (7 + 9 * e) * (0.7 + 0.6 * rnd(i, 22));
+        ctx.save(); ctx.globalAlpha = 0.55 * (1 - e) * (1 - e); const g = ctx.createRadialGradient(px, py, 0, px, py, s); g.addColorStop(0, 'rgba(214,200,222,0.95)'); g.addColorStop(1, 'rgba(160,140,180,0)'); ctx.fillStyle = g; ctx.fillRect(px - s, py - s, s * 2, s * 2); ctx.restore(); }
+      ring(ctx, x, y + 6, d * 120, 2, '235,225,255', 0.7 * (1 - e), 0.34);
+    }
+    // ---- Fissure de la réalité : déchirure dentelée dans l'air, par où arrive Lucario ----
+    function riftPoly(cx, cy, h, w, t) {
+      const N = 16, L = [], R = [];
+      for (let i = 0; i <= N; i++) { const u = i / N, env = Math.pow(Math.sin(Math.PI * u), 0.75) * w, y = cy - h / 2 + u * h + (rnd(i, 31) - 0.5) * (h / N) * 0.9, sk = (u - 0.5) * h * 0.12 + Math.sin(t * 2.3 + i) * 0.5;
+        L.push([cx + sk - env * (0.35 + rnd(i, 32) * 0.75), y]); R.push([cx + sk + env * (0.35 + rnd(i, 33) * 0.75), y + (rnd(i, 35) - 0.5) * 3]); }
+      return L.concat(R.reverse());
+    }
+    function riftDraw(ctx, t, cx, cy, h, k, t0) {
+      if (k <= 0.003) return; const poly = riftPoly(cx, cy, h * (0.35 + 0.65 * k), 12 * k + 2, t);
+      glow(ctx, cx, cy, h * 0.8, '150,90,255', 0.3 * k); glow(ctx, cx, cy, h * 0.4, '255,240,255', 0.12 * k);
+      ctx.save(); ctx.beginPath(); poly.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.clip();
+      ctx.fillStyle = '#0a0418'; ctx.fillRect(cx - 40, cy - h, 80, h * 2);
+      const P = I.cloudPortal; if (P && P.width) { ctx.imageSmoothingEnabled = true; ctx.translate(cx, cy); ctx.rotate(t * 0.25); ctx.drawImage(P, -h * 1.3, -h * 0.73, h * 2.6, h * 1.46); ctx.rotate(-t * 0.25); ctx.translate(-cx, -cy); }
+      ctx.globalCompositeOperation = 'lighter'; const g = ctx.createLinearGradient(cx - 14, 0, cx + 14, 0); g.addColorStop(0, 'rgba(120,70,255,0.25)'); g.addColorStop(0.5, 'rgba(255,255,255,0.22)'); g.addColorStop(1, 'rgba(120,70,255,0.25)'); ctx.fillStyle = g; ctx.fillRect(cx - 40, cy - h, 80, h * 2);
+      ctx.restore();
+      strokeBolt(ctx, poly.concat([poly[0]]), 0.95 * Math.min(1, k * 1.5), 1.1);
+      const fl = Math.floor((t - t0) * 20);
+      for (let i = 0; i < 5; i++) { const s = fl * 7 + i, p = poly[Math.floor(rnd(s, 1) * poly.length)], an = rnd(s, 2) * TAU, Ln = 14 + rnd(s, 3) * 26;
+        strokeBolt(ctx, boltShape(s, p[0], p[1], p[0] + Math.cos(an) * Ln, p[1] + Math.sin(an) * Ln, 5, 8), 0.8 * k, 0.6); }
+      for (let i = 0; i < 12; i++) { const ph = ((t - t0) * 0.5 + rnd(i, 41)) % 1; fx(ctx, 'sparkle', ph * 8, cx + (rnd(i, 42) - 0.5) * 40 * k, cy + (rnd(i, 43) - 0.5) * h * 0.8 + ph * 12, 0.25, k * (1 - ph), { add: true, tint: '230,200,255' }); }
+      const u = (t - t0) * 0.9; for (let j = 0; j < 2; j++) { const ph = (u + j * 0.5) % 1; ring(ctx, cx, cy, h * (0.15 + 0.4 * ph), 1.2, '200,160,255', 0.4 * k * (1 - ph), 1.3); }
+    }
+    // ---- Méga-Évolution canonique (jeux 3D / pixel) : Pierre de Key et Méga-Gemme reliées par des fils arc-en-ciel, sphère irisée, silhouette blanche, éclat, emblème ----
+    function stoneDraw(ctx, t, x, y, s, a, hue0) { // gemme étincelante : cœur blanc, halo qui parcourt le spectre
+      if (a <= 0.003) return; glow(ctx, x, y, 17 * s, hueRgb((hue0 + t * 110) % 360, 0.6), 0.75 * a); glow(ctx, x, y, 8 * s, '255,255,255', 0.9 * a);
+      ctx.save(); ctx.globalAlpha = a; const g = ctx.createRadialGradient(x - 1, y - 1, 0, x, y, 4.2 * s); g.addColorStop(0, '#ffffff'); g.addColorStop(0.55, 'rgb(' + hueRgb((hue0 + t * 110) % 360, 0.8) + ')'); g.addColorStop(1, 'rgb(' + hueRgb((hue0 + 180 + t * 110) % 360, 0.45) + ')');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x, y - 4.6 * s); ctx.lineTo(x + 3.6 * s, y - 0.8 * s); ctx.lineTo(x + 2.2 * s, y + 3.8 * s); ctx.lineTo(x - 2.2 * s, y + 3.8 * s); ctx.lineTo(x - 3.6 * s, y - 0.8 * s); ctx.closePath(); ctx.fill(); ctx.restore();
+      starBurst(ctx, x, y, 11 * s, 0.55 * a * (0.6 + 0.4 * Math.sin(t * 14)), 4, t * 0.9);
+    }
+    function rainbowThread(ctx, t, x0, y0, x1, y1, k, seed) { // double fil torsadé de lumière arc-en-ciel entre les deux gemmes
+      if (k <= 0.003) return; const n = 34, dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+      for (let s = 0; s < 2; s++) { let px = x0, py = y0;
+        for (let i = 1; i <= n; i++) { const u = (i / n) * Math.min(1, k), wob = Math.sin(u * 17 - t * 9 + s * Math.PI + seed) * 5.5 * Math.sin(Math.PI * i / n) * (0.5 + 0.5 * k), qx = x0 + dx * u + nx * wob, qy = y0 + dy * u + ny * wob;
+          const rgb = hueRgb((i * 13 + t * 140 + s * 170) % 360, 0.55);
+          ctx.strokeStyle = 'rgba(' + rgb + ',0.14)'; ctx.lineWidth = 3.4; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke();
+          ctx.strokeStyle = 'rgba(' + rgb + ',0.8)'; ctx.lineWidth = 1.0; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke(); px = qx; py = qy; } }
+      for (let i = 0; i < 8; i++) { const ph = (t * 1.1 + i / 8) % 1, u = ph * Math.min(1, k); fx(ctx, 'sparkle', ph * 8, x0 + dx * u, y0 + dy * u, 0.2, 0.9, { add: true, tint: hueRgb((i * 45 + t * 90) % 360) }); }
+      ctx.restore();
+    }
+    function megaSphere(ctx, t, x, y, r, a) { // sphère irisée (bulle arc-en-ciel) qui enveloppe Lucario
+      if (a <= 0.003 || r < 1) return; ctx.save(); ctx.translate(x, y); ctx.globalAlpha = a;
+      let g = ctx.createRadialGradient(0, 0, r * 0.15, 0, 0, r); g.addColorStop(0, 'rgba(255,255,255,0.16)'); g.addColorStop(0.7, 'rgba(225,236,255,0.18)'); g.addColorStop(1, 'rgba(255,255,255,0.55)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.fill();
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < 14; i++) { const a0 = (i / 14) * TAU + t * 1.3, a1 = a0 + TAU / 14 * 1.15, gg = ctx.createRadialGradient(0, 0, r * 0.25, 0, 0, r);
+        gg.addColorStop(0, 'rgba(255,255,255,0)'); gg.addColorStop(1, 'hsla(' + ((i * 26 + t * 90) % 360).toFixed(0) + ',100%,62%,0.42)'); ctx.fillStyle = gg; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, r, a0, a1); ctx.closePath(); ctx.fill(); }
+      for (let i = 0; i < 64; i++) { const a0 = (i / 64) * TAU, a1 = ((i + 1.3) / 64) * TAU; ctx.strokeStyle = 'hsla(' + ((i * 5.6 - t * 120) % 360).toFixed(0) + ',100%,70%,0.95)'; ctx.lineWidth = Math.max(0.8, r * 0.06); ctx.beginPath(); ctx.arc(0, 0, r, a0, a1); ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = Math.max(0.6, r * 0.03); ctx.beginPath(); ctx.arc(-r * 0.12, -r * 0.1, r * 0.78, Math.PI * 1.08, Math.PI * 1.46); ctx.stroke(); // reflet de la bulle
+      ctx.beginPath(); ctx.arc(r * 0.1, r * 0.1, r * 0.82, Math.PI * 0.05, Math.PI * 0.3); ctx.stroke();
+      ctx.restore();
+    }
+    function megaSymbol(ctx, t, x, y, R, a) { // emblème de la Méga-Évolution : anneau irisé et double hélice
+      if (a <= 0.003 || R < 1) return; glow(ctx, x, y, R * 2.4, '255,255,255', 0.5 * a); glow(ctx, x, y, R * 1.8, hueRgb((t * 100) % 360, 0.6), 0.3 * a);
+      ctx.save(); ctx.translate(x, y); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+      for (let i = 0; i < 72; i++) { const a0 = (i / 72) * TAU, a1 = ((i + 1.4) / 72) * TAU; ctx.strokeStyle = 'hsla(' + ((i * 5 + t * 80) % 360).toFixed(0) + ',100%,68%,' + (0.95 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.14; ctx.beginPath(); ctx.arc(0, 0, R, a0, a1); ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(255,255,255,' + (0.9 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.035; ctx.beginPath(); ctx.arc(0, 0, R * 1.08, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.arc(0, 0, R * 0.92, 0, TAU); ctx.stroke();
+      for (let s = 0; s < 2; s++) { let px = 0, py = 0;
+        for (let i = 0; i <= 32; i++) { const v = i / 32, yy = (v - 0.5) * R * 1.55, xx = Math.sin(v * TAU + s * Math.PI + t * 1.2) * R * 0.4; if (i) { ctx.strokeStyle = 'hsla(' + ((v * 300 + s * 150 + t * 90) % 360).toFixed(0) + ',100%,72%,' + (0.98 * a).toFixed(3) + ')'; ctx.lineWidth = R * 0.11; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(xx, yy); ctx.stroke(); } px = xx; py = yy; }
+        ctx.fillStyle = 'rgba(255,255,255,' + (0.95 * a).toFixed(3) + ')'; for (const v of [0, 1]) { ctx.beginPath(); ctx.arc(Math.sin(v * TAU + s * Math.PI + t * 1.2) * R * 0.4, (v - 0.5) * R * 1.55, R * 0.09, 0, TAU); ctx.fill(); } }
+      ctx.restore(); starBurst(ctx, x, y, R * 1.7, 0.45 * a, 8, t * 0.5);
+    }
+    function megaBurst(ctx, t, x, y, u) { // libération : ondes arc-en-ciel, éclats, éclair de lumière blanche
+      if (u < 0 || u > 2.6) return; const e = sstep(u / 1.2), f = 1 - sstep(u / 2.4);
+      glow(ctx, x, y - 20, 30 + 130 * e, '255,255,255', 0.6 * (1 - e)); glow(ctx, x, y - 20, 50 + 120 * e, hueRgb((t * 140) % 360, 0.6), 0.4 * (1 - e));
+      for (let i = 0; i < 4; i++) { const uu = Math.max(0, u - i * 0.09); ring(ctx, x, y - 14, uu * (170 + i * 30), 3.4 - i * 0.6, hueRgb((i * 80 + t * 90) % 360, 0.65), 0.95 * Math.exp(-u * 1.5), 0.62); }
+      ring(ctx, x, y + 2, u * 150, 2.2, '255,255,255', 0.8 * Math.exp(-u * 2), 0.32);
+      for (let i = 0; i < 26; i++) { const an = rnd(i, 51) * TAU, sp = 40 + rnd(i, 52) * 110, d = sp * (1 - Math.exp(-u * 2.2)); fx(ctx, 'sparkle', u * 10 + i, x + Math.cos(an) * d, y - 18 + Math.sin(an) * d * 0.7, 0.3 + 0.3 * rnd(i, 53), f, { add: true, tint: hueRgb((i * 31 + t * 60) % 360) }); }
+      starBurst(ctx, x, y - 20, 24 + 50 * e, 0.55 * (1 - e), 12, u * 0.4);
     }
     const TINTR = {};
     function tintRays(rgb) { const im = I.rrRays; if (!im || !im.width) return null; if (TINTR[rgb]) return TINTR[rgb];
       const c = mk(im.width, im.height), g = c.getContext('2d'); g.drawImage(im, 0, 0); g.globalCompositeOperation = 'multiply'; g.fillStyle = `rgb(${rgb})`; g.fillRect(0, 0, c.width, c.height); return (TINTR[rgb] = c); }
-    const HER = { x: 232, y: 178 };
     const PAL_ARENA = 'rgb(236,226,255)';
-    // 4a — Darkrai surgit des nuées, les trois héros lèvent les yeux
+    const DK = [346, 150]; // Darkrai (point d'attache des tentacules)
+    const RED = '255,40,90', VIO = '190,60,255';
+    // 4a — Darkrai surgit des nuées ; ses tentacules d'ombre s'enroulent autour d'Évoli et de Tiplouf : possédés, ils se retournent contre Riolu
     SC.push({
       id: '4a', t0: 68, t1: 77, map: 'opm3', melee: false, grade: PAL_ARENA,
-      cam: [[68, 250, 150, 0.85, 0.0], [71.5, 288, 148, 1.1, 0.02], [74.5, 300, 148, 1.3, -0.02], [77, 296, 148, 1.35, 0.0]],
+      cam: [[68, 250, 150, 0.85, 0.0], [71.5, 280, 156, 1.1, 0.02], [74.5, 280, 164, 1.25, -0.02], [77, 274, 168, 1.4, 0.0]],
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[68, 130, 200], [71.3, 232, 198]], an: [[68, 'Walk', 'auto'], [71.4, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [74.3, 'Hop', 2, { loop: false }], [75.4, 'Hurt', 2, { loop: false }]], reflect: false, aura: '130,235,255' },
-        { id: 'riolu', pid: '0447', keys: [[68, 108, 186], [71.0, 204, 182]], an: [[68, 'Walk', 'auto'], [71.1, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [75.4, 'Hurt', 2, { loop: false }]] },
-        { id: 'tiplouf', pid: '0393', keys: [[68, 120, 212], [71.5, 260, 208]], an: [[68, 'Walk', 'auto'], [71.6, 'Idle', 2], [72.6, 'LookUp', 2, { loop: false }], [74.4, 'Hop', 2, { loop: false }], [75.5, 'Hurt', 2, { loop: false }]] },
-        { id: 'darkrai', pid: '0491', keys: [[68, 350, 50, 90], [72.6, 346, 158, 8], [77, 346, 158, 6]], an: [[68, 'Charge', 6], [72.8, 'Attack', { toId: 'evoli' }, { loop: false }], [74.0, 'Charge', { toId: 'evoli' }]], a: [[68, 0], [70, 1]], aura: '190,40,255', s: 1.1 },
+        { id: 'evoli', pid: '0133', keys: [[68, 130, 200], [71.3, 232, 198]], an: [[68, 'Walk', 'auto'], [71.4, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [74.3, 'Hurt', 2, { loop: true }]], a: [[68, 1], [75.8, 1], [76.0, 0]], reflect: false, aura: '130,235,255' },
+        { id: 'evoliS', pid: 'shadow_0133', keys: [[75.7, 232, 198], [77, 232, 198]], an: [[75.7, 'Hurt', 2, { loop: true }], [76.5, 'Idle', 4]], a: [[75.7, 0], [76.0, 1]], aura: RED },
+        { id: 'riolu', pid: '0447', keys: [[68, 108, 186], [71.0, 204, 182]], an: [[68, 'Walk', 'auto'], [71.1, 'Idle', 2], [72.4, 'LookUp', 2, { loop: false }], [74.0, 'Hurt', 2, { loop: false }], [75.3, 'Idle', 2]] },
+        { id: 'tiplouf', pid: '0393', keys: [[68, 120, 212], [71.5, 260, 208]], an: [[68, 'Walk', 'auto'], [71.6, 'Idle', 2], [72.6, 'LookUp', 2, { loop: false }], [74.4, 'Hurt', 2, { loop: true }]], a: [[68, 1], [75.8, 1], [76.0, 0]] },
+        { id: 'tiploufS', pid: 'shadow_0393', keys: [[75.7, 260, 208], [77, 260, 208]], an: [[75.7, 'Hurt', 2, { loop: true }], [76.5, 'Idle', 4]], a: [[75.7, 0], [76.0, 1]], aura: RED },
+        { id: 'darkrai', pid: '0491', keys: [[68, 350, 50, 90], [72.6, 346, 158, 8], [77, 346, 158, 6]], an: [[68, 'Charge', 6], [72.8, 'Attack', { toId: 'riolu' }, { loop: false }], [74.0, 'Charge', 6]], a: [[68, 0], [70, 1]], aura: '190,40,255', s: 1.1 },
       ],
       draw(ctx, t) { arenaBack(ctx, t); },
       world(ctx, t, c, ph) {
-        if (ph === 'under') { crystalsAndRune(ctx, t); mistLayer(ctx, t, true); return; }
-        const u = t - 72.6; if (u > 0 && u < 1.3) { ring(ctx, 346, 158, u * 120, 3, '170,70,255', 0.8 * (1 - u / 1.3), 0.5); glow(ctx, 346, 130, 60 * (1 - u / 1.3), '150,60,230', 0.5); }
+        if (ph === 'under') { mistLayer(ctx, t, true); return; }
+        const u = t - 72.6; if (u > 0 && u < 1.3) { ring(ctx, 346, 158, u * 120, 3, '170,70,255', 0.8 * (1 - u / 1.3), 0.5); glow(ctx, 346, 130, 60 * (1 - u / 1.3), '150,60,230', 0.5 * (1 - u / 1.3)); }
+        const tk = sstep((t - 74.3) / 1.1), fd = 1 - sstep((t - 77) / 0.6); // les tentacules se tendent jusqu'aux deux partenaires, puis se resserrent
+        if (t > 74.3) { tendril(ctx, t, DK[0], DK[1], 238, 190, tk * fd, 1, 1.5); tendril(ctx, t, DK[0], DK[1], 262, 198, tk * fd, 2, 1.5); tendril(ctx, t, DK[0] - 4, DK[1] + 6, 236, 196, tk * fd * 0.8, 5, 1.0); }
+        const ps = t - 75.9; if (ps > 0 && ps < 1.2) { ring(ctx, 238, 200, ps * 120, 2.4, RED, 0.9 * (1 - ps / 1.2), 0.45); ring(ctx, 262, 208, ps * 110, 2.2, VIO, 0.8 * (1 - ps / 1.2), 0.45); glow(ctx, 248, 196, 70 * (1 - ps / 1.2) + 20, RED, 0.6 * (1 - ps / 1.2)); }
+        if (t > 74.6) { possessFx(ctx, t, 232, 198, sstep((t - 74.6) / 1.2)); possessFx(ctx, t, 260, 208, sstep((t - 74.8) / 1.2)); }
         arenaOver(ctx, t, this); fightFx(ctx, t);
       },
-      screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.7, r: 1.8, vy: -0.8, vx: -0.6, add: true, tw: true }); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255'); flash(ctx, 0.5 * Math.exp(-Math.abs(t - 72.6) * 7), '210,160,255'); flash(ctx, 0.6 * (1 - sstep((t - 68) / 0.7)), '255,255,255'); },
+      screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.7, r: 1.8, vy: -0.8, vx: -0.6, add: true, tw: true }); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255'); flash(ctx, 0.5 * Math.exp(-Math.abs(t - 72.6) * 7), '210,160,255'); flash(ctx, 0.55 * Math.exp(-Math.abs(t - 75.95) * 9), '255,70,110'); flash(ctx, 0.6 * (1 - sstep((t - 68) / 0.7)), '255,255,255'); },
     });
-    // 4b — mêlée : Évoli, Riolu et Tiplouf contre les ombres, Darkrai bombarde
-    const SHD = (id, pid, keys, an, a) => ({ id, pid, keys, an, a, aura: '190,60,255' });
+    // 4b — mêlée : Évoli et Tiplouf, possédés, attaquent Riolu ; les Ténéfix d'ombre surgissent des flaques noires de Darkrai
+    const SBS = [{ id: 'sab1', x: 268, y: 186, t0: 77.6 }, { id: 'sab2', x: 176, y: 188, t0: 78.1 }, { id: 'sab3', x: 254, y: 172, t0: 78.6 }];
+    const SABA = (S) => [[S.t0, 0], [S.t0 + 0.7, 1]];
     SC.push({
       id: '4b', t0: 77, t1: 88, map: 'opm3', melee: true, grade: PAL_ARENA,
-      cam: [[77, 296, 148, 1.35, 0.0], [79.5, 290, 152, 1.5, 0.05], [82, 288, 158, 1.7, -0.05], [85, 270, 158, 1.6, 0.04], [88, 252, 166, 1.55, 0.0]],
+      cam: [[77, 274, 168, 1.4, 0.0], [79.5, 268, 172, 1.45, 0.03], [82, 258, 174, 1.55, -0.03], [85, 244, 174, 1.6, 0.02], [88, 230, 168, 1.5, 0.0]],
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[77, 232, 198], [78.0, 262, 188], [79.0, 292, 176], [80.6, 262, 190], [82.4, 298, 178], [83.4, 252, 196], [86, 238, 200], [88, 238, 200]],
-          an: [[77, 'Double', 'auto', { loop: false }], [78.0, 'Attack', { to: [302, 174] }, { loop: false }], [79.6, 'Walk', 'auto'], [80.8, 'Swing', { to: [316, 196] }, { loop: false }], [82.2, 'Attack', { to: [322, 176] }, { loop: false }], [83.4, 'Hurt', 6, { loop: false }], [84.6, 'Pain', 6, { loop: false }], [86.2, 'Idle', 6]], aura: '130,235,255' },
-        { id: 'riolu', pid: '0447', keys: [[77, 204, 182], [79, 238, 178], [80.6, 214, 180], [82.2, 262, 176], [84, 240, 184], [85.6, 190, 190], [88, 170, 194]],
-          an: [[77, 'Idle', 2], [78.8, 'Attack', { to: [300, 172] }, { loop: false }], [80.6, 'Walk', 'auto'], [82.0, 'Strike', { to: [310, 176] }, { loop: false }], [84.0, 'Hurt', 2, { loop: false }], [85.6, 'Pain', 2, { loop: false }], [87.0, 'Hurt', 2]] },
-        { id: 'tiplouf', pid: '0393', keys: [[77, 260, 208], [80, 276, 202], [82, 282, 200], [85.4, 268, 208], [88, 250, 210]],
-          an: [[77, 'Idle', 2], [80.7, 'Shoot', { to: [320, 190] }, { loop: false }], [83.2, 'Hurt', 2, { loop: false }], [85.4, 'Hurt', 2, { loop: false }], [87, 'Idle', 6]] },
-        SHD('sriolu', 'shadow_0447', [[77, 306, 172], [80.4, 314, 172], [83, 300, 178], [87.2, 300, 178]], [[77, 'Idle', 6], [79.0, 'Hurt', 6, { loop: false }], [81.6, 'Attack', { toId: 'evoli' }, { loop: false }], [86.2, 'Hurt', 6, { loop: false }]], [[77, 1], [86.6, 1], [87.8, 0]]),
-        SHD('stiplouf', 'shadow_0393', [[77, 320, 198], [81, 322, 194], [84, 306, 196], [87.2, 306, 196]], [[77, 'Idle', 6], [79.4, 'Swing', { toId: 'evoli' }, { loop: false }], [82.6, 'Hurt', 6, { loop: false }], [84.6, 'Attack', { toId: 'tiplouf' }, { loop: false }]], [[77, 1], [86.6, 1], [87.8, 0]]),
-        { id: 'darkrai', pid: '0491', keys: [[77, 346, 158, 6], [84, 336, 160, 8], [88, 336, 160, 6]], an: [[77, 'Idle', 6], [79.0, 'Attack', { toId: 'evoli' }, { loop: false }], [82.6, 'Shoot', { toId: 'riolu' }, { loop: false }], [84.4, 'Attack', { toId: 'riolu' }, { loop: false }], [86.0, 'Charge', 6]], aura: '190,40,255', s: 1.1 },
+        { id: 'riolu', pid: '0447', keys: [[77, 204, 182], [78.0, 208, 184], [79.8, 214, 186], [81.4, 206, 188], [83.0, 212, 186], [84.6, 204, 190], [86.2, 196, 194], [88, 196, 194]],
+          an: [[77, 'Idle', { toId: 'evoliS' }], [78.45, 'Hurt', 2, { loop: false }], [79.3, 'Strike', { toId: 'evoliS' }, { loop: false }], [80.45, 'Hurt', 2, { loop: false }], [81.25, 'Attack', { toId: 'sab1' }, { loop: false }], [82.0, 'Hurt', 2, { loop: false }], [82.8, 'Swing', { toId: 'sab2' }, { loop: false }], [83.95, 'Hurt', 2, { loop: false }], [85.5, 'Pain', 2, { loop: false }]], aura: '120,230,255' },
+        { id: 'evoliS', pid: 'shadow_0133', keys: [[77, 232, 198], [77.8, 240, 194], [79.0, 244, 192], [79.5, 224, 190], [80.2, 240, 194], [82.2, 244, 194], [82.7, 226, 192], [83.3, 240, 196], [85, 240, 196], [86.4, 224, 202], [88, 222, 202]],
+          an: [[77, 'Idle', { toId: 'riolu' }], [77.3, 'Shoot', { toId: 'riolu' }, { loop: false }], [79.1, 'Attack', { toId: 'riolu' }, { loop: false }], [80.6, 'Idle', { toId: 'riolu' }], [82.3, 'Attack', { toId: 'riolu' }, { loop: false }], [83.8, 'Swing', { toId: 'riolu' }, { loop: false }], [85.0, 'Idle', { toId: 'riolu' }]], aura: RED },
+        { id: 'tiploufS', pid: 'shadow_0393', keys: [[77, 260, 208], [80, 262, 206], [82, 238, 208], [83, 258, 208], [86, 238, 212], [88, 232, 212]],
+          an: [[77, 'Idle', { toId: 'riolu' }], [80.4, 'Shoot', { toId: 'riolu' }, { loop: false }], [82.0, 'Attack', { toId: 'riolu' }, { loop: false }], [83.5, 'Idle', { toId: 'riolu' }], [84.8, 'Swing', { toId: 'riolu' }, { loop: false }], [86, 'Idle', { toId: 'riolu' }]], aura: RED },
+        { id: 'sab1', pid: 'shadow_0302', keys: [[77.6, 268, 186], [80.8, 262, 186], [81.3, 226, 190], [82.0, 262, 186], [84.5, 262, 186], [86.3, 222, 186], [88, 220, 186]], a: SABA(SBS[0]), aura: VIO,
+          an: [[77.6, 'Hop', { toId: 'riolu' }, { loop: false }], [78.6, 'Idle', { toId: 'riolu' }], [81.0, 'Attack', { toId: 'riolu' }, { loop: false }], [82.5, 'Idle', { toId: 'riolu' }], [85.8, 'MultiStrike', { toId: 'riolu' }, { loop: false }], [87, 'Idle', { toId: 'riolu' }]] },
+        { id: 'sab2', pid: 'shadow_0302', keys: [[78.1, 176, 188], [82.4, 178, 188], [82.9, 196, 190], [83.5, 180, 188], [88, 178, 190]], a: SABA(SBS[1]), aura: VIO,
+          an: [[78.1, 'Hop', { toId: 'riolu' }, { loop: false }], [79.1, 'Idle', { toId: 'riolu' }], [82.6, 'Swing', { toId: 'riolu' }, { loop: false }], [83.8, 'Idle', { toId: 'riolu' }], [85.9, 'MultiStrike', { toId: 'riolu' }, { loop: false }], [87, 'Idle', { toId: 'riolu' }]] },
+        { id: 'sab3', pid: 'shadow_0302', keys: [[78.6, 254, 172], [84, 254, 172], [84.5, 218, 184], [85.3, 254, 172], [88, 254, 172]], a: SABA(SBS[2]), aura: VIO,
+          an: [[78.6, 'Hop', { toId: 'riolu' }, { loop: false }], [79.6, 'Idle', { toId: 'riolu' }], [84.2, 'SpAttack', { toId: 'riolu' }, { loop: false }], [85.6, 'Idle', { toId: 'riolu' }]] },
+        { id: 'darkrai', pid: '0491', keys: [[77, 346, 158, 6], [84, 336, 160, 8], [88, 336, 160, 6]], an: [[77, 'Charge', 6], [79.0, 'Attack', { toId: 'riolu' }, { loop: false }], [82.6, 'Shoot', { toId: 'riolu' }, { loop: false }], [84.4, 'Attack', { toId: 'riolu' }, { loop: false }], [86.0, 'Charge', 6]], aura: '190,40,255', s: 1.1 },
       ],
       draw(ctx, t) { arenaBack(ctx, t); },
       world(ctx, t, c, ph) {
-        if (ph === 'under') { crystalsAndRune(ctx, t); mistLayer(ctx, t, true); return; }
+        if (ph === 'under') { mistLayer(ctx, t, true); for (const S of SBS) pool(ctx, t, S.x, S.y, sstep((t - (S.t0 - 0.5)) / 0.9), 0.9 * (1 - sstep((t - 87.4) / 0.6))); return; }
+        const fd = 1 - sstep((t - 77.2) / 0.8); if (fd > 0) { tendril(ctx, t, DK[0], DK[1], 238, 190, fd, 1, 1.5); tendril(ctx, t, DK[0], DK[1], 262, 198, fd, 2, 1.5); }
+        for (const S of SBS) { const k = (t - S.t0) / 0.8; if (k > 0 && k < 1) { ring(ctx, S.x, S.y + 4, k * 36, 1.6, VIO, 0.7 * (1 - k), 0.4); matBurst(ctx, S.x, S.y - 10, k, VIO, 0.8); } }
+        possessFx(ctx, t, 240, 196, 0.9); possessFx(ctx, t, 255, 208, 0.9);
         arenaOver(ctx, t, this); fightFx(ctx, t);
-        for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.4 && !covered(ti)) { const ix = 292 + (rnd(ti, 1) - 0.5) * 40, iy = 176 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
-        const dsp = sstep((t - 86.6) / 1.2); if (dsp > 0 && dsp < 1) for (let i = 0; i < 24; i++) { const ph2 = ((t - 86.6) * 0.8 + rnd(i, 3)) % 1; fx(ctx, 'sparkle', ph2 * 8, 300 + (rnd(i, 1) - 0.5) * 40, 190 - ph2 * 50, 0.3, 0.8 * (1 - ph2), { add: true, tint: '190,60,255' }); }
+        for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.4 && !covered(ti)) { const ix = 214 + (rnd(ti, 1) - 0.5) * 34, iy = 184 + (rnd(ti, 2) - 0.5) * 14; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
       },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 28, rgb: '190,150,255', a: 0.6, r: 1.6, vy: -0.8, vx: -1.2, add: true, tw: true }); speedLines(ctx, t, 14, W / 2, H / 2, '230,210,255', 0.2, 280); flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255');
         for (const ti of IMPACTS) { const d = t - ti; if (ti >= 77 && ti < 88 && d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
     });
-    // 4c — Riolu se relève : Lucario, puis Méga-Lucario dans un déluge de lumière
-    const LUX = 214, LUY = 178;
+    // 4c — Riolu à terre, cerné. Le ciel se fend : Lucario tombe de la fissure de la réalité, atterrit, puis Méga-Évolue (animation canonique des jeux)
+    const LUX = 232, LUY = 182, RFX = 232, RFY = 108, T_LAND = 91.1, T_BURST = 95.6;
+    const KS0 = 92.3; // la Pierre de Key surgit de la fissure
+    const ksPos = (t) => { const e = sstep((t - KS0) / 1.1); return [lerp(RFX, LUX - 26, e), lerp(RFY + 4, LUY - 56, e) + Math.sin(t * 5) * 1.2 * e]; };
+    const msPos = (t) => [LUX + 2, LUY - 23 + Math.sin(t * 6) * 0.5]; // Méga-Gemme sur le torse de Lucario
     SC.push({
       id: '4c', t0: 88, t1: 98, map: 'opm3', melee: false, grade: PAL_ARENA,
-      cam: [[88, 232, 172, 1.9, 0.0], [90.5, 218, 168, 2.2, 0.0], [92.6, 214, 166, 2.4, 0.02], [94.2, 214, 166, 2.4, 0.0], [95.5, 214, 164, 2.2, 0.0], [96.4, 220, 160, 1.9, -0.03], [98, 250, 160, 1.5, 0.0]],
+      cam: [[88, 228, 160, 1.5, 0.0], [89.8, 230, 148, 1.34, 0.0], [91.2, 230, 152, 1.55, 0.0], [93, 232, 150, 1.8, 0.0], [95, 232, 152, 1.9, 0.0], [95.8, 232, 142, 1.4, 0.0], [96.8, 234, 142, 1.35, 0.0], [98, 250, 160, 1.5, 0.0]],
+      shake: (t) => (t > 88.7 && t < T_LAND ? 0.5 + 1.0 * sstep((t - 88.7) / 1.5) : t >= T_LAND && t < T_LAND + 0.7 ? 3.2 * Math.exp(-(t - T_LAND) * 4) : t >= T_BURST && t < T_BURST + 1.0 ? 5 * Math.exp(-(t - T_BURST) * 3) : 0),
       actors: [
-        { id: 'evoli', pid: '0133', keys: [[88, 238, 200], [98, 246, 202]], an: [[88, 'Pain', 6, { loop: false }], [92.0, 'LookUp', 2, { loop: false }], [95.6, 'Hop', 2, { loop: false }]], aura: '130,235,255' },
-        { id: 'tiplouf', pid: '0393', keys: [[88, 250, 210], [98, 262, 212]], an: [[88, 'Hurt', 2, { loop: false }], [92.4, 'LookUp', 2, { loop: false }], [95.8, 'Hop', 2, { loop: false }]] },
-        { id: 'riolu', pid: '0447', keys: [[88, 170, 194], [90.0, 176, 190], [91.5, LUX, LUY]], an: [[88, 'Hurt', 2, { loop: false }], [89.6, 'Pain', 2, { loop: false }], [90.4, 'Charge', 2]], a: [[88, 1], [91.4, 1], [91.6, 0]], aura: '120,230,255' },
-        { id: 'lucario', pid: '0448', keys: [[91.4, LUX, LUY], [95.6, LUX, LUY]], an: [[91.4, 'Charge', 2], [93.0, 'Idle', 2], [94.2, 'Charge', 2]], a: [[91.4, 0], [91.7, 1], [95.4, 1], [95.7, 0]], aura: '110,230,255' },
-        { id: 'mega', pid: '9448', keys: [[95.4, LUX, LUY], [98, LUX + 6, LUY + 2]], an: [[95.4, 'Charge', 2], [96.4, 'RearUp', 2, { loop: false }], [97.4, 'Idle', 2]], a: [[95.4, 0], [95.8, 1]], aura: '255,226,120' },
-        { id: 'darkrai', pid: '0491', keys: [[88, 336, 160, 6], [98, 336, 160, 6]], an: [[88, 'Idle', 6], [92.2, 'Shoot', { to: [222, 176] }, { loop: false }], [94.0, 'Charge', 6]], aura: '190,40,255', s: 1.1 },
+        { id: 'riolu', pid: '0447', keys: [[88, 196, 194], [98, 196, 194]], an: [[88, 'Pain', 2, { loop: false }]], aura: '120,230,255' },
+        { id: 'evoliS', pid: 'shadow_0133', keys: [[88, 222, 202], [90.9, 220, 202], [91.4, 204, 206], [98, 204, 206]], aura: RED, a: [[88, 1], [95.9, 1], [96.15, 0]],
+          an: [[88, 'Idle', { toId: 'riolu' }], [88.7, 'Charge', { toId: 'riolu' }], [90.2, 'Cringe', 2, { loop: false }], [91.3, 'Hurt', { toId: 'lucario' }, { loop: false }], [92.6, 'Charge', { toId: 'lucario' }], [94.6, 'Cringe', 2, { loop: false }]] },
+        { id: 'evoli', pid: '0133', keys: [[95.9, 204, 206], [98, 204, 206]], an: [[95.9, 'Pain', 2, { loop: false }]], a: [[95.9, 0], [96.15, 1]], aura: '130,235,255' },
+        { id: 'tiploufS', pid: 'shadow_0393', keys: [[88, 232, 212], [90.9, 232, 212], [91.4, 256, 216], [98, 256, 216]], aura: RED, a: [[88, 1], [95.9, 1], [96.15, 0]],
+          an: [[88, 'Idle', { toId: 'riolu' }], [88.9, 'Charge', { toId: 'riolu' }], [90.2, 'Cringe', 2, { loop: false }], [91.3, 'Hurt', { toId: 'lucario' }, { loop: false }], [92.8, 'Charge', { toId: 'lucario' }], [94.6, 'Cringe', 2, { loop: false }]] },
+        { id: 'tiplouf', pid: '0393', keys: [[95.9, 256, 216], [98, 256, 216]], an: [[95.9, 'Pain', 2, { loop: false }]], a: [[95.9, 0], [96.15, 1]], aura: '130,235,255' },
+        { id: 'sab1', pid: 'shadow_0302', keys: [[88, 220, 186], [91.0, 220, 186], [91.5, 196, 172], [98, 196, 172]], a: [[88, 1], [95.9, 1], [96.7, 0]], aura: VIO,
+          an: [[88, 'Idle', { toId: 'riolu' }], [88.8, 'Attack', { toId: 'riolu' }, { loop: false }], [90.4, 'Hurt', 2, { loop: false }], [91.5, 'Hurt', { toId: 'lucario' }, { loop: false }], [93.0, 'Idle', { toId: 'lucario' }]] },
+        { id: 'sab2', pid: 'shadow_0302', keys: [[88, 178, 190], [91.0, 178, 190], [91.5, 164, 198], [98, 164, 198]], a: [[88, 1], [95.9, 1], [96.7, 0]], aura: VIO,
+          an: [[88, 'Idle', { toId: 'riolu' }], [89.2, 'MultiStrike', { toId: 'riolu' }, { loop: false }], [90.6, 'Hurt', 2, { loop: false }], [91.5, 'Hurt', { toId: 'lucario' }, { loop: false }], [93.0, 'Idle', { toId: 'lucario' }]] },
+        { id: 'sab3', pid: 'shadow_0302', keys: [[88, 254, 172], [91.0, 254, 172], [91.5, 276, 160], [98, 276, 160]], a: [[88, 1], [95.9, 1], [96.7, 0]], aura: VIO,
+          an: [[88, 'Idle', { toId: 'riolu' }], [89.6, 'Hop', { toId: 'riolu' }, { loop: false }], [90.6, 'Hurt', 2, { loop: false }], [91.5, 'Hurt', { toId: 'lucario' }, { loop: false }], [93.0, 'Idle', { toId: 'lucario' }]] },
+        { id: 'lucario', pid: '0448', keys: [[90.2, LUX, LUY, 78], [T_LAND, LUX, LUY, 0], [98, LUX, LUY, 0]], rot: [[90.2, 0.5], [90.7, -0.25], [T_LAND, 0], [98, 0]], a: [[90.2, 0], [90.32, 1], [95.4, 1], [95.62, 0]], aura: '110,230,255',
+          an: [[90.2, 'LeapForth', { toId: 'darkrai' }, { loop: false }], [T_LAND, 'Hop', { toId: 'darkrai' }, { loop: false }], [92.0, 'Charge', { toId: 'darkrai' }], [93.4, 'Idle', { toId: 'darkrai' }], [94.4, 'Charge', { toId: 'darkrai' }]],
+          tint: (t) => ['#ffffff', clamp((t - 94.3) / 1.0, 0, 1)] },
+        { id: 'mega', pid: '9448', keys: [[95.4, LUX, LUY], [98, LUX, LUY]], sk: [[95.4, 1.0], [95.75, 1.22], [96.5, 1.0], [98, 1.0]], a: [[95.4, 0], [95.62, 1]], aura: '255,226,120',
+          an: [[95.4, 'Charge', { toId: 'darkrai' }], [96.4, 'RearUp', { toId: 'darkrai' }, { loop: false }], [97.4, 'Idle', { toId: 'darkrai' }]],
+          tint: (t) => ['#ffffff', 1 - clamp((t - 95.7) / 0.5, 0, 1)] },
+        { id: 'darkrai', pid: '0491', keys: [[88, 336, 160, 6], [98, 336, 160, 6]], an: [[88, 'Charge', 6], [91.0, 'Idle', { toId: 'lucario' }], [93.0, 'Charge', { toId: 'lucario' }]], aura: '190,40,255', s: 1.1 },
       ],
       draw(ctx, t) { arenaBack(ctx, t); },
       world(ctx, t, c, ph) {
-        const k1 = sstep((t - 89.2) / 2.2) * (t < 91.6 ? 1 : 0), k2 = sstep((t - 93.0) / 2.5) * (t < 95.6 ? 1 : 0), u = t - 95.6;
-        if (ph === 'under') { crystalsAndRune(ctx, t, t < 91.5 ? '200,90,255' : '255,226,120', 0.6 + 0.8 * sstep((t - 91.4) / 2)); mistLayer(ctx, t, true);
-          if (k1 > 0) { glow(ctx, 176, 190, 30 * k1 + 12, '200,245,255', 0.4 * k1); pillarBeams(ctx, t, 176, 190, 34, 120 * k1, 0.4 * k1, '180,240,255'); }
-          return; }
+        const rk = sstep((t - 88.7) / 1.5) * (1 - sstep((t - 92.0) / 1.2)); // ouverture puis refermeture de la fissure
+        if (ph === 'under') { mistLayer(ctx, t, true); riftDraw(ctx, t, RFX, RFY, 100, rk, 88.7); return; }
         arenaOver(ctx, t, this);
-        const ev = t - 91.5; if (ev > 0 && ev < 1.4) { const e = sstep(ev / 1.4); starBurst(ctx, LUX, LUY - 22, 26 + 80 * e, 0.8 * (1 - e), 10, ev); ring(ctx, LUX, LUY - 4, ev * 90, 2, '200,250,255', 0.8 * (1 - e), 0.5); glow(ctx, LUX, LUY - 22, 50 * (1 - e) + 14, '210,250,255', 0.6 * (1 - e)); pillarBeams(ctx, t, LUX, LUY - 2, 44, 150 * (1 - e * 0.4), 0.5 * (1 - e), '200,248,255'); }
-        if (t >= 91.6 && t < 95.7) megaFx(ctx, t, LUX, LUY, k2, null); else if (t >= 95.7) megaFx(ctx, t, LUX + 3, LUY, 0, u);
+        if (rk > 0.01 && t < 90.3) { const ru = t - 89.8; if (ru > 0) glow(ctx, LUX, LUY - 10, 70 * Math.min(1, ru / 0.5), '255,255,255', 0.35); }
+        dustPuffs(ctx, LUX, LUY, t - T_LAND, 1.1);
+        const ev = t - T_LAND; if (ev > 0 && ev < 0.5) { hitFx(ctx, LUX, LUY - 6, ev * 0.8, 3, '255,240,200', 1.4); glow(ctx, LUX, LUY - 6, 60 * (1 - ev / 0.5) + 10, '255,246,210', 0.6 * (1 - ev / 0.5)); }
+        // les ombres fuient la lumière : tourbillons de fumée à la dissolution
+        for (const [sx, sy, on] of [[196, 172, 95.9], [164, 198, 95.9], [276, 160, 95.9]]) { const d = (t - on) / 0.8; if (d > 0 && d < 1) for (let i = 0; i < 10; i++) { const ph2 = (d + rnd(i + sx, 2)) % 1; fx(ctx, 'sparkle', ph2 * 8, sx + (rnd(i, 3) - 0.5) * 24, sy - 8 - ph2 * 36, 0.25, 0.9 * (1 - d), { add: true, tint: VIO }); } }
+        for (const [sx, sy] of [[204, 206], [256, 216]]) { const d = (t - 95.9) / 0.9; if (d > 0 && d < 1) { ring(ctx, sx, sy, d * 34, 1.8, '255,255,255', 0.8 * (1 - d), 0.4); glow(ctx, sx, sy - 8, 28 * (1 - d) + 8, '255,230,230', 0.5 * (1 - d)); } }
+        possessFx(ctx, t, 220, 202, t < 95.9 ? 0.8 : 0);
+        // —— Méga-Évolution ——
+        const [kx, ky] = ksPos(t), [mx, my] = msPos(t), ka = sstep((t - KS0) / 0.5) * (1 - sstep((t - (T_BURST - 0.05)) / 0.12));
+        if (t >= 92.3 && t < T_BURST) { // Pierre de Key + Méga-Gemme, reliées par des fils arc-en-ciel qui se tendent puis se resserrent
+          const th = sstep((t - 93.3) / 0.9), tc = 1 - sstep((t - 94.7) / 0.9);
+          rainbowThread(ctx, t, kx, ky, mx, my, th * (0.6 + 0.4 * tc), 0); rainbowThread(ctx, t + 0.4, kx, ky, mx, my, th * (0.6 + 0.4 * tc) * 0.9, 2.1);
+          stoneDraw(ctx, t, kx, ky, 1.0 + 0.2 * th, ka, 20); stoneDraw(ctx, t, mx, my, 0.8 + 0.3 * th, sstep((t - 92.8) / 0.5) * (1 - sstep((t - T_BURST + 0.1) / 0.1)), 200);
+        }
+        const sa = sstep((t - 94.2) / 1.0), sr = lerp(6, 36, sstep((t - 94.2) / 1.2)) * (1 + 0.04 * Math.sin(t * 12) + 0.1 * Math.max(0, (t - 95.2)) );
+        if (t >= 94.2 && t < T_BURST) { megaSphere(ctx, t, LUX, LUY - 20, sr, sa); glow(ctx, LUX, LUY - 20, sr * 1.2, '255,255,255', 0.5 * sstep((t - 94.8) / 0.8)); }
+        if (t >= 92.8 && t < T_BURST) for (let i = 0; i < 36; i++) { const ph2 = ((t * 0.7 + i / 36) % 1), r = (1 - ph2) * 48, an = (i % 2 ? 1 : -1) * ph2 * 9 + i * 0.7; fx(ctx, 'sparkle', ph2 * 8, LUX + Math.cos(an) * r, LUY - 22 + Math.sin(an) * r * 0.6, 0.22, 0.9 * ph2 * sstep((t - 92.8) / 1.0), { add: true, tint: hueRgb((i * 29 + t * 80) % 360) }); }
+        const bu = t - T_BURST; if (bu >= 0) { megaBurst(ctx, t, LUX, LUY, bu); if (bu < 2.4) { const sy = LUY - 56 - 8 * sstep(bu / 1.5), sA = sstep(bu / 0.35) * (1 - sstep((bu - 1.4) / 0.9)); megaSymbol(ctx, t, LUX, sy, 17 * (0.5 + 0.6 * sstep(bu / 0.5)), sA); } }
       },
       screen(ctx, t) {
-        particlesScreen(ctx, t, { n: 28, rgb: '255,230,150', a: 0.8, r: 1.8, vy: -1.0, add: true, tw: true });
+        particlesScreen(ctx, t, { n: 28, rgb: '230,220,255', a: 0.7, r: 1.8, vy: -1.0, add: true, tw: true });
         flash(ctx, 0.07 * boltFlash(t, 3), '170,120,255');
-        flash(ctx, 0.7 * Math.exp(-Math.abs(t - 91.5) * 8), '220,252,255');
-        const f2 = t - 95.55; flash(ctx, f2 > -0.35 && f2 < 0 ? 0.1 * (1 + f2 / 0.35) : 0.8 * Math.exp(-Math.max(0, f2) * 5) * (f2 >= 0 ? 1 : 0), '255,248,210');
-        const sf = t - 95.7; if (sf > 0 && sf < 2.4) { const a = Math.sin(Math.PI * clamp(sf / 2.4, 0, 1)); fx(ctx, 'sunfl', sf * 8, W * 0.28, H * 0.12, 4.2, 0.9 * a, { add: true }); }
-        if (t > 95.6 && t < 97.4) speedLines(ctx, t, 26, W * 0.5, H * 0.55, '255,240,190', 0.35 * (1 - (t - 95.6) / 1.8), 220);
+        flash(ctx, 0.5 * Math.exp(-Math.abs(t - T_LAND) * 8), '235,240,255'); flash(ctx, 0.35 * sstep((t - 89.9) / 0.4) * (1 - sstep((t - 90.5) / 0.4)), '255,255,255');
+        const f2 = t - (T_BURST - 0.05); flash(ctx, f2 > -0.4 && f2 < 0 ? 0.12 * (1 + f2 / 0.4) : 0.85 * Math.exp(-Math.max(0, f2) * 5.5) * (f2 >= 0 ? 1 : 0), '255,250,235');
+        const sf = t - 95.7; if (sf > 0 && sf < 2.0) { const a = Math.sin(Math.PI * clamp(sf / 2.0, 0, 1)); fx(ctx, 'sunfl', sf * 8, W * 0.28, H * 0.14, 3.6, 0.45 * a, { add: true }); }
       },
     });
     // 4d — Méga-Lucario au premier plan face à Darkrai : choc des sphères, explosion, retour au plan suivant
     const CLX = 302, CLY = 160, TEXP = 103.3;
     SC.push({
       id: '4d', t0: 98, t1: 106, map: 'opm3', melee: true, grade: PAL_ARENA,
-      cam: [[98, 272, 160, 1.45, 0.0], [99.4, 268, 166, 1.55, 0.03], [101.0, 272, 164, 1.65, -0.04], [102.6, 276, 162, 1.8, 0.0], [103.3, 282, 162, 1.7, 0.05], [104.4, 296, 162, 1.1, 0.0], [106, 296, 162, 0.9, 0.0]],
+      cam: [[98, 262, 166, 1.45, 0.0], [99.4, 262, 170, 1.55, 0.03], [101.0, 268, 168, 1.65, -0.04], [102.6, 274, 166, 1.8, 0.0], [103.3, 282, 164, 1.7, 0.05], [104.4, 296, 162, 1.1, 0.0], [106, 296, 162, 0.9, 0.0]],
       shake: (t) => (t > 101 && t < TEXP ? 0.8 + (t - 101) * 1.5 : t >= TEXP && t < TEXP + 0.9 ? 6 * Math.exp(-(t - TEXP) * 3) : 0),
       actors: [
         { id: 'mega', pid: '9448', keys: [[98, 208, 206], [106, 208, 206]], sk: [[98, 1.55], [106, 1.7]], an: [[98, 'Idle', { toId: 'darkrai' }], [99.1, 'Charge', { toId: 'darkrai' }], [100.2, 'Attack', { toId: 'darkrai' }, { loop: false }], [101.6, 'Charge', { toId: 'darkrai' }]], aura: '255,226,120' },
@@ -693,7 +800,7 @@
       draw(ctx, t) { arenaBack(ctx, t); },
       world(ctx, t, c, ph) {
         const ex = t - TEXP;
-        if (ph === 'under') { crystalsAndRune(ctx, t, '255,226,120', 1.2 + (ex > 0 ? 1.5 * Math.exp(-ex * 2) : 0)); mistLayer(ctx, t, true); return; }
+        if (ph === 'under') { mistLayer(ctx, t, true); return; }
         arenaOver(ctx, t, this); fightFx(ctx, t);
         const cl = t - 101.0;
         if (cl > 0 && ex < 0) { // choc des deux sphères : elle grossit, se tord et crache des arcs
@@ -767,7 +874,7 @@
       actors: [{ id: 'evoli', pid: '0133', keys: [[132, 288, 152]], an: [[132, 'Sink', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],
       props: [{ img: 'wfCyan', keys: [[132, 306, 150, 0]], s: 0.9 }],
       world(ctx, t, c, ph) { if (ph !== 'over') return; bubblesWorld(ctx, t, 26, 61, 200, 380, 40, 230, 1.0); sparklesWorld(ctx, t, 50, 62, 200, 40, 380, 230, '255,244,190', 1); },
-      screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.9 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.55 * ra); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.7 * ra, { add: true }); },
+      screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.6 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.3 * ra); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.35 * ra, { add: true }); },
     });
     SC.push({ // 6b : remontée — les 3 badges étoile se matérialisent, tournent autour d'Évoli, Riolu lui tend la main
       id: '6b', t0: 137, t1: 142, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(110,160,235)',
@@ -785,7 +892,7 @@
           wayfinder(ctx, keys[i], ex + Math.cos(an) * R, ey - 6 + Math.sin(an) * R * 0.38, 0.95, t, a * (1 - join), rgb[i]); }
         if (t > 140.6) { const k = clamp((t - 140.6) / 1.4, 0, 1); glow(ctx, ex, ey - 6, 130 * k + 20, '255,246,210', 0.7 * (1 - k * 0.5)); ring(ctx, ex, ey - 6, k * 90, 2.2, '255,246,210', 0.8 * (1 - k), 0.5); fx(ctx, 'hit', Math.min(7, k * 8), ex, ey - 6, 0.7, 1 - k * 0.6, { tint: '255,246,210' }); }
       },
-      screen(ctx, t) { const ra = sstep((t - 138) / 3); godRays(ctx, t, 0.7 * ra, W * 0.5, -30, 7, 0.8, H * 1.2, '255,246,210'); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.6 * ra, { add: true }); flash(ctx, 0.6 * Math.exp(-Math.abs(t - 140.7) * 6), '255,246,210'); },
+      screen(ctx, t) { const ra = sstep((t - 138) / 3); godRays(ctx, t, 0.45 * ra, W * 0.5, -30, 7, 0.8, H * 1.2, '255,246,210'); fx(ctx, 'sunfl', t * 8, W * 0.5, 40, 5.0, 0.32 * ra, { add: true }); flash(ctx, 0.6 * Math.exp(-Math.abs(t - 140.7) * 6), '255,246,210'); },
     });
     SC.push({
       id: '6c', t0: 142, t1: 145.2, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
@@ -796,7 +903,7 @@
         { id: 'evoli', pid: '0133', keys: [[142, 298, 180], [145.0, 290, 120], [146.5, 290, 120]], an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 145) / 1.5); glow(ctx, 288, 122, 160, '255,246,210', 0.25 + 0.6 * k); starBurst(ctx, 288, 122, 260, 0.6 * k, 12, t * 0.5); bubblesWorld(ctx, t, 34, 71, 180, 400, 0, 260, 1.4); sparklesWorld(ctx, t, 80, 72, 190, 0, 390, 260, '255,246,200', 1); },
-      screen(ctx, t) { godRays(ctx, t, 0.7, W * 0.62, -30, 8, 0.8, H * 1.2, '255,240,190'); },
+      screen(ctx, t) { godRays(ctx, t, 0.45, W * 0.62, -30, 8, 0.8, H * 1.2, '255,240,190'); },
     });
 
     // ================== PLANCHES « PMD EXPLORERS OF SKY » (méthode d'intro de la série) ==================
@@ -875,6 +982,26 @@
     // --- TT : tunnel Time Travel (13 images en boucle, fenêtres blanches = souvenirs du monde)
 
     // ---------- Chute en vue plongeante : la caméra est AU-DESSUS, on les voit tomber en contrebas dans un portail de nuages, de nuit ----------
+    // Halo arc-en-ciel du portail : anneau irisé qui tourne (spectre continu), voile de lumière, second anneau à contre-sens, étoiles qui l'habitent
+    function hueRgb(h, l) { l = l == null ? 0.75 : l; const a = Math.min(l, 1 - l), f = (n) => { const k = (n + h / 30) % 12; return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))); }; return f(0) + ',' + f(8) + ',' + f(4); }
+    function rainbowHalo(ctx, x, y, r, t, a, mat) {
+      if (a <= 0.003 || r < 2) return; const N = 96, pulse = 1 + 0.035 * Math.sin(t * 3.1), R = r * pulse * (0.55 + 0.45 * sstep(mat == null ? 1 : mat));
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'butt';
+      const gl = ctx.createRadialGradient(x, y, R * 0.15, x, y, R * 1.7); gl.addColorStop(0, `rgba(255,250,255,${(0.5 * a).toFixed(3)})`); gl.addColorStop(0.55, `rgba(210,190,255,${(0.2 * a).toFixed(3)})`); gl.addColorStop(1, 'rgba(160,140,255,0)');
+      ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(x, y, R * 1.7, 0, TAU); ctx.fill();
+      ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = `rgba(70,30,140,${(0.4 * a).toFixed(3)})`; ctx.lineWidth = Math.max(2, R * 0.2); ctx.beginPath(); ctx.arc(x, y, R, 0, TAU); ctx.stroke(); // liseré sombre : l'anneau reste lisible sur le cœur éblouissant du portail
+      for (const [rr, wd, al, dir, ph0, op] of [[1.0, 0.3, 0.16, 1, 0, 'lighter'], [1.0, 0.13, 0.95, 1, 0, 'source-over'], [1.22, 0.05, 0.6, -1, 2.1, 'source-over'], [0.8, 0.045, 0.5, -1, 4.0, 'source-over']]) {
+        ctx.globalCompositeOperation = op;
+        for (let i = 0; i < N; i++) { const a0 = (i / N) * TAU, a1 = ((i + 1.4) / N) * TAU, hue = ((i / N) * 360 * (rr === 1.0 ? 1 : 2) + dir * t * 75 + ph0 * 40) % 360;
+          ctx.strokeStyle = `hsla(${hue.toFixed(0)},100%,${op === 'lighter' ? 65 : 56}%,${(al * a).toFixed(3)})`; ctx.lineWidth = Math.max(1, R * wd);
+          ctx.beginPath(); ctx.arc(x, y, R * rr, a0, a1); ctx.stroke(); }
+      }
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.strokeStyle = `rgba(255,255,255,${(0.85 * a).toFixed(3)})`; ctx.lineWidth = Math.max(1, R * 0.022); ctx.beginPath(); ctx.arc(x, y, R * 1.0, 0, TAU); ctx.stroke(); // filet de lumière blanche au cœur de l'anneau
+      for (let i = 0; i < 18; i++) { const an = (i / 18) * TAU + t * (0.5 + 0.2 * rnd(i, 3)) * (i % 2 ? 1 : -1), rr = R * (0.8 + 0.45 * rnd(i, 4)), tw = 0.5 + 0.5 * Math.sin(t * 5 + i * 1.9);
+        fx(ctx, 'sparkle', t * 8 + i, x + Math.cos(an) * rr, y + Math.sin(an) * rr, 0.22 + 0.25 * rnd(i, 5), a * tw, { add: true, tint: hueRgb((i * 20 + t * 60) % 360) }); }
+      ctx.restore();
+    }
     function drawFall(ctx, t, C) {
       const u = t - C.t0, dur = C.t1 - C.t0, k = clamp(u / dur, 0, 1);
       ctx.fillStyle = '#070320'; ctx.fillRect(0, 0, W, H);
@@ -901,8 +1028,7 @@
       }
       if (u >= C.haloT) { // halo arc-en-ciel : se matérialise puis reste jusqu'à la fin
         const kh = clamp((u - C.haloT) / 1.0, 0, 1), pulse = 0.88 + 0.12 * Math.sin(u * 3);
-        glow(ctx, ex, ey, sc * 62, '255,235,255', 0.28 * kh);
-        fx(ctx, 'halo', u * 10, ex, ey, sc * 0.6, 0.95 * pulse, { mat: kh });
+        rainbowHalo(ctx, ex, ey, sc * 27, u, pulse * kh, kh);
         if (kh < 1) matBurst(ctx, ex, ey, kh, null, sc * 0.6);
       }
       ctx.save(); ctx.translate(ex, ey); ctx.rotate(Math.sin(u * 0.8) * 0.3 + u * 0.1); ctx.scale(sc, sc); ctx.imageSmoothingEnabled = false;

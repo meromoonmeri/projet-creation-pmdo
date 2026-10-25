@@ -18,7 +18,7 @@ META = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1" / "opening_sprite_cine" 
 class TestOpeningSprite(unittest.TestCase):
     def test_01_autonome_sans_requete_externe(self) -> None:
         txt = HTML.read_text(encoding="utf-8")
-        self.assertLess(len(txt), 8_000_000)
+        self.assertLess(len(txt), 9_500_000)
         self.assertEqual(len(re.findall(r'src="/(?:renders|\.cache)/', txt)), 0)
         self.assertIn("PMDDestinySprite", txt)
         self.assertGreaterEqual(txt.count("data:image/png;base64,"), 60)

@@ -16,6 +16,7 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 SOURCE_DIR = Path(__file__).resolve().parent
@@ -54,6 +55,10 @@ def new_resources():
     }
     for k in ("sunRing", "sunOrb", "sunBallA", "sunBallB"):
         imgs[k] = uri(BR / f"{k}.png")
+    # décor de la chute (plaques peintes générées) : stratosphère étoilée → mer de nuages → portail de nuages
+    for key, src in (("skyStrato", "skyStrato_raw.png"), ("skyDeck", "skyCloudDeck_raw.png"), ("cloudPortal", "cloudPortalNew_raw.png")):
+        buf = io.BytesIO(); Image.open(SOURCE_DIR / "pmd_destiny_fangame_v1" / "decors_peints" / src).convert("RGB").save(buf, "JPEG", quality=84, optimize=True)
+        imgs[key] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
     vfx = json.loads((BR / "vfx_catalog.json").read_text())
     arena = json.loads((BR / "arena_meta.json").read_text())
     cat = json.loads((BR / "sprites_catalog.json").read_text())
@@ -63,8 +68,11 @@ def new_resources():
         for name, meta in anims.items():
             f = BR / "sprites" / meta["file"]
             sheets[meta["file"]] = uri(f)
-            if pid in ("0447", "0393"):  # ombres corrompues (clones de Darkrai)
+            if pid in ("0447", "0133", "0393", "0302"):  # ombres corrompues (possédés par Darkrai, Ténéfix)
                 sh = shadow(Image.open(f).convert("RGBA"))
+                if pid != "0447":  # possédés : yeux et éclats rouge sang au lieu d'ambre
+                    arr = np.asarray(sh).copy(); m = (arr[..., 0] == 255) & (arr[..., 1] == 196) & (arr[..., 2] == 38) & (arr[..., 3] > 0)
+                    arr[m] = (255, 36, 64, 255); sh = Image.fromarray(arr, "RGBA")
                 buf = io.BytesIO(); sh.save(buf, "PNG", optimize=True)
                 sid = f"shadow_{pid}"; fn = Path(meta["file"]).name
                 sheets[f"{sid}/{fn}"] = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()

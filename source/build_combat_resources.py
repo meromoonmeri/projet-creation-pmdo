@@ -18,9 +18,13 @@ SC = ROOT / ".cache/spritecollab/sprite"
 
 WANT = {  # uniquement les animations employées par le combat (les autres sont déjà dans les pages)
     "0447": ["Hurt", "Pain", "Attack", "Strike"],
-    "0448": ["Charge"],
+    "0448": ["Charge", "Idle", "Hop", "LeapForth", "Pose", "Attack", "Swing", "Walk", "RearUp", "Hurt"],
+    # possédés par Darkrai : Évoli et Tiplouf (versions « ombre corrompue ») ; Ténéfix = Sableye (0302)
+    "0133": ["Idle", "Walk", "Attack", "Swing", "Double", "Hurt", "Pain", "Hop", "Shoot", "Charge", "Cringe", "Rotate"],
+    "0393": ["Idle", "Walk", "Attack", "Swing", "Double", "Hurt", "Pain", "Hop", "Shoot", "Charge", "Cringe", "Rotate"],
+    "0302": ["Idle", "Walk", "Attack", "MultiStrike", "SpAttack", "Hurt", "Swing", "Double", "Hop", "Charge", "Rotate"],
     # Méga-Lucario = forme 0001 du dossier 0448
-    "9448": ["Idle", "Charge", "Attack", "RearUp"],
+    "9448": ["Idle", "Charge", "Attack", "RearUp", "Hop", "Swing", "Walk", "Strike"],
 }
 SRC_DIR = {"9448": "0448/0001"}
 

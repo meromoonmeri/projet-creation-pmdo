@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Décor animé de l'arène (combat) : découpe le dais peint (fond blanc → alpha), le vortex de nuages,
-les rochers flottants (pris sur la planche validée), repère les cristaux / le cercle magique, fabrique la brume.
+les rochers flottants (pris sur la planche validée), fabrique la brume.
 Sorties dans combat_bruts/ : arDais.png, arVortex.jpg, arRocks.png, arMist.png, arena_meta.json."""
 import json
 from pathlib import Path
@@ -22,7 +22,7 @@ def hsv(a):
 
 
 def dais():
-    im = Image.open(OUT / "src_peints/arene_dais_raw.png").convert("RGB")
+    im = Image.open(OUT / "src_peints/arene_dais2_raw.png").convert("RGB")
     im = im.resize((1376, 768), Image.LANCZOS)
     a = np.asarray(im).astype(float) / 255
     s, v = hsv(a)
@@ -48,25 +48,7 @@ def dais():
     rgb = np.where(edge[..., None], fix, a)
     out = np.dstack([np.clip(rgb * 255, 0, 255).astype(np.uint8), (alpha * 255).astype(np.uint8)])
     Image.fromarray(out, "RGBA").save(OUT / "arDais.png", optimize=True)
-    # --- repères
-    s2, v2 = hsv(rgb)
-    hh = np.arctan2(np.sqrt(3) * (rgb[..., 1] - rgb[..., 2]), 2 * rgb[..., 0] - rgb[..., 1] - rgb[..., 2])
-    glow = (s2 > 0.45) & (v2 > 0.6) & (rgb[..., 2] > 0.7) & solid
-    ys, xs = np.mgrid[0:768, 0:1376]
-    cx0, cy0 = 690, 395
-    rune = glow & (((xs - cx0) / 190) ** 2 + ((ys - cy0) / 100) ** 2 < 1)
-    ry_, rx_ = np.where(rune)
-    rune_meta = [float(rx_.mean()), float(ry_.mean()), float(np.percentile(np.abs(rx_ - rx_.mean()), 97)), float(np.percentile(np.abs(ry_ - ry_.mean()), 97))]
-    cr = glow & ~(((xs - cx0) / 240) ** 2 + ((ys - cy0) / 130) ** 2 < 1)
-    lab3, n3 = ndi.label(ndi.binary_dilation(cr, iterations=6))
-    cry = []
-    for i, sl in enumerate(ndi.find_objects(lab3)):
-        m = cr[sl]
-        if m.sum() < 40:
-            continue
-        yy, xx = np.where(m)
-        cry.append([float(xx.mean() + sl[1].start), float(yy.mean() + sl[0].start), float(max(14, min(40, (m.sum()) ** 0.5 * 0.9)))])
-    return rune_meta, cry
+    return [0, 0, 0, 0], []
 
 
 def vortex():

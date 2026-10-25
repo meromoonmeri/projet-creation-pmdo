@@ -28,13 +28,22 @@ class TestCombat(unittest.TestCase):
             for an in ("Idle", "Charge", "Attack", "RearUp"):
                 self.assertIn(an, A["catalog"]["pokemon"]["9448"]["anims"])
                 self.assertIn(A["catalog"]["pokemon"]["9448"]["anims"][an]["file"], A["sheets"])
-            self.assertIn("function megaFx(", h)
-            self.assertLess(len(h), 9_000_000)
+            self.assertIn("function megaSphere(", h)
+            for k in ("skyStrato", "skyDeck", "cloudPortal"):
+                self.assertIn(k, A["imgs"], page + " : " + k)
+            for sid in ("shadow_0133", "shadow_0393", "shadow_0302"):
+                self.assertIn(sid, A["catalog"]["pokemon"], page + " : " + sid)
+                self.assertIn("Idle", A["catalog"]["pokemon"][sid]["anims"])
+            self.assertLess(len(h), 9_500_000)
 
     def test_scenes_combat(self):
         for needle in ("id: '4a'", "id: '4b'", "id: '4c'", "id: '4d'", "pid: '9448'", "pid: '0491'", "function arenaBack(", "function rocks(", "function mistLayer(", "function skyBolts(",
-                       "function crystalsAndRune(", "TEXP = 103.3", "fx(ctx, 'rrmet'"):
+                       "function riftDraw(", "function megaSymbol(", "function rainbowThread(", "function tendril(", "function pool(", "TEXP = 103.3", "fx(ctx, 'rrmet'"):
             self.assertIn(needle, SPR)
+        for banned in ("crystalsAndRune", "AR.crystals", "AR.rune"):  # la plateforme est nue : ni cristaux ni cercle magique
+            self.assertNotIn(banned, SPR)
+        self.assertIn("shadow_0302", SPR)  # Ténéfix (Sableye) d'ombre
+        self.assertIn("shadow_0133", SPR)  # Évoli possédé
         self.assertIn("103.3", SPR.split("const IMPACTS = [")[1].split("]")[0])
 
     def test_decor_anime(self):
@@ -49,7 +58,7 @@ class TestCombat(unittest.TestCase):
             self.assertTrue((BR / f).is_file(), f)
         meta = json.loads((BR / "arena_meta.json").read_text())
         self.assertGreaterEqual(len(meta["rocks"]), 4)
-        self.assertGreaterEqual(len(meta["crystals"]), 6)
+        self.assertEqual(meta.get("crystals", []), [])
         for f in ("rrt_meteor.png", "rrt_sunny.png", "rrt_rayons.png"):
             self.assertTrue((ROOT / "source" / "pmd_destiny_fangame_v1" / "ressources_rrt" / f).is_file())
 
