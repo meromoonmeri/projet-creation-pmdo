@@ -91,5 +91,14 @@ class TestOpeningUltime(unittest.TestCase):
             self.assertIn(k, self.assets["imgs"])
 
 
+    def test_chute_meteorite_et_gestes(self):
+        # grammaire de la cinématique « Crise de la Météorite » du dépôt PMD-RED-PMDO-PORT (flashs 2/8/15/60 images, tremblement, silence) + gestes réels
+        for needle in ("function fSkyFall(", "function meteorDraw(", "S.SC.find((q) => q.id === '5a').custom = fSkyFall", "const PULSES = [", "SKSEQ", "function bang(", "'Hurt'", "'Wake'", "'Pull'", "'Swing'"):
+            self.assertIn(needle, self.eng)
+        self.assertIn("meteor", self.assets["imgs"])
+        for needle in ("'LookUp', 0, { loop: false }], [134.6", "'Swing', 0, { loop: false }], [141.1", "id: 'tiplouf', pid: '0393', keys: [[142, 340, 190]"):
+            self.assertIn(needle, self.html)
+
+
 if __name__ == "__main__":
     unittest.main()

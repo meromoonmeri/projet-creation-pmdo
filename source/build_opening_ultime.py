@@ -55,9 +55,9 @@ PRUNE_PREFIX = ("it", "sh", "tm")
 def beach_assets() -> Dict[str, str]:
     """Plage « PMD Sky » en calques (textures canoniques fournies) + logo généré + nuages de la chute :
     beachSea = ciel + mer SANS bulles · beachBubbles = bulles seules (animées en boucle) · beachSand = sable/écume/rochers · pmdLogo = logo « Pokémon Mystery Dungeon : Destiny » (généré) · skyCloud = nuages générés."""
-    BL.build(); BL.logo(); BL.skyfall()
+    BL.build(); BL.logo(); BL.skyfall(); BL.meteor()
     out: Dict[str, str] = {}
-    for key, fn in (("beachSea", "beach_sea_clean"), ("beachBubbles", "beach_bubbles"), ("beachSand", "beach_sand_pmdsky"), ("pmdLogo", "pmd_logo_destiny"), ("skyCloud", "skyfall_clouds_layer")):
+    for key, fn in (("beachSea", "beach_sea_clean"), ("beachBubbles", "beach_bubbles"), ("beachSand", "beach_sand_pmdsky"), ("pmdLogo", "pmd_logo_destiny"), ("skyCloud", "skyfall_clouds_layer"), ("meteor", "meteor_layer")):
         im = Image.open(BRUTS / f"{fn}.png")
         if im.mode == "RGBA":
             a = np.asarray(im)
@@ -131,7 +131,28 @@ def patch_skyfall(spr: str) -> str:
     spr = spr.replace(old, SKYFALL_JS + "    function drawMap(ctx, key, t, water) {\n      if (key === 'opm4' && t >= 105.5 && t < 122 && I.skyCloud && I.skyCloud.width) { skyFallDecor(ctx, t); return; }\n      const im = I[key];", 1)
     w = "world(ctx, t, c, ph) { if (ph !== 'over') return; const k = sstep((t - 115) / 3);"
     assert w in spr, "monde 5a introuvable"
-    return spr.replace(w, "world(ctx, t, c, ph) { if (ph !== 'over') return; handLinks(ctx, t, c); const k = sstep((t - 115) / 3);", 1)
+    spr = spr.replace(w, "world(ctx, t, c, ph) { if (ph !== 'over') return; handLinks(ctx, t, c); const k = sstep((t - 115) / 3);", 1)
+    return patch_ending(spr)
+
+
+# Gestes de la fin (plans 6a → 6c) : le héros lève les yeux, tend la main, attrape ; Riolu tire, Tiplouf les rejoint (animations réelles des planches PMDO)
+ENDING_PATCHES = [
+    ("an: [[132, 'Sink', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],",
+     "an: [[132, 'Sink', 0, { loop: false }], [133.5, 'LookUp', 0, { loop: false }], [134.6, 'Wake', 0, { loop: false }]], s: 1.0, aura: '130,235,255' }],"),
+    ("an: [[137, 'Pose', 0, { loop: false, hold: 18 }], [140.6, 'Idle', 0]], noShadow: true, aura: '150,235,255', s: 1.3 },",
+     "an: [[137, 'LookUp', 0, { loop: false }], [138.9, 'Hop', 2, { loop: false }], [140.2, 'Swing', 0, { loop: false }], [141.1, 'Pose', 0, { loop: false }]], noShadow: true, aura: '150,235,255', s: 1.3 },"),
+    ("an: [[137, 'Float', 0, { speed: 0.6 }], [139.6, 'Pull', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2,",
+     "an: [[137, 'Float', 0, { speed: 0.6 }], [139.0, 'Pull', 0, { loop: true }], [141.2, 'Pose', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2,"),
+    ("an: [[142, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },\n      ],",
+     "an: [[142, 'Hop', 2, { loop: false }], [143.4, 'Pose', 0, { loop: true }]], noShadow: true, aura: '130,235,255' },\n        { id: 'tiplouf', pid: '0393', keys: [[142, 340, 190], [145.0, 304, 124], [146.5, 304, 124]], an: [[142, 'Hop', 6, { loop: false }], [143.4, 'Pose', 0, { loop: true }]], noShadow: true, aura: '255,210,120' },\n      ],"),
+]
+
+
+def patch_ending(spr: str) -> str:
+    for a, b in ENDING_PATCHES:
+        assert a in spr, "geste de fin introuvable : " + a[:60]
+        spr = spr.replace(a, b, 1)
+    return spr
 
 
 def engine_source() -> str:

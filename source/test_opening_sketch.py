@@ -50,5 +50,14 @@ class TestOpeningSketch(unittest.TestCase):
         self.assertIn("apercu_fangame_pmd_destiny_sketch.html", idx)
 
 
+    def test_rendu_video_fluide(self):
+        self.assertIn("opts.exact", self.eng)  # une image dessinée par image vidéo
+        rv = (ROOT / "source" / "render_sketch_video.js").read_text(encoding="utf-8")
+        for needle in ("exact: true", "libx264", "rawvideo", "yuv420p"):
+            self.assertIn(needle, rv)
+        meta = json.loads(META.read_text(encoding="utf-8"))
+        self.assertEqual(meta["video"]["fps"], 60)
+
+
 if __name__ == "__main__":
     unittest.main()

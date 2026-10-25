@@ -630,6 +630,109 @@
     const V = root.PMDDestinyVoyage.create(EV), S = root.PMDDestinySprite.create(EV);
     function bars(ctx, t) { const k = sstep((t - 0.2) / 1.2); const h = 52 * k * (1 - sstep((t - 146.8) / 0.8)); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, h); ctx.fillRect(0, H - h, W, h); }
     const OC1 = V.SC.find((q) => q.id === 'OC1');
+    // ================== CHUTE DANS LE CIEL + MÉTÉORITE (plan 5a, 106 → 122 s) ==================
+    // Grammaire de la cinématique canonique « Crise de la Météorite » de PMD Rouge (dépôt PMD-RED-PMDO-PORT : t01p01 / d13p03) :
+    // le ciel jaunit par impulsions de 2 images (FLASH 0x80,0x80,0x10), le tremblement monte, clignotements blancs de 15 images (World Calamity),
+    // flash blanc de 8 images, blanc total de ~60 images, puis silence sombre — les personnages réagissent (choc « ! », regard vers le ciel, mains tendues).
+    const SK0 = 106, SKIMP = 118.3, MET0 = 110.4;
+    const PULSES = [109.6, 110.9, 111.8, 112.5, 113.0, 113.5, 114.0];
+    const SKYCOL = [[106, [255, 255, 255]], [109.5, [255, 255, 255]], [112, [255, 238, 170]], [115, [245, 170, 100]], [118.3, [190, 95, 70]]];
+    function skyTint(t) { let a = SKYCOL[0]; for (let i = 0; i < SKYCOL.length - 1; i++) if (t >= SKYCOL[i][0]) a = SKYCOL[i]; const b = SKYCOL[Math.min(SKYCOL.indexOf(a) + 1, SKYCOL.length - 1)]; return lerpC(a[1], b[1], b === a ? 0 : sstep((t - a[0]) / (b[0] - a[0]))); }
+    function skyBack(ctx, t) {
+      const u = Math.max(0, t - SK0), cl = I.skyCloud;
+      const g = ctx.createLinearGradient(0, -80, 0, H + 80); g.addColorStop(0, 'rgb(34,74,190)'); g.addColorStop(0.45, 'rgb(96,170,240)'); g.addColorStop(1, 'rgb(206,232,255)');
+      ctx.fillStyle = g; ctx.fillRect(-100, -100, W + 200, H + 200);
+      if (!cl || !cl.width) return;
+      const sp = 1 + 0.9 * sstep(u / 6);
+      [[1.0, 180, 0.6, false, 0], [1.6, 400, 0.85, true, 160], [2.6, 860, 1, false, 330]].forEach((Ly, li) => { // [échelle, vitesse px/s, alpha, miroir, déphasage]
+        const s = Ly[0], w = cl.width * s, h = cl.height * s, off = (u * Ly[1] * sp + Ly[4]) % h;
+        ctx.save(); ctx.globalAlpha = Ly[2]; ctx.imageSmoothingEnabled = false;
+        for (let iy = -1; -100 + iy * h - off < H + 100; iy++) for (let ix = 0; -w * 0.5 + li * 53 + ix * w < W + 100; ix++) {
+          const x = -w * 0.5 + li * 53 + ix * w, y = -100 + iy * h - off;
+          if (Ly[3]) { ctx.save(); ctx.translate(x + w, y); ctx.scale(-1, 1); ctx.drawImage(cl, 0, 0, w, h); ctx.restore(); } else ctx.drawImage(cl, x, y, w, h);
+        }
+        ctx.restore();
+      });
+    }
+    function meteorAt(t) { const k = clamp((t - MET0) / (SKIMP - MET0), 0, 1), e = Math.pow(k, 2.2); return { k, x: lerp(1250, 640, e), y: lerp(100, 330, e), s: lerp(0.1, 2.7, e) }; }
+    function meteorDraw(ctx, t) {
+      const im = I.meteor; if (!im || !im.width || t < MET0 || t > SKIMP + 0.2) return;
+      const m = meteorAt(t), hx = 0.3 * im.width, hy = 0.55 * im.height;
+      glow(ctx, m.x, m.y, 300 * m.s + 50, '255,150,50', 0.5); glow(ctx, m.x, m.y, 130 * m.s + 24, '255,240,170', 0.75);
+      ctx.save(); ctx.translate(m.x, m.y); const j = m.s * (1 + 0.012 * Math.sin(t * 37)); ctx.scale(j, j); ctx.imageSmoothingEnabled = false; ctx.drawImage(im, -hx, -hy); ctx.restore();
+      for (let i = 0; i < 14; i++) { // braises qui filent le long de la traînée
+        const ph = (t * (0.7 + rnd(i, 5) * 0.6) + rnd(i, 6)) % 1, d = ph * 520 * m.s, off = (rnd(i, 7) - 0.5) * 120 * m.s;
+        fx(ctx, 'sparkle', ph * 8, m.x + 0.93 * d - 0.37 * off, m.y - 0.37 * d - 0.93 * off, 0.35 + 0.5 * m.s, 1 - ph, { add: true, tint: '255,190,90' });
+      }
+    }
+    // gestes (chaque personnage a sa partition : [instant, animation, direction, boucle, vitesse, image figée])
+    const SKSEQ = {
+      '0447': [[106, 'LeapForth', 0, false, 1, 9], [109.4, 'LookUp', 0, false, 1], [112.2, 'Pull', 0, true, 1], [115.2, 'Pose', 0, false, 0.8]],
+      '0133': [[106, 'Hurt', 2, true, 0.5], [110.8, 'Wake', 0, false, 0.9], [113.0, 'LookUp', 0, false, 1], [114.6, 'Pose', 0, false, 0.9]],
+      '0393': [[106, 'Rotate', 0, true, 0.6], [109.4, 'LookUp', 0, false, 1], [112.6, 'Swing', 6, true, 0.7], [115.2, 'Pose', 0, false, 0.8]],
+    };
+    function skyPose(ctx, pid, i, t, cx, cy) {
+      const sq = SKSEQ[pid]; let e = sq[0]; for (const q of sq) if (t >= q[0]) e = q;
+      const u = t - SK0, tumble = 1 - sstep((t - 110) / 2.5), rot = (0.38 * Math.sin(0.9 * u + i * 2.1) + 0.15 * Math.sin(2.3 * u + i)) * tumble;
+      const join = sstep((t - 115.4) / 1.2), gap = lerp(158, 140, join), x = cx + (i - 1) * gap, y = cy + (i - 1) * (i - 1) * 8 + Math.sin(1.7 * u + i * 1.3) * 7 * (1 - join) - (i === 1 ? 6 : 0);
+      spr(ctx, pid, e[1], e[2], e[5] != null ? e[5] : (t - e[0]) * 60 * e[4], x, y, 6.4, { fly: true, loop: e[3], rot, aura: ['120,200,255', '120,230,255', '255,210,120'][i] });
+      return [x, y];
+    }
+    function bang(ctx, x, y, t, t0) { // « ! » de surprise (comme dans les cinématiques PMD) : saute puis retombe
+      const d = t - t0; if (d < 0 || d > 0.9) return; const hop = Math.abs(Math.sin(Math.min(d, 0.5) / 0.5 * Math.PI)) * 16;
+      ctx.save(); ctx.globalAlpha = 1 - sstep((d - 0.6) / 0.3); ctx.font = '900 54px "Trebuchet MS",Verdana,sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 8; ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#1a1030'; ctx.strokeText('!', x, y - hop); ctx.fillStyle = '#fff6a8'; ctx.fillText('!', x, y - hop); ctx.restore();
+    }
+    function fSkyFall(ctx, t) {
+      ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.imageSmoothingEnabled = true;
+      const u = t - SK0;
+      if (t >= SKIMP) { // après l'impact : blanc éblouissant, puis le ciel s'éteint en violet sombre (silence)
+        ctx.fillStyle = '#0e0022'; ctx.fillRect(0, 0, W, H);
+        const d = t - SKIMP, ra = 1 - sstep((d - 0.4) / 1.2);
+        ring(ctx, 640, 350, d * 1250, 7, '255,240,200', 0.9 * ra, 1); ring(ctx, 640, 350, d * 800, 4, '190,90,255', 0.8 * ra, 0.8);
+        glow(ctx, 640, 350, 520, '190,120,255', 0.35 * (1 - sstep((d - 0.8) / 1.6)));
+        flash(ctx, 1 - sstep((d - 1.35) / 1.25), '255,255,255'); ctx.restore(); return;
+      }
+      const a = 0.8 + (t > 110.5 ? 14 * Math.pow(sstep((t - 110.5) / 7.8), 2) : 0);
+      ctx.save(); ctx.translate(Math.sin(t * 61) * a, Math.cos(t * 73) * a);
+      skyBack(ctx, t); grade(ctx, skyTint(t), 1);
+      meteorDraw(ctx, t);
+      // Latias et Latios arrivent en flèche et encadrent le trio
+      const la = sstep((t - 112.2) / 0.9) * (1 - sstep((t - 118.0) / 0.3)), lk = sstep((t - 112.2) / 2.0);
+      if (la > 0.01) {
+        spr(ctx, '0380', 'Idle', 2, t * 40, lerp(-160, 340, lk), lerp(130, 300, lk) + Math.sin(u * 2.2) * 9, 4.4, { fly: true, rot: lerp(0.35, -0.1, lk), a: la, aura: '255,120,160' });
+        spr(ctx, '0381', 'Idle', 6, t * 40, lerp(1440, 940, lk), lerp(110, 300, lk) + Math.sin(u * 2.2 + 1.5) * 9, 4.4, { fly: true, rot: lerp(-0.35, 0.1, lk), a: la, aura: '120,160,255' });
+      }
+      const cx = 650 + Math.sin(0.8 * u) * 26, cy = 392 + Math.sin(1.3 * u) * 20;
+      const ba = sstep((t - 116.0) / 0.9); if (ba > 0.01) barrierWorld(ctx, cx, cy + 6, 250 + Math.sin(t * 6) * 4, 0.9 * ba, t);
+      const P = ['0447', '0133', '0393'].map((pid, i) => skyPose(ctx, pid, i, t, cx, cy));
+      // mains jointes : fil et éclats de lumière
+      const he = sstep((t - 106.3) / 1.0);
+      if (he > 0.01) {
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = 'rgba(255,240,190,' + (0.5 * he).toFixed(3) + ')'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1] + 10); ctx.quadraticCurveTo(P[1][0], P[1][1] + 22 + Math.sin(t * 4) * 4, P[2][0], P[2][1] + 10); ctx.stroke(); ctx.restore();
+        for (let i = 0; i < 2; i++) { const x = (P[i][0] + P[i + 1][0]) / 2, y = (P[i][1] + P[i + 1][1]) / 2 + 12; glow(ctx, x, y, 46, '255,236,170', 0.85 * he); fx(ctx, 'sparkle', (t * 12 + i * 3) % 8, x, y, 0.9, he, { add: true }); }
+      }
+      // les trois badges se matérialisent, tournent au-dessus du trio puis fusionnent en une lumière
+      const keys = ['wfCyan', 'wfEmerald', 'wfAmber'], rgb = ['120,235,255', '120,255,190', '255,210,100'], join = sstep((t - 115.6) / 1.0), R = lerp(160, 28, join);
+      for (let i = 0; i < 3; i++) { const al = clamp((t - 113.6 - i * 0.4) / 0.9, 0, 1); if (al <= 0) continue; const an = t * 2.4 + i * TAU / 3;
+        wayfinder(ctx, keys[i], cx + Math.cos(an) * R, cy - 190 + Math.sin(an) * R * 0.38, 1.5, t, al, rgb[i]); }
+      if (join > 0) glow(ctx, cx, cy - 190, 160 + 120 * join, '255,246,210', 0.6 * join);
+      bang(ctx, P[0][0] + 30, P[0][1] - 110, t, 109.5); bang(ctx, P[2][0] - 30, P[2][1] - 100, t, 109.6); bang(ctx, P[1][0] + 20, P[1][1] - 110, t, 113.0);
+      // traits de vitesse : tout file vers le haut
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; const sa = 0.35 * (1 - sstep((t - 117.0) / 1.2));
+      for (let i = 0; i < 34; i++) { const ph = (t * (1.1 + rnd(i, 2) * 1.4) + rnd(i, 3)) % 1, x = rnd(i, 4) * W, y = H + 80 - ph * (H + 360), len = 90 + rnd(i, 5) * 170; ctx.strokeStyle = 'rgba(255,255,255,' + (sa * Math.sin(ph * Math.PI)).toFixed(3) + ')'; ctx.lineWidth = 1 + rnd(i, 6) * 2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + len); ctx.stroke(); }
+      ctx.restore();
+      ctx.restore();
+      // impulsions jaunes de 2 images, lavis jaune malsain, clignotements blancs de 15 images (World Calamity), flash blanc de 8 images
+      for (const p of PULSES) if (t >= p && t < p + 3 / 60) flash(ctx, 0.5, '150,150,24');
+      flash(ctx, 0.2 * sstep((t - 111) / 3) * (1 - sstep((t - 117) / 1.0)), '170,160,30');
+      if (t >= 116.4 && t < SKIMP - 0.2 && Math.floor((t - 116.4) / 0.25) % 2 === 0) flash(ctx, 0.32, '255,255,255');
+      flash(ctx, sstep((t - (SKIMP - 0.13)) / 0.13), '255,255,255');
+      flash(ctx, 0.85 * (1 - sstep((t - SK0) / 0.55)), '255,255,255'); // coupe depuis le plan précédent : le blanc retombe
+      ctx.restore();
+    }
+    S.SC.find((q) => q.id === '5a').custom = fSkyFall;
+
     function frameBeach(ctx, t) { fBeach(ctx, t); vignette(ctx, 0.5); bars(ctx, t); }
     function render(ctx, t, opts) {
       opts = opts || {}; t = clamp(t, 0, D);

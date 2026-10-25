@@ -124,9 +124,10 @@
     const frame = mk(W, H), fx = frame.getContext('2d');
     function render(ctx, t, opts) {
       opts = opts || {}; t = clamp(t, 0, D);
-      const idx = Math.floor(t * FPS + 1e-6), tq = Math.min(D, idx / FPS);
-      if (idx !== cache.idx || opts.theme !== cache.theme) {
-        const res = {}; drawSketch(sstep((t - 147.6) / 0.9), idx % 3, (c) => U.render(c, tq, opts), res); // écran-titre : le logo reste lisible → traitement allégé
+      const ex = !!opts.exact; // exact : une image dessinée par image vidéo (mouvement 100 % fluide, trait qui bouillonne à 12 Hz) ; sinon animation « on twos » à 12 i/s
+      const idx = ex ? Math.floor(t * 60 + 1e-6) : Math.floor(t * FPS + 1e-6), tq = ex ? t : Math.min(D, idx / FPS), vv = ex ? Math.floor(t * FPS + 1e-6) % 3 : idx % 3;
+      if (idx !== cache.idx || opts.theme !== cache.theme || ex !== cache.ex) {
+        const res = {}; drawSketch(sstep((t - 147.6) / 0.9), vv, (c) => U.render(c, tq, opts), res); // écran-titre : le logo reste lisible → traitement allégé
         fx.setTransform(1, 0, 0, 1, 0, 0); fx.globalCompositeOperation = 'source-over'; fx.globalAlpha = 1; fx.imageSmoothingEnabled = true; fx.drawImage(out, 0, 0, W, H);
         // grain pleine résolution
         fx.globalCompositeOperation = 'multiply'; fx.globalAlpha = 0.55; fx.drawImage(gf, 0, 0); fx.globalAlpha = 1; fx.globalCompositeOperation = 'source-over';
@@ -138,7 +139,7 @@
           for (const yy of [h, H - h]) { fx.moveTo(0, yy + Math.sin(idx) * 0.8); for (let x = 0; x <= W; x += 64) fx.lineTo(x, yy + Math.sin(x * 0.05 + idx * 1.3) * 1.2); }
           fx.stroke();
         }
-        cache = { idx, wing: res.wing, shot: res.shot, theme: opts.theme };
+        cache = { idx, wing: res.wing, shot: res.shot, theme: opts.theme, ex };
       }
       ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(frame, 0, 0); ctx.restore();
       return { wing: cache.wing, shot: cache.shot };

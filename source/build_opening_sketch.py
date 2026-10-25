@@ -53,6 +53,7 @@ def build_html() -> Path:
     meta = {
         "duration_seconds": DURATION_S, "base": "opening ULTIME (même montage)", "style": "studio d'animation 2D — sketch (crayon coloré, on twos 12 i/s, hachures, papier)",
         "resolution": [1280, 720], "fps_dessin": 12, "html_bytes": OUT_HTML.stat().st_size,
+        "video": {"file": "opening_sketch_60fps.mp4", "fps": 60, "codec": "H.264 yuv420p", "rendu": "node source/render_sketch_video.js (2 moitiés puis concat ffmpeg), sans piste audio"},
     }
     (OUT_DIR / "metadata.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
     return OUT_HTML
