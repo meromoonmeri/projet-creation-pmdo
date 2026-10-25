@@ -36,7 +36,10 @@ def main():
     s = 420 / max(sym.size)
     sym.resize((round(sym.width * s), round(sym.height * s)), Image.LANCZOS).save(OUT / "megaSymbol.webp", quality=84, method=6)
     sh = keyed(Image.open(SRC / "explosion_realite_raw.png"), 8, 50)
-    sh.resize((1024, round(1024 * sh.height / sh.width)), Image.LANCZOS).save(OUT / "megaShatter.webp", quality=82, method=6)
+    sh = sh.resize((1024, round(1024 * sh.height / sh.width)), Image.LANCZOS)
+    arr = np.asarray(sh).copy()
+    arr[..., 3] = (arr[..., 3] // 8) * (255 // 31)  # alpha quantifiée sur 32 niveaux : plaque additive, banding invisible, ~40 % plus léger
+    Image.fromarray(arr, "RGBA").save(OUT / "megaShatter.webp", quality=58, method=6, exact=False)
     for f in ("megaColumn", "megaSymbol", "megaShatter"):
         im = Image.open(OUT / f"{f}.webp")
         print(f, im.size, (OUT / f"{f}.webp").stat().st_size // 1024, "Ko")

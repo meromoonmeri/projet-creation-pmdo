@@ -59,10 +59,15 @@ def new_resources():
     for key, src in (("skyStrato", "skyStrato_raw.png"), ("skyDeck", "skyCloudDeck_raw.png"), ("cloudPortal", "cloudPortalNew_raw.png")):
         buf = io.BytesIO(); Image.open(SOURCE_DIR / "pmd_destiny_fangame_v1" / "decors_peints" / src).convert("RGB").save(buf, "JPEG", quality=84, optimize=True)
         imgs[key] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
-    for key in ("megaColumn", "megaSymbol", "megaShatter"):  # Méga-Évolution : colonne arc-en-ciel, emblème en flammes, explosion qui fracture la réalité (WebP + alpha)
-        imgs[key] = uri(BR / f"{key}.webp", "image/webp")
+    imgs["megaShatter"] = uri(BR / "megaShatter.webp", "image/webp")  # explosion qui fracture la réalité (plaque peinte)
+    # Méga-Évolution « fissures » : les vraies images de l'animation de référence (sol → énergie arrière →
+    # personnage → sphère → énergie avant → fracture → emblème), découpées par build_mega_atlas.py
+    mega = json.loads((BR / "mega_sheets.json").read_text())
+    for key in ("mRear", "mFront", "mSphere", "mBreak", "mEmblem"):
+        imgs[key] = uri(BR / f"megaSheet_{key}.webp", "image/webp")
     vfx = json.loads((BR / "vfx_catalog.json").read_text())
     arena = json.loads((BR / "arena_meta.json").read_text())
+    mega = json.loads((BR / "mega_sheets.json").read_text())
     cat = json.loads((BR / "sprites_catalog.json").read_text())
     sheets: dict = {}
     from source.build_opening_ray_of_hope_pokemon import make_shadow_corrupted_sheet as shadow  # type: ignore
@@ -81,16 +86,19 @@ def new_resources():
                 sheets[f"{sid}/{fn}"] = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
                 sm = dict(meta); sm["file"] = f"{sid}/{fn}"
                 cat.setdefault(sid, {})[name] = sm
-    return imgs, sheets, vfx, arena, cat
+    return imgs, sheets, vfx, arena, cat, mega
 
 
 def merge(A: dict) -> dict:
-    imgs, sheets, vfx, arena, cat = new_resources()
+    imgs, sheets, vfx, arena, cat, mega = new_resources()
     A["imgs"].update(imgs)
     A["imgs"].pop("meteor", None)  # remplacée par l'animation du météore de PMD Rouge (fx_rrmet)
     A["sheets"].update({k: v for k, v in sheets.items()})
     A["catalog"].setdefault("vfx", {}).update(vfx)
     A["catalog"]["arena"] = arena
+    A["catalog"]["mega"] = mega
+    for k in ("megaColumn", "megaSymbol"):  # remplacées par les vraies images de l'animation de référence
+        A["imgs"].pop(k, None)
     P = A["catalog"]["pokemon"]
     for pid, anims in cat.items():
         ent = P.setdefault(pid, {"name": {"9448": "Méga-Lucario"}.get(pid, pid), "anims": {}, "portraits": {}, "authors": []})

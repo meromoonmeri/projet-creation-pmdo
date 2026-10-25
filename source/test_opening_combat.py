@@ -28,10 +28,18 @@ class TestCombat(unittest.TestCase):
             for an in ("Idle", "Charge", "Attack", "RearUp"):
                 self.assertIn(an, A["catalog"]["pokemon"]["9448"]["anims"])
                 self.assertIn(A["catalog"]["pokemon"]["9448"]["anims"][an]["file"], A["sheets"])
-            self.assertIn("function megaColumn(", h)
-            for k in ("megaColumn", "megaSymbol", "megaShatter"):  # Méga-Évolution sans pierres : colonne, emblème en flammes, explosion qui fracture la réalité
+            self.assertIn("function megaFx(", h)
+            for k in ("mRear", "mFront", "mSphere", "mBreak", "mEmblem"):  # les vraies images de l'animation de référence
                 self.assertIn(k, A["imgs"], page + " : " + k)
                 self.assertTrue(A["imgs"][k].startswith("data:image/webp;base64,"))
+            self.assertIn("megaShatter", A["imgs"])  # explosion qui fracture la réalité
+            self.assertIn("mega", A["catalog"], page)
+            for k in ("mRear", "mFront", "mSphere", "mBreak", "mEmblem"):
+                m = A["catalog"]["mega"][k]
+                for f in ("n", "cols", "cw", "ch", "f0", "ax", "ay"):
+                    self.assertIn(f, m, page + " : " + k + "." + f)
+            self.assertEqual(A["catalog"]["mega"]["form_switch_frame"], 78)
+            self.assertEqual(A["catalog"]["mega"]["frames"], 192)
             for an in ("Tumble", "EventSleep", "DeepBreath", "Nod", "Wake", "LookUp"):  # gestes d'Évoli de la fin
                 self.assertIn(an, A["catalog"]["pokemon"]["0133"]["anims"], page + " : Évoli " + an)
             for an in ("Pull", "Pose", "Hop", "Nod"):
@@ -43,15 +51,17 @@ class TestCombat(unittest.TestCase):
             for sid in ("shadow_0133", "shadow_0393", "shadow_0302"):
                 self.assertIn(sid, A["catalog"]["pokemon"], page + " : " + sid)
                 self.assertIn("Idle", A["catalog"]["pokemon"][sid]["anims"])
-            self.assertLess(len(h), 9_500_000)
+            self.assertLess(len(h), 10_600_000)
 
     def test_scenes_combat(self):
         for needle in ("id: '4a'", "id: '4b'", "id: '4c'", "id: '4d'", "pid: '9448'", "pid: '0491'", "function arenaBack(", "function rocks(", "function mistLayer(", "function skyBolts(",
-                       "function riftDraw(", "function megaColumn(", "function silMorph(", "function silField(", "function rainbowBolt(", "function megaFlames(", "function realityCracks(", "function tendril(", "function pool(", "TEXP = 103.3", "I.megaShatter"):
+                       "function riftDraw(", "function megaFx(", "function silMorph(", "function silField(", "function rainbowBolt(", "function megaEmblem(", "function megaRainbow(", "function megaGround(", "function realityCracks(", "function tendril(", "function pool(", "TEXP = 103.3", "I.megaShatter"):
             self.assertIn(needle, SPR)
-        for banned in ("function stoneDraw(", "function megaSphere(", "function rainbowThread(", "KS0", "Pierre de Key"):  # plus de pierres dans la Méga-Évolution
+        for needle in ("megaFx(ctx, 'mSphere', F, MX, MY, MSV, 1)", "megaFx(ctx, 'mFront', F, MX, MY, MSV, 1)", "megaFx(ctx, 'mBreak', F, MX, MY, MSV, 1)", "megaFx(ctx, 'mRear', Fu, MX, MY, MSV, 1)"):
+            self.assertIn(needle, SPR)  # ordre de référence : énergie arrière → personnage → sphère → énergie avant → fracture
+        for banned in ("function stoneDraw(", "function megaSphere(", "function rainbowThread(", "function megaColumn(", "function megaFlames(", "KS0", "Pierre de Key"):  # plus de pierres dans la Méga-Évolution
             self.assertNotIn(banned, SPR)
-        for needle in ("rainbowBolt(ctx, boltShape(", "megaFlames(ctx, t, LUX", "silMorph(ctx, LUX", "megaColumn(ctx, t, LUX"):
+        for needle in ("rainbowBolt(ctx, boltShape(", "megaEmblem(ctx, t, MX, MY, MSV, em, F)", "silMorph(ctx, MX, MY - 4, 1.02, sm, sa, t)"):
             self.assertIn(needle, SPR)
         # trio final : Riolu, Évoli et Tiplouf réunis avant le titre (plan SP) ; réveil d'Évoli par les vraies animations
         sp = SPR[SPR.index("id: 'SP'"):SPR.index("id: 'SP'") + 1400]
