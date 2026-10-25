@@ -948,6 +948,9 @@ def build_html(manifest: Dict, default_map_id: str = "MMA1") -> str:
       <div class="status-line">
         39 Cartes · 390 Calques Temps Réel · Grille 2D GPU-Safe
         <a href="./apercu_fangame_pmd_destiny.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#d97706,#92400e);border:1px solid #fcd34d;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">🎬 Opening d'Anime + Jour/Nuit PMD : Destiny</a>
+        <a href="./apercu_fangame_pmd_destiny_ultime.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#16a34a,#14532d);border:1px solid #86efac;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">🎬 Opening ULTIME (plage PMD Sky · 02:33)</a>
+        <a href="./apercu_fangame_pmd_destiny_voyage.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#0284c7,#0c4a6e);border:1px solid #7dd3fc;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">🌊 Opening Voyage</a>
+        <a href="./apercu_fangame_pmd_destiny_last_moment.html" style="display:inline-block;margin-left:10px;padding:5px 11px;border-radius:7px;background:linear-gradient(180deg,#9333ea,#581c87);border:1px solid #d8b4fe;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">🌅 Opening Last Moment</a>
         <a href="./apercu_consolidation_town02_unifiee.html" style="display:inline-block;margin-left:6px;padding:5px 11px;border-radius:7px;background:#1b6ca8;border:1px solid #4cc9f0;color:#fff;text-decoration:none;font-weight:700;font-size:0.78rem;">Hub Unifié town02 + Toutes Branches</a>
       </div>
     </div>
