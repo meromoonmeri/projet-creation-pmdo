@@ -213,6 +213,7 @@ POKEMON_SPECS: List[Tuple[str, str, List[str], List[str]]] = [
     ("0381", "Latios", ["Idle", "Walk", "Attack", "Shoot", "Hop", "Rotate"], []),
     ("0571", "Zoroark", ["Idle", "Walk", "Attack", "Double", "Swing", "Shoot", "Charge", "Hop", "Rotate", "Hurt"], []),
     ("0492", "Shaymin (Sky)", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Appeal"], []),
+    ("0151", "Mew", ["Idle", "Walk", "Float", "Hop", "Rotate", "Pose", "Twirl", "Charge", "Double", "Nod", "LookUp"], []),
     ("0491", "Darkrai", ["Idle", "Walk", "Attack", "QuickStrike", "Double", "Swing", "Shoot", "RearUp", "Charge", "Rotate", "Hurt"], []),
 ]
 
