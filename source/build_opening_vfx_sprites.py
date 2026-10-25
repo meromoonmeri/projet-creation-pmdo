@@ -22,7 +22,7 @@ BAYER = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]],
 
 
 def load_sprite(name: str, max_dim: int, key: str = "magenta", colors: int = 20) -> Image.Image:
-    im = Image.open(SRC / f"vfx_{name}.png").convert("RGB")
+    im = Image.open(SRC / (f"{name}.png" if name.startswith("badge_") else f"vfx_{name}.png")).convert("RGB")
     a = np.asarray(im).astype(int)
     r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
     if key == "magenta":
@@ -249,9 +249,98 @@ def anim_slash() -> Tuple[List[Image.Image], dict]:
     return frames, {"fps": 24, "loop": False}
 
 
+def rot_pad(base: Image.Image, ang: float, fw: int, fh: int) -> Image.Image:
+    f = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+    paste_center(f, base, fw / 2, fh / 2)
+    return f.rotate(ang, resample=Image.Resampling.NEAREST, center=(fw / 2, fh / 2))
+
+
+def anim_shadowball() -> Tuple[List[Image.Image], dict]:
+    base = load_sprite("shadowball", 40, key="green")
+    fw = fh = 48
+    return [rot_pad(base, k * 45, fw, fh) for k in range(8)], {"fps": 16, "loop": True}
+
+
+def anim_aurasphere() -> Tuple[List[Image.Image], dict]:
+    base = load_sprite("aurasphere", 56)
+    fw = fh = 64
+    return [rot_pad(base, -k * 45, fw, fh) for k in range(8)], {"fps": 16, "loop": True}
+
+
+def anim_swiftstar() -> Tuple[List[Image.Image], dict]:
+    base = load_sprite("swiftstar", 28)
+    fw = fh = 38
+    return [rot_pad(base, k * 9, fw, fh) for k in range(8)], {"fps": 18, "loop": True}
+
+
+def anim_halo() -> Tuple[List[Image.Image], dict]:
+    """Halo arc-en-ciel : anneau générée, 8 images de rotation de teinte (les bandes semblent tourner)."""
+    im = Image.open(SRC / "vfx_rainbowhalo.png").convert("RGB")
+    a = np.asarray(im).astype(int)
+    lum = a.max(axis=2)
+    ys, xs = np.where(lum > 40)
+    box = (xs.min(), ys.min(), xs.max() + 1, ys.max() + 1)
+    im = im.crop(box)
+    side = max(im.size)
+    sq = Image.new("RGB", (side, side), (0, 0, 0))
+    sq.paste(im, ((side - im.width) // 2, (side - im.height) // 2))
+    sq = sq.resize((96, 96), Image.Resampling.BOX)
+    hsv = np.asarray(sq.convert("HSV")).astype(int)
+    frames = []
+    for k in range(8):
+        h = hsv.copy()
+        h[..., 0] = (h[..., 0] + k * 32) % 256
+        rgb = np.asarray(Image.fromarray(h.astype(np.uint8), "HSV").convert("RGB"))
+        alpha = (rgb.max(axis=2) > 48).astype(np.uint8) * 255
+        out = np.dstack([rgb, alpha]).astype(np.uint8)
+        out[alpha == 0, :3] = 0
+        f = Image.fromarray(out, "RGBA").quantize(colors=24, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).convert("RGBA")
+        fa = np.asarray(f).copy()
+        fa[..., 3] = alpha
+        frames.append(Image.fromarray(fa, "RGBA"))
+    return frames, {"fps": 10, "loop": True}
+
+
+def anim_mat() -> Tuple[List[Image.Image], dict]:
+    """Matérialisation : points de lumière qui convergent en spirale puis éclair en croix (8 images)."""
+    fw = fh = 64
+    frames = []
+    ndots = 14
+    for k in range(8):
+        f = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+        d = ImageDraw.Draw(f)
+        cx = cy = fw // 2
+        if k < 6:
+            rad = 28 * (1 - k / 6.0) ** 1.4 + 2
+            for i in range(ndots):
+                ang = i / ndots * math.tau + k * 0.55
+                x = int(round(cx + math.cos(ang) * rad))
+                y = int(round(cy + math.sin(ang) * rad))
+                col = (255, 255, 255, 255) if i % 2 == 0 else (190, 245, 255, 255)
+                d.rectangle([x - 1, y - 1, x, y], fill=col)
+        else:
+            L = 10 if k == 6 else 5
+            for t in range(-L, L + 1):
+                d.point((cx + t, cy), fill=(255, 255, 255, 255)); d.point((cx, cy + t), fill=(255, 255, 255, 255))
+            d.rectangle([cx - 1, cy - 1, cx, cy], fill=(255, 255, 255, 255))
+        frames.append(f)
+    return frames, {"fps": 12, "loop": False}
+
+
+def anim_badge(color: str):
+    def fn() -> Tuple[List[Image.Image], dict]:
+        base = load_sprite(f"badge_{color}", 30, colors=24)
+        f = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+        paste_center(f, base, 16, 16)
+        return [f], {"fps": 1, "loop": False}
+    return fn
+
+
 EFFECTS = {
     "petal": anim_petal, "sparkle": anim_sparkle, "bubble": anim_bubble, "hit": anim_hit,
     "flame": anim_flame, "splash": anim_splash, "shard": anim_shard, "slash": anim_slash,
+    "shadowball": anim_shadowball, "aurasphere": anim_aurasphere, "swiftstar": anim_swiftstar, "halo": anim_halo, "mat": anim_mat,
+    "badge_cyan": anim_badge("cyan"), "badge_emerald": anim_badge("emerald"), "badge_amber": anim_badge("amber"),
 }
 
 

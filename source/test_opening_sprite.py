@@ -46,7 +46,7 @@ class TestOpeningSprite(unittest.TestCase):
 
     def test_04c_sprites_effets_et_shaymin(self) -> None:
         txt = HTML.read_text(encoding="utf-8")
-        for k in ("petal", "sparkle", "bubble", "hit", "flame", "splash", "shard", "slash"):
+        for k in ("petal", "sparkle", "bubble", "hit", "flame", "splash", "shard", "slash", "shadowball", "aurasphere", "swiftstar", "halo", "mat", "badge_cyan", "badge_emerald", "badge_amber"):
             self.assertIn(f'"fx_{k}":"data:image/webp', txt)
             self.assertRegex(txt, r'"%s":\{"fw":\d+,"fh":\d+,"n":\d+' % k)
         self.assertIn('"0492"', txt)  # vrai sprite PMDO de Shaymin
@@ -54,6 +54,13 @@ class TestOpeningSprite(unittest.TestCase):
         eng = (HERE / "opening_sprite_engine.js").read_text(encoding="utf-8")
         for fn in ("function petals(", "function flames(", "function shardsW("):
             self.assertIn("fx(ctx", eng[eng.index(fn):eng.index(fn) + 700])  # effets = sprites, plus de dessin procédural
+        for k in ("cloudPortal", "rigBack", "wfCyan", "wfEmerald", "wfAmber"):
+            self.assertIn(f'"{k}":"data:image/', txt)
+        for fn in ("function bolt(", "function drawFall(", "function matBurst("):
+            self.assertIn(fn, eng)  # attaques Pokémon matérialisées, chute en vue plongeante
+        for kind in ("shadowball", "aurasphere", "swift", "bubble"):
+            self.assertIn(f"kind: '{kind}'", eng)
+        self.assertNotIn("introCard(ctx, t); caption(ctx, t)", eng)  # plus de texte de description dans l'image
         self.assertIn("attach:", eng)  # chutes : sprite suivi par la caméra, décor qui défile
 
     def test_05_page_aaa_conservee(self) -> None:

@@ -28,6 +28,7 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 from source.moteur_pmd_destiny_fangame import decode_pmdo_dir_sheet  # type: ignore
 from source.build_opening_sky_layers import build_layers  # type: ignore
 from source.build_opening_vfx_sprites import build_vfx  # type: ignore
+from source.build_logo_rig_clean import build as build_rig  # type: ignore
 
 RENDERS = REPO_ROOT / "renders" / "pmd_destiny_fangame_v1"
 ASSETS_DIR = RENDERS / "opening_assets"
@@ -60,7 +61,7 @@ MAPS = {
     "opm1": "opm1_plage_cristal.png", "opm2": "opm2_abysse_vitrail.png", "opm3": "opm3_arene_eau_miroir.png",
     "opm4": "opm4_ciel_astral.png", "opm5": "opm5_falaise_promontoire.png",
 }
-PROPS = {"vitrail": "vitrail_dais_pmd_pixel.png", "wfCyan": "wayfinder_cyan.png", "wfEmerald": "wayfinder_emerald.png", "wfAmber": "wayfinder_amber.png"}
+PROPS = {"vitrail": "vitrail_dais_pmd_pixel.png"}  # les 3 badges étoile sont désormais générés (fx_badge_*)
 
 
 def uri_png(path: Path) -> str:
@@ -82,9 +83,9 @@ def build_assets() -> Dict[str, object]:
         imgs[k] = uri_png(ASSETS_DIR / "maps" / f)
     for k, f in PROPS.items():
         imgs[k] = uri_png(ASSETS_DIR / f)
-    for key, fname in (("rigCore", "logo_rig_core_body.png"), ("rigLW", "logo_rig_left_wing.png"), ("rigRW", "logo_rig_right_wing.png")):
-        im = Image.open(APERCUS_MENU / fname).convert("RGBA").resize((580, 418), Image.Resampling.LANCZOS)
-        imgs[key] = uri_im(im, "WEBP", quality=92)
+    rig = build_rig()  # découpe propre du logo (segmentation par couleur), pleine définition
+    for key, name in (("rigCore", "core_body"), ("rigLW", "left_wing"), ("rigRW", "right_wing"), ("rigBack", "back_fill")):
+        imgs[key] = uri_im(rig[name], "WEBP", lossless=True)
     imgs["enterUI"] = uri_im(Image.open(APERCUS_MENU / "Enter_74x11.png").convert("RGBA"), "WEBP", lossless=True)
     aj, _ = decode_pmdo_dir_sheet(BG_DIR / "Title_Screen_Background_Jour.dir")
     an, _ = decode_pmdo_dir_sheet(BG_DIR / "Title_Screen_Background_Nuit.dir")
@@ -113,11 +114,10 @@ def build_assets() -> Dict[str, object]:
         imgs[f"fx_{name}"] = uri_im(v["sheet"], "WEBP", lossless=True)
         vfx_meta[name] = {k: v[k] for k in v if k != "sheet"}
         v["sheet"].save(VFX_DIR / f"fx_{name}.png")
-    sb = OUT_DIR / "contact_sheet.webp"
-    if sb.is_file():
-        imgs["storyboardSheet"] = "data:image/webp;base64," + base64.b64encode(sb.read_bytes()).decode("ascii")
-    else:
-        imgs["storyboardSheet"] = uri_im(Image.new("RGB", (16, 9), (6, 12, 28)), "WEBP")
+    for key, col in (("wfCyan", "cyan"), ("wfEmerald", "emerald"), ("wfAmber", "amber")):
+        imgs[key] = imgs[f"fx_badge_{col}"]  # badge étoile généré
+    portal = Image.open(SOURCE_DIR / "pmd_destiny_fangame_v1" / "cinema_aaa_bruts" / "portail_nuages_nuit.png").convert("RGB").resize((1280, 698), Image.Resampling.LANCZOS)
+    imgs["cloudPortal"] = uri_im(portal, "WEBP", quality=84, method=6)
     sheets: Dict[str, str] = {}
     catalog: Dict[str, dict] = {}
     for pid, names in ACTORS.items():

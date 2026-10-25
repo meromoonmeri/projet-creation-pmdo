@@ -13,12 +13,12 @@
   const rnd = (i, s) => { const x = Math.sin(i * 127.1 + (s || 0) * 311.7) * 43758.5453; return x - Math.floor(x); };
 
   const CHAPTERS = [
-    { t: 0.0, name: "I · Au fond de l'océan — le Wayfinder", short: 'I · Océan & Rivage' },
-    { t: 24.0, name: 'II · Chute dans la lumière — le Vitrail du Destin', short: 'II · Vitrail du Destin' },
-    { t: 46.0, name: 'III · Trois Wayfinders — les 13 sièges de ténèbres', short: 'III · 13 Ténèbres' },
-    { t: 68.0, name: "IV · Mêlée dans l'Arène Eau-Miroir", short: 'IV · Mêlée Eau-Miroir' },
-    { t: 106.0, name: 'V · Chute céleste — la barrière de lumière', short: 'V · Chute Céleste' },
-    { t: 132.0, name: "VI · Le Rayon d'Espoir", short: "VI · Rayon d'Espoir" },
+    { t: 0.0, name: '', short: 'I' },
+    { t: 24.0, name: '', short: 'II' },
+    { t: 46.0, name: '', short: 'III' },
+    { t: 68.0, name: '', short: 'IV' },
+    { t: 106.0, name: '', short: 'V' },
+    { t: 132.0, name: '', short: 'VI' },
   ];
   const IMPACTS = [77.0, 79.2, 81.0, 83.4, 85.6, 87.4, 92.6, 94.2, 96.0, 98.2, 100.4, 102.2, 104.0];
   const HITSTOP = 0.075;
@@ -61,22 +61,87 @@
   function create(EV) {
     const I = EV.imgs, SH = EV.sheets, CAT = EV.catalog.pokemon, mk = EV.mk;
     const scr = mk(W, H), sctx = scr.getContext('2d');
-    const rigC = mk(580, 418), rigX = rigC.getContext('2d');
-    const tintC = mk(580, 418), tintX = tintC.getContext('2d');
+    const RW = 872, RH = 629; // logo complet pleine définition : fond de rattrapage / ailes / corps (découpe propre par segmentation)
+    const rigC = mk(RW, RH), rigX = rigC.getContext('2d');
     const mini = mk(256, 144), miniX = mini.getContext('2d');
     const MW = 576, MH = 320;
 
     // ---------- Primitives écran ----------
     const FXC = (EV.catalog && EV.catalog.vfx) || {};
-    // Sprite d'effet animé (planche d'images générée) : idx = numéro d'image, o.bottom = ancrage bas, o.add = addition
+    // ---- matérialisation : apparition tramée (Bayer 4×4) + points de lumière convergents ----
+    const FXT = mk(128, 128), FXTX = FXT.getContext('2d'), BAYM = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], BPAT = [];
+    function bayerPat(L) { if (BPAT[L]) return BPAT[L]; const tc = mk(4, 4), tx = tc.getContext('2d'); tx.fillStyle = '#fff'; for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) if (BAYM[y][x] < L) tx.fillRect(x, y, 1, 1); return (BPAT[L] = FXTX.createPattern(tc, 'repeat')); }
+    function dith(ctx, im, sx, sy, sw, sh, dx, dy, dw, dh, k, tint) { // k 0→1 : l'image se matérialise pixel par pixel ; tint = teinte additionnelle
+      FXTX.save(); FXTX.setTransform(1, 0, 0, 1, 0, 0); FXTX.globalAlpha = 1; FXTX.globalCompositeOperation = 'source-over'; FXTX.clearRect(0, 0, 128, 128);
+      FXTX.drawImage(im, sx, sy, sw, sh, 0, 0, sw, sh);
+      const L = Math.round(clamp(k, 0, 1) * 16);
+      if (L < 16) { FXTX.globalCompositeOperation = 'destination-in'; FXTX.fillStyle = bayerPat(L); FXTX.fillRect(0, 0, sw, sh); }
+      if (tint) { FXTX.globalCompositeOperation = 'source-atop'; FXTX.fillStyle = 'rgba(' + tint + ',0.6)'; FXTX.fillRect(0, 0, sw, sh); }
+      FXTX.restore();
+      ctx.drawImage(FXT, 0, 0, sw, sh, dx, dy, dw, dh);
+    }
+    // Sprite d'effet animé (planche d'images générée) : idx = numéro d'image, o.bottom = ancrage bas, o.add = addition, o.mat = matérialisation 0→1, o.tint = teinte
     function fx(ctx, name, idx, x, y, s, a, o) {
       const m = FXC[name], im = I['fx_' + name]; if (!m || !im || !im.width) return;
       o = o || {}; const n = m.n; let f = Math.floor(idx); f = m.loop === false ? clamp(f, 0, n - 1) : ((f % n) + n) % n;
       ctx.save(); ctx.imageSmoothingEnabled = false; if (a != null && a < 1) ctx.globalAlpha = Math.max(0, a); if (o.add) ctx.globalCompositeOperation = 'lighter';
       ctx.translate(x, y); if (o.rot) ctx.rotate(o.rot); const sc = s || 1; ctx.scale(sc, sc);
-      ctx.drawImage(im, f * m.fw, 0, m.fw, m.fh, -m.fw / 2, o.bottom ? -m.fh : -m.fh / 2, m.fw, m.fh); ctx.restore();
+      const dx = -m.fw / 2, dy = o.bottom ? -m.fh : -m.fh / 2;
+      if ((o.mat != null && o.mat < 1) || o.tint) dith(ctx, im, f * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh, o.mat == null ? 1 : o.mat, o.tint);
+      else ctx.drawImage(im, f * m.fw, 0, m.fw, m.fh, dx, dy, m.fw, m.fh);
+      ctx.restore();
     }
-    function hitFx(ctx, ix, iy, d, ti) { const f = d / 0.4; fx(ctx, 'hit', f * 8, ix, iy, 0.85, 1); fx(ctx, 'slash', f * 6, ix + 4, iy - 2, 0.9, 1, { rot: (rnd(ti, 3) - 0.5) * 3.0 }); }
+    function matBurst(ctx, x, y, k, tint, s) { // points de lumière qui convergent puis éclair en croix
+      if (k <= 0 || k >= 1) return; const sc = s || 0.8;
+      fx(ctx, 'mat', k * 8, x, y, sc, 1, { tint: tint, add: true }); glow(ctx, x, y, 22 * sc, tint || '255,255,255', 0.5 * Math.sin(Math.PI * k));
+    }
+    function hitFx(ctx, ix, iy, d, ti, tint, s) { const f = d / 0.4, sc = s || 1; fx(ctx, 'hit', f * 8, ix, iy, 0.85 * sc, 1, { tint: tint }); fx(ctx, 'slash', f * 6, ix + 4, iy - 2, 0.9 * sc, 1, { rot: (rnd(ti, 3) - 0.5) * 3.0, tint: tint }); }
+    // ---- attaques Pokémon : Ball'Ombre, Aurasphère, Météores, Bulles d'O — charge matérialisée → vol → impact ----
+    const KIND = { shadowball: { fps: 16, s: 0.55, tint: '170,60,255', glow: '190,60,255' }, aurasphere: { fps: 16, s: 0.5, tint: '90,230,255', glow: '120,235,255' }, swift: { sheet: 'swiftstar', fps: 18, s: 0.5, tint: '255,220,90', glow: '255,230,120' }, bubble: { sheet: 'bubble', fps: 8, s: 0.35, tint: '150,230,255', glow: '150,230,255' } };
+    function boltEnd(A) { return A.t0 + (A.charge || 0.55) + (A.fly || 0.45); }
+    function covered(ti) { return BOLTS.some((A) => Math.abs(boltEnd(A) - ti) < 0.06); }
+    function bolt(ctx, t, A) {
+      const K = KIND[A.kind], u = t - A.t0, ch = A.charge || 0.55, fl = A.fly || 0.45, n = A.n || 1, sS = (A.s || 1) * K.s, st = 0.045;
+      if (u < 0 || u > ch + fl + (n - 1) * st + 0.5) return;
+      const x0 = A.from[0], y0 = A.from[1], x1 = A.to[0], y1 = A.to[1], dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, sheet = K.sheet || A.kind;
+      for (let i = 0; i < n; i++) {
+        const ui = u - (n > 1 ? i * st : 0); if (ui < 0) continue; const spread = n > 1 ? (i - (n - 1) / 2) * 7 : 0;
+        if (ui < ch) { // matérialisation au point de départ
+          const k = ui / ch;
+          if (i === 0) matBurst(ctx, x0, y0, k, K.tint, A.kind === 'bubble' ? 0.45 : 0.9 * (A.s || 1));
+          glow(ctx, x0, y0, 30 * sS, K.glow, 0.5 * k);
+          fx(ctx, sheet, A.kind === 'bubble' ? Math.floor(t * 8 + i) % 6 : t * K.fps + i, x0 + nx * spread * 0.25, y0 + ny * spread * 0.25, sS * (0.3 + 0.7 * k), 1, { mat: k });
+        } else if (ui < ch + fl) {
+          const k = (ui - ch) / fl, e = Math.pow(k, 1.5);
+          for (let j = 3; j >= 1; j--) { const kj = Math.max(0, k - j * 0.06), ej = Math.pow(kj, 1.5); if (kj <= 0) continue; fx(ctx, sheet, A.kind === 'bubble' ? Math.floor(t * 8 + i) % 6 : t * K.fps + i, lerp(x0, x1, ej) + nx * spread * ej, lerp(y0, y1, ej) + ny * spread * ej, sS * (1 - j * 0.1), 0.2 * (4 - j) / 3, { add: true }); }
+          const px = lerp(x0, x1, e) + nx * spread * e, py = lerp(y0, y1, e) + ny * spread * e - Math.sin(e * Math.PI) * (A.arc || 0);
+          glow(ctx, px, py, 34 * sS, K.glow, 0.55);
+          fx(ctx, sheet, A.kind === 'bubble' ? (k > 0.88 ? 6 + Math.min(3, Math.floor((k - 0.88) / 0.12 * 4)) : Math.floor(t * 8 + i) % 6) : t * K.fps + i, px, py, sS, 1);
+        }
+      }
+      const d = u - ch - fl - (n - 1) * st;
+      if (d >= 0 && d < 0.4) { const big = A.kind === 'aurasphere' || A.kind === 'shadowball'; hitFx(ctx, x1, y1, d, A.t0 * 7.3, K.tint, (A.s || 1) * (big ? 1 : 0.7)); glow(ctx, x1, y1, 38 * (A.s || 1), K.glow, 0.8 * (1 - d / 0.4)); ring(ctx, x1, y1 + 8, d * 90, 1.2, K.glow, 0.8 * (1 - d / 0.4), 0.4); }
+    }
+    const BOLTS = [
+      // 4b : Évoli (Météores) contre les ombres de Riolu (Ball'Ombre) et de Tiplouf (Bulles d'O)
+      { kind: 'swift', t0: 78.2, from: [274, 172], to: [322, 160], n: 5, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 80.0, from: [324, 154], to: [266, 180] },
+      { kind: 'shadowball', t0: 82.4, from: [318, 160], to: [266, 182], s: 1.1 },
+      { kind: 'bubble', t0: 84.6, from: [318, 186], to: [250, 186], n: 7, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 86.4, from: [296, 178], to: [244, 186] },
+      // 4c : Lucario (Aurasphère) intervient
+      { kind: 'bubble', t0: 89.4, from: [276, 188], to: [238, 186], n: 6, charge: 0.45, fly: 0.55 },
+      { kind: 'shadowball', t0: 90.0, from: [270, 184], to: [238, 186] },
+      { kind: 'aurasphere', t0: 91.6, from: [274, 170], to: [256, 184] },
+      { kind: 'aurasphere', t0: 93.2, from: [268, 174], to: [300, 194] },
+      { kind: 'aurasphere', t0: 95.0, from: [276, 176], to: [312, 182], s: 1.4 },
+      // 4d : Dark Rai (Ball'Ombre) contre Lucario (Aurasphère) et Évoli (Météores)
+      { kind: 'shadowball', t0: 97.2, from: [400, 150], to: [290, 176], s: 1.3 },
+      { kind: 'aurasphere', t0: 99.4, from: [294, 174], to: [342, 166], s: 1.2 },
+      { kind: 'swift', t0: 101.45, from: [266, 176], to: [322, 170], n: 6, charge: 0.3, fly: 0.45 },
+      { kind: 'shadowball', t0: 103.0, from: [340, 160], to: [290, 176], s: 1.7 },
+    ];
+    function fightFx(ctx, t) { for (const A of BOLTS) bolt(ctx, t, A); }
     function glow(ctx, x, y, r, rgb, a) {
       if (a <= 0.003) return;
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -248,10 +313,14 @@
         fx(ctx, 'bubble', idx, x, y, 0.1 + r / 3.2 * 0.16, 0.92);
       }
     }
-    function wayfinder(ctx, key, x, y, s, t, a, rgb) {
-      const im = I[key]; if (!im) return;
-      glow(ctx, x, y, 26 * s, rgb, 0.55 * a * (0.75 + 0.25 * Math.sin(t * 4)));
-      ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.scale(s, s); ctx.drawImage(im, -14, -14, 28, 28); ctx.restore();
+    function wayfinder(ctx, key, x, y, s, t, a, rgb) { // badge étoile généré (sprite 32×32) ; a<1 = (dé)matérialisation tramée
+      const im = I[key]; if (!im) return; const w = im.width, h = im.height, bob = Math.sin(t * 3 + x * 0.1) * 0.8;
+      glow(ctx, x, y, 26 * s, rgb, 0.55 * Math.min(1, a * 1.6) * (0.75 + 0.25 * Math.sin(t * 4)));
+      ctx.save(); ctx.translate(x, y + bob * s); ctx.scale(s, s);
+      if (a < 0.999) dith(ctx, im, 0, 0, w, h, -w / 2, -h / 2, w, h, a); else ctx.drawImage(im, -w / 2, -h / 2, w, h);
+      ctx.restore();
+      if (a < 0.999 && a > 0.001) fx(ctx, 'mat', a * 8, x, y, 0.55 * s, 1, { tint: rgb, add: true });
+      fx(ctx, 'sparkle', ((t * 1.1 + x * 0.05) % 1) * 8, x + 5 * s, y - 6 * s, 0.22 * s, a, { add: true });
     }
     function shardsW(ctx, x, y, u, n, seed, cols, speed, size) { // éclats de cristal = sprite généré (8 rotations)
       if (u < 0 || u > 1.5) return;
@@ -401,7 +470,7 @@
       for (let i = 0; i < PIL.length; i++) {
         const k = sstep(ign[i]); if (k <= 0) continue; const x = PIL[i][0], y = PIL[i][1] - 3, sc = 0.62 * (0.4 + 0.6 * k);
         glow(ctx, x, y - 8, 46, '255,90,200', 0.6 * k * (0.75 + 0.25 * Math.sin(t * 8 + i)));
-        fx(ctx, 'flame', t * 12 + i * 3, x, y, sc, 1, { bottom: true });
+        fx(ctx, 'flame', t * 12 + i * 3, x, y, sc, 1, { bottom: true, mat: Math.min(1, k * 1.25) }); if (k < 0.97) matBurst(ctx, x, y - 14, k, '255,120,230', 0.7);
         fx(ctx, 'flame', t * 12 + i * 3 + 4, x, y - 2, sc * 1.05, 0.35 * k, { bottom: true, add: true });
       }
     }
@@ -424,7 +493,7 @@
         { id: 'sriolu', pid: 'shadow_0447', keys: [[72.0, 332, 150]], an: [[72.0, 'Idle', 6]], a: [[72.0, 0], [73.6, 1]], reflect: true, aura: '190,60,255' },
         { id: 'stiplouf', pid: 'shadow_0393', keys: [[72.3, 360, 190]], an: [[72.3, 'Idle', 6]], a: [[72.3, 0], [73.8, 1]], reflect: true, aura: '190,60,255' },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); ring(ctx, 232, 184, 6 + ((t * 0.6) % 1) * 30, 0.8, '230,255,255', 0.6 * (1 - (t * 0.6) % 1), 0.4); },
+      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t); ring(ctx, 232, 184, 6 + ((t * 0.6) % 1) * 30, 0.8, '230,255,255', 0.6 * (1 - (t * 0.6) % 1), 0.4); },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '180,190,255', a: 0.5, r: 1.4, vy: 5, vx: -1, add: true }); particlesScreen(ctx, t, { n: 30, rgb: '255,120,220', a: 0.8, r: 2, vy: -1.0, add: true, tw: true }); if (t > 75.3) flash(ctx, 0.5 * (1 - (t - 75.3) / 0.7) * (t < 76 ? 1 : 0), '255,255,255'); },
     });
     // 4b..4e : mêlée complète — l'arène, hit-stop sur chaque impact, caméras « sakuga »
@@ -439,7 +508,7 @@
         { id: 'sriolu', pid: 'shadow_0447', keys: [[77, 332, 150], [79.0, 304, 164], [80.4, 332, 150], [82.2, 306, 162], [83.2, 296, 170], [85.2, 300, 176], [88, 270, 182]], an: [[77, 'Idle', 6], [78.6, 'Attack', { toId: 'evoli' }, { loop: false }], [80.2, 'Walk', 'auto'], [81.4, 'Strike', { toId: 'evoli' }, { loop: false }], [83.2, 'Strike', { toId: 'evoli' }, { loop: false }], [85.0, 'Double', { toId: 'evoli' }, { loop: false }], [86.6, 'Attack', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
         { id: 'stiplouf', pid: 'shadow_0393', keys: [[77, 360, 190], [80.2, 332, 184], [81.4, 316, 182], [83.4, 318, 184], [86.4, 290, 190], [88, 276, 188]], an: [[77, 'Idle', 6], [80.0, 'Walk', 'auto'], [81.5, 'Swing', { toId: 'evoli' }, { loop: false }], [83.8, 'Attack', { toId: 'evoli' }, { loop: false }], [86.2, 'Shoot', { toId: 'evoli' }, { loop: false }]], reflect: true, aura: '190,60,255' },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 40, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } } },
+      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 280 + (rnd(ti, 1) - 0.5) * 40, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 34, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } } },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 80, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); speedLines(ctx, t, 18, W / 2, H / 2, '255,244,210', 0.25, 260);
         for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); } },
     });
@@ -455,9 +524,9 @@
       ],
       world(ctx, t, c, ph) {
         if (ph === 'under') { const g = sstep((t - 90.2) / 1.0) * (1 - sstep((t - 96) / 2)); if (g > 0) { glow(ctx, 288, 152, 130, '120,230,255', 0.55 * g); ctx.save(); ctx.globalAlpha = 0.9 * g; ctx.drawImage(I.vitrail, 288 - 52, 152 - 47, 104, 94); ctx.restore(); } }
-        if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1));
+        if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t);
         const s = t - 91.1; if (s > 0 && s < 2) shardsW(ctx, 288, 150, s * 0.9, 34, 81, ['#4aa8ff', '#ffd45a', '#4be8a8', '#fff', '#6a7bff'], 110, 4);
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 280 + (rnd(ti, 1) - 0.5) * 50, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 36, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
+        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 280 + (rnd(ti, 1) - 0.5) * 50, iy = 168 + (rnd(ti, 2) - 0.5) * 18; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 36, '255,240,180', 0.8 * (1 - d / 0.4)); ring(ctx, ix, iy + 8, d * 90, 1.2, '230,255,255', 0.8 * (1 - d / 0.4), 0.4); } }
         if (t > 96.4 && t < 98) { for (let i = 0; i < 40; i++) { const ph2 = ((t - 96.4) * 0.9 + rnd(i, 3)) % 1; ctx.fillStyle = `rgba(190,60,255,${(0.9 * (1 - ph2)).toFixed(2)})`; ctx.fillRect(Math.round(250 + rnd(i, 1) * 100), Math.round(170 - ph2 * 50), 2, 2); } } },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '200,210,255', a: 0.5, r: 1.4, vy: 5, vx: -1.4, add: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
         flash(ctx, 0.9 * Math.exp(-Math.abs(t - 91.2) * 6), '200,245,255'); speedLines(ctx, t, 22, W / 2, H / 2, '160,240,255', 0.3, 260); },
@@ -471,8 +540,8 @@
         { id: 'lucario', pid: '0448', keys: [[98, 280, 184], [101, 290, 172]], an: [[98, 'Idle', 2], [99.9, 'Strike', 2, { loop: false }], [101.8, 'QuickStrike', 2, { loop: false }]], reflect: true, aura: '90,230,255' },
         { id: 'darkrai', pid: '0491', keys: [[98, 400, 150, 20], [100.2, 346, 168, 6], [106, 340, 168, 6]], an: [[98, 'Charge', 6, { loop: true }], [100.4, 'Attack', { toId: 'lucario' }, { loop: false }], [102.4, 'Shoot', { toId: 'lucario' }, { loop: false }]], a: [[98, 0], [99, 1]], reflect: true, aura: '190,40,255', s: 1.15 },
       ],
-      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1));
-        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4) { const ix = 306, iy = 170; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 40, '255,240,180', 0.9 * (1 - d / 0.4)); } }
+      world(ctx, t, c, ph) { if (ph !== 'over') return; flames(ctx, t, PIL.map(() => 1)); fightFx(ctx, t);
+        for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.4 && !covered(ti)) { const ix = 306, iy = 170; hitFx(ctx, ix, iy, d, ti); glow(ctx, ix, iy, 40, '255,240,180', 0.9 * (1 - d / 0.4)); } }
         const k = sstep((t - 102.8) / 3); glow(ctx, 340, 150, lerp(30, 360, k), '190,60,255', 0.55 * k); ring(ctx, 340, 168, k * 280, 3, '200,100,255', 0.8 * (1 - k), 0.5); },
       screen(ctx, t) { particlesScreen(ctx, t, { n: 60, rgb: '255,120,220', a: 0.8, r: 2, vy: -2.0, add: true, tw: true }); for (const ti of IMPACTS) { const d = t - ti; if (d >= 0 && d < 0.1) impactFrame(ctx, 1 - d / 0.11); }
         flash(ctx, sstep((t - 105.0) / 1.0)); },
@@ -510,6 +579,8 @@
       screen(ctx, t) { particlesScreen(ctx, t, { n: 70, rgb: '170,120,255', a: 0.7, r: 2, vy: -2, add: true, tw: true }); },
     });
 
+    SC.find((q) => q.id === '5b').custom = (ctx, t) => drawFall(ctx, t, { t0: 122, t1: 132, s0: 6.0, s1: 2.0, haloT: 0.9, fadeIn: 1.0, end: 'black',
+      friends: [{ pid: '0447', side: -1, t0: 1.6, dur: 6.5, aura: '120,200,255' }, { pid: '0393', side: 1, t0: 1.6, dur: 6.5, aura: '255,210,120' }] });
     // ---- Chapitre VI : le Rayon d'Espoir ----
     SC.push({
       id: '6a', t0: 132, t1: 137, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(80,120,200)',
@@ -519,9 +590,23 @@
       world(ctx, t, c, ph) { if (ph !== 'over') return; bubblesWorld(ctx, t, 26, 61, 200, 380, 40, 230, 1.0); sparklesWorld(ctx, t, 50, 62, 200, 40, 380, 230, '255,244,190', 1); },
       screen(ctx, t) { const ra = sstep((t - 133.4) / 3.2); godRays(ctx, t, 0.9 * ra, W * 0.52, -30, 7, 0.5 + 0.7 * ra, H * 1.2, '255,246,210'); glow(ctx, W * 0.5, -20, 900, '255,246,210', 0.55 * ra); },
     });
-    SC.push({
-      id: '6b', t0: 137, t1: 142, map: 'opm1', free: true, bg: '#02030a',
-      cam: [[137, 288, 160, 1.0, 0.0]], screen() { },
+    SC.push({ // 6b : remontée — les 3 badges étoile se matérialisent, tournent autour d'Évoli, Riolu lui tend la main
+      id: '6b', t0: 137, t1: 142, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(110,160,235)',
+      cam: [[137, 288, 262, 1.5, 0.0], [142, 288, 40, 1.3, 0.0]],
+      actors: [
+        { id: 'evoli', pid: '0133', keys: [[137, 0, 0]], attach: [[137, 0, 14], [142, 0, 0]], an: [[137, 'Pose', 0, { loop: false, hold: 18 }], [140.6, 'Idle', 0]], noShadow: true, aura: '150,235,255', s: 1.3 },
+        { id: 'riolu', pid: '0447', keys: [[137, 0, 0]], attach: [[137, 6, -170], [140.1, 14, -40], [142, 14, -36]], an: [[137, 'Float', 0, { speed: 0.6 }], [139.6, 'Pull', 0, { loop: false }]], noShadow: true, aura: '120,200,255', s: 1.2, a: [[137, 0], [137.8, 1]] },
+      ],
+      world(ctx, t, c, ph) {
+        if (ph !== 'over') return; const ex = c.cx, ey = c.cy + lerp(14, 0, sstep((t - 137) / 5));
+        bubblesWorld(ctx, t, 30, 81, ex - 110, ex + 110, c.cy - 90, c.cy + 90, 1.4); sparklesWorld(ctx, t, 60, 82, ex - 120, c.cy - 90, ex + 120, c.cy + 90, '255,246,200', 1);
+        const keys = ['wfCyan', 'wfEmerald', 'wfAmber'], rgb = ['120,235,255', '120,255,190', '255,210,100'];
+        const join = sstep((t - 140.6) / 0.9), R = lerp(38, 0, join);
+        for (let i = 0; i < 3; i++) { const a = clamp((t - 137.4 - i * 0.5) / 0.9, 0, 1), an = t * 2.4 + i * TAU / 3; if (a <= 0 || join >= 1) continue;
+          wayfinder(ctx, keys[i], ex + Math.cos(an) * R, ey - 6 + Math.sin(an) * R * 0.38, 0.95, t, a * (1 - join), rgb[i]); }
+        if (t > 140.6) { const k = clamp((t - 140.6) / 1.4, 0, 1); glow(ctx, ex, ey - 6, 130 * k + 20, '255,246,210', 0.7 * (1 - k * 0.5)); ring(ctx, ex, ey - 6, k * 90, 2.2, '255,246,210', 0.8 * (1 - k), 0.5); fx(ctx, 'hit', Math.min(7, k * 8), ex, ey - 6, 0.7, 1 - k * 0.6, { tint: '255,246,210' }); }
+      },
+      screen(ctx, t) { const ra = sstep((t - 138) / 3); godRays(ctx, t, 0.7 * ra, W * 0.5, -30, 7, 0.8, H * 1.2, '255,246,210'); flash(ctx, 0.6 * Math.exp(-Math.abs(t - 140.7) * 6), '255,246,210'); },
     });
     SC.push({
       id: '6c', t0: 142, t1: 145.2, map: 'opm2', free: true, bg: '#010208', grade: 'rgb(90,150,230)',
@@ -609,19 +694,45 @@
       screen(ctx, t) { speedLines(ctx, t, 26, W / 2, H / 2, '190,230,255', 0.28, 220, -Math.PI / 2); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(210,250,255,0.35)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(W * 0.43, 0); ctx.lineTo(W * 0.57, 0); ctx.lineTo(W * 0.85, H); ctx.lineTo(W * 0.15, H); ctx.closePath(); ctx.fill(); ctx.restore(); },
     });
     // --- TT : tunnel Time Travel (13 images en boucle, fenêtres blanches = souvenirs du monde)
-    function drawTunnel(ctx, t) {
-      const u = t - 31; ctx.fillStyle = '#02051a'; ctx.fillRect(0, 0, W, H);
-      const mem = ['opm1', 'opm3', 'opm2', 'opm4'][Math.floor(u / 1.2) % 4], im = I[mem];
-      ctx.save(); ctx.translate(W / 2, H / 2); ctx.rotate(u * 0.45); ctx.imageSmoothingEnabled = false; const s = 4.5 + u * 0.7; if (im) ctx.drawImage(im, -MW * s / 2, -MH * s / 2, MW * s, MH * s); ctx.restore();
-      const tm = I['tm' + (Math.floor(u * 20) % 13)], z = 1 + 0.04 * Math.sin(u * 5), dw = 1280 * z, dh = dw * 240 / 312;
-      if (tm && tm.width) { ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(tm, W / 2 - dw / 2, H / 2 - dh / 2, dw, dh); ctx.restore(); }
-      glow(ctx, W / 2, H / 2, 380, '190,245,255', 0.35);
-      ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(6, 6); ctx.imageSmoothingEnabled = false;
-      drawSprite(ctx, '0133', 'Sink', 0, Math.min(u * 60 * 0.5, 21), false, 0, 0, { noShadow: true, aura: '150,235,255', rot: u * 1.6 - 0.6 }); ctx.restore();
-      speedLines(ctx, t, 36, W / 2, H / 2, '255,255,255', 0.35, 200);
-      flash(ctx, sstep((t - 35.2) / 0.8));
+
+    // ---------- Chute en vue plongeante : la caméra est AU-DESSUS, on les voit tomber en contrebas dans un portail de nuages, de nuit ----------
+    function drawFall(ctx, t, C) {
+      const u = t - C.t0, dur = C.t1 - C.t0, k = clamp(u / dur, 0, 1);
+      ctx.fillStyle = '#070320'; ctx.fillRect(0, 0, W, H);
+      const P = I.cloudPortal;
+      if (P && P.width) { // portail de nuages : zoom infini + lente rotation (deux couches en fondu)
+        const ph = (u * 0.16) % 1, rot = u * 0.07, b = 1.9;
+        ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(W / 2, H / 2); ctx.rotate(rot);
+        for (const L of [[b * Math.pow(2, ph - 1), 1], [b * Math.pow(2, ph), 1 - ph]]) { ctx.save(); ctx.globalAlpha = L[1]; ctx.scale(L[0], L[0]); ctx.drawImage(P, -P.width / 2, -P.height / 2); ctx.restore(); }
+        ctx.restore();
+      }
+      glow(ctx, W / 2, H / 2, 300, '190,225,255', 0.1 + 0.05 * Math.sin(u * 2));
+      for (let i = 0; i < 64; i++) { // étoiles qui jaillissent du centre vers la caméra
+        const ph = (u * 0.42 * (0.6 + rnd(i, 2) * 0.8) + rnd(i, 1)) % 1, r = Math.pow(ph, 1.7) * 760, an = rnd(i, 3) * TAU;
+        fx(ctx, 'sparkle', ph * 8, W / 2 + Math.cos(an) * r, H / 2 + Math.sin(an) * r * 0.62, 0.35 + ph * 1.5, 1, { add: true });
+      }
+      speedLines(ctx, t, 26, W / 2, H / 2, '205,225,255', 0.16, 320);
+      const sc = lerp(C.s0, C.s1, sstep(k)), ex = W / 2 + Math.sin(u * 1.1) * 38 * (1 - 0.5 * k), ey = H / 2 + 18 + Math.sin(u * 0.8) * 16 + 26 * k;
+      if (C.friends) for (const F of C.friends) { // les amis, protégés par une barrière, remontent vers la caméra
+        const e = sstep((u - F.t0) / F.dur); if (u < F.t0 - 0.2) continue; const kb = sstep((u - F.t0 + 0.2) / 0.9);
+        const fxp = ex + F.side * (150 + 560 * e), fyp = ey + 30 - 640 * e, fs = 2.6 + e * 4.2;
+        ctx.save(); ctx.translate(fxp, fyp); ctx.scale(fs, fs); ctx.imageSmoothingEnabled = false;
+        drawSprite(ctx, F.pid, 'Idle', 0, u * 60, true, 0, 0, { noShadow: true, aura: F.aura, a: 1 }); barrierWorld(ctx, 0, 0, 24, kb, t); ctx.restore();
+        if (kb < 1) matBurst(ctx, fxp, fyp, kb, F.aura, fs * 0.5);
+      }
+      if (u >= C.haloT) { // halo arc-en-ciel : se matérialise puis reste jusqu'à la fin
+        const kh = clamp((u - C.haloT) / 1.0, 0, 1), pulse = 0.88 + 0.12 * Math.sin(u * 3);
+        glow(ctx, ex, ey, sc * 62, '255,235,255', 0.28 * kh);
+        fx(ctx, 'halo', u * 10, ex, ey, sc * 0.6, 0.95 * pulse, { mat: kh });
+        if (kh < 1) matBurst(ctx, ex, ey, kh, null, sc * 0.6);
+      }
+      ctx.save(); ctx.translate(ex, ey); ctx.rotate(Math.sin(u * 0.8) * 0.3 + u * 0.1); ctx.scale(sc, sc); ctx.imageSmoothingEnabled = false;
+      drawSprite(ctx, '0133', 'Pose', 4, Math.min(u * 60, 18), false, 0, 0, { noShadow: true, aura: '170,235,255' }); ctx.restore();
+      particlesScreen(ctx, t, { n: 36, rgb: '255,250,230', a: 0.8, r: 2, vy: -4, add: true, tw: true });
+      if (C.fadeIn) { ctx.fillStyle = 'rgba(0,0,0,' + (1 - sstep(u / C.fadeIn)).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
+      if (C.end === 'white') flash(ctx, sstep((t - (C.t1 - 0.8)) / 0.8)); else if (C.end === 'black') { ctx.fillStyle = 'rgba(0,0,0,' + sstep((t - (C.t1 - 1.2)) / 1.2).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
     }
-    SC.push({ id: 'TT', t0: 31, t1: 36, map: 'opm2', free: true, cam: [[31, 288, 150, 1, 0]], custom: drawTunnel });
+    SC.push({ id: 'TT', t0: 31, t1: 36, map: 'opm2', free: true, cam: [[31, 288, 150, 1, 0]], custom: (ctx, t) => drawFall(ctx, t, { t0: 31, t1: 36, s0: 7.2, s1: 4.6, haloT: 0.9, end: 'white' }) });
     // --- OC : l'océan de Lapras — trois Wayfinders tombent du ciel dans la mer
     SC.push({
       id: 'OC', t0: 46, t1: 52.5, map: 'opm1', free: true, bg: '#1d6cc8',
@@ -662,38 +773,6 @@
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a; const dw = W, dh = W * 240 / 335; ctx.drawImage(im, 0, (H - dh) / 2, dw, dh); ctx.restore();
     }
 
-    // ---------- Œil (plan 6b) : reflet de Riolu plongeant dans la pupille d'Évoli ----------
-    function miniScene(t) {
-      miniX.save(); miniX.imageSmoothingEnabled = false; miniX.clearRect(0, 0, 256, 144);
-      miniX.fillStyle = '#0a2a5a'; miniX.fillRect(0, 0, 256, 144);
-      miniX.translate(128, 72); miniX.scale(1.4, 1.4); miniX.translate(-288, -150);
-      drawMap(miniX, 'opm2', t, null);
-      glow(miniX, 288, 100, 120, '255,246,210', 0.6);
-      const u = clamp((t - 137) / 5, 0, 1);
-      drawSprite(miniX, '0447', 'Charge', 0, (t - 137) * 60, true, 284, lerp(40, 118, sstep(u)), { noShadow: true, aura: '120,200,255' });
-      drawSprite(miniX, '0133', 'Pose', 0, (t - 137) * 60, false, 292, 176, { noShadow: true });
-      miniX.restore();
-    }
-    function drawEye(ctx, t) {
-      const u = t - 137;
-      ctx.fillStyle = '#02040c'; ctx.fillRect(0, 0, W, H);
-      const cx = W / 2, cy = H / 2, open = sstep(u / 2.2), ry = lerp(6, 250, open), rx = 560;
-      const zoom = kfz(u, 3.0, 5.0, 1.0, 5.0);
-      ctx.save(); ctx.translate(cx, cy); ctx.scale(zoom, zoom); ctx.translate(-cx, -cy);
-      ctx.save(); ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, TAU); ctx.clip();
-      const sg = ctx.createRadialGradient(cx, cy, 80, cx, cy, rx); sg.addColorStop(0, '#fff4ee'); sg.addColorStop(0.6, '#f6dcd2'); sg.addColorStop(1, '#b88a86'); ctx.fillStyle = sg; ctx.fillRect(0, 0, W, H);
-      const R = 245; const ig = ctx.createRadialGradient(cx, cy, 10, cx, cy, R); ig.addColorStop(0, '#1a0c08'); ig.addColorStop(0.55, '#5a2a14'); ig.addColorStop(0.9, '#8a4a22'); ig.addColorStop(1, '#2a1208');
-      ctx.fillStyle = ig; ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fill();
-      miniScene(t);
-      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R - 6, 0, TAU); ctx.clip(); ctx.imageSmoothingEnabled = false; const ph = (R - 6) * 2, pw = ph * 256 / 144; ctx.globalAlpha = 0.96; ctx.drawImage(mini, cx - pw / 2, cy - ph / 2, pw, ph); ctx.restore();
-      ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.beginPath(); ctx.ellipse(cx - 92, cy - 108, 30, 20, -0.5, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.arc(cx + 80, cy + 120, 10, 0, TAU); ctx.fill();
-      ctx.restore();
-      ctx.strokeStyle = '#2a1008'; ctx.lineWidth = 12; ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, Math.PI * 1.04, Math.PI * 1.96); ctx.stroke(); ctx.lineWidth = 6; ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0.06, Math.PI - 0.06); ctx.stroke();
-      ctx.restore();
-      glow(ctx, cx, cy, 600, '255,246,210', 0.25 * open);
-    }
-    function kfz(u, a, b, v0, v1) { return lerp(v0, 2.8, sstep((u - a) / (b - a))); }
-    SC[SC.findIndex((s) => s.id === '6b')].custom = drawEye;
 
     // ---------- Écran-titre ----------
     function wingAngle(dtLogo, nowSec, flapStart) {
@@ -712,17 +791,16 @@
       if (tl >= 0.18) {
         const dt = tl - 0.18; let scale = 1, alpha = 1, wf = 0;
         if (dt < 0.6) { const uu = dt / 0.6, c1 = 1.70158, c3 = c1 + 1, e = 1 + c3 * Math.pow(uu - 1, 3) + c1 * Math.pow(uu - 1, 2); scale = 1.4 + (1 - 1.4) * e; alpha = Math.min(1, dt / 0.18); wf = Math.max(0, 1 - dt / 0.35); }
-        const deg = wingAngle(dt, nowSec, flapStart), rad = deg * Math.PI / 180; out = deg;
-        const k = 580 / 872, pl = [274 * k, 335 * k], pr = [598 * k, 335 * k];
-        rigX.clearRect(0, 0, 580, 418);
+        const deg = wingAngle(dt, nowSec, flapStart) * 0.55, rad = deg * Math.PI / 180; out = deg / 0.55;
+        const pl = [274, 335], pr = [598, 335];
+        rigX.clearRect(0, 0, RW, RH);
+        if (I.rigBack) rigX.drawImage(I.rigBack, 0, 0);
         rigX.save(); rigX.translate(pl[0], pl[1]); rigX.rotate(rad); rigX.drawImage(I.rigLW, -pl[0], -pl[1]); rigX.restore();
         rigX.save(); rigX.translate(pr[0], pr[1]); rigX.rotate(-rad); rigX.drawImage(I.rigRW, -pr[0], -pr[1]); rigX.restore();
         rigX.drawImage(I.rigCore, 0, 0);
-        tintX.clearRect(0, 0, 580, 418); tintX.globalCompositeOperation = 'source-over'; tintX.drawImage(rigC, 0, 0);
-        if (wf > 0.01) { tintX.globalCompositeOperation = 'source-atop'; tintX.fillStyle = `rgba(255,255,255,${wf})`; tintX.fillRect(0, 0, 580, 418); }
-        const bw = 560 * scale, bh = bw * 418 / 580;
+        const bw = 560 * scale, bh = bw * RH / RW;
         glow(ctx, cx, cy, 420 * scale, '255,236,160', 0.18 + 0.1 * Math.sin(nowSec * 2));
-        ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true; ctx.drawImage(tintC, cx - bw / 2, cy - bh / 2, bw, bh); ctx.restore();
+        ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(rigC, cx - bw / 2, cy - bh / 2, bw, bh); ctx.restore();
       }
       if (tl > 1.25) { const bl = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(nowSec * 5)); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = bl; ctx.drawImage(I.enterUI, (W - 74 * 4) / 2, 590, 74 * 4, 11 * 4); ctx.restore(); }
       return out;
@@ -734,18 +812,6 @@
     SC.find((q) => q.id === '5a').thunderT = [118.0, 119.1, 120.2];
     const XF = { A2: 0.6, P1: 0.7, MN: 1.0, TT: 0.6, OC: 0.8, SP: 0.5, '1c': 0.4, '1d': 0.5, '1e': 0.5, '2b': 0.6, '3b': 0.6, '3c': 0.6, '3d': 0.9, '4a': 0.3, '4b': 0, '4c': 0, '4d': 0, '5a': 0, '5b': 0.8, '6a': 1.0, '6b': 0.8, '6c': 0.8 };
     function drawShot(ctx, sc, t) { if (sc.custom) { sc.custom(ctx, t); return null; } return renderScene(ctx, sc, t); }
-    function caption(ctx, t) {
-      let ch = null; for (const c of CHAPTERS) if (t >= c.t) ch = c; if (!ch) return;
-      const d = t - ch.t; let a = sstep(d / 0.8) * (1 - sstep((d - 3.6) / 0.8)); if (ch.t === 0) a *= sstep((d - 1.2) / 0.6); if (a <= 0.01) return;
-      ctx.save(); ctx.globalAlpha = a; ctx.font = '600 24px "Trebuchet MS", system-ui, sans-serif'; ctx.shadowColor = 'rgba(0,0,0,0.85)'; ctx.shadowBlur = 8;
-      ctx.fillStyle = '#fde68a'; ctx.fillText(ch.name, 44, H - 74); ctx.fillStyle = 'rgba(253,230,138,0.85)'; ctx.fillRect(44, H - 64, 90 * a, 2); ctx.restore();
-    }
-    function introCard(ctx, t) {
-      if (t < 1.5 || t > 7.2) return; const a = sstep((t - 1.5) / 1.2) * (1 - sstep((t - 5.6) / 1.4));
-      ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center'; ctx.shadowColor = 'rgba(0,30,60,0.9)'; ctx.shadowBlur = 14;
-      ctx.font = '700 40px "Trebuchet MS", system-ui, sans-serif'; ctx.fillStyle = '#fff6d0'; ctx.fillText('Pokémon Mystery Dungeon', W / 2, 150);
-      ctx.font = '700 58px "Trebuchet MS", system-ui, sans-serif'; ctx.fillStyle = '#fbbf24'; ctx.fillText('DESTINY', W / 2, 214); ctx.restore();
-    }
     function bars(ctx, t) { const k = sstep((t - 0.2) / 1.2); const h = 52 * k * (1 - sstep((t - 146.8) / 0.8)); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, h); ctx.fillRect(0, H - h, W, h); }
 
     function render(ctx, t, opts) {
@@ -760,7 +826,7 @@
           drawShot(ctx, SC[i - 1], t); sctx.save(); sctx.globalAlpha = 1; sctx.globalCompositeOperation = 'source-over'; sctx.clearRect(0, 0, W, H); drawShot(sctx, sc, t); sctx.restore();
           ctx.globalAlpha = sstep((t - sc.t0) / xf); ctx.drawImage(scr, 0, 0); ctx.globalAlpha = 1;
         } else drawShot(ctx, sc, t);
-        vignette(ctx, 0.5); bars(ctx, t); introCard(ctx, t); caption(ctx, t); flash(ctx, 1 - sstep(t / 1.4), '0,0,0');
+        vignette(ctx, 0.5); bars(ctx, t); flash(ctx, 1 - sstep(t / 1.4), '0,0,0');
       }
       ctx.restore(); return { wing, shot: t >= TITLE_T ? 'title' : (SC.find((s) => t >= s.t0 && t < s.t1) || SC[SC.length - 1]).id };
     }
