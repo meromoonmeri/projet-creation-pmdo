@@ -1940,7 +1940,7 @@ def build_destiny_html() -> str:
 
 
 def main() -> None:
-    out_path = REPO_ROOT / "apercu_fangame_pmd_destiny.html"
+    out_path = REPO_ROOT / "apercu_fangame_pmd_destiny_pixel_opm.html"
     out_path.write_text(build_destiny_html(), encoding="utf-8")
     print(f"OK — {out_path} généré ({out_path.stat().st_size:,} octets)")
 
