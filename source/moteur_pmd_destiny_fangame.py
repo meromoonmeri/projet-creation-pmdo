@@ -1169,7 +1169,7 @@ DESTINY_MOD_XML = """<?xml version="1.0" encoding="utf-8"?>
 <Header>
   <Name>Pokemon Mystery Dungeon: Destiny</Name>
   <Author>Pokemon Mystery Dungeon: Destiny</Author>
-  <Description>Fangame Quest complet pour PMDO 0.8.12 structure sur l'architecture Halcyon / town02, avec fonds Jour &amp; Nuit separes, mer pixel-art generee et blason Oeuf Aile centre.</Description>
+  <Description>Fangame Quest complet pour PMDO 0.8.12 structure sur l'architecture Halcyon / town02, avec Opening anime joue au lancement du jeu (sequence Destiny_Logo_Anime_Opening plein ecran puis cinematique ground en debut de session), fonds Jour &amp; Nuit separes, mer pixel-art generee et blason Oeuf Aile centre.</Description>
   <Namespace>halcyon</Namespace>
   <UUID>D571E9A0-4C8B-4F2D-9E61-8A3B5C7D0812</UUID>
   <Version>0.8.12</Version>
@@ -1196,6 +1196,11 @@ require 'origin.services.baseservice'
 
 local DestinyTitleAnim = Class('DestinyTitleAnim', BaseService)
 DestinyTitleAnim.ForceMode = nil -- nil = auto Jour/Nuit selon l'heure locale, ou 'jour' / 'nuit'
+DestinyTitleAnim.PlayedOpening = false   -- l'Opening d'Anime n'est joue qu'une fois par session de jeu
+DestinyTitleAnim.OpeningSummary = nil    -- calque plein ecran de l'Opening en cours
+DestinyTitleAnim.TopMenu = nil           -- reference au menu-titre pour retirer le calque
+DestinyTitleAnim.OpeningStart = nil      -- horodatage (ms) du debut de l'Opening
+DestinyTitleAnim.OPENING_MS = 8600       -- 24 poses x 10 ticks (~8 s) + marge de fondu
 
 function DestinyTitleAnim:GetActiveBGName()
   if self.ForceMode == 'jour' then
@@ -1237,8 +1242,74 @@ function DestinyTitleAnim:OnAddMenu(menu)
       )
       bg_summary.Elements:Add(dir_tex)
       menu.LowerSummaryMenus:Insert(0, bg_summary)
+      self.TopMenu = menu
+      -- Lancement du jeu : l'Opening d'Anime passe UNE fois, plein ecran, avant le titre
+      if not self.PlayedOpening then
+        self.PlayedOpening = true
+        self:PlayAnimeOpening(bg_name)
+      end
     end
   end)
+end
+
+--[[---------------------------------------------------------------
+    DestinyTitleAnim:PlayAnimeOpening(bg_name)
+    Joue la sequence d'Opening d'Anime (`Destiny_Logo_Anime_Opening`,
+    24 poses, une seule fois) en calque plein ecran PAR-DESSUS le fond
+    Jour/Nuit du menu-titre ; OnUpdate retire le calque a la fin.
+---------------------------------------------------------------]]
+function DestinyTitleAnim:PlayAnimeOpening(bg_name)
+  local menu = self.TopMenu
+  if menu == nil then
+    return false
+  end
+  return pcall(function()
+    local ov = RogueEssence.Menu.SummaryMenu(
+      "DESTINY_OPENING_OVERLAY",
+      RogueElements.Rect(-16, -16, 352, 272)
+    )
+    local bg_anim = RogueEssence.Content.AnimData(bg_name or self:GetActiveBGName(), 10)
+    ov.Elements:Add(RogueEssence.Menu.MenuDirTex(
+      "DESTINY_OPENING_BG_TEX",
+      RogueElements.Loc(16, 16),
+      RogueEssence.Menu.MenuDirTex.TexType.BG,
+      bg_anim
+    ))
+    local open_anim = RogueEssence.Content.AnimData("Destiny_Logo_Anime_Opening", 10)
+    ov.Elements:Add(RogueEssence.Menu.MenuDirTex(
+      "DESTINY_OPENING_ANIM_TEX",
+      RogueElements.Loc(16, 16),
+      RogueEssence.Menu.MenuDirTex.TexType.OBJ,
+      open_anim
+    ))
+    menu.LowerSummaryMenus:Insert(0, ov)
+    self.OpeningSummary = ov
+    self.OpeningStart = nil
+  end)
+end
+
+--[[---------------------------------------------------------------
+    DestinyTitleAnim:OnUpdate(curtime)
+    Retire le calque d'Opening une fois la sequence terminee : le
+    menu-titre Jour/Nuit reaparait dessous.
+---------------------------------------------------------------]]
+function DestinyTitleAnim:OnUpdate(curtime)
+  if self.OpeningSummary == nil then
+    return
+  end
+  if self.OpeningStart == nil then
+    self.OpeningStart = curtime
+    return
+  end
+  if (curtime - self.OpeningStart) >= self.OPENING_MS then
+    local ov, menu = self.OpeningSummary, self.TopMenu
+    self.OpeningSummary, self.OpeningStart = nil, nil
+    pcall(function()
+      if menu ~= nil and ov ~= nil then
+        menu.LowerSummaryMenus:Remove(ov)
+      end
+    end)
+  end
 end
 
 function DestinyTitleAnim:Subscribe(med)
@@ -1246,6 +1317,9 @@ function DestinyTitleAnim:Subscribe(med)
     if args ~= nil then
       self:OnAddMenu(args[0])
     end
+  end)
+  med:Subscribe("DestinyTitleAnim", EngineServiceEvents.Update, function(curtime)
+    self:OnUpdate(curtime)
   end)
 end
 
@@ -1255,4 +1329,165 @@ end
 local instance = DestinyTitleAnim:new()
 SCRIPT:AddService("DestinyTitleAnim", instance)
 return instance
+"""
+
+# ---------------------------------------------------------------------------
+# Cinematique d'Opening complete (ground PMDO) + ground d'intro de session
+# ---------------------------------------------------------------------------
+DESTINY_OPENING_CUTSCENE_LUA = """-- ==========================================================================
+-- Cinematique d'Opening PMDO 0.8.12 (sprites multi-poses 8 directions)
+-- Schema choregraphique « Simple and Clean -Ray of Hope MIX- » (opening anime) :
+--   Acte I    abysse & chute arriere
+--   Acte II   vitrail du destin
+--   Acte III  plage & course au clair de lune
+--   Acte IV   melee contre les ombres, partenaires possedes
+--   Acte V    fissure de la realite & Mega-Evolution (Lucario -> Mega-Lucario)
+--   Acte VI   chute celeste, barriere, patte tendue
+--   Acte VII  trio reuni & pose devant l'embleme Oeuf Aile
+-- Jouable en ground : pmd_destiny_opening.PlayOpeningCutscene(...)
+-- ==========================================================================
+local pmd_destiny_opening = {}
+
+local function anim(c, name, loop)
+  if c ~= nil then
+    GROUND:CharSetAnim(c, name, loop)
+  end
+end
+
+local function turn(a, b, t)
+  if a ~= nil and b ~= nil then
+    GROUND:CharTurnToCharAnimated(a, b, t or 4)
+  end
+end
+
+function pmd_destiny_opening.PlayOpeningCutscene(lucario, riolu, evoli, sh_zoroark, sh_massko, tiplouf, darkrai, mega)
+  GAME:CutsceneMode(true)
+  GAME:FadeIn(20)
+  -- Actes I-II : abysse & chute arriere vers le Vitrail du Destin
+  anim(lucario, "DeepBreath", false)
+  GAME:MoveCamera(0, -24, 45, true)
+  anim(lucario, "TumbleBack", false)
+  GAME:WaitFrames(24)
+  anim(lucario, "Float", true)
+  GAME:WaitFrames(40)
+  GAME:MoveCamera(0, 16, 30, true)
+  GAME:WaitFrames(24)
+
+  -- Acte III : plage & course au clair de lune (le trio court, Evoli bondit)
+  anim(riolu, "Walk", true)
+  anim(evoli, "Walk", true)
+  anim(tiplouf, "Walk", true)
+  GAME:MoveCamera(24, 0, 40, true)
+  GAME:WaitFrames(30)
+  anim(evoli, "Hop", false)
+  GAME:WaitFrames(16)
+
+  -- Acte IV : melee choregraphiee sur l'eau miroir + possession par Darkrai
+  turn(sh_zoroark, lucario)
+  anim(sh_zoroark, "QuickStrike", false)
+  anim(lucario, "Strike", false)
+  GAME:MoveCamera(8, -4, 8, true)
+  GAME:WaitFrames(18)
+  anim(sh_massko, "Swing", false)
+  anim(lucario, "Double", false)
+  GAME:WaitFrames(22)
+  anim(lucario, "Pain", true)
+  anim(darkrai, "Charge", false)
+  anim(evoli, "Cringe", false)
+  anim(tiplouf, "Cringe", false)
+  GAME:WaitFrames(20)
+  anim(riolu, "Hop", false)
+  anim(evoli, "Hop", false)
+  GAME:WaitFrames(16)
+  anim(riolu, "QuickStrike", false)
+  anim(evoli, "Double", false)
+  anim(lucario, "RearUp", false)
+  GAME:WaitFrames(30)
+
+  -- Acte V : fissure de la realite, Lucario atterrit puis Mega-Evolue
+  anim(lucario, "LeapForth", false)
+  GAME:MoveCamera(0, -8, 14, true)
+  GAME:WaitFrames(20)
+  anim(lucario, "Charge", true)
+  GAME:WaitFrames(48)
+  GAME:FadeOut(true, 4)
+  GAME:FadeIn(4)
+  anim(mega, "RearUp", false)
+  anim(mega, "Pose", false)
+  anim(lucario, "Idle", true)
+  GAME:WaitFrames(30)
+
+  -- Acte VI : chute celeste, barriere, patte tendue a travers l'ocean
+  anim(evoli, "Sink", false)
+  anim(riolu, "Sink", false)
+  anim(tiplouf, "Sink", false)
+  GAME:MoveCamera(0, 24, 45, true)
+  GAME:WaitFrames(36)
+  anim(riolu, "Float", true)
+  anim(tiplouf, "Float", true)
+  GAME:WaitFrames(24)
+  anim(riolu, "Pull", false)
+  GAME:WaitFrames(20)
+  anim(evoli, "Wake", false)
+  anim(evoli, "LookUp", false)
+  anim(evoli, "Nod", false)
+  GAME:WaitFrames(24)
+
+  -- Acte VII : trio reuni, pose commune, puis embleme Oeuf Aile (titre)
+  anim(riolu, "Pose", false)
+  anim(evoli, "Pose", false)
+  anim(tiplouf, "Pose", false)
+  GAME:MoveCamera(0, -8, 24, true)
+  GAME:WaitFrames(36)
+  GAME:FadeOut(true, 30)
+  GAME:CutsceneMode(false)
+end
+
+return pmd_destiny_opening
+"""
+
+DESTINY_INTRO_GROUND_LUA = """-- ==========================================================================
+-- Ground d'intro de la Quest « Pokemon Mystery Dungeon: Destiny » (PMDO 0.8.12).
+-- Au lancement de la session de jeu (premier Enter de ce ground), la
+-- cinematique d'Opening est jouee UNE fois avant le gameplay, puis le
+-- ground rend la main (fondu d'entree).
+-- ==========================================================================
+local pmd_destiny_intro = {}
+
+local function char_of(id)
+  local ok, c = pcall(function() return GROUND:Char(id) end)
+  if ok then
+    return c
+  end
+  return nil
+end
+
+function pmd_destiny_intro.Init(map)
+  DEBUG.EnableDbgCoro()
+end
+
+function pmd_destiny_intro.Enter(map)
+  if _G.DESTINY_INTRO_PLAYED then
+    GAME:FadeIn(20)
+    return
+  end
+  _G.DESTINY_INTRO_PLAYED = true
+  local ok, lib = pcall(function() return require('halcyon.ground.pmd_destiny_opening') end)
+  if ok and lib ~= nil and lib.PlayOpeningCutscene ~= nil then
+    pcall(function()
+      lib.PlayOpeningCutscene(
+        char_of('lucario'), char_of('riolu'), char_of('evoli'),
+        char_of('sh_zoroark'), char_of('sh_massko'),
+        char_of('tiplouf'), char_of('darkrai'), char_of('mega'))
+    end)
+  end
+  GAME:FadeIn(30)
+end
+
+function pmd_destiny_intro.Exit(map) end
+function pmd_destiny_intro.Update(map) end
+function pmd_destiny_intro.GameSave(map) end
+function pmd_destiny_intro.GameLoad(map) GAME:FadeIn(20) end
+
+return pmd_destiny_intro
 """

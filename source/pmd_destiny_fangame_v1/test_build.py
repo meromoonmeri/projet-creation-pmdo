@@ -154,5 +154,24 @@ class TestPMDDestinyDayNightAndAnimeOpening(unittest.TestCase):
                 self.assertIn(req, names)
 
 
+    def test_04_opening_inclus_dans_la_quete_et_joue_au_lancement(self) -> None:
+        """L'Opening est inclus dans la Quest PMDO : sequence animee au lancement du jeu
+        (service titre) + cinematique ground complete jouee une fois par session."""
+        fb = self.fb
+        svc = (fb / "Data" / "Script" / "halcyon" / "services" / "destiny_title_anim" / "init.lua").read_text(encoding="utf-8")
+        for needle in ("DestinyTitleAnim:PlayAnimeOpening", "DestinyTitleAnim:OnUpdate", "PlayedOpening",
+                       "DESTINY_OPENING_OVERLAY", "Destiny_Logo_Anime_Opening", "EngineServiceEvents.Update",
+                       "LowerSummaryMenus:Insert(0, ov)", "LowerSummaryMenus:Remove(ov)"):
+            self.assertIn(needle, svc)
+        cut = (fb / "Data" / "Script" / "halcyon" / "ground" / "pmd_destiny_opening" / "init.lua").read_text(encoding="utf-8")
+        for needle in ("function pmd_destiny_opening.PlayOpeningCutscene", "GAME:CutsceneMode(true)",
+                       "Acte V", "Mega-Evolution", "GAME:FadeOut(true, 30)", "GROUND:CharSetAnim"):
+            self.assertIn(needle, cut)
+        intro = (fb / "Data" / "Script" / "halcyon" / "ground" / "pmd_destiny_intro" / "init.lua").read_text(encoding="utf-8")
+        for needle in ("function pmd_destiny_intro.Enter", "_G.DESTINY_INTRO_PLAYED",
+                       "require('halcyon.ground.pmd_destiny_opening')", "PlayOpeningCutscene", "GAME:FadeIn(30)"):
+            self.assertIn(needle, intro)
+
+
 if __name__ == "__main__":
     unittest.main()

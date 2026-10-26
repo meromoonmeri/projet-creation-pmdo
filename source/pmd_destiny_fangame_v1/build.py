@@ -25,6 +25,8 @@ for p in (str(REPO_ROOT), str(SOURCE_DIR)):
 from source.moteur_pmd_destiny_fangame import (
     DESTINY_MOD_XML,
     DESTINY_TITLE_ANIM_SERVICE_LUA,
+    DESTINY_OPENING_CUTSCENE_LUA,
+    DESTINY_INTRO_GROUND_LUA,
     FRAME_TICKS_MENU,
     H_CANON as H_NAT,
     N_POSES,
@@ -148,51 +150,12 @@ def export_destiny_menu_and_fangame_pack(out_root: Path) -> dict:
         encoding="utf-8",
     )
     (fangame_root / "Data" / "Script" / "halcyon" / "ground" / "pmd_destiny_opening" / "init.lua").write_text(
-        """-- ==========================================================================
--- Cinématique d'Opening PMDO 0.8.12 (sprites multi-poses 8 directions)
--- Schéma chorégraphique « Ray of Hope MIX » : Plage/Abysse -> Vitrail ->
--- Mêlée 128 BPM contre les Ombres -> Chute céleste & Barrière -> Patte tendue
--- ==========================================================================
-local pmd_destiny_opening = {}
-
-function pmd_destiny_opening.PlayOpeningCutscene(lucario, riolu, evoli, sh_zoroark, sh_massko)
-  GAME:CutsceneMode(true)
-  -- Acte I-II : Abysse & chute arrière vers le Vitrail du Destin
-  GROUND:CharSetAnim(lucario, "DeepBreath", false)
-  GAME:MoveCamera(0, -24, 45, true)
-  GROUND:CharSetAnim(lucario, "TumbleBack", false)
-  GAME:WaitFrames(24)
-  GROUND:CharSetAnim(lucario, "Float", true)
-  GAME:WaitFrames(40)
-
-  -- Acte IV : Mêlée chorégraphiée sur l'eau miroir + intervention Riolu & Évoli
-  GROUND:CharTurnToCharAnimated(sh_zoroark, lucario, 4)
-  GROUND:CharSetAnim(sh_zoroark, "QuickStrike", false)
-  GROUND:CharSetAnim(lucario, "Strike", false)
-  GAME:MoveCamera(8, -4, 8, true)
-  GAME:WaitFrames(18)
-  GROUND:CharSetAnim(sh_massko, "Swing", false)
-  GROUND:CharSetAnim(lucario, "Double", false)
-  GAME:WaitFrames(22)
-  GROUND:CharSetAnim(lucario, "Pain", true)
-  -- Éruption du Vitrail : Riolu & Évoli bondissent dans la mêlée
-  GROUND:CharSetAnim(riolu, "Hop", false)
-  GROUND:CharSetAnim(evoli, "Hop", false)
-  GAME:WaitFrames(16)
-  GROUND:CharSetAnim(riolu, "QuickStrike", false)
-  GROUND:CharSetAnim(evoli, "Double", false)
-  GROUND:CharSetAnim(lucario, "RearUp", false)
-  GAME:WaitFrames(30)
-
-  -- Acte VI : Patte tendue à travers l'océan -> Écran-Titre Destiny
-  GROUND:CharSetAnim(riolu, "Pull", false)
-  GROUND:CharSetAnim(lucario, "Pose", false)
-  GAME:FadeOut(true, 30)
-  GAME:CutsceneMode(false)
-end
-
-return pmd_destiny_opening
-""",
+        DESTINY_OPENING_CUTSCENE_LUA,
+        encoding="utf-8",
+    )
+    (fangame_root / "Data" / "Script" / "halcyon" / "ground" / "pmd_destiny_intro").mkdir(parents=True, exist_ok=True)
+    (fangame_root / "Data" / "Script" / "halcyon" / "ground" / "pmd_destiny_intro" / "init.lua").write_text(
+        DESTINY_INTRO_GROUND_LUA,
         encoding="utf-8",
     )
 

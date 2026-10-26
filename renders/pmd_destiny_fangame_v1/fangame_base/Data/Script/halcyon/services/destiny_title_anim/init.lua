@@ -15,6 +15,11 @@ require 'origin.services.baseservice'
 
 local DestinyTitleAnim = Class('DestinyTitleAnim', BaseService)
 DestinyTitleAnim.ForceMode = nil -- nil = auto Jour/Nuit selon l'heure locale, ou 'jour' / 'nuit'
+DestinyTitleAnim.PlayedOpening = false   -- l'Opening d'Anime n'est joue qu'une fois par session de jeu
+DestinyTitleAnim.OpeningSummary = nil    -- calque plein ecran de l'Opening en cours
+DestinyTitleAnim.TopMenu = nil           -- reference au menu-titre pour retirer le calque
+DestinyTitleAnim.OpeningStart = nil      -- horodatage (ms) du debut de l'Opening
+DestinyTitleAnim.OPENING_MS = 8600       -- 24 poses x 10 ticks (~8 s) + marge de fondu
 
 function DestinyTitleAnim:GetActiveBGName()
   if self.ForceMode == 'jour' then
@@ -56,8 +61,74 @@ function DestinyTitleAnim:OnAddMenu(menu)
       )
       bg_summary.Elements:Add(dir_tex)
       menu.LowerSummaryMenus:Insert(0, bg_summary)
+      self.TopMenu = menu
+      -- Lancement du jeu : l'Opening d'Anime passe UNE fois, plein ecran, avant le titre
+      if not self.PlayedOpening then
+        self.PlayedOpening = true
+        self:PlayAnimeOpening(bg_name)
+      end
     end
   end)
+end
+
+--[[---------------------------------------------------------------
+    DestinyTitleAnim:PlayAnimeOpening(bg_name)
+    Joue la sequence d'Opening d'Anime (`Destiny_Logo_Anime_Opening`,
+    24 poses, une seule fois) en calque plein ecran PAR-DESSUS le fond
+    Jour/Nuit du menu-titre ; OnUpdate retire le calque a la fin.
+---------------------------------------------------------------]]
+function DestinyTitleAnim:PlayAnimeOpening(bg_name)
+  local menu = self.TopMenu
+  if menu == nil then
+    return false
+  end
+  return pcall(function()
+    local ov = RogueEssence.Menu.SummaryMenu(
+      "DESTINY_OPENING_OVERLAY",
+      RogueElements.Rect(-16, -16, 352, 272)
+    )
+    local bg_anim = RogueEssence.Content.AnimData(bg_name or self:GetActiveBGName(), 10)
+    ov.Elements:Add(RogueEssence.Menu.MenuDirTex(
+      "DESTINY_OPENING_BG_TEX",
+      RogueElements.Loc(16, 16),
+      RogueEssence.Menu.MenuDirTex.TexType.BG,
+      bg_anim
+    ))
+    local open_anim = RogueEssence.Content.AnimData("Destiny_Logo_Anime_Opening", 10)
+    ov.Elements:Add(RogueEssence.Menu.MenuDirTex(
+      "DESTINY_OPENING_ANIM_TEX",
+      RogueElements.Loc(16, 16),
+      RogueEssence.Menu.MenuDirTex.TexType.OBJ,
+      open_anim
+    ))
+    menu.LowerSummaryMenus:Insert(0, ov)
+    self.OpeningSummary = ov
+    self.OpeningStart = nil
+  end)
+end
+
+--[[---------------------------------------------------------------
+    DestinyTitleAnim:OnUpdate(curtime)
+    Retire le calque d'Opening une fois la sequence terminee : le
+    menu-titre Jour/Nuit reaparait dessous.
+---------------------------------------------------------------]]
+function DestinyTitleAnim:OnUpdate(curtime)
+  if self.OpeningSummary == nil then
+    return
+  end
+  if self.OpeningStart == nil then
+    self.OpeningStart = curtime
+    return
+  end
+  if (curtime - self.OpeningStart) >= self.OPENING_MS then
+    local ov, menu = self.OpeningSummary, self.TopMenu
+    self.OpeningSummary, self.OpeningStart = nil, nil
+    pcall(function()
+      if menu ~= nil and ov ~= nil then
+        menu.LowerSummaryMenus:Remove(ov)
+      end
+    end)
+  end
 end
 
 function DestinyTitleAnim:Subscribe(med)
@@ -65,6 +136,9 @@ function DestinyTitleAnim:Subscribe(med)
     if args ~= nil then
       self:OnAddMenu(args[0])
     end
+  end)
+  med:Subscribe("DestinyTitleAnim", EngineServiceEvents.Update, function(curtime)
+    self:OnUpdate(curtime)
   end)
 end
 
