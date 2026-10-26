@@ -595,11 +595,17 @@
       cam: [[14.5, 300, 100, 2.4, -0.03], [17, 268, 108, 3.2, 0.02], [19, 262, 112, 3.6, 0.0]],
       actors: [
         { id: 'riolu', pid: '0447', keys: [[14.5, 262, 108], [19, 262, 112]], an: [[14.5, 'Idle', 0], [15.6, 'LookUp', 0, { loop: false }], [16.8, 'Pose', 0, { loop: false }], [17.7, 'Pull', 0, { loop: false }]] },
-        { id: 'evoli', pid: '0133', keys: [[14.5, 296, 100]], an: [[14.5, 'Idle', 6], [16.2, 'Idle', 6]] },
-        { id: 'tiplouf', pid: '0393', keys: [[14.5, 322, 106]], an: [[14.5, 'Idle', 6]] },
+        { id: 'evoli', pid: '0133', keys: [[14.5, 296, 100], [16.7, 296, 100], [17.1, 284, 102], [19, 284, 102]], an: [[14.5, 'Idle', 6], [16.2, 'Idle', 6], [17.15, 'Pose', 0, { loop: false }], [18.3, 'Idle', 6]] },
+        { id: 'tiplouf', pid: '0393', keys: [[14.5, 322, 106], [16.7, 322, 106], [17.1, 300, 104], [19, 300, 104]], an: [[14.5, 'Idle', 6], [17.3, 'Pose', 0, { loop: false }], [18.4, 'Idle', 6]] },
       ],
       world(ctx, t, c, ph) { if (ph !== 'over') return; const u = t - 14.5; for (let k = 0; k < 4; k++) { const p = ((u * 0.5 + k * 0.25) % 1); ring(ctx, 262, 124, 3 + p * 24, 0.7, '230,255,255', 0.8 * (1 - p), 0.38); }
-        glow(ctx, 262, 126, 30, '170,255,255', 0.5 * sstep((u - 2.0) / 2.5)); sparklesWorld(ctx, t, 50, 14, 200, 110, 330, 170, '255,255,235', 1); },
+        glow(ctx, 262, 126, 30, '170,255,255', 0.5 * sstep((u - 2.0) / 2.5)); sparklesWorld(ctx, t, 50, 14, 200, 110, 330, 170, '255,255,235', 1);
+        for (const [pt, px, py] of [[17.15, 284, 102], [17.3, 300, 104]]) { // Évoli et Tiplouf prennent la pose comme Riolu : la lumière jaillit sous eux
+          const d = t - pt; if (d < 0 || d >= 0.5) continue; const q = d / 0.5;
+          ring(ctx, px, py, 4 + q * 26, 2.0, '255,246,200', 0.6 * (1 - q), 0.42);
+          for (let i = 0; i < 5; i++) { const an = rnd(i, 191) * TAU + 1.6; fx(ctx, 'sparkle', q * 8 + i, px + Math.cos(an) * q * 20, py - Math.sin(an) * q * 9, 0.16, 0.75 * (1 - q), { add: true, tint: '255,244,190' }); } }
+        const tp = sstep((t - 17.3) / 0.3) * (1 - sstep((t - 18.2) / 0.4)); // pose groupée devant l'emblème
+        if (tp > 0) { glow(ctx, 280, 104, 70, '255,246,210', 0.3 * tp); starBurst(ctx, 280, 102, 90, 0.3 * tp, 8, t * 0.4); } },
       screen(ctx, t) { godRays(ctx, t, 0.2, W * 0.1, 40, 5, 1.0, H, '255,236,180'); },
     });
     // 1e : le Wayfinder s'embrase
