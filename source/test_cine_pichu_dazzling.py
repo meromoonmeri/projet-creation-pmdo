@@ -40,9 +40,9 @@ class TestCinePichuDazzling(unittest.TestCase):
     def test_03_quatre_personnages_et_portraits_emotions(self) -> None:
         cat = self.A["catalog"]["pokemon"]
         self.assertEqual(sorted(cat), ["0172", "0303", "0428", "0763"])
-        self.assertEqual(cat["0428"]["name"], "Loponny")
-        self.assertEqual(cat["0763"]["name"], "Sucreine")
-        self.assertEqual(cat["0303"]["name"], "Mystibul")
+        self.assertEqual(cat["0428"]["name"], "Sonata Loponny")
+        self.assertEqual(cat["0763"]["name"], "Adagio Tsareen")
+        self.assertEqual(cat["0303"]["name"], "Aria Mawile")
         pt = self.A["catalog"]["portraits"]
         for pid in cat:
             self.assertGreaterEqual(len(pt[pid]), 10, f"portraits {pid}")
@@ -63,6 +63,7 @@ class TestCinePichuDazzling(unittest.TestCase):
             emos.add(emo)
         for emo in ("Crying", "Teary-Eyed", "Worried", "Determined", "Joyous", "Angry", "Inspired", "Sigh", "Stunned", "Pain"):
             self.assertIn(emo, emos)
+        self.assertIn("enfaite", json.dumps(lines, ensure_ascii=False))  # tic de langage de Sonata
         for needle in ("dialogBox", "▼", "froussard"):
             self.assertIn(needle, self.txt if needle != "froussard" else json.dumps(lines, ensure_ascii=False))
 
