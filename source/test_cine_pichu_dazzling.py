@@ -109,8 +109,9 @@ class TestCinePichuDazzling(unittest.TestCase):
         self.assertIn("Promise.all(", boot)
         self.assertIn("im.onload", boot)
         self.assertLess(boot.index("Promise.all("), boot.index("function boot()"))
-        for ctl in ('id="seek"', 'id="play"', 'id="plans"', 'id="replay"', 'id="mode"', 'id="ovl"'):
+        for ctl in ('id="seek"', 'id="play"', 'id="plans"', 'id="replay"', 'id="mode"', 'id="ovl"', 'id="theme"'):
             self.assertIn(ctl, self.txt)
+        self.assertIn("Map NUIT", self.txt)
         self.assertIn("t = t % D", boot, "la lecture boucle au lieu de figer sur le fondu noir final")
         self.assertIn("document.hidden", boot, "pause onglet caché")
         self.assertIn("function paintBg(", self.txt, "fond de secours : jamais d'écran noir")
@@ -129,6 +130,17 @@ class TestCinePichuDazzling(unittest.TestCase):
         self.assertEqual(self.A["catalog"]["map"], {"w": 984, "h": 792})
         self.assertIn("mapAnimAtlas", self.txt)
         self.assertIn("AN.seqs", self.txt)
+        # ---- variante NUIT : plaques natives gradées par la LUT jour→nuit ----
+        nuit = Image.open(HERE / "cine_pichu_dazzling" / "plates" / "cliffdaytest_nuit_under.png")
+        self.assertEqual(nuit.size, (984, 792))
+        for k in ("mapUnderNuit", "mapOverNuit", "mapAnimAtlasNuit"):
+            self.assertTrue(self.A["imgs"][k].startswith("data:image/png;base64,"), k)
+        self.assertIn("mapUnderNuit", self.txt)
+        self.assertIn("opts.theme === 'nuit'", self.txt)
+        dj = np.asarray(Image.open(HERE / "cine_pichu_dazzling" / "plates" / "cliffdaytest_jour_under.png").convert("RGB"), dtype=np.int16)
+        nu = np.asarray(nuit.convert("RGB"), dtype=np.int16)
+        self.assertLess(nu.mean(), dj.mean() * 0.6, "la nuit est significativement plus sombre que le jour")
+        self.assertGreater(nu.mean(), 20, "mais reste lisible (pas un écran noir)")
 
     # ------------------------------------------------------------------ la team évite l'arbre
     def test_10_personnages_jamais_dans_les_arbres(self) -> None:

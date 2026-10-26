@@ -131,8 +131,20 @@ function polyfillSrc(track) {
     shots = (r0.shot || '') + '/' + (r1.shot || '');
   }
 
+  // ---- bascule NUIT cliquée comme un utilisateur : le rendu doit continuer à dessiner ----
+  const drawsBefore = track.drawImage;
+  const thBtn = doc.getElementById('theme');
+  let themeSwitchDraws = 0, themeLabel = '';
+  if (thBtn) {
+    thBtn.click();
+    await new Promise((r) => setTimeout(r, 900));
+    themeSwitchDraws = track.drawImage - drawsBefore;
+    themeLabel = doc.getElementById('time') ? doc.getElementById('time').textContent : '';
+  }
+
   const res = {
     page: path.basename(PAGE),
+    themeSwitchDraws, themeLabel,
     enginePresent: !!eng,
     assetsInPage: nAssets,
     imagesRequestedByBoot: win.__assetsSeen || 0,
@@ -155,7 +167,8 @@ function polyfillSrc(track) {
     && res.imagesRequestedByBoot >= nAssets && res.pngDecodedKo === 0 && res.pngDecodedOk >= nAssets
     && res.drawImageCalls > 50 && res.drawImageBad.length === 0
     && res.gradientPainted && res.fallbackNeverBlack === true && res.endOfTimelineRendered === true
-    && res.overlayHidden === true && res.seekAdvanced > 0 && res.plans >= 10 && res.errors.length === 0;
+    && res.overlayHidden === true && res.seekAdvanced > 0 && res.plans >= 10 && res.errors.length === 0
+    && res.themeSwitchDraws > 10 && /nuit/.test(res.themeLabel);
   console.log(JSON.stringify(res, null, 1));
   dom.window.close();
   process.exit(res.OK ? 0 : 1);

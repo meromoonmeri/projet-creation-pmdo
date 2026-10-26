@@ -122,7 +122,20 @@ def main() -> None:
     comp = under.copy()
     comp.alpha_composite(over)
     comp.save(OUT / "cliffdaytest_jour.png", optimize=True)
-    print(f"cliffdaytest jour : {W}x{H} ({nc}x{nr} cellules) — static={n_static} over={n_over} "
+
+    # ---- variante NUIT : LUT 3D native jour→nuit (paire Metano_Town_Base / _Night),
+    #      aucune couleur inventée — gradation nocturne canonique PMDO ----
+    from source.cliff_nord_centre_v1.build_refs_nuit import _apply, _lut_from_pair  # type: ignore
+    day = np.asarray(decode_tile_straight(T02 / "Metano_Town_Base.tile").convert("RGBA"))
+    ngt = np.asarray(decode_tile_straight(T02 / "Metano_Town_Base_Night.tile").convert("RGBA"))
+    lut = _lut_from_pair(day, ngt)
+    for name in ("under", "over", "anim_atlas"):
+        arr = _apply(lut, np.asarray(Image.open(OUT / f"cliffdaytest_jour_{name}.png").convert("RGBA")))
+        Image.fromarray(arr, "RGBA").save(OUT / f"cliffdaytest_nuit_{name}.png", optimize=True)
+    compn = Image.open(OUT / "cliffdaytest_nuit_under.png").convert("RGBA")
+    compn.alpha_composite(Image.open(OUT / "cliffdaytest_nuit_over.png").convert("RGBA"))
+    compn.save(OUT / "cliffdaytest_nuit.png", optimize=True)
+    print(f"cliffdaytest jour+nuit : {W}x{H} ({nc}x{nr} cellules) — static={n_static} over={n_over} "
           f"animseqs={len(seqs)} atlas={atlas.size} frames max={max(len(s[2]) for s in seqs)}")
 
 

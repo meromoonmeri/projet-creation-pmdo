@@ -290,14 +290,17 @@ ENGINE_JS = r"""
       ctx.save(); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       let sc = SHOTS[SHOTS.length - 1]; for (const s of SHOTS) if (t >= s.t0 && t < s.t1) { sc = s; break; }
       const c = camAt(sc, t, game);
-      const under = I.mapUnder, over = I.mapOver;
+      const nuit = opts.theme === 'nuit';
+      const under = (nuit && I.mapUnderNuit && I.mapUnderNuit.width) ? I.mapUnderNuit : I.mapUnder;
+      const over = (nuit && I.mapOverNuit && I.mapOverNuit.width) ? I.mapOverNuit : I.mapOver;
       if (!under || !under.width || !over || !over.width) { ctx.restore(); paintBg(ctx, t); return { shot: sc.id, game, bg: true }; }
       ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(W / 2, H / 2); ctx.scale(c.S, c.S); ctx.translate(-c.cx, -c.cy);
       ctx.drawImage(under, 0, 0);
       // tuiles animées PMDO (mer, eau, drapeaux, fleurs…) : cycle de frames par séquence
       const AN = EV.catalog.anim;
-      if (AN && I.mapAnimAtlas && I.mapAnimAtlas.width) {
-        const st = Math.floor(t * AN.fps), AT = I.mapAnimAtlas, COLS = AN.cols;
+      const AT0 = (nuit && I.mapAnimAtlasNuit && I.mapAnimAtlasNuit.width) ? I.mapAnimAtlasNuit : I.mapAnimAtlas;
+      if (AN && AT0 && AT0.width) {
+        const st = Math.floor(t * AN.fps), AT = AT0, COLS = AN.cols;
         ctx.imageSmoothingEnabled = false;
         for (const q of AN.seqs) { const fr = q[2], cell = fr[st % fr.length];
           ctx.drawImage(AT, (cell % COLS) * 8, Math.floor(cell / COLS) * 8, 8, 8, q[0], q[1], 8, 8); } }
@@ -331,7 +334,7 @@ ENGINE_JS = r"""
       if (!game) { // barres cinéma (mode film uniquement)
         const bk = sstep((t - 0.2) / 1.2) * (1 - sstep((t - (D - 4.5)) / 1.0)); ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, W, 46 * bk); ctx.fillRect(0, H - 46 * bk, W, 46 * bk); }
-      ctx.restore(); return { shot: sc.id, game, bg: false };
+      ctx.restore(); return { shot: sc.id, game, bg: false, theme: nuit ? 'nuit' : 'jour' };
     }
     return { render, W, H, D };
   }
@@ -346,9 +349,10 @@ BOOT_JS = r"""
   const D = window.PMDDestinyDazzling.D;
   let cin = window.PMDDestinyDazzling.create({ imgs: {}, sheets: {}, catalog: ASSETS.catalog, mk: () => null });
   let game = true;            // par défaut : viewport PMDO « condition de jeu »
+  let theme = 'jour';         // map JOUR / NUIT (plaques natives + LUT nocturne)
   let t = 0, playing = true, scrub = false, lastWall = performance.now();
   const fmt = (s) => String(Math.floor(Math.max(0, s) / 60)).padStart(2, '0') + ':' + String(Math.floor(Math.max(0, s) % 60)).padStart(2, '0');
-  function paint() { if (!scrub) $('time').textContent = fmt(t) + ' / ' + fmt(D) + '  ·  ' + (game ? '🎮 viewport PMDO' : '🎬 cinéma');
+  function paint() { if (!scrub) $('time').textContent = fmt(t) + ' / ' + fmt(D) + '  ·  ' + (game ? '🎮 viewport PMDO' : '🎬 cinéma') + '  ·  ' + (theme === 'nuit' ? '🌙 nuit' : '☀ jour');
     $('seek').value = String(Math.min(1000, Math.round(t / D * 1000))); }
   // ---- préchargement RÉEL des images (data-URIs) : sans lui, drawImage reçoit des
   //      chaînes de caractères, lève une TypeError et le canvas reste NOIR. ----
@@ -386,6 +390,8 @@ BOOT_JS = r"""
   $('seek').addEventListener('change', () => { scrub = false; });
   $('mode').addEventListener('click', () => { game = !game;
     $('mode').textContent = game ? '🎮 Viewport PMDO (condition de jeu)' : '🎬 Rendu cinéma'; });
+  $('theme').addEventListener('click', () => { theme = theme === 'jour' ? 'nuit' : 'jour';
+    $('theme').textContent = theme === 'jour' ? '🌙 Map NUIT' : '☀ Map JOUR'; });
   $('ost').addEventListener('click', () => { $('ost').style.display = 'none';
     const wr = $('ostwrap'); wr.style.display = 'block';
     wr.innerHTML = '<iframe width="320" height="180" src="https://www.youtube.com/embed/iV04Wl5DLJo?autoplay=1&start=0" title="OST Team Dazzling" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'; });
@@ -396,7 +402,7 @@ BOOT_JS = r"""
     const now = performance.now();
     if (playing && !document.hidden) { t += (now - lastWall) / 1000; if (t >= D) t = t % D; }
     lastWall = now;
-    try { cin.render(ctx, t, { game, theme: 'jour', nowSec: t }); }
+    try { cin.render(ctx, t, { game, theme, nowSec: t }); }
     catch (e) { if (!loop.err) { loop.err = 1; console.error('rendu', e); } }
     const rep = $('replay');
     if (t > D - 2.5) { rep.style.display = 'block'; } else rep.style.display = 'none';
@@ -427,6 +433,7 @@ CSS = (
     "button:hover{background:#22346e}"
     "#time{font:bold 14px Verdana;color:#ffe9a8;min-width:210px}"
     "#mode{background:#0ea5e9;border-color:#bae6fd;color:#062033}"
+    "#theme{background:#1e2a5e;border-color:#8fb4ff;color:#ffe9a8}"
     "#ost{background:#f4b942;color:#4a2c08;border-color:#7a4a10;opacity:.35}"
     "#ostwrap{position:absolute;right:18px;bottom:132px;z-index:7;display:none}"
     "#replay{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:8;display:none;"
@@ -443,6 +450,7 @@ BODY_HTML = (
     '<div id="bar2"><button id="play">\u23f8 Pause</button><button id="back">\u226a 10 s</button>'
     '<button id="fwd">10 s \u226b</button><button id="restart">\u21ba D\u00e9but</button>'
     '<span id="time">00:00 / 05:00</span><button id="mode">\U0001f3ae Viewport PMDO (condition de jeu)</button>'
+    '<button id="theme">\U0001f319 Map NUIT</button>'
     '<button id="ost">\u25b6 OST \u2014 Team Dazzling (Beta\u2019s Theme)</button></div>'
     '<div id="plans"></div></div>\n'
     '<div id="ostwrap"></div>\n<button id="replay">\u21ba Rejouer la cin\u00e9matique</button>\n</div>\n'
@@ -455,7 +463,10 @@ def uri_png(path: Path) -> str:
 
 def export_assets() -> dict:
     imgs = {"mapUnder": uri_png(PLATES / "cliffdaytest_jour_under.png"), "mapOver": uri_png(PLATES / "cliffdaytest_jour_over.png"),
-            "mapAnimAtlas": uri_png(PLATES / "cliffdaytest_jour_anim_atlas.png")}
+            "mapAnimAtlas": uri_png(PLATES / "cliffdaytest_jour_anim_atlas.png"),
+            "mapUnderNuit": uri_png(PLATES / "cliffdaytest_nuit_under.png"),
+            "mapOverNuit": uri_png(PLATES / "cliffdaytest_nuit_over.png"),
+            "mapAnimAtlasNuit": uri_png(PLATES / "cliffdaytest_nuit_anim_atlas.png")}
     anim = json.loads((PLATES / "cliffdaytest_jour_anim.json").read_text(encoding="utf-8"))
     walk = json.loads((PLATES / "cliffdaytest_walk.json").read_text(encoding="utf-8"))
     sheets, catalog, portraits = {}, {}, {}
