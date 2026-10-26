@@ -541,7 +541,7 @@ def build_rsground_package(
     ground_dir.mkdir(parents=True, exist_ok=True)
     tile_dir.mkdir(parents=True, exist_ok=True)
 
-    tpl = json.loads((REPO_ROOT / "cliffdaytest.rsground").read_text(encoding="utf-8"))
+    tpl = json.loads((REPO_ROOT / "cliffdaytest.rsground").read_text(encoding="utf-8-sig"))
     obj = tpl["Object"]
 
     namespace = namespace_override or f"tour_celeste_{map_id.lower()}"
