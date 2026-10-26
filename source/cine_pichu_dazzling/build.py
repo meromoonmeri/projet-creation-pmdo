@@ -119,6 +119,27 @@ SHOTS = [
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[252, 566, 480], [262, 566, 478], [300, 566, 478]], "an": [[252, "Sit", 0], [261.6, "Hop", 0, {"loop": False}], [262.6, "Idle", 6], [266, "Cringe", 6, {"loop": False}], [270, "Idle", 6], [276, "Nod", 6, {"loop": False}], [280, "Idle", 6], [286, "LookUp", 4, {"loop": False}], [290, "Idle", 4], [292, "Pose", 4, {"loop": False}]]}]},
 ]
 
+# emotes : [t0, t1, pid, kind] — icônes canoniques PMD au-dessus de la tête
+EMOTES = [
+    [39.0, 45.0, "0172", "sweat"], [46.0, 51.0, "0172", "sparkle"], [60.0, 64.5, "0172", "exclaim"],
+    [82.5, 86.5, "0428", "note"], [84.0, 87.5, "0303", "sweat"],
+    [88.0, 92.5, "0303", "anger"], [89.0, 92.5, "0428", "sweat"],
+    [96.5, 100.5, "0428", "sparkle"], [102.5, 107.0, "0763", "heart"], [108.5, 113.0, "0303", "anger"],
+    [115.0, 119.0, "0172", "question"],
+    [120.0, 126.0, "0428", "note"], [121.0, 126.0, "0172", "sweat"],
+    [134.0, 140.0, "0428", "note"], [135.0, 140.0, "0172", "exclaim"],
+    [141.0, 147.0, "0763", "heart"], [148.0, 154.0, "0303", "anger"],
+    [154.5, 160.0, "0172", "sweat"],
+    [161.0, 167.0, "0428", "note"], [162.0, 167.0, "0303", "sweat"],
+    [167.5, 173.5, "0172", "cry"],
+    [174.0, 180.0, "0763", "heart"],
+    [190.0, 196.0, "0303", "sweat"], [191.0, 196.0, "0428", "exclaim"],
+    [197.0, 203.0, "0428", "note"], [198.0, 203.0, "0303", "anger"],
+    [204.0, 210.0, "0763", "heart"],
+    [220.5, 227.0, "0172", "cry"], [227.5, 234.0, "0172", "dots"],
+    [242.5, 250.0, "0172", "exclaim"],
+]
+
 # --------------------------------------------------------------------------- moteur JS
 ENGINE_JS = r"""
 /* Cinématique « Pichu & la Team Dazzling » — 5 min dans cliffdaytest (map native PMDO).
@@ -164,10 +185,13 @@ ENGINE_JS = r"""
         ctx.beginPath(); ctx.moveTo(Math.cos(an) * r * 0.18, Math.sin(an) * r * 0.18); ctx.lineTo(Math.cos(an) * L, Math.sin(an) * L); ctx.stroke(); } ctx.restore(); }
     function flash(ctx, a, rgb) { if (a <= 0.004) return; ctx.fillStyle = 'rgba(' + (rgb || '255,255,255') + ',' + clamp(a, 0, 1).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
     // ---- caméra ----
-    function camAt(sc, t) { const k = lin(sc.cam, t); let sh = 0;
+    const MAPW = 792, MAPH = 984;
+    function camAt(sc, t, game) { const k = lin(sc.cam, t); let sh = 0;
       for (const pt of POSE_T) { const d = t - pt; if (d >= 0 && d < 0.5) sh += 2.6 * Math.exp(-d * 9); }
-      const cx = k[0] + (sh ? Math.sin(t * 67) * sh : 0), cy = k[1] + (sh ? Math.cos(t * 71) * sh : 0);
-      return { cx, cy, S: 4 * k[2] }; }
+      let cx = k[0] + (sh ? Math.sin(t * 67) * sh : 0), cy = k[1] + (sh ? Math.cos(t * 71) * sh : 0), S = 4 * k[2];
+      if (game) { // viewport PMDO « condition de jeu » : zoom gameplay fixe, cadrage clampé sur la carte
+        S = 2.0; cx = clamp(cx, (W / S) / 2, MAPW - (W / S) / 2); cy = clamp(cy, (H / S) / 2, MAPH - (H / S) / 2); }
+      return { cx, cy, S }; }
     const POSE_T = [96.5, 102.0, 107.5, 214.0, 214.6, 215.2];
     // ---- acteurs ----
     function actorState(a, t) { const pos = lin(a.keys, t); const al = a.a ? lin(a.a, t)[0] : 1;
@@ -183,10 +207,10 @@ ENGINE_JS = r"""
     function wrapText(ctx, text, maxw) { const words = text.split(' '), out = []; let cur = '';
       for (const w of words) { const test = cur ? cur + ' ' + w : w; if (ctx.measureText(test).width > maxw && cur) { out.push(cur); cur = w; } else cur = test; }
       if (cur) out.push(cur); return out; }
-    function dialogBox(ctx, L, t) {
+    function dialogBox(ctx, L, t, game) {
       const u0 = sstep((t - L[0]) / 0.18), u1 = 1 - sstep((t - (L[1] - 0.22)) / 0.22), a = Math.min(u0, u1);
       if (a <= 0.004) return; const pid = L[2], emo = L[3], txt = L[4];
-      const bx = 150, by = 540 + (1 - u0) * 30, bw = 980, bh = 150;
+      const bx = game ? 220 : 150, bw = game ? 840 : 980, by = (game ? 556 : 540) + (1 - u0) * 30, bh = game ? 140 : 150;
       ctx.save(); ctx.globalAlpha = a;
       ctx.fillStyle = 'rgba(6,10,34,0.88)'; roundRect(ctx, bx, by, bw, bh, 16); ctx.fill();
       ctx.strokeStyle = 'rgba(214,230,255,0.95)'; ctx.lineWidth = 3; roundRect(ctx, bx, by, bw, bh, 16); ctx.stroke();
@@ -210,6 +234,36 @@ ENGINE_JS = r"""
       if (nch >= tot) { const bl = 0.5 + 0.5 * Math.sin(t * 7);
         ctx.fillStyle = 'rgba(255,240,170,' + (0.4 + 0.6 * bl).toFixed(2) + ')'; ctx.font = 'bold 26px Verdana'; ctx.fillText('▼', bx + bw - 44, by + bh - 20); }
       ctx.restore(); }
+    // ---- émotes PMD (icônes au-dessus de la tête) ----
+    function emote(ctx, kind, x, y, t, t0, t1, es) {
+      const u = t - t0, k = sstep(u / 0.22), pop = (0.5 + 0.5 * k + 0.18 * Math.sin(Math.min(1, u / 0.35) * Math.PI)) * (es || 1);
+      const a = k * (1 - sstep((t - (t1 - 0.3)) / 0.3)); if (a <= 0.01) return;
+      const bob = Math.sin(t * 6 + x) * 0.8; ctx.save(); ctx.translate(x, y + bob); ctx.scale(pop, pop); ctx.globalAlpha = a;
+      ctx.lineWidth = 1.6; ctx.strokeStyle = 'rgba(255,255,255,0.95)'; ctx.lineJoin = 'round';
+      if (kind === 'sweat' || kind === 'cry') {
+        const n = kind === 'cry' ? 2 : 1;
+        for (let i = 0; i < n; i++) { const ox = n === 2 ? (i ? 4 : -4) : 2;
+          ctx.fillStyle = '#6ec6ff'; ctx.beginPath(); ctx.moveTo(ox, -8); ctx.quadraticCurveTo(ox + 4, -2, ox, 1); ctx.quadraticCurveTo(ox - 4, -2, ox, -8); ctx.fill(); ctx.stroke(); }
+      } else if (kind === 'exclaim') {
+        ctx.fillStyle = '#e63946'; ctx.beginPath(); ctx.rect(-1.6, -11, 3.2, 7); ctx.rect(-1.6, -2.6, 3.2, 2.6); ctx.fill(); ctx.stroke();
+      } else if (kind === 'question') {
+        ctx.fillStyle = '#ffd23e'; ctx.beginPath(); ctx.arc(0, -7.5, 3.4, Math.PI * 0.9, Math.PI * 2.1); ctx.lineTo(0.8, -4.4); ctx.lineTo(-0.8, -4.4); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.rect(-1.2, -3.0, 2.4, 2.4); ctx.fill(); ctx.stroke();
+      } else if (kind === 'heart') {
+        ctx.fillStyle = '#ff7bac'; ctx.beginPath(); ctx.moveTo(0, -1); ctx.bezierCurveTo(-6, -6, -4.4, -11, 0, -7.6); ctx.bezierCurveTo(4.4, -11, 6, -6, 0, -1); ctx.fill(); ctx.stroke();
+      } else if (kind === 'anger') {
+        ctx.strokeStyle = '#e63946'; ctx.lineWidth = 2.0;
+        for (const q of [[-3, -8, 0, Math.PI * 0.5], [3, -8, Math.PI * 0.5, Math.PI], [-3, -4, Math.PI * 1.5, 2 * Math.PI], [3, -4, Math.PI, Math.PI * 1.5]]) {
+          ctx.beginPath(); ctx.arc(q[0], q[1], 2.6, q[2], q[3]); ctx.stroke(); }
+      } else if (kind === 'dots') {
+        ctx.fillStyle = '#cfd8e3'; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(-4 + i * 4, -6, 1.5, 0, TAU); ctx.fill(); ctx.stroke(); }
+      } else if (kind === 'note') {
+        ctx.fillStyle = '#3a3f52'; ctx.beginPath(); ctx.ellipse(-1.5, -3.5, 2.6, 1.9, -0.4, 0, TAU); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = '#3a3f52'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(0.8, -4); ctx.lineTo(0.8, -11); ctx.quadraticCurveTo(3.4, -10, 4, -8); ctx.stroke();
+      } else { // sparkle
+        ctx.fillStyle = '#ffe066'; ctx.beginPath(); ctx.moveTo(0, -11); ctx.lineTo(1.8, -6.8); ctx.lineTo(6, -5); ctx.lineTo(1.8, -3.2); ctx.lineTo(0, 1); ctx.lineTo(-1.8, -3.2); ctx.lineTo(-6, -5); ctx.lineTo(-1.8, -6.8); ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
+      ctx.restore(); }
     // ---- larmes ----
     function tears(ctx, x, y, t, a) { if (a <= 0.01) return; ctx.save(); ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < 5; i++) { const ph = ((t * 1.15 + i * 0.37) % 1); const sx = x + (i % 2 ? 5 : -5) + Math.sin(i * 3) * 1.5;
@@ -217,10 +271,10 @@ ENGINE_JS = r"""
         ctx.beginPath(); ctx.ellipse(sx, sy, 1.8, 2.8 + ph * 1.4, 0, 0, TAU); ctx.fill(); } ctx.restore(); }
     // ---- rendu ----
     function render(ctx, t, opts) {
-      opts = opts || {}; t = clamp(t, 0, D);
+      opts = opts || {}; const game = !!opts.game; t = clamp(t, 0, D);
       ctx.save(); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       let sc = SHOTS[SHOTS.length - 1]; for (const s of SHOTS) if (t >= s.t0 && t < s.t1) { sc = s; break; }
-      const c = camAt(sc, t);
+      const c = camAt(sc, t, game);
       ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(W / 2, H / 2); ctx.scale(c.S, c.S); ctx.translate(-c.cx, -c.cy);
       ctx.drawImage(I.mapUnder, 0, 0);
       // ombres de nuages dérivantes + lumière du matin
@@ -231,6 +285,9 @@ ENGINE_JS = r"""
         items.push({ y: st.pos[1], fn: () => drawSprite(ctx, a.pid, st.anim, st.dir, st.tick, true, st.pos[0], st.pos[1] + st.bob, { a: st.al, s: a.s || 1 }) }); }
       items.sort((p, q) => p.y - q.y); items.forEach((it) => it.fn());
       ctx.drawImage(I.mapOver, 0, 0);
+      for (const E of EV.catalog.script.emotes) { if (t < E[0] || t >= E[1]) continue;
+        const act = (sc.actors || []).find((q) => q.pid === E[2]); if (!act) continue;
+        const pos = lin(act.keys, t); emote(ctx, E[3], pos[0], pos[1] - 26, t, E[0], E[1], 1.7); }
       // éclats de pose de l'entrée
       for (const pt of POSE_T) { const d = t - pt; if (d < 0 || d >= 0.6) continue; const u = d / 0.6;
         const who = pt < 100 ? [606, 548] : pt < 106 ? [636, 556] : pt < 112 ? [668, 548] : pt < 214.4 ? [680, 660] : pt < 215 ? [706, 676] : [732, 668];
@@ -242,15 +299,15 @@ ENGINE_JS = r"""
       ctx.restore();
       // flashs d'entrée & fondus
       for (const pt of POSE_T) { const d = t - pt; if (d >= 0 && d < 0.3) flash(ctx, 0.30 * Math.exp(-d * 12), '255,248,220'); }
-      if (sc.fade && t < sc.t0 + sc.fade) flash(ctx, 1 - sstep((t - sc.t0) / sc.fade), '0,0,0');
-      if (t > D - 4) flash(ctx, sstep((t - (D - 4)) / 3.2), '0,0,0');
-      flash(ctx, 0.9 * Math.exp(-t * 3.2), '0,0,0');
+      // plus d'écran noir entre les plans : coupes franches comme les cutscenes PMDO
+      if (t > D - 3.5) flash(ctx, sstep((t - (D - 3.5)) / 2.6), '0,0,0');
+      flash(ctx, 0.55 * Math.exp(-t * 4.5), '0,0,0');
       // dialogue
-      for (const L of LINES) if (t >= L[0] && t < L[1]) dialogBox(ctx, L, t);
-      // barres cinéma
-      const bk = sstep((t - 0.2) / 1.2) * (1 - sstep((t - (D - 4.5)) / 1.0)); ctx.fillStyle = '#000';
-      ctx.fillRect(0, 0, W, 46 * bk); ctx.fillRect(0, H - 46 * bk, W, 46 * bk);
-      ctx.restore(); return { shot: sc.id };
+      for (const L of LINES) if (t >= L[0] && t < L[1]) dialogBox(ctx, L, t, game);
+      if (!game) { // barres cinéma (mode film uniquement)
+        const bk = sstep((t - 0.2) / 1.2) * (1 - sstep((t - (D - 4.5)) / 1.0)); ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, 46 * bk); ctx.fillRect(0, H - 46 * bk, W, 46 * bk); }
+      ctx.restore(); return { shot: sc.id, game };
     }
     return { render, W, H, D };
   }
@@ -263,14 +320,21 @@ BOOT_JS = r"""
   const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
   const cin = window.PMDDestinyDazzling.create(ASSETS);
   let t0 = performance.now() / 1000 - (parseFloat(new URLSearchParams(location.search).get('t')) || 0);
-  let ostAt = null;
+  let game = true; // par défaut : viewport PMDO « condition de jeu »
+  const mbtn = document.getElementById('mode');
+  mbtn.addEventListener('click', () => { game = !game;
+    mbtn.textContent = game ? '🎮 Viewport PMDO (condition de jeu)' : '🎬 Rendu cinéma'; });
   const btn = document.getElementById('ost');
   btn.addEventListener('click', () => { ostAt = performance.now() / 1000 - t0; btn.style.display = 'none';
     const wr = document.getElementById('ostwrap'); wr.style.display = 'block';
     wr.innerHTML = '<iframe width="320" height="180" src="https://www.youtube.com/embed/iV04Wl5DLJo?autoplay=1&start=0" title="OST Team Dazzling" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'; });
   function loop() { const t = performance.now() / 1000 - t0;
     if (btn.style.display !== 'none' && t > 68 && t < 92) btn.style.opacity = '1'; else if (btn.style.display !== 'none') btn.style.opacity = '0.35';
-    cin.render(ctx, t, {}); requestAnimationFrame(loop); }
+    cin.render(ctx, t, { game });
+    const rep = document.getElementById('replay');
+    if (t > 297.5) { rep.style.display = 'block'; } else rep.style.display = 'none';
+    requestAnimationFrame(loop); }
+  document.getElementById('replay').addEventListener('click', () => { t0 = performance.now() / 1000; });
   loop();
 })();
 """
@@ -303,7 +367,7 @@ def export_assets() -> dict:
                 imgs[f"pt_{pid}_{emo}"] = uri_png(q)
                 portraits.setdefault(pid, []).append(emo)
     return {"imgs": imgs, "sheets": sheets,
-            "catalog": {"pokemon": catalog, "portraits": portraits, "script": {"shots": SHOTS, "lines": LINES}}}
+            "catalog": {"pokemon": catalog, "portraits": portraits, "script": {"shots": SHOTS, "lines": LINES, "emotes": EMOTES}}}
 
 
 def build() -> Path:
@@ -313,9 +377,9 @@ def build() -> Path:
             "<style>html,body{margin:0;background:#000;height:100%}#wrap{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}"
             "canvas{width:min(100vw,177.7vh);image-rendering:auto;background:#000}"
             "#ost{position:absolute;right:18px;bottom:64px;z-index:5;background:#f4b942;color:#4a2c08;border:2px solid #7a4a10;border-radius:10px;padding:10px 14px;font:bold 15px Verdana;cursor:pointer;opacity:.35}"
-            "#ostwrap{position:absolute;right:18px;bottom:110px;z-index:5;display:none}</style>\n</head>\n<body>\n<div id=\"wrap\">\n"
+            "#ostwrap{position:absolute;right:18px;bottom:110px;z-index:5;display:none}\n#mode{position:absolute;left:18px;bottom:64px;z-index:5;background:#0ea5e9;color:#fff;border:2px solid #bae6fd;border-radius:10px;padding:10px 14px;font:bold 15px Verdana;cursor:pointer}\n#replay{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:6;display:none;background:#f4b942;color:#4a2c08;border:3px solid #7a4a10;border-radius:14px;padding:16px 26px;font:bold 20px Verdana;cursor:pointer}</style>\n</head>\n<body>\n<div id=\"wrap\">\n"
             "<canvas id=\"cv\" width=\"1280\" height=\"720\"></canvas>\n"
-            "<button id=\"ost\">▶ OST — Team Dazzling (Beta's Theme)</button><div id=\"ostwrap\"></div>\n</div>\n"
+            "<button id=\"mode\">🎮 Viewport PMDO (condition de jeu)</button>\n<button id=\"ost\">▶ OST — Team Dazzling (Beta's Theme)</button><div id=\"ostwrap\"></div>\n<button id=\"replay\">↺ Rejouer la cinématique</button>\n</div>\n"
             "<script>\n" + ENGINE_JS + "\n</script>\n<script>\nconst ASSETS = " + json.dumps(A, ensure_ascii=False, separators=(",", ":")) + ";\n</script>\n"
             "<script>\n" + BOOT_JS + "\n</script>\n</body>\n</html>\n")
     OUT_HTML.write_text(html, encoding="utf-8")

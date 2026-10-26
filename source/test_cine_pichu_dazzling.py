@@ -74,7 +74,19 @@ class TestCinePichuDazzling(unittest.TestCase):
             self.assertEqual(a["t1"], b["t0"], "plans contigus")
         self.assertEqual(shots[-1]["t1"], 300)
 
-    def test_06_entree_team_et_poses(self) -> None:
+    def test_06_emotes_et_viewport_pmdo(self) -> None:
+        em = self.A["catalog"]["script"]["emotes"]
+        self.assertGreaterEqual(len(em), 25)
+        kinds = {e[3] for e in em}
+        for k in ("sweat", "note", "anger", "heart", "exclaim", "cry", "dots", "question", "sparkle"):
+            self.assertIn(k, kinds)
+        self.assertIn("function emote(", self.txt)
+        self.assertIn("opts.game", self.txt.replace("!!opts.game", "opts.game"))
+        self.assertIn("Viewport PMDO (condition de jeu)", self.txt)
+        self.assertIn("Rejouer la cinématique", self.txt)
+        self.assertNotIn("sc.fade && t < sc.t0", self.txt, "plus de fondus noirs entre les plans")
+
+    def test_07_entree_team_et_poses(self) -> None:
         shots = {s["id"]: s for s in self.A["catalog"]["script"]["shots"]}
         s5 = json.dumps(shots["S5"], ensure_ascii=False)
         for needle in ("Appeal", "Kick", "Strike", "Walk"):
