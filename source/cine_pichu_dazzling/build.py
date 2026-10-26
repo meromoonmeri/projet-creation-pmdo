@@ -83,36 +83,36 @@ LINES = [
 SHOTS = [
     {"id": "S1", "t0": 0, "t1": 12, "cam": [[0, 420, 430, 0.5], [12, 480, 470, 0.85]], "fade": 0.0, "actors": []},
     {"id": "S2", "t0": 12, "t1": 26, "cam": [[12, 590, 442, 1.5], [20, 586, 458, 1.8], [26, 584, 466, 2.0]], "fade": 0.3,
-     "actors": [{"id": "pichu", "pid": "0172", "keys": [[12, 590, 434], [14.5, 590, 434], [17.5, 586, 468], [26, 586, 470]],
+     "actors": [{"id": "pichu", "pid": "0172", "keys": [[12, 605, 470], [14.5, 605, 470], [17.5, 596, 486], [26, 586, 478]],
                  "an": [[12, "EventSleep", 0], [13.6, "Wake", 0, {"loop": False}], [15.0, "Walk", "auto"], [17.8, "Nod", 0, {"loop": False}], [19.5, "LookUp", 6, {"loop": False}], [22.5, "Idle", 6]]}]},
     {"id": "S3", "t0": 26, "t1": 58, "cam": [[26, 576, 472, 2.1], [40, 570, 476, 2.3], [52, 576, 474, 2.2], [58, 576, 474, 2.2]], "fade": 0.3,
-     "actors": [{"id": "pichu", "pid": "0172", "keys": [[26, 586, 470], [31, 560, 478], [36, 586, 474], [41, 562, 480], [44, 566, 480], [50, 566, 480], [53, 570, 478], [58, 570, 478]],
+     "actors": [{"id": "pichu", "pid": "0172", "keys": [[26, 586, 478], [31, 560, 482], [36, 586, 478], [41, 562, 484], [44, 566, 484], [50, 566, 484], [53, 570, 482], [58, 570, 482]],
                  "an": [[26, "Walk", "auto"], [43.6, "Sit", 6, {"loop": False}], [49.6, "Hop", 6, {"loop": False}], [50.6, "Idle", 6], [52.6, "Walk", "auto"], [53.6, "Idle", 6], [55.0, "LookUp", 4, {"loop": False}]]}]},
-    {"id": "S4", "t0": 58, "t1": 74, "cam": [[58, 566, 484, 2.0], [64, 566, 484, 2.0], [66, 600, 560, 1.35], [74, 640, 640, 1.3]], "fade": 0.35,
+    {"id": "S4", "t0": 58, "t1": 74, "cam": [[58, 566, 484, 2.0], [64, 566, 484, 2.0], [66, 748, 720, 1.25], [74, 740, 650, 1.3]], "fade": 0.35,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[58, 570, 478], [74, 566, 478]], "an": [[58, "Idle", 4], [60.0, "LookUp", 0, {"loop": False}], [63.0, "Cringe", 0, {"loop": False}], [65.0, "Idle", 0]]},
-                {"id": "lop", "pid": "0428", "keys": [[66, 668, 930], [74, 656, 810]], "an": [[66, "Walk", "auto"]], "a": [[66, 0], [67.2, 1]]},
-                {"id": "suc", "pid": "0763", "keys": [[66.8, 690, 950], [74, 676, 830]], "an": [[66.8, "Walk", "auto"]], "a": [[66.8, 0], [68, 1]]},
-                {"id": "mys", "pid": "0303", "keys": [[67.6, 712, 970], [74, 696, 850]], "an": [[67.6, "Walk", "auto"]], "a": [[67.6, 0], [68.8, 1]]}]},
-    {"id": "S5", "t0": 74, "t1": 119, "cam": [[74, 668, 850, 1.2], [84, 650, 700, 1.4], [92, 626, 552, 1.6], [96, 622, 540, 1.7], [110, 620, 538, 1.8], [119, 618, 536, 1.8]], "fade": 0.3,
+                {"id": "lop", "pid": "0428", "keys": [[66, 748, 800], [74, 748, 664]], "an": [[66, "Walk", "auto"]], "a": [[66, 0], [67.2, 1]]},
+                {"id": "suc", "pid": "0763", "keys": [[66.8, 748, 812], [74, 742, 672]], "an": [[66.8, "Walk", "auto"]], "a": [[66.8, 0], [68, 1]]},
+                {"id": "mys", "pid": "0303", "keys": [[67.6, 748, 824], [74, 754, 680]], "an": [[67.6, "Walk", "auto"]], "a": [[67.6, 0], [68.8, 1]]}]},
+    {"id": "S5", "t0": 74, "t1": 119, "cam": [[74, 740, 650, 1.2], [84, 700, 600, 1.4], [92, 626, 528, 1.6], [96, 624, 520, 1.7], [110, 622, 518, 1.8], [119, 620, 516, 1.8]], "fade": 0.3,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[74, 566, 478], [119, 566, 478]], "an": [[74, "Idle", 0], [96, "Cringe", 0, {"loop": False}], [99, "Idle", 0], [113, "LookUp", 0, {"loop": False}]]},
-                {"id": "lop", "pid": "0428", "keys": [[74, 656, 810], [92, 606, 548], [119, 606, 548]], "an": [[74, "Walk", "auto"], [92.5, "Idle", 0], [96.5, "Appeal", 0, {"loop": False}], [100.5, "Idle", 0], [113, "LookUp", 2, {"loop": False}], [116, "Idle", 0]]},
-                {"id": "suc", "pid": "0763", "keys": [[74, 676, 830], [93, 636, 556], [119, 636, 556]], "an": [[74, "Walk", "auto"], [93.5, "Idle", 0], [102.0, "Kick", 0, {"loop": False}], [106.0, "Rotate", 0, {"loop": False}], [109.5, "Idle", 0], [113.5, "LookUp", 6, {"loop": False}], [116.5, "Idle", 0]]},
-                {"id": "mys", "pid": "0303", "keys": [[74, 696, 850], [94, 668, 548], [119, 668, 548]], "an": [[74, "Walk", "auto"], [94.5, "Idle", 0], [107.5, "Strike", 0, {"loop": False}], [111.5, "Idle", 0], [114, "Idle", 0]]}]},
-    {"id": "S6", "t0": 119, "t1": 190, "cam": [[119, 616, 520, 1.8], [119.9, 600, 550, 2.5], [126.4, 600, 550, 2.5], [126.5, 566, 478, 2.6], [133.4, 566, 478, 2.6], [133.5, 606, 546, 2.5], [139.9, 606, 546, 2.5], [140, 636, 554, 2.5], [146.9, 636, 554, 2.5], [147, 668, 546, 2.5], [153.4, 668, 546, 2.5], [153.5, 566, 478, 2.6], [159.9, 566, 478, 2.6], [160, 606, 546, 2.5], [165.9, 606, 546, 2.5], [166, 566, 480, 2.6], [172.4, 566, 480, 2.6], [172.5, 636, 554, 2.5], [180, 620, 528, 1.9], [190, 620, 530, 1.8]], "fade": 0.3,
+                {"id": "lop", "pid": "0428", "keys": [[74, 748, 664], [84, 700, 616], [92, 600, 520], [119, 600, 520]], "an": [[74, "Walk", "auto"], [92.5, "Idle", 0], [96.5, "Appeal", 0, {"loop": False}], [100.5, "Idle", 0], [113, "LookUp", 2, {"loop": False}], [116, "Idle", 0]]},
+                {"id": "suc", "pid": "0763", "keys": [[74, 742, 672], [85, 712, 632], [93, 632, 528], [119, 632, 528]], "an": [[74, "Walk", "auto"], [93.5, "Idle", 0], [102.0, "Kick", 0, {"loop": False}], [106.0, "Rotate", 0, {"loop": False}], [109.5, "Idle", 0], [113.5, "LookUp", 6, {"loop": False}], [116.5, "Idle", 0]]},
+                {"id": "mys", "pid": "0303", "keys": [[74, 754, 680], [86, 704, 596], [94, 664, 520], [119, 664, 520]], "an": [[74, "Walk", "auto"], [94.5, "Idle", 0], [107.5, "Strike", 0, {"loop": False}], [111.5, "Idle", 0], [114, "Idle", 0]]}]},
+    {"id": "S6", "t0": 119, "t1": 190, "cam": [[119, 616, 500, 1.8], [119.9, 600, 522, 2.5], [126.4, 600, 522, 2.5], [126.5, 566, 478, 2.6], [133.4, 566, 478, 2.6], [133.5, 600, 518, 2.5], [139.9, 600, 518, 2.5], [140, 632, 526, 2.5], [146.9, 632, 526, 2.5], [147, 664, 518, 2.5], [153.4, 664, 518, 2.5], [153.5, 566, 478, 2.6], [159.9, 566, 478, 2.6], [160, 600, 518, 2.5], [165.9, 600, 518, 2.5], [166, 566, 480, 2.6], [172.4, 566, 480, 2.6], [172.5, 632, 526, 2.5], [180, 620, 505, 1.9], [190, 620, 508, 1.8]], "fade": 0.3,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[119, 566, 478], [190, 566, 478]], "an": [[119, "Idle", 0], [126.5, "Cringe", 0, {"loop": False}], [130, "Idle", 0], [153.5, "Pain", 0, {"loop": False}], [157, "Idle", 0], [166, "Cringe", 0, {"loop": False}], [170, "Idle", 0]]},
-                {"id": "lop", "pid": "0428", "keys": [[119, 606, 548], [190, 606, 548]], "an": [[119, "Idle", 4], [120, "Hop", 4, {"loop": False}], [124, "Idle", 4], [133.5, "Double", 4, {"loop": False}], [137.5, "Idle", 4], [160, "Hop", 4, {"loop": False}], [164, "Idle", 4]]},
-                {"id": "suc", "pid": "0763", "keys": [[119, 636, 556], [190, 636, 556]], "an": [[119, "Idle", 4], [140, "Rotate", 4, {"loop": False}], [144, "Idle", 4], [172.5, "Kick", 4, {"loop": False}], [176.5, "Idle", 4]]},
-                {"id": "mys", "pid": "0303", "keys": [[119, 668, 548], [190, 668, 548]], "an": [[119, "Idle", 4], [147, "Strike", 4, {"loop": False}], [151, "Idle", 4], [181, "Cringe", 6, {"loop": False}], [184, "Idle", 4]]}]},
-    {"id": "S7", "t0": 190, "t1": 214, "cam": [[190, 620, 540, 1.6], [200, 640, 580, 1.5], [214, 690, 650, 1.5]], "fade": 0.3,
+                {"id": "lop", "pid": "0428", "keys": [[119, 600, 520], [190, 600, 520]], "an": [[119, "Idle", 4], [120, "Hop", 4, {"loop": False}], [124, "Idle", 4], [133.5, "Double", 4, {"loop": False}], [137.5, "Idle", 4], [160, "Hop", 4, {"loop": False}], [164, "Idle", 4]]},
+                {"id": "suc", "pid": "0763", "keys": [[119, 632, 528], [190, 632, 528]], "an": [[119, "Idle", 4], [140, "Rotate", 4, {"loop": False}], [144, "Idle", 4], [172.5, "Kick", 4, {"loop": False}], [176.5, "Idle", 4]]},
+                {"id": "mys", "pid": "0303", "keys": [[119, 664, 520], [190, 664, 520]], "an": [[119, "Idle", 4], [147, "Strike", 4, {"loop": False}], [151, "Idle", 4], [181, "Cringe", 6, {"loop": False}], [184, "Idle", 4]]}]},
+    {"id": "S7", "t0": 190, "t1": 214, "cam": [[190, 620, 520, 1.6], [200, 600, 590, 1.5], [214, 634, 690, 1.5]], "fade": 0.3,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[190, 566, 478], [214, 566, 478]], "an": [[190, "Idle", 0], [196.5, "Cringe", 0, {"loop": False}], [200, "Idle", 0], [203, "LookUp", 0, {"loop": False}]]},
-                {"id": "lop", "pid": "0428", "keys": [[190, 600, 552], [198, 636, 606], [214, 680, 660]], "an": [[190, "Idle", 4], [194, "Walk", "auto"], [206, "Walk", "auto"]]},
-                {"id": "suc", "pid": "0763", "keys": [[190, 640, 566], [199, 672, 622], [214, 706, 676]], "an": [[190, "Idle", 4], [195, "Walk", "auto"]]},
-                {"id": "mys", "pid": "0303", "keys": [[190, 682, 554], [200, 702, 636], [214, 732, 668]], "an": [[190, "Idle", 4], [196, "Walk", "auto"]]}]},
-    {"id": "S8", "t0": 214, "t1": 232, "cam": [[214, 700, 662, 1.5], [219.5, 700, 662, 1.5], [220, 566, 480, 2.2], [232, 566, 480, 2.3]], "fade": 0.3,
+                {"id": "lop", "pid": "0428", "keys": [[190, 600, 520], [198, 576, 560], [206, 576, 660], [214, 612, 700]], "an": [[190, "Idle", 4], [194, "Walk", "auto"], [206, "Walk", "auto"]]},
+                {"id": "suc", "pid": "0763", "keys": [[190, 632, 528], [199, 592, 576], [207, 592, 672], [214, 636, 712]], "an": [[190, "Idle", 4], [195, "Walk", "auto"]]},
+                {"id": "mys", "pid": "0303", "keys": [[190, 664, 520], [200, 608, 592], [208, 608, 684], [214, 660, 700]], "an": [[190, "Idle", 4], [196, "Walk", "auto"]]}]},
+    {"id": "S8", "t0": 214, "t1": 232, "cam": [[214, 634, 690, 1.5], [219.5, 640, 700, 1.5], [220, 566, 480, 2.2], [232, 566, 480, 2.3]], "fade": 0.3,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[214, 566, 478], [232, 566, 478]], "an": [[214, "Idle", 0], [220.5, "Cringe", 0, {"loop": False}], [225, "Idle", 0]]},
-                {"id": "lop", "pid": "0428", "keys": [[214, 680, 660], [222, 730, 760], [232, 790, 870]], "an": [[214, "Appeal", 0, {"loop": False}], [218, "Walk", "auto"]]},
-                {"id": "suc", "pid": "0763", "keys": [[214, 706, 676], [223, 752, 780], [232, 810, 890]], "an": [[214, "Kick", 0, {"loop": False}], [218.6, "Walk", "auto"]]},
-                {"id": "mys", "pid": "0303", "keys": [[214, 732, 668], [224, 774, 800], [232, 830, 910]], "an": [[214, "Strike", 0, {"loop": False}], [219.2, "Walk", "auto"]]}]},
+                {"id": "lop", "pid": "0428", "keys": [[214, 612, 700], [222, 660, 760], [232, 692, 808]], "an": [[214, "Appeal", 0, {"loop": False}], [218, "Walk", "auto"]]},
+                {"id": "suc", "pid": "0763", "keys": [[214, 636, 712], [223, 680, 772], [232, 712, 814]], "an": [[214, "Kick", 0, {"loop": False}], [218.6, "Walk", "auto"]]},
+                {"id": "mys", "pid": "0303", "keys": [[214, 660, 700], [224, 700, 764], [232, 732, 810]], "an": [[214, "Strike", 0, {"loop": False}], [219.2, "Walk", "auto"]]}]},
     {"id": "S9", "t0": 232, "t1": 252, "cam": [[232, 570, 480, 2.3], [240, 568, 480, 2.5], [252, 568, 480, 2.6]], "fade": 0.35,
      "actors": [{"id": "pichu", "pid": "0172", "keys": [[232, 566, 478], [236, 566, 480], [252, 566, 480]], "an": [[232, "Idle", 0], [235.6, "Sit", 0, {"loop": False}], [242, "Cringe", 0, {"loop": False}], [246, "Sit", 0, {"loop": False}]]}]},
     {"id": "S10", "t0": 252, "t1": 300, "cam": [[252, 568, 480, 2.6], [262, 566, 478, 2.4], [276, 566, 470, 2.1], [292, 520, 420, 1.2], [300, 470, 400, 0.9]], "fade": 0.3,
@@ -185,7 +185,7 @@ ENGINE_JS = r"""
         ctx.beginPath(); ctx.moveTo(Math.cos(an) * r * 0.18, Math.sin(an) * r * 0.18); ctx.lineTo(Math.cos(an) * L, Math.sin(an) * L); ctx.stroke(); } ctx.restore(); }
     function flash(ctx, a, rgb) { if (a <= 0.004) return; ctx.fillStyle = 'rgba(' + (rgb || '255,255,255') + ',' + clamp(a, 0, 1).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
     // ---- caméra ----
-    const MAPW = 792, MAPH = 984;
+    const MAPW = (EV.catalog.map && EV.catalog.map.w) || 984, MAPH = (EV.catalog.map && EV.catalog.map.h) || 792;
     function camAt(sc, t, game) { const k = lin(sc.cam, t); let sh = 0;
       for (const pt of POSE_T) { const d = t - pt; if (d >= 0 && d < 0.5) sh += 2.6 * Math.exp(-d * 9); }
       let cx = k[0] + (sh ? Math.sin(t * 67) * sh : 0), cy = k[1] + (sh ? Math.cos(t * 71) * sh : 0), S = 4 * k[2];
@@ -269,14 +269,38 @@ ENGINE_JS = r"""
       for (let i = 0; i < 5; i++) { const ph = ((t * 1.15 + i * 0.37) % 1); const sx = x + (i % 2 ? 5 : -5) + Math.sin(i * 3) * 1.5;
         const sy = y - 16 + ph * 22; ctx.fillStyle = 'rgba(150,220,255,' + (a * (1 - ph) * 0.85).toFixed(3) + ')';
         ctx.beginPath(); ctx.ellipse(sx, sy, 1.8, 2.8 + ph * 1.4, 0, 0, TAU); ctx.fill(); } ctx.restore(); }
+    // ---- fond de secours : JAMAIS d'écran noir, même si un asset n'est pas décodé ----
+    function paintBg(ctx, t) {
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, '#79b6e8'); g.addColorStop(0.55, '#a9d2ef'); g.addColorStop(1, '#6b8f52');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.save(); ctx.globalAlpha = 0.5; ctx.fillStyle = '#5d4a33';
+      for (let i = 0; i < 26; i++) { const rx = rnd(i, 3) * W, ry = rnd(i, 11) * H, r = 26 + rnd(i, 5) * 70;
+        ctx.beginPath(); ctx.ellipse(rx, ry, r, r * 0.42, rnd(i, 7) * 0.6, 0, TAU); ctx.fill(); }
+      ctx.restore();
+      ctx.save(); ctx.globalAlpha = 0.9; ctx.fillStyle = '#0b1440'; ctx.textAlign = 'center';
+      ctx.font = 'bold 26px Verdana, sans-serif';
+      ctx.fillText('Chargement des assets de la cinématique…', W / 2, H / 2 - 8);
+      ctx.font = '17px Verdana, sans-serif'; ctx.fillStyle = '#e8f0ff';
+      ctx.fillText('Pichu & la Team Dazzling — cliffdaytest · ' + t.toFixed(1) + ' s / ' + D.toFixed(0) + ' s', W / 2, H / 2 + 22);
+      ctx.restore(); }
     // ---- rendu ----
     function render(ctx, t, opts) {
       opts = opts || {}; const game = !!opts.game; t = clamp(t, 0, D);
       ctx.save(); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
       let sc = SHOTS[SHOTS.length - 1]; for (const s of SHOTS) if (t >= s.t0 && t < s.t1) { sc = s; break; }
       const c = camAt(sc, t, game);
+      const under = I.mapUnder, over = I.mapOver;
+      if (!under || !under.width || !over || !over.width) { ctx.restore(); paintBg(ctx, t); return { shot: sc.id, game, bg: true }; }
       ctx.save(); ctx.imageSmoothingEnabled = true; ctx.translate(W / 2, H / 2); ctx.scale(c.S, c.S); ctx.translate(-c.cx, -c.cy);
-      ctx.drawImage(I.mapUnder, 0, 0);
+      ctx.drawImage(under, 0, 0);
+      // tuiles animées PMDO (mer, eau, drapeaux, fleurs…) : cycle de frames par séquence
+      const AN = EV.catalog.anim;
+      if (AN && I.mapAnimAtlas && I.mapAnimAtlas.width) {
+        const st = Math.floor(t * AN.fps), AT = I.mapAnimAtlas, COLS = AN.cols;
+        ctx.imageSmoothingEnabled = false;
+        for (const q of AN.seqs) { const fr = q[2], cell = fr[st % fr.length];
+          ctx.drawImage(AT, (cell % COLS) * 8, Math.floor(cell / COLS) * 8, 8, 8, q[0], q[1], 8, 8); } }
       // ombres de nuages dérivantes + lumière du matin
       for (let i = 0; i < 3; i++) { const sx = ((t * (7 + i * 3) + i * 330) % 1100) - 150, sy = 180 + i * 260;
         ctx.save(); ctx.globalAlpha = 0.07; ctx.fillStyle = '#10204a'; ctx.beginPath(); ctx.ellipse(sx, sy, 150 + i * 30, 60 + i * 12, 0.2, 0, TAU); ctx.fill(); ctx.restore(); }
@@ -284,13 +308,13 @@ ENGINE_JS = r"""
       for (const a of (sc.actors || [])) { const st = actorState(a, t); if (st.al <= 0.004) continue;
         items.push({ y: st.pos[1], fn: () => drawSprite(ctx, a.pid, st.anim, st.dir, st.tick, true, st.pos[0], st.pos[1] + st.bob, { a: st.al, s: a.s || 1 }) }); }
       items.sort((p, q) => p.y - q.y); items.forEach((it) => it.fn());
-      ctx.drawImage(I.mapOver, 0, 0);
+      ctx.drawImage(over, 0, 0);
       for (const E of EV.catalog.script.emotes) { if (t < E[0] || t >= E[1]) continue;
         const act = (sc.actors || []).find((q) => q.pid === E[2]); if (!act) continue;
         const pos = lin(act.keys, t); emote(ctx, E[3], pos[0], pos[1] - 26, t, E[0], E[1], 1.7); }
       // éclats de pose de l'entrée
       for (const pt of POSE_T) { const d = t - pt; if (d < 0 || d >= 0.6) continue; const u = d / 0.6;
-        const who = pt < 100 ? [606, 548] : pt < 106 ? [636, 556] : pt < 112 ? [668, 548] : pt < 214.4 ? [680, 660] : pt < 215 ? [706, 676] : [732, 668];
+        const who = pt < 100 ? [600, 520] : pt < 106 ? [632, 528] : pt < 112 ? [664, 520] : pt < 214.4 ? [612, 700] : pt < 215 ? [636, 712] : [660, 700];
         ring(ctx, who[0], who[1] - 6, 4 + u * 26, 1.6, '255,244,190', 0.8 * (1 - u), 0.6);
         starBurst(ctx, who[0], who[1] - 12, 14 + u * 24, 0.7 * (1 - u), 8, pt + u * 0.4); }
       // larmes de Pichu
@@ -307,7 +331,7 @@ ENGINE_JS = r"""
       if (!game) { // barres cinéma (mode film uniquement)
         const bk = sstep((t - 0.2) / 1.2) * (1 - sstep((t - (D - 4.5)) / 1.0)); ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, W, 46 * bk); ctx.fillRect(0, H - 46 * bk, W, 46 * bk); }
-      ctx.restore(); return { shot: sc.id, game };
+      ctx.restore(); return { shot: sc.id, game, bg: false };
     }
     return { render, W, H, D };
   }
@@ -317,27 +341,112 @@ ENGINE_JS = r"""
 
 BOOT_JS = r"""
 (function () {
-  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
-  const cin = window.PMDDestinyDazzling.create(ASSETS);
-  let t0 = performance.now() / 1000 - (parseFloat(new URLSearchParams(location.search).get('t')) || 0);
-  let game = true; // par défaut : viewport PMDO « condition de jeu »
-  const mbtn = document.getElementById('mode');
-  mbtn.addEventListener('click', () => { game = !game;
-    mbtn.textContent = game ? '🎮 Viewport PMDO (condition de jeu)' : '🎬 Rendu cinéma'; });
-  const btn = document.getElementById('ost');
-  btn.addEventListener('click', () => { ostAt = performance.now() / 1000 - t0; btn.style.display = 'none';
-    const wr = document.getElementById('ostwrap'); wr.style.display = 'block';
+  const $ = (id) => document.getElementById(id);
+  const cv = $('cv'), ctx = cv.getContext('2d');
+  const D = window.PMDDestinyDazzling.D;
+  let cin = window.PMDDestinyDazzling.create({ imgs: {}, sheets: {}, catalog: ASSETS.catalog, mk: () => null });
+  let game = true;            // par défaut : viewport PMDO « condition de jeu »
+  let t = 0, playing = true, scrub = false, lastWall = performance.now();
+  const fmt = (s) => String(Math.floor(Math.max(0, s) / 60)).padStart(2, '0') + ':' + String(Math.floor(Math.max(0, s) % 60)).padStart(2, '0');
+  function paint() { if (!scrub) $('time').textContent = fmt(t) + ' / ' + fmt(D) + '  ·  ' + (game ? '🎮 viewport PMDO' : '🎬 cinéma');
+    $('seek').value = String(Math.min(1000, Math.round(t / D * 1000))); }
+  // ---- préchargement RÉEL des images (data-URIs) : sans lui, drawImage reçoit des
+  //      chaînes de caractères, lève une TypeError et le canvas reste NOIR. ----
+  const IM = {}, SH = {}, jobs = [];
+  for (const k in ASSETS.imgs) jobs.push([IM, k, ASSETS.imgs[k]]);
+  for (const k in ASSETS.sheets) jobs.push([SH, k, ASSETS.sheets[k]]);
+  let done = 0, ko = 0;
+  Promise.all(jobs.map(([dst, k, uri]) => new Promise((res) => {
+    const im = new Image();
+    im.onload = () => { dst[k] = im; done++; $('bar').style.width = Math.round(done / jobs.length * 100) + '%'; res(); };
+    im.onerror = () => { ko++; done++; $('bar').style.width = Math.round(done / jobs.length * 100) + '%'; res(); };
+    im.src = uri;
+  }))).then(boot);
+  function boot() {
+    cin = window.PMDDestinyDazzling.create({ imgs: IM, sheets: SH, catalog: ASSETS.catalog, mk: (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; } });
+    $('loadTxt').textContent = ko ? 'Prêt — ' + ko + ' asset(s) illisible(s), rendu de secours actif' : 'Prêt !';
+    const qp = parseFloat(new URLSearchParams(location.search).get('t'));
+    if (isFinite(qp) && qp > 0) t = Math.min(D - 0.01, qp);
+    $('ovl').style.opacity = '0'; setTimeout(() => { $('ovl').style.display = 'none'; }, 420);
+  }
+  // ---- plans cliquables (S1..S10) ----
+  const LABELS = { S1: 'Falaise', S2: 'Réveil', S3: 'Hésitation', S4: 'Entrée team', S5: 'Poses', S6: 'Bullying', S7: 'Départ', S8: 'Adieux', S9: 'Larmes', S10: 'Promesse' };
+  for (const s of ASSETS.catalog.script.shots) {
+    const b = document.createElement('button');
+    b.textContent = s.id + ' · ' + fmt(s.t0) + ' ' + (LABELS[s.id] || '');
+    b.addEventListener('click', () => { t = s.t0 + 0.05; playing = true; });
+    $('plans').appendChild(b); }
+  // ---- contrôles ----
+  function play(v) { playing = v; lastWall = performance.now(); $('play').textContent = playing ? '⏸ Pause' : '▶ Lecture'; }
+  $('play').addEventListener('click', () => play(!playing));
+  $('back').addEventListener('click', () => { t = Math.max(0, t - 10); });
+  $('fwd').addEventListener('click', () => { t = Math.min(D - 0.01, t + 10); });
+  $('restart').addEventListener('click', () => { t = 0; play(true); });
+  $('seek').addEventListener('input', () => { scrub = true; t = (+$('seek').value / 1000) * D; paint(); });
+  $('seek').addEventListener('change', () => { scrub = false; });
+  $('mode').addEventListener('click', () => { game = !game;
+    $('mode').textContent = game ? '🎮 Viewport PMDO (condition de jeu)' : '🎬 Rendu cinéma'; });
+  $('ost').addEventListener('click', () => { $('ost').style.display = 'none';
+    const wr = $('ostwrap'); wr.style.display = 'block';
     wr.innerHTML = '<iframe width="320" height="180" src="https://www.youtube.com/embed/iV04Wl5DLJo?autoplay=1&start=0" title="OST Team Dazzling" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'; });
-  function loop() { const t = performance.now() / 1000 - t0;
-    if (btn.style.display !== 'none' && t > 68 && t < 92) btn.style.opacity = '1'; else if (btn.style.display !== 'none') btn.style.opacity = '0.35';
-    cin.render(ctx, t, { game });
-    const rep = document.getElementById('replay');
-    if (t > 297.5) { rep.style.display = 'block'; } else rep.style.display = 'none';
+  $('replay').addEventListener('click', () => { t = 0; play(true); });
+  document.addEventListener('visibilitychange', () => { lastWall = performance.now(); });
+  // ---- boucle : plus jamais figée sur un écran noir (t boucle après D) ----
+  function loop() {
+    const now = performance.now();
+    if (playing && !document.hidden) { t += (now - lastWall) / 1000; if (t >= D) t = t % D; }
+    lastWall = now;
+    try { cin.render(ctx, t, { game, theme: 'jour', nowSec: t }); }
+    catch (e) { if (!loop.err) { loop.err = 1; console.error('rendu', e); } }
+    const rep = $('replay');
+    if (t > D - 2.5) { rep.style.display = 'block'; } else rep.style.display = 'none';
+    const ob = $('ost');
+    if (ob.style.display !== 'none') ob.style.opacity = (t > 68 && t < 92) ? '1' : '0.35';
+    paint();
     requestAnimationFrame(loop); }
-  document.getElementById('replay').addEventListener('click', () => { t0 = performance.now() / 1000; });
-  loop();
+  play(true); loop();
 })();
 """
+
+
+CSS = (
+    "html,body{margin:0;background:#05070f;height:100%;color:#eaf0ff;font:14px/1.4 Verdana,sans-serif}"
+    "#wrap{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}"
+    "canvas{width:min(100vw,158vh);image-rendering:auto;background:#0b1020}"
+    "#ovl{position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;"
+    "background:linear-gradient(180deg,#101c46,#08101f);transition:opacity .4s}"
+    "#loadTxt{font:bold 20px Verdana}#bar{width:340px;height:12px;border:2px solid #8fb4ff;border-radius:8px;background:#0b1440;overflow:hidden}"
+    "#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f4b942,#ffe9a8)}"
+    "#hud{position:absolute;left:0;right:0;bottom:0;z-index:6;display:flex;flex-direction:column;gap:6px;padding:8px 12px;"
+    "background:linear-gradient(180deg,rgba(4,8,20,0),rgba(4,8,20,.92));pointer-events:none}"
+    "#hud>*{pointer-events:auto}"
+    "#seek{width:100%;height:18px;accent-color:#f4b942;cursor:pointer}"
+    "#bar2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}"
+    "#plans{display:flex;gap:6px;flex-wrap:wrap}"
+    "button{background:#16224e;color:#eaf0ff;border:2px solid #7f9fe0;border-radius:9px;padding:6px 10px;font:bold 13px Verdana;cursor:pointer}"
+    "button:hover{background:#22346e}"
+    "#time{font:bold 14px Verdana;color:#ffe9a8;min-width:210px}"
+    "#mode{background:#0ea5e9;border-color:#bae6fd;color:#062033}"
+    "#ost{background:#f4b942;color:#4a2c08;border-color:#7a4a10;opacity:.35}"
+    "#ostwrap{position:absolute;right:18px;bottom:132px;z-index:7;display:none}"
+    "#replay{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:8;display:none;"
+    "background:#f4b942;color:#4a2c08;border:3px solid #7a4a10;border-radius:14px;padding:16px 26px;font:bold 20px Verdana;cursor:pointer}"
+)
+
+BODY_HTML = (
+    '<div id="wrap">\n'
+    '<canvas id="cv" width="1280" height="720"></canvas>\n'
+    '<div id="ovl"><div id="loadTxt">Chargement des sprites, portraits et de la map…</div>'
+    '<div id="bar"><i></i></div></div>\n'
+    '<div id="hud"><input id="seek" type="range" min="0" max="1000" value="0" step="1" '
+    'aria-label="Position dans la cin\u00e9matique" />'
+    '<div id="bar2"><button id="play">\u23f8 Pause</button><button id="back">\u226a 10 s</button>'
+    '<button id="fwd">10 s \u226b</button><button id="restart">\u21ba D\u00e9but</button>'
+    '<span id="time">00:00 / 05:00</span><button id="mode">\U0001f3ae Viewport PMDO (condition de jeu)</button>'
+    '<button id="ost">\u25b6 OST \u2014 Team Dazzling (Beta\u2019s Theme)</button></div>'
+    '<div id="plans"></div></div>\n'
+    '<div id="ostwrap"></div>\n<button id="replay">\u21ba Rejouer la cin\u00e9matique</button>\n</div>\n'
+)
 
 
 def uri_png(path: Path) -> str:
@@ -345,7 +454,10 @@ def uri_png(path: Path) -> str:
 
 
 def export_assets() -> dict:
-    imgs = {"mapUnder": uri_png(PLATES / "cliffdaytest_jour_under.png"), "mapOver": uri_png(PLATES / "cliffdaytest_jour_over.png")}
+    imgs = {"mapUnder": uri_png(PLATES / "cliffdaytest_jour_under.png"), "mapOver": uri_png(PLATES / "cliffdaytest_jour_over.png"),
+            "mapAnimAtlas": uri_png(PLATES / "cliffdaytest_jour_anim_atlas.png")}
+    anim = json.loads((PLATES / "cliffdaytest_jour_anim.json").read_text(encoding="utf-8"))
+    walk = json.loads((PLATES / "cliffdaytest_walk.json").read_text(encoding="utf-8"))
     sheets, catalog, portraits = {}, {}, {}
     for pid, meta in CAST.items():
         rootx = ET.parse(SC / "sprite" / pid / "AnimData.xml").getroot()
@@ -367,23 +479,23 @@ def export_assets() -> dict:
                 imgs[f"pt_{pid}_{emo}"] = uri_png(q)
                 portraits.setdefault(pid, []).append(emo)
     return {"imgs": imgs, "sheets": sheets,
-            "catalog": {"pokemon": catalog, "portraits": portraits, "script": {"shots": SHOTS, "lines": LINES, "emotes": EMOTES}}}
+            "catalog": {"pokemon": catalog, "portraits": portraits,
+                        "map": {"w": walk["w"] * 8, "h": walk["h"] * 8}, "anim": anim, "walk": walk["b64"],
+                        "script": {"shots": SHOTS, "lines": LINES, "emotes": EMOTES}}}
 
 
 def build() -> Path:
     A = export_assets()
-    html = ("<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"utf-8\" />\n"
-            "<title>PMD Destiny — Cinématique « Pichu & la Team Dazzling » (cliffdaytest, 5 min)</title>\n"
-            "<style>html,body{margin:0;background:#000;height:100%}#wrap{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}"
-            "canvas{width:min(100vw,177.7vh);image-rendering:auto;background:#000}"
-            "#ost{position:absolute;right:18px;bottom:64px;z-index:5;background:#f4b942;color:#4a2c08;border:2px solid #7a4a10;border-radius:10px;padding:10px 14px;font:bold 15px Verdana;cursor:pointer;opacity:.35}"
-            "#ostwrap{position:absolute;right:18px;bottom:110px;z-index:5;display:none}\n#mode{position:absolute;left:18px;bottom:64px;z-index:5;background:#0ea5e9;color:#fff;border:2px solid #bae6fd;border-radius:10px;padding:10px 14px;font:bold 15px Verdana;cursor:pointer}\n#replay{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:6;display:none;background:#f4b942;color:#4a2c08;border:3px solid #7a4a10;border-radius:14px;padding:16px 26px;font:bold 20px Verdana;cursor:pointer}</style>\n</head>\n<body>\n<div id=\"wrap\">\n"
-            "<canvas id=\"cv\" width=\"1280\" height=\"720\"></canvas>\n"
-            "<button id=\"mode\">🎮 Viewport PMDO (condition de jeu)</button>\n<button id=\"ost\">▶ OST — Team Dazzling (Beta's Theme)</button><div id=\"ostwrap\"></div>\n<button id=\"replay\">↺ Rejouer la cinématique</button>\n</div>\n"
-            "<script>\n" + ENGINE_JS + "\n</script>\n<script>\nconst ASSETS = " + json.dumps(A, ensure_ascii=False, separators=(",", ":")) + ";\n</script>\n"
-            "<script>\n" + BOOT_JS + "\n</script>\n</body>\n</html>\n")
+    html = (
+        "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"utf-8\" />\n"
+        '<meta name="viewport" content="width=device-width,initial-scale=1" />\n'
+        "<title>PMD Destiny \u2014 Cin\u00e9matique \u00ab Pichu & la Team Dazzling \u00bb (cliffdaytest, 5 min)</title>\n"
+        "<style>" + CSS + "</style>\n</head>\n<body>\n" + BODY_HTML + "\n"
+        "<script>\n" + ENGINE_JS + "\n</script>\n"
+        "<script>\nconst ASSETS = " + json.dumps(A, ensure_ascii=False, separators=(",", ":")) + ";\n</script>\n"
+        "<script>\n" + BOOT_JS + "\n</script>\n</body>\n</html>\n")
     OUT_HTML.write_text(html, encoding="utf-8")
-    print(f"[ciné] {OUT_HTML.name}: {OUT_HTML.stat().st_size / 1024:.0f} Ko — 300 s")
+    print(f"[cin\u00e9] {OUT_HTML.name}: {OUT_HTML.stat().st_size / 1024:.0f} Ko \u2014 300 s")
     return OUT_HTML
 
 

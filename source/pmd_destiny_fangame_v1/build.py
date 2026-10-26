@@ -159,6 +159,24 @@ def export_destiny_menu_and_fangame_pack(out_root: Path) -> dict:
         encoding="utf-8",
     )
 
+    # ---- cutscene in-game « Pichu & la Team Dazzling » (grammaire Halcyon) : le ground
+    #      `cliffdaytest` rejoue la cinématique DANS le moteur (CutsceneMode, MoveToPosition,
+    #      CharSetAnim/Emote, WaitShowDialogue…) + map native avec les 4 personnages posés.
+    import importlib.util as _ilu
+    _cine_dir = SOURCE_DIR / "cine_pichu_dazzling"
+    _sp = _ilu.spec_from_file_location("cine_dazzling_build", _cine_dir / "build.py")
+    _cb = _ilu.module_from_spec(_sp)
+    _sp.loader.exec_module(_cb)
+    _sp = _ilu.spec_from_file_location("cine_cutscene_lua", _cine_dir / "cutscene_lua.py")
+    _cl = _ilu.module_from_spec(_sp)
+    _sp.loader.exec_module(_cl)
+    (fangame_root / "Data" / "Script" / "halcyon" / "ground" / "cliffdaytest").mkdir(parents=True, exist_ok=True)
+    (fangame_root / "Data" / "Script" / "halcyon" / "ground" / "cliffdaytest" / "init.lua").write_text(
+        _cl.generate_lua(_cb.SHOTS, _cb.LINES, _cb.EMOTES), encoding="utf-8")
+    (fangame_root / "Data" / "Ground").mkdir(parents=True, exist_ok=True)
+    _cl.inject_mapchars(REPO_ROOT / "cliffdaytest.rsground",
+                        fangame_root / "Data" / "Ground" / "cliffdaytest.rsground")
+
     # 1. Deux fichiers .dir séparés (Jour & Nuit) 100 % SANS logo + alias par défaut Title_Screen_Background.dir
     dir_day_p = fangame_root / "Content" / "BG" / "Title_Screen_Background_Jour.dir"
     dir_night_p = fangame_root / "Content" / "BG" / "Title_Screen_Background_Nuit.dir"
