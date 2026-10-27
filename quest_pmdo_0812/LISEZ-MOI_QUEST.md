@@ -23,9 +23,11 @@ et valider les cartes dans PMDO 0.8.12 avant leur réemploi dans PMDO Destiny.
 2. Déposer les `.tile` des cartes dans `Content/Tile/` (liste exacte des sheets
    attendues : `../BIBLIOTHEQUE_MAPS/manifest.json`). Les grosses sheets originales
    (`00_ciel`, `v2_promontoire_jour_03`, `terrain*`…) sont dans ton installation
-   PMDO actuelle ; les sheets de référence Halcyon restent **en attente d'accord**
-   (voir `../BIBLIOTHEQUE_MAPS/PROVENANCE.md`) — sans elles, les tuiles concernées
-   s'afficheront en noir/vide, ce qui suffit pour valider le clamp et les bornes.
+   PMDO actuelle — c'est valable pour toutes les cartes : les pixels des
+   tilesets (pool PMDO, filiation PMD Sky) ne sont pas redistribués par la
+   bibliothèque (voir `../BIBLIOTHEQUE_MAPS/PROVENANCE.md`). Sans eux, les
+   tuiles concernées s'affichent en noir/vide, ce qui suffit déjà pour valider
+   le clamp, les bornes et la déclaration en zone.
 3. Reconstruire l'index des tilesets du mod :
    `python ../BIBLIOTHEQUE_MAPS/outils/construire_index_tiles.py Content/Tile`
    (ou via les outils développeur de PMDO). Ne jamais importer un `index.idx`
@@ -36,8 +38,9 @@ et valider les cartes dans PMDO 0.8.12 avant leur réemploi dans PMDO Destiny.
 ## Premiers contrôles dans l'éditeur (tests en jeu à faire)
 
 - [ ] Le mod apparaît dans la liste des quests, sans erreur de chargement.
-- [ ] L'éditeur Ground ouvre `cliffdaytest` et `cliffnordouesttest1` ; vérifier la
-      propriété **Edge View = Clamp** et les dimensions (123×99 et 138×98, TexSize 1).
+- [ ] L'éditeur Ground ouvre les 9 cartes déclarées ; vérifier **Edge View = Clamp**
+      partout et les dimensions du `manifest.json` (attention : `luminous_spring`
+      est en TexSize 3, les autres en TexSize 1).
 - [ ] Si l'éditeur régénère les `strings.resx`, garder sa version et la reverser ici.
 - [ ] Poser un marqueur d'entrée (sud) sur chaque carte, dessiner/vérifier les
       collisions (mer, falaises, structures), aucun personnage hors champ caméra.
