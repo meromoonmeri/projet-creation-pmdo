@@ -81,3 +81,40 @@ L'aperçu des maps a été restauré dans son intégralité, animations comprise
 Ces fichiers lourds sont dans `.gitignore` (récupérables en une commande) ; seuls
 les deux outils et les 13 stubs sont versionnés. Serveur d'aperçus :
 `python3 source/serveur_apercus/serve.py --port 8000`.
+
+## Maps récentes des branches, ouvertures & title screen animé (27 octobre 2026)
+
+`OUTILS/restaurer_branches.py` ajoute à l'aperçu tout le travail récent contenu
+sur les **20 branches `arena/*` de ce dépôt**, chaque branche étant considérée
+à son TIP (les suppressions de fin de branche sont respectées) :
+
+- **137 aperçus racine récents** : maps de donjon et de monde (Fin/Entrée Tour
+  Temporelle V1-V2 et variantes Roche Noire-Or, arene Prisme Temporel, Vallons
+  Fleuris, lots DTEF EFM1/EFC1/EMH1…, grottes EGI1/EBC1/EGE1, Crevasse
+  enneigée ECE1/ECE2, Grotte aux vasques FGV1, Pelipper Post Office PPO1/2,
+  Zekrom ZKE1/ZKA1, Faille spatiale Palkia FSA0/1, Oiseaux Légendaires,
+  Cliff Nord jour/nuit animés, Reseau Metano, layouts Village Metano, maps de
+  PMD Destiny, etc.), catalogues, lots de décor (kiosques Spinda, mobilier
+  café, tentes, colonnes & lances…) et cinématique Pichu & Team Dazzling.
+- **Ouvertures & title screen animé PMD Destiny** : les 8 aperçus d'ouverture
+  (`apercu_fangame_pmd_destiny*.html`), la page du title screen animé
+  « Ray of Hope MIX » (`apercu_fangame_pmd_destiny_pixel_opm.html` : logo centré,
+  ailes oscillantes amorties, fond `Title_Screen_Background_Jour/Nuit` animé),
+  chapitres 1-2, et leurs assets (`renders/pmd_destiny_fangame_v1/`,
+  `renders/pmd_destiny_nuit_v1/`, vidéo d'ouverture 60 fps incluse).
+- **Galerie** `renders/fin_clairiere_tropicale_v1/` (revue, manifest, `.ora`).
+
+Règles appliquées : pour un même nom de fichier, la branche au TIP le plus
+récent gagne ; déduplication par hash de contenu ; **aucun fichier local n'est
+écrasé** ; les fichiers non suivis récupérés sont dans `.gitignore` (uniquement
+les outils sont versionnés). Les contenus retirés à la demande en fin de branche
+(Promontoire 2, lot LCM1 « méthode multicalque non suivie ») ne sont pas
+réintégrés ; le FTT1 de remplacement (branche du 18 octobre, postérieure au
+rejet de la V1) et la cinématique Pichu (retirée comme « défectueuse » sur une
+branche ultérieure mais encore présente au TIP d'une autre) sont inclus.
+
+Lacunes connues (jamais commitées dans le dépôt, liens morts dans les pages) :
+les paquets de mods `/download/*.zip` et `/.cache/virtual_zips/*.zip`, et la
+planche `renders/pmd_destiny_fangame_v1/apercus_menu/planche_4_maps_opening_pmd_320x240.png`.
+
+Relancer : `python3 OUTILS/restaurer_branches.py --fetch` (idempotent).

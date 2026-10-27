@@ -46,7 +46,9 @@ def index_page():
         rows.append((d is None, d or p.stat().st_mtime, p))
     rows.sort(key=lambda r: (not r[0], -r[1]))
     serie = [r for r in rows if '_sud_nord_' in r[2].name]
-    autres = [r for r in rows if '_sud_nord_' not in r[2].name]
+    cine = [r for r in rows if '_sud_nord_' not in r[2].name
+            and re.match(r'apercu_(?:fangame|cine|destiny|opening)', r[2].name, re.I)]
+    autres = [r for r in rows if '_sud_nord_' not in r[2].name and r not in cine]
 
     def li(r):
         new, t, p = r
@@ -62,6 +64,7 @@ h2{{border-bottom:1px solid #444;padding-bottom:4px}}</style></head><body>
 <h1>Aperçus des maps PMD</h1>
 <p>{len(rows)} aperçus autonomes. Chaque page contient ses calques, ses animations et ses liens de téléchargement.</p>
 <h2>Entrées de donjon sud → nord ({len(serie)})</h2><ul>{''.join(li(r) for r in serie)}</ul>
+<h2>Ouvertures, cinématiques &amp; title screen animé — PMD Destiny ({len(cine)})</h2><ul>{''.join(li(r) for r in cine)}</ul>
 <h2>Autres lots ({len(autres)})</h2><ul>{''.join(li(r) for r in autres)}</ul>
 </body></html>'''
 
