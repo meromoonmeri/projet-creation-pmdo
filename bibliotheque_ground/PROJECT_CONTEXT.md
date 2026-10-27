@@ -49,6 +49,28 @@ nouvelle exécution du script, qui régénère le rapport d'audit.
 - Prochaines étapes : tests en jeu (utilisateur), branchement des entrées/
   sorties et `RACCORDEMENT_DONJONS`, strings/`SV.*`, puis cinématiques (PARTIE 2).
 
+## État au 27 octobre 2026 (suite — tuiles town02 + maps des aperçus)
+
+- **Tuiles town02 importées** (1 355 fichiers `Content/Tile|BG`) avec séparation
+  de provenance : 1 165 créations Abyss Ascension conservées à l'identique,
+  **190 éléments Palikadude/Halcyon neutralisés** (placeholders de mêmes
+  dimensions/coord., aucun pixel tiers ; `quest_pmd_destiny/COMPATIBILITE_TUILES.md`,
+  `PLACEHOLDERS_HALCYON.json`, surcharge `OUTILS/surcharge_provenance_tiles.json`).
+  `Content/Tile/index.idx` natif régénéré (2 269 tilesets, writer INSTALLER).
+- **Toutes les maps des aperçus récupérées** : 98 scripts `source/**/build.py`
+  exécutés (branche e39626d2), 97 maps régénérées + clampees — dont les
+  **13 anciens stubs** (faille spatiale, forêt givrée, mine magma, monts,
+  tour céleste…). Quest finale : **262 maps, 111 zones** (contrôle OK).
+  Rapport : `quest_pmd_destiny/RAPPORT_MAPS_DESTINY.md`.
+- 2 maps waterfall de town02 (`WaterfallVillageCapital` 233 Mo,
+  `waterfall_cave_1`) stockées en **Git LFS** : récupération via l'artefact
+  GitHub `.github/workflows/recuperer_lfs_town02.yml` (hébergeur LFS bloqué
+  depuis le sandbox) — à intégrer ensuite comme lot `town02_waterfallvillage`.
+- Reste à faire : tests en jeu ; confirmer les 33 noms de tuiles d'origine non
+  vérifiée (liste dans `COMPATIBILITE_TUILES.md`) ; les 28 lots d'aperçu sans
+  script de build (études/prototypes — non régénérables automatiquement,
+  listés au rapport) ; cinématiques (PARTIE 2).
+
 ## Repères de documentation
 
 - RogueEssence (Lua) : https://github.com/RogueCollab/RogueEssence
