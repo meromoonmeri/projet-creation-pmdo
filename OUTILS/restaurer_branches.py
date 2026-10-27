@@ -131,7 +131,7 @@ def main() -> int:
         print("git fetch des branches arena/* (--depth=5)...")
         subprocess.run(
             ["git", "fetch", "--depth=5", "origin",
-             "+refs/heads/arena/*:refs/remotes/origin/*"],
+             "+refs/heads/arena/*:refs/remotes/origin/arena/*"],
             cwd=ROOT, check=True,
         )
 

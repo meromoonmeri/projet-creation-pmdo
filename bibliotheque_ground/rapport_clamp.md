@@ -1,20 +1,20 @@
 # Rapport de clamp — bibliothèque Ground
 
-- maps clampées : **147** (0 erreur(s))
+- maps clampées : **165** (0 erreur(s))
 - liens symboliques non matérialisés : **13**
 - corrections hors zone appliquées : **15**
 - anomalies hors zone restantes : **0**
-- cellules de bord marchables (frontières ouvertes) : **71888**
+- cellules de bord marchables (frontières ouvertes) : **76796**
 - scellement des bords : non (option --sceller-bords)
 - assets (.tile/.dir) non résolus : 00_ciel, 01_long_cap_jour_02, 10-PMD SKY, 10_maisons_eau_sheet, 13_avancee_basse_gauche_terrain, 1UCKBNSs1w1PcwGct3NbnI6Vc-A-Yw9hWOholwPeEhA, 8f9fbfe4-b846-492b-b564-b6bc33749e20, 9cWbwSpH8oLENPQSED5Gj7rGQqeFWST8uAxSR55SHts, Apricorn_Glade_Big_Tree, CLIFF MIROR-Photoroom, CanyonCamp, CarriereMagnetique_Base, Celestial_Peak_Entrance_Art, ChampRavage_Base, Cloven_Entrance_Anim_1, Cloven_Entrance_Base, Colline_Anciens_Base, CratereFumant_Base, D01p11b_Base, D01p41a_Base, D06p11a_Base, D09p03_Base, D13p11a_Base, D14p11a_Base, D24p31a_Base, D26p31a_Base, D26p43a_Base, D28p31a_Base, D41p41a_Base, D55p11a_Base, D57p44a_Base, DesertFournaise_Base, DrenchedBluffEntranceDetails, EoN_DininghallNight, EoN_GuildmasterRoomNight, EoN_IntroRoad, EoN_IntroStormySharpedo, EtangCarapace_Base, First_Core_Location_Base, ForetEnvolee_Base, FosseArdente_Base, FosseVolcanique_Base, G01p02a_Base, G01p03a_Base, G01p04a_Base, G01p04c_Base, G01p05a_Base, G01p06a_Base, G01p07a_Base, G01p07c_Base, G01p08a_Base, G01p09a_Base, G01p09c_Base, G01p10c_Base, GROTTE, GorgeArdenteCoeur_Base, GorgeArdentePorte_Base, GrotteRocheuse_Base, GroudonStatueStatic, Guild_Bedroom_Hallway_Supports, Guild_Bedroom_Hallway_Walls, Guild_Bottom_Left_Bedroom_Supports, Guild_Bottom_Left_Bedroom_Walls, Guild_Bottom_Right_Bedroom_Supports, Guild_Bottom_Right_Bedroom_Walls, Guild_First_Floor, Guild_Guildmasters_Room_Supports, Guild_Third_Floor_Lobby_Objects, Guild_Third_Floor_Lobby_Supports, Guild_Top_Right_Bedroom_Supports, Guild_Top_Right_Bedroom_Walls, H01p99a_Base, H02p99a_Base, Habitat_SharpedoBluff_Day_Layer1, INVERSEPATHWAY, KINGAMBIT DOJO, LacCascade_Base, LulubyTownEvening_Base, LulubyTownMorning_Base, LuminousSpring, LuminousSpringAnim, Metano_Altere_Transition_Base, Metano_Town_Animated, Metano_Town_Animated_Night, Metano_Town_Cafe, Metano_Town_Cave_Objects, Metano_Town_Electric_Home_Base, Metano_Town_Electric_Home_Objects, Metano_Town_Fire_Home_Animated, Metano_Town_Fire_Home_Base, Metano_Town_Fire_Home_Objects, Metano_Town_Objects_Over_Night, Metano_Town_Objects_Under_Night, Metano_Town_River_Animation_1_Night, Metano_Town_Rock_Home_Base, Metano_Town_Rock_Home_Objects, Metano_Town_Trimmed, Metano_Town_Water_Home_Base, Metano_Town_Water_Home_Base_Animated, MontGrondantPied_Base, Mount_Windswept_Shadows, P01P01A_layer1, P01p01a_Base, P01p04a_Base, P17p02a_Base, P19p02a_Base, PMD_TREES, PlainesBrulees_Base, PreTonnerre_Base, QGKingambit_metano_cafe_reference_pmdo_40pct, QbGsHZzLNXjjGQqPTF7sfhBBqrF3njoBlTbiFK0sRKw, R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M, S01p02a_Base, Searing_Tunnel_Rocks, T00p02_Base, T01p03a_Base, T01p04a_Base, TownBase, V13p01a_Base, V14p01a_Base, V14p04a_Base, VigieStratos_Base, WoN_overw1_autumn, WoN_overw2_autumn, WoN_overw3_autumn, WoN_overw4_autumn, WoN_overw5_autumn, WoN_overw5e_autumn, WoN_overwf_autumn, WoN_overwh_autumn, WoN_overwhb_autumn, WoN_overwhbn_autumn, WoN_overwhn_autumn, WoN_overwyh_autumn, a01p01_Base, a02p02_Base, a02p04_Base, a04p01_Base, alakazam, alakazam_redimensionne, b01p01b_Base, b01p02a_Base, b01p02b_Base, b01p02c_Base, b03p01c_Base, b04p01c_Base, b05p01b_Base, b05p02a_Base, b05p02b_Base, b06p01c_Base, b09p01b_Base, b09p01c_Base, b09p02a_Base, b09p02b_Base, b09p02c_Base, b10p01c_Base, b11p01c_Base, b12p01a_Base, b12p02a_Base, b12p02b_Base, b12p02c_Base, charmina_hut, d06p03_DirectBase, d09p03_DirectBase, d12p01_Base, d12p02_DirectBase, d12p04_DirectBase, d19p01_DirectBase, d21p01_DirectBase, d23p01_DirectBase, h19p01_Base, h26p01_Base, image (2), image (4), image-removebg-preview (2), interieur_sans_deco_jour, interieur_sans_deco_jour (1), interieur_sans_deco_jour (2), kzKLPRyU8on31RVdw889r3Rvrcv9dOYB8MJABsvrmlAFRERERERERERERERERERERERERERERERERERERERERERERE5af4B3BJ2tbA2I6MAAAAASUVORK5CYII, metano_scale_verification, n7be-MMZKAaGGNSe1PWN1p_wGSQqkqtV0PrlGaur_ks, nenupharetcristaux-removebg-preview, pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1), s02_Base, s03_Base, salle_jour, spinda_cafe_dojo, spindacafevFINAL, t01p04_Base, telechargement_6_tileset, telechargement_6_tileset (1), terrain, terrain (2), terrain (3), terrain (4), test, texyre, town_map, téléchargement (3), téléchargement (5), téléchargement (6), téléchargement (7), télécharger (2), v2_promontoire_jour_03, vxLLBr169oj9cLCPdY3wF2uiWmP5zYEBy1P_PyM5ktk
 - noms d'autotileset éditeur non résolus : 0 (métadonnées, sans fichier correspondant)
 - fichiers exclus (Étape 0) : **5**
 
-- EXCLUS `source/amp_plains_fleurie_v1/references/vast_steppe_entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — Origine non etablie (possible derive d'un remake)
-- EXCLUS `source/antre_harmonie_v3/references/altere_pond.rsground` (arena/b71b6616-projet-creation-pmdo) — Origine non etablie (reference d'etude de l'Antre Harmonie)
-- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__Brine_Cave_Entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
-- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
-- EXCLUS `source/ledian_dojo_v1/references/ledian_dojo.rsground` (arena/b71b6616-projet-creation-pmdo) — Mod communautaire d'auteur (Ledian Dojo) : licence non verifiee
+- EXCLUS `source/amp_plains_fleurie_v1/references/vast_steppe_entrance.rsground` (488d1a47-projet-creation-pmdo) — Origine non etablie (possible derive d'un remake)
+- EXCLUS `source/antre_harmonie_v3/references/altere_pond.rsground` (488d1a47-projet-creation-pmdo) — Origine non etablie (reference d'etude de l'Antre Harmonie)
+- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__Brine_Cave_Entrance.rsground` (488d1a47-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
+- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground` (488d1a47-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
+- EXCLUS `source/ledian_dojo_v1/references/ledian_dojo.rsground` (488d1a47-projet-creation-pmdo) — Mod communautaire d'auteur (Ledian Dojo) : licence non verifiee
 - LIEN `packages_destiny/faille_spatiale_entree.rsground` -> `../../../../../.cache/tiles/faille_spatiale_entree_v1/Data/Ground/faille_spatiale_entree.rsground` — cible absente du depot, non materialisee
 - LIEN `packages_destiny/faille_spatiale_sanctuaire.rsground` -> `../../../../../.cache/tiles/faille_spatiale_sanctuaire_v1/Data/Ground/faille_spatiale_sanctuaire.rsground` — cible absente du depot, non materialisee
 - LIEN `packages_destiny/foret_givree_entree.rsground` -> `../../../../../.cache/tiles/foret_givree_entree_v1/Data/Ground/foret_givree_entree.rsground` — cible absente du depot, non materialisee
@@ -155,6 +155,15 @@
 - `mod_metano_expeditions_pmdo_0812/v50812_09_grotte_marees_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
 - `mod_metano_expeditions_pmdo_0812/v50812_10_defile_brume_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
 - `mod_metano_expeditions_pmdo_0812/v50812_10_defile_brume_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `maps_branches/altere_pond.rsground` 116x96 — corrections : aucune ; frontière ouverte : 420 cellules
+- `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules
+- `destiny_cliff_tests/cliffnordouesttest1.rsground` 138x98 — corrections : aucune ; frontière ouverte : 468 cellules
+- `references_halcyon/crooked_cavern_entrance.rsground` 40x30 — corrections : aucune ; frontière ouverte : 136 cellules
+- `references_dumpasset/guild_second_floor.rsground` 84x56 — corrections : aucune ; frontière ouverte : 276 cellules ; chevauchements entités : 2
+- `maps_branches/ledian_dojo.rsground` 51x39 — corrections : aucune ; frontière ouverte : 176 cellules
+- `references_dumpasset/luminous_spring.rsground` 25x25 — corrections : aucune ; frontière ouverte : 96 cellules
+- `references_metano/metano_cafe.rsground` 57x40 — corrections : aucune ; frontière ouverte : 190 cellules
+- `maps_branches/vast_steppe_entrance.rsground` 64x64 — corrections : aucune ; frontière ouverte : 252 cellules
 - `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules
 - `destiny_cliff_tests/cliffnordouesttest1.rsground` 138x98 — corrections : aucune ; frontière ouverte : 468 cellules
 - `entree_falaise_trempee_sud_nord_v1/entree_falaise_trempee_sud_nord_v1.rsground` None — corrections : aucune
@@ -162,6 +171,15 @@
 - `entree_tourbiere_piliers_sud_nord_v1/entree_tourbiere_piliers_sud_nord_v1.rsground` None — corrections : aucune
 - `fin_falaise_trempee_source_v1/fin_falaise_trempee_source_v1.rsground` None — corrections : aucune
 - `fin_promontoire_nuages_clairiere_v1/fin_promontoire_nuages_clairiere_v1.rsground` None — corrections : aucune
+- `maps_branches/altere_pond.rsground` 116x96 — corrections : aucune ; frontière ouverte : 420 cellules
+- `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules
+- `destiny_cliff_tests/cliffnordouesttest1.rsground` 138x98 — corrections : aucune ; frontière ouverte : 468 cellules
+- `references_halcyon/crooked_cavern_entrance.rsground` 40x30 — corrections : aucune ; frontière ouverte : 136 cellules
+- `references_dumpasset/guild_second_floor.rsground` 84x56 — corrections : aucune ; frontière ouverte : 276 cellules ; chevauchements entités : 2
+- `maps_branches/ledian_dojo.rsground` 51x39 — corrections : aucune ; frontière ouverte : 176 cellules
+- `references_dumpasset/luminous_spring.rsground` 25x25 — corrections : aucune ; frontière ouverte : 96 cellules
+- `references_metano/metano_cafe.rsground` 57x40 — corrections : aucune ; frontière ouverte : 190 cellules
+- `maps_branches/vast_steppe_entrance.rsground` 64x64 — corrections : aucune ; frontière ouverte : 252 cellules
 - `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules ; chevauchements entités : 6
 - `reseau_metano_normal_v1/metano_gen_accueil.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
 - `reseau_metano_normal_v1/metano_gen_cafe.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules

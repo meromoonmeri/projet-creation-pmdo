@@ -36,12 +36,18 @@ nouvelle exécution du script, qui régénère le rapport d'audit.
 
 ## État au 27 octobre 2026
 
-- Bibliothèque construite : 147 maps clampées (15 corrections hors zone,
+- Bibliothèque construite : 165 maps clampées (15 corrections hors zone,
   0 restante), 17 lots, rapports `rapport_clamp.{md,json}`.
+- **Quest `quest_pmd_destiny/` générée « comme town02 »** : 17 zones conteneurs
+  (`ZoneData` + `GroundMaps`), registre `Data/Zone/index.idx` (champ `Grounds`),
+  165 maps déclarées = 165 sur disque (contrôle OK), `Mod.xml` identique.
 - 5 fichiers exclus au titre de l'Étape 0 (2 remakes commerciaux,
   3 provenances ambiguës) ; 13 liens symboliques non matérialisés.
-- Prochaines étapes : import lot par lot dans la quest (Étape 2), puis
-  cinématiques originales (PARTIE 2).
+- Découverte : `metano_town`, `altere_pond`, `ledian_dojo`, `vast_steppe_entrance`
+  etc. sont déjà déclarés dans le `master_zone` de `meromoonmeri/town02`
+  (quest New Era) — provenance propre, à confirmer pour les sortir du doute.
+- Prochaines étapes : tests en jeu (utilisateur), branchement des entrées/
+  sorties et `RACCORDEMENT_DONJONS`, strings/`SV.*`, puis cinématiques (PARTIE 2).
 
 ## Repères de documentation
 
