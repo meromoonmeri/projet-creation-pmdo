@@ -7,11 +7,11 @@ Il est volontairement vide en v1 (2026-10-27) :
   `terrain*`…) n'existent que dans l'installation PMDO / le dépôt `projet-pmdo`
   de l'utilisateur : elles sont à rapatrier ici, une par une, avec leur provenance
   notée dans `../CREDITS.md`.
-- Les seuls `.tile` présents dans ce dépôt pour ces cartes sont des sheets de
-  référence Halcyon (`Altere_Pond_*`, `Metano_*` sous `source/*/references/`) ou
-  des reconstructions « natifs » de chantiers inspirés de Métano : tant que
-  l'accord de l'auteur d'origine n'est pas obtenu (voir `../PROVENANCE.md`),
-  ils ne sont **pas** recopiés dans la bibliothèque.
+- Les `.tile` de référence présents dans ce dépôt (`Altere_Pond_*`, `Metano_*`
+  sous `source/*/references/`, « natifs » des chantiers) contiennent des pixels
+  de filiation PMD Sky (pool PMDO/RawAsset) : la bibliothèque **ne redistribue
+  pas** ces pixels. Les compositions `.rsground`, elles, sont importées avec
+  l'accord de leur auteur (voir `../PROVENANCE.md` et `../CREDITS.md`).
 
 Le `../manifest.json` donne, carte par carte, la liste exacte des sheets utilisées,
 leur présence dans le dépôt et leur chemin. Pour rendre une carte affichable :

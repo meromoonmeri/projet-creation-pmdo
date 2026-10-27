@@ -81,9 +81,10 @@ def main(argv=None):
                 "tile_chemins": inv["chemins"] if inv else [],
             })
 
-        livree = livrees.get(chemin.stem)
+        id_biblio = verdict.get("id_bibliotheque", chemin.stem)
+        livree = livrees.get(id_biblio)
         entree = {
-            "id": chemin.stem,
+            "id": id_biblio,
             "source_depot": relatif,
             "sha256_source": sha256(chemin),
             "provenance": verdict.get("origine", "À VÉRIFIER"),

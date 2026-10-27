@@ -66,19 +66,29 @@ carte n'est rogné en silence : c'est signalé pour correction manuelle dans l'�
    dans `scriptvars.lua` ; chaînes via `strings.resx`/`strings.fr.resx`.
 7. **Crédits.** Mettre à jour `CREDITS.md` (dépôt, auteur, licence, commit, fichiers).
 
-## État v1 (2026-10-27)
+## État (2026-10-27)
 
-| Carte | Statut | Livrée |
+| Carte | Origine | État bibliothèque |
 |---|---|---|
-| `cliffdaytest` (123×99, TexSize 1) | originale utilisateur | ✅ clampée |
-| `cliffnordouesttest1` (138×98, TexSize 1) | originale utilisateur | ✅ clampée |
-| 7 cartes de référence Halcyon | `en_attente_accord` (Palika) | — cataloguées |
-| 3 cartes ExplorersOfSkyOrigins | `exclu` (remake commercial) | — jamais importées |
+| `cliffdaytest` (123×99), `cliffnordouesttest1` (138×98) | compositions originales utilisateur | ✅ livrées clampées |
+| `vast_steppe_entrance` (64×64), `altere_pond` (116×96) | compositions Halcyon @1522c7a8 | ✅ livrées clampées |
+| `metano_cafe` (57×40), `guild_second_floor` (84×56) | compositions Halcyon @da6c2130 | ✅ livrées, `EdgeView` Blank→Clamp |
+| `crooked_cavern_entrance` (40×30), `ledian_dojo` (51×39) | compositions Halcyon @da6c2130 | ✅ livrées clampées |
+| `luminous_spring` (25×25, **TexSize 3**) | composition Halcyon @da6c2130 | ✅ livrée clampée |
+| 3 cartes ExplorersOfSkyOrigins | remake de jeu commercial | ⛔ exclues, jamais importées |
 
-Limites connues, assumées : les deux cartes livrées n'ont pas encore de marqueur
-d'entrée ni de collisions validées en jeu, et la plupart de leurs tilesets vivent
-dans l'installation PMDO de l'utilisateur (le manifest liste précisément lesquels
-sont présents/missing dans le dépôt). Le squelette `../quest_pmdo_0812/` sert à les
-ouvrir dans PMDO 0.8.12 pour ces validations — voir son `LISEZ-MOI_QUEST.md`.
-Aucun test moteur n'a été fait depuis ce dépôt : tout ce qui est affirmé ici est
-prouvé par relecture des fichiers, pas par un lancement du jeu.
+Précision d'attribution (utilisateur, 2026-10-27) : l'art des tilesets peints par
+les cartes Halcyon vient du pool PMDO de filiation **PMD Sky** — MR Palika est crédité
+pour les **compositions**, pas pour les pixels. En conséquence, la bibliothèque
+livre les `.rsground` (sans pixels tiers) et **ne redistribue aucun `.tile`** :
+les sheets de chaque carte (listées dans `manifest.json`) se fournissent depuis
+l'installation PMDO locale. Même règle pour les grosses sheets originales des
+deux cartes utilisateur, absentes de ce dépôt.
+
+Limites connues, assumées : marqueurs d'entrée et collisions des deux cartes
+utilisateur restent à valider/poser en éditeur ; `luminous_spring` est en
+tuiles de 24 px (ne pas la mélanger à des sheets 8 px) ; les ids livrés gardent
+leur nom d'origine pour la traçabilité — renommage français au moment de
+l'intégration Destiny. Le squelette `../quest_pmdo_0812/` déclare les 9 cartes
+pour validation dans PMDO 0.8.12 (voir son `LISEZ-MOI_QUEST.md`). Aucun test
+moteur n'a été fait depuis ce dépôt : tout est prouvé par relecture des fichiers.
