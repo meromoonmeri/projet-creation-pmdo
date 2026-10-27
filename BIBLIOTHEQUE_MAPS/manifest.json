@@ -1,0 +1,1140 @@
+{
+ "bibliotheque": "Bibliothèque de Ground/maps PMDO 0.8.12 — toutes les cartes livrées sont en EdgeView=Clamp et bornées (voir outils/clamp_rsground.py).",
+ "genere_par": "outils/construire_manifest.py",
+ "regles": {
+  "importable": "copie clampée dans grounds/ + déclaration GroundMaps générée",
+  "en_attente_accord": "cataloguée, NON copiée : accord de l'auteur requis (Étape 0.4)",
+  "exclu": "cataloguée pour traçabilité, ne jamais importer (Étape 0.3)"
+ },
+ "collisions_basename": {},
+ "cartes": [
+  {
+   "id": "cliffdaytest",
+   "source_depot": "cliffdaytest.rsground",
+   "sha256_source": "6567e19df7a073758d8d52ad1491460067a2dccc1c0d03aa0d1c72b5592e4d2f",
+   "provenance": "Composition originale de l'utilisateur (projet-creation-pmdo, conteneur 0.8.12.0)",
+   "auteur": "meromoonmeri",
+   "licence": "œuvre de l'utilisateur",
+   "statut_provenance": "importable",
+   "note_provenance": "Le fichier ne contient que des noms de tilesets et des adresses TexLoc ; plusieurs tilesets peints sont tiers (voir manifest) et restent à fournir/vérifier séparément.",
+   "nom_affiche": "CliffReverietownnordest",
+   "version_conteneur": "0.8.12.0",
+   "TexSize": 1,
+   "taille_cases": [
+    123,
+    99
+   ],
+   "taille_px": [
+    984,
+    792
+   ],
+   "EdgeView_source": "Blank",
+   "nb_calques": 6,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "00_ciel",
+     "tuiles_peintes": 10205,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "01_long_cap_jour_02",
+     "tuiles_peintes": 600,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "13_avancee_basse_gauche_terrain",
+     "tuiles_peintes": 347,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Altere_Pond_Cliffs",
+     "tuiles_peintes": 1,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Cliffs.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Objects",
+     "tuiles_peintes": 48,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Objects_Under",
+     "tuiles_peintes": 24,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Objects_Under.tile"
+     ]
+    },
+    {
+     "nom": "CLIFF MIROR-Photoroom",
+     "tuiles_peintes": 1096,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "CanyonCamp",
+     "tuiles_peintes": 112,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "INVERSEPATHWAY",
+     "tuiles_peintes": 1891,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Metano_Inn_Objects",
+     "tuiles_peintes": 69,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_spinda_revisite_v7/references/Metano_Inn_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Animated",
+     "tuiles_peintes": 64,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Metano_Town_Animation_Tileset",
+     "tuiles_peintes": 2007,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Cliffs",
+     "tuiles_peintes": 2115,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cote_v4_abyss/natifs/Metano_Town_Cliffs.tile",
+      "source/falaises_metano/natifs/Metano_Town_Cliffs.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Objects",
+     "tuiles_peintes": 1404,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Metano_Town_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Trimmed",
+     "tuiles_peintes": 145,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "P01P01A_layer1",
+     "tuiles_peintes": 8,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "v2_promontoire_jour_03",
+     "tuiles_peintes": 7503,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [
+     "EdgeView=0 (Blank) au lieu de Clamp (1) : la vue peut sortir de la carte."
+    ],
+    "avertissements": [
+     "Aucun marqueur d'entrée (nom contenant « entr ») : l'arrivée sur cette carte est à définir (règle d'or n°4 du dépôt).",
+     "Tileset « 00_ciel » : fichier .tile introuvable (3213 TexLoc adressés, contrôle impossible).",
+     "Tileset « CanyonCamp » : fichier .tile introuvable (4 TexLoc adressés, contrôle impossible).",
+     "Tileset « v2_promontoire_jour_03 » : fichier .tile introuvable (7503 TexLoc adressés, contrôle impossible).",
+     "Tileset « 13_avancee_basse_gauche_terrain » : fichier .tile introuvable (347 TexLoc adressés, contrôle impossible).",
+     "Tileset « INVERSEPATHWAY » : fichier .tile introuvable (1794 TexLoc adressés, contrôle impossible).",
+     "Tileset « CLIFF MIROR-Photoroom » : fichier .tile introuvable (2 TexLoc adressés, contrôle impossible).",
+     "Tileset « P01P01A_layer1 » : fichier .tile introuvable (1 TexLoc adressés, contrôle impossible).",
+     "Tileset « Metano_Town_Animated » : fichier .tile introuvable (10 TexLoc adressés, contrôle impossible).",
+     "Tileset « 01_long_cap_jour_02 » : fichier .tile introuvable (174 TexLoc adressés, contrôle impossible).",
+     "Tileset « Metano_Town_Trimmed » : fichier .tile introuvable (85 TexLoc adressés, contrôle impossible)."
+    ]
+   },
+   "livree_en_bibliotheque": {
+    "fichier": "grounds/cliffdaytest.rsground",
+    "sha256": "cee906cd7275ad5b00f4a08f957f63930885ad81e0587be82a52535a6a8486af",
+    "EdgeView": "Clamp",
+    "problemes_restants": []
+   }
+  },
+  {
+   "id": "cliffnordouesttest1",
+   "source_depot": "cliffnordouesttest1.rsground",
+   "sha256_source": "2cb10918d6bfa8ed687c1412b2d2e7c4aebc545049b9d2d76eb7c16fdb632f19",
+   "provenance": "Composition originale de l'utilisateur (projet-creation-pmdo, conteneur 0.8.12.0)",
+   "auteur": "meromoonmeri",
+   "licence": "œuvre de l'utilisateur",
+   "statut_provenance": "importable",
+   "note_provenance": "Même remarque que cliffdaytest pour les tilesets référencés.",
+   "nom_affiche": "",
+   "version_conteneur": "0.8.12.0",
+   "TexSize": 1,
+   "taille_cases": [
+    138,
+    98
+   ],
+   "taille_px": [
+    1104,
+    784
+   ],
+   "EdgeView_source": "Blank",
+   "nb_calques": 4,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "00_ciel",
+     "tuiles_peintes": 8004,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Altere_Pond_Cliffs",
+     "tuiles_peintes": 1,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Cliffs.tile"
+     ]
+    },
+    {
+     "nom": "INVERSEPATHWAY",
+     "tuiles_peintes": 1111,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Metano_Altere_Transition_Base",
+     "tuiles_peintes": 3070,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "Metano_Town_Animation_Tileset",
+     "tuiles_peintes": 80,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile"
+     ]
+    },
+    {
+     "nom": "terrain",
+     "tuiles_peintes": 992,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "terrain (2)",
+     "tuiles_peintes": 94,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "terrain (3)",
+     "tuiles_peintes": 130,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "terrain (4)",
+     "tuiles_peintes": 451,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "v2_promontoire_jour_03",
+     "tuiles_peintes": 6209,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [
+     "EdgeView=0 (Blank) au lieu de Clamp (1) : la vue peut sortir de la carte."
+    ],
+    "avertissements": [
+     "Aucun marqueur d'entrée (nom contenant « entr ») : l'arrivée sur cette carte est à définir (règle d'or n°4 du dépôt).",
+     "Tileset « 00_ciel » : fichier .tile introuvable (3213 TexLoc adressés, contrôle impossible).",
+     "Tileset « v2_promontoire_jour_03 » : fichier .tile introuvable (3744 TexLoc adressés, contrôle impossible).",
+     "Tileset « terrain » : fichier .tile introuvable (992 TexLoc adressés, contrôle impossible).",
+     "Tileset « Metano_Altere_Transition_Base » : fichier .tile introuvable (1 TexLoc adressés, contrôle impossible).",
+     "Tileset « terrain (4) » : fichier .tile introuvable (379 TexLoc adressés, contrôle impossible).",
+     "Tileset « terrain (3) » : fichier .tile introuvable (130 TexLoc adressés, contrôle impossible).",
+     "Tileset « terrain (2) » : fichier .tile introuvable (75 TexLoc adressés, contrôle impossible).",
+     "Tileset « INVERSEPATHWAY » : fichier .tile introuvable (817 TexLoc adressés, contrôle impossible)."
+    ]
+   },
+   "livree_en_bibliotheque": {
+    "fichier": "grounds/cliffnordouesttest1.rsground",
+    "sha256": "2d0922a1f2220e9ff7b803aa04e1fa63e2ece2c1d739732d1c31631982e14f3a",
+    "EdgeView": "Clamp",
+    "problemes_restants": []
+   }
+  },
+  {
+   "id": "vast_steppe_entrance",
+   "source_depot": "source/amp_plains_fleurie_v1/references/vast_steppe_entrance.rsground",
+   "sha256_source": "3bf12f6e6e27263dff7781a396252b98740f56a99e60764a236f178dfab9ea99",
+   "provenance": "Palikadude/Halcyon @1522c7a8b7a34d70078e11ed605b21d563b0dc51 (provenance.json du chantier)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Mod d'auteur : accord de Palika requis avant tout import (Étape 0.4).",
+   "nom_affiche": "Vast Steppe Entrance",
+   "version_conteneur": "0.8.9.0",
+   "TexSize": 1,
+   "taille_cases": [
+    64,
+    64
+   ],
+   "taille_px": [
+    512,
+    512
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 5,
+   "nb_personnages": 0,
+   "nb_objets": 3,
+   "marqueurs": [
+    "Main_Entrance_Marker"
+   ],
+   "Musique": "Sky Peak Prairie.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Vast_Steppe_Base",
+     "tuiles_peintes": 4096,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Base.tile"
+     ]
+    },
+    {
+     "nom": "Vast_Steppe_Cliifs",
+     "tuiles_peintes": 697,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Cliifs.tile"
+     ]
+    },
+    {
+     "nom": "Vast_Steppe_Flower_Animations",
+     "tuiles_peintes": 540,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Flower_Animations.tile"
+     ]
+    },
+    {
+     "nom": "Vast_Steppe_Fringe",
+     "tuiles_peintes": 959,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Fringe.tile"
+     ]
+    },
+    {
+     "nom": "Vast_Steppe_Objects",
+     "tuiles_peintes": 581,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Vast_Steppe_Objects_Under",
+     "tuiles_peintes": 108,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/amp_plains_fleurie_v1/references/Vast_Steppe_Objects_Under.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "altere_pond",
+   "source_depot": "source/antre_harmonie_v3/references/altere_pond.rsground",
+   "sha256_source": "665f18eaa290284898797673a243bd79a22aa607952192931673f4ece8846091",
+   "provenance": "Palikadude/Halcyon @1522c7a8b7a34d70078e11ed605b21d563b0dc51 (provenance.json du chantier)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Accord de Palika requis avant import.",
+   "nom_affiche": "Altere Pond",
+   "version_conteneur": "0.8.9.0",
+   "TexSize": 1,
+   "taille_cases": [
+    116,
+    96
+   ],
+   "taille_px": [
+    928,
+    768
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 8,
+   "nb_personnages": 1,
+   "nb_objets": 2,
+   "marqueurs": [
+    "Main_Entrance_Marker",
+    "entrance"
+   ],
+   "Musique": "File Select.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Altere_Pond_Base",
+     "tuiles_peintes": 10251,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Base.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Cliffs",
+     "tuiles_peintes": 1840,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Cliffs.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Fringe",
+     "tuiles_peintes": 2075,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Fringe.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Objects",
+     "tuiles_peintes": 4012,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Objects_Over",
+     "tuiles_peintes": 76,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Objects_Over.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Objects_Under",
+     "tuiles_peintes": 609,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Objects_Under.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_River_Animations",
+     "tuiles_peintes": 4512,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_River_Animations.tile"
+     ]
+    },
+    {
+     "nom": "Altere_Pond_Shadows",
+     "tuiles_peintes": 56,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/antre_harmonie_v3/references/Altere_Pond_Shadows.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Animation_Tileset",
+     "tuiles_peintes": 3765,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "metano_cafe",
+   "source_depot": "source/cafe_multietage_v1/references/metano_cafe.rsground",
+   "sha256_source": "495fac3e8b198620295654b399731954e93568410a4a74b5bed4c4131c0f5cdb",
+   "provenance": "Palikadude/Halcyon @da6c2130d641507447e6386a5e47a296e8cb4c71 — blob Git 0010a20bcebc586374fdb7946639647b6d3db505 identifié dans Data/Ground du dépôt source",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Accord de Palika requis avant import.",
+   "nom_affiche": "Metano Café",
+   "version_conteneur": "0.7.17.0",
+   "TexSize": 1,
+   "taille_cases": [
+    57,
+    40
+   ],
+   "taille_px": [
+    456,
+    320
+   ],
+   "EdgeView_source": "Blank",
+   "nb_calques": 5,
+   "nb_personnages": 1,
+   "nb_objets": 3,
+   "marqueurs": [
+    "entrance",
+    "Main_Entrance_Marker",
+    "Cafe_Table_1",
+    "Cafe_Table_2",
+    "Cafe_Table_3",
+    "Cafe_Table_4",
+    "Cafe_Table_5",
+    "Cafe_Table_6",
+    "Cafe_Table_7",
+    "Cafe_Table_8",
+    "Cafe_Table_9",
+    "Cafe_Table_10",
+    "Cafe_Table_11",
+    "Cafe_Table_12",
+    "Cafe_Table_13",
+    "Cafe_Table_14",
+    "Cafe_Table_15",
+    "Cafe_Table_16"
+   ],
+   "Musique": "Spinda's Cafe.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Metano_Town_Cafe_Base",
+     "tuiles_peintes": 2280,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/Metano_Town_Cafe_Base.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Cafe_Objects",
+     "tuiles_peintes": 629,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/Metano_Town_Cafe_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Cafe_Objects_Fringe",
+     "tuiles_peintes": 7,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/Metano_Town_Cafe_Objects_Fringe.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Cafe_Objects_Over",
+     "tuiles_peintes": 148,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/Metano_Town_Cafe_Objects_Over.tile"
+     ]
+    },
+    {
+     "nom": "Metano_Town_Cafe_Objects_Under",
+     "tuiles_peintes": 138,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/Metano_Town_Cafe_Objects_Under.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [
+     "EdgeView=0 (Blank) au lieu de Clamp (1) : la vue peut sortir de la carte."
+    ],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "spinda_cafe",
+   "source_depot": "source/cafe_multietage_v1/references/spinda_cafe.rsground",
+   "sha256_source": "f7be15712d09507281d0ef6fb16a98b81a7a0d98e9c414303b97eefbf5f5aadd",
+   "provenance": "Minemaker0430/ExplorersOfSkyOrigins @4e7422acc263886198113a8256677766e4244228 — blob Git 34405699ef5b4cf3723f4e22d987bc7bfcf729d4 identifié dans Data/Ground du dépôt source",
+   "auteur": "équipe ExplorersOfSkyOrigins",
+   "licence": "sans objet : exclusion ferme (Étape 0.3)",
+   "statut_provenance": "exclu",
+   "note_provenance": "Remake de jeu commercial : ne jamais importer dans la bibliothèque.",
+   "nom_affiche": "Spinda Cafe",
+   "version_conteneur": "0.8.11.0",
+   "TexSize": 1,
+   "taille_cases": [
+    87,
+    57
+   ],
+   "taille_px": [
+    696,
+    456
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 2,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [
+    "NewObject"
+   ],
+   "Musique": "027 - Spinda's Cafe.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "SpindaCafe1",
+     "tuiles_peintes": 4959,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/SpindaCafe1.tile"
+     ]
+    },
+    {
+     "nom": "SpindaCafe2",
+     "tuiles_peintes": 835,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v1/references/SpindaCafe2.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": [
+     "Aucun marqueur d'entrée (nom contenant « entr ») : l'arrivée sur cette carte est à définir (règle d'or n°4 du dépôt)."
+    ]
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "guild_second_floor",
+   "source_depot": "source/cafe_multietage_v3/references/guild_second_floor.rsground",
+   "sha256_source": "2eb61ab0d6aff7b5d74025394767a22c5e416f4d67447318a235954f32712c84",
+   "provenance": "Palikadude/Halcyon @da6c2130d641507447e6386a5e47a296e8cb4c71 (halcyon_commit.txt du chantier)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Accord de Palika requis avant import.",
+   "nom_affiche": "Guild Second Floor",
+   "version_conteneur": "0.7.12.0",
+   "TexSize": 1,
+   "taille_cases": [
+    84,
+    56
+   ],
+   "taille_px": [
+    672,
+    448
+   ],
+   "EdgeView_source": "Blank",
+   "nb_calques": 8,
+   "nb_personnages": 1,
+   "nb_objets": 5,
+   "marqueurs": [
+    "Main_Entrance_Marker",
+    "Guild_Second_Floor_Upwards_Stairs_Marker",
+    "Guild_Second_Floor_Upwards_Stairs_Marker_Partner",
+    "Left_Trio_1",
+    "Left_Trio_2",
+    "Left_Trio_3",
+    "Left_Duo_1",
+    "Left_Duo_2",
+    "Right_Trio_1",
+    "Right_Trio_2",
+    "Right_Trio_3",
+    "Right_Duo_1",
+    "Right_Duo_2",
+    "Right_Solo",
+    "Left_Solo",
+    "Generic_Spawn_1",
+    "Generic_Spawn_2",
+    "Generic_Spawn_Duo_1",
+    "Generic_Spawn_Duo_2",
+    "Generic_Spawn_Duo_4",
+    "Generic_Spawn_Duo_3",
+    "Generic_Spawn_3",
+    "Generic_Spawn_4",
+    "Generic_Spawn_5",
+    "Generic_Spawn_6",
+    "Generic_Spawn_8",
+    "Generic_Spawn_7"
+   ],
+   "Musique": "Wigglytuff's Guild.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Guild_Second_Floor_Floor",
+     "tuiles_peintes": 2464,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Floor.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Fringe",
+     "tuiles_peintes": 9,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Fringe.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Objects",
+     "tuiles_peintes": 747,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Objects_Over",
+     "tuiles_peintes": 30,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Objects_Over.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Objects_Under",
+     "tuiles_peintes": 18,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Objects_Under.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Shadows",
+     "tuiles_peintes": 43,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Shadows.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Supports",
+     "tuiles_peintes": 2596,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Supports.tile"
+     ]
+    },
+    {
+     "nom": "Guild_Second_Floor_Walls",
+     "tuiles_peintes": 987,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/cafe_multietage_v3/references/Guild_Second_Floor_Walls.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [
+     "EdgeView=0 (Blank) au lieu de Clamp (1) : la vue peut sortir de la carte."
+    ],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "ExplorersOfSkyOrigins__Brine_Cave_Entrance",
+   "source_depot": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__Brine_Cave_Entrance.rsground",
+   "sha256_source": "a253bb1fd7983c4a5a281866cac92b45a8a1a36fda2d21072b941244c10f196b",
+   "provenance": "Minemaker0430/ExplorersOfSkyOrigins (nom de fichier du chantier)",
+   "auteur": "équipe ExplorersOfSkyOrigins",
+   "licence": "sans objet : exclusion ferme (Étape 0.3)",
+   "statut_provenance": "exclu",
+   "note_provenance": "Remake de jeu commercial : ne jamais importer.",
+   "nom_affiche": "",
+   "version_conteneur": "0.8.11.0",
+   "TexSize": 3,
+   "taille_cases": [
+    27,
+    21
+   ],
+   "taille_px": [
+    648,
+    504
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 1,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [],
+   "Musique": "Brine Cave.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Brine Cave Entrance",
+     "tuiles_peintes": 8505,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": [
+     "Aucun marqueur d'entrée (nom contenant « entr ») : l'arrivée sur cette carte est à définir (règle d'or n°4 du dépôt).",
+     "Tileset « Brine Cave Entrance » : fichier .tile introuvable (8505 TexLoc adressés, contrôle impossible)."
+    ]
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "ExplorersOfSkyOrigins__drenched_bluff_entrance",
+   "source_depot": "source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground",
+   "sha256_source": "e6d7cd8486d578157f8547d240846bded43aa067b4ec3b7109ed22feeaf33ff8",
+   "provenance": "Minemaker0430/ExplorersOfSkyOrigins (nom de fichier du chantier)",
+   "auteur": "équipe ExplorersOfSkyOrigins",
+   "licence": "sans objet : exclusion ferme (Étape 0.3)",
+   "statut_provenance": "exclu",
+   "note_provenance": "Remake de jeu commercial : ne jamais importer.",
+   "nom_affiche": "",
+   "version_conteneur": "0.8.12.0",
+   "TexSize": 1,
+   "taille_cases": [
+    66,
+    51
+   ],
+   "taille_px": [
+    528,
+    408
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 2,
+   "nb_personnages": 1,
+   "nb_objets": 0,
+   "marqueurs": [
+    "Entrance"
+   ],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "DrenchedBluffEntranceBackground",
+     "tuiles_peintes": 3366,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "DrenchedBluffEntranceDetails",
+     "tuiles_peintes": 1674,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [
+     "Spoink : serializationLoc (-20,371) hors de la carte 528×408 px.",
+     "PARTNER_SPAWN : Collider (-20,392,16×16) sort de la carte 528×408 px."
+    ],
+    "avertissements": [
+     "Tileset « DrenchedBluffEntranceBackground » : fichier .tile introuvable (3366 TexLoc adressés, contrôle impossible).",
+     "Tileset « DrenchedBluffEntranceDetails » : fichier .tile introuvable (1674 TexLoc adressés, contrôle impossible)."
+    ]
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "Halcyon__crooked_cavern_entrance",
+   "source_depot": "source/cote_v5_expeditions/references/Halcyon__crooked_cavern_entrance.rsground",
+   "sha256_source": "2923ee91eaee79fd647b076aa982a9561e6ea2fe6c5ad8008b2d415d31bb1d48",
+   "provenance": "Palikadude/Halcyon @da6c2130d641507447e6386a5e47a296e8cb4c71 — blob 1be7032fd8e0d3f2f7bba468336ef3d15abd8368 (provenance.json du chantier)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Accord de Palika requis avant import.",
+   "nom_affiche": "Crooked Cavern Entrance",
+   "version_conteneur": "0.7.4.0",
+   "TexSize": 1,
+   "taille_cases": [
+    40,
+    30
+   ],
+   "taille_px": [
+    320,
+    240
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 3,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [
+    "Main_Entrance_Marker"
+   ],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "Crooked_Cavern_Base",
+     "tuiles_peintes": 1200,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Base.tile"
+     ]
+    },
+    {
+     "nom": "Crooked_Cavern_Objects",
+     "tuiles_peintes": 116,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Crooked_Cavern_Shadows",
+     "tuiles_peintes": 83,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Shadows.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "ledian_dojo",
+   "source_depot": "source/ledian_dojo_v1/references/ledian_dojo.rsground",
+   "sha256_source": "002b904339ab26d7e7fea52b57ab2811f788e380750419343df4443298a95fa8",
+   "provenance": "Palikadude/Halcyon @da6c2130d641507447e6386a5e47a296e8cb4c71 (halcyon_commit.txt du chantier)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Accord de Palika requis avant import.",
+   "nom_affiche": "Ledian Dojo",
+   "version_conteneur": "0.7.4.0",
+   "TexSize": 1,
+   "taille_cases": [
+    51,
+    39
+   ],
+   "taille_px": [
+    408,
+    312
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 6,
+   "nb_personnages": 2,
+   "nb_objets": 2,
+   "marqueurs": [
+    "Main_Entrance_Marker"
+   ],
+   "Musique": "Wigglytuff's Guild Remix.ogg",
+   "tilesets_tuiles": [
+    {
+     "nom": "Ledian_Dojo_Animated",
+     "tuiles_peintes": 228,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Animated.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Ceiling",
+     "tuiles_peintes": 1293,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Ceiling.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Floor",
+     "tuiles_peintes": 923,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Floor.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Objects",
+     "tuiles_peintes": 179,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Objects_Over",
+     "tuiles_peintes": 46,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Objects_Over.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Objects_Under",
+     "tuiles_peintes": 8,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Objects_Under.tile"
+     ]
+    },
+    {
+     "nom": "Ledian_Dojo_Shadows",
+     "tuiles_peintes": 105,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/ledian_dojo_v1/references/Ledian_Dojo_Shadows.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "luminous_spring",
+   "source_depot": "source/soleil_spring_v1/references/luminous_spring.rsground",
+   "sha256_source": "3c800caef4ddd422f6eab41b9d0b1d8e6356e9e2ebc36e54e62633dc755e0687",
+   "provenance": "Palikadude/Halcyon @da6c2130d641507447e6386a5e47a296e8cb4c71 (provenance.json du chantier) ; graphismes de base PMDCollab/RawAsset",
+   "auteur": "Palika et contributeurs (+ contributeurs RawAsset selon les sheets)",
+   "licence": "aucune licence explicite dans Halcyon ; provenance des graphismes mixte (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Le provenance.json du chantier prévient déjà : tous les graphismes ne sont ni de Palika ni libres de droits. Double vérification requise (accord + sheets) avant import.",
+   "nom_affiche": "Luminous Spring",
+   "version_conteneur": "0.7.4.0",
+   "TexSize": 3,
+   "taille_cases": [
+    25,
+    25
+   ],
+   "taille_px": [
+    600,
+    600
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 2,
+   "nb_personnages": 0,
+   "nb_objets": 2,
+   "marqueurs": [
+    "Main_Entrance_Marker"
+   ],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "LuminousSpring",
+     "tuiles_peintes": 625,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    },
+    {
+     "nom": "LuminousSpringAnim",
+     "tuiles_peintes": 218,
+     "tile_dans_depot": false,
+     "tile_chemins": []
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": [
+     "Tileset « LuminousSpring » : fichier .tile introuvable (625 TexLoc adressés, contrôle impossible).",
+     "Tileset « LuminousSpringAnim » : fichier .tile introuvable (218 TexLoc adressés, contrôle impossible)."
+    ]
+   },
+   "livree_en_bibliotheque": null
+  },
+  {
+   "id": "crooked",
+   "source_depot": "source/viewport_pmdo_v1/refs/crooked.rsground",
+   "sha256_source": "2923ee91eaee79fd647b076aa982a9561e6ea2fe6c5ad8008b2d415d31bb1d48",
+   "provenance": "Copie octet pour octet de Halcyon__crooked_cavern_entrance.rsground (même blob Git 1be7032fd8e0d3f2f7bba468336ef3d15abd8368)",
+   "auteur": "Palika et contributeurs",
+   "licence": "aucune licence explicite dans le dépôt (vérifié 2026-10-27)",
+   "statut_provenance": "en_attente_accord",
+   "note_provenance": "Doublon de la référence ci-dessus ; ne pas importer sous deux noms (collision de basename à l'import évitée).",
+   "nom_affiche": "Crooked Cavern Entrance",
+   "version_conteneur": "0.7.4.0",
+   "TexSize": 1,
+   "taille_cases": [
+    40,
+    30
+   ],
+   "taille_px": [
+    320,
+    240
+   ],
+   "EdgeView_source": "Clamp",
+   "nb_calques": 3,
+   "nb_personnages": 0,
+   "nb_objets": 0,
+   "marqueurs": [
+    "Main_Entrance_Marker"
+   ],
+   "Musique": "",
+   "tilesets_tuiles": [
+    {
+     "nom": "Crooked_Cavern_Base",
+     "tuiles_peintes": 1200,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Base.tile"
+     ]
+    },
+    {
+     "nom": "Crooked_Cavern_Objects",
+     "tuiles_peintes": 116,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Objects.tile"
+     ]
+    },
+    {
+     "nom": "Crooked_Cavern_Shadows",
+     "tuiles_peintes": 83,
+     "tile_dans_depot": true,
+     "tile_chemins": [
+      "source/viewport_pmdo_v1/refs/Crooked_Cavern_Shadows.tile"
+     ]
+    }
+   ],
+   "autres_references_sheets": {},
+   "audit_clamp_source": {
+    "problemes": [],
+    "avertissements": []
+   },
+   "livree_en_bibliotheque": null
+  }
+ ]
+}
