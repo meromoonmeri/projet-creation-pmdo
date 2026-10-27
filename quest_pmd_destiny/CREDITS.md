@@ -85,3 +85,19 @@ les tuiles de maps). Crédit affiché dans l'aperçu
 `apercu_personality_quiz_parallax.html`. Les questions/résultats du quiz, la
 liste de starters et les méga-évolutions viendront du contenu **PMD Remixed**
 (fichier en cours de réception) avec leur propre crédit.
+
+## Quiz de personnalité — badge étoile par nature
+
+Le **ruban d'aura** (« Aura Bow ») du quiz de Sky est remplacé par le **badge
+étoile de l'opening** PMD Destiny (pendentif étoile, `vfx_bruts/badge_amber.png`
+de `source/pmd_destiny_fangame_v1`, branche `arena/e39626d2` — art de
+l'utilisateur). Couleurs générées par recolorisation fidèle
+(`OUTILS/generer_badge_quiz.py`) : 16 couleurs de natures + le blanc
+« avant analyse » dans `Content/UI/quiz_badges/` ; table des natures
+(couleur + starter héros ♂/♀ conclu) dans `Data/quiz_personnalite_natures.json`.
+`art_approved: false` pour les recolorisations (à valider).
+
+Mécanique de référence consultée dans la ROM Sky (`pret/pmd-sky`, overlay_13 :
+`QUIZ_ANSWER_POINTS`, `STARTERS_HERO_IDS`, `STARTERS_PARTNER_IDS`) — recherche
+de conception uniquement : aucun texte ni graphisme commercial n'est redistribué.
+Les questions définitives viendront de **PMD Remixed** (crédit dédié).
