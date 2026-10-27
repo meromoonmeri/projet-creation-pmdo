@@ -63,3 +63,7 @@ Ensemble intégré à la quest (fonds Jour/Nuit animés 24 poses, opening du bla
 (branche `arena/e39626d2`) à partir des **bruts de l'utilisateur** (logo
 œuf+ailes, mer pixelart jour/nuit, nuages cathédrale). Voir
 `quest_pmd_destiny/TITLE_SCREEN_PMD_DESTINY.md`.
+
+## Maps café — réseau Métano (2026-10-27)
+- 5 maps (`metano_gen_accueil`, `metano_gen_cafe`, `metano_gen_casino`, `metano_gen_salon_bas`, `metano_gen_salon_haut`) : générations originales de l'utilisateur (série café/casino/salons), méthode guidée par images de référence.
+- Références de travail créditées : Palikadude/Halcyon (`Metano_Town_Normal_Home`), formes Café Spinda — usage de référence uniquement, aucune tuile native tierce copiée dans la quest.

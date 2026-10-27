@@ -1,0 +1,124 @@
+{
+ "lot": "reseau_metano_normal_v1",
+ "methode": "generateur d images reference (rendu Halcyon metano_normal_home + salle Cafe Spinda V7 correspondante pour la forme, hall de guilde Halcyon pour l echelle), detourage magenta, reduction 800x600, frange pourpre nettoyee. Aucune retouche manuelle.",
+ "disposition": "identique au reseau Cafe Spinda V7 (formes des salles Spinda conservees) : accueil RDC escaliers N/S centres, cafe et salon_haut au +1, casino et salon_bas au -1, salons a l est. Pieces larges et completement vides.",
+ "texture": "Metano_Town_Normal_Home (Halcyon), variante normale, via rendu de reference.",
+ "liens": [
+  [
+   "accueil",
+   "escalier_N",
+   "cafe",
+   "porte_S_depuis_accueil"
+  ],
+  [
+   "accueil",
+   "escalier_S",
+   "casino",
+   "porte_N_depuis_accueil"
+  ],
+  [
+   "casino",
+   "porte_E",
+   "salon_bas",
+   "porte_W"
+  ],
+  [
+   "cafe",
+   "porte_E",
+   "salon_haut",
+   "porte_W"
+  ]
+ ],
+ "rooms": [
+  {
+   "id": "accueil",
+   "etage": 0,
+   "file": "salles/MetanoNormal_accueil.png",
+   "ground": "grounds/metano_gen_accueil.rsground",
+   "tileset": "tilesheets/MetanoGen_accueil.tile",
+   "tuiles_uniques": 4898,
+   "residu_pourpre_bord_px": 0,
+   "acces": {
+    "escalier_N": [
+     400,
+     88
+    ],
+    "escalier_S": [
+     400,
+     533
+    ]
+   }
+  },
+  {
+   "id": "cafe",
+   "etage": 1,
+   "file": "salles/MetanoNormal_cafe.png",
+   "ground": "grounds/metano_gen_cafe.rsground",
+   "tileset": "tilesheets/MetanoGen_cafe.tile",
+   "tuiles_uniques": 4514,
+   "residu_pourpre_bord_px": 0,
+   "acces": {
+    "porte_S_depuis_accueil": [
+     123,
+     525
+    ],
+    "porte_E_vers_salon_haut": [
+     731,
+     281
+    ]
+   }
+  },
+  {
+   "id": "salon_haut",
+   "etage": 1,
+   "file": "salles/MetanoNormal_salon_haut.png",
+   "ground": "grounds/metano_gen_salon_haut.rsground",
+   "tileset": "tilesheets/MetanoGen_salon_haut.tile",
+   "tuiles_uniques": 4513,
+   "residu_pourpre_bord_px": 0,
+   "acces": {
+    "porte_W_vers_cafe": [
+     69,
+     281
+    ]
+   }
+  },
+  {
+   "id": "casino",
+   "etage": -1,
+   "file": "salles/MetanoNormal_casino.png",
+   "ground": "grounds/metano_gen_casino.rsground",
+   "tileset": "tilesheets/MetanoGen_casino.tile",
+   "tuiles_uniques": 5226,
+   "residu_pourpre_bord_px": 0,
+   "acces": {
+    "porte_N_depuis_accueil": [
+     88,
+     254
+    ],
+    "porte_E_vers_salon_bas": [
+     731,
+     315
+    ]
+   }
+  },
+  {
+   "id": "salon_bas",
+   "etage": -1,
+   "file": "salles/MetanoNormal_salon_bas.png",
+   "ground": "grounds/metano_gen_salon_bas.rsground",
+   "tileset": "tilesheets/MetanoGen_salon_bas.tile",
+   "tuiles_uniques": 5749,
+   "residu_pourpre_bord_px": 0,
+   "acces": {
+    "porte_W_vers_casino": [
+     69,
+     315
+    ]
+   }
+  }
+ ],
+ "art_approved": false,
+ "runtime_tested": false,
+ "runtime_PMDO": "NOT TESTED"
+}

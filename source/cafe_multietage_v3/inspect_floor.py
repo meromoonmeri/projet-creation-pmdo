@@ -10,7 +10,7 @@ for l in o['Layers']:
     name=a['Frames'][0]['Sheet']
     if name in banks:continue
     p=P/(name+'.tile')
-    if not p.exists():p.write_bytes(subprocess.check_output(['gh','api',f'repos/Palikadude/Halcyon/contents/Content/Tile/{name}.tile?ref={pin}','-H','Accept: application/vnd.github.raw+json']))
+    if not p.exists():p.write_bytes(subprocess.check_output(['gh','api',f'repos//Halcyon/contents/Content/Tile/{name}.tile?ref={pin}','-H','Accept: application/vnd.github.raw+json']))
     _,bank,_=tiles(p);banks[name]={xy:straight(im) for xy,im in bank.items()}
 cell=o['TexSize']*8;size=(len(o['Layers'][0]['Tiles'])*cell,len(o['Layers'][0]['Tiles'][0])*cell);scene=Image.new('RGBA',size)
 for l in o['Layers']:

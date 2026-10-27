@@ -35,7 +35,6 @@ Les compositions et schémas sont dans `A/` et `B/`. `PLANCHE_A.png` et `PLANCHE
 
 ## Sources et vérification
 Sources natives et empreintes conservées dans `source/cafe_multietage_v1/references/` :
-- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`, `metano_cafe.rsground` et feuilles Metano café.
 - [Minemaker0430/ExplorersOfSkyOrigins](https://github.com/Minemaker0430/ExplorersOfSkyOrigins), commit `4e7422acc263886198113a8256677766e4244228`, `spinda_cafe.rsground`, SpindaCafe1/2.
 
 Scripts : `source/cafe_multietage_v2/{build,gallery,verify}.py`, `test_viewer.cjs`. Dépendances : Pillow, numpy. `verification.json` consigne les comparaisons des sources,20 recompositions, masques circulaires, seuils exacts et tailles sur grille8px. Galerie testée en DOM simulé, sans test de navigateur réel.

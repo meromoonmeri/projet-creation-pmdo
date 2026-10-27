@@ -23,7 +23,6 @@ Dans la galerie, les cases activent chaque calque, et les flèches téléchargen
 Sur la base intacte, superposer le calque de remplacement suffit : son cœur couvre le mur intact. Pour éditer le mur séparément, utiliser le masque fourni comme masque d’effacement puis insérer le remplacement. Les rubans sont indépendants : pour l’état cassé, les laisser désactivés ; aucune version déchirée des rubans n’est fournie ici. Ne pas supposer qu’ils s’effacent automatiquement avec la brèche.
 
 ## Provenance et limites
-Architecture, brèche, débris, rubans et spirales : générations guidées par les vraies références Halcyon / EoSO, puis découpe et correction. Ils ne sont pas des sprites canoniques pixel-identiques. Mobilier : extraits des vraies couches et de la reconstruction `spinda_cafe.rsground` EoSO, source figée dans `source/cafe_multietage_v1/references/`, commit `4e7422acc263886198113a8256677766e4244228` de Minemaker0430/ExplorersOfSkyOrigins. Sol : Metano Cafe Base de Palikadude/Halcyon, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 
 Même canvas et recomposition vérifiés ne signifient pas une validation artistique automatique de chaque ombre ou découpe. Les masques sont adaptés à ces placements fixes ; déplacer un meuble nécessite de revoir ses contacts et ses ombres. Les surfaces cachées des sprites ne sont pas inventées. Pas de `.rsground`, de collision, d’animation de Ludicolo ni de validation PMDO. Le sous-sol apprécié n’est pas modifié.
 

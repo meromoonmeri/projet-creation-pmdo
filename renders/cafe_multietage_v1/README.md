@@ -40,7 +40,6 @@ Puis `composition_jour.png`, `composition_nuit.png`, et `schema.png`. Dimensions
 **Jour/nuit concerne le paysage derrière les fenêtres uniquement.** Le café garde son éclairage intérieur chaud. Ce n’est pas un étalonnage nocturne de toute la pièce ni une animation. Les vues sont des petits extraits du paysage canonique fourni précédemment dans `232233.png`, avec filtre Abyss pour la vue nocturne.
 
 ## Sources canoniques inspectées
-- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit **da6c2130d641507447e6386a5e47a296e8cb4c71** : `Data/Ground/metano_cafe.rsground`, cinq feuilles `Metano_Town_Cafe_*` référencées. Carte **456×320**, grille57×40 de8px.
 - [Minemaker0430/ExplorersOfSkyOrigins](https://github.com/Minemaker0430/ExplorersOfSkyOrigins), commit **4e7422acc263886198113a8256677766e4244228** : `Data/Ground/spinda_cafe.rsground`, `SpindaCafe1.tile`, `SpindaCafe2.tile`. Carte **696×456**, grille87×57 de8px.
 
 Les cartes ont été reconstruites depuis leurs vraies tuiles, avec conversion de l’alpha prémultiplié, puis inspectées. Sources, feuilles décodées, reconstructions et empreintes SHA-256 se trouvent dans `source/cafe_multietage_v1/references/`.
@@ -57,4 +56,3 @@ Aucune nouvelle carte `.rsground`, collision, navigation, transition ni validati
 
 Scripts : `source/cafe_multietage_v1/inspect_sources.py`, `build.py`, `gallery.py`, `verify.py`, `test_viewer.cjs` (Pillow et numpy).
 
-Attribution : Palikadude/Halcyon et Minemaker0430/EoSO pour leurs cartes et ressources distribuées ; ayants droit et contributeurs Pokémon Mystery Dungeon pour les ressources concernées. Disponibilité publique ne vaut pas licence générale de réutilisation.

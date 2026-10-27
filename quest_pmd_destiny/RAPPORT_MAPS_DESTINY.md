@@ -44,3 +44,21 @@ Les maps sont régénérées par les scripts `source/**/build.py` de la branche 
   Œuf Ailé (`Content/Obj/Destiny_Logo_Anime_Opening.dir`), UI `Title.png` /
   `Enter.png`, service `destiny_title_anim`, map-menu `pmd_destiny_menu_jour` +
   ses 10 tilesets DSTJ. Détail : `TITLE_SCREEN_PMD_DESTINY.md`.
+
+## Maps café — réseau Métano (lot `maps_cafes`) — 2026-10-27
+
+5 maps générées par l'utilisateur (série café / casino / salons) intégrées à la quest :
+
+| Map | Tilesheet | Aperçu |
+|---|---|---|
+| `metano_gen_accueil` | `MetanoGen_accueil.tile` | `apercus/maps/metano_gen_accueil.html` |
+| `metano_gen_cafe` | `MetanoGen_cafe.tile` | `apercus/maps/metano_gen_cafe.html` |
+| `metano_gen_casino` | `MetanoGen_casino.tile` | `apercus/maps/metano_gen_casino.html` |
+| `metano_gen_salon_bas` | `MetanoGen_salon_bas.tile` | `apercus/maps/metano_gen_salon_bas.html` |
+| `metano_gen_salon_haut` | `MetanoGen_salon_haut.tile` | `apercus/maps/metano_gen_salon_haut.html` |
+
+- Zone PMDO : `Data/Zone/maps_cafes.json` (+ `index.idx`, 113 zones) ; lot `bibliotheque_ground/lots/maps_cafes/`.
+- Format des maps : JSON sérialisé PMDO `0.8.12.0` (GroundMap) + tilesheets `.tile` atlas 8 px (15 tuileries dans l'index).
+- Régénération : `python3 source/reseau_metano_normal_v1/build.py` (bruts `accueil/cafe/casino/salon_bas/salon_haut.png`), puis `python3 OUTILS/integrer_maps_cafes.py`.
+- Provenance : générations originales de l'utilisateur, méthode guidée par images de référence (générateur référencé Halcyon `Metano_Town_Normal_Home` + formes Café Spinda — crédit [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon)). Aucune tuile native tierce copiée dans la quest.
+- `runtime_tested` : **false** (aucune exécution moteur) ; `art_approved` : false ; rendus des apercus = image fixe (les maps portent des tuiles animées `FrameLength 60`).
