@@ -61,3 +61,23 @@ curl -L -o fichier.png \
 
 Ou relancer l'extraction avec `--avec-media` (voir `OUTILS/extraire_depuis_projet-pmdo.py`),
 ou un `git sparse-checkout add renders/mon_dossier` dans un clone blobless.
+
+## Restauration des aperçus et des maps en ZIP (27 octobre 2026)
+
+L'aperçu des maps a été restauré dans son intégralité, animations comprises :
+
+- **166 aperçus HTML autonomes** de la racine (770 Mo, images et animations
+  intégrées) + les archives **ZIP livrées** (112 Mo) : `OUTILS/restaurer_apercus.py`
+  les récupère par clone blobless + sparse-checkout, avec les seuls médias
+  réellement chargés par les pages (galeries `renders/*`, GIF, images de revue).
+- **126 cartes Ground des 13 archives ZIP** restaurées fidèlement dans
+  `apercus/zips/<pack>/` : `OUTILS/restaurer_maps_zip.py` décode les `.rsground`,
+  `.tile` et `.dir` natifs et génère une page de carte animée par map (tuiles 8 px
+  natives, cycle de palette `FrameLength` en ticks 1/60 s, fonds animés et
+  défilement `BGMovement`, marqueurs et collisions en surimpression) + une
+  galerie pour les packs de sprites. Chaque pack est listé à l'index du serveur
+  par un stub `apercu_zip_<pack>.html`.
+
+Ces fichiers lourds sont dans `.gitignore` (récupérables en une commande) ; seuls
+les deux outils et les 13 stubs sont versionnés. Serveur d'aperçus :
+`python3 source/serveur_apercus/serve.py --port 8000`.
