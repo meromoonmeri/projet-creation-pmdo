@@ -67,3 +67,21 @@ Ensemble intégré à la quest (fonds Jour/Nuit animés 24 poses, opening du bla
 ## Maps café — réseau Métano (2026-10-27)
 - 5 maps (`metano_gen_accueil`, `metano_gen_cafe`, `metano_gen_casino`, `metano_gen_salon_bas`, `metano_gen_salon_haut`) : générations originales de l'utilisateur (série café/casino/salons), méthode guidée par images de référence.
 - Références de travail créditées : Palikadude/Halcyon (`Metano_Town_Normal_Home`), formes Café Spinda — usage de référence uniquement, aucune tuile native tierce copiée dans la quest.
+
+## Quiz de personnalité (parallax « Dream ») — exception explicite
+
+À la **demande expresse de l'auteur** (27 oct. 2026 : « j'aimerais avant tout le
+parallax de personnality quizz dans l'apercu »), la scène du quiz de personnalité
+utilise tels quels les assets du mod **Halcyon (Palikadude/Halcyon)** :
+
+- `Content/BG/Dream_Back.dir`, `Content/BG/Dream_Front.dir` (fond parallax
+  animé, ±30 px/s, alpha 255/128) ;
+- `Data/Ground/personality_test.rsground` (map écran 320×240, sélecteur de
+  héros sur ce fond).
+
+C'est la **seule** exception à la règle « éléments Halcyon remplacés par des
+placeholders neutres » décrite ci-dessus (règle qui vaut pour town02/metano et
+les tuiles de maps). Crédit affiché dans l'aperçu
+`apercu_personality_quiz_parallax.html`. Les questions/résultats du quiz, la
+liste de starters et les méga-évolutions viendront du contenu **PMD Remixed**
+(fichier en cours de réception) avec leur propre crédit.
