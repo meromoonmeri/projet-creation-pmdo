@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lecteur de pack — Aperçus des maps PMDO</title>
+<link rel="stylesheet" href="/ui/lecteur.css">
+</head>
+<body>
+<header class="haut">
+  <a href="/" class="retour">← Galerie</a>
+  <div class="titre-blob">
+    <p class="kicker">Pack ZIP restauré</p>
+    <h1 id="titre">Chargement…</h1>
+    <p id="chemin" class="chemin"></p>
+  </div>
+  <a id="zip" class="bouton" href="#" download>↓ ZIP d'origine</a>
+</header>
+
+<div id="resume" class="resume"></div>
+
+<section id="sec-origine" class="section" hidden>
+  <h2>Aperçus HTML d'origine <small>octet pour octet — animations incluses</small></h2>
+  <div id="origine" class="liste-liens"></div>
+</section>
+
+<section id="sec-anim" class="section" hidden>
+  <h2>Animations natives <small>WebP / GIF tels qu'ils ont été exportés</small></h2>
+  <div id="animations" class="animations"></div>
+</section>
+
+<section id="sec-studio" class="section" hidden>
+  <h2>Reconstitution des calques <small>frames PNG rejouées dans l'ordre du pack</small></h2>
+  <div id="scenes" class="scenes"></div>
+  <div class="studio">
+    <div class="scene">
+      <div class="barre-controles">
+        <button id="play" class="ctrl">⏸ Pause</button>
+        <button id="prec" class="ctrl">◀ Frame</button>
+        <button id="suiv" class="ctrl">Frame ▶</button>
+        <button id="reset" class="ctrl">↺</button>
+        <label class="champ">Vitesse
+          <select id="vitesse"><option value="0.25">0,25×</option><option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
+        </label>
+        <label class="champ">Frame <input id="curseur" type="range" min="0" max="1" value="0"></label>
+        <span id="chrono" class="chrono">frame 0</span>
+      </div>
+      <div class="barre-controles">
+        <label class="champ">Cadence <input id="cadence" type="number" min="16" max="2000" step="1" value="100"> ms</label>
+        <span id="source-cadence" class="note"></span>
+        <span class="sep"></span>
+        <button class="zoom ctrl" data-z="1">1×</button><button class="zoom ctrl" data-z="2">2×</button>
+        <button class="zoom ctrl" data-z="3">3×</button><button id="fit" class="ctrl">Ajuster</button>
+        <label class="case"><input type="checkbox" id="grille"> Grille 8 px</label>
+        <button id="png" class="ctrl">↓ PNG</button>
+      </div>
+      <div class="cadre"><canvas id="c"></canvas></div>
+      <p class="note" id="details-scene"></p>
+    </div>
+    <aside class="calques">
+      <div class="entete-calques"><strong>Calques</strong><span id="nb-calques"></span></div>
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <button id="tout" class="ctrl">Tout cocher</button><button id="rien" class="ctrl">Inverser</button>
+      </div>
+      <div id="liste-calques"></div>
+    </aside>
+  </div>
+</section>
+
+<section id="sec-grounds" class="section" hidden>
+  <h2>Cartes PMDO natives <small>fichiers .rsground livrés dans ce pack</small></h2>
+  <div id="grounds" class="puces"></div>
+</section>
+
+<section id="sec-infos" class="section" hidden>
+  <h2>Manifeste du pack</h2>
+  <pre id="infos-texte"></pre>
+</section>
+
+<section id="sec-fichiers" class="section">
+  <h2>Fichiers du pack <small id="nb-fichiers"></small></h2>
+  <input id="cherche-fichier" type="search" placeholder="Filtrer les fichiers…" class="cherche">
+  <div id="fichiers" class="fichiers"></div>
+  <button id="plus-fichiers" class="ctrl" hidden>Afficher plus</button>
+</section>
+
+<footer><a href="/">← Toutes les cartes</a> · <span id="pied"></span></footer>
+<script src="/ui/lecteur.js"></script>
+</body>
+</html>

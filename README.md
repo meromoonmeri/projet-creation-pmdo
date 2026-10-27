@@ -14,6 +14,29 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **245 fichiers de données PMDO natives** | `.rsground` (Ground), `.tile` (tilesets), `.tmj`/`.tsj` (Tiled), `.npz` (provenance), `.chara`, `.dir` |
 | **règles JSON** | `kit.json`, `source/regles_acces.json`, `controle_qualite.json`, `controle_navigateur.json` |
 
+## Aperçu de toutes les maps — à lancer
+
+```sh
+.venv/bin/python source/serveur_apercus/serve.py --port 8000 --bind 0.0.0.0
+```
+
+La galerie sur `/` donne accès à **toutes les cartes** : les **166 aperçus HTML
+autonomes** (servis octet pour octet, animations incluses) et les **200 archives
+ZIP**, dont les 30 645 frames, 311 animations WebP/GIF natives et 266 cartes
+`.rsground` sont restaurés dans un lecteur par pack. Recherche, filtres,
+vignettes, animations natives et reconstitution calque par calque.
+
+Si les médias manquent (ils ne sont pas versionnés ici, 2,66 Go), les restaurer
+depuis le dépôt source en une commande :
+
+```sh
+python3 -m venv .venv && .venv/bin/pip install Pillow
+.venv/bin/python source/serveur_apercus/restaurer.py
+```
+
+Voir **[source/serveur_apercus/LIRE_MOI.md](source/serveur_apercus/LIRE_MOI.md)**
+pour les routes, les chiffres, la méthode de fidélité des animations et les limites.
+
 ## Par où commencer
 
 | Document | Rôle |
@@ -46,6 +69,7 @@ Le détail — commandes, formats, règles de calques, marqueurs, collisions, li
 │   └── <projet>/     build.py · test_build.py · verify.py · package.py
 │                     README_PACK.md · WORKFLOW.md · STATUS.md · provenance.json
 │                     viewer_template.html · references/*.rsground · references/*.tile
+│   ├── serveur_apercus/  galerie + lecteur de ZIP + restauration des médias (voir LIRE_MOI.md)
 │   ├── pmdo_cote/    codec binaire .rsground + INSTALLER.py (installation dans un mod)
 │   ├── pmdo_runtime/ test avec le vrai chargeur PMDO 0.8.12 (sans affichage)
 │   ├── build_zones_guidees.py · build_zones_multicalques.py · regles_acces.json

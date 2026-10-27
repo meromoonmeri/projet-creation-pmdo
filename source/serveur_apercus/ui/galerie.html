@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aperçus des maps PMDO — toutes les cartes restaurées</title>
+<link rel="stylesheet" href="/ui/galerie.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="kicker">Guilde Treehouse · PMDO 0.8.12</p>
+      <h1>Aperçus des maps</h1>
+      <p class="sous">Toutes les cartes restaurées dans l'aperçu : pages HTML d'origine <strong>à l'identique</strong>,
+      et archives ZIP reconstituées calque par calque, avec leurs animations.</p>
+    </div>
+    <div class="chiffres" id="chiffres"></div>
+  </div>
+</header>
+
+<div class="bandeau" id="bandeau">
+  <span class="point"></span><span id="etat-texte">Chargement du catalogue…</span>
+  <a href="/sante" target="_blank" class="lien-etat">détail de la restauration ↗</a>
+</div>
+
+<nav class="barre">
+  <div class="recherche">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 104 10.5l4.3 4.3 1.4-1.4-4.3-4.3A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg>
+    <input id="q" type="search" placeholder="Chercher une map, un biome, un préfixe, un pack…" autocomplete="off">
+    <span class="raccourci">/</span>
+  </div>
+  <div class="types" id="types"></div>
+</nav>
+
+<div class="categories" id="categories"></div>
+
+<section class="resultats">
+  <div class="entete-resultats">
+    <h2 id="titre-section">Toutes les cartes</h2>
+    <span id="compte" class="compte"></span>
+  </div>
+  <div id="grille" class="grille"></div>
+  <button id="plus" class="plus" hidden>Afficher 120 cartes de plus</button>
+  <p id="vide" class="vide" hidden>Aucune carte ne correspond à cette recherche.</p>
+</section>
+
+<footer>
+  <p><strong>Fidélité :</strong> les 166 pages <code>apercu_*.html</code> sont servies octet pour octet depuis le dépôt
+  <code>meromoonmeri/projet-pmdo</code> — leurs calques, data-URI, canvas et animations sont intacts.
+  Les 200 ZIP sont extraits : 30 645 frames PNG, 311 animations WebP/GIF natives et 266 Grounds PMDO
+  sont accessibles dans le lecteur de chaque pack. Aucun test moteur PMDO n'est revendiqué.</p>
+  <p class="petit">Serveur local · <a href="/api/catalogue">catalogue JSON</a> · <a href="/sante">état</a></p>
+</footer>
+
+<script src="/ui/galerie.js"></script>
+</body>
+</html>
