@@ -1,0 +1,178 @@
+# Rapport de clamp — bibliothèque Ground
+
+- maps clampées : **147** (0 erreur(s))
+- liens symboliques non matérialisés : **13**
+- corrections hors zone appliquées : **15**
+- anomalies hors zone restantes : **0**
+- cellules de bord marchables (frontières ouvertes) : **71888**
+- scellement des bords : non (option --sceller-bords)
+- assets (.tile/.dir) non résolus : 00_ciel, 01_long_cap_jour_02, 10-PMD SKY, 10_maisons_eau_sheet, 13_avancee_basse_gauche_terrain, 1UCKBNSs1w1PcwGct3NbnI6Vc-A-Yw9hWOholwPeEhA, 8f9fbfe4-b846-492b-b564-b6bc33749e20, 9cWbwSpH8oLENPQSED5Gj7rGQqeFWST8uAxSR55SHts, Apricorn_Glade_Big_Tree, CLIFF MIROR-Photoroom, CanyonCamp, CarriereMagnetique_Base, Celestial_Peak_Entrance_Art, ChampRavage_Base, Cloven_Entrance_Anim_1, Cloven_Entrance_Base, Colline_Anciens_Base, CratereFumant_Base, D01p11b_Base, D01p41a_Base, D06p11a_Base, D09p03_Base, D13p11a_Base, D14p11a_Base, D24p31a_Base, D26p31a_Base, D26p43a_Base, D28p31a_Base, D41p41a_Base, D55p11a_Base, D57p44a_Base, DesertFournaise_Base, DrenchedBluffEntranceDetails, EoN_DininghallNight, EoN_GuildmasterRoomNight, EoN_IntroRoad, EoN_IntroStormySharpedo, EtangCarapace_Base, First_Core_Location_Base, ForetEnvolee_Base, FosseArdente_Base, FosseVolcanique_Base, G01p02a_Base, G01p03a_Base, G01p04a_Base, G01p04c_Base, G01p05a_Base, G01p06a_Base, G01p07a_Base, G01p07c_Base, G01p08a_Base, G01p09a_Base, G01p09c_Base, G01p10c_Base, GROTTE, GorgeArdenteCoeur_Base, GorgeArdentePorte_Base, GrotteRocheuse_Base, GroudonStatueStatic, Guild_Bedroom_Hallway_Supports, Guild_Bedroom_Hallway_Walls, Guild_Bottom_Left_Bedroom_Supports, Guild_Bottom_Left_Bedroom_Walls, Guild_Bottom_Right_Bedroom_Supports, Guild_Bottom_Right_Bedroom_Walls, Guild_First_Floor, Guild_Guildmasters_Room_Supports, Guild_Third_Floor_Lobby_Objects, Guild_Third_Floor_Lobby_Supports, Guild_Top_Right_Bedroom_Supports, Guild_Top_Right_Bedroom_Walls, H01p99a_Base, H02p99a_Base, Habitat_SharpedoBluff_Day_Layer1, INVERSEPATHWAY, KINGAMBIT DOJO, LacCascade_Base, LulubyTownEvening_Base, LulubyTownMorning_Base, LuminousSpring, LuminousSpringAnim, Metano_Altere_Transition_Base, Metano_Town_Animated, Metano_Town_Animated_Night, Metano_Town_Cafe, Metano_Town_Cave_Objects, Metano_Town_Electric_Home_Base, Metano_Town_Electric_Home_Objects, Metano_Town_Fire_Home_Animated, Metano_Town_Fire_Home_Base, Metano_Town_Fire_Home_Objects, Metano_Town_Objects_Over_Night, Metano_Town_Objects_Under_Night, Metano_Town_River_Animation_1_Night, Metano_Town_Rock_Home_Base, Metano_Town_Rock_Home_Objects, Metano_Town_Trimmed, Metano_Town_Water_Home_Base, Metano_Town_Water_Home_Base_Animated, MontGrondantPied_Base, Mount_Windswept_Shadows, P01P01A_layer1, P01p01a_Base, P01p04a_Base, P17p02a_Base, P19p02a_Base, PMD_TREES, PlainesBrulees_Base, PreTonnerre_Base, QGKingambit_metano_cafe_reference_pmdo_40pct, QbGsHZzLNXjjGQqPTF7sfhBBqrF3njoBlTbiFK0sRKw, R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M, S01p02a_Base, Searing_Tunnel_Rocks, T00p02_Base, T01p03a_Base, T01p04a_Base, TownBase, V13p01a_Base, V14p01a_Base, V14p04a_Base, VigieStratos_Base, WoN_overw1_autumn, WoN_overw2_autumn, WoN_overw3_autumn, WoN_overw4_autumn, WoN_overw5_autumn, WoN_overw5e_autumn, WoN_overwf_autumn, WoN_overwh_autumn, WoN_overwhb_autumn, WoN_overwhbn_autumn, WoN_overwhn_autumn, WoN_overwyh_autumn, a01p01_Base, a02p02_Base, a02p04_Base, a04p01_Base, alakazam, alakazam_redimensionne, b01p01b_Base, b01p02a_Base, b01p02b_Base, b01p02c_Base, b03p01c_Base, b04p01c_Base, b05p01b_Base, b05p02a_Base, b05p02b_Base, b06p01c_Base, b09p01b_Base, b09p01c_Base, b09p02a_Base, b09p02b_Base, b09p02c_Base, b10p01c_Base, b11p01c_Base, b12p01a_Base, b12p02a_Base, b12p02b_Base, b12p02c_Base, charmina_hut, d06p03_DirectBase, d09p03_DirectBase, d12p01_Base, d12p02_DirectBase, d12p04_DirectBase, d19p01_DirectBase, d21p01_DirectBase, d23p01_DirectBase, h19p01_Base, h26p01_Base, image (2), image (4), image-removebg-preview (2), interieur_sans_deco_jour, interieur_sans_deco_jour (1), interieur_sans_deco_jour (2), kzKLPRyU8on31RVdw889r3Rvrcv9dOYB8MJABsvrmlAFRERERERERERERERERERERERERERERERERERERERERERERE5af4B3BJ2tbA2I6MAAAAASUVORK5CYII, metano_scale_verification, n7be-MMZKAaGGNSe1PWN1p_wGSQqkqtV0PrlGaur_ks, nenupharetcristaux-removebg-preview, pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1), s02_Base, s03_Base, salle_jour, spinda_cafe_dojo, spindacafevFINAL, t01p04_Base, telechargement_6_tileset, telechargement_6_tileset (1), terrain, terrain (2), terrain (3), terrain (4), test, texyre, town_map, téléchargement (3), téléchargement (5), téléchargement (6), téléchargement (7), télécharger (2), v2_promontoire_jour_03, vxLLBr169oj9cLCPdY3wF2uiWmP5zYEBy1P_PyM5ktk
+- noms d'autotileset éditeur non résolus : 0 (métadonnées, sans fichier correspondant)
+- fichiers exclus (Étape 0) : **5**
+
+- EXCLUS `source/amp_plains_fleurie_v1/references/vast_steppe_entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — Origine non etablie (possible derive d'un remake)
+- EXCLUS `source/antre_harmonie_v3/references/altere_pond.rsground` (arena/b71b6616-projet-creation-pmdo) — Origine non etablie (reference d'etude de l'Antre Harmonie)
+- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__Brine_Cave_Entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
+- EXCLUS `source/cote_v5_expeditions/references/ExplorersOfSkyOrigins__drenched_bluff_entrance.rsground` (arena/b71b6616-projet-creation-pmdo) — contenu derive d'un remake de jeu commercial (exclusion ferme)
+- EXCLUS `source/ledian_dojo_v1/references/ledian_dojo.rsground` (arena/b71b6616-projet-creation-pmdo) — Mod communautaire d'auteur (Ledian Dojo) : licence non verifiee
+- LIEN `packages_destiny/faille_spatiale_entree.rsground` -> `../../../../../.cache/tiles/faille_spatiale_entree_v1/Data/Ground/faille_spatiale_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/faille_spatiale_sanctuaire.rsground` -> `../../../../../.cache/tiles/faille_spatiale_sanctuaire_v1/Data/Ground/faille_spatiale_sanctuaire.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/foret_givree_entree.rsground` -> `../../../../../.cache/tiles/foret_givree_entree_v1/Data/Ground/foret_givree_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/foret_givree_sanctuaire.rsground` -> `../../../../../.cache/tiles/foret_givree_sanctuaire_v1/Data/Ground/foret_givree_sanctuaire.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mine_magma_arene.rsground` -> `../../../../../.cache/tiles/mine_magma_arene_v1/Data/Ground/mine_magma_arene.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mine_magma_entree.rsground` -> `../../../../../.cache/tiles/mine_magma_entree_v1/Data/Ground/mine_magma_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_brasier_entree.rsground` -> `../../../../../.cache/tiles/mont_brasier_entree_v1/Data/Ground/mont_brasier_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_brasier_sommet.rsground` -> `../../../../../.cache/tiles/mont_brasier_sommet_v1/Data/Ground/mont_brasier_sommet.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_foudre_entree.rsground` -> `../../../../../.cache/tiles/mont_foudre_entree_v1/Data/Ground/mont_foudre_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_foudre_sommet.rsground` -> `../../../../../.cache/tiles/mont_foudre_sommet_v1/Data/Ground/mont_foudre_sommet.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_lointain_entree.rsground` -> `../../../../../.cache/tiles/mont_lointain_entree_v1/Data/Ground/mont_lointain_entree.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/mont_lointain_sommet.rsground` -> `../../../../../.cache/tiles/mont_lointain_sommet_v1/Data/Ground/mont_lointain_sommet.rsground` — cible absente du depot, non materialisee
+- LIEN `packages_destiny/tour_celeste_entree.rsground` -> `../../../../../.cache/tiles/tour_celeste_entree_v1/Data/Ground/tour_celeste_entree.rsground` — cible absente du depot, non materialisee
+
+- `cote_metano_dix_zones_lot2_pmdo/cote20_11_anses_jumelles_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_11_anses_jumelles_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_12_balcon_asymetrique_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_12_balcon_asymetrique_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_13_chapelet_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_13_chapelet_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_14_corniches_paralleles_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_14_corniches_paralleles_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_15_mesas_decalees_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_15_mesas_decalees_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_16_couronne_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_16_couronne_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_17_chenal_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_17_chenal_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_18_esplanade_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_18_esplanade_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_19_eperon_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_19_eperon_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_20_marches_levant_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_lot2_pmdo/cote20_20_marches_levant_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_01_long_cap_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_01_long_cap_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_02_mesa_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_02_mesa_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_03_detroit_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_03_detroit_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_04_deux_paliers_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_04_deux_paliers_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_05_crique_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_05_crique_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_06_cap_est_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_06_cap_est_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_07_cap_ouest_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_07_cap_ouest_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_08_corniche_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_08_corniche_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_09_archipel_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_09_archipel_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_10_trois_terrasses_jour.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_10_trois_terrasses_nuit.rsground` 164x128 — corrections : aucune ; frontière ouverte : 580 cellules
+- `cote_metano_dix_zones_pmdo/cote10_v2_promontoire_jour.rsground` 164x102 — corrections : aucune ; frontière ouverte : 528 cellules
+- `cote_metano_dix_zones_pmdo/cote10_v2_promontoire_nuit.rsground` 164x102 — corrections : aucune ; frontière ouverte : 528 cellules
+- `cote_metano_dix_zones_pmdo/cote10_v2_terrasse_jour.rsground` 150x112 — corrections : aucune ; frontière ouverte : 520 cellules
+- `cote_metano_dix_zones_pmdo/cote10_v2_terrasse_nuit.rsground` 150x112 — corrections : aucune ; frontière ouverte : 520 cellules
+- `cote_metano_v2_pmdo/cote_v2_promontoire.rsground` 164x102 — corrections : aucune ; frontière ouverte : 528 cellules
+- `cote_metano_v2_pmdo/cote_v2_terrasse.rsground` 150x112 — corrections : aucune ; frontière ouverte : 520 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_01_cap_large_jour.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_01_cap_large_nuit.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_02_terrasse_croissant_jour.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_02_terrasse_croissant_nuit.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_03_double_belvedere_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_03_double_belvedere_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_04_pointe_sinueuse_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_04_pointe_sinueuse_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_05_grande_mesa_jour.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_05_grande_mesa_nuit.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_06_crique_profonde_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_06_crique_profonde_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_07_balcon_haut_jour.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_07_balcon_haut_nuit.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_08_terrasses_decalees_jour.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_08_terrasses_decalees_nuit.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_09_cap_eventail_jour.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_09_cap_eventail_nuit.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_10_esplanade_arrondie_jour.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_metano_abyss_0812_pmdo/v40812_10_esplanade_arrondie_nuit.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_v2_0812_pmdo/v30812_01_cap_large_jour.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `cotes_v2_0812_pmdo/v30812_01_cap_large_nuit.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `cotes_v2_0812_pmdo/v30812_02_terrasse_croissant_jour.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_v2_0812_pmdo/v30812_02_terrasse_croissant_nuit.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_v2_0812_pmdo/v30812_03_double_belvedere_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `cotes_v2_0812_pmdo/v30812_03_double_belvedere_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `cotes_v2_0812_pmdo/v30812_04_pointe_sinueuse_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_v2_0812_pmdo/v30812_04_pointe_sinueuse_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_v2_0812_pmdo/v30812_05_grande_mesa_jour.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_v2_0812_pmdo/v30812_05_grande_mesa_nuit.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_v2_0812_pmdo/v30812_06_crique_profonde_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_v2_0812_pmdo/v30812_06_crique_profonde_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `cotes_v2_0812_pmdo/v30812_07_balcon_haut_jour.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `cotes_v2_0812_pmdo/v30812_07_balcon_haut_nuit.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `cotes_v2_0812_pmdo/v30812_08_terrasses_decalees_jour.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_v2_0812_pmdo/v30812_08_terrasses_decalees_nuit.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `cotes_v2_0812_pmdo/v30812_09_cap_eventail_jour.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `cotes_v2_0812_pmdo/v30812_09_cap_eventail_nuit.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `cotes_v2_0812_pmdo/v30812_10_esplanade_arrondie_jour.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `cotes_v2_0812_pmdo/v30812_10_esplanade_arrondie_nuit.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_01_cap_large_jour.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_01_cap_large_nuit.rsground` 140x114 — corrections : aucune ; frontière ouverte : 504 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_02_terrasse_croissant_jour.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_02_terrasse_croissant_nuit.rsground` 145x113 — corrections : aucune ; frontière ouverte : 512 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_03_double_belvedere_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_03_double_belvedere_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_04_pointe_sinueuse_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_04_pointe_sinueuse_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_05_grande_mesa_jour.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_05_grande_mesa_nuit.rsground` 143x113 — corrections : aucune ; frontière ouverte : 508 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_06_crique_profonde_jour.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_06_crique_profonde_nuit.rsground` 141x114 — corrections : aucune ; frontière ouverte : 506 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_07_balcon_haut_jour.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_07_balcon_haut_nuit.rsground` 137x114 — corrections : aucune ; frontière ouverte : 498 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_08_terrasses_decalees_jour.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_08_terrasses_decalees_nuit.rsground` 144x114 — corrections : aucune ; frontière ouverte : 512 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_09_cap_eventail_jour.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_09_cap_eventail_nuit.rsground` 139x114 — corrections : aucune ; frontière ouverte : 502 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_10_esplanade_arrondie_jour.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `mod_metano_expeditions_pmdo_0812/v40812_10_esplanade_arrondie_nuit.rsground` 142x114 — corrections : aucune ; frontière ouverte : 508 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_01_crete_sillage_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_01_crete_sillage_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_02_caps_relies_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_02_caps_relies_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_03_eventail_strates_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_03_eventail_strates_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_04_lagune_occident_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_04_lagune_occident_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_05_cote_quatre_pointes_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_05_cote_quatre_pointes_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_06_sommet_balcon_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_06_sommet_balcon_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_07_cap_chenal_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_07_cap_chenal_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_08_antre_crochu_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_08_antre_crochu_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_09_grotte_marees_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_09_grotte_marees_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_10_defile_brume_jour.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `mod_metano_expeditions_pmdo_0812/v50812_10_defile_brume_nuit.rsground` 146x114 — corrections : aucune ; frontière ouverte : 516 cellules
+- `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules
+- `destiny_cliff_tests/cliffnordouesttest1.rsground` 138x98 — corrections : aucune ; frontière ouverte : 468 cellules
+- `entree_falaise_trempee_sud_nord_v1/entree_falaise_trempee_sud_nord_v1.rsground` None — corrections : aucune
+- `entree_promontoire_nuages_sud_nord_v1/entree_promontoire_nuages_sud_nord_v1.rsground` None — corrections : aucune
+- `entree_tourbiere_piliers_sud_nord_v1/entree_tourbiere_piliers_sud_nord_v1.rsground` None — corrections : aucune
+- `fin_falaise_trempee_source_v1/fin_falaise_trempee_source_v1.rsground` None — corrections : aucune
+- `fin_promontoire_nuages_clairiere_v1/fin_promontoire_nuages_clairiere_v1.rsground` None — corrections : aucune
+- `destiny_cliff_tests/cliffdaytest.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules ; chevauchements entités : 6
+- `reseau_metano_normal_v1/metano_gen_accueil.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
+- `reseau_metano_normal_v1/metano_gen_cafe.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
+- `reseau_metano_normal_v1/metano_gen_casino.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
+- `reseau_metano_normal_v1/metano_gen_salon_bas.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
+- `reseau_metano_normal_v1/metano_gen_salon_haut.rsground` 100x75 — corrections : 3 ; frontière ouverte : 346 cellules
+- `references_metano/metano_cafe.rsground` 57x40 — corrections : aucune ; frontière ouverte : 190 cellules
+- `references_dumpasset/spinda_cafe.rsground` 87x57 — corrections : aucune ; frontière ouverte : 284 cellules
+- `references_dumpasset/guild_second_floor.rsground` 84x56 — corrections : aucune ; frontière ouverte : 276 cellules ; chevauchements entités : 2
+- `references_halcyon/Halcyon__crooked_cavern_entrance.rsground` 40x30 — corrections : aucune ; frontière ouverte : 136 cellules
+- `destiny_cliff_tests/cliffdaytest_source.rsground` 123x99 — corrections : aucune ; frontière ouverte : 440 cellules
+- `references_metano/metano_normal_home.rsground` 45x35 — corrections : aucune ; frontière ouverte : 156 cellules
+- `references_dumpasset/luminous_spring.rsground` 25x25 — corrections : aucune ; frontière ouverte : 96 cellules
+- `references_halcyon/crooked.rsground` 40x30 — corrections : aucune ; frontière ouverte : 136 cellules

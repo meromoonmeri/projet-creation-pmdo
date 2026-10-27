@@ -118,3 +118,28 @@ les paquets de mods `/download/*.zip` et `/.cache/virtual_zips/*.zip`, et la
 planche `renders/pmd_destiny_fangame_v1/apercus_menu/planche_4_maps_opening_pmd_320x240.png`.
 
 Relancer : `python3 OUTILS/restaurer_branches.py --fetch` (idempotent).
+
+## Bibliothèque Ground clampée pour la quest PMDO Destiny (27 octobre 2026)
+
+`OUTILS/construire_bibliotheque_ground.py` construit `bibliotheque_ground/` :
+**147 maps `.rsground` en version clampée** (126 des 6 ZIP livrés + 21 des
+branches `arena/*`), prêtes à importer dans la quest PMDO Destiny 0.8.12
+(Namespace `halcyon`, GameVersion `0.8.12.0` — jamais modifiés).
+
+- **Clamp** : toute donnée espace-carte (obstacles.Bounds — y compris les packs
+  en listes de listes —, Collider/Hitbox, Loc/StartLoc/EndLoc, Decorations) est
+  ramenée dans les limites par intersection ; `TexLoc`, fonds et identifiants
+  intacts. 15 corrections hors zone réelles (spawners des maps
+  `reseau_metano_normal_v1` placés 170 px sous la carte) → **0 anomalie
+  restante**. Option `--sceller-bords` pour collisionner les cellules de bord
+  marchables (71 888 au total — diagnostic de frontières ouvertes).
+- **Étape 0 (provenance)** : 5 fichiers **exclus** et signalés (2 dérivés
+  d'ExplorersOfSkyOrigins = exclusion ferme, 3 provenances ambiguës/licences
+  non vérifiées) ; 13 stubs en liens symboliques `.cache/tiles/` non
+  matérialisés. Crédits dépôt par dépôt : `bibliotheque_ground/CREDITS.md`.
+- Chaque lot embarque `Data/Ground` (clampé), `Data/Script`, `Content/Tile`+
+  `Content/BG`, `meta_src/` et un `lot.json` avec la déclaration `GroundMaps`
+  prête à recopier **en fin de tableau** (Étape 2). Audit : 195 noms de
+  feuilles référencées sans fichier listés dans `rapport_clamp.json`.
+- Les données (`bibliotheque_ground/lots/`, 2,4 Go) sont régénérables par le
+  script et non suivies ; le script, les docs et les rapports sont versionnés.
