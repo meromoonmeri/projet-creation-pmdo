@@ -1,0 +1,111 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>Quiz de personnalité — badge étoile par nature</title>
+<style>
+body { background:#141220; color:#eee; font:15px/1.55 system-ui,sans-serif; max-width:1100px; margin:18px auto; padding:0 12px }
+a { color:#ffd76a } small { color:#999 }
+h1 { font-size:24px } h2 { font-size:18px; margin-top:28px; border-bottom:1px solid #333; padding-bottom:4px }
+.bar { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 }
+button.nat { border:1px solid #0008; border-radius:8px; padding:6px 10px; cursor:pointer;
+  color:#1a1208; font-weight:600; text-shadow:0 1px 0 #fff6 }
+button.nat.sel { outline:3px solid #ffd76a }
+.stage { position:relative; width:640px; max-width:100%; height:480px; overflow:hidden;
+  border:1px solid #333; border-radius:10px; background:#241c38 }
+.stage img.fond { position:absolute; width:200%; height:100%; image-rendering:pixelated; opacity:.95 }
+.stage img.badge { position:absolute; left:50%; top:46%; width:280px; transform:translate(-50%,-50%);
+  filter:drop-shadow(0 6px 18px #0009); transition:opacity .25s }
+.stage .voile { position:absolute; inset:0; background:radial-gradient(circle at 50% 40%, #0000 40%, #12081ccc 100%) }
+.stage .conclusion { position:absolute; left:0; right:0; bottom:14px; text-align:center }
+.stage .conclusion .nom { font-size:22px; font-weight:700 }
+.stage .conclusion .det { background:#191430d9; border:1px solid #7a6cc0; border-radius:10px;
+  display:inline-block; padding:6px 14px; margin-top:6px; font-size:13px }
+table { border-collapse:collapse } td, th { border:1px solid #443c2c; padding:3px 10px; font-size:13px }
+.pastille { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:6px;
+  border:1px solid #0008; vertical-align:-2px }
+.gal { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px }
+.gal figure { margin:0; background:#221e33; border:1px solid #3c3560; border-radius:8px; padding:8px; text-align:center }
+.gal img { width:100%; image-rendering:pixelated }
+.gal figcaption { font-size:12px; margin-top:4px }
+.note { background:#221e33; border:1px solid #3c3560; border-radius:8px; padding:10px 14px }
+</style></head><body>
+<p><a href="/">← Index de la visionneuse</a> ·
+<a href="apercu_personality_quiz_parallax.html">Parallax du quiz</a></p>
+<h1>Quiz de personnalité — badge étoile par nature</h1>
+<p>Dans Sky, la conclusion du quiz se joue sur un <b>ruban</b> (l'« Aura Bow »)
+qui se colore au toucher. Dans <b>PMD Destiny</b>, il est remplacé par le
+<b>badge étoile de l'opening</b>, dont la couleur change selon la
+<b>nature conclue</b> et affiche la conclusion (le starter héros ♂/♀).
+Cliquez une nature pour simuler la conclusion :</p>
+
+<div class="bar" id="bar"><button class="nat" data-i="0" style="background:#E8A020">Hardi</button><button class="nat" data-i="1" style="background:#D8C050">Docile</button><button class="nat" data-i="2" style="background:#E03028">Brave</button><button class="nat" data-i="3" style="background:#E8D828">Joyeux</button><button class="nat" data-i="4" style="background:#9040D0">Malicieux</button><button class="nat" data-i="5" style="background:#F070B0">Naïf</button><button class="nat" data-i="6" style="background:#6098D8">Timide</button><button class="nat" data-i="7" style="background:#F06820">Pressé</button><button class="nat" data-i="8" style="background:#5848C8">Malin</button><button class="nat" data-i="9" style="background:#40C898">Calme</button><button class="nat" data-i="10" style="background:#28A0B8">Relax</button><button class="nat" data-i="11" style="background:#28406E">Solo</button><button class="nat" data-i="12" style="background:#28C8C8">Bizarre</button><button class="nat" data-i="13" style="background:#28B058">Discret</button><button class="nat" data-i="14" style="background:#D02890">Précipité</button><button class="nat" data-i="15" style="background:#2858D0">Assuré</button></div>
+<div class="stage">
+  <img class="fond" src="apercus/quiz/Dream_Back.png" alt="">
+  <div class="voile"></div>
+  <img class="badge" id="badge" src="apercus/quiz_badges/badge_blanc.png" alt="badge étoile">
+  <div class="conclusion">
+    <div class="nom" id="nom">Avant analyse — appuyez sur une nature</div>
+    <div class="det" id="det">Le badge est blanc, comme le ruban avant l'analyse de l'aura.</div>
+  </div>
+</div>
+
+<h2>Les 16 natures et leur badge</h2>
+<div class="gal">
+<figure><img src="apercus/quiz_badges/badge_blanc.png" alt="blanc">
+<figcaption>Avant analyse — blanc</figcaption></figure>
+<figure><img src="apercus/quiz_badges/badge_hardy.png" alt="Hardi"><figcaption style="color:#E8A020">Hardi — Or</figcaption></figure><figure><img src="apercus/quiz_badges/badge_docile.png" alt="Docile"><figcaption style="color:#D8C050">Docile — Sable</figcaption></figure><figure><img src="apercus/quiz_badges/badge_brave.png" alt="Brave"><figcaption style="color:#E03028">Brave — Écarlate</figcaption></figure><figure><img src="apercus/quiz_badges/badge_jolly.png" alt="Joyeux"><figcaption style="color:#E8D828">Joyeux — Citron</figcaption></figure><figure><img src="apercus/quiz_badges/badge_impish.png" alt="Malicieux"><figcaption style="color:#9040D0">Malicieux — Améthyste</figcaption></figure><figure><img src="apercus/quiz_badges/badge_naive.png" alt="Naïf"><figcaption style="color:#F070B0">Naïf — Rose</figcaption></figure><figure><img src="apercus/quiz_badges/badge_timid.png" alt="Timide"><figcaption style="color:#6098D8">Timide — Bleu brume</figcaption></figure><figure><img src="apercus/quiz_badges/badge_hasty.png" alt="Pressé"><figcaption style="color:#F06820">Pressé — Mandarine</figcaption></figure><figure><img src="apercus/quiz_badges/badge_sassy.png" alt="Malin"><figcaption style="color:#5848C8">Malin — Indigo</figcaption></figure><figure><img src="apercus/quiz_badges/badge_calm.png" alt="Calme"><figcaption style="color:#40C898">Calme — Menthe</figcaption></figure><figure><img src="apercus/quiz_badges/badge_relaxed.png" alt="Relax"><figcaption style="color:#28A0B8">Relax — Lagune</figcaption></figure><figure><img src="apercus/quiz_badges/badge_lonely.png" alt="Solo"><figcaption style="color:#28406E">Solo — Bleu nuit</figcaption></figure><figure><img src="apercus/quiz_badges/badge_quirky.png" alt="Bizarre"><figcaption style="color:#28C8C8">Bizarre — Cyan</figcaption></figure><figure><img src="apercus/quiz_badges/badge_quiet.png" alt="Discret"><figcaption style="color:#28B058">Discret — Émeraude</figcaption></figure><figure><img src="apercus/quiz_badges/badge_rash.png" alt="Précipité"><figcaption style="color:#D02890">Précipité — Magenta</figcaption></figure><figure><img src="apercus/quiz_badges/badge_bold.png" alt="Assuré"><figcaption style="color:#2858D0">Assuré — Saphir</figcaption></figure>
+</div>
+
+<h2>Table de conclusion (tables ROM de Sky)</h2>
+<table>
+<tr><th>#</th><th>Nature</th><th>Couleur du badge</th><th>Héros ♂</th><th>Héros ♀</th></tr>
+<tr><td>0</td><td>Hardi <small>(Hardy)</small></td><td><span class="pastille" style="background:#E8A020"></span>Or <code>#E8A020</code></td><td>Poussifeu</td><td>Arcko</td></tr><tr><td>1</td><td>Docile <small>(Docile)</small></td><td><span class="pastille" style="background:#D8C050"></span>Sable <code>#D8C050</code></td><td>Reptincel</td><td>Bulbizarre</td></tr><tr><td>2</td><td>Brave <small>(Brave)</small></td><td><span class="pastille" style="background:#E03028"></span>Écarlate <code>#E03028</code></td><td>Pikachu</td><td>Reptincel</td></tr><tr><td>3</td><td>Joyeux <small>(Jolly)</small></td><td><span class="pastille" style="background:#E8D828"></span>Citron <code>#E8D828</code></td><td>Kaiminus</td><td>Évoli</td></tr><tr><td>4</td><td>Malicieux <small>(Impish)</small></td><td><span class="pastille" style="background:#9040D0"></span>Améthyste <code>#9040D0</code></td><td>Tiplouf</td><td>Ouisticram</td></tr><tr><td>5</td><td>Naïf <small>(Naive)</small></td><td><span class="pastille" style="background:#F070B0"></span>Rose <code>#F070B0</code></td><td>Ouisticram</td><td>Skitty</td></tr><tr><td>6</td><td>Timide <small>(Timid)</small></td><td><span class="pastille" style="background:#6098D8"></span>Bleu brume <code>#6098D8</code></td><td>Héricendre</td><td>Tortipouss</td></tr><tr><td>7</td><td>Pressé <small>(Hasty)</small></td><td><span class="pastille" style="background:#F06820"></span>Mandarine <code>#F06820</code></td><td>Lixy</td><td>Pikachu</td></tr><tr><td>8</td><td>Malin <small>(Sassy)</small></td><td><span class="pastille" style="background:#5848C8"></span>Indigo <code>#5848C8</code></td><td>Riolu</td><td>Kaiminus</td></tr><tr><td>9</td><td>Calme <small>(Calm)</small></td><td><span class="pastille" style="background:#40C898"></span>Menthe <code>#40C898</code></td><td>Germignon</td><td>Héricendre</td></tr><tr><td>10</td><td>Relax <small>(Relaxed)</small></td><td><span class="pastille" style="background:#28A0B8"></span>Lagune <code>#28A0B8</code></td><td>Phanpy</td><td>Goupix</td></tr><tr><td>11</td><td>Solo <small>(Lonely)</small></td><td><span class="pastille" style="background:#28406E"></span>Bleu nuit <code>#28406E</code></td><td>Bulbizarre</td><td>Gobou</td></tr><tr><td>12</td><td>Bizarre <small>(Quirky)</small></td><td><span class="pastille" style="background:#28C8C8"></span>Cyan <code>#28C8C8</code></td><td>Carapuce</td><td>Tiplouf</td></tr><tr><td>13</td><td>Discret <small>(Quiet)</small></td><td><span class="pastille" style="background:#28B058"></span>Émeraude <code>#28B058</code></td><td>Arcko</td><td>Germignon</td></tr><tr><td>14</td><td>Précipité <small>(Rash)</small></td><td><span class="pastille" style="background:#D02890"></span>Magenta <code>#D02890</code></td><td>Gobou</td><td>Poussifeu</td></tr><tr><td>15</td><td>Assuré <small>(Bold)</small></td><td><span class="pastille" style="background:#2858D0"></span>Saphir <code>#2858D0</code></td><td>Tortipouss</td><td>Carapuce</td></tr>
+</table>
+<p class="note"><b>Mécanique du quiz (PMD Explorers of Sky, décomp
+<code>pret/pmd-sky</code> overlay_13).</b> Pool de <b>64 questions</b>
+(<code>QUIZ_QUESTION_STRINGS</code>) dont <b>8 tirées au hasard</b>, plus la
+question d'intro « Avez-vous joué à Time/Darkness ? » (bonus de départage qui
+augmente aussi les chances des starters ajoutés) et la question de genre.
+Chaque réponse distribue <b>0 à 4 points</b> sur les <b>16 personnalités</b>
+(<code>QUIZ_ANSWER_POINTS</code> = 128 réponses × 16 scores) ;
+<code>GetPersonality()</code> renvoie le score maximal (bonus
+<code>tiebreaker</code> en cas d'égalité). La nature + le genre donnent le
+starter héros via <code>STARTERS_HERO_IDS</code> (16 paires ♂/♀) ; le
+partenaire se choisit dans <code>STARTERS_PARTNER_IDS</code> (21 espèces).
+Le <b>ruban d'aura</b> du résultat (couleur issue des réglages de la DS)
+devient ici le <b>badge étoile</b> dont la couleur = la nature.</p>
+
+<h2>Provenance</h2>
+<ul>
+<li>Badge étoile : <code>vfx_bruts/badge_amber.png</code> de
+<code>source/pmd_destiny_fangame_v1</code> (branche <code>arena/e39626d2</code>)
+— art de l'utilisateur, présent dans l'opening PMD Destiny. Variantes Cyan et
+Émeraude déjà peintes dans les sources ; les 16 couleurs de natures sont
+générées par recolorisation fidèle (<code>OUTILS/generer_badge_quiz.py</code>),
+reflets blancs et contours préservés. <i>art_approved: false</i> (recolorisations
+à valider).</li>
+<li>Questions/starters/méga-évolutions de <b>PMD Remixed</b> : toujours en attente
+de réception du fichier ; ils s'appuieront sur cette mécanique.</li>
+<li>Mécanique et tables : ROM Sky (<code>pret/pmd-sky</code>, données
+désassemblées) consultées comme <b>référence de conception</b> — aucun texte ni
+graphisme commercial n'est redistribué dans la quest.</li>
+</ul>
+<p class="note">Régénération : <code>.venv/bin/python OUTILS/generer_badge_quiz.py</code>.</p>
+
+<script>
+const NAT = [{"i":0,"fr":"Hardi","en":"Hardy","couleur":"Or","hex":"#E8A020","img":"apercus/quiz_badges/badge_hardy.png","male":"Poussifeu","femelle":"Arcko"},{"i":1,"fr":"Docile","en":"Docile","couleur":"Sable","hex":"#D8C050","img":"apercus/quiz_badges/badge_docile.png","male":"Reptincel","femelle":"Bulbizarre"},{"i":2,"fr":"Brave","en":"Brave","couleur":"\u00c9carlate","hex":"#E03028","img":"apercus/quiz_badges/badge_brave.png","male":"Pikachu","femelle":"Reptincel"},{"i":3,"fr":"Joyeux","en":"Jolly","couleur":"Citron","hex":"#E8D828","img":"apercus/quiz_badges/badge_jolly.png","male":"Kaiminus","femelle":"\u00c9voli"},{"i":4,"fr":"Malicieux","en":"Impish","couleur":"Am\u00e9thyste","hex":"#9040D0","img":"apercus/quiz_badges/badge_impish.png","male":"Tiplouf","femelle":"Ouisticram"},{"i":5,"fr":"Na\u00eff","en":"Naive","couleur":"Rose","hex":"#F070B0","img":"apercus/quiz_badges/badge_naive.png","male":"Ouisticram","femelle":"Skitty"},{"i":6,"fr":"Timide","en":"Timid","couleur":"Bleu brume","hex":"#6098D8","img":"apercus/quiz_badges/badge_timid.png","male":"H\u00e9ricendre","femelle":"Tortipouss"},{"i":7,"fr":"Press\u00e9","en":"Hasty","couleur":"Mandarine","hex":"#F06820","img":"apercus/quiz_badges/badge_hasty.png","male":"Lixy","femelle":"Pikachu"},{"i":8,"fr":"Malin","en":"Sassy","couleur":"Indigo","hex":"#5848C8","img":"apercus/quiz_badges/badge_sassy.png","male":"Riolu","femelle":"Kaiminus"},{"i":9,"fr":"Calme","en":"Calm","couleur":"Menthe","hex":"#40C898","img":"apercus/quiz_badges/badge_calm.png","male":"Germignon","femelle":"H\u00e9ricendre"},{"i":10,"fr":"Relax","en":"Relaxed","couleur":"Lagune","hex":"#28A0B8","img":"apercus/quiz_badges/badge_relaxed.png","male":"Phanpy","femelle":"Goupix"},{"i":11,"fr":"Solo","en":"Lonely","couleur":"Bleu nuit","hex":"#28406E","img":"apercus/quiz_badges/badge_lonely.png","male":"Bulbizarre","femelle":"Gobou"},{"i":12,"fr":"Bizarre","en":"Quirky","couleur":"Cyan","hex":"#28C8C8","img":"apercus/quiz_badges/badge_quirky.png","male":"Carapuce","femelle":"Tiplouf"},{"i":13,"fr":"Discret","en":"Quiet","couleur":"\u00c9meraude","hex":"#28B058","img":"apercus/quiz_badges/badge_quiet.png","male":"Arcko","femelle":"Germignon"},{"i":14,"fr":"Pr\u00e9cipit\u00e9","en":"Rash","couleur":"Magenta","hex":"#D02890","img":"apercus/quiz_badges/badge_rash.png","male":"Gobou","femelle":"Poussifeu"},{"i":15,"fr":"Assur\u00e9","en":"Bold","couleur":"Saphir","hex":"#2858D0","img":"apercus/quiz_badges/badge_bold.png","male":"Tortipouss","femelle":"Carapuce"}];
+const badge = document.getElementById('badge');
+for (const b of document.querySelectorAll('button.nat')) {
+  b.onclick = () => {
+    document.querySelectorAll('button.nat').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel');
+    const n = NAT[+b.dataset.i];
+    badge.style.opacity = 0;
+    setTimeout(() => { badge.src = n.img; badge.style.opacity = 1; }, 180);
+    document.getElementById('nom').textContent = 'Nature : ' + n.fr + ' (' + n.en + ')';
+    document.getElementById('nom').style.color = n.hex;
+    document.getElementById('det').innerHTML =
+      'Badge <b>' + n.couleur + '</b> <code>' + n.hex + '</code> — conclusion : héros <b>' +
+      n.male + '</b> (♂) ou <b>' + n.femelle + '</b> (♀)';
+  };
+}
+</script>
+</body></html>
