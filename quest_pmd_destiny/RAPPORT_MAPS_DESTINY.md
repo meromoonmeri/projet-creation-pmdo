@@ -26,7 +26,21 @@ Les maps sont régénérées par les scripts `source/**/build.py` de la branche 
   `crooked_statique_v2`, `falaise_metano_temoin`, `mod_guilde_entrees_v1`,
   `northern_calques_v1`) ont leurs maps finales couvertes par d'autres lots ou
   versions déjà dans la quest. Non régénérables en l'état (scripts absents).
-- **2 maps WaterfallVillage de town02** (`WaterfallVillageCapital` 233 Mo,
-  `waterfall_cave_1`) : stockées en **Git LFS**, l'hébergeur LFS n'est pas
-  joignable depuis le sandbox. Script prêt : `OUTILS/integrer_waterfall_town02.py`
-  (à lancer depuis un clone local de town02 après `git lfs pull`).
+- **2 maps WaterfallVillage de town02** (« Reverie Town ») — zone
+  `town02_waterfallvillage` **déclarée et compatible quest** : tuiles/BG town02
+  déjà importés, script ground `Data/Script/halcyon/ground/WaterfallVillageCapital`
+  en place, libellé et index de zones régénérés.
+  - `waterfall_cave_1.rsground` (1 817 738 o) **récupéré SANS LFS** et intégré à
+    `Data/Ground/` : copie publique `meromoonmeri/PMD-SKY-PMDO-PORT` vérifiée
+    **sha256 identique** à l'objet LFS (`37bc9935…`).
+  - `WaterfallVillageCapital.rsground` (233 727 831 o, sha256 `afc5081f…`) :
+    objet **Git LFS** dont l'hébergeur de contenu n'est pas joignable depuis le
+    sandbox. Dès que le fichier réel est fourni (pièce jointe / clone local),
+    une commande l'intègre clampé et compatible :
+    `python3 OUTILS/integrer_waterfall_town02.py --fichiers WaterfallVillageCapital.rsground`
+    (waterfall_cave_1 est alors auto-récupéré sans LFS).
+- **Title screen animé PMD Destiny** (« Ray of Hope MIX ») intégré à la quest :
+  fonds `Title_Screen_Background_Jour/Nuit.dir` (24 poses), opening du blason
+  Œuf Ailé (`Content/Obj/Destiny_Logo_Anime_Opening.dir`), UI `Title.png` /
+  `Enter.png`, service `destiny_title_anim`, map-menu `pmd_destiny_menu_jour` +
+  ses 10 tilesets DSTJ. Détail : `TITLE_SCREEN_PMD_DESTINY.md`.

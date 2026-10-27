@@ -15,8 +15,12 @@ du vrai contenu (votre clone local de town02 après `git lfs pull`), ce script :
 5. relance `OUTILS/construire_quest_destiny.py` et régénère l'index des tuiles.
 
 Usage :
-    python3 OUTILS/integrer_waterfall_town02.py --depuis /chemin/vers/town02
+    python3 OUTILS/integrer_waterfall_town02.py --fichiers WaterfallVillageCapital.rsground
+        # waterfall_cave_1 est alors auto-récupéré SANS LFS (copie publique
+        # meromoonmeri/PMD-SKY-PMDO-PORT, sha256 vérifiée) — seul
+        # WaterfallVillageCapital (233 Mo, objet LFS) doit être fourni.
     python3 OUTILS/integrer_waterfall_town02.py --fichiers WVC.rsground wc1.rsground
+    python3 OUTILS/integrer_waterfall_town02.py --depuis /chemin/vers/town02
 """
 from __future__ import annotations
 
@@ -42,21 +46,48 @@ def load_module(name: str, path: Path):
     return m
 
 
+CAVE_OID = "37bc993528697277b9789895e9a34f3250825e01f363f99fe0cf6d4a003441d3"
+CAVE_RAW_URL = ("https://api.github.com/repos/meromoonmeri/PMD-SKY-PMDO-PORT/contents/"
+                "output/Grounds/waterfall_cave_1.rsground")
+
+
+def telecharger_cave(dst: Path) -> Path:
+    """Récupère waterfall_cave_1.rsground SANS LFS (copie publique identique)."""
+    import hashlib
+    import urllib.request
+    if dst.is_file() and hashlib.sha256(dst.read_bytes()).hexdigest() == CAVE_OID:
+        return dst
+    req = urllib.request.Request(CAVE_RAW_URL,
+                                 headers={"Accept": "application/vnd.github.raw",
+                                          "User-Agent": "quest-pmd-destiny"})
+    with urllib.request.urlopen(req, timeout=300) as r:
+        data = r.read()
+    if hashlib.sha256(data).hexdigest() != CAVE_OID:
+        raise SystemExit("waterfall_cave_1 : sha256 inattendu — téléchargement corrompu")
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_bytes(data)
+    return dst
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--depuis", type=Path, help="clone local de meromoonmeri/town02")
-    ap.add_argument("--fichiers", nargs=2, type=Path,
-                    help="chemins des deux .rsground (WaterfallVillageCapital puis waterfall_cave_1)")
+    ap.add_argument("--fichiers", nargs="+", type=Path,
+                    help="WaterfallVillageCapital.rsground (et éventuellement waterfall_cave_1.rsground)")
     args = ap.parse_args()
 
     srcs: list[Path] = []
-    if args.fichiers:
-        srcs = list(args.fichiers)
-    elif args.depuis:
+    if args.depuis:
         d = args.depuis / "Data" / "Ground"
         srcs = [d / "WaterfallVillageCapital.rsground", d / "waterfall_cave_1.rsground"]
+    elif args.fichiers:
+        srcs = list(args.fichiers)
+        if not any(p.name.lower() == "waterfall_cave_1.rsground" for p in srcs):
+            print("waterfall_cave_1 : récupération SANS LFS depuis meromoonmeri/PMD-SKY-PMDO-PORT…")
+            srcs.append(telecharger_cave(BIB_LOTS / LOT / "_telechargements" / "waterfall_cave_1.rsground"))
     else:
-        raise SystemExit("préciser --depuis <clone town02> ou --fichiers <a.rsground> <b.rsground>")
+        raise SystemExit("préciser --depuis <clone town02> ou "
+                         "--fichiers WaterfallVillageCapital.rsground")
 
     for p in srcs:
         if not p.is_file():

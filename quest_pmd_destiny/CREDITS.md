@@ -37,6 +37,29 @@ Minori) ont été importées dans `Content/Tile|BG` avec la règle suivante
   (github.com/Palikadude/Halcyon), sprites : Edan Momu, D4yz, Jaifain.
 - `Content/Tile/index.idx` régénéré au format natif (1 279 tilesets).
 - 2 fichiers homonymes modifiés (`Metano_Town_Base.tile`,
-  `Title_Screen_Background.dir`) neutralisés **par défaut** : passe-les en
-  « propre » dans `OUTILS/surcharge_provenance_tiles.json` s'il s'agit de vos
-  propres versions.
+  `Title_Screen_Background.dir`) neutralisés **par défaut**. Depuis le 27 oct.
+  2026, `Title_Screen_Background.dir` est passé **« propre »** sur attestation
+  de l'utilisateur : le title screen animé PMD Destiny est une création de la
+  quest (`pmd_destiny_fangame_v1`), pas un dérivé Halcyon
+  (`OUTILS/surcharge_provenance_tiles.json`). `Metano_Town_Base.tile` reste
+  neutre par défaut.
+
+## Maps WaterfallVillage (« Reverie Town ») de town02
+
+`WaterfallVillageCapital.rsground` et `waterfall_cave_1.rsground` sont les maps
+de l'utilisateur dans `meromoonmeri/town02` (attestation : « TOUTES LES MAP
+DANS APERCU SONT MES CREATIONS » ; WaterfallVillageCapital = « Reverie Town »).
+`waterfall_cave_1` a été récupéré **sans LFS** (copie publique
+`meromoonmeri/PMD-SKY-PMDO-PORT/output/Grounds/`, sha256 identique à l'objet
+LFS) et intégré à la quest. `WaterfallVillageCapital` (233 Mo) reste à fournir
+(fichier réel uniquement — l'objet LFS est hors de portée réseau du sandbox) ;
+la zone `town02_waterfallvillage` est déjà déclarée et compatible.
+
+## Title screen animé PMD Destiny (« Ray of Hope MIX »)
+
+Ensemble intégré à la quest (fonds Jour/Nuit animés 24 poses, opening du blason
+Œuf Ailé, UI Title/Enter, service `destiny_title_anim`, map-menu
+`pmd_destiny_menu_jour`) : généré par `source/pmd_destiny_fangame_v1/build.py`
+(branche `arena/e39626d2`) à partir des **bruts de l'utilisateur** (logo
+œuf+ailes, mer pixelart jour/nuit, nuages cathédrale). Voir
+`quest_pmd_destiny/TITLE_SCREEN_PMD_DESTINY.md`.
