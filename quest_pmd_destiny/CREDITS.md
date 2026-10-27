@@ -101,3 +101,16 @@ Mécanique de référence consultée dans la ROM Sky (`pret/pmd-sky`, overlay_13
 `QUIZ_ANSWER_POINTS`, `STARTERS_HERO_IDS`, `STARTERS_PARTNER_IDS`) — recherche
 de conception uniquement : aucun texte ni graphisme commercial n'est redistribué.
 Les questions définitives viendront de **PMD Remixed** (crédit dédié).
+
+## Quiz de personnalité — 15 questions, starters et méga-évolution
+
+`Data/quiz_personnalite_config.json` : **15 questions originales** (textes
+rédigés pour PMD Destiny), pool de **36 starters** (starters gen 1-9 + extras
+demandés : Goupix, Goupix d'Alola, Zorua, Zorua de Hisui, Miaouss, Skitty,
+Évoli, Pikachu, Charcadet), mapping nature → starter, talents, méga-évolution.
+`Data/Script/ground/personality_test/` : script de la scène (flux observé sur
+le `personality_test` de **Halcyon** — structure sexe/talent/confirmation —
+code entièrement rédigé pour la quest, aucun fichier Halcyon copié) ;
+`runtime_tested: false` (à tester en jeu). La mention méga-évolution s'affiche
+**en lettres arc-en-ciel** (une couleur par lettre, balises `[color=#RRGGBB]`
+du moteur RogueEssence). Génération : `OUTILS/generer_quiz_destiny.py`.
