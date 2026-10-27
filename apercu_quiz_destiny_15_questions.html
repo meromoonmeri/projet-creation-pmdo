@@ -1,0 +1,223 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>Quiz de personnalité PMD Destiny — 15 questions</title>
+<style>
+body { background:#141220; color:#eee; font:15px/1.55 system-ui,sans-serif; max-width:1000px; margin:18px auto; padding:0 12px }
+a { color:#ffd76a } small { color:#999 }
+h1 { font-size:24px } h2 { font-size:18px; margin-top:28px; border-bottom:1px solid #333; padding-bottom:4px }
+.note { background:#221e33; border:1px solid #3c3560; border-radius:8px; padding:10px 14px }
+.scene { position:relative; overflow:hidden; border:1px solid #333; border-radius:12px;
+  background:#241c38; min-height:470px; padding:22px 26px; box-sizing:border-box }
+.scene .fond { position:absolute; inset:0; width:200%; height:100%; object-fit:cover;
+  image-rendering:pixelated; opacity:.55 }
+.scene .voile { position:absolute; inset:0; background:radial-gradient(circle at 50% 30%, #0000 30%, #140a24dd 100%) }
+.scene .contenu { position:relative; z-index:2 }
+.progress { height:10px; background:#2c2547; border-radius:6px; overflow:hidden; margin:10px 0 18px }
+.progress i { display:block; height:100%; width:0; background:linear-gradient(90deg,#ffd76a,#ff7a9e); transition:width .3s }
+.qtexte { font-size:19px; font-weight:600; margin:14px 0 20px }
+.choix { display:flex; flex-direction:column; gap:12px }
+.choix button { text-align:left; background:#2d2752d9; color:#fff; border:1px solid #8a7ad0;
+  border-radius:10px; padding:12px 16px; font-size:15px; cursor:pointer }
+.choix button:hover { background:#403a6d }
+.cartebadge { text-align:center; padding:18px 0 }
+.cartebadge img { width:230px; image-rendering:pixelated; filter:drop-shadow(0 8px 22px #000a) }
+.natnom { font-size:26px; font-weight:700; margin:8px 0 }
+.pastille { display:inline-block; width:16px; height:16px; border-radius:5px; border:1px solid #0008;
+  vertical-align:-2px; margin-right:8px }
+.type { display:inline-block; background:#3a3460; border-radius:8px; padding:2px 10px; margin:2px;
+  font-size:12px }
+.boite { background:#191430d9; border:1px solid #7a6cc0; border-radius:12px; padding:14px 18px;
+  margin:12px 0; max-width:560px; margin-left:auto; margin-right:auto }
+.dlg { font-size:17px; text-align:center; margin:10px 0 16px }
+.boutons { display:flex; gap:12px; justify-content:center; flex-wrap:wrap }
+.boutons button { min-width:120px; background:#34304e; color:#eee; border:1px solid #6b5fa8;
+  border-radius:8px; padding:10px 18px; font-size:15px; cursor:pointer }
+.boutons button.primaire { background:#5a4bb8; border-color:#9a8ae0; font-weight:700 }
+.boutons button:hover { filter:brightness(1.15) }
+.radio { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:12px 0 }
+.radio button { background:#2d2752d9; color:#fff; border:1px solid #8a7ad0; border-radius:10px;
+  padding:10px 18px; cursor:pointer; font-size:15px }
+.radio button.sel { outline:3px solid #ffd76a }
+.megaligne { text-align:center; font-size:21px; font-weight:800; letter-spacing:1px; margin:12px 0;
+  text-shadow:0 0 18px #fff3 }
+.resume { text-align:center }
+.resume img { width:150px; image-rendering:pixelated }
+table { border-collapse:collapse; width:100% } td, th { border:1px solid #443c2c; padding:4px 10px; font-size:13px }
+details { background:#221e33; border:1px solid #3c3560; border-radius:8px; padding:10px 14px; margin:10px 0 }
+summary { cursor:pointer; font-weight:600 }
+</style></head><body>
+<p><a href="/">← Index de la visionneuse</a> ·
+<a href="apercu_personality_quiz_parallax.html">Parallax du quiz</a> ·
+<a href="apercu_badge_quiz_natures.html">Badges par nature</a></p>
+<h1>Quiz de personnalité PMD Destiny — 15 questions</h1>
+<p>Le chemin complet du quiz de notre quest : <b>15 questions à la PMD</b> →
+<b>couleur de badge</b> (le badge étoile de l'opening remplace le ruban d'aura de
+Sky) → <b>starter selon la nature</b> (pool gen 1-9 + Goupix, Goupix d'Alola,
+Zorua, Zorua de Hisui, Miaouss, Skitty, Évoli, Pikachu, Charcadet) → choix du
+<b>sexe</b> et du <b>talent</b> → confirmation, avec la mention méga-évolution
+en lettres arc-en-ciel. Testez :</p>
+
+<div class="scene" id="scene">
+  <img class="fond" src="apercus/quiz/Dream_Back.png" alt="">
+  <div class="voile"></div>
+  <div class="contenu" id="contenu"></div>
+</div>
+
+<h2>Données du quiz</h2>
+<details open><summary>15 questions (textes originaux PMD Destiny) + points par nature</summary>
+<div id="tableau"></div>
+</details>
+<details><summary>Mapping nature → starter (16) — pool complet en JSON</summary>
+<div id="mapping"></div>
+</details>
+
+<h2>Notes de conception</h2>
+<ul>
+<li><b>Mécanique</b> : chaque réponse distribue +4/+2 points sur les 16 natures
+(les slugs et couleurs = <code>quiz_personnalite_natures.json</code>) ; la nature
+gagnante donne sa couleur au badge étoile et désigne le starter
+(<code>quiz_personnalite_config.json</code>).</li>
+<li><b>Flux façon Halcyon</b> : choix du sexe (Garçon / Fille / Non-binaire) puis
+du talent (les talents affichés viennent des données du jeu, Intrinsic1/2/3 comme
+dans le <code>personality_test</code> de Halcyon), puis confirmation
+« Êtes-vous sûr de sélectionner ce Pokémon ? ». Code Lua rédigé pour la quest
+(rien copié de Halcyon — structure observée uniquement).</li>
+<li><b>Méga-évolution</b> : si le starter est éligible, la confirmation affiche
+<span style="color:#FF4D4D">M</span><span style="color:#FF9E2B">É</span><span style="color:#FFE12B">G</span><span style="color:#8CE02B">A</span>-<span style="color:#2BD9FF">É</span><span style="color:#3B76FF">V</span><span style="color:#A64DFF">O</span><span style="color:#FF4D4D">L</span><span style="color:#FF9E2B">U</span><span style="color:#FFE12B">T</span><span style="color:#8CE02B">I</span><span style="color:#2BD9FF">O</span><span style="color:#3B76FF">N</span> en lettres d'arc-en-ciel (balises <code>[color=#RRGGBB]</code>
+du moteur, une par lettre — vérifié sur <code>RogueEssence/Text.cs</code>).</li>
+<li>Honnêteté : <code>runtime_tested: false</code> (aucun lancement PMDO depuis
+le sandbox) — le script <code>Data/Script/ground/personality_test/init.lua</code>
+est à tester en jeu.</li>
+</ul>
+<p class="note">Régénération : <code>.venv/bin/python OUTILS/generer_quiz_destiny.py</code>
+(données : <code>quest_pmd_destiny/Data/quiz_personnalite_config.json</code>).</p>
+
+<script>
+const CFG = {"questions":[{"Texte":"Une nouvelle journée d'aventure commence ! Comment la commences-tu ?","Choix":[{"Texte":"Je prépare déjà mon sac et ma carte !","Points":{"hardy":4,"bold":2}},{"Texte":"Je profite du ciel et je vois où mes pieds me mènent.","Points":{"relaxed":4,"calm":2}}]},{"Texte":"Un trésor scintille au fond d'une grotte sombre.","Choix":[{"Texte":"J'y vais sans hésiter !","Points":{"brave":4,"rash":2}},{"Texte":"J'observe d'abord les alentours.","Points":{"quiet":4,"timid":2}}]},{"Texte":"Ton partenaire raconte une blague nulle pendant le repas.","Choix":[{"Texte":"J'éclate de rire, c'est hilarant !","Points":{"jolly":4,"naive":2}},{"Texte":"Je lève un sourcil… puis je lâche un petit sourire.","Points":{"sassy":4,"quirky":2}}]},{"Texte":"Dans un donjon, le groupe hésite entre deux chemins.","Choix":[{"Texte":"Je propose un plan et je lance le groupe.","Points":{"bold":4,"impish":2}},{"Texte":"Je demande l'avis de chacun avant de trancher.","Points":{"docile":4,"calm":2}}]},{"Texte":"Tu trouves un Poké Ball abandonné sur la plage.","Choix":[{"Texte":"Je l'ouvre tout de suite, curieux !","Points":{"naive":4,"hasty":2}},{"Texte":"Je le garde, il a peut-être une histoire.","Points":{"lonely":4,"quiet":2}}]},{"Texte":"Un Pokémon plus fort que toi te provoque en duel.","Choix":[{"Texte":"Jamais je ne refuse un défi !","Points":{"brave":4,"rash":2}},{"Texte":"Je prépare une ruse pour gagner autrement.","Points":{"impish":4,"quirky":2}}]},{"Texte":"La fête de la ville bat son plein ce soir.","Choix":[{"Texte":"Je suis le premier sur la piste !","Points":{"jolly":4,"hasty":2}},{"Texte":"Je préfère une petite veillée au bord de l'eau.","Points":{"relaxed":4,"lonely":2}}]},{"Texte":"On te confie une mission secrète de la guilde.","Choix":[{"Texte":"Je note tout et je suis le plan à la lettre.","Points":{"hardy":4,"docile":2}},{"Texte":"Je m'adapte au fur et à mesure, ça ira !","Points":{"quirky":4,"naive":2}}]},{"Texte":"Un ami garde un lourd secret et te le confie.","Choix":[{"Texte":"Je le garde religieusement.","Points":{"calm":4,"sassy":2}},{"Texte":"Je lui trouve une solution, tout de suite !","Points":{"hasty":4,"bold":2}}]},{"Texte":"Tu découvres une fleur rare, personne ne te voit.","Choix":[{"Texte":"Je la cueille pour l'offrir à quelqu'un.","Points":{"docile":4,"jolly":2}},{"Texte":"Je la laisse, elle est plus belle ici.","Points":{"quiet":4,"calm":2}}]},{"Texte":"La pluie tombe enfin sur les cultures de la guilde.","Choix":[{"Texte":"Parfait pour courir dehors les pieds dans la boue !","Points":{"rash":4,"hasty":2}},{"Texte":"Parfait pour lire sous le porche, au chaud.","Points":{"quiet":4,"timid":2}}]},{"Texte":"Un inconnu te demande ton aide pour porter son fardeau.","Choix":[{"Texte":"Bien sûr ! En route !","Points":{"naive":4,"docile":2}},{"Texte":"Je regarde d'abord ce qu'il transporte.","Points":{"timid":4,"sassy":2}}]},{"Texte":"Ton équipe perdra la finale si tu ne trouves pas l'idée gagnante.","Choix":[{"Texte":"Je lance une idée folle, on verra bien !","Points":{"quirky":4,"rash":2}},{"Texte":"Je me concentre et je respire, l'idée viendra.","Points":{"relaxed":4,"hardy":2}}]},{"Texte":"On te propose de diriger une expédition lointaine.","Choix":[{"Texte":"Je pars, l'inconnu m'appelle !","Points":{"lonely":4,"brave":2}},{"Texte":"Je préfère veiller sur ceux qui restent.","Points":{"calm":4,"bold":2}}]},{"Texte":"Pour toi, une belle aventure c'est surtout…","Choix":[{"Texte":"…des amis avec qui la vivre !","Points":{"jolly":4,"docile":2}},{"Texte":"…la sensation d'être pleinement soi-même.","Points":{"lonely":4,"sassy":2}}]}],"natures":[{"slug":"hardy","fr":"Hardi","en":"Hardy","hex":"#E8A020","couleur":"Or","img":"apercus/quiz_badges/badge_hardy.png"},{"slug":"docile","fr":"Docile","en":"Docile","hex":"#D8C050","couleur":"Sable","img":"apercus/quiz_badges/badge_docile.png"},{"slug":"brave","fr":"Brave","en":"Brave","hex":"#E03028","couleur":"Écarlate","img":"apercus/quiz_badges/badge_brave.png"},{"slug":"jolly","fr":"Joyeux","en":"Jolly","hex":"#E8D828","couleur":"Citron","img":"apercus/quiz_badges/badge_jolly.png"},{"slug":"impish","fr":"Malicieux","en":"Impish","hex":"#9040D0","couleur":"Améthyste","img":"apercus/quiz_badges/badge_impish.png"},{"slug":"naive","fr":"Naïf","en":"Naive","hex":"#F070B0","couleur":"Rose","img":"apercus/quiz_badges/badge_naive.png"},{"slug":"timid","fr":"Timide","en":"Timid","hex":"#6098D8","couleur":"Bleu brume","img":"apercus/quiz_badges/badge_timid.png"},{"slug":"hasty","fr":"Pressé","en":"Hasty","hex":"#F06820","couleur":"Mandarine","img":"apercus/quiz_badges/badge_hasty.png"},{"slug":"sassy","fr":"Malin","en":"Sassy","hex":"#5848C8","couleur":"Indigo","img":"apercus/quiz_badges/badge_sassy.png"},{"slug":"calm","fr":"Calme","en":"Calm","hex":"#40C898","couleur":"Menthe","img":"apercus/quiz_badges/badge_calm.png"},{"slug":"relaxed","fr":"Relax","en":"Relaxed","hex":"#28A0B8","couleur":"Lagune","img":"apercus/quiz_badges/badge_relaxed.png"},{"slug":"lonely","fr":"Solo","en":"Lonely","hex":"#28406E","couleur":"Bleu nuit","img":"apercus/quiz_badges/badge_lonely.png"},{"slug":"quirky","fr":"Bizarre","en":"Quirky","hex":"#28C8C8","couleur":"Cyan","img":"apercus/quiz_badges/badge_quirky.png"},{"slug":"quiet","fr":"Discret","en":"Quiet","hex":"#28B058","couleur":"Émeraude","img":"apercus/quiz_badges/badge_quiet.png"},{"slug":"rash","fr":"Précipité","en":"Rash","hex":"#D02890","couleur":"Magenta","img":"apercus/quiz_badges/badge_rash.png"},{"slug":"bold","fr":"Assuré","en":"Bold","hex":"#2858D0","couleur":"Saphir","img":"apercus/quiz_badges/badge_bold.png"}],"starters":[{"id":"bulbasaur","nom":"Bulbizarre","gen":1,"types":["Plante","Poison"],"talents":["Engrais","Chlorophylle"],"mega":true,"megaNom":"Méga-Bulbizarre","forme":0,"espece":"bulbasaur","nature":"calm"},{"id":"charmander","nom":"Reptincel","gen":1,"types":["Feu"],"talents":["Brasier"],"mega":true,"megaNom":"Méga-Reptincel","forme":0,"espece":"charmander","nature":"hasty"},{"id":"squirtle","nom":"Carapuce","gen":1,"types":["Eau"],"talents":["Torrent","Cuvette"],"mega":true,"megaNom":"Méga-Carapuce","forme":0,"espece":"squirtle","nature":"relaxed"},{"id":"pikachu","nom":"Pikachu","gen":1,"types":["Électrik"],"talents":["Statik","Paratonnerre"],"mega":false,"megaNom":"","forme":0,"espece":"pikachu","nature":"hardy"},{"id":"eevee","nom":"Évoli","gen":1,"types":["Normal"],"talents":["Adaptabilité","Anticipation","Cœur Noble"],"mega":false,"megaNom":"","forme":0,"espece":"eevee","nature":"docile"},{"id":"meowth","nom":"Miaouss","gen":1,"types":["Normal"],"talents":["Ramassage","Technicien","Tension"],"mega":false,"megaNom":"","forme":0,"espece":"meowth","nature":"quirky"},{"id":"goupix","nom":"Goupix","gen":1,"types":["Feu"],"talents":["Torche","Sécheresse"],"mega":false,"megaNom":"","forme":0,"espece":"vulpix","nature":"jolly"},{"id":"goupix_alola","nom":"Goupix d'Alola","gen":7,"types":["Glace"],"talents":["Voile Neige"],"mega":false,"megaNom":"","forme":1,"espece":"vulpix","nature":"timid"},{"id":"mudkip","nom":"Gobou","gen":3,"types":["Eau"],"talents":["Torrent","Glissade"],"mega":true,"megaNom":"Méga-Gobou","forme":0,"espece":"mudkip","nature":"lonely"},{"id":"skitty","nom":"Skitty","gen":3,"types":["Normal"],"talents":["Jolie Grâce","Normalise","Peau Miracle"],"mega":false,"megaNom":"","forme":0,"espece":"skitty","nature":"naive"},{"id":"piplup","nom":"Tiplouf","gen":4,"types":["Eau"],"talents":["Torrent","Acharné"],"mega":false,"megaNom":"","forme":0,"espece":"piplup","nature":"bold"},{"id":"zorua","nom":"Zorua","gen":5,"types":["Ténèbres"],"talents":["Illusion"],"mega":false,"megaNom":"","forme":0,"espece":"zorua","nature":"impish"},{"id":"chespin","nom":"Marisson","gen":6,"types":["Plante","Combat"],"talents":["Engrais","Poing de Fer"],"mega":false,"megaNom":"","forme":0,"espece":"chespin","nature":"rash"},{"id":"rowlet","nom":"Brindibou","gen":7,"types":["Plante","Vol"],"talents":["Engrais","Impassible"],"mega":false,"megaNom":"","forme":0,"espece":"rowlet","nature":"quiet"},{"id":"zorua_hisui","nom":"Zorua de Hisui","gen":8,"types":["Normal","Spectre"],"talents":["Ruse"],"mega":false,"megaNom":"","forme":1,"espece":"zorua","nature":"sassy"},{"id":"charcadet","nom":"Charbamm","gen":9,"types":["Feu"],"talents":["Armure de Feu","Flash Fire"],"mega":false,"megaNom":"","forme":0,"espece":"charcadet","nature":"brave"}],"megaTexte":"MÉGA-ÉVOLUTION","rainbow":["#FF4D4D","#FF9E2B","#FFE12B","#8CE02B","#2BD9FF","#3B76FF","#A64DFF"]};
+const NAT = {}; for (const n of CFG.natures) NAT[n.slug] = n;
+const ST = {}; for (const s of CFG.starters) ST[s.id] = s;
+let scores = {}, qi = 0, nature = null, starter = null, genre = null, talent = null;
+
+const el = document.getElementById('contenu');
+function montrer(html) { el.innerHTML = html; }
+function barre(p) { return '<div class="progress"><i style="width:' + p + '%"></i></div>'; }
+
+function demarrer() {
+  scores = {}; for (const n of CFG.natures) scores[n.slug] = 0; qi = 0;
+  montrer('<div class="cartebadge"><img src="apercus/quiz_badges/badge_blanc.png" alt="badge blanc">' +
+    '<div class="natnom">Test de personnalité</div>' +
+    '<p>15 questions pour découvrir ta vraie nature d&#39;explorateur.</p>' +
+    '<div class="boutons"><button class="primaire" onclick="question(0)">Commencer</button></div></div>');
+}
+
+function question(i) {
+  if (i >= CFG.questions.length) { calculer(); return; }
+  qi = i;
+  const q = CFG.questions[i];
+  let b = '';
+  q.Choix.forEach((c, k) => {
+    b += '<button onclick="repondre(' + i + ',' + k + ')">' + c.Texte + '</button>';
+  });
+  montrer(barre((i / CFG.questions.length) * 100) +
+    '<div class="qtexte">' + q.Texte + '</div><div class="choix">' + b + '</div>');
+}
+
+function repondre(i, k) {
+  const pts = CFG.questions[i].Choix[k].Points;
+  for (const n in pts) scores[n] += pts[n];
+  question(i + 1);
+}
+
+function calculer() {
+  let best = CFG.natures[0].slug;
+  for (const n of CFG.natures) if (scores[n.slug] > scores[best]) best = n.slug;
+  nature = NAT[best];
+  starter = CFG.starters.find(s => s.nature === best);
+  montrer(barre(100) + '<div class="cartebadge"><img src="' + nature.img + '" alt="badge">' +
+    '<div class="natnom" style="color:' + nature.hex + '">Nature : ' + nature.fr +
+    ' <small>(' + nature.en + ')</small></div>' +
+    '<p>Le badge étoile s&#39;illumine en <b>' + nature.couleur + '</b> <code>' + nature.hex + '</code>.</p>' +
+    '<div class="boutons"><button class="primaire" onclick="reveleStarter()">Voir mon starter</button></div></div>');
+}
+
+function reveleStarter() {
+  const types = starter.types.map(t => '<span class="type">' + t + '</span>').join('');
+  montrer('<div class="cartebadge"><img src="' + nature.img + '" alt="badge">' +
+    '<div class="natnom">Starter : ' + starter.nom + ' <small>(gen ' + starter.gen + ')</small></div>' +
+    '<div>' + types + '</div>' +
+    (starter.mega ? '<p>✨ Éligible à la <b>' + CFG.megaTexte + '</b> (' + starter.megaNom + ')</p>' : '') +
+    '<div class="boutons"><button class="primaire" onclick="choixGenre()">Continuer</button></div></div>');
+}
+
+function choixGenre() {
+  montrer('<div class="boite"><div class="dlg">Quel est ton sexe ?</div>' +
+    '<div class="radio">' +
+    '<button onclick="suiteGenre(\'male\')">Garçon</button>' +
+    '<button onclick="suiteGenre(\'femelle\')">Fille</button>' +
+    '<button onclick="suiteGenre(\'neutre\')">Non-binaire</button></div></div>');
+}
+
+function suiteGenre(g) { genre = g; choixTalent(); }
+
+function choixTalent() {
+  const t = starter.talents;
+  if (t.length === 1) { talent = t[0]; confirmation(); return; }
+  let b = '';
+  t.forEach((x, k) => { b += '<button onclick="suiteTalent(' + k + ')">' + x + '</button>'; });
+  montrer('<div class="boite"><div class="dlg">Quel talent veux-tu ?</div>' +
+    '<div class="radio">' + b + '</div></div>');
+}
+
+function suiteTalent(k) { talent = starter.talents[k]; confirmation(); }
+
+function arcEnCiel(txt) {
+  let out = '', i = 0;
+  for (const car of txt) {
+    if (car === ' ' || car === '-') out += car;
+    else { out += '<span style="color:' + CFG.rainbow[i % CFG.rainbow.length] + '">' + car + '</span>'; i++; }
+  }
+  return out;
+}
+
+function confirmation() {
+  const mega = starter.mega
+    ? '<div class="megaligne">' + arcEnCiel(CFG.megaTexte) + '</div>' +
+      '<p style="text-align:center">Ce Pokémon est compatible avec la méga-évolution !<br>' +
+      '<small>(' + starter.megaNom + ')</small></p>' : '';
+  montrer('<div class="boite"><div class="dlg">Êtes-vous sûr de sélectionner ce Pokémon ?<br>' +
+    '<b>' + starter.nom + '</b> — ' + genre + ' — talent <b>' + talent + '</b></div>' + mega +
+    '<div class="boutons"><button class="primaire" onclick="fini()">Oui !</button>' +
+    '<button onclick="choixGenre()">Non</button></div></div>');
+}
+
+function fini() {
+  montrer('<div class="resume"><img src="' + nature.img + '" alt="badge">' +
+    '<div class="natnom" style="color:' + nature.hex + '">' + starter.nom + '</div>' +
+    '<p>Nature <b>' + nature.fr + '</b> · sexe <b>' + genre + '</b> · talent <b>' + talent + '</b>' +
+    (starter.mega ? ' · <b>' + starter.megaNom + '</b> ' + arcEnCiel('✦') : '') + '</p>' +
+    '<div class="boutons"><button class="primaire" onclick="demarrer()">Rejouer</button></div></div>');
+}
+
+demarrer();
+
+// tableaux de données
+let th = '<table><tr><th>#</th><th>Question</th><th>Choix</th><th>Points</th></tr>';
+CFG.questions.forEach((q, i) => {
+  q.Choix.forEach((c, k) => {
+    th += '<tr>' + (k === 0 ? '<td rowspan="' + q.Choix.length + '">' + (i + 1) + '</td>' +
+      '<td rowspan="' + q.Choix.length + '">' + q.Texte + '</td>' : '') +
+      '<td>' + c.Texte + '</td><td>' + Object.entries(c.Points).map(([n, v]) => n + ' +' + v).join(', ') + '</td></tr>';
+  });
+});
+th += '</table>';
+document.getElementById('tableau').innerHTML = th;
+let mh = '<table><tr><th>Nature</th><th>Badge</th><th>Starter</th><th>Gen</th><th>Méga</th></tr>';
+for (const n of CFG.natures) {
+  const s = CFG.starters.find(x => x.nature === n.slug);
+  mh += '<tr><td><span class="pastille" style="background:' + n.hex + '"></span>' + n.fr + '</td>' +
+    '<td>' + n.couleur + '</td><td>' + s.nom + '</td><td>' + s.gen + '</td>' +
+    '<td>' + (s.mega ? '✅ ' + s.megaNom : '—') + '</td></tr>';
+}
+mh += '</table>';
+document.getElementById('mapping').innerHTML = mh;
+</script>
+</body></html>
