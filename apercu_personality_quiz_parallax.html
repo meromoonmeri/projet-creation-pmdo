@@ -1,0 +1,133 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>Personality Quiz — parallax animé (Dream_Back / Dream_Front)</title>
+<style>
+body { background:#141220; color:#eee; font:15px/1.55 system-ui,sans-serif; max-width:1100px; margin:18px auto; padding:0 12px }
+a { color:#ffd76a } small { color:#999 }
+h1 { font-size:24px } h2 { font-size:18px; margin-top:28px; border-bottom:1px solid #333; padding-bottom:4px }
+.bar { position:sticky; top:0; background:#141220ee; padding:8px 0; z-index:5; display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+.stage { position:relative; line-height:0; border:1px solid #333; width:max-content; max-width:100%; overflow:hidden; border-radius:6px }
+.stage canvas { image-rendering: pixelated; display:block }
+button { background:#34304e; color:#eee; border:1px solid #6b5fa8; border-radius:6px; padding:4px 12px; cursor:pointer }
+button:hover { background:#464066 }
+table { border-collapse:collapse } td, th { border:1px solid #443c2c; padding:3px 10px; font-size:13px }
+.note { background:#221e33; border:1px solid #3c3560; border-radius:8px; padding:10px 14px }
+/* simulation d'interface du quiz (HTML, pas des tuiles du jeu) */
+.quizui { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between;
+  padding:10px 12px; font-family: system-ui,sans-serif; pointer-events:none }
+.quizui .titre { align-self:center; color:#fff; background:#2a2450cc; border:1px solid #8a7ad0;
+  border-radius:8px; padding:2px 18px; font-size:13px; letter-spacing:1px }
+.quizui .question { color:#fff; background:#191430d9; border:1px solid #7a6cc0; border-radius:10px;
+  padding:8px 12px; font-size:12px; line-height:1.5; text-align:center }
+.quizui .reponses { display:flex; gap:10px }
+.quizui .rep { flex:1; color:#fff; background:#2d2752d9; border:1px solid #8a7ad0; border-radius:10px;
+  padding:7px 10px; font-size:12px; text-align:center }
+.quizui .credit { position:absolute; right:8px; bottom:6px; font-size:9px; color:#cfc8eeaa }
+</style></head><body>
+<p><a href="/">← Index de la visionneuse</a> · <a href="apercu_maps_destiny_generes.html">Maps Destiny générées</a></p>
+<h1>Personality Quiz — parallax animé</h1>
+<p>Fond « Dream » du quiz de personnalité : deux couches défilantes
+(<code>Dream_Back</code> +30 px/s, <code>Dream_Front</code> −30 px/s en alpha 128)
+telles que définies dans <code>personality_test.rsground</code> (Halcyon).
+Rendu ci-dessous avec la sémantique exacte du moteur
+(<code>MapBG.Draw</code> de RogueEssence).</p>
+
+<div class="bar">
+  <button id="pause">Pause</button>
+  <button id="z1">×1</button><button id="z2">×2</button><button id="z3">×3</button>
+  <label><input type="checkbox" id="voile" checked> simulation d'interface du quiz</label>
+  <small id="tick"></small>
+</div>
+<div class="stage" id="stage">
+  <canvas id="fond" width="320" height="240"></canvas>
+  <div class="quizui" id="quizui">
+    <div class="titre">PERSONALITY TEST</div>
+    <div class="question">« On part à l'aventure ! Ton premier jour de quête s'annonce grandiose.
+Que fais-tu pour le célébrer ? »<br><small>(question d'exemple — le quiz complet sera intégré avec le contenu PMD Remixed)</small></div>
+    <div class="reponses">
+      <div class="rep">Je prépare déjà mon sac pour demain !</div>
+      <div class="rep">Je flâne et je profite du paysage.</div>
+    </div>
+    <div class="credit">interface simulée (HTML) — pas des tuiles du jeu</div>
+  </div>
+</div>
+
+<h2>Paramètres natifs (personality_test.rsground)</h2>
+<table>
+<tr><th>Couche</th><th>Animation</th><th>FrameTime</th><th>Alpha</th><th>BGMovement</th><th>RepeatX</th></tr>
+<tr><td>Dream_Back</td><td>63 × 192×240</td><td>8 ticks (7,5 img/s)</td><td>255 / 255</td><td>+30 px/s</td><td>oui</td></tr><tr><td>Dream_Front</td><td>63 × 192×240</td><td>8 ticks (7,5 img/s)</td><td>128 / 255</td><td>-30 px/s</td><td>oui</td></tr>
+</table>
+<p class="note"><b>Rendu fidèle.</b> Défilement = BGMovement (pixels/seconde) × ticks/60, frame = ticks/FrameTime % 63,
+découpage des planches en 8 colonnes (indexation row-major, <code>DirSheet</code> RotateType.None),
+écran 320×240 (GFXParams de Halcyon — map 40×30 cases × 8 px).
+Sémantique vérifiée sur <code>RogueEssence/Content/Animation/Backgrounds/MapBG.cs</code>
+et <code>DirSheet.cs</code> (RogueCollab/RogueEssence).</p>
+
+<h2>Provenance et crédits</h2>
+<ul>
+<li><b>Halcyon (Palikadude/Halcyon)</b> — <code>Content/BG/Dream_Back.dir</code>,
+<code>Dream_Front.dir</code> et <code>Data/Ground/personality_test.rsground</code>
+(art de référence, crédit affiché ; pas des tuiles natives PMD canoniques).</li>
+<li><b>PMD-SKY-PMDO-PORT (meromoonmeri)</b> — examiné : pipeline de conversion des maps
+NDS (465 grounds, 569 tiles) ; pas d'asset de quiz à en extraire (le quiz n'est pas une MAP_BG).</li>
+<li><b>Intégration quest</b> — <code>quest_pmd_destiny/</code> zone <code>personality_test</code>
+(map + fonds), via <code>OUTILS/rendre_quiz_parallax.py --integrer-quest</code>.</li>
+<li><b>Questions / résultats / starters / méga-évolutions</b> — contenu PMD Remixed en cours
+de réception (fichier &gt; 100 Mo, découpe en volumes demandée) ; le quiz complet prendra place
+sur ce fond.</li>
+</ul>
+<p class="note">Toutes les images de cette page sont régénérées par
+<code>.venv/bin/python OUTILS/rendre_quiz_parallax.py</code> à partir des <code>.dir</code> natifs.</p>
+
+<script>
+const LAYERS = [{"img":"apercus/quiz/Dream_Back.png","i":0,"w":192,"h":240,"frames":63,"cols":8,"frame_time":8,"loc":[0,0],"move":[30,0],"repeat_x":true,"repeat_y":false,"alpha":255},{"img":"apercus/quiz/Dream_Front.png","i":1,"w":192,"h":240,"frames":63,"cols":8,"frame_time":8,"loc":[0,0],"move":[-30,0],"repeat_x":true,"repeat_y":false,"alpha":128}];
+const W = 320, H = 240;
+const fond = document.getElementById('fond');
+const bgImgs = LAYERS.map(b => { const im = new Image(); im.src = b.img; return im; });
+
+function drawFond(tick) {
+  const g = fond.getContext('2d');
+  g.clearRect(0, 0, W, H);
+  for (let i = 0; i < LAYERS.length; i++) {
+    const b = LAYERS[i], im = bgImgs[i];
+    if (!im.complete) continue;
+    const fi = Math.floor(tick / b.frame_time) % b.frames;
+    const sx = (fi % b.cols) * b.w, sy = Math.floor(fi / b.cols) * b.h;
+    // Loc : division entière tronquée vers zéro (comme le moteur)
+    const dx = b.loc[0] + Math.trunc(b.move[0] * tick / 60);
+    const dy = b.loc[1] + Math.trunc(b.move[1] * tick / 60);
+    g.globalAlpha = b.alpha / 255;
+    if (b.repeat_x) {
+      for (let x = dx % b.w - b.w; x < W; x += b.w)
+        g.drawImage(im, sx, sy, b.w, b.h, x, dy, b.w, b.h);
+    } else g.drawImage(im, sx, sy, b.w, b.h, dx, dy, b.w, b.h);
+    g.globalAlpha = 1;
+  }
+}
+
+let start = performance.now(), paused = false, held = 0, lastTick = -1;
+function frame(now) {
+  const tick = Math.floor((paused ? held : now - start) / 1000 * 60);
+  if (tick !== lastTick) {
+    drawFond(tick);
+    document.getElementById('tick').textContent = 'tick ' + tick + '  ·  ' +
+      (tick / 60).toFixed(1) + ' s  ·  frame ' + (Math.floor(tick / 8) % 63);
+    lastTick = tick;
+  }
+  requestAnimationFrame(frame);
+}
+function setZoom(z) {
+  const el = document.getElementById('stage');
+  el.style.width = W * z + 'px';
+  document.getElementById('fond').style.width = W * z + 'px';
+  document.getElementById('fond').style.height = H * z + 'px';
+}
+document.getElementById('pause').onclick = e => {
+  if (paused) { start = performance.now() - held; paused = false; e.target.textContent = 'Pause'; }
+  else { held = performance.now() - start; paused = true; e.target.textContent = 'Reprendre'; }
+};
+for (const z of [1, 2, 3]) document.getElementById('z' + z).onclick = () => setZoom(z);
+document.getElementById('voile').onchange = e =>
+  document.getElementById('quizui').style.display = e.target.checked ? 'flex' : 'none';
+setZoom(2); drawFond(0); requestAnimationFrame(frame);
+</script>
+</body></html>
