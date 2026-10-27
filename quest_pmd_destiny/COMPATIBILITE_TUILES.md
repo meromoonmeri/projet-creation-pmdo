@@ -10,7 +10,7 @@ Généré le 2026-10-27 par `OUTILS/importer_tiles_town02.py`.
 
 ## Basculer un fichier
 
-Éditer `OUTILS/surcharge_provenance_tiles.json` (`"nom.ext": "propre"` ou `"neutre"`), puis relancer ce script. Cas ambigus par défaut neutre : `Title_Screen_Background.dir`, `Metano_Town_Base.tile`.
+Éditer `OUTILS/surcharge_provenance_tiles.json` (`"nom.ext": "propre"` ou `"neutre"`), puis relancer ce script. Cas ambigus : `Title_Screen_Background.dir` est passé **« propre »** sur attestation de l'utilisateur (le title screen animé PMD Destiny est une création de la quest — cf. `TITLE_SCREEN_PMD_DESTINY.md`) ; `Metano_Town_Base.tile` reste neutre par défaut.
 
 ## Noms conservés dont l'origine n'a pas pu être vérifiée (33)
 
