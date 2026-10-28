@@ -10,10 +10,15 @@ particules additives qui migrent des bords vers l'intérieur en s'estompant.
 
 Notre version : **même mécanique** (vitesses et cadences reprises telles
 quelles, δ = 3 à 60 img/s) mais le halo est **arc-en-ciel** au lieu d'or.
-Les pièces (fond, shine, anneau, particules) sont **dessinées par le script**
-(numpy/PIL) — aucune image de Relict copiée ni recolorée. La figure centrale
-est générée (art IA, ``apercus/intro_halo/figure_deesse.png``, art_approved :
-false) avec en variante le blason Œuf Ailé de l'opening PMD Destiny.
+Les pièces (fond, shine, anneau, particules) sont les **textures de la
+référence recolorées** : la texture d'origine est conservée exactement
+(même carte de luminance/opacité — rayons, douceur), seule la teinte devient
+un arc-en-ciel conique à cœur blanc. Source :
+``Relict/Relict V1.2/Relict/Graphics/EBDX/Transitions/Arceus/``
+(``background/shine/glow/particle0/1.png``, dépôt ``meromoonmeri/BIBLIOTHEQUE``)
+— crédit **Pokémon Relict**. La figure centrale est générée (art IA,
+``apercus/intro_halo/figure_deesse.png``, art_approved : false) avec en
+variante le blason Œuf Ailé de l'opening PMD Destiny.
 
 Sorties (dans ``apercus/intro_halo/``) : ``halo_fond.png``, ``halo_shine.png``,
 ``halo_anneau.png``, ``halo_particule0/1.png``, ``figure_oeuf_ailes.png`` +
@@ -35,126 +40,60 @@ PAGE = R / 'apercu_intro_halo_arcenciel.html'
 SRC_OEUF = Path('/tmp/destiny-logo/source/pmd_destiny_fangame_v1/references/clean_badge_oeuf_ailes_pmd.png')
 
 
-# ----------------------------------------------------------------- dessins
+# ------------------------------- textures (crédit : Pokémon Relict)
 
-def hsv(h: float, s: float, v: float) -> tuple[int, int, int]:
-    import colorsys
-    r, g, b = colorsys.hsv_to_rgb(h % 1.0, s, v)
-    return int(r * 255), int(g * 255), int(b * 255)
+REF_RELIC = Path('/tmp/relic_arceus')
+# En cas de perte de /tmp : retélécharger les 5 textures depuis
+# meromoonmeri/BIBLIOTHEQUE → Relict/Relict V1.2/Relict/Graphics/EBDX/
+# Transitions/Arceus/{background,shine,glow,particle0,particle1}.png
+# et les placer dans /tmp/relic_arceus/.
 
 
-def halo_fond(w: int = 640, h: int = 480) -> None:
-    """Halo radial arc-en-ciel : teinte par angle (roue), cœur blanc chaud."""
-    yy, xx = np.mgrid[0:h, 0:w]
-    cx, cy = w / 2, h / 2
-    ang = (np.arctan2(yy - cy, xx - cx) / (2 * np.pi)) + 0.5
-    dist = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2) / (w * 0.42)
-    # teinte conique douce (arc-en-ciel) + valeur/blanc par rayon
-    import colorsys
-    hue = (ang + 0.72) % 1.0
-    sat = np.clip(dist * 1.6, 0, 1) * 0.55
-    val = np.exp(-(dist ** 1.7) * 2.2)
-    # hsv → rgb vectorisé
-    i = np.floor(hue * 6).astype(int) % 6
-    f = hue * 6 - np.floor(hue * 6)
-    p = val * (1 - sat)
-    q = val * (1 - f * sat)
-    t = val * (1 - (1 - f) * sat)
-    rgb = np.zeros((h, w, 3))
-    for k, (rv, gv, bv) in enumerate([(val, t, p), (q, val, p), (p, val, t),
-                                      (p, q, val), (t, p, val), (val, p, q)]):
+def hsv_vers_rgb(h: np.ndarray, s: np.ndarray, v: np.ndarray) -> np.ndarray:
+    """HSV → RGB vectorisé (tableaux 2D, sortie (…, 3))."""
+    i = np.floor(h * 6).astype(int) % 6
+    f = h * 6 - np.floor(h * 6)
+    p = v * (1 - s)
+    q = v * (1 - f * s)
+    t = v * (1 - (1 - f) * s)
+    rgb = np.zeros(h.shape + (3,))
+    for k, (rv, gv, bv) in enumerate([(v, t, p), (q, v, p), (p, v, t),
+                                      (p, q, v), (t, p, v), (v, p, q)]):
         m = i == k
         rgb[..., 0] = np.where(m, rv, rgb[..., 0])
         rgb[..., 1] = np.where(m, gv, rgb[..., 1])
         rgb[..., 2] = np.where(m, bv, rgb[..., 2])
-    img = np.zeros((h, w, 4), dtype=np.uint8)
+    return rgb
+
+
+def recolorer(ref: str, sortie: Path) -> None:
+    """Recolore une texture de l'intro Relict en halo arc-en-ciel.
+
+    La texture d'origine est conservée **à l'identique** (même carte de
+    luminance/opacité : rayons, douceur, éclipsions) — seule la teinte
+    change : arc-en-ciel conique selon l'angle autour du centre, cœur
+    blanc là où la texture est la plus lumineuse (cœur doré → cœur blanc).
+    """
+    src = Image.open(REF_RELIC / ref).convert('RGBA')
+    a = np.asarray(src).astype(np.float32) / 255.0
+    r, g, b, al = a[..., 0], a[..., 1], a[..., 2], a[..., 3]
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    h_img, w_img = al.shape
+    yy, xx = np.mgrid[0:h_img, 0:w_img]
+    cy, cx = (h_img - 1) / 2.0, (w_img - 1) / 2.0
+    ang = (np.arctan2(yy - cy, xx - cx) / (2 * np.pi) + 1.0) % 1.0
+    opaque = bool(al.min() > 0.99)  # background = glow peint sur noir
+    if opaque:
+        t = lum / max(float(lum.max()), 1e-6)   # texture du glow normalisée
+    else:
+        t = al * np.clip(lum, 0, 1)             # forme dans l'alpha
+    sat = np.clip(1.0 - np.clip((t - 0.55) / 0.40, 0, 1), 0, 1) * 0.92
+    val = np.clip(t * 1.3, 0, 1) if opaque else np.clip(lum, 0, 1)
+    rgb = hsv_vers_rgb(ang, sat, val)
+    img = np.zeros((h_img, w_img, 4), np.uint8)
     img[..., :3] = np.clip(rgb * 255, 0, 255).astype(np.uint8)
-    img[..., 3] = np.clip(val * 255, 0, 255).astype(np.uint8)
-    Image.fromarray(img, 'RGBA').filter(ImageFilter.GaussianBlur(6)).save(OUT / 'halo_fond.png')
-
-
-def halo_shine(size: int = 320) -> None:
-    """Soleil à rayons arc-en-ciel (remplace le « shine » doré), cœur blanc."""
-    s = size * 4
-    img = Image.new('RGBA', (s, s), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    c = s / 2
-    rays = 18
-    for r in range(rays):
-        a0 = (r / rays) * 2 * math.pi
-        length = s * (0.46 if r % 2 == 0 else 0.34)
-        wide = math.pi / rays * 0.72
-        col = hsv(r / rays, 0.55, 1.0)
-        pts = [(c, c)]
-        for k in range(9):
-            a = a0 - wide + (2 * wide) * k / 8
-            ll = length * (0.92 + 0.08 * math.sin(k * 2.1 + r))
-            pts.append((c + math.cos(a) * ll, c + math.sin(a) * ll))
-        d.polygon(pts, fill=col + (255,))
-    # cœur blanc chaud
-    for rad, al in ((s * 0.20, 255), (s * 0.13, 255)):
-        d.ellipse([c - rad, c - rad, c + rad, c + rad], fill=(255, 255, 255, al))
-    img = img.filter(ImageFilter.GaussianBlur(s * 0.012))
-    img.resize((size, size), Image.LANCZOS).save(OUT / 'halo_shine.png')
-
-
-def halo_anneau(size: int = 392) -> None:
-    """Anneau rayonnant arc-en-ciel (remplace le « glow » doré)."""
-    s = size * 3
-    yy, xx = np.mgrid[0:s, 0:s]
-    c = s / 2
-    dist = np.sqrt((xx - c) ** 2 + (yy - c) ** 2) / c
-    ang = ((np.arctan2(yy - c, xx - c) / (2 * np.pi)) + 0.5)
-    # anneau : rayon 0.42-0.98, texture radiale fine
-    ring = np.exp(-((dist - 0.68) ** 2) / (2 * 0.16 ** 2))
-    streak = 0.82 + 0.18 * np.sin(ang * 2 * np.pi * 90 + dist * 40)
-    alpha = np.clip(ring * streak, 0, 1)
-    hue = (ang + 0.72) % 1.0
-    sat = 0.55 * np.clip((dist - 0.30) * 2, 0, 1)
-    val = np.ones_like(dist)
-    i = np.floor(hue * 6).astype(int) % 6
-    f = hue * 6 - np.floor(hue * 6)
-    p = val * (1 - sat); q = val * (1 - f * sat); t = val * (1 - (1 - f) * sat)
-    rgb = np.zeros((s, s, 3))
-    for k, (rv, gv, bv) in enumerate([(val, t, p), (q, val, p), (p, val, t),
-                                      (p, q, val), (t, p, val), (val, p, q)]):
-        m = i == k
-        rgb[..., 0] = np.where(m, rv, rgb[..., 0])
-        rgb[..., 1] = np.where(m, gv, rgb[..., 1])
-        rgb[..., 2] = np.where(m, bv, rgb[..., 2])
-    img = np.zeros((s, s, 4), dtype=np.uint8)
-    img[..., :3] = np.clip(rgb * 255, 0, 255).astype(np.uint8)
-    img[..., 3] = np.clip(alpha * 255, 0, 255).astype(np.uint8)
-    Image.fromarray(img, 'RGBA').filter(ImageFilter.GaussianBlur(2.5)) \
-        .resize((size, size), Image.LANCZOS).save(OUT / 'halo_anneau.png')
-
-
-def halo_particule(size: int, nom: str) -> None:
-    """Boule de lumière additive (cœur blanc, frange arc-en-ciel)."""
-    s = size * 4
-    yy, xx = np.mgrid[0:s, 0:s]
-    c = s / 2
-    dist = np.sqrt((xx - c) ** 2 + (yy - c) ** 2) / c
-    ang = ((np.arctan2(yy - c, xx - c) / (2 * np.pi)) + 0.5)
-    glow = np.exp(-(dist ** 2) * 3.2)
-    hue = (ang + 0.72) % 1.0
-    sat = 0.5 * np.clip(dist * 1.8, 0, 1)
-    import colorsys
-    rgb = np.zeros((s, s, 3))
-    i = np.floor(hue * 6).astype(int) % 6
-    f = hue * 6 - np.floor(hue * 6)
-    val = np.ones_like(dist)
-    p = val * (1 - sat); q = val * (1 - f * sat); t = val * (1 - (1 - f) * sat)
-    for k, (rv, gv, bv) in enumerate([(val, t, p), (q, val, p), (p, val, t),
-                                      (p, q, val), (t, p, val), (val, p, q)]):
-        m = i == k
-        rgb[..., 0] = np.where(m, rv, rgb[..., 0])
-        rgb[..., 1] = np.where(m, gv, rgb[..., 1])
-        rgb[..., 2] = np.where(m, bv, rgb[..., 2])
-    img = np.zeros((s, s, 4), dtype=np.uint8)
-    img[..., :3] = np.clip(rgb * 255, 0, 255).astype(np.uint8)
-    img[..., 3] = np.clip(glow * 255, 0, 255).astype(np.uint8)
-    Image.fromarray(img, 'RGBA').resize((size, size), Image.LANCZOS).save(OUT / nom)
+    img[..., 3] = 255 if opaque else (al * 255).astype(np.uint8)
+    Image.fromarray(img, 'RGBA').save(sortie)
 
 
 # ----------------------------------------------------------------- page
@@ -183,8 +122,10 @@ canvas { display:block; width:100%; image-rendering:auto }
 <p>Même mise en scène que l'intro Arceus de <b>Pokémon Relict</b> (halo sur fond
 noir, soleil à rayons rotatif, anneaux expansifs, particules additives) — mais
 le halo est <b>arc-en-ciel</b>. Mécanique reprise d'après
-<code>ArceusRing.rb</code> (δ = 3, 60 img/s) ; aucun graphisme de Relict copié
-(pièces dessinées par <code>OUTILS/generer_intro_halo_arcenciel.py</code>).</p>
+<code>ArceusRing.rb</code> (δ = 3, 60 img/s) ; <b>textures de Pokémon Relict
+recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
+(<code>OUTILS/generer_intro_halo_arcenciel.py</code>) — crédit
+<b>Pokémon Relict</b>.</p>
 
 <div class="bar">
   <button id="pause">Pause</button>
@@ -205,7 +146,7 @@ fondu +4/δ puis −4/δ, perpétuels) · 24 particules additives migrantes
 (vitesse 0,1–1,6, estompage 0,5×vitesse/frame) · fondu d'entrée.
 <b>Figure centrale</b> : art généré (« déesse créatrice », <i>art_approved :
 false</i>) ou blason Œuf Ailé de l'opening PMD Destiny (art de l'utilisateur).
-Citation de conception : scène d'intro de <b>Pokémon Relict</b>
+Citation de conception et textures : scène d'intro de <b>Pokémon Relict</b>
 (<code>meromoonmeri/BIBLIOTHEQUE</code>, <code>ArceusRing.rb</code>).</div>
 
 <script>
@@ -363,15 +304,22 @@ requestAnimationFrame(frame);
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
-    halo_fond()
-    print('  halo_fond.png (radial arc-en-ciel)')
-    halo_shine()
-    print('  halo_shine.png (soleil à rayons)')
-    halo_anneau()
-    print('  halo_anneau.png (anneau rayonnant)')
-    halo_particule(22, 'halo_particule0.png')
-    halo_particule(40, 'halo_particule1.png')
-    print('  halo_particule0/1.png')
+    if not REF_RELIC.exists():
+        print(f'  (!) dossier de textures Relict absent : {REF_RELIC}')
+        print('      retélécharger depuis meromoonmeri/BIBLIOTHEQUE → Relict/'
+              'Relict V1.2/Relict/Graphics/EBDX/Transitions/Arceus/')
+        return 1
+    for ref, nom, lbl in [
+            ('background.png', 'halo_fond.png', 'fond radial'),
+            ('shine.png', 'halo_shine.png', 'soleil à rayons'),
+            ('glow.png', 'halo_anneau.png', 'anneau rayonnant'),
+            ('particle0.png', 'halo_particule0.png', 'particule 0'),
+            ('particle1.png', 'halo_particule1.png', 'particule 1')]:
+        if not (REF_RELIC / ref).exists():
+            print(f'  (!) texture Relict absente : {REF_RELIC / ref}')
+            return 1
+        recolorer(ref, OUT / nom)
+        print(f'  {nom} ({lbl} — texture Relict recolorée)')
     # variante figure : blason Œuf Ailé de l'opening (art utilisateur)
     if SRC_OEUF.exists():
         im = Image.open(SRC_OEUF).convert('RGB')
