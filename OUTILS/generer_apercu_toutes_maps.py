@@ -144,8 +144,8 @@ def main() -> None:
         liens_ap = " ".join(
             f'<a href="{html.escape(LOCAL.get(a["blob"]) or PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">aperçu</a>'
             f' <small>({html.escape(repo_court(a["repo"]))})</small>' for a in ap[:3])
-        return (f'<details><summary><strong>{html.escape(nom)}</strong> {statut} '
-                f'<small>{len(versions)} version(s)</small> {liens_ap}</summary><ul>{"".join(items)}</ul></details>')
+        return (f'<div class="carte-map"><div class="titre-map"><strong>{html.escape(nom)}</strong> {statut} '
+                f'<small>{len(versions)} version(s)</small> {liens_ap}</div><ul>{"".join(items)}</ul></div>')
 
     maps_html = "".join(ligne_map(n, v) for n, v in sorted(par_nom.items()))
 
@@ -175,7 +175,7 @@ def main() -> None:
 <title>Catalogue de toutes les maps — PMD Destiny</title>
 <style>body{{background:#1d1a14;color:#eee;font:15px/1.5 system-ui,sans-serif;max-width:1100px;margin:24px auto;padding:0 16px}}
 a{{color:#ffd76a}}small{{color:#aaa}}li{{margin:3px 0}}h2{{border-bottom:1px solid #444;padding-bottom:4px;margin-top:32px}}
-details{{margin:6px 0;padding:4px 8px;background:#26221a;border-radius:4px}}summary{{cursor:pointer}}
+.carte-map{{margin:6px 0;padding:4px 8px;background:#26221a;border-radius:4px}}.titre-map{{font-weight:600}}
 .ok{{color:#8f8}}.ref{{color:#aaa}}.todo{{color:#fb6}}.note{{background:#2b2619;border-left:4px solid #ffd76a;padding:8px 12px}}
 table td{{padding:2px 10px}}</style></head><body>
 <h1>Catalogue de toutes les maps du projet</h1>
