@@ -1,0 +1,57 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>PMD Destiny — chaîne de démarrage du moteur PMDO</title>
+<style>
+body { background:#05050a; color:#ddd; font:15px/1.55 system-ui,sans-serif; max-width:980px; margin:16px auto; padding:0 12px }
+h1 { font-size:23px; color:#fff } h2 { font-size:17px; color:#ffd76a; margin:22px 0 6px }
+a { color:#ffd76a } small { color:#888 }
+.etapes { list-style:none; padding:0; counter-reset:e }
+.etapes li { counter-increment:e; position:relative; padding:10px 14px 10px 54px; margin:8px 0;
+  background:#141222; border:1px solid #2a2740; border-radius:10px }
+.etapes li::before { content:counter(e); position:absolute; left:12px; top:10px; width:28px; height:28px;
+  border-radius:50%; background:#2b2547; color:#ffd76a; font-weight:700; text-align:center; line-height:28px }
+code { background:#22203a; padding:1px 6px; border-radius:5px; font-size:13px }
+.note { background:#141222; border:1px solid #2a2740; border-radius:8px; padding:10px 14px; margin:12px 0 }
+.rainbow span:nth-child(1){color:#FF4D4D}.rainbow span:nth-child(2){color:#FF9E2B}.rainbow span:nth-child(3){color:#FFE12B}
+.rainbow span:nth-child(4){color:#8CE02B}.rainbow span:nth-child(5){color:#2BD9FF}.rainbow span:nth-child(6){color:#3B76FF}
+.rainbow span:nth-child(7){color:#A64DFF}
+</style></head><body>
+<p><a href="/">← Index de la visionneuse</a> ·
+<a href="apercu_intro_halo_arcenciel.html">Intro halo (aperçu)</a> ·
+<a href="apercu_quiz_destiny_15_questions.html">Quiz de personnalité</a></p>
+<h1>PMD Destiny — chaîne de démarrage du moteur PMDO</h1>
+<p>Notre quest est la <b>quest par défaut</b> du moteur
+(<code>PMDO -quest quest_pmd_destiny</code>, écrit par
+<code>OUTILS/installer_moteur_pmdo_destiny.py</code>). Dès que la langue est
+choisie, « Nouvelle partie » enchaîne :</p>
+
+<ol class="etapes">
+<li><b>Choix de la langue</b> — écran natif du moteur (premier lancement).</li>
+<li><b>Titre + Nouvelle partie</b> — <code>Data/StartParams.xml</code> de la quest
+(<code>&lt;StartChars /&gt;</code> vide : pas de sélecteur natif, le héros vient du quiz).</li>
+<li><b><span class="rainbow"><span>I</span><span>n</span><span>t</span><span>r</span><span>o</span></span> halo arc-en-ciel</b>
+— map <code>intro_halo</code> (zone <code>personality_test</code>, ground 1) :
+fond <code>Content/BG/Halo_Fond/Anneau/Shine.dir</code> qui <b>pulse entre le noir
+et sa pleine visibilité</b>, titres d'intro de Halcyon en voice-over blanc
+(« Bienvenue dans le monde des Pokémon ! » etc.), musique
+« Welcome to the World of Pokémon! ».</li>
+<li><b>Transition dans le halo</b> — fondu blanc « aspiré par la lumière »
+(<code>GAME:FadeOut(true, 60)</code>).</li>
+<li><b>Test de personnalité</b> — map <code>personality_test</code> (ground 0),
+fonds parallax <code>Dream_Back.dir</code>/<code>Dream_Front.dir</code> (±30 px/s),
+puis les 15 questions → badge → starter → sexe → talent → confirmation
+méga-évolution.</li>
+</ol>
+
+<div class="note"><b>Fichiers</b> : <code>quest_pmd_destiny/Data/StartParams.xml</code> ·
+<code>Data/Zone/personality_test.json</code> (GroundMaps = personality_test, intro_halo) ·
+<code>Data/Ground/intro_halo.rsground</code> ·
+<code>Data/Script/destiny/ground/{intro_halo,personality_test}/init.lua</code>
+(namespace <b>destiny</b>, Mod.xml) · <code>OUTILS/construire_intro_halo_moteur.py</code> ·
+<code>OUTILS/installer_moteur_pmdo_destiny.py</code> + <code>PMDO_DESTINY.sh/.bat</code>.<br>
+Provenance : moteur PMDC v0.8.12 (meromoonmeri/RUNTIMEPMDO, SHA-256 vérifié) +
+ressources de base audinowho/DumpAsset ; textures du halo = Pokémon Relict
+recolorées (crédit) ; titres = séquence de Palikadude/Halcyon (textes FR) ;
+fonds Dream = Halcyon (crédit). <b>runtime_tested : false</b> (non lancé en jeu
+depuis le sandbox — le moteur s'installe et charge les maps nativement, cf.
+source/pmdo_runtime/).</div>
+</body></html>
