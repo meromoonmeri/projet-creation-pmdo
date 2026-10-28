@@ -50,7 +50,50 @@ def classe(nom: str) -> str:
     return "Autres aperçus"
 
 
+def collecte_maps_rendues() -> list[dict]:
+    """Maps Ground rendues visuellement (vignette + page) : ZIP d'abord, puis quest (sans doublon)."""
+    vus: set[str] = set()
+    res: list[dict] = []
+    sources = sorted((ROOT / "apercus" / "zips").glob("*/maps/*.json"))
+    sources += sorted((ROOT / "apercus" / "quest" / "maps").glob("*.json"))
+    for j in sources:
+        cfg = json.loads(j.read_text(encoding="utf-8"))["cfg"]
+        asset = cfg["asset"]
+        if asset in vus:
+            continue
+        vus.add(asset)
+        dossier = j.parent.parent if j.parent.name == "maps" else j.parent
+        rel_dir = dossier.relative_to(ROOT).as_posix()
+        vign = j.with_name(f"{asset}_vignette.png")
+        res.append({"asset": asset, "label": cfg.get("label") or asset, "wt": cfg["wt"], "ht": cfg["ht"],
+                    "page": f"{rel_dir}/maps/{asset}.html",
+                    "vignette": f"{rel_dir}/maps/{asset}_vignette.png" if vign.is_file() else "",
+                    "pack": "quest" if "quest" in rel_dir else dossier.name})
+    return res
+
+
+def section_maps(maps: list[dict]) -> str:
+    par: dict[str, list[dict]] = defaultdict(list)
+    for m in maps:
+        par[classe(m["asset"])].append(m)
+    out = []
+    for titre in [b[0] for b in BIOMES] + ["Autres aperçus"]:
+        items = sorted(par.get(titre, []), key=lambda m: m["asset"].lower())
+        if not items:
+            continue
+        cartes = []
+        for m in items:
+            img = (f'<img src="{html.escape(m["vignette"])}" width="150" loading="lazy" alt="">'
+                   if m["vignette"] else '<div class="vide">pas de vignette</div>')
+            cartes.append(f'<li><a href="{html.escape(m["page"])}" target="_blank">{img}<br>'
+                          f'{html.escape(m["label"])}</a><small>{m["wt"]}×{m["ht"]} · {html.escape(m["pack"])}</small></li>')
+        out.append(f'<h2>{html.escape(titre)} <small>({len(items)})</small></h2>'
+                   f'<ul class="grille">{"".join(cartes)}</ul>')
+    return "".join(out)
+
+
 def main() -> None:
+    maps = collecte_maps_rendues()
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.is_file() else []
     ok = [m for m in manifest if m.get("statut") in ("ok", "déjà présent")]
     par_biome: dict[str, list[dict]] = defaultdict(list)
@@ -78,8 +121,15 @@ def main() -> None:
 <title>Galerie de toutes les maps — PMD Destiny</title>
 <style>body{{background:#1d1a14;color:#eee;font:15px/1.5 system-ui,sans-serif;max-width:1100px;margin:24px auto;padding:0 16px}}
 a{{color:#ffd76a}}small{{color:#aaa}}li{{margin:4px 0}}h2{{border-bottom:1px solid #444;padding-bottom:4px;margin-top:30px}}
+.grille{{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px}}.grille li{{width:166px;background:#2a251c;border-radius:6px;padding:6px;text-align:center;font-size:13px}}
+.grille img{{image-rendering:pixelated;background:#111;max-height:150px;object-fit:contain}}.vide{{height:80px;line-height:80px;color:#777}}
 .note{{background:#2b2619;border-left:4px solid #ffd76a;padding:8px 12px}}</style></head><body>
-<h1>Galerie de toutes les maps (aperçus)</h1>
+<h1>Galerie de toutes les maps</h1>
+<p class="note"><b>{len(maps)} maps Ground rendues visuellement</b> (moteur natif 8 px, animations incluses) :
+ZIP (<code>apercus/zips/</code>) puis quest (<code>apercus/quest/</code>), sans doublon. Cliquez une vignette pour ouvrir la carte.</p>
+<h2 style="color:#ffd76a">Maps Ground (rendu visuel)</h2>
+{section_maps(maps)}
+<h2 style="color:#ffd76a">Aperçus HTML téléchargés</h2>
 <p class="note">{len(ok)} aperçus interactifs, classés par biome. Cliquez pour ouvrir un aperçu dans un nouvel onglet :
 ils sont servis localement par le serveur d'aperçus (dossier <code>.cache/apercus/</code>). Les fichiers
 sont lourds (jusqu'à 30 Mo) : le chargement peut prendre quelques secondes.</p>
