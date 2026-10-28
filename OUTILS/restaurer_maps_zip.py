@@ -577,19 +577,23 @@ def treat_pack(zip_path: Path, out_root: Path, verbose=True) -> dict:
     maps_dir = base / 'maps'
     if rsground_members:
         maps_dir.mkdir(exist_ok=True)
-    for member in rsground_members:
+    def _traite_member(member):
         rg_name = Path(member).name
         try:
             with zipfile.ZipFile(zip_path) as z:
                 doc = json.loads(z.read(member).decode('utf-8'))
         except Exception as exc:  # binaire inattendu
             warns_global.append(f'{rg_name} : illisible ({exc})')
-            continue
+            return
         obj = doc['Object']
         asset = obj.get('AssetName') or Path(member).stem
         warn: list[str] = []
         sheets: list[str] = []
-        bg_entries = load_backgrounds(proot, obj, warn)
+        try:
+            bg_entries = load_backgrounds(proot, obj, warn)
+        except ValueError as exc:  # fond .dir incohérent : carte rendue sans fond animé, signalé
+            bg_entries = []
+            warn.append(f'fond animé non rendu : {exc}')
         data = build_map(doc, sheets, bg_entries, warn)
         for name in sheets:
             get_tileset(name)
@@ -629,6 +633,13 @@ def treat_pack(zip_path: Path, out_root: Path, verbose=True) -> dict:
         if verbose:
             print(f'   carte {asset} — {data["wt"]}×{data["ht"]}, '
                   f'{sum(L["anim_cells"] for L in data["layers"])} cases animées')
+
+    for member in rsground_members:
+        try:
+            _traite_member(member)
+        except Exception as exc:  # carte isolée défaillante : signalée, les autres continuent
+            warns_global.append(f'{Path(member).name} : non rendu ({exc})')
+            print(f"   carte ÉCHEC {Path(member).name} : {exc}")
 
     # --- galerie des images du pack (hors atlas générés)
     gallery: dict[str, list[Path]] = {}
@@ -691,7 +702,11 @@ def main():
     total_maps = 0
     for zp in zips:
         print(f'== {zp.name}')
-        info = treat_pack(zp, out_root)
+        try:
+            info = treat_pack(zp, out_root)
+        except Exception as exc:  # noqa: BLE001 — un pack défaillant ne bloque pas les autres
+            print(f'   ÉCHEC pack {zp.name} : {exc}')
+            continue
         total_maps += info['maps']
         print(f"   → {info['maps']} cartes Ground, {info['images']} images")
     print(f'TOTAL : {total_maps} cartes restaurées dans apercus/zips/')
