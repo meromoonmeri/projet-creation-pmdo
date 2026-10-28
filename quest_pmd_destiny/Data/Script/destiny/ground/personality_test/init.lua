@@ -2,14 +2,15 @@
      Arrivée : enchaînement depuis intro_halo (intro halo arc-en-ciel +
      titres voice-over + transition blanche) — voir
      Data/Script/destiny/ground/intro_halo/init.lua.
-     Flux observé sur le personality_test de Halcyon (structure seulement,
-     code entièrement rédigé pour PMD Destiny — aucun fichier Halcyon copié) :
+     Flux (schéma de sélection complet, code entièrement rédigé pour
+     PMD Destiny) :
        purge de l'équipe par défaut → 15 questions → nature (max de points)
-       → badge étoile coloré → starter selon la nature → choix du sexe →
-       choix du talent (Intrinsic1/2/3) → confirmation « Êtes-vous sûr… ? »
-       avec mention MÉGA-ÉVOLUTION en lettres arc-en-ciel (balises
-       [color=#RRGGBB] du moteur — RogueEssence/Text.cs : ouverture
-       [color=#hex], fermeture [color]).
+       → badge étoile coloré → starter selon la nature → sexe → talent
+       → confirmation « Êtes-vous sûr… ? » avec mention MÉGA-ÉVOLUTION en
+       lettres arc-en-ciel → choix du partenaire (pool complet, espèce
+       différente du héros) → sexe + talent du partenaire → NOM du
+       partenaire (NameMenu + confirmation) → cinématique « le réveil de
+       nuit » (map reveil_nuit).
      Données : quiz_data.lua (généré par OUTILS/generer_quiz_destiny.py).
      Honnêteté : runtime_tested false (non lancé en jeu depuis le sandbox).
 ]]
@@ -55,6 +56,25 @@ local function calculer_nature(scores)
   return best
 end
 
+-- Menu de talent (Intrinsic1/2/3, talent caché inclus) pour un Pokémon.
+local function choisir_talent(espece, forme)
+  local fiche = _DATA:GetMonster(espece).Forms[forme]
+  local talent = fiche.Intrinsic1
+  local candidats, affiches = { fiche.Intrinsic1 }, { _DATA:GetIntrinsic(fiche.Intrinsic1):GetColoredName() }
+  for _, cand in ipairs({ fiche.Intrinsic2, fiche.Intrinsic3 }) do
+    if cand ~= nil and cand ~= 'none' then
+      table.insert(candidats, cand)
+      table.insert(affiches, _DATA:GetIntrinsic(cand):GetColoredName())
+    end
+  end
+  if #affiches > 1 then
+    UI:BeginChoiceMenu("Quel talent veux-tu ?", affiches, 1, 1)
+    UI:WaitForChoice()
+    talent = candidats[UI:ChoiceResult()]
+  end
+  return talent
+end
+
 -- ------------------------------------------------------------- map callbacks
 
 function personality_test.Init(map)
@@ -97,7 +117,7 @@ function personality_test.Quiz()
   GAME:WaitFrames(20)
 
   -- purge de l'équipe par défaut créée par la Nouvelle partie (missingno) :
-  -- le héros est créé par le quiz elle-même (comme chez Halcyon)
+  -- le héros est créé par le quiz lui-même
   local party_count = _DATA.Save.ActiveTeam.Players.Count
   for ii = 1, party_count, 1 do
     _DATA.Save.ActiveTeam.Players:RemoveAt(0)
@@ -136,7 +156,7 @@ function personality_test.Quiz()
 
   UI:WaitShowVoiceOver("Le starter qui te correspond est...\n" .. starter.nom .. " !", -1)
 
-  -- choix du sexe (structure observée chez Halcyon)
+  -- sexe du héros
   local genre = Gender.Male
   UI:BeginChoiceMenu("Quel est ton sexe ?", { "Garçon", "Fille", "Non-binaire" }, 1, 1)
   UI:WaitForChoice()
@@ -147,22 +167,8 @@ function personality_test.Quiz()
     genre = Gender.Genderless
   end
 
-  -- choix du talent : les intrinsèques viennent des données du jeu
-  -- (Intrinsic1/2/3, talent caché inclus — comme chez Halcyon)
-  local fiche = _DATA:GetMonster(starter.espece).Forms[starter.forme]
-  local talent = fiche.Intrinsic1
-  local candidats, affiches = { fiche.Intrinsic1 }, { _DATA:GetIntrinsic(fiche.Intrinsic1):GetColoredName() }
-  for _, cand in ipairs({ fiche.Intrinsic2, fiche.Intrinsic3 }) do
-    if cand ~= nil and cand ~= 'none' then
-      table.insert(candidats, cand)
-      table.insert(affiches, _DATA:GetIntrinsic(cand):GetColoredName())
-    end
-  end
-  if #affiches > 1 then
-    UI:BeginChoiceMenu("Quel talent veux-tu ?", affiches, 1, 1)
-    UI:WaitForChoice()
-    talent = candidats[UI:ChoiceResult()]
-  end
+  -- talent du héros
+  local talent = choisir_talent(starter.espece, starter.forme)
 
   -- confirmation, avec la mention méga-évolution en lettres arc-en-ciel
   local ok = false
@@ -184,7 +190,7 @@ function personality_test.Quiz()
     end
   end
 
-  -- création du héros (comme Halcyon : niveau 5, talent choisi)
+  -- création du héros (niveau 5, talent choisi)
   local mon_id = RogueEssence.Dungeon.MonsterID(starter.espece, starter.forme, 'normal', genre)
   _DATA.Save.ActiveTeam:SetRank("unranked")
   _DATA.Save.ActiveTeam.Money = 0
@@ -193,9 +199,98 @@ function personality_test.Quiz()
   _DATA.Save.ActiveTeam.Players[0].IsFounder = true
   GAME:SetTeamLeaderIndex(0)
 
-  UI:WaitShowVoiceOver("Ton aventure commence maintenant...\nBonne route, " .. starter.nom .. " !", -1)
+  -- ---------------------------------------------------- choix du partenaire
+  UI:WaitShowVoiceOver("Un Pokémon ne part jamais seul...\nQui sera ton partenaire ?", -1)
+
+  -- pool trié : gen puis nom (espèce du héros exclue)
+  local pool = {}
+  for _, s in pairs(quiz_data.starters) do table.insert(pool, s) end
+  table.sort(pool, function(a, b)
+    if a.gen ~= b.gen then return a.gen < b.gen end
+    return a.nom < b.nom
+  end)
+  local choix_ids = {}
+  for _, s in ipairs(pool) do
+    if s.espece ~= starter.espece then
+      table.insert(choix_ids, RogueEssence.Dungeon.MonsterID(s.espece, s.forme, 'normal', Gender.Genderless))
+    end
+  end
+
+  local partner_id = nil
+  local ok_partenaire = false
+  while not ok_partenaire do
+    UI:ChooseMonsterMenu("Qui sera ton partenaire ?", choix_ids)
+    UI:WaitForChoice()
+    local result = UI:ChoiceResult()
+    if result.Species == starter.espece then
+      UI:WaitShowDialogue("Ton partenaire doit être un autre Pokémon que ton héros ! Choisis encore.")
+    else
+      UI:ChoiceMenuYesNo("Est-ce que " ..
+        _DATA:GetMonster(result.Species):GetColoredName() .. " convient comme partenaire ?", true)
+      UI:WaitForChoice()
+      if UI:ChoiceResult() then
+        partner_id = result
+        ok_partenaire = true
+      end
+    end
+  end
+
+  -- sexe du partenaire
+  UI:BeginChoiceMenu("Quel est le sexe de ton partenaire ?", { "Garçon", "Fille", "Non-binaire" }, 1, 1)
+  UI:WaitForChoice()
+  local g2 = UI:ChoiceResult()
+  local pgenre = Gender.Male
+  if g2 == 2 then
+    pgenre = Gender.Female
+  elseif g2 == 3 then
+    pgenre = Gender.Genderless
+  end
+  partner_id = RogueEssence.Dungeon.MonsterID(partner_id.Species, partner_id.Form, partner_id.Skin, pgenre)
+
+  -- talent du partenaire
+  local ptalent = choisir_talent(partner_id.Species, partner_id.Form)
+
+  -- création du partenaire
+  _DATA.Save.ActiveTeam.Players:Add(_DATA.Save.ActiveTeam:CreatePlayer(_DATA.Save.Rand, partner_id, 5, ptalent, 0))
+
+  -- ------------------------------------------------------- nom du partenaire
+  local nom = ""
+  local ok_nom = false
+  while not ok_nom do
+    UI:NameMenu("Quel est le nom de ton partenaire ?", "Un petit surnom, et l'aventure est lancée.", 60)
+    UI:WaitForChoice()
+    nom = UI:ChoiceResult()
+    if nom == "" then
+      nom = _DATA:GetMonster(partner_id.Species).Name:ToLocal()
+    end
+    UI:ChoiceMenuYesNo("Le nom [color=#FFFF00]" .. nom .. "[color] convient-il ?", true)
+    UI:WaitForChoice()
+    ok_nom = UI:ChoiceResult()
+  end
+
+  local hero = GAME:GetPlayerPartyMember(0)
+  local partner = GAME:GetPlayerPartyMember(1)
+  GAME:SetCharacterNickname(partner, nom)
+  GAME:SetTeamName(nom)
+
+  -- les deux restent dans l'équipe (fondateurs / partenaires inséparables)
+  _DATA.Save.ActiveTeam.Players[0].IsFounder = true
+  _DATA.Save.ActiveTeam.Players[0].IsPartner = true
+  _DATA.Save.ActiveTeam.Players[1].IsFounder = true
+  _DATA.Save.ActiveTeam.Players[1].IsPartner = true
+  _DATA.Save.ActiveTeam.Players[0]:FullRestore()
+  _DATA.Save.ActiveTeam.Players[1]:FullRestore()
+  local hTbl = LTBL(hero)
+  local pTbl = LTBL(partner)
+  hTbl.Importance = 'Hero'
+  pTbl.Importance = 'Partner'
+
+  -- ------------------------------------- cinématique : le réveil de nuit
+  SOUND:FadeOutBGM(120)
+  GAME:FadeOut(false, 120)
+  GAME:WaitFrames(60)
   GAME:CutsceneMode(false)
-  GROUND:EnterGroundMap('metano_town', 'Main_Entrance_Marker')
+  GROUND:EnterGroundMap('reveil_nuit', 'Main_Entrance_Marker')
 end
 
 return personality_test
