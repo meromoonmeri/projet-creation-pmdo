@@ -180,8 +180,10 @@ telles que définies dans <code>personality_test.rsground</code> (Halcyon).
 Rendu ci-dessous avec la sémantique exacte du moteur
 (<code>MapBG.Draw</code> de RogueEssence).</p>
 
+<audio id="bgm" loop preload="none" src="quest_pmd_destiny/Content/Music/Welcome%20to%20the%20World%20of%20Pok%C3%A9mon%21.ogg"></audio>
 <div class="bar">
   <button id="pause">Pause</button>
+  <button id="musique">♪ Musique : OFF</button>
   <button id="z1">×1</button><button id="z2">×2</button><button id="z3">×3</button>
   <label><input type="checkbox" id="voile" checked> simulation d'interface du quiz</label>
   <small id="tick"></small>
@@ -278,6 +280,12 @@ for (const z of [1, 2, 3]) document.getElementById('z' + z).onclick = () => setZ
 document.getElementById('voile').onchange = e =>
   document.getElementById('quizui').style.display = e.target.checked ? 'flex' : 'none';
 setZoom(2); drawFond(0); requestAnimationFrame(frame);
+// musique du personality quiz de Halcyon (« Welcome to the World of Pokémon! »)
+const bgm = document.getElementById('bgm');
+document.getElementById('musique').onclick = e => {{
+  if (bgm.paused) {{ bgm.play(); e.target.textContent = '♪ Musique : ON'; }}
+  else {{ bgm.pause(); e.target.textContent = '♪ Musique : OFF'; }}
+}};
 </script>
 </body></html>
 """

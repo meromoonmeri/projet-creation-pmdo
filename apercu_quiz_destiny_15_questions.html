@@ -56,6 +56,10 @@ Zorua, Zorua de Hisui, Miaouss, Skitty, Évoli, Pikachu, Charcadet) → choix du
 <b>sexe</b> et du <b>talent</b> → confirmation, avec la mention méga-évolution
 en lettres arc-en-ciel. Testez :</p>
 
+<audio id="bgm" loop preload="none" src="quest_pmd_destiny/Content/Music/Welcome%20to%20the%20World%20of%20Pok%C3%A9mon%21.ogg"></audio>
+<p><button id="musique">♪ Musique : OFF</button>
+<small>— musique du personality quiz de Halcyon (« Welcome to the World of Pokémon! »)</small></p>
+
 <div class="scene" id="scene">
   <img class="fond" src="apercus/quiz/Dream_Back.png" alt="">
   <div class="voile"></div>
@@ -219,5 +223,11 @@ for (const n of CFG.natures) {
 }
 mh += '</table>';
 document.getElementById('mapping').innerHTML = mh;
+// musique du personality quiz de Halcyon (« Welcome to the World of Pokémon! »)
+const bgm = document.getElementById('bgm');
+document.getElementById('musique').onclick = e => {
+  if (bgm.paused) { bgm.play(); e.target.textContent = '♪ Musique : ON'; }
+  else { bgm.pause(); e.target.textContent = '♪ Musique : OFF'; }
+};
 </script>
 </body></html>
