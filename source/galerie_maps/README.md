@@ -37,12 +37,11 @@ pixels) est **refusé** — la galerie ne montre jamais un décor non détouré 
 
 ## Maps physiquement dans la branche — `maps/`
 
-Les familles **entrée / fin / arène / zone / guilde** (83 maps, 51,6 Mo), **donjon** (31 maps, 14,6 Mo) et **cotes** (23 maps, 19,6 Mo) sont rapatriées **octet pour octet** — 137 maps, 85,7 Mo —
+**Les 171 maps illustrées** du dépôt source (toutes familles) sont rapatriées **octet pour octet** — 124,5 Mo —
 dans `maps/` (voir [`maps/README.md`](../../maps/README.md)) : `rapatrier.py` vérifie le **sha1 git
 du blob** avant écriture et consigne le sha256 dans `maps/MANIFESTE_MAPS.json`. La galerie lie
 chaque carte au fichier natif (« ▶ PNG natif ») et propose la case *« seulement les fichiers natifs
-de la branche »*. Le reste (`divers` 9,8 Mo, `monde` 29 Mo) se rapatrie par
-`--categories divers,monde` ou `--tout`.
+de la branche »*. `--tout` rejoue l'ensemble ; `--verifier` relit les 171 sha256.
 
 ## Compression
 

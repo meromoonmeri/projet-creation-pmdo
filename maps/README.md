@@ -36,16 +36,17 @@ immédiatement la provenance.
 | **Série entrée / fin / arène / zone / guilde** | `entree`, `fin`, `arene`, `zone`, `guilde` | **83** | **51,6 Mo** | ✅ présent |
 | **Donjons générés & donjons PMD** | `donjon` | **31** | **14,6 Mo** | ✅ présent |
 | **Côtes, Métano & falaises** | `cotes` | **23** | **19,6 Mo** | ✅ présent |
-| Décors, animations & autres lots | `divers` | 14 | 9,8 Mo | à rapatrier |
-| Cartes du monde | `monde` | 20 | 29,0 Mo | à rapatrier |
-| **Total déjà là** | | **137 maps** | **85,7 Mo** | |
+| **Décors, animations & autres lots** | `divers` | **14** | **9,8 Mo** | ✅ présent |
+| **Cartes du monde** | `monde` | **20** | **29,0 Mo** | ✅ présent |
+| **TOTAL rapatrié** | toutes | **171 maps** | **124,5 Mo** | ✅ intégral |
 
-Commande du lot suivant (mêmes garanties, mêmes vérifications) :
+**Toutes les maps illustrées du dépôt source sont désormais dans la branche** (171/171, 124,5 Mo,
+0 absente, 0 altérée). Les commandes restent disponibles pour rejouer ou compléter :
 
 ```sh
-.venv/bin/python source/galerie_maps/rapatrier.py --categories divers,monde
 .venv/bin/python source/galerie_maps/rapatrier.py --tout
-.venv/bin/python source/galerie_maps/build_galerie.py        # met la galerie à jour
+.venv/bin/python source/galerie_maps/rapatrier.py --verifier   # relit les 171 sha256
+.venv/bin/python source/galerie_maps/build_galerie.py          # met la galerie à jour
 ```
 
 ## Ce qui n'est **pas** dans `maps/`, et pourquoi
