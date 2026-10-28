@@ -34,15 +34,15 @@ immédiatement la provenance.
 | Lot de maps | Famille (`categorie`) | Maps | Poids | État |
 |---|---|---:|---:|---|
 | **Série entrée / fin / arène / zone / guilde** | `entree`, `fin`, `arene`, `zone`, `guilde` | **83** | **51,6 Mo** | ✅ présent |
-| Donjons générés & donjons PMD | `donjon` | 31 | 14,6 Mo | à rapatrier |
-| Côtes, Métano & falaises | `cotes` | 23 | 19,6 Mo | à rapatrier |
+| **Donjons générés & donjons PMD** | `donjon` | **31** | **14,6 Mo** | ✅ présent |
+| **Côtes, Métano & falaises** | `cotes` | **23** | **19,6 Mo** | ✅ présent |
 | Décors, animations & autres lots | `divers` | 14 | 9,8 Mo | à rapatrier |
 | Cartes du monde | `monde` | 20 | 29,0 Mo | à rapatrier |
+| **Total déjà là** | | **137 maps** | **85,7 Mo** | |
 
 Commande du lot suivant (mêmes garanties, mêmes vérifications) :
 
 ```sh
-.venv/bin/python source/galerie_maps/rapatrier.py --categories donjon,cotes
 .venv/bin/python source/galerie_maps/rapatrier.py --categories divers,monde
 .venv/bin/python source/galerie_maps/rapatrier.py --tout
 .venv/bin/python source/galerie_maps/build_galerie.py        # met la galerie à jour
