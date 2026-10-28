@@ -98,7 +98,38 @@ class LostWoodBuildTests(unittest.TestCase):
         self.assertIn('GAME:AddPlayerAssembly(heros)',s)
         z=(Q/'Data/Script/destiny/zone/lost_wood/init.lua').read_text()
         self.assertIn('GAME:GetPlayerAssemblyMember(idx)',z)
-        self.assertIn("GAME:EnterZone('personality_test', -1, 2, 0)",z)
+        self.assertIn("SV.Destiny.LostWoodTrip = 'rencontre'",z)
+        self.assertIn("SV.Destiny.LostWoodTrip = 'termine'",z)
+        self.assertIn("terminer_et_entrer(result, 'personality_test', -1, 2, 0)",z)
+        self.assertIn("terminer_et_entrer(result, 'destiny_cliff_tests', -1, 8, 0)",z)
+        self.assertIn('GAME:EnterZone(zone_id, structure_id, map_id, entry_id)',z)
+
+    def test_return_trip_and_long_reunion(self):
+        cliff=(Q/'Data/Script/destiny/ground/cliffdaytest_nuit/init.lua').read_text()
+        scene=(Q/'Data/Script/destiny/ground/reveil_nuit/init.lua').read_text()
+        self.assertIn("SV.Destiny.LostWoodTrip = 'aller'",cliff)
+        self.assertIn('function cliffdaytest_nuit.SceneRetour()',cliff)
+        self.assertIn("SV.Destiny.LostWoodTrip = 'retour'",scene)
+        self.assertIn("GAME:EnterDungeon('lost_wood'",scene)
+        self.assertIn('LostWoodRetourEchec',scene)
+        entries=[line for line in scene.splitlines() if line.lstrip().startswith('{partner,') or line.lstrip().startswith('{hero,')]
+        self.assertGreaterEqual(len(entries),60)
+        story=' '.join(entries).lower()
+        for phrase in ['montagne','grand explorateur','secourir','trésors']:
+            self.assertIn(phrase,story)
+        self.assertNotIn('relique',scene.lower())
+        self.assertNotIn('halcyon',scene.lower())
+
+    def test_reunion_ground_keeps_full_night_map(self):
+        with open(Q/'Data/Ground/cliffdaytest_nuit.rsground',encoding='utf-8-sig') as f:
+            original=json.load(f)['Object']
+        with open(Q/'Data/Ground/reveil_nuit.rsground',encoding='utf-8-sig') as f:
+            reunion=json.load(f)['Object']
+        self.assertEqual(reunion['AssetName'],'reveil_nuit')
+        self.assertEqual(reunion['Layers'],original['Layers'])
+        self.assertEqual(reunion['Background'],original['Background'])
+        names={m['EntName'] for layer in reunion['Entities'] for m in layer['Markers']}
+        self.assertTrue({'WakeupLocation','ScenicOverlook','Main_Entrance_Marker'} <= names)
 
 
 if __name__=='__main__': unittest.main(verbosity=2)

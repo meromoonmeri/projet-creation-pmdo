@@ -1,11 +1,10 @@
 --[[ init.lua — Scène du partenaire (map cliffdaytest — version nuit)
      Enchaînement : fin du quiz → la faille du rêve → cette map, la nuit.
      Le partenaire (celui choisi et nommé dans le quiz) hésite à devenir
-     explorateur au croisement, puis se décide et part tenter le donjon le
-     plus proche : Lost Wood (7 étages).
-     Le héros, lui, est toujours allongé et inconscient ailleurs (il est
-     masqué ici) — la suite se joue au dernier étage de Lost Wood, sur la
-     map reveil_nuit. Dialogues originaux PMD Destiny.
+     explorateur au croisement, puis se décide et part seul dans Lost Wood
+     (7 étages). Après la rencontre et la longue discussion sous la montagne,
+     ils retraversent le donjon ensemble ; le retour aboutit sur cette map.
+     Le héros reste allongé jusqu'à la rencontre. Dialogues originaux Destiny.
      Honnêteté : runtime_tested false.
 ]]
 
@@ -36,11 +35,46 @@ function cliffdaytest_nuit.GameLoad(map)
 end
 
 function cliffdaytest_nuit.PlotScripting()
+  if SV.Destiny ~= nil and SV.Destiny.RetourAccompli then
+    cliffdaytest_nuit.SceneRetour()
+    return
+  end
   if SV.Destiny ~= nil and SV.Destiny.PartenaireParti then
-    -- déjà parti vers Lost Wood : pas de rediffusion
+    -- déjà engagé dans Lost Wood : pas de rediffusion de la scène d'aller
     return
   end
   cliffdaytest_nuit.ScenePartenaire()
+end
+
+-- -------------------------------------------------------- retour en duo
+
+function cliffdaytest_nuit.SceneRetour()
+  COMMON.RespawnAllies()
+  local hero = CH('PLAYER')
+  local partner = CH('Teammate1')
+  GAME:CutsceneMode(true)
+  UI:ResetSpeaker()
+  GROUND:TeleportTo(hero, 648, 516, Direction.Up)
+  GROUND:TeleportTo(partner, 666, 516, Direction.Up)
+  GAME:MoveCamera(666, 516, 1, false)
+  GAME:WaitFrames(30)
+  UI:SetSpeaker(partner)
+  UI:SetSpeakerEmotion("Happy")
+  UI:WaitShowDialogue("On est revenus au croisement ! Et cette fois, on a traversé Lost Wood ensemble.")
+  UI:WaitShowDialogue("Regarde la montagne, là-bas. Elle n'a pas bougé… mais moi, j'ai l'impression d'avoir fait un grand pas vers elle.")
+  UI:SetSpeakerEmotion("Normal")
+  UI:WaitShowDialogue("Un jour, on suivra ce chemin jusqu'au pied de cette montagne. On ira secourir ceux qui en ont besoin et découvrir ce qui se cache au-delà.")
+  UI:SetSpeakerEmotion("Happy")
+  UI:WaitShowDialogue("Et si on trouve un trésor en route, on le partagera avec toute l'équipe !")
+  UI:SetSpeaker(hero)
+  UI:SetSpeakerEmotion("Happy")
+  UI:WaitShowDialogue("Alors, explorateur… on continue ensemble ?")
+  UI:SetSpeaker(partner)
+  UI:SetSpeakerEmotion("Happy")
+  UI:WaitShowDialogue("Ensemble. Notre aventure ne fait que commencer.")
+  SV.Destiny.FinaleDestiny = true
+  GAME:WaitFrames(30)
+  GAME:CutsceneMode(false)
 end
 
 -- ------------------------------------------------------- scène (hésitation)
@@ -108,6 +142,7 @@ function cliffdaytest_nuit.ScenePartenaire()
   GROUND:CharAnimateTurnTo(partenaire, Direction.Down, 8)
   GAME:WaitFrames(20)
   SV.Destiny.PartenaireParti = true
+  SV.Destiny.LostWoodTrip = 'aller'
   SOUND:FadeOutBGM(60)
   GAME:FadeOut(false, 60)
   GAME:WaitFrames(30)

@@ -1,8 +1,10 @@
---[[ init.lua — Zone « Lost Wood » (donjon de 7 étages)
-     Le partenaire part seul du croisement. Le héros est retiré de l'équipe
-     active et placé en réserve pour rester inconscient jusqu'à la sortie.
-     Au dernier étage, l'équipe est restaurée, le héros redevient le leader,
-     puis la sortie mène au ground reveil_nuit. Échec : retour au croisement.
+--[[ Zone « Lost Wood » — structure aller/retour de la quête Destiny.
+     1) Aller : le partenaire traverse les 7 étages seul (le héros, inconscient,
+        est en réserve). Au succès, l'équipe est réunie sur le panorama nocturne.
+     2) Retour : après la longue scène de retrouvailles, héros + partenaire
+        retraversent les mêmes 7 étages ensemble. Au succès, ils reviennent au
+        cliffdaytest_nuit. Échec de l'aller = croisement ; échec du retour =
+        retrouvaille nocturne puis nouvelle tentative en duo.
      Honnêteté : runtime_tested false.
 ]]
 
@@ -29,20 +31,44 @@ local function restaurer_heros()
   SV.Destiny.HeroAssemblyIndex = nil
 end
 
+local function terminer_et_entrer(result, zone_id, structure_id, map_id, entry_id)
+  GAME:EndDungeonRun(result, zone_id, structure_id, map_id, entry_id, false, false)
+  GAME:EnterZone(zone_id, structure_id, map_id, entry_id)
+end
+
 function lost_wood.ExitSegment(zone, result, rescue, segmentID, mapID)
   GAME:SetRescueAllowed(false)
-  restaurer_heros()
+  SV.Destiny = SV.Destiny or {}
+  local aller_reussi = result == RogueEssence.Data.GameProgress.ResultType.Cleared
+  local trajet = SV.Destiny.LostWoodTrip or 'aller'
 
-  if result == RogueEssence.Data.GameProgress.ResultType.Cleared then
-    -- le dernier étage s'ouvre sur la clairière du réveil
-    -- (zone personality_test, ground 2 = reveil_nuit)
-    GAME:EndDungeonRun(result, 'personality_test', -1, 2, 0, false, false)
-    GAME:EnterZone('personality_test', -1, 2, 0)
+  if trajet == 'retour' then
+    -- Cette fois, l'équipe entière ressort de la forêt.
+    if aller_reussi then
+      SV.Destiny.LostWoodRetourEchec = false
+      SV.Destiny.RetourAccompli = true
+      SV.Destiny.LostWoodTrip = 'termine'
+      terminer_et_entrer(result, 'destiny_cliff_tests', -1, 8, 0)
+    else
+      -- La scène ne recommence pas : elle reprend au panorama et propose
+      -- une nouvelle tentative ensemble.
+      SV.Destiny.LostWoodRetourEchec = true
+      terminer_et_entrer(result, 'personality_test', -1, 2, 0)
+    end
+    return
+  end
+
+  -- Fin de l'aller solitaire : le héros revient de réserve avant la réunion.
+  restaurer_heros()
+  if aller_reussi then
+    SV.Destiny.LostWoodTrip = 'rencontre'
+    SV.Destiny.PartenaireParti = true
+    SV.Destiny.LostWoodRetourEchec = false
+    terminer_et_entrer(result, 'personality_test', -1, 2, 0)
   else
-    -- échec : retour au croisement, avec possibilité de retenter le donjon
+    SV.Destiny.LostWoodTrip = nil
     SV.Destiny.PartenaireParti = false
-    GAME:EndDungeonRun(result, 'destiny_cliff_tests', -1, 8, 0, false, false)
-    GAME:EnterZone('destiny_cliff_tests', -1, 8, 0)
+    terminer_et_entrer(result, 'destiny_cliff_tests', -1, 8, 0)
   end
 end
 
