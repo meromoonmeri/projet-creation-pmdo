@@ -29,7 +29,6 @@ recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
 <div class="bar">
   <button id="pause">Pause</button>
   <button id="replay">Rejouer</button>
-  <button id="figure">Figure : déesse générée</button>
   <small id="etat"></small>
 </div>
 <div class="scenewrap">
@@ -43,8 +42,8 @@ recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
 inversion) · 2 anneaux expansifs max (cadence 200 frames, zoom 0,2 → +0,01/δ,
 fondu +4/δ puis −4/δ, perpétuels) · 24 particules additives migrantes
 (vitesse 0,1–1,6, estompage 0,5×vitesse/frame) · fondu d'entrée.
-<b>Figure centrale</b> : art généré (« déesse créatrice », <i>art_approved :
-false</i>) ou blason Œuf Ailé de l'opening PMD Destiny (art de l'utilisateur).
+<b>Figure centrale</b> : blason Œuf Ailé de l'opening PMD Destiny (art de
+l'utilisateur).
 Citation de conception et textures : scène d'intro de <b>Pokémon Relict</b>
 (<code>meromoonmeri/BIBLIOTHEQUE</code>, <code>ArceusRing.rb</code>).</div>
 
@@ -52,7 +51,7 @@ Citation de conception et textures : scène d'intro de <b>Pokémon Relict</b>
 const cv = document.getElementById('sc'), g = cv.getContext('2d');
 const imgs = {};
 for (const n of ['halo_fond', 'halo_shine', 'halo_anneau', 'halo_particule0', 'halo_particule1',
-                 'figure_deesse', 'figure_oeuf_ailes']) {
+                 'figure_oeuf_ailes']) {
   const im = new Image(); im.src = 'apercus/intro_halo/' + n + '.png'; imgs[n] = im;
 }
 // --- constantes reprises de ArceusRing.rb (delta = 3, 60 img/s)
@@ -65,7 +64,7 @@ const TEXTES = [
   [800, 'Trouve-moi… et ensemble, nous rétablirons ce qui a dévié.'],
 ];
 
-let tick = 0, paused = false, held = 0, useDeesse = true;
+let tick = 0, paused = false, held = 0;
 const shine = { op: 0, angle: 0, zoom: 1, toggle: 1 };
 let rings = [], ringTimer = 8, nextZoom = 0.2;
 const NP = 24;
@@ -148,8 +147,8 @@ function draw() {
   g.restore();
   g.globalCompositeOperation = 'source-over';
   g.globalAlpha = 1;
-  // figure centrale
-  const fig = imgs[useDeesse ? 'figure_deesse' : 'figure_oeuf_ailes'];
+  // figure centrale : blason Œuf Ailé de l'opening (art de l'utilisateur)
+  const fig = imgs['figure_oeuf_ailes'];
   if (fig.complete && fig.naturalWidth) {
     const fh = 330, fw = fh * fig.naturalWidth / fig.naturalHeight;
     g.drawImage(fig, 320 - fw / 2, 268 - fh / 2, fw, fh);
@@ -190,10 +189,6 @@ document.getElementById('replay').onclick = () => {
   rings = []; ringTimer = 8; nextZoom = 0.2;
   for (const p of parts) { p.frame = 0; p.visible = false; refreshPart(p); }
   start = performance.now();
-};
-document.getElementById('figure').onclick = e => {
-  useDeesse = !useDeesse;
-  e.target.textContent = useDeesse ? 'Figure : déesse générée' : 'Figure : Œuf Ailé (opening)';
 };
 requestAnimationFrame(frame);
 </script>

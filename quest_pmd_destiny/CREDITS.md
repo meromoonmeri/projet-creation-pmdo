@@ -132,6 +132,5 @@ du halo sont **dérivées des textures de l'intro de Relict**
 **recolorées arc-en-ciel en conservant exactement leur texture d'origine**
 (même luminance/opacité — rayons, douceur ; seule la teinte change). Crédit :
 **Pokémon Relict**. Génération : `OUTILS/generer_intro_halo_arcenciel.py`.
-Figure centrale : art généré (`art_approved : false`, à valider) avec variante
-blason Œuf Ailé de l'opening (art de l'utilisateur). Aperçu :
-`apercu_intro_halo_arcenciel.html`.
+Figure centrale : blason Œuf Ailé de l'opening (art de l'utilisateur).
+Aperçu : `apercu_intro_halo_arcenciel.html`.
