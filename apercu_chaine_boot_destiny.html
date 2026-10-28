@@ -42,17 +42,29 @@ fonds parallax <code>Dream_Back.dir</code>/<code>Dream_Front.dir</code> (±30 px
 méga-évolution → <b>choix du partenaire</b> (pool complet, espèce différente
 du héros) → sexe + talent du partenaire → <b>nom du partenaire</b>
 (menu nom + confirmation) → l'équipe est formée.</li>
-<li><b>Le réveil de nuit</b> — map <code>reveil_nuit</code> (ground 2) : clairière
-sous la lune (fond nocturne procédural). Le héros se réveille sans souvenirs ;
-le partenaire le trouve, découvre qu'il a perdu la mémoire, et l'entraîne
-vers la ville — dialogues originaux PMD Destiny, puis
-<code>metano_town</code>.</li>
+<li><b>La faille du rêve</b> — pendant que le héros est encore allongé, une
+faille s'ouvre : la scène rejoint le <b>partenaire</b> en train d'hésiter à
+devenir explorateur, sur <code>cliffdaytest</code> en <b>version nuit</b>
+(ground 8 de <code>destiny_cliff_tests</code>). Il se décide et emprunte le
+chemin du donjon le plus proche.</li>
+<li><b>Lost Wood</b> — donjon de <b>7 étages</b> (zone <code>lost_wood</code>),
+traversé par le partenaire ; au dernier étage, la sortie ouvre sur la
+clairière où le héros est allongé.</li>
+<li><b>Le réveil de nuit</b> — map <code>reveil_nuit</code> (ground 2 de
+<code>personality_test</code>) : clairière sous la lune. Le héros est
+allongé, inconscient ; le partenaire arrive du donjon, le voit, court vers
+lui et le <b>réveille</b> — le héros n'a aucun souvenir, découvre qu'il est
+un Pokémon, la voix du rêve (« Trouve-moi… »)… ils décident de rester
+ensemble. Contrôle rendu sur la map (pas de warp).</li>
 </ol>
 
 <div class="note"><b>Fichiers</b> : <code>quest_pmd_destiny/Data/StartParams.xml</code> ·
-<code>Data/Zone/personality_test.json</code> (GroundMaps = personality_test, intro_halo, reveil_nuit) ·
-<code>Data/Ground/{intro_halo,reveil_nuit}.rsground</code> ·
-<code>Data/Script/destiny/ground/{intro_halo,personality_test,reveil_nuit}/init.lua</code>
+<code>Data/Zone/{personality_test,destiny_cliff_tests,lost_wood}.json</code> ·
+<code>Data/Ground/{intro_halo,reveil_nuit}.rsground</code> +
+<code>cliffdaytest_nuit.rsground</code> (importée par
+<code>OUTILS/importer_cliffdaytest_nuit.py</code> depuis la branche art) ·
+<code>Data/Script/destiny/ground/{intro_halo,personality_test,cliffdaytest_nuit,reveil_nuit}/init.lua</code>
++ <code>Data/Script/destiny/zone/lost_wood/init.lua</code>
 (namespace <b>destiny</b>, Mod.xml) · <code>OUTILS/construire_intro_halo_moteur.py</code> ·
 <code>OUTILS/construire_reveil_nuit_moteur.py</code> ·
 <code>OUTILS/installer_moteur_pmdo_destiny.py</code> + <code>PMDO_DESTINY.sh/.bat</code>.<br>

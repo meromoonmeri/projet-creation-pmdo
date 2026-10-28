@@ -9,8 +9,9 @@
        → confirmation « Êtes-vous sûr… ? » avec mention MÉGA-ÉVOLUTION en
        lettres arc-en-ciel → choix du partenaire (pool complet, espèce
        différente du héros) → sexe + talent du partenaire → NOM du
-       partenaire (NameMenu + confirmation) → cinématique « le réveil de
-       nuit » (map reveil_nuit).
+       partenaire (NameMenu + confirmation) → la faille du rêve : scène du
+       partenaire sur cliffdaytest (version nuit) → donjon Lost Wood
+       (7 étages) → clairière du réveil (reveil_nuit).
      Données : quiz_data.lua (généré par OUTILS/generer_quiz_destiny.py).
      Honnêteté : runtime_tested false (non lancé en jeu depuis le sandbox).
 ]]
@@ -285,12 +286,16 @@ function personality_test.Quiz()
   hTbl.Importance = 'Hero'
   pTbl.Importance = 'Partner'
 
-  -- ------------------------------------- cinématique : le réveil de nuit
+  -- ------------------------------------- la faille : le rêve se fend
+  -- pendant que le héros est encore allongé, on rejoint celui qui hésite
+  -- encore à devenir explorateur (map cliffdaytest, version nuit)
+  UI:WaitShowVoiceOver("Une faille s'ouvre dans le rêve...", -1)
+  UI:WaitShowVoiceOver("...quelque part, quelqu'un hésite encore\n à devenir explorateur.", -1)
   SOUND:FadeOutBGM(120)
   GAME:FadeOut(false, 120)
   GAME:WaitFrames(60)
   GAME:CutsceneMode(false)
-  GROUND:EnterGroundMap('reveil_nuit', 'Main_Entrance_Marker')
+  GROUND:EnterGroundMap('cliffdaytest_nuit', 'Pichu_Crossroads')
 end
 
 return personality_test

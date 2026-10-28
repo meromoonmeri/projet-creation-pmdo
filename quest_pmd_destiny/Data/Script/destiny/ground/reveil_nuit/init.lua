@@ -1,9 +1,11 @@
 --[[ init.lua — Cinématique : le réveil de nuit (map reveil_nuit)
-     Enchaînement (fin du quiz de personnalité) : héros + partenaire choisis
-     et nommés → cette map, la nuit, une clairière. Le héros se réveille sans
-     souvenirs ; le partenaire le trouve, comprend qu'il a perdu la mémoire
-     et lui propose de partir à la ville ensemble. Dialogues originaux
-     PMD Destiny. Honnêteté : runtime_tested false.
+     Enchaînement : dernier étage de Lost Wood → cette clairière nocturne
+     où le héros est allongé, inconscient. Le partenaire (qui vient de
+     traverser le donjon) arrive par le chemin, le voit, se précipite et le
+     réveille ; le héros n'a aucun souvenir. Ils décident de rester
+     ensemble. Dialogues originaux PMD Destiny.
+     Fin de la cinématique : contrôle rendu sur la map (pas de warp).
+     Honnêteté : runtime_tested false.
 ]]
 
 require 'common'
@@ -13,8 +15,8 @@ local reveil_nuit = {}
 -- ------------------------------------------------------------- map callbacks
 
 function reveil_nuit.Init(map)
-  -- héros + partenaire apparaissent sur la map (équipe du joueur)
-  COMMON.RespawnAllies(true)
+  -- héros (leader) + partenaire apparaissent sur la map
+  COMMON.RespawnAllies()
 end
 
 function reveil_nuit.Enter(map)
@@ -36,8 +38,7 @@ end
 
 function reveil_nuit.PlotScripting()
   if SV.Destiny ~= nil and SV.Destiny.ReveilFait then
-    -- fail-safe : cinématique déjà jouée → la ville
-    GROUND:EnterGroundMap('metano_town', 'Main_Entrance_Marker')
+    -- fail-safe : cinématique déjà jouée → libre exploration
     return
   end
   reveil_nuit.Cinematique()
@@ -50,8 +51,6 @@ function reveil_nuit.Cinematique()
   local partner = CH('Teammate1')
   GAME:CutsceneMode(true)
   UI:ResetSpeaker()
-  SOUND:StopBGM()
-  AI:DisableCharacterAI(hero)
   AI:DisableCharacterAI(partner)
 
   -- le héros gît dans l'herbe, la nuit ; le partenaire attend hors champ
@@ -74,7 +73,25 @@ function reveil_nuit.Cinematique()
   SOUND:PlayBGM("Welcome to the World of Pokémon!.ogg", true)
   GAME:WaitFrames(30)
 
-  -- le héros se réveille, seul, sans souvenirs
+  -- le partenaire arrive du donjon, fier de sa traversée
+  UI:SetSpeaker(partner)
+  UI:SetSpeakerEmotion("Happy")
+  UI:WaitShowDialogue("Je l'ai fait... J'ai traversé Lost Wood !\n Tout seul !")
+  UI:WaitShowDialogue("Alors comme ça, je suis un vrai explorateur\n maintenant !")
+  SOUND:PlayBattleSE('EVT_Emote_Exclaim')
+  GROUND:CharSetEmote(partner, "exclaim", 1)
+  UI:SetSpeakerEmotion("Normal")
+  UI:WaitShowDialogue("Attends... qu'est-ce que c'est que ça ?\n Quelqu'un est allongé là, dans l'herbe ?!")
+
+  -- il se précipite vers le héros
+  GROUND:TeleportTo(partner, 160, 176, Direction.Up)
+  GROUND:CharAnimateTurnTo(partner, Direction.Up, 8)
+  UI:SetSpeakerEmotion("Worried")
+  UI:WaitShowDialogue("Hé ! Tu m'entends ?!\n Tu m'as fait une de ces peurs, là !")
+  UI:WaitShowDialogue("Réveille-toi, s'il te plaît !")
+  GAME:WaitFrames(20)
+
+  -- le héros se réveille, sans aucun souvenir
   UI:SetSpeaker(hero)
   UI:SetSpeakerEmotion("Worried")
   UI:WaitShowDialogue("...Mmh... Ça cogne fort dans ma tête...")
@@ -86,66 +103,40 @@ function reveil_nuit.Cinematique()
   SOUND:PlayBattleSE('EVT_Emote_Confused')
   GROUND:CharSetEmote(hero, "question", 1)
   GAME:WaitFrames(30)
-  UI:WaitShowDialogue("Et... cette voix ? Quelqu'un m'a parlé,\n dans mon rêve...")
 
-  -- le partenaire arrive en courant
-  SOUND:PlayBattleSE('EVT_Emote_Exclaim')
-  GROUND:CharSetEmote(hero, "exclaim", 1)
-  GROUND:TeleportTo(partner, 160, 176, Direction.Up)
-  GROUND:CharAnimateTurnTo(partner, Direction.Up, 8)
   UI:SetSpeaker(partner)
   UI:SetSpeakerEmotion("Happy")
-  UI:WaitShowDialogue("Hé ! Tu m'entends ?!")
+  UI:WaitShowDialogue("Phew ! Tu m'as fait peur !\n Tu étais inconscient depuis tout ce temps ?")
   UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("Tu m'as fait une de ces peurs ! Tu étais là,\n allongé dans l'herbe, sans bouger...")
-  UI:SetSpeakerEmotion("Worried")
-  UI:WaitShowDialogue("Je commençais à croire que tu n'allais jamais\n te réveiller !")
-  UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("Ça va ? Tu peux te lever ?")
-
-  -- le héros découvre ce qu'il est devenu
+  UI:WaitShowDialogue("Tiens, " .. hero:GetDisplayName() .. ", ça te va ?\n C'est le premier nom qui me vient.")
   UI:SetSpeaker(hero)
   UI:SetSpeakerEmotion("Worried")
-  UI:WaitShowDialogue("Vous... vous me parlez ? Vous êtes un Pokémon, non ?")
-  SOUND:PlayBattleSE('EVT_Emote_Confused')
-  GROUND:CharSetEmote(hero, "question", 1)
+  UI:WaitShowDialogue("Je... ne sais pas. Je ne me souviens de rien.")
+  UI:WaitShowDialogue("Et... cette voix ? Quelqu'un m'a parlé,\n dans mon rêve...")
+  UI:WaitShowDialogue("« Trouve-moi... et ensemble, nous rétablirons\n ce qui a dévié. »")
+
+  -- le héros découvre ce qu'il est devenu
+  UI:SetSpeaker(partner)
+  UI:SetSpeakerEmotion("Normal")
+  UI:WaitShowDialogue("Une voix dans ton sommeil... ça, c'est étrange.")
+  UI:SetSpeaker(hero)
+  UI:SetSpeakerEmotion("Worried")
+  SOUND:PlayBattleSE('EVT_Emote_Shock')
+  GROUND:CharSetEmote(hero, "shock", 1)
+  UI:WaitShowDialogue("Attendez... vous me parlez ?\n Et vous êtes un Pokémon, non ?")
   UI:SetSpeaker(partner)
   UI:SetSpeakerEmotion("Happy")
   UI:WaitShowDialogue("Et toi aussi tu en es un ! Regarde-toi !")
   UI:SetSpeaker(hero)
   UI:SetSpeakerEmotion("Worried")
-  SOUND:PlayBattleSE('EVT_Emote_Shock')
-  GROUND:CharSetEmote(hero, "shock", 1)
-  UI:WaitShowDialogue("Quoi ?! Mais... c'est vrai... ce sont des pattes ?!")
-  UI:WaitShowDialogue("Je suis... un Pokémon ?")
+  UI:WaitShowDialogue("Quoi ?! Mais... c'est vrai...\n je suis... un Pokémon ?")
 
-  -- présentations
+  -- ils décident de rester ensemble
   UI:SetSpeaker(partner)
   UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("Tu ne sais même pas ce que tu es ?\n Tu t'es cogné la tête ou quoi ?")
+  UI:WaitShowDialogue("Écoute : tu n'as pas de souvenirs, tu es au milieu\n de nulle part, et la nuit est longue.")
   UI:SetSpeakerEmotion("Happy")
-  UI:WaitShowDialogue("Au fait, moi c'est " .. partner:GetDisplayName() .. " !\n Et toi, c'est quoi ton nom ?")
-  UI:SetSpeaker(hero)
-  UI:SetSpeakerEmotion("Worried")
-  UI:WaitShowDialogue("Je... ne sais pas. Je ne me souviens de rien.")
-  UI:SetSpeaker(partner)
-  UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("Pas de problème ! En attendant que ta mémoire\n revienne, on va bien trouver un truc à t'appeler.")
-  UI:WaitShowDialogue("Tiens, " .. hero:GetDisplayName() .. ", ça te va ?\n C'est déjà ça de pris !")
-
-  -- la voix du rêve
-  UI:SetSpeaker(hero)
-  UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("...La voix de mon rêve... elle m'a dit :\n « Trouve-moi... et ensemble, nous rétablirons\n ce qui a dévié. »")
-  UI:SetSpeaker(partner)
-  UI:SetSpeakerEmotion("Worried")
-  UI:WaitShowDialogue("Une voix qui te parle dans ton sommeil...\n ça, c'est étrange.")
-  UI:SetSpeakerEmotion("Normal")
-  UI:WaitShowDialogue("Mais tu sais quoi ? Personne ne reste allongé\n toute la nuit dans ma clairière !")
-
-  -- départ vers la ville
-  UI:SetSpeakerEmotion("Happy")
-  UI:WaitShowDialogue("La ville n'est pas loin. On y va ensemble —\n tu ne peux pas rester seul !")
+  UI:WaitShowDialogue("Moi je viens de devenir explorateur, alors...\n c'est écrit : on reste ensemble !")
   UI:SetSpeaker(hero)
   UI:SetSpeakerEmotion("Happy")
   UI:WaitShowDialogue("...Ensemble ? ...Oui. Ensemble.")
@@ -153,18 +144,16 @@ function reveil_nuit.Cinematique()
   UI:SetSpeakerEmotion("Happy")
   UI:WaitShowDialogue("C'est décidé ! " .. partner:GetDisplayName() .. " et " ..
     hero:GetDisplayName() .. " —\n la meilleure équipe du monde !")
-  UI:WaitShowDialogue("En route, partenaire ! La nuit est encore longue,\n et l'aventure commence maintenant !")
+  UI:WaitShowDialogue("Viens, on va se mettre en route.\n L'aventure commence maintenant !")
 
-  -- fin de la cinématique
+  -- fin de la cinématique : contrôle rendu sur la map (pas de warp)
   SV.Destiny = SV.Destiny or {}
   SV.Destiny.ReveilFait = true
   if SV.Chapter1 == nil then SV.Chapter1 = {} end
   SV.Chapter1.PlayedIntroCutscene = true
-  SOUND:FadeOutBGM(120)
-  GAME:FadeOut(false, 120)
-  GAME:WaitFrames(60)
+  GAME:WaitFrames(20)
+  COMMON.RespawnAllies()   -- alliés restaurés avec leur IA normale
   GAME:CutsceneMode(false)
-  GROUND:EnterGroundMap('metano_town', 'Main_Entrance_Marker')
 end
 
 return reveil_nuit
