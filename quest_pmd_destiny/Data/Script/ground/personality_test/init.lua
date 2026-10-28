@@ -1,6 +1,8 @@
 --[[ init.lua — Quiz de personnalité PMD Destiny (map personality_test)
      Flux observé sur le personality_test de Halcyon (structure seulement,
      code entièrement rédigé pour PMD Destiny — aucun fichier Halcyon copié) :
+       titres « Bienvenue dans le monde des Pokémon ! » (voice-over sur fond
+       noir, juste avant le test — séquence façon Halcyon) →
        15 questions → nature (max de points) → badge étoile coloré →
        starter selon la nature → choix du sexe → choix du talent
        (Intrinsic1/2/3) → confirmation « Êtes-vous sûr… ? » avec mention
@@ -88,11 +90,20 @@ function personality_test.Quiz()
   GAME:CutsceneMode(true)
   UI:ResetSpeaker()
   SOUND:FadeOutBGM()
+  -- Titres d'intro sur fond noir, juste avant le test de personnalité
+  -- (séquence de voice-over façon Halcyon — structure inspirée, textes FR
+  --  originaux : « Welcome to the world of Pokémon! » etc. de Palikadude/Halcyon)
+  GAME:FadeOut(false, 30)
   GAME:WaitFrames(30)
   UI:WaitShowVoiceOver("Bienvenue dans le monde des Pokémon !", -1)
-  UI:WaitShowVoiceOver("Avant de partir à l'aventure, réponds sincèrement\nà ces quinze questions.", -1)
+  UI:WaitShowVoiceOver("Devant toi s'étend un monde rempli d'aventures\\n palpitantes et de mystères à découvrir !", -1)
+  UI:WaitShowVoiceOver("Avant de partir, tu dois prendre\\n d'importantes décisions.", -1)
+  UI:WaitShowVoiceOver("Réfléchis bien avant de choisir !", -1)
+  UI:WaitShowVoiceOver("À toi de faire tes choix !", -1)
+  GAME:WaitFrames(40)
   SOUND:PlayBGM("Welcome to the World of Pokémon!.ogg", true)
   GAME:FadeIn(40)
+  GAME:WaitFrames(20)
 
   -- 15 questions — chaque choix distribue +4/+2 sur les 16 natures
   local scores = {}

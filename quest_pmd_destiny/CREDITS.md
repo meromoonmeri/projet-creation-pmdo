@@ -114,3 +114,24 @@ code entièrement rédigé pour la quest, aucun fichier Halcyon copié) ;
 `runtime_tested: false` (à tester en jeu). La mention méga-évolution s'affiche
 **en lettres arc-en-ciel** (une couleur par lettre, balises `[color=#RRGGBB]`
 du moteur RogueEssence). Génération : `OUTILS/generer_quiz_destiny.py`.
+
+La scène s'ouvre sur les **titres d'intro sur fond noir** (voice-over « Bienvenue
+dans le monde des Pokémon ! », « Devant toi s'étend un monde… », etc.) juste
+avant les quinze questions — séquence structurée comme celle de **Halcyon**
+(`Welcome to the world of Pokémon!`, Palikadude/Halcyon) : textes français
+originaux, aucun fichier Halcyon copié.
+
+## Intro d'ouverture — halo arc-en-ciel (textures Pokémon Relict)
+
+La mise en scène de l'intro (halo sur fond noir : soleil à rayons rotatif,
+anneaux expansifs, particules additives) reproduit la scène `ArceusIntroScene`
+de **Pokémon Relict** (meromoonmeri/BIBLIOTHEQUE, `ArcyGame/ArceusRing.rb`) —
+mais le halo est **arc-en-ciel** (demande expresse de l'auteur). Les textures
+du halo sont **dérivées des textures de l'intro de Relict**
+(`Graphics/EBDX/Transitions/Arceus/` : background, shine, glow, particle0/1),
+**recolorées arc-en-ciel en conservant exactement leur texture d'origine**
+(même luminance/opacité — rayons, douceur ; seule la teinte change). Crédit :
+**Pokémon Relict**. Génération : `OUTILS/generer_intro_halo_arcenciel.py`.
+Figure centrale : art généré (`art_approved : false`, à valider) avec variante
+blason Œuf Ailé de l'opening (art de l'utilisateur). Aperçu :
+`apercu_intro_halo_arcenciel.html`.
