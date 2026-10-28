@@ -108,6 +108,18 @@ verifie('filtre « masquer les lots sans image »', d.querySelectorAll('article.
         d.querySelectorAll('article.carte').length);
 verifie('vignettes : 232 attendues', total - absentes === 232, total - absentes);
 
+// ancres stables pour les liens profonds depuis la page d'accueil du serveur
+const ids = [...d.querySelectorAll('article.carte')].map(a => a.id);
+verifie('une ancre par carte', ids.every(id => id && id.length > 1), ids.slice(0, 2).join(','));
+verifie('ancres uniques', new Set(ids).size === ids.length, new Set(ids).size + ' / ' + ids.length);
+const cibleAncre = ids[5];
+dom.window.location.hash = '#' + cibleAncre;
+verifie('lien profond : carte trouvée', !!d.getElementById(cibleAncre), cibleAncre);
+verifie('lien profond : fonction exposée', typeof dom.window.__GALERIE__.allerAuHash === 'function');
+dom.window.__GALERIE__.allerAuHash();
+verifie('lien profond : carte surlignée', d.getElementById(cibleAncre).classList.contains('cible'));
+dom.window.location.hash = '';
+
 // fichiers natifs rapatriés (maps/)
 const cbLoc = d.getElementById('local');
 cbLoc.checked = true; cbLoc.onchange();

@@ -41,6 +41,7 @@ h2.famille small{color:var(--dim);font-weight:400;font-size:13px}
 .badge.nat{background:#3a2a12;color:#ffd484}
 .badge.absent{background:#3a1d24;color:#ffb3bf}
 .carte.absente{opacity:.72}
+.carte.cible{outline:3px solid var(--or);outline-offset:3px;box-shadow:0 0 0 6px rgba(244,185,66,.16)}
 .carte.absente .vue{aspect-ratio:auto;padding:22px 12px;min-height:96px;background:repeating-linear-gradient(45deg,#111823,#111823 8px,#151d2a 8px,#151d2a 16px)}
 .raison{color:#c8a1a8;font-size:11.5px;line-height:1.35}
 a.local{font-size:11.5px;color:#9ee6b8;text-decoration:none;font-weight:600}
@@ -124,8 +125,11 @@ function correspond(u) {
   return (u.etiquette + ' ' + (u.source || '') + ' ' + (u.raison || '') + ' ' + u.titre).toLowerCase().includes(q);
 }
 
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+
 function carte(u) {
   const d = document.createElement('article');
+  d.id = slug(u.etiquette);
   d.className = 'carte' + (u.present ? '' : ' absente');
   const vue = document.createElement('div'); vue.className = 'vue' + (cbVoile.checked ? ' masquee' : '');
   if (!u.present) {
@@ -197,12 +201,27 @@ function ouvrir(u) {
 }
 vis.onclick = (e) => { if (e.target === vis || e.target.classList.contains('fermer')) vis.classList.remove('open'); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') vis.classList.remove('open'); });
+function allerAuHash() {
+  const cle = decodeURIComponent(location.hash.replace(/^#/, ''));
+  if (!cle) return false;
+  const cible = document.getElementById(cle);
+  if (!cible) return false;
+  if (!cbImages.checked) { cbImages.checked = true; dessiner(); }   // sinon la carte est vide
+  const c = document.getElementById(cle);
+  c.classList.add('cible');
+  if (typeof c.scrollIntoView === 'function') c.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  return true;
+}
+window.__GALERIE__.allerAuHash = allerAuHash;
+window.addEventListener('hashchange', allerAuHash);
+
 recherche.oninput = dessiner;
 cbVoile.onchange = dessiner;
 cbImages.onchange = dessiner;
 cbAvecImage.onchange = dessiner;
 cbLocal.onchange = dessiner;
 dessiner();
+allerAuHash();
 </script>
 </body>
 </html>
