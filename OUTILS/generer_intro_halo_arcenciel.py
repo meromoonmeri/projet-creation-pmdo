@@ -17,7 +17,10 @@ un arc-en-ciel conique à cœur blanc. Source :
 ``Relict/Relict V1.2/Relict/Graphics/EBDX/Transitions/Arceus/``
 (``background/shine/glow/particle0/1.png``, dépôt ``meromoonmeri/BIBLIOTHEQUE``)
 — crédit **Pokémon Relict**. La figure centrale est le blason Œuf Ailé de
-l'opening PMD Destiny (art de l'utilisateur).
+l'opening PMD Destiny (art de l'utilisateur). Les titres affichés sont les
+textes d'introduction de Halcyon (« Welcome to the world of Pokémon! » etc.),
+rendus voice-over **blanc sur fond noir** comme le moteur PMDO : aucune boîte
+de dialogue n'est dessinée (le moteur gère les boîtes nativement).
 
 Sorties (dans ``apercus/intro_halo/``) : ``halo_fond.png``, ``halo_shine.png``,
 ``halo_anneau.png``, ``halo_particule0/1.png``, ``figure_oeuf_ailes.png`` +
@@ -109,9 +112,12 @@ button { background:#22203a; color:#eee; border:1px solid #5b52a0; border-radius
 button:hover { filter:brightness(1.2) }
 .scenewrap { position:relative; width:640px; max-width:100%; border:1px solid #2a2740; border-radius:10px; overflow:hidden }
 canvas { display:block; width:100%; image-rendering:auto }
-.flavor { position:absolute; left:0; right:0; bottom:16px; text-align:center; z-index:5; pointer-events:none }
-.flavor .boite { display:inline-block; background:#0c0a1ad9; border:1px solid #6a5fc0; border-radius:10px;
-  padding:8px 18px; font-size:14px; color:#eee }
+.flavor { position:absolute; left:0; right:0; bottom:22px; text-align:center; z-index:5; pointer-events:none }
+/* voice-over façon moteur PMDO : écriture blanche sur fond noir, SANS boîte
+   (les boîtes de dialogue sont gérées nativement par le moteur) */
+.flavor .voix { display:inline-block; padding:0 30px; white-space:pre-line;
+  font:bold 16px/1.5 system-ui,sans-serif; color:#fff; letter-spacing:.3px;
+  text-shadow:0 2px 2px #000, 0 0 8px #000 }
 .note { background:#141222; border:1px solid #2a2740; border-radius:8px; padding:10px 14px; margin:12px 0 }
 </style></head><body>
 <p><a href="/">← Index de la visionneuse</a> ·
@@ -124,7 +130,11 @@ le halo est <b>arc-en-ciel</b>. Mécanique reprise d'après
 <code>ArceusRing.rb</code> (δ = 3, 60 img/s) ; <b>textures de Pokémon Relict
 recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
 (<code>OUTILS/generer_intro_halo_arcenciel.py</code>) — crédit
-<b>Pokémon Relict</b>.</p>
+<b>Pokémon Relict</b>. Les titres reprennent les <b>textes d'introduction de
+Halcyon</b> (« Welcome to the world of Pokémon! » etc.), affichés comme le moteur
+PMDO les rend : <b>écriture blanche sur fond noir</b> (voice-over), <b>sans
+boîte</b> — les boîtes de dialogue sont gérées nativement par le moteur et ne
+sont pas reproduites ici.</p>
 
 <div class="bar">
   <button id="pause">Pause</button>
@@ -133,7 +143,7 @@ recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
 </div>
 <div class="scenewrap">
   <canvas id="sc" width="640" height="480"></canvas>
-  <div class="flavor"><div class="boite" id="texte"></div></div>
+  <div class="flavor"><div class="voix" id="texte"></div></div>
 </div>
 
 <div class="note"><b>Ce que reproduit la scène</b> (comme dans
@@ -156,12 +166,17 @@ for (const n of ['halo_fond', 'halo_shine', 'halo_anneau', 'halo_particule0', 'h
 }
 // --- constantes reprises de ArceusRing.rb (delta = 3, 60 img/s)
 const DELTA = 3;
+// --- textes d'introduction de Halcyon (« Welcome to the world of Pokémon! »
+//     etc., Palikadude/Halcyon) — rendus voice-over blanc sur fond noir,
+//     comme le moteur PMDO : aucune boîte de dialogue dessinée.
 const TEXTES = [
-  [0,   ' '],
-  [60,  'Bienvenue dans l’un de mes royaumes…'],
-  [260, 'Je suis celle que les humains appellent l’Arc-en-Ciel.'],
-  [520, 'Bientôt, tu te retrouveras dans un lieu qui t’est étranger…'],
-  [800, 'Trouve-moi… et ensemble, nous rétablirons ce qui a dévié.'],
+  [0,    ' '],
+  [40,   'Bienvenue dans le monde des Pokémon !'],
+  [300,  "Devant toi s'étend un monde rempli d'aventures\\n palpitantes et de mystères à découvrir !"],
+  [620,  "Avant de partir, tu dois prendre\\n d'importantes décisions."],
+  [900,  'Réfléchis bien avant de choisir !'],
+  [1140, 'À toi de faire tes choix !'],
+  [1500, ' '],
 ];
 
 let tick = 0, paused = false, held = 0;
