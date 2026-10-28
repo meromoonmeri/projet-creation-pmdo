@@ -4,13 +4,11 @@
        Data/StartParams.xml → zone personality_test, ground 1 = intro_halo ;
        cette map (fond halo arc-en-ciel en Content/BG/Halo_*.dir) joue
        l'intro : le halo pulse entre le noir et sa pleine visibilité
-       (fondus du moteur), avec les titres d'introduction de Halcyon en
-       voice-over blanc (« Welcome to the world of Pokémon! » etc., textes
-       FR) ; puis la transition : fondu blanc « aspiré par le halo » →
-       map personality_test (fonds Dream_Back/Dream_Front = le « dream »).
-     Mise en scène inspirée de l'intro Arceus de Pokémon Relict (halo sur
-     fond noir) et des titres de Palikadude/Halcyon — code rédigé pour
-     PMD Destiny. Honnêteté : runtime_tested false.
+       (fondus du moteur), avec les titres d'introduction en voice-over
+       blanc (« Bienvenue dans le monde des Pokémon ! » etc.) ; puis la
+       transition : fondu blanc « aspiré par le halo » → map
+       personality_test (fonds Dream_Back/Dream_Front = le « dream »).
+     Code rédigé pour PMD Destiny. Honnêteté : runtime_tested false.
 ]]
 
 require 'common'

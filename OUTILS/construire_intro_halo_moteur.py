@@ -76,7 +76,7 @@ def main() -> int:
                  'LocalTexts': {'fr': 'Intro halo arc-en-ciel'}}
     o['Comment'] = ("Map d'intro de la quest : halo arc-en-ciel (BG Halo_Fond/"
                     "Halo_Anneau/Halo_Shine, textures Pokémon Relict recolorées) "
-                    "qui pulse par fondus moteur, titres voice-over façon Halcyon, "
+                    "qui pulse par fondus moteur, titres voice-over blancs, "
                     "puis transition blanche vers personality_test.")
 
     # fonds : 3 couches statiques (le pulse vient des fondus du moteur)

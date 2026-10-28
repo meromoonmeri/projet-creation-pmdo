@@ -37,21 +37,29 @@ et sa pleine visibilité</b>, titres d'intro de Halcyon en voice-over blanc
 <li><b>Transition dans le halo</b> — fondu blanc « aspiré par la lumière »
 (<code>GAME:FadeOut(true, 60)</code>).</li>
 <li><b>Test de personnalité</b> — map <code>personality_test</code> (ground 0),
-fonds parallax <code>Dream_Back.dir</code>/<code>Dream_Front.dir</code> (±30 px/s),
-puis les 15 questions → badge → starter → sexe → talent → confirmation
-méga-évolution.</li>
+fonds parallax <code>Dream_Back.dir</code>/<code>Dream_Front.dir</code> (±30 px/s) :
+15 questions → badge → starter selon la nature → sexe → talent → confirmation
+méga-évolution → <b>choix du partenaire</b> (pool complet, espèce différente
+du héros) → sexe + talent du partenaire → <b>nom du partenaire</b>
+(menu nom + confirmation) → l'équipe est formée.</li>
+<li><b>Le réveil de nuit</b> — map <code>reveil_nuit</code> (ground 2) : clairière
+sous la lune (fond nocturne procédural). Le héros se réveille sans souvenirs ;
+le partenaire le trouve, découvre qu'il a perdu la mémoire, et l'entraîne
+vers la ville — dialogues originaux PMD Destiny, puis
+<code>metano_town</code>.</li>
 </ol>
 
 <div class="note"><b>Fichiers</b> : <code>quest_pmd_destiny/Data/StartParams.xml</code> ·
-<code>Data/Zone/personality_test.json</code> (GroundMaps = personality_test, intro_halo) ·
-<code>Data/Ground/intro_halo.rsground</code> ·
-<code>Data/Script/destiny/ground/{intro_halo,personality_test}/init.lua</code>
+<code>Data/Zone/personality_test.json</code> (GroundMaps = personality_test, intro_halo, reveil_nuit) ·
+<code>Data/Ground/{intro_halo,reveil_nuit}.rsground</code> ·
+<code>Data/Script/destiny/ground/{intro_halo,personality_test,reveil_nuit}/init.lua</code>
 (namespace <b>destiny</b>, Mod.xml) · <code>OUTILS/construire_intro_halo_moteur.py</code> ·
+<code>OUTILS/construire_reveil_nuit_moteur.py</code> ·
 <code>OUTILS/installer_moteur_pmdo_destiny.py</code> + <code>PMDO_DESTINY.sh/.bat</code>.<br>
-Provenance : moteur PMDC v0.8.12 (meromoonmeri/RUNTIMEPMDO, SHA-256 vérifié) +
-ressources de base audinowho/DumpAsset ; textures du halo = Pokémon Relict
-recolorées (crédit) ; titres = séquence de Palikadude/Halcyon (textes FR) ;
-fonds Dream = Halcyon (crédit). <b>runtime_tested : false</b> (non lancé en jeu
+Aucune mention d'un autre fangame dans le jeu (le schéma de sélection et de
+mise en scène est repris, les dialogues et textes sont originaux PMD Destiny ;
+les fichiers d'audit de provenance restent à la racine de la quest pour la
+traçabilité interne uniquement). <b>runtime_tested : false</b> (non lancé en jeu
 depuis le sandbox — le moteur s'installe et charge les maps nativement, cf.
 source/pmdo_runtime/).</div>
 </body></html>
