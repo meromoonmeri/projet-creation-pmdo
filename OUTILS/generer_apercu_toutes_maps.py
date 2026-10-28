@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Génère `apercu_toutes_les_maps.html` : page d'index de TOUTES les maps du projet.
+"""Génère `apercu_toutes_les_maps.html` : catalogue de TOUTES les maps, aperçus et ZIP du projet.
 
-Sources recensées :
-  1. maps `.rsground` présentes localement (racine, quest, renders, source) ;
-  2. aperçus HTML locaux (`apercu_*.html` à la racine) — liens relatifs ;
-  3. aperçus HTML distants (`apercu_*.html` de meromoonmeri/projet-pmdo, commit figé) —
-     ouverts via htmlpreview.github.io (rendu HTML) ;
-  4. maps livrées SOUS ZIP (`renders/<dossier>/*.zip` du dépôt distant) — lien de téléchargement ;
-  5. lots de la bibliothèque (bibliotheque_ground/rapport_clamp.json) ;
-  6. maps, aperçus et ZIP de CHAQUE branche du dépôt de création meromoonmeri/projet-creation-pmdo
-     (branches récentes incluses), dédoublonnés par contenu ;
-  7. maps externes à la quest (town02 : WaterfallVillageCapital en Git LFS, non téléchargeable ici).
+Sources :
+  - inventaire complet des branches (.cache/inventaire/fichiers.tsv, produit par .cache/inventaire/inventaire.py) :
+    meromoonmeri/projet-creation-pmdo, meromoonmeri/guilde-treehouse-pmd, meromoonmeri/projet-pmdo ;
+  - fichiers locaux (racine, quest_pmd_destiny/Data/Ground, renders/, tiled/) ;
+  - bibliotheque_ground/rapport_clamp.json (lots).
+Chaque contenu distinct (SHA de blob) n'est listé qu'une fois, avec la première branche qui le contient.
+Les aperçus HTML s'ouvrent via htmlpreview.github.io sur le commit exact de la branche.
 
 Usage : python3 OUTILS/generer_apercu_toutes_maps.py
 """
@@ -20,169 +17,190 @@ from __future__ import annotations
 import html
 import json
 import re
-import subprocess
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REMOTE = "meromoonmeri/projet-pmdo"
-REMOTE_SHA = "6cca4a09380211e510ab1bea454a1b1926ef4b5a"
-RAW = f"https://raw.githubusercontent.com/{REMOTE}/{REMOTE_SHA}/"
-BLOB = f"https://github.com/{REMOTE}/blob/{REMOTE_SHA}/"
-CREATION = "meromoonmeri/projet-creation-pmdo"
-PREVIEW = "https://htmlpreview.github.io/?"
+INV = ROOT / ".cache" / "inventaire" / "fichiers.tsv"
+RECUP = ROOT / ".cache" / "recuperation" / "manifest.json"
 SORTIE = ROOT / "apercu_toutes_les_maps.html"
-RE_CREATION = re.compile(r"(\.rsground|\.zip|(^|/)apercu_[^/]*\.html)$", re.I)
-
-
-def gh(endpoint: str, jq: str) -> str:
-    return subprocess.run(["gh", "api", endpoint, "--jq", jq],
-                          capture_output=True, text=True, timeout=180, check=True).stdout
-
-
-def gh_tree(sha: str) -> list[tuple[str, int]]:
-    out = gh(f"repos/{REMOTE}/git/trees/{sha}?recursive=1",
-             '.tree[] | select(.type=="blob") | "\\(.path)\\t\\(.size)"')
-    res = []
-    for line in out.splitlines():
-        p, s = line.split("\t")
-        res.append((p, int(s)))
-    return res
-
-
-def branches_creation() -> list[dict]:
-    """Toutes les branches du dépôt de création ; chaque contenu n'est listé qu'une fois."""
-    lignes = gh(f"repos/{CREATION}/branches?per_page=100",
-                '.[] | "\\(.name)\\t\\(.commit.sha)\\t\\(.commit.commit.committer.date // "")"').splitlines()
-    lignes.sort(key=lambda x: x.split("\t")[2], reverse=True)
-    vus: set[str] = set()
-    groupes = []
-    for ligne in lignes:
-        nom, sha, date = ligne.split("\t")
-        arbre = gh(f"repos/{CREATION}/git/trees/{sha}?recursive=1",
-                   '.tree[] | select(.type=="blob") | "\\(.path)\\t\\(.sha)\\t\\(.size)"')
-        fichiers = []
-        for l in arbre.splitlines():
-            chemin, blob, taille = l.split("\t")
-            if not RE_CREATION.search(chemin) or blob in vus:
-                continue
-            vus.add(blob)
-            fichiers.append((chemin, int(taille), sha))
-        groupes.append({"branche": nom, "date": date[:10], "fichiers": fichiers})
-    return groupes
-
-
-def lots_bibliotheque() -> list[tuple[str, int, str]]:
-    rapport = json.loads((ROOT / "bibliotheque_ground" / "rapport_clamp.json").read_text(encoding="utf-8-sig"))
-    lots = rapport.get("lots", {})
-    return [(nom, int(info.get("maps", 0)), info.get("source", ""))
-            for nom, info in (lots.items() if isinstance(lots, dict) else [])]
+PREVIEW = "https://htmlpreview.github.io/?"
+REPOS_SHORT = {"meromoonmeri/projet-creation-pmdo": "creation",
+               "meromoonmeri/guilde-treehouse-pmd": "guilde",
+               "meromoonmeri/projet-pmdo": "projet-pmdo"}
 
 
 def mo(n: int) -> str:
     return f"{n / 1_048_576:.1f} Mo"
 
 
-def stem_norm(s: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", s.lower())
+def raw(repo: str, sha: str, chemin: str) -> str:
+    return f"https://raw.githubusercontent.com/{repo}/{sha}/{chemin}"
+
+
+def blob_url(repo: str, sha: str, chemin: str) -> str:
+    return f"https://github.com/{repo}/blob/{sha}/{chemin}"
+
+
+def charge_inventaire() -> list[dict]:
+    """Une entrée par contenu distinct (blob) ; première branche rencontrée."""
+    vus: dict[str, dict] = {}
+    for l in INV.read_text(encoding="utf-8").splitlines():
+        repo, br, csha, rest = l.split("\t", 3)
+        chemin, blob, taille = rest.rsplit("\t", 2)
+        if blob in vus:
+            continue
+        vus[blob] = {"repo": repo, "branche": br, "commit": csha, "chemin": chemin,
+                     "blob": blob, "taille": int(taille)}
+    return list(vus.values())
+
+
+def locaux() -> list[tuple[str, int]]:
+    res = []
+    for p in ROOT.rglob("*"):
+        if not p.is_file() or {".git", ".cache", ".venv", "node_modules"} & set(p.parts):
+            continue
+        if p.suffix.lower() in (".rsground", ".tmj", ".html") and p.name.startswith(("apercu", "")):
+            res.append((str(p.relative_to(ROOT)), p.stat().st_size))
+    return sorted(res)
+
+
+def quest_ground_noms() -> set[str]:
+    return {p.stem for p in (ROOT / "quest_pmd_destiny" / "Data" / "Ground").glob("*.rsground")}
+
+
+def recuperes_ok() -> dict[str, str]:
+    """blob -> statut de déploiement (pour l'affichage)."""
+    if not RECUP.is_file():
+        return {}
+    return {r["blob"]: r.get("statut", "") for r in json.loads(RECUP.read_text(encoding="utf-8"))}
 
 
 def main() -> None:
-    lots = lots_bibliotheque()
-    branches = branches_creation()
-    tree = gh_tree(REMOTE_SHA)
-    remote_html = sorted([(p, s) for p, s in tree if re.fullmatch(r"apercu_[^/]+\.html", p)])
-    remote_zip = sorted([(p, s) for p, s in tree if re.fullmatch(r"renders/[^/]+/[^/]+\.zip", p)])
-    local_html = sorted(p.name for p in ROOT.glob("apercu_*.html") if p != SORTIE)
-    local_rsg = sorted(str(p.relative_to(ROOT)) for p in ROOT.rglob("*.rsground")
-                       if not {".git", ".cache", ".venv"} & set(p.parts))
-    local_tmj = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "tiled").glob("*.tmj")) if (ROOT / "tiled").is_dir() else []
+    contenus = charge_inventaire()
+    quest_noms = quest_ground_noms()
 
-    remote_stems = {stem_norm(re.sub(r"^apercu_", "", Path(p).stem)): p for p, _ in remote_html}
+    lots = json.loads((ROOT / "bibliotheque_ground" / "rapport_clamp.json").read_text(encoding="utf-8-sig")).get("lots", {})
 
-    def li_zip(p: str, s: int) -> str:
-        dossier = Path(p).parent.name
-        apercu = remote_stems.get(stem_norm(Path(p).stem)) or remote_stems.get(stem_norm(dossier))
-        extra = (f' · <a href="{html.escape(PREVIEW + RAW + apercu)}">aperçu</a>' if apercu else
-                 " · <em>pas d'aperçu HTML dédié</em>")
-        return f'<li><a href="{html.escape(RAW + p)}">{html.escape(p)}</a> <small>{mo(s)}</small>{extra}</li>'
+    def repo_court(r: str) -> str:
+        return REPOS_SHORT.get(r, r)
 
-    def li_html_local(n: str) -> str:
-        return f'<li><a href="{html.escape(n)}">{html.escape(n)}</a></li>'
+    maps = [c for c in contenus if c["chemin"].lower().endswith(".rsground")]
+    apercus = [c for c in contenus if re.search(r"(^|/)apercu[^/]*\.html$", c["chemin"], re.I)]
+    zips = [c for c in contenus if c["chemin"].lower().endswith(".zip")]
+    tmjs = [c for c in contenus if c["chemin"].lower().endswith(".tmj")]
 
-    def li_html_remote(p: str, s: int) -> str:
-        return (f'<li><a href="{html.escape(PREVIEW + RAW + p)}">{html.escape(p)}</a> <small>{mo(s)}</small>'
-                f' · <a href="{html.escape(BLOB + p)}">code/téléchargement</a></li>')
+    # regroupement des maps par nom
+    par_nom: dict[str, list[dict]] = defaultdict(list)
+    for m in maps:
+        par_nom[Path(m["chemin"]).stem.lower()].append(m)
 
-    def li_branche(b: dict) -> str:
-        if not b["fichiers"]:
-            return ""
+    # maps extraites des ZIP et déployées dans la quest (origine notée par deployer_recuperation.py)
+    commit_de = {(c["repo"], c["branche"]): c["commit"] for c in contenus}
+    rap = ROOT / "quest_pmd_destiny" / "RAPPORT_RECUPERATION_DEPOTS.json"
+    if rap.is_file():
+        for c in json.loads(rap.read_text(encoding="utf-8")).get("copies", []):
+            if not c["fichier"].startswith("Data/Ground/"):
+                continue
+            repo, br, rest = c["origine"].split(":", 2)
+            chemin = rest.split("!", 1)[0] + " ! " + c["fichier"]
+            nom = Path(c["fichier"]).stem.lower()
+            par_nom[nom].append({"repo": repo, "branche": br, "commit": commit_de.get((repo, br), ""),
+                                 "chemin": chemin, "blob": "", "taille": 0})
+
+    # aperçus par nom de map approché (apercu_<nom>.html ↔ nom de map)
+    apercu_par_stem: dict[str, list[dict]] = defaultdict(list)
+    for a in apercus:
+        base = Path(a["chemin"]).stem
+        base = re.sub(r"^apercu_?", "", base, flags=re.I).lower()
+        apercu_par_stem[base].append(a)
+
+    def ligne_map(nom: str, versions: list[dict]) -> str:
+        dans_quest = nom in quest_noms
+        statut = ("<span class='ok'>dans la quest</span>" if dans_quest else
+                  ("<span class='ref'>référence / hors quest</span>" if any(
+                      re.search(r"references|refs|dump", v["chemin"]) for v in versions)
+                   else "<span class='todo'>source (non déployée)</span>"))
         items = []
-        for chemin, taille, sha in b["fichiers"]:
-            lien_code = f"https://github.com/{CREATION}/blob/{sha}/{chemin}"
-            extra = ""
-            if chemin.lower().endswith(".html"):
-                brut = f"https://raw.githubusercontent.com/{CREATION}/{sha}/{chemin}"
-                extra = f' · <a href="{html.escape(PREVIEW + brut)}">aperçu</a>'
-            items.append(f'<li>{html.escape(chemin)} <small>{mo(taille)}</small>{extra} · '
-                         f'<a href="{html.escape(lien_code)}">code</a></li>')
-        return (f'<details><summary><strong>{html.escape(b["branche"])}</strong> '
-                f'<small>{b["date"]} · {len(b["fichiers"])} fichier(s)</small></summary>'
-                f'<ul>{"".join(items)}</ul></details>')
+        for v in versions:
+            items.append(f'<li>{html.escape(repo_court(v["repo"]))} · {html.escape(v["branche"][:40])} · '
+                         f'<code>{html.escape(v["chemin"])}</code> <small>{mo(v["taille"])}</small> · '
+                         f'<a href="{html.escape(blob_url(v["repo"], v["commit"], v["chemin"]))}">code</a></li>')
+        ap = apercu_par_stem.get(nom, [])
+        liens_ap = " ".join(
+            f'<a href="{html.escape(PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">aperçu</a>'
+            f' <small>({html.escape(repo_court(a["repo"]))})</small>' for a in ap[:3])
+        return (f'<details><summary><strong>{html.escape(nom)}</strong> {statut} '
+                f'<small>{len(versions)} version(s)</small> {liens_ap}</summary><ul>{"".join(items)}</ul></details>')
 
-    nb_b = sum(len(b["fichiers"]) for b in branches)
+    maps_html = "".join(ligne_map(n, v) for n, v in sorted(par_nom.items()))
+
+    apercus_html = "".join(
+        f'<li><a href="{html.escape(PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">'
+        f'{html.escape(Path(a["chemin"]).name)}</a> <small>{mo(a["taille"])} · {html.escape(repo_court(a["repo"]))}'
+        f' · {html.escape(a["branche"][:40])}</small> · '
+        f'<a href="{html.escape(blob_url(a["repo"], a["commit"], a["chemin"]))}">code</a></li>'
+        for a in sorted(apercus, key=lambda x: x["chemin"]))
+
+    rec = recuperes_ok()
+    zips_html = "".join(
+        f'<li>{html.escape(repo_court(z["repo"]))} · {html.escape(z["branche"][:40])} · '
+        f'<code>{html.escape(z["chemin"])}</code> <small>{mo(z["taille"])}</small> · '
+        f'<a href="{html.escape(raw(z["repo"], z["commit"], z["chemin"]))}">télécharger</a>'
+        f'{" · <span class=ok>contenu moteur déployé</span>" if rec.get(z["blob"]) else ""}</li>'
+        for z in sorted(zips, key=lambda x: x["chemin"]))
+
+    lots_html = "".join(
+        f'<li><strong>{html.escape(n)}</strong> — {info.get("maps", 0)} map(s) · '
+        f'<small>{html.escape(info.get("source", ""))}</small></li>' for n, info in lots.items())
+
+    loc = locaux()
+    loc_html = "".join(f"<li><code>{html.escape(p)}</code> <small>{mo(s)}</small></li>" for p, s in loc)
+
     corps = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8">
-<title>Aperçu de toutes les maps — PMDO Destiny</title>
-<style>body{{background:#1d1a14;color:#eee;font:15px/1.5 system-ui,sans-serif;max-width:1040px;margin:24px auto;padding:0 16px}}
-a{{color:#ffd76a}}small,em{{color:#aaa}}li{{margin:3px 0}}h2{{border-bottom:1px solid #444;padding-bottom:4px;margin-top:32px}}
-details{{margin:6px 0}}summary{{cursor:pointer;padding:4px 0}}
-.note{{background:#2b2619;border-left:4px solid #ffd76a;padding:8px 12px}}</style></head><body>
-<h1>Aperçu de toutes les maps du projet</h1>
-<p class="note">Village de la quest : <strong>WaterfallVillageCapital</strong> (« Reverie Town », dépôt
-<code>meromoonmeri/town02</code>, fichier Git LFS de ~233 Mo : <strong>non téléchargeable depuis le sandbox</strong>,
-aperçu à faire depuis un clone local avec <code>git lfs pull</code>, voir <code>OUTILS/INSTALLER_WATERFALL_VILLAGE.md</code>).
-Les aperçus distants s'ouvrent via htmlpreview.github.io (fichiers très lourds : chargement possiblement long).
-Les maps exclues pour raison de licence sont listées dans <code>bibliotheque_ground/rapport_clamp.json</code>.</p>
-<p>Recensement : {len(local_html)} aperçus HTML locaux · {len(remote_html)} aperçus HTML distants (dépôt projet-pmdo) ·
-{len(remote_zip)} archives ZIP de maps · {len(local_rsg)} fichiers .rsground locaux · {len(local_tmj)} salles Tiled ·
-{len(lots)} lots de bibliothèque · {len(branches)} branches de création ({nb_b} fichiers de maps/aperçus/ZIP uniques).</p>
+<title>Catalogue de toutes les maps — PMD Destiny</title>
+<style>body{{background:#1d1a14;color:#eee;font:15px/1.5 system-ui,sans-serif;max-width:1100px;margin:24px auto;padding:0 16px}}
+a{{color:#ffd76a}}small{{color:#aaa}}li{{margin:3px 0}}h2{{border-bottom:1px solid #444;padding-bottom:4px;margin-top:32px}}
+details{{margin:6px 0;padding:4px 8px;background:#26221a;border-radius:4px}}summary{{cursor:pointer}}
+.ok{{color:#8f8}}.ref{{color:#aaa}}.todo{{color:#fb6}}.note{{background:#2b2619;border-left:4px solid #ffd76a;padding:8px 12px}}
+table td{{padding:2px 10px}}</style></head><body>
+<h1>Catalogue de toutes les maps du projet</h1>
+<p class="note">Ce catalogue est généré à partir de l'inventaire complet des 120 branches des 3 dépôts
+(<code>projet-creation-pmdo</code>, <code>guilde-treehouse-pmd</code>, <code>projet-pmdo</code>).
+Chaque contenu n'apparaît qu'une fois ; une map peut exister en plusieurs versions (plusieurs branches).
+Les aperçus HTML s'ouvrent via htmlpreview.github.io ; les fichiers très lourds peuvent mettre du temps à charger.
+WaterfallVillageCapital (village Reverie Town, town02, Git LFS 233 Mo) n'est pas dans ce catalogue : à installer localement.</p>
 
-<h2>1. Aperçus HTML locaux (racine du dépôt)</h2><ul>{''.join(li_html_local(n) for n in local_html)}</ul>
+<h2>Résumé</h2>
+<table>
+<tr><td>Maps .rsground distinctes (par nom)</td><td><strong>{len(par_nom)}</strong></td></tr>
+<tr><td>Versions de maps (contenus distincts)</td><td>{len(maps)}</td></tr>
+<tr><td>Maps déjà dans la quest (Data/Ground)</td><td>{sum(1 for n in par_nom if n in quest_noms)}</td></tr>
+<tr><td>Aperçus HTML distincts</td><td>{len(apercus)}</td></tr>
+<tr><td>Archives ZIP distinctes</td><td>{len(zips)}</td></tr>
+<tr><td>Salles Tiled (.tmj) distinctes</td><td>{len(tmjs)}</td></tr>
+<tr><td>Lots de la bibliothèque (rapport_clamp)</td><td>{len(lots)} ({sum(int(i.get("maps", 0)) for i in lots.values())} maps recensées)</td></tr>
+</table>
 
-<h2>2. Maps .rsground présentes localement ({len(local_rsg)})</h2>
-<ul>{''.join(f'<li><code>{html.escape(p)}</code></li>' for p in local_rsg)}</ul>
+<h2>1. Maps (.rsground) — {len(par_nom)} noms distincts</h2>
+<p>Cliquez une map pour voir ses versions (branche, commit) et ses aperçus.</p>
+{maps_html}
 
-<h2>3. Salles de la Guilde Treehouse (Tiled, non exportées en .rsground) ({len(local_tmj)})</h2>
-<ul>{''.join(f'<li><code>{html.escape(p)}</code></li>' for p in local_tmj)}</ul>
+<h2>2. Aperçus HTML — {len(apercus)}</h2>
+<ul>{apercus_html}</ul>
 
-<h2>4. Maps sous ZIP — dossiers renders/ de meromoonmeri/projet-pmdo ({len(remote_zip)})</h2>
-<p>Les archives ne sont pas décompressées dans ce dépôt : téléchargement direct, ou aperçu HTML du même nom quand il existe.
-Les ZIP PMDO ont été déployés dans la quest (voir <code>quest_pmd_destiny/RAPPORT_DEPLOIEMENT_ZIPS.json</code>).</p>
-<ul>{''.join(li_zip(p, s) for p, s in remote_zip)}</ul>
+<h2>3. Archives ZIP — {len(zips)}</h2>
+<ul>{zips_html}</ul>
 
-<h2>5. Aperçus HTML distants — dépôt meromoonmeri/projet-pmdo ({len(remote_html)})</h2>
-<ul>{''.join(li_html_remote(p, s) for p, s in remote_html)}</ul>
+<h2>4. Lots de la bibliothèque ({len(lots)})</h2>
+<ul>{lots_html}</ul>
 
-<h2>6. Lots de la bibliothèque ({len(lots)} lots, {sum(n for _, n, _ in lots)} maps recensées)</h2>
-<p>Recensés dans <code>bibliotheque_ground/rapport_clamp.json</code>. Ces maps ne sont pas toutes matérialisées localement :
-la colonne « source » indique leur origine.</p>
-<ul>{''.join(f'<li><strong>{html.escape(n)}</strong> — {c} map(s) · <small>{html.escape(src)}</small></li>' for n, c, src in lots)}</ul>
-
-<h2>7. Maps et aperçus par branche de création ({len(branches)} branches de {CREATION})</h2>
-<p>Chaque fichier n'apparaît qu'une fois (dans la branche la plus récente qui le contient).
-« aperçu » ouvre le HTML via htmlpreview.github.io ; « code » ouvre la page GitHub du fichier à ce commit.</p>
-{''.join(li_branche(b) for b in branches)}
-
-<h2>8. Maps externes à la quest (town02)</h2><ul>
-<li><strong>WaterfallVillageCapital</strong> (village Reverie Town) — <code>meromoonmeri/town02</code>,
-Data/Ground, Git LFS 233 Mo (oid sha256 afc5081f…) — <em>non prévisualisable ici</em>.</li>
-<li><strong>waterfall_cave_1</strong> — même dépôt, récupérable sans LFS depuis <code>meromoonmeri/PMD-SKY-PMDO-PORT</code>
-(voir <code>OUTILS/integrer_waterfall_town02.py</code>) — non encore prévisualisée.</li>
-</ul>
+<h2>5. Fichiers locaux du workspace ({len(loc)})</h2>
+<ul>{loc_html}</ul>
 </body></html>"""
     SORTIE.write_text(corps, encoding="utf-8")
-    print(f"écrit : {SORTIE.relative_to(ROOT)} — {len(local_html)} locaux, {len(remote_html)} distants, "
-          f"{len(remote_zip)} zips, {len(local_rsg)} rsground, {len(local_tmj)} tmj, "
-          f"{len(lots)} lots, {len(branches)} branches, {nb_b} fichiers de branches")
+    print(f"écrit : {SORTIE.name} — {len(par_nom)} maps, {len(apercus)} aperçus, {len(zips)} zips, "
+          f"{len(tmjs)} tmj, {len(lots)} lots, {len(loc)} fichiers locaux")
 
 
 if __name__ == "__main__":
