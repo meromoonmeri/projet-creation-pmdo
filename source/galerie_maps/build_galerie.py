@@ -20,6 +20,7 @@ ROOT = HERE.parents[1]
 GALERIE = HERE / "galerie.json"           # lots du dépôt source (renders/ @ 6cca4a0)
 GALERIE_BRANCHE = HERE / "galerie_branche.json"   # lots propres à cette branche
 GALERIE_SALLES = HERE / "galerie_salles.json"     # 12 salles de la guilde (kit.json)
+MANIFESTE_MAPS = ROOT / "maps" / "MANIFESTE_MAPS.json"   # maps rapatriées physiquement
 SORTIE = ROOT / "apercu_galerie_maps.html"
 
 DEPOT = "meromoonmeri/projet-pmdo"
@@ -71,6 +72,8 @@ h2.famille small{color:var(--dim);font-weight:400;font-size:13px}
 .carte.absente{opacity:.72}
 .carte.absente .vue{aspect-ratio:auto;padding:22px 12px;min-height:96px;background:repeating-linear-gradient(45deg,#111823,#111823 8px,#151d2a 8px,#151d2a 16px)}
 .raison{color:#c8a1a8;font-size:11.5px;line-height:1.35}
+a.local{font-size:11.5px;color:#9ee6b8;text-decoration:none;font-weight:600}
+a.local:hover{text-decoration:underline}
 footer{max-width:1500px;margin:0 auto;padding:26px 20px 60px;color:var(--dim);font-size:12.5px;border-top:1px solid var(--bord)}
 #visionneuse{position:fixed;inset:0;z-index:60;background:rgba(5,8,14,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:12px}
 #visionneuse.open{display:flex}
@@ -90,18 +93,21 @@ footer{max-width:1500px;margin:0 auto;padding:26px 20px 60px;color:var(--dim);fo
     <input id="recherche" type="search" placeholder="Rechercher une map (nom, code EKR1, biome, dossier…)" />
     <label class="bascule"><input type="checkbox" id="voile"> masquer les vignettes</label>
     <label class="bascule"><input type="checkbox" id="avecimg" checked> masquer les lots sans image</label>
+    <label class="bascule"><input type="checkbox" id="local"> seulement les fichiers natifs de la branche</label>
     <label class="bascule"><input type="checkbox" id="images"> charger les images (désactivé = plus léger)</label>
   </div>
 </div></header>
 <main id="contenu"></main>
 <div class="vide" id="vide">Aucune map ne correspond à cette recherche.</div>
 <footer>
-  <p><b>__NB__</b> — Trois sources, toutes versionnées, aucun zip : (1) le dépôt
+  <p><b>__NB__</b> — Quatre sources, toutes versionnées, aucun zip : (1) le dépôt
   <a href="https://github.com/__DEPOT__">__DEPOT__</a> au commit <code>__COMMIT__</code> pour les lots hérités
   (une composition par map) ; (2) les fichiers <b>de cette branche</b> — <code>renders/&lt;lot&gt;/layers/*.png</code>
   recomposés, ou les calques du manifeste embarqué des aperçus <code>apercu_*.html</code> ; (3) les bruts et
   références <code>source/&lt;lot&gt;/</code> quand le rendu final n'est pas versionné (badge « rendu » ou
   « référence ») ; (4) les 12 salles de la guilde de <code>kit.json</code> (<code>salles/</code>, jour et nuit).
+  (5) les <b>fichiers natifs rapatriés</b> dans <code>maps/</code> (octets exacts, sha1 git vérifié,
+  manifeste <code>maps/MANIFESTE_MAPS.json</code>), liés depuis chaque vignette concernée.
   Les 4,6 Go de calques, bruts animés et paquets restent dans le dépôt source.</p>
   <p>Honnêteté : ces aperçus sont des compositions 2D, ils ne prouvent ni la fidélité des tuiles natives, ni les
   collisions, ni un import runtime PMDO. <code>art_approved = false</code> pour l'ensemble.</p>
@@ -117,6 +123,7 @@ const contenu = document.getElementById('contenu'), familles = document.getEleme
 const recherche = document.getElementById('recherche'), cbVoile = document.getElementById('voile');
 const cbImages = document.getElementById('images'), vide = document.getElementById('vide');
 const cbAvecImage = document.getElementById('avecimg');
+const cbLocal = document.getElementById('local');
 let avecImageSeulement = true;
 let familleActive = 'toutes';
 cbAvecImage.checked = false;
@@ -140,6 +147,7 @@ for (const c of ordre) familles.appendChild(bouton(c, libelles[c], parFamille[c]
 
 function correspond(u) {
   if (cbAvecImage.checked && !u.present) return false;
+  if (cbLocal.checked && !u.local) return false;
   const q = recherche.value.trim().toLowerCase();
   if (!q) return true;
   return (u.etiquette + ' ' + (u.source || '') + ' ' + (u.raison || '') + ' ' + u.titre).toLowerCase().includes(q);
@@ -172,6 +180,14 @@ function carte(u) {
   const m = document.createElement('div'); m.className = 'meta';
   m.textContent = (u.source || u.etiquette) + (u.source_taille ? ' · ' + u.source_taille[0] + '×' + u.source_taille[1] : '');
   lg.append(badges, t, m);
+  if (u.local) {
+    const a = document.createElement('a');
+    a.className = 'local';
+    a.href = u.local; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = '▶ PNG natif ' + (u.source_taille ? u.source_taille[0] + '×' + u.source_taille[1] : '') +
+                    ' · ' + (u.local_octets / 1024).toFixed(0) + ' ko';
+    lg.appendChild(a);
+  }
   if (!u.present && u.raison) {
     const r = document.createElement('div'); r.className = 'raison'; r.textContent = u.raison;
     lg.appendChild(r);
@@ -214,6 +230,7 @@ recherche.oninput = dessiner;
 cbVoile.onchange = dessiner;
 cbImages.onchange = dessiner;
 cbAvecImage.onchange = dessiner;
+cbLocal.onchange = dessiner;
 dessiner();
 </script>
 </body>
@@ -228,7 +245,15 @@ NATURES = {
 }
 
 
+def locales() -> dict[tuple[str, str], dict]:
+    if not MANIFESTE_MAPS.exists():
+        return {}
+    return {(m["lot"], m.get("sous_map") or ""): m
+            for m in json.loads(MANIFESTE_MAPS.read_text())["maps"]}
+
+
 def charger() -> list[dict]:
+    dispo = locales()
     unites = []
     for fichier, nature in ((GALERIE, None), (GALERIE_BRANCHE, None), (GALERIE_SALLES, None)):
         if not fichier.exists():
@@ -236,6 +261,11 @@ def charger() -> list[dict]:
         for u in json.loads(fichier.read_text())["unites"]:
             u.setdefault("nature", "rendu" if (u.get("source") or "").startswith("renders/") else "compo")
             u["nature_label"] = NATURES.get(u["nature"], u["nature"])
+            m = dispo.get((u["lot"], u.get("sous_map") or ""))
+            if m:
+                u["local"] = m["fichier"]
+                u["local_octets"] = m["octets"]
+                u["local_sha256"] = m["sha256"]
             unites.append(u)
     return unites
 
@@ -246,8 +276,12 @@ def main() -> int:
                                u["etiquette"].lower()))
     familles = Counter(u["categorie_label"] for u in unites)
     avec = sum(1 for u in unites if u.get("present"))
+    locales_nb = sum(1 for u in unites if u.get("local"))
+    poids = sum(u.get("local_octets", 0) for u in unites)
     entete = (f"<b>{len(unites)} maps recensées</b> — {avec} avec vignette, "
-              f"{len(unites) - avec} sans image versionnée — en {len(familles)} familles. ")
+              f"<b>{locales_nb} fichiers natifs dans la branche</b> (<code>maps/</code>, "
+              f"{poids / 1e6:.1f} Mo), {len(unites) - avec} sans image versionnée — "
+              f"en {len(familles)} familles. ")
     page = (gabarit
             .replace("__DONNEES__", json.dumps(unites, ensure_ascii=False).replace("</", "<\\/"))
             .replace("__ORDRE__", json.dumps(ORDRE))

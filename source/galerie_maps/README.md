@@ -35,6 +35,15 @@ maps illustrées.
 **Garde-fou magenta** : un brut dont le fond est encore magenta/violet vif (plus de 1 % des
 pixels) est **refusé** — la galerie ne montre jamais un décor non détouré comme une map.
 
+## Maps physiquement dans la branche — `maps/`
+
+Le lot **entrée / fin / arène / zone / guilde** (83 maps, 51,6 Mo) est rapatrié **octet pour octet**
+dans `maps/` (voir [`maps/README.md`](../../maps/README.md)) : `rapatrier.py` vérifie le **sha1 git
+du blob** avant écriture et consigne le sha256 dans `maps/MANIFESTE_MAPS.json`. La galerie lie
+chaque carte au fichier natif (« ▶ PNG natif ») et propose la case *« seulement les fichiers natifs
+de la branche »*. Le reste (`donjon` 14,6 Mo, `cotes` 19,6 Mo, `divers` 9,8 Mo, `monde` 29 Mo) se
+rapatrie par `--categories` / `--tout`.
+
 ## Compression
 
 Réduction LANCZOS à **640 px** de large au plus, puis **palette 255 couleurs** si l'écart RVB

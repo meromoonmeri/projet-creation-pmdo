@@ -108,6 +108,24 @@ verifie('filtre « masquer les lots sans image »', d.querySelectorAll('article.
         d.querySelectorAll('article.carte').length);
 verifie('vignettes : 232 attendues', total - absentes === 232, total - absentes);
 
+// fichiers natifs rapatriés (maps/)
+const cbLoc = d.getElementById('local');
+cbLoc.checked = true; cbLoc.onchange();
+const avecLocal = donnees.filter(u => u.local);
+verifie('cartes avec fichier natif', d.querySelectorAll('article.carte').length === avecLocal.length,
+        d.querySelectorAll('article.carte').length + ' vs ' + avecLocal.length);
+verifie('au moins 83 fichiers natifs', avecLocal.length >= 83, avecLocal.length);
+verifie('tous les fichiers natifs existent', avecLocal.every(u => fs.existsSync(path.join(RACINE, u.local))));
+verifie('sha256 du manifeste conforme',
+        avecLocal.every(u => require('crypto').createHash('sha256')
+          .update(fs.readFileSync(path.join(RACINE, u.local))).digest('hex') === u.local_sha256));
+verifie('dimensions natives conservées',
+        avecLocal.every(u => !u.source_taille || !u.vignette_taille || u.source_taille[0] >= u.vignette_taille[0]));
+const liens = [...d.querySelectorAll('a.local')];
+verifie('lien « PNG natif » sur chaque carte concernée', liens.length === avecLocal.length, liens.length);
+verifie('lien « PNG natif » pointe maps/', liens.every(a => a.getAttribute('href').startsWith('maps/')));
+cbLoc.checked = false; cbLoc.onchange();
+
 // cohérence des métadonnées
 const sansSource = donnees.filter(u => u.present && !u.source);
 verifie('chaque vignette a son chemin source', sansSource.length === 0, sansSource.length);

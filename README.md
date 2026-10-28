@@ -19,6 +19,7 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | Document | Rôle |
 |---|---|
 | **[apercu_galerie_maps.html](apercu_galerie_maps.html)** | **L'aperçu exhaustif : 290 maps recensées, 232 vignettes** dans une page unique, sans zip ([méthode](source/galerie_maps/README.md)) |
+| **[maps/](maps/README.md)** | **Les maps elles-mêmes, physiquement dans la branche** : PNG natifs octet pour octet, manifeste sha256 ([manifeste](maps/MANIFESTE_MAPS.json)) |
 | **[GUIDE_CREATION_DE_MAP.md](GUIDE_CREATION_DE_MAP.md)** | **La méthode pas à pas**, du rendu généré au Ground importé dans PMDO |
 | **[METHODE_MAGENTA_ET_GENERATEUR.md](METHODE_MAGENTA_ET_GENERATEUR.md)** | **Comment ça marche** : générateur d'images → fond magenta → tuiles natives (formules, seuils, fidélité) |
 | [INDEX_METHODES.md](INDEX_METHODES.md) | Tableau des **208 sous-projets** : générateur, tests, package, provenance, Ground/tileset présents |
