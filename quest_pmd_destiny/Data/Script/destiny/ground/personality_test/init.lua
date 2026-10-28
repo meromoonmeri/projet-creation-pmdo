@@ -99,9 +99,9 @@ function personality_test.GameLoad(map)
 end
 
 function personality_test.PlotScripting()
-  if SV.Chapter1 ~= nil and SV.Chapter1.PlayedIntroCutscene then
-    -- fail-safe : déjà passé par l'intro → renvoi vers le monde
-    GROUND:EnterGroundMap('metano_town', 'Main_Entrance_Marker')
+  if SV.Destiny ~= nil and (SV.Destiny.ReveilFait or SV.Destiny.PartenaireParti) then
+    -- la séquence du rêve est déjà engagée : ne jamais renvoyer le héros
+    -- vers une autre ville pendant qu'il est encore allongé.
     return
   end
   personality_test.Quiz()

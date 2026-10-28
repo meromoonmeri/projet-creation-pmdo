@@ -149,8 +149,6 @@ function reveil_nuit.Cinematique()
   -- fin de la cinématique : contrôle rendu sur la map (pas de warp)
   SV.Destiny = SV.Destiny or {}
   SV.Destiny.ReveilFait = true
-  if SV.Chapter1 == nil then SV.Chapter1 = {} end
-  SV.Chapter1.PlayedIntroCutscene = true
   GAME:WaitFrames(20)
   COMMON.RespawnAllies()   -- alliés restaurés avec leur IA normale
   GAME:CutsceneMode(false)

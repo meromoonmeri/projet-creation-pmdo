@@ -79,12 +79,34 @@ function cliffdaytest_nuit.ScenePartenaire()
   GROUND:CharSetEmote(partenaire, "exclaim", 1)
   UI:SetSpeakerEmotion("Happy")
   UI:WaitShowDialogue("C'est décidé ! Je traverserai Lost Wood —\n et je sortirai de là en vrai explorateur !")
+
+  -- tutoriel du donjon à son entrée : explications intégrées au récit,
+  -- commandes abstraites pour respecter la configuration du joueur
+  SV.Destiny = SV.Destiny or {}
+  if not SV.Destiny.LostWoodTutorialDone then
+    UI:SetSpeakerEmotion("Normal")
+    UI:WaitShowDialogue("Avant d'entrer, je dois me rappeler les règles d'un donjon.")
+    UI:WaitShowDialogue("Lost Wood compte sept étages. À chaque étage, il faut trouver l'escalier qui descend ; le septième mène au fond de la forêt.")
+    UI:WaitShowDialogue("Les déplacements se font avec les commandes de direction. Chaque pas prend un tour : les Pokémon autour de moi peuvent bouger et agir pendant ce temps.")
+    UI:WaitShowDialogue("La commande d'attaque permet de frapper tout près. Dans le menu des capacités, je choisis une attaque à distance ou un pouvoir spécial — mais chaque capacité consomme des PP.")
+    UI:WaitShowDialogue("Le sac contient des objets utiles : soins, baies et autres outils. Je peux les sélectionner dans le menu des objets ; certains peuvent aussi servir contre les obstacles ou les adversaires.")
+    UI:WaitShowDialogue("Je dois surveiller mon ventre : avancer longtemps sans manger épuise. Si je trouve de la nourriture, je la garde pour les moments où j'en aurai besoin.")
+    UI:WaitShowDialogue("Je n'ai pas besoin de combattre tout le monde. Je peux contourner un adversaire, utiliser un objet, ou économiser mes PP pour un passage difficile.")
+    UI:WaitShowDialogue("Quand j'aurai trouvé l'escalier du septième étage, je sortirai dans la clairière. Alors… en avant !")
+    SV.Destiny.LostWoodTutorialDone = true
+  end
   UI:WaitShowDialogue("En route ! La nuit est à moi !")
+
+  -- le partenaire part seul : le héros est gardé hors de l'équipe jusqu'au réveil
+  local heros = GAME:GetPlayerPartyMember(0)
+  SV.Destiny.HeroAssemblyIndex = GAME:GetPlayerAssemblyCount()
+  GAME:RemovePlayerTeam(0)
+  GAME:AddPlayerAssembly(heros)
+  GAME:SetTeamLeaderIndex(0)
 
   -- le partenaire s'engage dans le chemin du donjon
   GROUND:CharAnimateTurnTo(partenaire, Direction.Down, 8)
   GAME:WaitFrames(20)
-  SV.Destiny = SV.Destiny or {}
   SV.Destiny.PartenaireParti = true
   SOUND:FadeOutBGM(60)
   GAME:FadeOut(false, 60)
