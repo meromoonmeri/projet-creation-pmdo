@@ -282,3 +282,16 @@ Session `arena/637b0828-projet-creation-pmdo` : suite au choix utilisateur `mewt
 Intégrées au Studio 60 FPS (`37` maps / `370` calques dans `index.html` et `apercu_kanto_mewtwo_mew_pmdo.html`) et à l'assembleur Halcyon/`town02` « PROJET PMD » (`Data/Script/halcyon/ground/<id>/init.lua` généré dans chaque package). Aucun test runtime C# PMDO exécuté (`runtime_tested = false`).
 
 
+
+## Reprise du 28 octobre 2026 — aperçu exhaustif des maps (`apercu_galerie_maps.html`)
+
+Session `arena/11fb227f-projet-creation-pmdo` (depuis `24c84f4`), sur « je veux d'abord voir l'aperçu exhaustif de toutes les maps et qu'elle soit présente dans notre branche stp sans zip » : lot `source/galerie_maps/`, page racine **`apercu_galerie_maps.html`**, vignettes **versionnées** dans `apercus/galerie_maps/` (232 images, ~20 Mo). Aucun zip, aucune image retouchée.
+
+- **290 maps recensées, 232 avec vignette, 58 sans image versionnée** (jamais omises : badge « sans image » + raison).
+  - 171 unités du dépôt source allégé (`renders/` de `projet-pmdo` @ `6cca4a0`) : une composition par map, `*_scene_t000.png` prioritaire, sinon `composite` / `composition` / planche / vue d'ensemble ; les 8 sous-maps `zone_zero_v1/{RAZ1..3,EAZ1}` et `zone_zero_v2/{RAF1..3,EAF1}` sont des unités distinctes.
+  - 107 lots propres à cette branche (absents du dépôt source), dont 49 illustrés : **recomposition** du calque 0 de chaque étage du manifeste `const D={…}` embarqué dans les `apercu_*.html` (ex. `fin_caverne_cristal_v1`, 11 calques), sinon des `renders/<lot>/layers/*.png` versionnés (`mont_lointain_*`, `mont_foudre_*`, `mont_brasier_*`, `mine_magma_*`, `foret_givree_*`), sinon les bruts `source/<lot>/bruts/base_*.png` (badge **rendu**) ou la référence canonique `ref_canon_*` (badge **référence**).
+  - 12 salles de la guilde de `kit.json` (`salles/`, jour ; nuit signalée).
+- **Garde-fou magenta** : un brut dont le fond est encore magenta/violet vif (> 1 % des pixels) est refusé — `grotte_ouest_entree_v1` montrait d'abord son brut magenta à la place du rendu final ; la galerie montre désormais `ref_canon_grotte_ouest_entree.png`, badgée « référence ». Six lots basculent ainsi en « sans image ».
+- **Compression fidèle** : LANCZOS ≤ 640 px, puis palette 255 si l'écart RVB moyen ≤ 2,5/255 (4 à 6 × plus léger qu'un PNG RGBA), sinon WebP q92.
+- **Contrôle** : `source/galerie_maps/test_galerie.js` (jsdom, DOM réel) — **28 contrôles PASS** : une carte par map, familles, images non chargées par défaut, chargement différé, 232 vignettes présentes sur le disque, filtre par famille, deux recherches, masquage, filtre « sans image », badges de nature, visionneuse + lien vers l'image d'origine.
+- Aucun lot existant n'est modifié ; `art_approved = false`, aucun test runtime PMDO. Serveur d'aperçus relancé sur `0.0.0.0:8000` (page d'accueil du serveur : la galerie y figure).
