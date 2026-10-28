@@ -16,14 +16,15 @@ référence recolorées** : la texture d'origine est conservée exactement
 un arc-en-ciel conique à cœur blanc. Source :
 ``Relict/Relict V1.2/Relict/Graphics/EBDX/Transitions/Arceus/``
 (``background/shine/glow/particle0/1.png``, dépôt ``meromoonmeri/BIBLIOTHEQUE``)
-— crédit **Pokémon Relict**. La figure centrale est le blason Œuf Ailé de
-l'opening PMD Destiny (art de l'utilisateur). Les titres affichés sont les
-textes d'introduction de Halcyon (« Welcome to the world of Pokémon! » etc.),
-rendus voice-over **blanc sur fond noir** comme le moteur PMDO : aucune boîte
-de dialogue n'est dessinée (le moteur gère les boîtes nativement).
+— crédit **Pokémon Relict**. Aucune figure centrale (le blason Œuf Ailé
+n'apparaît pas) : le fond EST le halo arc-en-ciel, qui **pulse entre le fond
+noir et sa pleine visibilité**. Les titres affichés sont les textes
+d'introduction de Halcyon (« Welcome to the world of Pokémon! » etc.), rendus
+voice-over **blanc** comme le moteur PMDO : aucune boîte de dialogue n'est
+dessinée (le moteur gère les boîtes nativement).
 
 Sorties (dans ``apercus/intro_halo/``) : ``halo_fond.png``, ``halo_shine.png``,
-``halo_anneau.png``, ``halo_particule0/1.png``, ``figure_oeuf_ailes.png`` +
+``halo_anneau.png``, ``halo_particule0/1.png`` +
 ``apercu_intro_halo_arcenciel.html`` (scène animée pour la visionneuse).
 
 Usage : .venv/bin/python OUTILS/generer_intro_halo_arcenciel.py
@@ -39,7 +40,6 @@ from PIL import Image, ImageDraw, ImageFilter
 R = Path(__file__).resolve().parents[1]
 OUT = R / 'apercus' / 'intro_halo'
 PAGE = R / 'apercu_intro_halo_arcenciel.html'
-SRC_OEUF = Path('/tmp/destiny-logo/source/pmd_destiny_fangame_v1/references/clean_badge_oeuf_ailes_pmd.png')
 
 
 # ------------------------------- textures (crédit : Pokémon Relict)
@@ -132,9 +132,10 @@ recolorées arc-en-ciel</b> en conservant exactement leur texture d'origine
 (<code>OUTILS/generer_intro_halo_arcenciel.py</code>) — crédit
 <b>Pokémon Relict</b>. Les titres reprennent les <b>textes d'introduction de
 Halcyon</b> (« Welcome to the world of Pokémon! » etc.), affichés comme le moteur
-PMDO les rend : <b>écriture blanche sur fond noir</b> (voice-over), <b>sans
-boîte</b> — les boîtes de dialogue sont gérées nativement par le moteur et ne
-sont pas reproduites ici.</p>
+PMDO les rend : <b>écriture blanche</b> (voice-over), <b>sans boîte</b> — les
+boîtes de dialogue sont gérées nativement par le moteur et ne sont pas
+reproduites ici. Notre fond noir à nous est le <b>halo arc-en-ciel</b> lui-même
+(sans blason Œuf Ailé), qui pulse entre le noir et sa pleine visibilité.</p>
 
 <div class="bar">
   <button id="pause">Pause</button>
@@ -152,20 +153,21 @@ sont pas reproduites ici.</p>
 inversion) · 2 anneaux expansifs max (cadence 200 frames, zoom 0,2 → +0,01/δ,
 fondu +4/δ puis −4/δ, perpétuels) · 24 particules additives migrantes
 (vitesse 0,1–1,6, estompage 0,5×vitesse/frame) · fondu d'entrée.
-<b>Figure centrale</b> : blason Œuf Ailé de l'opening PMD Destiny (art de
-l'utilisateur).
+<b>Fond</b> : le halo arc-en-ciel pulse entre le fond noir et sa pleine
+visibilité (respiration, 4 s par cycle) — aucune figure centrale (le blason
+Œuf Ailé n'apparaît pas).
 Citation de conception et textures : scène d'intro de <b>Pokémon Relict</b>
 (<code>meromoonmeri/BIBLIOTHEQUE</code>, <code>ArceusRing.rb</code>).</div>
 
 <script>
 const cv = document.getElementById('sc'), g = cv.getContext('2d');
 const imgs = {};
-for (const n of ['halo_fond', 'halo_shine', 'halo_anneau', 'halo_particule0', 'halo_particule1',
-                 'figure_oeuf_ailes']) {
+for (const n of ['halo_fond', 'halo_shine', 'halo_anneau', 'halo_particule0', 'halo_particule1']) {
   const im = new Image(); im.src = 'apercus/intro_halo/' + n + '.png'; imgs[n] = im;
 }
 // --- constantes reprises de ArceusRing.rb (delta = 3, 60 img/s)
 const DELTA = 3;
+const PULSE = 240; // halo : respiration noir → visible → noir en 240 img (4 s)
 // --- textes d'introduction de Halcyon (« Welcome to the world of Pokémon! »
 //     etc., Palikadude/Halcyon) — rendus voice-over blanc sur fond noir,
 //     comme le moteur PMDO : aucune boîte de dialogue dessinée.
@@ -262,15 +264,12 @@ function draw() {
   g.restore();
   g.globalCompositeOperation = 'source-over';
   g.globalAlpha = 1;
-  // figure centrale : blason Œuf Ailé de l'opening (art de l'utilisateur)
-  const fig = imgs['figure_oeuf_ailes'];
-  if (fig.complete && fig.naturalWidth) {
-    const fh = 330, fw = fh * fig.naturalWidth / fig.naturalHeight;
-    g.drawImage(fig, 320 - fw / 2, 268 - fh / 2, fw, fh);
-  }
-  // fondu d'entrée (pbFadeInAndShow) : 60 premières frames
-  if (tick < 60) {
-    g.fillStyle = 'rgba(0,0,0,' + (1 - tick / 60) + ')';
+  // le fond EST le halo : il pulse entre le fond noir et sa pleine visibilité
+  // (voile noir) + fondu d'entrée sur les 60 premières frames
+  const pulse = 0.5 - 0.5 * Math.cos(2 * Math.PI * tick / PULSE);
+  const voile = Math.min(1, Math.max(tick < 60 ? 1 - tick / 60 : 0, 1 - pulse));
+  if (voile > 0) {
+    g.fillStyle = 'rgba(0,0,0,' + voile + ')';
     g.fillRect(0, 0, 640, 480);
   }
 }
@@ -329,16 +328,6 @@ def main() -> int:
             return 1
         recolorer(ref, OUT / nom)
         print(f'  {nom} ({lbl} — texture Relict recolorée)')
-    # variante figure : blason Œuf Ailé de l'opening (art utilisateur)
-    if SRC_OEUF.exists():
-        im = Image.open(SRC_OEUF).convert('RGB')
-        arr = np.array(im)
-        mask = (arr[..., 0] > 235) & (arr[..., 1] > 235) & (arr[..., 2] > 235)
-        rgba = np.dstack([arr, np.where(mask, 0, 255).astype(np.uint8)])
-        Image.fromarray(rgba, 'RGBA').save(OUT / 'figure_oeuf_ailes.png')
-        print('  figure_oeuf_ailes.png (Œuf Ailé, fond retiré)')
-    else:
-        print('  (!) source Œuf Ailé absente — variante non générée')
     PAGE.write_text(page_html(), encoding='utf-8')
     print(f'  page → {PAGE}')
     print('Terminé.')
