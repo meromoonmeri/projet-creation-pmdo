@@ -30,6 +30,15 @@ REPOS_SHORT = {"meromoonmeri/projet-creation-pmdo": "creation",
                "meromoonmeri/projet-pmdo": "projet-pmdo"}
 
 
+def local_par_blob() -> dict[str, str]:
+    """blob -> chemin local (.cache/apercus/) pour les aperçus téléchargés."""
+    m = ROOT / ".cache" / "apercus" / "manifest.json"
+    if not m.is_file():
+        return {}
+    return {x["blob"]: ".cache/apercus/" + x["fichier"] for x in json.loads(m.read_text(encoding="utf-8"))
+            if x.get("statut") in ("ok", "déjà présent")}
+
+
 def mo(n: int) -> str:
     return f"{n / 1_048_576:.1f} Mo"
 
@@ -76,7 +85,12 @@ def recuperes_ok() -> dict[str, str]:
     return {r["blob"]: r.get("statut", "") for r in json.loads(RECUP.read_text(encoding="utf-8"))}
 
 
+LOCAL: dict[str, str] = {}
+
+
 def main() -> None:
+    global LOCAL
+    LOCAL = local_par_blob()
     contenus = charge_inventaire()
     quest_noms = quest_ground_noms()
 
@@ -128,7 +142,7 @@ def main() -> None:
                          f'<a href="{html.escape(blob_url(v["repo"], v["commit"], v["chemin"]))}">code</a></li>')
         ap = apercu_par_stem.get(nom, [])
         liens_ap = " ".join(
-            f'<a href="{html.escape(PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">aperçu</a>'
+            f'<a href="{html.escape(LOCAL.get(a["blob"]) or PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">aperçu</a>'
             f' <small>({html.escape(repo_court(a["repo"]))})</small>' for a in ap[:3])
         return (f'<details><summary><strong>{html.escape(nom)}</strong> {statut} '
                 f'<small>{len(versions)} version(s)</small> {liens_ap}</summary><ul>{"".join(items)}</ul></details>')
@@ -136,7 +150,7 @@ def main() -> None:
     maps_html = "".join(ligne_map(n, v) for n, v in sorted(par_nom.items()))
 
     apercus_html = "".join(
-        f'<li><a href="{html.escape(PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">'
+        f'<li><a href="{html.escape(LOCAL.get(a["blob"]) or PREVIEW + raw(a["repo"], a["commit"], a["chemin"]))}">'
         f'{html.escape(Path(a["chemin"]).name)}</a> <small>{mo(a["taille"])} · {html.escape(repo_court(a["repo"]))}'
         f' · {html.escape(a["branche"][:40])}</small> · '
         f'<a href="{html.escape(blob_url(a["repo"], a["commit"], a["chemin"]))}">code</a></li>'
@@ -165,6 +179,7 @@ details{{margin:6px 0;padding:4px 8px;background:#26221a;border-radius:4px}}summ
 .ok{{color:#8f8}}.ref{{color:#aaa}}.todo{{color:#fb6}}.note{{background:#2b2619;border-left:4px solid #ffd76a;padding:8px 12px}}
 table td{{padding:2px 10px}}</style></head><body>
 <h1>Catalogue de toutes les maps du projet</h1>
+<p><a href="apercu_galerie_toutes_maps.html"><strong>→ Ouvrir la galerie visuelle par biome</strong></a></p>
 <p class="note">Ce catalogue est généré à partir de l'inventaire complet des 120 branches des 3 dépôts
 (<code>projet-creation-pmdo</code>, <code>guilde-treehouse-pmd</code>, <code>projet-pmdo</code>).
 Chaque contenu n'apparaît qu'une fois ; une map peut exister en plusieurs versions (plusieurs branches).
