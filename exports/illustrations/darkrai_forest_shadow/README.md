@@ -1,7 +1,7 @@
-# Darkrai — sortie de l’ombre à la lisière d’une forêt
+# Darkrai — apparition et disparition dans l’ombre
 
-![Aperçu animé : Darkrai apparaît dans l’ombre des arbres, puis se dissout en particules ténébreuses](darkrai_forest_shadow_preview.gif)
+![Aperçu animé : Darkrai apparaît dans une clairière nocturne, puis est absorbé par une ombre au sol](darkrai_forest_shadow_preview.gif)
 
-La scène commence dans une clairière nocturne où les ombres des arbres marquent le sol. Darkrai apparaît d’abord comme une silhouette fixe, puis sa version couleur complète se révèle en une seule étape — le rouge du col et toutes les autres couleurs arrivent ensemble. Il se dissout ensuite en fragments et particules sombres qui s’élèvent avant de disparaître.
+La séquence de 15 images commence par une silhouette fixe, puis révèle toutes les couleurs ensemble. Le masque de l’œil est rendu opaque : l’iris reste bleu et aucun pixel de nuage ou de décor ne peut le traverser. La disparition part du bas du sprite; les couleurs s’assombrissent, des fragments sont attirés vers une mare d’ombre violette-noire, puis cette ombre s’efface.
 
-La pose, l’échelle et le cadrage de Darkrai restent fixes; la séquence n’ajoute ni éclair ni changement de sprite.
+La pose, la forme, l’échelle, le placement et le cadrage restent identiques sur toute la séquence. Aucun éclair n’est réintroduit. Le GIF est un aperçu animé, pas un spritesheet PMDO prêt à importer.
