@@ -32,7 +32,7 @@ GIF = ROOT / "exports/illustrations/bitter_blade/bitter_blade_dash_preview.gif"
 OLD_GIF = ROOT / "exports/illustrations/bitter_blade/bitter_blade_vfx_preview.gif"
 
 ANIMATIONS = {
-    "Bitter_Blade_Aura": (72, "AttachAreaEmitter"),
+    "Bitter_Blade_Aura": (72, "PreAction"),
     "Bitter_Blade_Wisp": (32, "TileEmitter"),
     "Bitter_Blade_Slash": (72, "ActionFX"),
 }
@@ -110,18 +110,21 @@ def main() -> None:
     assert hitbox["HitTiles"] is True
     assert hitbox["StopAtHit"] is True and hitbox["StopAtWall"] is True
     assert hitbox["TargetAlignments"] == 4
-    assert hitbox["AppearanceMod"] == 0
+    assert hitbox["AppearanceMod"] == 2  # DashAppearance.Invisible
 
-    aura = hitbox["Emitter"]
-    assert aura["$type"] == "RogueEssence.Content.AttachAreaEmitter, RogueEssence"
-    assert aura["Anims"][0]["Anim"]["AnimIndex"] == "Bitter_Blade_Aura"
+    afterimage = hitbox["Emitter"]
+    assert afterimage["$type"] == "RogueEssence.Content.AfterImageEmitter, RogueEssence"
     trail = hitbox["TileEmitter"]
     assert trail["$type"] == "RogueEssence.Content.SingleEmitter, RogueEssence"
     assert trail["Anim"]["Anim"]["AnimIndex"] == "Bitter_Blade_Wisp"
     slash = hitbox["ActionFX"]["Emitter"]
     assert slash["$type"] == "RogueEssence.Content.SingleEmitter, RogueEssence"
     assert slash["Anim"]["Anim"]["AnimIndex"] == "Bitter_Blade_Slash"
-    assert hitbox["PreActions"][0]["Sound"] == "DUN_Move_Start"
+    preactions = hitbox["PreActions"]
+    assert preactions[0]["Sound"] == "DUN_Move_Start"
+    assert preactions[1]["Emitter"]["$type"] == "RogueEssence.Content.ListEmitter, RogueEssence"
+    aura = preactions[1]["Emitter"]
+    assert aura["Anim"][0]["Anim"]["AnimIndex"] == "Bitter_Blade_Aura"
     assert hitbox["ActionFX"]["Sound"] == "DUN_Fury_Cutter"
 
     hitfx = data["HitFX"]
@@ -135,9 +138,10 @@ def main() -> None:
     quick_action = quick_attack["HitboxAction"]
     assert quick_action["$type"] == "RogueEssence.Dungeon.DashAction, RogueEssence"
     assert quick_action["CharAnim"] == hitbox["CharAnim"] == 5
+    assert quick_action["Emitter"] == afterimage
     assert quick_action["Range"] == 3 and hitbox["Range"] == 5
     shadow_sneak = json.loads(SHADOW_SNEAK_REF.read_text(encoding="utf-8-sig"))["Object"]
-    assert shadow_sneak["HitboxAction"]["Emitter"]["$type"] == aura["$type"]
+    assert shadow_sneak["HitboxAction"]["AppearanceMod"] == hitbox["AppearanceMod"] == 2
     flare_blitz = json.loads(FLARE_BLITZ_REF.read_text(encoding="utf-8-sig"))["Object"]
     assert flare_blitz["HitboxAction"]["Range"] == hitbox["Range"] == 5
     assert flare_blitz["HitboxAction"]["CharAnim"] == hitbox["CharAnim"]
@@ -194,8 +198,8 @@ def main() -> None:
         assert encoded[8:16] == b"\x89PNG\r\n\x1a\n"
         assert len(frame_signatures(strip, cell)) == 8
         assert_no_warm_effect_pixels(strip)
-        if action_slot == "AttachAreaEmitter":
-            assert aura["Anims"][0]["Anim"]["AnimIndex"] == name
+        if action_slot == "PreAction":
+            assert aura["Anim"][0]["Anim"]["AnimIndex"] == name
         elif action_slot == "TileEmitter":
             assert trail["Anim"]["Anim"]["AnimIndex"] == name
         else:
@@ -222,8 +226,9 @@ def main() -> None:
     assert not OLD_GIF.exists()
 
     print(
-        "PASS: PMDO 0.8.12 Bitter Blade properties; 5-tile DashAction; native 8-way "
-        "Ceruledge preview; three 8-frame .dir strips; 50% drain; references and credits."
+        "PASS: PMDO 0.8.12 Bitter Blade properties; 5-tile CharAnim 5 rush with "
+        "invisible body/Quick Attack afterimages; native 8-way Ceruledge preview; "
+        "three 8-frame .dir strips; 50% drain; references and credits."
     )
 
 

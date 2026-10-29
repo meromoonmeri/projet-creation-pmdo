@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Render a 5-tile, 8-direction preview with Ceruledge's native walk frames."""
+"""Render an 8-direction dash with native Ceruledge afterimages and hidden rush body."""
 
 import subprocess
 import tempfile
@@ -21,6 +21,7 @@ SPRITE_SIZE = (64, 112)  # nearest-neighbour 2x preview enlargement of native 32
 AURA_SIZE = 144          # 2x native 72x72 PMDO particle cell
 WISP_SIZE = 48           # 1.5x native 32x32 PMDO particle cell
 SLASH_SIZE = 144
+AFTERIMAGE_ALPHA = 0.5  # Quick Attack's native AfterImageEmitter uses Alpha 128.
 DIRECTIONS = [
     (0, 1, "S", "Sud"),
     (1, 1, "SE", "Sud-Est"),
@@ -148,7 +149,7 @@ def make_animation_atlas(work: Path) -> None:
                 label,
             ]
         )
-    args.append(str(ATLAS))
+    args.extend(["-strip", "-define", "png:exclude-chunk=date,time", str(ATLAS)])
     run(*args)
 
 
@@ -170,14 +171,14 @@ def background(direction: int, work: Path) -> Path:
         "21",
         "-annotate",
         "+20+29",
-        f"BITTER BLADE  /  DASH 5 CASES  /  {french.upper()}",
+        f"BITTER BLADE  /  VIVE-ATTAQUE  /  5 CASES  /  {french.upper()}",
         "-fill",
-        "#a59ab8",
+        "#f4f0ff",
         "-pointsize",
         "14",
         "-annotate",
         "+20+52",
-        "Ceruledge natif — animations directionnelles PMDO",
+        "Ceruledge masqué au rush — afterimages directionnels",
         str(path),
     )
     return path
@@ -202,19 +203,33 @@ def make_frames(work: Path) -> list[Path]:
         slash_frames.append(slash)
 
     sprites: dict[tuple[int, int], Path] = {}
+    afterimages: dict[tuple[int, int], Path] = {}
     for direction in range(8):
         for frame in range(4):
             sprite = work / f"ceruledge_{direction}_{frame}.png"
+            ghost = work / f"ceruledge_afterimage_{direction}_{frame}.png"
             crop_sprite(direction, frame, sprite)
+            run(
+                "convert",
+                str(sprite),
+                "-channel",
+                "A",
+                "-evaluate",
+                "multiply",
+                str(AFTERIMAGE_ALPHA),
+                "+channel",
+                str(ghost),
+            )
             sprites[(direction, frame)] = sprite
+            afterimages[(direction, frame)] = ghost
 
     bases = [background(direction, work) for direction in range(8)]
     output: list[Path] = []
     frame_number = 0
     for direction, (dx, dy, _label, _french) in enumerate(DIRECTIONS):
         base = bases[direction]
-        # Two ready-up beats, ten dash beats (five tiles), then three impact
-        # frames. All eight direction rows are read from Ceruledge's native sheet.
+        # Two ready-up beats, ten rush beats (five tiles), then one landing
+        # beat. All eight direction rows come from Ceruledge's native sheet.
         for local_frame in range(13):
             if local_frame < 2:
                 progress = 0.0
@@ -236,9 +251,33 @@ def make_frames(work: Path) -> list[Path]:
                 wisp = wisp_frames[(local_frame + tile_index) % 8]
                 overlays.append((wisp, wx - WISP_SIZE // 2, wy - WISP_SIZE // 2))
 
-            aura = aura_frames[(local_frame + direction) % 8]
-            overlays.append((aura, x - AURA_SIZE // 2, y - AURA_SIZE // 2))
-            overlays.append((sprite, x - SPRITE_SIZE[0] // 2, y - SPRITE_SIZE[1] // 2))
+            # The pre-action aura flashes at takeoff. The runtime's
+            # AppearanceMod=Invisible hides the body through the rush; Quick
+            # Attack's AfterImageEmitter leaves translucent native poses behind.
+            if local_frame < 4:
+                aura = aura_frames[(local_frame + direction) % 8]
+                overlays.append((aura, CENTER[0] - AURA_SIZE // 2, CENTER[1] - AURA_SIZE // 2))
+
+            if 2 <= local_frame <= 12:
+                # Approximate the native AfterImageEmitter trail. Older copies
+                # disappear once their eight-tick lifetime has elapsed.
+                for age in range(7, -1, -1):
+                    past_frame = local_frame - age
+                    if not 2 <= past_frame <= 11:
+                        continue
+                    past_progress = (past_frame - 1) / 10
+                    past_x = round(CENTER[0] + dx * TILE * 5 * past_progress)
+                    past_y = round(CENTER[1] + dy * TILE * 5 * past_progress)
+                    past_walk_frame = (past_frame // 2) % 4
+                    ghost = afterimages[(direction, past_walk_frame)]
+                    overlays.append(
+                        (ghost, past_x - SPRITE_SIZE[0] // 2, past_y - SPRITE_SIZE[1] // 2)
+                    )
+
+            # The solid Ceruledge sprite is only visible before takeoff and after
+            # the slash lands, never during the five-tile rush itself.
+            if local_frame < 2 or local_frame == 12:
+                overlays.append((sprite, x - SPRITE_SIZE[0] // 2, y - SPRITE_SIZE[1] // 2))
             if local_frame >= 11:
                 slash_index = min(7, 3 + (local_frame - 11) * 2)
                 slash = slash_frames[slash_index]
@@ -285,7 +324,7 @@ def main() -> None:
         args = ["convert"]
         for frame in frames:
             args.extend(["-delay", "5", str(frame)])
-        args.extend(["-loop", "0", "-dispose", "None", str(GIF)])
+        args.extend(["-loop", "0", "-dispose", "None", "-strip", str(GIF)])
         run(*args)
 
     print(f"Built {ATLAS} and {GIF} ({len(frames)} frames, {GIF.stat().st_size:,} bytes).")

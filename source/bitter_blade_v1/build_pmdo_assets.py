@@ -65,6 +65,9 @@ def make_blade_cutout(output: Path) -> None:
         "rgb(2,128,130)",
         "-trim",
         "+repage",
+        "-strip",
+        "-define",
+        "png:exclude-chunk=date,time",
         str(output),
     )
 
@@ -83,6 +86,9 @@ def make_wisp_cutout(output: Path) -> None:
         "rgb(7,129,129)",
         "-trim",
         "+repage",
+        "-strip",
+        "-define",
+        "png:exclude-chunk=date,time",
         str(output),
     )
 
@@ -287,7 +293,15 @@ def make_slash_frames(blade_cutout: Path, work: Path) -> list[Path]:
 
 
 def make_strip(frames: list[Path], output: Path) -> None:
-    run("convert", *(str(path) for path in frames), "+append", str(output))
+    run(
+        "convert",
+        *(str(path) for path in frames),
+        "+append",
+        "-strip",
+        "-define",
+        "png:exclude-chunk=date,time",
+        str(output),
+    )
 
 
 def main() -> None:
