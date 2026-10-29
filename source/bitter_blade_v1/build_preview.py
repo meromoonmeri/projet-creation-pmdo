@@ -1,183 +1,307 @@
 from __future__ import annotations
 
-"""Build a small illustrative GIF from the generated Bitter Blade VFX."""
+"""Render a 5-tile, 8-direction preview with Ceruledge's native walk frames."""
 
-import math
 import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SRC = Path(__file__).resolve().parent
-CUTOUT = SRC / "assets/bitter_blade_vfx_cutout.png"
-WORK = ROOT / ".cache/bitter_blade_preview"
-TRIMMED = WORK / "bitter_blade_vfx_trimmed.png"
-OUT = ROOT / "exports/illustrations/bitter_blade"
-W, H = 512, 288
+ANIM = SRC / "assets/pmdo_animation"
+WALK_SHEET = SRC / "references/upstream/ceruledge_sprite/Walk-Anim.png"
+OUT_DIR = ROOT / "exports/illustrations/bitter_blade"
+ATLAS = SRC / "assets/bitter_blade_animation_sheet.png"
+GIF = OUT_DIR / "bitter_blade_dash_preview.gif"
+
+CANVAS = 640
+TILE = 40
+CENTER = (CANVAS // 2, CANVAS // 2)
+SPRITE_SIZE = (64, 112)  # nearest-neighbour 2x preview enlargement of native 32x56 cells
+AURA_SIZE = 144          # 2x native 72x72 PMDO particle cell
+WISP_SIZE = 48           # 1.5x native 32x32 PMDO particle cell
+SLASH_SIZE = 144
+DIRECTIONS = [
+    (0, 1, "S", "Sud"),
+    (1, 1, "SE", "Sud-Est"),
+    (1, 0, "E", "Est"),
+    (1, -1, "NE", "Nord-Est"),
+    (0, -1, "N", "Nord"),
+    (-1, -1, "NO", "Nord-Ouest"),
+    (-1, 0, "O", "Ouest"),
+    (-1, 1, "SO", "Sud-Ouest"),
+]
 
 
-def run(*args: str) -> str:
-    result = subprocess.run(args, check=True, text=True, capture_output=True)
-    return result.stdout.strip()
+def run(*args: str) -> None:
+    subprocess.run([str(arg) for arg in args], check=True)
 
 
-def ensure_cutout() -> None:
-    if not CUTOUT.exists():
-        subprocess.run(["python3", str(SRC / "prepare_vfx.py")], check=True)
-    WORK.mkdir(parents=True, exist_ok=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        ["convert", str(CUTOUT), "-trim", "+repage", str(TRIMMED)],
-        check=True,
-    )
-
-
-def curve(t: float) -> tuple[float, float]:
-    # Energy returns from the impact to Ceruledge's side of the canvas.
-    p0 = (282.0, 176.0)
-    p1 = (202.0, 102.0)
-    p2 = (104.0, 218.0)
-    u = 1.0 - t
-    return (
-        u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
-        u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1],
-    )
-
-
-def make_background(path: Path, phase: int) -> None:
-    # Restrained night palette: a soft impact haze and a low floor ellipse give
-    # the isolated effect scale without introducing characters or UI.
-    glow_alpha = 8 + (phase % 4) * 2
-    glow = f"rgba(70,35,95,{glow_alpha / 255:.3f})"
+def crop_strip_frame(sheet: Path, cell: int, index: int, scale: int, output: Path) -> None:
     run(
         "convert",
-        "-size",
-        f"{W}x{H}",
-        "xc:#0d1019",
-        "-fill",
-        glow,
-        "-stroke",
-        "none",
-        "-draw",
-        "ellipse 282,176 175,82 0,360",
-        str(path),
-    )
-
-
-def make_slash_layer(index: int, size: int, opacity: float, path: Path) -> tuple[int, int]:
-    run(
-        "convert",
-        str(TRIMMED),
+        str(sheet),
+        "-crop",
+        f"{cell}x{cell}+{index * cell}+0",
+        "+repage",
         "-filter",
         "point",
         "-resize",
-        f"{size}x{size}",
-        "-channel",
-        "A",
-        "-evaluate",
-        "multiply",
-        f"{opacity:.4f}",
-        "+channel",
+        f"{scale}x{scale}!",
+        str(output),
+    )
+
+
+def crop_sprite(direction: int, frame: int, output: Path) -> None:
+    x = frame * 32
+    y = direction * 56
+    run(
+        "convert",
+        str(WALK_SHEET),
+        "-crop",
+        f"32x56+{x}+{y}",
+        "+repage",
+        "-filter",
+        "point",
+        "-resize",
+        f"{SPRITE_SIZE[0]}x{SPRITE_SIZE[1]}!",
+        str(output),
+    )
+
+
+def make_animation_atlas(work: Path) -> None:
+    aura = ANIM / "Bitter_Blade_Aura.png"
+    wisp = ANIM / "Bitter_Blade_Wisp.png"
+    slash = ANIM / "Bitter_Blade_Slash.png"
+    enlarged_wisp = work / "wisp_atlas.png"
+    run("convert", str(wisp), "-filter", "point", "-resize", "512x64!", str(enlarged_wisp))
+    width, height = 900, 560
+    args = [
+        "convert",
+        "-size",
+        f"{width}x{height}",
+        "xc:#008080",
+        "-font",
+        "DejaVu-Sans",
+        "-fill",
+        "white",
+        "-pointsize",
+        "19",
+        "-annotate",
+        "+24+29",
+        "BITTER BLADE / PMDO .dir particle strips",
+        "-pointsize",
+        "15",
+        "-annotate",
+        "+24+52",
+        "Aura malefique — 8 frames, 72 x 72",
+        str(aura),
+        "-geometry",
+        "+24+61",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+164",
+        "Feux follets — 8 frames, 32 x 32 (agrandis ici)",
+        str(enlarged_wisp),
+        "-geometry",
+        "+24+174",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+272",
+        "Impact de lame — 8 frames, 72 x 72",
+        str(slash),
+        "-geometry",
+        "+24+282",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+389",
+        "Ceruledge natif / Walk-Anim : 8 directions distinctes, aucune pose tournee",
+    ]
+
+    # The final row samples the first native Walk frame from each of Ceruledge's
+    # eight direction rows; it is not synthesized by rotating one pose.
+    for index, (_dx, _dy, label, _french) in enumerate(DIRECTIONS):
+        sprite = work / f"ceruledge_direction_{index}.png"
+        crop_sprite(index, 0, sprite)
+        args.extend(
+            [
+                str(sprite),
+                "-geometry",
+                f"+{24 + index * 84}+400",
+                "-compose",
+                "over",
+                "-composite",
+                "-font",
+                "DejaVu-Sans",
+                "-fill",
+                "white",
+                "-pointsize",
+                "14",
+                "-annotate",
+                f"+{39 + index * 84}+510",
+                label,
+            ]
+        )
+    args.append(str(ATLAS))
+    run(*args)
+
+
+def background(direction: int, work: Path) -> Path:
+    dx, dy, label, french = DIRECTIONS[direction]
+    path = work / f"path_{direction}.png"
+    x0, y0 = CENTER
+    x1, y1 = x0 + dx * TILE * 5, y0 + dy * TILE * 5
+    draw: list[str] = []
+    for x in range(0, CANVAS + 1, TILE):
+        draw.append(f"stroke #232633 stroke-width 1 line {x},0 {x},{CANVAS}")
+    for y in range(0, CANVAS + 1, TILE):
+        draw.append(f"stroke #232633 stroke-width 1 line 0,{y} {CANVAS},{y}")
+    draw.append(f"stroke rgba(96,48,127,0.72) stroke-width 4 line {x0},{y0} {x1},{y1}")
+    draw.append("stroke none fill rgba(225,74,52,0.95)")
+    draw.append(f"circle {x0},{y0} {x0 + 4},{y0}")
+    for step in range(1, 6):
+        px, py = x0 + dx * TILE * step, y0 + dy * TILE * step
+        draw.append(f"fill rgba(153,79,179,0.84) circle {px},{py} {px + 3},{py}")
+    run(
+        "convert",
+        "-size",
+        f"{CANVAS}x{CANVAS}",
+        "xc:#11131c",
+        "-draw",
+        " ".join(draw),
+        "-font",
+        "DejaVu-Sans",
+        "-fill",
+        "#f4f0ff",
+        "-pointsize",
+        "21",
+        "-annotate",
+        "+20+29",
+        f"BITTER BLADE  /  DASH 5 CASES  /  {french.upper()}",
+        "-fill",
+        "#a59ab8",
+        "-pointsize",
+        "14",
+        "-annotate",
+        "+20+52",
+        "Ceruledge natif — animations directionnelles PMDO",
         str(path),
     )
-    x = round((W - size) / 2) + round((5 - min(index, 5)) * 2)
-    y = max(5, round((H - size) / 2) - 2)
-    return x, y
-
-
-def energy_overlay(progress: float, name: str) -> Path:
-    path = WORK / f"{name}_energy.png"
-    draw: list[str] = []
-    steps = max(1, round(progress * 24))
-    points = [curve(progress * i / steps) for i in range(steps + 1)]
-
-    # A dark red-violet body with a thin ember core makes the return stream read
-    # as healing energy instead of another attack slash.
-    for a, b in zip(points, points[1:]):
-        draw.append(f"stroke rgba(111,25,53,0.72) stroke-width 7 fill none line {a[0]:.1f},{a[1]:.1f} {b[0]:.1f},{b[1]:.1f}")
-    for a, b in zip(points, points[1:]):
-        draw.append(f"stroke rgba(237,75,42,0.86) stroke-width 3 fill none line {a[0]:.1f},{a[1]:.1f} {b[0]:.1f},{b[1]:.1f}")
-
-    # Several ember beads travel along the same curve at staggered times.
-    for lag, radius in ((0.00, 6), (0.12, 5), (0.25, 4), (0.39, 3)):
-        t = progress - lag
-        if t < 0:
-            continue
-        x, y = curve(min(1.0, t))
-        color = "rgba(255,170,55,0.96)" if radius in (6, 4) else "rgba(238,55,45,0.94)"
-        draw.append(f"fill {color} stroke none circle {x:.1f},{y:.1f} {x + radius:.1f},{y:.1f}")
-
-    if progress >= 0.72:
-        heal = max(0.0, min(1.0, (progress - 0.72) / 0.28))
-        x, y = 104.0, 218.0
-        r = 8 + 9 * heal
-        draw.append(f"fill none stroke rgba(234,68,54,{0.75 * heal:.3f}) stroke-width 3 ellipse {x:.1f},{y:.1f} {r:.1f},{r*0.58:.1f} 0,360")
-        draw.append(f"fill rgba(255,174,58,{0.88 * heal:.3f}) stroke none circle {x:.1f},{y:.1f} {x+3:.1f},{y:.1f}")
-
-    run("convert", "-size", f"{W}x{H}", "xc:none", "-draw", " ".join(draw), str(path))
     return path
 
 
-def main() -> None:
-    ensure_cutout()
-    phase = [
-        (205, 0.48),
-        (220, 0.65),
-        (238, 0.81),
-        (252, 0.95),
-        (268, 1.00),
-        (268, 0.94),
-        (268, 0.78),
-        (268, 0.62),
-        (268, 0.45),
-        (268, 0.28),
-        (268, 0.13),
-        (268, 0.00),
-    ]
-    frames: list[Path] = []
-    delays = [8, 8, 8, 9, 12, 8, 8, 8, 8, 8, 10, 18]
-    for index, (size, opacity) in enumerate(phase):
-        base = WORK / f"frame_{index:02d}_base.png"
-        make_background(base, index)
-        canvas = base
-        if opacity > 0:
-            slash = WORK / f"frame_{index:02d}_slash.png"
-            x, y = make_slash_layer(index, size, opacity, slash)
-            composed = WORK / f"frame_{index:02d}_slash_composite.png"
-            run(
-                "convert",
-                str(canvas),
-                str(slash),
-                "-geometry",
-                f"+{x}+{y}",
-                "-compose",
-                "over",
-                "-composite",
-                str(composed),
-            )
-            canvas = composed
-        if index >= 5:
-            progress = min(1.0, (index - 4) / 7)
-            energy = energy_overlay(progress, f"frame_{index:02d}")
-            composed = WORK / f"frame_{index:02d}_final.png"
-            run(
-                "convert",
-                str(canvas),
-                str(energy),
-                "-compose",
-                "over",
-                "-composite",
-                str(composed),
-            )
-            canvas = composed
-        frames.append(canvas)
+def make_frames(work: Path) -> list[Path]:
+    aura_sheet = ANIM / "Bitter_Blade_Aura.png"
+    wisp_sheet = ANIM / "Bitter_Blade_Wisp.png"
+    slash_sheet = ANIM / "Bitter_Blade_Slash.png"
+    aura_frames: list[Path] = []
+    wisp_frames: list[Path] = []
+    slash_frames: list[Path] = []
+    for i in range(8):
+        aura = work / f"aura_preview_{i}.png"
+        wisp = work / f"wisp_preview_{i}.png"
+        slash = work / f"slash_preview_{i}.png"
+        crop_strip_frame(aura_sheet, 72, i, AURA_SIZE, aura)
+        crop_strip_frame(wisp_sheet, 32, i, WISP_SIZE, wisp)
+        crop_strip_frame(slash_sheet, 72, i, SLASH_SIZE, slash)
+        aura_frames.append(aura)
+        wisp_frames.append(wisp)
+        slash_frames.append(slash)
 
-    gif = OUT / "bitter_blade_vfx_preview.gif"
-    cmd = ["convert"]
-    for frame, delay in zip(frames, delays):
-        cmd.extend(["-delay", str(delay), str(frame)])
-    cmd.extend(["-loop", "0", "-dispose", "None", str(gif)])
-    subprocess.run(cmd, check=True)
-    print(f"Built {gif} ({len(frames)} frames, {gif.stat().st_size:,} bytes)")
+    sprites: dict[tuple[int, int], Path] = {}
+    for direction in range(8):
+        for frame in range(4):
+            sprite = work / f"ceruledge_{direction}_{frame}.png"
+            crop_sprite(direction, frame, sprite)
+            sprites[(direction, frame)] = sprite
+
+    bases = [background(direction, work) for direction in range(8)]
+    output: list[Path] = []
+    frame_number = 0
+    for direction, (dx, dy, _label, _french) in enumerate(DIRECTIONS):
+        base = bases[direction]
+        # Two ready-up beats, ten dash beats (five tiles), then three impact
+        # frames. All eight direction rows are read from Ceruledge's native sheet.
+        for local_frame in range(13):
+            if local_frame < 2:
+                progress = 0.0
+            elif local_frame < 12:
+                progress = (local_frame - 1) / 10
+            else:
+                progress = 1.0
+            x = round(CENTER[0] + dx * TILE * 5 * progress)
+            y = round(CENTER[1] + dy * TILE * 5 * progress)
+            walk_frame = (local_frame // 2) % 4
+            sprite = sprites[(direction, walk_frame)]
+            overlays: list[tuple[Path, int, int]] = []
+
+            # TileEmitter leaves a short string of animated wisps behind the dash.
+            trail_count = min(5, int(progress * 5 + 1e-6))
+            for tile_index in range(1, trail_count + 1):
+                wx = CENTER[0] + dx * TILE * tile_index
+                wy = CENTER[1] + dy * TILE * tile_index
+                wisp = wisp_frames[(local_frame + tile_index) % 8]
+                overlays.append((wisp, wx - WISP_SIZE // 2, wy - WISP_SIZE // 2))
+
+            aura = aura_frames[(local_frame + direction) % 8]
+            overlays.append((aura, x - AURA_SIZE // 2, y - AURA_SIZE // 2))
+            overlays.append((sprite, x - SPRITE_SIZE[0] // 2, y - SPRITE_SIZE[1] // 2))
+            if local_frame >= 11:
+                slash_index = min(7, 3 + (local_frame - 11) * 2)
+                slash = slash_frames[slash_index]
+                overlays.append((slash, x - SLASH_SIZE // 2, y - SLASH_SIZE // 2))
+
+            frame = work / f"preview_{frame_number:03d}.png"
+            args = ["convert", str(base)]
+            for layer, ox, oy in overlays:
+                args.extend(
+                    [
+                        str(layer),
+                        "-geometry",
+                        f"+{ox}+{oy}",
+                        "-compose",
+                        "over",
+                        "-composite",
+                    ]
+                )
+            args.append(str(frame))
+            run(*args)
+            output.append(frame)
+            frame_number += 1
+    return output
+
+
+def main() -> None:
+    required = [
+        ANIM / "Bitter_Blade_Aura.png",
+        ANIM / "Bitter_Blade_Wisp.png",
+        ANIM / "Bitter_Blade_Slash.png",
+        WALK_SHEET,
+    ]
+    missing = [path for path in required if not path.exists()]
+    if missing:
+        raise FileNotFoundError("Missing animation inputs: " + ", ".join(map(str, missing)))
+
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir = ROOT / ".cache"
+    cache_dir.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="bitter_blade_preview_", dir=cache_dir) as temp:
+        work = Path(temp)
+        make_animation_atlas(work)
+        frames = make_frames(work)
+        args = ["convert"]
+        for frame in frames:
+            args.extend(["-delay", "5", str(frame)])
+        args.extend(["-loop", "0", "-dispose", "None", str(GIF)])
+        run(*args)
+
+    print(f"Built {ATLAS} and {GIF} ({len(frames)} frames, {GIF.stat().st_size:,} bytes).")
 
 
 if __name__ == "__main__":

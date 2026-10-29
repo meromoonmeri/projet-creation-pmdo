@@ -1,32 +1,40 @@
 # Bitter Blade / Lame en Peine — PMDO 0.8.12
 
-## Fichiers livrés
+## Livrables
 
-- Donnée PMDO à importer : `Data/Skill/bitter_blade.json`.
-- Illustration VFX générée : `assets/bitter_blade_vfx.png` (sortie brute du générateur) et `assets/bitter_blade_vfx_cutout.png` (découpe avec alpha, prête pour un pipeline d’images).
-- Aperçu animé : `exports/illustrations/bitter_blade/bitter_blade_vfx_preview.gif`.
-- Scripts reproductibles : `prepare_vfx.py`, puis `build_preview.py`.
+- Donnée de capacité : `Data/Skill/bitter_blade.json`.
+- Particules PMDO personnalisées (vrais `.dir`, bandeaux PNG transparents de 8 frames) :
+  - `Content/Particle/Bitter_Blade_Aura.dir` — aura circulaire de feux follets, 8 × 72 × 72 px.
+  - `Content/Particle/Bitter_Blade_Wisp.dir` — feu follet animé laissé sur les cases traversées, 8 × 32 × 32 px.
+  - `Content/Particle/Bitter_Blade_Slash.dir` — impact de lame animé, 8 × 72 × 72 px.
+- Bandes PNG sources éditables et manifeste : `assets/pmdo_animation/`.
+- Planche de contrôle des effets et des huit directions natives de Ceruledge : `assets/bitter_blade_animation_sheet.png`.
+- Aperçu animé du dash : `exports/illustrations/bitter_blade/bitter_blade_dash_preview.gif`.
 
-## Données de capacité
+Les `.dir` suivent le format utilisé par les ressources de particules PMDO : longueur PNG sur 8 octets little-endian, puis PNG horizontal transparent. Le `AnimIndex` dans les données correspond au nom de fichier sans extension.
 
-L’entrée amont `Data/Skill/bitter_blade.json` (PMDO 0.8.12, commit `3e767571f9dd94270b848b3a73de9bec2553a2eb`) était déjà présente, mais avec `Released:false`, sans soin par absorption et sans VFX. La version livrée conserve son index 891, son type Feu, sa catégorie physique, sa puissance 90, son taux de réussite de 100 %, son unique frappe et ses 10 charges; elle ajoute `ContactState`, `HealState` et l’évènement `HPDrainEvent` avec `DrainFraction:2` pour rendre la moitié des dégâts sous forme de PV.
+## Mouvement et données de la capacité
 
-La structure d’animation suit les données existantes d’Audinowho : `AttackAction` et particule de lame native `Slash_RSE` (modèle de Tranch’Aqua), puis `FiniteGatherEmitter` avec `Absorb` et `DUN_Absorb` pour le retour d’énergie (modèle de Vampipoing). `DUN_Fury_Cutter` accompagne le coup. Les références complètes et leur commit/blob sont conservés dans `references/upstream/`.
+`HitboxAction` est maintenant un `RogueEssence.Dungeon.DashAction`, basé sur l’action de Vive-Attaque (`quick_attack.json`) : `CharAnim: 5`, déplacement directionnel natif et portée étendue à **5 cases**; la frappe touche les ennemis sur la trajectoire et s’arrête sur la cible ou un mur. Le moteur garde le sprite et les frames directionnelles propres au Pokémon actif; Ceruledge n’est ni redessiné ni obtenu en tournant une pose unique. L’aura utilise le motif d’`AttachAreaEmitter` d’Ombre Portée (`shadow_sneak.json`), puis les feux follets sont émis sur le trajet et la lame frappe à l’arrivée.
 
-Le Pokémon Ceruledge/Malvalame possède déjà `bitter_blade` dans `LevelSkills` au niveau 48 dans la donnée amont `Data/Monster/ceruledge.json`; aucun fichier Monster n’a donc été modifié.
+Les autres propriétés préparées sont conservées : type Feu, physique, puissance 90, précision 100 %, 10 PP, une frappe et récupération de 50 % des dégâts via `HPDrainEvent` (`DrainFraction:2`) et l’effet natif `Absorb`. Ceruledge apprend toujours `bitter_blade` au niveau 48 selon sa donnée amont.
 
-## Visuel
+Les références PMDO 0.8.12 — Vive-Attaque, Ombre Portée, Boutefeu, Vampipoing, données de Ceruledge et ressources sonores — sont archivées sous `references/upstream/` avec commit et hashes.
 
-Le générateur a produit un arc de lame pixel-art rouge/orange, avec cœur bleu, impact blanc et traînées violettes. Il avait aplati un damier de transparence dans le PNG; `prepare_vfx.py` retire les tons neutres du damier tout en préservant les pixels de feu, de flamme bleue et l’étincelle centrale. L’aperçu montre la taille de l’arc, l’impact et un filet d’énergie rouge-or qui revient vers le lanceur.
+## Ceruledge natif et provenance
 
-Le PNG généré et le GIF sont des **concepts VFX**. Ils ne sont pas un `.dir` PMDO prêt à charger. La donnée de capacité utilise, elle, les effets natifs listés ci-dessus. Le cache/runtime PMDO n’étant pas disponible dans ce workspace, le chargement, le rendu et le comportement en jeu restent à tester dans PMDO 0.8.12.
+L’aperçu reprend les huit lignes d’animation Walk natives de la planche Ceruledge #0937 de [PMD Sprite Collab](https://sprites.pmdcollab.org/#/0937?form=0), sans rotation de pose. Les fichiers `Walk-Anim.png`, `Walk-Offsets.png`, `AnimData.xml` et `credits.txt` de référence sont dans `references/upstream/ceruledge_sprite/`. Crédit indiqué par Sprite Collab : **BaronessFaron / PMDCollab_1**, licence [**CC BY-NC 4.0**](https://creativecommons.org/licenses/by-nc/4.0/); le crédit original et le commit épinglé `448d3af85e2cfa85a8c5ead076eddb145251b473` sont conservés dans ce dossier. Dans le GIF de contrôle, les frames sont recadrées, agrandies et composées avec les VFX; les poses sources ne sont pas retouchées ni pivotées. Ces références ne remplacent pas et ne patchent pas le sprite du jeu : le `DashAction` demande au runtime PMDO d’animer le Pokémon présent dans le donjon.
 
-## Vérifications locales
+## Génération et vérification
+
+Avec ImageMagick (`convert`/`identify`) installé :
 
 ```sh
-python3 source/bitter_blade_v1/prepare_vfx.py
+python3 source/bitter_blade_v1/build_pmdo_assets.py
 python3 source/bitter_blade_v1/build_preview.py
 python3 source/bitter_blade_v1/validate.py
 ```
 
-`validate.py` vérifie les champs de capacité, le drain à 50 %, l’apprentissage de Malvalame au niveau 48, l’existence des index d’animation référencés dans les manifestes Audinowho et les dimensions du GIF. Il ne remplace pas un test du moteur.
+`validate.py` contrôle le JSON, le dash 5 cases, les trois `AnimIndex`, les en-têtes `.dir`, les dimensions et nombres de frames, l’apprentissage de Ceruledge et l’aperçu 8 directions. Le GIF et la planche sont des aperçus de contrôle utilisant les frames natives référencées; ils ne remplacent pas les fichiers `.dir` dans `Content/Particle`.
+
+**Limite de test :** le runtime PMDO 0.8.12 n’est pas présent dans cet espace de travail. La structure des données et des ressources est validée localement, mais le chargement, le rendu réel, le comportement de collision et la durée exacte des émetteurs restent à confirmer en jeu.
