@@ -1,7 +1,7 @@
 # Darkrai — séquence sprite (yeux bleus)
 
-![Aperçu animé de Darkrai, en silhouette, en niveaux de gris puis en couleur](darkrai_sequence_preview.gif)
+![Aperçu animé de Darkrai, en silhouette, en niveaux de gris puis en couleur, sous des éclairs](darkrai_sequence_preview.gif)
 
-La séquence présente trois frames strictement alignées : même forme, pose, échelle, placement et cadrage. Seuls les couleurs et traitements évoluent. La frame couleur a l’œil bleu; le col rouge est conservé.
+La séquence garde exactement la même forme, pose, échelle, placement et cadrage de Darkrai; seules les couleurs et les lumières varient. Des éclairs bleu-blanc et leurs flashs apparaissent dans le ciel, derrière le sprite. La crête est blanche neutre, sans dominante jaune; l’œil est bleu et le col rouge est conservé.
 
 Le GIF est un aperçu d’illustration, pas une ressource sprite PMDO `.tile`.
