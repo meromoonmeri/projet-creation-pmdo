@@ -94,7 +94,7 @@ def make_animation_atlas(work: Path) -> None:
         "15",
         "-annotate",
         "+24+52",
-        "Aura malefique — 8 frames, 72 x 72",
+        "Aura de flammes noires — 8 frames, 72 x 72",
         str(aura),
         "-geometry",
         "+24+61",
@@ -103,7 +103,7 @@ def make_animation_atlas(work: Path) -> None:
         "-composite",
         "-annotate",
         "+24+164",
-        "Feux follets — 8 frames, 32 x 32 (agrandis ici)",
+        "Feux follets noirs — 8 frames, 32 x 32 (agrandis ici)",
         str(enlarged_wisp),
         "-geometry",
         "+24+174",
@@ -112,7 +112,7 @@ def make_animation_atlas(work: Path) -> None:
         "-composite",
         "-annotate",
         "+24+272",
-        "Impact de lame — 8 frames, 72 x 72",
+        "Balayage de flamme noire — 8 frames, 72 x 72",
         str(slash),
         "-geometry",
         "+24+282",
@@ -121,7 +121,7 @@ def make_animation_atlas(work: Path) -> None:
         "-composite",
         "-annotate",
         "+24+389",
-        "Ceruledge natif / Walk-Anim : 8 directions distinctes, aucune pose tournee",
+        "Ceruledge natif / Walk-Anim : 8 directions distinctes, aucune pose tournée",
     ]
 
     # The final row samples the first native Walk frame from each of Ceruledge's
@@ -153,28 +153,15 @@ def make_animation_atlas(work: Path) -> None:
 
 
 def background(direction: int, work: Path) -> Path:
-    dx, dy, label, french = DIRECTIONS[direction]
-    path = work / f"path_{direction}.png"
-    x0, y0 = CENTER
-    x1, y1 = x0 + dx * TILE * 5, y0 + dy * TILE * 5
-    draw: list[str] = []
-    for x in range(0, CANVAS + 1, TILE):
-        draw.append(f"stroke #232633 stroke-width 1 line {x},0 {x},{CANVAS}")
-    for y in range(0, CANVAS + 1, TILE):
-        draw.append(f"stroke #232633 stroke-width 1 line 0,{y} {CANVAS},{y}")
-    draw.append(f"stroke rgba(96,48,127,0.72) stroke-width 4 line {x0},{y0} {x1},{y1}")
-    draw.append("stroke none fill rgba(225,74,52,0.95)")
-    draw.append(f"circle {x0},{y0} {x0 + 4},{y0}")
-    for step in range(1, 6):
-        px, py = x0 + dx * TILE * step, y0 + dy * TILE * step
-        draw.append(f"fill rgba(153,79,179,0.84) circle {px},{py} {px + 3},{py}")
+    _dx, _dy, _label, french = DIRECTIONS[direction]
+    path = work / f"background_{direction}.png"
+    # No fake trajectory overlay: only a quiet backdrop behind the generated
+    # black-flame VFX and the native direction-specific Ceruledge frames.
     run(
         "convert",
         "-size",
         f"{CANVAS}x{CANVAS}",
-        "xc:#11131c",
-        "-draw",
-        " ".join(draw),
+        "xc:#008080",
         "-font",
         "DejaVu-Sans",
         "-fill",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Structural checks for the PMDO 0.8.12 skill, .dir strips, and preview."""
 
+import hashlib
 import json
 import struct
 import subprocess
@@ -11,6 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SRC = Path(__file__).resolve().parent
 MOVE_PATH = SRC / "Data/Skill/bitter_blade.json"
+BLADE_SOURCE = SRC / "assets/bitter_blade_blade_source.png"
+BLADE_CUTOUT = SRC / "assets/bitter_blade_blade_cutout.png"
+WISP_SOURCE = SRC / "assets/bitter_blade_wisp_source.png"
+WISP_CUTOUT = SRC / "assets/bitter_blade_wisp_cutout.png"
+UPSTREAM_MANIFEST = SRC / "references/upstream/manifest.json"
 CERULEDGE_REF = SRC / "references/upstream/monster_ceruledge.json"
 QUICK_ATTACK_REF = SRC / "references/upstream/skill_quick_attack.json"
 SHADOW_SNEAK_REF = SRC / "references/upstream/skill_shadow_sneak.json"
@@ -36,6 +42,35 @@ def identify(path: Path, fmt: str = "%w %h %[channels] %[opaque]") -> list[str]:
     return subprocess.check_output(["identify", "-format", fmt, str(path)], text=True).strip().split()
 
 
+def frame_signatures(strip: Path, cell: int) -> set[str]:
+    signatures = set()
+    for frame in range(8):
+        raw = subprocess.check_output(
+            [
+                "convert",
+                str(strip),
+                "-crop",
+                f"{cell}x{cell}+{frame * cell}+0",
+                "+repage",
+                "-depth",
+                "8",
+                "rgba:-",
+            ]
+        )
+        assert len(raw) == cell * cell * 4
+        signatures.add(hashlib.sha256(raw).hexdigest())
+    return signatures
+
+
+def assert_no_warm_effect_pixels(strip: Path) -> None:
+    raw = subprocess.check_output(["convert", str(strip), "-depth", "8", "rgba:-"])
+    for red, green, blue, alpha in zip(raw[0::4], raw[1::4], raw[2::4], raw[3::4]):
+        if alpha > 16:
+            assert not (red > 140 and green < 170 and blue < 150), (
+                f"Warm/red pixel in black-flame asset {strip}: {(red, green, blue, alpha)}"
+            )
+
+
 def main() -> None:
     document = json.loads(MOVE_PATH.read_text(encoding="utf-8"))
     assert document["Version"] == "0.8.12.0"
@@ -44,6 +79,11 @@ def main() -> None:
     assert move["IndexNum"] == 891
     assert move["BaseCharges"] == 10
     data = move["Data"]
+    for source in (BLADE_SOURCE, WISP_SOURCE):
+        assert identify(source)[3] == "true"
+    for cutout in (BLADE_CUTOUT, WISP_CUTOUT):
+        cutout_info = identify(cutout)
+        assert "a" in cutout_info[2] and cutout_info[3] == "false"
     assert data["Element"] == "fire"
     assert data["Category"] == 1
     assert data["HitRate"] == 100
@@ -116,8 +156,26 @@ def main() -> None:
     assert "Content/Sound/Battle/DUN_Absorb.ogg" in native_paths
     assert "Content/Sound/Battle/DUN_Fury_Cutter.ogg" in native_paths
     assert "Content/Sound/Battle/DUN_Move_Start.ogg" in native_paths
+    assert "Content/Particle/Will_O_Wisp.dir" in native_paths
+    assert "Content/Particle/Night_Slash.dir" in native_paths
+    assert "Content/Particle/Shadow_Claw.dir" in native_paths
+
+    upstream = json.loads(UPSTREAM_MANIFEST.read_text(encoding="utf-8"))
+    assert upstream["commit"] == "3e767571f9dd94270b848b3a73de9bec2553a2eb"
+    upstream_files = {item["upstream_path"]: item for item in upstream["files"]}
+    for reference in (
+        "Data/Skill/will_o_wisp.json",
+        "Data/Skill/night_slash.json",
+        "Data/Skill/shadow_claw.json",
+        "Data/Skill/phantom_force.json",
+    ):
+        item = upstream_files[reference]
+        local = SRC / "references/upstream" / item["local_path"]
+        assert local.is_file() and local.stat().st_size == item["bytes"]
 
     manifest = json.loads(CUSTOM_MANIFEST.read_text(encoding="utf-8"))
+    assert "black/charcoal flames" in manifest["visual_style"]
+    assert manifest["animation_style_references"] == ["Will_O_Wisp", "Night_Slash", "Shadow_Claw"]
     manifest_by_name = {item["anim_index"]: item for item in manifest["animations"]}
     assert set(manifest_by_name) == set(ANIMATIONS)
     for name, (cell, action_slot) in ANIMATIONS.items():
@@ -134,6 +192,8 @@ def main() -> None:
         assert len(encoded) >= 8 and struct.unpack("<Q", encoded[:8])[0] == len(encoded) - 8
         assert encoded[8:] == strip.read_bytes()
         assert encoded[8:16] == b"\x89PNG\r\n\x1a\n"
+        assert len(frame_signatures(strip, cell)) == 8
+        assert_no_warm_effect_pixels(strip)
         if action_slot == "AttachAreaEmitter":
             assert aura["Anims"][0]["Anim"]["AnimIndex"] == name
         elif action_slot == "TileEmitter":
