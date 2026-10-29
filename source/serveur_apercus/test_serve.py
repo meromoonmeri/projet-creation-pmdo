@@ -2,6 +2,7 @@ import io
 import json
 import threading
 import unittest
+from unittest.mock import patch
 import urllib.parse
 import zipfile
 import struct
@@ -25,6 +26,7 @@ from source.serveur_apercus.serve import (
     UPSTREAM_CACHE,
     UPSTREAM_NAME,
     UPSTREAM_COMMIT,
+    UpstreamError,
     UpstreamRepository,
     build_catalog,
     build_layer_plan,
@@ -106,6 +108,22 @@ class PreviewHelpersTest(unittest.TestCase):
         self.assertEqual(len(previews), 54)
         self.assertEqual(len(archives), 99)
         self.assertEqual(len(assets), 743)
+
+    def test_branch_catalog_fallback_when_main_tree_index_is_unavailable(self):
+        with (
+            patch.object(UpstreamRepository, "_open_partial_clone"),
+            patch.object(UpstreamRepository, "_load_index", side_effect=UpstreamError("GitHub HTTP 500")),
+        ):
+            repo = UpstreamRepository()
+
+        catalog = build_catalog(repo)
+        preview_paths = {item["path"] for item in catalog["previews"]}
+        self.assertTrue(catalog["source"]["available"])
+        self.assertTrue(catalog["source"]["indexFallback"])
+        self.assertTrue(repo.index_errors)
+        self.assertGreater(catalog["counts"]["branchPreviews"], 0)
+        self.assertGreater(catalog["counts"]["branchArchives"], 0)
+        self.assertIn("apercu_vallons_fleuris_v1.html", preview_paths)
 
     def test_branch_catalog_registers_referenced_assets_from_their_source_commit(self):
         catalog = json.loads((ROOT / "source" / "serveur_apercus" / "branch_catalog.json").read_text(encoding="utf-8"))

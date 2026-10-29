@@ -175,9 +175,25 @@ class UpstreamRepository:
         self._virtual_archive_cache: dict[tuple[str, str, str], LoadedArchive] = {}
         self._virtual_composite_cache: dict[tuple[str, str, str], bytes] = {}
         self.commit = UPSTREAM_COMMIT
+        self.index_errors: list[str] = []
 
-        self._open_partial_clone()
-        self._load_index()
+        # The remote main-tree index is an enhancement, not a prerequisite for
+        # rendering the already-pinned Arena branch catalogs stored locally.
+        # Keep those previews visible even when GitHub's API is unavailable.
+        try:
+            self._open_partial_clone()
+        except (UpstreamError, OSError, subprocess.SubprocessError) as exc:
+            self.index_errors.append(f"Clone partiel : {exc}")
+            print(f"ATTENTION — clone partiel indisponible : {exc}", flush=True)
+        try:
+            self._load_index()
+        except (UpstreamError, OSError, subprocess.SubprocessError) as exc:
+            self.index_errors.append(f"Index principal : {exc}")
+            print(
+                "ATTENTION — index principal indisponible; poursuite avec les catalogues Arena locaux : "
+                f"{exc}",
+                flush=True,
+            )
         self._load_branch_catalog()
         self._match_archive_previews()
 
@@ -1132,6 +1148,7 @@ def build_catalog(repo: UpstreamRepository | None) -> dict[str, Any]:
             "repositories": repositories,
             "available": repo is not None,
             "branchSources": repo.branch_sources if repo else [],
+            "indexFallback": bool(getattr(repo, "index_errors", [])) if repo else False,
             "note": "Deux dépôts sont consultés en lecture seule. Les aperçus et archives proviennent des instantanés Arena catalogués; aucune branche n’est fusionnée ni changée. Les médias sont récupérés à la demande.",
         },
         "previews": previews,

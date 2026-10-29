@@ -233,9 +233,10 @@
       const total = items.length;
       const noun = view === 'previews' ? 'aperçu' : 'archive';
       $('#result-count').innerHTML = `<strong>${filtered.length}</strong> ${noun}${filtered.length === 1 ? '' : 's'} affiché${filtered.length === 1 ? '' : 's'} sur ${total}`;
-      $('#source-label').textContent = view === 'previews'
+      const fallbackLabel = catalog.source.indexFallback ? ' · catalogue Arena local utilisé en secours' : '';
+      $('#source-label').textContent = (view === 'previews'
         ? `${catalog.counts.branchPreviews} aperçus des branches Arena · ${catalog.source.repositories.length} dépôts consultés en lecture seule`
-        : `${catalog.counts.archivesWithPreview} archives reliées à un aperçu · ${catalog.counts.branchZips} ZIP + ${catalog.counts.branchOras} ORA des branches Arena`;
+        : `${catalog.counts.archivesWithPreview} archives reliées à un aperçu · ${catalog.counts.branchZips} ZIP + ${catalog.counts.branchOras} ORA des branches Arena`) + fallbackLabel;
       if (!filtered.length) {
         content.className = 'empty';
         content.textContent = 'Aucun résultat. Essaie un autre nom ou enlève le filtre.';

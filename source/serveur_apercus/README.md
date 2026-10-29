@@ -30,7 +30,7 @@ Les visionneuses source sont servies à la demande. Seules les pages expliciteme
 
 ## Stockage et tests
 
-Les clones blobless, l’index de l’API et les blobs consultés restent dans `.cache/apercus-upstream/` et `.cache/apercus-creation-upstream/` (ignorés par Git). Aucun lot de médias volumineux n’est copié ici.
+Les clones blobless, l’index de l’API et les blobs consultés restent dans `.cache/apercus-upstream/` et `.cache/apercus-creation-upstream/` (ignorés par Git). Aucun lot de médias volumineux n’est copié ici. Si l’index GitHub est temporairement indisponible, les instantanés locaux `branch_catalog.json` et `branch_catalog_creation.json` sont tout de même chargés : les aperçus de branches restent visibles, avec un libellé de mode secours dans la galerie.
 
 ```sh
 python3 -m unittest source.serveur_apercus.test_serve -v
