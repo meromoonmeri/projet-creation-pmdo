@@ -678,10 +678,9 @@ Build reproductible : 105 fichiers identiques sur 106, seul l'ORA change (horoda
 
 - Outil : `source/serveur_apercus/serve.py`, bibliothèque standard seulement (marche sans `.venv`).
 - Lancement : `python3 source/serveur_apercus/serve.py --port 8000`, **avec l'outil de processus de fond** (pas en bash) ; il écoute sur `0.0.0.0`.
-- La page « / » liste les `apercu_*.html` de la racine, les entrées sud → nord en tête. L'ordre suit la date du commit qui les a ajoutés ; les aperçus pas encore commités sont marqués « nouveau ».
-- L'index est recalculé à chaque visite : une map ajoutée pendant la session apparaît sans redémarrage.
-- `.git` et `.venv` ne sont pas servis.
-- **Le relancer au début de chaque session.**
+- La page « / » présente les visionneuses originales et les archives ZIP du dépôt source, avec recherche et filtres. Elle indexe 220 aperçus HTML et 299 ZIP : 166/200 de `main`, complétés par 54 pages de carte et 99 ZIP uniques de 14 têtes Arena, catalogués en lecture seule dans `source/serveur_apercus/branch_catalog.json`.
+- Les HTML originaux et leurs 743 ressources locales référencées sont servis sans réécriture, depuis le commit source, à la demande. Les ZIP de calques sont recomposés depuis l'ordre/cadence du manifeste quand aucune visionneuse n'est incluse. Les ZIP Ground renvoient au pack de calques associé si disponible.
+- `.git`, `.cache` et `.venv` ne sont pas servis. **Le relancer au début de chaque session.** Détails et tests : `source/serveur_apercus/README.md` et `source/serveur_apercus/test_serve.py`.
 
 **ESC1** : référence `starcavepmdsky.png`, deux vues de 504 × 504 dont la seconde avec la bouche. Lot `source/entree_star_cave_sud_nord_v1/`, préfixe `ESC1`, namespace `entree_star_cave_sud_nord`, aperçu `apercu_entree_star_cave_sud_nord_v1.html`.
 

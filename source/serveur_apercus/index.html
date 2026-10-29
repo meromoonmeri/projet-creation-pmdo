@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101713">
+  <title>Aperçus PMDO — cartes en mouvement</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101713;
+      --panel: #18221c;
+      --panel-2: #202c24;
+      --line: #34483a;
+      --text: #f0f3e9;
+      --muted: #aab8aa;
+      --gold: #e3c77d;
+      --green: #b8d9be;
+      --mint: #9ec9ba;
+      --red: #d6a68a;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 82% -15%, #48583b55 0, transparent 45rem),
+        radial-gradient(ellipse at 8% 8%, #24463e55 0, transparent 38rem),
+        var(--bg);
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    .shell { width: min(1360px, calc(100% - 40px)); margin: 0 auto; }
+    .hero { padding: 58px 0 28px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--gold); font-size: 11px; font-weight: 800;
+      letter-spacing: .2em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--gold); }
+    h1 { max-width: 850px; margin: 18px 0 14px; font-size: clamp(40px, 7vw, 78px); line-height: .98; letter-spacing: -.055em; }
+    h1 em { color: var(--green); font-style: normal; }
+    .intro { max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .stat {
+      min-width: 132px; padding: 11px 14px; border: 1px solid var(--line);
+      border-radius: 12px; background: #17211bd9;
+    }
+    .stat b { display: block; color: var(--green); font-size: 19px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+    .notice {
+      display: flex; align-items: flex-start; gap: 11px; max-width: 900px;
+      margin-top: 18px; padding: 12px 14px; border-left: 3px solid var(--gold);
+      border-radius: 4px 10px 10px 4px; background: #24291f; color: #d4dccd;
+      font-size: 13px; line-height: 1.55;
+    }
+    .notice .spark { color: var(--gold); font-size: 18px; line-height: 1; }
+    .catalog { padding: 20px 0 70px; }
+    .toolbar {
+      position: sticky; top: 0; z-index: 5; padding: 13px 0 15px;
+      backdrop-filter: blur(16px); background: #101713df;
+      border-top: 1px solid #ffffff0b; border-bottom: 1px solid #ffffff0e;
+    }
+    .toolbar-inner { display: grid; gap: 13px; }
+    .top-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .search-wrap { flex: 1 1 340px; position: relative; }
+    .search-wrap::before { content: "⌕"; position: absolute; left: 14px; top: 5px; color: var(--muted); font-size: 25px; }
+    #search {
+      width: 100%; padding: 12px 14px 12px 42px; border: 1px solid var(--line);
+      border-radius: 11px; outline: none; color: var(--text); background: var(--panel);
+    }
+    #search:focus { border-color: var(--gold); box-shadow: 0 0 0 3px #e3c77d20; }
+    .tabs { display: flex; gap: 5px; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: #141d17; }
+    .tab, .chip {
+      border: 0; color: var(--muted); background: transparent; cursor: pointer;
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    .tab { padding: 9px 13px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+    .tab.active { color: #16241b; background: var(--green); }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; }
+    .chip:hover, .chip.active { color: var(--text); border-color: #849a81; background: var(--panel-2); }
+    .result-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 20px 0 14px; color: var(--muted); font-size: 13px; }
+    .result-line strong { color: var(--text); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 295px), 1fr)); gap: 13px; }
+    .card {
+      display: flex; flex-direction: column; min-height: 195px; padding: 16px;
+      border: 1px solid var(--line); border-radius: 15px;
+      background: linear-gradient(155deg, #1c281f, #141c17 68%);
+      box-shadow: 0 10px 24px #00000014; transition: transform .16s, border-color .16s, background .16s;
+    }
+    .card:hover { transform: translateY(-2px); border-color: #789074; background: linear-gradient(155deg, #26352a, #17211b 68%); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .badge { display: inline-flex; gap: 6px; align-items: center; color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 12px currentColor; }
+    .size { color: #839284; font-size: 11px; white-space: nowrap; }
+    .card h3 { margin: 14px 0 6px; font-size: 18px; line-height: 1.25; letter-spacing: -.02em; }
+    .path { min-height: 32px; color: var(--muted); font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+    .map-note { margin-top: 7px; padding: 8px 9px; border-left: 2px solid var(--gold); border-radius: 4px; color: #e7d7a7; background: #e3c77d0b; font-size: 11px; line-height: 1.45; }
+    .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 16px; }
+    .label { color: #b5c3b5; font-size: 11px; }
+    .actions { display: flex; align-items: center; gap: 7px; }
+    .action {
+      display: inline-flex; justify-content: center; align-items: center; min-height: 34px;
+      padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px;
+      text-decoration: none; color: var(--text); background: #202c24; font-size: 11px; font-weight: 750;
+    }
+    .action.primary { border-color: transparent; color: #14241a; background: var(--green); }
+    .action:hover { filter: brightness(1.09); }
+    .archive-card { background: linear-gradient(155deg, #20291f, #171d18 70%); }
+    .archive-card .badge { color: var(--mint); }
+    .empty, .loading, .error {
+      padding: 28px; border: 1px dashed var(--line); border-radius: 14px;
+      color: var(--muted); text-align: center; background: #151e19a8;
+    }
+    .error { border-color: #8c594e; color: #f1c3b4; }
+    .footer { padding: 24px 0 38px; border-top: 1px solid #ffffff12; color: #829083; font-size: 12px; }
+    .footer a { color: var(--green); }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 24px, 1360px); }
+      .hero { padding-top: 38px; }
+      .top-controls { align-items: stretch; }
+      .tabs { width: 100%; }
+      .tab { flex: 1; }
+      .result-line { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero shell">
+    <div class="eyebrow">Atelier PMDO · cartes & archives</div>
+    <h1>Les cartes,<br><em>en mouvement.</em></h1>
+    <p class="intro">Parcours les cartes récentes des deux dépôts, leurs calques et leurs animations. Les branches Arena sont consultées en lecture seule : leurs aperçus et archives sont ajoutés au catalogue sans fusion ni changement de branche.</p>
+    <div class="stats" id="stats">
+      <div class="stat"><b>…</b><span>aperçus originaux</span></div>
+      <div class="stat"><b>…</b><span>archives ZIP + ORA</span></div>
+      <div class="stat"><b>à la demande</b><span>pas de copie massive</span></div>
+    </div>
+    <div class="notice"><span class="spark">✦</span><span><strong>Fidélité préservée :</strong> les visionneuses et médias d’origine sont conservés quand ils existent. Si une branche ne contient que des fichiers OpenRaster, l’aperçu utilise un composite ou des calques statiques et l’indique clairement; l’animation manquante n’est pas présentée comme complète. Les médias sont récupérés à la demande.</span></div>
+  </header>
+
+  <section class="toolbar">
+    <div class="shell toolbar-inner">
+      <div class="top-controls">
+        <div class="search-wrap"><input id="search" type="search" placeholder="Rechercher une map, un biome, une version…" autocomplete="off"></div>
+        <div class="tabs" role="tablist" aria-label="Type de contenu">
+          <button class="tab active" id="tab-previews" role="tab" aria-selected="true">Aperçus</button>
+          <button class="tab" id="tab-archives" role="tab" aria-selected="false">Archives ZIP / ORA</button>
+        </div>
+      </div>
+      <div class="chips" id="categories" aria-label="Filtrer par catégorie"></div>
+    </div>
+  </section>
+
+  <main class="catalog shell">
+    <div class="result-line"><span id="result-count">Chargement du catalogue…</span><span id="source-label"></span></div>
+    <div id="content" class="loading">Lecture de l’index des aperçus…</div>
+  </main>
+
+  <footer class="footer"><div class="shell">Source : <span id="source-repo">dépôt de travail</span> · commit <code id="source-commit">local</code>. Le serveur restitue les médias en lecture seule.</div></footer>
+
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const content = $('#content');
+    const search = $('#search');
+    const categoriesEl = $('#categories');
+    let catalog = null;
+    let view = 'previews';
+    let category = 'Tout';
+
+    function textForSearch(item) {
+      return `${item.title} ${item.path} ${item.category} ${item.name || ''} ${item.sourceLabel || ''}`.toLocaleLowerCase('fr');
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function setTab(next) {
+      view = next;
+      $('#tab-previews').classList.toggle('active', view === 'previews');
+      $('#tab-previews').setAttribute('aria-selected', view === 'previews');
+      $('#tab-archives').classList.toggle('active', view === 'archives');
+      $('#tab-archives').setAttribute('aria-selected', view === 'archives');
+      category = 'Tout';
+      render();
+    }
+
+    function renderCategories(items) {
+      const values = ['Tout', ...new Set(items.map((item) => item.category).filter(Boolean))];
+      categoriesEl.innerHTML = values.map((name) => `<button class="chip ${name === category ? 'active' : ''}" data-category="${escapeHtml(name)}">${escapeHtml(name)}</button>`).join('');
+      categoriesEl.querySelectorAll('[data-category]').forEach((button) => button.addEventListener('click', () => {
+        category = button.dataset.category;
+        render();
+      }));
+    }
+
+    // Keep map viewers in the active live-preview context; popup tabs can inherit stricter sandbox flags.
+    function previewCard(item) {
+      const isEntry = item.sudNord;
+      const note = item.notice ? `<div class="map-note">${escapeHtml(item.notice)}</div>` : '';
+      return `<article class="card">
+        <div class="card-top"><span class="badge">${isEntry ? 'Entrée · sud → nord' : escapeHtml(item.category)}</span><span class="size">${escapeHtml(item.sizeLabel)}</span></div>
+        <h3>${escapeHtml(item.title)}</h3>
+        <div class="path">${escapeHtml(item.path)}</div>
+        ${note}
+        <div class="card-foot"><span class="label">${escapeHtml(item.sourceLabel || 'Visionneuse originale')}</span><div class="actions"><a class="action primary" href="${escapeHtml(item.url)}">Ouvrir la carte →</a></div></div>
+      </article>`;
+    }
+
+    function archiveCard(item) {
+      const format = item.format || 'ZIP';
+      const related = item.source === 'branch' ? item.sourceLabel : ((item.previewPath || item.previewArchiveId) ? 'Aperçu lié' : `Ouvrir le ${format}`);
+      return `<article class="card archive-card">
+        <div class="card-top"><span class="badge">${escapeHtml(item.category)}</span><span class="size">${escapeHtml(item.sizeLabel)}</span></div>
+        <h3>${escapeHtml(item.title)}</h3>
+        <div class="path">${escapeHtml(item.path)}</div>
+        <div class="card-foot"><span class="label">${escapeHtml(related)}</span><div class="actions">
+          <a class="action primary" href="${escapeHtml(item.previewUrl)}">Prévisualiser →</a>
+          <a class="action" href="${escapeHtml(item.downloadUrl)}" title="Télécharger ${escapeHtml(format)}">${escapeHtml(format)} ↓</a>
+        </div></div>
+      </article>`;
+    }
+
+    function render() {
+      if (!catalog) return;
+      const items = view === 'previews' ? catalog.previews : catalog.archives;
+      renderCategories(items);
+      const needle = search.value.trim().toLocaleLowerCase('fr');
+      const filtered = items.filter((item) => (category === 'Tout' || item.category === category) && (!needle || textForSearch(item).includes(needle)));
+      const total = items.length;
+      const noun = view === 'previews' ? 'aperçu' : 'archive';
+      $('#result-count').innerHTML = `<strong>${filtered.length}</strong> ${noun}${filtered.length === 1 ? '' : 's'} affiché${filtered.length === 1 ? '' : 's'} sur ${total}`;
+      $('#source-label').textContent = view === 'previews'
+        ? `${catalog.counts.branchPreviews} aperçus des branches Arena · ${catalog.source.repositories.length} dépôts consultés en lecture seule`
+        : `${catalog.counts.archivesWithPreview} archives reliées à un aperçu · ${catalog.counts.branchZips} ZIP + ${catalog.counts.branchOras} ORA des branches Arena`;
+      if (!filtered.length) {
+        content.className = 'empty';
+        content.textContent = 'Aucun résultat. Essaie un autre nom ou enlève le filtre.';
+        return;
+      }
+      content.className = 'grid';
+      content.innerHTML = filtered.map(view === 'previews' ? previewCard : archiveCard).join('');
+    }
+
+    $('#tab-previews').addEventListener('click', () => setTab('previews'));
+    $('#tab-archives').addEventListener('click', () => setTab('archives'));
+    search.addEventListener('input', render);
+
+    fetch('/api/catalog', {cache: 'no-store'})
+      .then((response) => {
+        if (!response.ok) throw new Error(`Catalogue indisponible (${response.status})`);
+        return response.json();
+      })
+      .then((data) => {
+        catalog = data;
+        $('#stats').innerHTML = `<div class="stat"><b>${data.counts.previews}</b><span>pages et aperçus</span></div><div class="stat"><b>${data.counts.archives}</b><span>archives ZIP + ORA</span></div><div class="stat"><b>${data.counts.archivesWithPreview}</b><span>archives reliées à une carte</span></div>`;
+        const repositories = data.source.repositories || [];
+        $('#source-repo').textContent = repositories.map((source) => source.repo).join(' · ') || data.source.repo || 'aperçus locaux';
+        $('#source-commit').textContent = repositories.map((source) => `${source.label}@${source.commit.slice(0, 7)}`).join(' · ') || (data.source.commit ? data.source.commit.slice(0, 7) : 'local');
+        if (!data.source.available) {
+          content.className = 'error';
+          content.textContent = 'Les aperçus source ne sont pas accessibles pour le moment. Le serveur reste ouvert pour les fichiers locaux.';
+          $('#result-count').textContent = 'Catalogue source hors ligne';
+          return;
+        }
+        render();
+      })
+      .catch((error) => {
+        content.className = 'error';
+        content.textContent = `${error.message}. Relance le serveur ou vérifie l’accès réseau au dépôt source.`;
+        $('#result-count').textContent = 'Impossible de charger le catalogue';
+      });
+  </script>
+</body>
+</html>
