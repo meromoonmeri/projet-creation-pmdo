@@ -140,8 +140,8 @@ Le projet distingue explicitement trois origines, et le `README_PACK.md` de chaq
 
 | Niveau | Définition | Exemple |
 |---|---|---|
-| **Natif** | pixels **exacts** d'une tuile PMD (souvent réencodés depuis `.tile`) | scintillements `Metano_Town_River_Sparkles` |
-| **Façon X** | structure + **couleurs mesurées** sur X, mais **pixels recalculés** | torrent « façon rivière Métano » (`PAL` mesurée) |
+| **Natif** | pixels **exacts** d'une tuile PMD (souvent réencodés depuis `.tile`) | scintillements `Treasure_Town_River_Sparkles` |
+| **Façon X** | structure + **couleurs mesurées** sur X, mais **pixels recalculés** | torrent « façon rivière Treasure » (`PAL` mesurée) |
 | **Généré** | dessin inventé dans la DA PMD, à partir de la référence passée au générateur | terrain des nouvelles entrées, touffes au vent, papillons |
 
 > Un rendu généré **n'est jamais présenté comme une tuile canonique**. Et une réduction/agrandissement
@@ -227,7 +227,7 @@ et `<PFX>_scene_animee.webp`, plus un aperçu HTML autonome (images en base64, h
 - elle ne prétend pas que le rendu généré est une tuile native ;
 - elle ne recolore, ne tourne, n'agrandit ni ne repeint une tuile native dans un lot déclaré natif ;
 - elle ne remplace pas un test moteur : **un aperçu approuvé n'est pas une validation en jeu**
-  (l'audit `audits/metano_import/RAPPORT.md` a montré qu'un assemblage par fragments de 8 px ne
+  (l'audit `audits/treasure_import/RAPPORT.md` a montré qu'un assemblage par fragments de 8 px ne
   préserve pas les volumes natifs → privilégier des **modules natifs complets** : sommet, face, pied, retours) ;
 - la qualité d'un lot se juge **au zoom natif** puis dans le jeu, pas sur l'illustration.
 

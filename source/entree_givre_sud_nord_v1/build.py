@@ -4,8 +4,8 @@ Même méthode que les entrées Vapeur/Cratère : décor complet généré sur m
 généré séparément, normalisation uniforme exacte x0,5 (848x1264 -> 424x632), moyenne 2x2 par classe.
 Le ruisseau généré coupait le sentier : un GUÉ GELÉ est dessiné par le script sur l'eau au croisement
 (plaque de glace, pas un pixel généré) pour rendre l'accès possible. Animations, chacune sur son calque :
-- eau glacée « façon rivière Métano » (4 phases x 10 ticks), palette froide choisie selon les rôles Métano ;
-- scintillements : pixels réels Metano_Town_River_Sparkles recolorés en blanc bleuté, 4 x 10 ticks ;
+- eau glacée « façon rivière Treasure » (4 phases x 10 ticks), palette froide choisie selon les rôles Treasure ;
+- scintillements : pixels réels Treasure_Town_River_Sparkles recolorés en blanc bleuté, 4 x 10 ticks ;
 - flocons : planche générée (6 flocons + 6 boules de neige qui tournent), 40 émetteurs décalés ;
   chaque flocon tombe ~64 px en ondulant puis se pose (pose réduite dérivée), 48 phases x 5 ticks = 4 s.
 Scène complète : PPCM 240 ticks = 4 s.
@@ -136,7 +136,7 @@ def ice_ford(water):
     return m, out
 
 
-# ---------------------------------------------------------------- eau glacée façon Métano
+# ---------------------------------------------------------------- eau glacée façon Treasure
 def water_phases(water, visible):
     d = nd.distance_transform_edt(visible)
     yy, xx = np.mgrid[:H, :W]
@@ -160,7 +160,7 @@ def water_phases(water, visible):
 
 def sparkle_families():
     v2 = loadmod('esn2_tiles', R / 'source/entree_vapeur_sud_nord_v2/build.py')
-    t = v2.decode_tile(cr.METANO_SPARK)
+    t = v2.decode_tile(cr.TREASURE_SPARK)
 
     def cluster(cols, rows, step):
         out = []
@@ -240,8 +240,8 @@ def flake_frames(poses, rng):
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -262,7 +262,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Givre - sud vers nord', 'LocalTexts': {}}, AssetName=ASSET, Released=False,
              TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0}, ActiveChar=None, Status={},
              Layers=layers, Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere (ref. Frosty Forest) ; eau glacee facon riviere Metano, scintillements Metano '
+             Comment='PMDO 0.8.12. Rendu genere (ref. Frosty Forest) ; eau glacee facon riviere Treasure, scintillements Treasure '
                      'recolores, flocons generes ; gue gele dessine par script. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -435,7 +435,7 @@ def build():
     ora = {'00_eau_glacee_f0': wf[0], '01_scintillements_f0': sf[0],
            **{Path(files[k]).stem.replace(PFX + '_', ''): layers[k] for k in static_order}, f'{nflake:02d}_flocons_f00': ff[0]}
     cr.write_ora(OUT / f'{PFX}_entree_givre_calques.ora', ora, 'Entree Givre sud-nord V1')
-    stack = ([('Eau glacee facon riviere Metano 4 phases', wf, WATER_TICKS), ('Scintillements Metano recolores 4 phases', sf, WATER_TICKS)] +
+    stack = ([('Eau glacee facon riviere Treasure 4 phases', wf, WATER_TICKS), ('Scintillements Treasure recolores 4 phases', sf, WATER_TICKS)] +
              [(k, [layers[k]], 60) for k in static_order] + [('Flocons 48 phases', ff, FLAKE_TICKS)])
     counts = ground_project(stack, blocked, entry_px, threshold_px, gfx, tools)
     manifest = {
@@ -454,10 +454,10 @@ def build():
                      'origine': 'DESSINE par le script (plaque, fissures, reflets) : le ruisseau genere coupait le sentier. '
                                 'Une edition generative du croisement a ete rejetee (elle modifiait tout le ruisseau).'},
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in PAL.items()},
-                  'modele': 'structure et cadence de la riviere Metano (comme ESN2) recalculees sur nos berges ; palette froide a la main',
+                  'modele': 'structure et cadence de la riviere Treasure (comme ESN2) recalculees sur nos berges ; palette froide a la main',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels Metano reels recolores blanc bleute'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels Treasure reels recolores blanc bleute'},
         'flakes': {'brut': 'source/entree_givre_sud_nord_v1/bruts/flocons_poses.png', 'poses': list(poses),
                    'reduction': 'fenetre 208 px centree -> 8 px (x1/26), palette 4 couleurs froides', 'derivee': 'pose = flocon pose 2x2 dessine',
                    'phases': FLAKE_PHASES, 'frame_length_ticks': FLAKE_TICKS, 'chute_px': FALL_PX, 'chute_phases': 40, 'pose_phases': 2,

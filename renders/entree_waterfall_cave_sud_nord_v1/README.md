@@ -47,8 +47,8 @@ Des tests de régression vérifient que le rideau reste bleu et la bouche sombre
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | eau (bassins + vasque) | structure rivière Métano, **couleurs Métano exactes** | 4 × 10 ticks |
-| 01 | scintillements | pixels Métano natifs (12 groupes) | 4 × 10 ticks |
+| 00 | eau (bassins + vasque) | structure rivière Treasure, **couleurs Treasure exactes** | 4 × 10 ticks |
+| 01 | scintillements | pixels Treasure natifs (12 groupes) | 4 × 10 ticks |
 | 02 | sol complet | sable généré séparément | — |
 | 03 | sable | sable praticable (plage principale reliée au sud) | — |
 | 04 | cailloux | trous du sable praticable, sur leur propre calque | — |
@@ -89,5 +89,5 @@ La scène boucle en 240 ticks, soit 4 s (PPCM de 40 et 48). Il n'y a **pas de ca
 
 - Le terrain, la cascade, l'écume et les embruns sont **générés** à partir de la capture : ce ne sont pas des tuiles natives.
 - Le défilement de la cascade, les émetteurs et la chronologie sont créés par nous ; ce ne sont pas des animations officielles.
-- L'eau est façon Métano (pixels recalculés, couleurs Métano exactes). Seuls les scintillements sont des pixels Métano natifs.
+- L'eau est façon Treasure (pixels recalculés, couleurs Treasure exactes). Seuls les scintillements sont des pixels Treasure natifs.
 - Aucun test fait dans PMDO ; art non approuvé (`art_approved: false`, `runtime_tested: false`).

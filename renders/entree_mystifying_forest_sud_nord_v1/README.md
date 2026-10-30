@@ -67,8 +67,8 @@ Le test impose une distance inférieure à 20 pour chaque matière, sur le brut 
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | eau (mare) | structure rivière Métano, **couleurs Métano exactes**, sans liseré clair contre la rive | 4 × 10 ticks |
-| 01 | scintillements | pixels Métano natifs (6 groupes) | 4 × 10 ticks |
+| 00 | eau (mare) | structure rivière Treasure, **couleurs Treasure exactes**, sans liseré clair contre la rive | 4 × 10 ticks |
+| 01 | scintillements | pixels Treasure natifs (6 groupes) | 4 × 10 ticks |
 | 02 | sol complet | herbe générée séparément, zones sombres réparées | — |
 | 03 | herbe | clairière praticable | — |
 | 04 | chemin | chemin rose-brun du sud au nord | — |
@@ -108,6 +108,6 @@ La scène boucle en 240 ticks, soit 4 s (PPCM de 40 et 240). Il n'y a **pas de c
 
 - Le terrain, les feuilles et les lucioles sont **générés** à partir de la capture : ce ne sont pas des tuiles natives.
 - Les trajectoires, les boucles et la chronologie sont créées par nous ; ce ne sont pas des animations officielles.
-- L'eau est façon Métano (pixels recalculés, couleurs Métano exactes). Seuls les scintillements sont des pixels Métano natifs.
+- L'eau est façon Treasure (pixels recalculés, couleurs Treasure exactes). Seuls les scintillements sont des pixels Treasure natifs.
 - Le biome a été choisi par l'agent : **à confirmer**.
 - Aucun test fait dans PMDO ; art non approuvé (`art_approved: false`, `runtime_tested: false`).

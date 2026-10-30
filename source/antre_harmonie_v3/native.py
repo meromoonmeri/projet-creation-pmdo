@@ -2,7 +2,7 @@ from pathlib import Path
 import json,sys
 from PIL import Image
 R=Path(__file__).resolve().parents[2];O=Path(__file__).parent/'references';sys.path.insert(0,str(R/'source/amp_plains_fleurie_v1'));from inspect_references import decode
-banks={p.stem:decode(p)[1] for p in O.glob('*.tile')};banks['Metano_Town_Animation_Tileset']=decode(R/'source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile')[1]
+banks={p.stem:decode(p)[1] for p in O.glob('*.tile')};banks['Treasure_Town_Animation_Tileset']=decode(R/'source/eau_treasure/natifs/Treasure_Town_Animation_Tileset.tile')[1]
 obj=json.loads((O/'altere_pond.rsground').read_text(encoding='utf-8-sig'))['Object'];proof=[]
 for li,num in [(1,4),(6,3)]:
  for phase in range(num):

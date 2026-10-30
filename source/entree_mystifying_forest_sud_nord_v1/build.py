@@ -10,8 +10,8 @@ principale. Méthode « textures canoniques » = rendu généré RÉFÉRENCÉ (r
 Calques : sol complet, herbe, chemin, herbes hautes, rochers, arbres (houppiers, troncs, racines et rochers
 pris dans les racines), profondeur (ouverture sombre au nord).
 Animations, chacune sur son calque, boucles fermées :
-- mare façon rivière Métano, couleurs Métano exactes, SANS liseré de rive (water_phases d'EWC2), 4 x 10 ticks ;
-- scintillements Métano natifs, 4 x 10 ticks ;
+- mare façon rivière Treasure, couleurs Treasure exactes, SANS liseré de rive (water_phases d'EWC2), 4 x 10 ticks ;
+- scintillements Treasure natifs, 4 x 10 ticks ;
 - feuilles qui tombent (poses générées), 48 x 5 ticks ;
 - lucioles (poses générées), 48 x 5 ticks.
 Scène : PPCM(40, 240) = 240 ticks = 4 s.
@@ -244,8 +244,8 @@ def write_ora(path, layers):
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -267,8 +267,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
              Released=False, TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0},
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Mystifying Forest ; mare facon Metano sans '
-                     'liseré (couleurs Metano exactes), scintillements Metano natifs, feuilles et lucioles generees. '
+             Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Mystifying Forest ; mare facon Treasure sans '
+                     'liseré (couleurs Treasure exactes), scintillements Treasure natifs, feuilles et lucioles generees. '
                      'Collisions de base a verifier. Seuil non raccorde. Biome choisi par l agent, a confirmer.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -291,7 +291,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
 <Header>
   <Name>Entree Mystifying Forest sud-nord 4:3 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : entree de foret generee au format 4:3 (ref. rip Mystifying Forest), mare facon Metano, feuilles et lucioles animees. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : entree de foret generee au format 4:3 (ref. rip Mystifying Forest), mare facon Treasure, feuilles et lucioles animees. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>
@@ -376,7 +376,7 @@ def build():
     for k in static:
         land |= layers[k][..., 3] == 255
     visible = water & ~land
-    wf, dist = V2.water_phases(water, visible)                          # Métano exactes, sans liseré de rive
+    wf, dist = V2.water_phases(water, visible)                          # Treasure exactes, sans liseré de rive
     fams = BM.sparkle_families(); taken = np.zeros((H, W), bool)
     sf = [np.zeros((H, W, 4), 'uint8') for _ in range(WATER_PHASES)]; sparkles = []
     for fi, (name, frames) in enumerate(fams.items()):
@@ -509,10 +509,10 @@ def build():
         'layers': layer_list,
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS,
                   'couleurs': {k: list(v) for k, v in PAL.items() if k != 'clair'},
-                  'modele': 'structure et cadence riviere Metano, couleurs Metano EXACTES, sans liseré de rive (water_phases d EWC2)',
+                  'modele': 'structure et cadence riviere Treasure, couleurs Treasure EXACTES, sans liseré de rive (water_phases d EWC2)',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges (aplat de surface retire)'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges (aplat de surface retire)'},
         'feuilles': {'poses': len(leaves), 'taille_px': list(leaves[0].shape[:2]), 'reduction': 'fenetre 120 px -> 10 px (x1/12)',
                      'palette': 'couleurs du calque arbres', 'departs': [list(s) for s in starts],
                      'chute_phases': LEAF_FALL, 'phases': ANIM_PHASES, 'frame_length_ticks': ANIM_TICKS,

@@ -67,7 +67,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/arene_halcyon_v16/` | build · package · test · STATUS | 5/5 | 0.0 |
 | `source/arene_terapagos_v1/` | build · package · test · PACK · viewer | 8/11 | 0.3 |
 
-## Falaises, côtes et matière Métano — 12 projets · 109 fichiers extraits · 9 Mo
+## Falaises, côtes et matière Treasure — 12 projets · 109 fichiers extraits · 9 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
@@ -78,17 +78,17 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/cote_v3_0812/` | build · package · verify · README | 10/30 | 0.1 |
 | `source/cote_v4_abyss/` | build · package · verify · provenance · README · **tileset** | 20/20 | 2.7 |
 | `source/cote_v5_expeditions/` | build · package · verify · provenance · README · **Ground** · **tileset** · réf. | 37/39 | 4.3 |
-| `source/falaise_metano_temoin/` | README | 4/4 | 0.1 |
+| `source/falaise_treasure_temoin/` | README | 4/4 | 0.1 |
 | `source/falaises_cotieres_nues/` | — | 4/6 | 0.2 |
 | `source/falaises_generees/` | — | 0/1 | 0.0 |
-| `source/falaises_metano/` | provenance · **tileset** | 10/10 | 1.3 |
+| `source/falaises_treasure/` | provenance · **tileset** | 10/10 | 1.3 |
 | `source/falaises_modulaires_v2/` | — | 1/1 | 0.0 |
 
-## Métano (matière, import, calibration) — 1 projets · 1 fichiers extraits · 0 Mo
+## Treasure (matière, import, calibration) — 1 projets · 1 fichiers extraits · 0 Mo
 
 | Sous-projet | Méthode | Fichiers extraits | Mo |
 |---|---|---:|---:|
-| `source/metano_pixel_perfect/` | — | 1/1 | 0.0 |
+| `source/treasure_pixel_perfect/` | — | 1/1 | 0.0 |
 
 ## Donjons générés / DTEF / autotiles — 6 projets · 116 fichiers extraits · 6 Mo
 
@@ -138,7 +138,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/guild_scene_animations_v2/` | build · test | 3/4 | 0.0 |
 | `source/guild_scene_recovery_v5/` | build · test · README · STATUS | 15/16 | 0.4 |
 | `source/guild_structures_v1/` | build · test · STATUS · réf. | 6/8 | 0.1 |
-| `source/maisons_metano/` | provenance · réf. | 6/11 | 0.1 |
+| `source/maisons_treasure/` | provenance · réf. | 6/11 | 0.1 |
 | `source/maisons_organiques_v2/` | — | 0/5 | 0.0 |
 | `source/spinda_decor_v1/` | build · verify · README · serve | 6/6 | 0.0 |
 | `source/spinda_torches_v1/` | build · verify · serve | 8/8 | 0.0 |
@@ -151,7 +151,7 @@ aveugle des sorties, `package` = fabrication du pack importable, `installer` = i
 | `source/beach_layers_v1/` | build · package · verify | 7/7 | 0.0 |
 | `source/beach_network_v1/` | build · package · verify | 15/15 | 0.1 |
 | `source/beach_sky_gradient_v3/` | build · **tileset** · réf. | 6/6 | 0.5 |
-| `source/eau_metano/` | **tileset** | 9/9 | 2.2 |
+| `source/eau_treasure/` | **tileset** | 9/9 | 2.2 |
 | `source/eau_siphons_rapides_v2/` | build · verify | 2/2 | 0.0 |
 | `source/siphons_ecoulement_v3/` | build · verify | 2/2 | 0.0 |
 | `source/waterfall_lake_demi_cercle_v4/` | build · package · verify | 4/4 | 0.0 |

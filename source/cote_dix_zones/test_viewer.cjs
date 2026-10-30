@@ -1,6 +1,6 @@
 // DOM-mocked interaction smoke test, NOT a real browser/rendering test.
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync(process.argv[2]||'apercu_dix_zones_metano.html','utf8');
+const html=fs.readFileSync(process.argv[2]||'apercu_dix_zones_treasure.html','utf8');
 const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
 const all=[],nodes={},downloads=[];
 class Element {

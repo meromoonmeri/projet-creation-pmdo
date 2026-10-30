@@ -3,7 +3,7 @@
 Même méthode que ESN/ECN : décor complet généré sur magenta (fosses de sables mouvants = magenta), sol complet
 généré séparément, normalisation uniforme exacte x0,5 (848x1264 -> 424x632), moyenne 2x2 par classe.
 Animations, chacune sur son calque :
-- sables mouvants « façon rivière Métano » : structure/cadence Métano (4 phases x 10 ticks) recalculée sur nos fosses ;
+- sables mouvants « façon rivière Treasure » : structure/cadence Treasure (4 phases x 10 ticks) recalculée sur nos fosses ;
 - bulles de sable : planche générée 2 x 6 (12 poses), 24 phases x 5 ticks, émetteurs décalés ;
 - tourbillons de poussière : planche générée 2 x 4 (8 poses), 8 phases x 5 ticks, décoratifs (pas de collision).
 Scène complète : PPCM 120 ticks = 2 s.
@@ -34,7 +34,7 @@ CELL = 24
 DEVIL_CELL = 40
 SAND_REF = (229, 206, 153)          # sable du décor, mesuré (moyenne de deux zones dégagées)
 
-# Palette des sables mouvants : rôles et ordre de luminance Métano, teintes du sable du décor assombries.
+# Palette des sables mouvants : rôles et ordre de luminance Treasure, teintes du sable du décor assombries.
 PAL = {'lip': (112, 72, 36), 'bande': (146, 100, 54), 'inter': (172, 128, 74), 'accent': (190, 148, 92),
        'surface': (206, 166, 108), 'clair': (224, 192, 136), 'pale': (238, 216, 166), 'contour': (86, 52, 26)}
 
@@ -127,7 +127,7 @@ BUBBLE_TIMELINE = (['creux'] * 2 + ['bosse'] * 2 + ['ronde'] * 2 + ['dome'] * 2 
 DEVIL_PICKS = [(f'tourbillon_{i}', i // 4, i % 4) for i in range(8)]
 
 
-# ---------------------------------------------------------------- sables mouvants façon Métano
+# ---------------------------------------------------------------- sables mouvants façon Treasure
 def sand_phases(pits, visible):
     d = nd.distance_transform_edt(visible)
     yy, xx = np.mgrid[:H, :W]
@@ -153,8 +153,8 @@ def sand_phases(pits, visible):
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -175,7 +175,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Ruine - sud vers nord', 'LocalTexts': {}}, AssetName=ASSET, Released=False,
              TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0}, ActiveChar=None, Status={},
              Layers=layers, Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere (ref. Sealed Ruin) ; sables mouvants facon riviere Metano, bulles de sable '
+             Comment='PMDO 0.8.12. Rendu genere (ref. Sealed Ruin) ; sables mouvants facon riviere Treasure, bulles de sable '
                      'et tourbillons generes. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -307,7 +307,7 @@ def build():
         Image.fromarray(fr).save(OUT / 'animation/tourbillons' / f'{PFX}_08_tourbillons_f{t}.png')
     files['arbres_morts'] = f'{PFX}_09_arbres_morts.png'
     Image.fromarray(layers['arbres_morts']).save(OUT / 'calques' / files['arbres_morts'])
-    stack = ([('Sables mouvants facon Metano 4 phases', sf, SAND_TICKS), ('Bulles de sable 24 phases', bf, BUBBLE_TICKS)] +
+    stack = ([('Sables mouvants facon Treasure 4 phases', sf, SAND_TICKS), ('Bulles de sable 24 phases', bf, BUBBLE_TICKS)] +
              [(k, [layers[k]], 60) for k in num] + [('Tourbillons 8 phases', df, DEVIL_TICKS)] +
              [('arbres_morts', [layers['arbres_morts']], 60)])
     order_paths = ([f'animation/sables/{PFX}_00_sables_mouvants_fX.png', f'animation/bulles/{PFX}_01_bulles_sable_fXX.png'] +
@@ -365,7 +365,7 @@ def build():
                         'd une fosse ; rochers = reste > 300 px ; bouche = pixels < 25 dans la cavite',
         'layer_order_bottom_to_top': order_paths, 'layer_ticks': ticks,
         'quicksand': {'phases': SAND_PHASES, 'frame_length_ticks': SAND_TICKS, 'couleurs': {k: list(v) for k, v in PAL.items()},
-                      'modele': 'structure et cadence riviere Metano (comme ESN2/ECN1), recalculees sur nos fosses', 'origine': 'pixels recalcules'},
+                      'modele': 'structure et cadence riviere Treasure (comme ESN2/ECN1), recalculees sur nos fosses', 'origine': 'pixels recalcules'},
         'bubbles': {'brut': 'source/entree_ruine_sud_nord_v1/bruts/bulles_sable_poses.png', 'poses': [p[0] for p in BUBBLE_PICKS],
                     'bases_rangees_px': bases_b, 'reduction': 'fenetre 264 px -> 24 px (x1/11), base commune par rangee',
                     'derivees': derived, 'timeline_phases': BUBBLE_TIMELINE, 'phases': BUBBLE_PHASES, 'frame_length_ticks': BUBBLE_TICKS,

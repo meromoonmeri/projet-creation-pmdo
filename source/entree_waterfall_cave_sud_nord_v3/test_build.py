@@ -133,17 +133,17 @@ class Build(unittest.TestCase):
             self.assertLess(float(np.linalg.norm(px.mean(0) - np.array(fid[rip_of.get(k, k)]['rip_rgb']))), 20, k)
         self.assertLess(M['fidelite_rip']['calques_finaux']['roche_derriere']['distance_falaises'], 12)
 
-    def test_water_metano_sans_lisere(self):
+    def test_water_treasure_sans_lisere(self):
         v2 = loadmod('esn2', R / 'source/entree_vapeur_sud_nord_v2/build.py')
         native = set()
         for i in range(1, 5):
-            t = v2.decode_tile(R / f'source/eau_metano/natifs/Metano_Town_River_Animation_{i}.tile')
+            t = v2.decode_tile(R / f'source/eau_treasure/natifs/Treasure_Town_River_Animation_{i}.tile')
             native |= {tuple(int(v) for v in px[:3]) for a in t.values() for px in a.reshape(-1, 4) if px[3] == 255}
         fr = BY['eau']; mask = alpha(fr[0])
         self.assertEqual((len(fr), M['water']['frame_length_ticks']), (4, 10))
         for a in fr:
             self.assertTrue((alpha(a) == mask).all())
-        self.assertTrue(colors(fr) <= native, colors(fr) - native)          # couleurs Métano EXACTES
+        self.assertTrue(colors(fr) <= native, colors(fr) - native)          # couleurs Treasure EXACTES
         self.assertNotIn(CLAIR, colors(fr))                                  # pas de petits traits blancs
         land = land_mask(); rim = mask & ~land & nd.binary_dilation(land)
         bande = np.array(M['water']['couleurs']['bande'])

@@ -1,4 +1,4 @@
-# Côte Métano — 10 falaises et animations multicouches V2
+# Côte Treasure — 10 falaises et animations multicouches V2
 
 ## Ouvrir / regarder
 - Galerie autonome à la racine : **`apercu_references_calques_v2.html`**, télécharger puis ouvrir dans un navigateur. 10 falaises × 3 ambiances ; 8 calques masquables ; pause et export PNG.
@@ -10,9 +10,9 @@
 - [Reflet solaire : 8 clés](planches/reflet_soleil_8_cles.png) / [64 phases](planches/reflet_soleil_64.png)
 
 ## Référence retenue
-Le **promontoire côtier généré avant la guilde** (`renders/references_calques_v1/bruts/promontoire.png`), PAS le plateau de guilde. Les 10 dessins ont été générés avec ce promontoire et la référence canonique Métano. Huit appels terrain : deux planches de deux propositions et six propositions individuelles. Deux appels supplémentaires pour les planches de reflets, guidées par `IMG_4889.png` et `IMG_4899.jpeg`.
+Le **promontoire côtier généré avant la guilde** (`renders/references_calques_v1/bruts/promontoire.png`), PAS le plateau de guilde. Les 10 dessins ont été générés avec ce promontoire et la référence canonique Treasure. Huit appels terrain : deux planches de deux propositions et six propositions individuelles. Deux appels supplémentaires pour les planches de reflets, guidées par `IMG_4889.png` et `IMG_4899.jpeg`.
 
-Ce sont des dessins générés guidés par Métano, **pas des tuiles natives ni une palette certifiée identique**. Les originaux sont conservés dans `bruts/` ; aucun ancien rendu n’est supprimé.
+Ce sont des dessins générés guidés par Treasure, **pas des tuiles natives ni une palette certifiée identique**. Les originaux sont conservés dans `bruts/` ; aucun ancien rendu n’est supprimé.
 
 ## Organisation des calques
 Canvas de scène **960 × 600**. Voir `manifest.json` pour dimensions/positions terrain et source du ciel.
@@ -42,7 +42,7 @@ Ordre arrière → avant : ciel / étoiles / nuages / halo / astre / mer / refle
 Toutes les planches exportées sont transparentes, sans texte ni fond magenta. Les reflets ont 4 colonnes × 2 lignes pour les clés, 8 × 8 pour les 64 phases. Chaque cellule mesure 152 × 218 px. La planche étoiles est une vue réduite 8 × 8 de cellules 240 × 150 ; utiliser les frames individuelles 960 × 600 pour l’import. Halo : cellules 220 × 220, position de la fenêtre (640,55) dans les frames complètes.
 
 ## Ciel du pack côtier
-Source explicitement retenue : `cote_metano_v2_wrap_palette.zip`, membre `sprites/cote_v2/01_promontoire/COTEV2_01_00_CIEL_SANS_NUAGES.png`.
+Source explicitement retenue : `cote_treasure_v2_wrap_palette.zip`, membre `sprites/cote_v2/01_promontoire/COTEV2_01_00_CIEL_SANS_NUAGES.png`.
 - Jour : **RGB du ciel source conservé**, recadrage des marges transparentes et ajustement nearest à 960 × 280.
 - Coucher : même disposition des paliers, teintes lavande → pêche dérivées (pas une source sunset native du ZIP).
 - Nuit : **filtre Abyss exact** sur ce ciel et sur les terrains (`source/cote_v4_abyss/night.py`).

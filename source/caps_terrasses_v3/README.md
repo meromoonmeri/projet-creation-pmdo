@@ -1,11 +1,11 @@
 # Caps / terrasses V3 — présentation rapprochée face à la mer
 
 ## Demande et méthode
-L’utilisateur veut davantage de calques similaires à Terrasse V2 et Cap V2 : falaise très proche de la caméra, latérale, face à la mer, avec roche Métano. La méthode confirmée est conservée : **références V2 + matière roche/herbe Métano → générateur sur magenta → détourage**, pas des layouts en aplats ni une reconstruction procédurale de la roche.
+L’utilisateur veut davantage de calques similaires à Terrasse V2 et Cap V2 : falaise très proche de la caméra, latérale, face à la mer, avec roche Treasure. La méthode confirmée est conservée : **références V2 + matière roche/herbe Treasure → générateur sur magenta → détourage**, pas des layouts en aplats ni une reconstruction procédurale de la roche.
 
 Six générations séparées : cap gauche, cap droit, terrasse droite, terrasse gauche, corniche gauche, balcon droit. Entrées du générateur : `references/cap_v2_magenta.png` pour 01/02/05, `references/terrasse_v2_magenta.png` pour 03/04/06, et `source/falaises_generees/reference_canonique.png` pour les six. Les deux références de layout viennent des terrains RGBA V2, simplement posés sur magenta. Empreintes dans `references.json`.
 
-Les consignes imposaient une grande masse de terrain au premier plan, une ouverture latérale destinée à la mer, les textures Métano, et excluaient ciel/océan/nuages/structures du dessin de terrain. Les images sorties font toutes 1640 × 656 pixels. La variante 01 comporte des plaques de terre dans son herbe ; aucun chemin fonctionnel n’a été ajouté. Ces créations reprennent la référence, sans certification de pixels canoniques.
+Les consignes imposaient une grande masse de terrain au premier plan, une ouverture latérale destinée à la mer, les textures Treasure, et excluaient ciel/océan/nuages/structures du dessin de terrain. Les images sorties font toutes 1640 × 656 pixels. La variante 01 comporte des plaques de terre dans son herbe ; aucun chemin fonctionnel n’a été ajouté. Ces créations reprennent la référence, sans certification de pixels canoniques.
 
 ## Exports
 `build.py` extrait le chroma (R>210, G<70, B>210). Les pixels conservés ne sont pas recolorés ni redimensionnés. La variante 04 est translatée de -256 px horizontalement puis recadrée dans le même canevas pour l’ancrer à gauche et ouvrir davantage la mer à droite. La sortie brute reste intacte ; les exports transparent et magenta uniforme partagent le cadrage corrigé.
@@ -29,4 +29,4 @@ node source/caps_terrasses_v3/test_viewer.cjs
 
 Les scripts ne régénèrent pas les six créations IA : ils utilisent leurs PNG bruts versionnés. `verification.json` vérifie le détourage, les pixels conservés, la nuit, les 128 phases indexées, les huit images-clefs originales, la constance des indices/alpha/IDAT et le raccord cyclique. Le test de galerie contrôle les douze sélections lieu/ambiance, visibilité des quatre plans, pause/reprise et horloges dans un DOM simulé, pas dans un vrai navigateur.
 
-Les originaux Cap V2 / Terrasse V2, le témoin Métano et le mod existant sont préservés. Pas de validation GPU, de collisions ou d’intégration native revendiquée.
+Les originaux Cap V2 / Terrasse V2, le témoin Treasure et le mod existant sont préservés. Pas de validation GPU, de collisions ou d’intégration native revendiquée.

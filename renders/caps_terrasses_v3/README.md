@@ -2,7 +2,7 @@
 
 [Planche des six compositions](PLANCHE_FACE_MER.png) · [Aperçu autonome animé](../../apercu_caps_terrasses_v3.html)
 
-Même principe que **Cap V2 / Terrasse V2** : masses de terrain au premier plan, sur un côté, avec une vue dégagée sur la mer. Générateur guidé par les références de roche et d’herbe Métano, sur fond magenta.
+Même principe que **Cap V2 / Terrasse V2** : masses de terrain au premier plan, sur un côté, avec une vue dégagée sur la mer. Générateur guidé par les références de roche et d’herbe Treasure, sur fond magenta.
 
 **Six plans de terrain complets**, chacun regroupant herbe, roche et bordures. L’océan, le ciel et les nuages restent sur des plans distincts ; le terrain ne contient pas de mer. PNG **1640 × 656**, aucun redimensionnement du terrain.
 
@@ -25,4 +25,4 @@ Les sorties brutes du générateur sont aussi conservées sous `*_magenta.png`. 
 
 Les fonds V2 restent à leur résolution source. Les compositions de démonstration les ajustent au canevas du terrain en nearest-neighbor. Nuages fixes dans cet aperçu ; le pack précédent n’est pas modifié.
 
-**Limites :** créations générées d’après Métano, pas copies certifiées pixel à pixel de ses tuiles. Aucun nouveau Ground, collision ou test GPU livré. Ce lot ajoute des calques PNG et un aperçu, pas une mise à jour du mod natif.
+**Limites :** créations générées d’après Treasure, pas copies certifiées pixel à pixel de ses tuiles. Aucun nouveau Ground, collision ou test GPU livré. Ce lot ajoute des calques PNG et un aperçu, pas une mise à jour du mod natif.

@@ -11,8 +11,8 @@ Projet d'édition autonome `entree_bristle_sud_nord` : un Ground `ebn1_entree_br
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Torrent façon rivière de Métano (couleurs Métano exactes) | 4 × 10 ticks |
-| 01 | Scintillements Métano natifs | 4 × 10 ticks |
+| 00 | Torrent façon rivière de Treasure (couleurs Treasure exactes) | 4 × 10 ticks |
+| 01 | Scintillements Treasure natifs | 4 × 10 ticks |
 | 02 | Sol complet (sable généré, aussi sous la roche) | fixe |
 | 03 | Sable visible | fixe |
 | 04 | Berge de galets | fixe |
@@ -33,6 +33,6 @@ La scène complète boucle en 120 ticks (2 s).
 
 - **Terrain et touffes** : dessins générés d'après la référence Mt. Bristle ; ce ne sont pas des pixels natifs.
 - **Balancement des touffes** : cycle créé par nous.
-- **Torrent** : structure et couleurs Métano, pixels recalculés.
-- **Scintillements** : pixels Métano natifs.
+- **Torrent** : structure et couleurs Treasure, pixels recalculés.
+- **Scintillements** : pixels Treasure natifs.
 - **Tests** : aucun test dans PMDO.

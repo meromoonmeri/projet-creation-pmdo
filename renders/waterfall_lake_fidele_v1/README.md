@@ -8,13 +8,13 @@ La base est le PNG GBA original fourni :
 
 ## Modifications locales
 - Le petit rocher central est retiré dans sa seule silhouette ; le fond d’eau caché est complété depuis les pixels aquatiques voisins. Il ne réapparaît donc pas lorsqu’on masque la plateforme.
-- Le disque natif d’Altere Pond/atlas Métano est placé **dans le cercle le plus sombre**, à la place de ce rocher, sur son propre calque.
+- Le disque natif d’Altere Pond/atlas Treasure est placé **dans le cercle le plus sombre**, à la place de ce rocher, sur son propre calque.
 - Les trois pas japonais natifs sont indépendants. Trois copies supplémentaires prolongent l’accès vers le bord sud : six pierres en tout, dont la dernière continue hors cadre. Les nouvelles pierres restent dans l’eau ; aucune berge originale n’est effacée pour les faire passer.
 - Les reflets/eau autour du disque et de chaque pas ont leurs propres calques, avec le cycle natif de huit poses, sans changer la taille des sprites.
 - La cascade utilise sa **matière GBA originale**. Son masque reste fixe ; la matière descend de 2 px par pose avec une période verticale de 48 px. Le flux va bien du haut vers le bassin, pas horizontalement.
 - L’écume originale est isolée. Trois états sont reconstruits avec un gonflement local de ±1 px et une zone de contact fixe, au point d’impact de la référence.
 
-Le fichier d’origine est statique : l’animation de sa cascade et celle de son écume sont **reconstruites**, pas présentées comme des animations GBA récupérées. Le cycle de huit poses d’Altere/Métano, lui, provient bien des ressources natives déjà archivées.
+Le fichier d’origine est statique : l’animation de sa cascade et celle de son écume sont **reconstruites**, pas présentées comme des animations GBA récupérées. Le cycle de huit poses d’Altere/Treasure, lui, provient bien des ressources natives déjà archivées.
 
 ## Cadrage et prolongement
 Deux vues sont fournies :

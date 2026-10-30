@@ -67,7 +67,7 @@ def objects():
   im=Image.fromarray(a);box=im.getbbox();assert box;im=im.crop(box);scale=width/im.width;size=(width,round(im.height*scale));im=im.resize(size,Image.Resampling.NEAREST)
   canvas=Image.new('RGBA',(math.ceil(size[0]/8)*8,math.ceil(size[1]/8)*8));canvas.alpha_composite(im);save(canvas,OUT/'objets'/f'{name}.png')
   meta[name]={'file':f'objets/{name}.png','generated':True,'raw':raw_path(name).name,'crop':list(box),'uniform_scale':scale,'content_size':list(size),'size':list(canvas.size)}
- # Exact complete Metano object, no recolouring/rescaling.
+ # Exact complete Treasure object, no recolouring/rescaling.
  p=ROOT/'source/ledian_casino_v1/references/KrowBank_structure_native.png';save(Image.open(p).convert('RGBA'),OUT/'objets/krow_bank_natif.png');meta['krow_bank_natif']={'file':'objets/krow_bank_natif.png','generated':False,'source':str(p.relative_to(ROOT)),'sha256':sha(p),'size':[104,96]}
  rug=Image.open(SRC/'Ledian_Dojo_Objects.png').convert('RGBA').crop((176,136,232,176));save(rug,OUT/'objets/tapis_source_natif.png')
  meta['tapis_source']={'file':'objets/tapis_source_natif.png','source':'source/ledian_dojo_v1/references/Ledian_Dojo_Objects.png','crop':[176,136,232,176],'size':[56,40],'usage':'Native 8px patches repeated in a nine-slice rug; never stretched.'}

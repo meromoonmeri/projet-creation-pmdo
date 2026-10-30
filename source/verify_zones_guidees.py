@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 import json,struct,io,hashlib
 R=Path(__file__).resolve().parents[1];O=R/'sprites/zones_guidees';m=json.loads((O/'provenance.json').read_text())
-PINNED={'Metano_Town_Base':'19b295495e49819b356c02d13a574616dd67d36c','Metano_Town_Cliffs':'6d342b97ebfcad3e9aa6022b49e0f3b5b9d75640','Metano_Town_Animation_Tileset':'8b01d1730ef537ecc5578101fc8c1ea9630a3569','Metano_Town_River_Animation_1':'97d615195ef9488de15d28060a77e88b03c989a1','Metano_Town_River_Animation_2':'6956ccd5d7053faaa217edb7382939155f282f6c','Metano_Town_River_Animation_3':'21243860eef0e229957478d86f5a155b631aacbb','Metano_Town_River_Animation_4':'5e5528a0d2a5a8ca380db320186c4868ba1277f3'}
+PINNED={'Treasure_Town_Base':'19b295495e49819b356c02d13a574616dd67d36c','Treasure_Town_Cliffs':'6d342b97ebfcad3e9aa6022b49e0f3b5b9d75640','Treasure_Town_Animation_Tileset':'8b01d1730ef537ecc5578101fc8c1ea9630a3569','Treasure_Town_River_Animation_1':'97d615195ef9488de15d28060a77e88b03c989a1','Treasure_Town_River_Animation_2':'6956ccd5d7053faaa217edb7382939155f282f6c','Treasure_Town_River_Animation_3':'21243860eef0e229957478d86f5a155b631aacbb','Treasure_Town_River_Animation_4':'5e5528a0d2a5a8ca380db320186c4868ba1277f3'}
 def decode(data):
     size,count=struct.unpack_from('<II',data);assert size==8
     cache={};result={}
@@ -31,9 +31,9 @@ for item in m['native_animations']:
     assert all(1<=g<=len(sprites) for g in seq)
     for g,frame in zip(seq,item['Frames']):assert frame=={'Sheet':a['name'],'TexLoc':{'X':(g-1)%a['columns'],'Y':(g-1)//a['columns']}}
     refs=[a['entries'][g-1] for g in seq];names=[r['sheet'] for r in refs]
-    if names[0]=='Metano_Town_Animation_Tileset':
+    if names[0]=='Treasure_Town_Animation_Tileset':
         x,y=refs[0]['texloc'];assert all(r['texloc']==[x+9*f,y] for f,r in enumerate(refs)) and len(set(names))==1
-    else:assert names==[f'Metano_Town_River_Animation_{f}' for f in range(1,5)] and all(r['texloc']==refs[0]['texloc'] for r in refs)
+    else:assert names==[f'Treasure_Town_River_Animation_{f}' for f in range(1,5)] and all(r['texloc']==refs[0]['texloc'] for r in refs)
 def render(layer,frame):
     result=Image.new('RGBA',(2048,1536));assert len(layer['data'])==256*192
     for i,g in enumerate(layer['data']):
@@ -50,8 +50,8 @@ for zone in m['zones']:
     for l,layer in enumerate(dry['layers']):
         for g in set(layer['data'])-{0}:
             assert g not in animations;r=a['entries'][g-1];x,y=r['texloc']
-            if l==0:assert r['sheet']=='Metano_Town_Base' and 0<=x<16 and 80<=y<96
-            else:assert r['sheet']=='Metano_Town_Cliffs' and x in set(range(57,93))|set(range(114,122))|set(range(162,189)) and y>=(26 if x<93 else 38 if x>=162 else 54)
+            if l==0:assert r['sheet']=='Treasure_Town_Base' and 0<=x<16 and 80<=y<96
+            else:assert r['sheet']=='Treasure_Town_Cliffs' and x in set(range(57,93))|set(range(114,122))|set(range(162,189)) and y>=(26 if x<93 else 38 if x>=162 else 54)
     grass=render(dry['layers'][0],0);cliff=render(dry['layers'][1],0);sec=Image.alpha_composite(grass,cliff);same(grass,out/'herbe.png');same(cliff,out/'falaises.png');same(sec,out/'canonique_sec.png')
     banks=render(wet['layers'][2],0);same(banks,out/'berges.png');base=Image.alpha_composite(sec,banks);hashes=[]
     for f in range(4):

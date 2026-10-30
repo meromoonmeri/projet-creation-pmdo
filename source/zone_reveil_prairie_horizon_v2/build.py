@@ -1087,8 +1087,8 @@ def build(apercu=False):
     for nm, m in (('prairie', meadow), ('mer', sea_region)):
         Image.fromarray((m * 255).astype('uint8')).save(OUT / 'masques' / f'{PFX}_masque_{nm}.png')
     Image.fromarray(strip).save(OUT / 'masques' / f'{PFX}_jour_nuages_bande.png')
-    tpl_zip = zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip')
-    tpl = json.loads(tpl_zip.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    tpl_zip = zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip')
+    tpl = json.loads(tpl_zip.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     report, counts = {}, {}
     for amb, L in out.items():
         layer_list, stack = [], []

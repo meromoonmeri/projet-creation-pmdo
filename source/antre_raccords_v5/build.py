@@ -22,8 +22,8 @@ def compose(ls):
  return im
 # Preserve the approved Crooked-style walls exactly. Do not regenerate their layout.
 rocknames=['02_paroi_fond','03_bordure_gauche','04_bordure_droite','05_rebord_bas'];rocks=[(n,load(OLD/f'harmonie_{n}.png')) for n in rocknames];rock=np.maximum.reduce([np.array(im)[:,:,3] for _,im in rocks])>0
-# Actual8key platform animation from Altere's Objects layer, backed by the Metano atlas.
-path=R/'source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile';size,bank=decode(path);atlas=Image.new('RGBA',(512,1408))
+# Actual8key platform animation from Altere's Objects layer, backed by the Treasure atlas.
+path=R/'source/eau_treasure/natifs/Treasure_Town_Animation_Tileset.tile';size,bank=decode(path);atlas=Image.new('RGBA',(512,1408))
 for (x,y),im in bank.items():atlas.alpha_composite(im,(8*x,8*y))
 mapobj=json.loads((REF/'altere_pond.rsground').read_text(encoding='utf-8-sig'))['Object'];proof=mapobj['Layers'][5]['Tiles'][67][44]['Layers'][0]
 assert proof['FrameLength']==10 and len(proof['Frames'])==8
@@ -53,7 +53,7 @@ strip=Image.new('RGB',(W*4,H))
 for p,im in enumerate(waters):strip.paste(im.convert('RGB'),(p*W,0))
 pal=strip.quantize(colors=12,method=Image.Quantize.MEDIANCUT)
 waters=[im.convert('RGB').quantize(palette=pal,dither=Image.Dither.NONE).convert('RGBA') for im in waters]
-# Metano/Altere water base color, with far subtler modulation than V4.
+# Treasure/Altere water base color, with far subtler modulation than V4.
 basecolor=np.array([131,218,230],dtype=float)
 wet_distance=nd.distance_transform_edt(~dry)
 for p,im in enumerate(waters):
@@ -143,6 +143,6 @@ items=[{'name':'Composition animée','src':uri((P/'ANIMATION.webp').read_bytes()
 for n,im in static:items.append({'name':n,'src':uri(png(im))})
 for n,_ in animated(0):
  ims=[load(P/f'raccord5_{n}_{p:02}.png') for p in range(N)];b=io.BytesIO();ims[0].save(b,format='WEBP',save_all=True,append_images=ims[1:],duration=dur,lossless=True,loop=0);items.append({'name':n,'src':uri(b.getvalue(),'image/webp')})
-html='''<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Antre · raccords et eau subtile V5</title><style>body{background:#292c29;color:#f1eddc;max-width:1000px;margin:30px auto;padding:0 20px;font:16px system-ui}p{line-height:1.6}img{image-rendering:pixelated;width:960px;max-width:100%;background:repeating-conic-gradient(#3a4643 0 25%,#4c5952 0 50%) 0/16px 16px}select{padding:10px;margin:10px;background:#4b5549;color:white}</style><h1>Antre · détails et raccords · V5</h1><p>Disque réduit à sa taille native72×53px, pierres immobiles, cycle natif complet de8poses pour les rides/reflets. Bassin atténué sur le bleu natif de Métano/Altere ; rives animées suivant les roches ; écumes adaptées aux poches d’eau au pied des chutes, sans morceaux blancs détachés. Boucle commune4secondes, calques indépendants.</p><select id="sel"></select><br><img id="view" alt="Antre au bassin dégagé"><p>Les parois Crooked de la V3 sont conservées. Les cascades régénérées sont des adaptations, pas des sprites officiels. Les pierres et leurs rides sont des pixels natifs à échelle1. Aucun test PMDO.</p><script>const items='''+json.dumps(items)+''';items.forEach((x,i)=>sel.add(new Option(x.name,i)));view.src=items[0].src;sel.onchange=()=>view.src=items[+sel.value].src;</script>'''
+html='''<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Antre · raccords et eau subtile V5</title><style>body{background:#292c29;color:#f1eddc;max-width:1000px;margin:30px auto;padding:0 20px;font:16px system-ui}p{line-height:1.6}img{image-rendering:pixelated;width:960px;max-width:100%;background:repeating-conic-gradient(#3a4643 0 25%,#4c5952 0 50%) 0/16px 16px}select{padding:10px;margin:10px;background:#4b5549;color:white}</style><h1>Antre · détails et raccords · V5</h1><p>Disque réduit à sa taille native72×53px, pierres immobiles, cycle natif complet de8poses pour les rides/reflets. Bassin atténué sur le bleu natif de Treasure/Altere ; rives animées suivant les roches ; écumes adaptées aux poches d’eau au pied des chutes, sans morceaux blancs détachés. Boucle commune4secondes, calques indépendants.</p><select id="sel"></select><br><img id="view" alt="Antre au bassin dégagé"><p>Les parois Crooked de la V3 sont conservées. Les cascades régénérées sont des adaptations, pas des sprites officiels. Les pierres et leurs rides sont des pixels natifs à échelle1. Aucun test PMDO.</p><script>const items='''+json.dumps(items)+''';items.forEach((x,i)=>sel.add(new Option(x.name,i)));view.src=items[0].src;sel.onchange=()=>view.src=items[+sel.value].src;</script>'''
 (R/'apercu_antre_raccords_v5.html').write_text(html)
 print('Built',len(layers(0)),'layers;24states;4/3/8cycles;4s; native72x53disc')

@@ -11,8 +11,8 @@ Projet d'édition autonome `entree_jungle_sud_nord` : un Ground `ejn1_entree_jun
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Rivière et mare façon Métano | 4 × 10 ticks |
-| 01 | Scintillements Métano natifs | 4 × 10 ticks |
+| 00 | Rivière et mare façon Treasure | 4 × 10 ticks |
+| 01 | Scintillements Treasure natifs | 4 × 10 ticks |
 | 02 | Sol complet | fixe |
 | 03 | Clairière | fixe |
 | 04 | Sentier | fixe |
@@ -33,5 +33,5 @@ Projet d'édition autonome `entree_jungle_sud_nord` : un Ground `ejn1_entree_jun
 ## Limites
 
 - **Terrain et papillons** : dessins générés d'après la référence Southern Jungle ; les trajectoires sont créées par nous.
-- **Rivière** : façon Métano, pixels recalculés.
+- **Rivière** : façon Treasure, pixels recalculés.
 - **Tests** : aucun test dans PMDO.

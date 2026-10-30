@@ -12,8 +12,8 @@ Projet d'édition autonome `entree_vapeur_sud_nord_v2` : un Ground `esn2_entree_
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Eau façon rivière de Métano | 4 phases × 10 ticks, comme la rivière Métano |
-| 01 | Scintillements (pixels Métano recolorés) | 4 phases × 10 ticks |
+| 00 | Eau façon rivière de Treasure | 4 phases × 10 ticks, comme la rivière Treasure |
+| 01 | Scintillements (pixels Treasure recolorés) | 4 phases × 10 ticks |
 | 02 | Bulles de marais générées | 24 phases × 5 ticks (2 s), 9 émetteurs décalés |
 | 03–09 | Sol complet, herbe, chemin, buissons, falaises, piliers, bouche | fixes (terrain V1) |
 | 10 | vide, `Layer=4` (Top) | pour tes éléments d'avant-plan |
@@ -27,7 +27,7 @@ La scène complète boucle en 120 ticks (2 s à 60 i/s).
 
 ## Limites
 
-- **Eau** : c'est la structure et la cadence de la rivière Métano (Halcyon), recalculées sur nos bassins, avec des couleurs choisies selon les rôles Métano. Ce ne sont pas des tuiles Métano natives.
+- **Eau** : c'est la structure et la cadence de la rivière Treasure (Halcyon), recalculées sur nos bassins, avec des couleurs choisies selon les rôles Treasure. Ce ne sont pas des tuiles Treasure natives.
 - **Bulles** : dessin généré, chronologie créée par nous. Ce n'est pas une animation officielle.
 - **Terrain** : dessin généré à partir de la référence Steam Cave.
 - **Tests** : aucun test dans PMDO (chargement, GPU, gameplay).

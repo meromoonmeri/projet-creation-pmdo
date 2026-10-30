@@ -13,8 +13,8 @@ Biome choisi par l'agent (Mystifying Forest) : **à confirmer**.
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Eau de la mare, façon Métano (couleurs Métano exactes, sans liseré clair) | 4 × 10 ticks |
-| 01 | Scintillements Métano natifs | 4 × 10 ticks |
+| 00 | Eau de la mare, façon Treasure (couleurs Treasure exactes, sans liseré clair) | 4 × 10 ticks |
+| 01 | Scintillements Treasure natifs | 4 × 10 ticks |
 | 02 | Sol complet (herbe) | fixe |
 | 03 | Herbe de la clairière (praticable) | fixe |
 | 04 | Chemin | fixe |
@@ -36,6 +36,6 @@ La scène complète boucle en 240 ticks (4 s).
 ## Limites
 
 - **Terrain, feuilles et lucioles** : dessins générés à partir de la capture `Mystifying_Forest_entrance_TDS.png`. Les trajectoires, les boucles et la chronologie sont créées par nous ; ce ne sont pas des animations officielles.
-- **Eau** : façon Métano, pixels recalculés avec les couleurs Métano exactes.
-- **Scintillements** : seuls pixels Métano natifs du pack.
+- **Eau** : façon Treasure, pixels recalculés avec les couleurs Treasure exactes.
+- **Scintillements** : seuls pixels Treasure natifs du pack.
 - **Tests** : aucun test fait dans PMDO.

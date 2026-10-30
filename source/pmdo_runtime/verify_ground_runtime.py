@@ -14,7 +14,7 @@ RUNTIME=ROOT/'.cache/pmdo-runtime/engine/PMDO'
 def main():
     assert (RUNTIME/'PMDO').is_file(), 'Install pinned RUNTIMEPMDO archive in .cache first'
     assert (RUNTIME/'Base/PathParams.xml').is_file(), 'Install base assets first'
-    with zipfile.ZipFile(ROOT/'cotes_metano_abyss_0812_pmdo.zip') as z:
+    with zipfile.ZipFile(ROOT/'cotes_treasure_abyss_0812_pmdo.zip') as z:
         assert z.testzip() is None
         for name in z.namelist():
             assert not Path(name).is_absolute() and '..' not in Path(name).parts
@@ -27,7 +27,7 @@ def main():
     if result_file.exists():result_file.unlink()
     try:
         startup.write_bytes(original+b'\n'+hook)
-        process=subprocess.run(['./PMDO','-guide','-quest','cotes_metano_abyss_0812'],cwd=RUNTIME,
+        process=subprocess.run(['./PMDO','-guide','-quest','cotes_treasure_abyss_0812'],cwd=RUNTIME,
                                stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=120)
         (ROOT/'.cache/pmdo-runtime/ground-load.log').write_bytes(process.stdout)
         assert process.returncode==0,process.stdout.decode(errors='replace')

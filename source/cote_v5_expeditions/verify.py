@@ -34,14 +34,14 @@ def main():
     for p in (PACK/'Content/Tile').glob('*.tile'):
         with p.open('rb') as f:assert idx[p.stem]==I.read_node(f)
     header=ET.parse(PACK/'Mod.xml').getroot()
-    assert header.findtext('Namespace')=='metano_expeditions' and header.findtext('GameVersion')=='0.8.12.0'
+    assert header.findtext('Namespace')=='treasure_expeditions' and header.findtext('GameVersion')=='0.8.12.0'
     assert header.findtext('ModType')=='Quest'
     source=ROOT/prep['rock_source']['file']
     assert hashlib.sha256(source.read_bytes()).hexdigest()==prep['rock_source']['sha256']
     canonical=V.read_tile(source);control=Image.new('RGBA',(64,48))
     for y in range(6):
         for x in range(8):control.paste(canonical[114+x,58+y],(x*8,y*8))
-    C.equal(control,Image.open(WEB/'METANO_ROCHE_NATIVE_64x48.png'))
+    C.equal(control,Image.open(WEB/'TREASURE_ROCHE_NATIVE_64x48.png'))
     backgrounds={p.stem:V.read_dir(p) for p in (PACK/'Content/BG').glob('*.dir')}
     for mode in ['jour','nuit']:
         for kind in ['ciel','astres','nuages']:
@@ -83,7 +83,7 @@ def main():
             ent=o['Entities'][0];assert not ent['MapChars'] and not ent['GroundObjects'] and not ent['Spawners']
             marker=ent['Markers'][0];assert marker['EntName']=='entrance'
             assert [marker['Collider']['X'],marker['Collider']['Y']]==zone['entry']
-            assert (PACK/f'Data/Script/metano_expeditions/ground/{variant["asset"]}/init.lua').is_file()
+            assert (PACK/f'Data/Script/treasure_expeditions/ground/{variant["asset"]}/init.lua').is_file()
             bgs=o['Background']['Layers'];assert o['Background']['$type']=='RogueEssence.Dungeon.LayeredBG, RogueEssence'
             assert [b['BG']['BGAnim']['AnimIndex'] for b in bgs]==[f'V50812_{mode.upper()}_{k}' for k in ['CIEL','ASTRES','NUAGES']]
             assert all(b['BG']['Parallax']=='1, 1' for b in bgs)

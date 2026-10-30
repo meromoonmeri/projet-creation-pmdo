@@ -1,6 +1,6 @@
 # 12 entrées de donjon générées — collection PMD
 
-**Nouvelles textures autorisées dans la DA PMD. Métano reste imposé seulement pour une extension explicitement Métano.**
+**Nouvelles textures autorisées dans la DA PMD. Treasure reste imposé seulement pour une extension explicitement Treasure.**
 
 [Planche PNG](PLANCHE_12_ENTREES.png) · [Galerie HTML](index.html)
 
@@ -25,4 +25,4 @@ Les trois premières images prolongent la demande Halcyon initiale. Les neuf sui
 
 Références : compositions Halcyon/Crooked Cavern et EoSO/Drenched Bluff réellement décodées. Le Ground `aegis_cave_entrance` de PMD-SKY-PMDO-PORT a également été examiné ; son aperçu montre des couloirs intérieurs, pas une façade extérieure à recopier. Voir `source/entrees_pmd_collection/references.json`.
 
-Les rendus véritables du mod livré sont séparés dans [`../metano_expeditions_actuel/`](../metano_expeditions_actuel/README.md).
+Les rendus véritables du mod livré sont séparés dans [`../treasure_expeditions_actuel/`](../treasure_expeditions_actuel/README.md).

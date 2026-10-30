@@ -11,8 +11,8 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 WEB=ROOT/'sprites/cote_v4_abyss'
 PACK=Path.home()/'.cache/cote_v4_abyss_pack'
-VIEWER='apercu_cotes_metano_abyss.html'
-ZIP='cotes_metano_abyss_0812_pmdo.zip'
+VIEWER='apercu_cotes_treasure_abyss.html'
+ZIP='cotes_treasure_abyss_0812_pmdo.zip'
 
 
 def main():
@@ -40,14 +40,14 @@ def main():
     with zipfile.ZipFile(ROOT/ZIP,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
         for path in sorted(PACK.rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts:
-                info=zipfile.ZipInfo('cotes_metano_abyss_0812/'+path.relative_to(PACK).as_posix(),(2026,9,12,0,0,0))
+                info=zipfile.ZipInfo('cotes_treasure_abyss_0812/'+path.relative_to(PACK).as_posix(),(2026,9,12,0,0,0))
                 info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
                 archive.writestr(info,path.read_bytes(),compresslevel=9)
     with zipfile.ZipFile(ROOT/ZIP) as archive:
         assert archive.testzip() is None
         assert len([n for n in archive.namelist() if n.endswith('.rsground')])==20
-        assert 'cotes_metano_abyss_0812/Content/Tile/index.idx' in archive.namelist()
-        assert 'cotes_metano_abyss_0812/Mod.xml' in archive.namelist()
+        assert 'cotes_treasure_abyss_0812/Content/Tile/index.idx' in archive.namelist()
+        assert 'cotes_treasure_abyss_0812/Mod.xml' in archive.namelist()
     print(f'{len(images)} lossless images; HTML {(ROOT/VIEWER).stat().st_size/2**20:.2f} MiB; ZIP {(ROOT/ZIP).stat().st_size/2**20:.2f} MiB')
 
 

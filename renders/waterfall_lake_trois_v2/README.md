@@ -19,7 +19,7 @@ Les nouvelles chutes entrent par la limite haute de l’image, comme la centrale
 Aucun déplacement ni déformation des cercles. Leurs couleurs reçoivent une modulation très faible sur quatre poses : **rouge inchangé, vert ±2 maximum, bleu ±3 maximum**. La variation est répartie selon les bandes de profondeur et revient à la couleur initiale ; pas de grand mouvement de vague ni de changement de taille des cercles. Hors masque des anneaux, le fond d’eau est identique à V1.
 
 ### Reflets autour des plateformes
-Les huit poses, les contours et les alphas des reflets natifs Altere/Métano sont conservés. Leurs **RGB sont adaptés à la profondeur locale**, puis ramenés aux couleurs aquatiques du PNG GBA original, pour éviter un halo vert-turquoise étranger au lac bleu. Ce n’est donc plus une copie RGB intacte du reflet natif ; c’est son animation géométrique, harmonisée à Waterfall Lake. Les pixels des pierres ne sont pas recolorés en jour.
+Les huit poses, les contours et les alphas des reflets natifs Altere/Treasure sont conservés. Leurs **RGB sont adaptés à la profondeur locale**, puis ramenés aux couleurs aquatiques du PNG GBA original, pour éviter un halo vert-turquoise étranger au lac bleu. Ce n’est donc plus une copie RGB intacte du reflet natif ; c’est son animation géométrique, harmonisée à Waterfall Lake. Les pixels des pierres ne sont pas recolorés en jour.
 
 ## Jour/nuit et calques
 504 × 360, **28 calques par ambiance**, 24 poses, boucle de **4 secondes**. Cadence commune : 10 frames de jeu par pose, horodatages cumulés arrondis en millisecondes. La nuit garde le filtre Abyss déjà employé pour Northern et V1, appliqué par calque. Pas de ciel ou d’astre inventé au-dessus de ce lac vu de dessus.

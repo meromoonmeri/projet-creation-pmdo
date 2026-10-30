@@ -18,7 +18,7 @@ def sheet(ims,cols,p):
  save(o,p)
 manifest={'canvas':list(SZ),'phases':64,'frame_ms':80,'cycle_ms':5120,'clouds':{'wrap_x':True,'speed_px_s':-4,'period_s':240,'layer':'overlay transparent, placement avant astres selon ordre manifeste'},'terrains':[],'backgrounds':{}}
 # Exact old ZIP source; no guessed replacement of the coastal gradient.
-zpath=R/'cote_metano_v2_wrap_palette.zip';member='sprites/cote_v2/01_promontoire/COTEV2_01_00_CIEL_SANS_NUAGES.png'
+zpath=R/'cote_treasure_v2_wrap_palette.zip';member='sprites/cote_v2/01_promontoire/COTEV2_01_00_CIEL_SANS_NUAGES.png'
 with zipfile.ZipFile(zpath) as z:
  import io
  sky=Image.open(io.BytesIO(z.read(member))).convert('RGBA');source_hash=hashlib.sha256(z.read(member)).hexdigest()
@@ -69,7 +69,7 @@ for name,ids in [('falaises_01_02.png',[1,2]),('falaises_03_04.png',[3,4])]:
   c=im.crop((0,row*h//2,w,(row+1)*h//2));raws[i]=c.crop(c.getbbox())
 for i in range(5,11):raws[i]=key(load(B/f'falaise_{i:02}.png'))
 # Replace generated tan dirt marks on 05/07 with canonical grass, preserving cliff.
-grass=load(R/'source/falaises_metano/patches/herbe.png');ga=np.array(grass)
+grass=load(R/'source/falaises_treasure/patches/herbe.png');ga=np.array(grass)
 for i,im in raws.items():
  if i in (5,7):
   ar=np.array(im);rr,gg,bb=[ar[:,:,j].astype(int) for j in range(3)];mask=(rr>180)&(gg>125)&(bb>75)&(rr>gg*1.08)&(bb>gg*.48)&(ar[:,:,3]>0);yy,xx=np.indices(mask.shape);mask&=yy<im.height*.55;ar[mask,:3]=ga[yy[mask]%grass.height,xx[mask]%grass.width,:3];im=Image.fromarray(ar)

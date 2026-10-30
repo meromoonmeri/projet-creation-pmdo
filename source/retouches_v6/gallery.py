@@ -9,7 +9,7 @@ rows=json.loads((ROOT/'renders/retouches_zones_v6/manifest.json').read_text());z
 for r in rows:
  slug=r['id'];z={'id':slug,'status':r['status'],'size':r['size']}
  for phase in ['jour','nuit']:
-  before=f'renders/metano_expeditions_actuel/{slug}/{phase}.png';after=f'renders/retouches_zones_v6/{slug}'+('_nuit' if phase=='nuit' else '')+'.png'
+  before=f'renders/treasure_expeditions_actuel/{slug}/{phase}.png';after=f'renders/retouches_zones_v6/{slug}'+('_nuit' if phase=='nuit' else '')+'.png'
   z[phase]={'before':preview(before),'after':preview(after),'link':BASE+after}
  zones.append(z)
 kits=[]

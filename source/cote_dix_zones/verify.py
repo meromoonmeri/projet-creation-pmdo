@@ -57,7 +57,7 @@ def main():
     assert len(list((PACK/'Data/Ground').glob('*.rsground')))==EXPECTED_TOTAL
     for src in m['sources'].values():
         assert hashlib.sha256((ROOT/src['path']).read_bytes()).hexdigest()==src['sha256']
-    sources={name:V.read_tile(ROOT/m['sources'][name]['path']) for name in ['Metano_Town_Base','Metano_Town_Cliffs']}
+    sources={name:V.read_tile(ROOT/m['sources'][name]['path']) for name in ['Treasure_Town_Base','Treasure_Town_Cliffs']}
     native={p.stem:V.read_tile(p) for p in (PACK/'Content/Tile').glob('*.tile')}
     background={p.stem:V.read_dir(p) for p in (PACK/'Content/BG').glob('*.dir')}
     for mode in ['jour','nuit']:

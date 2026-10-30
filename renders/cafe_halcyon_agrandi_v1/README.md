@@ -1,10 +1,10 @@
-# Grand Café Métano — Halcyon agrandi, terrain vide
+# Grand Café Treasure — Halcyon agrandi, terrain vide
 
 [Atelier](index.html) · [Terrain magenta](CafeHalcyon_terrain_magenta.png) · [Terrain transparent](CafeHalcyon_terrain_transparent.png)
 
 ## Le vrai café, agrandi sans grossir ses pixels
 
-Source : **Palikadude/Halcyon**, commit [`da6c2130d641507447e6386a5e47a296e8cb4c71`](https://github.com/Palikadude/Halcyon/tree/da6c2130d641507447e6386a5e47a296e8cb4c71), `Data/Ground/metano_cafe.rsground` et les cinq banques `Metano_Town_Cafe_*`.
+Source : **Palikadude/Halcyon**, commit [`da6c2130d641507447e6386a5e47a296e8cb4c71`](https://github.com/Palikadude/Halcyon/tree/da6c2130d641507447e6386a5e47a296e8cb4c71), `Data/Ground/treasure_cafe.rsground` et les cinq banques `Treasure_Town_Cafe_*`.
 
 | | Original | Nouvelle salle |
 |---|---:|---:|

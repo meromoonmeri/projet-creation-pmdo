@@ -8,6 +8,7 @@ behavior.
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 from pathlib import Path
 import zipfile
@@ -23,6 +24,9 @@ TILEGUIDE_SUMMARY = ROOT / "source/pmdo_runtime/destiny_candidate_246_tileguide_
 OVERLAY_GROUND_RESULTS = ROOT / "source/pmdo_runtime/destiny_candidate_246_overlay_ground_runtime_results.tsv"
 OVERLAY_CANDIDATE = ROOT / "exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip"
 STANDALONE_QUEST = ROOT / "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip"
+REBRANDED_EXPEDITIONS_ARCHIVE = ROOT / "mod_treasure_expeditions_pmdo_0812.zip"
+SOURCE_PAYLOAD_BACKUP = ROOT / "exports/treasure_rename/source_payloads_before_rename_2026-10-30.zip"
+MIGRATION_REPORT = ROOT / "exports/treasure_rename/migration_report.json"
 QUEST_GROUND_RESULTS = ROOT / "source/pmdo_runtime/destiny_map_quest_246_zip_ground_runtime_results.tsv"
 QUEST_ZONE_RESULTS = ROOT / "source/pmdo_runtime/destiny_map_quest_246_zone_runtime_results.tsv"
 EXPECTED_CATEGORY_COUNTS = {"zip_archive": 126, "arena_branch": 39, "generated_build": 97}
@@ -65,6 +69,42 @@ def main() -> None:
     duplicate_occurrences = len(hashes) - unique_hashes
     if (unique_hashes, duplicate_occurrences) != (229, 33):
         fail(f"réconciliation hashes incorrecte : {unique_hashes} uniques, {duplicate_occurrences} doublons")
+
+    # Keep the exact source hash and the active rebranded-payload hash distinct.
+    migration = inventory.get("sourcePayloadRebranding", {})
+    if (migration.get("sourcePayloadsPreservedByteForByte") is not True
+            or migration.get("activeArchive") != REBRANDED_EXPEDITIONS_ARCHIVE.name):
+        fail("provenance de la migration de marque absente ou incohérente")
+    rebranded_entries = [entry for entry in entries if entry.get("rebrandedGroundSha256")]
+    if len(rebranded_entries) != 40 or not REBRANDED_EXPEDITIONS_ARCHIVE.is_file() or not SOURCE_PAYLOAD_BACKUP.is_file():
+        fail("les 40 hashes rebrandés ou leur sauvegarde exacte sont absents")
+    migration_report = json.loads(MIGRATION_REPORT.read_text(encoding="utf-8"))
+    if sha256_file(REBRANDED_EXPEDITIONS_ARCHIVE) != migration_report.get("packageArchive", {}).get("rebrandedArchiveSha256"):
+        fail("SHA-256 du paquet rebrandé différent du rapport de migration")
+    with zipfile.ZipFile(REBRANDED_EXPEDITIONS_ARCHIVE) as current_zip, zipfile.ZipFile(SOURCE_PAYLOAD_BACKUP) as snapshot:
+        if current_zip.testzip() is not None:
+            fail("CRC du paquet rebrandé incorrect")
+        current_ground_hashes = json.loads(current_zip.read("treasure_expeditions/ground_sha256.json"))
+        snapshot_manifest = json.loads(snapshot.read("PRESERVATION_MANIFEST.json"))
+        source_archive_row = next((row for row in snapshot_manifest["files"]
+                                   if row.get("rebrandedPath") == REBRANDED_EXPEDITIONS_ARCHIVE.name), None)
+        if source_archive_row is None:
+            fail("archive source exacte absente de la sauvegarde")
+        original_archive_bytes = snapshot.read(source_archive_row["backupMember"])
+        if sha256_file(SOURCE_PAYLOAD_BACKUP) != migration.get("preMigrationPayloadBackupSha256"):
+            fail("SHA-256 de la sauvegarde source incohérent")
+        with zipfile.ZipFile(io.BytesIO(original_archive_bytes)) as original_zip:
+            source_hash_member = next(name for name in original_zip.namelist() if name.endswith("/ground_sha256.json"))
+            source_ground_hashes = json.loads(original_zip.read(source_hash_member))
+            for entry in rebranded_entries:
+                locator = entry.get("sourceLocator", {})
+                member = locator.get("member", "")
+                basename = Path(member).name
+                if (locator.get("archive") != REBRANDED_EXPEDITIONS_ARCHIVE.name
+                        or not member.startswith("treasure_expeditions/Data/Ground/")
+                        or entry.get("groundSha256") != source_ground_hashes.get(basename)
+                        or entry.get("rebrandedGroundSha256") != current_ground_hashes.get(basename)):
+                    fail(f"hash source/rebrand incohérent pour {entry.get('entryId')}")
 
     preview = sum(bool(entry.get("previewEligible")) for entry in entries)
     blocked = len(entries) - preview
@@ -235,7 +275,8 @@ def main() -> None:
                                 ["groundMaps", "246", "PASS"], ["segments", "0", "PASS"]]:
             fail("le probe natif de zone standalone ne confirme pas 246 Grounds/0 segment")
 
-    print("PASS — 262 occurrences, 229 hashes Ground distincts, 33 doublons préservés.")
+    print("PASS — 262 occurrences, 229 hashes Ground source distincts, 33 doublons préservés.")
+    print("PASS — 40 payloads sources conservés avec hash d’origine et hash courant rebrandé séparés.")
     print("PASS — 249 sources éligibles; le candidat 246 conserve les 13 blocages et 3 sorties générées absentes.")
     print("PASS — Ground natif overlay 246/246; TileGuide 246/246, 1 059 feuilles, 2 773 093 coordonnées résolues.")
     print("PASS — overlay candidat CRC/assets/provenance vérifiés; aucun Mod.xml de remplacement dans l'overlay.")

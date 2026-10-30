@@ -1,12 +1,12 @@
-# Antre harmonisé V3 — Crooked Cavern / Altere Pond / Métano
+# Antre harmonisé V3 — Crooked Cavern / Altere Pond / Treasure
 
 ## Références effectivement inspectées
 La référence appelée « Altair’s Pond » dans la demande a été identifiée comme **Altere Pond**, nom du lieu et des fichiers dans Halcyon. La carte présente un disque de pierre claire sur l’eau, avec trois pas japonais. Le plancher en bois des versions précédentes est donc remplacé, sans modifier les anciennes livraisons.
 
 - Crooked Cavern : `source/cote_v5_expeditions/audit/Halcyon__crooked_cavern_entrance_layer_0.png` et sa composition ; roche ocre-gris, stratifiée, sombre dans les creux. Il s’agit de la palette de cette référence, pas de l’ancienne variante artificiellement grisée.
 - Altere Pond : carte et neuf atlas téléchargés à partir de Halcyon `working-copy`, commit **1522c7a8b7a34d70078e11ed605b21d563b0dc51**, reconstitués en couches. Hachages et blobs dans `source/antre_harmonie_v3/references/provenance.json`.
-- L’écume d’Altere Pond utilise effectivement **Metano_Town_Animation_Tileset**, dont les ressources natives sont déjà archivées dans `source/eau_metano/natifs/`.
-- Foggy Forest n’est pas utilisé : l’option Métano de la demande est satisfaite via les poses d’écume natives, avec les chutes assemblées dans Altere Pond.
+- L’écume d’Altere Pond utilise effectivement **Treasure_Town_Animation_Tileset**, dont les ressources natives sont déjà archivées dans `source/eau_treasure/natifs/`.
+- Foggy Forest n’est pas utilisé : l’option Treasure de la demande est satisfaite via les poses d’écume natives, avec les chutes assemblées dans Altere Pond.
 
 ## Composition
 480 × 312, **23 calques alignés** :
@@ -20,7 +20,7 @@ Le grand disque est une adaptation plus large, 160 × 106. Les trois pas japonai
 ## Animation native retrouvée — différence importante avec la V2
 La carte fournit des cycles distincts :
 - couche River, chutes : **4 phases**, 10 frames de jeu par pose ;
-- couche Objects Over, écume Métano : **3 phases**, 10 frames de jeu par pose.
+- couche Objects Over, écume Treasure : **3 phases**, 10 frames de jeu par pose.
 
 Le relevé direct `references/timing_proof.json` enregistre les cellules et toutes leurs références de frames. La boucle commune est **12 poses × 10 frames = 120 frames de jeu**, soit **2 secondes à 60 Hz**. Les fichiers WebP arrondissent les horodatages cumulés à la milliseconde : 167/166/167 ms, sans dérive du cycle. Ne pas imposer quatre poses à l’écume.
 

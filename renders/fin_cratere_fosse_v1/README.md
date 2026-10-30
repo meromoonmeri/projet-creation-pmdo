@@ -3,7 +3,7 @@
 Deuxième zone de **fin de donjon** de la série des entrées. Elle fait suite à l'entrée Cratère (ECN1).
 
 - Format 4:3 : 768 × 576 px, soit 96 × 72 cases de 8 px.
-- Référence : `Dark_Crater_Pit_TDS.png`, la vraie fin de Dark Crater dans le jeu. Le décor est un rendu généré avec cette capture en référence. **Ce ne sont pas des tuiles natives**, sauf les éclats : ce sont des pixels de `Metano_Town_River_Sparkles`, recolorés en tons de lave.
+- Référence : `Dark_Crater_Pit_TDS.png`, la vraie fin de Dark Crater dans le jeu. Le décor est un rendu généré avec cette capture en référence. **Ce ne sont pas des tuiles natives**, sauf les éclats : ce sont des pixels de `Treasure_Town_River_Sparkles`, recolorés en tons de lave.
 - Layout :
   - arrivée au sud, par la pointe du plateau (marqueur `entrance`) ;
   - grand plateau de pierre au milieu de la lave (marqueur `boss`) ;
@@ -14,8 +14,8 @@ Deuxième zone de **fin de donjon** de la série des entrées. Elle fait suite �
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | lave | 4 × 10 ticks, lave de l'entrée Cratère (structure de la rivière de Métano) |
-| 01 | eclats | 4 × 10 ticks, éclats de Métano recolorés |
+| 00 | lave | 4 × 10 ticks, lave de l'entrée Cratère (structure de la rivière de Treasure) |
+| 01 | eclats | 4 × 10 ticks, éclats de Treasure recolorés |
 | 02 | bulles | 24 × 5 ticks, bulles de lave de l'entrée Cratère |
 | 03 | sol_complet | fixe |
 | 04 | sol_plateau | fixe |

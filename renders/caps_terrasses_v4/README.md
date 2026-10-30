@@ -1,4 +1,4 @@
-# Dix nouvelles falaises — palette Métano stricte et audit du dessin
+# Dix nouvelles falaises — palette Treasure stricte et audit du dessin
 
 **Bilan : 10 générées, 8 retenues visuellement, 2 à régénérer (07 et 11).** Les couleurs sont contrôlées sur les dix exports ; cela ne rend pas automatiquement leur motif conforme.
 
@@ -31,8 +31,8 @@
 
 Ces fichiers restent visibles pour comprendre le rejet, pas comme des dessins certifiés conformes. La tentative de reprise de 07 a été bloquée par la limite de dix générations dans le tour.
 
-- **07_anse_gauche** : Roche en petits galets verticaux et couronne en chapelet : le motif ne reprend pas la référence Métano. La palette verrouillée ne corrige pas cette erreur de dessin. [PNG corrigé en couleur seulement](07_anse_gauche_terrain.png) · [Sortie brute](bruts/07_anse_gauche.png).
-- **11_corniche_oblique_gauche** : Rebord lisse en double bande et gros blocs trop simplifiés, différents de la couronne et du grain Métano demandés. Ne pas présenter comme une falaise conforme au contrôle de dessin. [PNG corrigé en couleur seulement](11_corniche_oblique_gauche_terrain.png) · [Sortie brute](bruts/11_corniche_oblique_gauche.png).
+- **07_anse_gauche** : Roche en petits galets verticaux et couronne en chapelet : le motif ne reprend pas la référence Treasure. La palette verrouillée ne corrige pas cette erreur de dessin. [PNG corrigé en couleur seulement](07_anse_gauche_terrain.png) · [Sortie brute](bruts/07_anse_gauche.png).
+- **11_corniche_oblique_gauche** : Rebord lisse en double bande et gros blocs trop simplifiés, différents de la couronne et du grain Treasure demandés. Ne pas présenter comme une falaise conforme au contrôle de dessin. [PNG corrigé en couleur seulement](11_corniche_oblique_gauche_terrain.png) · [Sortie brute](bruts/11_corniche_oblique_gauche.png).
 
 ## Audit détaillé et sources
 

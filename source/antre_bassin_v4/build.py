@@ -22,8 +22,8 @@ def compose(ls):
  return im
 # Preserve the approved Crooked-style walls exactly. Do not regenerate their layout.
 rocknames=['02_paroi_fond','03_bordure_gauche','04_bordure_droite','05_rebord_bas'];rocks=[(n,load(OLD/f'harmonie_{n}.png')) for n in rocknames];rock=np.maximum.reduce([np.array(im)[:,:,3] for _,im in rocks])>0
-# Actual8key platform animation from Altere's Objects layer, backed by the Metano atlas.
-path=R/'source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile';size,bank=decode(path);atlas=Image.new('RGBA',(512,1408))
+# Actual8key platform animation from Altere's Objects layer, backed by the Treasure atlas.
+path=R/'source/eau_treasure/natifs/Treasure_Town_Animation_Tileset.tile';size,bank=decode(path);atlas=Image.new('RGBA',(512,1408))
 for (x,y),im in bank.items():atlas.alpha_composite(im,(8*x,8*y))
 mapobj=json.loads((REF/'altere_pond.rsground').read_text(encoding='utf-8-sig'))['Object'];proof=mapobj['Layers'][5]['Tiles'][67][44]['Layers'][0]
 assert proof['FrameLength']==10 and len(proof['Frames'])==8

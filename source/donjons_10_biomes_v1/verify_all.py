@@ -37,7 +37,7 @@ for mode in ['jour','nuit']:
   comp=load(V/mode/f'lake6_{mode}_composition_{p:02}.png');eq(merge([load(path(V,'lake6',n)) for n in m['layer_order']],(504,360)),comp);eq(np.array(comp)[~mask],np.array(load(OLD/mode/f'lake5_{mode}_composition_{p:02}.png'))[~mask])
   for n in preserved:eq(load(path(V,'lake6',n)),load(path(OLD,'lake5',n)))
   for k in [1,3]:
-   fall=np.array(load(path(V,'lake6',f'07_cascade_{k}')))[:,:,3]>0;foam=np.array(load(path(V,'lake6',f'08_ecume_metano_{k}')))[:,:,3]>0;assert nd.label(fall,np.ones((3,3)))[1]==1;assert (fall&foam).any()
+   fall=np.array(load(path(V,'lake6',f'07_cascade_{k}')))[:,:,3]>0;foam=np.array(load(path(V,'lake6',f'08_ecume_treasure_{k}')))[:,:,3]>0;assert nd.label(fall,np.ones((3,3)))[1]==1;assert (fall&foam).any()
   if mode=='nuit':eq(comp,night(load(V/'jour'/f'lake6_jour_composition_{p:02}.png')))
  checkora(V/mode/f'lake6_{mode}.ora')
 # Steam original background exact, layers recompose, night exact per layer (translucent vapor).

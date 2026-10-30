@@ -249,7 +249,7 @@ class PreviewHelpersTest(unittest.TestCase):
         )
         self.assertEqual(
             repo._ora_fallback_for_path(
-                "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_metano_native/EVF1_eau_metano_phase_4.png", context
+                "renders/entree_vallon_fleuri_sud_nord_v1/animation/eau_treasure_native/EVF1_eau_treasure_phase_4.png", context
             )[1],
             "data/layer_02.png",
         )

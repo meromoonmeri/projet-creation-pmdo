@@ -42,7 +42,7 @@ terrain=[(n,load(OLD/f'jour/lake2_jour_{n}.png')) for n in m0['static'] if n.sta
 platform=[(n,load(OLD/f'jour/lake2_jour_{n}.png')) for n in m0['static'] if n.startswith(('10_','11_'))]
 contacts=[n for n in m0['animated'] if n.startswith('12_')]
 refs=R/'source/antre_harmonie_v3/references';foams=[load(refs/f'ecume_native_{p}.png') for p in range(3)]
-for p,im in enumerate(foams):im.save(S/f'lake4_ecume_metano_native_{p}.png')
+for p,im in enumerate(foams):im.save(S/f'lake4_ecume_treasure_native_{p}.png')
 def layers(p):
  ls=[('01_eau_anneaux',load(OLD/f'jour/lake2_jour_01_eau_anneaux_{p:02}.png'))]+terrain+cliffs
  for k,ch in enumerate(channels):
@@ -51,7 +51,7 @@ def layers(p):
   ls.append((f'07_cascade_{k+1}',Image.fromarray(ar)))
  for k,ch in enumerate(channels):
   cx,bottom=ch['foot'];# Native 96x56 motif, same pixels, no resizing/recoloring/cropping.
-  ls.append((f'08_ecume_metano_{k+1}',full(foams[p%3],(cx-48,bottom-14))))
+  ls.append((f'08_ecume_treasure_{k+1}',full(foams[p%3],(cx-48,bottom-14))))
  ls += [(n,load(OLD/f'jour/lake2_jour_{n}_{p:02}.png')) for n in contacts]+platform
  return ls
 order=[n for n,_ in layers(0)];static=[n for n,_ in terrain+cliffs+platform];animated=[n for n in order if n not in static];frames={}
@@ -70,7 +70,7 @@ for mode in ['jour','nuit']:
      fn=f'data/{i}.png';z.writestr(fn,png(l));ET.SubElement(stack,'layer',name=n,src=fn,x='0',y='0',opacity='1.0',visibility='visible',**{'composite-op':'svg:src-over'})
     z.writestr('stack.xml',ET.tostring(root));z.writestr('mergedimage.png',png(im))
  frames[mode][0].save(P/'ANIMATION.webp',save_all=True,append_images=frames[mode][1:],duration=dur,lossless=True,loop=0)
-manifest=dict(size=[W,H],frames=N,durations_ms=dur,loop_ms=sum(dur),layer_order=order,static=static,animated=animated,source=m0['source'],parent='waterfall_lake_trois_v2',cascade_count=3,channels=[dict(foot=c['foot'],top=c['top'],width=c['width']) for c in channels],rock='Generated dry semicircular layout and texture inspired by original; nearest original rock colors. Not native tiles.',water='Separate generated guide registered to outlets; original GBA 76x48 material advected down 2px per pose; reconstructed animation.',foam='Exact native96x56 Metano foam from Altere Objects Over,3poses/10ticks, translated only; no recoloring or resampling in day.',native_reference_commit='1522c7a8b7a34d70078e11ed605b21d563b0dc51',runtime_validated=False)
+manifest=dict(size=[W,H],frames=N,durations_ms=dur,loop_ms=sum(dur),layer_order=order,static=static,animated=animated,source=m0['source'],parent='waterfall_lake_trois_v2',cascade_count=3,channels=[dict(foot=c['foot'],top=c['top'],width=c['width']) for c in channels],rock='Generated dry semicircular layout and texture inspired by original; nearest original rock colors. Not native tiles.',water='Separate generated guide registered to outlets; original GBA 76x48 material advected down 2px per pose; reconstructed animation.',foam='Exact native96x56 Treasure foam from Altere Objects Over,3poses/10ticks, translated only; no recoloring or resampling in day.',native_reference_commit='1522c7a8b7a34d70078e11ed605b21d563b0dc51',runtime_validated=False)
 (O/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 def uri(b,mime='image/png'):return 'data:'+mime+';base64,'+base64.b64encode(b).decode()
 data={}
@@ -84,6 +84,6 @@ for mode in frames:
  data[mode]=items
 extras=[('Original',R/m0['source']),('Sélection : demi-cercle sans les chutes',O/'GUIDE_LAYOUT_504.png'),('Nouveau relief sans eau',S/'lake4_falaise_seule.png')]+[(p.stem,p) for p in sorted((O/'origine_decomposee').glob('origine_*.png'))]
 data['étapes']=[dict(name=n,src=uri(p.read_bytes())) for n,p in extras]
-html='''<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Waterfall Lake V4 · demi-cercle</title><style>body{background:#172c32;color:#eef3e6;font:16px system-ui;max-width:1080px;margin:32px auto;padding:0 20px}p{line-height:1.6}img{image-rendering:pixelated;width:1008px;max-width:100%;background:repeating-conic-gradient(#294b51 0 25%,#365a60 0 50%) 0/16px 16px}select{padding:10px;margin:8px;background:#355863;color:white}a{color:#b9e9db}</style><h1>Waterfall Lake V4 — grand demi-cercle</h1><p>Original décomposé → relief seul → trois cascades raccordées → écume native Métano. Nouveau massif continu au fond et sur les côtés ; accès sud, disque d’Altere, pas japonais et animation douce du lac conservés.</p><select id="mode"><option>jour</option><option>nuit</option><option>étapes</option></select><select id="sel"></select><br><img id="view" alt="Aperçu du nouveau demi-cercle"><p>Roche générée d’après la référence GBA, palette originale : pas des tuiles natives. Matière des chutes issue de l’original, animation reconstruite. Écume Métano : trois poses natives, sans redimensionnement. Filtre nocturne exact Abyss. Aucun test PMDO.</p><script>const data='''+json.dumps(data)+''';function setup(){sel.replaceChildren();data[mode.value].forEach((x,i)=>sel.add(new Option(x.name,i)));view.src=data[mode.value][0].src}mode.onchange=setup;sel.onchange=()=>view.src=data[mode.value][+sel.value].src;setup();</script></html>'''
+html='''<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Waterfall Lake V4 · demi-cercle</title><style>body{background:#172c32;color:#eef3e6;font:16px system-ui;max-width:1080px;margin:32px auto;padding:0 20px}p{line-height:1.6}img{image-rendering:pixelated;width:1008px;max-width:100%;background:repeating-conic-gradient(#294b51 0 25%,#365a60 0 50%) 0/16px 16px}select{padding:10px;margin:8px;background:#355863;color:white}a{color:#b9e9db}</style><h1>Waterfall Lake V4 — grand demi-cercle</h1><p>Original décomposé → relief seul → trois cascades raccordées → écume native Treasure. Nouveau massif continu au fond et sur les côtés ; accès sud, disque d’Altere, pas japonais et animation douce du lac conservés.</p><select id="mode"><option>jour</option><option>nuit</option><option>étapes</option></select><select id="sel"></select><br><img id="view" alt="Aperçu du nouveau demi-cercle"><p>Roche générée d’après la référence GBA, palette originale : pas des tuiles natives. Matière des chutes issue de l’original, animation reconstruite. Écume Treasure : trois poses natives, sans redimensionnement. Filtre nocturne exact Abyss. Aucun test PMDO.</p><script>const data='''+json.dumps(data)+''';function setup(){sel.replaceChildren();data[mode.value].forEach((x,i)=>sel.add(new Option(x.name,i)));view.src=data[mode.value][0].src}mode.onchange=setup;sel.onchange=()=>view.src=data[mode.value][+sel.value].src;setup();</script></html>'''
 (R/'apercu_waterfall_lake_demi_cercle_v4.html').write_text(html)
 print('Built',len(order),'layers,48scenes')

@@ -140,7 +140,7 @@ manifest={'reference':'Palikadude/Halcyon','commit':'da6c2130d641507447e6386a5e4
 # Main before/after PNG comparison; imports use only the native files in each zone directory.
 fp='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';font=ImageFont.truetype(fp,26);small=ImageFont.truetype(fp,15)
 board=Image.new('RGB',(1600,1480),'#1b2e27');d=ImageDraw.Draw(board)
-d.text((26,22),'GÉNÉRATEUR → TUILES CANONIQUES DE MÉTANO',font=font,fill='#ecd99e')
+d.text((26,22),'GÉNÉRATEUR → TUILES CANONIQUES DE TREASURE',font=font,fill='#ecd99e')
 d.text((26,66),'À gauche : proposition générée. À droite : reconstruction en vraies tuiles de 8 × 8 px.',font=small,fill='#b4c8b0')
 for i,rec in enumerate(records):
     y=112+i*644

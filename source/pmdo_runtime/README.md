@@ -11,7 +11,7 @@
 
 Le ZIP est téléchargé comme blob Git par l’API GitHub : cela évite l’hôte des releases qui échouait. Les fichiers `PMDO/PMDO` directement présents dans le dépôt sont des pointeurs LFS ; c’est bien l’archive complète qui a été utilisée.
 
-Installation locale, ignorée par Git : `.cache/pmdo-runtime/engine/PMDO/`.
+Installation locale, ignorée par Git : `.cache/pmdo-runtime/engine/PMDO/`. Cette installation avait servi aux probes historiques ci-dessous; le cache est absent du workspace au 30 octobre 2026. Ne pas supposer qu’il est disponible pour relancer les tests sans le restaurer.
 
 ## Ressources de base
 
@@ -41,7 +41,7 @@ Le crash graphique n’est pas encore diagnostiqué. L’absence d’un environn
 DataManager.Instance:GetGround(assetName)
 ```
 
-Ce n’est plus le lecteur Python de JSON : le chargeur, le binder et les callbacks de désérialisation sont ceux du binaire PMDO 0.8.12. Les vingt cartes du pack `cotes_metano_abyss_0812_pmdo.zip` ont été chargées.
+Ce n’est plus le lecteur Python de JSON : le chargeur, le binder et les callbacks de désérialisation sont ceux du binaire PMDO 0.8.12. Les vingt cartes du pack `cotes_treasure_abyss_0812_pmdo.zip` ont été chargées.
 
 Assertions : carte non nulle, dimensions attendues, `TexSize=1`, neuf calques, présence d’un calque d’entités. Le hook initialise `GraphicsManager.DungeonTexSize=3`, valeur nécessaire à la reconstruction de la grille de collision normalement initialisée avec les graphismes. **Il n’initialise pas de GPU et ne charge pas les textures dans le moteur graphique.** Il quitte ensuite le processus, avant la génération du guide.
 
@@ -120,4 +120,16 @@ Résultat : **5/5 Grounds chargés** (96×72; 7, 8, 7, 7 et 9 calques), 33 nœud
 
 Ce probe ne teste **pas** l’initialisation GPU, le rendu visuel, la fidélité collisions/dessin, les collisions en jeu, le spawn, la navigation, l’éditeur ou les transitions. Les cartes reconstruites conservent `artApproved: false` et `playabilityCertified: false`.
 
-L’inventaire [`../pmdo_cote/destiny_262_inventory.json`](../pmdo_cote/destiny_262_inventory.json) réconcilie 126 ZIP + 39 chemins de branche + 97 Grounds générés = **262 occurrences**, 229 hashes Ground distincts et 33 occurrences dupliquées conservées. Le package Quest autonome `destiny` contient les 246 Grounds disponibles et sa zone `exploration_cartes` passe le probe natif. Treize occurrences restent bloquées par leurs assets source et `generated_002/007/029` n’ont toujours pas de Ground de sortie; le final 262 et l’installation dans le PMDO utilisateur restent en attente.
+L’inventaire [`../pmdo_cote/destiny_262_inventory.json`](../pmdo_cote/destiny_262_inventory.json) réconcilie 126 ZIP + 39 chemins de branche + 97 Grounds générés = **262 occurrences**, 229 hashes Ground distincts et 33 occurrences dupliquées conservées. Le package Quest autonome `destiny` contient les 246 Grounds disponibles et sa zone `exploration_cartes` passe le probe natif. Treize occurrences restent bloquées par leurs assets source et `generated_002/007/029` n’ont toujours pas leurs Grounds originaux exacts; des candidates non exactes passent le probe Ground et restent séparées. Le final 262 et l’installation dans le PMDO utilisateur restent en attente.
+
+## Destiny — sources des 13 Grounds de branche et 3 candidates non exactes
+
+`source/pmdo_cote/recover_missing16_sources.py` récupère 13 payloads Ground de branche depuis leurs Git blobs d’origine et compare leurs SHA-256, tailles, Version, grille et couches à l’inventaire. Le bundle [`PMD_Destiny_13_Exact_Branch_Ground_Sources.zip`](../../exports/pmdo/PMD_Destiny_13_Exact_Branch_Ground_Sources.zip) conserve les 13 occurrences séparées, les trois paires de doublons et la provenance. Le TSV historique rapporte **13/13 PASS** dans le vrai PMDO 0.8.12.0 en un lot, `Ground.Version=0.8.12.0`, `TexSize=1` par carte et `GraphicsManager.DungeonTexSize=3`.
+
+**Limite sur l’archive courante :** l’empreinte `input_sha256` du TSV ne correspond pas au SHA-256 du ZIP actuel. Les treize hashes Ground individuels correspondent au manifeste actuel, mais cela ne valide pas le conteneur/manifest courant. Au 30 octobre 2026, le cache PMDO est absent et le ZIP actuel n’a pas été reprobé. Le TSV reste un résultat historique pour les payloads Ground identiques, non un test du ZIP courant.
+
+Les TileSheets restent incomplètes et les treize cartes ne sont pas installées dans `destiny`. Un probe TileGuide **candidate-only** a toutefois été enregistré pour `branch_011` : index temporaire de 10 nœuds, Ground 138×98 / 4 calques / `TexSize=1`, **9 432 coordonnées résolues, 0 absente**, avec `GraphicsManager.DungeonTexSize=3`. Il ne certifie ni les payloads des feuilles, ni le rendu, ni les collisions dessinées ou la jouabilité; les quatre associations terrain restent inférées. Aucun TileGuide complet n’est revendiqué pour les 13 occurrences.
+
+Le ZIP distinct [`PMD_Destiny_3_NonExact_Generated_Ground_Candidates.zip`](../../exports/pmdo/PMD_Destiny_3_NonExact_Generated_Ground_Candidates.zip) contient une variante publique AGM2 et les rebuilds EKR/FKR avec inputs historiques exacts mais hashes Ground divergents. Le TSV historique indique **3/3 PASS** au probe Ground natif (lot de 20 au maximum, `GraphicsManager.DungeonTexSize=3`); les trois hashes Ground individuels correspondent aux candidates du ZIP actuel, mais le `input_sha256` diffère et le ZIP courant n’a pas été reprobé. Ces candidates ne remplacent pas les trois sorties originales attendues et ne sont pas intégrées.
+
+Détails, empreintes courantes, correspondances Halcyon par occurrence, sources terrain et limites : [`source/pmdo_cote/DESTINY_16_RECOVERY.md`](../pmdo_cote/DESTINY_16_RECOVERY.md) et [`source/pmdo_cote/DESTINY_16_TILE_SOURCE_AUDIT.json`](../pmdo_cote/DESTINY_16_TILE_SOURCE_AUDIT.json). L’inventaire des 262 occurrences, leur provenance et leurs doublons restent inchangés.

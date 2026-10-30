@@ -1,4 +1,4 @@
-"""Tests dédiés — Entrée Vapeur sud -> nord V2 (eau façon Métano + bulles).
+"""Tests dédiés — Entrée Vapeur sud -> nord V2 (eau façon Treasure + bulles).
 .venv/bin/python -m unittest source.entree_vapeur_sud_nord_v2.test_build -v
 Contrôles d'images, de formats, de cadence et de grille : PAS un test du moteur PMDO.
 """
@@ -31,7 +31,7 @@ def statics():
 
 
 def water():
-    return [load(O / f'animation/eau/ESN2_00_eau_metano_f{t}.png') for t in range(WP)]
+    return [load(O / f'animation/eau/ESN2_00_eau_treasure_f{t}.png') for t in range(WP)]
 
 
 def sparks():
@@ -43,8 +43,8 @@ def bubbles():
 
 
 class Build(unittest.TestCase):
-    def test_cadence_matches_metano(self):
-        anim = json.loads((R / 'source/eau_metano/animations_carte.json').read_text())
+    def test_cadence_matches_treasure(self):
+        anim = json.loads((R / 'source/eau_treasure/animations_carte.json').read_text())
         txt = json.dumps(anim)
         self.assertIn('"FrameLength": 10', txt.replace('"FrameLength":10', '"FrameLength": 10'))
         self.assertEqual((WP, M['water']['frame_length_ticks']), (4, 10))
@@ -67,7 +67,7 @@ class Build(unittest.TestCase):
             vis = a[a[..., 3] > 0].astype(int)
             self.assertEqual(int(((vis[:, 0] > 200) & (vis[:, 2] > 200) & (vis[:, 1] < 90)).sum()), 0)
 
-    def test_water_metano_structure_and_loop(self):
+    def test_water_treasure_structure_and_loop(self):
         fr = water(); mask = fr[0][..., 3] == 255
         pal = {tuple(v) for v in M['water']['couleurs'].values()}
         for a in fr:
@@ -76,7 +76,7 @@ class Build(unittest.TestCase):
         self.assertEqual(mask.sum(), (np.array(Image.open(V1 / 'masques/ESN1_masque_eau_complete.png')) > 0).sum())
         d = [int((fr[t][mask] != fr[(t + 1) % WP][mask]).any(1).sum()) for t in range(WP)]
         self.assertTrue(min(d) > 0 and max(d) < 2 * min(d), d)          # 3 -> 0 aussi homogène que les autres
-        # l'aplat domine comme dans Métano (surface ~ 81 % des pixels opaques Métano)
+        # l'aplat domine comme dans Treasure (surface ~ 81 % des pixels opaques Treasure)
         surf = (fr[0][mask][:, :3] == M['water']['couleurs']['surface']).all(1).mean()
         self.assertGreater(surf, 0.5)
 

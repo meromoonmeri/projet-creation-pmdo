@@ -53,7 +53,7 @@ Atlas WebP **lossless**, 8 colonnes. `manifest.json` donne pour chaque piste `fi
 - `controle_sol.png` est un masque chromatique de vérification, **pas une collision moteur**. Des pixels de sable peuvent subsister dans des anfractuosités de bord non déclarées comme ports ; bloquer les limites hors accès lors du paramétrage des collisions.
 - Les bandes centrales de sable se raccordent exactement. **Tous les contours rocheux de la jonction ne sont pas certifiés seamless** ; inspection à 1× et ajustements moteur restent nécessaires. La carte 03 conserve quelques ombres brunes plus plates et des roches plus massives.
 - Les calques sont des partitions de **surfaces visibles**, pas des objets natifs complets. Le groupe végétal isole principalement le feuillage ; certains troncs/ombres peuvent rester dans les surfaces minérales. Les dessous cachés ne sont pas reconstruits.
-- Les compositions générées 1024² sont ramenées uniformément à 512² en nearest-neighbour, puis quantifiées dans la palette de `DSVFS.png`. Les raccords utilisent le prélèvement `(296,168)–(392,216)`, transposé/inversé selon les accès et précomposé dans la transition. **Ce pipeline n’est pas la filière Métano native pixel-identique** et ne doit pas être présenté comme telle.
+- Les compositions générées 1024² sont ramenées uniformément à 512² en nearest-neighbour, puis quantifiées dans la palette de `DSVFS.png`. Les raccords utilisent le prélèvement `(296,168)–(392,216)`, transposé/inversé selon les accès et précomposé dans la transition. **Ce pipeline n’est pas la filière Treasure native pixel-identique** et ne doit pas être présenté comme telle.
 
 ## Provenance, reconstruction et vérifications
 

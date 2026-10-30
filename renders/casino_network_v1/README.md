@@ -59,7 +59,7 @@ Référence épinglée : **Palikadude/Halcyon**, commit `da6c2130d641507447e6386
 
 `flammes_provenance.json` donne hashes, cellules et tracks complets. `animations/` contient les quatre braseros entiers de contrôle et les quatre PNG de flamme. `objets/brasero_support.png` est le support séparé. Tous sont des PNG à alpha binaire.
 
-Krow Bank est repris sans modification depuis l’étude native précédente, qui identifie Murkrow via `Bank_Owner` dans les scripts Métano. Les sources et crédits ne sont pas remplacés par une revendication de création native originale. Ressources PMD : auteurs/contributeurs Halcyon et ayants droit concernés ; présence publique ne signifie pas licence générale de redistribution libre.
+Krow Bank est repris sans modification depuis l’étude native précédente, qui identifie Murkrow via `Bank_Owner` dans les scripts Treasure. Les sources et crédits ne sont pas remplacés par une revendication de création native originale. Ressources PMD : auteurs/contributeurs Halcyon et ayants droit concernés ; présence publique ne signifie pas licence générale de redistribution libre.
 
 ## Contrôles du viewer
 

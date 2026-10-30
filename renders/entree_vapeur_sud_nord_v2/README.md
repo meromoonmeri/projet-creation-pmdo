@@ -1,6 +1,6 @@
 # ESN2 — Entrée Vapeur sud → nord, V2
 
-Demande : « pour l'animation d'eau fait quelque chose comme metano town river ! et fait des animation bulle genere les cohérente a l'eau qui éclate car c'est un peu marécageux ».
+Demande : « pour l'animation d'eau fait quelque chose comme treasure town river ! et fait des animation bulle genere les cohérente a l'eau qui éclate car c'est un peu marécageux ».
 
 - Aperçu : `apercu_entree_vapeur_sud_nord_v2.html` à la racine, ou `review/ESN2_scene_animee.webp`.
 - Pack PMDO 0.8.12 : `ESN2_projet_pmdo_0812.zip` (mode d'emploi dans `README.md` du pack).
@@ -11,9 +11,9 @@ Demande : « pour l'animation d'eau fait quelque chose comme metano town river !
 
 | | V1 | V2 |
 |---|---|---|
-| Eau | palette cycling générée, 12 × 10 ticks | structure rivière Métano : aplat, bande sombre de 4 px, 1 px intermédiaire, frange dentelée, lèvre claire ; 4 × 10 ticks |
-| Ombres de berge | calque translucide | retiré (la bande Métano le remplace) |
-| Scintillements | — | 8 amas, pixels `Metano_Town_River_Sparkles` recolorés, 4 × 10 ticks, synchrones comme à Métano |
+| Eau | palette cycling générée, 12 × 10 ticks | structure rivière Treasure : aplat, bande sombre de 4 px, 1 px intermédiaire, frange dentelée, lèvre claire ; 4 × 10 ticks |
+| Ombres de berge | calque translucide | retiré (la bande Treasure le remplace) |
+| Scintillements | — | 8 amas, pixels `Treasure_Town_River_Sparkles` recolorés, 4 × 10 ticks, synchrones comme à Treasure |
 | Bulles | — | 9 émetteurs générés, décalés, 24 × 5 ticks |
 | Terrain | — | identique (7 calques V1 relus, vérifiés égaux au pixel) |
 
@@ -24,7 +24,7 @@ Transition dernière → première : la phase 23 est au repos pour un émetteur 
 
 ## Honnêteté des sources
 
-- **Eau** : la cadence (FrameLength 10, 4 phases) a été vérifiée dans `source/eau_metano/animations_carte.json` (Halcyon, da6c2130). Le profil de bande a été mesuré sur les 4 feuilles Métano (valeurs dans le manifeste). Les pixels sont recalculés : **pas des tuiles Métano natives**.
-- **Scintillements** : pixels Métano réels, couleurs transposées, positions nouvelles. La famille 16×32 n'a pas trouvé de place.
+- **Eau** : la cadence (FrameLength 10, 4 phases) a été vérifiée dans `source/eau_treasure/animations_carte.json` (Halcyon, da6c2130). Le profil de bande a été mesuré sur les 4 feuilles Treasure (valeurs dans le manifeste). Les pixels sont recalculés : **pas des tuiles Treasure natives**.
+- **Scintillements** : pixels Treasure réels, couleurs transposées, positions nouvelles. La famille 16×32 n'a pas trouvé de place.
 - **Bulles** : `bruts/bulles_8_poses.png` a été généré. Il a été reçu en 2 × 6 cases au lieu de 1 × 8, avec des doublons, et le disque sombre a été écarté. La pose tension a été recomposée (dôme + gouttelettes), les anneaux recolorés, et l'anneau final dérivé. Toutes les poses ont été réduites de façon uniforme (×0,1).
 - Aucun test PMDO en jeu. Art non validé.

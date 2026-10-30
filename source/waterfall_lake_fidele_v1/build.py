@@ -64,8 +64,8 @@ for phase in range(3):
    if 0<=ny<H and water[ny,x]:a[ny,x]=base[y,x]
  # Keep a small original attachment region at the impact's back edge.
  back=foam&(yy<OY+64);a[back]=base[back];foamframes.append(Image.fromarray(a))
-# Native Altere/Metano platform: original8poses, separate immobile stone surfaces and moving water.
-size,bank=decode(R/'source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile');atlas=Image.new('RGBA',(512,1408))
+# Native Altere/Treasure platform: original8poses, separate immobile stone surfaces and moving water.
+size,bank=decode(R/'source/eau_treasure/natifs/Treasure_Town_Animation_Tileset.tile');atlas=Image.new('RGBA',(512,1408))
 for (x,y),tile in bank.items():atlas.alpha_composite(tile,(x*8,y*8))
 platform_native=[np.array(atlas.crop((112*(p%4),984+144*(p//4),112*(p%4)+112,1128+144*(p//4)))) for p in range(8)]
 a=platform_native[0];r,g,b=a[:,:,:3].astype(float).transpose(2,0,1);stone=(a[:,:,3]>0)&(r>=g*.8);labels,n=nd.label(stone,np.ones((3,3)));assert n==4

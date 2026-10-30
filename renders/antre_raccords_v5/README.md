@@ -3,13 +3,13 @@
 Révision de détail de V4, sans nouvelle génération des parois ou de la plateforme. Les anciens livrables restent inchangés.
 
 ## Corrections
-### Bassin plus subtil, dans la palette Métano/Altere
+### Bassin plus subtil, dans la palette Treasure/Altere
 Le fond retrouve le bleu natif **RGB 131,218,230**. Les quatre poses de rides générées en V4 sont conservées mais leur contraste est ramené à 12 % de l’écart initial, avec un écart final limité à −12/+10 par canal. Les rides ne se déplacent plus visuellement par grandes différences de teinte. Leur modulation est supprimée à moins de 3 px du sec pour ne pas faire scintiller les contacts.
 
 La variation RGB moyenne entre poses successives sur l’eau passe de 1,462 à 0,111 (sur une échelle 0–255), soit environ 92 % de réduction. Cette mesure concerne le bassin seul, pas les cascades ni les écumes. Le bassin reste une adaptation artistique de poses générées, **pas un nouvel extrait animé natif**.
 
 ### Écumes attachées au layout
-Les trois poses natives Métano déjà adaptées à la taille des chutes sont maintenant ajustées à chaque poche d’eau : leurs rangées sont comprimées/décalées selon les contours réels de la rive, plutôt que simplement coupées contre les piliers. La déformation géométrique est fixe entre poses pour éviter que toute la nappe ne saute de place.
+Les trois poses natives Treasure déjà adaptées à la taille des chutes sont maintenant ajustées à chaque poche d’eau : leurs rangées sont comprimées/décalées selon les contours réels de la rive, plutôt que simplement coupées contre les piliers. La déformation géométrique est fixe entre poses pour éviter que toute la nappe ne saute de place.
 
 Un petit cœur d’impact persistant relie la chute à la nappe d’écume. Les composantes blanches qui ne rejoignent pas ce contact sont retirées. Chaque composante visible d’écume touche effectivement sa cascade dans chacun des 24 états. Cela corrige les fragments détachés et les terminaisons coupées constatés près des piliers.
 
@@ -43,7 +43,7 @@ Le vérificateur teste les 24 recompositions opaques et le retour des cycles 4/3
 
 Plusieurs états, dont le dernier, ont aussi été inspectés visuellement. Ces contrôles ciblés ne signifient pas que chaque défaut artistique possible est exclu. **Pas de test de rendu, de collisions ou de combat dans PMDO.** L’eau n’est pas une simulation de fluides.
 
-Les références natives et leurs droits restent ceux décrits dans V4 : Altere Pond, Halcyon commit `1522c7a8b7a34d70078e11ed605b21d563b0dc51`, atlas Métano archivé localement. Les deux bruts générés de V4 sont réutilisés, pas régénérés pour V5.
+Les références natives et leurs droits restent ceux décrits dans V4 : Altere Pond, Halcyon commit `1522c7a8b7a34d70078e11ed605b21d563b0dc51`, atlas Treasure archivé localement. Les deux bruts générés de V4 sont réutilisés, pas régénérés pour V5.
 
 Depuis la racine, avec Pillow, NumPy et SciPy :
 ```sh

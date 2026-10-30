@@ -9,7 +9,7 @@ import uuid
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 PACK=Path.home()/'.cache/cote_v4_abyss_pack'
-NAMESPACE='cotes_metano_abyss_0812'
+NAMESPACE='cotes_treasure_abyss_0812'
 
 
 def main():
@@ -20,12 +20,13 @@ def main():
         with path.open('rb') as f:nodes[path.stem]=tools.read_node(f)
     assert len(nodes)==4
     (PACK/'Content/Tile/index.idx').write_bytes(tools.encode_index(nodes))
-    ident=uuid.uuid5(uuid.NAMESPACE_URL,'https://github.com/meromoonmeri/guilde-treehouse-pmd/cotes_metano_abyss_0812')
+    # Keep the existing stable mod UUID while the public namespace is rebranded.
+    ident=uuid.UUID('0d09cdb2-4a34-557e-8839-cb96742bc98d')
     (PACK/'Mod.xml').write_text(f'''<?xml version="1.0" encoding="utf-8"?>
 <Header>
-  <Name>Cotes Metano Abyss - Atelier 0.8.12</Name>
+  <Name>Cotes Treasure Abyss - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : 10 terrains V2, roche Metano native, jour et nuit. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : 10 terrains V2, roche Treasure native, jour et nuit. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>

@@ -78,9 +78,9 @@ Distances entre couleurs moyennes RGB, avec le même classifieur de pixels des d
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | eau du lac | structure rivière Métano (bande, frange dentelée, accent, aplat, onde voyageuse), **couleurs exactes du rip** : aplat (39,39,95), bande (55,55,111), accent (63,63,119) | 4 × 10 ticks |
+| 00 | eau du lac | structure rivière Treasure (bande, frange dentelée, accent, aplat, onde voyageuse), **couleurs exactes du rip** : aplat (39,39,95), bande (55,55,111), accent (63,63,119) | 4 × 10 ticks |
 | 01 | lueur | cœur (31,223,167) et 8 anneaux de 4 px aux couleurs exactes du rip ; le cœur respire (± 4 %) et son bord ondule (5 lobes qui tournent) | 12 × 10 ticks |
-| 02 | scintillements | pixels Métano natifs (6 groupes), posés sur le cœur de la lueur | 4 × 10 ticks |
+| 02 | scintillements | pixels Treasure natifs (6 groupes), posés sur le cœur de la lueur | 4 × 10 ticks |
 | 03 | gouttes | 10 poses générées, 8 points de chute | 24 × 5 ticks |
 | 04 | sol complet | sable généré (les parois du brut restent dessous) | — |
 | 05 | sable | chemin, plage et chaussée praticables | — |

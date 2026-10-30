@@ -3,9 +3,9 @@
 Même méthode que l'Entrée Vapeur : décor complet généré sur magenta (lave = magenta), sol complet
 généré séparément, normalisation uniforme exacte x0,5 (848x1264 -> 424x632), moyenne 2x2 par classe.
 Animations, chacune sur son calque :
-- lave « façon rivière Métano » : structure/cadence Métano (4 phases x 10 ticks) recalculée sur nos mares,
+- lave « façon rivière Treasure » : structure/cadence Treasure (4 phases x 10 ticks) recalculée sur nos mares,
   palette tirée de la matière de lave générée (bruts/lave_matiere.png) ;
-- éclats : pixels réels Metano_Town_River_Sparkles recolorés en tons de lave, 4 x 10 ticks ;
+- éclats : pixels réels Treasure_Town_River_Sparkles recolorés en tons de lave, 4 x 10 ticks ;
 - bulles de lave : planche générée 2 x 6 (12 poses distinctes), 24 phases x 5 ticks, émetteurs décalés ;
 - braises des roches : pixels orange du décor, pulsation créée 6 phases x 10 ticks.
 Scène complète : PPCM 120 ticks = 2 s.
@@ -34,10 +34,10 @@ BUBBLE_PHASES, BUBBLE_TICKS = 24, 5
 LOOP_TICKS = 120
 CELL = 24
 PALETTE_COLORS = 96
-METANO_SPARK = R / 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile'
+TREASURE_SPARK = R / 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile'
 M_SURFACE = (131, 218, 230)
 
-# Palette de lave : teintes de la matière générée (quantification 8 couleurs), rôles et ordre Métano.
+# Palette de lave : teintes de la matière générée (quantification 8 couleurs), rôles et ordre Treasure.
 PAL = {'lip': (70, 20, 26), 'bande': (120, 26, 22), 'inter': (194, 40, 8), 'accent': (232, 72, 6),
        'surface': (246, 108, 10), 'chaud': (252, 150, 12), 'jaune': (253, 184, 30), 'clair': (253, 227, 121)}
 
@@ -124,7 +124,7 @@ def quantize_layers(layers):
     return out
 
 
-# ---------------------------------------------------------------- lave façon Métano
+# ---------------------------------------------------------------- lave façon Treasure
 def hash_noise(seed):
     return nd.gaussian_filter(np.random.default_rng(seed).random((H, W)), 1.0)
 
@@ -152,7 +152,7 @@ def lava_phases(lava, visible):
 
 def sparkle_families():
     v2 = loadmod('esn2_tiles', R / 'source/entree_vapeur_sud_nord_v2/build.py')
-    t = v2.decode_tile(METANO_SPARK)
+    t = v2.decode_tile(TREASURE_SPARK)
 
     def cluster(cols, rows, step):
         out = []
@@ -251,8 +251,8 @@ def cell_grid(block):
 def ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     order = [('track', t) for t in tracks[:2]] + [('static', ('sol_complet', static['sol_complet']))] + \
             [('track', tracks[2])] + [('static', (k, v)) for k, v in static.items() if k != 'sol_complet'] + [('track', tracks[3])]
@@ -279,7 +279,7 @@ def ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Cratere - sud vers nord', 'LocalTexts': {}}, AssetName=ASSET, Released=False,
              TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0}, ActiveChar=None, Status={},
              Layers=layers, Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere (ref. Dark Crater) ; lave facon riviere Metano, eclats Metano recolores, '
+             Comment='PMDO 0.8.12. Rendu genere (ref. Dark Crater) ; lave facon riviere Treasure, eclats Treasure recolores, '
                      'bulles de lave generees, braises pulsees. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -458,7 +458,7 @@ def build():
     ora = {'00_lave_f0': lf[0], '01_eclats_f0': sf[0], '02_sol_complet': layers['sol_complet'], '03_bulles_f00': bf[0],
            **{f'{numbers[k]:02d}_{k}': layers[k] for k in static_order[1:]}, '08_braises_f0': ef[0]}
     write_ora(OUT / f'{PFX}_entree_cratere_calques.ora', ora)
-    tracks = [('Lave facon riviere Metano 4 phases', lf, LAVA_TICKS), ('Eclats Metano recolores 4 phases', sf, LAVA_TICKS),
+    tracks = [('Lave facon riviere Treasure 4 phases', lf, LAVA_TICKS), ('Eclats Treasure recolores 4 phases', sf, LAVA_TICKS),
               ('Bulles de lave 24 phases', bf, BUBBLE_TICKS), ('Braises pulsees 6 phases', ef, EMBER_TICKS)]
     _, counts = ground_project(tracks, {k: layers[k] for k in static_order}, blocked, entry_px, threshold_px, gfx, tools)
     order = ([f'animation/lave/{PFX}_00_lave_fX.png', f'animation/eclats/{PFX}_01_eclats_fX.png', f'calques/{files["sol_complet"]}',
@@ -476,10 +476,10 @@ def build():
                         'bouche = pixels < 30 dans la cavite ; rebords = roche a < 22 px de la lave dans la moitie sud ; braises = orange sur roche',
         'layer_order_bottom_to_top': order,
         'lava': {'phases': LAVA_PHASES, 'frame_length_ticks': LAVA_TICKS, 'couleurs': {k: list(v) for k, v in PAL.items()},
-                 'modele': 'structure et cadence de la riviere Metano (comme ESN2), recalculees sur nos mares ; palette de la matiere generee',
+                 'modele': 'structure et cadence de la riviere Treasure (comme ESN2), recalculees sur nos mares ; palette de la matiere generee',
                  'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels Metano reels recolores en tons de lave par luminance'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels Treasure reels recolores en tons de lave par luminance'},
         'bubbles': {'brut': 'source/entree_cratere_sud_nord_v1/bruts/bulles_lave_poses.png', 'poses': [p[0] for p in PICKS],
                     'reduction': 'fenetre 288 px -> 24 px (x1/12) identique, base commune par rangee, palette de lave',
                     'timeline_phases': BUBBLE_TIMELINE, 'phases': BUBBLE_PHASES, 'frame_length_ticks': BUBBLE_TICKS,

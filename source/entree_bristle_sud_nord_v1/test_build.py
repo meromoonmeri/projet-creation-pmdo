@@ -58,12 +58,12 @@ class Build(unittest.TestCase):
             cover |= frames[0][..., 3] == 255
         self.assertTrue(cover.all())
 
-    def test_water_metano_colors_and_loop(self):
+    def test_water_treasure_colors_and_loop(self):
         fr = STACK[0]; mask = fr[0][..., 3] == 255
-        metano = {(131, 218, 230), (87, 135, 191), (95, 183, 207), (111, 207, 231), (148, 230, 238)}
+        treasure = {(131, 218, 230), (87, 135, 191), (95, 183, 207), (111, 207, 231), (148, 230, 238)}
         for a in fr:
             self.assertTrue(((a[..., 3] == 255) == mask).all())
-            self.assertTrue({tuple(int(v) for v in c) for c in np.unique(a[mask][:, :3], axis=0)} <= metano)
+            self.assertTrue({tuple(int(v) for v in c) for c in np.unique(a[mask][:, :3], axis=0)} <= treasure)
         d = [int((fr[t][mask] != fr[(t + 1) % WP][mask]).any(1).sum()) for t in range(WP)]
         self.assertTrue(min(d) > 0 and max(d) < 2 * min(d), d)
 

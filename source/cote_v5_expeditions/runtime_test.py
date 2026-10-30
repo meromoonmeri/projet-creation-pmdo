@@ -8,7 +8,7 @@ PACK=Path.home()/'.cache/cote_v5_expeditions_pack';RUNTIME=ROOT/'.cache/pmdo-run
 
 def main():
  assert (RUNTIME/'PMDO').is_file()
- shutil.copytree(PACK,RUNTIME/'MODS/metano_expeditions',dirs_exist_ok=True)
+ shutil.copytree(PACK,RUNTIME/'MODS/treasure_expeditions',dirs_exist_ok=True)
  manifest=json.loads((PACK/'manifest.json').read_text());tests=[]
  for z in manifest['zones']:
   for v in z['variants'].values():tests.append([v['asset'],z['size'][0]//8,z['size'][1]//8,len(z['planes'])+4,2 if z.get('door') else 1])
@@ -41,7 +41,7 @@ env.Exit(ok and 0 or 1)
  if dest.exists():dest.unlink()
  try:
   startup.write_bytes(original+lua.encode())
-  result=subprocess.run(['./PMDO','-guide','-quest','metano_expeditions'],cwd=RUNTIME,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=120)
+  result=subprocess.run(['./PMDO','-guide','-quest','treasure_expeditions'],cwd=RUNTIME,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=120)
   (PACK/'runtime_log.txt').write_bytes(result.stdout)
   assert result.returncode==0,result.stdout.decode(errors='replace')
   rows=dest.read_text().splitlines();assert len(rows)==40 and all(r.endswith('\tPASS') for r in rows)

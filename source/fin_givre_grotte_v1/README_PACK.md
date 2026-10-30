@@ -6,7 +6,7 @@ Quatrième zone de **fin de donjon** de la série des entrées. Elle fait suite 
 - Références :
   - la vraie fin, la salle où Articuno attend les héros (étage 5 de Frosty Grotto), n'existe ici qu'en vignette de 120 px (`reference/`). Elle donne la palette : sol de glace bleu pâle ;
   - textures : `pmdskyicearena.png`, l'arène de glace de PMD Sky.
-  - Le décor est un rendu généré avec ces références. **Ce ne sont pas des tuiles natives**, sauf les reflets : ce sont des pixels de `Metano_Town_River_Sparkles`, recolorés en blanc bleuté.
+  - Le décor est un rendu généré avec ces références. **Ce ne sont pas des tuiles natives**, sauf les reflets : ce sont des pixels de `Treasure_Town_River_Sparkles`, recolorés en blanc bleuté.
 - Layout :
   - arrivée au sud, par le couloir de glace (marqueur `entrance`) ;
   - grande arène de glace, avec un bassin d'eau glacée de chaque côté (marqueur `boss`) ;
@@ -17,8 +17,8 @@ Quatrième zone de **fin de donjon** de la série des entrées. Elle fait suite 
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | eau_glacee | 4 × 10 ticks, eau glacée de l'entrée Givre (structure de la rivière de Métano) |
-| 01 | reflets | 4 × 10 ticks, scintillements de Métano recolorés |
+| 00 | eau_glacee | 4 × 10 ticks, eau glacée de l'entrée Givre (structure de la rivière de Treasure) |
+| 01 | reflets | 4 × 10 ticks, scintillements de Treasure recolorés |
 | 02 | sol_complet | fixe |
 | 03 | sol_glace | fixe |
 | 04 | parois | fixe |

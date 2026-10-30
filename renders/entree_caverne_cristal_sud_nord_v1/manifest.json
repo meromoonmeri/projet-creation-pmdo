@@ -1,0 +1,346 @@
+{
+  "id": "entree_caverne_cristal_sud_nord_v1",
+  "prefix": "EKR1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "scene_loop_ticks": 88,
+  "canonical_biome": {
+    "rom_code": "D16P11A",
+    "dungeon_fr": "Caverne Cristal (entrée)",
+    "dungeon_en": "Crystal Cave Entrance",
+    "pmd_sky_commit": "c8073235b39746a7ee74e6cea16c730bd91a1e67",
+    "reference_png": "source/entree_caverne_cristal_sud_nord_v1/references/D16P11A.png",
+    "reference_sha256": "bf75412fab564c5549a8c6e06ea81eead4278f62dacdb45d7cd2360dc0e24e84",
+    "rom_bpl_palette": {
+      "palette_index": 8,
+      "frames": 22,
+      "duration_per_frame_ticks": 4,
+      "loop_ticks": 88
+    }
+  },
+  "nature": "Décor généré référencé sur la capture ROM D16P11A (pas des tuiles natives certifiées) ; lueur cristalline pilotée par la table exacte Palette 8 de d16p11a.bpl, 3 gravillons découpés dans D16P11A.png + 4 nuages générés.",
+  "art_approved": false,
+  "raw_inputs": [
+    {
+      "file": "source/entree_caverne_cristal_sud_nord_v1/bruts/decor.png",
+      "size": [
+        1200,
+        896
+      ],
+      "sha256": "b62bdf4f7d75ae2f62bdbc0f3929321f9ce5cb415f7efe84a744882d0e006c20",
+      "images": [
+        "source/entree_caverne_cristal_sud_nord_v1/references/D16P11A.png"
+      ]
+    },
+    {
+      "file": "source/entree_caverne_cristal_sud_nord_v1/bruts/sol_complet.png",
+      "size": [
+        1200,
+        896
+      ],
+      "sha256": "06ffefadeb8a7f3f8c17ee948057ded4a0142cac6e74465311e6b0bea3d5f59c",
+      "images": [
+        "source/entree_caverne_cristal_sud_nord_v1/references/D16P11A_sol_crop.png"
+      ],
+      "crop_note": "Découpe D16P11A.png (200,240,400,390) x2 plus proche voisin."
+    },
+    {
+      "file": "source/entree_caverne_cristal_sud_nord_v1/bruts/particules_poses.png",
+      "size": [
+        1152,
+        922
+      ],
+      "sha256": "18e63b83efb0b69b446e08aefa6a97de99605cdd55dcea82fe4f25429b17a254",
+      "images": [
+        "source/fin_caverne_cristal_v1/references/D16P31A.png"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "sol_complet",
+      "file": "calques/EKR1_00_sol_complet.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "sable",
+      "file": "calques/EKR1_01_sable.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "ombres",
+      "file": "calques/EKR1_02_ombres.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "graviers",
+      "file": "calques/EKR1_03_graviers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "rochers",
+      "file": "calques/EKR1_04_rochers.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "falaises",
+      "file": "calques/EKR1_05_falaises.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "cristaux",
+      "file": "calques/EKR1_06_cristaux.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "profondeur",
+      "file": "calques/EKR1_07_profondeur.png",
+      "phases": 1,
+      "ticks": 60
+    },
+    {
+      "id": "lueur_cristal",
+      "file": "animation/lueur_cristal/EKR1_08_lueur_cristal_fNN.png",
+      "phases": 22,
+      "ticks": 4
+    },
+    {
+      "id": "eboulis_poussiere",
+      "file": "animation/eboulis_poussiere/EKR1_09_eboulis_poussiere_fNN.png",
+      "phases": 22,
+      "ticks": 4
+    }
+  ],
+  "debris_events": [
+    {
+      "id": 0,
+      "land_px": [
+        216,
+        176
+      ],
+      "start_y": 142,
+      "pebble_pose": 0,
+      "phase_offset": 0
+    },
+    {
+      "id": 1,
+      "land_px": [
+        544,
+        184
+      ],
+      "start_y": 150,
+      "pebble_pose": 1,
+      "phase_offset": 6
+    }
+  ],
+  "access": {
+    "entry_px": [
+      368,
+      544
+    ],
+    "threshold_px": [
+      368,
+      128
+    ],
+    "walkable_cells": 3593,
+    "blocked_cells": 3319,
+    "path_found_16x16": true
+  },
+  "fidelite_rip": {
+    "seuil_max": 35.0,
+    "brut": {
+      "sable": {
+        "ref_rgb": [
+          225.3,
+          199.5,
+          137.1
+        ],
+        "mean_rgb": [
+          223.5,
+          196.4,
+          132.1
+        ],
+        "distance": 6.06
+      },
+      "graviers": {
+        "ref_rgb": [
+          184.7,
+          163.9,
+          134.7
+        ],
+        "mean_rgb": [
+          182.8,
+          156.7,
+          121.8
+        ],
+        "distance": 14.92
+      },
+      "roche_claire": {
+        "ref_rgb": [
+          149.9,
+          126.7,
+          101.0
+        ],
+        "mean_rgb": [
+          149.2,
+          127.8,
+          102.2
+        ],
+        "distance": 1.72
+      },
+      "roche_sombre": {
+        "ref_rgb": [
+          105.6,
+          92.9,
+          82.9
+        ],
+        "mean_rgb": [
+          107.5,
+          93.4,
+          82.3
+        ],
+        "distance": 2.06
+      },
+      "cristaux": {
+        "ref_rgb": [
+          69.4,
+          69.4,
+          76.7
+        ],
+        "mean_rgb": [
+          81.8,
+          92.7,
+          98.7
+        ],
+        "distance": 34.32
+      }
+    },
+    "calques_finaux": {
+      "sable": {
+        "mean_rgb": [
+          222.5,
+          195.5,
+          130.3
+        ],
+        "ref_rgb": [
+          225.3,
+          199.5,
+          137.1
+        ],
+        "distance_rip": 8.37
+      },
+      "ombres": {
+        "mean_rgb": [
+          162.1,
+          136.8,
+          102.5
+        ],
+        "ref_rgb": [
+          149.9,
+          126.7,
+          101.0
+        ],
+        "distance_rip": 15.81
+      },
+      "graviers": {
+        "mean_rgb": [
+          183.4,
+          154.9,
+          118.2
+        ],
+        "ref_rgb": [
+          184.7,
+          163.9,
+          134.7
+        ],
+        "distance_rip": 18.81
+      },
+      "rochers": {
+        "mean_rgb": [
+          117.0,
+          104.7,
+          85.4
+        ],
+        "ref_rgb": [
+          136.9,
+          118.9,
+          99.8
+        ],
+        "distance_rip": 28.34
+      },
+      "falaises": {
+        "mean_rgb": [
+          142.9,
+          123.0,
+          100.0
+        ],
+        "ref_rgb": [
+          136.9,
+          118.9,
+          99.8
+        ],
+        "distance_rip": 7.24
+      },
+      "cristaux": {
+        "mean_rgb": [
+          92.3,
+          111.5,
+          118.1
+        ],
+        "ref_rgb": [
+          78.6,
+          109.0,
+          121.8
+        ],
+        "distance_rip": 14.42
+      },
+      "profondeur": {
+        "mean_rgb": [
+          64.3,
+          57.7,
+          56.3
+        ],
+        "ref_rgb": [
+          39.4,
+          52.0,
+          38.0
+        ],
+        "distance_rip": 31.39
+      }
+    },
+    "sol_complet": 12.16
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "runtime_tested": false,
+    "asset_name": "ekr1_entree_caverne_cristal",
+    "namespace": "entree_caverne_cristal_sud_nord",
+    "tex_size": 1,
+    "tiles_per_bank": {
+      "EKR1_00_SOL": 6913,
+      "EKR1_01_SABLE": 3083,
+      "EKR1_02_OMBRES": 1769,
+      "EKR1_03_GRAVIERS": 2082,
+      "EKR1_04_ROCHERS": 790,
+      "EKR1_05_FALAISES": 2854,
+      "EKR1_06_CRISTAUX": 301,
+      "EKR1_07_PROFONDEUR": 182,
+      "EKR1_08_LUEUR": 566,
+      "EKR1_09_EBOULIS": 63
+    }
+  }
+}

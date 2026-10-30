@@ -80,7 +80,7 @@ Un calque par fonction, **du bas vers le haut**, plus un calque `Top` vide au-de
 
 | Exemple (Entrée Jungle) | Ordre |
 |---|---|
-| `00_…` | rivière et mare façon Métano (4 × 10 ticks) |
+| `00_…` | rivière et mare façon Treasure (4 × 10 ticks) |
 | `01_…` | scintillements natifs |
 | `02_sol_complet` | sol complet (fixe) |
 | `03…09` | clairière, sentier, terre, berge, rochers, îlots d'arbres, jungle |
@@ -137,13 +137,13 @@ et `verify_ground_runtime.py` : il appelle le **vrai chargeur** via
 L'import se fait **dans l'éditeur PMDO Dev, via « PNG to Tileset »** :
 
 - les PNG de jeu doivent être **natifs, nets, structurellement cohérents** avec la matière de référence
-  (Métano), pas des illustrations générées simplement agrandies ;
+  (Treasure), pas des illustrations générées simplement agrandies ;
 - tailles d'import documentées explicitement : **8 px** ; dimensions divisibles, rectangles complets,
   absence de resampling ;
 - l'importeur nomme les tilesets **par basename** : deux fichiers homonymes de dossiers différents
-  s'écrasent → préfixes uniques (`METANO_V3_*`, `EJN1_*`, `v50812_*`…).
+  s'écrasent → préfixes uniques (`TREASURE_V3_*`, `EJN1_*`, `v50812_*`…).
 
-Après l'import, un audit réel (`audits/metano_import/RAPPORT.md`) a montré qu'un assemblage par
+Après l'import, un audit réel (`audits/treasure_import/RAPPORT.md`) a montré qu'un assemblage par
 fragments de 8 px et colonnes d'ombre répétées **ne préserve pas les volumes natifs** : privilégier des
 **modules natifs complets** (sommet, face, pied, retours) étalonnés sur la référence.
 

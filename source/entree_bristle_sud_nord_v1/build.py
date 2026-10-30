@@ -3,8 +3,8 @@
 Méthode rendu généré (comme ESN1/ECN1) : décor complet sur magenta (torrent = magenta), sol de sable complet
 généré séparément, normalisation x0,5 exacte (848x1264 -> 424x632), moyenne 2x2 par classe.
 Animations, chacune sur son calque :
-- torrent « façon rivière Métano » avec les COULEURS EXACTES de la rivière Métano (biome de jour), 4 x 10 ticks ;
-- scintillements Metano_Town_River_Sparkles NATIFS (pixels et couleurs inchangés), 4 x 10 ticks ;
+- torrent « façon rivière Treasure » avec les COULEURS EXACTES de la rivière Treasure (biome de jour), 4 x 10 ticks ;
+- scintillements Treasure_Town_River_Sparkles NATIFS (pixels et couleurs inchangés), 4 x 10 ticks ;
 - touffes d'herbe au vent : planche générée 4 x 6, poses ordonnées par inclinaison MESURÉE, 12 phases x 10 ticks,
   décalage par colonne (rafale d'ouest en est). Elles remplacent les touffes du décor à leurs positions.
 Scène : PPCM 120 ticks = 2 s.
@@ -32,9 +32,9 @@ TUFT_PHASES, TUFT_TICKS = 12, 10
 LOOP_TICKS = 120
 TCELL = 16
 PALETTE_COLORS = 96
-METANO_SPARK = R / 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile'
+TREASURE_SPARK = R / 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile'
 M_SURFACE = (131, 218, 230)
-# Couleurs exactes de la rivière Métano (mesurées sur Metano_Town_River_Animation_1..4).
+# Couleurs exactes de la rivière Treasure (mesurées sur Treasure_Town_River_Animation_1..4).
 PAL = {'surface': (131, 218, 230), 'bande': (87, 135, 191), 'inter': (95, 183, 207), 'accent': (111, 207, 231),
        'clair': (148, 230, 238)}
 
@@ -122,7 +122,7 @@ def quantize_layers(layers):
     return out
 
 
-# ---------------------------------------------------------------- torrent façon Métano (couleurs Métano exactes)
+# ---------------------------------------------------------------- torrent façon Treasure (couleurs Treasure exactes)
 def water_phases(water, visible):
     d = nd.distance_transform_edt(visible); yy, xx = np.mgrid[:H, :W]
     jag = nd.gaussian_filter(np.random.default_rng(9).random((H, W)), 1.0); jag = (jag - jag.min()) / np.ptp(jag)
@@ -145,7 +145,7 @@ def water_phases(water, visible):
 
 def sparkle_families():
     v2 = loadmod('esn2_tiles', R / 'source/entree_vapeur_sud_nord_v2/build.py')
-    t = v2.decode_tile(METANO_SPARK)
+    t = v2.decode_tile(TREASURE_SPARK)
 
     def cluster(cols, rows, step):
         out = []
@@ -224,8 +224,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     """stack : liste (titre, frames, ticks) du bas vers le haut."""
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -246,8 +246,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Bristle - sud vers nord', 'LocalTexts': {}}, AssetName=ASSET, Released=False,
              TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0}, ActiveChar=None, Status={},
              Layers=layers, Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere (ref. Mt. Bristle) ; torrent facon riviere Metano (couleurs Metano), '
-                     'scintillements Metano natifs, touffes au vent generees. Collisions de base a verifier. Seuil non raccorde.')
+             Comment='PMDO 0.8.12. Rendu genere (ref. Mt. Bristle) ; torrent facon riviere Treasure (couleurs Treasure), '
+                     'scintillements Treasure natifs, touffes au vent generees. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
     mk = lambda n, p: {'EntName': n, 'Direction': 4, 'EntEnabled': True, 'triggerType': 0,
@@ -365,7 +365,7 @@ def build():
             tf[t][y0:y0 + TCELL, x0:x0 + TCELL][mm] = img[mm]
     # Exports
     for t, fr in enumerate(wf):
-        Image.fromarray(fr).save(OUT / 'animation/eau' / f'{PFX}_00_eau_metano_f{t}.png')
+        Image.fromarray(fr).save(OUT / 'animation/eau' / f'{PFX}_00_eau_treasure_f{t}.png')
     for t, fr in enumerate(sf):
         Image.fromarray(fr).save(OUT / 'animation/scintillements' / f'{PFX}_01_scintillements_f{t}.png')
     for t, fr in enumerate(tf):
@@ -374,7 +374,7 @@ def build():
     files = {}
     for k, nb in numbers.items():
         fn = f'{PFX}_{nb:02d}_{k}.png'; Image.fromarray(layers[k]).save(OUT / 'calques' / fn); files[k] = fn
-    stack_named = [('eau_metano', wf, WATER_TICKS), ('scintillements', sf, WATER_TICKS),
+    stack_named = [('eau_treasure', wf, WATER_TICKS), ('scintillements', sf, WATER_TICKS),
                    ('sol_complet', [layers['sol_complet']], 60), ('sable', [layers['sable']], 60),
                    ('berge_galets', [layers['berge_galets']], 60), ('rochers', [layers['rochers']], 60),
                    ('touffes', tf, TUFT_TICKS), ('falaises', [layers['falaises']], 60), ('gorge', [layers['gorge']], 60)]
@@ -398,7 +398,7 @@ def build():
         wp = (tick // WATER_TICKS) % WATER_PHASES; tp = (tick // TUFT_TICKS) % TUFT_PHASES
         im = Image.new('RGBA', (W, H))
         for title, frames, ticks in stack_named:
-            idx = {'eau_metano': wp, 'scintillements': wp, 'touffes': tp}.get(title, 0)
+            idx = {'eau_treasure': wp, 'scintillements': wp, 'touffes': tp}.get(title, 0)
             im.alpha_composite(Image.fromarray(frames[idx]))
         return im
     scenes = [scene(t * 5) for t in range(LOOP_TICKS // 5)]
@@ -422,7 +422,7 @@ def build():
     write_ora(OUT / f'{PFX}_entree_bristle_calques.ora', ora)
     counts = ground_project([(t.replace('_', ' ') + (f' {len(fr)} phases' if len(fr) > 1 else ''), fr, tk)
                              for t, fr, tk in stack_named], blocked, entry_px, threshold_px, gfx, tools)
-    order_files = [f'animation/eau/{PFX}_00_eau_metano_fX.png', f'animation/scintillements/{PFX}_01_scintillements_fX.png',
+    order_files = [f'animation/eau/{PFX}_00_eau_treasure_fX.png', f'animation/scintillements/{PFX}_01_scintillements_fX.png',
                    f'calques/{files["sol_complet"]}', f'calques/{files["sable"]}', f'calques/{files["berge_galets"]}',
                    f'calques/{files["rochers"]}', f'animation/touffes/{PFX}_06_touffes_fXX.png', f'calques/{files["falaises"]}',
                    f'calques/{files["gorge"]}']
@@ -438,10 +438,10 @@ def build():
                         'sable = composante reliee au bord sud, replats enclaves rattaches aux falaises',
         'layer_order_bottom_to_top': order_files,
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in PAL.items()},
-                  'modele': 'structure et cadence riviere Metano, couleurs Metano exactes, onde orientee vers le sud (courant)',
-                  'origine': 'couleurs natives Metano, pixels recalcules sur notre torrent (pas de tuiles natives)'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'sha256': sha(METANO_SPARK),
-                     'placements': sparkles, 'origine': 'pixels et couleurs Metano NATIFS inchanges, positions nouvelles'},
+                  'modele': 'structure et cadence riviere Treasure, couleurs Treasure exactes, onde orientee vers le sud (courant)',
+                  'origine': 'couleurs natives Treasure, pixels recalcules sur notre torrent (pas de tuiles natives)'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'sha256': sha(TREASURE_SPARK),
+                     'placements': sparkles, 'origine': 'pixels et couleurs Treasure NATIFS inchanges, positions nouvelles'},
         'tufts': {'brut': 'source/entree_bristle_sud_nord_v1/bruts/touffes_vent_poses.png', 'poses_detectees': len(poses),
                   'inclinaisons_mesurees': [round(p['lean'], 3) for p in poses], 'cycle_indices_par_phase': cycle,
                   'phases': TUFT_PHASES, 'frame_length_ticks': TUFT_TICKS, 'cellule_px': TCELL,

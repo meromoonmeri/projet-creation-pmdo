@@ -1,4 +1,4 @@
-"""Trois extensions de terrain Métano, 2048x1536, cellules 8 px.
+"""Trois extensions de terrain Treasure, 2048x1536, cellules 8 px.
 Géométrie originale composée avec textures natives ; aucun agrandissement des sprites.
 """
 from pathlib import Path
@@ -7,13 +7,13 @@ import json,random,math,io,struct,base64,zipfile,argparse
 parser=argparse.ArgumentParser()
 parser.add_argument("--config",type=Path)
 parser.add_argument("--output",type=Path)
-parser.add_argument("--sheet-name",default="Extension_Metano")
+parser.add_argument("--sheet-name",default="Extension_Treasure")
 parser.add_argument("--no-preview",action="store_true")
 args=parser.parse_args();ATLAS_NAME=args.sheet_name
-R=Path(__file__).resolve().parents[1];S=R/'source/falaises_metano';O=args.output if args.output else R/'sprites/falaises_metano';O.mkdir(parents=True,exist_ok=True)
+R=Path(__file__).resolve().parents[1];S=R/'source/falaises_treasure';O=args.output if args.output else R/'sprites/falaises_treasure';O.mkdir(parents=True,exist_ok=True)
 W,H=2048,1536;GW,GH=W//8,H//8
 P={p.stem:Image.open(p).convert('RGBA') for p in (S/'patches').glob('*.png')}
-C=[Image.open(R/f'sprites/eau_metano/cascade_frame_{i}.png').convert('RGBA') for i in range(1,5)]
+C=[Image.open(R/f'sprites/eau_treasure/cascade_frame_{i}.png').convert('RGBA') for i in range(1,5)]
 
 def texture(p,size):
     out=Image.new('RGBA',size)
@@ -77,7 +77,7 @@ def water_network(cfg,phase):
     im=Image.new('RGBA',(W,H));im.paste('#5787bf',(0,0,W,H),mask.filter(ImageFilter.MaxFilter(9)))
     im.paste('#5fb7cf',(0,0,W,H),mask.filter(ImageFilter.MaxFilter(5)))
     im.paste('#83dae6',(0,0,W,H),mask)
-    # Colors sampled from the actual Metano river, not a replacement palette.
+    # Colors sampled from the actual Treasure river, not a replacement palette.
     d=ImageDraw.Draw(im)
     for y in range(32+phase*2,H,48):
         for x in range(16+(y%5)*8,W-16,80):
@@ -101,7 +101,7 @@ HIGH=[(640,64),(1408,64),(1472,160),(1472,400),(1312,400),(1312,448),(736,448),(
 CONFIG=[
  {'id':'01_paroi','name':'La grande paroi','description':'Plateau ouvert au nord, longue face rocheuse et trois grandes chutes.','plateaus':[(LONG,320)],'falls':[(480,0),(1248,0),(1760,0)],'stairs':[(784,0),(1456,0)],'pools':[[(240,176),(352,104),(544,128),(624,256),(576,384),(400,416),(272,320)],[(1088,144),(1216,80),(1424,144),(1504,288),(1424,416),(1216,432),(1104,336)],[(1632,112),(1776,96),(1920,208),(1888,352),(1744,400),(1632,288)]], 'feeds':[([(480,304),(448,448),(480,584)],48), ([(1248,336),(1280,480),(1248,608)],56), ([(1760,304),(1792,448),(1760,576)],48)],'outlets':[([(480,912),(512,1104),(864,1200)],64), ([(1248,936),(1184,1088),(1024,1232)],72), ([(1760,904),(1664,1120),(1312,1264)],64), ([(1024,1296),(1088,1424),(1152,1536)],88)],'basin':[(704,1192),(896,1112),(1152,1144),(1392,1216),(1440,1352),(1200,1440),(896,1400),(720,1304)],'paths':[[(0,448),(240,448),(720,512),(784,648)],[(1456,632),(1456,480),(1840,480),(2048,424)],[(0,1160),(240,1104),(784,992),(864,1040)],[(1456,984),(1488,1120),(1840,1312),(2048,1312)]]},
  {'id':'02_plateau','name':'Le plateau des trois sources','description':'Grand plateau isolé, contour rocheux et espace central libre.','plateaus':[(ISLAND,256)],'falls':[(432,0),(1152,0),(1648,0)],'stairs':[(816,0),(1456,0)],'pools':[[(368,480),(416,384),(560,384),(624,496),(560,600),(400,608)],[(928,264),(1088,224),(1256,288),(1328,424),(1224,528),(1040,528),(936,416)],[(1472,432),(1584,384),(1696,472),(1696,592),(1584,648),(1488,576)]], 'feeds':[([(480,544),(464,688),(432,808)],48), ([(1152,480),(1120,736),(1152,968)],56), ([(1584,576),(1616,704),(1648,808)],48)],'outlets':[([(432,1072),(336,1200),(560,1400),(880,1392)],64), ([(1152,1232),(1120,1344),(1024,1416)],72), ([(1648,1072),(1792,1200),(1728,1376),(1408,1424)],64)],'basin':[(832,1336),(1040,1296),(1272,1336),(1464,1384),(1504,1536),(752,1536),(728,1440)],'paths':[[(816,960),(752,768),(720,560),(848,432)],[(1456,904),(1408,704),(1392,528),(1456,312)],[(0,1248),(288,1248),(592,1256),(816,1248)],[(1456,1184),(1584,1232),(1952,1184),(2048,1136)]]},
- {'id':'03_terrasses','name':'Les terrasses de Métano','description':'Trois niveaux superposés, chutes en chaîne et escaliers latéraux.','plateaus':[(LOW,160),(MID,160),(HIGH,160)],'falls':[(1024,2),(1024,1),(1024,0),(1600,0)],'stairs':[(656,2),(1456,1),(592,0)],'pools':[[(816,160),(944,104),(1168,128),(1264,232),(1192,336),(984,368),(824,280)]], 'feeds':[([(1024,288),(1008,368),(1024,440)],56), ([(1024,616),(1104,656),(1024,760)],56), ([(1024,936),(944,1024),(1024,1160)],56), ([(1472,928),(1568,992),(1600,1096)],48)],'outlets':[([(1024,1328),(1024,1416),(1120,1536)],72), ([(1600,1264),(1552,1392),(1312,1432)],56)],'basin':[(824,1344),(1008,1328),(1216,1368),(1336,1472),(1304,1536),(824,1536),(760,1440)],'paths':[[(656,392),(688,256),(768,200)],[(656,576),(608,624),(544,624)],[(1456,752),(1456,592),(1328,592)],[(1456,944),(1488,1024),(1728,1072)],[(592,1096),(560,960),(448,896)],[(0,1360),(320,1360),(592,1296),(704,1376)],[(1680,1456),(1920,1408),(2048,1424)]]}
+ {'id':'03_terrasses','name':'Les terrasses de Treasure','description':'Trois niveaux superposés, chutes en chaîne et escaliers latéraux.','plateaus':[(LOW,160),(MID,160),(HIGH,160)],'falls':[(1024,2),(1024,1),(1024,0),(1600,0)],'stairs':[(656,2),(1456,1),(592,0)],'pools':[[(816,160),(944,104),(1168,128),(1264,232),(1192,336),(984,368),(824,280)]], 'feeds':[([(1024,288),(1008,368),(1024,440)],56), ([(1024,616),(1104,656),(1024,760)],56), ([(1024,936),(944,1024),(1024,1160)],56), ([(1472,928),(1568,992),(1600,1096)],48)],'outlets':[([(1024,1328),(1024,1416),(1120,1536)],72), ([(1600,1264),(1552,1392),(1312,1432)],56)],'basin':[(824,1344),(1008,1328),(1216,1368),(1336,1472),(1304,1536),(824,1536),(760,1440)],'paths':[[(656,392),(688,256),(768,200)],[(656,576),(608,624),(544,624)],[(1456,752),(1456,592),(1328,592)],[(1456,944),(1488,1024),(1728,1072)],[(592,1096),(560,960),(448,896)],[(0,1360),(320,1360),(592,1296),(704,1376)],[(1680,1456),(1920,1408),(2048,1424)]]}
 ]
 if args.config:
     CONFIG=json.loads(args.config.read_text())
@@ -159,11 +159,11 @@ for desc in LAYOUTS:
     id=desc['id'];layers=[{'id':1,'name':'Terrain et falaises','type':'tilelayer','x':0,'y':0,'width':GW,'height':GH,'opacity':1,'visible':True,'data':baseids[id]},{'id':2,'name':'Rivière et cascades animées','type':'tilelayer','x':0,'y':0,'width':GW,'height':GH,'opacity':1,'visible':True,'data':waterids[id]}]
     tm={'type':'map','version':'1.10','tiledversion':'1.10.2','orientation':'orthogonal','renderorder':'right-down','width':GW,'height':GH,'tilewidth':8,'tileheight':8,'infinite':False,'nextlayerid':3,'nextobjectid':1,'layers':layers,'tilesets':[{'firstgid':1,'source':'../'+ATLAS_NAME+'.tsj'}]}
     (O/id/'layout.tmj').write_text(json.dumps(tm,separators=(',',':')))
-meta={'size_px':[W,H],'grid_px':8,'maps':LAYOUTS,'atlas_tiles':count,'native_sheet':ATLAS_NAME,'native_animations':[{'tileid':rep,'Frames':[{'Sheet':ATLAS_NAME,'TexLoc':{'X':v%atlas_cols,'Y':v//atlas_cols}} for v in seq],'FrameLength':10} for seq,rep in ANIMS.items()],'limitations':['Layouts originaux, pas des zones officielles de Métano','Textures roche/herbe/escaliers natives répétées sans agrandissement','Contours de rivière et vaguelettes dessinés pour les nouveaux layouts','Grandes chutes allongées par répétition du milieu des frames originales','Pas de collisions ni de transitions configurées ; intégration moteur non testée']}
+meta={'size_px':[W,H],'grid_px':8,'maps':LAYOUTS,'atlas_tiles':count,'native_sheet':ATLAS_NAME,'native_animations':[{'tileid':rep,'Frames':[{'Sheet':ATLAS_NAME,'TexLoc':{'X':v%atlas_cols,'Y':v//atlas_cols}} for v in seq],'FrameLength':10} for seq,rep in ANIMS.items()],'limitations':['Layouts originaux, pas des zones officielles de Treasure','Textures roche/herbe/escaliers natives répétées sans agrandissement','Contours de rivière et vaguelettes dessinés pour les nouveaux layouts','Grandes chutes allongées par répétition du milieu des frames originales','Pas de collisions ni de transitions configurées ; intégration moteur non testée']}
 (O/'kit.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2))
 # Overview sheet, not an import texture.
 board=Image.new('RGB',(max(640,len(LAYOUTS)*528),500),'#1c2d26');draw=ImageDraw.Draw(board);fp='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';font=ImageFont.truetype(fp,19);small=ImageFont.truetype(fp,13)
-draw.text((24,18),('MÉTANO / NOUVEAU DÉCOR DE FALAISE' if args.config else 'MÉTANO / TROIS EXTENSIONS DE FALAISES'),font=font,fill='#e8d493')
+draw.text((24,18),('TREASURE / NOUVEAU DÉCOR DE FALAISE' if args.config else 'TREASURE / TROIS EXTENSIONS DE FALAISES'),font=font,fill='#e8d493')
 for i,desc in enumerate(LAYOUTS):
     preview=Image.open(O/desc['id']/'layout_1.png').resize((512,384),Image.Resampling.NEAREST);x=16+i*528;board.paste(preview,(x,62));draw.text((x,453),desc['name'],font=small,fill='#e8d493')
 draw.text((24,479),'Chacune : 2048 × 1536 px · 256 × 192 cases · calques séparés · 4 phases d’eau',font=small,fill='#a9bda4');board.save(O/'planche.png')
@@ -171,5 +171,5 @@ def uri(p):return 'data:image/png;base64,'+base64.b64encode(p.read_bytes()).deco
 data=[]
 for desc in LAYOUTS:data.append({**desc,'terrain':uri(O/desc['id']/'terrain.png'),'water':[uri(O/desc['id']/f'eau_{i}.png') for i in range(1,5)]})
 if not args.no_preview:
-    (R/'apercu_falaises_metano.html').write_text((S/'viewer.html').read_text().replace('__DATA__',json.dumps(data,ensure_ascii=False)))
+    (R/'apercu_falaises_treasure.html').write_text((S/'viewer.html').read_text().replace('__DATA__',json.dumps(data,ensure_ascii=False)))
 print(len(LAYOUTS),'layouts + Tiled + atlas PMDO générés.',len(TILES),'tuiles.',len(ANIMS),'animations.')

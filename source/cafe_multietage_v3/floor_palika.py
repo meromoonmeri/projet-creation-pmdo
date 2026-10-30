@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image,ImageDraw,ImageFilter
 R=Path(__file__).resolve().parents[2];O=R/'renders/cafe_multietage_v3';im=Image.open(O/'bruts/A_accueil_sol_palika.png').convert('RGBA')
 # Native floor pixels, repeated at integer 3x preview scale (no synthesized wood).
-p=Image.open(R/'source/cafe_multietage_v1/references/Metano_Town_Cafe_Base.png').convert('RGBA').crop((128,160,192,224));p=p.resize((192,192),Image.Resampling.NEAREST)
+p=Image.open(R/'source/cafe_multietage_v1/references/Treasure_Town_Cafe_Base.png').convert('RGBA').crop((128,160,192,224));p=p.resize((192,192),Image.Resampling.NEAREST)
 floor=Image.new('RGBA',im.size)
 for y in range(0,im.height,192):
  for x in range(0,im.width,192):floor.paste(p,(x,y))

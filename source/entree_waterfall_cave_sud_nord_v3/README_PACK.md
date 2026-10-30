@@ -22,8 +22,8 @@ Elle change la façon dont la cascade s'ouvre. Au lieu d'un trou en forme de gro
 
 | # | Calque | État | Animation | Visible au chargement |
 |---|---|---|---|---|
-| 00 | Eau des bassins, façon Métano, sans liseré de rive | — | 4 × 10 ticks | oui |
-| 01 | Scintillements Métano natifs | — | 4 × 10 ticks | oui |
+| 00 | Eau des bassins, façon Treasure, sans liseré de rive | — | 4 × 10 ticks | oui |
+| 01 | Scintillements Treasure natifs | — | 4 × 10 ticks | oui |
 | 02 | Sol complet (sable) | — | fixe | oui |
 | 03 | Sable praticable (couloir compris) | — | fixe | oui |
 | 04 | Cailloux | — | fixe | oui |
@@ -70,6 +70,6 @@ Elle s'appelle depuis une coroutine de cinématique.
 
 - **Pixels** : le terrain, la cascade, l'écume et les gerbes sont des pixels générés à partir de la capture `entrancecascade.png` (mêmes bruts que la V1). La paroi derrière la cascade vient d'un brut généré en plus : le décor de la V1 édité, sans la cascade.
 - **Animations** : la fissure, l'écartement, le défilement, les émetteurs et la chronologie sont créés par nous. Ce ne sont pas des animations officielles.
-- **Eau** : façon Métano, pixels recalculés avec les couleurs Métano exactes.
-- **Scintillements** : pixels Métano natifs.
+- **Eau** : façon Treasure, pixels recalculés avec les couleurs Treasure exactes.
+- **Scintillements** : pixels Treasure natifs.
 - **Tests** : aucun test fait dans PMDO.

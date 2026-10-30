@@ -10,8 +10,8 @@ Map suivante après l'Entrée Vapeur V2. L'agent a choisi le biome d'après la r
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | lave | structure rivière Métano, palette de la matière de lave générée | 4 × 10 ticks |
-| 01 | éclats | pixels `Metano_Town_River_Sparkles` recolorés | 4 × 10 ticks |
+| 00 | lave | structure rivière Treasure, palette de la matière de lave générée | 4 × 10 ticks |
+| 01 | éclats | pixels `Treasure_Town_River_Sparkles` recolorés | 4 × 10 ticks |
 | 02 | sol complet | sol de cendre généré séparément | — |
 | 03 | bulles de lave | planche générée, 12 poses | 24 × 5 ticks |
 | 04 | cendre | décor généré | — |
@@ -24,4 +24,4 @@ Map suivante après l'Entrée Vapeur V2. L'agent a choisi le biome d'après la r
 
 ## Honnêteté
 
-Le terrain, les bulles et la pulsation sont générés ou créés par nous : ce ne sont ni des pixels natifs, ni des animations officielles. La lave est « façon Métano » (structure et cadence), pas faite de tuiles natives. Aucune ombre séparée : les ombres sont cuites dans le décor généré. Aucun test PMDO en jeu, art non approuvé.
+Le terrain, les bulles et la pulsation sont générés ou créés par nous : ce ne sont ni des pixels natifs, ni des animations officielles. La lave est « façon Treasure » (structure et cadence), pas faite de tuiles natives. Aucune ombre séparée : les ombres sont cuites dans le décor généré. Aucun test PMDO en jeu, art non approuvé.

@@ -11,8 +11,8 @@ Bruts (voir manifest.json -> generation, prompts complets) :
 Normalisation UNIFORME x(576/896) puis recadrage centré à 768 ; réduction par classe (down_class du gabarit Jungle).
 Calques : sol complet, sable, cailloux, touffes, plateaux, berge, falaises, arbres, entrée sombre, écume du pied.
 Animations, chacune sur son calque :
-- eau des bassins et de la vasque « façon rivière Métano », COULEURS MÉTANO EXACTES, 4 x 10 ticks ;
-- scintillements Metano_Town_River_Sparkles NATIFS, 4 x 10 ticks ;
+- eau des bassins et de la vasque « façon rivière Treasure », COULEURS TREASURE EXACTES, 4 x 10 ticks ;
+- scintillements Treasure_Town_River_Sparkles NATIFS, 4 x 10 ticks ;
 - rideau de la cascade : pixels générés du décor rendus périodiques (période 72 px, fondu 24 px), défilement
   vers le sud de 6 px par phase, 12 x 4 ticks ;
 - écume (bouillons) et embruns : poses générées, émetteurs déphasés, 12 x 4 ticks.
@@ -282,8 +282,8 @@ def write_ora(path, layers):
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -306,7 +306,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
              Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Waterfall Cave (entrancecascade.png) ; '
-                     'eau facon Metano (couleurs Metano exactes), scintillements Metano natifs, cascade, ecume et '
+                     'eau facon Treasure (couleurs Treasure exactes), scintillements Treasure natifs, cascade, ecume et '
                      'embruns generes. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -329,7 +329,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
 <Header>
   <Name>Entree Waterfall Cave sud-nord 4:3 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : entree de Waterfall Cave generee au format 4:3 (ref. rip entrancecascade), bassins facon Metano, cascade, ecume et embruns animes. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : entree de Waterfall Cave generee au format 4:3 (ref. rip entrancecascade), bassins facon Treasure, cascade, ecume et embruns animes. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>
@@ -379,7 +379,7 @@ def build():
     for k in static + ['cascade', 'ecume_pied']:
         land |= layers[k][..., 3] == 255
     visible = water & ~land
-    wf, dist = BM.water_phases(water, visible)                          # couleurs Métano exactes
+    wf, dist = BM.water_phases(water, visible)                          # couleurs Treasure exactes
     fams = BM.sparkle_families(); taken = np.zeros((H, W), bool)
     sf = [np.zeros((H, W, 4), 'uint8') for _ in range(WATER_PHASES)]; sparkles = []
     for fi, (name, frames) in enumerate(fams.items()):
@@ -498,10 +498,10 @@ def build():
                         'trous du sable praticable ; falaises = reste',
         'layers': layer_list,
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in BM.PAL.items()},
-                  'modele': 'structure et cadence riviere Metano, couleurs Metano EXACTES (fonction water_phases du lot Bristle)',
+                  'modele': 'structure et cadence riviere Treasure, couleurs Treasure EXACTES (fonction water_phases du lot Bristle)',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges (aplat de surface retire)'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges (aplat de surface retire)'},
         'cascade': dict(fall_info, phases=FALL_PHASES, frame_length_ticks=FALL_TICKS, period_px=FALL_PERIOD,
                         blend_px=FALL_BLEND, step_px=FALL_STEP,
                         origine='pixels GENERES du rideau du decor, rendus periodiques par fondu puis ramenes a la palette '

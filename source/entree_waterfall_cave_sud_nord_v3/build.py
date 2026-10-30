@@ -222,8 +222,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     """stack : (titre, frames, ticks, etat) du bas vers le haut ; visibles au chargement : etat None ou fermee."""
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks, etat) in enumerate(stack):
         vis = etat in (None, 'fermee')
@@ -248,7 +248,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
              Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Waterfall Cave (entrancecascade.png), V3 : '
-                     'eau facon Metano sans lisere de rive, couloir de sable jusqu a la bouche, cascade qui se fend en deux '
+                     'eau facon Treasure sans lisere de rive, couloir de sable jusqu a la bouche, cascade qui se fend en deux '
                      'et s ecarte devant une paroi generee (calques d etat fermee / ouverture / ouverte, script init.lua '
                      'NON TESTE). Collisions a verifier.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
@@ -540,10 +540,10 @@ def build():
         'water': {'phases': V2.WATER_PHASES, 'frame_length_ticks': WATER_TICKS,
                   'couleurs': {k: list(v) for k, v in PAL.items() if k != V2.REMOVED}, 'retire': V2.REMOVED,
                   'rgb_retire': list(PAL[V2.REMOVED]),
-                  'modele': 'structure et cadence riviere Metano, couleurs Metano EXACTES, sans lisere de rive (EWC2)',
+                  'modele': 'structure et cadence riviere Treasure, couleurs Treasure EXACTES, sans lisere de rive (EWC2)',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges (aplat de surface retire)'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges (aplat de surface retire)'},
         'couloir': dict(corr_info, bords_pleine_res=V2.CORR_KNOTS, origine='EWC2 (reshape_front)'),
         'cascade': dict(fall_info, phases=FALL_PHASES, frame_length_ticks=FALL_TICKS, period_px=FALL_PERIOD,
                         blend_px=V1.FALL_BLEND, step_px=FALL_STEP, ouverture_phases=OPEN_PHASES,

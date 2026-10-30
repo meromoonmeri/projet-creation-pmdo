@@ -136,17 +136,17 @@
     "scanErrors": 0,
     "unresolvedBranchTileNamesSearched": 202,
     "distinctExactNameMatchesInArchives": [
-      "metano_town_base",
+      "treasure_town_base",
       "v2_promontoire_jour_03"
     ],
-    "interpretation": "Deux noms parmi 202 références non résolues ont un candidat d’archive. Metano_Town_Base est déjà ambigu et la copie d’archive est identique à un candidat existant. v2_promontoire_jour_03 est un nouveau candidat, mais son ZIP d’origine ne peut pas servir de substitut aux Grounds de branche. Les 200 autres noms n’ont pas été trouvés dans les 242 ZIP inspectés; cela ne prouve pas leur absence dans toute source externe. Les fichiers .tile libres de ces deux arbres (110 et 111) ont aussi été recherchés; ils n’ajoutent aucun autre nom de référence.",
+    "interpretation": "Deux noms parmi 202 références non résolues ont un candidat d’archive. Treasure_Town_Base est déjà ambigu et la copie d’archive est identique à un candidat existant. v2_promontoire_jour_03 est un nouveau candidat, mais son ZIP d’origine ne peut pas servir de substitut aux Grounds de branche. Les 200 autres noms n’ont pas été trouvés dans les 242 ZIP inspectés; cela ne prouve pas leur absence dans toute source externe. Les fichiers .tile libres de ces deux arbres (110 et 111) ont aussi été recherchés; ils n’ajoutent aucun autre nom de référence.",
     "candidates": [
       {
         "source": "meromoonmeri/projet-pmdo",
         "commit": "6cca4a09380211e510ab1bea454a1b1926ef4b5a",
         "archive": "renders/amp_plains_fleurie_v1/amp_plains_fleurie_v1.zip",
         "archiveBlobOid": "97eb91dc93929301dfa7ebfc21ff7f802cae024f",
-        "member": "source/amp_plains_fleurie_v1/references/Metano_Town_Base.tile",
+        "member": "source/amp_plains_fleurie_v1/references/Treasure_Town_Base.tile",
         "sha256": "305a732461d128707640c76d92f7539e4d2fd5359461f30c718c50a2d2ae4d64",
         "bytes": 1231857,
         "tileSize": 8,
@@ -156,7 +156,7 @@
           188
         ],
         "disposition": "ambiguous_candidate_not_integrated",
-        "reason": "Même SHA-256 que source/cote_v4_abyss/natifs/Metano_Town_Base.tile; une variante distincte existe sous source/falaises_metano/natifs/Metano_Town_Base.tile (sha256 ee17ebd2...). Aucun alias de carte Amp Plains ↔ Vallons Fleuris n’est établi."
+        "reason": "Même SHA-256 que source/cote_v4_abyss/natifs/Treasure_Town_Base.tile; une variante distincte existe sous source/falaises_treasure/natifs/Treasure_Town_Base.tile (sha256 ee17ebd2...). Aucun alias de carte Amp Plains ↔ Vallons Fleuris n’est établi."
       },
       {
         "source": "meromoonmeri/projet-pmdo",
@@ -181,12 +181,12 @@
       "2801e225fc216f2a6e87209042897f3d2f7a9fc0": 111
     },
     "distinctMatchesAcrossLooseTiles": [
-      "Metano_Town_Base",
+      "Treasure_Town_Base",
       "v2_promontoire_jour_03"
     ]
   },
   "reconstructionAudit": {
-    "sourceScriptInStaging": ".cache/destiny-recovery/stage/source/reseau_metano_normal_v1/build.py",
+    "sourceScriptInStaging": ".cache/destiny-recovery/stage/source/reseau_treasure_normal_v1/build.py",
     "isolatedRunOutput": "isolated .cache build run; temporary outputs cleaned after audit",
     "buildManifest": {
       "art_approved": false,
@@ -194,12 +194,12 @@
       "runtime_PMDO": "NOT TESTED"
     },
     "scriptBuildResult": "5 PNG-derived rooms + 5 .tile sheets + 5 Ground files were regenerated in an isolated cache; magenta-removal residual was 0 for all rooms.",
-    "pmdo0812Probe": "FAIL on first map metano_gen_accueil; probe halted after the observed deserialization exception.",
+    "pmdo0812Probe": "FAIL on first map treasure_gen_accueil; probe halted after the observed deserialization exception.",
     "outputGrounds": [
       {
         "sourceEntryId": "branch_027",
         "sourceGroundSha256": "91b6c38f06dfdb863bb7f101f992d1ee559b1ee14f7d70c67bf4f7255b884e4c",
-        "generatedGroundPath": "renders/reseau_metano_normal_v1/grounds/metano_gen_accueil.rsground",
+        "generatedGroundPath": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_accueil.rsground",
         "generatedGroundSha256": "820f700e6546428e9ae22b883eb594e62cbbd554da20bef627c091875175eb6e",
         "groundVersion": "0.7.10.0",
         "grid": [
@@ -210,7 +210,7 @@
         "entityCount": 0,
         "obstacleCellCount": 0,
         "uniqueTiles": 4898,
-        "tileRef": "MetanoGen_accueil",
+        "tileRef": "TreasureGen_accueil",
         "tilesheetGenerated": true,
         "pmdo0812GroundLoad": "FAIL_OBSERVED",
         "failure": "PMDO 0.8.12 GroundMap.ReloadEntLayer -> ArgumentOutOfRangeException; DataManager.GetGround returned null.",
@@ -220,7 +220,7 @@
       {
         "sourceEntryId": "branch_028",
         "sourceGroundSha256": "428111d8e41498d0bd96e979cf2a20694d88754e91fbe27bf97e20ce117661fe",
-        "generatedGroundPath": "renders/reseau_metano_normal_v1/grounds/metano_gen_cafe.rsground",
+        "generatedGroundPath": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_cafe.rsground",
         "generatedGroundSha256": "face187e423f1319ea2d478073f3665e3d7eea78893ff9172a1df9b106842adb",
         "groundVersion": "0.7.10.0",
         "grid": [
@@ -231,7 +231,7 @@
         "entityCount": 0,
         "obstacleCellCount": 0,
         "uniqueTiles": 4514,
-        "tileRef": "MetanoGen_cafe",
+        "tileRef": "TreasureGen_cafe",
         "tilesheetGenerated": true,
         "pmdo0812GroundLoad": "NOT_TESTED_PROBE_ABORTED",
         "failure": null,
@@ -241,7 +241,7 @@
       {
         "sourceEntryId": "branch_029",
         "sourceGroundSha256": "a6bfa18b6083ce20793bbb149c96b2006186061cc5a3b609bbd850305c3072d9",
-        "generatedGroundPath": "renders/reseau_metano_normal_v1/grounds/metano_gen_casino.rsground",
+        "generatedGroundPath": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_casino.rsground",
         "generatedGroundSha256": "69ad74117e6515a9ad82a4e8fd740e383dfefb6c5e12542a3d6c051c82b9409b",
         "groundVersion": "0.7.10.0",
         "grid": [
@@ -252,7 +252,7 @@
         "entityCount": 0,
         "obstacleCellCount": 0,
         "uniqueTiles": 5226,
-        "tileRef": "MetanoGen_casino",
+        "tileRef": "TreasureGen_casino",
         "tilesheetGenerated": true,
         "pmdo0812GroundLoad": "NOT_TESTED_PROBE_ABORTED",
         "failure": null,
@@ -262,7 +262,7 @@
       {
         "sourceEntryId": "branch_030",
         "sourceGroundSha256": "f23932b65e3d7294e534bdb13367545def8cc7bdd026e33fc228e0c1759165f4",
-        "generatedGroundPath": "renders/reseau_metano_normal_v1/grounds/metano_gen_salon_bas.rsground",
+        "generatedGroundPath": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_salon_bas.rsground",
         "generatedGroundSha256": "372a98ddb1015314f9f9ffaa538bf7af4a485943d919e2d4be07620ee2aa10f5",
         "groundVersion": "0.7.10.0",
         "grid": [
@@ -273,7 +273,7 @@
         "entityCount": 0,
         "obstacleCellCount": 0,
         "uniqueTiles": 5749,
-        "tileRef": "MetanoGen_salon_bas",
+        "tileRef": "TreasureGen_salon_bas",
         "tilesheetGenerated": true,
         "pmdo0812GroundLoad": "NOT_TESTED_PROBE_ABORTED",
         "failure": null,
@@ -283,7 +283,7 @@
       {
         "sourceEntryId": "branch_031",
         "sourceGroundSha256": "0f8feeaa6d57399b2f4d87689728470608d168387b4ad368009fd6e150e54f50",
-        "generatedGroundPath": "renders/reseau_metano_normal_v1/grounds/metano_gen_salon_haut.rsground",
+        "generatedGroundPath": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_salon_haut.rsground",
         "generatedGroundSha256": "cb6fd35899ea12a5db7ec3e6e220bb838b895ddbf2c5f771a2a3feb0616bc45c",
         "groundVersion": "0.7.10.0",
         "grid": [
@@ -294,7 +294,7 @@
         "entityCount": 0,
         "obstacleCellCount": 0,
         "uniqueTiles": 4513,
-        "tileRef": "MetanoGen_salon_haut",
+        "tileRef": "TreasureGen_salon_haut",
         "tilesheetGenerated": true,
         "pmdo0812GroundLoad": "NOT_TESTED_PROBE_ABORTED",
         "failure": null,
@@ -316,7 +316,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_11_anses_jumelles_jour.rsground"
       },
       "assetName": "cote20_11_anses_jumelles_jour",
@@ -363,7 +363,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_11_anses_jumelles_nuit.rsground"
       },
       "assetName": "cote20_11_anses_jumelles_nuit",
@@ -410,7 +410,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_12_balcon_asymetrique_jour.rsground"
       },
       "assetName": "cote20_12_balcon_asymetrique_jour",
@@ -457,7 +457,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_12_balcon_asymetrique_nuit.rsground"
       },
       "assetName": "cote20_12_balcon_asymetrique_nuit",
@@ -504,7 +504,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_13_chapelet_jour.rsground"
       },
       "assetName": "cote20_13_chapelet_jour",
@@ -551,7 +551,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_13_chapelet_nuit.rsground"
       },
       "assetName": "cote20_13_chapelet_nuit",
@@ -598,7 +598,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_14_corniches_paralleles_jour.rsground"
       },
       "assetName": "cote20_14_corniches_paralleles_jour",
@@ -645,7 +645,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_14_corniches_paralleles_nuit.rsground"
       },
       "assetName": "cote20_14_corniches_paralleles_nuit",
@@ -692,7 +692,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_15_mesas_decalees_jour.rsground"
       },
       "assetName": "cote20_15_mesas_decalees_jour",
@@ -739,7 +739,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_15_mesas_decalees_nuit.rsground"
       },
       "assetName": "cote20_15_mesas_decalees_nuit",
@@ -786,7 +786,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_16_couronne_jour.rsground"
       },
       "assetName": "cote20_16_couronne_jour",
@@ -833,7 +833,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_16_couronne_nuit.rsground"
       },
       "assetName": "cote20_16_couronne_nuit",
@@ -880,7 +880,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_17_chenal_jour.rsground"
       },
       "assetName": "cote20_17_chenal_jour",
@@ -927,7 +927,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_17_chenal_nuit.rsground"
       },
       "assetName": "cote20_17_chenal_nuit",
@@ -974,7 +974,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_18_esplanade_jour.rsground"
       },
       "assetName": "cote20_18_esplanade_jour",
@@ -1021,7 +1021,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_18_esplanade_nuit.rsground"
       },
       "assetName": "cote20_18_esplanade_nuit",
@@ -1068,7 +1068,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_19_eperon_jour.rsground"
       },
       "assetName": "cote20_19_eperon_jour",
@@ -1115,7 +1115,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_19_eperon_nuit.rsground"
       },
       "assetName": "cote20_19_eperon_nuit",
@@ -1162,7 +1162,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_20_marches_levant_jour.rsground"
       },
       "assetName": "cote20_20_marches_levant_jour",
@@ -1209,7 +1209,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_lot2_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_lot2_pmdo.zip",
         "member": "Data/Ground/cote20_20_marches_levant_nuit.rsground"
       },
       "assetName": "cote20_20_marches_levant_nuit",
@@ -1256,7 +1256,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_01_long_cap_jour.rsground"
       },
       "assetName": "cote10_01_long_cap_jour",
@@ -1303,7 +1303,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_01_long_cap_nuit.rsground"
       },
       "assetName": "cote10_01_long_cap_nuit",
@@ -1350,7 +1350,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_02_mesa_jour.rsground"
       },
       "assetName": "cote10_02_mesa_jour",
@@ -1397,7 +1397,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_02_mesa_nuit.rsground"
       },
       "assetName": "cote10_02_mesa_nuit",
@@ -1444,7 +1444,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_03_detroit_jour.rsground"
       },
       "assetName": "cote10_03_detroit_jour",
@@ -1491,7 +1491,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_03_detroit_nuit.rsground"
       },
       "assetName": "cote10_03_detroit_nuit",
@@ -1538,7 +1538,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_04_deux_paliers_jour.rsground"
       },
       "assetName": "cote10_04_deux_paliers_jour",
@@ -1585,7 +1585,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_04_deux_paliers_nuit.rsground"
       },
       "assetName": "cote10_04_deux_paliers_nuit",
@@ -1632,7 +1632,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_05_crique_jour.rsground"
       },
       "assetName": "cote10_05_crique_jour",
@@ -1679,7 +1679,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_05_crique_nuit.rsground"
       },
       "assetName": "cote10_05_crique_nuit",
@@ -1726,7 +1726,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_06_cap_est_jour.rsground"
       },
       "assetName": "cote10_06_cap_est_jour",
@@ -1773,7 +1773,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_06_cap_est_nuit.rsground"
       },
       "assetName": "cote10_06_cap_est_nuit",
@@ -1820,7 +1820,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_07_cap_ouest_jour.rsground"
       },
       "assetName": "cote10_07_cap_ouest_jour",
@@ -1867,7 +1867,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_07_cap_ouest_nuit.rsground"
       },
       "assetName": "cote10_07_cap_ouest_nuit",
@@ -1914,7 +1914,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_08_corniche_jour.rsground"
       },
       "assetName": "cote10_08_corniche_jour",
@@ -1961,7 +1961,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_08_corniche_nuit.rsground"
       },
       "assetName": "cote10_08_corniche_nuit",
@@ -2008,7 +2008,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_09_archipel_jour.rsground"
       },
       "assetName": "cote10_09_archipel_jour",
@@ -2055,7 +2055,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_09_archipel_nuit.rsground"
       },
       "assetName": "cote10_09_archipel_nuit",
@@ -2102,7 +2102,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_10_trois_terrasses_jour.rsground"
       },
       "assetName": "cote10_10_trois_terrasses_jour",
@@ -2149,7 +2149,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_10_trois_terrasses_nuit.rsground"
       },
       "assetName": "cote10_10_trois_terrasses_nuit",
@@ -2196,7 +2196,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_v2_promontoire_jour.rsground"
       },
       "assetName": "cote10_v2_promontoire_jour",
@@ -2243,7 +2243,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_v2_promontoire_nuit.rsground"
       },
       "assetName": "cote10_v2_promontoire_nuit",
@@ -2290,7 +2290,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_v2_terrasse_jour.rsground"
       },
       "assetName": "cote10_v2_terrasse_jour",
@@ -2337,7 +2337,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_dix_zones_pmdo.zip",
+        "archive": "cote_treasure_dix_zones_pmdo.zip",
         "member": "Data/Ground/cote10_v2_terrasse_nuit.rsground"
       },
       "assetName": "cote10_v2_terrasse_nuit",
@@ -2384,7 +2384,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_v2_pmdo.zip",
+        "archive": "cote_treasure_v2_pmdo.zip",
         "member": "Data/Ground/cote_v2_promontoire.rsground"
       },
       "assetName": "cote_v2_promontoire",
@@ -2430,7 +2430,7 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cote_metano_v2_pmdo.zip",
+        "archive": "cote_treasure_v2_pmdo.zip",
         "member": "Data/Ground/cote_v2_terrasse.rsground"
       },
       "assetName": "cote_v2_terrasse",
@@ -2476,8 +2476,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_01_cap_large_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_01_cap_large_jour.rsground"
       },
       "assetName": "v40812_01_cap_large_jour",
       "displayName": "Le grand cap - jour",
@@ -2523,8 +2523,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_01_cap_large_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_01_cap_large_nuit.rsground"
       },
       "assetName": "v40812_01_cap_large_nuit",
       "displayName": "Le grand cap - nuit",
@@ -2570,8 +2570,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_02_terrasse_croissant_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_02_terrasse_croissant_jour.rsground"
       },
       "assetName": "v40812_02_terrasse_croissant_jour",
       "displayName": "La terrasse en croissant - jour",
@@ -2617,8 +2617,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_02_terrasse_croissant_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_02_terrasse_croissant_nuit.rsground"
       },
       "assetName": "v40812_02_terrasse_croissant_nuit",
       "displayName": "La terrasse en croissant - nuit",
@@ -2664,8 +2664,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_03_double_belvedere_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_03_double_belvedere_jour.rsground"
       },
       "assetName": "v40812_03_double_belvedere_jour",
       "displayName": "Le double belvédère - jour",
@@ -2711,8 +2711,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_03_double_belvedere_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_03_double_belvedere_nuit.rsground"
       },
       "assetName": "v40812_03_double_belvedere_nuit",
       "displayName": "Le double belvédère - nuit",
@@ -2758,8 +2758,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_04_pointe_sinueuse_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_04_pointe_sinueuse_jour.rsground"
       },
       "assetName": "v40812_04_pointe_sinueuse_jour",
       "displayName": "La pointe sinueuse - jour",
@@ -2805,8 +2805,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_04_pointe_sinueuse_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_04_pointe_sinueuse_nuit.rsground"
       },
       "assetName": "v40812_04_pointe_sinueuse_nuit",
       "displayName": "La pointe sinueuse - nuit",
@@ -2852,8 +2852,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_05_grande_mesa_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_05_grande_mesa_jour.rsground"
       },
       "assetName": "v40812_05_grande_mesa_jour",
       "displayName": "La grande mesa - jour",
@@ -2899,8 +2899,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_05_grande_mesa_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_05_grande_mesa_nuit.rsground"
       },
       "assetName": "v40812_05_grande_mesa_nuit",
       "displayName": "La grande mesa - nuit",
@@ -2946,8 +2946,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_06_crique_profonde_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_06_crique_profonde_jour.rsground"
       },
       "assetName": "v40812_06_crique_profonde_jour",
       "displayName": "La crique profonde - jour",
@@ -2993,8 +2993,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_06_crique_profonde_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_06_crique_profonde_nuit.rsground"
       },
       "assetName": "v40812_06_crique_profonde_nuit",
       "displayName": "La crique profonde - nuit",
@@ -3040,8 +3040,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_07_balcon_haut_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_07_balcon_haut_jour.rsground"
       },
       "assetName": "v40812_07_balcon_haut_jour",
       "displayName": "Le haut balcon - jour",
@@ -3087,8 +3087,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_07_balcon_haut_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_07_balcon_haut_nuit.rsground"
       },
       "assetName": "v40812_07_balcon_haut_nuit",
       "displayName": "Le haut balcon - nuit",
@@ -3134,8 +3134,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_08_terrasses_decalees_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_08_terrasses_decalees_jour.rsground"
       },
       "assetName": "v40812_08_terrasses_decalees_jour",
       "displayName": "Les terrasses décalées - jour",
@@ -3181,8 +3181,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_08_terrasses_decalees_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_08_terrasses_decalees_nuit.rsground"
       },
       "assetName": "v40812_08_terrasses_decalees_nuit",
       "displayName": "Les terrasses décalées - nuit",
@@ -3228,8 +3228,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_09_cap_eventail_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_09_cap_eventail_jour.rsground"
       },
       "assetName": "v40812_09_cap_eventail_jour",
       "displayName": "Le cap en éventail - jour",
@@ -3275,8 +3275,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_09_cap_eventail_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_09_cap_eventail_nuit.rsground"
       },
       "assetName": "v40812_09_cap_eventail_nuit",
       "displayName": "Le cap en éventail - nuit",
@@ -3322,8 +3322,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_10_esplanade_arrondie_jour.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_10_esplanade_arrondie_jour.rsground"
       },
       "assetName": "v40812_10_esplanade_arrondie_jour",
       "displayName": "L’esplanade arrondie - jour",
@@ -3369,8 +3369,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "cotes_metano_abyss_0812_pmdo.zip",
-        "member": "cotes_metano_abyss_0812/Data/Ground/v40812_10_esplanade_arrondie_nuit.rsground"
+        "archive": "cotes_treasure_abyss_0812_pmdo.zip",
+        "member": "cotes_treasure_abyss_0812/Data/Ground/v40812_10_esplanade_arrondie_nuit.rsground"
       },
       "assetName": "v40812_10_esplanade_arrondie_nuit",
       "displayName": "L’esplanade arrondie - nuit",
@@ -4356,8 +4356,8 @@
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_01_cap_large_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_01_cap_large_jour.rsground"
       },
       "assetName": "v40812_01_cap_large_jour",
       "displayName": "Le grand cap - jour",
@@ -4396,15 +4396,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "93108e1543daf061d32ced46d12a1631ebf1885736909f6e3ce9dae430b98abb"
     },
     {
       "entryId": "zip_088",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_01_cap_large_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_01_cap_large_nuit.rsground"
       },
       "assetName": "v40812_01_cap_large_nuit",
       "displayName": "Le grand cap - nuit",
@@ -4443,15 +4444,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "555b26d4435e9b3c5bc866a1f0766303d51771c4869e7ddabd150e40fd915c22"
     },
     {
       "entryId": "zip_089",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_02_terrasse_croissant_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_02_terrasse_croissant_jour.rsground"
       },
       "assetName": "v40812_02_terrasse_croissant_jour",
       "displayName": "La terrasse en croissant - jour",
@@ -4490,15 +4492,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "856f58420b182d4b7ccf6ddd29136028cb3b8e8d7c70ecf9b47850815889d57c"
     },
     {
       "entryId": "zip_090",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_02_terrasse_croissant_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_02_terrasse_croissant_nuit.rsground"
       },
       "assetName": "v40812_02_terrasse_croissant_nuit",
       "displayName": "La terrasse en croissant - nuit",
@@ -4537,15 +4540,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "c2e1375960375c1252890ecdf4da25125a4770002936a2d35ee90f9e377370f1"
     },
     {
       "entryId": "zip_091",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_03_double_belvedere_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_03_double_belvedere_jour.rsground"
       },
       "assetName": "v40812_03_double_belvedere_jour",
       "displayName": "Le double belvédère - jour",
@@ -4584,15 +4588,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "a01886052bc79a3d0cd60877a449ad0304b6c44f315aa100cc9ebbaccc5d5a22"
     },
     {
       "entryId": "zip_092",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_03_double_belvedere_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_03_double_belvedere_nuit.rsground"
       },
       "assetName": "v40812_03_double_belvedere_nuit",
       "displayName": "Le double belvédère - nuit",
@@ -4631,15 +4636,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "4ff2239dd869fa90b0acddf69bf55ec34e99e5afa070dd71ef0860fa51cf2dd8"
     },
     {
       "entryId": "zip_093",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_04_pointe_sinueuse_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_04_pointe_sinueuse_jour.rsground"
       },
       "assetName": "v40812_04_pointe_sinueuse_jour",
       "displayName": "La pointe sinueuse - jour",
@@ -4678,15 +4684,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "5cfe5b4ebb4b27d5745a02663df29cd494d7c1ad18ed08c11ce4406ce40bc8b1"
     },
     {
       "entryId": "zip_094",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_04_pointe_sinueuse_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_04_pointe_sinueuse_nuit.rsground"
       },
       "assetName": "v40812_04_pointe_sinueuse_nuit",
       "displayName": "La pointe sinueuse - nuit",
@@ -4725,15 +4732,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "8c20323b2aada951c415cb1022232e2859e6d6401ebc73fb8e2679507d57220b"
     },
     {
       "entryId": "zip_095",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_05_grande_mesa_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_05_grande_mesa_jour.rsground"
       },
       "assetName": "v40812_05_grande_mesa_jour",
       "displayName": "La grande mesa - jour",
@@ -4772,15 +4780,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "5f5828cd32ac48670210fdf860fcd08f71d56a2baa1b6855085b60cf8d2d510f"
     },
     {
       "entryId": "zip_096",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_05_grande_mesa_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_05_grande_mesa_nuit.rsground"
       },
       "assetName": "v40812_05_grande_mesa_nuit",
       "displayName": "La grande mesa - nuit",
@@ -4819,15 +4828,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "f078fd6cfd7bd3361e66d6f51f35863bd294d9bf1074ecc04488b97b272622f2"
     },
     {
       "entryId": "zip_097",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_06_crique_profonde_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_06_crique_profonde_jour.rsground"
       },
       "assetName": "v40812_06_crique_profonde_jour",
       "displayName": "La crique profonde - jour",
@@ -4866,15 +4876,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "211c127ace0288773ab10dc068b9ffc3fe9f1d864458d25af4079594a007be1a"
     },
     {
       "entryId": "zip_098",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_06_crique_profonde_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_06_crique_profonde_nuit.rsground"
       },
       "assetName": "v40812_06_crique_profonde_nuit",
       "displayName": "La crique profonde - nuit",
@@ -4913,15 +4924,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "e4d7238024a5b014e3bd9c49ae609641901f884bf62f5d9d036a162c51d45691"
     },
     {
       "entryId": "zip_099",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_07_balcon_haut_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_07_balcon_haut_jour.rsground"
       },
       "assetName": "v40812_07_balcon_haut_jour",
       "displayName": "Le haut balcon - jour",
@@ -4960,15 +4972,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "91b1efa3bb8ead804d6b700adfd9ce9cbb31df3383de21bd36abc50481ebb977"
     },
     {
       "entryId": "zip_100",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_07_balcon_haut_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_07_balcon_haut_nuit.rsground"
       },
       "assetName": "v40812_07_balcon_haut_nuit",
       "displayName": "Le haut balcon - nuit",
@@ -5007,15 +5020,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "b3d658dc3630d0aec62f1889a8833c28a108941ffbe296a06de1d10e460a4463"
     },
     {
       "entryId": "zip_101",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_08_terrasses_decalees_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_08_terrasses_decalees_jour.rsground"
       },
       "assetName": "v40812_08_terrasses_decalees_jour",
       "displayName": "Les terrasses décalées - jour",
@@ -5054,15 +5068,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "6ac44fb4e663fdc92eb78681ed13096c77c9a9771f2d174939d7abb998f4e035"
     },
     {
       "entryId": "zip_102",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_08_terrasses_decalees_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_08_terrasses_decalees_nuit.rsground"
       },
       "assetName": "v40812_08_terrasses_decalees_nuit",
       "displayName": "Les terrasses décalées - nuit",
@@ -5101,15 +5116,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "adcc903c8733eb049a10a22dd2306ef4b475450f7b1a2198daacf7fba2d606f2"
     },
     {
       "entryId": "zip_103",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_09_cap_eventail_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_09_cap_eventail_jour.rsground"
       },
       "assetName": "v40812_09_cap_eventail_jour",
       "displayName": "Le cap en éventail - jour",
@@ -5148,15 +5164,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "2b5c0fcc7d1579a9fdeb6b31cfd71826c599e419139ed6c6f85963f7aa297dce"
     },
     {
       "entryId": "zip_104",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_09_cap_eventail_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_09_cap_eventail_nuit.rsground"
       },
       "assetName": "v40812_09_cap_eventail_nuit",
       "displayName": "Le cap en éventail - nuit",
@@ -5195,15 +5212,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "a757fe0602f2a5ef82e0e9fd84b435cb46544086c96501d6e05a8ddf0797099d"
     },
     {
       "entryId": "zip_105",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_10_esplanade_arrondie_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_10_esplanade_arrondie_jour.rsground"
       },
       "assetName": "v40812_10_esplanade_arrondie_jour",
       "displayName": "L’esplanade arrondie - jour",
@@ -5242,15 +5260,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "d9f16c841e7b6e12871bfafd5525f700f05e4caccdb9378218d85b91f4e47351"
     },
     {
       "entryId": "zip_106",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v40812_10_esplanade_arrondie_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v40812_10_esplanade_arrondie_nuit.rsground"
       },
       "assetName": "v40812_10_esplanade_arrondie_nuit",
       "displayName": "L’esplanade arrondie - nuit",
@@ -5289,15 +5308,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "cb04f8d6e42784f7469b49b80088db6339d6ba0e8090a51f8c9feb1f3391afd2"
     },
     {
       "entryId": "zip_107",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground"
       },
       "assetName": "v50812_01_crete_sillage_jour",
       "displayName": "La crête du Sillage - jour",
@@ -5337,15 +5357,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "c1ba9747e90d2115de5adc02ea5e9a9557861a786810383de42685a0f2385938"
     },
     {
       "entryId": "zip_108",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_01_crete_sillage_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_01_crete_sillage_nuit.rsground"
       },
       "assetName": "v50812_01_crete_sillage_nuit",
       "displayName": "La crête du Sillage - nuit",
@@ -5385,15 +5406,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "f5c7e82b4eda1dd73f691754e1472af3ab5f8fbf247382c59fe6a6815d8bfd72"
     },
     {
       "entryId": "zip_109",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_02_caps_relies_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_02_caps_relies_jour.rsground"
       },
       "assetName": "v50812_02_caps_relies_jour",
       "displayName": "Les caps reliés - jour",
@@ -5433,15 +5455,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "01ef0fafd569ee7ba55798d4b86af4963fffe0f53239a19d31a243fba01dfdd1"
     },
     {
       "entryId": "zip_110",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_02_caps_relies_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_02_caps_relies_nuit.rsground"
       },
       "assetName": "v50812_02_caps_relies_nuit",
       "displayName": "Les caps reliés - nuit",
@@ -5481,15 +5504,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "9d421c490ef1c8a61c633ecd01ebb4b2f45f3afd786504f017cf8cb6898be346"
     },
     {
       "entryId": "zip_111",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_03_eventail_strates_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_03_eventail_strates_jour.rsground"
       },
       "assetName": "v50812_03_eventail_strates_jour",
       "displayName": "L’éventail des strates - jour",
@@ -5529,15 +5553,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "2bf187f849fdf6599800407bf62d452140d3b4f349b54131288b0588b159c95d"
     },
     {
       "entryId": "zip_112",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_03_eventail_strates_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_03_eventail_strates_nuit.rsground"
       },
       "assetName": "v50812_03_eventail_strates_nuit",
       "displayName": "L’éventail des strates - nuit",
@@ -5577,15 +5602,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "174e77bbfaf0d2f7e950a40f3b8e83789dc98c8e232a7ebcaea8d6863a5d64e6"
     },
     {
       "entryId": "zip_113",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_04_lagune_occident_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_04_lagune_occident_jour.rsground"
       },
       "assetName": "v50812_04_lagune_occident_jour",
       "displayName": "La lagune d’Occident - jour",
@@ -5625,15 +5651,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "c0421e4a51f94c59f93e07d7a3dcf1d60c340e04411e45f2d5e9bd252507a1cd"
     },
     {
       "entryId": "zip_114",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_04_lagune_occident_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_04_lagune_occident_nuit.rsground"
       },
       "assetName": "v50812_04_lagune_occident_nuit",
       "displayName": "La lagune d’Occident - nuit",
@@ -5673,15 +5700,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "714ffefd0e9838bc1b04145a126770f442df07b78d675e86de0de08273f20c91"
     },
     {
       "entryId": "zip_115",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_05_cote_quatre_pointes_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_05_cote_quatre_pointes_jour.rsground"
       },
       "assetName": "v50812_05_cote_quatre_pointes_jour",
       "displayName": "La côte aux quatre pointes - jour",
@@ -5721,15 +5749,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "e0c0b0c5abcbac541540ce20bb6638b3d85b4ee481e0547ca69c3262c38f5038"
     },
     {
       "entryId": "zip_116",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_05_cote_quatre_pointes_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_05_cote_quatre_pointes_nuit.rsground"
       },
       "assetName": "v50812_05_cote_quatre_pointes_nuit",
       "displayName": "La côte aux quatre pointes - nuit",
@@ -5769,15 +5798,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "5ba1b8ae549241b2ec5bae43cfa2f502017bb1ddc4e15c6ce7d73c35cfbb74c5"
     },
     {
       "entryId": "zip_117",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_06_sommet_balcon_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_06_sommet_balcon_jour.rsground"
       },
       "assetName": "v50812_06_sommet_balcon_jour",
       "displayName": "Le sommet au balcon - jour",
@@ -5817,15 +5847,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "9f9db937eb09117fd33f536056b2b02f1943a121596f7b26b762c1bcc46ca2de"
     },
     {
       "entryId": "zip_118",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_06_sommet_balcon_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_06_sommet_balcon_nuit.rsground"
       },
       "assetName": "v50812_06_sommet_balcon_nuit",
       "displayName": "Le sommet au balcon - nuit",
@@ -5865,15 +5896,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "354ad94df4e69859b23a33d9683942f2a3a88993a5f5eb0a66c755fc4a0277de"
     },
     {
       "entryId": "zip_119",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_07_cap_chenal_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_07_cap_chenal_jour.rsground"
       },
       "assetName": "v50812_07_cap_chenal_jour",
       "displayName": "Le cap du Chenal - jour",
@@ -5913,15 +5945,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "6008e3fb4a8efc1094bfac2eafd6f68cedf0cd1866bc2707b6be1fe2a7c0bdaf"
     },
     {
       "entryId": "zip_120",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_07_cap_chenal_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_07_cap_chenal_nuit.rsground"
       },
       "assetName": "v50812_07_cap_chenal_nuit",
       "displayName": "Le cap du Chenal - nuit",
@@ -5961,15 +5994,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "d64a5290cb9ca9b2b2cdd5ff718ddacc6e93ef65fb840e638c687e30a6996582"
     },
     {
       "entryId": "zip_121",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_08_antre_crochu_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_08_antre_crochu_jour.rsground"
       },
       "assetName": "v50812_08_antre_crochu_jour",
       "displayName": "L’antre Crochu - jour",
@@ -6010,15 +6044,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "e52545318dd5826b75e43f3c7ad00fb79a52b366ec51d80af11144c2f3eff2f3"
     },
     {
       "entryId": "zip_122",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_08_antre_crochu_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_08_antre_crochu_nuit.rsground"
       },
       "assetName": "v50812_08_antre_crochu_nuit",
       "displayName": "L’antre Crochu - nuit",
@@ -6059,15 +6094,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "9a55cb4bc27415ddddfe3b0959813e42c7e0acd482fcc2d1ced1e7cc060c7014"
     },
     {
       "entryId": "zip_123",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_09_grotte_marees_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_09_grotte_marees_jour.rsground"
       },
       "assetName": "v50812_09_grotte_marees_jour",
       "displayName": "La grotte des Marées - jour",
@@ -6108,15 +6144,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "87d3707c17aa998ea13ca62bede089480c7cbfdcfd43c3ec7a47f03ac09668f3"
     },
     {
       "entryId": "zip_124",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_09_grotte_marees_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_09_grotte_marees_nuit.rsground"
       },
       "assetName": "v50812_09_grotte_marees_nuit",
       "displayName": "La grotte des Marées - nuit",
@@ -6157,15 +6194,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "e972537197e9f5d2fea5c59e637363ee79faf304e97c24e3967506fbd92da9df"
     },
     {
       "entryId": "zip_125",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_10_defile_brume_jour.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_10_defile_brume_jour.rsground"
       },
       "assetName": "v50812_10_defile_brume_jour",
       "displayName": "Le défilé de Brume - jour",
@@ -6206,15 +6244,16 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "942f085c0878faa6c9b167ee80dbaacda2e8a9ea20c1cfac3b1052658920df48"
     },
     {
       "entryId": "zip_126",
       "sourceCategory": "zip_archive",
       "sourceLocator": {
         "repository": "meromoonmeri/projet-pmdo",
-        "archive": "mod_metano_expeditions_pmdo_0812.zip",
-        "member": "metano_expeditions/Data/Ground/v50812_10_defile_brume_nuit.rsground"
+        "archive": "mod_treasure_expeditions_pmdo_0812.zip",
+        "member": "treasure_expeditions/Data/Ground/v50812_10_defile_brume_nuit.rsground"
       },
       "assetName": "v50812_10_defile_brume_nuit",
       "displayName": "Le défilé de Brume - nuit",
@@ -6255,7 +6294,8 @@
       "playabilityCertified": false,
       "reviewNotes": [
         "Runtime probe ne vérifie ni rendu, ni collision correcte, ni parcours, ni sortie/warp."
-      ]
+      ],
+      "rebrandedGroundSha256": "33dc86b0c63ece1a83f4c28277ed15a72d6a363a21abf4979587544ebbeead38"
     },
     {
       "entryId": "branch_001",
@@ -6294,7 +6334,7 @@
         "Altere_Pond_Objects_Under": "source",
         "Altere_Pond_River_Animations": "source",
         "Altere_Pond_Shadows": "source",
-        "Metano_Town_Animation_Tileset": "source"
+        "Treasure_Town_Animation_Tileset": "source"
       },
       "tileRefs": [
         "Altere_Pond_Base",
@@ -6305,7 +6345,7 @@
         "Altere_Pond_Objects_Under",
         "Altere_Pond_River_Animations",
         "Altere_Pond_Shadows",
-        "Metano_Town_Animation_Tileset"
+        "Treasure_Town_Animation_Tileset"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -6360,12 +6400,12 @@
         "CLIFF MIROR-Photoroom": "MISSING",
         "CanyonCamp": "base",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Inn_Objects": "source",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
-        "Metano_Town_Cliffs": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Inn_Objects": "source",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
+        "Treasure_Town_Cliffs": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01P01A_layer1": "MISSING",
         "v2_promontoire_jour_03": "MISSING"
       },
@@ -6379,12 +6419,12 @@
         "CLIFF MIROR-Photoroom",
         "CanyonCamp",
         "INVERSEPATHWAY",
-        "Metano_Inn_Objects",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset",
-        "Metano_Town_Cliffs",
-        "Metano_Town_Objects",
-        "Metano_Town_Trimmed",
+        "Treasure_Inn_Objects",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset",
+        "Treasure_Town_Cliffs",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -6396,8 +6436,8 @@
         "13_avancee_basse_gauche_terrain",
         "CLIFF MIROR-Photoroom",
         "INVERSEPATHWAY",
-        "Metano_Town_Animated",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -6465,8 +6505,8 @@
         "00_ciel": "MISSING",
         "Altere_Pond_Cliffs": "source",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Altere_Transition_Base": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
+        "Treasure_Altere_Transition_Base": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
         "terrain": "MISSING",
         "terrain (2)": "MISSING",
         "terrain (3)": "MISSING",
@@ -6477,8 +6517,8 @@
         "00_ciel",
         "Altere_Pond_Cliffs",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
-        "Metano_Town_Animation_Tileset",
+        "Treasure_Altere_Transition_Base",
+        "Treasure_Town_Animation_Tileset",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -6490,7 +6530,7 @@
       "missingTileRefs": [
         "00_ciel",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
+        "Treasure_Altere_Transition_Base",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -6801,13 +6841,13 @@
         "ref": "arena/488d1a47-projet-creation-pmdo",
         "commit": "ac58cc9a37ca8a5b5305419e82f44cf6ba646a5d",
         "sourceDate": "2026-10-27T02:24:04+00:00",
-        "path": "BIBLIOTHEQUE_MAPS/grounds/metano_cafe.rsground",
+        "path": "BIBLIOTHEQUE_MAPS/grounds/treasure_cafe.rsground",
         "blobOid": "3df480b75b5ba013b239f458033e0cd9fdf61180",
         "blobBytes": 1380320
       },
-      "assetName": "metano_cafe",
+      "assetName": "treasure_cafe",
       "displayName": {
-        "DefaultText": "Metano Café",
+        "DefaultText": "Treasure Café",
         "LocalTexts": {}
       },
       "groundVersion": "0.7.17.0",
@@ -6839,18 +6879,18 @@
         "Cafe_Table_16"
       ],
       "tileRefStatus": {
-        "Metano_Town_Cafe_Base": "source",
-        "Metano_Town_Cafe_Objects": "source",
-        "Metano_Town_Cafe_Objects_Fringe": "source",
-        "Metano_Town_Cafe_Objects_Over": "source",
-        "Metano_Town_Cafe_Objects_Under": "source"
+        "Treasure_Town_Cafe_Base": "source",
+        "Treasure_Town_Cafe_Objects": "source",
+        "Treasure_Town_Cafe_Objects_Fringe": "source",
+        "Treasure_Town_Cafe_Objects_Over": "source",
+        "Treasure_Town_Cafe_Objects_Under": "source"
       },
       "tileRefs": [
-        "Metano_Town_Cafe_Base",
-        "Metano_Town_Cafe_Objects",
-        "Metano_Town_Cafe_Objects_Fringe",
-        "Metano_Town_Cafe_Objects_Over",
-        "Metano_Town_Cafe_Objects_Under"
+        "Treasure_Town_Cafe_Base",
+        "Treasure_Town_Cafe_Objects",
+        "Treasure_Town_Cafe_Objects_Fringe",
+        "Treasure_Town_Cafe_Objects_Over",
+        "Treasure_Town_Cafe_Objects_Under"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -6966,12 +7006,12 @@
         "CLIFF MIROR-Photoroom": "MISSING",
         "CanyonCamp": "base",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Inn_Objects": "source",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
-        "Metano_Town_Cliffs": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Inn_Objects": "source",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
+        "Treasure_Town_Cliffs": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01P01A_layer1": "MISSING",
         "v2_promontoire_jour_03": "MISSING"
       },
@@ -6985,12 +7025,12 @@
         "CLIFF MIROR-Photoroom",
         "CanyonCamp",
         "INVERSEPATHWAY",
-        "Metano_Inn_Objects",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset",
-        "Metano_Town_Cliffs",
-        "Metano_Town_Objects",
-        "Metano_Town_Trimmed",
+        "Treasure_Inn_Objects",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset",
+        "Treasure_Town_Cliffs",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -7002,8 +7042,8 @@
         "13_avancee_basse_gauche_terrain",
         "CLIFF MIROR-Photoroom",
         "INVERSEPATHWAY",
-        "Metano_Town_Animated",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -7071,8 +7111,8 @@
         "00_ciel": "MISSING",
         "Altere_Pond_Cliffs": "source",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Altere_Transition_Base": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
+        "Treasure_Altere_Transition_Base": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
         "terrain": "MISSING",
         "terrain (2)": "MISSING",
         "terrain (3)": "MISSING",
@@ -7083,8 +7123,8 @@
         "00_ciel",
         "Altere_Pond_Cliffs",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
-        "Metano_Town_Animation_Tileset",
+        "Treasure_Altere_Transition_Base",
+        "Treasure_Town_Animation_Tileset",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -7096,7 +7136,7 @@
       "missingTileRefs": [
         "00_ciel",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
+        "Treasure_Altere_Transition_Base",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -8832,7 +8872,7 @@
         "Altere_Pond_Objects_Under": "source",
         "Altere_Pond_River_Animations": "source",
         "Altere_Pond_Shadows": "source",
-        "Metano_Town_Animation_Tileset": "source"
+        "Treasure_Town_Animation_Tileset": "source"
       },
       "tileRefs": [
         "Altere_Pond_Base",
@@ -8843,7 +8883,7 @@
         "Altere_Pond_Objects_Under",
         "Altere_Pond_River_Animations",
         "Altere_Pond_Shadows",
-        "Metano_Town_Animation_Tileset"
+        "Treasure_Town_Animation_Tileset"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -8898,12 +8938,12 @@
         "CLIFF MIROR-Photoroom": "MISSING",
         "CanyonCamp": "base",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Inn_Objects": "source",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
-        "Metano_Town_Cliffs": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Inn_Objects": "source",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
+        "Treasure_Town_Cliffs": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01P01A_layer1": "MISSING",
         "v2_promontoire_jour_03": "MISSING"
       },
@@ -8917,12 +8957,12 @@
         "CLIFF MIROR-Photoroom",
         "CanyonCamp",
         "INVERSEPATHWAY",
-        "Metano_Inn_Objects",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset",
-        "Metano_Town_Cliffs",
-        "Metano_Town_Objects",
-        "Metano_Town_Trimmed",
+        "Treasure_Inn_Objects",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset",
+        "Treasure_Town_Cliffs",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -8934,8 +8974,8 @@
         "13_avancee_basse_gauche_terrain",
         "CLIFF MIROR-Photoroom",
         "INVERSEPATHWAY",
-        "Metano_Town_Animated",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -9003,8 +9043,8 @@
         "00_ciel": "MISSING",
         "Altere_Pond_Cliffs": "source",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Altere_Transition_Base": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
+        "Treasure_Altere_Transition_Base": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
         "terrain": "MISSING",
         "terrain (2)": "MISSING",
         "terrain (3)": "MISSING",
@@ -9015,8 +9055,8 @@
         "00_ciel",
         "Altere_Pond_Cliffs",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
-        "Metano_Town_Animation_Tileset",
+        "Treasure_Altere_Transition_Base",
+        "Treasure_Town_Animation_Tileset",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -9028,7 +9068,7 @@
       "missingTileRefs": [
         "00_ciel",
         "INVERSEPATHWAY",
-        "Metano_Altere_Transition_Base",
+        "Treasure_Altere_Transition_Base",
         "terrain",
         "terrain (2)",
         "terrain (3)",
@@ -9339,13 +9379,13 @@
         "ref": "arena/488d1a47-projet-creation-pmdo",
         "commit": "ac58cc9a37ca8a5b5305419e82f44cf6ba646a5d",
         "sourceDate": "2026-10-27T02:24:04+00:00",
-        "path": "quest_pmdo_0812/Data/Ground/metano_cafe.rsground",
+        "path": "quest_pmdo_0812/Data/Ground/treasure_cafe.rsground",
         "blobOid": "3df480b75b5ba013b239f458033e0cd9fdf61180",
         "blobBytes": 1380320
       },
-      "assetName": "metano_cafe",
+      "assetName": "treasure_cafe",
       "displayName": {
-        "DefaultText": "Metano Café",
+        "DefaultText": "Treasure Café",
         "LocalTexts": {}
       },
       "groundVersion": "0.7.17.0",
@@ -9377,18 +9417,18 @@
         "Cafe_Table_16"
       ],
       "tileRefStatus": {
-        "Metano_Town_Cafe_Base": "source",
-        "Metano_Town_Cafe_Objects": "source",
-        "Metano_Town_Cafe_Objects_Fringe": "source",
-        "Metano_Town_Cafe_Objects_Over": "source",
-        "Metano_Town_Cafe_Objects_Under": "source"
+        "Treasure_Town_Cafe_Base": "source",
+        "Treasure_Town_Cafe_Objects": "source",
+        "Treasure_Town_Cafe_Objects_Fringe": "source",
+        "Treasure_Town_Cafe_Objects_Over": "source",
+        "Treasure_Town_Cafe_Objects_Under": "source"
       },
       "tileRefs": [
-        "Metano_Town_Cafe_Base",
-        "Metano_Town_Cafe_Objects",
-        "Metano_Town_Cafe_Objects_Fringe",
-        "Metano_Town_Cafe_Objects_Over",
-        "Metano_Town_Cafe_Objects_Under"
+        "Treasure_Town_Cafe_Base",
+        "Treasure_Town_Cafe_Objects",
+        "Treasure_Town_Cafe_Objects_Fringe",
+        "Treasure_Town_Cafe_Objects_Over",
+        "Treasure_Town_Cafe_Objects_Under"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -9505,19 +9545,19 @@
         "CanyonCamp": "base",
         "H01p99a_Base": "MISSING",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Inn_Objects": "source",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
-        "Metano_Town_Base": "AMBIGUOUS",
-        "Metano_Town_Cliffs": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Objects_Under": "source",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Inn_Objects": "source",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
+        "Treasure_Town_Base": "AMBIGUOUS",
+        "Treasure_Town_Cliffs": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Objects_Under": "source",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01P01A_layer1": "MISSING",
         "P01p01a_Base": "MISSING",
         "image-removebg-preview (2)": "MISSING",
         "interieur_sans_deco_jour (2)": "MISSING",
-        "metano_scale_verification": "MISSING",
+        "treasure_scale_verification": "MISSING",
         "test": "MISSING"
       },
       "tileRefs": [
@@ -9529,19 +9569,19 @@
         "CanyonCamp",
         "H01p99a_Base",
         "INVERSEPATHWAY",
-        "Metano_Inn_Objects",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset",
-        "Metano_Town_Base",
-        "Metano_Town_Cliffs",
-        "Metano_Town_Objects",
-        "Metano_Town_Objects_Under",
-        "Metano_Town_Trimmed",
+        "Treasure_Inn_Objects",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset",
+        "Treasure_Town_Base",
+        "Treasure_Town_Cliffs",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Objects_Under",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "P01p01a_Base",
         "image-removebg-preview (2)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "test"
       ],
       "backgroundRefs": [],
@@ -9551,14 +9591,14 @@
         "CLIFF MIROR-Photoroom",
         "H01p99a_Base",
         "INVERSEPATHWAY",
-        "Metano_Town_Animated",
-        "Metano_Town_Base",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Base",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "P01p01a_Base",
         "image-removebg-preview (2)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "test"
       ],
       "collisionTags": {
@@ -9582,7 +9622,7 @@
           "commit": "6cca4a09380211e510ab1bea454a1b1926ef4b5a",
           "archive": "renders/amp_plains_fleurie_v1/amp_plains_fleurie_v1.zip",
           "archiveBlobOid": "97eb91dc93929301dfa7ebfc21ff7f802cae024f",
-          "member": "source/amp_plains_fleurie_v1/references/Metano_Town_Base.tile",
+          "member": "source/amp_plains_fleurie_v1/references/Treasure_Town_Base.tile",
           "sha256": "305a732461d128707640c76d92f7539e4d2fd5359461f30c718c50a2d2ae4d64",
           "bytes": 1231857,
           "tileSize": 8,
@@ -9592,7 +9632,7 @@
             188
           ],
           "disposition": "ambiguous_candidate_not_integrated",
-          "reason": "Même SHA-256 que source/cote_v4_abyss/natifs/Metano_Town_Base.tile; une variante distincte existe sous source/falaises_metano/natifs/Metano_Town_Base.tile (sha256 ee17ebd2...). Aucun alias de carte Amp Plains ↔ Vallons Fleuris n’est établi."
+          "reason": "Même SHA-256 que source/cote_v4_abyss/natifs/Treasure_Town_Base.tile; une variante distincte existe sous source/falaises_treasure/natifs/Treasure_Town_Base.tile (sha256 ee17ebd2...). Aucun alias de carte Amp Plains ↔ Vallons Fleuris n’est établi."
         }
       ]
     },
@@ -9603,13 +9643,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "renders/reseau_metano_normal_v1/grounds/metano_gen_accueil.rsground",
+        "path": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_accueil.rsground",
         "blobOid": "5e959a8cf153e18569e22a202c2799037499e2a6",
         "blobBytes": 1351739
       },
-      "assetName": "metano_gen_accueil",
+      "assetName": "treasure_gen_accueil",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.8.12.0",
@@ -9679,31 +9719,31 @@
         "LacCascade_Base": "MISSING",
         "Ledian_Dojo_Ceiling": "source",
         "LulubyTownEvening_Base": "MISSING",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animated_Night": "MISSING",
-        "Metano_Town_Animation_Tileset_Night": "source",
-        "Metano_Town_Cafe": "MISSING",
-        "Metano_Town_Cafe_Base": "source",
-        "Metano_Town_Cafe_Objects": "source",
-        "Metano_Town_Electric_Home_Base": "MISSING",
-        "Metano_Town_Electric_Home_Objects": "MISSING",
-        "Metano_Town_Fire_Home_Base": "MISSING",
-        "Metano_Town_Fire_Home_Objects": "MISSING",
-        "Metano_Town_Fringe_Night": "source",
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Normal_Home_Objects": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Objects_Night": "source",
-        "Metano_Town_Objects_Over_Night": "MISSING",
-        "Metano_Town_Objects_Under_Night": "MISSING",
-        "Metano_Town_Rock_Home_Base": "MISSING",
-        "Metano_Town_Water_Home_Base": "MISSING",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animated_Night": "MISSING",
+        "Treasure_Town_Animation_Tileset_Night": "source",
+        "Treasure_Town_Cafe": "MISSING",
+        "Treasure_Town_Cafe_Base": "source",
+        "Treasure_Town_Cafe_Objects": "source",
+        "Treasure_Town_Electric_Home_Base": "MISSING",
+        "Treasure_Town_Electric_Home_Objects": "MISSING",
+        "Treasure_Town_Fire_Home_Base": "MISSING",
+        "Treasure_Town_Fire_Home_Objects": "MISSING",
+        "Treasure_Town_Fringe_Night": "source",
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Normal_Home_Objects": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Objects_Night": "source",
+        "Treasure_Town_Objects_Over_Night": "MISSING",
+        "Treasure_Town_Objects_Under_Night": "MISSING",
+        "Treasure_Town_Rock_Home_Base": "MISSING",
+        "Treasure_Town_Water_Home_Base": "MISSING",
         "P01p04a_Base": "MISSING",
         "P17p02a_Base": "MISSING",
         "P19p02a_Base": "MISSING",
         "PMD_TREES": "MISSING",
         "PreTonnerre_Base": "MISSING",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct": "MISSING",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct": "MISSING",
         "QbGsHZzLNXjjGQqPTF7sfhBBqrF3njoBlTbiFK0sRKw": "MISSING",
         "S01p02a_Base": "MISSING",
         "SpindaCafe1": "source",
@@ -9747,7 +9787,7 @@
         "interieur_sans_deco_jour": "MISSING",
         "interieur_sans_deco_jour (1)": "MISSING",
         "interieur_sans_deco_jour (2)": "MISSING",
-        "metano_scale_verification": "MISSING",
+        "treasure_scale_verification": "MISSING",
         "n7be-MMZKAaGGNSe1PWN1p_wGSQqkqtV0PrlGaur_ks": "MISSING",
         "nenupharetcristaux-removebg-preview": "MISSING",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)": "MISSING",
@@ -9820,31 +9860,31 @@
         "LacCascade_Base",
         "Ledian_Dojo_Ceiling",
         "LulubyTownEvening_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Animation_Tileset_Night",
-        "Metano_Town_Cafe",
-        "Metano_Town_Cafe_Base",
-        "Metano_Town_Cafe_Objects",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Electric_Home_Objects",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fire_Home_Objects",
-        "Metano_Town_Fringe_Night",
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Normal_Home_Objects",
-        "Metano_Town_Objects",
-        "Metano_Town_Objects_Night",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_Rock_Home_Base",
-        "Metano_Town_Water_Home_Base",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Animation_Tileset_Night",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Cafe_Base",
+        "Treasure_Town_Cafe_Objects",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Electric_Home_Objects",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fire_Home_Objects",
+        "Treasure_Town_Fringe_Night",
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Normal_Home_Objects",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Objects_Night",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_Rock_Home_Base",
+        "Treasure_Town_Water_Home_Base",
         "P01p04a_Base",
         "P17p02a_Base",
         "P19p02a_Base",
         "PMD_TREES",
         "PreTonnerre_Base",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "QbGsHZzLNXjjGQqPTF7sfhBBqrF3njoBlTbiFK0sRKw",
         "S01p02a_Base",
         "SpindaCafe1",
@@ -9888,7 +9928,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "n7be-MMZKAaGGNSe1PWN1p_wGSQqkqtV0PrlGaur_ks",
         "nenupharetcristaux-removebg-preview",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)",
@@ -9958,23 +9998,23 @@
         "KINGAMBIT DOJO",
         "LacCascade_Base",
         "LulubyTownEvening_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Cafe",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Electric_Home_Objects",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fire_Home_Objects",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_Rock_Home_Base",
-        "Metano_Town_Water_Home_Base",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Electric_Home_Objects",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fire_Home_Objects",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_Rock_Home_Base",
+        "Treasure_Town_Water_Home_Base",
         "P01p04a_Base",
         "P17p02a_Base",
         "P19p02a_Base",
         "PMD_TREES",
         "PreTonnerre_Base",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "QbGsHZzLNXjjGQqPTF7sfhBBqrF3njoBlTbiFK0sRKw",
         "S01p02a_Base",
         "T01p03a_Base",
@@ -10017,7 +10057,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "n7be-MMZKAaGGNSe1PWN1p_wGSQqkqtV0PrlGaur_ks",
         "nenupharetcristaux-removebg-preview",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)",
@@ -10055,13 +10095,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "renders/reseau_metano_normal_v1/grounds/metano_gen_cafe.rsground",
+        "path": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_cafe.rsground",
         "blobOid": "72d8d0899afc10dae9fae04bec3a644bf09a1559",
         "blobBytes": 1326303
       },
-      "assetName": "metano_gen_cafe",
+      "assetName": "treasure_gen_cafe",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.8.12.0",
@@ -10124,19 +10164,19 @@
         "LacCascade_Base": "MISSING",
         "LulubyTownEvening_Base": "MISSING",
         "LulubyTownMorning_Base": "MISSING",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset_Night": "source",
-        "Metano_Town_Cafe": "MISSING",
-        "Metano_Town_Cave_Objects": "MISSING",
-        "Metano_Town_Electric_Home_Base": "MISSING",
-        "Metano_Town_Fire_Home_Animated": "MISSING",
-        "Metano_Town_Fire_Home_Base": "MISSING",
-        "Metano_Town_Fire_Home_Objects": "MISSING",
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Objects_Night": "source",
-        "Metano_Town_Rock_Home_Objects": "MISSING",
-        "Metano_Town_Water_Home_Base_Animated": "MISSING",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset_Night": "source",
+        "Treasure_Town_Cafe": "MISSING",
+        "Treasure_Town_Cave_Objects": "MISSING",
+        "Treasure_Town_Electric_Home_Base": "MISSING",
+        "Treasure_Town_Fire_Home_Animated": "MISSING",
+        "Treasure_Town_Fire_Home_Base": "MISSING",
+        "Treasure_Town_Fire_Home_Objects": "MISSING",
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Objects_Night": "source",
+        "Treasure_Town_Rock_Home_Objects": "MISSING",
+        "Treasure_Town_Water_Home_Base_Animated": "MISSING",
         "MontGrondantPied_Base": "MISSING",
         "P01p04a_Base": "MISSING",
         "PMD_TREES": "MISSING",
@@ -10183,7 +10223,7 @@
         "interieur_sans_deco_jour": "MISSING",
         "interieur_sans_deco_jour (1)": "MISSING",
         "interieur_sans_deco_jour (2)": "MISSING",
-        "metano_scale_verification": "MISSING",
+        "treasure_scale_verification": "MISSING",
         "salle_jour": "MISSING",
         "spinda_cafe_dojo": "MISSING",
         "spindacafevFINAL": "MISSING",
@@ -10244,19 +10284,19 @@
         "LacCascade_Base",
         "LulubyTownEvening_Base",
         "LulubyTownMorning_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset_Night",
-        "Metano_Town_Cafe",
-        "Metano_Town_Cave_Objects",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Animated",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fire_Home_Objects",
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Objects",
-        "Metano_Town_Objects_Night",
-        "Metano_Town_Rock_Home_Objects",
-        "Metano_Town_Water_Home_Base_Animated",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset_Night",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Cave_Objects",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Animated",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fire_Home_Objects",
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Objects_Night",
+        "Treasure_Town_Rock_Home_Objects",
+        "Treasure_Town_Water_Home_Base_Animated",
         "MontGrondantPied_Base",
         "P01p04a_Base",
         "PMD_TREES",
@@ -10303,7 +10343,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "salle_jour",
         "spinda_cafe_dojo",
         "spindacafevFINAL",
@@ -10364,15 +10404,15 @@
         "LacCascade_Base",
         "LulubyTownEvening_Base",
         "LulubyTownMorning_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Cafe",
-        "Metano_Town_Cave_Objects",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Animated",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fire_Home_Objects",
-        "Metano_Town_Rock_Home_Objects",
-        "Metano_Town_Water_Home_Base_Animated",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Cave_Objects",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Animated",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fire_Home_Objects",
+        "Treasure_Town_Rock_Home_Objects",
+        "Treasure_Town_Water_Home_Base_Animated",
         "MontGrondantPied_Base",
         "P01p04a_Base",
         "PMD_TREES",
@@ -10418,7 +10458,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "salle_jour",
         "spinda_cafe_dojo",
         "spindacafevFINAL",
@@ -10451,13 +10491,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "renders/reseau_metano_normal_v1/grounds/metano_gen_casino.rsground",
+        "path": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_casino.rsground",
         "blobOid": "bcf7a4374d65e9473963b4090bfce0d4c55f9d01",
         "blobBytes": 1400361
       },
-      "assetName": "metano_gen_casino",
+      "assetName": "treasure_gen_casino",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.8.12.0",
@@ -10505,17 +10545,17 @@
         "Guild_Third_Floor_Lobby_Objects": "MISSING",
         "Guild_Top_Right_Bedroom_Walls": "MISSING",
         "H02p99a_Base": "MISSING",
-        "Metano_Town_Animated_Night": "MISSING",
-        "Metano_Town_Animation_Tileset_Night": "source",
-        "Metano_Town_Cliffs_Night": "source",
-        "Metano_Town_Electric_Home_Base": "MISSING",
-        "Metano_Town_Fire_Home_Animated": "MISSING",
-        "Metano_Town_Fire_Home_Base": "MISSING",
-        "Metano_Town_Fringe_Night": "source",
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Objects_Night": "source",
-        "Metano_Town_Objects_Over_Night": "MISSING",
-        "Metano_Town_Objects_Under_Night": "MISSING",
+        "Treasure_Town_Animated_Night": "MISSING",
+        "Treasure_Town_Animation_Tileset_Night": "source",
+        "Treasure_Town_Cliffs_Night": "source",
+        "Treasure_Town_Electric_Home_Base": "MISSING",
+        "Treasure_Town_Fire_Home_Animated": "MISSING",
+        "Treasure_Town_Fire_Home_Base": "MISSING",
+        "Treasure_Town_Fringe_Night": "source",
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Objects_Night": "source",
+        "Treasure_Town_Objects_Over_Night": "MISSING",
+        "Treasure_Town_Objects_Under_Night": "MISSING",
         "P01p04a_Base": "MISSING",
         "P17p02a_Base": "MISSING",
         "P19p02a_Base": "MISSING",
@@ -10551,7 +10591,7 @@
         "interieur_sans_deco_jour": "MISSING",
         "interieur_sans_deco_jour (1)": "MISSING",
         "interieur_sans_deco_jour (2)": "MISSING",
-        "metano_scale_verification": "MISSING",
+        "treasure_scale_verification": "MISSING",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)": "MISSING",
         "salle_jour": "MISSING",
         "spindacafevFINAL": "MISSING",
@@ -10597,17 +10637,17 @@
         "Guild_Third_Floor_Lobby_Objects",
         "Guild_Top_Right_Bedroom_Walls",
         "H02p99a_Base",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Animation_Tileset_Night",
-        "Metano_Town_Cliffs_Night",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Animated",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fringe_Night",
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Objects_Night",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Animation_Tileset_Night",
+        "Treasure_Town_Cliffs_Night",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Animated",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fringe_Night",
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Objects_Night",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
         "P01p04a_Base",
         "P17p02a_Base",
         "P19p02a_Base",
@@ -10643,7 +10683,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)",
         "salle_jour",
         "spindacafevFINAL",
@@ -10689,12 +10729,12 @@
         "Guild_Third_Floor_Lobby_Objects",
         "Guild_Top_Right_Bedroom_Walls",
         "H02p99a_Base",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Animated",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Animated",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
         "P01p04a_Base",
         "P17p02a_Base",
         "P19p02a_Base",
@@ -10729,7 +10769,7 @@
         "interieur_sans_deco_jour",
         "interieur_sans_deco_jour (1)",
         "interieur_sans_deco_jour (2)",
-        "metano_scale_verification",
+        "treasure_scale_verification",
         "pokemon_ressource__montgolfiere_overworld_by_wergan_dcy7dk7-pre (1)",
         "salle_jour",
         "spindacafevFINAL",
@@ -10762,13 +10802,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "renders/reseau_metano_normal_v1/grounds/metano_gen_salon_bas.rsground",
+        "path": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_salon_bas.rsground",
         "blobOid": "fe860b6887718d53aa8be8fec2ec27a67a8185f2",
         "blobBytes": 1444354
       },
-      "assetName": "metano_gen_salon_bas",
+      "assetName": "treasure_gen_salon_bas",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.8.12.0",
@@ -10806,19 +10846,19 @@
         "Guild_Second_Floor_Walls": "source",
         "Ledian_Dojo_Ceiling": "source",
         "LulubyTownEvening_Base": "MISSING",
-        "Metano_Town_Animated_Night": "MISSING",
-        "Metano_Town_Animation_Tileset_Night": "source",
-        "Metano_Town_Cliffs_Night": "source",
-        "Metano_Town_Fire_Home_Base": "MISSING",
-        "Metano_Town_Fringe_Night": "source",
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Objects_Night": "source",
-        "Metano_Town_Objects_Over_Night": "MISSING",
-        "Metano_Town_Objects_Under_Night": "MISSING",
-        "Metano_Town_River_Animation_1_Night": "MISSING",
+        "Treasure_Town_Animated_Night": "MISSING",
+        "Treasure_Town_Animation_Tileset_Night": "source",
+        "Treasure_Town_Cliffs_Night": "source",
+        "Treasure_Town_Fire_Home_Base": "MISSING",
+        "Treasure_Town_Fringe_Night": "source",
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Objects_Night": "source",
+        "Treasure_Town_Objects_Over_Night": "MISSING",
+        "Treasure_Town_Objects_Under_Night": "MISSING",
+        "Treasure_Town_River_Animation_1_Night": "MISSING",
         "Mount_Windswept_Shadows": "MISSING",
         "PMD_TREES": "MISSING",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct": "MISSING",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct": "MISSING",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M": "MISSING",
         "T01p03a_Base": "MISSING",
         "T01p04a_Base": "MISSING",
@@ -10873,19 +10913,19 @@
         "Guild_Second_Floor_Walls",
         "Ledian_Dojo_Ceiling",
         "LulubyTownEvening_Base",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Animation_Tileset_Night",
-        "Metano_Town_Cliffs_Night",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fringe_Night",
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Objects_Night",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_River_Animation_1_Night",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Animation_Tileset_Night",
+        "Treasure_Town_Cliffs_Night",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fringe_Night",
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Objects_Night",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_River_Animation_1_Night",
         "Mount_Windswept_Shadows",
         "PMD_TREES",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M",
         "T01p03a_Base",
         "T01p04a_Base",
@@ -10939,14 +10979,14 @@
         "GorgeArdentePorte_Base",
         "Guild_First_Floor",
         "LulubyTownEvening_Base",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_River_Animation_1_Night",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_River_Animation_1_Night",
         "Mount_Windswept_Shadows",
         "PMD_TREES",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M",
         "T01p03a_Base",
         "T01p04a_Base",
@@ -10998,13 +11038,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "renders/reseau_metano_normal_v1/grounds/metano_gen_salon_haut.rsground",
+        "path": "renders/reseau_treasure_normal_v1/grounds/treasure_gen_salon_haut.rsground",
         "blobOid": "be93f1319bf0d57b8ff40dd5c3a03f3b8320b8e8",
         "blobBytes": 1319548
       },
-      "assetName": "metano_gen_salon_haut",
+      "assetName": "treasure_gen_salon_haut",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.8.12.0",
@@ -11056,27 +11096,27 @@
         "Ledian_Dojo_Objects": "source",
         "LulubyTownEvening_Base": "MISSING",
         "LulubyTownMorning_Base": "MISSING",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animated_Night": "MISSING",
-        "Metano_Town_Animation_Tileset_Night": "source",
-        "Metano_Town_Cafe": "MISSING",
-        "Metano_Town_Cafe_Base": "source",
-        "Metano_Town_Electric_Home_Base": "MISSING",
-        "Metano_Town_Fire_Home_Base": "MISSING",
-        "Metano_Town_Fringe_Night": "source",
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Objects_Night": "source",
-        "Metano_Town_Objects_Over_Night": "MISSING",
-        "Metano_Town_Objects_Under_Night": "MISSING",
-        "Metano_Town_Rock_Home_Base": "MISSING",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animated_Night": "MISSING",
+        "Treasure_Town_Animation_Tileset_Night": "source",
+        "Treasure_Town_Cafe": "MISSING",
+        "Treasure_Town_Cafe_Base": "source",
+        "Treasure_Town_Electric_Home_Base": "MISSING",
+        "Treasure_Town_Fire_Home_Base": "MISSING",
+        "Treasure_Town_Fringe_Night": "source",
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Objects_Night": "source",
+        "Treasure_Town_Objects_Over_Night": "MISSING",
+        "Treasure_Town_Objects_Under_Night": "MISSING",
+        "Treasure_Town_Rock_Home_Base": "MISSING",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01p01a_Base": "MISSING",
         "P01p04a_Base": "MISSING",
         "P17p02a_Base": "MISSING",
         "PMD_TREES": "MISSING",
         "PlainesBrulees_Base": "MISSING",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct": "MISSING",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct": "MISSING",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M": "MISSING",
         "Searing_Tunnel_Rocks": "MISSING",
         "SpindaCafe1": "source",
@@ -11159,27 +11199,27 @@
         "Ledian_Dojo_Objects",
         "LulubyTownEvening_Base",
         "LulubyTownMorning_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Animation_Tileset_Night",
-        "Metano_Town_Cafe",
-        "Metano_Town_Cafe_Base",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Fringe_Night",
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Objects",
-        "Metano_Town_Objects_Night",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_Rock_Home_Base",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Animation_Tileset_Night",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Cafe_Base",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Fringe_Night",
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Objects_Night",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_Rock_Home_Base",
+        "Treasure_Town_Trimmed",
         "P01p01a_Base",
         "P01p04a_Base",
         "P17p02a_Base",
         "PMD_TREES",
         "PlainesBrulees_Base",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M",
         "Searing_Tunnel_Rocks",
         "SpindaCafe1",
@@ -11259,21 +11299,21 @@
         "Guild_Guildmasters_Room_Supports",
         "LulubyTownEvening_Base",
         "LulubyTownMorning_Base",
-        "Metano_Town_Animated",
-        "Metano_Town_Animated_Night",
-        "Metano_Town_Cafe",
-        "Metano_Town_Electric_Home_Base",
-        "Metano_Town_Fire_Home_Base",
-        "Metano_Town_Objects_Over_Night",
-        "Metano_Town_Objects_Under_Night",
-        "Metano_Town_Rock_Home_Base",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animated_Night",
+        "Treasure_Town_Cafe",
+        "Treasure_Town_Electric_Home_Base",
+        "Treasure_Town_Fire_Home_Base",
+        "Treasure_Town_Objects_Over_Night",
+        "Treasure_Town_Objects_Under_Night",
+        "Treasure_Town_Rock_Home_Base",
+        "Treasure_Town_Trimmed",
         "P01p01a_Base",
         "P01p04a_Base",
         "P17p02a_Base",
         "PMD_TREES",
         "PlainesBrulees_Base",
-        "QGKingambit_metano_cafe_reference_pmdo_40pct",
+        "QGKingambit_treasure_cafe_reference_pmdo_40pct",
         "R5WuDAQbkhTImlatxBicXaekW9apaSs_5Ys706CBq2M",
         "Searing_Tunnel_Rocks",
         "T01p03a_Base",
@@ -11337,13 +11377,13 @@
         "ref": "arena/2a041d50-projet-creation-pmdo",
         "commit": "1a3dd2c1e0ce71f9ce0ce2d45c9ebfc18f0de561",
         "sourceDate": "2026-10-29T16:28:41+00:00",
-        "path": "source/cafe_multietage_v1/references/metano_cafe.rsground",
+        "path": "source/cafe_multietage_v1/references/treasure_cafe.rsground",
         "blobOid": "0010a20bcebc586374fdb7946639647b6d3db505",
         "blobBytes": 1380320
       },
-      "assetName": "metano_cafe",
+      "assetName": "treasure_cafe",
       "displayName": {
-        "DefaultText": "Metano Café",
+        "DefaultText": "Treasure Café",
         "LocalTexts": {}
       },
       "groundVersion": "0.7.17.0",
@@ -11375,18 +11415,18 @@
         "Cafe_Table_16"
       ],
       "tileRefStatus": {
-        "Metano_Town_Cafe_Base": "source",
-        "Metano_Town_Cafe_Objects": "source",
-        "Metano_Town_Cafe_Objects_Fringe": "source",
-        "Metano_Town_Cafe_Objects_Over": "source",
-        "Metano_Town_Cafe_Objects_Under": "source"
+        "Treasure_Town_Cafe_Base": "source",
+        "Treasure_Town_Cafe_Objects": "source",
+        "Treasure_Town_Cafe_Objects_Fringe": "source",
+        "Treasure_Town_Cafe_Objects_Over": "source",
+        "Treasure_Town_Cafe_Objects_Under": "source"
       },
       "tileRefs": [
-        "Metano_Town_Cafe_Base",
-        "Metano_Town_Cafe_Objects",
-        "Metano_Town_Cafe_Objects_Fringe",
-        "Metano_Town_Cafe_Objects_Over",
-        "Metano_Town_Cafe_Objects_Under"
+        "Treasure_Town_Cafe_Base",
+        "Treasure_Town_Cafe_Objects",
+        "Treasure_Town_Cafe_Objects_Fringe",
+        "Treasure_Town_Cafe_Objects_Over",
+        "Treasure_Town_Cafe_Objects_Under"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -11640,12 +11680,12 @@
         "CLIFF MIROR-Photoroom": "MISSING",
         "CanyonCamp": "base",
         "INVERSEPATHWAY": "MISSING",
-        "Metano_Inn_Objects": "source",
-        "Metano_Town_Animated": "MISSING",
-        "Metano_Town_Animation_Tileset": "source",
-        "Metano_Town_Cliffs": "source",
-        "Metano_Town_Objects": "source",
-        "Metano_Town_Trimmed": "MISSING",
+        "Treasure_Inn_Objects": "source",
+        "Treasure_Town_Animated": "MISSING",
+        "Treasure_Town_Animation_Tileset": "source",
+        "Treasure_Town_Cliffs": "source",
+        "Treasure_Town_Objects": "source",
+        "Treasure_Town_Trimmed": "MISSING",
         "P01P01A_layer1": "MISSING",
         "v2_promontoire_jour_03": "MISSING"
       },
@@ -11659,12 +11699,12 @@
         "CLIFF MIROR-Photoroom",
         "CanyonCamp",
         "INVERSEPATHWAY",
-        "Metano_Inn_Objects",
-        "Metano_Town_Animated",
-        "Metano_Town_Animation_Tileset",
-        "Metano_Town_Cliffs",
-        "Metano_Town_Objects",
-        "Metano_Town_Trimmed",
+        "Treasure_Inn_Objects",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Animation_Tileset",
+        "Treasure_Town_Cliffs",
+        "Treasure_Town_Objects",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -11676,8 +11716,8 @@
         "13_avancee_basse_gauche_terrain",
         "CLIFF MIROR-Photoroom",
         "INVERSEPATHWAY",
-        "Metano_Town_Animated",
-        "Metano_Town_Trimmed",
+        "Treasure_Town_Animated",
+        "Treasure_Town_Trimmed",
         "P01P01A_layer1",
         "v2_promontoire_jour_03"
       ],
@@ -11723,13 +11763,13 @@
         "ref": "arena/e39626d2-projet-creation-pmdo",
         "commit": "f9c97fc0c0c359aa063b45aead947fb080962a9d",
         "sourceDate": "2026-10-28T21:35:53+00:00",
-        "path": "source/reseau_metano_normal_v1/references/metano_normal_home.rsground",
+        "path": "source/reseau_treasure_normal_v1/references/treasure_normal_home.rsground",
         "blobOid": "06882c3cc955fb64e558ab74ee934c410cc379cf",
         "blobBytes": 615483
       },
-      "assetName": "metano_normal_home",
+      "assetName": "treasure_normal_home",
       "displayName": {
-        "DefaultText": "Metano Normal Home",
+        "DefaultText": "Treasure Normal Home",
         "LocalTexts": {}
       },
       "groundVersion": "0.7.10.0",
@@ -11745,12 +11785,12 @@
         "Main_Entrance_Marker"
       ],
       "tileRefStatus": {
-        "Metano_Town_Normal_Home_Base": "source",
-        "Metano_Town_Normal_Home_Objects": "source"
+        "Treasure_Town_Normal_Home_Base": "source",
+        "Treasure_Town_Normal_Home_Objects": "source"
       },
       "tileRefs": [
-        "Metano_Town_Normal_Home_Base",
-        "Metano_Town_Normal_Home_Objects"
+        "Treasure_Town_Normal_Home_Base",
+        "Treasure_Town_Normal_Home_Objects"
       ],
       "backgroundRefs": [],
       "assetStatus": "assets_ok",
@@ -15243,8 +15283,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "DSB1_00_00_FOSSE_ABYSSALE_BOSS",
-        "DSB1_01_01_EAU_ABYSSALE_METANO_ECHO",
-        "DSB1_02_02_SPARKLES_ABYSSAUX_METANO_1X",
+        "DSB1_01_01_EAU_ABYSSALE_TREASURE_ECHO",
+        "DSB1_02_02_SPARKLES_ABYSSAUX_TREASURE_1X",
         "DSB1_03_03_REMPART_STALAGMITES_BOULDER_CAVE",
         "DSB1_04_04_AUTEL_NORD_SCEAU_SPIRAL",
         "DSB1_05_05_CASCADES_AMPHITHEATRE_P03P01A",
@@ -15313,8 +15353,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "DSD1_00_00_ABIME_MARIN_GROTTE",
-        "DSD1_01_01_COURANTS_MAREE_METANO_SAPHIR",
-        "DSD1_02_02_SPARKLES_MAREE_METANO_1X",
+        "DSD1_01_01_COURANTS_MAREE_TREASURE_SAPHIR",
+        "DSD1_02_02_SPARKLES_MAREE_TREASURE_1X",
         "DSD1_03_03_PAROI_BRINE_CAVE_ET_BOUCHE_NORD",
         "DSD1_04_04_PARVIS_STALAGMITES_ET_CRISTAUX",
         "DSD1_05_05_CHAUSSEE_ROCHEUSE_SUD_NORD",
@@ -15525,8 +15565,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "DSF2_00_00_ASSISE_SOUS_BOIS_SOMBRE",
-        "DSF2_01_01_RUISSEAU_SYLVESTRE_METANO_1X",
-        "DSF2_02_02_REFLETS_CRISTALLINS_METANO_1X",
+        "DSF2_01_01_RUISSEAU_SYLVESTRE_TREASURE_1X",
+        "DSF2_02_02_REFLETS_CRISTALLINS_TREASURE_1X",
         "DSF2_03_03_SENTIER_TERRE_ET_PELOUSE_MOUSSUE",
         "DSF2_04_04_ARCHE_RACINES_ET_CHAMPIGNONS_GEANTS",
         "DSF2_05_05_PONT_TRONC_CREUX_MOUSSU",
@@ -15596,8 +15636,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "DSR1_00_00_LIT_ROCHEUX_TORRENT",
-        "DSR1_01_01_TORRENT_METANO_EMERAUDE",
-        "DSR1_02_02_SPARKLES_TORRENT_METANO_1X",
+        "DSR1_01_01_TORRENT_TREASURE_EMERAUDE",
+        "DSR1_02_02_SPARKLES_TORRENT_TREASURE_1X",
         "DSR1_03_03_REMPARTS_ROCHEUX_ET_DEFILE_NORD",
         "DSR1_04_04_PALIERS_ROCHEUX_ET_CRISTAUX",
         "DSR1_05_05_ESCALIER_SUD_ET_PROMONTOIRE",
@@ -15666,8 +15706,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "DSV1_00_00_ASSISE_PORTUAIRE_TURQUOISE",
-        "DSV1_01_01_EAU_PORT_METANO_TURQUOISE",
-        "DSV1_02_02_SPARKLES_PORT_METANO_1X",
+        "DSV1_01_01_EAU_PORT_TREASURE_TURQUOISE",
+        "DSV1_02_02_SPARKLES_PORT_TREASURE_1X",
         "DSV1_03_03_QUAI_EN_BOIS_EXPLORATEURS",
         "DSV1_04_04_PARVIS_PAVE_ET_FONTAINE",
         "DSV1_05_05_TERRASSE_HERBE_ET_HUTTES_POKEMON",
@@ -16087,8 +16127,8 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "FAE1_00_00_FOND_MARIN_ABYSSAL_H01P03",
-        "FAE1_01_01_COURANTS_ABYSSAUX_METANO",
-        "FAE1_02_02_CAUSTIQUES_ARGENT_METANO",
+        "FAE1_01_01_COURANTS_ABYSSAUX_TREASURE",
+        "FAE1_02_02_CAUSTIQUES_ARGENT_TREASURE",
         "FAE1_03_03_PAROIS_FOSSE_PROFONDE_H01P03",
         "FAE1_04_04_TERRASSES_ET_RECIFS_H01P03",
         "FAE1_05_05_ESCALIER_ET_PORTAIL_NORD_H01P03",
@@ -16156,9 +16196,9 @@
       ],
       "hasEntranceMarker": true,
       "tileRefs": [
-        "FAS1_00_00_EAU_METANO_SOMBRE_FOND",
-        "FAS1_01_01_EAU_METANO_SOMBRE_ONDES_4PHASES",
-        "FAS1_02_02_REFLETS_METANO_SOMBRE_SPARKLES",
+        "FAS1_00_00_EAU_TREASURE_SOMBRE_FOND",
+        "FAS1_01_01_EAU_TREASURE_SOMBRE_ONDES_4PHASES",
+        "FAS1_02_02_REFLETS_TREASURE_SOMBRE_SPARKLES",
         "FAS1_03_03_PAROI_ROCHEUSE_AMPHITHEATRE_CAVERNE",
         "FAS1_04_04_CASCADES_FOGGY_FOREST_P03P01A",
         "FAS1_05_05_CHEMIN_PIERRE_SUD_VERS_NORD",
@@ -16368,8 +16408,8 @@
       "tileRefs": [
         "MWE1_00_00_ASSISE_OBSIDIENNE_SOUS_MARINE",
         "MWE1_01_01_RECIFS_ET_BERGES_BASALTIQUES",
-        "MWE1_02_02_CRIQUE_EAU_METANO_ABYSSALE",
-        "MWE1_03_03_SPARKLES_MARINS_METANO_1X",
+        "MWE1_02_02_CRIQUE_EAU_TREASURE_ABYSSALE",
+        "MWE1_03_03_SPARKLES_MARINS_TREASURE_1X",
         "MWE1_04_04_PROMONTOIRE_ARDOISE_COTIER",
         "MWE1_05_05_ESCALIER_COTIER_EN_S",
         "MWE1_06_06_FALAISE_MARITIME_ET_FAILLE_NORD",
@@ -16508,13 +16548,13 @@
       "tileRefs": [
         "KYE1_00_00_ASSISE_PERMAFROST_METEORITIQUE",
         "KYE1_01_01_BERGES_BANQUISE_CHENAL_GLACE",
-        "KYE1_02_02_CHENAL_EAU_METANO_GELEE_4PHASES",
-        "KYE1_03_03_SPARKLES_GLACIAIRES_METANO_1X",
+        "KYE1_02_02_CHENAL_EAU_TREASURE_GELEE_4PHASES",
+        "KYE1_03_03_SPARKLES_GLACIAIRES_TREASURE_1X",
         "KYE1_04_04_CLAIRIERE_ENNEIGEE_TOUNDRA_CRATERE",
         "KYE1_05_05_SENTIER_METEORITIQUE_ET_PONT_GLACE",
         "KYE1_06_06_REMPART_CRATERE_GLACE_ET_GROTTE_NORD",
         "KYE1_07_07_SAPINS_ENNEIGES_ET_BLOCS_METEORITES",
-        "KYE1_08_08_CRISTAUX_CRYO_ET_FLEURS_METANO_GIVRE",
+        "KYE1_08_08_CRISTAUX_CRYO_ET_FLEURS_TREASURE_GIVRE",
         "KYE1_09_09_CIMES_GIVREES_ET_NEIGE_W03P03_TOP"
       ],
       "backgroundRefs": [],
@@ -16578,8 +16618,8 @@
       "tileRefs": [
         "KYA1_00_00_PAROI_ARRIERE_ET_OEIL_BLIZZARD_360",
         "KYA1_01_01_COLONNES_TANGENTES_ET_RUBANS_CRYO",
-        "KYA1_02_02_DOUVE_EAU_METANO_GELEE_4PHASES",
-        "KYA1_03_03_SPARKLES_GLACIAIRES_DOUVE_METANO",
+        "KYA1_02_02_DOUVE_EAU_TREASURE_GELEE_4PHASES",
+        "KYA1_03_03_SPARKLES_GLACIAIRES_DOUVE_TREASURE",
         "KYA1_04_04_REMPART_METEORITE_ET_ESCARPEMENT",
         "KYA1_05_05_CHAUSSEE_SUD_PIERRE_ET_GLACE",
         "KYA1_06_06_PLATEAU_ARENE_GLACE_NOIRE",
@@ -17277,13 +17317,13 @@
       "tileRefs": [
         "RSE1_00_00_ASSISE_CALCAIRE_SECURITE",
         "RSE1_01_01_BERGES_OCRES_RUISSEAU_VALLON",
-        "RSE1_02_02_RUISSEAU_EAU_METANO_4PHASES",
-        "RSE1_03_03_SPARKLES_RUISSEAU_METANO",
+        "RSE1_02_02_RUISSEAU_EAU_TREASURE_4PHASES",
+        "RSE1_03_03_SPARKLES_RUISSEAU_TREASURE",
         "RSE1_04_04_PRAIRIE_DOREE_AUTOMNE_VALLON",
         "RSE1_05_05_SENTIER_DALLES_CREME_ET_PASSERELLE",
         "RSE1_06_06_FALAISE_MARBRE_IVOIRE_ET_SANCTUAIRE",
         "RSE1_07_07_BOULEAUX_BLANCS_ET_ERABLES_DORES",
-        "RSE1_08_08_FLEURS_METANO_PRAIRIE_DOREE",
+        "RSE1_08_08_FLEURS_TREASURE_PRAIRIE_DOREE",
         "RSE1_09_09_COURONNES_ERABLES_FEUILLES_BRAISES_TOP"
       ],
       "backgroundRefs": [],
@@ -17417,8 +17457,8 @@
       "tileRefs": [
         "RUE1_00_00_ASSISE_CALCAIRE_JUNGLE",
         "RUE1_01_01_MARGELLES_BASSINS_SACRES",
-        "RUE1_02_02_BASSINS_EAU_METANO_SACREE",
-        "RUE1_03_03_SPARKLES_BASSINS_METANO_1X",
+        "RUE1_02_02_BASSINS_EAU_TREASURE_SACREE",
+        "RUE1_03_03_SPARKLES_BASSINS_TREASURE_1X",
         "RUE1_04_04_TERRASSE_HIEROGLYPHES_ET_PARVIS",
         "RUE1_05_05_CHAUSSEE_DALLES_ET_DOUBLE_ESCALIER",
         "RUE1_06_06_FACADE_ZIGGOURAT_ET_PORTE_NORD",
@@ -17486,14 +17526,14 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "RUA1_00_00_CIEL_ET_HORIZON_H29P04_STATIQUE",
-        "RUA1_01_01_MER_CELESTE_METANO_4P",
+        "RUA1_01_01_MER_CELESTE_TREASURE_4P",
         "RUA1_02_02_SPARKLES_MER_CELESTE_1X",
         "RUA1_03_03_ONZE_ILOTS_FLOTTANTS_H29P04",
         "RUA1_04_04_SOCLE_ROCHEUX_ILE_FINALE",
         "RUA1_05_05_RAMPE_HERBEUSE_SUD",
         "RUA1_06_06_PRAIRIE_EMERAUDE_ET_SCEAU_MEW",
         "RUA1_07_07_COURONNE_ROCHEUSE_CRENELEE",
-        "RUA1_08_08_FLEURS_METANO_ET_NACRE_SCEAU",
+        "RUA1_08_08_FLEURS_TREASURE_ET_NACRE_SCEAU",
         "RUA1_09_09_BULLES_ROSE_NACRE_MEW_TOP"
       ],
       "backgroundRefs": [],
@@ -17976,14 +18016,14 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "TWE1_00_00_SOUS_BOIS_PROFOND_D01",
-        "TWE1_01_01_BERGES_TERRE_RUISSEAU_METANO",
-        "TWE1_02_02_EAU_RIVIERE_METANO_TOWN",
-        "TWE1_03_03_SPARKLES_NATIFS_METANO_TOWN",
+        "TWE1_01_01_BERGES_TERRE_RUISSEAU_TREASURE",
+        "TWE1_02_02_EAU_RIVIERE_TREASURE_TOWN",
+        "TWE1_03_03_SPARKLES_NATIFS_TREASURE_TOWN",
         "TWE1_04_04_PRAIRIE_OUVERTE_LISIERE_D01",
         "TWE1_05_05_SENTIER_TERRE_ET_PONT_BOIS",
         "TWE1_06_06_ENTREE_OMBRAGEE_FORET_NORD",
         "TWE1_07_07_MUR_ARBRES_LISIERE_SOUCHES",
-        "TWE1_08_08_FLEURS_ANIMEES_METANO_TOWN",
+        "TWE1_08_08_FLEURS_ANIMEES_TREASURE_TOWN",
         "TWE1_09_09_CANOPEE_CIMES_ET_FEUILLES_TOP"
       ],
       "backgroundRefs": [],
@@ -18046,14 +18086,14 @@
       "hasEntranceMarker": true,
       "tileRefs": [
         "TWF1_00_00_SOUS_BOIS_PROFOND_D01P02",
-        "TWF1_01_01_BERGES_MOUSSUES_BASSINS_METANO",
-        "TWF1_02_02_BASSINS_EAU_METANO_TOWN",
-        "TWF1_03_03_SPARKLES_NATIFS_METANO_TOWN",
+        "TWF1_01_01_BERGES_MOUSSUES_BASSINS_TREASURE",
+        "TWF1_02_02_BASSINS_EAU_TREASURE_TOWN",
+        "TWF1_03_03_SPARKLES_NATIFS_TREASURE_TOWN",
         "TWF1_04_04_CLAIRIERE_HERBEUSE_D01P02",
         "TWF1_05_05_ALLEE_CENTRALE_SUD",
         "TWF1_06_06_GRAND_CHENE_ANCESTRAL_H07",
         "TWF1_07_07_COURONNE_ARBRES_SOUCHES_D01",
-        "TWF1_08_08_FLEURS_ANIMEES_METANO_TOWN",
+        "TWF1_08_08_FLEURS_ANIMEES_TREASURE_TOWN",
         "TWF1_09_09_CANOPEE_CIMES_ET_FEUILLES_TOP"
       ],
       "backgroundRefs": [],
@@ -18257,13 +18297,13 @@
       "tileRefs": [
         "ZKE1_00_00_ASSISE_BASALTE_SECURITE",
         "ZKE1_01_01_BERGES_ARDOISE_TORRENT_MONTAGNE",
-        "ZKE1_02_02_TORRENT_EAU_METANO_4PHASES",
-        "ZKE1_03_03_SPARKLES_TORRENT_METANO",
+        "ZKE1_02_02_TORRENT_EAU_TREASURE_4PHASES",
+        "ZKE1_03_03_SPARKLES_TORRENT_TREASURE",
         "ZKE1_04_04_LANDE_BOREALE_MOUSSE_TAIGA",
         "ZKE1_05_05_CHAUSSEE_PAVEE_ET_PONT_RUNIQUE",
         "ZKE1_06_06_REMPART_ORGUES_BASALTIQUES_ET_GROTTE",
         "ZKE1_07_07_SAPINS_BLEUTES_TAIGA_ET_GRANIT",
-        "ZKE1_08_08_CRISTAUX_FOUDRE_ET_FLEURS_METANO",
+        "ZKE1_08_08_CRISTAUX_FOUDRE_ET_FLEURS_TREASURE",
         "ZKE1_09_09_CIMES_SAPINS_ET_ARCS_ELECTRIQUES_TOP"
       ],
       "backgroundRefs": [],
@@ -19175,5 +19215,191 @@
       },
       "userInstallation": "NOT_RUN; no user PMDO MODS directory mounted"
     }
+  },
+  "missing16RecoveryAudit": {
+    "observedAt": "2026-10-30",
+    "scope": "16 occurrences absentes; aucun Ground ou TileSheet manquant n’est intégré. L’archive exacte actuelle diffère des ZIP référencés par les anciens probes.",
+    "questIntegration": false,
+    "branchGroundSources": {
+      "occurrenceIds": [
+        "branch_002",
+        "branch_003",
+        "branch_010",
+        "branch_011",
+        "branch_018",
+        "branch_019",
+        "branch_026",
+        "branch_027",
+        "branch_028",
+        "branch_029",
+        "branch_030",
+        "branch_031",
+        "branch_036"
+      ],
+      "sourceGroundsRecoveredExactly": 13,
+      "distinctGroundSha256": 10,
+      "duplicateOccurrencesBeyondFirst": 3,
+      "duplicatePairs": [
+        [
+          "branch_002",
+          "branch_018"
+        ],
+        [
+          "branch_003",
+          "branch_019"
+        ],
+        [
+          "branch_010",
+          "branch_036"
+        ]
+      ],
+      "bundle": {
+        "path": "exports/pmdo/PMD_Destiny_13_Exact_Branch_Ground_Sources.zip",
+        "bytes": 1183078,
+        "sha256": "80127d5a9d972ab964ea3df6accfe2a3931fb6bf653f79c8c3adcc10dc195cff"
+      },
+      "bundleManifestSourceInventorySha256": "6d7bfd5f1a13a62f993f28d622d5896a1648621f2e5d2c30c23770646385d15d",
+      "nativeGroundProbe": {
+        "status": "HISTORICAL_PASS_FOR_IDENTICAL_GROUND_PAYLOADS_ONLY",
+        "report": "source/pmdo_runtime/destiny_missing16_exact_ground_runtime_results.tsv",
+        "recordedInputSha256": "66ed0b0f0264656ee8eb5fe3cda4e87e6e95d71c61c74a56e67c3843506fd83c",
+        "currentArchiveSha256": "80127d5a9d972ab964ea3df6accfe2a3931fb6bf653f79c8c3adcc10dc195cff",
+        "recordedInputSha256EqualsCurrentArchive": false,
+        "manifestRows": 13,
+        "allRecordedGroundSha256ValuesMatchCurrentManifest": true,
+        "groundVersions": {
+          "0.8.12.0": 13
+        },
+        "texSizes": {
+          "1": 13
+        },
+        "runtimeStatuses": {
+          "PASS": 13
+        },
+        "batchSizeMaximum": 20,
+        "batches": 1,
+        "graphicsManagerDungeonTexSize": 3,
+        "scope": "The TSV input SHA is not the current ZIP. Matching each Ground SHA establishes that the same payload bytes were previously probed; it does not certify loading the current ZIP container/manifest.",
+        "currentArchiveProbeStatus": "NOT_RUN",
+        "runtimeCacheAtUpdate": "ABSENT (.cache/pmdo-runtime/engine/PMDO)"
+      },
+      "tileGuideProbe": {
+        "status": "NOT_RUN_FOR_EXACT_MISSING_TILE_SHEETS",
+        "reason": "A full exact TileSheet set and certified sheet-to-alias mapping are not available; a separate candidate-only branch_011 probe is recorded in DESTINY_16_TILE_SOURCE_AUDIT.json."
+      },
+      "remainingAssetStatus": "assets_blocked",
+      "bundleValidation": {
+        "crc": "PASS",
+        "members": 16,
+        "manifestRows": 13,
+        "sourceGroundOccurrences": 13,
+        "sourceGroundPayloadsVerifiedByArchiveManifest": true,
+        "runtimeArchiveProbe": "NOT_RUN_FOR_CURRENT_ARCHIVE; PMDO runtime cache absent at update time"
+      },
+      "bundleInputInventorySnapshotMatchesCurrentFile": false,
+      "bundleInputInventorySnapshotStatus": "The bundle records the inventory SHA-256 at its build time (before the recovery bundle/audit metadata was written back into this inventory). Occurrence/source records were retained; current metadata has since been updated. This is a historical build-input hash, not the current whole-file hash."
+    },
+    "generatedGroundOutputs": [
+      {
+        "entryId": "generated_002",
+        "status": "EXACT_OUTPUT_NOT_FOUND; NONEXACT_CANDIDATE_AVAILABLE",
+        "expectedSha256": "66bbf7ab1769bd049f705f1a4212eb66743771d4935a2695f82065ad170de54f",
+        "expectedBytes": 14322020,
+        "candidateSha256": "f8a25c76c2aa7cc032a8e0bf9afa76d02ad96f303bc6cea6eb4ff40fbed047da",
+        "candidateBytes": 16860369,
+        "candidateMatchesExpected": false,
+        "candidateGroundProbe": "PASS",
+        "candidateOrigin": "meromoonmeri/projet-pmdo; AGM2 public package variant; not the inventory output",
+        "integratedAsReplacement": false
+      },
+      {
+        "entryId": "generated_007",
+        "status": "EXACT_OUTPUT_NOT_FOUND; NONEXACT_CANDIDATE_AVAILABLE",
+        "expectedSha256": "7f1439809f557e4b736b9d414d2a2583df88355e4e40e3eff31fb497387e0788",
+        "expectedBytes": 6959641,
+        "candidateSha256": "91cfa0d42cffd2ba5b42779411d77936d0df8d204eb99837d9df2b5f15d6eb20",
+        "candidateBytes": 7012283,
+        "candidateMatchesExpected": false,
+        "candidateGroundProbe": "PASS",
+        "candidateOrigin": "rebuild from original high-resolution sources, commit 0b31ab7339646f9c803b516236d25c2e685a8f65; raw inputs match historical manifest; serialized output differs",
+        "integratedAsReplacement": false
+      },
+      {
+        "entryId": "generated_029",
+        "status": "EXACT_OUTPUT_NOT_FOUND; NONEXACT_CANDIDATE_AVAILABLE",
+        "expectedSha256": "65f5f45eb300c2cfd4921350221a554288607f775389b1f2b1646764d2ebefe9",
+        "expectedBytes": 7911956,
+        "candidateSha256": "5085a04684dd1e9cc671a519dd62b295c65d6344b28d9f3d604fb9aba2376e4b",
+        "candidateBytes": 8043144,
+        "candidateMatchesExpected": false,
+        "candidateGroundProbe": "PASS",
+        "candidateOrigin": "rebuild from original high-resolution sources, commit d3710fd7f53dd307fa876ae68dfdde7af37d3c8a; raw inputs match historical manifest; serialized output differs",
+        "integratedAsReplacement": false
+      }
+    ],
+    "generatedCandidateProbe": {
+      "status": "HISTORICAL_PASS_FOR_IDENTICAL_GROUND_PAYLOADS_ONLY",
+      "report": "source/pmdo_runtime/destiny_missing16_candidates_ground_runtime_results.tsv",
+      "recordedInputSha256": "d500418dcf32542ca85dfe758428e48a582394426f9c9d5deb1dd972db05d33d",
+      "currentArchiveSha256": "f1344109c217101bb4d473dd58fbc58440137cb05a390f8bf5eade2813c7cec9",
+      "recordedInputSha256EqualsCurrentArchive": false,
+      "manifestRows": 3,
+      "allRecordedGroundSha256ValuesMatchCurrentManifest": true,
+      "groundVersions": {
+        "0.8.12.0": 3
+      },
+      "texSizes": {
+        "1": 3
+      },
+      "runtimeStatuses": {
+        "PASS": 3
+      },
+      "batchSizeMaximum": 20,
+      "batches": 1,
+      "graphicsManagerDungeonTexSize": 3,
+      "scope": "The TSV input SHA is not the current ZIP. Matching each Ground SHA establishes that the same payload bytes were previously probed; it does not certify loading the current ZIP container/manifest.",
+      "currentArchiveProbeStatus": "NOT_RUN",
+      "runtimeCacheAtUpdate": "ABSENT (.cache/pmdo-runtime/engine/PMDO)"
+    },
+    "candidateBundle": {
+      "path": "exports/pmdo/PMD_Destiny_3_NonExact_Generated_Ground_Candidates.zip",
+      "bytes": 835940,
+      "sha256": "f1344109c217101bb4d473dd58fbc58440137cb05a390f8bf5eade2813c7cec9"
+    },
+    "remainingExactGeneratedGrounds": 3,
+    "all16RecoveredExactly": false,
+    "questRemainsAt246Grounds": true,
+    "noGeometryCollisionExitWarpOrTransitionInvented": true,
+    "report": "source/pmdo_cote/DESTINY_16_RECOVERY.md",
+    "tileSheetSourceAudit": {
+      "report": "source/pmdo_cote/DESTINY_16_TILE_SOURCE_AUDIT.json",
+      "missingBranchSheetReferenceOccurrences": 536,
+      "distinctMissingRawGroundSheetNames": 202,
+      "newEraSameBasenameCandidateOccurrences": 509,
+      "newEraDistinctNamesWithCandidate": 195,
+      "newEraMissingReferenceOccurrencesWithoutCandidate": 27,
+      "newEraNamesAbsent": 7,
+      "strictSourceCommitGitBlobMatches": 1,
+      "exactPayloadsCertifiedForIntegration": 0,
+      "branch011TerrainEvidenceArchive": {
+        "path": "exports/pmdo/PMD_Destiny_branch_011_CoCommitted_Terrain_TileSheets.zip",
+        "bytes": 6120774,
+        "sha256": "1ff26ca9bd42900a934796160a641432d191bf6e87b2684ebd40805989bfe20c",
+        "payloadCount": 4,
+        "aliasAssignmentCertified": false,
+        "sourceMetadataDocuments": 5
+      }
+    }
+  },
+  "sourcePayloadRebranding": {
+    "activeBrand": "Treasure",
+    "activeArchive": "mod_treasure_expeditions_pmdo_0812.zip",
+    "activeArchiveSha256": "b17b7ec53b2d5b282f6e3d4b33bfc071b3e5c78efab68a0fd63861039ef410d6",
+    "preMigrationPayloadBackup": "exports/treasure_rename/source_payloads_before_rename_2026-10-30.zip",
+    "preMigrationPayloadBackupSha256": "934c3b9f5edf86a53728e56f4cfa6334fd01196ece06fddb829908dcdba670c2",
+    "affectedOccurrences": 40,
+    "sourceHashField": "groundSha256 remains the original exact-source payload hash; rebrandedGroundSha256 identifies the current text-renamed archive member.",
+    "sourcePayloadsPreservedByteForByte": true,
+    "groundStructureRevalidation": "PASS; all 40 maps compare equal after excluding only Comment and layer Name labels."
   }
 }

@@ -4,7 +4,7 @@
 
 ## Demande actuelle — remplace l’interdiction de décoration précédente
 
-L’utilisateur a renvoyé visuellement sa première proposition de salle : grande pièce de pierre, parois rocheuses brun-gris, sol dallé continu et entrée au sud. Il demande maintenant **un réseau de casino sur le terrain Ledian**, avec **tapis rouges, estrades, rideaux, mobilier et kiosques sur des calques distincts**, inspirés des objets de Métano/Halcyon, particulièrement la structure liée à Murkrow.
+L’utilisateur a renvoyé visuellement sa première proposition de salle : grande pièce de pierre, parois rocheuses brun-gris, sol dallé continu et entrée au sud. Il demande maintenant **un réseau de casino sur le terrain Ledian**, avec **tapis rouges, estrades, rideaux, mobilier et kiosques sur des calques distincts**, inspirés des objets de Treasure/Halcyon, particulièrement la structure liée à Murkrow.
 
 Conserver une base de terrain vide ; ajouter l’aménagement en overlays réversibles. « Sans déco » reste donc valable pour la base, **pas pour les calques optionnels nouvellement demandés**. Ne jamais cuire le tapis, le rideau ou un meuble dans le sol. Les bordures rocheuses doivent accompagner les jambages de chaque entrée, sans rocher qui coupe le passage.
 
@@ -12,10 +12,10 @@ Conserver une base de terrain vide ; ajouter l’aménagement en overlays réver
 
 Source : [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`.
 
-- `Data/Script/ground/metano_town/init.lua`, lignes2837/2849 : `Bank_Owner` est Murkrow.
-- `Data/Script/ground/metano_town/metano_town_ch_2.lua`, lignes460–466 : visite de **Krow Bank**, stockage de l’argent auprès de Murkrow.
-- `Content/Tile/Metano_Town_Objects.tile` : coiffe/toiture noire avec motif de bec doré.
-- `Content/Tile/Metano_Town_Objects_Over.tile` : guichet et coffres qui complètent la structure.
+- `Data/Script/ground/treasure_town/init.lua`, lignes2837/2849 : `Bank_Owner` est Murkrow.
+- `Data/Script/ground/treasure_town/treasure_town_ch_2.lua`, lignes460–466 : visite de **Krow Bank**, stockage de l’argent auprès de Murkrow.
+- `Content/Tile/Treasure_Town_Objects.tile` : coiffe/toiture noire avec motif de bec doré.
+- `Content/Tile/Treasure_Town_Objects_Over.tile` : guichet et coffres qui complètent la structure.
 - La zone correspondante de `Objects_Under` ne fournit pas le corps de cette structure.
 
 Extraits natifs dans `references/`, sur canevas alignés **104×96**, grille8px :

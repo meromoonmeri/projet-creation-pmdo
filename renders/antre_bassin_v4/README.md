@@ -10,17 +10,17 @@ Correction de la V3. Le choix explicite de l’utilisateur est de garder les pie
 - Le cycle complet de **8 poses natives** de l’eau autour du disque et des trois pas japonais est récupéré et séparé des pierres.
 
 ## Référence native importante
-Dans la carte `altere_pond.rsground`, la couche Objects utilise huit frames de `Metano_Town_Animation_Tileset` pour le disque et les pas japonais, avec `FrameLength=10`. Elles sont disposées sur deux rangées de quatre dans l’atlas : pas horizontal de 112 px et vertical de 144 px, rectangles de 112 × 144 à partir de (0,984).
+Dans la carte `altere_pond.rsground`, la couche Objects utilise huit frames de `Treasure_Town_Animation_Tileset` pour le disque et les pas japonais, avec `FrameLength=10`. Elles sont disposées sur deux rangées de quatre dans l’atlas : pas horizontal de 112 px et vertical de 144 px, rectangles de 112 × 144 à partir de (0,984).
 
 La V3 avait extrait les pierres à la première pose sans réutiliser ce cycle complet. La V4 corrige cette omission. **Les pixels des pierres sont identiques dans les huit poses** : les changements concernent l’eau et ses reflets/ombres. Les quatre calques d’eau autour des pierres et les quatre calques de pierres se recomposent exactement en chaque sprite natif, à l’échelle 1, après placement et occultation par les roches.
 
-Source Halcyon : Altere Pond, commit `1522c7a8b7a34d70078e11ed605b21d563b0dc51`, carte archivée dans `source/antre_harmonie_v3/references/`. Atlas Métano archivé dans `source/eau_metano/natifs/`. Le manifeste contient la preuve de séquence issue de la carte, les rectangles source et le SHA256 du fichier `.tile` utilisé.
+Source Halcyon : Altere Pond, commit `1522c7a8b7a34d70078e11ed605b21d563b0dc51`, carte archivée dans `source/antre_harmonie_v3/references/`. Atlas Treasure archivé dans `source/eau_treasure/natifs/`. Le manifeste contient la preuve de séquence issue de la carte, les rectangles source et le SHA256 du fichier `.tile` utilisé.
 
 ## Animation et provenance honnête
 Cadence : 10 frames de jeu par pose (1/6 s à 60 Hz).
 - Bassin : **4 poses générées**, dans le style de l’eau d’Altere. Ce ne sont pas des frames natives retrouvées.
 - Cascades : **4 poses régénérées/adaptées**. La silhouette et la jonction claire au pied viennent de la nouvelle génération ; la matière du corps mélange 70 % de détail natif avec 30 % de la pose générée, puis est ramenée à la palette native cascade/écume. Cette contribution native diminue au pied pour conserver le raccord généré. Elles ne sont donc **pas des sprites canoniques intacts**.
-- Écumes : **3 poses natives Métano**, récupérées dans la carte Altere, ajustées à 50 % au plus proche voisin comme dans V3. Elles restent indépendantes des cascades.
+- Écumes : **3 poses natives Treasure**, récupérées dans la carte Altere, ajustées à 50 % au plus proche voisin comme dans V3. Elles restent indépendantes des cascades.
 - Eau autour des pierres : **8 poses natives exactes**, sans recoloration ni redimensionnement.
 
 La boucle commune fait **24 poses**, soit **240 frames de jeu / 4 secondes**. Le WebP utilise des durées de 167/166/167 ms calculées à partir des horodatages cumulés, sans dérive. Les textures de chute ne sont pas simplement scrollées. Les poses du bassin constituent une animation artistique, pas une simulation physique d’écoulement ou des vitesses hydrodynamiques.

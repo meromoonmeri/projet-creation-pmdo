@@ -20,7 +20,7 @@ for mode in ['jour','nuit']:
   eq(np.array(comp)[~mask],np.array(load(OLD/mode/f'lake4_{mode}_composition_{p:02}.png'))[~mask])
   for n in unchanged:eq(load(path(O,'lake5',n)),load(path(OLD,'lake4',n)))
   for k in range(1,4):
-   fall=np.array(load(path(O,'lake5',f'07_cascade_{k}')))[:,:,3]>0;foam=np.array(load(path(O,'lake5',f'08_ecume_metano_{k}')))[:,:,3]>0
+   fall=np.array(load(path(O,'lake5',f'07_cascade_{k}')))[:,:,3]>0;foam=np.array(load(path(O,'lake5',f'08_ecume_treasure_{k}')))[:,:,3]>0
    assert nd.label(fall,np.ones((3,3)))[1]==1;assert (fall&foam).any()
    if p>=4:eq(load(path(O,'lake5',f'07_cascade_{k}')),load(P/f'lake5_{mode}_07_cascade_{k}_{p%4:02}.png'))
   if mode=='nuit':eq(comp,night(load(O/f'jour/lake5_jour_composition_{p:02}.png')))

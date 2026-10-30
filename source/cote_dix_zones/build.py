@@ -1,4 +1,4 @@
-"""Ten coastal layouts guided by guide_compositions.png, native Metano material.
+"""Ten coastal layouts guided by guide_compositions.png, native Treasure material.
 Shared Guild/Sharpedo clouds and exact night grading, 24 native Ground variants.
 No engine runtime claim. Build outputs go to ~/.cache/cote_dix_pack.
 """
@@ -226,7 +226,7 @@ def make_map(asset, title, mode, planes, sea, banks, template):
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     WEB.mkdir(parents=True,exist_ok=True)
-    with zipfile.ZipFile(ROOT/'cote_metano_v2_pmdo.zip') as z:
+    with zipfile.ZipFile(ROOT/'cote_treasure_v2_pmdo.zip') as z:
         template = json.loads(z.read('Data/Ground/cote_v2_promontoire.rsground'))['Object']
     template.pop('Layers');template.pop('obstacles')
     bg, cloud_info = backgrounds()

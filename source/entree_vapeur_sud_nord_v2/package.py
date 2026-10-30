@@ -37,7 +37,7 @@ def main():
     data = {
         'size': M['size_px'], 'waterTicks': M['water']['frame_length_ticks'], 'bubbleTicks': M['bubbles']['frame_length_ticks'],
         'loop': M['scene_loop_ticks'], 'surface': 'rgb(%d,%d,%d)' % tuple(M['water']['couleurs']['surface']),
-        'water': [uri(O / f'animation/eau/ESN2_00_eau_metano_f{t}.png') for t in range(M['water']['phases'])],
+        'water': [uri(O / f'animation/eau/ESN2_00_eau_treasure_f{t}.png') for t in range(M['water']['phases'])],
         'sparks': [uri(O / f'animation/scintillements/ESN2_01_scintillements_f{t}.png') for t in range(M['water']['phases'])],
         'bubbles': [uri(O / f'animation/bulles/ESN2_02_bulles_f{t:02d}.png') for t in range(M['bubbles']['phases'])],
         'layers': [{'id': Path(p).stem.replace('ESN2_', ''), 'uri': uri(O / p)} for p in M['layer_order_bottom_to_top'][3:]],

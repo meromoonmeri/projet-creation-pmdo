@@ -14,7 +14,7 @@ Série validée par l'utilisateur le 27 septembre 2026 (« BEAU TRAVAIL JE VALID
 | # | Ground | Carte | Taille | Calques | Animations (frames × ticks) | `entrance` | `donjon_seuil` |
 |---|---|---|---|---|---|---|---|
 | 1 | `esn1_entree_vapeur_jour` | Vapeur (Steam Cave) | 424 × 632 | 10 | 12 × 10 | (200, 616) | (208, 224) |
-| 2 | `esn2_entree_vapeur_jour` | Vapeur V2 (eau Métano) | 424 × 632 | 11 | 4 × 10, 24 × 5 | (200, 616) | (208, 224) |
+| 2 | `esn2_entree_vapeur_jour` | Vapeur V2 (eau Treasure) | 424 × 632 | 11 | 4 × 10, 24 × 5 | (200, 616) | (208, 224) |
 | 3 | `ecn1_entree_cratere` | Cratère (Dark Crater) | 424 × 632 | 10 | 4 × 10, 6 × 10, 24 × 5 | (200, 616) | (200, 176) |
 | 4 | `ern1_entree_ruine` | Ruine (Sealed Ruin) | 424 × 632 | 11 | 4 × 10, 8 × 5, 24 × 5 | (200, 616) | (224, 248) |
 | 5 | `egn1_entree_givre` | Givre (Frosty Forest) | 424 × 632 | 13 | 4 × 10, 48 × 5 | (200, 616) | (208, 176) |
@@ -41,6 +41,6 @@ Chaque carte a son script `Data/Script/guilde_entrees_sud_nord/ground/<carte>/in
 
 ## Limites
 
-- Terrains générés à partir de captures des jeux (rendu généré référencé) ; seuls les scintillements Métano d'ESN2 et la cascade d'ECN2 (absente de ce mod) sont des tuiles natives.
+- Terrains générés à partir de captures des jeux (rendu généré référencé) ; seuls les scintillements Treasure d'ESN2 et la cascade d'ECN2 (absente de ce mod) sont des tuiles natives.
 - Les animations sont créées pour ces cartes : ce ne sont pas les animations officielles.
 - Collisions et marqueurs vérifiés sur la grille, pas en jeu. Les seuils ne sont raccordés à aucun donjon.

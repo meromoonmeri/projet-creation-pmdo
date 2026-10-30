@@ -6,8 +6,8 @@ après une animation où la cascade se fend pour ouvrir la grotte que tu as cré
 Base : EWC1 (même branche). MÊMES BRUTS GÉNÉRÉS qu'EWC1 (source/entree_waterfall_cave_sud_nord_v1/bruts, hachés),
 aucune nouvelle génération ; EWC1 reste intact.
 Changements :
-1. eau façon Métano SANS le liseré `clair` (tirets de 1 px posés contre chaque rive par water_phases) : ce sont les
-   « petits traits blancs ». Couleurs restantes : surface, inter, accent, bande (Métano exactes) ;
+1. eau façon Treasure SANS le liseré `clair` (tirets de 1 px posés contre chaque rive par water_phases) : ce sont les
+   « petits traits blancs ». Couleurs restantes : surface, inter, accent, bande (Treasure exactes) ;
 2. plus d'eau devant la bouche : un couloir de sable (pixels du sol complet GÉNÉRÉ) remplace la partie centrale de la
    vasque, de la bouche au chemin central ; la vasque devient deux bassins latéraux ; berge de raccord = sable
    assombri au rapport mesuré berge/sable du décor ;
@@ -57,14 +57,14 @@ CORR_KNOTS = {'y': [277, 300, 330, 360, 392],        # bords du couloir, pleine 
               'gauche': [560, 563, 557, 548, 518],     # léger renflement, puis évasement vers la plage
               'droite': [640, 637, 644, 652, 684]}
 SLIT_U, SLIT_V = 0.7, 0.3             # fente : temps d'ouverture = 0,7 x écart au centre + 0,3 x profondeur
-REMOVED = 'clair'                     # couleur Métano du liseré retiré
+REMOVED = 'clair'                     # couleur Treasure du liseré retiré
 
 
 def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
-# ---------------------------------------------------------------- eau façon Métano, sans liseré de rive
+# ---------------------------------------------------------------- eau façon Treasure, sans liseré de rive
 def water_phases(water, visible):
     """Copie de water_phases (lot Bristle, même graine 9) SANS la ligne
     a[(d <= 1) & (sin(...) > -0.35)] = PAL['clair'] : c'étaient les petits traits blancs contre les rives."""
@@ -260,8 +260,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     """stack : (titre, frames, ticks, etat) du bas vers le haut ; visibles au chargement : etat None ou fermee."""
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks, etat) in enumerate(stack):
         vis = etat in (None, 'fermee')
@@ -286,7 +286,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
              Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Waterfall Cave (entrancecascade.png), V2 : '
-                     'eau facon Metano sans liseré de rive, couloir de sable jusqu a la bouche, cascade en deux temps '
+                     'eau facon Treasure sans liseré de rive, couloir de sable jusqu a la bouche, cascade en deux temps '
                      '(calques d etat fermee / ouverture / ouverte, script init.lua NON TESTE). Collisions a verifier.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -555,10 +555,10 @@ def build():
                             'pour un defilement continu', 'pmdo_calques': etats},
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS,
                   'couleurs': {k: list(v) for k, v in PAL.items() if k != REMOVED},
-                  'modele': 'structure et cadence riviere Metano, couleurs Metano EXACTES, sans liseré de rive',
+                  'modele': 'structure et cadence riviere Treasure, couleurs Treasure EXACTES, sans liseré de rive',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges (aplat de surface retire)'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges (aplat de surface retire)'},
         'cascade': dict(fall_info, phases=FALL_PHASES, frame_length_ticks=FALL_TICKS, period_px=FALL_PERIOD,
                         blend_px=FALL_BLEND, step_px=FALL_STEP, ouverture_phases=OPEN_PHASES,
                         origine='pixels GENERES du rideau du decor, rendus periodiques par fondu puis ramenes a la palette '

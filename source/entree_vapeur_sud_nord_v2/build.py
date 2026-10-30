@@ -1,16 +1,16 @@
-"""Entrée Vapeur sud -> nord, V2 — eau « façon rivière de Métano » + bulles de marais.
+"""Entrée Vapeur sud -> nord, V2 — eau « façon rivière de Treasure » + bulles de marais.
 
-Demande : « pour l'animation d'eau fait quelque chose comme metano town river ! et fait des
+Demande : « pour l'animation d'eau fait quelque chose comme treasure town river ! et fait des
 animation bulle genere les cohérente a l'eau qui éclate car c'est un peu marécageux ».
 
 - Terrain V1 conservé : les 7 calques opaques V1 sont relus tels quels (renders/..._v1/calques).
-  Le calque V1 « ombres » est retiré : la bande de berge Métano le remplace.
-- Eau V2 : STRUCTURE et CADENCE de la rivière Métano (Halcyon da6c2130, FrameLength 10, 4 phases) :
+  Le calque V1 « ombres » est retiré : la bande de berge Treasure le remplace.
+- Eau V2 : STRUCTURE et CADENCE de la rivière Treasure (Halcyon da6c2130, FrameLength 10, 4 phases) :
   aplat, bande sombre de 4 px, 1 px intermédiaire, frange dentelée sur ~3 px, lèvre claire contre la
-  berge. Profil mesuré sur les 4 feuilles Metano_Town_River_Animation_1..4. Les bandes sont
-  RECALCULÉES sur nos bassins (on ne peut pas transplanter la géométrie Métano) et les couleurs sont
-  transposées vers la teinte de nos bassins : pas des tuiles Métano natives.
-- Scintillements : pixels réels de Metano_Town_River_Sparkles (3 familles d'amas, 4 phases), même
+  berge. Profil mesuré sur les 4 feuilles Treasure_Town_River_Animation_1..4. Les bandes sont
+  RECALCULÉES sur nos bassins (on ne peut pas transplanter la géométrie Treasure) et les couleurs sont
+  transposées vers la teinte de nos bassins : pas des tuiles Treasure natives.
+- Scintillements : pixels réels de Treasure_Town_River_Sparkles (3 familles d'amas, 4 phases), même
   transposition de couleur, positions nouvelles.
 - Bulles : planche GÉNÉRÉE (bruts/bulles_8_poses.png, 2x6 cases reçues au lieu de 1x8), 7 poses
   retenues + 1 anneau atténué dérivé, réduction uniforme x0,1, palette de l'eau V2.
@@ -32,13 +32,13 @@ NAMESPACE = 'entree_vapeur_sud_nord_v2'
 ASSET = 'esn2_entree_vapeur_jour'
 PFX = 'ESN2'
 W, H = 424, 632
-WATER_PHASES, WATER_TICKS = 4, 10            # rivière Métano vérifiée : 4 phases, FrameLength 10
+WATER_PHASES, WATER_TICKS = 4, 10            # rivière Treasure vérifiée : 4 phases, FrameLength 10
 BUBBLE_PHASES, BUBBLE_TICKS = 24, 5          # 24 x 5 ticks = 2 s ; PPCM avec l'eau (40 ticks) = 120 ticks
 LOOP_TICKS = 120
 CELL = 24                                    # case d'une bulle : 3 x 3 tuiles
 
-METANO_RIVER = [R / f'source/eau_metano/natifs/Metano_Town_River_Animation_{i}.tile' for i in range(1, 5)]
-METANO_SPARK = R / 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile'
+TREASURE_RIVER = [R / f'source/eau_treasure/natifs/Treasure_Town_River_Animation_{i}.tile' for i in range(1, 5)]
+TREASURE_SPARK = R / 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile'
 M_SURFACE = (131, 218, 230)
 M_ROLES = {'surface': (131, 218, 230), 'bande': (87, 135, 191), 'inter': (95, 183, 207),
            'accent': (111, 207, 231), 'clair': (148, 230, 238), 'reflet': (247, 255, 255),
@@ -64,7 +64,7 @@ def decode_tile(path):
 
 
 def transpose_color(c):
-    """Rôle Métano -> teinte de nos bassins : teinte -10°, saturation x1,45, valeur x0,5.
+    """Rôle Treasure -> teinte de nos bassins : teinte -10°, saturation x1,45, valeur x0,5.
     Le reflet quasi blanc garde une valeur haute pour rester lisible."""
     h, s, v = colorsys.rgb_to_hsv(*(x / 255 for x in c[:3]))
     h = (h - 10 / 360) % 1; s = min(1, s * 1.45 if s > 0.1 else s + 0.12)
@@ -72,17 +72,17 @@ def transpose_color(c):
     return tuple(round(x * 255) for x in colorsys.hsv_to_rgb(h, s, v))
 
 
-# Palette V2 : mêmes rôles et même ORDRE de luminance que la rivière Métano, teintes choisies à la main
+# Palette V2 : mêmes rôles et même ORDRE de luminance que la rivière Treasure, teintes choisies à la main
 # autour de l'eau sarcelle V1 (la transposition HSV seule écrasait accent/clair sur l'aplat).
 PAL = {'surface': (43, 115, 112), 'bande': (20, 62, 84), 'contour': (14, 50, 74), 'inter': (30, 92, 100),
        'accent': (36, 104, 108), 'clair': (84, 158, 146), 'reflet': (190, 226, 214)}
 
 
-# ---------------------------------------------------------------- mesure Métano
-def measure_metano():
-    """Profil de la bande Métano par distance au bord, sur les 4 phases (contrôle, pas copie)."""
+# ---------------------------------------------------------------- mesure Treasure
+def measure_treasure():
+    """Profil de la bande Treasure par distance au bord, sur les 4 phases (contrôle, pas copie)."""
     prof = []
-    for p in METANO_RIVER:
+    for p in TREASURE_RIVER:
         t = decode_tile(p); xs = [k[0] for k in t]; ys = [k[1] for k in t]
         a = np.zeros(((max(ys) + 1) * 8, (max(xs) + 1) * 8, 4), 'uint8')
         for (x, y), im in t.items():
@@ -93,7 +93,7 @@ def measure_metano():
     return prof
 
 
-# ---------------------------------------------------------------- eau façon Métano
+# ---------------------------------------------------------------- eau façon Treasure
 def hash_noise(seed):
     rng = np.random.default_rng(seed)
     return nd.gaussian_filter(rng.random((H, W)), 1.0)
@@ -108,7 +108,7 @@ def water_phases(visible, water):
         ph = 2 * np.pi * t / WATER_PHASES
         # Ondulation qui voyage le long des berges : le bord intérieur de la bande avance/recule.
         n = 0.6 * np.sin(xx * 0.23 + yy * 0.11 - ph) + 0.4 * np.sin(xx * 0.07 - yy * 0.21 + 1.3 - ph)
-        T = 4.5 + 1.1 * n                       # épaisseur bande sombre + intermédiaire ~4-6 px (Métano : 4 + 1)
+        T = 4.5 + 1.1 * n                       # épaisseur bande sombre + intermédiaire ~4-6 px (Treasure : 4 + 1)
         fringe = T + 0.6 + 2.6 * np.roll(jag, t * 2, axis=1)   # frange dentelée qui change à chaque phase
         a = np.zeros((H, W, 4), 'uint8'); a[..., 3] = 255
         a[..., :3] = PAL['surface']
@@ -126,9 +126,9 @@ def water_phases(visible, water):
     return frames, d
 
 
-# ---------------------------------------------------------------- scintillements Métano
+# ---------------------------------------------------------------- scintillements Treasure
 def sparkle_families():
-    t = decode_tile(METANO_SPARK)
+    t = decode_tile(TREASURE_SPARK)
 
     def cluster(cols, rows, step):
         out = []
@@ -196,7 +196,7 @@ def bubble_poses():
     # Tension : le dôme + les seules gouttelettes de la pose « tension » (son intérieur généré était trop sombre).
     t = poses['dome'].copy(); drops = (poses['tension'][..., 3] > 0) & (poses['dome'][..., 3] == 0)
     t[drops] = poses['tension'][drops]; poses['tension'] = t
-    # Anneaux : ride claire lisible sur l'aplat (teinte claire), comme les lèvres de la rivière Métano.
+    # Anneaux : ride claire lisible sur l'aplat (teinte claire), comme les lèvres de la rivière Treasure.
     op = poses['anneaux'][..., 3] > 0; poses['anneaux'][op, :3] = PAL['clair']
     # Anneau atténué dérivé : on garde l'anneau extérieur seulement (retrait des pixels proches du centre).
     ring = poses['anneaux'].copy(); yy, xx = np.mgrid[:CELL, :CELL]
@@ -233,8 +233,8 @@ def place(free, sizes, count, seed, taken):
 def ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(tracks):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -265,8 +265,8 @@ def ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Vapeur V2 - sud vers nord', 'LocalTexts': {}}, AssetName=ASSET,
              Released=False, TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0},
              ActiveChar=None, Status={}, Layers=layers,
-             Comment='PMDO 0.8.12. Terrain genere V1 ; eau facon riviere Metano (structure/cadence, couleurs transposees), '
-                     'scintillements Metano recolores, bulles generees. Collisions de base a verifier. Seuil non raccorde.',
+             Comment='PMDO 0.8.12. Terrain genere V1 ; eau facon riviere Treasure (structure/cadence, couleurs transposees), '
+                     'scintillements Treasure recolores, bulles generees. Collisions de base a verifier. Seuil non raccorde.',
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []})
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -289,7 +289,7 @@ def ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools):
 <Header>
   <Name>Entree Vapeur sud-nord V2 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : entree generee, eau facon riviere Metano, scintillements et bulles de marais animes. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : entree generee, eau facon riviere Treasure, scintillements et bulles de marais animes. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>2.0.0.0</Version>
@@ -334,7 +334,7 @@ def build():
     for k, a in poses.items():
         Image.fromarray(a).save(OUT / 'poses_bulles' / f'{PFX}_bulle_{k}.png')
     emitters = place(visible, (CELL, CELL), 9, 29, taken)
-    # Scintillements Métano : amas sur l'eau dégagée (distance > 5 px).
+    # Scintillements Treasure : amas sur l'eau dégagée (distance > 5 px).
     fams = sparkle_families()
     deep = visible & (dist > 5)
     sp_frames = [np.zeros((H, W, 4), 'uint8') for _ in range(WATER_PHASES)]; sparkles = []
@@ -356,7 +356,7 @@ def build():
         arr[~visible] = 0                         # jamais sur la berge ni sous un buisson
     # Exports PNG
     for t, a in enumerate(wf):
-        Image.fromarray(a).save(OUT / 'animation/eau' / f'{PFX}_00_eau_metano_f{t}.png')
+        Image.fromarray(a).save(OUT / 'animation/eau' / f'{PFX}_00_eau_treasure_f{t}.png')
     for t, a in enumerate(sp_frames):
         Image.fromarray(a).save(OUT / 'animation/scintillements' / f'{PFX}_01_scintillements_f{t}.png')
     for t, a in enumerate(bf):
@@ -395,31 +395,31 @@ def build():
     for i, a in enumerate(poses.values()):
         sheet.alpha_composite(Image.fromarray(a).resize((CELL * 6, CELL * 6), Image.Resampling.NEAREST), (i * (CELL * 6 + 6), 0))
     sheet.save(OUT / 'review' / f'{PFX}_planche_bulles_x6.png')
-    ora = {f'00_eau_metano_f0': wf[0], '01_scintillements_f0': sp_frames[0], '02_bulles_f00': bf[0],
+    ora = {f'00_eau_treasure_f0': wf[0], '01_scintillements_f0': sp_frames[0], '02_bulles_f00': bf[0],
            **{Path(v).stem.replace(PFX + '_', ''): static[k] for k, v in files.items()}}
     v1.W, v1.H = W, H
     v1.write_ora(OUT / f'{PFX}_entree_vapeur_calques.ora', ora)
-    tracks = [('Eau facon riviere Metano 4 phases', wf, WATER_TICKS),
-              ('Scintillements Metano 4 phases', sp_frames, WATER_TICKS),
+    tracks = [('Eau facon riviere Treasure 4 phases', wf, WATER_TICKS),
+              ('Scintillements Treasure 4 phases', sp_frames, WATER_TICKS),
               ('Bulles de marais 24 phases', bf, BUBBLE_TICKS)]
     counts = ground_project(tracks, static, blocked, entry_px, threshold_px, gfx, tools)
-    prof = measure_metano()
+    prof = measure_treasure()
     manifest = {
         'lot': 'entree_vapeur_sud_nord_v2', 'size_px': [W, H], 'grid_8px': [W // 8, H // 8],
         'terrain': 'V1 inchange (7 calques relus depuis renders/entree_vapeur_sud_nord_v1/calques) ; calque V1 ombres retire.',
-        'layer_order_bottom_to_top': ['animation/eau/ESN2_00_eau_metano_fX.png', 'animation/scintillements/ESN2_01_scintillements_fX.png',
+        'layer_order_bottom_to_top': ['animation/eau/ESN2_00_eau_treasure_fX.png', 'animation/scintillements/ESN2_01_scintillements_fX.png',
                                       'animation/bulles/ESN2_02_bulles_fXX.png'] + [f'calques/{v}' for v in files.values()],
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'loop_s': WATER_PHASES * WATER_TICKS / 60,
-                  'modele': 'riviere Metano Town (Halcyon da6c2130), FrameLength 10 et 4 phases verifies dans source/eau_metano/animations_carte.json',
+                  'modele': 'riviere Treasure Town (Halcyon da6c2130), FrameLength 10 et 4 phases verifies dans source/eau_treasure/animations_carte.json',
                   'structure': 'aplat + bande sombre ~4 px + 1 px intermediaire + frange dentelee ~3 px + levre claire, recalcules sur nos bassins',
-                  'profil_metano_non_surface_par_distance_1_a_10px': prof,
+                  'profil_treasure_non_surface_par_distance_1_a_10px': prof,
                   'couleurs': {k: list(v) for k, v in PAL.items()},
-                  'transposition': 'palette a la main, roles et ordre de luminance Metano (surface/bande/contour/inter/accent/clair/reflet) ; couleurs hors roles des scintillements : HSV teinte -10 deg, sat x1.45, valeur x0.5',
-                  'origine': 'Structure et cadence Metano ; pixels et couleurs recalcules. PAS des tuiles Metano natives.'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'sha256': sha(METANO_SPARK),
+                  'transposition': 'palette a la main, roles et ordre de luminance Treasure (surface/bande/contour/inter/accent/clair/reflet) ; couleurs hors roles des scintillements : HSV teinte -10 deg, sat x1.45, valeur x0.5',
+                  'origine': 'Structure et cadence Treasure ; pixels et couleurs recalcules. PAS des tuiles Treasure natives.'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'sha256': sha(TREASURE_SPARK),
                      'familles': {'A_16x24': 'colonnes 0-1, rangees 0-2, pas 3', 'B_24x16': 'colonnes 2-4, rangees 0-1, pas 2',
                                   'C_16x32': 'colonnes 0-1, rangees 12-15, pas 4'},
-                     'placements': sparkles, 'origine': 'pixels Metano reels, couleurs transposees, positions nouvelles, phases synchrones comme Metano'},
+                     'placements': sparkles, 'origine': 'pixels Treasure reels, couleurs transposees, positions nouvelles, phases synchrones comme Treasure'},
         'bubbles': {'brut': 'source/entree_vapeur_sud_nord_v2/bruts/bulles_8_poses.png', 'sha256': sha(HERE / 'bruts/bulles_8_poses.png'),
                     'brut_recu': '2 rangees x 6 cases (demande : 1 x 8), doublons ; disque sombre (rangee 2, case 3) ecarte',
                     'poses': list(poses), 'derivee': 'tension = dome + gouttelettes de la pose tension ; anneaux recolores clair ; anneau_final = anneau exterieur seul, teinte accent',
@@ -435,7 +435,7 @@ def build():
     }
     (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     shutil.copyfile(OUT / 'manifest.json', STAGE / 'manifest.json')
-    print(json.dumps({'sparkles': len(sparkles), 'emitters': len(emitters), 'tiles': counts, 'profil_metano_phase0': prof[0]}, indent=1))
+    print(json.dumps({'sparkles': len(sparkles), 'emitters': len(emitters), 'tiles': counts, 'profil_treasure_phase0': prof[0]}, indent=1))
 
 
 if __name__ == '__main__':

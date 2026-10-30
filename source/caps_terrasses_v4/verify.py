@@ -12,7 +12,7 @@ def main():
  cfg=json.loads((HERE/'palette_canonique.json').read_text());manifest=json.loads((OUT/'manifest.json').read_text());visual=json.loads((HERE/'audit_visuel.json').read_text())
  for f in cfg['source_files']:assert hashlib.sha256((ROOT/f['path']).read_bytes()).hexdigest()==f['sha256']
  assert np.allclose(lab([[255,255,255],[0,0,0],[255,0,0]]),[[100,0,0],[0,0,0],[53.2408,80.0925,67.2032]],atol=.001)
- p=ROOT/'source/falaises_metano';meta=json.loads((p/'provenance.json').read_text());banks=[decode(p/'natifs'/f'Metano_Town_{n}.tile') for n in ['Base','Cliffs']]
+ p=ROOT/'source/falaises_treasure';meta=json.loads((p/'provenance.json').read_text());banks=[decode(p/'natifs'/f'Treasure_Town_{n}.tile') for n in ['Base','Cliffs']]
  sheet=Image.new('RGBA',(max(a.shape[1] for a in banks),max(a.shape[0] for a in banks)))
  for a in banks:sheet.alpha_composite(Image.fromarray(a))
  colors=[]

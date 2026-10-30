@@ -12,7 +12,7 @@ Méthode (rendu généré RÉFÉRENCÉ) :
 - décor complet généré avec les deux références en images= (bassins = magenta) ;
 - sol complet : généré à partir d'une découpe du sol de pmdskyicearena.png (SOL_REF_CROP) ;
 - animations, chacune sur son calque, fonctions de l'entrée Givre (EGN1) :
-  eau glacée « façon rivière Métano » (même palette, 4 x 10 ticks), scintillements Métano recolorés (4 x 10),
+  eau glacée « façon rivière Treasure » (même palette, 4 x 10 ticks), scintillements Treasure recolorés (4 x 10),
   flocons générés de l'entrée (48 x 5 ticks) ; lueur du cristal : rampe glacée pulsée 6 x 10 ticks
   (méthode des braises de ECN1).
 Scène : PPCM 240 ticks = 4 s.
@@ -298,9 +298,9 @@ def build():
         'fidelite': fid,
         'layer_order_bottom_to_top': [files[t] for t, _, _ in stack_named],
         'eau_glacee': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in EG.PAL.items()},
-                       'origine': 'fonction water_phases de l entree Givre (structure riviere Metano), recalculee ; pas de tuiles natives'},
+                       'origine': 'fonction water_phases de l entree Givre (structure riviere Treasure), recalculee ; pas de tuiles natives'},
         'reflets': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'placements': D['sparkles'],
-                    'origine': 'pixels Metano_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)'},
+                    'origine': 'pixels Treasure_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)'},
         'lueur_cristal': {'phases': GLOW_PHASES, 'frame_length_ticks': GLOW_TICKS, 'pulsation': PULSE, 'rampe': [list(c) for c in GLOW_RAMP],
                           'pixels': int(D['glow'].sum()), 'origine': 'facettes cyan du cristal, rang de luminance + pulsation (methode des braises de ECN1)'},
         'flocons': {'phases': FLAKE_PHASES, 'frame_length_ticks': FLAKE_TICKS, 'emetteurs': D['emitters'],

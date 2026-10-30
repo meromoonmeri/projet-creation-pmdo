@@ -58,8 +58,8 @@ MAX_ARCHIVE_CACHE = 96 * 1024 * 1024
 # Published ZIP names sometimes predate or abbreviate the title of their
 # standalone gallery. These aliases are from the project folders/manifests.
 ARCHIVE_PREVIEW_ALIASES = {
-    "cote_metano_v2": "cote_v2",
-    "cote_metano_v2_wrap_palette": "cote_v2",
+    "cote_treasure_v2": "cote_v2",
+    "cote_treasure_v2_wrap_palette": "cote_v2",
     "guild_structures_v1": "structures_guilde_v1",
     "ice_arena_aurora_v1": "arene_glace_aurores_animees_v1",
     "zones_south_north_v3": "entrees_sud_nord_v3",
@@ -73,7 +73,7 @@ ARCHIVE_PREVIEW_ALIASES = {
     "boreales_pmdsky_v7": "ciel_boreal_pmdsky_v7",
     "casino_network_v1": "casino_reseau_v1",
     "layouts_magenta_v1": "variantes_magenta_v1",
-    "metano_png_import_v3": "metano_pixel_perfect",
+    "treasure_png_import_v3": "treasure_pixel_perfect",
     "mod_cliff_nord_jour": "cliff_nord_jour_anime_v1",
     "entree_vallon_fleuri_sud_nord_v1": "vallons_fleuris_v1",
     "fin_vallon_fleuri_sanctuaire_v1": "vallons_fleuris_v1",
@@ -653,9 +653,9 @@ class UpstreamRepository:
                     member = "data/layer_00.png"
                 elif relative.startswith("layers/01_decor"):
                     member = "data/layer_01.png"
-                elif relative.startswith("animation/eau_metano_native/"):
+                elif relative.startswith("animation/eau_treasure_native/"):
                     member = "data/layer_02.png"
-                elif relative.startswith("animation/rives_metano_native/"):
+                elif relative.startswith("animation/rives_treasure_native/"):
                     member = "data/layer_03.png"
                 elif relative.startswith("animation/scintillements/"):
                     member = "data/layer_04.png"
@@ -991,7 +991,7 @@ def human_title(value: str) -> str:
     text = " ".join(word[:1].upper() + word[1:] for word in stem.split())
     replacements = {
         "Pmdo": "PMDO", "Pmd": "PMD", "Dtef": "DTEF", "Gba": "GBA", "Dsi": "DSi",
-        "Pmdsky": "PMD Sky", "Metano": "Métano", "Sky": "Sky", "V1": "V1", "V2": "V2",
+        "Pmdsky": "PMD Sky", "Treasure": "Treasure", "Sky": "Sky", "V1": "V1", "V2": "V2",
         "V3": "V3", "V4": "V4", "V5": "V5", "V6": "V6", "V7": "V7", "V8": "V8",
         "V9": "V9", "V10": "V10", "V11": "V11", "V12": "V12", "V13": "V13",
         "V14": "V14", "V15": "V15", "V16": "V16",
@@ -1022,7 +1022,7 @@ def category_for_preview(path: str) -> str:
         return "Arènes"
     if any(k in slug for k in ("donjon", "dungeon", "tour", "tower", "temporal", "temporel", "palkia", "domaine", "domain")):
         return "Donjons"
-    if any(k in slug for k in ("zone", "route", "panorama", "falaises", "cote", "plage", "beach", "waterfall", "metano", "vallon", "plains")):
+    if any(k in slug for k in ("zone", "route", "panorama", "falaises", "cote", "plage", "beach", "waterfall", "treasure", "vallon", "plains")):
         return "Zones & lieux"
     return "Autres aperçus"
 

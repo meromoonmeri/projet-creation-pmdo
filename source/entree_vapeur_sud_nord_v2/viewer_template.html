@@ -2,7 +2,7 @@
 <html lang="fr">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Entrée Vapeur · sud → nord · V2 · eau façon Métano + bulles</title>
+<title>Entrée Vapeur · sud → nord · V2 · eau façon Treasure + bulles</title>
 <style>
 body{background:#14201d;color:#e4ece6;font:15px/1.55 system-ui,sans-serif;margin:0;padding:24px}
 main{max-width:1180px;margin:auto}
@@ -21,8 +21,8 @@ button.on{background:#d8c98c}
 code{color:#cfe6da}
 </style>
 <main>
-<h1>Entrée Vapeur V2 — eau façon rivière de Métano, bulles de marais</h1>
-<p>Même terrain que la V1. L'eau reprend la <strong>structure et la cadence de la rivière de Métano</strong> : aplat, bande sombre de berge, frange dentelée et lèvre claire qui ondulent sur 4 phases de 10 ticks. Les scintillements utilisent les pixels Métano recolorés. Les <strong>bulles générées</strong> montent, gonflent, éclatent et laissent une ride : 24 phases de 5 ticks, 9 émetteurs décalés. La scène boucle en 120 ticks (2 s).</p>
+<h1>Entrée Vapeur V2 — eau façon rivière de Treasure, bulles de marais</h1>
+<p>Même terrain que la V1. L'eau reprend la <strong>structure et la cadence de la rivière de Treasure</strong> : aplat, bande sombre de berge, frange dentelée et lèvre claire qui ondulent sur 4 phases de 10 ticks. Les scintillements utilisent les pixels Treasure recolorés. Les <strong>bulles générées</strong> montent, gonflent, éclatent et laissent une ride : 24 phases de 5 ticks, 9 émetteurs décalés. La scène boucle en 120 ticks (2 s).</p>
 <div class="wrap">
   <div class="stage" id="stage"><canvas id="c"></canvas></div>
   <aside>
@@ -43,7 +43,7 @@ code{color:#cfe6da}
     <fieldset><legend>Export</legend>
       <button id="png">PNG de la vue actuelle (1×)</button>
     </fieldset>
-    <p class="note">Le mouvement de l'eau est <strong>inspiré</strong> de Métano : bandes recalculées sur nos bassins, couleurs choisies selon les rôles Métano. Ce ne sont pas des tuiles natives. Les bulles sont un dessin généré, avec une chronologie créée par nous : ce n'est pas une animation officielle. Marqueurs : jaune = <code>entrance</code>, cyan = <code>donjon_seuil</code>. Aucun test PMDO en jeu.</p>
+    <p class="note">Le mouvement de l'eau est <strong>inspiré</strong> de Treasure : bandes recalculées sur nos bassins, couleurs choisies selon les rôles Treasure. Ce ne sont pas des tuiles natives. Les bulles sont un dessin généré, avec une chronologie créée par nous : ce n'est pas une animation officielle. Marqueurs : jaune = <code>entrance</code>, cyan = <code>donjon_seuil</code>. Aucun test PMDO en jeu.</p>
   </aside>
 </div>
 </main>
@@ -52,11 +52,11 @@ const D=__DATA__;const [W,H]=D.size;const c=document.getElementById('c'),x=c.get
 function img(u){const i=new Image();i.src=u;return i}
 const water=D.water.map(img),spark=D.sparks.map(img),bub=D.bubbles.map(img),layers=D.layers.map(l=>({id:l.id,im:img(l.uri)})),coll=img(D.collisions);
 const box=document.getElementById('layers'),checks={};
-[{id:'00_eau_metano'},{id:'01_scintillements'},{id:'02_bulles'},...layers].forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id);box.append(lab)});
+[{id:'00_eau_treasure'},{id:'01_scintillements'},{id:'02_bulles'},...layers].forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id);box.append(lab)});
 D.poses.forEach(p=>{const i=img(p.uri);i.width=96;i.height=96;i.title=p.id;i.style.cssText='image-rendering:pixelated;background:'+D.surface;document.getElementById('poses').append(i)});
 let zoom=2,tick=0,playing=true,last=performance.now();const STEP=D.bubbleTicks,MS=STEP*1000/60;
 function render(ctx){ctx.clearRect(0,0,W,H);const wp=Math.floor(tick/D.waterTicks)%water.length,bp=Math.floor(tick/D.bubbleTicks)%bub.length;
- if(checks['00_eau_metano'].checked)ctx.drawImage(water[wp],0,0);
+ if(checks['00_eau_treasure'].checked)ctx.drawImage(water[wp],0,0);
  if(checks['01_scintillements'].checked)ctx.drawImage(spark[wp],0,0);
  if(checks['02_bulles'].checked)ctx.drawImage(bub[bp],0,0);
  layers.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(l.im,0,0)});
