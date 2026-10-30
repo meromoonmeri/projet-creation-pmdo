@@ -66,7 +66,7 @@ Importer tes propres PNG de structures à leur taille native. Ces cartes utilise
 
 `verification.json` rapporte la relecture indépendante des fichiers binaires, les adresses des tuiles, l'existence de toutes les ressources référencées et la reconstruction des pixels des deux cartes. Résultat : **0 différence** sur le terrain, le ciel, les nuages à l'origine, les huit phases de mer et la composition initiale. Le wrap, les calques vides et la fusion d'index sont également testés.
 
-**PMDO n'est pas installé dans l'environnement de fabrication : aucune ouverture réelle dans le moteur ni désérialisation .NET n'a été testée.** Le schéma est basé sur une vraie Ground Halcyon et le code source RogueEssence ci-dessous. La compatibilité avec ta version exacte reste à confirmer à l'ouverture. Si une erreur survient, conserver le message/log avec le numéro de version de PMDO.
+**Lors de la fabrication de ces deux cartes Côte V2, aucune ouverture réelle dans PMDO ni désérialisation .NET n'avait été testée.** Le runtime PMDO 0.8.12 a depuis été installé pour la récupération Destiny et a chargé d'autres Grounds, mais ces deux fichiers Côte V2 n'ont pas été inclus dans ce probe. Leur compatibilité reste à confirmer à l'ouverture. Si une erreur survient, conserver le message/log avec le numéro de version de PMDO.
 
 Le terrain conserve le visuel V2 : la terrasse est une correction **générée**, inspirée de Métano, pas une reconstruction certifiée avec les tuiles canoniques. L'intégration native ne change pas cette provenance.
 
@@ -88,3 +88,7 @@ Depuis la racine, avec Pillow et numpy (ici `.venv/bin/python`) :
 Ce script reconstruit les binaires, exécute les validations, puis produit `~/cote_metano_v2_pmdo.zip`. Les fichiers intermédiaires sont placés dans `~/.cache/cote_pmdo_pack/`. Pour choisir l'emplacement final : `--output /chemin/pack.zip`.
 
 Les sources et tests restent dans Git. À la demande de push, une copie de `cote_metano_v2_pmdo.zip` est maintenant également versionnée à la racine du dépôt ; le générateur garde sa sortie par défaut dans le dossier utilisateur. **Ne pas copier les sources de fabrication dans les dossiers Data/Content du mod.**
+
+## PMD Destiny — réunir les maps dans la quête existante
+
+Voir [DESTINY_QUEST_OVERLAY.md](DESTINY_QUEST_OVERLAY.md) pour le candidat d’overlay partiel construit (246 Grounds; le prototype historique de 208 est distinct), puis [DESTINY_262_RECOVERY.md](DESTINY_262_RECOVERY.md) et [destiny_262_inventory.json](destiny_262_inventory.json) pour l’inventaire des 262 occurrences. Le final 262 n’est pas achevé ni installé : 16 occurrences n’ont pas de Ground source disponible et le dossier de quête Destiny cible est absent. L’overlay omet `Mod.xml` et ne crée aucune liaison narrative.

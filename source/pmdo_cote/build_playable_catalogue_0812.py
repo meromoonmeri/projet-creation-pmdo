@@ -616,6 +616,8 @@ def build(output: Path) -> dict[str, Any]:
                         "sourceModName": source_mod_name,
                         "sourceNamespace": source_namespace,
                         "version": GAME_VERSION,
+                        "groundVersion": str(document["Version"]),
+                        "texSize": int(obj["TexSize"]),
                         "grid": [width, height],
                         "layers": len(obj.get("Layers", []) or []),
                         "markerNames": [str(m.get("EntName", "")) for m in markers],
