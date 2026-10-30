@@ -1,10 +1,10 @@
-# 12 entrées de donjon générées — collection PMD
+# 12 compositions d’entrées de donjon — collection PMD
 
 **Nouvelles textures autorisées dans la DA PMD. Treasure reste imposé seulement pour une extension explicitement Treasure.**
 
 [Planche PNG](PLANCHE_12_ENTREES.png) · [Galerie HTML](index.html)
 
-Ces PNG sont des créations du générateur, pas des prélèvements canoniques. Ils ne remplacent pas les entrées du mod Expéditions. Les images sont aplaties, sans calques éditables reconstruits à ce stade ; eau et cascades sont statiques. Certaines dimensions ne sont pas multiples de 8. Le filtre Abyss est appliqué une seule fois pour les variantes nocturnes.
+Ces PNG sont des compositions PMD originales, pas des prélèvements canoniques. Ils ne remplacent pas les entrées du mod Expéditions. Les images sont aplaties, sans calques éditables reconstruits à ce stade ; eau et cascades sont statiques. Certaines dimensions ne sont pas multiples de 8. Le filtre Abyss est appliqué une seule fois pour les variantes nocturnes.
 
 | Entrée | Original | Nuit |
 |---|---|---|
@@ -21,7 +21,7 @@ Ces PNG sont des créations du générateur, pas des prélèvements canoniques. 
 | Gouffre du plateau | [PNG](11_gouffre_plateau.png) | [PNG](11_gouffre_plateau_nuit_abyss.png) |
 | Sanctuaire lunaire | [PNG](12_sanctuaire_lunaire.png) | [PNG](12_sanctuaire_lunaire_nuit_abyss.png) |
 
-Les trois premières images prolongent la demande Halcyon initiale. Les neuf suivantes explorent librement forêt, minéraux, volcan, glace, désert, cascade, marais, gouffre et ruines. Le n°03 a produit un passage vers une grotte, et non le corridor ouvert initialement demandé au générateur : le résultat est conservé comme une proposition distincte.
+Les trois premières images prolongent la demande Halcyon initiale. Les neuf suivantes explorent librement forêt, minéraux, volcan, glace, désert, cascade, marais, gouffre et ruines. Le n°03 a produit un passage vers une grotte, et non le corridor ouvert demandé dans la consigne initiale : le résultat est conservé comme une proposition distincte.
 
 Références : compositions Halcyon/Crooked Cavern et EoSO/Drenched Bluff réellement décodées. Le Ground `aegis_cave_entrance` de PMD-SKY-PMDO-PORT a également été examiné ; son aperçu montre des couloirs intérieurs, pas une façade extérieure à recopier. Voir `source/entrees_pmd_collection/references.json`.
 
