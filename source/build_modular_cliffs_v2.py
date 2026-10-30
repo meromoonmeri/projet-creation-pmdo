@@ -1,11 +1,11 @@
 """Morceaux de falaise natifs + placement du nouveau lot de maisons.
-Prérequis : build_houses_metano.py --organic-v2 et build_cliff_layouts.py avec layout_config.json.
+Prérequis : build_houses_treasure.py --organic-v2 et build_cliff_layouts.py avec layout_config.json.
 """
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 import io,json,struct,hashlib,math
 R=Path(__file__).resolve().parents[1];O=R/'sprites/falaises_modulaires_v2';O.mkdir(exist_ok=True)
-D=O/'decor/04_balcon';H=R/'sprites/maisons_organiques_v2';F=R/'source/falaises_metano'
+D=O/'decor/04_balcon';H=R/'sprites/maisons_organiques_v2';F=R/'source/falaises_treasure'
 
 def decode(path):
     raw=path.read_bytes();s,n=struct.unpack_from('<II',raw);assert s==8
@@ -27,7 +27,7 @@ def native(im,path):
             entries.append(struct.pack('<IIQ',x,y,offsets[key]))
     path.write_bytes(struct.pack('<II',8,n)+b''.join(entries)+payload)
 
-cliff=decode(F/'natifs/Metano_Town_Cliffs.tile');spec=[]
+cliff=decode(F/'natifs/Treasure_Town_Cliffs.tile');spec=[]
 def patch(name,slug,source,rect=None):
     path=R/source
     if path.suffix=='.tile':im=cliff.crop(rect)
@@ -35,11 +35,11 @@ def patch(name,slug,source,rect=None):
         im=Image.open(path).convert('RGBA')
         if rect:im=im.crop(rect)
     spec.append((name,slug,im,{'file':source,'rect_xyxy_px':rect,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}))
-root='source/falaises_metano/patches/'
+root='source/falaises_treasure/patches/'
 patch('Rebord herbeux','rebord',root+'rebord.png')
 patch('Paroi répétable','paroi',root+'roche.png')
 patch('Pied de paroi','pied',root+'pied.png')
-src='source/falaises_metano/natifs/Metano_Town_Cliffs.tile'
+src='source/falaises_treasure/natifs/Treasure_Town_Cliffs.tile'
 patch('Section complète','section',src,[912,432,976,544])
 patch('Escalier natif','escalier',root+'escalier.png')
 patch('Coude ouest','coude_ouest',src,[680,432,744,544])
@@ -48,7 +48,7 @@ patch('Palier ouest','palier_ouest',src,[584,272,616,384])
 patch('Palier est','palier_est',src,[1440,320,1472,448])
 patch('Entrée rocheuse','entree',src,[848,400,912,544])
 patch('Sol herbeux','herbe',root+'herbe.png',[0,0,64,64])
-for i in range(4):patch(f'Cascade · phase {i+1}',f'cascade_{i+1}',f'sprites/eau_metano/cascade_frame_{i+1}.png')
+for i in range(4):patch(f'Cascade · phase {i+1}',f'cascade_{i+1}',f'sprites/eau_treasure/cascade_frame_{i+1}.png')
 # Slots 80x160, fragments placed on 8px grid with baseline 144. No source pixel moved within a fragment.
 atlas=Image.new('RGBA',(400,480));items=[]
 for i,(name,slug,im,provenance) in enumerate(spec):
@@ -56,19 +56,19 @@ for i,(name,slug,im,provenance) in enumerate(spec):
     x=(i%5)*80+((80-w)//16)*8;y=(i//5)*160+144-h
     atlas.paste(im,(x,y));file=f'{i+1:02}_{slug}.png';straight(im).save(O/file)
     items.append({'id':i+1,'name':name,'file':file,'size_px':[w,h],'atlas_rect_px':[x,y,w,h],'atlas_rect_cells':[x//8,y//8,w//8,h//8],'source':provenance})
-straight(atlas).save(O/'Falaises_Metano_Modules.png');native(atlas,O/'Falaises_Metano_Modules.tile')
+straight(atlas).save(O/'Falaises_Treasure_Modules.png');native(atlas,O/'Falaises_Treasure_Modules.tile')
 anims=[];native_anims=[]
 for y in range(17):
     for x in range(8):
         ids=[];fr=[]
         for i in range(11,15):
-            xx,yy,_,_=items[i]['atlas_rect_cells'];idx=(yy+y)*50+xx+x;ids.append(idx);fr.append({'Sheet':'Falaises_Metano_Modules','TexLoc':{'X':xx+x,'Y':yy+y}})
+            xx,yy,_,_=items[i]['atlas_rect_cells'];idx=(yy+y)*50+xx+x;ids.append(idx);fr.append({'Sheet':'Falaises_Treasure_Modules','TexLoc':{'X':xx+x,'Y':yy+y}})
         anims.append({'id':ids[0],'animation':[{'tileid':v,'duration':167} for v in ids]});native_anims.append({'id':ids[0],'Frames':fr,'FrameLength':10})
-(O/'Falaises_Metano_Modules.tsj').write_text(json.dumps({'type':'tileset','version':'1.10','name':'Falaises_Metano_Modules','tilewidth':8,'tileheight':8,'columns':50,'tilecount':3000,'margin':0,'spacing':0,'image':'Falaises_Metano_Modules.png','imagewidth':400,'imageheight':480,'tiles':anims},indent=2))
+(O/'Falaises_Treasure_Modules.tsj').write_text(json.dumps({'type':'tileset','version':'1.10','name':'Falaises_Treasure_Modules','tilewidth':8,'tileheight':8,'columns':50,'tilecount':3000,'margin':0,'spacing':0,'image':'Falaises_Treasure_Modules.png','imagewidth':400,'imageheight':480,'tiles':anims},indent=2))
 (O/'modules.json').write_text(json.dumps({'grid_px':8,'slot_size_px':[80,160],'reference':'Palikadude/Halcyon','commit':'da6c2130d641507447e6386a5e47a296e8cb4c71','modules':items,'native_animations':native_anims,'note':'Fragments natifs à sélectionner par rectangle, pas un autotile universel. Cadence cascade proposée à 10 ticks.'},ensure_ascii=False,indent=2))
 # Legended PNG, enlarged x2 nearest only for presentation.
 board=Image.new('RGB',(920,1136),'#1d2e29');draw=ImageDraw.Draw(board);fp='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';font=ImageFont.truetype(fp,22);small=ImageFont.truetype(fp,12)
-draw.text((24,20),'FALAISES DE MÉTANO / MORCEAUX NATIFS',font=font,fill='#ead491')
+draw.text((24,20),'FALAISES DE TREASURE / MORCEAUX NATIFS',font=font,fill='#ead491')
 draw.text((24,57),'Tuiles de 8 px • 11 fragments fixes + 4 phases de cascade • aucun redessin',font=small,fill='#b2c7b3')
 for i,item in enumerate(items):
     x=16+(i%5)*180;y=96+(i//5)*336;draw.rounded_rectangle((x,y,x+168,y+324),radius=7,fill='#2b4136')
@@ -98,7 +98,7 @@ tm['layers'].append(house_layer);tm['nextlayerid']=4;tm['tilesets'].append({'fir
 (D/'village.tmj').write_text(json.dumps(tm,separators=(',',':')))
 # Main requested PNG: village composition and house contact sheet together, not an import texture.
 summary=Image.new('RGB',(1600,1480),'#1a2d26');d=ImageDraw.Draw(summary)
-d.text((28,22),'MÉTANO / NOUVELLES HABITATIONS & FALAISES',font=ImageFont.truetype(fp,28),fill='#edda9b')
+d.text((28,22),'TREASURE / NOUVELLES HABITATIONS & FALAISES',font=ImageFont.truetype(fp,28),fill='#edda9b')
 d.text((28,64),'10 maisons originales · textures de falaises natives · grille 8 px · rendu complet : 2048 × 1536 px',font=ImageFont.truetype(fp,15),fill='#b4c8b0')
 scene=Image.open(O/'rendu_village.png').resize((1024,768),Image.Resampling.NEAREST);summary.paste(scene,(24,112))
 # Native detail crop at x2 for readable rock and falling-water texture.

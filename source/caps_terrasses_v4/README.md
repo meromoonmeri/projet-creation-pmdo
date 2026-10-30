@@ -1,4 +1,4 @@
-# Dix créations supplémentaires — configuration Métano renforcée et audit
+# Dix créations supplémentaires — configuration Treasure renforcée et audit
 
 ## Bilan honnête
 **Dix créations générées, dix palettes corrigées, huit dessins retenus visuellement, deux refusés : 07 et 11.** Le travail de reprise de ces deux dessins reste à faire. La tentative de régénération de 07 a été refusée par l’outil après dix générations ; aucun fichier de reprise n’a été produit. Ne pas annoncer dix dessins certifiés conformes.
@@ -6,15 +6,15 @@
 ## Configuration plus stricte du générateur
 Chaque appel recevait trois images :
 1. un terrain du lot précédent pour la présentation latérale et proche de la caméra ;
-2. `reference_matiere_stricte.png`, avec les vrais échantillons d’herbe, de roche, de rebord et de pied de Métano (agrandissements nearest-neighbor explicitement réservés à l’inspection) ;
+2. `reference_matiere_stricte.png`, avec les vrais échantillons d’herbe, de roche, de rebord et de pied de Treasure (agrandissements nearest-neighbor explicitement réservés à l’inspection) ;
 3. `source/falaises_generees/reference_canonique.png`, pour la matière et ses raccords en contexte.
 
-Les consignes interdisaient les galets génériques, les gros blocs réinventés, les bandes de grès lisse, les contours noirs épais et les nouveaux chemins/objets. Le dessin devait conserver la couronne rocheuse mince et irrégulière sous l’herbe Métano, une falaise proche caméra et un espace latéral pour l’océan, le tout sur fond magenta. Les originaux générés sont conservés dans `renders/caps_terrasses_v4/bruts/`.
+Les consignes interdisaient les galets génériques, les gros blocs réinventés, les bandes de grès lisse, les contours noirs épais et les nouveaux chemins/objets. Le dessin devait conserver la couronne rocheuse mince et irrégulière sous l’herbe Treasure, une falaise proche caméra et un espace latéral pour l’océan, le tout sur fond magenta. Les originaux générés sont conservés dans `renders/caps_terrasses_v4/bruts/`.
 
 Références de présentation : 07/10/13/15 prennent la terrasse gauche V3 ; 08/09/14 la terrasse droite ; 11 la corniche gauche ; 12/16 le balcon droit. Ce ne sont pas des imports de nouveaux motifs canoniques.
 
 ## Contrôle des vraies sources
-`prepare.py` décode `Metano_Town_Base.tile` et `Metano_Town_Cliffs.tile` du dossier natif, reconstruit les rectangles indiqués dans la provenance et compare les quatre échantillons RGBA existants. Ces comparaisons passent. Les coordonnées, couleurs et empreintes des fichiers figurent dans `palette_canonique.json`.
+`prepare.py` décode `Treasure_Town_Base.tile` et `Treasure_Town_Cliffs.tile` du dossier natif, reconstruit les rectangles indiqués dans la provenance et compare les quatre échantillons RGBA existants. Ces comparaisons passent. Les coordonnées, couleurs et empreintes des fichiers figurent dans `palette_canonique.json`.
 
 Le petit échantillon plat ne contenait pas l’ombre mauve profonde nécessaire à certains retours. La couleur **96,56,88** a donc été ajoutée depuis un pixel opaque effectivement trouvé dans la banque Cliffs, avec ses coordonnées enregistrées et revérifiées. Aucun assombrissement inventé.
 
@@ -29,7 +29,7 @@ Le détourage utilise le magenta pur et ses franges connectées au bord, sans ef
 `audit_visuel.json` décrit l’inspection des dix compositions et des coupes de couronne avant/après. Les zones 13 et 11 ont une coupe choisie manuellement sur la face avant, au lieu d’un simple bord arrière du plateau.
 
 - **07 refusée** : roche en galets verticaux et couronne en chapelet, différentes de la texture demandée.
-- **11 refusée** : gros blocs et rebord lisse à double bande, trop simplifiés par rapport à Métano.
+- **11 refusée** : gros blocs et rebord lisse à double bande, trop simplifiés par rapport à Treasure.
 - **08, 09, 10, 12, 13, 14, 15, 16 retenues visuellement**, avec observations individuelles conservées (grain, extrémités de couronne, profondeur et répétition). Cette appréciation ne certifie pas une identité aux tuiles natives, un autotiling ou des raccords seamless entre cartes.
 
 Les deux refus sont visibles dans la galerie, la planche et le catalogue. Ils sont conservés pour inspection, pas présentés comme des résultats validés. **Prochaine action : régénérer 07 et 11 en gardant leurs layouts, remplacer leur mauvais motif et leur couronne, puis refaire les mêmes contrôles.**

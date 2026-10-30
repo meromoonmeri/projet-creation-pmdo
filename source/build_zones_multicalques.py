@@ -8,7 +8,7 @@ import json,struct,zlib,base64,hashlib,io
 R=Path(__file__).resolve().parents[1];O=R/'sprites/zones_guidees'
 M=json.loads((O/'provenance.json').read_text());A=M['atlas'];AT=Image.open(O/(A['name']+'.png')).convert('RGBA')
 TS=json.loads((O/(A['name']+'.tsj')).read_text());AN={t['id']+1:[f['tileid']+1 for f in t['animation']] for t in TS['tiles']}
-LABELS=[('01_sol','Sol — herbe Métano'),('02_parois','Parois rocheuses'),('03_bordures','Bordures et retours de falaises'),('04_berges','Berges et fond de rivière'),('05_riviere','Surface de rivière animée'),('06_cascades','Cascades animées')]
+LABELS=[('01_sol','Sol — herbe Treasure'),('02_parois','Parois rocheuses'),('03_bordures','Bordures et retours de falaises'),('04_berges','Berges et fond de rivière'),('05_riviere','Surface de rivière animée'),('06_cascades','Cascades animées')]
 CACHE={}
 def tile(g):
     if g not in CACHE:
@@ -55,7 +55,7 @@ def ase(path,frames,labels):
 
 manifest={'method':'Keep the approved guide -> canonical tile method; split existing tile cells into disjoint layers, without regenerating or repainting.', 'guild_reference_commit':'6c4ac5aad90da4f670d4965ec3d37a3ea38b5c78','branch_reference_commit':'7f1e82b','dimensions':[2048,1536],'grid':8,'layers':[{'id':id,'name':name,'animated':i>=4,'wet_only':i>=3} for i,(id,name) in enumerate(LABELS)],'zones':[],'limits':['Border layer is the one-cell peripheral band of the rock mask, including top, feet and side returns; not an autotile classification','River banks include native static water pixels; hide all three wet layers for a dry scene','No added palette for night: source textures remain unchanged','No collisions, transitions, or runtime PMDO validation']}
 board=Image.new('RGB',(1512,820),'#192d24');d=ImageDraw.Draw(board);font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',24);small=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',16)
-d.text((22,14),'MÉTANO · LES DEUX ZONES VALIDÉES, EN SIX CALQUES',font=font,fill='#eedb9e')
+d.text((22,14),'TREASURE · LES DEUX ZONES VALIDÉES, EN SIX CALQUES',font=font,fill='#eedb9e')
 for zi,zone in enumerate(M['zones']):
     parent=O/zone['id'];out=parent/'multicalques';out.mkdir(exist_ok=True)
     original=json.loads((parent/'eau.tmj').read_text());src=[l['data'] for l in original['layers']]
@@ -66,7 +66,7 @@ for zi,zone in enumerate(M['zones']):
     inside=inside.ravel();body=[g if inside[i] else 0 for i,g in enumerate(src[1])];edge=[g if not inside[i] else 0 for i,g in enumerate(src[1])]
     river=[];falls=[]
     for g in src[3]:
-        cascade=bool(g) and A['entries'][AN.get(g,[g])[0]-1]['sheet']=='Metano_Town_Animation_Tileset'
+        cascade=bool(g) and A['entries'][AN.get(g,[g])[0]-1]['sheet']=='Treasure_Town_Animation_Tileset'
         river.append(0 if cascade else g);falls.append(g if cascade else 0)
     arrays=[src[0],body,edge,src[2],river,falls]
     assert all((body[i] or edge[i])==src[1][i] and not(body[i] and edge[i]) for i in range(49152))

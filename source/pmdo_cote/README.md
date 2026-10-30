@@ -12,7 +12,7 @@ Ce sont des sérialisations `RogueEssence.Ground.GroundMap`, pas des fichiers Ti
 ## Installation recommandée
 
 1. Fermer PMDO et sauvegarder ton mod.
-2. Extraire **tout** `cote_metano_v2_pmdo.zip` dans un dossier temporaire.
+2. Extraire **tout** `cote_treasure_v2_pmdo.zip` dans un dossier temporaire.
 3. Avec Python 3, depuis ce dossier :
 
    ```sh
@@ -66,16 +66,16 @@ Importer tes propres PNG de structures à leur taille native. Ces cartes utilise
 
 `verification.json` rapporte la relecture indépendante des fichiers binaires, les adresses des tuiles, l'existence de toutes les ressources référencées et la reconstruction des pixels des deux cartes. Résultat : **0 différence** sur le terrain, le ciel, les nuages à l'origine, les huit phases de mer et la composition initiale. Le wrap, les calques vides et la fusion d'index sont également testés.
 
-**PMDO n'est pas installé dans l'environnement de fabrication : aucune ouverture réelle dans le moteur ni désérialisation .NET n'a été testée.** Le schéma est basé sur une vraie Ground Halcyon et le code source RogueEssence ci-dessous. La compatibilité avec ta version exacte reste à confirmer à l'ouverture. Si une erreur survient, conserver le message/log avec le numéro de version de PMDO.
+**Lors de la fabrication de ces deux cartes Côte V2, aucune ouverture réelle dans PMDO ni désérialisation .NET n'avait été testée.** Le runtime PMDO 0.8.12 a depuis été installé pour la récupération Destiny et a chargé d'autres Grounds, mais ces deux fichiers Côte V2 n'ont pas été inclus dans ce probe. Leur compatibilité reste à confirmer à l'ouverture. Si une erreur survient, conserver le message/log avec le numéro de version de PMDO.
 
-Le terrain conserve le visuel V2 : la terrasse est une correction **générée**, inspirée de Métano, pas une reconstruction certifiée avec les tuiles canoniques. L'intégration native ne change pas cette provenance.
+Le terrain conserve le visuel V2 : la terrasse est une correction **générée**, inspirée de Treasure, pas une reconstruction certifiée avec les tuiles canoniques. L'intégration native ne change pas cette provenance.
 
 ## Sources techniques et crédits
 
 - Halcyon / Palika et contributeurs, commit `da6c2130d641507447e6386a5e47a296e8cb4c71` : [`Data/Ground/post_office.rsground`](https://github.com/Palikadude/Halcyon/blob/da6c2130d641507447e6386a5e47a296e8cb4c71/Data/Ground/post_office.rsground), conteneur `Version = 0.7.15.1`. Aucun PNJ, objet ou script de cette carte n'a été repris.
 - Le binaire `Content/BG/Chapter_1.dir` du même dépôt a servi de contrôle du format DirSheet, pas de ressource graphique livrée.
 - [RogueEssence, commit `8b7eafafa73ff0c10b9e8fd9348559ee1b5dfe8b`](https://github.com/RogueCollab/RogueEssence/tree/8b7eafafa73ff0c10b9e8fd9348559ee1b5dfe8b) : `GroundMap.cs`, `MapBG.cs`, `LayeredBG.cs`, `TileLayer.cs`, `DirSheet.cs`, `TileSheet.cs`, `BaseSheet.cs`, `TileIndex.cs`, `ImportHelper.cs`, `Serializer.cs`, `UpgradeConverters.cs`, `Sprites.cs`, `LuaEngine.cs`, `PathMod.cs`.
-- Visuels : sources V2 du dépôt ; références Métano / Halcyon et feuille marine Pelipper fournie précédemment. La disponibilité publique des références n'implique pas une licence de redistribution sans restrictions.
+- Visuels : sources V2 du dépôt ; références Treasure / Halcyon et feuille marine Pelipper fournie précédemment. La disponibilité publique des références n'implique pas une licence de redistribution sans restrictions.
 
 ## Reproduction dans le dépôt
 
@@ -85,6 +85,10 @@ Depuis la racine, avec Pillow et numpy (ici `.venv/bin/python`) :
 .venv/bin/python source/pmdo_cote/package.py
 ```
 
-Ce script reconstruit les binaires, exécute les validations, puis produit `~/cote_metano_v2_pmdo.zip`. Les fichiers intermédiaires sont placés dans `~/.cache/cote_pmdo_pack/`. Pour choisir l'emplacement final : `--output /chemin/pack.zip`.
+Ce script reconstruit les binaires, exécute les validations, puis produit `~/cote_treasure_v2_pmdo.zip`. Les fichiers intermédiaires sont placés dans `~/.cache/cote_pmdo_pack/`. Pour choisir l'emplacement final : `--output /chemin/pack.zip`.
 
-Les sources et tests restent dans Git. À la demande de push, une copie de `cote_metano_v2_pmdo.zip` est maintenant également versionnée à la racine du dépôt ; le générateur garde sa sortie par défaut dans le dossier utilisateur. **Ne pas copier les sources de fabrication dans les dossiers Data/Content du mod.**
+Les sources et tests restent dans Git. À la demande de push, une copie de `cote_treasure_v2_pmdo.zip` est maintenant également versionnée à la racine du dépôt ; le générateur garde sa sortie par défaut dans le dossier utilisateur. **Ne pas copier les sources de fabrication dans les dossiers Data/Content du mod.**
+
+## PMD Destiny — cartothèque PMDO dans une seule quête
+
+La quête autonome [`PMD_Destiny_Map_Quest_246_0812.zip`](../../exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip) a été créée sous le namespace `destiny`, avec écran-titre intégré; elle expose les 246 Grounds récupérables dans `exploration_cartes`. Après le build, les probes PMDO 0.8.12 passent : Ground 246/246, zone 246 `GroundMaps`/0 segment, TileGuide 1 059 feuilles et 2 773 093 coordonnées/0 manquante. SHA-256 du ZIP : `e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f`; rapport post-build [`destiny_final_quest_246_runtime_summary.json`](../pmdo_runtime/destiny_final_quest_246_runtime_summary.json). L’inventaire conserve les 262 occurrences; les 16 sans Ground exact restent exclues, documentées sans substituts. Le rendu GPU, le rendu du titre et la jouabilité ne sont pas testés. Le ZIP est ignoré par Git; scripts, inventaire et rapports restent versionnés.

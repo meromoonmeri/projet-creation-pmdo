@@ -3,10 +3,10 @@ from pathlib import Path
 from PIL import Image
 import struct,io,hashlib,math
 ROOT=Path(__file__).resolve().parents[2]
-BASE='Metano_Town_Base';CLIFF='Metano_Town_Cliffs';ANIM='Metano_Town_Animation_Tileset'
-RIVERS=[f'Metano_Town_River_Animation_{i}' for i in range(1,5)]
-PATHS={BASE:ROOT/'source/falaises_metano/natifs'/f'{BASE}.tile',CLIFF:ROOT/'source/falaises_metano/natifs'/f'{CLIFF}.tile'}
-PATHS.update({n:ROOT/'source/eau_metano/natifs'/f'{n}.tile' for n in [ANIM]+RIVERS})
+BASE='Treasure_Town_Base';CLIFF='Treasure_Town_Cliffs';ANIM='Treasure_Town_Animation_Tileset'
+RIVERS=[f'Treasure_Town_River_Animation_{i}' for i in range(1,5)]
+PATHS={BASE:ROOT/'source/falaises_treasure/natifs'/f'{BASE}.tile',CLIFF:ROOT/'source/falaises_treasure/natifs'/f'{CLIFF}.tile'}
+PATHS.update({n:ROOT/'source/eau_treasure/natifs'/f'{n}.tile' for n in [ANIM]+RIVERS})
 
 def straight(raw):
     im=raw.copy();im.putdata([(round(r*255/a),round(g*255/a),round(b*255/a),a) if 0<a<255 else (r,g,b,a) for r,g,b,a in raw.getdata()]);return im

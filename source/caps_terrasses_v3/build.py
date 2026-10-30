@@ -1,4 +1,4 @@
-"""Generated Metano-style foreground cutouts + separate V2 backgrounds.
+"""Generated Treasure-style foreground cutouts + separate V2 backgrounds.
 Generated terrain is never resized. Ocean is fixed indexed geometry, palette interpolation only.
 """
 from pathlib import Path
@@ -66,7 +66,7 @@ def main():
   alpha=np.array(cut)[:,:,3];assert (alpha==0).any() and (alpha==255).any();assert im.width%8==im.height%8==0
   records.append({'id':slug,'title':title,'size':list(im.size),'source':f.name,'source_sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'terrain':slug+'_terrain.png','night':slug+'_terrain_nuit.png','scene':slug+'_scene.png','scene_night':slug+'_scene_nuit.png','offset_px':offset,'terrain_resampled':False,'day_retained_rgb_changed':False,'terrain_plane':'combined grass, rock, crowns; separate from ocean/sky/clouds','terrain_generated_not_canonical':True,'native_pmdo_integrated':False,'transparent_fraction':round(float((alpha==0).mean()),4)})
  save(board,OUT/'PLANCHE_FACE_MER.png')
- manifest={'method':'Cap V2 / Terrasse V2 framing + Metano rock and grass references, generator on magenta, chroma extraction','reference_layouts':['sprites/cote_v2/01_promontoire/COTEV2_01_03_TERRAIN.png','sprites/cote_v2/02_terrasse/COTEV2_02_03_TERRAIN.png'],'reference_texture':'source/falaises_generees/reference_canonique.png','ocean':o,'zones':records}
+ manifest={'method':'Cap V2 / Terrasse V2 framing + Treasure rock and grass references, generator on magenta, chroma extraction','reference_layouts':['sprites/cote_v2/01_promontoire/COTEV2_01_03_TERRAIN.png','sprites/cote_v2/02_terrasse/COTEV2_02_03_TERRAIN.png'],'reference_texture':'source/falaises_generees/reference_canonique.png','ocean':o,'zones':records}
  (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
  print('6 terrain cutouts, 6 night variants, 12 scenes, 64+64 fixed-index ocean phases, board.')
 if __name__=='__main__':main()

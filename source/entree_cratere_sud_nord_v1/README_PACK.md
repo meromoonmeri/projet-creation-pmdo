@@ -11,8 +11,8 @@ Projet d'édition autonome `entree_cratere_sud_nord` : un Ground `ecn1_entree_cr
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Lave façon rivière de Métano | 4 phases × 10 ticks |
-| 01 | Éclats (pixels Métano recolorés) | 4 phases × 10 ticks |
+| 00 | Lave façon rivière de Treasure | 4 phases × 10 ticks |
+| 01 | Éclats (pixels Treasure recolorés) | 4 phases × 10 ticks |
 | 02 | Sol complet (cendre générée, aussi sous la roche) | fixe |
 | 03 | Bulles de lave générées | 24 phases × 5 ticks, émetteurs décalés |
 | 04–07 | Cendre visible, rebords des mares, falaises, bouche du cratère | fixes |
@@ -29,6 +29,6 @@ La scène complète boucle en 120 ticks (2 s).
 ## Limites
 
 - **Terrain** : dessin généré à partir de la référence PMD Sky Dark Crater. Ce ne sont pas des pixels natifs.
-- **Lave** : structure et cadence de la rivière Métano, recalculées sur nos mares.
+- **Lave** : structure et cadence de la rivière Treasure, recalculées sur nos mares.
 - **Bulles et pulsation des braises** : créées par nous, ce ne sont pas des animations officielles.
 - **Tests** : aucun test dans PMDO.

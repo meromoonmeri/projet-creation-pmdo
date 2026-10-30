@@ -18,12 +18,12 @@ def audit():
   assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==f['sha']
  raw=(HERE/'tile_night_reference.py').read_bytes()
  assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='438383f479e2d80a6a0b3be4cced4087470d9835'
- banks={k:decode(HERE/'natifs'/f'Metano_Town_{k}.tile') for k in ['Base','Cliffs','Fringe']}
+ banks={k:decode(HERE/'natifs'/f'Treasure_Town_{k}.tile') for k in ['Base','Cliffs','Fringe']}
  colors=np.unique(np.concatenate([a.reshape(-1,4) for a in banks.values()]),axis=0)
  swatch=Image.fromarray(colors.reshape(1,-1,4));b=io.BytesIO();swatch.save(b,format='PNG')
  assert night(swatch).tobytes()==Image.open(io.BytesIO(reference.to_night(b.getvalue()))).convert('RGBA').tobytes()
  for k,a in banks.items():
-  assert np.array_equal(np.array(night(Image.fromarray(a))),decode(HERE/'natifs'/f'Metano_Town_{k}_Night.tile'))
+  assert np.array_equal(np.array(night(Image.fromarray(a))),decode(HERE/'natifs'/f'Treasure_Town_{k}_Night.tile'))
  prep=json.loads((WEB/'preparation.json').read_text());count=0
  for z in prep['zones']:
   base=WEB/z['id'];old=ROOT/'sprites/cote_v3_0812'/z['id']

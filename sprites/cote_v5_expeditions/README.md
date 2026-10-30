@@ -1,4 +1,4 @@
-# Métano Expéditions — mod d’édition PMDO 0.8.12
+# Treasure Expéditions — mod d’édition PMDO 0.8.12
 
 ## Contenu prêt à ouvrir
 
@@ -6,19 +6,25 @@
 
 - **7 nouvelles falaises** × jour/nuit = 14 Ground ;
 - **3 nouvelles entrées de donjon** × jour/nuit = 6 Ground ;
-- les **20 Ground du dernier pack Métano/Abyss**, conservés sans modification.
+- les **20 Ground du paquet précédent**, conservés avec la même géométrie, les mêmes collisions et références de tuiles. Le renommage a changé seulement leurs chaînes descriptives sérialisées.
 
 Les anciens lots modulaires et les premiers essais ne sont pas ajoutés : ils restent dans leurs archives distinctes. Ici « 40 Ground » signifie vingt lieux avec deux ambiances, pas quarante lieux différents.
+
+## Renommage et provenance
+
+Les textes, identifiants, namespaces, chemins et noms de ressources du projet actif utilisent maintenant **Treasure**. Les 40 Grounds sont toujours des documents JSON valides; l’index natif conserve ses huit clés de tileset et les `.tile`/fonds n’ont pas été modifiés par le renommage. Les 20 anciennes cartes ont reçu uniquement les changements de libellés/commentaires textuels : géométrie, couches de cellules, collisions et références de tuiles sont préservées.
+
+Les fichiers d’avant migration — y compris le paquet source complet, les Grounds, feuilles `.tile`, scripts et documents touchés — sont conservés à l’octet près dans `exports/treasure_rename/source_payloads_before_rename_2026-10-30.zip`. Son SHA-256 est dans le fichier `.sha256` adjacent; l’index interne `PRESERVATION_MANIFEST.json` relie les chemins et empreintes d’origine aux fichiers concernés. Cette sauvegarde n’est pas un paquet PMDO installable.
 
 ## Installation conseillée — projet séparé
 
 1. Fermer PMDO.
-2. Extraire `mod_metano_expeditions_pmdo_0812.zip`.
-3. Copier **le dossier entier `metano_expeditions`** dans le dossier `MODS` de PMDO. Ne pas fusionner son contenu avec un autre projet.
+2. Extraire `mod_treasure_expeditions_pmdo_0812.zip`.
+3. Copier **le dossier entier `treasure_expeditions`** dans le dossier `MODS` de PMDO. Ne pas fusionner son contenu avec un autre projet.
 4. Dans ce dossier, lancer **`OUVRIR_EDITEUR.bat`** sous Windows. Sous Linux : `bash OUVRIR_EDITEUR.sh`.
 5. Dans l’éditeur Ground, ouvrir les fichiers du dossier `Data/Ground/` du projet. Les nouveaux commencent par **`v50812_`** ; les vingt précédents par `v40812_`.
 
-Les lanceurs sélectionnent le projet avec `-dev -quest metano_expeditions`. Le lanceur Windows est fourni mais n’a pas été exécuté ici. On peut aussi sélectionner manuellement **Metano Expeditions - Atelier 0.8.12** en mode développeur.
+Les lanceurs sélectionnent le projet avec `-dev -quest treasure_expeditions`. Le lanceur Windows est fourni mais n’a pas été exécuté ici. On peut aussi sélectionner manuellement **Treasure Expeditions - Atelier 0.8.12** en mode développeur.
 
 **Aucun PNG à réimporter, aucun tileset à redimensionner.** Le mod comprend son `Mod.xml`, son index natif complet, huit banques de tuiles, douze fonds et les scripts dans son namespace. C’est un projet de cartes pour l’éditeur, **pas une aventure jouable complète avec scénario**.
 
@@ -41,13 +47,13 @@ Chaque identifiant possède les suffixes `_jour` et `_nuit`.
 
 Les nouveaux layouts sont définis explicitement par des contours organiques. Ils interprètent le guide de composition et les études ; ils ne sont pas les silhouettes exactes de l’image générée. Les dix nouvelles cartes sont en 1168×912 px, grille 146×114 cellules de 8 px. Les masses rejoignent les bords ouest, est et sud ; les baies restent ouvertes.
 
-## Nos entrées : layouts étudiés, textures Métano uniquement
+## Nos entrées : layouts étudiés, textures Treasure uniquement
 
 Crooked Cavern apporte l’idée du vestibule central enveloppé de parois. Brine Cave inspire la corniche maritime asymétrique et l’accès reculé. Drenched Bluff inspire le corridor ouvert. **Aucune de leurs textures n’est placée dans nos cartes.**
 
-Les deux grottes emploient le même encadrement natif de Métano Town, à son échelle réelle, dans deux compositions différentes : ce ne sont pas deux sprites d’ouverture redessinés. Le défilé utilise des retours Métano pour encadrer un passage ouvert. Il ne possède pas une fausse porte noire.
+Les deux grottes emploient le même encadrement natif de Treasure Town, à son échelle réelle, dans deux compositions différentes : ce ne sont pas deux sprites d’ouverture redessinés. Le défilé utilise des retours Treasure pour encadrer un passage ouvert. Il ne possède pas une fausse porte noire.
 
-Source de l’encadrement : `Metano_Town_Cliffs`, rectangle `(840,416)-(912,544)`. Les pixels d’herbe du prélèvement sont exclus pour ne pas créer une plaque verte flottante sur la paroi. Aucun pixel conservé n’est repeint ou agrandi. Le détail d’entrée reste sur son propre calque.
+Source de l’encadrement : `Treasure_Town_Cliffs`, rectangle `(840,416)-(912,544)`. Les pixels d’herbe du prélèvement sont exclus pour ne pas créer une plaque verte flottante sur la paroi. Aucun pixel conservé n’est repeint ou agrandi. Le détail d’entrée reste sur son propre calque.
 
 ### Arrivées et seuils
 
@@ -66,7 +72,7 @@ Les coordonnées désignent le coin du collider 16×16. Le dégagement et un che
 Les nouveaux Ground possèdent dix calques de tuiles :
 
 1. Mer animée ;
-2. Herbe Métano ;
+2. Herbe Treasure ;
 3. Faces ;
 4. Retours ;
 5. Couronnes ;
@@ -93,14 +99,14 @@ L’installateur fusionne les en-têtes des tilesets, conserve les ressources é
 
 ## Contrôles effectués
 
-- Provenance : reconstruction des six calques depuis les rectangles Métano enregistrés, sans pixels colorés du générateur.
+- Provenance : reconstruction des six calques depuis les rectangles Treasure enregistrés, sans pixels colorés du générateur.
 - Filtre : référence Abyss inchangée et comparaisons des feuilles nocturnes.
 - Fichiers : reconstruction des 120 nouveaux calques depuis les `.tile`, fonds, frames d’eau, index, marqueurs et collisions.
 - Accès : trois chemins avec dégagement 16×16 entre arrivée et seuil.
-- Conservation : anciens Ground et ressources byte-à-byte identiques au ZIP Métano/Abyss.
-- **Moteur réel PMDO 0.8.12 : 40 Ground désérialisés avec succès**, dimensions, grille, nombre de calques et marqueurs contrôlés.
+- Conservation et renommage : géométrie, cellules, collisions et références des 20 cartes antérieures inchangées; seuls leurs champs textuels ont été renommés. Dix ressources binaires antérieures restent identiques octet pour octet. Les octets d’avant migration sont conservés dans l’archive de sauvegarde indiquée ci-dessus.
+- **Probe natif PMDO 0.8.12 antérieur au renommage : 40 Ground désérialisés avec succès**, dimensions, grille, nombre de calques et marqueurs contrôlés.
 
-Ce dernier test emploie le binaire installé depuis RUNTIMEPMDO, sans affichage. **Le rendu GPU, les animations affichées, les déplacements et les lanceurs graphiques ne sont pas validés ici : l’éditeur graphique plante toujours dans cet environnement.** Nous ne présentons pas la désérialisation comme un test de jeu complet.
+Le probe natif enregistré précède ce renommage textuel et n’a pas été relancé dans cette session : aucun runtime PMDO n’est présent dans le workspace. Le renommage a été revalidé hors moteur (JSON, versions, dimensions, couches, références, index, CRC et installation temporaire). **Le chargement natif de l’archive renommée, le rendu GPU, les animations affichées, les déplacements et les lanceurs graphiques ne sont donc pas certifiés ici.** Nous ne présentons pas la désérialisation antérieure comme un test de jeu complet.
 
 Rapports inclus : `verification.json`, `access_verification.json`, `runtime_verification.json` et `runtime_results.tsv`. L’aperçu autonome permet de voir les nouveaux et anciens lieux, jour/nuit, calques, grille, zoom natif et exports PNG sans perte. Les motifs des grandes parois sont prolongés par répétition de panneaux natifs ; les raccords restent à apprécier visuellement à 1×.
 
@@ -116,9 +122,9 @@ Le mod inclut `MANUEL_METHODE_PMDO.md`, ainsi que cet ajout spécifique aux entr
 .venv/bin/python source/cote_v5_expeditions/verify.py
 .venv/bin/python source/cote_v5_expeditions/runtime_test.py
 .venv/bin/python source/cote_v5_expeditions/package.py
-node source/cote_dix_zones/test_viewer.cjs apercu_metano_expeditions.html
+node source/cote_dix_zones/test_viewer.cjs apercu_treasure_expeditions.html
 ```
 
 Le test moteur suppose l’installation de cache décrite dans `source/pmdo_runtime/README.md`. Les PNG de travail sont régénérables ; ils ne sont pas tous versionnés. Le ZIP et l’aperçu contiennent les ressources finales.
 
-Attributions : Métano / Palika / Halcyon, layouts d’étude Palika et Minemaker0430 / Explorers of Sky Origins, filtre Abyss V4, fonds Guilde/Sharpedo. Les sources publiques ne constituent pas une licence de redistribution sans restrictions ; respecter leurs conditions.
+Provenance et crédits : la sauvegarde de pré-migration citée plus haut conserve les attributions et les libellés source exacts. Les layouts d’étude sont ceux de Palika et Minemaker0430 / Explorers of Sky Origins; le filtre vient d’Abyss V4, les fonds de Guilde/Sharpedo. Les sources publiques ne constituent pas une licence de redistribution sans restrictions ; respecter leurs conditions.

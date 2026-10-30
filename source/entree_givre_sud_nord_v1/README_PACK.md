@@ -11,8 +11,8 @@ Projet d'édition autonome `entree_givre_sud_nord` : un Ground `egn1_entree_givr
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Eau glacée façon rivière de Métano | 4 phases × 10 ticks |
-| 01 | Scintillements (pixels Métano recolorés) | 4 phases × 10 ticks |
+| 00 | Eau glacée façon rivière de Treasure | 4 phases × 10 ticks |
+| 01 | Scintillements (pixels Treasure recolorés) | 4 phases × 10 ticks |
 | 02–10 | Sol complet, neige, sentier, gué gelé, glaçons, souche, sapins et congères, falaises de glace, bouche | fixes |
 | 11 | Flocons générés (40 émetteurs décalés, chute de 64 px puis dépôt) | 48 phases × 5 ticks |
 | 12 | Vide, `Layer=4` (Top) | — |
@@ -28,5 +28,5 @@ La scène complète boucle en 240 ticks (4 s).
 
 - Terrain et flocons : générés, ce ne sont pas des pixels natifs.
 - Gué gelé : dessiné par script, parce que le ruisseau généré coupait le sentier.
-- Eau : structure de la rivière de Métano, recalculée.
+- Eau : structure de la rivière de Treasure, recalculée.
 - Aucun test PMDO.

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "package": {
+    "path": "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip",
+    "bytes": 234272499,
+    "sha256": "e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f",
+    "archiveCrc": "PASS — 1361 membres lus jusqu’à EOF"
+  },
+  "runtime": {
+    "name": "PMDO",
+    "version": "0.8.12.0",
+    "platform": "Linux x86_64",
+    "archiveSource": {
+      "repository": "meromoonmeri/RUNTIMEPMDO",
+      "commit": "61c005e1dc9fd4eee6e6e7fcde77364de33d291e",
+      "file": "pmdc-linux-x64.zip",
+      "bytes": 77503089,
+      "sha256": "c64f72afd27b96d5a870f71e44d05ee1e952909e86b9a53d0479163763c61577",
+      "matchesOfficialPMDCv0812Digest": true
+    },
+    "baseAssets": {
+      "repository": "audinowho/DumpAsset",
+      "commit": "3e767571f9dd94270b848b3a73de9bec2553a2eb",
+      "installedAt": ".cache/pmdo-runtime/engine/PMDO",
+      "PathParamsXmlPresent": true
+    }
+  },
+  "tests": {
+    "groundDeserialization": {
+      "status": "PASS",
+      "packageInput": "the exact ZIP at package.path",
+      "packageSha256": "e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f",
+      "occurrences": 246,
+      "uniqueRuntimeGroundIds": 246,
+      "passed": 246,
+      "failed": 0,
+      "batches": 13,
+      "batchSizeMaximum": 20,
+      "probeInputSignatureSha256": "6289872101d51011b1f858dca5c171bf12bb63aa4f548a46c62febfa1284f7b5",
+      "report": "source/pmdo_runtime/destiny_final_quest_246_zip_runtime_results.tsv",
+      "assertions": [
+        "DataManager.Instance:GetGround renvoie une carte non nulle",
+        "Version, TexSize, dimensions logiques et nombre de calques contrôlés contre le manifeste",
+        "246 occurrences PASS, doublons inclus"
+      ],
+      "limitations": "Probe headless; ne charge pas les textures GPU et ne certifie pas le rendu, les collisions dessinées, le gameplay ou les transitions."
+    },
+    "developerZone": {
+      "status": "PASS",
+      "packageSha256": "e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f",
+      "zone": "exploration_cartes",
+      "groundMaps": 246,
+      "narrativeSegments": 0,
+      "inputMethod": "Mod.xml, Data/Zone/index.idx et Data/Zone/exploration_cartes.json extraits du ZIP exact dans un répertoire Quest temporaire",
+      "report": "source/pmdo_runtime/destiny_final_quest_246_zone_runtime_results.tsv"
+    },
+    "tileGuideAndCoordinates": {
+      "status": "PASS",
+      "groundMaps": 246,
+      "tileGuideNodes": 1059,
+      "uniqueTileCoordinatesResolved": 2773093,
+      "missingTileCoordinates": 0,
+      "emptySheetFramesSkippedAsTransparent": 74,
+      "batches": 13,
+      "elapsedSeconds": 954.2,
+      "runtimeInput": "Quest staging tree used to create this ZIP; the probe stage symlinked Data/Ground, Content/Tile and Content/BG to that tree.",
+      "finalZipPayloadEquivalence": "PASS: the final ZIP was independently scanned; SHA-256/size matched all 1339 manifest files, including all Grounds, TileSheets, backgrounds and Tile index.",
+      "report": "source/pmdo_runtime/destiny_final_quest_246_tileguide_runtime_results.tsv",
+      "summary": "source/pmdo_runtime/destiny_final_quest_246_tileguide_runtime_summary.json",
+      "limitations": "Headless TileGuide.Load/GetPosition validation; no GPU rendering, visual review, collision-fidelity, gameplay or playability certification."
+    }
+  },
+  "finalZipStaticAudit": {
+    "status": "PASS",
+    "crcMembers": 1361,
+    "groundSha256": "246/246 PASS",
+    "manifestAssetsSha256": "1339/1339 PASS",
+    "tilesheets": 1059,
+    "mapBackgrounds": 33,
+    "titleBackgrounds": 3,
+    "identity": {
+      "namespace": "destiny",
+      "uuid": "1da28568-6363-5c51-8caa-9430b42862f0",
+      "gameVersion": "0.8.12.0",
+      "modType": "Quest"
+    },
+    "inventoryOccurrences": 262,
+    "excludedSourcesWithoutPlaceholder": 16
+  },
+  "notTested": [
+    "Éditeur graphique et rendu GPU",
+    "Rendu de l’écran-titre Destiny",
+    "Fidélité collision/dessin, spawn, navigation, jouabilité et transitions"
+  ],
+  "runtimeStartupRestoredToPinnedDumpAsset": true,
+  "temporaryRuntimeModsRemoved": true
+}

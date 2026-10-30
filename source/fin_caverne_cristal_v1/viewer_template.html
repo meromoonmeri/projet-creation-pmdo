@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FKR1 · Fin Caverne Cristal (Salle des Trois Cristaux) · 4:3 (768×576)</title>
+<style>
+body{background:#0d1520;color:#e6eef6;font:15px/1.55 system-ui,sans-serif;margin:0;padding:24px}
+main{max-width:1220px;margin:auto}
+h1{font-size:29px;margin:0 0 6px}
+p{color:#b6cedc;max-width:86ch}
+.wrap{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.stage{position:relative;background:#070c12;overflow:auto;max-height:86vh;border:1px solid #25445a;border-radius:6px}
+canvas{display:block;image-rendering:pixelated}
+aside{flex:1;min-width:290px;max-width:430px}
+fieldset{border:1px solid #25445a;border-radius:8px;margin:0 0 14px;padding:10px 14px}
+legend{color:#7ee2ec;padding:0 6px;font-weight:600}
+label{display:block;padding:3px 0;cursor:pointer}
+button{background:#cfe8f0;color:#0b2636;border:0;border-radius:6px;padding:8px 14px;margin:2px 4px 2px 0;cursor:pointer;font-weight:600}
+button.on{background:#7ee2ec}
+.note{border-left:3px solid #7ee2ec;padding-left:12px;font-size:13.5px}
+.ref{width:100%;image-rendering:pixelated;border-radius:4px;border:1px solid #25445a}
+code{color:#c9edf8}
+</style>
+<main>
+<h1>FKR1 · Fin Caverne Cristal — Salle des Trois Cristaux (768×576)</h1>
+<p>Fin de donjon en cul-de-sac <strong>référencée sur la capture ROM exacte <code>D16P31A</code></strong> (<em>Pokémon Donjon Mystère : Explorateurs du Ciel</em>, chapitre 11, chambre aux trois cristaux, <code>pret/pmd-sky@c8073235</code>) : parois abyssales (distance RVB <code>1,2</code> au rip), dalle d'ardoise cristalline (distance <code>3,8</code>), autel nord sacré et <strong>trois grands piliers de cristal facettés</strong>. Animation polymétrique DS fidèle au tick près (<code>PPCM(76, 116) = 2204 ticks</code>) : <code>08 veines_cristal</code> applique la table exacte <strong>Palette 3</strong> (<code>19 × 4 ticks</code>) et <code>09 trois_cristaux</code> applique les tables exactes <strong>Palettes 4, 5 et 6 de <code>d16p31a.bpl</code></strong> (<code>29 × 4 ticks</code>, cycle <em>cyan → violet → vermillon → chartreuse</em> déphasé <code>+0 / +10 / +19</code>). Associée à l'entrée <a href="apercu_entree_caverne_cristal_sud_nord_v1.html" style="color:#7ee2ec"><code>EKR1</code> (Entrée Caverne Cristal)</a>.</p>
+<div class="wrap">
+  <div class="stage"><canvas id="c"></canvas></div>
+  <aside>
+    <fieldset><legend>Lecture polymétrique (60 i/s DS)</legend><button id="play">Pause</button><button id="step">+2 ticks</button><div id="phase"></div></fieldset>
+    <fieldset><legend>Affichage</legend>
+      <button data-zoom="1" class="on">1×</button><button data-zoom="2">2×</button><button data-zoom="3">3×</button>
+      <label><input type="checkbox" id="grid"> Grille 8 px (96 × 72)</label>
+      <label><input type="checkbox" id="coll"> Collisions 16×16 et marqueurs</label>
+      <label><input type="checkbox" id="view"> Viewport PMDO ×1 (320×240) à l'arrivée</label>
+    </fieldset>
+    <fieldset><legend>Calques (bas → haut)</legend><div id="layers"></div><button id="solo">Tout afficher</button></fieldset>
+    <fieldset><legend>Poses d'éclats (×4)</legend><div id="poses" style="display:flex;flex-wrap:wrap;gap:6px"></div></fieldset>
+    <fieldset><legend>Référence ROM D16P31A (600×480)</legend><img id="ref" class="ref" alt="Référence ROM D16P31A"></fieldset>
+    <fieldset><legend>Export</legend><button id="png">PNG de la vue actuelle (1×)</button></fieldset>
+    <p class="note">Statut honnête : décor généré référencé (pas des tuiles natives certifiées), <code>art_approved = false</code>, <code>runtime_tested = false</code>. Cul-de-sac sans sortie ni warp : jaune = <code>entrance</code>, corail = <code>boss</code>, cyan = <code>objectif</code>.</p>
+  </aside>
+</div>
+</main>
+<script>
+const D=__DATA__;const [W,H]=D.size;const c=document.getElementById('c'),x=c.getContext('2d');
+function img(u){const i=new Image();i.src=u;return i}
+const L=D.stack.map(l=>({id:l.id,ticks:l.ticks,frames:l.frames.map(img)})),coll=img(D.collisions);
+document.getElementById('ref').src=D.reference;
+const box=document.getElementById('layers'),checks={};
+L.forEach(l=>{const lab=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=true;ch.onchange=draw;checks[l.id]=ch;lab.append(ch,' '+l.id+(l.frames.length>1?' ('+l.frames.length+'×'+l.ticks+' ticks)':''));box.append(lab)});
+D.poses.forEach(p=>{const i=img(p.uri);i.width=p.w*4;i.height=p.h*4;i.title=p.id;i.style.cssText='image-rendering:pixelated;background:'+D.surface;document.getElementById('poses').append(i)});
+let zoom=1,tick=0,playing=true,last=performance.now();const STEP=2,MS=STEP*1000/60;
+function render(ctx){ctx.clearRect(0,0,W,H);L.forEach(l=>{if(checks[l.id].checked)ctx.drawImage(l.frames[Math.floor(tick/l.ticks)%l.frames.length],0,0)});
+ if(document.getElementById('coll').checked)ctx.drawImage(coll,0,0);}
+function draw(){c.width=W*zoom;c.height=H*zoom;x.imageSmoothingEnabled=false;x.save();x.scale(zoom,zoom);render(x);x.restore();
+ if(document.getElementById('grid').checked){x.strokeStyle='rgba(255,255,255,.18)';x.lineWidth=1;x.beginPath();
+  for(let i=0;i<=W;i+=8){x.moveTo(i*zoom+.5,0);x.lineTo(i*zoom+.5,H*zoom)}for(let j=0;j<=H;j+=8){x.moveTo(0,j*zoom+.5);x.lineTo(W*zoom,j*zoom+.5)}x.stroke()}
+ if(document.getElementById('view').checked){const cx=Math.min(Math.max(D.entry[0]+8-160,0),W-320),cy=Math.min(Math.max(D.entry[1]+8-120,0),H-240);
+  x.strokeStyle='#ffe066';x.lineWidth=2;x.strokeRect(cx*zoom,cy*zoom,320*zoom,240*zoom)}
+ document.getElementById('phase').textContent='tick '+tick+' / '+D.loop;}
+function adv(){tick=(tick+STEP)%D.loop;draw()}
+function loop(t){if(playing&&t-last>=MS){last=t;adv()}requestAnimationFrame(loop)}
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Lecture'};
+document.getElementById('step').onclick=adv;
+document.querySelectorAll('[data-zoom]').forEach(b=>onclick_z(b));
+function onclick_z(b){b.onclick=()=>{zoom=+b.dataset.zoom;document.querySelectorAll('[data-zoom]').forEach(o=>o.classList.toggle('on',o===b));draw()}}
+['grid','coll','view'].forEach(id=>document.getElementById(id).onchange=draw);
+document.getElementById('solo').onclick=()=>{Object.values(checks).forEach(ch=>ch.checked=true);draw()};
+document.getElementById('png').onclick=()=>{const o=document.createElement('canvas');o.width=W;o.height=H;render(o.getContext('2d'));const a=document.createElement('a');a.download='FKR1_vue_tick'+String(tick).padStart(4,'0')+'.png';a.href=o.toDataURL('image/png');a.click()};
+Promise.all([...L.flatMap(l=>l.frames),coll].map(i=>i.decode())).then(()=>{draw();requestAnimationFrame(loop)});
+</script>
+</html>

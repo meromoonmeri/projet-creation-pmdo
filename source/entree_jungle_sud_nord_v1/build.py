@@ -6,8 +6,8 @@ Méthode rendu généré (comme les lots précédents) : décor complet sur mage
 puis recadrage centré à 768 (1 px à gauche, 2 px à droite). Facteur non entier : réduction par moyenne pondérée
 PAR CLASSE (aucun mélange entre classes), attribution exclusive de chaque pixel à la classe de poids maximal.
 Animations, chacune sur son calque :
-- rivière et mare « façon rivière Métano » (structure/cadence 4 x 10 ticks), palette jungle choisie à la main ;
-- scintillements Métano natifs (pixels et couleurs inchangés) ;
+- rivière et mare « façon rivière Treasure » (structure/cadence 4 x 10 ticks), palette jungle choisie à la main ;
+- scintillements Treasure natifs (pixels et couleurs inchangés) ;
 - papillons générés (planche 2 x 6 : 2 couleurs x 6 poses de battement), 6 papillons sur des boucles en huit,
   48 phases x 5 ticks = 4 s.
 Scène : PPCM 240 ticks = 4 s.
@@ -37,7 +37,7 @@ WATER_PHASES, WATER_TICKS = 4, 10
 FLY_PHASES, FLY_TICKS = 48, 5
 LOOP_TICKS = 240
 BCELL = 24
-# Palette eau jungle : rôles et ordre de luminance Métano, teintes vert-sarcelle choisies à la main.
+# Palette eau jungle : rôles et ordre de luminance Treasure, teintes vert-sarcelle choisies à la main.
 PAL = {'surface': (72, 176, 168), 'bande': (30, 92, 96), 'inter': (48, 132, 132), 'accent': (60, 156, 152),
        'clair': (132, 214, 196)}
 
@@ -118,7 +118,7 @@ def rgba(colors, mask):
     return out
 
 
-# ---------------------------------------------------------------- eau façon Métano (palette jungle)
+# ---------------------------------------------------------------- eau façon Treasure (palette jungle)
 def water_phases(water, visible):
     d = nd.distance_transform_edt(visible); yy, xx = np.mgrid[:H, :W]
     jag = nd.gaussian_filter(np.random.default_rng(13).random((H, W)), 1.0); jag = (jag - jag.min()) / np.ptp(jag)
@@ -179,8 +179,8 @@ def butterfly_poses():
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -201,7 +201,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     o.update(Name={'DefaultText': 'Entree Jungle - sud vers nord (4:3)', 'LocalTexts': {}}, AssetName=ASSET, Released=False,
              TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0}, ActiveChar=None, Status={},
              Layers=layers, Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere 4:3 (ref. Southern Jungle) ; riviere facon Metano, scintillements Metano natifs, '
+             Comment='PMDO 0.8.12. Rendu genere 4:3 (ref. Southern Jungle) ; riviere facon Treasure, scintillements Treasure natifs, '
                      'papillons generes. Collisions de base a verifier. Seuil non raccorde.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -362,10 +362,10 @@ def build():
                         'rochers = gris-vert clair ; ilots = jungle sans contact avec la bande de bord de 8 px',
         'layer_order_bottom_to_top': order_files,
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in PAL.items()},
-                  'modele': 'structure et cadence riviere Metano, palette jungle a la main (roles Metano)',
+                  'modele': 'structure et cadence riviere Treasure, palette jungle a la main (roles Treasure)',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges'},
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges'},
         'butterflies': {'brut': 'source/entree_jungle_sud_nord_v1/bruts/papillons_poses.png', 'poses_par_couleur': 6,
                         'reduction': 'fenetre 264 px -> 24 px (x1/11) centree, palette 7 couleurs par rangee',
                         'phases': FLY_PHASES, 'frame_length_ticks': FLY_TICKS, 'loop_s': FLY_PHASES * FLY_TICKS / 60,

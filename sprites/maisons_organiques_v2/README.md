@@ -1,6 +1,6 @@
 # 10 nouvelles maisons naturelles — lot 02
 
-Nouveau lot généré avec les références de **Métano Town / Palika–Halcyon**. Le premier lot `sprites/maisons_metano/` reste inchangé.
+Nouveau lot généré avec les références de **Treasure Town / Palika–Halcyon**. Le premier lot `sprites/maisons_treasure/` reste inchangé.
 
 1. Souche
 2. Champignon
@@ -13,14 +13,14 @@ Nouveau lot généré avec les références de **Métano Town / Palika–Halcyon
 9. Artichaut
 10. Ruche
 
-Huttes organiques, arrondies, sans toiture pyramidale. Ces dix dessins sont de nouvelles créations générées, pas des extractions officielles ni des recolorations du premier lot. Les références natives figurent dans `source/maisons_metano/references/` ; les cinq paires générées sont conservées dans `source/maisons_organiques_v2/`.
+Huttes organiques, arrondies, sans toiture pyramidale. Ces dix dessins sont de nouvelles créations générées, pas des extractions officielles ni des recolorations du premier lot. Les références natives figurent dans `source/maisons_treasure/references/` ; les cinq paires générées sont conservées dans `source/maisons_organiques_v2/`.
 
 ## PNG et échelle
 
 - **`planche.png`** : rendu de présentation des dix maisons, agrandi ×2 sans lissage.
 - `01_souche_jour.png` à `10_ruche_jour.png` : dix PNG RGBA indépendants.
 - Dix variantes `_nuit.png` : palette dérivée, géométrie identique, pas d'éclairage animé.
-- Chaque cadre mesure **112 × 128 px**, soit **14 × 16 cases de 8 px** ; taille visible comparable aux références Métano (80–110 px de large).
+- Chaque cadre mesure **112 × 128 px**, soit **14 × 16 cases de 8 px** ; taille visible comparable aux références Treasure (80–110 px de large).
 - Ligne de base y=120 px, ancre de placement géométrique (56,120). Certaines entrées sont décentrées : l'ancre ne constitue pas un déclencheur de porte.
 - Les illustrations sont réduites sans étirement, palette limitée à 48 couleurs, fond magenta retiré. Pas de grille dessinée dans les PNG d'import.
 
@@ -39,8 +39,8 @@ Un placement de démonstration des dix maisons est fourni séparément dans `../
 ## Reconstruction / contrôle
 
 ```sh
-python source/build_houses_metano.py --organic-v2
-python source/verify_houses_metano.py --organic-v2
+python source/build_houses_treasure.py --organic-v2
+python source/verify_houses_treasure.py --organic-v2
 ```
 
 Pillow requis. Le test contrôle les vingt PNG, l'alpha, la palette, les dimensions, les atlas et leurs deux `.tile` natifs. Les commandes sans option continuent de cibler le premier lot. Voir `verification.json`.

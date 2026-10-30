@@ -17,12 +17,12 @@ Remplace artistiquement la première proposition `sprites/ponts/`, conservée po
 
 Dépôt consulté : `meromoonmeri/town02`, commit `1efd098f92a0abcc892f40410db8249ecc9c9bb1`.
 
-1. `Content/Tile/Metano_Town_Cliffs.tile` : en-tête binaire lu, **tileSize = 8**, **2169 entrées**.
-2. `dev/tools/png2tileset.py` : format natif `.tile`, index global, alpha prémultiplié et animation `Layers/Frames/Sheet/TexLoc/FrameLength` examinés. Le pas d'une ground vaut **8 × TexSize** ; 24 px est la grille de donjon, pas celle à supposer pour les ressources Metano.
+1. `Content/Tile/Treasure_Town_Cliffs.tile` : en-tête binaire lu, **tileSize = 8**, **2169 entrées**.
+2. `dev/tools/png2tileset.py` : format natif `.tile`, index global, alpha prémultiplié et animation `Layers/Frames/Sheet/TexLoc/FrameLength` examinés. Le pas d'une ground vaut **8 × TexSize** ; 24 px est la grille de donjon, pas celle à supposer pour les ressources Treasure.
 3. `Data/Script/halcyon/ground/WaterfallVillageCapital/init.lua` : script consulté, sans configuration de grille.
 4. `Data/Ground/WaterfallVillageCapital.rsground` existe, mais son blob Git est un pointeur LFS vers **233 727 831 octets**, SHA-256 `afc5081f7348b2afed306953bf5e66a358e442cb00f93fa139ec239cf94c98ee`. Le téléchargement LFS a échoué dans cet environnement. **Le contenu de cette carte, son TexSize, son rendu et ses collisions n'ont donc pas été vérifiés.**
 
-La compatibilité du découpage avec les ressources Metano est contrôlée, pas l'intégration finale dans WaterfallVillageCapital. Aucun fichier de town02 n'est modifié.
+La compatibilité du découpage avec les ressources Treasure est contrôlée, pas l'intégration finale dans WaterfallVillageCapital. Aucun fichier de town02 n'est modifié.
 
 ## Utilisation PMDO
 

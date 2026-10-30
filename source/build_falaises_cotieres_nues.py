@@ -1,5 +1,5 @@
 """Clean generated terrain + separate animated sky/sea from the user's reference sheet.
-Generated terrain is explicitly NOT certified as canonical Metano tile art.
+Generated terrain is explicitly NOT certified as canonical Treasure tile art.
 No source art is resized in the exports. Only previews are reduced.
 """
 from pathlib import Path
@@ -12,7 +12,7 @@ sea=[sheet.crop((544+56*f,224,592+56*f,352)) for f in range(5)]
 near_sea=[sheet.crop((824+56*f,224,872+56*f,392)) for f in range(5)]
 # Background animation timing is proposed, not recovered from the original game's metadata.
 shifts=[0,2,4,6,8,6,4,2]
-manifest={'status':'generated_terrain_with_reference_backdrops','terrain_is_canonical_metano':False,'terrain_resized':False,'source_sea_sky':'User upload IMG_4890.png, commit 3bc185b; Pelipper Post Office sheet, ripped by Jaxster; original game art Nintendo/Game Freak/Chunsoft','reference_sha256':hashlib.sha256((S/'reference_ciel_mer.png').read_bytes()).hexdigest(),'sky_rect':[544,8,1264,216],'sea_rects':[[544+56*f,224,592+56*f,352] for f in range(5)],'near_sea_rects':[[824+56*f,224,872+56*f,392] for f in range(5)],'sky_motion':'8-phase slow horizontal oscillation of the source strip, 600 ms per phase','water_motion':'5 source strips in left-to-right order, 150 ms per phase; timing/order proposed','zones':[],'limits':['Generated rock and grass, not an exact assembly of Metano native tiles','No PMDO runtime import test','Only terrain is generated; sky and sea are extracted/repeated from the user reference, not Metano river assets','Source strips repeat in the background; new layouts and timing are not official game assets']}
+manifest={'status':'generated_terrain_with_reference_backdrops','terrain_is_canonical_treasure':False,'terrain_resized':False,'source_sea_sky':'User upload IMG_4890.png, commit 3bc185b; Pelipper Post Office sheet, ripped by Jaxster; original game art Nintendo/Game Freak/Chunsoft','reference_sha256':hashlib.sha256((S/'reference_ciel_mer.png').read_bytes()).hexdigest(),'sky_rect':[544,8,1264,216],'sea_rects':[[544+56*f,224,592+56*f,352] for f in range(5)],'near_sea_rects':[[824+56*f,224,872+56*f,392] for f in range(5)],'sky_motion':'8-phase slow horizontal oscillation of the source strip, 600 ms per phase','water_motion':'5 source strips in left-to-right order, 150 ms per phase; timing/order proposed','zones':[],'limits':['Generated rock and grass, not an exact assembly of Treasure native tiles','No PMDO runtime import test','Only terrain is generated; sky and sea are extracted/repeated from the user reference, not Treasure river assets','Source strips repeat in the background; new layouts and timing are not official game assets']}
 viewer_data=[];thumbs=[]
 for i,name in enumerate(['01_promontoire','02_terrasse']):
     d=O/name;d.mkdir(exist_ok=True);prefix='COTE'+str(i+1).zfill(2)

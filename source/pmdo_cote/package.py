@@ -11,7 +11,7 @@ from verify import verify
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=Path.home() / 'cote_metano_v2_pmdo.zip')
+    parser.add_argument('--output', type=Path, default=Path.home() / 'cote_treasure_v2_pmdo.zip')
     args = parser.parse_args()
     staging = Path.home() / '.cache/cote_pmdo_pack'
     source = Path(__file__).resolve().parent

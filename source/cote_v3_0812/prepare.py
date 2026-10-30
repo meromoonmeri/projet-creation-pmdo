@@ -1,4 +1,4 @@
-"""Keep approved V2 silhouettes; use real Metano rock pixels under separate lighting.
+"""Keep approved V2 silhouettes; use real Treasure rock pixels under separate lighting.
 Only crop at declared map exits, never scale the approved terrain.
 Generated rock-retouch trials are NOT used as canonical texture.
 """
@@ -14,7 +14,7 @@ from PIL import Image, ImageFilter
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 OUT=ROOT/'sprites/cote_v3_0812'
-CLIFF=ROOT/'source/falaises_metano/natifs/Metano_Town_Cliffs.tile'
+CLIFF=ROOT/'source/falaises_treasure/natifs/Treasure_Town_Cliffs.tile'
 ROCK_RECT=(912,464,976,512)
 CONFIG=[
  ('01_cap_large','Le grand cap','WS'),
@@ -90,10 +90,10 @@ def save(image,path):
 
 def prepare():
     OUT.mkdir(parents=True,exist_ok=True)
-    material=native_material();save(material,OUT/'METANO_ROCHE_NATIVE_64x48.png')
+    material=native_material();save(material,OUT/'TREASURE_ROCHE_NATIVE_64x48.png')
     record={'target_pmdo':'0.8.12','serializer_version':'0.8.12.0',
             'rock_source':{'file':str(CLIFF.relative_to(ROOT)),'sha256':hashlib.sha256(CLIFF.read_bytes()).hexdigest(),
-                           'rect':ROCK_RECT,'scale':1,'file_control':'METANO_ROCHE_NATIVE_64x48.png'},
+                           'rect':ROCK_RECT,'scale':1,'file_control':'TREASURE_ROCHE_NATIVE_64x48.png'},
             'lighting':'separate translucent layer; derived from approved macro shading, not baked into native material',
             'runtime_tested':False,'zones':[]}
     tex=np.array(material)
@@ -144,7 +144,7 @@ def prepare():
         # Crop inwards (<=7 extra pixels) to an 8px grid, never add padding.
         width=(right-left)//8*8;height=bottom//8*8
         crop=(left,0,left+width,height)
-        layers=[('00_HERBE',Image.fromarray(ground)),('01_ROCHE_METANO',Image.fromarray(stone)),
+        layers=[('00_HERBE',Image.fromarray(ground)),('01_ROCHE_TREASURE',Image.fromarray(stone)),
                 ('02_LISIERE',Image.fromarray(rim)),('03_OMBRES',Image.fromarray(shade))]
         directory=OUT/slug
         comp=Image.new('RGBA',(width,height))

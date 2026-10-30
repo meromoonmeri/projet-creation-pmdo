@@ -6,13 +6,13 @@ import json,hashlib
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).parent;OUT=ROOT/'renders/caps_terrasses_v4'
 REVIEWS={
-'07':('A_REGENERER','Roche en petits galets verticaux et couronne en chapelet : le motif ne reprend pas la référence Métano. La palette verrouillée ne corrige pas cette erreur de dessin.'),
+'07':('A_REGENERER','Roche en petits galets verticaux et couronne en chapelet : le motif ne reprend pas la référence Treasure. La palette verrouillée ne corrige pas cette erreur de dessin.'),
 '08':('RETENU_VISUELLEMENT','Couronne continue au retour concave ; herbe et paroi se rejoignent sans bande détachée visible. Grain plus dense sur le flanc droit ; pas de certification des tuiles pixel à pixel.'),
 '09':('RETENU_VISUELLEMENT','Deux paliers distincts ; les couronnes suivent les arrondis et rejoignent les faces. Matériau et teintes proches de la référence après correction.'),
 '10':('RETENU_VISUELLEMENT','Deux balcons lisibles, couronne et roche cohérentes dans les coupes inspectées. Extrémités de couronne un peu relevées : détail à surveiller lors du placement. Recalage vertical documenté.'),
-'11':('A_REGENERER','Rebord lisse en double bande et gros blocs trop simplifiés, différents de la couronne et du grain Métano demandés. Ne pas présenter comme une falaise conforme au contrôle de dessin.'),
+'11':('A_REGENERER','Rebord lisse en double bande et gros blocs trop simplifiés, différents de la couronne et du grain Treasure demandés. Ne pas présenter comme une falaise conforme au contrôle de dessin.'),
 '12':('RETENU_VISUELLEMENT','Couronne irrégulière continue autour du renfoncement ; retour rocheux ombré cohérent, herbe jointe au rebord dans le gros plan.'),
-'13':('RETENU_VISUELLEMENT','Couronne découpée et retour arrondi cohérents avec la présentation Métano. Coupe choisie manuellement sur le vrai bord avant, pas sur le bord arrière du plateau.'),
+'13':('RETENU_VISUELLEMENT','Couronne découpée et retour arrondi cohérents avec la présentation Treasure. Coupe choisie manuellement sur le vrai bord avant, pas sur le bord arrière du plateau.'),
 '14':('RETENU_VISUELLEMENT','Retour concave lisible et rebord continu. Ajout à la palette de l’ombre mauve native 96,56,88, vérifiée dans Cliffs, pour éviter d’éclaircir artificiellement le creux. La profondeur reste une interprétation générée.'),
 '15':('RETENU_VISUELLEMENT','Trois niveaux distincts et raccords herbe/roche lisibles ; couronnes locales cohérentes. Les extrémités ne sont pas des autotiles certifiés.'),
 '16':('RETENU_VISUELLEMENT','Couronne fine suivant le balcon ; même famille de roche et d’herbe. Texture répétitive sur la grande face : observation conservée, pas une preuve de seamlessness entre cartes.')}

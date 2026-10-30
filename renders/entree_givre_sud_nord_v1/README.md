@@ -10,8 +10,8 @@ Quatrième map de la série, après les entrées Vapeur, Cratère et Ruine. Biom
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | eau glacée | structure de la rivière Métano, palette froide | 4 × 10 ticks |
-| 01 | scintillements | pixels Métano recolorés | 4 × 10 ticks |
+| 00 | eau glacée | structure de la rivière Treasure, palette froide | 4 × 10 ticks |
+| 01 | scintillements | pixels Treasure recolorés | 4 × 10 ticks |
 | 02 | sol complet | neige générée séparément | — |
 | 03–04 | neige, sentier | décor généré | — |
 | 05 | gué gelé | **dessiné par script** | — |

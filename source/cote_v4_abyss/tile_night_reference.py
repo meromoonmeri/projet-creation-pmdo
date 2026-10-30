@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Genere les variantes NUIT des tilesets de Metano Town.
+"""Genere les variantes NUIT des tilesets de Treasure Town.
 
 ================================================================
 FORMAT .tile — DECODE, PAS SUPPOSE
 ================================================================
 Aucune documentation ne le decrit. Reconstitue en analysant
-Metano_Town_Base.tile, puis VALIDE par reconstruction bit-a-bit :
+Treasure_Town_Base.tile, puis VALIDE par reconstruction bit-a-bit :
 relire puis reecrire sans transformation redonne un fichier au MD5
 identique (2dd72c6a... sur 1 231 857 octets).
 
     [0..3]    uint32  tileSize        (8)
-    [4..7]    uint32  nbEntrees       (35646 pour Metano_Town_Base)
+    [4..7]    uint32  nbEntrees       (35646 pour Treasure_Town_Base)
     [8..]     table   x(u32) y(u32) offset(u64)   x nbEntrees
     [offset]  uint32  taillePNG
               uint32  padding (conserve tel quel)
@@ -19,7 +19,7 @@ identique (2dd72c6a... sur 1 231 857 octets).
 
 Plusieurs entrees de la table pointent le MEME offset : les tuiles
 identiques sont mutualisees. 3929 tuiles distinctes pour 35646
-references dans Metano_Town_Base.
+references dans Treasure_Town_Base.
 
 ================================================================
 CE QUE FAIT LA TRANSFORMATION — ET CE QU'ELLE NE FAIT PAS
@@ -59,23 +59,23 @@ except ImportError:
 
 TILE_DIR = 'Content/Tile'
 
-# Les 14 tilesets composant metano_town, releves dans les Layers du
+# Les 14 tilesets composant treasure_town, releves dans les Layers du
 # .rsground (aucun devine).
-METANO = [
-    'Metano_Town_Base',
-    'Metano_Town_Cliffs',
-    'Metano_Town_Fringe',
-    'Metano_Town_Objects',
-    'Metano_Town_Objects_Over',
-    'Metano_Town_Objects_Under',
-    'Metano_Town_Animated',
-    'Metano_Town_Animated_Under',
-    'Metano_Town_Animation_Tileset',
-    'Metano_Town_River_Animation_1',
-    'Metano_Town_River_Animation_2',
-    'Metano_Town_River_Animation_3',
-    'Metano_Town_River_Animation_4',
-    'Metano_Town_River_Sparkles',
+TREASURE = [
+    'Treasure_Town_Base',
+    'Treasure_Town_Cliffs',
+    'Treasure_Town_Fringe',
+    'Treasure_Town_Objects',
+    'Treasure_Town_Objects_Over',
+    'Treasure_Town_Objects_Under',
+    'Treasure_Town_Animated',
+    'Treasure_Town_Animated_Under',
+    'Treasure_Town_Animation_Tileset',
+    'Treasure_Town_River_Animation_1',
+    'Treasure_Town_River_Animation_2',
+    'Treasure_Town_River_Animation_3',
+    'Treasure_Town_River_Animation_4',
+    'Treasure_Town_River_Sparkles',
 ]
 
 
@@ -158,7 +158,7 @@ def to_night(png_bytes):
 def check():
     """Preuve du format : relire + reecrire sans toucher = MD5 identique."""
     ok = True
-    for name in METANO:
+    for name in TREASURE:
         p = os.path.join(TILE_DIR, name + '.tile')
         if not os.path.exists(p):
             print(f'  {name:34s} ABSENT')
@@ -177,7 +177,7 @@ def check():
 
 def run():
     total_t = 0
-    for name in METANO:
+    for name in TREASURE:
         src = os.path.join(TILE_DIR, name + '.tile')
         dst = os.path.join(TILE_DIR, name + '_Night.tile')
         if not os.path.exists(src):
@@ -189,7 +189,7 @@ def run():
         total_t += len(night)
         print(f'  {name+"_Night":40s} {len(night):5d} tuiles  '
               f'{size/1024:7.0f} Ko')
-    print(f'\n{total_t} tuiles converties sur {len(METANO)} tilesets.')
+    print(f'\n{total_t} tuiles converties sur {len(TREASURE)} tilesets.')
 
 
 if __name__ == '__main__':

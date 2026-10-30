@@ -28,7 +28,7 @@ L’installateur ne copie **pas** l’index livré : il fusionne les en-têtes d
 ## Calques et animation
 
 - Mer : huit phases de palette, 10 frames moteur par phase, boucle d’environ 1,33 seconde à 60 Hz.
-- Herbe, roche Métano, lisière protégée, ombres de volume : quatre calques séparés.
+- Herbe, roche Treasure, lisière protégée, ombres de volume : quatre calques séparés.
 - Trois calques vides pour tes structures, dont un devant les personnages (`Top=4`).
 - Ciel et astres séparés ; nuages en wrap horizontal à −4 px/s.
 - Un marqueur `entrance` placé sur l’herbe. Aucun arbre, bâtiment ou personnage posé.
@@ -38,11 +38,11 @@ L’installateur ne copie **pas** l’index livré : il fusionne les en-têtes d
 
 Les bandes extérieures vides à gauche, à droite et en bas ont été retirées par recadrage intérieur sur la grille 8 px, sans étirer les silhouettes. Le recadrage peut couper jusqu’à sept pixels supplémentaires au bord pour respecter la grille. Le haut conserve le ciel. Les dix terrains touchent les bords W/E/S ; cela ne signifie pas que toute la longueur de chaque bord est pleine : les baies et courbes restent ouvertes sur la mer.
 
-La roche brute de jour vient réellement de `Metano_Town_Cliffs.tile`, rectangle `(912,464)-(976,512)`, répété à **1×**, sans recoloration. Le témoin 64×48 et le SHA-256 source sont dans `provenance/`. Les volumes proviennent d’un calque d’ombres translucides séparé, calculé depuis les propositions approuvées. **Le rendu ombré n’a donc pas les mêmes RGB que la matière brute.** Désactiver « Ombres » pour inspecter celle-ci. La nuit est une variante recolorée.
+La roche brute de jour vient réellement de `Treasure_Town_Cliffs.tile`, rectangle `(912,464)-(976,512)`, répété à **1×**, sans recoloration. Le témoin 64×48 et le SHA-256 source sont dans `provenance/`. Les volumes proviennent d’un calque d’ombres translucides séparé, calculé depuis les propositions approuvées. **Le rendu ombré n’a donc pas les mêmes RGB que la matière brute.** Désactiver « Ombres » pour inspecter celle-ci. La nuit est une variante recolorée.
 
 L’herbe et la lisière sont issues des images générées approuvées, non de tuiles canoniques. Les trois traces de parcelles du cap éventail ont été atténuées sur l’herbe uniquement. Les essais de retouche générée dans `source/cote_v3_0812/corrections/` ne sont pas les roches finales ; seul le n°09 sert à cette correction d’herbe.
 
-Les nuages, le ciel et les astres reprennent les ressources Guilde / Sharpedo de l’autre agent au commit `c16efe12`. Les nuages ne sont ni agrandis ni redessinés. La nuit applique sa formule exacte. La mer reprend l’animation côtière V2 : ce n’est pas la rivière canonique Métano.
+Les nuages, le ciel et les astres reprennent les ressources Guilde / Sharpedo de l’autre agent au commit `c16efe12`. Les nuages ne sont ni agrandis ni redessinés. La nuit applique sa formule exacte. La mer reprend l’animation côtière V2 : ce n’est pas la rivière canonique Treasure.
 
 ## Contrôles et limites
 
@@ -67,6 +67,6 @@ Python avec Pillow et NumPy :
 node source/cote_dix_zones/test_viewer.cjs apercu_cotes_v2_0812.html
 ```
 
-Les fichiers natifs non compressés sont construits dans `~/.cache/cote_v3_0812_pack/`. Les ressources Métano sont créditées à Palika / Halcyon et leurs contributeurs ; leur disponibilité publique ne constitue pas une autorisation de réutilisation sans restrictions. Consulter les conditions des sources avant redistribution hors du projet.
+Les fichiers natifs non compressés sont construits dans `~/.cache/cote_v3_0812_pack/`. Les ressources Treasure sont créditées à Palika / Halcyon et leurs contributeurs ; leur disponibilité publique ne constitue pas une autorisation de réutilisation sans restrictions. Consulter les conditions des sources avant redistribution hors du projet.
 
 Les copies PNG intermédiaires `AVANT_ROCHE`, `jour_*` et `nuit_*` ne sont pas versionnées pour éviter les doublons volumineux. Les commandes ci-dessus les régénèrent ; les exports finaux sont également accessibles depuis l’aperçu autonome sans perte.

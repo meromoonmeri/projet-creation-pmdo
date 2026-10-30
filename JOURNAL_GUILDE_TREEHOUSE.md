@@ -442,7 +442,7 @@ Résultats :
 - 13 tests PASS. 5 mutations détectées : aurore figée, qui défile, qui déborde sur le terrain, boucle ouverte, cristal de FGG1 recollé.
 - Aperçu : `apercu_fin_givre_aurore_v2.html`. Rendus : `renders/fin_givre_aurore_v2/`. Source : `source/fin_givre_aurore_v2/`.
 - Paquets : `FGG2_projet_pmdo_0812.zip` (1.78 Mo, préfixe `FGG2`) et `FGG2_calques_png_8px.zip` (5.93 Mo).
-- Pixels générés, pas de tuiles natives (sauf les reflets de Métano recolorés). Pas de runtime. Pas dans le mod unique.
+- Pixels générés, pas de tuiles natives (sauf les reflets de Treasure recolorés). Pas de runtime. Pas dans le mod unique.
 
 ## ZRV2 — correction des nuages et des lignes figées de la mer (28 septembre 2026)
 
@@ -487,12 +487,12 @@ Résultats :
 - Layout : arrivée au sud par le couloir de glace (`entrance`), grande arène de glace avec un bassin d'eau glacée de chaque côté (`boss`), grand cristal de glace au nord (`cristal`). Aucune sortie, aucun warp.
 - Rendu généré référencé : décor sur magenta (les bassins) ; sol seul généré à partir d'une découpe du sol de l'arène de PMD Sky.
 - Calques, du bas vers le haut : eau glacée, reflets ; sol complet, sol de glace, parois, cristal ; lueur du cristal, flocons.
-- L'eau glacée (4 × 10 ticks), les reflets de Métano recolorés (4 × 10) et les flocons générés (48 × 5, 64 émetteurs) reprennent les fonctions et les poses de l'entrée Givre. Les facettes du cristal pulsent (6 × 10). La scène boucle en 4 s.
+- L'eau glacée (4 × 10 ticks), les reflets de Treasure recolorés (4 × 10) et les flocons générés (48 × 5, 64 émetteurs) reprennent les fonctions et les poses de l'entrée Givre. Les facettes du cristal pulsent (6 × 10). La scène boucle en 4 s.
 - Fidélité du sol : 1.5 à l'arène de PMD Sky, 31.12 à la vignette de la vraie salle (seuil 35).
 - Aperçu : `apercu_fin_givre_grotte_v1.html`. Rendus : `renders/fin_givre_grotte_v1/`. Source : `source/fin_givre_grotte_v1/`.
 - 10 tests PASS, 6 mutations vérifiées.
 - Paquet : `FGG1_projet_pmdo_0812.zip` (Ground 0.8.12, préfixe `FGG1`) et `FGG1_calques_png_8px.zip`.
-- Pixels générés, pas de tuiles natives (sauf les reflets, pixels de Métano recolorés). Pas de runtime. Pas encore dans le mod unique.
+- Pixels générés, pas de tuiles natives (sauf les reflets, pixels de Treasure recolorés). Pas de runtime. Pas encore dans le mod unique.
 - Fin suivante : Bristle.
 
 ## FRP1 — Fin Ruine : fosse de Sealed Ruin, troisième zone de fin de donjon (28 septembre 2026)
@@ -517,12 +517,12 @@ Résultats :
 - Layout : arrivée au sud par la pointe du plateau (`entrance`), grand plateau de pierre au milieu de la lave (`boss`), emblème de feu sur le rebord nord (`embleme`). Aucune sortie, aucun warp.
 - Rendu généré référencé : décor sur magenta (la lave). Le générateur a renvoyé deux réponses vides pour le sol seul : `sol_complet` est donc une plage de sol du décor répétée en miroir (documentée dans le manifeste et testée).
 - Calques, du bas vers le haut : lave, éclats, bulles ; sol complet, sol du plateau, rebord, pitons, emblème ; lueur.
-- La lave (4 × 10 ticks), les éclats de Métano recolorés (4 × 10) et les bulles de lave (24 × 5) reprennent les fonctions et les poses de l'entrée Cratère (ECN1). La lueur fait pulser les jaunes de l'emblème et les braises du rebord (6 × 10 ticks, méthode des braises de ECN1). Les anneaux rouges de l'emblème restent fixes. La scène boucle en 2 s.
+- La lave (4 × 10 ticks), les éclats de Treasure recolorés (4 × 10) et les bulles de lave (24 × 5) reprennent les fonctions et les poses de l'entrée Cratère (ECN1). La lueur fait pulser les jaunes de l'emblème et les braises du rebord (6 × 10 ticks, méthode des braises de ECN1). Les anneaux rouges de l'emblème restent fixes. La scène boucle en 2 s.
 - Fidélité du sol à la capture : 2.18 (seuil 35).
 - Aperçu : `apercu_fin_cratere_fosse_v1.html`. Rendus : `renders/fin_cratere_fosse_v1/`. Source : `source/fin_cratere_fosse_v1/`.
 - 9 tests PASS, 5 mutations vérifiées.
 - Paquet : `FCF1_projet_pmdo_0812.zip` (Ground 0.8.12, préfixe `FCF1`) et `FCF1_calques_png_8px.zip`.
-- Pixels générés, pas de tuiles natives (sauf les éclats, pixels de Métano recolorés). Pas de runtime. Pas encore dans le mod unique.
+- Pixels générés, pas de tuiles natives (sauf les éclats, pixels de Treasure recolorés). Pas de runtime. Pas encore dans le mod unique.
 - Fin suivante : Ruine (`Sealed_Ruin_pit_TDS.png`).
 
 ## FVS1 — Fin Vapeur : sommet de Steam Cave, première zone de fin de donjon (28 septembre 2026)
@@ -819,9 +819,9 @@ Toutes les boucles sont fermées (testé). Fidélité au rip mesurée par test :
 
 L'arrivée est au sud, par un chemin de sable entre des parois en bosses. Le chemin débouche sur une large plage. Au nord, une chaussée sèche traverse le lac, qui a deux bassins avec des piliers et des stalagmites, jusqu'à l'entrée sombre ; il n'y a pas d'eau devant la bouche. La map compte 11 calques : sol complet, sable, ombres au pied des parois, berge, parois, piliers et profondeur. Elle a quatre animations :
 
-- le lac façon Métano, avec les **couleurs exactes de la capture** et **sans liseré clair** (4 × 10 ticks) ;
+- le lac façon Treasure, avec les **couleurs exactes de la capture** et **sans liseré clair** (4 × 10 ticks) ;
 - la lueur turquoise du lac, dont les 9 couleurs de la capture respirent (12 × 10 ticks) ;
-- des scintillements Métano natifs, posés sur la lueur ;
+- des scintillements Treasure natifs, posés sur la lueur ;
 - des gouttes qui tombent du plafond et font des ronds dans l'eau (24 × 5 ticks).
 
 Toutes les boucles sont fermées (testé). Fidélité au rip mesurée par test : sable 3,9, parois 5,6, piliers 15,2. 15 tests PASS ; 6 mutations vérifiées. Pas de test PMDO en jeu.
@@ -855,8 +855,8 @@ L'ouverture dure 24 × 4 ticks et se joue une fois, entre l'état fermé et l'é
 
 Le chemin part du sud, serpente dans une grande clairière et mène à une ouverture sombre entre les arbres, au nord. La map compte 11 calques : sol, herbe, chemin, herbes hautes, rochers, arbres et profondeur, avec quatre animations :
 
-- mare façon Métano, en couleurs Métano exactes, **sans liseré clair** (4 × 10 ticks) ;
-- scintillements Métano natifs ;
+- mare façon Treasure, en couleurs Treasure exactes, **sans liseré clair** (4 × 10 ticks) ;
+- scintillements Treasure natifs ;
 - feuilles qui tombent des houppiers (48 × 5 ticks) ;
 - lucioles qui clignotent à l'orée (48 × 5 ticks).
 
@@ -870,7 +870,7 @@ Toutes les boucles sont fermées (testé). Fidélité au rip mesurée par test :
 
 **Retours de l'utilisateur sur EWC1** : « il y a des petits traits blancs au bord des rives, fais une version sans ça, et faut pas d'eau devant l'entrée de la grotte, et faut que la cascade soit en deux temps : la cascade qui prend tout et après une animation où la cascade se fend pour ouvrir la grotte ». La V2 repart des **mêmes bruts générés** qu'EWC1, sans nouvelle génération, et EWC1 reste intact.
 
-- **Rives** : le liseré clair en tirets (couleur Métano `clair`) est retiré de l'eau ; la bande sombre touche la rive.
+- **Rives** : le liseré clair en tirets (couleur Treasure `clair`) est retiré de l'eau ; la bande sombre touche la rive.
 - **Couloir** : un couloir de sable (pixels du sol complet généré) remplace la partie centrale de la vasque et mène à la bouche. Il reste deux bassins latéraux.
 - **Cascade en deux temps**, avec des calques d'état :
   - fermée : le rideau recouvre toute la grotte (12 × 4 ticks) ;
@@ -889,8 +889,8 @@ Toutes les boucles sont fermées (testé). Fidélité au rip mesurée par test :
 **Demande de l'utilisateur** : « tu dois utiliser la méthode et reprendre seulement de ta branche parente. Et refaire waterfall avec la génération fond majenta multicalque ». Le lot repart de la seule branche parente (Jungle V1). Textures canoniques = **rendu généré référencé** : la capture de l'entrée de Waterfall Cave (`entrancecascade.png`) est passée au générateur, qui produit le décor complet en 4:3 avec l'eau plate en magenta, un sol de sable complet et une planche d'écume sur magenta.
 
 Le résultat compte 16 calques : sol, sable, cailloux, touffes, plateaux, berge, falaises, arbres, bouche sombre et écume du pied, avec cinq animations :
-- bassins et vasque façon Métano, en couleurs Métano exactes (4 × 10 ticks) ;
-- scintillements Métano natifs ;
+- bassins et vasque façon Treasure, en couleurs Treasure exactes (4 × 10 ticks) ;
+- scintillements Treasure natifs ;
 - rideau de cascade défilant vers le sud (12 × 4 ticks, translation pure testée) ;
 - bouillons d'écume générés ;
 - embruns générés.
@@ -903,7 +903,7 @@ Fidélité au rip mesurée par test : sable 6,5, roche 5,0, feuillage 2,3, ridea
 - Lot : `renders/entree_jungle_sud_nord_v1/` (`EJN1_projet_pmdo_0812.zip`, `EJN1_calques_png_8px.zip`, ORA, WebP animé).
 - Source : `source/entree_jungle_sud_nord_v1/`.
 
-**Nouveau format demandé : 4:3, plus vaste.** La map fait 768 × 576 px, soit 96 × 72 cases : 65 % de cases en plus, environ 2,4 écrans PMDO dans chaque sens. Grande clairière de jungle, sentier en S du sud jusqu'à l'entrée sombre au nord, rivière et mare à l'ouest, deux îlots d'arbres. L'eau est façon Métano (4 × 10 ticks) avec des scintillements Métano natifs, et 6 papillons générés volent en boucles en huit (48 × 5 ticks). La normalisation est uniforme ×0,643, en moyenne pondérée par classe. 9 tests PASS. Biome choisi par l'agent. Pas de test PMDO en jeu.
+**Nouveau format demandé : 4:3, plus vaste.** La map fait 768 × 576 px, soit 96 × 72 cases : 65 % de cases en plus, environ 2,4 écrans PMDO dans chaque sens. Grande clairière de jungle, sentier en S du sud jusqu'à l'entrée sombre au nord, rivière et mare à l'ouest, deux îlots d'arbres. L'eau est façon Treasure (4 × 10 ticks) avec des scintillements Treasure natifs, et 6 papillons générés volent en boucles en huit (48 × 5 ticks). La normalisation est uniforme ×0,643, en moyenne pondérée par classe. 9 tests PASS. Biome choisi par l'agent. Pas de test PMDO en jeu.
 
 ## Entrée Bristle — sud → nord, rendu généré réf. Mt. Bristle (26 septembre 2026)
 
@@ -911,7 +911,7 @@ Fidélité au rip mesurée par test : sable 6,5, roche 5,0, feuillage 2,3, ridea
 - Lot : `renders/entree_bristle_sud_nord_v1/` (`EBN1_projet_pmdo_0812.zip`, `EBN1_calques_png_8px.zip`, ORA, WebP animé).
 - Source : `source/entree_bristle_sud_nord_v1/`.
 
-Cinquième map de la série : canyon de sable entre des falaises grises en aiguilles, gorge au nord, torrent sur le flanc est. Le torrent reprend la structure de la rivière de Métano **avec ses couleurs exactes** (biome de jour), sur 4 × 10 ticks, avec des scintillements Métano **natifs** non recolorés. Les 8 touffes d'herbe générées se balancent en rafale d'ouest en est (12 × 10 ticks) ; leurs poses sont triées par inclinaison mesurée. 9 tests PASS. Biome choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
+Cinquième map de la série : canyon de sable entre des falaises grises en aiguilles, gorge au nord, torrent sur le flanc est. Le torrent reprend la structure de la rivière de Treasure **avec ses couleurs exactes** (biome de jour), sur 4 × 10 ticks, avec des scintillements Treasure **natifs** non recolorés. Les 8 touffes d'herbe générées se balancent en rafale d'ouest en est (12 × 10 ticks) ; leurs poses sont triées par inclinaison mesurée. 9 tests PASS. Biome choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
 
 ## Entrée Givre — sud → nord, rendu généré réf. Frosty Forest (25 septembre 2026)
 
@@ -919,7 +919,7 @@ Cinquième map de la série : canyon de sable entre des falaises grises en aigui
 - Lot : `renders/entree_givre_sud_nord_v1/` (`EGN1_projet_pmdo_0812.zip`, `EGN1_calques_png_8px.zip`, ORA, WebP animé).
 - Source : `source/entree_givre_sud_nord_v1/`.
 
-Quatrième map de la série : forêt de sapins enneigés, sentier de pierre et grotte de glace au nord. Eau glacée façon rivière de Métano (4 × 10 ticks), scintillements Métano recolorés, 40 flocons générés qui tombent en tournoyant puis se posent (48 × 5 ticks, boucle de 4 s). Le ruisseau généré coupait le sentier : un gué gelé est **dessiné par script**, et les congères à moins de 6 px du sentier sont praticables (collision seulement). 11 tests PASS. Biome choisi par l'agent, à confirmer. Pas de test PMDO en jeu.
+Quatrième map de la série : forêt de sapins enneigés, sentier de pierre et grotte de glace au nord. Eau glacée façon rivière de Treasure (4 × 10 ticks), scintillements Treasure recolorés, 40 flocons générés qui tombent en tournoyant puis se posent (48 × 5 ticks, boucle de 4 s). Le ruisseau généré coupait le sentier : un gué gelé est **dessiné par script**, et les congères à moins de 6 px du sentier sont praticables (collision seulement). 11 tests PASS. Biome choisi par l'agent, à confirmer. Pas de test PMDO en jeu.
 
 ## Entrée Ruine — sud → nord, rendu généré réf. Sealed Ruin (25 septembre 2026)
 
@@ -927,7 +927,7 @@ Quatrième map de la série : forêt de sapins enneigés, sentier de pierre et g
 - Lot : `renders/entree_ruine_sud_nord_v1/` (`ERN1_projet_pmdo_0812.zip`, `ERN1_calques_png_8px.zip`, ORA, WebP).
 - Source : `source/entree_ruine_sud_nord_v1/`.
 
-Canyon de grès ocre, arbres morts gris, grotte au nord. Animations : sables mouvants « façon Métano » dans 5 fosses (4 × 10 ticks), 8 bulles de sable générées qui éclatent (24 × 5 ticks) et 2 tourbillons de poussière générés (8 × 5 ticks, non bloquants). 12 tests PASS. Biome choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
+Canyon de grès ocre, arbres morts gris, grotte au nord. Animations : sables mouvants « façon Treasure » dans 5 fosses (4 × 10 ticks), 8 bulles de sable générées qui éclatent (24 × 5 ticks) et 2 tourbillons de poussière générés (8 × 5 ticks, non bloquants). 12 tests PASS. Biome choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
 
 ## Entrée Cratère — sud → nord, rendu généré réf. Dark Crater (25 septembre 2026)
 
@@ -935,15 +935,15 @@ Canyon de grès ocre, arbres morts gris, grotte au nord. Animations : sables mou
 - Lot : `renders/entree_cratere_sud_nord_v1/` (`ECN1_projet_pmdo_0812.zip`, `ECN1_calques_png_8px.zip`, ORA, WebP animé).
 - Source : `source/entree_cratere_sud_nord_v1/`.
 
-Il s'agit de la map suivante demandée après l'Entrée Vapeur V2. Le décor complet a été généré sur magenta (lave = magenta) et le sol de cendre complet séparément, puis le tout est réduit ×0,5 (424×632). Les animations sont chacune sur leur calque : lave « façon Métano » (4 × 10 ticks), éclats Métano recolorés, 6 bulles de lave générées qui éclatent (24 × 5 ticks) et braises pulsantes (6 × 10 ticks). Collisions déduites, `entrance` au sud, `donjon_seuil` au nord, sans warp. 11 tests PASS. Le biome a été choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
+Il s'agit de la map suivante demandée après l'Entrée Vapeur V2. Le décor complet a été généré sur magenta (lave = magenta) et le sol de cendre complet séparément, puis le tout est réduit ×0,5 (424×632). Les animations sont chacune sur leur calque : lave « façon Treasure » (4 × 10 ticks), éclats Treasure recolorés, 6 bulles de lave générées qui éclatent (24 × 5 ticks) et braises pulsantes (6 × 10 ticks). Collisions déduites, `entrance` au sud, `donjon_seuil` au nord, sans warp. 11 tests PASS. Le biome a été choisi par l'agent (à confirmer). Pas de test PMDO en jeu.
 
-## Entrée Vapeur V2 — eau façon rivière de Métano + bulles de marais (25 septembre 2026)
+## Entrée Vapeur V2 — eau façon rivière de Treasure + bulles de marais (25 septembre 2026)
 
 - Aperçu : `apercu_entree_vapeur_sud_nord_v2.html`.
 - Lot : `renders/entree_vapeur_sud_nord_v2/` (`ESN2_projet_pmdo_0812.zip`, `ESN2_calques_png_8px.zip`, ORA, WebP animé).
 - Source : `source/entree_vapeur_sud_nord_v2/`.
 
-Le terrain V1 est inchangé. L'eau reprend la structure et la cadence de la rivière Métano (4 phases × 10 ticks) : bande de berge ondulante, lèvre claire, aplat. Les scintillements utilisent les pixels Métano recolorés. Les 9 bulles générées sont décalées : elles montent, gonflent et éclatent, sur 24 phases de 5 ticks. 9 tests PASS. L'eau est inspirée de Métano, pas faite de tuiles natives ; les bulles sont générées. Pas de test PMDO en jeu.
+Le terrain V1 est inchangé. L'eau reprend la structure et la cadence de la rivière Treasure (4 phases × 10 ticks) : bande de berge ondulante, lèvre claire, aplat. Les scintillements utilisent les pixels Treasure recolorés. Les 9 bulles générées sont décalées : elles montent, gonflent et éclatent, sur 24 phases de 5 ticks. 9 tests PASS. L'eau est inspirée de Treasure, pas faite de tuiles natives ; les bulles sont générées. Pas de test PMDO en jeu.
 
 ## Entrée Vapeur — arrivée au sud, grotte au nord (rendu généré, 25 septembre 2026)
 
@@ -961,7 +961,7 @@ Le terrain V1 est inchangé. L'eau reprend la structure et la cadence de la rivi
 
 `DSVFS.png` conservée en 702×466 ; neuf partitions visibles, deux pistes mer/écume de 64 phases (3,2 s). Phase 0 exacte, décor et contacts fixes. Mouvement nouveau guidé par la planche Beach, **pas un cycle officiel récupéré**. Option d’import 704×472 par transparence ajoutée, sans étirement. Dix tests d’assets PASS, viewer contrôlé en DOM simulé ; PMDO non testé. Les anciens lots restent inchangés.
 
-## Dix créations supplémentaires — contrôle Métano renforcé
+## Dix créations supplémentaires — contrôle Treasure renforcé
 
 - **[Aperçu des dix propositions et statuts d’audit](apercu_caps_terrasses_v4.html)**.
 - [PNG et bilan : huit retenues, deux à reprendre](renders/caps_terrasses_v4/README.md) · [comparatif des bordures](renders/caps_terrasses_v4/AUDIT_BORDURES_AVANT_APRES.png).
@@ -975,11 +975,11 @@ Le terrain V1 est inchangé. L'eau reprend la structure et la cadence de la rivi
 - **[Planche PNG des six variantes](renders/caps_terrasses_v3/PLANCHE_FACE_MER.png)** · [PNG transparents, magenta et compositions](renders/caps_terrasses_v3/README.md).
 - [Océan : 64 phases, boucle plus lente de 3,2 s](renders/caps_terrasses_v3/ocean/README.md).
 
-Présentation Cap V2 / Terrasse V2 et références roche/herbe Métano. Les nouveaux calques et le cycle sont livrés séparément ; le mod natif reste inchangé.
+Présentation Cap V2 / Terrasse V2 et références roche/herbe Treasure. Les nouveaux calques et le cycle sont livrés séparément ; le mod natif reste inchangé.
 
-## Témoin courant — méthode Métano sur fond magenta
+## Témoin courant — méthode Treasure sur fond magenta
 
-**[Voir la falaise texturée sur magenta et son PNG transparent](renders/falaise_metano_temoin/README.md)**. Retour aux références de roche et d’herbe Métano, sans nouvelle matière ni layouts plats comme résultat final. Un témoin à valider avant de reprendre la série ; cartes natives préservées.
+**[Voir la falaise texturée sur magenta et son PNG transparent](renders/falaise_treasure_temoin/README.md)**. Retour aux références de roche et d’herbe Treasure, sans nouvelle matière ni layouts plats comme résultat final. Un témoin à valider avant de reprendre la série ; cartes natives préservées.
 
 ## V6 — retouches des zones et prototypes de calques
 
@@ -994,17 +994,17 @@ Les originaux et le mod sont conservés. La limite de dix générations a empêc
 
 - **[Planche des 12 entrées](renders/entrees_pmd_collection/PLANCHE_12_ENTREES.png)** — forêt, cristaux, volcan, glace, ruines, cascade, marais, gouffre et autres compositions.
 - **[Catalogue des PNG individuels et variantes Abyss](renders/entrees_pmd_collection/README.md)** · [galerie HTML locale](renders/entrees_pmd_collection/index.html).
-- **[40 rendus PNG du mod actuel et calques des trois entrées natives](renders/metano_expeditions_actuel/README.md)**.
+- **[40 rendus PNG du mod actuel et calques des trois entrées natives](renders/treasure_expeditions_actuel/README.md)**.
 
-Les nouvelles entrées utilisent des matières librement inventées dans la DA PMD ; la fidélité stricte à Métano reste réservée à ses extensions. **Les 12 créations sont des images générées aplaties, pas encore des cartes natives intégrées au mod ci-dessous.**
+Les nouvelles entrées utilisent des matières librement inventées dans la DA PMD ; la fidélité stricte à Treasure reste réservée à ses extensions. **Les 12 créations sont des images générées aplaties, pas encore des cartes natives intégrées au mod ci-dessous.**
 
-## Livraison courante — Métano Expéditions, mod de 40 Ground
+## Livraison courante — Treasure Expéditions, mod de 40 Ground
 
-- **[Voir nos nouvelles entrées et les falaises](apercu_metano_expeditions.html)** — l’aperçu démarre sur l’Antre Crochu ; 20 lieux en jour/nuit, calques et exports.
-- **[Télécharger le mod PMDO 0.8.12](mod_metano_expeditions_pmdo_0812.zip)** — **7 nouvelles falaises + 3 entrées**, leurs 20 variantes et les 20 Ground Métano/Abyss précédents.
+- **[Voir nos nouvelles entrées et les falaises](apercu_treasure_expeditions.html)** — l’aperçu démarre sur l’Antre Crochu ; 20 lieux en jour/nuit, calques et exports.
+- **[Télécharger le mod PMDO 0.8.12](mod_treasure_expeditions_pmdo_0812.zip)** — **7 nouvelles falaises + 3 entrées**, leurs 20 variantes et les 20 Ground Treasure/Abyss précédents.
 - **[Installation et catalogue](source/cote_v5_expeditions/README.md)** · [manuel détaillé](MANUEL_METHODE_PMDO.md) · [40 chargements dans le vrai moteur](source/cote_v5_expeditions/runtime_verification.json).
 
-Copier le dossier `metano_expeditions` dans `MODS`, puis lancer `OUVRIR_EDITEUR.bat` (Windows) ou `bash OUVRIR_EDITEUR.sh` (Linux). Ressources, index complet, scripts et manuel inclus ; aucun import PNG. **Projet prêt à éditer, pas une aventure complète.** Les trois seuils sont repérés et accessibles sur la grille ; leurs destinations de donjon restent à raccorder. Les 40 Ground passent le chargeur natif sans affichage ; rendu GPU et gameplay non validés ici.
+Copier le dossier `treasure_expeditions` dans `MODS`, puis lancer `OUVRIR_EDITEUR.bat` (Windows) ou `bash OUVRIR_EDITEUR.sh` (Linux). Ressources, index complet, scripts et manuel inclus ; aucun import PNG. **Projet prêt à éditer, pas une aventure complète.** Les trois seuils sont repérés et accessibles sur la grille ; leurs destinations de donjon restent à raccorder. Les 40 Ground passent le chargeur natif sans affichage ; rendu GPU et gameplay non validés ici.
 
 
 ## Manuel et préparation des prochaines entrées
@@ -1015,13 +1015,13 @@ Copier le dossier `metano_expeditions` dans `MODS`, puis lancer `OUVRIR_EDITEUR.
 - [Étude de Crooked Cavern, Brine Cave et Drenched Bluff](source/cote_v5_expeditions/README.md) pour le lot de sept falaises et trois entrées désormais livré ci-dessus. Moteur installé ; éditeur graphique encore en échec dans cet environnement.
 
 
-## Dernière correction — Métano natif et filtre nuit Abyss
+## Dernière correction — Treasure natif et filtre nuit Abyss
 
-- **[Ouvrir l’aperçu des dix côtes](apercu_cotes_metano_abyss.html)** — jour/nuit, cinq calques de terrain, grille 8 px, exports PNG.
-- **[Télécharger les 20 Ground PMDO 0.8.12](cotes_metano_abyss_0812_pmdo.zip)** — projet séparé `cotes_metano_abyss_0812`, toutes les ressources et l’index inclus.
+- **[Ouvrir l’aperçu des dix côtes](apercu_cotes_treasure_abyss.html)** — jour/nuit, cinq calques de terrain, grille 8 px, exports PNG.
+- **[Télécharger les 20 Ground PMDO 0.8.12](cotes_treasure_abyss_0812_pmdo.zip)** — projet séparé `cotes_treasure_abyss_0812`, toutes les ressources et l’index inclus.
 - **[Installation et méthode](source/cote_v4_abyss/README.md)** · [résultats des contrôles](source/cote_v4_abyss/verification.json).
 
-Herbe et roche entièrement reconstruites depuis les pixels Métano : plus de lisières ni d’ombres générées. Faces, retours, couronnes et pieds séparés ; silhouettes et contacts W/E/S conservés. **Filtre exact d’Abyss V4**, vérifié contre ses trois feuilles nocturnes complètes. Le remplissage des grandes hauteurs répète des modules natifs ; les raccords restent à apprécier en jeu. **Fichiers vérifiés par code, ouverture réelle dans PMDO non testée. Collisions à dessiner.** Les anciens packs ci-dessous sont conservés.
+Herbe et roche entièrement reconstruites depuis les pixels Treasure : plus de lisières ni d’ombres générées. Faces, retours, couronnes et pieds séparés ; silhouettes et contacts W/E/S conservés. **Filtre exact d’Abyss V4**, vérifié contre ses trois feuilles nocturnes complètes. Le remplissage des grandes hauteurs répète des modules natifs ; les raccords restent à apprécier en jeu. **Fichiers vérifiés par code, ouverture réelle dans PMDO non testée. Collisions à dessiner.** Les anciens packs ci-dessous sont conservés.
 
 
 ## Archive V3 — formes V2, pack ciblé PMDO 0.8.12
@@ -1030,27 +1030,27 @@ Herbe et roche entièrement reconstruites depuis les pixels Métano : plus de li
 - **[Télécharger les 20 Ground et leur projet séparé](cotes_v2_0812_pmdo.zip)** — dossier `cotes_v2_0812` à placer dans `PMDO/MODS/`, index complet et ressources incluses.
 - **[Installation dans un projet séparé ou existant](source/cote_v3_0812/README.md)** · [contrôles](source/cote_v3_0812/verification.json).
 
-Bords ouest/est/sud joints par recadrage, sans étirement. Roche brute Métano à 1×, ombres séparées ; herbe et lisières générées. Nuages et nuit Guilde / Sharpedo. **Format et fichiers vérifiés par code, ouverture réelle dans PMDO non testée.** Collisions à dessiner. Les anciens lots restent disponibles ci-dessous.
+Bords ouest/est/sud joints par recadrage, sans étirement. Roche brute Treasure à 1×, ombres séparées ; herbe et lisières générées. Nuages et nuit Guilde / Sharpedo. **Format et fichiers vérifiés par code, ouverture réelle dans PMDO non testée.** Collisions à dessiner. Les anciens lots restent disponibles ci-dessous.
 
 
 ## Lot 2 — 10 côtes supplémentaires dans la même DA
 
-- **[Voir les zones 11 à 20 en jour/nuit](apercu_dix_zones_metano_lot2.html)** : mêmes nuages et palette nocturne, dix agencements supplémentaires, calques et exports PNG natifs.
-- **[Pack de 20 Ground PMDO](cote_metano_dix_zones_lot2_pmdo.zip)** — ressources et installateur inclus ; préfixes `cote20_` / `C20_`, sans remplacement des anciennes cartes.
+- **[Voir les zones 11 à 20 en jour/nuit](apercu_dix_zones_treasure_lot2.html)** : mêmes nuages et palette nocturne, dix agencements supplémentaires, calques et exports PNG natifs.
+- **[Pack de 20 Ground PMDO](cote_treasure_dix_zones_lot2_pmdo.zip)** — ressources et installateur inclus ; préfixes `cote20_` / `C20_`, sans remplacement des anciennes cartes.
 - **[Installation et provenance](source/cote_dix_zones_lot2/README.md)** · [planche jour/nuit](sprites/cote_dix_zones_lot2/PLANCHE_JOUR_NUIT_NE_PAS_IMPORTER.png).
 
 Bases sans bâtiments ni arbres, collisions libres à dessiner. Pixels et formats contrôlés ; **ouverture dans PMDO non testée**.
 
 
-## Nouveau — 10 côtes Métano, nuages et nuit Guilde / Sharpedo
+## Nouveau — 10 côtes Treasure, nuages et nuit Guilde / Sharpedo
 
-- **Voir : [aperçu interactif jour/nuit](apercu_dix_zones_metano.html)** — 10 nouveaux lieux et les deux côtes V2 adaptées, calques, zoom natif, animation et exports PNG.
-- **[Pack PMDO natif](cote_metano_dix_zones_pmdo.zip)** : 20 Ground pour les nouveaux lieux (jour/nuit), plus 4 variantes des anciennes côtes ; ressources `.tile` / `.dir` et installateur préservant les cartes modifiées.
+- **Voir : [aperçu interactif jour/nuit](apercu_dix_zones_treasure.html)** — 10 nouveaux lieux et les deux côtes V2 adaptées, calques, zoom natif, animation et exports PNG.
+- **[Pack PMDO natif](cote_treasure_dix_zones_pmdo.zip)** : 20 Ground pour les nouveaux lieux (jour/nuit), plus 4 variantes des anciennes côtes ; ressources `.tile` / `.dir` et installateur préservant les cartes modifiées.
 - **[Installation, provenance et limites](source/cote_dix_zones/README.md)** ; [planche réduite](sprites/cote_dix_zones/PLANCHE_JOUR_NUIT_NE_PAS_IMPORTER.png).
 
-Les six nuages et la recette de nuit sont repris directement du travail de l'autre agent (`c16efe12`), pas redessinés. Les dix terrains utilisent des modules Métano natifs ; les rives ont une découpe alpha et les faces sont prolongées par répétition de rangées. **Collisions à dessiner, raccords à contrôler et ouverture PMDO non testée.** Les variantes V2 ne remplacent pas les anciennes cartes.
+Les six nuages et la recette de nuit sont repris directement du travail de l'autre agent (`c16efe12`), pas redessinés. Les dix terrains utilisent des modules Treasure natifs ; les rives ont une découpe alpha et les faces sont prolongées par répétition de rangées. **Collisions à dessiner, raccords à contrôler et ouverture PMDO non testée.** Les variantes V2 ne remplacent pas les anciennes cartes.
 
-Le premier pack de deux cartes est aussi versionné : [cote_metano_v2_pmdo.zip](cote_metano_v2_pmdo.zip).
+Le premier pack de deux cartes est aussi versionné : [cote_treasure_v2_pmdo.zip](cote_treasure_v2_pmdo.zip).
 
 
 Cette reprise conserve l’univers graphique du **premier pack**. Les accès ont été corrigés suivant la dernière consigne : **des ruptures du contour avec un sol continu, pas une porte à chaque sortie**.
@@ -1132,19 +1132,19 @@ Voir **`apercu_ponts.html`** et **`sprites/ponts/README.md`** : ponts originaux 
 
 ### Nouvelle version dorée passée au générateur — PMDO / town02
 
-**`apercu_ponts_pmdo.html`** présente la version adaptée à la référence jaune doré. Les assets sont dans **`sprites/ponts_pmdo/`** : deux orientations, quatre phases, jour/nuit, PNG transparents, huit `.tile` natifs en **8 × 8 px** et manifests d'animation. Les modules de dessin font 80 × 80 px (10 × 10 cellules moteur). Voir le README de ce dossier pour la réindexation PMDO et les limites de validation : les ressources Metano ont été inspectées, mais le téléchargement LFS de `WaterfallVillageCapital.rsground` a échoué, donc son TexSize et le placement précis restent à vérifier. Reconstruction et tests : `python source/build_bridges_pmdo.py && python source/verify_bridges_pmdo.py`.
+**`apercu_ponts_pmdo.html`** présente la version adaptée à la référence jaune doré. Les assets sont dans **`sprites/ponts_pmdo/`** : deux orientations, quatre phases, jour/nuit, PNG transparents, huit `.tile` natifs en **8 × 8 px** et manifests d'animation. Les modules de dessin font 80 × 80 px (10 × 10 cellules moteur). Voir le README de ce dossier pour la réindexation PMDO et les limites de validation : les ressources Treasure ont été inspectées, mais le téléchargement LFS de `WaterfallVillageCapital.rsground` a échoué, donc son TexSize et le placement précis restent à vérifier. Reconstruction et tests : `python source/build_bridges_pmdo.py && python source/verify_bridges_pmdo.py`.
 
-## Dix maisons arrondies — référence Métano Town de Palika
+## Dix maisons arrondies — référence Treasure Town de Palika
 
-**`apercu_maisons_metano.html`** : dix nouvelles huttes générées avec références originales affichées à la même échelle, jour/nuit, zoom et grille. **`sprites/maisons_metano/`** contient les 20 PNG, les deux atlas et `.tile` PMDO natifs, les TSJ et le manifeste. Cadres **112 × 128 px**, cellules **8 × 8 px**, dessins à une échelle comparable aux maisons de Métano. Les trois références ont été comparées aux ressources originales de `Palikadude/Halcyon` (0 différence sur les pixels opaques). Voir le README du dossier pour l'import, l'attribution et les limites : structures fixes, collisions/entrées à régler, pas de test en jeu. Reconstruction : `python source/build_houses_metano.py`; tests : `python source/verify_houses_metano.py`.
+**`apercu_maisons_treasure.html`** : dix nouvelles huttes générées avec références originales affichées à la même échelle, jour/nuit, zoom et grille. **`sprites/maisons_treasure/`** contient les 20 PNG, les deux atlas et `.tile` PMDO natifs, les TSJ et le manifeste. Cadres **112 × 128 px**, cellules **8 × 8 px**, dessins à une échelle comparable aux maisons de Treasure. Les trois références ont été comparées aux ressources originales de `Palikadude/Halcyon` (0 différence sur les pixels opaques). Voir le README du dossier pour l'import, l'attribution et les limites : structures fixes, collisions/entrées à régler, pas de test en jeu. Reconstruction : `python source/build_houses_treasure.py`; tests : `python source/verify_houses_treasure.py`.
 
-## Eau de Métano — extraction identique des animations originales
+## Eau de Treasure — extraction identique des animations originales
 
-**`apercu_eau_metano.html`** présente les **quatre frames de cascade** extraites de `Metano_Town_Animation_Tileset` et les **quatre vraies planches de rivière** de Palika/Halcyon. Fichiers dans **`sprites/eau_metano/`** : PNG natifs, atlas source complet, cascades séparées, banque compacte de rivière, `.tile`, TSJ et provenance. Aucune génération ni retouche de pixels. La carte originale de Métano a été lue : grille 8 px et `FrameLength = 10` vérifiés pour la rivière ; la cadence autonome des rectangles de cascade reste proposée, non prouvée. Comparaisons source/export : zéro différence, voir le README et `verification.json`. Attribution aux auteurs de Halcyon conservée. Reconstruction : `python source/build_water_metano.py`; tests : `python source/verify_water_metano.py`.
+**`apercu_eau_treasure.html`** présente les **quatre frames de cascade** extraites de `Treasure_Town_Animation_Tileset` et les **quatre vraies planches de rivière** de Palika/Halcyon. Fichiers dans **`sprites/eau_treasure/`** : PNG natifs, atlas source complet, cascades séparées, banque compacte de rivière, `.tile`, TSJ et provenance. Aucune génération ni retouche de pixels. La carte originale de Treasure a été lue : grille 8 px et `FrameLength = 10` vérifiés pour la rivière ; la cadence autonome des rectangles de cascade reste proposée, non prouvée. Comparaisons source/export : zéro différence, voir le README et `verification.json`. Attribution aux auteurs de Halcyon conservée. Reconstruction : `python source/build_water_treasure.py`; tests : `python source/verify_water_treasure.py`.
 
-## Trois grands layouts de falaises — extensions visuelles de Métano
+## Trois grands layouts de falaises — extensions visuelles de Treasure
 
-**`apercu_falaises_metano.html`** : trois cartes de **2048 × 1536 px**, chacune en **256 × 192 cases de 8 px** : grande paroi, plateau isolé et trois terrasses. Textures natives répétées sans agrandissement, escaliers et grandes cascades à quatre phases. **`sprites/falaises_metano/`** contient les calques PNG, les compositions, trois cartes Tiled, l'atlas commun `.tile` PMDO et les métadonnées. Les formes du terrain et des rivières sont nouvelles ; ce ne sont pas des zones officielles ou des raccords déjà intégrés à Métano. Collisions et transitions à configurer. Contrôles : recomposition exacte des cartes sur les quatre phases et relecture de l'atlas natif. Voir le README du pack pour l'import et l'attribution. Reconstruction : `python source/build_cliff_layouts.py`; validation : `python source/verify_cliff_layouts.py`.
+**`apercu_falaises_treasure.html`** : trois cartes de **2048 × 1536 px**, chacune en **256 × 192 cases de 8 px** : grande paroi, plateau isolé et trois terrasses. Textures natives répétées sans agrandissement, escaliers et grandes cascades à quatre phases. **`sprites/falaises_treasure/`** contient les calques PNG, les compositions, trois cartes Tiled, l'atlas commun `.tile` PMDO et les métadonnées. Les formes du terrain et des rivières sont nouvelles ; ce ne sont pas des zones officielles ou des raccords déjà intégrés à Treasure. Collisions et transitions à configurer. Contrôles : recomposition exacte des cartes sur les quatre phases et relecture de l'atlas natif. Voir le README du pack pour l'import et l'attribution. Reconstruction : `python source/build_cliff_layouts.py`; validation : `python source/verify_cliff_layouts.py`.
 
 ## Lot 02 — dix nouvelles maisons, falaises modulaires et rendu PNG
 
@@ -1152,23 +1152,23 @@ Voir **`apercu_ponts.html`** et **`sprites/ponts/README.md`** : ponts originaux 
 
 ## Layouts canoniques pixel-perfect — versions sèches et animées
 
-**`apercu_metano_pixel_perfect.html`** : trois layouts **2048 × 1536 px**, grille **8 px**, avec bascule **sans eau / eau animée**. Dans **`sprites/metano_pixel_perfect/`**, chaque carte possède un PNG sec ne contenant que l'herbe, les falaises et leurs bordures, quatre rendus humides, les calques séparés et deux cartes Tiled. Aucun chemin, escalier ou bâtiment n'est ajouté. Contrairement aux prototypes précédents, chaque tuile utilisée est une copie vérifiée d'une tuile canonique de Métano : aucun dessin généré, aucune berge tracée, aucun agrandissement de texture. La géométrie est nouvelle ; les longues faces et chutes répètent des rangées natives. L'atlas `.tile` PMDO et les références source/Frames sont fournis. Voir `verification.json` et le README du dossier pour la portée exacte du contrôle et les limites d'intégration moteur. Reconstruction : `python source/build_metano_pixel_perfect.py`; tests : `python source/verify_metano_pixel_perfect.py`.
+**`apercu_treasure_pixel_perfect.html`** : trois layouts **2048 × 1536 px**, grille **8 px**, avec bascule **sans eau / eau animée**. Dans **`sprites/treasure_pixel_perfect/`**, chaque carte possède un PNG sec ne contenant que l'herbe, les falaises et leurs bordures, quatre rendus humides, les calques séparés et deux cartes Tiled. Aucun chemin, escalier ou bâtiment n'est ajouté. Contrairement aux prototypes précédents, chaque tuile utilisée est une copie vérifiée d'une tuile canonique de Treasure : aucun dessin généré, aucune berge tracée, aucun agrandissement de texture. La géométrie est nouvelle ; les longues faces et chutes répètent des rangées natives. L'atlas `.tile` PMDO et les références source/Frames sont fournis. Voir `verification.json` et le README du dossier pour la portée exacte du contrôle et les limites d'intégration moteur. Reconstruction : `python source/build_treasure_pixel_perfect.py`; tests : `python source/verify_treasure_pixel_perfect.py`.
 
 ## Falaises côtières nues — générations et calques animés
 
 **`apercu_falaises_cotieres_nues.html`** présente deux terrains sans bâtiments, arbres, campement, objets ni chemins, sur trois calques : terrain transparent, ciel animé (8 frames) et mer animée (5 frames). Les PNG et leur manifeste sont dans `sprites/falaises_cotieres_nues/`, l’archive dans `falaises_cotieres_nues_pack.zip`.
 
-**Statut explicite : les falaises sont générées et guidées par les références Métano, pas composées de tuiles canoniques vérifiées.** Les fonds viennent de la planche côtière fournie par l’utilisateur, avec cadences proposées. L’animation est visible dans l’aperçu ; elle doit être configurée séparément dans PMDO. Voir [le README du lot](sprites/falaises_cotieres_nues/README.md).
+**Statut explicite : les falaises sont générées et guidées par les références Treasure, pas composées de tuiles canoniques vérifiées.** Les fonds viennent de la planche côtière fournie par l’utilisateur, avec cadences proposées. L’animation est visible dans l’aperçu ; elle doit être configurée séparément dans PMDO. Voir [le README du lot](sprites/falaises_cotieres_nues/README.md).
 
 ## Côte V2 — roche corrigée, overlay de nuages wrap et mer à palette cyclique
 
-**`apercu_cote_v2.html`** présente quatre calques indépendants : ciel généré sans nuages, nuages transparents à défilement horizontal continu avec wrap, mer indexée à huit palettes et terrain. La roche de la **terrasse** a été régénérée avec les modules Métano comme référence ; elle reste un rendu généré, non une copie certifiée des tuiles natives. Le terrain du promontoire est conservé.
+**`apercu_cote_v2.html`** présente quatre calques indépendants : ciel généré sans nuages, nuages transparents à défilement horizontal continu avec wrap, mer indexée à huit palettes et terrain. La roche de la **terrasse** a été régénérée avec les modules Treasure comme référence ; elle reste un rendu généré, non une copie certifiée des tuiles natives. Le terrain du promontoire est conservé.
 
 Les huit PNG de mer ont **les mêmes indices et chunks IDAT** : seules les entrées de palette tournent, sans déplacement géométrique ni changement de transparence. Les quatre nuages sont exportés séparément et sur un strip wrap de **2200 × 344 px**, sans redimensionnement. Les tests vérifient la jonction du wrap et le cycle de palette. L’import PMDO seul n’active pas ces animations : voir [les instructions](sprites/cote_v2/README.md).
 
 - Assets et paramètres : `sprites/cote_v2/`.
 - Comparatif de roche : `sprites/cote_v2/ROCHE_AVANT_APRES_NE_PAS_IMPORTER.png`.
-- Pack : `cote_metano_v2_wrap_palette.zip`.
+- Pack : `cote_treasure_v2_wrap_palette.zip`.
 - Scripts : `source/build_cote_v2.py`, `source/verify_cote_v2.py`, `source/package_cote_v2.py`.
 
 ## Cartes côtières V2 — Ground PMDO natives
@@ -1179,23 +1179,23 @@ Des calques vides permettent d'ajouter sols, structures, avant-plans et objets.
 
 - [Installation, calques, limites et formats vérifiés](source/pmdo_cote/README.md)
 - Reproduire le pack : `.venv/bin/python source/pmdo_cote/package.py`
-- Sortie par défaut du générateur : `~/cote_metano_v2_pmdo.zip` ; une copie livrée est versionnée à la racine.
+- Sortie par défaut du générateur : `~/cote_treasure_v2_pmdo.zip` ; une copie livrée est versionnée à la racine.
 - Validation indépendante des ressources et des pixels ; **pas de test dans PMDO**.
 - Collisions libres à dessiner avant utilisation comme niveau jouable.
 
 ## Zones guidées par le générateur → tuiles canoniques
 
-Deux nouvelles compositions (cirque et terrasses), illustrées par le générateur puis reconstruites avec de vraies tuiles Métano de 8 px : **2048 × 1536 px**, versions sèches sans chemin et quatre phases d’eau natives.
+Deux nouvelles compositions (cirque et terrasses), illustrées par le générateur puis reconstruites avec de vraies tuiles Treasure de 8 px : **2048 × 1536 px**, versions sèches sans chemin et quatre phases d’eau natives.
 
 - **Voir avant/après :** `sprites/zones_guidees/comparaison_generateur_canonique.png`.
 - **Explorer / animer :** `apercu_zones_guidees.html` (autonome, grille et zoom natif).
-- **Pack :** `zones_guidees_metano_pack.zip` ; PNG, atlas natif, maps Tiled et provenance dans `sprites/zones_guidees/`.
+- **Pack :** `zones_guidees_treasure_pack.zip` ; PNG, atlas natif, maps Tiled et provenance dans `sprites/zones_guidees/`.
 - **Méthode et limites :** [README des zones guidées](sprites/zones_guidees/README.md). Le générateur fournit le guide, jamais les pixels canoniques. Les raccords sont encore approximatifs par endroits ; gameplay et import PMDO non validés.
 - **Contrôle indépendant :** `.venv/bin/python source/verify_zones_guidees.py`.
 
 ### Zones approuvées — édition multicalques comme la guilde
 
-**`apercu_zones_multicalques.html`** permet maintenant d’afficher, masquer ou isoler les six calques des deux zones approuvées : sol, parois, bordures, berges, rivière et cascades. Les compositions et pixels Métano restent **inchangés**.
+**`apercu_zones_multicalques.html`** permet maintenant d’afficher, masquer ou isoler les six calques des deux zones approuvées : sol, parois, bordures, berges, rivière et cascades. Les compositions et pixels Treasure restent **inchangés**.
 
 Dans `sprites/zones_guidees/{01_cirque,02_terrasses}/multicalques/` : PNG transparents alignés, Aseprite sec (3 calques / 1 frame) et animé (6 calques / 4 frames), cartes Tiled réutilisant l’atlas canonique. Le découpage et les fichiers éditables ont été vérifiés par relecture : **0 différence de pixel**. Les archives antérieures ne sont pas modifiées. Voir [les instructions multicalques](sprites/zones_guidees/README_multicalques.md) et `sprites/zones_guidees/planche_multicalques.png`.
 
@@ -1203,15 +1203,15 @@ La méthode approuvée est conservée dans `AGENTS.md` pour les prochaines zones
 
 ### Audit du rendu en jeu et de l’échelle des falaises
 
-Après le retour utilisateur sur la qualité à l’import, [l’audit](audits/metano_import/RAPPORT.md) distingue un **défaut confirmé d’assemblage des fragments natifs** d’un éventuel problème d’échelle/filtrage côté import, encore à vérifier. Le contrôle des pixels ne validait pas les volumes des falaises. Comparatif à zoom entier : `audits/metano_import/comparaison_echelle.png` ; mesures : `audits/metano_import/mesures.json`. Les zones approuvées ne sont pas modifiées par cet audit.
+Après le retour utilisateur sur la qualité à l’import, [l’audit](audits/treasure_import/RAPPORT.md) distingue un **défaut confirmé d’assemblage des fragments natifs** d’un éventuel problème d’échelle/filtrage côté import, encore à vérifier. Le contrôle des pixels ne validait pas les volumes des falaises. Comparatif à zoom entier : `audits/treasure_import/comparaison_echelle.png` ; mesures : `audits/treasure_import/mesures.json`. Les zones approuvées ne sont pas modifiées par cet audit.
 
-### Métano V3 — PNG pour l’importeur PMDO Dev
+### Treasure V3 — PNG pour l’importeur PMDO Dev
 
-Le [lot PNG natif](sprites/metano_import_png/README.md) fournit deux premières scènes sèches de calibration **1016 × 512** et **1016 × 768**, avec des blocs de falaises complets et leurs calques sol/falaises. Aucun pixel natif redimensionné. Les noms `METANO_V3_*` sont uniques pour éviter les écrasements lors de « PNG to Tileset ». Importer en **8 px**, puis comparer le témoin natif **64 × 96** en jeu. Les grandes zones précédentes restent intactes ; ce lot n’en est pas encore le remplacement complet. Construction : `source/build_metano_import_png.py` ; contrôle : `source/verify_metano_import_png.py`. Archive : `metano_png_import_v3.zip`.
+Le [lot PNG natif](sprites/treasure_import_png/README.md) fournit deux premières scènes sèches de calibration **1016 × 512** et **1016 × 768**, avec des blocs de falaises complets et leurs calques sol/falaises. Aucun pixel natif redimensionné. Les noms `TREASURE_V3_*` sont uniques pour éviter les écrasements lors de « PNG to Tileset ». Importer en **8 px**, puis comparer le témoin natif **64 × 96** en jeu. Les grandes zones précédentes restent intactes ; ce lot n’en est pas encore le remplacement complet. Construction : `source/build_treasure_import_png.py` ; contrôle : `source/verify_treasure_import_png.py`. Archive : `treasure_png_import_v3.zip`.
 
 ### Layouts côtiers du commit utilisateur — génération sur les vraies références
 
-Le commit **`3bc185b`**, ajouté sur la branche de cette session et non sur `main`, contient les références du **promontoire de Bekipan** et de la **terrasse côtière avec campement/grotte**. Elles ont été intégrées sans modification. Deux nouvelles reproductions diurnes ont été réalisées avec le générateur à partir de ces layouts et de la référence Métano :
+Le commit **`3bc185b`**, ajouté sur la branche de cette session et non sur `main`, contient les références du **promontoire de Bekipan** et de la **terrasse côtière avec campement/grotte**. Elles ont été intégrées sans modification. Deux nouvelles reproductions diurnes ont été réalisées avec le générateur à partir de ces layouts et de la référence Treasure :
 
 - `source/layouts_commit_3bc185b/01_promontoire_bekipan.png`
 - `source/layouts_commit_3bc185b/02_terrasse_campement.png`

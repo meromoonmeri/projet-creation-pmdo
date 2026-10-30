@@ -26,6 +26,6 @@ for kind in ['foret','grotte']:
  im.save(p/(kind+'_guide.png'))
 files=sorted(f for f in (ROOT/'renders/retouches_zones_v6').glob('[0-9]*.png') if not f.stem.endswith('_nuit'));b=Image.new('RGB',(1200,240*5),'#132330');d=ImageDraw.Draw(b)
 for i,f in enumerate(files):
- for j,im in enumerate([Image.open(ROOT/'renders/metano_expeditions_actuel'/f.stem/'jour.png'),Image.open(f)]):
+ for j,im in enumerate([Image.open(ROOT/'renders/treasure_expeditions_actuel'/f.stem/'jour.png'),Image.open(f)]):
   im.thumbnail((288,207));x=(i%2)*600+j*300;y=(i//2)*240;b.paste(im,(x,y+24));d.text((x+4,y+3),f.stem+(' AVANT' if j==0 else ' RETOUCHE'),fill='white')
 b.save(ROOT/'renders/retouches_zones_v6/AVANT_APRES.png')

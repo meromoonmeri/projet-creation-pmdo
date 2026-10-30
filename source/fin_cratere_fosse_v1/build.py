@@ -10,7 +10,7 @@ Méthode (rendu généré RÉFÉRENCÉ) :
   réponses vides) : sol_complet = plage de sol propre du décor (SOL_PATCH) répétée en miroir ;
 - segmentation pleine résolution, réduction x(576/896) PAR CLASSE, recadrage centré 768 ;
 - animations, chacune sur son calque, fonctions de l'entrée Cratère (ECN1) :
-  lave « façon rivière Métano » (même palette, 4 x 10 ticks), éclats Métano recolorés (4 x 10),
+  lave « façon rivière Treasure » (même palette, 4 x 10 ticks), éclats Treasure recolorés (4 x 10),
   bulles de lave (mêmes poses générées, 24 x 5) ; lueur de l'emblème et braises du rebord : rampe de lave pulsée
   6 x 10 ticks, comme les braises de ECN1.
 Scène : PPCM 120 ticks = 2 s.
@@ -148,7 +148,7 @@ def make_all():
         land |= layers[nm][..., 3] == 255
     visible = lava & ~land
     lf, dist = EC.lava_phases(lava, visible)
-    # bulles de lave de ECN1, puis éclats Métano recolorés de ECN1, sur la lave visible libre
+    # bulles de lave de ECN1, puis éclats Treasure recolorés de ECN1, sur la lave visible libre
     taken = np.zeros((H, W), bool)
     poses = EC.bubble_poses(); cell = EC.CELL
     emitters = EC.place(visible & (dist > 3), (cell, cell), 10, 11, taken, core=8)
@@ -308,9 +308,9 @@ def build():
         'fidelite': fid,
         'layer_order_bottom_to_top': [files[t] for t, _, _ in stack_named],
         'lave': {'phases': LAVA_PHASES, 'frame_length_ticks': LAVA_TICKS, 'couleurs': {k: list(v) for k, v in EC.PAL.items()},
-                 'origine': 'fonction lava_phases de l entree Cratere (structure riviere Metano), recalculee ; pas de tuiles natives'},
+                 'origine': 'fonction lava_phases de l entree Cratere (structure riviere Treasure), recalculee ; pas de tuiles natives'},
         'eclats': {'phases': LAVA_PHASES, 'frame_length_ticks': LAVA_TICKS, 'placements': D['sparkles'],
-                   'origine': 'pixels Metano_Town_River_Sparkles recolores en tons de lave (sparkle_families de ECN1)'},
+                   'origine': 'pixels Treasure_Town_River_Sparkles recolores en tons de lave (sparkle_families de ECN1)'},
         'bulles': {'poses': 'planche generee de l entree Cratere (bruts/bulles_lave_poses.png)', 'phases': BUBBLE_PHASES,
                    'frame_length_ticks': BUBBLE_TICKS, 'emetteurs': [{'xy': [int(x), int(y)], 'decalage': o} for (y, x), o in zip(D['emitters'], D['boffs'])]},
         'lueur': {'phases': GLOW_PHASES, 'frame_length_ticks': GLOW_TICKS, 'pulsation': PULSE, 'rampe': [list(c) for c in D['ramp']],

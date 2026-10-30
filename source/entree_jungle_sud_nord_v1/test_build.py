@@ -60,7 +60,7 @@ class Build(unittest.TestCase):
             cover |= frames[0][..., 3] == 255
         self.assertTrue(cover.all())
 
-    def test_water_metano_structure_and_loop(self):
+    def test_water_treasure_structure_and_loop(self):
         fr = STACK[0]; mask = fr[0][..., 3] == 255; pal = {tuple(v) for v in M['water']['couleurs'].values()}
         for a in fr:
             self.assertTrue(((a[..., 3] == 255) == mask).all())

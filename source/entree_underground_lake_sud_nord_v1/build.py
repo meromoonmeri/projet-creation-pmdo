@@ -10,9 +10,9 @@ RÉFÉRENCÉ (rip passé au générateur en images=) :
 - gouttes_ronds_poses.png : planche sur magenta (gouttes, éclaboussures, ronds dans l'eau).
 Calques : sol complet, sable, ombres au pied des parois, berge du lac, parois, piliers et stalagmites, entrée sombre.
 Animations, chacune sur son calque, boucles fermées :
-- lac façon rivière Métano (structure, cadence 4 x 10), couleurs EXACTES du rip, sans liseré clair de rive ;
+- lac façon rivière Treasure (structure, cadence 4 x 10), couleurs EXACTES du rip, sans liseré clair de rive ;
 - lueur du lac : anneaux aux 9 couleurs exactes du rip qui respirent, 12 x 10 ticks (animation créée) ;
-- scintillements Métano natifs, 4 x 10 ticks ;
+- scintillements Treasure natifs, 4 x 10 ticks ;
 - gouttes qui tombent du plafond et ronds dans l'eau (poses générées), 24 x 5 ticks.
 Scène : PPCM(40, 120, 120) = 120 ticks = 2 s.
 Lancer : .venv/bin/python source/entree_underground_lake_sud_nord_v1/build.py
@@ -283,8 +283,8 @@ def write_ora(path, layers):
 def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -306,8 +306,8 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
              Released=False, TexSize=1, Music='', EdgeView=1, ViewCenter=None, ViewOffset={'X': 0, 'Y': 0},
              ActiveChar=None, Status={}, Layers=layers,
              Background={'$type': 'RogueEssence.Dungeon.LayeredBG, RogueEssence', 'Layers': []},
-             Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Underground Lake ; lac facon Metano aux '
-                     'couleurs exactes du rip sans liseré clair, lueur du lac animee, scintillements Metano natifs, '
+             Comment='PMDO 0.8.12. Rendu genere 4:3 reference sur le rip Underground Lake ; lac facon Treasure aux '
+                     'couleurs exactes du rip sans liseré clair, lueur du lac animee, scintillements Treasure natifs, '
                      'gouttes et ronds generes. Collisions de base a verifier. Seuil non raccorde. Biome choisi par l agent.')
     o['obstacles'] = [[{'Bounds': {'X': x*8, 'Y': y*8, 'Width': 8, 'Height': 8}, 'Tags': int(blocked[y, x])}
                        for y in range(gh)] for x in range(gw)]
@@ -330,7 +330,7 @@ def ground_project(stack, blocked, entry_px, threshold_px, gfx, tools):
 <Header>
   <Name>Entree Underground Lake sud-nord 4:3 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : entree de grotte generee au format 4:3 (ref. rip Underground Lake), lac facon Metano, lueur, gouttes et ronds animes. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : entree de grotte generee au format 4:3 (ref. rip Underground Lake), lac facon Treasure, lueur, gouttes et ronds animes. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>
@@ -513,15 +513,15 @@ def build():
                         '(ecart lisse 5 px > 20), hors abords de la bouche ; parois = le reste',
         'layers': layer_list,
         'water': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in WPAL.items()},
-                  'modele': 'structure et cadence riviere Metano (bande, frange dentelee, accent, aplat, onde voyageuse), '
+                  'modele': 'structure et cadence riviere Treasure (bande, frange dentelee, accent, aplat, onde voyageuse), '
                             'couleurs EXACTES du rip ; bande = intermediaire ; sans liseré clair de rive',
                   'origine': 'pixels recalcules, pas de tuiles natives'},
         'lueur': {'phases': GLOW_PHASES, 'frame_length_ticks': GLOW_TICKS, 'couleurs': [list(c) for c in GLOW],
                   'centres': [list(c) for c in centres], 'anneau_px': GLOW_RING_PX, 'respiration': GLOW_BREATH,
                   'ondulation': GLOW_WOBBLE,
                   'origine': 'couleurs EXACTES du rip (coeur + 8 anneaux) ; forme, respiration et ondulation creees par nous'},
-        'sparkles': {'source': 'source/eau_metano/natifs/Metano_Town_River_Sparkles.tile', 'placements': sparkles,
-                     'origine': 'pixels et couleurs Metano NATIFS inchanges (aplat de surface retire)',
+        'sparkles': {'source': 'source/eau_treasure/natifs/Treasure_Town_River_Sparkles.tile', 'placements': sparkles,
+                     'origine': 'pixels et couleurs Treasure NATIFS inchanges (aplat de surface retire)',
                      'zone': 'coeur de la lueur (commun aux 12 phases), pas l eau sombre'},
         'gouttes': {'poses': {k: list(v) for k, v in POSE_WIN.items()}, 'reduction': f'x1/{POSE_K} pour toutes les poses',
                     'palette': [[int(round(c)) for c in p] for p in pose_pal], 'chronologie': DROP_SEQ,

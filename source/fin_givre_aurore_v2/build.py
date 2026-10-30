@@ -466,9 +466,9 @@ def build():
                    'regles': 'une seule geometrie, pas de poses dephasees, pas de cycle de palette global, pas de defilement ; '
                              'visible seulement dans le ciel'},
         'eau_glacee': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in EG.PAL.items()},
-                       'origine': 'fonction water_phases de l entree Givre (structure riviere Metano), recalculee ; pas de tuiles natives'},
+                       'origine': 'fonction water_phases de l entree Givre (structure riviere Treasure), recalculee ; pas de tuiles natives'},
         'reflets': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'placements': D['sparkles'],
-                    'origine': 'pixels Metano_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)'},
+                    'origine': 'pixels Treasure_Town_River_Sparkles recolores en blanc bleute (sparkle_families de EGN1)'},
         'flocons': {'phases': FLAKE_PHASES, 'frame_length_ticks': FLAKE_TICKS, 'emetteurs': D['emitters'],
                     'origine': 'planche generee de l entree Givre (bruts/flocons_poses.png), flake_poses et flake_frames de EGN1'},
         'scene_loop_ticks': LOOP_TICKS,

@@ -21,7 +21,7 @@ for z in m['zones']:
         'palettes':z['sea_palette_frames_rgb'],'cycle':z['cycle_indices']})
 linked=(R/'source/cote_v2/viewer.html').read_text().replace('__DATA__',json.dumps(view)).replace('__CLOUD__',json.dumps('sprites/cote_v2/'+m['clouds']['tile'])).replace('__PERIOD__',str(m['clouds']['period_px'])).replace('__CLOUDY__',str(m['clouds']['y']))
 linked=linked.replace('<button id="save">','<button id="save" hidden>').replace('<footer>','<footer>Aperçu lié aux PNG du pack : conserver cette arborescence. Les PNG sont déjà fournis séparément ; pour exporter une combinaison, utiliser la version autonome du visualiseur.<br>')
-path=R/'cote_metano_v2_wrap_palette.zip' 
+path=R/'cote_treasure_v2_wrap_palette.zip'
 with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
     for p in sorted(O.rglob('*')):
         if p.is_file():z.write(p,p.relative_to(R))

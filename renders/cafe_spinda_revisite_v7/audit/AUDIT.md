@@ -1,7 +1,7 @@
 # Audit de taille — Spinda Café / Halcyon
 
 ## Périmètre et provenance
-Huit banques `.tile` réellement décodées : EoSO `SpindaCafe1/2` ; Halcyon objets du Café Metano, objets Over du café, objets/Over de l’auberge, objets/Over du réfectoire. **Pas un inventaire exhaustif de tout Halcyon.** Sources, commits figés, SHA Git et SHA256 dans `native_sizes.json`. Les compteurs de tuiles reposent sur la grille8px de ces banques.
+Huit banques `.tile` réellement décodées : EoSO `SpindaCafe1/2` ; Halcyon objets du Café Treasure, objets Over du café, objets/Over de l’auberge, objets/Over du réfectoire. **Pas un inventaire exhaustif de tout Halcyon.** Sources, commits figés, SHA Git et SHA256 dans `native_sizes.json`. Les compteurs de tuiles reposent sur la grille8px de ces banques.
 
 La composition du Ground Spinda reconstituée depuis les deux banques est vérifiée RGBA contre la référence existante. Les comptoirs ne sont pas redessinés : masque de silhouette appliqué aux pixels de cette composition, avec partie arrière/étagère et plinthe avant. Tous les pixels opaques exportés égalent ceux de la référence à la même position. Les zones cachées par le décor ne sont pas reconstituées. Les contours du détourage sont manuels, conservés dans le JSON.
 

@@ -15,9 +15,9 @@ Deux variantes A/B pour chaque niveau, soit **10 layouts** :
 |---|---|---|
 | Sous-sol −2 | Bordure rocheuse Spinda + panneaux bois + plancher café | Aucune ouverture extérieure |
 | Sous-sol −1 | Bordure rocheuse Spinda, pièce plus profonde | Aucune ouverture extérieure |
-| Accueil | Base vide Metano Café, salle élargie | 2 fenêtres circulaires, diamètre48px |
-| Étage +1 | Base Metano, salle plus profonde | 3 fenêtres circulaires, diamètre48px |
-| Étage +2 | Base Metano, salle large | **2 petits hublots32px espacés, aucune baie vitrée** |
+| Accueil | Base vide Treasure Café, salle élargie | 2 fenêtres circulaires, diamètre48px |
+| Étage +1 | Base Treasure, salle plus profonde | 3 fenêtres circulaires, diamètre48px |
+| Étage +2 | Base Treasure, salle large | **2 petits hublots32px espacés, aucune baie vitrée** |
 
 Les plans B sont plus spacieux que les plans A. Les ouvertures sont réellement circulaires, avec alpha nul à leurs coins : pas une image rectangulaire posée sur le mur. Les cadres en bois sont réassemblés à partir des textures natives ; ce sont de nouveaux cadres, pas un sprite de fenêtre canonique prétendument retrouvé.
 
@@ -40,7 +40,7 @@ Puis `composition_jour.png`, `composition_nuit.png`, et `schema.png`. Dimensions
 **Jour/nuit concerne le paysage derrière les fenêtres uniquement.** Le café garde son éclairage intérieur chaud. Ce n’est pas un étalonnage nocturne de toute la pièce ni une animation. Les vues sont des petits extraits du paysage canonique fourni précédemment dans `232233.png`, avec filtre Abyss pour la vue nocturne.
 
 ## Sources canoniques inspectées
-- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit **da6c2130d641507447e6386a5e47a296e8cb4c71** : `Data/Ground/metano_cafe.rsground`, cinq feuilles `Metano_Town_Cafe_*` référencées. Carte **456×320**, grille57×40 de8px.
+- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit **da6c2130d641507447e6386a5e47a296e8cb4c71** : `Data/Ground/treasure_cafe.rsground`, cinq feuilles `Treasure_Town_Cafe_*` référencées. Carte **456×320**, grille57×40 de8px.
 - [Minemaker0430/ExplorersOfSkyOrigins](https://github.com/Minemaker0430/ExplorersOfSkyOrigins), commit **4e7422acc263886198113a8256677766e4244228** : `Data/Ground/spinda_cafe.rsground`, `SpindaCafe1.tile`, `SpindaCafe2.tile`. Carte **696×456**, grille87×57 de8px.
 
 Les cartes ont été reconstruites depuis leurs vraies tuiles, avec conversion de l’alpha prémultiplié, puis inspectées. Sources, feuilles décodées, reconstructions et empreintes SHA-256 se trouvent dans `source/cafe_multietage_v1/references/`.

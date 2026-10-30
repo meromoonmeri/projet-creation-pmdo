@@ -15,8 +15,8 @@ Le décor a été généré en 1200 × 896, puis réduit d'un facteur **uniforme
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | eau | structure rivière Métano, palette jungle | 4 × 10 ticks |
-| 01 | scintillements | pixels Métano natifs | 4 × 10 ticks |
+| 00 | eau | structure rivière Treasure, palette jungle | 4 × 10 ticks |
+| 01 | scintillements | pixels Treasure natifs | 4 × 10 ticks |
 | 02 | sol complet | herbe générée séparément | — |
 | 03–10 | clairière, sentier, terre, berge, rochers, îlots d'arbres, jungle, entrée sombre | décor généré | — |
 | 11 | papillons | planche générée (2 couleurs × 6 poses) | 48 × 5 ticks (4 s) |
@@ -26,6 +26,6 @@ Le décor a été généré en 1200 × 896, puis réduit d'un facteur **uniforme
 ## Honnêteté
 
 - Le terrain et les papillons sont générés ; les trajectoires sont créées par nous.
-- La rivière est façon Métano, avec des pixels recalculés.
+- La rivière est façon Treasure, avec des pixels recalculés.
 - Le sol complet généré est très uni ; il ne se voit que sous les calques.
 - Aucun test PMDO en jeu, art non approuvé.

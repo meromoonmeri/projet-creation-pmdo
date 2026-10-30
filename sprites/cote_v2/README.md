@@ -2,12 +2,12 @@
 
 ## Ce qui change
 
-- **La dernière terrasse a été régénérée** avec une référence construite depuis les modules rocheux Métano natifs : assises de pierre horizontales, retours arrondis rosés et pied continu. Le tas de gros blocs arrondis de la version précédente a été remplacé. Le promontoire conserve son terrain V1.
+- **La dernière terrasse a été régénérée** avec une référence construite depuis les modules rocheux Treasure natifs : assises de pierre horizontales, retours arrondis rosés et pied continu. Le tas de gros blocs arrondis de la version précédente a été remplacé. Le promontoire conserve son terrain V1.
 - **Nouveau ciel généré sans nuages**, sur un calque propre.
 - **Quatre nuages générés**, extraits sans redimensionnement et montés sur un strip transparent avec wrap horizontal continu, sans oscillation aller-retour.
 - **Mer à vraie palette cyclique** : les pixels indexés et leur position ne changent jamais entre les huit PNG. Seules huit entrées de palette tournent. La transparence et la couleur dominante du fond restent fixes.
 
-La roche est une **génération référencée sur Métano, pas une copie pixel-perfect des tuiles originales**. La correction visuelle ne change pas ce statut. Les anciennes versions restent disponibles.
+La roche est une **génération référencée sur Treasure, pas une copie pixel-perfect des tuiles originales**. La correction visuelle ne change pas ce statut. Les anciennes versions restent disponibles.
 
 ## Aperçu
 
@@ -75,7 +75,7 @@ Les huit PNG sont en mode **P, indexé** :
 
 Les couleurs utilisées restent celles de cette base marine. La couleur de fond dominante n’est pas cyclée pour éviter de faire clignoter toute la mer. **Aucun déplacement géométrique des vagues n’est effectué entre les phases.**
 
-Cadence proposée : **160 ms par palette**, cycle de **1,28 s**. Les indices concernés et les huit palettes RGB sont dans `animation.json`. La séquence est nouvelle ; ce n’est pas une animation officielle de Métano.
+Cadence proposée : **160 ms par palette**, cycle de **1,28 s**. Les indices concernés et les huit palettes RGB sont dans `animation.json`. La séquence est nouvelle ; ce n’est pas une animation officielle de Treasure.
 
 Un moteur disposant d’un système de palettes peut conserver le tableau d’indices et remplacer uniquement ces couleurs. L’aperçu HTML affiche les huit PNG palettisés ; leurs données d’indices sont effectivement identiques, ce n’est pas une approximation par déplacement d’image.
 
@@ -114,8 +114,8 @@ Le JavaScript de l’aperçu est contrôlé syntaxiquement avec Node. Ces tests 
 
 ## Sources et crédits
 
-- Modules de roche de référence : **Palikadude/Halcyon**, tuiles Métano Town, Palika et contributeurs. La planche de référence montre des extraits natifs à un zoom entier ; elle n’a pas été collée dans le terrain généré.
-- Base marine : planche *Pelipper Post Office* fournie par l’utilisateur, créditant Nintendo, Game Freak, Chunsoft et l’extraction par **Jaxster**. Ce ne sont pas les animations de rivière Métano.
+- Modules de roche de référence : **Palikadude/Halcyon**, tuiles Treasure Town, Palika et contributeurs. La planche de référence montre des extraits natifs à un zoom entier ; elle n’a pas été collée dans le terrain généré.
+- Base marine : planche *Pelipper Post Office* fournie par l’utilisateur, créditant Nintendo, Game Freak, Chunsoft et l’extraction par **Jaxster**. Ce ne sont pas les animations de rivière Treasure.
 - Terrain corrigé, ciel et nuages : nouvelles sorties du générateur, conservées dans `source/cote_v2/`.
 
 Respecter les conditions des ressources d’origine. La disponibilité de ces éléments n’accorde pas de nouveaux droits de redistribution.

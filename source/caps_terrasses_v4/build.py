@@ -32,7 +32,7 @@ def main():
  cfg=json.loads((HERE/'palette_canonique.json').read_text());pal=np.array(cfg['allowed_rgb'],dtype=np.uint8);tree=cKDTree(lab(pal));allowed={tuple(c) for c in pal.tolist()}
  records=[];palette_reports=[];board=Image.new('RGB',(1800,1500),'#162d38');d=ImageDraw.Draw(board)
  crops=Image.new('RGB',(1280,10*200+180),'#172b34');cd=ImageDraw.Draw(crops)
- ref=Image.open(ROOT/'source/falaises_metano/patches/rebord.png').convert('RGBA');ref=ref.resize((256,96),Image.Resampling.NEAREST);crops.paste(ref,(16,45),ref);cd.text((16,12),'REFERENCE CANONIQUE - bord herbe/roche x4',fill='white');cd.text((390,12),'COUPES NATIVES x1 : original generateur | palette verrouillee',fill='white')
+ ref=Image.open(ROOT/'source/falaises_treasure/patches/rebord.png').convert('RGBA');ref=ref.resize((256,96),Image.Resampling.NEAREST);crops.paste(ref,(16,45),ref);cd.text((16,12),'REFERENCE CANONIQUE - bord herbe/roche x4',fill='white');cd.text((390,12),'COUPES NATIVES x1 : original generateur | palette verrouillee',fill='white')
  old=ROOT/'renders/caps_terrasses_v3';bg0=Image.open(old/'fonds/ciel.png').convert('RGBA');bg0.alpha_composite(Image.open(old/'fonds/nuages.png').convert('RGBA'));bg0.alpha_composite(Image.open(old/'ocean/jour_00.png').convert('RGBA'))
  rawfiles=sorted((OUT/'bruts').glob('*.png'));assert len(rawfiles)==10
  for i,(file,title) in enumerate(zip(rawfiles,TITLES)):
@@ -56,7 +56,7 @@ def main():
   if slug.startswith('11_'):box=(260,260,820,420)
   for j,plane in enumerate([b,im]):
    crop=plane.crop(box);back=Image.new('RGBA',crop.size,(48,62,67,255));back.alpha_composite(crop);crops.paste(back,(j*640+12,180+i*200+28))
-   cd.text((j*640+12,180+i*200+6),f'{slug} / '+('GENERATEUR' if j==0 else 'PALETTE METANO'),fill='white')
+   cd.text((j*640+12,180+i*200+6),f'{slug} / '+('GENERATEUR' if j==0 else 'PALETTE TREASURE'),fill='white')
   save(Image.fromarray((crown*255).astype('uint8')),OUT/'audit'/f'{slug}_bande_reperage.png')
   # Contact sheet uses uniform slots, keeping each terrain aspect ratio.
   thumb=scene.copy();thumb.thumbnail((880,245),Image.Resampling.NEAREST);xx=i%2*900;yy=i//2*300;board.paste(thumb,(xx+8,yy+35));d.text((xx+12,yy+7),f'{i+7:02d} - {title}',fill='white')

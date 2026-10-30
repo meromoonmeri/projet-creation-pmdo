@@ -1,17 +1,17 @@
-# Dix côtes Métano — filtre nuit Abyss — PMDO 0.8.12
+# Dix côtes Treasure — filtre nuit Abyss — PMDO 0.8.12
 
 **Correction complète des dix terrains : 20 Ground jour/nuit.** Ce nouveau pack ne remplace ni les anciennes cartes, ni le ZIP V3.
 
-- Aperçu autonome : `apercu_cotes_metano_abyss.html`.
-- Pack : `cotes_metano_abyss_0812_pmdo.zip`.
-- Projet : `cotes_metano_abyss_0812`.
+- Aperçu autonome : `apercu_cotes_treasure_abyss.html`.
+- Pack : `cotes_treasure_abyss_0812_pmdo.zip`.
+- Projet : `cotes_treasure_abyss_0812`.
 - Cartes : `v40812_01_cap_large_jour` à `v40812_10_esplanade_arrondie_nuit`.
 
 ## Installation sans import PNG
 
 1. Fermer PMDO et extraire **tout** le ZIP.
-2. Copier le dossier `cotes_metano_abyss_0812` dans `PMDO/MODS/`, sans remplacer un dossier existant.
-3. En mode développeur de **PMDO 0.8.12**, sélectionner le projet **Cotes Metano Abyss - Atelier 0.8.12**.
+2. Copier le dossier `cotes_treasure_abyss_0812` dans `PMDO/MODS/`, sans remplacer un dossier existant.
+3. En mode développeur de **PMDO 0.8.12**, sélectionner le projet **Cotes Treasure Abyss - Atelier 0.8.12**.
 4. Dans l’éditeur **Ground**, ouvrir une carte `v40812_…_jour` ou `v40812_…_nuit`, située dans `Data/Ground/`.
 
 Le projet contient son `Mod.xml` de type Quest, ses 20 `.rsground`, quatre banques `.tile`, six fonds `.dir`, son index complet et les scripts namespacés. Il s’agit d’un **projet d’édition**, pas d’une aventure jouable. Aucun PNG à réimporter : `TexSize=1`, grille native **8 px**.
@@ -33,19 +33,19 @@ Il ignore l’index livré, fusionne les en-têtes des banques, sauvegarde l’i
 
 Le générateur ne fournit plus que les **masques de composition approuvés**. Aucun de ses pixels colorés, de ses pierres, de ses lisières ou de ses ombres n’est repris dans les nouveaux terrains.
 
-Les couleurs de jour sont reconstruites depuis les véritables feuilles Métano :
+Les couleurs de jour sont reconstruites depuis les véritables feuilles Treasure :
 
 | Partie | Source | Rectangle natif, en pixels |
 |---|---|---|
-| Herbe | Metano_Town_Base | 0,640 → 128,768 |
-| Faces | Metano_Town_Cliffs | 912,464 → 976,512 |
-| Retours arrondis | Metano_Town_Cliffs | 680,464 → 744,512 |
-| Couronnes | Metano_Town_Cliffs | 912,448 → 976,464 |
-| Pieds | Metano_Town_Cliffs | 912,528 → 976,544 |
+| Herbe | Treasure_Town_Base | 0,640 → 128,768 |
+| Faces | Treasure_Town_Cliffs | 912,464 → 976,512 |
+| Retours arrondis | Treasure_Town_Cliffs | 680,464 → 744,512 |
+| Couronnes | Treasure_Town_Cliffs | 912,448 → 976,464 |
+| Pieds | Treasure_Town_Cliffs | 912,528 → 976,544 |
 
 Les grandes faces prolongent des panneaux cohérents de 64×48 px. Les retours suivent les bords des parois, au lieu d’ajouter des piliers à intervalles réguliers. Couronnes et pieds suivent les terrasses. Les pixels d’herbe contenus dans la source des couronnes sont exclus pour ne pas créer de marches vertes rectangulaires sur les parois.
 
-**Aucune rotation, aucun étirement ni redessin des pixels sources.** Les modules sont translatés sur la grille 8 px, puis découpés par les masques approuvés. Cela reste un assemblage nouveau : ce n’est pas une falaise géante préexistante dans Métano. Les motifs se répètent pour couvrir les grandes hauteurs ; la fidélité des pixels ne garantit pas à elle seule des raccords artistiques parfaits.
+**Aucune rotation, aucun étirement ni redessin des pixels sources.** Les modules sont translatés sur la grille 8 px, puis découpés par les masques approuvés. Cela reste un assemblage nouveau : ce n’est pas une falaise géante préexistante dans Treasure. Les motifs se répètent pour couvrir les grandes hauteurs ; la fidélité des pixels ne garantit pas à elle seule des raccords artistiques parfaits.
 
 ### Le filtre nuit demandé, exactement
 
@@ -85,16 +85,16 @@ Format ciblé : PMDO **0.8.12**, sérialisation `0.8.12.0`. L’audit du moteur 
 
 ## Sources et reproduction
 
-Les sources jour/nuit d’Abyss sont conservées dans `natifs/` avec hashes dans `provenance.json`. `tile_night_reference.py` est le script exact récupéré, utilisé comme oracle de comparaison, sans exécuter ses commandes d’écriture. La documentation historique d’Abyss est conservée dans `metano_nuit_reference.md` ; ses affirmations de tests concernent ce dépôt, pas nos tests.
+Les sources jour/nuit d’Abyss sont conservées dans `natifs/` avec hashes dans `provenance.json`. `tile_night_reference.py` est le script exact récupéré, utilisé comme oracle de comparaison, sans exécuter ses commandes d’écriture. La documentation historique d’Abyss est conservée dans `treasure_nuit_reference.md` ; ses affirmations de tests concernent ce dépôt, pas nos tests.
 
 ```sh
 .venv/bin/python source/cote_v4_abyss/prepare.py
 .venv/bin/python source/cote_v4_abyss/build.py
 .venv/bin/python source/cote_v4_abyss/make_project.py
 .venv/bin/python source/cote_v4_abyss/package.py
-node source/cote_dix_zones/test_viewer.cjs apercu_cotes_metano_abyss.html
+node source/cote_dix_zones/test_viewer.cjs apercu_cotes_treasure_abyss.html
 ```
 
 Les fichiers natifs non compressés sont construits dans `~/.cache/cote_v4_abyss_pack/`. Les PNG intermédiaires/composites de chaque carte et les fonds sont régénérables et non versionnés ; l’aperçu autonome permet d’exporter les PNG sans perte. Le premier échantillon reste conservé dans `sprites/cote_v4_abyss_echantillon/`, mais n’est pas le nouveau pack final.
 
-Attributions : Métano / Palika / Halcyon et contributeurs, variantes nocturnes d’Abyss to Ascension, fonds Guilde/Sharpedo du commit `c16efe12`. La disponibilité publique des sources n’est pas une licence sans restrictions ; consulter leurs conditions avant redistribution hors du projet.
+Attributions : Treasure / Palika / Halcyon et contributeurs, variantes nocturnes d’Abyss to Ascension, fonds Guilde/Sharpedo du commit `c16efe12`. La disponibilité publique des sources n’est pas une licence sans restrictions ; consulter leurs conditions avant redistribution hors du projet.

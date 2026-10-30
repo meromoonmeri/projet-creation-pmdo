@@ -1,4 +1,4 @@
-"""Ten approved organic shapes reconstructed with native Metano material modules.
+"""Ten approved organic shapes reconstructed with native Treasure material modules.
 No generated RGB, no old generated lighting. Preserve exact land alpha masks.
 Faces use coherent 64x48 slabs; returns, crowns and feet are distinct modules.
 All translations are on the 8px grid. Native pixels are clipped, never warped.
@@ -28,14 +28,14 @@ def runs(row,gap=0):
 
 def main():
  OUT.mkdir(parents=True,exist_ok=True)
- sheets={name:decode(NATIVE/f'Metano_Town_{name}.tile') for name in ['Base','Cliffs','Fringe']}
+ sheets={name:decode(NATIVE/f'Treasure_Town_{name}.tile') for name in ['Base','Cliffs','Fringe']}
  # Compare our vectorization to the actual reference function on every source color.
  colors=np.unique(np.concatenate([v.reshape(-1,4) for v in sheets.values()]),axis=0)
  swatch=Image.fromarray(colors.reshape(1,-1,4));buf=io.BytesIO();swatch.save(buf,format='PNG')
  expected=Image.open(io.BytesIO(reference.to_night(buf.getvalue()))).convert('RGBA')
  assert night(swatch).tobytes()==expected.tobytes()
  for name,day in sheets.items():
-  actual=decode(NATIVE/f'Metano_Town_{name}_Night.tile')
+  actual=decode(NATIVE/f'Treasure_Town_{name}_Night.tile')
   assert np.array_equal(np.array(night(Image.fromarray(day))),actual),name
  prep=json.loads((OUT/'layouts.json').read_text())
  prep['rock_source']=json.loads((ROOT/'sprites/cote_v4_abyss/preparation.json').read_text())['rock_source']
@@ -106,7 +106,7 @@ def main():
    'native_module_placements':len(placements),'edge_contact_pixels':{k:int(v.sum()) for k,v in [('W',land[:,0]),('E',land[:,-1]),('S',land[-1])]},
    'terrain_sha256':hashlib.sha256(scene.tobytes()).hexdigest()})
   print('PASS',slug,'native modules',len(placements),flush=True)
- Image.fromarray(sheets['Cliffs'][464:512,912:976]).save(OUT/'METANO_ROCHE_NATIVE_64x48.png')
+ Image.fromarray(sheets['Cliffs'][464:512,912:976]).save(OUT/'TREASURE_ROCHE_NATIVE_64x48.png')
  (OUT/'preparation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
  print('Filter identical to Abyss reference and all three complete night sheets; 10 native terrains.')
 

@@ -25,7 +25,7 @@ Le même rip a **déjà servi hors de la série**. Ces usages ont été relevés
 - **Duo désert DB1**, sur la base de cette branche (`renders/dungeon_biomes_v1/`, 23 septembre) : une entrée et une zone finale générées, avec le voile météo natif W05. C'est un autre format et une autre série, sans Ground 4:3 ni calques 8 px de ce type.
 - **Branche ancienne `01a0d498`** (25 septembre, non fusionnée) : « Furnace Desert en biome eau », le rip d'origine repeint en eau.
 
-Les **sables mouvants** existent aussi dans l'Entrée Ruine (ERN1, réf. Sealed Ruin) : une nappe animée façon rivière Métano. EQS1 a une vraie fosse circulaire aux couleurs du rip Furnace Desert.
+Les **sables mouvants** existent aussi dans l'Entrée Ruine (ERN1, réf. Sealed Ruin) : une nappe animée façon rivière Treasure. EQS1 a une vraie fosse circulaire aux couleurs du rip Furnace Desert.
 
 ## Méthode : textures canoniques par rendu généré référencé
 

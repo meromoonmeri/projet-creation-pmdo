@@ -15,7 +15,7 @@ def clean_generated(im):
  return Image.fromarray(a)
 base=load(B/'B_base_vide_sans_rubans.png');size=base.size;w,h=size
 # Correct native floor after generation; doorway and wall-contact edges stay protected.
-patch=load(P/'Metano_Town_Cafe_Base.png').crop((128,160,192,224)).resize((192,192),Image.Resampling.NEAREST);floor=Image.new('RGBA',size)
+patch=load(P/'Treasure_Town_Cafe_Base.png').crop((128,160,192,224)).resize((192,192),Image.Resampling.NEAREST);floor=Image.new('RGBA',size)
 for y in range(0,h,192):
  for x in range(0,w,192):floor.paste(patch,(x,y))
 m=Image.open(R/'renders/cafe_multietage_v3/accueil_ludicolo/masque_reprise_sol.png');base=key(Image.composite(floor,base,m))

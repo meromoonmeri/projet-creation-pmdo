@@ -25,7 +25,7 @@ def pipeline():
 def main():
     prep=json.loads((WEB/'preparation.json').read_text())
     b=pipeline();bg,cloud_info=b.backgrounds()
-    with zipfile.ZipFile(ROOT/'cote_metano_v2_pmdo.zip') as z:
+    with zipfile.ZipFile(ROOT/'cote_treasure_v2_pmdo.zip') as z:
         template=json.loads(z.read('Data/Ground/cote_v2_promontoire.rsground'))['Object']
     template.pop('Layers');template.pop('obstacles')
     banks={mode:{'sea':b.N.TileBank('V30812_'+mode.upper()+'_MER'),
@@ -45,7 +45,7 @@ def main():
               'reference_agent_commit':'c16efe12d74361df5ba8625abb68260f5f8fc6dd',
               'native_runtime_tested':False,'clouds':cloud_info,'sea_frame_length':10,
               'rock':prep['rock_source'],'zones':[]}
-    labels=['Herbe - forme V2','Roche Metano native','Lisiere protegee','Ombres - volumes V2']
+    labels=['Herbe - forme V2','Roche Treasure native','Lisiere protegee','Ombres - volumes V2']
     for rec in prep['zones']:
         slug=rec['id'];directory=WEB/slug;size=tuple(rec['size'])
         planes=[(label,Image.open(directory/file).convert('RGBA')) for label,file in zip(labels,rec['layers'])]
@@ -57,7 +57,7 @@ def main():
         score,_,x,y=max(options);assert score>.9
         entry={'id':slug,'title':rec['title'],'size':size,'new':True,'entry':[x-8,y-8],
                'planes':labels,'crop':rec['crop'],'attached_edges':rec['exits'],
-               'variants':{},'terrain_provenance':'approved generated geometry; native Metano rock; separate lighting'}
+               'variants':{},'terrain_provenance':'approved generated geometry; native Treasure rock; separate lighting'}
         for mode in ['jour','nuit']:
             layers=[(label,b.grade(im,mode)) for label,im in planes]
             sea=[im.crop((0,0,*size)) for im in seas[mode]]
@@ -65,7 +65,7 @@ def main():
             doc=b.make_map(asset,rec['title'],mode,layers,sea,banks[mode],template)
             doc['Version']='0.8.12.0'
             o=doc['Object']
-            o['Comment']='PMDO 0.8.12. Silhouette V2; roche Metano native; ombres separees. Bords W/E/S sans marge. Collisions a dessiner.'
+            o['Comment']='PMDO 0.8.12. Silhouette V2; roche Treasure native; ombres separees. Bords W/E/S sans marge. Collisions a dessiner.'
             o['Entities'][0]['Markers'][0]['Collider'].update(X=x-8,Y=y-8)
             b.N.save(PACK/f'Data/Ground/{asset}.rsground',json.dumps(doc,ensure_ascii=False,separators=(',',':')).encode())
             b.N.save(PACK/f'Data/Script/ground/{asset}/init.lua',b'-- Native Ground animations; empty editing scaffold.\nreturn {}\n')
@@ -87,7 +87,7 @@ def main():
         b.N.save(path,json.dumps(manifest,ensure_ascii=False,indent=2).encode())
     (PACK/'provenance').mkdir(exist_ok=True)
     shutil.copyfile(WEB/'preparation.json',PACK/'provenance/preparation.json')
-    shutil.copyfile(WEB/'METANO_ROCHE_NATIVE_64x48.png',PACK/'provenance/METANO_ROCHE_NATIVE_64x48.png')
+    shutil.copyfile(WEB/'TREASURE_ROCHE_NATIVE_64x48.png',PACK/'provenance/TREASURE_ROCHE_NATIVE_64x48.png')
     shutil.copyfile(HERE/'engine_compatibility.json',PACK/'provenance/engine_compatibility.json')
     shutil.copyfile(ROOT/'source/pmdo_cote/INSTALLER.py',PACK/'INSTALLER.py')
     print('20 Ground PMDO 0.8.12 generated. Native/UI runtime not tested.')

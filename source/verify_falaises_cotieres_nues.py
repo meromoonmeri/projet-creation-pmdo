@@ -1,5 +1,5 @@
 """Verify layer alignment, source backdrop crops and generated-terrain preservation.
-Does NOT certify generated pixels as canonical Metano tiles.
+Does NOT certify generated pixels as canonical Treasure tiles.
 """
 from pathlib import Path
 from PIL import Image
@@ -31,5 +31,5 @@ for z in M['zones']:
     sky=Image.open(d/z['sky'][0]).convert('RGBA');sea=Image.open(d/z['sea'][0]).convert('RGBA');full=Image.alpha_composite(Image.alpha_composite(sky,sea),terrain)
     actual=Image.open(d/(z['terrain'].split('_')[0]+'_COMPOSITION_FIXE.png')).convert('RGBA');assert full.tobytes()==actual.tobytes()
     checks.append({'zone':z['id'],'terrain_visible_generated_pixels_modified':0,'backdrop_source_recomposition_different_pixels':0,'still_composition_different_pixels':0,'sky_frames':8,'distinct_sky_positions':5,'distinct_sea_frames':len({hashlib.sha256((d/f).read_bytes()).hexdigest() for f in z['sea']})})
-report={'status':'PASS','canonical_metano_terrain':False,'pmdo_runtime_tested':False,'unique_export_names':True,'checks':checks,'visual_review':'Generated terrain inspected without buildings, trees, paths, caves and props. Layouts remain approximate, not exact reproductions.'}
+report={'status':'PASS','canonical_treasure_terrain':False,'pmdo_runtime_tested':False,'unique_export_names':True,'checks':checks,'visual_review':'Generated terrain inspected without buildings, trees, paths, caves and props. Layouts remain approximate, not exact reproductions.'}
 (O/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps(report,ensure_ascii=False,indent=2))

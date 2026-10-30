@@ -11,7 +11,7 @@ Méthode (rendu généré RÉFÉRENCÉ, comme la série) :
 - bruts générés avec le rip en images= : décor complet (source = magenta), sol seul, planche de 7 poses de vapeur ;
 - segmentation pleine résolution, réduction x(576/896) PAR CLASSE, recadrage centré 768 ;
 - animations, chacune sur son calque, boucles fermées :
-  eau de la source = eau « façon rivière Métano » de l'entrée Vapeur V2 (même palette, 4 x 10 ticks) ;
+  eau de la source = eau « façon rivière Treasure » de l'entrée Vapeur V2 (même palette, 4 x 10 ticks) ;
   bouillonnement = bulles de l'entrée Vapeur V2 (mêmes poses générées, 24 x 5 ticks) ;
   vapeur des évents et de la source = poses générées réduites x0,14, 24 x 5 ticks, décalées par émetteur.
 Scène : PPCM 120 ticks = 2 s.
@@ -166,8 +166,8 @@ def steam_frames(poses, vents_px, wisps_px):
 def ground_project(stack, blocked, markers, gfx, tools):
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']; gw, gh = W // 8, H // 8; layers, banks = [], []
     for i, (title, frames, ticks) in enumerate(stack):
         bank = gfx.TileBank(f'{PFX}_{i:02d}_{title.split()[0].upper()}')
@@ -390,7 +390,7 @@ def build():
         'fidelite': fid,
         'layer_order_bottom_to_top': [files[t] for t, _, _ in stack_named],
         'eau_source': {'phases': WATER_PHASES, 'frame_length_ticks': WATER_TICKS, 'couleurs': {k: list(v) for k, v in E2.PAL.items()},
-                       'origine': 'fonction water_phases de l entree Vapeur V2 (structure riviere Metano), recalculee sur la source ; pas de tuiles natives'},
+                       'origine': 'fonction water_phases de l entree Vapeur V2 (structure riviere Treasure), recalculee sur la source ; pas de tuiles natives'},
         'bulles': {'poses': 'planche generee de l entree Vapeur V2 (bruts/bulles_8_poses.png)', 'phases': BUBBLE_PHASES,
                    'frame_length_ticks': BUBBLE_TICKS, 'emetteurs': [{'xy': [int(x), int(y)], 'decalage': o} for (y, x), o in zip(D['emitters'], D['boffs'])]},
         'vapeur': {'brut': f'source/{LOT}/bruts/vapeur_poses.png', 'cases': STEAM_CELLS, 'reduction': STEAM_SCALE,

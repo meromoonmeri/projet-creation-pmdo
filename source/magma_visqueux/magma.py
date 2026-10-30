@@ -1,7 +1,7 @@
 """Magma visqueux — module partagé par l'entrée Cratère magma (ECM1) et l'arène de Groudon (AGM1).
 
 Demande : « faut que le magma de la zone bouge de manière visqueuse ». Le magma n'est pas la lave « façon rivière
-Métano » des lots précédents (bandes qui oscillent) : c'est une matière épaisse dont les cellules dérivent lentement,
+Treasure » des lots précédents (bandes qui oscillent) : c'est une matière épaisse dont les cellules dérivent lentement,
 se plient et se déforment, avec des plaques de croûte sombre qui flottent et des fissures qui luisent.
 
 Matière : rampe de 11 tons RELEVÉE sur la lave du rip Dark_Crater_Pit_TDS.png (PMD Sky), du rouge (247,39,31) au

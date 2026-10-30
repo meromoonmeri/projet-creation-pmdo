@@ -23,7 +23,7 @@ for mode in ['jour','nuit']:
   for k,c in enumerate(m['channels']):
    x,y=c['foot'];ref=load(R/f'source/antre_harmonie_v3/references/ecume_native_{p%3}.png');expected=Image.new('RGBA',(504,360));expected.alpha_composite(ref,(x-48,y-14))
    if mode=='nuit':expected=night(expected)
-   eq(load(P/f'lake4_{mode}_08_ecume_metano_{k+1}_{p:02}.png'),expected)
+   eq(load(P/f'lake4_{mode}_08_ecume_treasure_{k+1}_{p:02}.png'),expected)
    fall=ar(P/f'lake4_{mode}_07_cascade_{k+1}_{p:02}.png')[:,:,3]>0;foam=np.array(expected)[:,:,3]>0
    assert np.any(fall&foam);assert nd.label(fall,np.ones((3,3)))[1]==1
  with zipfile.ZipFile(P/f'lake4_{mode}.ora') as z:

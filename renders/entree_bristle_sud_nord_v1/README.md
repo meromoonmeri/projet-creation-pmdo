@@ -11,8 +11,8 @@ Cinquième map de la série « entrées sud → nord générées » (après Vape
 
 | # | Calque | Origine | Animation |
 |---|---|---|---|
-| 00 | torrent | structure et couleurs exactes de la rivière Métano ; l'onde descend vers le sud | 4 × 10 ticks |
-| 01 | scintillements | pixels `Metano_Town_River_Sparkles` natifs, non recolorés | 4 × 10 ticks |
+| 00 | torrent | structure et couleurs exactes de la rivière Treasure ; l'onde descend vers le sud | 4 × 10 ticks |
+| 01 | scintillements | pixels `Treasure_Town_River_Sparkles` natifs, non recolorés | 4 × 10 ticks |
 | 02 | sol complet | sable généré séparément | — |
 | 03–05 | sable, berge de galets, rochers | décor généré | — |
 | 06 | touffes au vent | planche générée (24 poses) | 12 × 10 ticks |
@@ -23,6 +23,6 @@ Cinquième map de la série « entrées sud → nord générées » (après Vape
 ## Honnêteté
 
 - Le terrain et les touffes sont générés ; le balancement est créé par nous.
-- Les couleurs du torrent et les scintillements sont natifs Métano ; les pixels du torrent sont recalculés.
+- Les couleurs du torrent et les scintillements sont natifs Treasure ; les pixels du torrent sont recalculés.
 - Les ombres sont incluses dans le décor.
 - Aucun test PMDO en jeu, art non approuvé.

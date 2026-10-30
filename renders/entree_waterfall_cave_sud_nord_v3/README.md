@@ -17,7 +17,7 @@ EWC2, poussé plus tôt sur la même branche, répond déjà aux trois points. S
 
 Repris d'EWC2 sans changement :
 
-- l'eau façon Métano n'a plus le liseré `clair` en tirets contre les rives ;
+- l'eau façon Treasure n'a plus le liseré `clair` en tirets contre les rives ;
 - un couloir de sable (pixels du sol complet généré) remplace l'eau devant la bouche.
 
 Les tests d'EWC2 sur ces deux points sont repris.

@@ -23,7 +23,7 @@ for e in m['levels']:
 checks+=['20 compositions exactement recomposees depuis sept calques','10 toiles sur grille8px','Toutes vues exterieures strictement dans les ouvertures circulaires','Etage+2 : deux hublots32px espaces, aucune baie ; sous-sols sans fenetre']
 for e in m['levels']:
  assert len(e['connections'])==1
- port=e['connections'][0];ref=load(P/('spinda_cafe_reference.png' if e['family']=='Spinda' else 'metano_cafe_reference.png'))
+ port=e['connections'][0];ref=load(P/('spinda_cafe_reference.png' if e['family']=='Spinda' else 'treasure_cafe_reference.png'))
  src=ref.crop(tuple(port['source_box']))
  for mode in ['jour','nuit']:
   final=load(O/e['path']/f'composition_{mode}.png').crop(tuple(port['destination_box']))

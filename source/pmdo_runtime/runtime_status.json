@@ -49,20 +49,33 @@
     {
       "method": "PMDO -guide -quest with headless test hook",
       "result": "PASS 20 maps; exit 0"
+    },
+    {
+      "method": "PMDO 0.8.12 native Ground loader on final standalone Destiny ZIP",
+      "result": "PASS: exact final ZIP SHA-256 e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f; 246/246 Grounds in 13 lots; report destiny_final_quest_246_zip_runtime_results.tsv"
+    },
+    {
+      "method": "PMDO 0.8.12 ZoneData loader using Zone members extracted from final standalone ZIP",
+      "result": "PASS: exploration_cartes, 246 GroundMaps, 0 segments; report destiny_final_quest_246_zone_runtime_results.tsv"
+    },
+    {
+      "method": "PMDO 0.8.12 TileGuide.Load/GetPosition on final Quest build tree",
+      "result": "PASS: 1,059 nodes; 2,773,093 unique coordinates resolved, 0 missing across 246 Grounds; exact ZIP manifest payload SHA-256 audit PASS; reports destiny_final_quest_246_tileguide_runtime_results.tsv and summary JSON"
     }
   ],
   "available": [
     "PMDO 0.8.12 executable and bundled .NET 8.0.26",
-    "Base assets",
+    "Base assets from pinned DumpAsset commit",
     "Actual headless Ground loader",
-    "Python image audits"
+    "Actual headless TileGuide.Load/GetPosition",
+    "Python archive, SHA-256 and image audits"
   ],
   "missing": [
     "working graphical editor session",
     "Xvfb command",
     "confirmed graphics stack"
   ],
-  "next_step": "Diagnose editor native crash and supply a working display/render stack. No runtime ZIP upload is needed now.",
+  "next_step": "Graphical editor/render testing remains unvalidated; the final Quest passed headless Ground, Zone and TileGuide probes.",
   "cli_source_checked": "PMDC/Program.cs at v0.8.12: -dev, -quest [folder], -asset [path], -appdata [path]",
   "map_opened_in_engine_note": "No graphical map opening. Actual native headless Ground deserialization succeeded for 20 maps; see native_ground_deserialization.",
   "runtime_source": {
@@ -70,7 +83,8 @@
     "commit": "61c005e1dc9fd4eee6e6e7fcde77364de33d291e",
     "file": "pmdc-linux-x64.zip",
     "sha256": "c64f72afd27b96d5a870f71e44d05ee1e952909e86b9a53d0479163763c61577",
-    "matches_official_release_digest": true
+    "matches_official_release_digest": true,
+    "restored_for_final_quest_probe": true
   },
   "observed_version": "0.8.12.0",
   "observed_dotnet": "8.0.26",
@@ -79,12 +93,13 @@
     "commit": "3e767571f9dd94270b848b3a73de9bec2553a2eb",
     "path": ".cache/pmdo-runtime/engine/PMDO",
     "initial_missing_file": "Base/PathParams.xml",
-    "missing_base_resources_resolved": true
+    "missing_base_resources_resolved": true,
+    "restored_for_final_quest_probe": true
   },
   "native_ground_deserialization": {
     "status": "PASS",
     "count": 20,
-    "pack": "cotes_metano_abyss_0812_pmdo.zip",
+    "pack": "cotes_treasure_abyss_0812_pmdo.zip",
     "pack_sha256": "d1a14cdba7a0b4eae40b021fe972a1cb9c5172d498261ac45ce3a2e3eca74b43",
     "method": "Actual PMDO binary -guide -quest with temporary Lua startup hook calling DataManager.Instance.GetGround",
     "assertions": [
@@ -99,5 +114,47 @@
     "gpu_render_tested": false,
     "main_lua_restored": true,
     "results": "source/pmdo_runtime/ground_load_results.tsv"
-  }
+  },
+  "current_quest_package_tests": {
+    "archive": "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip",
+    "archive_bytes": 234272499,
+    "archive_sha256": "e3b2e559697bd682dd718573623a9c0dd30f60e24da62a820b7001810c2cc26f",
+    "ground_deserialization": {
+      "status": "PASS",
+      "passed": 246,
+      "failed": 0,
+      "batches": 13,
+      "input_is_exact_final_zip": true,
+      "report": "source/pmdo_runtime/destiny_final_quest_246_zip_runtime_results.tsv",
+      "probe_input_signature_sha256": "6289872101d51011b1f858dca5c171bf12bb63aa4f548a46c62febfa1284f7b5"
+    },
+    "zone": {
+      "status": "PASS",
+      "zone": "exploration_cartes",
+      "ground_maps": 246,
+      "segments": 0,
+      "source": "Mod.xml and both Data/Zone members extracted from exact final ZIP",
+      "report": "source/pmdo_runtime/destiny_final_quest_246_zone_runtime_results.tsv"
+    },
+    "tileguide": {
+      "status": "PASS",
+      "ground_maps": 246,
+      "tilesheets": 1059,
+      "unique_coordinates": 2773093,
+      "missing_coordinates": 0,
+      "transparent_frames_without_sheet": 74,
+      "batches": 13,
+      "report": "source/pmdo_runtime/destiny_final_quest_246_tileguide_runtime_results.tsv",
+      "summary": "source/pmdo_runtime/destiny_final_quest_246_tileguide_runtime_summary.json",
+      "input": "Quest staging tree used to build the final ZIP; payload equivalence independently SHA-256 verified"
+    },
+    "limitations": [
+      "headless only",
+      "no GPU/render/editor test",
+      "no title-screen rendering",
+      "no gameplay/playability certification"
+    ]
+  },
+  "current_quest_package_validation_report": "source/pmdo_runtime/destiny_final_quest_246_runtime_summary.json",
+  "runtime_graphics_note": "The final Quest was not opened in the editor; -dev has historically crashed with exit 139 in this sandbox. No GPU rendering was tested."
 }

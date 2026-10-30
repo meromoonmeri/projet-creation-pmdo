@@ -7,16 +7,16 @@ Ouvrir **`apercu_cafe_multietage_v2.html`** à la racine du dépôt.
 ## Dimensions
 | Référence | Original | Agrandissement A | Agrandissement B |
 |---|---:|---:|---:|
-| Metano / Halcyon |456×320|488×336|504×344|
+| Treasure / Halcyon |456×320|488×336|504×344|
 | Spinda / EoSO |696×456|728×472|744×480|
 
 A : +32px en largeur, +16px en profondeur. B : +48px et +24px. Des bandes natives de8px sont insérées symétriquement hors du seuil ; les pixels du seuil ne sont ni agrandis, ni retournés. Il s’agit de deux tailles proches des layouts d’origine, pas de dix architectures différentes.
 
-Les deux sous-sols reprennent Spinda ; accueil et deux étages reprennent Metano. Toutes les salles restent sans mobilier. Les murs et leurs ornements fixes sont conservés selon la reconstruction vide.
+Les deux sous-sols reprennent Spinda ; accueil et deux étages reprennent Treasure. Toutes les salles restent sans mobilier. Les murs et leurs ornements fixes sont conservés selon la reconstruction vide.
 
 ## Entrées / sorties et éclairage
 - Spinda : escalier du bas, encaissement rocheux, marches, lumière du haut des marches et dégradé sombre à leur pied, repris ensemble depuis la référence composée.
-- Metano : seuil éclairé rose/blanc du bas, avec son encadrement original.
+- Treasure : seuil éclairé rose/blanc du bas, avec son encadrement original.
 - **Aucun escalier central ajouté.** Aucune nouvelle liaison entre étages inventée.
 - Les accès suivent la bordure agrandie et gardent leur taille native et leur position relative dans le layout.
 - Le fond brun canonique est livré séparément : il permet de conserver correctement les transitions des ombres vers le fond.
@@ -35,7 +35,7 @@ Les compositions et schémas sont dans `A/` et `B/`. `PLANCHE_A.png` et `PLANCHE
 
 ## Sources et vérification
 Sources natives et empreintes conservées dans `source/cafe_multietage_v1/references/` :
-- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`, `metano_cafe.rsground` et feuilles Metano café.
+- [Palikadude/Halcyon](https://github.com/Palikadude/Halcyon), commit `da6c2130d641507447e6386a5e47a296e8cb4c71`, `treasure_cafe.rsground` et feuilles Treasure café.
 - [Minemaker0430/ExplorersOfSkyOrigins](https://github.com/Minemaker0430/ExplorersOfSkyOrigins), commit `4e7422acc263886198113a8256677766e4244228`, `spinda_cafe.rsground`, SpindaCafe1/2.
 
 Scripts : `source/cafe_multietage_v2/{build,gallery,verify}.py`, `test_viewer.cjs`. Dépendances : Pillow, numpy. `verification.json` consigne les comparaisons des sources,20 recompositions, masques circulaires, seuils exacts et tailles sur grille8px. Galerie testée en DOM simulé, sans test de navigateur réel.

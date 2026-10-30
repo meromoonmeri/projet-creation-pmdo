@@ -11,7 +11,7 @@ Projet d'édition autonome `entree_ruine_sud_nord` : un Ground `ern1_entree_ruin
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Sables mouvants façon rivière de Métano | 4 phases × 10 ticks |
+| 00 | Sables mouvants façon rivière de Treasure | 4 phases × 10 ticks |
 | 01 | Bulles de sable générées | 24 phases × 5 ticks, émetteurs décalés |
 | 02–07 | Sol complet, sable, rebords des fosses, rochers, falaises, bouche | fixes |
 | 08 | Tourbillons de poussière générés (décoratifs, non bloquants) | 8 phases × 5 ticks |
@@ -28,5 +28,5 @@ La scène boucle en 120 ticks (2 s).
 ## Limites
 
 - **Terrain, bulles et tourbillons** : générés à partir de la référence Sealed Ruin. Ce ne sont ni des pixels natifs, ni des animations officielles.
-- **Sables mouvants** : inspirés de la structure de la rivière Métano.
+- **Sables mouvants** : inspirés de la structure de la rivière Treasure.
 - **Tests** : aucun test dans PMDO.

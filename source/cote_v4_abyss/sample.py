@@ -28,7 +28,7 @@ def main():
  grass=np.array(Image.open(old/'00_HERBE.png'))[:,:,3]>0
  rock=land&~grass;h,w=land.shape
  layers=['00_HERBE_NATIVE','01_FACE_NATIVE','02_COURONNE_NATIVE','03_PIED_NATIF']
- sources={mode:{k:decode(HERE/'natifs'/f'Metano_Town_{k}{suffix}.tile') for k in ['Base','Cliffs']} for mode,suffix in [('jour',''),('nuit','_Night')]}
+ sources={mode:{k:decode(HERE/'natifs'/f'Treasure_Town_{k}{suffix}.tile') for k in ['Base','Cliffs']} for mode,suffix in [('jour',''),('nuit','_Night')]}
  records=[];variants={}
  for mode in sources:
   result=[np.zeros((h,w,4),dtype='uint8') for _ in layers]

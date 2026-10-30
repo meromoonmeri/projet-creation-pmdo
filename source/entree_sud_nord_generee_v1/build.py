@@ -241,8 +241,8 @@ def ground_project(static, water, blocked, entry_px, threshold_px):
     tools = loadmod('index_tools', R / 'source/pmdo_cote/INSTALLER.py')
     if STAGE.exists():
         shutil.rmtree(STAGE)
-    with zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip') as z:
-        tpl = json.loads(z.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    with zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip') as z:
+        tpl = json.loads(z.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     o = tpl['Object']
     gw, gh = W // 8, H // 8
     layers, banks = [], []
@@ -442,7 +442,7 @@ def build():
                    'rule': 'case bloquee si >25% non praticable (eau, buissons, roche, piliers, bouche)'},
         'pmdo': {'target': '0.8.12', 'serialization': '0.8.12.0', 'asset': ASSET, 'namespace': NAMESPACE,
                  'tex_size': 1, 'tile_px': 8, 'banks': banks, 'tiles_per_bank': counts,
-                 'template': 'mod_metano_expeditions_pmdo_0812.zip v50812_01_crete_sillage_jour (charge par PMDO 0.8.12 reel en sept.)',
+                 'template': 'mod_treasure_expeditions_pmdo_0812.zip v50812_01_crete_sillage_jour (charge par PMDO 0.8.12 reel en sept.)',
                  'runtime_tested': False, 'warp': 'aucun : donjon_seuil a raccorder'},
         'import_png_to_tileset': 'Chaque PNG de calques/ et animation/eau/ : 424x632, importer en 8 px. Noms ESN1_* uniques.',
         'art_approved': False,

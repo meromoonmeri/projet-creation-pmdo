@@ -1,0 +1,334 @@
+from __future__ import annotations
+
+"""Render an 8-direction dash with native Ceruledge afterimages and hidden rush body."""
+
+import subprocess
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+SRC = Path(__file__).resolve().parent
+ANIM = SRC / "assets/pmdo_animation"
+WALK_SHEET = SRC / "references/upstream/ceruledge_sprite/Walk-Anim.png"
+OUT_DIR = ROOT / "exports/illustrations/bitter_blade"
+ATLAS = SRC / "assets/bitter_blade_animation_sheet.png"
+GIF = OUT_DIR / "bitter_blade_dash_preview.gif"
+
+CANVAS = 640
+TILE = 40
+CENTER = (CANVAS // 2, CANVAS // 2)
+SPRITE_SIZE = (64, 112)  # nearest-neighbour 2x preview enlargement of native 32x56 cells
+AURA_SIZE = 144          # 2x native 72x72 PMDO particle cell
+WISP_SIZE = 48           # 1.5x native 32x32 PMDO particle cell
+SLASH_SIZE = 144
+AFTERIMAGE_ALPHA = 0.5  # Quick Attack's native AfterImageEmitter uses Alpha 128.
+DIRECTIONS = [
+    (0, 1, "S", "Sud"),
+    (1, 1, "SE", "Sud-Est"),
+    (1, 0, "E", "Est"),
+    (1, -1, "NE", "Nord-Est"),
+    (0, -1, "N", "Nord"),
+    (-1, -1, "NO", "Nord-Ouest"),
+    (-1, 0, "O", "Ouest"),
+    (-1, 1, "SO", "Sud-Ouest"),
+]
+
+
+def run(*args: str) -> None:
+    subprocess.run([str(arg) for arg in args], check=True)
+
+
+def crop_strip_frame(sheet: Path, cell: int, index: int, scale: int, output: Path) -> None:
+    run(
+        "convert",
+        str(sheet),
+        "-crop",
+        f"{cell}x{cell}+{index * cell}+0",
+        "+repage",
+        "-filter",
+        "point",
+        "-resize",
+        f"{scale}x{scale}!",
+        str(output),
+    )
+
+
+def crop_sprite(direction: int, frame: int, output: Path) -> None:
+    x = frame * 32
+    y = direction * 56
+    run(
+        "convert",
+        str(WALK_SHEET),
+        "-crop",
+        f"32x56+{x}+{y}",
+        "+repage",
+        "-filter",
+        "point",
+        "-resize",
+        f"{SPRITE_SIZE[0]}x{SPRITE_SIZE[1]}!",
+        str(output),
+    )
+
+
+def make_animation_atlas(work: Path) -> None:
+    aura = ANIM / "Bitter_Blade_Aura.png"
+    wisp = ANIM / "Bitter_Blade_Wisp.png"
+    slash = ANIM / "Bitter_Blade_Slash.png"
+    enlarged_wisp = work / "wisp_atlas.png"
+    run("convert", str(wisp), "-filter", "point", "-resize", "512x64!", str(enlarged_wisp))
+    width, height = 900, 560
+    args = [
+        "convert",
+        "-size",
+        f"{width}x{height}",
+        "xc:#008080",
+        "-font",
+        "DejaVu-Sans",
+        "-fill",
+        "white",
+        "-pointsize",
+        "19",
+        "-annotate",
+        "+24+29",
+        "BITTER BLADE / PMDO .dir particle strips",
+        "-pointsize",
+        "15",
+        "-annotate",
+        "+24+52",
+        "Aura de flammes noires — 8 frames, 72 x 72",
+        str(aura),
+        "-geometry",
+        "+24+61",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+164",
+        "Feux follets noirs — 8 frames, 32 x 32 (agrandis ici)",
+        str(enlarged_wisp),
+        "-geometry",
+        "+24+174",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+272",
+        "Balayage de flamme noire — 8 frames, 72 x 72",
+        str(slash),
+        "-geometry",
+        "+24+282",
+        "-compose",
+        "over",
+        "-composite",
+        "-annotate",
+        "+24+389",
+        "Ceruledge natif / Walk-Anim : 8 directions distinctes, aucune pose tournée",
+    ]
+
+    # The final row samples the first native Walk frame from each of Ceruledge's
+    # eight direction rows; it is not synthesized by rotating one pose.
+    for index, (_dx, _dy, label, _french) in enumerate(DIRECTIONS):
+        sprite = work / f"ceruledge_direction_{index}.png"
+        crop_sprite(index, 0, sprite)
+        args.extend(
+            [
+                str(sprite),
+                "-geometry",
+                f"+{24 + index * 84}+400",
+                "-compose",
+                "over",
+                "-composite",
+                "-font",
+                "DejaVu-Sans",
+                "-fill",
+                "white",
+                "-pointsize",
+                "14",
+                "-annotate",
+                f"+{39 + index * 84}+510",
+                label,
+            ]
+        )
+    args.extend(["-strip", "-define", "png:exclude-chunk=date,time", str(ATLAS)])
+    run(*args)
+
+
+def background(direction: int, work: Path) -> Path:
+    _dx, _dy, _label, french = DIRECTIONS[direction]
+    path = work / f"background_{direction}.png"
+    # No fake trajectory overlay: only a quiet backdrop behind the generated
+    # black-flame VFX and the native direction-specific Ceruledge frames.
+    run(
+        "convert",
+        "-size",
+        f"{CANVAS}x{CANVAS}",
+        "xc:#008080",
+        "-font",
+        "DejaVu-Sans",
+        "-fill",
+        "#f4f0ff",
+        "-pointsize",
+        "21",
+        "-annotate",
+        "+20+29",
+        f"BITTER BLADE  /  VIVE-ATTAQUE  /  5 CASES  /  {french.upper()}",
+        "-fill",
+        "#f4f0ff",
+        "-pointsize",
+        "14",
+        "-annotate",
+        "+20+52",
+        "Ceruledge masqué au rush — afterimages directionnels",
+        str(path),
+    )
+    return path
+
+
+def make_frames(work: Path) -> list[Path]:
+    aura_sheet = ANIM / "Bitter_Blade_Aura.png"
+    wisp_sheet = ANIM / "Bitter_Blade_Wisp.png"
+    slash_sheet = ANIM / "Bitter_Blade_Slash.png"
+    aura_frames: list[Path] = []
+    wisp_frames: list[Path] = []
+    slash_frames: list[Path] = []
+    for i in range(8):
+        aura = work / f"aura_preview_{i}.png"
+        wisp = work / f"wisp_preview_{i}.png"
+        slash = work / f"slash_preview_{i}.png"
+        crop_strip_frame(aura_sheet, 72, i, AURA_SIZE, aura)
+        crop_strip_frame(wisp_sheet, 32, i, WISP_SIZE, wisp)
+        crop_strip_frame(slash_sheet, 72, i, SLASH_SIZE, slash)
+        aura_frames.append(aura)
+        wisp_frames.append(wisp)
+        slash_frames.append(slash)
+
+    sprites: dict[tuple[int, int], Path] = {}
+    afterimages: dict[tuple[int, int], Path] = {}
+    for direction in range(8):
+        for frame in range(4):
+            sprite = work / f"ceruledge_{direction}_{frame}.png"
+            ghost = work / f"ceruledge_afterimage_{direction}_{frame}.png"
+            crop_sprite(direction, frame, sprite)
+            run(
+                "convert",
+                str(sprite),
+                "-channel",
+                "A",
+                "-evaluate",
+                "multiply",
+                str(AFTERIMAGE_ALPHA),
+                "+channel",
+                str(ghost),
+            )
+            sprites[(direction, frame)] = sprite
+            afterimages[(direction, frame)] = ghost
+
+    bases = [background(direction, work) for direction in range(8)]
+    output: list[Path] = []
+    frame_number = 0
+    for direction, (dx, dy, _label, _french) in enumerate(DIRECTIONS):
+        base = bases[direction]
+        # Two ready-up beats, ten rush beats (five tiles), then one landing
+        # beat. All eight direction rows come from Ceruledge's native sheet.
+        for local_frame in range(13):
+            if local_frame < 2:
+                progress = 0.0
+            elif local_frame < 12:
+                progress = (local_frame - 1) / 10
+            else:
+                progress = 1.0
+            x = round(CENTER[0] + dx * TILE * 5 * progress)
+            y = round(CENTER[1] + dy * TILE * 5 * progress)
+            walk_frame = (local_frame // 2) % 4
+            sprite = sprites[(direction, walk_frame)]
+            overlays: list[tuple[Path, int, int]] = []
+
+            # TileEmitter leaves a short string of animated wisps behind the dash.
+            trail_count = min(5, int(progress * 5 + 1e-6))
+            for tile_index in range(1, trail_count + 1):
+                wx = CENTER[0] + dx * TILE * tile_index
+                wy = CENTER[1] + dy * TILE * tile_index
+                wisp = wisp_frames[(local_frame + tile_index) % 8]
+                overlays.append((wisp, wx - WISP_SIZE // 2, wy - WISP_SIZE // 2))
+
+            # The pre-action aura flashes at takeoff. The runtime's
+            # AppearanceMod=Invisible hides the body through the rush; Quick
+            # Attack's AfterImageEmitter leaves translucent native poses behind.
+            if local_frame < 4:
+                aura = aura_frames[(local_frame + direction) % 8]
+                overlays.append((aura, CENTER[0] - AURA_SIZE // 2, CENTER[1] - AURA_SIZE // 2))
+
+            if 2 <= local_frame <= 12:
+                # Approximate the native AfterImageEmitter trail. Older copies
+                # disappear once their eight-tick lifetime has elapsed.
+                for age in range(7, -1, -1):
+                    past_frame = local_frame - age
+                    if not 2 <= past_frame <= 11:
+                        continue
+                    past_progress = (past_frame - 1) / 10
+                    past_x = round(CENTER[0] + dx * TILE * 5 * past_progress)
+                    past_y = round(CENTER[1] + dy * TILE * 5 * past_progress)
+                    past_walk_frame = (past_frame // 2) % 4
+                    ghost = afterimages[(direction, past_walk_frame)]
+                    overlays.append(
+                        (ghost, past_x - SPRITE_SIZE[0] // 2, past_y - SPRITE_SIZE[1] // 2)
+                    )
+
+            # The solid Ceruledge sprite is only visible before takeoff and after
+            # the slash lands, never during the five-tile rush itself.
+            if local_frame < 2 or local_frame == 12:
+                overlays.append((sprite, x - SPRITE_SIZE[0] // 2, y - SPRITE_SIZE[1] // 2))
+            if local_frame >= 11:
+                slash_index = min(7, 3 + (local_frame - 11) * 2)
+                slash = slash_frames[slash_index]
+                overlays.append((slash, x - SLASH_SIZE // 2, y - SLASH_SIZE // 2))
+
+            frame = work / f"preview_{frame_number:03d}.png"
+            args = ["convert", str(base)]
+            for layer, ox, oy in overlays:
+                args.extend(
+                    [
+                        str(layer),
+                        "-geometry",
+                        f"+{ox}+{oy}",
+                        "-compose",
+                        "over",
+                        "-composite",
+                    ]
+                )
+            args.append(str(frame))
+            run(*args)
+            output.append(frame)
+            frame_number += 1
+    return output
+
+
+def main() -> None:
+    required = [
+        ANIM / "Bitter_Blade_Aura.png",
+        ANIM / "Bitter_Blade_Wisp.png",
+        ANIM / "Bitter_Blade_Slash.png",
+        WALK_SHEET,
+    ]
+    missing = [path for path in required if not path.exists()]
+    if missing:
+        raise FileNotFoundError("Missing animation inputs: " + ", ".join(map(str, missing)))
+
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir = ROOT / ".cache"
+    cache_dir.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="bitter_blade_preview_", dir=cache_dir) as temp:
+        work = Path(temp)
+        make_animation_atlas(work)
+        frames = make_frames(work)
+        args = ["convert"]
+        for frame in frames:
+            args.extend(["-delay", "5", str(frame)])
+        args.extend(["-loop", "0", "-dispose", "None", "-strip", str(GIF)])
+        run(*args)
+
+    print(f"Built {ATLAS} and {GIF} ({len(frames)} frames, {GIF.stat().st_size:,} bytes).")
+
+
+if __name__ == "__main__":
+    main()

@@ -25,7 +25,7 @@ for i,(box,p) in enumerate(zip(C['source_boxes'],C['placements'])):
 assert expected.tobytes()==tile.tobytes()
 def wrapped(w,h,offset):
     result=np.zeros((h,w,4),np.uint8);part=arr[:,(np.arange(w)+offset)%P];result[C['y']:C['y']+tile.height]=part;return Image.fromarray(result)
-report={'status':'PASS','canonical_metano_terrain':False,'pmdo_runtime_tested':False,'clouds':{'source_sprites_preserved':4,'resizes':0,'period_px':P,'transparent_left_right_margin_at_least':32,'wrap_tests':'0=P, 1=P+1, -1=P-1, plus translation continuity at seam'},'zones':[]}
+report={'status':'PASS','canonical_treasure_terrain':False,'pmdo_runtime_tested':False,'clouds':{'source_sprites_preserved':4,'resizes':0,'period_px':P,'transparent_left_right_margin_at_least':32,'wrap_tests':'0=P, 1=P+1, -1=P-1, plus translation continuity at seam'},'zones':[]}
 for zi,z in enumerate(M['zones']):
     d=O/z['id'];w,h=z['dimensions_px'];f=z['files'];terrain=Image.open(d/f['terrain']).convert('RGBA')
     orig=Image.open(R/'sprites/falaises_cotieres_nues/01_promontoire/COTE01_02_TERRAIN_GENERE.png').convert('RGBA') if zi==0 else key(S/'terrasse_roche_corrigee.png')

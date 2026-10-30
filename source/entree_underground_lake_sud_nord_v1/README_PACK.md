@@ -13,9 +13,9 @@ Le biome, Underground Lake, a été choisi par l'agent à la demande de l'utilis
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Eau du lac, façon Métano (couleurs exactes du rip, sans liseré clair) | 4 × 10 ticks |
+| 00 | Eau du lac, façon Treasure (couleurs exactes du rip, sans liseré clair) | 4 × 10 ticks |
 | 01 | Lueur du lac (9 couleurs exactes du rip ; les anneaux respirent) | 12 × 10 ticks |
-| 02 | Scintillements Métano natifs | 4 × 10 ticks |
+| 02 | Scintillements Treasure natifs | 4 × 10 ticks |
 | 03 | Gouttes qui tombent du plafond et ronds dans l'eau (générés) | 24 × 5 ticks |
 | 04 | Sol complet (sable ; les parois du brut restent dessous) | fixe |
 | 05 | Sable praticable : chemin, plage, chaussée | fixe |
@@ -38,5 +38,5 @@ La scène complète boucle en 120 ticks (2 s).
 - **Terrain et gouttes** : ce sont des dessins générés à partir de la capture `Underground_Lake_shore_TDS.png`.
 - **Animations** : la chute, les ronds, la respiration de la lueur et leur chronologie sont créées par nous. Ce ne sont pas des animations officielles.
 - **Eau et lueur** : pixels recalculés, avec uniquement des couleurs du rip.
-- **Scintillements** : pixels Métano natifs du pack, sans modification.
+- **Scintillements** : pixels Treasure natifs du pack, sans modification.
 - **Tests** : aucun test fait dans PMDO.

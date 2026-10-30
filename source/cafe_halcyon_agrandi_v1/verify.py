@@ -15,12 +15,12 @@ def main():
  passed('Pinned native cafe Ground and five tile banks retain their source hashes')
  # Decode each actual native bank; do not trust a generated colour reference.
  for suffix in ['Base','Objects','Objects_Under','Objects_Over','Objects_Fringe']:
-  name='Metano_Town_Cafe_'+suffix;size,bank,_=tiles(S/(name+'.tile'));assert size==8
+  name='Treasure_Town_Cafe_'+suffix;size,bank,_=tiles(S/(name+'.tile'));assert size==8
   expected=load(S/(name+'.png'));rebuild=Image.new('RGBA',expected.size)
   for (x,y),tile in bank.items():rebuild.alpha_composite(straight(tile),(x*8,y*8))
   assert rebuild.tobytes()==expected.tobytes(),name
  passed('All five decoded cafe PNG sheets exactly match the native tile payloads')
- a,sx,sy=geometry();raw=np.array(load(S/'Metano_Town_Cafe_Base.png'));visible=a[:,:,3]>0
+ a,sx,sy=geometry();raw=np.array(load(S/'Treasure_Town_Cafe_Base.png'));visible=a[:,:,3]>0
  assert np.array_equal(a[visible],raw[sy[visible],sx[visible]])
  assert np.array_equal(a,np.array(load(O/'CafeHalcyon_terrain_transparent.png')))
  assert a.shape==(576,840,4);assert round(840*576/(456*320),4)==m['canvas_area_ratio']

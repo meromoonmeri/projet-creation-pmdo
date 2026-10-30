@@ -2,7 +2,7 @@
 
 Ce dépôt rassemble **toutes les méthodes** de création de cartes du projet
 [`meromoonmeri/projet-pmdo`](https://github.com/meromoonmeri/projet-pmdo) (« Guilde Treehouse »,
-zones Métano, entrées et fins de donjon, arènes, packs PMDO 0.8.12) — **sans les 6 Go de rendus**.
+zones Treasure, entrées et fins de donjon, arènes, packs PMDO 0.8.12) — **sans les 6 Go de rendus**.
 Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pmdo/commit/6cca4a09380211e510ab1bea454a1b1926ef4b5a) :
 **3 592 fichiers, 169 Mo, soit 2,7 % du volume d'origine.**
 
@@ -22,7 +22,7 @@ Extraction faite au commit [`6cca4a0`](https://github.com/meromoonmeri/projet-pm
 | **[METHODE_MAGENTA_ET_GENERATEUR.md](METHODE_MAGENTA_ET_GENERATEUR.md)** | **Comment ça marche** : générateur d'images → fond magenta → tuiles natives (formules, seuils, fidélité) |
 | [INDEX_METHODES.md](INDEX_METHODES.md) | Tableau des **208 sous-projets** : générateur, tests, package, provenance, Ground/tileset présents |
 | [MANUEL_METHODE_PMDO.md](MANUEL_METHODE_PMDO.md) | Manuel de production : état des livraisons, contrat artistique, limites du moteur |
-| [AGENTS.md](AGENTS.md) | Méthode de production approuvée (Métano, textures canoniques, contrat d'import) |
+| [AGENTS.md](AGENTS.md) | Méthode de production approuvée (Treasure, textures canoniques, contrat d'import) |
 | [REPRISE_MAPS.md](REPRISE_MAPS.md) | Reprise de la série de maps sud→nord : état, bogues, décisions |
 | [kit.json](kit.json) · [source/regles_acces.json](source/regles_acces.json) | Kit « Guilde Treehouse » : 12 salles, 11 calques, règles d'accès, ambiances |
 | [JOURNAL_GUILDE_TREEHOUSE.md](JOURNAL_GUILDE_TREEHOUSE.md) | Journal chronologique des livraisons (ancien `README.md` du dépôt source) |
@@ -55,7 +55,7 @@ Le détail — commandes, formats, règles de calques, marqueurs, collisions, li
 ├── fenetres_exterieur/  vues extérieures des fenêtres (12 × 7 PNG)
 ├── exterieur/        paysages extérieurs interchangeables
 ├── tiled/            sources Tiled des salles
-├── audits/           rapports d'audit (ex. imports Métano)
+├── audits/           rapports d'audit (ex. imports Treasure)
 ├── sprites/          données de découpe/layout (.tmj, .tsj, JSON) — pas les planches PNG
 ├── exports/          JSON, CSV, NPZ de provenance et d'audit (pas les images)
 ├── renders/          manifest.json, configs et scripts des rendus (pas les images)

@@ -38,7 +38,7 @@ def main():
     canonical=V.read_tile(source);control=Image.new('RGBA',(64,48))
     for y in range(6):
         for x in range(8):control.paste(canonical[114+x,58+y],(x*8,y*8))
-    C.equal(control,Image.open(WEB/'METANO_ROCHE_NATIVE_64x48.png'))
+    C.equal(control,Image.open(WEB/'TREASURE_ROCHE_NATIVE_64x48.png'))
     backgrounds={p.stem:V.read_dir(p) for p in (PACK/'Content/BG').glob('*.dir')}
     for mode in ['jour','nuit']:
         for kind in ['ciel','astres','nuages']:
@@ -54,7 +54,7 @@ def main():
     zones=sorted(m['zones'],key=lambda z:z['size'][0]*z['size'][1],reverse=True)
     for zone in zones:
         size=tuple(zone['size']);w,h=size[0]//8,size[1]//8;base=WEB/zone['id']
-        crop=zone['crop'];rock=np.array(Image.open(base/'01_ROCHE_METANO.png'));mask=rock[:,:,3]>0
+        crop=zone['crop'];rock=np.array(Image.open(base/'01_ROCHE_TREASURE.png'));mask=rock[:,:,3]>0
         yy,xx=np.indices((size[1],size[0]));expected=np.array(control)[(yy+crop[1])%48,(xx+crop[0])%64]
         assert np.array_equal(rock[mask],expected[mask]),'Native rock material changed'
         terrain=np.array(Image.open(base/'TERRAIN.png'));before=np.array(Image.open(base/'AVANT_ROCHE.png'))

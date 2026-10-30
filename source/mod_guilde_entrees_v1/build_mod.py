@@ -30,7 +30,7 @@ FIXED_DATE = (2026, 9, 27, 12, 0, 0)
 # Ordre de la série (chronologique). (dossier du lot, préfixe, titre court, format, image de scène)
 MAPS = [
     ('entree_vapeur_sud_nord_v1', 'ESN1', 'Vapeur (Steam Cave)', 'ESN1_scene_phase00.png'),
-    ('entree_vapeur_sud_nord_v2', 'ESN2', 'Vapeur V2 (eau Métano)', 'ESN2_scene_t000.png'),
+    ('entree_vapeur_sud_nord_v2', 'ESN2', 'Vapeur V2 (eau Treasure)', 'ESN2_scene_t000.png'),
     ('entree_cratere_sud_nord_v1', 'ECN1', 'Cratère (Dark Crater)', 'ECN1_scene_t000.png'),
     ('entree_ruine_sud_nord_v1', 'ERN1', 'Ruine (Sealed Ruin)', 'ERN1_scene_t000.png'),
     ('entree_givre_sud_nord_v1', 'EGN1', 'Givre (Frosty Forest)', 'EGN1_scene_t000.png'),
@@ -161,7 +161,7 @@ def readme(rows):
               f'Chaque carte a son script `Data/Script/{NAMESPACE}/ground/<carte>/init.lua`. Ceux d\'EWC2 et EWC3 exposent '
               '`ouvrir_cascade()` (cascade fermée → ouverture → ouverte, par visibilité de calques) : **non testé dans PMDO**.', '',
               '## Limites', '',
-              '- Terrains générés à partir de captures des jeux (rendu généré référencé) ; seuls les scintillements Métano d\'ESN2 et la cascade d\'ECN2 '
+              '- Terrains générés à partir de captures des jeux (rendu généré référencé) ; seuls les scintillements Treasure d\'ESN2 et la cascade d\'ECN2 '
               '(absente de ce mod) sont des tuiles natives.',
               '- Les animations sont créées pour ces cartes : ce ne sont pas les animations officielles.',
               '- Collisions et marqueurs vérifiés sur la grille, pas en jeu. Les seuils ne sont raccordés à aucun donjon.', '']

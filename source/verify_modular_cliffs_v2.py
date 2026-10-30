@@ -15,8 +15,8 @@ def decode(path):
 def premul(im):
     out=im.copy();out.putdata([(round(r*a/255),round(g*a/255),round(b*a/255),a) for r,g,b,a in im.getdata()]);return out
 
-atlas=Image.open(O/'Falaises_Metano_Modules.png').convert('RGBA');assert atlas.size==(400,480)
-assert decode(O/'Falaises_Metano_Modules.tile').tobytes()==premul(atlas).tobytes()
+atlas=Image.open(O/'Falaises_Treasure_Modules.png').convert('RGBA');assert atlas.size==(400,480)
+assert decode(O/'Falaises_Treasure_Modules.tile').tobytes()==premul(atlas).tobytes()
 assert len(M['modules'])==15;cache={};differences=0
 for part in M['modules']:
     p=R/part['source']['file'];assert hashlib.sha256(p.read_bytes()).hexdigest()==part['source']['sha256']
@@ -27,7 +27,7 @@ for part in M['modules']:
     assert expected.tobytes()==premul(actual).tobytes()
     x,y,w,h=part['atlas_rect_px'];assert all(v%8==0 for v in [x,y,w,h])
     assert atlas.crop((x,y,x+w,y+h)).tobytes()==actual.tobytes()
-ts=json.loads((O/'Falaises_Metano_Modules.tsj').read_text());assert ts['columns']==50 and ts['tilecount']==3000
+ts=json.loads((O/'Falaises_Treasure_Modules.tsj').read_text());assert ts['columns']==50 and ts['tilecount']==3000
 anims={t['id']:t['animation'] for t in ts['tiles']};assert len(anims)==136
 for seq in M['native_animations']:
     assert seq['FrameLength']==10
@@ -48,7 +48,7 @@ for f in range(1,5):
     assert Image.alpha_composite(bare,layer).tobytes()==render.tobytes()
 placements=json.loads((O/'placements_maisons.json').read_text());assert len(placements)==10
 for p in placements:assert (O/p['image']).is_file() and all(v%8==0 for v in p['position_px'])
-old={hashlib.sha256(p.read_bytes()).hexdigest() for p in (R/'sprites/maisons_metano').glob('*_jour.png')}
+old={hashlib.sha256(p.read_bytes()).hexdigest() for p in (R/'sprites/maisons_treasure').glob('*_jour.png')}
 new=[p for p in (R/'sprites/maisons_organiques_v2').glob('[0-9][0-9]_*_jour.png')];assert len(new)==10
 assert not any(hashlib.sha256(p.read_bytes()).hexdigest() in old for p in new)
 report={'status':'OK','native_modules':15,'source_pixel_differences':0,'native_atlas':'premultiplied roundtrip exact','village_house_layer':'Tiled equals PNG','village_phases_compared':4,'new_houses':10,'not_checked':['Import dans PMDO','Collisions et traversées de cours d’eau','Accès réels aux dix maisons','Fidélité artistique subjective']}

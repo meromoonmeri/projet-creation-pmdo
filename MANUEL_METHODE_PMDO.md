@@ -1,4 +1,4 @@
-# Manuel de production — falaises Métano et entrées de donjon PMDO
+# Manuel de production — falaises Treasure et entrées de donjon PMDO
 
 **Version du document : 13 septembre 2026 · cible moteur : PMDO 0.8.12.**
 
@@ -8,9 +8,9 @@ Ce manuel décrit les méthodes effectivement employées, leurs limites et le pr
 
 | Élément | État |
 |---|---|
-| Pack `cotes_metano_abyss_0812_pmdo.zip` | Livré : dix terrains, vingt variantes jour/nuit |
+| Pack `cotes_treasure_abyss_0812_pmdo.zip` | Livré : dix terrains, vingt variantes jour/nuit |
 | Filtre nocturne Abyss | Implémenté et comparé aux sources |
-| Sept falaises + trois entrées | Livrées dans `mod_metano_expeditions_pmdo_0812.zip` : 20 nouveaux Ground + 20 précédents |
+| Sept falaises + trois entrées | Livrées dans `mod_treasure_expeditions_pmdo_0812.zip` : 20 nouveaux Ground + 20 précédents |
 | Références Crooked Cavern / Brine Cave / Drenched Bluff | Tilesets téléchargés, décodés et références des cartes contrôlées |
 | Installation PMDO ici | **Moteur installé depuis RUNTIMEPMDO, ressources de base récupérées** |
 | Désérialisation par le vrai chargeur | **40 Ground du mod Expéditions : PASS, sans affichage** |
@@ -21,7 +21,7 @@ Le détail des tentatives est dans [installation_pmdo.json](source/cote_v5_exped
 ## 2. Contrat artistique et technique
 
 1. Garder des silhouettes organiques, de vastes plateaux et de hautes parois, pas des plateformes rectangulaires indépendantes.
-2. Utiliser Métano pour la matière de jour : herbe, roche, rebords et retours.
+2. Utiliser Treasure pour la matière de jour : herbe, roche, rebords et retours.
 3. Étudier les entrées de Palika et d’Explorers of Sky Origins pour leur **layout et leur construction**, pas pour copier leurs textures dans les nouvelles falaises.
 4. Conserver les nuages et les ressources de ciel Guilde/Sharpedo ; appliquer au terrain le filtre exact demandé d’Abyss.
 5. Séparer les éléments pour permettre l’édition : terrain, détails, volumes, entrée, animations, éléments devant les personnages.
@@ -74,7 +74,7 @@ Feuille : `Brine Cave Entrance`. Son index est en **24 px**. Sa grande image de 
 
 **À retenir pour le layout :** parvis asymétrique, entrée reculée dans la falaise, progression latérale depuis la côte, mer au pied de la corniche.
 
-**Erreur à éviter :** considérer la feuille comme une image de carte, ou réduire chaque tuile 24 × 24 à 8 × 8. Pour convertir une grille, une tuile 24 × 24 se découpe en **neuf cellules 8 × 8**, sans modifier ses pixels. Dans notre futur lot, ses textures restent des références d’étude : nous reconstruisons la matière avec Métano.
+**Erreur à éviter :** considérer la feuille comme une image de carte, ou réduire chaque tuile 24 × 24 à 8 × 8. Pour convertir une grille, une tuile 24 × 24 se découpe en **neuf cellules 8 × 8**, sans modifier ses pixels. Dans notre futur lot, ses textures restent des références d’étude : nous reconstruisons la matière avec Treasure.
 
 ### Drenched Bluff
 
@@ -144,21 +144,21 @@ Retirer les bandes extérieures vides sur les côtés de connexion. Aligner le r
 
 Tester les contacts séparément pour chaque côté. Un seul contact n’est pas la preuve que tout le bord est plein, et une falaise qui touche le cadre n’est pas automatiquement une sortie praticable ou scriptée.
 
-## 9. Reconstruction Métano par modules cohérents
+## 9. Reconstruction Treasure par modules cohérents
 
 Référence actuelle : `source/cote_v4_abyss/prepare.py`.
 
 | Fonction | Feuille | Rectangle en pixels |
 |---|---|---|
-| Herbe | Metano_Town_Base | `(0,640)-(128,768)` |
-| Face | Metano_Town_Cliffs | `(912,464)-(976,512)` |
-| Retour arrondi | Metano_Town_Cliffs | `(680,464)-(744,512)` |
-| Couronne | Metano_Town_Cliffs | `(912,448)-(976,464)` |
-| Pied | Metano_Town_Cliffs | `(912,528)-(976,544)` |
+| Herbe | Treasure_Town_Base | `(0,640)-(128,768)` |
+| Face | Treasure_Town_Cliffs | `(912,464)-(976,512)` |
+| Retour arrondi | Treasure_Town_Cliffs | `(680,464)-(744,512)` |
+| Couronne | Treasure_Town_Cliffs | `(912,448)-(976,464)` |
+| Pied | Treasure_Town_Cliffs | `(912,528)-(976,544)` |
 
 Préférer des rectangles cohérents de matière et des modules complets de sommet/face/pied à une sélection aléatoire de fragments de 8 px. Les grandes faces du pack livré répètent des panneaux 64 × 48, les retours suivent les bords et les couronnes suivent les terrasses.
 
-Découper par alpha conserve les RGB source des pixels retenus, mais change le contour du module. C’est une adaptation documentée, pas une copie intégrale de la carte Métano.
+Découper par alpha conserve les RGB source des pixels retenus, mais change le contour du module. C’est une adaptation documentée, pas une copie intégrale de la carte Treasure.
 
 Les pixels d’herbe contenus dans une couronne rocheuse sont exclus lorsque leur placement créerait une marche verte rectangulaire. Cela retire des pixels ; cela ne repeint pas les autres.
 
@@ -170,7 +170,7 @@ Un remplissage natif peut rester trop répétitif ou trop plat. « Zéro différ
 
 La construction des entrées dissocie :
 
-1. relief de la falaise Métano ;
+1. relief de la falaise Treasure ;
 2. cadre et rebord de l’ouverture ;
 3. vide de la cavité ;
 4. seuil et espace praticable devant la bouche ;
@@ -178,13 +178,13 @@ La construction des entrées dissocie :
 6. détails facultatifs ;
 7. marqueur et déclencheur de transition.
 
-Étudier Crooked/Brine/Drenched ne donne pas l’autorisation artistique de conserver leurs palettes dans un décor demandé Métano. Si un module Métano ne permet pas une ouverture donnée sans déformation, adapter le layout ou concevoir un assemblage natif explicite. Ne pas agrandir une petite porte ni coller silencieusement une façade étrangère.
+Étudier Crooked/Brine/Drenched ne donne pas l’autorisation artistique de conserver leurs palettes dans un décor demandé Treasure. Si un module Treasure ne permet pas une ouverture donnée sans déformation, adapter le layout ou concevoir un assemblage natif explicite. Ne pas agrandir une petite porte ni coller silencieusement une façade étrangère.
 
 La bouche doit se lire à la taille du personnage. Le parvis doit permettre de se présenter devant le seuil et de revenir en arrière. Le héros ne doit pas pouvoir marcher dans la paroi parce que le dessin semble ouvert.
 
 ## 11. Architecture des calques
 
-Dans le pack Métano/Abyss livré : mer, herbe, faces, retours, couronnes, pieds, puis trois calques de structures vides. Les fonds ciel/astres/nuages sont séparés de ces couches de tuiles.
+Dans le pack Treasure/Abyss livré : mer, herbe, faces, retours, couronnes, pieds, puis trois calques de structures vides. Les fonds ciel/astres/nuages sont séparés de ces couches de tuiles.
 
 Pour les nouvelles entrées, ajouter des couches dédiées au cadre/seuil et à l’ombre, sans les fusionner avec la roche globale. Un élément qui doit passer devant le personnage doit utiliser une couche appropriée : `Top=4` dans le moteur audité. Ne pas placer toute la falaise au-dessus du joueur par défaut.
 
@@ -214,7 +214,7 @@ Le filtre est appliqué une fois aux terrains, à la mer et aux nuages. Les ress
 
 ## 13. Mer, nuages et temps moteur
 
-- Mer actuelle : huit phases issues de la côte V2, pas la rivière canonique Métano.
+- Mer actuelle : huit phases issues de la côte V2, pas la rivière canonique Treasure.
 - `FrameLength=10` : dix frames moteur par phase ; boucle de 80 frames, soit environ 1,33 s à 60 Hz.
 - Nuages : six familles prélevées sans agrandissement, bande de 1440 × 208 px, déplacement horizontal −4 px/s, répétition X.
 - Ciel et astres : ressources distinctes ; contrôler le placement de la lune sur la carte la plus étroite.
@@ -294,7 +294,7 @@ Voir [installation, provenance, résultats et reproduction](source/pmdo_runtime/
 Le code `PMDC/Program.cs` de v0.8.12 confirme les options `-dev`, `-quest [folder]`, `-asset [path]`, `-appdata [path]`. Exemple de principe **non exécuté** :
 
 ```sh
-./PMDC -dev -quest cotes_metano_abyss_0812
+./PMDC -dev -quest cotes_treasure_abyss_0812
 ```
 
 Adapter le nom réel de l’exécutable et les chemins après extraction. Ne pas utiliser aveuglément une commande de conversion/réindexation contre les données de l’utilisateur. Ne pas considérer un essai `-help` comme un démarrage de l’éditeur.
@@ -321,7 +321,7 @@ Projet temporaire avec une banque étrangère, simulation sans écriture, fusion
 
 Ouverture dans PMDO 0.8.12, tous les calques visibles, comparaison 1×, animation pendant plusieurs boucles, marche et collisions, déclenchement/retour de donjon, sauvegarde et réouverture. Capturer les erreurs et ne pas les remplacer par une affirmation de compatibilité.
 
-Un rapport doit indiquer quels niveaux ont été effectués. Les packs ont des contrôles A–D. Le dernier pack Métano/Abyss possède désormais un test de désérialisation par le moteur réel ; **la partie graphique et interactive du niveau E reste non validée**.
+Un rapport doit indiquer quels niveaux ont été effectués. Les packs ont des contrôles A–D. Le dernier pack Treasure/Abyss possède désormais un test de désérialisation par le moteur réel ; **la partie graphique et interactive du niveau E reste non validée**.
 
 ## 21. Aperçu et exports
 
@@ -329,7 +329,7 @@ L’aperçu HTML utilise des images WebP sans perte embarquées, contrôlées co
 
 Les tests Node actuels simulent le DOM et contrôlent les interactions ; ils ne sont ni un vrai navigateur ni un test du moteur. Les planches réduites sont des documents de lecture, jamais des assets à importer.
 
-## 22. Reproduction du pack Métano/Abyss antérieur
+## 22. Reproduction du pack Treasure/Abyss antérieur
 
 Dépendances de la chaîne images : Python, Pillow, NumPy. Outils auxiliaires : Git, GitHub CLI, Node pour les tests d’interaction. Ces outils ne remplacent pas PMDO.
 
@@ -338,18 +338,18 @@ Dépendances de la chaîne images : Python, Pillow, NumPy. Outils auxiliaires : 
 .venv/bin/python source/cote_v4_abyss/build.py
 .venv/bin/python source/cote_v4_abyss/make_project.py
 .venv/bin/python source/cote_v4_abyss/package.py
-node source/cote_dix_zones/test_viewer.cjs apercu_cotes_metano_abyss.html
+node source/cote_dix_zones/test_viewer.cjs apercu_cotes_treasure_abyss.html
 ```
 
 Le package exécute son vérificateur avant archivage. Les sorties natives non compressées sont dans `~/.cache/cote_v4_abyss_pack/`. Les copies PNG régénérables sont ignorées par Git ; le ZIP et l’aperçu conservent les pixels finaux.
 
-Ces commandes reproduisent **le pack Métano/Abyss antérieur**. Pour le mod Expéditions de 40 Ground, suivre les commandes de `source/cote_v5_expeditions/README.md`.
+Ces commandes reproduisent **le pack Treasure/Abyss antérieur**. Pour le mod Expéditions de 40 Ground, suivre les commandes de `source/cote_v5_expeditions/README.md`.
 
 ## 23. Erreurs connues et réponses correctes
 
 | Symptôme | Mauvaise réponse | Réponse correcte |
 |---|---|---|
-| Roche générée non Métano | Affirmer que le prompt garantit la fidélité | Reconstruire depuis les sources natives |
+| Roche générée non Treasure | Affirmer que le prompt garantit la fidélité | Reconstruire depuis les sources natives |
 | Import perçu minuscule | Agrandir tous les PNG | Vérifier taille des cellules, zoom et échelle des modules |
 | Mur natif trop répétitif | Se contenter de zéro écart RGB | Revoir panneaux, retours et composition |
 | Frange sombre sur un overlay | Repeindre au hasard | Vérifier alpha droit/prémultiplié et double mélange |
@@ -362,20 +362,20 @@ Ces commandes reproduisent **le pack Métano/Abyss antérieur**. Pour le mod Exp
 
 ## 24. Provenance, attribution et archivage
 
-Conserver les crédits Métano / Palika / Halcyon, ceux des références EoSO, ceux des variantes Abyss et des fonds Guilde/Sharpedo. Un dépôt public n’est pas une licence de réutilisation sans restrictions.
+Conserver les crédits Treasure / Palika / Halcyon, ceux des références EoSO, ceux des variantes Abyss et des fonds Guilde/Sharpedo. Un dépôt public n’est pas une licence de réutilisation sans restrictions.
 
 Les textures des trois entrées de référence sont archivées pour analyse, pas choisies comme matière des nouvelles cartes. Les téléchargements de moteur, bibliothèques et fichiers temporaires doivent rester hors du contenu versionné du projet.
 
 Ne jamais effacer un ancien pack pour faire place à une correction. Marquer la livraison courante, conserver les rapports et décrire ce qui change réellement.
 
 
-## 25. Livraison Métano Expéditions : sept falaises et trois entrées
+## 25. Livraison Treasure Expéditions : sept falaises et trois entrées
 
-Le fichier courant est **`mod_metano_expeditions_pmdo_0812.zip`**, projet `metano_expeditions`. Il réunit 20 nouveaux Ground `v50812_*` et les 20 Ground `v40812_*` du pack précédent, laissés identiques. Les archives modulaires plus anciennes ne sont pas incluses.
+Le fichier courant est **`mod_treasure_expeditions_pmdo_0812.zip`**, projet `treasure_expeditions`. Il réunit 20 nouveaux Ground `v50812_*` et les 20 Ground `v40812_*` du pack précédent, laissés identiques. Les archives modulaires plus anciennes ne sont pas incluses.
 
 Les nouvelles silhouettes sont définies par `layouts.py` : contours Catmull-Rom rasterisés à la résolution native, plateaux superposés et découpes explicites des deux baies. Il s’agit d’une interprétation du guide, pas de l’extraction de ses panneaux mal numérotés. Le guide ne fournit aucun RGB final.
 
-Les deux grottes utilisent un même encadrement Métano natif dans deux layouts différents ; le troisième accès est un corridor ouvert. Les palettes Crooked Cavern, Brine Cave et Drenched Bluff ne sont pas utilisées. Leurs ressources restent uniquement dans le dossier d’étude. Les accès sont sur un sixième calque de terrain indépendant.
+Les deux grottes utilisent un même encadrement Treasure natif dans deux layouts différents ; le troisième accès est un corridor ouvert. Les palettes Crooked Cavern, Brine Cave et Drenched Bluff ne sont pas utilisées. Leurs ressources restent uniquement dans le dossier d’étude. Les accès sont sur un sixième calque de terrain indépendant.
 
 Les nouvelles collisions bloquent les cellules partiellement hors herbe et les éléments d’accès. Une recherche de chemin vérifie un dégagement 16×16 depuis chaque arrivée jusqu’au seuil. Les accès entre terrasses secondaires et le comportement réel des collisions restent à contrôler dans le jeu.
 

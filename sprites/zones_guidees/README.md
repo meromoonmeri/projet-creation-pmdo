@@ -11,7 +11,7 @@
 
 ## Ce qui a été adapté
 
-Le modèle du générateur n’a pas été modifié. Ses **consignes et images de référence** ont été adaptées pour demander deux compositions sèches, une palette proche de Métano, des falaises organiques et aucun bâtiment, chemin ou eau. Référence utilisée : `source/falaises_generees/reference_canonique.png`.
+Le modèle du générateur n’a pas été modifié. Ses **consignes et images de référence** ont été adaptées pour demander deux compositions sèches, une palette proche de Treasure, des falaises organiques et aucun bâtiment, chemin ou eau. Référence utilisée : `source/falaises_generees/reference_canonique.png`.
 
 Les deux vraies sorties du générateur sont conservées dans `source/zones_guidees/generateur_01.png` et `generateur_02.png`. Elles sont **des propositions non canoniques**. Le visualiseur en embarque des aperçus JPEG légers ; les PNG originaux restent dans le dépôt.
 

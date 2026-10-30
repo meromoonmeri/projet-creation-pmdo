@@ -2,8 +2,8 @@
 from pathlib import Path
 from PIL import Image
 import json,io,struct,hashlib,argparse
-parser=argparse.ArgumentParser();parser.add_argument("--output",type=Path);parser.add_argument("--expected-maps",type=int,default=3);parser.add_argument("--sheet-name",default="Extension_Metano");args=parser.parse_args();SHEET=args.sheet_name
-R=Path(__file__).resolve().parents[1];O=args.output if args.output else R/'sprites/falaises_metano';M=json.loads((O/'kit.json').read_text());TS=json.loads((O/(SHEET+'.tsj')).read_text())
+parser=argparse.ArgumentParser();parser.add_argument("--output",type=Path);parser.add_argument("--expected-maps",type=int,default=3);parser.add_argument("--sheet-name",default="Extension_Treasure");args=parser.parse_args();SHEET=args.sheet_name
+R=Path(__file__).resolve().parents[1];O=args.output if args.output else R/'sprites/falaises_treasure';M=json.loads((O/'kit.json').read_text());TS=json.loads((O/(SHEET+'.tsj')).read_text())
 assert M['size_px']==[2048,1536] and M['grid_px']==8 and len(M['maps'])==args.expected_maps
 atlas=Image.open(O/(SHEET+'.png')).convert('RGBA');cols=TS['columns'];count=TS['tilecount'];assert cols*8==atlas.width and count==atlas.width*atlas.height//64
 cache=[atlas.crop(((i%cols)*8,(i//cols)*8,(i%cols)*8+8,(i//cols)*8+8)) for i in range(count)]

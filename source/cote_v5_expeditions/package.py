@@ -7,7 +7,7 @@ import base64,io,json,zipfile,shutil,hashlib
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[2];HERE=Path(__file__).resolve().parent
 WEB=ROOT/'sprites/cote_v5_expeditions';PACK=Path.home()/'.cache/cote_v5_expeditions_pack'
-VIEW='apercu_metano_expeditions.html';ZIP='mod_metano_expeditions_pmdo_0812.zip'
+VIEW='apercu_treasure_expeditions.html';ZIP='mod_treasure_expeditions_pmdo_0812.zip'
 
 def main():
  assert json.loads((PACK/'verification.json').read_text())['status']=='PASS'
@@ -21,7 +21,7 @@ def main():
   im=Image.open(WEB/name).convert('RGBA');b=io.BytesIO();im.save(b,format='WEBP',lossless=True,exact=True,method=6)
   raw=b.getvalue();assert Image.open(io.BytesIO(raw)).convert('RGBA').tobytes()==im.tobytes()
   images[name]='data:image/webp;base64,'+base64.b64encode(raw).decode()
- old_html=(ROOT/'apercu_cotes_metano_abyss.html').read_text()
+ old_html=(ROOT/'apercu_cotes_treasure_abyss.html').read_text()
  old=json.loads(old_html.split('const DATA=',1)[1].split(';\ndocument.querySelectorAll',1)[0])
  for name,data in old['images'].items():
   if name in images:
@@ -30,16 +30,16 @@ def main():
    assert a.size==b.size and a.tobytes()==b.tobytes()
   else:images[name]=data
  template=(ROOT/'source/cote_v4_abyss/viewer.html').read_text()
- template=template.replace('Métano · Nuit Abyss · PMDO 0.8.12','Métano Expéditions · 40 Ground').replace('Dix côtes Métano · nuit Abyss','Métano Expéditions').replace('PMDO 0.8.12 · 10 lieux · 20 Ground','7 falaises + 3 entrées · 20 lieux · 40 Ground')
- template=template.replace('cotes_metano_abyss_0812_pmdo.zip',ZIP)
+ template=template.replace('Treasure · Nuit Abyss · PMDO 0.8.12','Treasure Expéditions · 40 Ground').replace('Dix côtes Treasure · nuit Abyss','Treasure Expéditions').replace('PMDO 0.8.12 · 10 lieux · 20 Ground','7 falaises + 3 entrées · 20 lieux · 40 Ground')
+ template=template.replace('cotes_treasure_abyss_0812_pmdo.zip',ZIP)
  template=template.replace("let mode='nuit',selected=0", "let mode='jour',selected=7")
  template=template.replace("const get=(key)=>images[key];", "el('zone').value='7';\nconst get=(key)=>images[key];")
  template=template.replace("(z.new?'':'V2 · ')","(z.new?(z.kind==='donjon'?'Entrée · ':'Nouveau · '):'Archive · ')")
  template=template.replace('Aucun bâtiment, arbre ou chemin posé','Entrées natives · structures libres · destinations à raccorder')
- template=template.replace('Terrain V2 conservé · nouveaux fonds et nuit','Terrain Métano/Abyss précédent conservé')
- template=template.replace('Métano natif · filtre Abyss · bords W/E/S joints','Nouveau terrain Métano · filtre Abyss · grille 8 px')
+ template=template.replace('Terrain V2 conservé · nouveaux fonds et nuit','Terrain Treasure/Abyss précédent conservé')
+ template=template.replace('Treasure natif · filtre Abyss · bords W/E/S joints','Nouveau terrain Treasure · filtre Abyss · grille 8 px')
  a=template.index('<p>Les dix silhouettes approuvées');b=template.index('</p>',a)+4
- template=template[:a]+'''<p>Sept nouvelles falaises et trois entrées interprètent les layouts étudiés, sans leurs textures. Herbe, roche et accès viennent de Métano. Les deux grottes partagent un encadrement natif dans deux compositions distinctes ; le troisième accès est un défilé ouvert. Le mod conserve aussi les vingt Ground précédents. Les trois destinations de donjon sont à raccorder : les marqueurs ne sont pas des téléporteurs automatiques.</p>'''+template[b:]
+ template=template[:a]+'''<p>Sept nouvelles falaises et trois entrées interprètent les layouts étudiés, sans leurs textures. Herbe, roche et accès viennent de Treasure. Les deux grottes partagent un encadrement natif dans deux compositions distinctes ; le troisième accès est un défilé ouvert. Le mod conserve aussi les vingt Ground précédents. Les trois destinations de donjon sont à raccorder : les marqueurs ne sont pas des téléporteurs automatiques.</p>'''+template[b:]
  template=template.replace('<strong>Aucun test dans PMDO n’a été effectué.</strong> Les collisions sont libres : dessiner les obstacles et vérifier les raccords avant d’en faire des zones jouables.', '<strong>40 Ground chargés par le vrai PMDO 0.8.12, sans affichage.</strong> Le rendu GPU et le gameplay ne sont pas testés. Les nouvelles collisions de base et les chemins vers les trois seuils sont vérifiés par grille ; les anciennes cartes gardent leurs collisions libres. Voir le manuel pour les raccords et destinations.')
  html=template.replace('__DATA__',json.dumps({'manifest':manifest,'images':images},ensure_ascii=False,separators=(',',':')))
  (ROOT/VIEW).write_text(html)
@@ -50,9 +50,9 @@ def main():
  for z in new['zones']:
   if z['door']:doors.append({'title':z['title'],'ground_jour':z['variants']['jour']['asset'],'ground_nuit':z['variants']['nuit']['asset'],'threshold_marker':'donjon_seuil','threshold':z['door']['threshold'],'zone_id':None,'segment':None,'floor':None,'return_marker':'entrance','active':False})
  (PACK/'RACCORDEMENT_DONJONS.json').write_text(json.dumps({'note':'Fiche a completer, non executee. Les destinations ne sont pas connues.','entrances':doors},ensure_ascii=False,indent=2))
- (PACK/'OUVRIR_EDITEUR.bat').write_text('@echo off\r\ncd /d "%~dp0..\\.."\r\nif exist "PMDO.exe" (\r\n  start "" "PMDO.exe" -dev -quest metano_expeditions\r\n) else if exist "PMDC.exe" (\r\n  start "" "PMDC.exe" -dev -quest metano_expeditions\r\n) else (\r\n  echo Placer metano_expeditions dans le dossier MODS de PMDO.\r\n  pause\r\n)\r\n')
- (PACK/'OUVRIR_EDITEUR.sh').write_text('#!/usr/bin/env bash\nset -e\ncd -- "$(dirname -- "$0")/../.."\nif [[ -x ./PMDO ]]; then exec ./PMDO -dev -quest metano_expeditions; fi\nif [[ -x ./PMDC ]]; then exec ./PMDC -dev -quest metano_expeditions; fi\necho "Placer metano_expeditions dans le dossier MODS de PMDO." >&2\nexit 1\n')
- runtime=ROOT/'.cache/pmdo-runtime/engine/PMDO/MODS/metano_expeditions'
+ (PACK/'OUVRIR_EDITEUR.bat').write_text('@echo off\r\ncd /d "%~dp0..\\.."\r\nif exist "PMDO.exe" (\r\n  start "" "PMDO.exe" -dev -quest treasure_expeditions\r\n) else if exist "PMDC.exe" (\r\n  start "" "PMDC.exe" -dev -quest treasure_expeditions\r\n) else (\r\n  echo Placer treasure_expeditions dans le dossier MODS de PMDO.\r\n  pause\r\n)\r\n')
+ (PACK/'OUVRIR_EDITEUR.sh').write_text('#!/usr/bin/env bash\nset -e\ncd -- "$(dirname -- "$0")/../.."\nif [[ -x ./PMDO ]]; then exec ./PMDO -dev -quest treasure_expeditions; fi\nif [[ -x ./PMDC ]]; then exec ./PMDC -dev -quest treasure_expeditions; fi\necho "Placer treasure_expeditions dans le dossier MODS de PMDO." >&2\nexit 1\n')
+ runtime=ROOT/'.cache/pmdo-runtime/engine/PMDO/MODS/treasure_expeditions'
  hashes={}
  for p in (PACK/'Data/Ground').glob('*.rsground'):
   assert p.read_bytes()==(runtime/'Data/Ground'/p.name).read_bytes()
@@ -63,7 +63,7 @@ def main():
  with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
   for p in sorted(PACK.rglob('*')):
    if p.is_file() and '__pycache__' not in p.parts:
-    info=zipfile.ZipInfo('metano_expeditions/'+p.relative_to(PACK).as_posix(),(2026,9,13,0,0,0))
+    info=zipfile.ZipInfo('treasure_expeditions/'+p.relative_to(PACK).as_posix(),(2026,9,13,0,0,0))
     info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=(0o100755 if p.suffix=='.sh' else 0o100644)<<16
     archive.writestr(info,p.read_bytes(),compresslevel=9)
  with zipfile.ZipFile(output) as archive:

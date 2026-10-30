@@ -13,8 +13,8 @@ ROOT=Path(__file__).resolve().parents[2]
 HERE=Path(__file__).resolve().parent
 WEB=ROOT/'sprites/cote_dix_zones'
 PACK=Path.home()/'.cache/cote_dix_pack'
-VIEWER_NAME='apercu_dix_zones_metano.html'
-ZIP_NAME='cote_metano_dix_zones_pmdo.zip'
+VIEWER_NAME='apercu_dix_zones_treasure.html'
+ZIP_NAME='cote_treasure_dix_zones_pmdo.zip'
 EXPECTED_TOTAL=24
 
 

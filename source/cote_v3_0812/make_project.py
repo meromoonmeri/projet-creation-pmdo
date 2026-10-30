@@ -25,7 +25,7 @@ def main():
 <Header>
   <Name>Cotes V2 - Atelier 0.8.12</Name>
   <Author>meromoonmeri</Author>
-  <Description>Projet d'edition : 10 terrains V2, roche Metano native, jour et nuit. Pas une aventure jouable.</Description>
+  <Description>Projet d'edition : 10 terrains V2, roche Treasure native, jour et nuit. Pas une aventure jouable.</Description>
   <Namespace>{NAMESPACE}</Namespace>
   <UUID>{ident}</UUID>
   <Version>1.0.0.0</Version>

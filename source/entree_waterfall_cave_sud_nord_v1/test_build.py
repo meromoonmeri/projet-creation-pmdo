@@ -101,17 +101,17 @@ class Build(unittest.TestCase):
             d = float(np.linalg.norm(px.mean(0) - np.array(fid[k]['rip_rgb'])))
             self.assertLess(d, 20, (k, d))                                  # calques finaux ≈ rip
 
-    def test_water_metano_exact_and_loop(self):
+    def test_water_treasure_exact_and_loop(self):
         v2 = loadmod('esn2', R / 'source/entree_vapeur_sud_nord_v2/build.py')
         native = set()
         for i in range(1, 5):
-            t = v2.decode_tile(R / f'source/eau_metano/natifs/Metano_Town_River_Animation_{i}.tile')
+            t = v2.decode_tile(R / f'source/eau_treasure/natifs/Treasure_Town_River_Animation_{i}.tile')
             native |= {tuple(int(v) for v in px[:3]) for a in t.values() for px in a.reshape(-1, 4) if px[3] == 255}
         fr = BY['eau']; mask = fr[0][..., 3] == 255
         self.assertEqual((len(fr), M['water']['frame_length_ticks']), (4, 10))
         for a in fr:
             self.assertTrue(((a[..., 3] == 255) == mask).all())
-        self.assertTrue(colors(fr) <= native, colors(fr) - native)          # couleurs Métano EXACTES
+        self.assertTrue(colors(fr) <= native, colors(fr) - native)          # couleurs Treasure EXACTES
         d = [int((fr[t][mask] != fr[(t + 1) % 4][mask]).any(1).sum()) for t in range(4)]
         self.assertTrue(min(d) > 0 and max(d) < 2 * min(d), d)              # 3 -> 0 compris
 

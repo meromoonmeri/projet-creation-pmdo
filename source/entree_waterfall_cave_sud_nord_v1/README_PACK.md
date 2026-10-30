@@ -11,8 +11,8 @@ Projet d'édition autonome `entree_waterfall_cave_sud_nord`. Il contient un Grou
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | Eau des bassins et de la vasque, façon Métano (couleurs Métano exactes) | 4 × 10 ticks |
-| 01 | Scintillements Métano natifs | 4 × 10 ticks |
+| 00 | Eau des bassins et de la vasque, façon Treasure (couleurs Treasure exactes) | 4 × 10 ticks |
+| 01 | Scintillements Treasure natifs | 4 × 10 ticks |
 | 02 | Sol complet (sable) | fixe |
 | 03 | Sable praticable | fixe |
 | 04 | Cailloux | fixe |
@@ -38,6 +38,6 @@ La scène complète boucle en 240 ticks (4 s).
 ## Limites
 
 - **Terrain, cascade, écume et embruns** : dessins générés à partir de la capture `entrancecascade.png`. Le défilement de la cascade, les émetteurs et la chronologie sont créés par nous ; ce ne sont pas des animations officielles.
-- **Eau** : façon Métano, pixels recalculés avec les couleurs Métano exactes.
-- **Scintillements** : seuls pixels Métano natifs du pack.
+- **Eau** : façon Treasure, pixels recalculés avec les couleurs Treasure exactes.
+- **Scintillements** : seuls pixels Treasure natifs du pack.
 - **Tests** : aucun test fait dans PMDO.

@@ -10,7 +10,7 @@ Troisième map de la série, après l'Entrée Vapeur et l'Entrée Cratère. Biom
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | sables mouvants (structure rivière Métano) | 4 × 10 ticks |
+| 00 | sables mouvants (structure rivière Treasure) | 4 × 10 ticks |
 | 01 | bulles de sable générées (12 poses, 8 émetteurs décalés) | 24 × 5 ticks |
 | 02–07 | sol complet, sable, rebords des fosses, rochers, falaises, bouche | — |
 | 08 | tourbillons de poussière générés (2, décoratifs, non bloquants) | 8 × 5 ticks |

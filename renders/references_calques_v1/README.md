@@ -22,7 +22,7 @@ Les neuf originaux générés sont conservés dans `bruts/`. Fond magenta retir�
 ## Animation et limites
 Reflet reconstruit par bandes irrégulières fixes dont l’opacité varie sinusoïdalement ; le ciel, l’astre, l’eau de base et le terrain restent fixes. Pas de récupération d’une animation originale, pas de modification du mod natif PMDO. La référence GIF de guilde ne possède qu’une image.
 
-Les falaises sont des propositions générées guidées par la référence Métano, sans certification palette/couronne native. La version nocturne du terrain utilise exactement `source/cote_v4_abyss/night.py`. Les dessins et proportions restent à valider visuellement par l’utilisateur.
+Les falaises sont des propositions générées guidées par la référence Treasure, sans certification palette/couronne native. La version nocturne du terrain utilise exactement `source/cote_v4_abyss/night.py`. Les dessins et proportions restent à valider visuellement par l’utilisateur.
 
 ## Reproduction et contrôles
 Installer Pillow et numpy, puis exécuter `source/references_calques_v1/build.py` et `gallery.py`. `verification.json` consigne les dimensions et l’égalité pixel par pixel entre recomposition des calques exportés et nouvelles compositions. 128 images de reflet vérifiées. Ces contrôles ne constituent pas une validation en jeu.

@@ -12,7 +12,7 @@ Demande (retours sur EWC1) : « il y a des petits traits blancs au bord des rive
 
 ## 1. Plus de petits traits blancs au bord des rives
 
-Ces traits venaient de `water_phases`, que la V1 reprenait du lot Bristle. Cette fonction posait contre chaque rive des tirets de 1 px de couleur `clair` (148, 230, 238). La V2 utilise une copie de la fonction sans cette ligne : la bande sombre (`bande`, 87, 135, 191) touche directement la rive. Les couleurs restantes (surface, inter, accent, bande) sont toutes des couleurs Métano exactes.
+Ces traits venaient de `water_phases`, que la V1 reprenait du lot Bristle. Cette fonction posait contre chaque rive des tirets de 1 px de couleur `clair` (148, 230, 238). La V2 utilise une copie de la fonction sans cette ligne : la bande sombre (`bande`, 87, 135, 191) touche directement la rive. Les couleurs restantes (surface, inter, accent, bande) sont toutes des couleurs Treasure exactes.
 
 Deux tests le vérifient :
 

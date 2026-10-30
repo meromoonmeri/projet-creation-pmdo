@@ -1,14 +1,14 @@
-# Méthode de production approuvée — zones Métano
+# Méthode de production approuvée — zones Treasure
 
 ## Correction utilisateur du 13 septembre 2026 — nouvelles entrées indépendantes
 
-Pour les nouvelles entrées de donjon indépendantes, l’utilisateur autorise expressément des **textures inventées dans la DA PMD**, via le générateur, avec de nombreux layouts et biomes. La contrainte des falaises/structures Métano exactes ne s’applique que lorsqu’il demande d’étendre Métano. Ne pas réimposer cette contrainte aux nouvelles entrées. Consulter les Ground PMD Sky comme références et publier des PNG visibles avec leurs chemins GitHub.
+Pour les nouvelles entrées de donjon indépendantes, l’utilisateur autorise expressément des **textures inventées dans la DA PMD**, via le générateur, avec de nombreux layouts et biomes. La contrainte des falaises/structures Treasure exactes ne s’applique que lorsqu’il demande d’étendre Treasure. Ne pas réimposer cette contrainte aux nouvelles entrées. Consulter les Ground PMD Sky comme références et publier des PNG visibles avec leurs chemins GitHub.
 
-La première collection de 12 images est dans `renders/entrees_pmd_collection/`, avec variantes Abyss. Ce sont des illustrations aplaties, non intégrées au mod et non certifiées comme tilesets natifs. Les 40 PNG du mod déjà livré sont séparés dans `renders/metano_expeditions_actuel/`. Les exigences natives ci-dessous continuent de concerner les extensions Métano et les livraisons réellement destinées à l’import moteur.
+La première collection de 12 images est dans `renders/entrees_pmd_collection/`, avec variantes Abyss. Ce sont des illustrations aplaties, non intégrées au mod et non certifiées comme tilesets natifs. Les 40 PNG du mod déjà livré sont séparés dans `renders/treasure_expeditions_actuel/`. Les exigences natives ci-dessous continuent de concerner les extensions Treasure et les livraisons réellement destinées à l’import moteur.
 
 L’utilisateur a explicitement approuvé la méthode des deux zones guidées et demandé de la conserver (12 septembre 2026).
 
-Pour les zones de terrain Métano :
+Pour les zones de terrain Treasure :
 
 - Utiliser le générateur d’images avec les références canoniques pour proposer la **composition**, puis reconstruire avec de véritables tuiles natives de 8 px. Ne pas présenter les pixels générés comme des tuiles canoniques.
 - Conserver les silhouettes organiques et les variantes d’ombre guidées par les propositions. Ne pas remplacer cette méthode par des murs rectilignes procéduraux ou une simple mosaïque de tuiles choisies indépendamment.
@@ -22,30 +22,30 @@ Les règles propres aux salles de la guilde restent dans `kit.json` et `source/r
 
 ## Retour en jeu : réserve importante après l’approbation visuelle
 
-L’utilisateur signale ensuite une qualité désastreuse à l’import et des falaises perçues comme trop petites. L’audit `audits/metano_import/RAPPORT.md` confirme que l’assemblage par fragments de 8 px et colonnes d’ombre répétées ne préserve pas les volumes natifs ; une réduction effective dans son import reste à vérifier. L’approbation des aperçus ne vaut donc pas validation du rendu moteur.
+L’utilisateur signale ensuite une qualité désastreuse à l’import et des falaises perçues comme trop petites. L’audit `audits/treasure_import/RAPPORT.md` confirme que l’assemblage par fragments de 8 px et colonnes d’ombre répétées ne préserve pas les volumes natifs ; une réduction effective dans son import reste à vérifier. L’approbation des aperçus ne vaut donc pas validation du rendu moteur.
 
-Conserver les propositions générées, mais privilégier pour une prochaine correction des **modules natifs complets** (sommet, face, pied, retours) étalonnés à Métano. Ne pas considérer les seuls tests « 0 différence de pixel » comme une validation artistique ou d’échelle. Ne pas agrandir arbitrairement tous les PNG. Valider un échantillon au zoom natif puis dans le jeu avant de généraliser la correction.
+Conserver les propositions générées, mais privilégier pour une prochaine correction des **modules natifs complets** (sommet, face, pied, retours) étalonnés à Treasure. Ne pas considérer les seuls tests « 0 différence de pixel » comme une validation artistique ou d’échelle. Ne pas agrandir arbitrairement tous les PNG. Valider un échantillon au zoom natif puis dans le jeu avant de généraliser la correction.
 
 ## Contrat d’import confirmé par l’utilisateur
 
-L’utilisateur importe les **PNG dans l’éditeur PMDO Dev via PNG to Tileset**. Les prochains PNG de jeu doivent être natifs, nets et structurellement cohérents avec Métano, pas des illustrations générées simplement agrandies. Les prototypes du générateur restent des guides uniquement.
+L’utilisateur importe les **PNG dans l’éditeur PMDO Dev via PNG to Tileset**. Les prochains PNG de jeu doivent être natifs, nets et structurellement cohérents avec Treasure, pas des illustrations générées simplement agrandies. Les prototypes du générateur restent des guides uniquement.
 
-Le lot `sprites/metano_import_png/` inaugure les blocs natifs complets et les noms `METANO_V3_*` uniques : l’importeur nomme les tilesets par basename et peut écraser deux fichiers homonymes venant de dossiers différents. Documenter explicitement la taille d’import **8 px**. Vérifier dimensions divisibles, rectangles complets, absence de resampling et recomposition. Ne pas appeler ce lot sec de calibration un remplacement complet des grandes zones, ni déclarer un test moteur non effectué.
+Le lot `sprites/treasure_import_png/` inaugure les blocs natifs complets et les noms `TREASURE_V3_*` uniques : l’importeur nomme les tilesets par basename et peut écraser deux fichiers homonymes venant de dossiers différents. Documenter explicitement la taille d’import **8 px**. Vérifier dimensions divisibles, rectangles complets, absence de resampling et recomposition. Ne pas appeler ce lot sec de calibration un remplacement complet des grandes zones, ni déclarer un test moteur non effectué.
 
 ## Vrais layouts utilisateur retrouvés sur la branche distante
 
 Le commit utilisateur `3bc185bec2d5aa295f32825927db9d25bb936f75` était sur `arena/01a095e8-guilde-treehouse-pmd`, PAS sur main. Toujours vérifier la branche distante de la session, pas seulement origin/main, pour les nouveaux uploads utilisateur.
 Les fichiers `IMG_4888.jpeg`, `IMG_4889.png`, `IMG_4890.png`, `IMG_4892.png` représentent deux lieux côtiers (bureau de Bekipan ; terrasse de campement avec grotte), avec plusieurs ambiances/références du premier. Pour « les layouts que j’ai commit », utiliser ces fichiers, pas les anciens cirques de calibration. Les deux générations diurnes sont dans `source/layouts_commit_3bc185b/`, explicitement non certifiées comme tuiles canoniques.
 
-## Correction demandée : vraie variante Métano nuit d’Abyss to Ascension
+## Correction demandée : vraie variante Treasure nuit d’Abyss to Ascension
 
 La référence existe dans `meromoonmeri/new-era-abyss-to-ascension-V4`, commit
-`55860b9a5eb48697a3cea3a8bdfce5f0529d6141` : `Metano_Town_Base_Night.tile`,
-`Metano_Town_Cliffs_Night.tile`, `Metano_Town_Fringe_Night.tile`.
+`55860b9a5eb48697a3cea3a8bdfce5f0529d6141` : `Treasure_Town_Base_Night.tile`,
+`Treasure_Town_Cliffs_Night.tile`, `Treasure_Town_Fringe_Night.tile`.
 Copies et preuves : `source/cote_v4_abyss/`. Utiliser leurs pixels nocturnes
 existants, pas la formule Guilde/Sharpedo pour le terrain. Cette dernière
 reste la référence des fonds. L’utilisateur demande toute la roche dans le
-style Métano, sans fragments réinterprétés par le générateur. Le pack V3
+style Treasure, sans fragments réinterprétés par le générateur. Le pack V3
 conservait encore lisière et ombres générées : ne pas le considérer corrigé.
 Le nouvel échantillon natif est une calibration de matière, pas une validation
 des retours, des raccords ni des volumes, et pas un remplacement des 20 Ground.
@@ -58,8 +58,8 @@ La dernière consigne autorise et demande le filtre nocturne exact d’Abyss.
 sur 1421 couleurs et contre les trois feuilles nocturnes complètes. Cette
 transformation de nuit est explicitement voulue ; les pixels de JOUR restent
 natifs sans recoloration. Ne pas ajouter le filtre Guilde/Sharpedo par-dessus.
-La correction complète est maintenant `cotes_metano_abyss_0812_pmdo.zip`,
-20 Ground `v40812_*`, aperçu `apercu_cotes_metano_abyss.html`. Elle remplace
+La correction complète est maintenant `cotes_treasure_abyss_0812_pmdo.zip`,
+20 Ground `v40812_*`, aperçu `apercu_cotes_treasure_abyss.html`. Elle remplace
 l’échantillon comme livraison courante, mais tous les anciens lots sont conservés.
 Les masques V3 guident la géométrie, pas les couleurs. Herbe, faces, retours,
 couronnes et pieds viennent de modules natifs. Aucun ancien RGB généré ni
@@ -67,15 +67,15 @@ ombre générée. Panneaux 64x48 prolongés pour les grandes hauteurs, retours a
 bords. Tests de provenance, alpha, filtre, binaires et installateur PASS ;
 ceci ne signifie ni raccords artistiques parfaits ni ouverture moteur testée.
 
-## Métano Expéditions — sept falaises et trois entrées livrées
+## Treasure Expéditions — sept falaises et trois entrées livrées
 
-Livraison courante : `mod_metano_expeditions_pmdo_0812.zip`, projet
-`metano_expeditions`. 20 nouveaux Ground `v50812_*` et 20 précédents `v40812_*`,
-soit 40 Ground / 20 lieux en jour-nuit. Aperçu `apercu_metano_expeditions.html`.
+Livraison courante : `mod_treasure_expeditions_pmdo_0812.zip`, projet
+`treasure_expeditions`. 20 nouveaux Ground `v50812_*` et 20 précédents `v40812_*`,
+soit 40 Ground / 20 lieux en jour-nuit. Aperçu `apercu_treasure_expeditions.html`.
 Les références Crooked Cavern / Brine Cave / Drenched Bluff sont utilisées
 uniquement pour la composition et la construction : aucune de leurs textures
 n’est peinte dans nos nouvelles cartes. Deux grottes partagent un encadrement
-Métano natif, le troisième accès est un défilé ouvert. Ne pas affirmer trois
+Treasure natif, le troisième accès est un défilé ouvert. Ne pas affirmer trois
 sprites de porte différents. Les nouveaux contours sont définis dans layouts.py,
 pas copiés pixel à pixel depuis le guide généré non conforme.
 Les nouvelles collisions bloquent hors-herbe et les éléments d’accès. Trois
@@ -91,22 +91,22 @@ Le manuel exhaustif est `MANUEL_METHODE_PMDO.md`, complété par la notice du lo
 
 ## V6 — demande de repassage des zones et calques forêt/grotte
 
-L’utilisateur demande de repasser les zones assemblées manuellement dans le générateur pour en corriger les défauts sans perdre les compositions. Ne pas écraser les natifs. Dix propositions produites dans `renders/retouches_zones_v6/` ; 01/04/10 à reprendre. Deux kits provisoires dans `renders/entrees_calques_v6/` sont découpés depuis des images antérieures : ne pas les présenter comme les nouveaux atlas générés. La limite réelle de dix générations a empêché ces atlas et les trois reprises. Voir la liste priorisée dans `source/retouches_v6/README.md`. Références TSR Murky Forest/Armaldo et Halcyon Apricorn Grove réellement inspectées. Les nouvelles entrées restent libres en textures PMD ; les retouches Métano gardent ses références de matière.
+L’utilisateur demande de repasser les zones assemblées manuellement dans le générateur pour en corriger les défauts sans perdre les compositions. Ne pas écraser les natifs. Dix propositions produites dans `renders/retouches_zones_v6/` ; 01/04/10 à reprendre. Deux kits provisoires dans `renders/entrees_calques_v6/` sont découpés depuis des images antérieures : ne pas les présenter comme les nouveaux atlas générés. La limite réelle de dix générations a empêché ces atlas et les trois reprises. Voir la liste priorisée dans `source/retouches_v6/README.md`. Références TSR Murky Forest/Armaldo et Halcyon Apricorn Grove réellement inspectées. Les nouvelles entrées restent libres en textures PMD ; les retouches Treasure gardent ses références de matière.
 
 
-## Dernière correction — conserver la méthode Métano texturée sur magenta
+## Dernière correction — conserver la méthode Treasure texturée sur magenta
 
-L’utilisateur rejette le changement de matériau et rejette les layouts plats comme livrable. **Le générateur reprend la roche ET l’herbe Métano avec les références existantes, conserve le layout et génère la falaise texturée sur fond magenta.** Ne pas revenir aux essais V7/V8. Témoin : `renders/falaise_metano_temoin/`. Référence utilisée : `source/falaises_generees/reference_canonique.png`. Vérifier ce témoin avant une génération en série. Ne pas prétendre que les pixels générés sont canoniques ; ne pas remplacer les cartes natives. L’amélioration demandée du cycle océan est encore en attente.
+L’utilisateur rejette le changement de matériau et rejette les layouts plats comme livrable. **Le générateur reprend la roche ET l’herbe Treasure avec les références existantes, conserve le layout et génère la falaise texturée sur fond magenta.** Ne pas revenir aux essais V7/V8. Témoin : `renders/falaise_treasure_temoin/`. Référence utilisée : `source/falaises_generees/reference_canonique.png`. Vérifier ce témoin avant une génération en série. Ne pas prétendre que les pixels générés sont canoniques ; ne pas remplacer les cartes natives. L’amélioration demandée du cycle océan est encore en attente.
 
 
 ## Caps / Terrasses V3 — dernières variantes face à la mer
 
-L’utilisateur demande des calques comme Terrasse V2 et Cap V2 : falaise latérale, très proche caméra, face à la mer. Six variantes texturées via générateur sur magenta dans `renders/caps_terrasses_v3/`, avec références V2 et Métano, PNG terrain et nuit à 1640×656 sans resampling. La 04 est décalée de 256 px à gauche pour cadrage. Terrain complet séparé de ciel/nuages/océan, pas roche et herbe séparées. `apercu_caps_terrasses_v3.html` montre les calques. La demande antérieure d’océan plus fluide est maintenant réalisée **dans ces exports PNG et cet aperçu** : 64 phases à 50 ms, boucle 3,2 s, interpolation de palette à indices/alpha fixes. Elle n’est PAS intégrée au mod natif existant. Voir `source/caps_terrasses_v3/README.md` et les tests ; ne pas annoncer un nouveau test moteur.
+L’utilisateur demande des calques comme Terrasse V2 et Cap V2 : falaise latérale, très proche caméra, face à la mer. Six variantes texturées via générateur sur magenta dans `renders/caps_terrasses_v3/`, avec références V2 et Treasure, PNG terrain et nuit à 1640×656 sans resampling. La 04 est décalée de 256 px à gauche pour cadrage. Terrain complet séparé de ciel/nuages/océan, pas roche et herbe séparées. `apercu_caps_terrasses_v3.html` montre les calques. La demande antérieure d’océan plus fluide est maintenant réalisée **dans ces exports PNG et cet aperçu** : 64 phases à 50 ms, boucle 3,2 s, interpolation de palette à indices/alpha fixes. Elle n’est PAS intégrée au mod natif existant. Voir `source/caps_terrasses_v3/README.md` et les tests ; ne pas annoncer un nouveau test moteur.
 
 
 ## Dix variantes supplémentaires — Caps/Terrasses V4 audités
 
-Demande : dix autres falaises, vérifier soi-même la roche, la jonction couronne/herbe et la colorimétrie Métano, renforcer la configuration si nécessaire. Dix générées (07–16), dans `renders/caps_terrasses_v4/bruts/`. Références : pose V3 + vrais échantillons natifs + scène canonique. Exports corrigés vers 328 couleurs natives en CIELAB ; zéro couleur hors palette, mais ce test NE PROUVE PAS le motif. Huit dessins retenus visuellement. **07 (galets/chapelet) et 11 (gros blocs/rebord lisse) refusés : prochaine priorité, les régénérer puis réauditer.** Une tentative de reprise 07 a échoué sur la limite de dix générations ; ne pas prétendre qu’elle a été faite. Voir `source/caps_terrasses_v4/README.md`, audits JSON et planche de bordures. Les originaux, six variantes V3 et mod sont conservés. Océan V3 réutilisé inchangé.
+Demande : dix autres falaises, vérifier soi-même la roche, la jonction couronne/herbe et la colorimétrie Treasure, renforcer la configuration si nécessaire. Dix générées (07–16), dans `renders/caps_terrasses_v4/bruts/`. Références : pose V3 + vrais échantillons natifs + scène canonique. Exports corrigés vers 328 couleurs natives en CIELAB ; zéro couleur hors palette, mais ce test NE PROUVE PAS le motif. Huit dessins retenus visuellement. **07 (galets/chapelet) et 11 (gros blocs/rebord lisse) refusés : prochaine priorité, les régénérer puis réauditer.** Une tentative de reprise 07 a échoué sur la limite de dix générations ; ne pas prétendre qu’elle a été faite. Voir `source/caps_terrasses_v4/README.md`, audits JSON et planche de bordures. Les originaux, six variantes V3 et mod sont conservés. Océan V3 réutilisé inchangé.
 
 ## Entrées de donjon — règle permanente des calques (septembre2026)
 L’utilisateur rappelle que **toute entrée doit être livrée en plusieurs calques**, pas seulement comme génération aplatie : sol/chemin, végétation basse, arbres ou massif, ombres, profondeur du passage. Fournir aussi une feuille de sprites d’arbres quand demandée. Une image validée ne doit pas voir son layout régénéré pour la découpe.
@@ -339,7 +339,7 @@ Arène512×720, approche sud vers zone centrale/nord,8calques statiques. Aurore 
 
 ## Correction de méthode — rendus générés, PAS assemblage de bouts de maps
 
-L’utilisateur rejette la méthode appliquée à la dernière arène : « méthode que tu avais fais dans render genere, pas des bouts de map ». **Pour cette demande et les prochains rendus concernés, revenir à la composition générée complète, pas à une mosaïque de prélèvements même vérifiée pixel-exacte.** Les règles spécifiquement imposées à Métano restent distinctes ; ne pas généraliser leur contrainte de copie native à tous les rendus générés demandés.
+L’utilisateur rejette la méthode appliquée à la dernière arène : « méthode que tu avais fais dans render genere, pas des bouts de map ». **Pour cette demande et les prochains rendus concernés, revenir à la composition générée complète, pas à une mosaïque de prélèvements même vérifiée pixel-exacte.** Les règles spécifiquement imposées à Treasure restent distinctes ; ne pas généraliser leur contrainte de copie native à tous les rendus générés demandés.
 
 Pipeline retrouvé : `source/layouts_magenta_v1/WORKFLOW.md` et build.py, terrain Northern magenta. Nouveau lot `source/arene_glace_generee_v2/`, `renders/arene_glace_generee_v2/`, ZIP et `apercu_arene_glace_generee_v2.html`. Deux générations complètes : terrain cohérent sur magenta et sol sous les reliefs. Normalisation512×640, alpha/nettoyage,7calques terrain +2fond, masques, ORA éditable,128PNG animés, GIF/WebP6,4s. **Terrain redessiné référencéPMD, pas pixels natifs certifiés.** Aucun morceau de map n’est utilisé pour reconstruire le terrain de ce lot.
 
@@ -371,7 +371,7 @@ Vrai cycling de palette indexée256entrées (16groupes de teintes froides×16lum
 
 ## Correction V7 — frames subtiles du ciel boréal PMD Sky, sans wrap
 
-Utilisateur : « non faut pas que ce soit du wrap mais que ce soit que des frame animée comme dans pmd sky ca a l'air chaotique » puis « l'image référence c'est le ciel boréal dans pmd sky c'est animée subtilement ». Rejets actés : pas de wrap/défilement (V3/V4), pas de planche de dessins nouveaux mélangés ni cycling de palette global (V5), pas de ruban inventé (essai V6 abandonné, brut non persisté). **Les frames sont l'image de référence `aurorepmdsky.png` elle-même** : 24 frames × 120 ms (2,88 s), variation proportionnelle de luminosité ±7,5 % sur les rideaux via quatre champs gaussiens cosinus à périodes entières, frame 0 = référence exacte, boucle fermée. Pics, nuages d'horizon (fondu 144→157) et étoiles intacts. Overlay transparent 528×314 (alpha extrait, voile ±11 %) posé une seule fois à position fixe (120, 0) dans la scène 768×512, ciel/terrain V3 inchangés, aucun wrap. Rythme et amplitude choisis (cycle officiel inconnu), subtils. Sources `source/boreales_pmdsky_v7/`, rendus `renders/boreales_pmdsky_v7/`, ZIP, aperçu racine `apercu_ciel_boreal_pmdsky_v7.html`. 12 tests dédiés PASS. Note maintenance : la sandbox a été réinitialisée au commit de base pendant la session ; l'historique poussé a été réintégré par ff-only (330 collisions untracked vérifiées identiques, sauvegarde `/home/user/sauvegarde_docs_stash.patch`), `.venv` reconstruite ; les fichiers Métano/ponts non commités de l'utilisateur restent en working tree sans être touchés.
+Utilisateur : « non faut pas que ce soit du wrap mais que ce soit que des frame animée comme dans pmd sky ca a l'air chaotique » puis « l'image référence c'est le ciel boréal dans pmd sky c'est animée subtilement ». Rejets actés : pas de wrap/défilement (V3/V4), pas de planche de dessins nouveaux mélangés ni cycling de palette global (V5), pas de ruban inventé (essai V6 abandonné, brut non persisté). **Les frames sont l'image de référence `aurorepmdsky.png` elle-même** : 24 frames × 120 ms (2,88 s), variation proportionnelle de luminosité ±7,5 % sur les rideaux via quatre champs gaussiens cosinus à périodes entières, frame 0 = référence exacte, boucle fermée. Pics, nuages d'horizon (fondu 144→157) et étoiles intacts. Overlay transparent 528×314 (alpha extrait, voile ±11 %) posé une seule fois à position fixe (120, 0) dans la scène 768×512, ciel/terrain V3 inchangés, aucun wrap. Rythme et amplitude choisis (cycle officiel inconnu), subtils. Sources `source/boreales_pmdsky_v7/`, rendus `renders/boreales_pmdsky_v7/`, ZIP, aperçu racine `apercu_ciel_boreal_pmdsky_v7.html`. 12 tests dédiés PASS. Note maintenance : la sandbox a été réinitialisée au commit de base pendant la session ; l'historique poussé a été réintégré par ff-only (330 collisions untracked vérifiées identiques, sauvegarde `/home/user/sauvegarde_docs_stash.patch`), `.venv` reconstruite ; les fichiers Treasure/ponts non commités de l'utilisateur restent en working tree sans être touchés.
 
 ## Correction V8 — aurore ondulante générée + glace latérale (méthode habituelle conservée)
 
@@ -425,13 +425,13 @@ L'utilisateur a choisi : **nouvelle entrée de donjon sud → nord**, **méthode
 
 Trois bruts générés : décor sur magenta, sol complet édité depuis le décor (IoU du magenta 0,86, décalage 0) et matière d'eau. Normalisation uniforme exacte ×0,5 (848×1264 → 424×632), moyenne 2×2 par classe, palette commune de 96 couleurs. Buissons et herbe séparés par la luminance moyenne locale (histogramme bimodal, seuil 110). La roche est la composante reliée au nord ; piste olive et bouche délimitées dans des zones repérées. Eau : 72 indices fixes (6 niveaux × 12 bandes), 12 palettes, échantillonnage ondulé pour éviter les bandes droites. Ground 0.8.12 construit sur le gabarit `v50812_01_crete_sillage_jour`, 9 banques et un Top vide, collisions déduites des calques, `entrance` au sud et `donjon_seuil` au nord, sans warp. 10 tests PASS, dont l'aller-retour de format. **Pas de runtime PMDO, pas de variante nuit, art non approuvé.** Les pixels générés ne sont pas des tuiles natives.
 
-### V2 Entrée Vapeur — eau façon rivière Métano et bulles de marais (25 septembre)
+### V2 Entrée Vapeur — eau façon rivière Treasure et bulles de marais (25 septembre)
 
-Utilisateur : « pour l'animation d'eau fait quelque chose comme metano town river ! et fait des animation bulle genere les cohérente a l'eau qui éclate car c'est un peu marécageux ». Lot `source/entree_vapeur_sud_nord_v2/`, `renders/entree_vapeur_sud_nord_v2/`, aperçu `apercu_entree_vapeur_sud_nord_v2.html`. La V1 n'est pas touchée : les 7 calques de terrain sont relus depuis la V1 et un test vérifie l'égalité au pixel.
+Utilisateur : « pour l'animation d'eau fait quelque chose comme treasure town river ! et fait des animation bulle genere les cohérente a l'eau qui éclate car c'est un peu marécageux ». Lot `source/entree_vapeur_sud_nord_v2/`, `renders/entree_vapeur_sud_nord_v2/`, aperçu `apercu_entree_vapeur_sud_nord_v2.html`. La V1 n'est pas touchée : les 7 calques de terrain sont relus depuis la V1 et un test vérifie l'égalité au pixel.
 
-**Méthode eau « comme Métano »** : on mesure le profil de la rivière Métano (feuilles natives 1..4) : bande sombre d=1..4, intermédiaire d=5, frange dentelée d=6..8, lèvre claire contre la berge, et un aplat qui domine. On le recalcule sur nos bassins par distance à la berge visible (les buissons en surplomb comptent comme berge). Le bord intérieur ondule avec une onde qui voyage, sur 4 phases × FrameLength 10 (cadence Métano vérifiée). Les couleurs sont choisies à la main selon les rôles Métano et leur ordre de luminance. La transposition HSV seule écrasait accent et clair sur l'aplat : ne pas y revenir. Le calque ombres V1 est retiré, puisque la bande le remplace.
+**Méthode eau « comme Treasure »** : on mesure le profil de la rivière Treasure (feuilles natives 1..4) : bande sombre d=1..4, intermédiaire d=5, frange dentelée d=6..8, lèvre claire contre la berge, et un aplat qui domine. On le recalcule sur nos bassins par distance à la berge visible (les buissons en surplomb comptent comme berge). Le bord intérieur ondule avec une onde qui voyage, sur 4 phases × FrameLength 10 (cadence Treasure vérifiée). Les couleurs sont choisies à la main selon les rôles Treasure et leur ordre de luminance. La transposition HSV seule écrasait accent et clair sur l'aplat : ne pas y revenir. Le calque ombres V1 est retiré, puisque la bande le remplace.
 
-**Scintillements** : 3 familles d'amas découpées dans `Metano_Town_River_Sparkles.tile` (colonnes 0-1 × rangées 0-2 au pas 3 ; colonnes 2-4 × rangées 0-1 au pas 2 ; colonnes 0-1 × rangées 12-15 au pas 4), recolorées et placées sur l'eau dégagée, en phase comme à Métano.
+**Scintillements** : 3 familles d'amas découpées dans `Treasure_Town_River_Sparkles.tile` (colonnes 0-1 × rangées 0-2 au pas 3 ; colonnes 2-4 × rangées 0-1 au pas 2 ; colonnes 0-1 × rangées 12-15 au pas 4), recolorées et placées sur l'eau dégagée, en phase comme à Treasure.
 
 **Bulles générées** : le générateur a rendu 2 × 6 cases avec des doublons au lieu de 1 × 8. Il faut choisir les cases à la main, par (rangée, colonne), et réduire toutes les poses avec le même facteur (fenêtre de 240 px → 24 px). La luminance doit être projetée sur la palette de l'eau avec une plage commune à toutes les poses (par pose, la tension devenait noire). Pour les traits fins (anneaux), le seuil de couverture est de 0,10. La pose tension = dôme + gouttelettes. Chronologie : 17 phases actives + 7 de repos, 24 × 5 ticks ; émetteurs décalés tels qu'une bulle soit toujours visible. Il faut placer les bulles AVANT les scintillements, sinon la place manque. Scène complète : PPCM de 120 ticks. 9 tests PASS. Pas de runtime PMDO.
 
@@ -460,7 +460,7 @@ Référence : Frosty Forest (mysterydungeonwiki, trouvée par recherche d'images
 
 Utilisateur : « continue de faire la suite des map tu fais du bon travail ! ». La référence encore inutilisée `Mt_Bristle_entrance_TD.png` a été choisie par l'agent. Lot `source/entree_bristle_sud_nord_v1/` (build autonome), aperçu `apercu_entree_bristle_sud_nord_v1.html`. **La session parallèle s'est reproduite** : le HEAD local était revenu à `ae8ae234`, et le distant contenait Ruine et Givre. Il a fallu sauvegarder les fichiers nouveaux dans /tmp, faire un `git fetch --depth=10` puis `git reset --hard origin/<branche>` (les fichiers non suivis sont conservés), et réécrire la documentation par-dessus. **Vérifier le distant AVANT de choisir un biome et avant de commiter.**
 
-Segmentation mesurée : sable sat ≈ 87, écart de luminance ≈ 9 ; roche sat ≈ 5 (fraction grise sat < 40 > 0,5 sur 7 px, composantes ≥ 2500). La gorge : lum < 85 dans la fente nord. La berge de galets : écart de luminance > 14 à moins de 26 px du torrent. Les rochers : sat > 95 et lum < 180. Le sable praticable est la composante reliée au bord sud ; les replats enclavés sont rattachés aux falaises. Le magenta du torrent a un liseré rose clair : dilatation de 2 px. Le torrent reprend la méthode ESN2, mais avec les **couleurs Métano exactes** (test : ensemble de couleurs inclus dans celui de Métano) et une onde orientée vers le sud. Les scintillements sont natifs, seul l'aplat de surface est retiré (test : couleurs incluses dans la feuille native).
+Segmentation mesurée : sable sat ≈ 87, écart de luminance ≈ 9 ; roche sat ≈ 5 (fraction grise sat < 40 > 0,5 sur 7 px, composantes ≥ 2500). La gorge : lum < 85 dans la fente nord. La berge de galets : écart de luminance > 14 à moins de 26 px du torrent. Les rochers : sat > 95 et lum < 180. Le sable praticable est la composante reliée au bord sud ; les replats enclavés sont rattachés aux falaises. Le magenta du torrent a un liseré rose clair : dilatation de 2 px. Le torrent reprend la méthode ESN2, mais avec les **couleurs Treasure exactes** (test : ensemble de couleurs inclus dans celui de Treasure) et une onde orientée vers le sud. Les scintillements sont natifs, seul l'aplat de surface est retiré (test : couleurs incluses dans la feuille native).
 
 Touffes : la planche 4 × 6 ne suivait pas l'ordre demandé. Les poses sont détectées par composantes connexes, puis on mesure l'inclinaison (x moyen des 40 % du haut − x de la base, divisé par la hauteur). Le cycle est une sinusoïde de 12 phases entre les extrêmes (pas ≤ 0,25, testé). Réduction : fenêtre 80 → 16 px, ancrage à la base, palette de 7 couleurs tirée des touffes du décor. Les touffes du décor laissent un trou dans le calque sable, rempli par le sol complet, et la touffe animée est posée à leur base, avec un décalage de phase `(x // 40) % 12`. Le point d'arrivée est choisi comme la case 2 × 2 libre la plus proche de la médiane du bas (la médiane seule tombait sur un rocher). 9 tests PASS. Pas de runtime.
 
@@ -487,12 +487,12 @@ Trois générations, toutes avec le rip en `images=` (prompts complets dans `man
 - sol de sable complet, édité depuis le décor ;
 - planche d'écume sur magenta : grille 4 × 4 rendue au lieu de 2 × 6, cases choisies à la main.
 
-`build.py` réutilise `down_class`, `down_full` et `rgba` du gabarit Jungle, ainsi que `water_phases` (couleurs Métano exactes), `sparkle_families`, `place` et `cell_grid` de Bristle, via `JM = loadmod(jungle)` et `BM = JM.BM`.
+`build.py` réutilise `down_class`, `down_full` et `rgba` du gabarit Jungle, ainsi que `water_phases` (couleurs Treasure exactes), `sparkle_families`, `place` et `cell_grid` de Bristle, via `JM = loadmod(jungle)` et `BM = JM.BM`.
 
 Segmentation mesurée :
 - sable : lum > 158, sat > 112, écart local 9 px < 12 ; la plus grande composante reliée au sud est praticable, le reste (hauts de falaise, poches) forme les plateaux ;
 - bouche : aplat (34,34,34) plus un rebord de 9 px ;
-- rideau : au-dessus de y = 268 en pleine résolution ; l'écume du pied est entre 268 et 306 ; la vasque dessinée passe dans l'eau Métano ;
+- rideau : au-dessus de y = 268 en pleine résolution ; l'écume du pied est entre 268 et 306 ; la vasque dessinée passe dans l'eau Treasure ;
 - touffes : composantes vertes de moins de 300 px ; au-delà, ce sont des morceaux d'arbres coupés.
 
 Pièges corrigés :
@@ -515,7 +515,7 @@ Retours de l'utilisateur : « il y a des petits traits blancs au bord des rives,
 
 Règles tirées de ces retours :
 
-- **Pas de liseré clair contre les rives.** Les « petits traits blancs » venaient de `water_phases` (lot Bristle, repris par Jungle et EWC1), qui pose `a[(d <= 1) & tirets] = PAL['clair']`. Pour toute nouvelle eau façon Métano, utiliser la version sans cette ligne (`water_phases` d'EWC2), où la bande sombre touche la rive. Un test vérifie que chaque pixel d'eau qui touche la terre est `bande`.
+- **Pas de liseré clair contre les rives.** Les « petits traits blancs » venaient de `water_phases` (lot Bristle, repris par Jungle et EWC1), qui pose `a[(d <= 1) & tirets] = PAL['clair']`. Pour toute nouvelle eau façon Treasure, utiliser la version sans cette ligne (`water_phases` d'EWC2), où la bande sombre touche la rive. Un test vérifie que chaque pixel d'eau qui touche la terre est `bande`.
 - **Pas d'eau devant une entrée** où l'on doit marcher. Le chemin va jusqu'à la bouche, et l'eau reste sur les côtés.
 - **Porte d'eau en deux temps** : calques d'**état** (`etat` = `fermee` / `ouverture` / `ouverte` dans le manifest).
   - Les trois états utilisent la même texture périodique, avec des masques différents. La phase 0 de l'ouverture est identique à la phase 0 de l'état fermé, et la phase 23 est identique à la phase 11 de l'état ouvert.
@@ -601,11 +601,11 @@ Référence : `Underground_Lake_shore_TDS.png` (69 couleurs). Lot `source/entree
 
 Règles et recettes :
 
-- **Eau d'un biome aux couleurs non Métano** : garder la structure Métano (bande, frange dentelée, accent, aplat, onde voyageuse, 4 × 10), mais avec les **couleurs exactes du rip** attribuées aux rôles.
+- **Eau d'un biome aux couleurs non Treasure** : garder la structure Treasure (bande, frange dentelée, accent, aplat, onde voyageuse, 4 × 10), mais avec les **couleurs exactes du rip** attribuées aux rôles.
   - Ici : aplat (39,39,95), bande = intermédiaire (55,55,111), accent (63,63,119).
   - Le filet clair du rip contre le sable, (119,127,175) et (167,167,223), n'est **pas** repris : l'utilisateur a demandé « pas de petits traits blancs au bord des rives ».
   - Un test vérifie que les couleurs de l'eau sont un sous-ensemble du rip et que la rive n'a que la bande.
-- **Scintillements Métano natifs sur eau sombre** : leurs pixels quasi blancs, (246,250,255) et (156,234,246), font de petits traits blancs très visibles sur le bleu nuit. On les pose donc sur une zone claire (ici le cœur de la lueur, commun à toutes les phases), pas sur l'eau sombre.
+- **Scintillements Treasure natifs sur eau sombre** : leurs pixels quasi blancs, (246,250,255) et (156,234,246), font de petits traits blancs très visibles sur le bleu nuit. On les pose donc sur une zone claire (ici le cœur de la lueur, commun à toutes les phases), pas sur l'eau sombre.
 - **Sol complet qui garde des éléments** : le générateur a gardé les parois, recalées (0, 0). Le brut est gardé tel quel, parce que les parois restent sous le calque parois. Il sert aussi de **témoin** : la roche du décor qui diffère du sol complet (écart lissé sur 5 px > 20, contre 4 sur les parois) forme les piliers et les stalagmites, y compris le haut des piliers dessiné devant les parois. Il faut exclure les abords de la bouche, qui diffèrent aussi.
 - **Ombres séparables** : ici le sable s'assombrit au pied des parois (lum 159 au contact, 196 au-delà de 15 px). Le calque ombres sépare ces pixels du rendu, sans rien inventer. Il faut mesurer le profil de luminance selon la distance à la roche avant de décider s'il y a un calque d'ombres.
 - **Lueur en anneaux** (couleurs du rip, cœur puis 8 anneaux) :
@@ -678,10 +678,9 @@ Build reproductible : 105 fichiers identiques sur 106, seul l'ORA change (horoda
 
 - Outil : `source/serveur_apercus/serve.py`, bibliothèque standard seulement (marche sans `.venv`).
 - Lancement : `python3 source/serveur_apercus/serve.py --port 8000`, **avec l'outil de processus de fond** (pas en bash) ; il écoute sur `0.0.0.0`.
-- La page « / » liste les `apercu_*.html` de la racine, les entrées sud → nord en tête. L'ordre suit la date du commit qui les a ajoutés ; les aperçus pas encore commités sont marqués « nouveau ».
-- L'index est recalculé à chaque visite : une map ajoutée pendant la session apparaît sans redémarrage.
-- `.git` et `.venv` ne sont pas servis.
-- **Le relancer au début de chaque session.**
+- La page « / » présente les visionneuses originales et les archives ZIP du dépôt source, avec recherche et filtres. Elle indexe 220 aperçus HTML et 299 ZIP : 166/200 de `main`, complétés par 54 pages de carte et 99 ZIP uniques de 14 têtes Arena, catalogués en lecture seule dans `source/serveur_apercus/branch_catalog.json`.
+- Les HTML originaux et leurs 743 ressources locales référencées sont servis sans réécriture, depuis le commit source, à la demande. Les ZIP de calques sont recomposés depuis l'ordre/cadence du manifeste quand aucune visionneuse n'est incluse. Les ZIP Ground renvoient au pack de calques associé si disponible.
+- `.git`, `.cache` et `.venv` ne sont pas servis. **Le relancer au début de chaque session.** Détails et tests : `source/serveur_apercus/README.md` et `source/serveur_apercus/test_serve.py`.
 
 **ESC1** : référence `starcavepmdsky.png`, deux vues de 504 × 504 dont la seconde avec la bouche. Lot `source/entree_star_cave_sud_nord_v1/`, préfixe `ESC1`, namespace `entree_star_cave_sud_nord`, aperçu `apercu_entree_star_cave_sud_nord_v1.html`.
 

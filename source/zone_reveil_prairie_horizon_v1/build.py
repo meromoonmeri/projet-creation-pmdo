@@ -494,8 +494,8 @@ def build():
                'distance': mean_dist(gif[150:][fm_g[k]], day[sg['horizon_y'] + 250:][fm_d[k]])} for k in fm_g}
     # ---- par ambiance
     report = {}; all_counts = {}
-    tpl_zip = zipfile.ZipFile(R / 'mod_metano_expeditions_pmdo_0812.zip')
-    tpl = json.loads(tpl_zip.read('metano_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
+    tpl_zip = zipfile.ZipFile(R / 'mod_treasure_expeditions_pmdo_0812.zip')
+    tpl = json.loads(tpl_zip.read('treasure_expeditions/Data/Ground/v50812_01_crete_sillage_jour.rsground'))
     for amb in AMB:
         a = raws[amb]
         _, cols = down_class(a, m, order)

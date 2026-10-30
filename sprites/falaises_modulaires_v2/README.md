@@ -1,6 +1,6 @@
-# Falaises de Métano — décor et morceaux modulaires V2
+# Falaises de Treasure — décor et morceaux modulaires V2
 
-Cette livraison répond aux deux usages : **un nouveau grand décor** et **des fragments de falaise à assembler**, avec les tuiles de référence de Métano Town. Les trois anciens layouts restent dans `../falaises_metano/` et ne sont pas remplacés.
+Cette livraison répond aux deux usages : **un nouveau grand décor** et **des fragments de falaise à assembler**, avec les tuiles de référence de Treasure Town. Les trois anciens layouts restent dans `../falaises_treasure/` et ne sont pas remplacés.
 
 ## Les PNG à regarder
 
@@ -27,16 +27,16 @@ La banque contient **11 fragments fixes + 4 phases de cascade** :
 11. Sol herbeux — 64 × 64 px
 12–15. Cascade — quatre phases de 64 × 136 px
 
-Les fragments sont **extraits sans redimensionnement ni redessin** de `Metano_Town_Cliffs.tile`, des patches de terrain natifs déjà vérifiés et des quatre frames de cascade originales. `modules.json` donne le fichier source, son SHA-256, le rectangle source et le rectangle de sélection dans l'atlas. La vérification obtient **zéro différence de pixels source** après remise en alpha prémultiplié des PNG.
+Les fragments sont **extraits sans redimensionnement ni redessin** de `Treasure_Town_Cliffs.tile`, des patches de terrain natifs déjà vérifiés et des quatre frames de cascade originales. `modules.json` donne le fichier source, son SHA-256, le rectangle source et le rectangle de sélection dans l'atlas. La vérification obtient **zéro différence de pixels source** après remise en alpha prémultiplié des PNG.
 
 Les quelques pixels d'alpha partiel des ressources natives sont convertis en alpha droit pour les PNG d'éditeur ; le `.tile` conserve la représentation prémultipliée. Aucun filtre de couleur n'est appliqué.
 
 ### Planche d'import
 
-- `Falaises_Metano_Modules.png` : atlas transparent **400 × 480 px**.
+- `Falaises_Treasure_Modules.png` : atlas transparent **400 × 480 px**.
 - Emplacements de 80 × 160 px ; les fragments y restent à leur taille native et sont positionnés sur la grille de 8 px.
-- `Falaises_Metano_Modules.tsj` : Tiled, cellules de 8 px. Sélectionner les rectangles décrits par `atlas_rect_cells`, **pas la totalité du cadre vide**.
-- `Falaises_Metano_Modules.tile` : nouvelle ressource PMDO, 50 colonnes × 60 lignes.
+- `Falaises_Treasure_Modules.tsj` : Tiled, cellules de 8 px. Sélectionner les rectangles décrits par `atlas_rect_cells`, **pas la totalité du cadre vide**.
+- `Falaises_Treasure_Modules.tile` : nouvelle ressource PMDO, 50 colonnes × 60 lignes.
 - `01_rebord.png` … `15_cascade_4.png` : fichiers individuels.
 
 Les morceaux ne constituent pas un autotile automatique couvrant toutes les formes possibles. Les raccords doivent être choisis et placés ; les angles gardent la perspective de la source. La paroi centrale se répète pour prolonger une face ; les rebords et pieds terminent l'assemblage.
@@ -64,28 +64,28 @@ L'atlas du décor `decor/Falaises_V2_Decor.{png,tile,tsj}` porte un nom distinct
 
 - **Fragments modulaires :** pixels natifs extraits, pas de génération d'image.
 - **Grand décor :** nouvelle géométrie composée avec les textures natives. Les parois sont prolongées par répétition, les cascades longues par répétition de leur milieu ; elles ne sont donc pas des extractions intactes de 64 × 136 px.
-- **Rivières du décor :** nouveaux contours et vaguelettes, avec les couleurs de Métano.
+- **Rivières du décor :** nouveaux contours et vaguelettes, avec les couleurs de Treasure.
 - **Maisons :** dix nouvelles créations au générateur, références originales en entrée, pas des extractions du jeu.
 
 ## Import PMDO et limites
 
 Importer les `.tile` souhaités dans `Content/Tile/` puis **réindexer les ressources**. Ne pas écraser un index global avec un index partiel. Ces ressources visent une Ground à **TexSize = 1**, soit 8 px. Les noms sont distincts des ressources originales de Halcyon et du premier lot.
 
-Les JSON sont des manifests auxiliaires, les TMJ sont des cartes Tiled : **aucun `.rsground` intégré n'est fourni**. Le raccord à Métano, les collisions, l'occlusion, les entrées et scripts sont à configurer dans le moteur. Les chemins, ponts éventuels et accès des dix maisons restent à vérifier ; le placement des maisons est une proposition visuelle, pas un village jouable validé.
+Les JSON sont des manifests auxiliaires, les TMJ sont des cartes Tiled : **aucun `.rsground` intégré n'est fourni**. Le raccord à Treasure, les collisions, l'occlusion, les entrées et scripts sont à configurer dans le moteur. Les chemins, ponts éventuels et accès des dix maisons restent à vérifier ; le placement des maisons est une proposition visuelle, pas un village jouable validé.
 
 ## Reconstruction
 
 Depuis la racine du dépôt, Pillow requis :
 
 ```sh
-python source/build_houses_metano.py --organic-v2
+python source/build_houses_treasure.py --organic-v2
 python source/build_cliff_layouts.py \
   --config source/falaises_modulaires_v2/layout_config.json \
   --output sprites/falaises_modulaires_v2/decor \
   --sheet-name Falaises_V2_Decor --no-preview
 python source/build_modular_cliffs_v2.py
 
-python source/verify_houses_metano.py --organic-v2
+python source/verify_houses_treasure.py --organic-v2
 python source/verify_cliff_layouts.py \
   --output sprites/falaises_modulaires_v2/decor \
   --expected-maps 1 --sheet-name Falaises_V2_Decor
@@ -96,4 +96,4 @@ Tests : pixels des quinze fragments contre leurs sources, atlas natif, référen
 
 ## Attribution
 
-Textures et tuiles de référence : **Palika / Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Voir les [crédits de Halcyon](https://github.com/Palikadude/Halcyon#credits), notamment Jaifain pour les animations de rivière de Métano. La nouvelle composition et les maisons ne sont pas des créations officielles. Vérifier les autorisations des auteurs avant redistribution publique de leurs ressources.
+Textures et tuiles de référence : **Palika / Halcyon**, commit `da6c2130d641507447e6386a5e47a296e8cb4c71`. Voir les [crédits de Halcyon](https://github.com/Palikadude/Halcyon#credits), notamment Jaifain pour les animations de rivière de Treasure. La nouvelle composition et les maisons ne sont pas des créations officielles. Vérifier les autorisations des auteurs avant redistribution publique de leurs ressources.

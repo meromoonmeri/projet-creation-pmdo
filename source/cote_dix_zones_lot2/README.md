@@ -1,6 +1,6 @@
-# Côtes Métano — lot 2 : dix zones supplémentaires
+# Côtes Treasure — lot 2 : dix zones supplémentaires
 
-**10 nouveaux lieux, chacun en jour et nuit : 20 Ground PMDO natives.** Même matière Métano, mêmes six familles de nuages, même ciel, même recette de nuit et même mer animée que le lot précédent. Aucun ancien fichier de carte n'est remplacé.
+**10 nouveaux lieux, chacun en jour et nuit : 20 Ground PMDO natives.** Même matière Treasure, mêmes six familles de nuages, même ciel, même recette de nuit et même mer animée que le lot précédent. Aucun ancien fichier de carte n'est remplacé.
 
 ## Les lieux 11 à 20
 
@@ -23,8 +23,8 @@ Les massifs qui atteignent les bords du canevas sont des prolongements hors cart
 
 ## Aperçu et fichiers
 
-- **`apercu_dix_zones_metano_lot2.html`** : aperçu autonome, jour/nuit, animation, calques, grille 8 px, zoom 1×/2×, exports PNG.
-- **`cote_metano_dix_zones_lot2_pmdo.zip`** : 20 `.rsground`, quatre tilesets `.tile`, six fonds `.dir`, scripts minimaux, installateur, provenance et aperçu autonome.
+- **`apercu_dix_zones_treasure_lot2.html`** : aperçu autonome, jour/nuit, animation, calques, grille 8 px, zoom 1×/2×, exports PNG.
+- **`cote_treasure_dix_zones_lot2_pmdo.zip`** : 20 `.rsground`, quatre tilesets `.tile`, six fonds `.dir`, scripts minimaux, installateur, provenance et aperçu autonome.
 - Dans le dépôt : `sprites/cote_dix_zones_lot2/` contient les PNG séparés et les compositions. La planche réduite `PLANCHE_JOUR_NUIT_NE_PAS_IMPORTER.png` n'est pas un asset de jeu.
 
 Les cartes utilisent **`cote20_`**, les ressources **`C20_`**, afin de cohabiter avec le lot 1. Exemple : `Data/Ground/cote20_11_anses_jumelles_nuit.rsground`.
@@ -59,7 +59,7 @@ Les Ground ne s'importent pas avec « PNG to Tileset ». Pour importer les PNG s
 - Calques vides : **Vos sols et chemins**, **Vos structures - base**, **Vos structures - avant-plan** (`Top = 4`).
 - Décorations et entités libres, sauf un marqueur `entrance` dans l'herbe.
 
-Les nuages gardent leur taille et leurs pixels : bande **1440 × 208**, défilement **−4 px/s**, sans aller-retour. Les astres sont fixes, comme dans le premier lot Métano. Les images de l'aperçu sont encodées en WebP **sans perte**, contrôlées contre les PNG ; les téléchargements de calques restent en PNG.
+Les nuages gardent leur taille et leurs pixels : bande **1440 × 208**, défilement **−4 px/s**, sans aller-retour. Les astres sont fixes, comme dans le premier lot Treasure. Les images de l'aperçu sont encodées en WebP **sans perte**, contrôlées contre les PNG ; les téléchargements de calques restent en PNG.
 
 **Aucun bâtiment, arbre, grotte, meuble ou chemin n'est posé. Toutes les collisions sont libres (`Tags = 0`)**, même sur les parois et la mer. Dessiner les obstacles et les accès avant d'utiliser ces bases comme niveaux jouables. Les cartes portent `Released = false`.
 
@@ -67,7 +67,7 @@ Les nuages gardent leur taille et leurs pixels : bande **1440 × 208**, défilem
 
 Le guide généré `source/cote_dix_zones_lot2/guide_compositions.png` propose les dix compositions. Les terrains de jeu sont des adaptations avec les modules natifs, pas des copies de pixels de ce guide.
 
-Matière : `Metano_Town_Base` et `Metano_Town_Cliffs`, sources Halcyon / Palika et contributeurs, déjà conservées dans le dépôt. Couronnes, retours et pieds viennent des modules natifs ; les grandes faces répètent six rangées centrales sans étirer, tourner ni recolorer les textures de jour. Les rives arrière et latérales retirent par alpha les pixels de rivière bleue : ce sont donc des découpes dérivées, pas des copies intégrales de chaque tuile source. La provenance par cellule est dans `provenance/` du ZIP.
+Matière : `Treasure_Town_Base` et `Treasure_Town_Cliffs`, sources Halcyon / Palika et contributeurs, déjà conservées dans le dépôt. Couronnes, retours et pieds viennent des modules natifs ; les grandes faces répètent six rangées centrales sans étirer, tourner ni recolorer les textures de jour. Les rives arrière et latérales retirent par alpha les pixels de rivière bleue : ce sont donc des découpes dérivées, pas des copies intégrales de chaque tuile source. La provenance par cellule est dans `provenance/` du ZIP.
 
 Nuages, ciel et nuit : ressources de l'autre agent au commit **`c16efe12d74361df5ba8625abb68260f5f8fc6dd`**, reprises par le pipeline du lot 1. Les fichiers d'origine et leurs blobs Git sont dans `source/cote_dix_zones/reference_autre_agent/`. La nuit applique sa saturation **0,80**, ses multiplicateurs **(0,40 ; 0,42 ; 0,58)** et ajouts RGB **(4 ; 8 ; 15)**. La mer reste le cycle V2 issu de la planche côtière fournie précédemment.
 

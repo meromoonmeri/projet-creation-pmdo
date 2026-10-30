@@ -14,7 +14,7 @@ Première zone de **fin de donjon** de la série des entrées. Elle fait suite a
 
 | # | Calque | Animation |
 |---|---|---|
-| 00 | eau_source | 4 × 10 ticks, eau de l'entrée Vapeur V2 (structure de la rivière de Métano) |
+| 00 | eau_source | 4 × 10 ticks, eau de l'entrée Vapeur V2 (structure de la rivière de Treasure) |
 | 01 | bulles | 24 × 5 ticks, bulles de l'entrée Vapeur V2 |
 | 02 | sol_complet | fixe |
 | 03 | sol_arene | fixe |

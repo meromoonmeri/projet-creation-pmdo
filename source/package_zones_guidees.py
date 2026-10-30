@@ -12,8 +12,8 @@ data=[]
 for z in m['zones']:
     p=O/z['id'];data.append({'id':z['id'],'guide':guide(R/z['guide']),'dry':png(p/'canonique_sec.png'),'banks':png(p/'berges.png'),'water':[png(p/f'eau_{f}.png') for f in range(1,5)]})
 template=(R/'source/zones_guidees/viewer.html').read_text();html=template.replace('__DATA__',json.dumps(data)).replace('9 731',f"{m['atlas']['used']:,}".replace(',',' '));viewer=R/'apercu_zones_guidees.html';viewer.write_text(html)
-with zipfile.ZipFile(R/'zones_guidees_metano_pack.zip','w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+with zipfile.ZipFile(R/'zones_guidees_treasure_pack.zip','w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
     for p in sorted(O.rglob('*')):
         if p.is_file():z.write(p,p.relative_to(R))
     z.write(viewer,viewer.name)
-print('Viewer MiB:',round(viewer.stat().st_size/1048576,2));print('Pack MiB:',round((R/'zones_guidees_metano_pack.zip').stat().st_size/1048576,2))
+print('Viewer MiB:',round(viewer.stat().st_size/1048576,2));print('Pack MiB:',round((R/'zones_guidees_treasure_pack.zip').stat().st_size/1048576,2))

@@ -7,8 +7,8 @@ sys.path.insert(0,str(R/'source/cote_v4_abyss'));from night import night
 
 def load(p):return Image.open(p).convert('RGBA')
 def save(im,p):p.parent.mkdir(parents=True,exist_ok=True);im.save(p)
-metano=load(P/'Metano_Town_Cafe_Base.png');spinda=load(P/'SpindaCafe1.png')
-patchspec={'plancher':('Metano_Town_Cafe_Base.png',(128,160,192,224)),'panneau_bois':('Metano_Town_Cafe_Base.png',(128,48,160,80)),'montant':('Metano_Town_Cafe_Base.png',(104,48,112,80)),'traverse':('Metano_Town_Cafe_Base.png',(120,80,152,88)),'escalier':('SpindaCafe1.png',(320,336,384,392))}
+treasure=load(P/'Treasure_Town_Cafe_Base.png');spinda=load(P/'SpindaCafe1.png')
+patchspec={'plancher':('Treasure_Town_Cafe_Base.png',(128,160,192,224)),'panneau_bois':('Treasure_Town_Cafe_Base.png',(128,48,160,80)),'montant':('Treasure_Town_Cafe_Base.png',(104,48,112,80)),'traverse':('Treasure_Town_Cafe_Base.png',(120,80,152,88)),'escalier':('SpindaCafe1.png',(320,336,384,392))}
 patches={}
 for name,(file,box) in patchspec.items():
  patches[name]=load(P/file).crop(box);save(patches[name],O/'materiaux'/f'{name}.png');SOURCES[name]={'file':file,'box':list(box),'rgba_sha256':hashlib.sha256(patches[name].tobytes()).hexdigest()}
@@ -23,7 +23,7 @@ spempty=Image.composite(tile(patches['plancher'],spinda.size),spinda,spmask)
 # Back-wall fixtures become empty wood panels; not furniture retained from the sheet.
 for box in [(224,96,288,144),(416,96,480,144)]:spempty.alpha_composite(tile(patches['panneau_bois'],(box[2]-box[0],box[3]-box[1])),box[:2])
 # Upper room's canonical Base is already empty.
-mfloor=Image.new('L',metano.size);ImageDraw.Draw(mfloor).polygon([(112,88),(344,88),(429,144),(429,239),(350,296),(109,296),(27,239),(27,144)],fill=255)
+mfloor=Image.new('L',treasure.size);ImageDraw.Draw(mfloor).polygon([(112,88),(344,88),(429,144),(429,239),(350,296),(109,296),(27,239),(27,144)],fill=255)
 # Extend by inserting exact 8px strips; never stretch native texture pixels.
 def extend(im,extra_x,extra_y,cx,cy):
  w,h=im.size;mode=im.mode;out=Image.new(mode,(w+extra_x,h))
@@ -49,11 +49,11 @@ def remove_outside(im):
    ny,nx=y+dy,x+dx
    if 0<=ny<h and 0<=nx<w and same[ny,nx] and not seen[ny,nx]:stack.append((ny,nx))
  a[seen]=0;return Image.fromarray(a)
-levels=[('ss2','Sous-sol −2','Spinda',96,24),('ss1','Sous-sol −1','Spinda',16,104),('accueil','Accueil','Metano',112,64),('etage1','Étage +1','Metano',64,128),('etage2','Étage +2','Metano',160,48)]
+levels=[('ss2','Sous-sol −2','Spinda',96,24),('ss1','Sous-sol −1','Spinda',16,104),('accueil','Accueil','Treasure',112,64),('etage1','Étage +1','Treasure',64,128),('etage2','Étage +2','Treasure',160,48)]
 manifest={'levels':[],'materials':SOURCES,'window_views':'232233.png, paysage canonique fourni précédemment; fenêtres = nouveaux assemblages de poutres natives','native_texture_scale':1,'grid_px':8,'runtime_validated':False,'furniture':False}
 for variant in ['A','B']:
  for index,(slug,title,family,ex,ey) in enumerate(levels):
-  ex+=64 if variant=='B' else 0;ey+=32 if variant=='B' else 0;underground=family=='Spinda';src=spempty if underground else metano;fm=spmask if underground else mfloor;cx,cy=(344,224) if underground else (224,192)
+  ex+=64 if variant=='B' else 0;ey+=32 if variant=='B' else 0;underground=family=='Spinda';src=spempty if underground else treasure;fm=spmask if underground else mfloor;cx,cy=(344,224) if underground else (224,192)
   room=remove_outside(extend(src,ex,ey,cx,cy));floor_mask=np.array(extend(fm,ex,ey,cx,cy))>0;a=np.array(room);h,w=a.shape[:2]
   floor=a.copy();floor[~floor_mask]=0;shell=a.copy();shell[floor_mask]=0
   # Rock border is a canonical visible partition around the underground shell.

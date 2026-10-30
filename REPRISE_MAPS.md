@@ -2,7 +2,7 @@
 
 ## Demande actuelle
 
-Reprendre la création de maps avec textures canoniques. **Mise à jour du 25 septembre** : l'utilisateur a choisi une entrée de donjon sud → nord, la méthode rendu généré et les deux livrables (PNG 8 px + Ground). Premier lot : `renders/entree_vapeur_sud_nord_v1/`, biome Steam Cave choisi par l'agent et à confirmer. Les anciens travaux sont conservés. **V2** (`renders/entree_vapeur_sud_nord_v2/`) : eau façon rivière Métano, scintillements Métano, bulles de marais générées ; V1 intacte. Map suivante réalisée : **Entrée Cratère** (`renders/entree_cratere_sud_nord_v1/`, réf. Dark Crater, biome choisi par l'agent et à confirmer). Puis **Entrée Ruine** (`renders/entree_ruine_sud_nord_v1/`, réf. Sealed Ruin) et **Entrée Givre** (`renders/entree_givre_sud_nord_v1/`, réf. Frosty Forest, neige). Puis **Entrée Bristle** (`renders/entree_bristle_sud_nord_v1/`, réf. Mt. Bristle, canyon de sable et torrent). **Nouveau standard demandé (26 septembre) : maps plus vastes au format 4:3** — premier lot `renders/entree_jungle_sud_nord_v1/` en 768 × 576 (96 × 72 cases). L'utilisateur a demandé de continuer la série de maps.
+Reprendre la création de maps avec textures canoniques. **Mise à jour du 25 septembre** : l'utilisateur a choisi une entrée de donjon sud → nord, la méthode rendu généré et les deux livrables (PNG 8 px + Ground). Premier lot : `renders/entree_vapeur_sud_nord_v1/`, biome Steam Cave choisi par l'agent et à confirmer. Les anciens travaux sont conservés. **V2** (`renders/entree_vapeur_sud_nord_v2/`) : eau façon rivière Treasure, scintillements Treasure, bulles de marais générées ; V1 intacte. Map suivante réalisée : **Entrée Cratère** (`renders/entree_cratere_sud_nord_v1/`, réf. Dark Crater, biome choisi par l'agent et à confirmer). Puis **Entrée Ruine** (`renders/entree_ruine_sud_nord_v1/`, réf. Sealed Ruin) et **Entrée Givre** (`renders/entree_givre_sud_nord_v1/`, réf. Frosty Forest, neige). Puis **Entrée Bristle** (`renders/entree_bristle_sud_nord_v1/`, réf. Mt. Bristle, canyon de sable et torrent). **Nouveau standard demandé (26 septembre) : maps plus vastes au format 4:3** — premier lot `renders/entree_jungle_sud_nord_v1/` en 768 × 576 (96 × 72 cases). L'utilisateur a demandé de continuer la série de maps.
 
 Reprise du 25 septembre : `.venv` absente du checkout puis recréée (Pillow 12.3, NumPy 2.4, SciPy 1.17). Les tests V16 + sud–nord V3 donnent de nouveau 18/19, avec la même erreur liée à l'objet historique `438b9288`.
 
@@ -80,7 +80,7 @@ Même jour, sur « Je veux un petit temple miniature qui tiens sur la buche cele
 
 Même jour, sur « BEAU TRAVAIL JE VALIDE PREPARELE MOD AVEC TOUTE CES CARTE ET LANCE LA SUITE ! » : **série validée par l'utilisateur**, et **mod unique** des 18 entrées (`renders/mod_guilde_entrees_v1/guilde_entrees_sud_nord_pmdo_0812.zip`, namespace `guilde_entrees_sud_nord`, galerie `apercu_mod_guilde_entrees_v1.html`, source `source/mod_guilde_entrees_v1/`, 6 tests PASS). Chaque nouvelle carte de la série doit être ajoutée à `MAPS` dans `build_mod.py`.
 
-**Serveur d'aperçus, à relancer au début de chaque session** : `python3 source/serveur_apercus/serve.py --port 8000`, via l'outil de processus de fond. Il écoute sur 0.0.0.0 et sa page d'accueil liste tous les aperçus, les entrées sud → nord en tête.
+**Serveur d'aperçus** : `python3 source/serveur_apercus/serve.py --port 8000`, via l'outil de processus de fond, écoute sur 0.0.0.0. La galerie indexe à la demande 220 visionneuses HTML et 299 ZIP : base `main` (166/200) plus 54 pages de carte (52 aperçus racine, 2 index HTML sous `renders/`) et 99 ZIP uniques de 14 têtes Arena, catalogués sans checkout ni fusion dans `source/serveur_apercus/branch_catalog.json`. Elle indexe aussi 743 ressources référencées par les pages de branche (calques, frames, vidéos, captures et manifestes), récupérées au commit source à la demande. Les cartes s’ouvrent dans le même contexte d’aperçu afin d’exécuter leurs scripts ; les ZIP à manifeste recomposent plusieurs scènes et animations (DB1 : 10 ; D22 Plaines : jour/nuit et lumière ; VP1 Désert : 2). Les séquences sans placement sûr restent à part ; RGB555 additif est une approximation Canvas, et les PNG d’origine restent accessibles. Routes vérifiées : index, API, page HTML de branche, images/animations, MP4 et aperçus ZIP. Pas de navigateur réel installé pour confirmer visuellement le rendu. Détails : `source/serveur_apercus/README.md` ; tests actuels : 18 PASS.
 
 Même jour (29 septembre, session `arena/01a0ec9c`, branchée sur `311b0dd0`), sur « Poursuis le projet tu vas lire les read me agent et outil et methode creation de map pmd texture canonique » : lecture de `README.md`, `AGENTS.md`, `REPRISE_MAPS.md`, `MANUEL_METHODE_PMDO.md` et du README de l'outil maps PMD Sky. Lot **Fin Sables mouvants** (`renders/fin_sables_mouvants_v1/`, préfixe `FSM1`, réf. `witheringdesert.png`, aperçu `apercu_fin_sables_mouvants_v1.html`, 15 tests PASS, 5 mutations). Biome et portée choisis par l'agent, **à confirmer**. **Relevé des branches sœurs** : `01a0ea8f` (FUL1, ATF1) et `01a0eaca` (FUL1, FMF1, FMF2, repères FCV1 FJS3 FMT1 FQS1 FSC1 FTC1, BZF1) ont travaillé en parallèle sur les fins ; rien fusionné, rien repris. Fins restantes ici, dans l'ordre du mod : Star Cave, Clairière tropicale, Couloir violet, Mt. Thunder, Jardin secret (Underground Lake et Mystifying Forest existent sur les branches sœurs). Préfixes pris en plus : FUL1, FMF1, FMF2, ATF1, BZF1, FCV1, FJS3, FMT1, FQS1, FSC1, FTC1, FSM1.
 
@@ -124,9 +124,9 @@ Points d'attention :
 Dernière consigne de l'utilisateur (session `01a0dc9b`, après la Cascade V1) : « tu dois utiliser ton générateur d'image tu as mal audité l'ancienne méthode ». Pour la série des entrées sud → nord :
 
 1. **« Textures canoniques » = rendu généré RÉFÉRENCÉ.** Le rip canonique du biome est passé au générateur en image de référence (`images=[rip]`). Le décor reproduit ses textures, sa palette et son style de pixel sur un layout nouveau (« même endroit, autre lieu », consigne donnée pour Amp). Exemple type : le brut Bristle est presque identique au rip Mt. Bristle.
-2. Ce n'est **pas** un relayout de pixels natifs (`zones_south_north_v3`, Cascade V1). Cette méthode ne s'emploie que si l'utilisateur la nomme explicitement. Les règles de copie native Métano restent réservées aux extensions de Métano.
+2. Ce n'est **pas** un relayout de pixels natifs (`zones_south_north_v3`, Cascade V1). Cette méthode ne s'emploie que si l'utilisateur la nomme explicitement. Les règles de copie native Treasure restent réservées aux extensions de Treasure.
 3. Mesurer la fidélité de la matière principale contre le rip : moyenne RGB sur masque, distance sous un seuil documenté (Amp 9,6 < 35 ; Waterfall 17,0 < 40 ; Horn 34,8 < 40). Écarter un brut non conforme plutôt que de le corriger en silence.
-4. Ne jamais présenter les pixels générés comme des tuiles natives certifiées. Seuls les scintillements, et la cascade de ECN2, sont des pixels Métano natifs.
+4. Ne jamais présenter les pixels générés comme des tuiles natives certifiées. Seuls les scintillements, et la cascade de ECN2, sont des pixels Treasure natifs.
 5. La méthode vaut pour les **nouvelles** maps, sans reprendre les livraisons existantes. Si le sens de « canonique », la référence ou la portée d'un lot est ambigu, demander avant le build (consigne `01a0db11`).
 
 ## Méthode courante des entrées sud → nord (résumé opératoire)
@@ -136,19 +136,19 @@ Gabarit 4:3 à copier : `source/entree_jungle_sud_nord_v1/` (`build.py`, `test_b
 | Outil | Fichier |
 |---|---|
 | `keep_large`, `quantize_layers` (96 couleurs), `place`, `cell_grid`, `write_ora`, `sparkle_families` | `source/entree_bristle_sud_nord_v1/build.py` (régler `BM.W, BM.H`) |
-| `down_class` (réduction BOX par classe), `water_phases` façon Métano, `ground_project` 4:3 | `source/entree_jungle_sud_nord_v1/build.py` |
+| `down_class` (réduction BOX par classe), `water_phases` façon Treasure, `ground_project` 4:3 | `source/entree_jungle_sud_nord_v1/build.py` |
 | `reachable` (BFS, personnage 16 × 16) | `source/entree_sud_nord_generee_v1/build.py` |
 | `decode_tile` ; `extract_poses` (planches de poses) | `source/entree_vapeur_sud_nord_v2/build.py` ; `source/entree_ruine_sud_nord_v1/build.py` |
 | `TileBank`, `layer`, `save`, `write_dir` (codec Ground et `.tile`) | `source/pmdo_cote/build.py` |
 | `read_node`, `encode_index`, `read_index`, installateur avec fusion d'index | `source/pmdo_cote/INSTALLER.py` |
 | Lecteur natif `.tile` des tests (`tiles`, `straight`) | `source/cote_v5_expeditions/audit_references.py` |
-| Gabarit `.rsground` 0.8.12 | `mod_metano_expeditions_pmdo_0812.zip` → `v50812_01_crete_sillage_jour.rsground` |
+| Gabarit `.rsground` 0.8.12 | `mod_treasure_expeditions_pmdo_0812.zip` → `v50812_01_crete_sillage_jour.rsground` |
 
 Étapes :
 
 1. **Générer** dans `bruts/`, avec le rip du biome en `images=` : `decor_magenta.png` (décor complet, eau ou lave en magenta, « WIDE LANDSCAPE 4:3, zoomed out » → 1200 × 896), `sol_complet.png` (même cadrage, sol seul ; à défaut, quilting depuis le sol du décor comme ECN2) et une planche de poses pour l'animation propre au biome. Si rien ne revient, relancer avec un prompt plus court. Choisir les cases de planche à la main : le générateur respecte rarement la grille demandée.
 2. **Segmenter en pleine résolution** (`classify`, seuils mesurés et commentés), puis **réduire par classe** (`down_class`, ×576/896, recadrage centré à 768 × 576 ; jamais l'image entière avant la segmentation). Palette commune de 96 couleurs, palettes séparées pour les matières qui virent (arbres, cristaux).
-3. **Animer chaque effet sur son calque** : eau façon rivière Métano 4 × 10 ticks (couleurs Métano exactes si le biome le permet, sinon rôles Métano ou couleurs du rip), scintillements Métano natifs, poses générées réduites uniformément. Boucle fermée testée, dernière → première comprise ; scène au PPCM des cadences.
+3. **Animer chaque effet sur son calque** : eau façon rivière Treasure 4 × 10 ticks (couleurs Treasure exactes si le biome le permet, sinon rôles Treasure ou couleurs du rip), scintillements Treasure natifs, poses générées réduites uniformément. Boucle fermée testée, dernière → première comprise ; scène au PPCM des cadences.
 4. **Collisions et accès** : `cell_grid` (case bloquée si plus de 25 % non praticable), `entrance` au sud, `donjon_seuil` sous la bouche, chemin 16 × 16 prouvé par `reachable`, aucun warp.
 5. **Exports** : `PFX_NN_nom.png`, `animation/<effet>/`, masques, ORA, `review/` (scène t000, WebP, collisions), `manifest.json` (hashes des bruts, normalisation, origine de chaque matière, `art_approved: false`, `runtime_tested: false`).
 6. **Ground PMDO 0.8.12** : une banque `.tile` par calque, un calque Top vide (`Layer=4`), `index.idx`, `Mod.xml`, `INSTALLER.py`, staging dans `.cache/<lot>/`.
@@ -161,19 +161,19 @@ Gabarit 4:3 à copier : `source/entree_jungle_sud_nord_v1/` (`build.py`, `test_b
 ## Repérage effectué
 
 - 141 fichiers README recensés ; parcours de leurs présentations et statuts, lecture approfondie des méthodes et lots pertinents pour les maps.
-- Instructions dans `AGENTS.md`, historique de `README.md`, manuel `MANUEL_METHODE_PMDO.md`, audit `audits/metano_import/RAPPORT.md` et méthode `source/layouts_magenta_v1/WORKFLOW.md` consultés.
+- Instructions dans `AGENTS.md`, historique de `README.md`, manuel `MANUEL_METHODE_PMDO.md`, audit `audits/treasure_import/RAPPORT.md` et méthode `source/layouts_magenta_v1/WORKFLOW.md` consultés.
 - 353 scripts Python recensés et analysés syntaxiquement : aucune erreur de syntaxe. Ce n’est pas une exécution de tous les scripts.
 - 74 fichiers `.tile` présents sous `source/` ; ce nombre inclut des références de différents lots, pas nécessairement 74 textures distinctes.
-- Inspection visuelle du témoin canonique Métano, de la forêt sud–nord V3 et de la composition d’arène V16.
+- Inspection visuelle du témoin canonique Treasure, de la forêt sud–nord V3 et de la composition d’arène V16.
 
 ## Contrat à préserver
 
 Deux méthodes historiques coexistent :
 
 1. **Rendu généré référencé PMD** : composition complète avec références canoniques, terrain sur magenta, détourage, plans de profondeur, fonds et effets séparés. La correction explicite de l’arène rejette une mosaïque de bouts de maps. Ne pas revenir silencieusement à cette méthode rejetée.
-2. **Pixels natifs exacts** : prélèvements documentés, modules complets cohérents, pas de rotation/miroir/redimensionnement/recoloration des textures de jour. C’est notamment la route d’import native Métano. Un dessin généré même remis dans la palette source n’est pas une extraction canonique.
+2. **Pixels natifs exacts** : prélèvements documentés, modules complets cohérents, pas de rotation/miroir/redimensionnement/recoloration des textures de jour. C’est notamment la route d’import native Treasure. Un dessin généré même remis dans la palette source n’est pas une extraction canonique.
 
-La demande actuelle insiste sur les textures canoniques : annoncer clairement l’origine de chaque matériau et ne pas certifier une génération comme pixel-exacte. Choisir la méthode en fonction de la map demandée, sans réimposer les contraintes spécifiques de Métano à tous les biomes.
+La demande actuelle insiste sur les textures canoniques : annoncer clairement l’origine de chaque matériau et ne pas certifier une génération comme pixel-exacte. Choisir la méthode en fonction de la map demandée, sans réimposer les contraintes spécifiques de Treasure à tous les biomes.
 
 Dans les deux cas : conserver la DA, l’échelle, les raccords, les volumes et les accès lisibles ; éviter les falaises fragmentées en cellules indépendantes. Préserver les compositions approuvées. Pour les entrées concernées par la correction historique : arrivée sud, progression vers l’entrée au nord.
 
@@ -182,9 +182,9 @@ Dans les deux cas : conserver la DA, l’échelle, les raccords, les volumes et 
 | Besoin | Sources / outils |
 |---|---|
 | Composition générée, magenta, calques | `source/layouts_magenta_v1/WORKFLOW.md`, `palette.py`, `build.py` |
-| Modules natifs Métano | `source/cote_v4_abyss/natifs/`, `prepare.py`, `sample.py` |
+| Modules natifs Treasure | `source/cote_v4_abyss/natifs/`, `prepare.py`, `sample.py` |
 | Nuit Abyss exacte | `source/cote_v4_abyss/night.py` ; ne pas cumuler les filtres |
-| Eau native Métano | `source/eau_metano/natifs/`, `source/build_water_metano.py`, `source/verify_water_metano.py` |
+| Eau native Treasure | `source/eau_treasure/natifs/`, `source/build_water_treasure.py`, `source/verify_water_treasure.py` |
 | Entrées sud–nord, provenance par pixel | `source/zones_south_north_v3/`, `exports/zones_south_north_v3/manifest.json` |
 | Sky Peak, terrain original | `renders/sky_peak_canonique_v1/README.md`, `source/sky_peak_v1/build_canonique.py` |
 | Donjons/autotiles natifs | `renders/donjons_dtef_v2/README.md`, `source/donjons_dtef_v2/` |

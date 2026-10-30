@@ -2,9 +2,9 @@
 
 ## Méthode conservée
 
-L’utilisateur a approuvé les deux compositions et demandé de conserver la méthode **générateur pour la composition → reconstruction en tuiles Métano natives**. Cette préférence est enregistrée dans `AGENTS.md`.
+L’utilisateur a approuvé les deux compositions et demandé de conserver la méthode **générateur pour la composition → reconstruction en tuiles Treasure natives**. Cette préférence est enregistrée dans `AGENTS.md`.
 
-Après `git fetch origin`, le dernier commit de `main` consulté est `6c4ac5a` (guilde : 12 salles, passages ouverts, calques PNG, Aseprite et Tiled). Le dernier commit local de cette branche est `7f1e82b` (kits Métano et grands layouts). Aucun changement de branche ni de géométrie des zones approuvées n’a été effectué.
+Après `git fetch origin`, le dernier commit de `main` consulté est `6c4ac5a` (guilde : 12 salles, passages ouverts, calques PNG, Aseprite et Tiled). Le dernier commit local de cette branche est `7f1e82b` (kits Treasure et grands layouts). Aucun changement de branche ni de géométrie des zones approuvées n’a été effectué.
 
 L’export reprend les conventions du kit de la guilde : calques nommés et ordonnés, canevas commun, PNG RGBA, fichiers Aseprite éditables, grilles de 8 px, cartes Tiled et contrôle par recomposition. Les calques de fenêtres/portes propres aux intérieurs ne sont pas artificiellement ajoutés au terrain.
 
@@ -18,7 +18,7 @@ Dans **`01_cirque/multicalques/`** et **`02_terrasses/multicalques/`** :
 
 | Ordre | Calque | Fichiers PNG |
 |---|---|---|
-| 1 | Sol : herbe Métano | `01_sol.png` |
+| 1 | Sol : herbe Treasure | `01_sol.png` |
 | 2 | Parois rocheuses | `02_parois.png` |
 | 3 | Bordures et retours de falaises | `03_bordures.png` |
 | 4 | Berges et fond statique de rivière | `04_berges.png` |
@@ -42,7 +42,7 @@ Le découpage déplace des **cellules entières de 8 × 8 px** vers des couches 
 
 - Les bordures sont la bande périphérique d’une cellule autour du masque de falaises, incluant sommets, pieds et retours. Ce n’est pas une classification d’autotiles ni une carte d’occlusion pour les personnages.
 - Les tuiles de cascade sont distinguées des tuiles de rivière par leur feuille source canonique, pas par une retouche de couleur.
-- Les berges contiennent des pixels d’eau statiques présents dans Métano. Pour retrouver la version sèche, désactiver **les trois** calques aquatiques.
+- Les berges contiennent des pixels d’eau statiques présents dans Treasure. Pour retrouver la version sèche, désactiver **les trois** calques aquatiques.
 - Les ombres restent intégrées aux tuiles originales ; pas de nouvelle ombre peinte sur un calque artificiel. Pas de variante nuit recolorée.
 - La réunion des couches donne exactement les PNG approuvés ; leurs empreintes SHA-256 sont conservées dans `multicalques.json`.
 

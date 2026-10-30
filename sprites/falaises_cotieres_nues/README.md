@@ -2,9 +2,9 @@
 
 ## Résultat de cette passe
 
-Deux nouveaux terrains ont été produits par le **générateur d’images**, à partir des layouts côtiers précédents et des références graphiques Métano. Bâtiments, arbres, panneaux, clôtures, objets, campement, grottes et chemins ont été retirés. Les zones sont des interprétations des silhouettes, pas des reproductions géométriques exactes.
+Deux nouveaux terrains ont été produits par le **générateur d’images**, à partir des layouts côtiers précédents et des références graphiques Treasure. Bâtiments, arbres, panneaux, clôtures, objets, campement, grottes et chemins ont été retirés. Les zones sont des interprétations des silhouettes, pas des reproductions géométriques exactes.
 
-**Important : le terrain est généré. Ses pixels ne sont PAS une copie vérifiée des tuiles canoniques Métano.** Les contrôles d’export ci-dessous ne changent pas ce statut. Ce lot répond à la génération de falaises nues, à leur isolation et aux calques animés ; il ne certifie pas l’équivalence graphique/structurelle au jeu original.
+**Important : le terrain est généré. Ses pixels ne sont PAS une copie vérifiée des tuiles canoniques Treasure.** Les contrôles d’export ci-dessous ne changent pas ce statut. Ce lot répond à la génération de falaises nues, à leur isolation et aux calques animés ; il ne certifie pas l’équivalence graphique/structurelle au jeu original.
 
 ## Voir les animations
 
@@ -36,7 +36,7 @@ La mer et le ciel proviennent de la planche **`IMG_4890.png` fournie par l’uti
 - Mer lointaine : cinq bandes de 48 × 128 px.
 - Mer proche : cinq bandes de 48 × 168 px, répétées après la bande lointaine.
 
-Les rectangles exacts sont consignés dans `manifest.json`. **Ce ne sont pas les animations de rivière de Métano.** L’ordre de lecture et les cadences sont proposés pour ce lot ; ils n’ont pas été récupérés depuis les métadonnées du jeu. Le ciel oscille lentement, il ne s’agit pas d’un cycle météorologique ni d’un défilement infini de nuages.
+Les rectangles exacts sont consignés dans `manifest.json`. **Ce ne sont pas les animations de rivière de Treasure.** L’ordre de lecture et les cadences sont proposés pour ce lot ; ils n’ont pas été récupérés depuis les métadonnées du jeu. Le ciel oscille lentement, il ne s’agit pas d’un cycle météorologique ni d’un défilement infini de nuages.
 
 Les sources générées à fond magenta restent dans `source/falaises_cotieres_nues/`. Seul le fond magenta a été supprimé ; les pixels visibles conservés n’ont pas été recolorés.
 
@@ -65,4 +65,4 @@ Dépendances : Pillow et numpy. Le build réutilise les sorties du générateur 
 - cinq phases de mer distinctes et cinq positions de ciel réparties sur huit frames ;
 - des noms d’export uniques.
 
-Le JavaScript a été contrôlé syntaxiquement avec Node. Ces vérifications ne constituent ni un test interactif navigateur/moteur, ni une certification de tuiles Métano canoniques.
+Le JavaScript a été contrôlé syntaxiquement avec Node. Ces vérifications ne constituent ni un test interactif navigateur/moteur, ni une certification de tuiles Treasure canoniques.

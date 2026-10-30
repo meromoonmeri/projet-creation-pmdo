@@ -12,7 +12,7 @@ for x in chosen:
   size,bank=decode(p);banks[p.stem]=bank;im=Image.new('RGBA',((max(x for x,y in bank)+1)*8,(max(y for x,y in bank)+1)*8))
   for (x,y),t in bank.items():im.alpha_composite(t,(x*8,y*8))
   im.save(p.with_suffix('.png'))
-banks['Metano_Town_Animation_Tileset']=decode(R/'source/eau_metano/natifs/Metano_Town_Animation_Tileset.tile')[1]
+banks['Treasure_Town_Animation_Tileset']=decode(R/'source/eau_treasure/natifs/Treasure_Town_Animation_Tileset.tile')[1]
 obj=json.loads((O/'altere_pond.rsground').read_text(encoding='utf-8-sig'))['Object'];scene=None;anims=[]
 for li,layer in enumerate(obj['Layers']):
  im=Image.new('RGBA',(len(layer['Tiles'])*8,len(layer['Tiles'][0])*8))

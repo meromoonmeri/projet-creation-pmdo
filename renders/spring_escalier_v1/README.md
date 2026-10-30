@@ -1,6 +1,6 @@
 # Luminous Spring — petit relief et escalier
 
-Retouche locale du layout central `spring_arc_en_ciel_v1/01_source_centrale`. Le bassin, la forêt et les astres lumineux ne sont pas déplacés. Ajout d’un socle bas et d’un escalier central avec une roche gris-vert guidée par les rochers déjà présents sur le site, sans matériau Métano ocre.
+Retouche locale du layout central `spring_arc_en_ciel_v1/01_source_centrale`. Le bassin, la forêt et les astres lumineux ne sont pas déplacés. Ajout d’un socle bas et d’un escalier central avec une roche gris-vert guidée par les rochers déjà présents sur le site, sans matériau Treasure ocre.
 
 ## Voir
 - [Composition PNG](composition.png)
