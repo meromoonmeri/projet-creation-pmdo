@@ -12,6 +12,32 @@
 
 Aucune géométrie, collision, sortie, warp, transition ou TileSheet n’a été inventée. Les sources Ground brutes et leur provenance restent séparées des alias Treasure de l’inventaire; aucun remplacement textuel aveugle n’a été appliqué aux payloads sources.
 
+## Recherche complémentaire dans les branches et archives (30 octobre 2026)
+
+La recherche a été étendue aux branches et à l’historique de `projet-creation-pmdo` et `guilde-treehouse-pmd`. **Aucune des trois sources Ground générées exactes n’a été retrouvée; aucun candidat homonyme n’est compté comme résolution.**
+
+- Pointes : **26 branches / 25 arbres** dans `projet-creation-pmdo`, **81 / 81** dans `guilde-treehouse-pmd`; les 106 arbres récursifs ont été lus sans troncature. Aucun blob Ground direct aux trois tailles attendues.
+- Historique Ground : 359 commits accessibles et 352 arbres d’historique uniques du dépôt actif; 929 commits Guild examinés, dont les 45 arbres des commits modifiant des `.rsground`. Aucun payload de taille/hash attendu.
+- Historique `.tile` direct : 700 chemins distincts dans le dépôt actif et 280 dans Guild; respectivement 9 et 12 chemins avaient un basename cible. Leurs versions d’historique n’ajoutent pas de payload certifié.
+- Archives : les **414 références ZIP** des pointes Guild (411 blobs distincts), les **40 versions ZIP Guild** pertinentes (8 blobs historiques nouveaux, 32 déjà présents aux pointes), les 12 ZIP des pointes du dépôt actif et le ZIP racine ont été dédupliqués par OID Git. **430 blobs ZIP externes** (3 039 063 124 octets) ont été récupérés/validés par OID Git et leurs membres directs inspectés; aucune erreur de téléchargement ni d’index ZIP.
+- Dans ces archives : zéro membre aux tailles des trois Grounds manquants, zéro hash Ground exact, et zéro des 13 Grounds de branche exacts. Aucun couple Ground exact + TileSheet référencée co-emballé n’a été trouvé. Le ZIP racine est un doublon de contenu (OID `876f05d235be8e13c549df54366e497637e52db4`) déjà présent dans l’ensemble.
+
+La recherche des **223 basenames `.tile` bruts/canoniques** parmi les 106 pointes trouve 8 basenames candidats, 13 couples chemin/OID et 11 OIDs distincts. Ils restent des candidats; les faits par famille sont :
+
+| Référence manquante | Payload observé dans les branches | Conclusion stricte |
+|---|---|---|
+| `terrain`, `terrain (2–4)` | Quatre OIDs `28264483…`, `e20a9d8b…`, `4e6bd932…`, `63279730…`, co-présents avec le Ground exact `branch_011`. | Provenance Ground établie, mais aucun index ne relie l’un des quatre payloads à l’un des quatre aliases. Non assignés. |
+| `Metano_Town_Base` / `Treasure_Town_Base` | `d4fc7ff9…` et `19b29549…`; le premier est identique au candidat New Era, le second est une autre source du commit. | Plusieurs fichiers/versions coexistent; l’association occurrence-payload reste ambiguë. Non certifié. |
+| `Metano_Town_Animated` / `Treasure_Town_Animated` | OID `7f528a8b…`, identique au candidat New Era homonyme. | Pas co-committé avec le Ground exact concerné; nom et payload partagé ne prouvent pas l’association. |
+| `Apricorn_Glade_Big_Tree` | OID `534d30f9…`, identique au candidat New Era homonyme. | Pas co-committé avec le Ground exact; non certifié. |
+| `interieur_sans_deco_jour (1)` | `dfaae8ca…` dans `quest_pmd_destiny`; différent du candidat New Era `35c6f6a8…`. | Deux payloads homonymes différents; provenance non établie. |
+| `spinda_cafe_dojo` | `e6974155…` dans `quest_pmd_destiny`; différent du candidat New Era `b88e1f22…`. | Deux payloads homonymes différents; provenance non établie. |
+| `téléchargement (6)` | `b8782038…` dans `quest_pmd_destiny`; différent du candidat New Era `21eea4d4…`. | Deux payloads homonymes différents; provenance non établie. |
+
+Les archives ZIP apportent deux entrées portant le nom `Metano_Town_Base.tile`, mais une seule payload (OID `d4fc7ff9…`, SHA-256 `305a7324…`, 1 231 857 octets), dans `pmd_native_map_v1_pmdo.zip` et `renders/amp_plains_fleurie_v1/amp_plains_fleurie_v1.zip`. Elles ne contiennent aucun des Grounds exacts audités; c’est donc la même candidate ambiguë, pas une nouvelle association.
+
+**Conclusion :** aucun Ground manquant n’est récupéré exactement; aucune nouvelle TileSheet n’est attribuée par occurrence avec preuve suffisante. Aucun payload, alias, chemin de quête ou dépendance n’a été remplacé ou intégré. La recherche ZIP a porté sur les membres directs; les éventuels ZIP imbriqués n’ont pas été développés récursivement. Les détails structurés des branches, hashes, OIDs et candidats sont consignés dans `DESTINY_16_TILE_SOURCE_AUDIT.json`, sous `branchAndArchiveSearch`.
+
 ## Grounds de branche exacts
 
 Archive d’évidence (pas un MOD/Quest installable) :
