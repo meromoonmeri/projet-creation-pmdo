@@ -3,8 +3,9 @@
 
 Unlike the overlay builder, this creates a new ``destiny`` Quest root. It reuses
 its stable Mod.xml/UUID from the earlier 208-map prototype, keeps only the
-246 verified Ground assets available today, and makes an exploration_cartes
-zone. The 16 unavailable source occurrences remain documented, never faked.
+246 verified Ground assets available today, makes an exploration_cartes zone,
+and integrates the namespaced Destiny title-screen component. The 16 unavailable
+source occurrences remain documented, never faked.
 """
 from __future__ import annotations
 
@@ -39,6 +40,11 @@ from source.pmdo_cote.installer_destiny_overlay import (  # noqa: E402
     safe_copy_plan,
     validate_overlay,
     zone_documents,
+)
+from source.pmdo_cote.integrate_destiny_title_screen import (  # noqa: E402
+    QUEST_UUID as DESTINY_QUEST_UUID,
+    integrate_destiny_title_screen,
+    validate_installed_title_screen,
 )
 
 OVERLAY_DEFAULT = ROOT / "exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip"
@@ -253,7 +259,7 @@ def attach_documents(overlay: Path, quest: Path) -> tuple[dict, list[str]]:
         "sous le namespace `destiny`. Elle reprend exactement le `Mod.xml` et l’UUID stables du "
         "prototype Destiny 208, puis remplace son catalogue de cartes par les assets validés disponibles.\n\n"
         f"- **{len(source_manifest['maps'])} Grounds** déclarés dans la zone développeur `{ZONE_ID}`.\n"
-        "- 1 059 TileSheets et 33 fonds; aucun contenu de remplacement n’est inventé.\n"
+        "- 1 059 TileSheets et 33 fonds de carte; l’écran-titre ajoute trois fonds Destiny. Aucun contenu de remplacement n’est inventé.\n"
         f"- L’inventaire garde les **{len(occurrences)} occurrences source** et leur provenance. "
         f"Les {len(unresolved)} sans Ground sont listées dans `Documentation/QUEST_BUILD.json` et "
         "`Documentation/destiny_262_inventory.json`.\n\n"
@@ -261,7 +267,7 @@ def attach_documents(overlay: Path, quest: Path) -> tuple[dict, list[str]]:
         "Elle n’est pas une certification de rendu/jouabilité.\n\n"
         "## Installation\n\n"
         "Extraire le dossier `destiny` dans `PMDO/MODS/`, activer la quête "
-        "`PMD Destiny — Catalogue d’exploration 0.8.12`, puis ouvrir `{ZONE_ID}` en mode développeur.\n"
+        f"`PMD Destiny — Catalogue d’exploration 0.8.12`, puis ouvrir `{ZONE_ID}` en mode développeur.\n"
         "Le `Mod.xml` est inclus dans cette nouvelle quête; il n’écrase aucun dossier extérieur.\n",
         encoding="utf-8",
     )
@@ -279,6 +285,10 @@ def validate_quest(quest: Path, expected_maps: int = 246) -> dict:
         raise ValueError("ModType de la quête incorrect.")
     if (root.findtext("GameVersion") or "").strip() != EXPECTED_GAME_VERSION:
         raise ValueError("GameVersion de la quête incorrect.")
+    uuid = (root.findtext("UUID") or "").strip().lower()
+    if uuid != DESTINY_QUEST_UUID:
+        raise ValueError(f"UUID stable Destiny incorrect : {uuid!r}.")
+    title_screen = validate_installed_title_screen(quest)
 
     ids = sorted(path.stem for path in grounds)
     zone = load_json(quest / "Data/Zone" / f"{ZONE_ID}.json")["Object"]
@@ -292,12 +302,15 @@ def validate_quest(quest: Path, expected_maps: int = 246) -> dict:
     tile_index = read_index_bytes((quest / "Content/Tile/index.idx").read_bytes())
     tiles = list((quest / "Content/Tile").glob("*.tile"))
     backgrounds = list((quest / "Content/BG").glob("*.dir"))
-    if len(tile_index) != 1059 or len(tiles) != 1059 or len(backgrounds) != 33:
-        raise ValueError("Comptes d'assets de la quête différents du staging validé.")
+    if len(tile_index) != 1059 or len(tiles) != 1059 or len(backgrounds) != 36:
+        raise ValueError("Comptes d'assets de la quête différents du staging validé (33 fonds de carte + 3 Destiny).")
     return {
         "grounds": len(grounds),
         "tilesheets": len(tiles),
         "backgrounds": len(backgrounds),
+        "mapBackgrounds": 33,
+        "titleBackgrounds": 3,
+        "titleScreen": title_screen,
         "zoneGrounds": len(zone["GroundMaps"]),
         "sourceOccurrences": len(manifest.get("sourceOccurrences", [])),
         "sourceEntryIdsWithoutGround": [
@@ -332,6 +345,27 @@ def write_zip(quest: Path, output: Path) -> None:
             names = set(archive.namelist())
             if "destiny/Mod.xml" not in names or f"destiny/Data/Zone/{ZONE_ID}.json" not in names:
                 raise ValueError("Mod.xml ou zone développeur absent du ZIP final.")
+            title_files = {
+                "destiny/Content/ContentParams.xml",
+                "destiny/Content/BG/Destiny_Title_Screen_Background.dir",
+                "destiny/Content/BG/Destiny_Title_Screen_Background_Jour.dir",
+                "destiny/Content/BG/Destiny_Title_Screen_Background_Nuit.dir",
+                "destiny/Content/Obj/Destiny_Logo_Anime_Opening.dir",
+                "destiny/Content/UI/Title.png",
+                "destiny/Content/UI/Enter.png",
+                "destiny/Data/Script/destiny/services/destiny_title_anim/init.lua",
+                "destiny/Documentation/DESTINY_TITLE_SCREEN.json",
+                "destiny/Documentation/destiny_title_screen_manifest.json",
+            }
+            if not title_files.issubset(names):
+                raise ValueError(f"Assets/rapport écran-titre absents du ZIP : {sorted(title_files - names)}")
+            archive_mod = ET.fromstring(archive.read("destiny/Mod.xml"))
+            if (archive_mod.findtext("Namespace") or "").strip() != QUEST_NAMESPACE or (
+                archive_mod.findtext("UUID") or "").strip().lower() != DESTINY_QUEST_UUID:
+                raise ValueError("L’identité stable de la Quest a changé dans le ZIP final.")
+            archive_params = ET.fromstring(archive.read("destiny/Content/ContentParams.xml"))
+            if (archive_params.findtext("TitleBG") or "").strip() != "Destiny_Title_Screen_Background":
+                raise ValueError("Le ZIP final ne référence pas le fond d’écran-titre Destiny.")
             ground_files = [name for name in names if name.startswith("destiny/Data/Ground/") and name.endswith(".rsground")]
             if len(ground_files) != 246:
                 raise ValueError(f"Le ZIP contient {len(ground_files)} Grounds, attendu 246.")
@@ -350,6 +384,7 @@ def finalize_validation(staging: Path, output: Path, ground_report: Path, zone_r
         raise FileNotFoundError(f"Quête cartothèque non assemblée : {quest}")
     if not ground_report.is_file() or not zone_report.is_file():
         raise FileNotFoundError("Les deux rapports runtime PMDO sont nécessaires à la finalisation.")
+    title_integration = integrate_destiny_title_screen(quest)
 
     ground_lines = ground_report.read_text(encoding="utf-8").splitlines()
     ground_header = {}
@@ -413,11 +448,14 @@ def finalize_validation(staging: Path, output: Path, ground_report: Path, zone_r
 
     readme = quest / "README.md"
     text = readme.read_text(encoding="utf-8")
-    marker = "- 1 059 TileSheets et 33 fonds; aucun contenu de remplacement n’est inventé.\n"
+    marker = "- 1 059 TileSheets et 33 fonds de carte; l’écran-titre ajoute trois fonds Destiny. Aucun contenu de remplacement n’est inventé.\n"
+    legacy_marker = "- 1 059 TileSheets et 33 fonds; aucun contenu de remplacement n’est inventé.\n"
     addition = (
         marker
         + "- Runtime PMDO 0.8.12.0 : **Ground 246/246 PASS en 13 lots** et zone `exploration_cartes` chargée avec 246 Grounds, 0 segment narratif. Rapports dans `Documentation/Reports/`.\n"
     )
+    if marker not in text and legacy_marker in text:
+        text = text.replace(legacy_marker, marker, 1)
     if marker not in text:
         raise ValueError("Ligne de compte d'assets absente du README pour ajouter le statut runtime.")
     readme.write_text(text.replace(marker, addition, 1), encoding="utf-8")
@@ -433,6 +471,10 @@ def finalize_validation(staging: Path, output: Path, ground_report: Path, zone_r
         "zoneRuntime": "PASS exploration_cartes, 246 GroundMaps, 0 segments",
         "namespace": QUEST_NAMESPACE,
         "uuid": summary["uuid"],
+        "backgrounds": summary["backgrounds"],
+        "mapBackgrounds": summary["mapBackgrounds"],
+        "titleScreen": summary["titleScreen"],
+        "titleScreenIntegration": title_integration,
     }
 
 
@@ -459,6 +501,8 @@ def build(overlay_zip: Path, output: Path, staging: Path, pmdo_root: Path, force
     seed_quest(quest, pmdo_root)
     install_hardlinked(overlay, quest)
     quest_build, unresolved = attach_documents(overlay, quest)
+    title_integration = integrate_destiny_title_screen(quest)
+    quest_build = load_json(quest / "Documentation/QUEST_BUILD.json")
     summary = validate_quest(quest)
     write_zip(quest, output)
     return {
@@ -477,6 +521,10 @@ def build(overlay_zip: Path, output: Path, staging: Path, pmdo_root: Path, force
         "visibleDeveloperZone": summary["zoneGrounds"],
         "tilesheets": summary["tilesheets"],
         "backgrounds": summary["backgrounds"],
+        "mapBackgrounds": summary["mapBackgrounds"],
+        "titleBackgrounds": summary["titleBackgrounds"],
+        "titleScreen": summary["titleScreen"],
+        "titleScreenIntegration": title_integration,
         "sourceOccurrences": summary["sourceOccurrences"],
         "sourceOccurrencesWithoutGround": len(unresolved),
         "unavailableSourceEntryIds": unresolved,

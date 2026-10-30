@@ -1,6 +1,6 @@
 # Overlay de cartes — quête PMDO Destiny
 
-Le builder historique produit un **prototype de 208 Grounds**. Un overlay candidat partiel de 246 a ensuite servi à créer une **nouvelle quête-cartothèque autonome `destiny`**, avec `Mod.xml` et zone développeur `exploration_cartes`; elle contient tous les 246 Grounds disponibles et leurs dépendances. Ce n’est pas le final de 262 occurrences : 16 sources restent sans Ground. Le package autonome réutilise exactement le UUID stable du prototype 208; il ne remplace aucun dossier de quête utilisateur et n’ajoute pas de scénario, écran-titre personnalisé ou zone narrative.
+Le builder historique produit un **prototype de 208 Grounds**. Un overlay candidat partiel de 246 a ensuite servi à créer une **nouvelle quête-cartothèque autonome `destiny`**, avec `Mod.xml` et zone développeur `exploration_cartes`; elle contient tous les 246 Grounds disponibles et leurs dépendances. Ce n’est pas le final de 262 occurrences : 16 sources restent sans Ground. Le ZIP de 232 Mo documenté ci-dessous est un build historique sans écran-titre personnalisé. Le constructeur source intègre maintenant le composant Destiny (`destiny_title_screen_component/`), mais le ZIP et l’overlay 246 sont absents de ce checkout et aucun nouveau package n’a été reconstruit ici; il ne faut donc pas présenter l’ancien hash comme incluant l’écran. Le package réutilise le UUID stable du prototype 208; il ne remplace aucun dossier de quête utilisateur et n’ajoute pas de scénario ou zone narrative.
 
 ## Résultat dans la quête
 

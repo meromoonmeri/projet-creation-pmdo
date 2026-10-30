@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "componentId": "destiny_title_screen_0812",
+  "title": "PMD Destiny — écran-titre animé jour/nuit",
+  "packageType": "quest-component-not-standalone",
+  "target": {
+    "namespace": "destiny",
+    "uuid": "1da28568-6363-5c51-8caa-9430b42862f0",
+    "gameVersion": "0.8.12.0",
+    "modType": "Quest"
+  },
+  "source": {
+    "repository": "meromoonmeri/projet-creation-pmdo",
+    "commit": "0e691d647a661f3c2a79984eda2d39686d4f0dfc",
+    "titleProvenanceNoteCommit": "053072d8064438e3bd6b278416e4af18c9d605fc",
+    "originalSourceModNamespace": "halcyon",
+    "targetModXmlIncluded": false,
+    "sourceFiles": [
+      {
+        "path": "source/pmd_destiny_fangame_v1/bruts/logo_pmd_destiny_oeuf_ailes_magenta.png",
+        "gitBlob": "e86dfac8b6a1f55aa712bd07310cf0556d457faf",
+        "bytes": 1273365,
+        "sha256": "65ee6e9e4f49f9b1f67a2193f6cff4f045abae865abc511a319246594fe3e754"
+      },
+      {
+        "path": "source/pmd_destiny_fangame_v1/bruts/mer_pixelart_jour_magenta.png",
+        "gitBlob": "ad72e75b6c8c0fa2679b6834e1617cb89d2de162",
+        "bytes": 1219393,
+        "sha256": "6f5dbd46c3c4a9a5b795c04c5a2e49bf5e3a17a4a740c8ced07f0516ed718f8c"
+      },
+      {
+        "path": "source/pmd_destiny_fangame_v1/bruts/mer_pixelart_nuit_magenta.png",
+        "gitBlob": "d5c3c2e836678003e451ae560e69c6d1cfde617a",
+        "bytes": 991880,
+        "sha256": "49f2da0b9ec4b73b36cbb543b15067dfebdcdadbb7eb7a4615c274b91d39bb55"
+      },
+      {
+        "path": "source/pmd_destiny_fangame_v1/bruts/nuages_cathedrale_magenta.png",
+        "gitBlob": "659e1eb3ee1d969587423a38a81337bc5bb34ec1",
+        "bytes": 1282152,
+        "sha256": "43ce26ad7b7a330e5ce9ccc78bfcfb51c859c2a3cce12ff78efb64e6e23f57c9"
+      },
+      {
+        "path": "source/moteur_pmd_destiny_fangame.py",
+        "gitBlob": "349506fbcaf5583a2b399ef3cecf5c94e0a431d4",
+        "bytes": 63566,
+        "sha256": "584a358bd56341f0554b35759bbd2350ef15ec1c594ddf247256517262d23c3b"
+      },
+      {
+        "path": "source/moteur_cyclones_cylindriques_unova.py",
+        "gitBlob": "47ddf1645628d72b307886e169a6aebc68290655",
+        "bytes": 63894,
+        "sha256": "18731ce85bca3f5f5bb358aff4ed7bbc1bb883c81f7a837a1f7bbfe4c902d9b2"
+      },
+      {
+        "path": "source/moteur_gba_pmd_red_natif.py",
+        "gitBlob": "5761cf7f5a8b9894f15b3287fb651ee8787ca14a",
+        "bytes": 15569,
+        "sha256": "c6a9c2d15e72e21d396fae1f683d947ad81bf1b098fc3b1c2094eea30b48d065"
+      },
+      {
+        "path": "source/pmd_destiny_fangame_v1/build.py",
+        "gitBlob": "720ce71187fb86c06ddf3324092d9f946cca5c43",
+        "bytes": 15965,
+        "sha256": "b705251e0333d5d2bcb3c8f86cb8ae0d09b800e27423b01ad07ef7b371dfc61e"
+      },
+      {
+        "path": "renders/pmd_destiny_fangame_v1/fangame_base/Content/ContentParams.xml",
+        "gitBlob": "202f54ec40e30ad7c38f940088ae47403d7b2e76",
+        "bytes": 643,
+        "sha256": "7d83b1dece9e33c51a8a741f298e18ffeeec94ff8b8c69c43607445a0807bfd1"
+      }
+    ],
+    "buildRecipe": "moteur_pmd_destiny_fangame.build_destiny_separate_scene(jour/nuit); encode_pmdo_dir_sheet(320x240, 6 columns, rotateType=0); render_anime_opening_logo_sequence(24 frames); build_title_ui_png_320x240(); build_enter_ui_png_74x11().",
+    "sourceContentParamsChange": "Copied source ContentParams.xml and changed only the single TitleBG resource id to Destiny_Title_Screen_Background."
+  },
+  "renameMap": [
+    {
+      "source": "Title_Screen_Background",
+      "target": "Destiny_Title_Screen_Background",
+      "reason": "Avoid a global/other-mod title background collision; ContentParams.xml updated to the same id."
+    },
+    {
+      "source": "Title_Screen_Background_Jour",
+      "target": "Destiny_Title_Screen_Background_Jour",
+      "reason": "Unique Destiny resource id; title service updated by exact identifier replacement."
+    },
+    {
+      "source": "Title_Screen_Background_Nuit",
+      "target": "Destiny_Title_Screen_Background_Nuit",
+      "reason": "Unique Destiny resource id; title service updated by exact identifier replacement."
+    },
+    {
+      "sourceScriptNamespacePath": "Data/Script/halcyon/services",
+      "targetScriptNamespacePath": "Data/Script/destiny/services",
+      "reason": "Target Quest namespace is destiny; only title-service output path moved, no Mod.xml copied."
+    }
+  ],
+  "files": [
+    {
+      "path": "Content/BG/Destiny_Title_Screen_Background.dir",
+      "bytes": 390408,
+      "sha256": "1d70b0d5d580b8959d41431491797ac3d294d1af39a802376203fa26d01c0600"
+    },
+    {
+      "path": "Content/BG/Destiny_Title_Screen_Background_Jour.dir",
+      "bytes": 390408,
+      "sha256": "1d70b0d5d580b8959d41431491797ac3d294d1af39a802376203fa26d01c0600"
+    },
+    {
+      "path": "Content/BG/Destiny_Title_Screen_Background_Nuit.dir",
+      "bytes": 435032,
+      "sha256": "acb3e7e9fc35a3aae2fdbf703c8786a517fd336f3b44c6df50479a969bf1d0f4"
+    },
+    {
+      "path": "Content/ContentParams.xml",
+      "bytes": 651,
+      "sha256": "a1e0f88a56f202680ccfc4cc43e2300c731c95ffa51222dd80d56def2b8e8ab2"
+    },
+    {
+      "path": "Content/Obj/Destiny_Logo_Anime_Opening.dir",
+      "bytes": 429887,
+      "sha256": "d3a9aa48cfbc0972bbb35dbf173ceac6ea7c22f8efae13a89a42fe90a5778d45"
+    },
+    {
+      "path": "Content/UI/Enter.png",
+      "bytes": 437,
+      "sha256": "411c59e52b94f93154c21c7f4096aa18146313a1e3360a5ad79ebf1bf8a94d52"
+    },
+    {
+      "path": "Content/UI/Title.png",
+      "bytes": 40017,
+      "sha256": "0cc5f2c7ffd7c0bbb8d27a842d59587996d8acfcd9921e6b01796e8fc2dd53dd"
+    },
+    {
+      "path": "Data/Script/destiny/services/destiny_title_anim/init.lua",
+      "bytes": 5555,
+      "sha256": "b3dacc709db7dbd49fdaf25dddafed3fded4b29ed3c61f14edad8959493f90ce"
+    }
+  ],
+  "validation": {
+    "staticSerialization": "PASS: 4 DirSheet files (3 distinct payloads because the default background aliases the day background) decode with tile size 320x240, rotateType 0, and 24 frames; PNG dimensions 1920x960.",
+    "titleUi": "PASS: Title.png 320x240; Enter.png 74x11.",
+    "defaultBackgroundAlias": "PASS: Destiny_Title_Screen_Background.dir is byte-identical to the day background.",
+    "resourceReferences": "PASS: ContentParams TitleBG and Lua day/night/opening ids match component filenames.",
+    "namespace": "PASS: no Halcyon Mod.xml or halcyon script output path; target component path is destiny.",
+    "runtimeTested": false,
+    "pmdoTitleScreenRendered": false,
+    "visualPlayability": "NOT_APPLICABLE: no Ground map, geometry, collision, exits, or transitions are included."
+  },
+  "externalBaseResources": [
+    "Top Menu Theme.ogg",
+    "Monster House!.ogg",
+    "engine battle sound identifiers referenced by source ContentParams.xml"
+  ],
+  "note": "The screen component is not a standalone Quest and does not complete the 262-map Destiny package."
+}

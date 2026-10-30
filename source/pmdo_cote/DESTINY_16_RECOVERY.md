@@ -45,7 +45,7 @@ Archive d’évidence (pas un MOD/Quest installable) :
 - [`exports/pmdo/PMD_Destiny_13_Exact_Branch_Ground_Sources.zip`](../../exports/pmdo/PMD_Destiny_13_Exact_Branch_Ground_Sources.zip)
 - **1 183 078 octets**, SHA-256 `80127d5a9d972ab964ea3df6accfe2a3931fb6bf653f79c8c3adcc10dc195cff`.
 - 16 membres, dont un manifeste de 13 occurrences; `unzip -t` et le contrôle CRC passent.
-- Le manifeste enregistre le SHA-256 de l’inventaire source au moment du build (`6d7bfd5f1a13a62f993f28d622d5896a1648621f2e5d2c30c23770646385d15d`). L’inventaire entier a ensuite reçu les métadonnées d’audit/bundle : son hash courant est `5edb19c0632b58f23adb6d6582e7e47c4b7eeefce8383782fbe55b27085a1aeb`, donc il ne correspond plus au hash d’entrée historique. Les 262 lignes d’occurrence/provenance n’ont pas été remplacées par ces métadonnées.
+- Le manifeste enregistre le SHA-256 de l’inventaire source au moment du build (`6d7bfd5f1a13a62f993f28d622d5896a1648621f2e5d2c30c23770646385d15d`). L’inventaire entier a ensuite reçu les métadonnées d’audit/bundle : son hash courant est `b28d86767e079b541adfdccacfef3d0150e7c3d4857eec03f86582092f9e9b71`, donc il ne correspond plus au hash d’entrée historique. Les 262 lignes d’occurrence/provenance n’ont pas été remplacées par ces métadonnées.
 
 | Occurrence(s) | Asset Ground source | SHA-256 du payload Ground exact |
 |---|---|---|
@@ -68,7 +68,7 @@ Les anciens rapports [`destiny_missing16_exact_ground_runtime_results.tsv`](../p
 
 **Limite importante :** les empreintes d’entrée inscrites dans ces TSV (`66ed0b0f…` et `d500418d…`) ne correspondent pas aux hashes des deux archives actuelles (`80127d5a…` et `f1344109…`). Les 13 et 3 hashes des payloads Ground, ligne par ligne, correspondent bien aux manifestes actuels; cela étaye les mêmes payloads Ground, mais ne prouve pas le chargement des conteneurs/manifestes ZIP actuels. Le cache `.cache/pmdo-runtime/engine/PMDO` est absent à cette mise à jour : **aucun probe runtime n’a été relancé sur les ZIP actuels**. Les TSV restent des résultats historiques, pas des tests de ces archives.
 
-## Audit New Era / Halcyon par occurrence
+## Audit du package New Era de namespace `halcyon` dans `meromoonmeri/projet-creation-pmdo`
 
 Piste examinée : tag `town02-quest-pmdo-0812-complete`, commit `47c571bc6c80721549db3e5e13443a84b87e8b3d`, dépôt `meromoonmeri/projet-creation-pmdo`. Son namespace est `halcyon` : le package sert uniquement à la recherche de provenance et **n’est pas la quête cible**.
 
@@ -104,6 +104,14 @@ Les sept noms absents du tag sont :
 | `v2_promontoire_jour_03` | 7 | Un package d’un PR distinct contient un fichier de ce nom, mais ses Grounds ont d’autres hashes; association non prouvée. |
 
 Le seul blob Git partagé trouvé dans la comparaison stricte des arbres source Ground et du package New Era est `d4fc7ff9a5ac7e83233b9584d620c2fed1735354` pour `Metano_Town_Base` de `branch_026`. Trois fichiers de ce nom figurent dans le commit Ground source (`0e691d647a661f3c2a79984eda2d39686d4f0dfc`) et portent deux OIDs distincts : `d4fc…` / SHA-256 `305a7324…` et `19b295…` / SHA-256 `ee17ebd2…`. Le fichier Halcyon a l’OID `d4fc…`; une candidate publiée sous l’alias canonique `Treasure_Town_Base` a aussi le SHA-256 `305a7324…`. Cela établit une identité de payload pour une variante, mais pas laquelle des variantes est associée au Ground exact; elle reste exclue.
+
+## Dépôt distinct `Palikadude/Halcyon` — recherche des 16 Grounds (30 octobre 2026)
+
+À la demande de vérifier cette piste, j’ai inspecté les 9 pointes de branche et 3 tags accessibles du dépôt [`Palikadude/Halcyon`](https://github.com/Palikadude/Halcyon), distinct du package New Era de namespace `halcyon` décrit plus haut. Les arbres GitHub recensent 432 occurrences `.rsground` dans ces 12 références, soit 242 blobs Git distincts (770 942 774 octets cumulés) et 43 chemins Ground distincts dans l’historique de 556 commits; aucun des 43 basenames historiques n’est celui d’une des 16 occurrences attendues.
+
+Pour les 16 payloads absents, le scan n’a trouvé **aucun basename exact ni aucun fichier de même longueur** parmi les Grounds suivis sur ces refs. Comme une identité byte-à-byte exige la même longueur, aucun payload exact ne peut venir des arbres de ces 12 refs; les OID Git des arbres ne sont pas présentés comme des SHA-256. **Aucun Ground n’a été copié ou substitué.** Les refs, OID Git, tailles et hash attendus sont détaillés dans [`DESTINY_PALIKADUDE_HALCYON_GROUND_AUDIT.json`](DESTINY_PALIKADUDE_HALCYON_GROUND_AUDIT.json).
+
+La release `v0.4.0` expose en plus `Halcyon.zip` (53 885 631 octets), mais son téléchargement redirigé vers `release-assets.githubusercontent.com` s’est terminé par `EOF`; l’archive n’a donc pas pu être inspectée. Cette surface de release, ainsi que d’éventuels contenus privés/non suivis, reste non vérifiée. En l’état, l’affirmation que les payloads exacts des 16 entrées sont dans les arbres suivis de `Palikadude/Halcyon` n’est **pas confirmée**; la limite de la vérification de release est explicitement conservée.
 
 ## Réconciliation du chiffre historique « 60/76 »
 

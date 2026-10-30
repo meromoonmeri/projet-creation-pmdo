@@ -231,9 +231,8 @@ def main() -> None:
 
     standalone = summary.get("standaloneQuestCartotheque", {})
     quest_package_present = STANDALONE_QUEST.is_file()
+    title_package_present = False
     if quest_package_present:
-        if STANDALONE_QUEST.stat().st_size != standalone.get("bytes") or sha256_file(STANDALONE_QUEST) != standalone.get("sha256"):
-            fail("le ZIP de la nouvelle quête Destiny diffère de son SHA/compte enregistré")
         with zipfile.ZipFile(STANDALONE_QUEST) as archive:
             if archive.testzip() is not None:
                 fail("CRC de la nouvelle quête-cartothèque incorrect")
@@ -242,8 +241,27 @@ def main() -> None:
             grounds = [name for name in names if name.startswith(prefix + "Data/Ground/") and name.endswith(".rsground")]
             tiles = [name for name in names if name.startswith(prefix + "Content/Tile/") and name.endswith(".tile")]
             backgrounds = [name for name in names if name.startswith(prefix + "Content/BG/") and name.endswith(".dir")]
-            if (len(grounds), len(tiles), len(backgrounds)) != (246, 1059, 33):
+            title_files = {
+                "destiny/Content/ContentParams.xml",
+                "destiny/Content/BG/Destiny_Title_Screen_Background.dir",
+                "destiny/Content/BG/Destiny_Title_Screen_Background_Jour.dir",
+                "destiny/Content/BG/Destiny_Title_Screen_Background_Nuit.dir",
+                "destiny/Content/Obj/Destiny_Logo_Anime_Opening.dir",
+                "destiny/Content/UI/Title.png",
+                "destiny/Content/UI/Enter.png",
+                "destiny/Data/Script/destiny/services/destiny_title_anim/init.lua",
+                "destiny/Documentation/DESTINY_TITLE_SCREEN.json",
+                "destiny/Documentation/destiny_title_screen_manifest.json",
+            }
+            title_package_present = title_files.issubset(names)
+            expected_backgrounds = 36 if title_package_present else 33
+            if (len(grounds), len(tiles), len(backgrounds)) != (246, 1059, expected_backgrounds):
                 fail("les comptes d'assets de la nouvelle quête sont incorrects")
+            if not title_package_present and (
+                STANDALONE_QUEST.stat().st_size != standalone.get("bytes")
+                or sha256_file(STANDALONE_QUEST) != standalone.get("sha256")
+            ):
+                fail("le ZIP historique sans écran-titre diffère de son SHA/compte enregistré")
             if not {"destiny/Mod.xml", "destiny/Data/Zone/exploration_cartes.json",
                     "destiny/Data/Zone/index.idx", "destiny/Documentation/QUEST_BUILD.json"}.issubset(names):
                 fail("la nouvelle quête manque Mod.xml, exploration_cartes ou son dossier build")
@@ -262,6 +280,51 @@ def main() -> None:
             if (quest_build.get("runtimeGroundProbe", {}).get("status"),
                     quest_build.get("runtimeDeveloperZoneProbe", {}).get("status")) != ("PASS", "PASS"):
                 fail("les probes natifs de la nouvelle quête ne sont pas consignés PASS")
+            if title_package_present:
+                title_report = json.loads(archive.read("destiny/Documentation/DESTINY_TITLE_SCREEN.json"))
+                title_manifest_bytes = archive.read("destiny/Documentation/destiny_title_screen_manifest.json")
+                title_manifest = json.loads(title_manifest_bytes)
+                component_files = title_manifest.get("files", [])
+                report_assets = title_report.get("assets", {})
+                component_paths = {row.get("path") for row in component_files}
+                report_target = title_report.get("target", {})
+                manifest_target = title_manifest.get("target", {})
+                if (title_report.get("componentId") != "destiny_title_screen_0812"
+                        or title_report.get("integrated") is not True
+                        or (report_target.get("namespace"), report_target.get("uuid"), report_target.get("gameVersion"),
+                            report_target.get("modType", "").casefold()) != (
+                            "destiny", "1da28568-6363-5c51-8caa-9430b42862f0", "0.8.12.0", "quest")
+                        or (manifest_target.get("namespace"), manifest_target.get("uuid"),
+                            manifest_target.get("gameVersion"), manifest_target.get("modType")) != (
+                            "destiny", "1da28568-6363-5c51-8caa-9430b42862f0", "0.8.12.0", "Quest")
+                        or title_report.get("staticValidation") != "PASS"
+                        or title_report.get("runtimeTested") is not False
+                        or title_report.get("pmdoTitleScreenRendered") is not False
+                        or title_report.get("componentManifestSha256") != hashlib.sha256(title_manifest_bytes).hexdigest()
+                        or title_report.get("sourceManifestMember") != "Documentation/destiny_title_screen_manifest.json"
+                        or set(report_assets) != component_paths):
+                    fail("rapport/manifeste statique de l’écran-titre incomplet ou incohérent")
+                mod_bytes = archive.read("destiny/Mod.xml")
+                if title_report.get("target", {}).get("modXmlSha256") != hashlib.sha256(mod_bytes).hexdigest():
+                    fail("le rapport écran-titre ne certifie pas le Mod.xml réellement embarqué")
+                params = ET.fromstring(archive.read("destiny/Content/ContentParams.xml"))
+                if (params.findtext("TitleBG") or "").strip() != "Destiny_Title_Screen_Background":
+                    fail("ContentParams.xml de la Quest ne référence pas le fond Destiny")
+                for row in component_files:
+                    relative = row["path"]
+                    payload = archive.read("destiny/" + relative)
+                    report_metadata = report_assets[relative]
+                    digest = hashlib.sha256(payload).hexdigest()
+                    if (len(payload) != report_metadata.get("bytes")
+                            or digest != report_metadata.get("sha256")
+                            or len(payload) != row.get("bytes")
+                            or digest != row.get("sha256")):
+                        fail(f"hash/tailles d’asset écran-titre incohérents : {relative}")
+                title_build = quest_build.get("titleScreen", {})
+                if (title_build.get("integrated") is not True
+                        or title_build.get("staticValidation") != "PASS"
+                        or title_build.get("runtimeTested") is not False):
+                    fail("QUEST_BUILD ne signale pas le titre intégré statiquement, runtime non testé")
         quest_ground_rows = data_rows(QUEST_GROUND_RESULTS)
         quest_ground_data = [row for row in quest_ground_rows if row[0] != "sourceRow"]
         quest_report_hash = next((line.split("\t", 1)[1] for line in QUEST_GROUND_RESULTS.read_text(encoding="utf-8").splitlines()
@@ -279,9 +342,16 @@ def main() -> None:
     print("PASS — 40 payloads sources conservés avec hash d’origine et hash courant rebrandé séparés.")
     print("PASS — 249 sources éligibles; le candidat 246 conserve les 13 blocages et 3 sorties générées absentes.")
     print("PASS — Ground natif overlay 246/246; TileGuide 246/246, 1 059 feuilles, 2 773 093 coordonnées résolues.")
-    print("PASS — overlay candidat CRC/assets/provenance vérifiés; aucun Mod.xml de remplacement dans l'overlay.")
+    if archive_present:
+        print("PASS — overlay candidat CRC/assets/provenance vérifiés; aucun Mod.xml de remplacement dans l'archive courante.")
+    else:
+        print("NOTE — ZIP overlay candidat absent localement; CRC/assets sont contrôlés seulement via ses rapports et hashes enregistrés.")
     if quest_package_present:
-        print("PASS — nouvelle Quest standalone CRC/Mod.xml; exploration_cartes et Ground 246/246 confirmés en runtime PMDO.")
+        print("PASS — Quest standalone CRC/Mod.xml; exploration_cartes et Ground 246/246 confirmés en runtime PMDO.")
+        if title_package_present:
+            print("PASS — écran-titre et manifeste de provenance embarqués; rendu/service PMDO non testés.")
+        else:
+            print("NOTE — ZIP Quest courant est le build historique 33 fonds, sans écran-titre Destiny.")
     else:
         print("NOTE — ZIP standalone généré absent localement; les scripts et rapports permettent de le reconstruire.")
     print("Limite — la 262e carte complète, le rendu graphique, le spawn/collision gameplay et l'installation dans le PMDO utilisateur ne sont pas certifiés.")

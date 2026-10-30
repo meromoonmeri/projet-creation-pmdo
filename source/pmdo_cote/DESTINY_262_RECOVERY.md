@@ -4,6 +4,8 @@
 
 Le registre détaillé est [`destiny_262_inventory.json`](destiny_262_inventory.json). Il conserve les chemins, commits/blob IDs, hashes Ground, références de tilesets, doublons, statuts de chargement et blocages par entrée. Le contrôle suivi [`verify_destiny_262_inventory.py`](verify_destiny_262_inventory.py) réconcilie le registre et les résultats runtime consignés : `python3 source/pmdo_cote/verify_destiny_262_inventory.py`.
 
+**Reprise du 30 octobre 2026 — écran-titre :** le constructeur [`create_destiny_map_quest.py`](create_destiny_map_quest.py) intègre désormais le composant Destiny décrit dans [`destiny_title_screen_component/`](destiny_title_screen_component/), en conservant le `Mod.xml`/UUID stable et en portant le compte de fonds à 33 de carte + 3 de titre. Les hashes/formats et l’intégrateur sont testés statiquement; le futur ZIP embarquera aussi le manifeste source (OID Git, SHA-256) et le rapport d’intégration. Cette reprise ne contient toutefois ni le ZIP overlay 246, ni le staging `candidate-246-tileguide`, ni le runtime PMDO; le ZIP Quest de 232 574 307 octets cité plus bas n’est pas présent dans le checkout et n’a pas été reconstruit avec l’écran-titre. Ses hashes et probes restent des résultats historiques de la cartothèque 246 sans écran-titre; ils ne valident pas le nouveau package final. Les 16 Grounds absents demeurent non substitués.
+
 ## Réconciliation de l’inventaire
 
 **126 Grounds d’archives + 39 chemins Ground de branche + 97 Grounds générés = 262 occurrences source.** L’inventaire généré contient 98 Grounds; `pmd_destiny_menu_nuit` est l’entrée auxiliaire exclue du total annoncé.
