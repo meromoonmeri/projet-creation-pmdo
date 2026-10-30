@@ -11,6 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 import zipfile
+import xml.etree.ElementTree as ET
 from collections import Counter
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,6 +22,9 @@ TILEGUIDE_RESULTS = ROOT / "source/pmdo_runtime/destiny_candidate_246_tileguide_
 TILEGUIDE_SUMMARY = ROOT / "source/pmdo_runtime/destiny_candidate_246_tileguide_summary.json"
 OVERLAY_GROUND_RESULTS = ROOT / "source/pmdo_runtime/destiny_candidate_246_overlay_ground_runtime_results.tsv"
 OVERLAY_CANDIDATE = ROOT / "exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip"
+STANDALONE_QUEST = ROOT / "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip"
+QUEST_GROUND_RESULTS = ROOT / "source/pmdo_runtime/destiny_map_quest_246_zip_ground_runtime_results.tsv"
+QUEST_ZONE_RESULTS = ROOT / "source/pmdo_runtime/destiny_map_quest_246_zone_runtime_results.tsv"
 EXPECTED_CATEGORY_COUNTS = {"zip_archive": 126, "arena_branch": 39, "generated_build": 97}
 RECONSTRUCTED_IDS = {"branch_012", "branch_013", "branch_014", "branch_015", "branch_016"}
 
@@ -185,11 +189,61 @@ def main() -> None:
             if len(unresolved) != 16:
                 fail(f"le manifeste embarqué devrait conserver 16 occurrences sans Ground, trouvé {len(unresolved)}")
 
+    standalone = summary.get("standaloneQuestCartotheque", {})
+    quest_package_present = STANDALONE_QUEST.is_file()
+    if quest_package_present:
+        if STANDALONE_QUEST.stat().st_size != standalone.get("bytes") or sha256_file(STANDALONE_QUEST) != standalone.get("sha256"):
+            fail("le ZIP de la nouvelle quête Destiny diffère de son SHA/compte enregistré")
+        with zipfile.ZipFile(STANDALONE_QUEST) as archive:
+            if archive.testzip() is not None:
+                fail("CRC de la nouvelle quête-cartothèque incorrect")
+            names = set(archive.namelist())
+            prefix = "destiny/"
+            grounds = [name for name in names if name.startswith(prefix + "Data/Ground/") and name.endswith(".rsground")]
+            tiles = [name for name in names if name.startswith(prefix + "Content/Tile/") and name.endswith(".tile")]
+            backgrounds = [name for name in names if name.startswith(prefix + "Content/BG/") and name.endswith(".dir")]
+            if (len(grounds), len(tiles), len(backgrounds)) != (246, 1059, 33):
+                fail("les comptes d'assets de la nouvelle quête sont incorrects")
+            if not {"destiny/Mod.xml", "destiny/Data/Zone/exploration_cartes.json",
+                    "destiny/Data/Zone/index.idx", "destiny/Documentation/QUEST_BUILD.json"}.issubset(names):
+                fail("la nouvelle quête manque Mod.xml, exploration_cartes ou son dossier build")
+            header = ET.fromstring(archive.read("destiny/Mod.xml"))
+            if ((header.findtext("Namespace") or "").strip(), (header.findtext("UUID") or "").strip(),
+                    (header.findtext("GameVersion") or "").strip(), (header.findtext("ModType") or "").strip().casefold()) != (
+                    "destiny", "1da28568-6363-5c51-8caa-9430b42862f0", "0.8.12.0", "quest"):
+                fail("identité du Mod.xml standalone différente du namespace/UUID attendu")
+            zone = json.loads(archive.read("destiny/Data/Zone/exploration_cartes.json"))["Object"]
+            if len(zone.get("GroundMaps", [])) != 246 or zone.get("Segments") != []:
+                fail("la zone `exploration_cartes` ne liste pas 246 Grounds sans segments narratifs")
+            quest_manifest = json.loads(archive.read("destiny/Documentation/catalogue_manifest.json"))
+            if len(quest_manifest.get("maps", [])) != 246 or len(quest_manifest.get("sourceOccurrences", [])) != 262:
+                fail("le manifeste de la quête standalone ne conserve pas les 262 occurrences")
+            quest_build = json.loads(archive.read("destiny/Documentation/QUEST_BUILD.json"))
+            if (quest_build.get("runtimeGroundProbe", {}).get("status"),
+                    quest_build.get("runtimeDeveloperZoneProbe", {}).get("status")) != ("PASS", "PASS"):
+                fail("les probes natifs de la nouvelle quête ne sont pas consignés PASS")
+        quest_ground_rows = data_rows(QUEST_GROUND_RESULTS)
+        quest_ground_data = [row for row in quest_ground_rows if row[0] != "sourceRow"]
+        quest_report_hash = next((line.split("\t", 1)[1] for line in QUEST_GROUND_RESULTS.read_text(encoding="utf-8").splitlines()
+                                  if line.startswith("# input_sha256\t")), None)
+        if len(quest_ground_data) != 246 or any(row[10] != "PASS" for row in quest_ground_data):
+            fail("le probe natif de l'archive Quest exacte n'est pas 246/246 PASS")
+        if quest_report_hash != standalone.get("groundRuntimeProbe", {}).get("inputSha256"):
+            fail("hash du rapport Ground de la quête différent du registre")
+        zone_report_rows = data_rows(QUEST_ZONE_RESULTS)
+        if zone_report_rows != [["test", "value", "status"], ["zone", "exploration_cartes", "PASS"],
+                                ["groundMaps", "246", "PASS"], ["segments", "0", "PASS"]]:
+            fail("le probe natif de zone standalone ne confirme pas 246 Grounds/0 segment")
+
     print("PASS — 262 occurrences, 229 hashes Ground distincts, 33 doublons préservés.")
-    print("PASS — 249 sources éligibles dans l'inventaire; le candidat contient 246 Grounds, 13 blocages + 3 sorties générées absentes.")
-    print("PASS — Ground natif 246/246; TileGuide 246/246, 1 059 feuilles, 2 773 093 coordonnées résolues.")
-    print("PASS — overlay candidat CRC/assets/provenance vérifiés; Mod.xml omis; installation Destiny réelle non faite.")
-    print("Limite — aucun rendu graphique, spawn, collision ou parcours de jeu certifié.")
+    print("PASS — 249 sources éligibles; le candidat 246 conserve les 13 blocages et 3 sorties générées absentes.")
+    print("PASS — Ground natif overlay 246/246; TileGuide 246/246, 1 059 feuilles, 2 773 093 coordonnées résolues.")
+    print("PASS — overlay candidat CRC/assets/provenance vérifiés; aucun Mod.xml de remplacement dans l'overlay.")
+    if quest_package_present:
+        print("PASS — nouvelle Quest standalone CRC/Mod.xml; exploration_cartes et Ground 246/246 confirmés en runtime PMDO.")
+    else:
+        print("NOTE — ZIP standalone généré absent localement; les scripts et rapports permettent de le reconstruire.")
+    print("Limite — la 262e carte complète, le rendu graphique, le spawn/collision gameplay et l'installation dans le PMDO utilisateur ne sont pas certifiés.")
 
 
 if __name__ == "__main__":

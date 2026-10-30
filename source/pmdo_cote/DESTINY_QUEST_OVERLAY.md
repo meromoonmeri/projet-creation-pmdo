@@ -1,13 +1,13 @@
 # Overlay de cartes — quête PMDO Destiny
 
-Le builder historique du catalogue produit toujours un **prototype de 208 Grounds** pour la quête PMDO 0.8.12 **Destiny existante**. Un nouveau chemin d’assemblage a également produit un **overlay candidat partiel de 246 Grounds** avec dépendances; ni l’un ni l’autre n’est le final de 262 occurrences. L’overlay ne crée pas une deuxième quête et ne remplace pas `Mod.xml` : namespace `destiny`, UUID, écran-titre, données de départ et zones narratives restent ceux de la quête installée.
+Le builder historique produit un **prototype de 208 Grounds**. Un overlay candidat partiel de 246 a ensuite servi à créer une **nouvelle quête-cartothèque autonome `destiny`**, avec `Mod.xml` et zone développeur `exploration_cartes`; elle contient tous les 246 Grounds disponibles et leurs dépendances. Ce n’est pas le final de 262 occurrences : 16 sources restent sans Ground. Le package autonome réutilise exactement le UUID stable du prototype 208; il ne remplace aucun dossier de quête utilisateur et n’ajoute pas de scénario, écran-titre personnalisé ou zone narrative.
 
 ## Résultat dans la quête
 
-- Le prototype ajoute les **208 Grounds** de son catalogue avec leurs tilesets, fonds et scripts. L’archive précédente faisait environ 209 MB et nécessitait environ 3,1 GB une fois extraite.
-- La zone développeur `exploration_cartes` est créée ou actualisée. Elle énumère les fichiers `.rsground` présents dans la quête après l’installation — pas seulement les Ground du catalogue. Cette liste dynamique ne garantit pas que chaque fichier puisse se charger, s’afficher ou se parcourir.
-- La zone n’ajoute aucun warp, scénario, combat ni liaison entre les cartes. Une entrée bloquée dans l’inventaire n’est pas transformée en aperçu par sa seule présence dans une liste.
-- L’installateur fusionne `Content/Tile/index.idx`, simule les changements avec `--dry-run` et refuse les conflits au lieu d’écraser des ressources.
+- Le prototype historique contient **208 Grounds**. Le nouveau package [`PMD_Destiny_Map_Quest_246_0812.zip`](../../exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip) est une quête autonome : namespace `destiny`, UUID `1da28568-6363-5c51-8caa-9430b42862f0`, `ModType=Quest`, PMDO 0.8.12.0.
+- Sa zone développeur `exploration_cartes` énumère les **246 Grounds** inclus. Le vrai DataManager PMDO a chargé la zone et confirmé 246 `GroundMaps`, zéro segment narratif. Le probe Ground natif de l’archive exacte passe 246/246 en 13 lots.
+- L’archive contient 1 059 TileSheets, 33 fonds et la provenance des 262 occurrences. Les 13 assets bloqués et 3 Grounds générés absents restent listés sans map factice.
+- Cette nouvelle cartothèque n’ajoute aucun warp, scénario, combat, écran-titre personnalisé ni liaison narrative. Elle n’altère pas une quête ou un `Mod.xml` extérieur; elle n’est pas certifiée jouable ni graphiquement rendue.
 
 ## Construire le prototype actuel
 
@@ -30,30 +30,43 @@ python3 source/pmdo_runtime/verify_destiny_246_tileguide_0812.py
 python3 source/pmdo_cote/build_destiny_246_overlay_candidate.py
 ```
 
-Cette dernière commande a produit `exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip` (**220 654 226 octets**, CRC PASS, 246 Grounds, 1 059 tilesets, 33 fonds, aucun `Mod.xml`). Le ZIP temporaire de catalogue source est supprimé après construction pour économiser l’espace disque. Le paquet partiel n’est pas le livrable 262 et n’a pas été installé dans la quête, absente du workspace. Les ZIP d’export sont ignorés par Git; le code de construction, le manifeste d’inventaire et les rapports restent versionnés.
+Cette dernière commande produit l’overlay-source `exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip` (**220 654 226 octets**, CRC PASS, 246 Grounds, 1 059 tilesets, 33 fonds, aucun `Mod.xml`). Le ZIP temporaire du catalogue source est supprimé après construction. Cet overlay a ensuite servi à générer la quête-cartothèque autonome :
 
-## Installer dans la quête existante
+```sh
+python3 source/pmdo_cote/create_destiny_map_quest.py --force
+python3 source/pmdo_runtime/verify_destiny_ground_archive_0812.py --package .cache/destiny-recovery/destiny-map-quest-246/destiny --expected-count 246 --batch-size 20 --results source/pmdo_runtime/destiny_map_quest_246_ground_runtime_results.tsv
+python3 source/pmdo_runtime/verify_destiny_quest_zone_0812.py
+python3 source/pmdo_cote/create_destiny_map_quest.py --finalize-validation
+```
 
-1. Ferme PMDO et sauvegarde `PMDO/MODS/quest_pmd_destiny`.
-2. Extrais l’overlay dans un dossier temporaire.
+La dernière commande produit [`PMD_Destiny_Map_Quest_246_0812.zip`](../../exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip), une Quest complète au sens PMDO (Mod.xml/namespace `destiny`, données Ground, index tile et zone développeur). Ground et `exploration_cartes` ont été chargés dans le runtime PMDO 0.8.12 headless. Le scénario/rendu visuel n’est pas testé. Le package ZIP est ignoré par Git (plus de 100 MB); ses scripts, inventaire et rapports sont versionnés.
+
+## Installer la cartothèque autonome
+
+1. Ferme PMDO et sauvegarde tout dossier `PMDO/MODS/destiny` déjà présent.
+2. Extrais `PMD_Destiny_Map_Quest_246_0812.zip` dans `PMDO/MODS/`; le résultat doit contenir `PMDO/MODS/destiny/Mod.xml`.
+3. Relance PMDO et sélectionne la quête **PMD Destiny — Catalogue d’exploration 0.8.12**.
+4. En mode développeur, ouvre `exploration_cartes`. La zone a été chargée en runtime avec 246 `GroundMaps`.
+
+Le package réutilise le UUID stable du prototype 208 (`1da28568-6363-5c51-8caa-9430b42862f0`). Si tu as déjà ta propre quête `destiny`, ne remplace pas son dossier par la cartothèque : utilise plutôt l’overlay ci-dessous afin de conserver son `Mod.xml`.
+
+## Option : intégrer l’overlay à une quête existante
+
+1. Ferme PMDO et sauvegarde le dossier de quête existant.
+2. Extrais `PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip` dans un dossier temporaire.
 3. Vérifie d’abord la cible :
 
    ```sh
    python3 installer_destiny_overlay.py "CHEMIN/PMDO/MODS/quest_pmd_destiny" --dry-run
    ```
 
-4. Si la simulation confirme `ModType=Quest`, namespace `destiny`, version `0.8.12.0` et aucune collision, installe :
+4. Si la simulation confirme `ModType=Quest`, namespace `destiny`, version `0.8.12.0` et aucune collision, lance l’installation :
 
    ```sh
    python3 installer_destiny_overlay.py "CHEMIN/PMDO/MODS/quest_pmd_destiny"
    ```
 
-   Sous Windows, `py` peut remplacer `python3`.
-
-5. Relance PMDO en mode développeur avec Destiny, puis ouvre **Exploration des cartes (dev)** (`exploration_cartes`). Les fichiers Ground restent dans `Data/Ground`; la zone de prévisualisation ne modifie pas la progression.
-
-L’installateur crée des sauvegardes `.pre_destiny_maps.bak` pour les index et le JSON de zone s’ils doivent changer. Il conserve les autres zones, le `Mod.xml` et les fichiers existants. Si un Ground ou tileset homonyme contient déjà des octets différents, l’installation s’arrête avant les copies.
-
+L’installateur d’overlay sauvegarde les index/zone à modifier, conserve le `Mod.xml`/UUID, fusionne `Content/Tile/index.idx` et refuse les conflits d’assets. Il ne crée aucun warp, scénario ou zone narrative.
 ## Portée / vérification honnête
 
 Le prototype de 208 Grounds n’est pas le livrable demandé de 262 occurrences. Le registre [`destiny_262_inventory.json`](destiny_262_inventory.json) réconcilie **126 ZIP + 39 chemins de branche + 97 Grounds générés = 262 occurrences**, **229 hashes Ground distincts** et **33 occurrences dupliquées** conservées avec leur provenance.
@@ -66,4 +79,4 @@ Les 246 sont 126 ZIP + 26 branche (21 exactes, 5 reconstruites) + 94 générées
 
 Un **overlay partiel réel** est maintenant assemblé : [`PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip`](../../exports/pmdo/PMD_Destiny_Quest_Overlay_Candidate_246_0812.zip), CRC PASS, 246 Grounds distincts avec provenance, 1 059 TileSheets, 33 fonds, sans `Mod.xml`. Son archive exacte a passé le probe Ground natif **246/246 en 13 lots** (`destiny_candidate_246_overlay_ground_runtime_results.tsv`). Les 1 059 `.tile` et 33 `.dir` de l’archive sont SHA-256 identiques aux assets du staging TileGuide qui a passé 246/246 et résolu 2 773 093 coordonnées; l’archive n’ajoute ni géométrie ni collisions. Le candidat comprend le manifeste des 262 occurrences et signale les 16 occurrences sans Ground disponible, sans placeholder.
 
-Le final demandé de **262 cartes n’est pas achevé** : les 13 assets source bloqués et trois Grounds générés absents ne peuvent pas être affichés comme cartes, et aucune installation réelle n’a été exécutée car aucun dossier de quête Destiny (`Mod.xml`) n’est présent dans le workspace. L’installateur accepte maintenant `Version` et `TexSize` par carte (tests unitaires PASS) tout en exigeant une cible Quest PMDO 0.8.12 namespace `destiny`; il n’altère pas le `Mod.xml`/UUID. Dès que la quête locale est accessible, il reste à lancer `--dry-run` puis l’installation et à vérifier la zone `exploration_cartes`. Rien n’a été inventé pour les occurrences bloquées; aucun warp, géométrie ou collision manquants n’a été ajouté.
+Le final demandé de **262 occurrences n’est pas achevé** : les 13 assets source bloqués et les trois Grounds générés absents ne peuvent pas devenir des cartes. À la place, une **nouvelle quête-cartothèque `destiny` de 246 cartes** est fournie dans le ZIP autonome, avec le même UUID stable que le prototype 208; ses 246 Grounds et sa zone `exploration_cartes` ont passé les probes natifs headless. Aucun dossier PMDO utilisateur n’était monté dans le workspace, donc le package n’a pas été copié dans une installation personnelle. Rien n’a été inventé pour les 16 entrées sans Ground; aucun warp, géométrie, collision ou liaison narrative n’a été ajouté.

@@ -89,6 +89,6 @@ Ce script reconstruit les binaires, exécute les validations, puis produit `~/co
 
 Les sources et tests restent dans Git. À la demande de push, une copie de `cote_metano_v2_pmdo.zip` est maintenant également versionnée à la racine du dépôt ; le générateur garde sa sortie par défaut dans le dossier utilisateur. **Ne pas copier les sources de fabrication dans les dossiers Data/Content du mod.**
 
-## PMD Destiny — réunir les maps dans la quête existante
+## PMD Destiny — cartothèque PMDO dans une seule quête
 
-Voir [DESTINY_QUEST_OVERLAY.md](DESTINY_QUEST_OVERLAY.md) pour le candidat d’overlay partiel construit (246 Grounds; le prototype historique de 208 est distinct), puis [DESTINY_262_RECOVERY.md](DESTINY_262_RECOVERY.md) et [destiny_262_inventory.json](destiny_262_inventory.json) pour l’inventaire des 262 occurrences. Le final 262 n’est pas achevé ni installé : 16 occurrences n’ont pas de Ground source disponible et le dossier de quête Destiny cible est absent. L’overlay omet `Mod.xml` et ne crée aucune liaison narrative.
+La quête autonome [`PMD_Destiny_Map_Quest_246_0812.zip`](../../exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip) a été créée sous le namespace `destiny`; elle expose les 246 Grounds disponibles dans `exploration_cartes` et a passé les probes Ground et Zone du runtime PMDO 0.8.12. Voir [DESTINY_QUEST_OVERLAY.md](DESTINY_QUEST_OVERLAY.md) et [DESTINY_262_RECOVERY.md](DESTINY_262_RECOVERY.md). L’inventaire conserve les 262 occurrences, leurs doublons et provenance; les 13 occurrences sans assets établis et les trois Grounds générés absents restent documentés sans substituts. Le ZIP généré est ignoré par Git; les scripts et rapports restent versionnés.

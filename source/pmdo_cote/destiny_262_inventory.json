@@ -88,6 +88,39 @@
       "emptySheetFramesSkippedAsTransparent": 74,
       "batches": 13,
       "report": "source/pmdo_runtime/destiny_candidate_246_tileguide_runtime_results.tsv"
+    },
+    "standaloneQuestCartotheque": {
+      "status": "BUILT; NATIVE_GROUND_AND_ZONE_RUNTIME_PASS",
+      "path": "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip",
+      "bytes": 232574307,
+      "sha256": "83f337989a2fce695f913a8c5bf55a0a3bde76bb5c7e3cb0bed2a98f16c7db80",
+      "crc": "PASS",
+      "namespace": "destiny",
+      "uuid": "1da28568-6363-5c51-8caa-9430b42862f0",
+      "gameVersion": "0.8.12.0",
+      "modType": "Quest",
+      "groundMaps": 246,
+      "tileSheets": 1059,
+      "backgrounds": 33,
+      "developerZone": "exploration_cartes",
+      "sourceOccurrencesDocumented": 262,
+      "sourceOccurrencesWithoutGround": 16,
+      "groundRuntimeProbe": {
+        "status": "PASS",
+        "passed": 246,
+        "failed": 0,
+        "batches": 13,
+        "batchSizeMaximum": 20,
+        "report": "source/pmdo_runtime/destiny_map_quest_246_zip_ground_runtime_results.tsv",
+        "inputSha256": "fe18d09a65eadb62e121d433cabbdad65205cb0d51f19f61e7fa9732e6d14f13"
+      },
+      "developerZoneRuntimeProbe": {
+        "status": "PASS",
+        "groundMaps": 246,
+        "narrativeSegments": 0,
+        "report": "source/pmdo_runtime/destiny_map_quest_246_zone_runtime_results.tsv"
+      },
+      "userInstallation": "NOT_RUN; no user PMDO MODS directory mounted"
     }
   },
   "runtimeProbeScope": "Désérialisation Ground PMDO 0.8.12.0, dimensions et calques; pour les cinq grilles reconstruites depuis source, chargement TileGuide natif et résolution de toutes les coordonnées de tuile référencées. Aucun rendu GPU, collision en jeu, navigation, warp/sortie ou certification artistique.",
@@ -19042,7 +19075,7 @@
     "reconstructedOutputGroundRuntimeTested": true
   },
   "overlayIntegration": {
-    "status": "PARTIAL_246_CANDIDATE_BUILT; FINAL_262_OVERLAY_NOT_INSTALLED_OR_VERIFIED",
+    "status": "PARTIAL_246_STANDALONE_QUEST_BUILT_AND_RUNTIME_TESTED; FINAL_262_NOT_COMPLETE; USER_INSTALL_PENDING",
     "targetQuest": {
       "namespace": "destiny",
       "gameVersion": "0.8.12.0",
@@ -19060,7 +19093,7 @@
     "explorationCartesVerifiedFor262": false,
     "actualDestinyModXmlAvailableInRepository": false,
     "graphicsAndGameplayTested": false,
-    "note": "Un overlay candidat partiel de 246 Grounds est construit et testé, mais le livrable complet 262 n’est ni construit ni installé. Les 13 occurrences bloquées par assets et trois Grounds générés sans sortie restent documentés sans placeholder. Préserver le Mod.xml/UUID/namespace et les zones narratives de Destiny; aucun dry-run réel sans le dossier Quest local.",
+    "note": "Une nouvelle quête-cartothèque standalone destiny est construite et testée pour 246 Grounds/262 occurrences documentées. Le final 262 reste incomplet : 13 assets source bloqués + 3 Grounds générés absents. Aucune installation n’a été faite dans un dossier PMDO utilisateur, absent du workspace; aucun placeholder ni scénario n’a été inventé.",
     "genericOverlayBuilderSmokeTest": {
       "status": "PASS_CRC_BUILD_ONLY",
       "input": "PMD_Destiny_Catalogue_Exploration_0812.zip (208-map prototype)",
@@ -19106,8 +19139,41 @@
       "installerGroundManifestValidation": "PASS 246/246; 8 Ground versions; TexSize 1/3",
       "installationDryRun": "NOT_RUN; actual Destiny quest directory/Mod.xml absent from workspace"
     },
-    "explorationCartesVerifiedFor246": false,
+    "explorationCartesVerifiedFor246": true,
     "actualDestinyOverlayInstalled": false,
-    "partial246OverlayBuilt": true
+    "partial246OverlayBuilt": true,
+    "standaloneQuestCartotheque": {
+      "status": "BUILT; NATIVE_GROUND_AND_ZONE_RUNTIME_PASS",
+      "path": "exports/pmdo/PMD_Destiny_Map_Quest_246_0812.zip",
+      "bytes": 232574307,
+      "sha256": "83f337989a2fce695f913a8c5bf55a0a3bde76bb5c7e3cb0bed2a98f16c7db80",
+      "crc": "PASS",
+      "namespace": "destiny",
+      "uuid": "1da28568-6363-5c51-8caa-9430b42862f0",
+      "gameVersion": "0.8.12.0",
+      "modType": "Quest",
+      "groundMaps": 246,
+      "tileSheets": 1059,
+      "backgrounds": 33,
+      "developerZone": "exploration_cartes",
+      "sourceOccurrencesDocumented": 262,
+      "sourceOccurrencesWithoutGround": 16,
+      "groundRuntimeProbe": {
+        "status": "PASS",
+        "passed": 246,
+        "failed": 0,
+        "batches": 13,
+        "batchSizeMaximum": 20,
+        "report": "source/pmdo_runtime/destiny_map_quest_246_zip_ground_runtime_results.tsv",
+        "inputSha256": "fe18d09a65eadb62e121d433cabbdad65205cb0d51f19f61e7fa9732e6d14f13"
+      },
+      "developerZoneRuntimeProbe": {
+        "status": "PASS",
+        "groundMaps": 246,
+        "narrativeSegments": 0,
+        "report": "source/pmdo_runtime/destiny_map_quest_246_zone_runtime_results.tsv"
+      },
+      "userInstallation": "NOT_RUN; no user PMDO MODS directory mounted"
+    }
   }
 }
