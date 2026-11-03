@@ -148,7 +148,8 @@ main{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;padding:18px}
 .card h2 span{font-size:13px;font-weight:400;color:#8fa2cc;margin-left:8px}
 .card p{margin:6px 0 10px;color:#aebbd8;font-size:13px}
 .stage{position:relative;border-radius:12px;overflow:hidden;border:1px solid #2a3552}
-canvas{display:block;width:100%;image-rendering:pixelated;background:transparent}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:transparent}
+#cards canvas{height:52vh;width:auto;max-width:100%;margin:0 auto}
 .ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
 button{background:#1b2540;color:#e9eefc;border:1px solid #3a4870;border-radius:9px;padding:6px 10px;
        font:bold 12px Verdana;cursor:pointer}
@@ -205,6 +206,7 @@ function makeCard(slot, d) {
     ' · ' + d.frames + ' phases × ' + d.dirs + ' dir · ' + d.fw + '×' + d.fh + ' px</span></h2>' +
     '<p>' + d.desc + '</p>';
   const stage = document.createElement('div'); stage.className = 'stage';
+  stage.style.display = 'flex'; stage.style.justifyContent = 'center';
   const cv = mkCanvas(d.fw, d.fh);
   stage.appendChild(cv); card.appendChild(stage);
   const ctrls = document.createElement('div'); ctrls.className = 'ctrls';
@@ -283,11 +285,6 @@ order.forEach(s => cardsEl.appendChild(makeCard(s, DATA[s])));
 
 // fond de scène : damier discret dessiné dans le CSS du conteneur
 document.querySelectorAll('.stage').forEach(el => {
-  el.style.backgroundImage =
-    'linear-gradient(45deg,#141b2b 25%,transparent 25%,transparent 75%,#141b2b 75%),' +
-    'linear-gradient(45deg,#141b2b 25%,transparent 25%,transparent 75%,#141b2b 75%)';
-  el.style.backgroundSize = '16px 16px';
-  el.style.backgroundPosition = '0 0,8px 8px';
   el.style.background = 'radial-gradient(circle at 50% 55%,#1b2437,#0b101c 70%)';
 });
 
