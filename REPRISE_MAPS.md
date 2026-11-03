@@ -282,3 +282,24 @@ Session `arena/637b0828-projet-creation-pmdo` : suite au choix utilisateur `mewt
 Intégrées au Studio 60 FPS (`37` maps / `370` calques dans `index.html` et `apercu_kanto_mewtwo_mew_pmdo.html`) et à l'assembleur Halcyon/`town02` « PROJET PMD » (`Data/Script/halcyon/ground/<id>/init.lua` généré dans chaque package). Aucun test runtime C# PMDO exécuté (`runtime_tested = false`).
 
 
+
+## Reprise du 3 novembre 2026 — Animations de diva de la Team Dazzling (`DIV1`)
+
+Session `arena/a1d0ab41-projet-creation-pmdo` (base `24c84f4` = cinématique Pichu & Team Dazzling),
+sur « on va poursuivre le projet » puis « créer l'animation de gestuel sur mesure pour chacun de
+leurs sprite et je veux un aperçu ». Étape 1 de la file arrêtée le 24 octobre : les **animations
+spéciales de diva** de Lopunny (`0428`), Tsar(e)ena (`0763`) et Mawile (`0303`).
+
+- `source/diva_dazzling_v1/` : `diva.py` (chargement SpriteCollab épinglé, palette native, éclats,
+  écriture des planches et patch `AnimData.xml` non destructif), `gestures.py` (un geste par
+  morphologie), `build.py`, `test_diva.py` (`15` tests), `test_page_navigateur.js` (jsdom),
+  `README.md`, `references/` (1,3 Mo, sources épinglées).
+- `renders/diva_dazzling_v1/` : 3 packs importables (`DivaFan`, `DivaBloom`, `DivaSnap` — 18 phases
+  × 8 directions, 3 ticks/phase) + `verification.json`.
+- `apercu_diva_dazzling_v1.html` : aperçu autonome (aucune ressource externe) avec directions,
+  18 vignettes cliquables, pause, vitesse et bouton « pose de diva ».
+- Contrôles : phase 1 et phase 18 pixel-identiques au natif dans les 8 directions, **0 couleur hors
+  palette native**, repères dans la frame, ombre native inchangée, XML valide et patch idempotent,
+  mutation réelle vérifiée ; harnais navigateur vert (data-URIs décodées, 54 vignettes, clics).
+- **Statut** : `art_approved = false`, `runtime_tested = false`. Restent en file la transition de
+  combat canonique PMDO puis le retour aux maps.

@@ -1286,3 +1286,28 @@ Pas de runtime. Pas dans le mod unique.
   2. **Séparation piliers facettés vs reflets au sol** : sur une caverne cristalline lumineuse, isoler les piliers dressés par contraste de gradient Sobel + boîte mesurée évite de transformer les reflets cyan lisses du sol praticable en murs solides.
 - **Statut honnête** : `art_approved = false`, `runtime_tested = false` sur `EKR1` comme sur `FKR1`.
 
+
+## Animations de diva — Team Dazzling (`DIV1` : `DivaFan`, `DivaBloom`, `DivaSnap`)
+
+Demande utilisateur (3 novembre 2026) : « créer l'animation de gestuel sur mesure pour chacun de
+leurs sprite et je veux un aperçu ». Étape 1 de la file ordonnée du 24 octobre (animations
+spéciales de diva), réalisée **avant** la transition de combat et le retour aux maps.
+
+- **Sources** : `sprite/0428`, `sprite/0303`, `sprite/0763` de PMDCollab/SpriteCollab épinglés au
+  commit `3609a86be2a4c8ad7cf255bd2255f044daafe24f` (`Idle` 8 directions + planches de geste
+  utiles), versionnés dans `source/diva_dazzling_v1/references/`.
+- **Trois gestes réellement distincts**, adaptés à la morphologie : pompons-éventail + révérence
+  (Lopunny), fleurs des hanches qui montent en arc + ondulation de robe + révérence (Tsar(e)ena),
+  cornes-mâchoires qui s'écartent et claquent + tête renversée (Mawile). Aucun rebond commun.
+- **Règle de construction** : chaque phase part de l'image native de **sa** direction ; la partie
+  déplacée est sélectionnée par **couleur native + connexité** (jamais un rectangle sur le visage) ;
+  le vide laissé devient transparent ; les bras/éclats ajoutés ne peignent **que des pixels
+  transparents** avec des couleurs **déjà présentes** dans la planche native (0 couleur hors palette
+  mesuré sur les trois espèces) ; l'ombre native est recopiée telle quelle.
+- **Livraison** : `renders/diva_dazzling_v1/<slot>_<nom>/` (planches 18 × 8 + `AnimData.xml` natif
+  complété, l'`Idle` d'origine intact) et `apercu_diva_dazzling_v1.html` (autonome : directions,
+  vignettes de phase, pause/vitesse, « pose de diva »). `15` tests Python PASS + harnais jsdom
+  (data-URIs réellement décodées, 54 vignettes, clics) PASS.
+- **Statut honnête** : `art_approved = false`, `runtime_tested = false`. Aucun import ni test dans
+  PMDO, aucune prétention à un ajout approuvé SpriteCollab. Les vues strictement de profil de
+  Lopunny n'ont pas de séparation gauche/droite : les deux pompons montent ensemble (assumé).
