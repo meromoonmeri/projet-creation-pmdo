@@ -7,6 +7,20 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Entrée Grotte Fleurie : recréation de la capture PMDO utilisateur, EGF1 (4 novembre 2026)
+
+**Demande** : « tu peux me retrouver cette map s'il te plaît ? » (capture 637×471 avec Mudkip + un Pokémon gris Acier/Roche). Recherche exhaustive : **ni une map du projet** (187 lots, deux planches contact) **ni un des 79 rips racine**, ni le web. L'utilisateur a confirmé l'origine (« une capture de mon PMDO ») et choisi **« La recréer en map PMDO »**.
+
+- Sorties : `renders/entree_grotte_fleurie_sud_nord_v1/`, aperçu `apercu_entree_grotte_fleurie_sud_nord_v1.html`, source `source/entree_grotte_fleurie_sud_nord_v1/` (build, tests, verify, package, visionneuse). Préfixe **EGF1** (libre, vérifié local + distant), asset `egf1_entree_grotte_fleurie`, namespace `entree_grotte_fleurie_sud_nord`. **768×576** (96×72 cases, `TexSize=1`).
+- **Méthode** : rendu généré 4:3 référencé sur la capture (grotte = magenta, Pokémon retirés), sol généré séparément puis **quilting d'herbe saine** (touffes parasites), **étalonnage multiplicatif par matière** vers la capture, normalisation ×0,642857 (1200×896 → 771×576, recadrage 1/2 px), réduction **par classe** (BOX, vote exclusif), palette commune 96 couleurs + palette fleurs dédiée 32.
+- **Nettoyages documentés** : mousse verte parasite du générateur dans les falaises retirée par inpainting ocre (`masques/EGF1_masque_mousse_nettoyee.png`) ; pixels non classés (fissures sombres) rattachés à la matière la plus proche (`complete_masks`) sinon l'herbe transparaissait dans la roche ; exclusivité stricte des masques en fin de `classify` (`fill_holes` rebouchait les bouquets).
+- **Calques (9 + Top)** : sol complet, entrée sombre (dégradé procédural), herbe, **fleurs au vent 8×10 ticks** (cisaillement ancré au pied, amplitude 1,6 px), sentier sable rosé, rochers ocre, buissons, falaises ocre, **papillons 48×5 ticks** (planche EJN1 réutilisée, 4 boucles en huit). **Pas d'eau** dans la référence → aucun calque eau/scintillements. Scène PPCM 240 ticks = 4 s.
+- **Fidélité** (seuil 35, même classifieur exclusif des deux côtés, Pokémon masqués) : herbe 1,7 · sentier 2,8 · roche 2,5 · buisson 2,4 · fleurs R 0,9 / J 5,2 / B 3,7.
+- **Marqueurs/collisions** : `entrance` (352,560) sud sur le sentier, `donjon_seuil` (376,224) sous la bouche ; chemin 16×16 vérifié (4703 cases bloquées / 6912). **Aucun warp.** À contrôler en jeu.
+- **Contrôles** : **9 tests PASS** + `verify.py` **2005 contrôles indépendants OK** (roundtrip tuiles 8 px, ORA/scène exacts, cadences, installateur en simulation, fidélité recalculée). Packaging : `EGF1_projet_pmdo_0812.zip` (1,68 Mo), `EGF1_calques_png_8px.zip` (4,55 Mo), aperçu HTML autonome (2,44 Mo).
+- **Bug corrigé en cours de route** : `material_masks` recevait du `uint8` → `r+10` débordait (wrap-around) et faussait masques/étalonnage ; conversion `int` en entrée de fonction.
+- **État** : `runtime_tested: false`, `art_approved: false`. **Non versée au mod unique validé** `guilde_entrees_sud_nord` (19 cartes) : en attente de validation utilisateur. Galerie régénérée : **188 lots · 326 vues · 104 animées** (`galerie/collect.py` sait désormais lire un lot local absent du dépôt distant).
+
 ## Fin Star Cave : arène de cristal, FST1 (29 septembre 2026)
 
 **Demande** : « bon travail continue la suite ! » (après FSM1). Suite de la série des fins de donjon dans l'ordre du mod : **FST1** prolonge l'entrée ESC1 (Star Cave). Biome et portée choisis par l'agent, **à confirmer**.

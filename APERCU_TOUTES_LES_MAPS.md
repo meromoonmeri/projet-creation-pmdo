@@ -1,8 +1,8 @@
 # Aperçu exhaustif de toutes les maps — Guilde Treehouse PMD
 
-*Généré le 4 novembre 2026 depuis `meromoonmeri/projet-pmdo@6cca4a0` (29 septembre 2026), état de `main` au dernier lot livré (Fin Star Cave, FST1).*
+*Généré le 4 novembre 2026 depuis `meromoonmeri/projet-pmdo@6cca4a0` (29 septembre 2026), plus le lot local **EGF1 — Entrée Grotte Fleurie** (recréation de la capture PMDO utilisateur, 4 novembre 2026).*
 
-**187 lots de production · 325 vues de cartes · 103 scènes animées · 19 cartes réunies dans le mod validé `guilde_entrees_sud_nord` (PMDO 0.8.12).**
+**188 lots de production · 326 vues de cartes · 104 scènes animées · 19 cartes réunies dans le mod validé `guilde_entrees_sud_nord` (PMDO 0.8.12).**
 
 > 🖼️ **La galerie visuelle complète est servie en aperçu live** : `python3 galerie/serve.py --port 8000` puis ouvrir `/galerie/index.html` — vignettes animées, recherche, zoom, liens vers chaque lot.
 
@@ -29,9 +29,9 @@ Le kit de guilde : 12 salles jour/nuit, 11 calques par salle, vues extérieures 
 | `12_salle_chef` | Salle du chef | 2 | jour/nuit, calques ×11 |
 | `exterieur` | Vues extérieures des fenêtres | 6 | 6, ambiances |
 
-## Entrées de donjon sud → nord — 20 lots, 20 vues
+## Entrées de donjon sud → nord — 21 lots, 21 vues
 
-La série validée : 20 lots d'entrées générées référencées, du premier Steam Cave au temple de Celebi. 19 cartes réunies dans le mod unique guilde_entrees_sud_nord (PMDO 0.8.12).
+La série validée : 20 lots d'entrées générées référencées, du premier Steam Cave au temple de Celebi (19 cartes réunies dans le mod unique guilde_entrees_sud_nord, PMDO 0.8.12), plus **EGF1**, recréation locale de la capture PMDO de l'utilisateur (non versée au mod validé, `art_approved: false`).
 
 | Lot | Titre | Vues | État |
 |---|---|---:|---|
@@ -55,6 +55,7 @@ La série validée : 20 lots d'entrées générées référencées, du premier S
 | `entree_mt_thunder_sud_nord_v1` | EMT1 — Entrée Mt. Thunder sud → nord, format 4:3 vaste | 1 | animée, série validée ✓, PMDO 0.8.12, 768×576 px |
 | `entree_jardin_secret_sud_nord_v1` | EJS1 — Entrée Jardin secret sud → nord, format 4:3 vaste | 1 | animée, série validée ✓, PMDO 0.8.12, 768×576 px |
 | `entree_jardin_secret_sud_nord_v2` | EJS2 — Entrée Jardin secret V2 : le temple miniature de Celebi, sud → nord, 4:3 vaste | 1 | animée, série validée ✓, PMDO 0.8.12, 768×576 px |
+| `entree_grotte_fleurie_sud_nord_v1` | EGF1 — Entrée Grotte Fleurie sud → nord : recréation de la capture PMDO utilisateur, 4:3 vaste | 1 | animée (fleurs au vent + papillons), 9 tests PASS, PMDO 0.8.12, 768×576 px, à valider |
 
 ## Fins de donjon — arènes de boss — 11 lots, 11 vues
 

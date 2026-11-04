@@ -177,6 +177,8 @@ La demande actuelle insiste sur les textures canoniques : annoncer clairement l�
 
 Dans les deux cas : conserver la DA, l’échelle, les raccords, les volumes et les accès lisibles ; éviter les falaises fragmentées en cellules indépendantes. Préserver les compositions approuvées. Pour les entrées concernées par la correction historique : arrivée sud, progression vers l’entrée au nord.
 
+Reprise du 4 novembre 2026 (session `arena/bcc5440e`, branchée sur `4c731a4` = galerie exhaustive) : sur « tu peux me retrouver cette map s'il te plaît ? » puis choix **« La recréer en map PMDO »**, lot **EGF1 — Entrée Grotte Fleurie** (`renders/entree_grotte_fleurie_sud_nord_v1/`, aperçu `apercu_entree_grotte_fleurie_sud_nord_v1.html`, source `source/entree_grotte_fleurie_sud_nord_v1/`). Recréation de la **capture PMDO de l'utilisateur** (637×471, Mudkip + Pokémon gris retirés) : falaises ocre stratifiées, grotte à dents au nord, sentier sable rosé, prairie fleurie R/J/B, rochers, buissons. Rendu généré référencé + étalonnage par matière + quilting du sol + nettoyage mousse ; 9 calques + Top, fleurs au vent 8×10 et papillons 48×5 (pas d'eau). Fidélité ≤ 5,2 (seuil 35). **9 tests PASS + 2005 contrôles verify OK**, 2 ZIP + aperçu HTML. `runtime_tested: false`, `art_approved: false`, **non versée au mod unique validé**. Galerie : 188 lots / 326 vues / 104 animées ; `collect.py` lit désormais les lots locaux. `.venv` recréée (Pillow 13.0, NumPy 2.4.6, SciPy 1.17.1). Préfixe pris en plus : **EGF1**.
+
 ## Points d’entrée utiles
 
 | Besoin | Sources / outils |

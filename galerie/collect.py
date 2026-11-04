@@ -60,6 +60,13 @@ def first(lot, *rels):
 # Choix explicites par lot (sinon : heuristique générique plus bas)
 def select(lot):
     L = lot
+    # Lots produits localement (pas encore dans le dépôt distant) : images lues sur disque.
+    loc = R / 'renders' / lot / 'review'
+    if loc.is_dir() and not any(p.startswith(f'renders/{lot}/') for p in BLOBS):
+        for pat in ('*_scene_animee.webp', '*_scene_t000.png'):
+            hits = sorted(loc.glob(pat))
+            if hits:
+                return ['local:' + str(h.relative_to(R)) for h in hits[:1]]
     # séries avec review/
     if re.match(r'(entree_|fin_)', L) and 'sud_nord' in L or L.startswith('fin_'):
         s = multi(L, r'review/\w+_scene_animee\.webp')
@@ -312,7 +319,8 @@ SECTIONS = [
         'entree_underground_lake_sud_nord_v1', 'entree_mystifying_forest_sud_nord_v1', 'entree_sables_mouvants_sud_nord_v1',
         'entree_star_cave_v1' if False else 'entree_star_cave_sud_nord_v1', 'entree_clairiere_tropicale_sud_nord_v1',
         'entree_couloir_violet_sud_nord_v1', 'entree_mt_thunder_sud_nord_v1',
-        'entree_jardin_secret_sud_nord_v1', 'entree_jardin_secret_sud_nord_v2']),
+        'entree_jardin_secret_sud_nord_v1', 'entree_jardin_secret_sud_nord_v2',
+        'entree_grotte_fleurie_sud_nord_v1']),
     ('fins', 'Fins de donjon — arènes de boss', 'Les fonds de donjon : sommets, fosses, grottes et arènes (Kyogre, cristal, désert…), au format 4:3 avec marqueurs entrance / boss / objectif.', [
         'fin_vapeur_sommet_v1', 'fin_cratere_fosse_v1', 'fin_ruine_puits_v1', 'fin_givre_grotte_v1', 'fin_givre_aurore_v2',
         'fin_bristle_sommet_v1', 'fin_jungle_sud_v1', 'fin_waterfall_cave_v1', 'fin_underground_lake_v1' if False else 'fin_sables_mouvants_v1',
@@ -458,7 +466,10 @@ def main():
         lot, path = job
         out_base = re.sub(r'[^A-Za-z0-9]+', '_', path)[:150]
         try:
-            data_bytes = fetch(path)
+            if path.startswith('local:'):
+                data_bytes = (R / path[len('local:'):]).read_bytes()
+            else:
+                data_bytes = fetch(path)
             return job, process(data_bytes, path, out_base), None
         except Exception as e:
             return job, None, str(e)
@@ -541,7 +552,7 @@ def main():
             if len(images) > 1:
                 badges.append(f'{len(images)} vues')
             cards.append({'lot': lot, 'title': title, 'images': images, 'meta': meta, 'badges': badges,
-                          'github': f'https://github.com/{REPO}/tree/{REF}/renders/{lot}',
+                          'github': f'https://github.com/{REPO}/tree/{REF}/renders/{lot}' if any(p.startswith(f'renders/{lot}/') for p in BLOBS) else None,
                           'source': f'source/{lot}/' if (R / 'source' / lot).exists() else None})
         data['sections'].append({'id': sid, 'title': stitle, 'desc': sdesc, 'cards': cards})
     data['stats'] = {'lots': n_lots + len(guild_cards), 'views': n_maps + sum(len(c['images']) for c in guild_cards),
