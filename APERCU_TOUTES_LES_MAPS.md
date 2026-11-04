@@ -1,8 +1,8 @@
 # Aperçu exhaustif de toutes les maps — Guilde Treehouse PMD
 
-*Généré le 4 novembre 2026 depuis `meromoonmeri/projet-pmdo@6cca4a0` (29 septembre 2026), plus le lot local **EGF1 — Entrée Grotte Fleurie** (recréation de la capture PMDO utilisateur, 4 novembre 2026).*
+*Généré le 4 novembre 2026 depuis `meromoonmeri/projet-pmdo@6cca4a0` (29 septembre 2026), plus trois lots locaux : **EGF1 — Entrée Grotte Fleurie** (recréation de la capture PMDO utilisateur), **EGF2 — la même entrée en version longue** et **FGF1 — le fond de la Grotte Fleurie** (4 novembre 2026).*
 
-**188 lots de production · 326 vues de cartes · 104 scènes animées · 19 cartes réunies dans le mod validé `guilde_entrees_sud_nord` (PMDO 0.8.12).**
+**190 lots de production · 328 vues de cartes · 106 scènes animées · 19 cartes réunies dans le mod validé `guilde_entrees_sud_nord` (PMDO 0.8.12).**
 
 > 🖼️ **La galerie visuelle complète est servie en aperçu live** : `python3 galerie/serve.py --port 8000` puis ouvrir `/galerie/index.html` — vignettes animées, recherche, zoom, liens vers chaque lot.
 
@@ -29,9 +29,9 @@ Le kit de guilde : 12 salles jour/nuit, 11 calques par salle, vues extérieures 
 | `12_salle_chef` | Salle du chef | 2 | jour/nuit, calques ×11 |
 | `exterieur` | Vues extérieures des fenêtres | 6 | 6, ambiances |
 
-## Entrées de donjon sud → nord — 21 lots, 21 vues
+## Entrées de donjon sud → nord — 22 lots, 22 vues
 
-La série validée : 20 lots d'entrées générées référencées, du premier Steam Cave au temple de Celebi (19 cartes réunies dans le mod unique guilde_entrees_sud_nord, PMDO 0.8.12), plus **EGF1**, recréation locale de la capture PMDO de l'utilisateur (non versée au mod validé, `art_approved: false`).
+La série : 20 lots d'entrées générées référencées, du premier Steam Cave au temple de Celebi (19 cartes réunies dans le mod unique guilde_entrees_sud_nord, PMDO 0.8.12), plus **EGF1** (recréation de la capture PMDO de l'utilisateur) et **EGF2** (la même entrée deux fois plus longue, chemin en S). Ces deux lots locaux ne sont pas versés au mod validé (`art_approved: false`).
 
 | Lot | Titre | Vues | État |
 |---|---|---:|---|
@@ -56,8 +56,9 @@ La série validée : 20 lots d'entrées générées référencées, du premier S
 | `entree_jardin_secret_sud_nord_v1` | EJS1 — Entrée Jardin secret sud → nord, format 4:3 vaste | 1 | animée, série validée ✓, PMDO 0.8.12, 768×576 px |
 | `entree_jardin_secret_sud_nord_v2` | EJS2 — Entrée Jardin secret V2 : le temple miniature de Celebi, sud → nord, 4:3 vaste | 1 | animée, série validée ✓, PMDO 0.8.12, 768×576 px |
 | `entree_grotte_fleurie_sud_nord_v1` | EGF1 — Entrée Grotte Fleurie sud → nord : recréation de la capture PMDO utilisateur, 4:3 vaste | 1 | animée (fleurs au vent + papillons), 9 tests PASS, PMDO 0.8.12, 768×576 px, à valider |
+| `entree_grotte_fleurie_sud_nord_v2` | EGF2 — Entrée Grotte Fleurie V2 : version LONGUE, chemin de sable en S, 2:3 portrait | 1 | animée (fleurs au vent + 6 papillons), 9 tests PASS + 3255 contrôles, PMDO 0.8.12, **768×1152 px**, à valider |
 
-## Fins de donjon — arènes de boss — 11 lots, 11 vues
+## Fins de donjon — arènes de boss — 12 lots, 12 vues
 
 Les fonds de donjon : sommets, fosses, grottes et arènes (Kyogre, cristal, désert…), au format 4:3 avec marqueurs entrance / boss / objectif.
 
@@ -74,6 +75,7 @@ Les fonds de donjon : sommets, fosses, grottes et arènes (Kyogre, cristal, dés
 | `fin_sables_mouvants_v1` | FSM1 — Fin Sables mouvants : arène du désert (4:3, PMDO 0.8.12) | 1 | animée, PMDO 0.8.12, 768×576 px |
 | `fin_star_cave_v1` | FST1 — Fin Star Cave : arène de cristal (4:3, PMDO 0.8.12) | 1 | animée, PMDO 0.8.12, 768×576 px |
 | `fin_ocean_kyogre_v1` | FOC1 — Fin Océan : arène de Kyogre sous la mer (4:3, PMDO 0.8.12) | 1 | animée, PMDO 0.8.12, 768×576 px |
+| `fin_grotte_fleurie_v1` | FGF1 — Fin Grotte Fleurie : le fond du donjon, salle close et autel fleuri (4:3, PMDO 0.8.12) | 1 | animée (fleurs + lueur d'autel + pétales), 12 tests PASS + 5437 contrôles, PMDO 0.8.12, 768×576 px, à valider |
 
 ## Arènes élémentaires & antres — 18 lots, 18 vues
 

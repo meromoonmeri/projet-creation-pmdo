@@ -312,7 +312,7 @@ def local_meta(lot):
 # ---------------------------------------------------------------- sections
 SECTIONS = [
     ('guilde', 'Guilde Treehouse — 12 salles', 'Le kit de guilde : 12 salles jour/nuit, 11 calques par salle, vues extérieures interchangeables. Images présentes dans ce dépôt (salles/).', []),
-    ('entrees', 'Entrées de donjon sud → nord', 'La série validée : 20 lots d\'entrées générées référencées, du premier Steam Cave au temple de Celebi. 19 cartes réunies dans le mod unique guilde_entrees_sud_nord (PMDO 0.8.12).', [
+    ('entrees', 'Entrées de donjon sud → nord', 'La série : 21 lots d\'entrées générées référencées, du premier Steam Cave au temple de Celebi. 19 cartes réunies dans le mod unique guilde_entrees_sud_nord (PMDO 0.8.12) ; les 2 dernières (Grotte Fleurie V1/V2) attendent validation.', [
         'entree_vapeur_sud_nord_v1', 'entree_vapeur_sud_nord_v2', 'entree_cratere_sud_nord_v1', 'entree_cratere_magma_v1',
         'entree_ruine_sud_nord_v1', 'entree_givre_sud_nord_v1', 'entree_bristle_sud_nord_v1', 'entree_jungle_sud_nord_v1',
         'entree_waterfall_cave_sud_nord_v1', 'entree_waterfall_cave_sud_nord_v2', 'entree_waterfall_cave_sud_nord_v3',
@@ -320,11 +320,11 @@ SECTIONS = [
         'entree_star_cave_v1' if False else 'entree_star_cave_sud_nord_v1', 'entree_clairiere_tropicale_sud_nord_v1',
         'entree_couloir_violet_sud_nord_v1', 'entree_mt_thunder_sud_nord_v1',
         'entree_jardin_secret_sud_nord_v1', 'entree_jardin_secret_sud_nord_v2',
-        'entree_grotte_fleurie_sud_nord_v1']),
+        'entree_grotte_fleurie_sud_nord_v1', 'entree_grotte_fleurie_sud_nord_v2']),
     ('fins', 'Fins de donjon — arènes de boss', 'Les fonds de donjon : sommets, fosses, grottes et arènes (Kyogre, cristal, désert…), au format 4:3 avec marqueurs entrance / boss / objectif.', [
         'fin_vapeur_sommet_v1', 'fin_cratere_fosse_v1', 'fin_ruine_puits_v1', 'fin_givre_grotte_v1', 'fin_givre_aurore_v2',
         'fin_bristle_sommet_v1', 'fin_jungle_sud_v1', 'fin_waterfall_cave_v1', 'fin_underground_lake_v1' if False else 'fin_sables_mouvants_v1',
-        'fin_star_cave_v1', 'fin_ocean_kyogre_v1']),
+        'fin_star_cave_v1', 'fin_ocean_kyogre_v1', 'fin_grotte_fleurie_v1']),
     ('arenes', 'Arènes élémentaires & antres', 'Arènes de glace et aurores (V4 → V16), magma de Groudon, Terapagos, antres aquatiques multicalques.', [
         'arene_aquatique_bois_v1', 'antre_cascades_v2', 'antre_harmonie_v3', 'antre_bassin_v4', 'antre_raccords_v5', 'antre_ecumes_v6',
         'arene_boreales_v4', 'arene_glace_generee_v2', 'arene_glace_large_v3', 'arene_guide_couches_v13', 'arene_guide_couches_v14',

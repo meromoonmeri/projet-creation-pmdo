@@ -1,0 +1,1003 @@
+{
+  "lot": "fin_grotte_fleurie_v1",
+  "format": "4:3 vaste",
+  "size_px": [
+    768,
+    576
+  ],
+  "grid_8px": [
+    96,
+    72
+  ],
+  "method": "fond de donjon : rendu genere 4:3 reference sur la capture utilisateur et le decor EGF1, sol quilte, etalonnage par matiere, reduction par classe, palette commune 96 + fleurs 32",
+  "reference_da": "source/entree_grotte_fleurie_sud_nord_v1/reference/capture_pmdo_source.png (capture PMDO utilisateur)",
+  "prolonge": [
+    "entree_grotte_fleurie_sud_nord_v1",
+    "entree_grotte_fleurie_sud_nord_v2"
+  ],
+  "demande": "fait le fond de la Grotte fleurie",
+  "raw_inputs": [
+    {
+      "file": "source/fin_grotte_fleurie_v1/bruts/decor_magenta.png",
+      "sha256": "efce6407464a7492d3c545a36405522ea9b61f7f986e7ed95348d1025cdc5a03",
+      "size": [
+        1200,
+        896
+      ]
+    },
+    {
+      "file": "source/fin_grotte_fleurie_v1/bruts/sol_complet.png",
+      "sha256": "a5af45c3865ef5e2ac6f4783de8b75c246add3ea76df2d2bc9006d878edae9a6",
+      "size": [
+        1200,
+        896
+      ]
+    }
+  ],
+  "normalization": {
+    "scale": 0.6428571428571429,
+    "scaled": [
+      771,
+      576
+    ],
+    "crop_x": [
+      1,
+      2
+    ],
+    "methode": "moyenne ponderee par classe (BOX), attribution exclusive, palette commune 96 couleurs"
+  },
+  "etalonnage": {
+    "cibles": {
+      "flower_r": [
+        224,
+        98,
+        47
+      ],
+      "flower_y": [
+        230,
+        187,
+        86
+      ],
+      "flower_b": [
+        83,
+        219,
+        222
+      ],
+      "bush": [
+        49,
+        143,
+        51
+      ],
+      "path": [
+        244,
+        194,
+        163
+      ],
+      "rock": [
+        200,
+        148,
+        85
+      ],
+      "grass": [
+        117,
+        213,
+        84
+      ]
+    },
+    "stats": {
+      "flower_r": {
+        "avant": [
+          214.6,
+          99.9,
+          41.4
+        ],
+        "cible": [
+          224.0,
+          98.0,
+          47.0
+        ],
+        "facteur": [
+          1.044,
+          0.981,
+          1.135
+        ]
+      },
+      "flower_y": {
+        "avant": [
+          231.6,
+          208.4,
+          52.7
+        ],
+        "cible": [
+          230.0,
+          187.0,
+          86.0
+        ],
+        "facteur": [
+          0.993,
+          0.898,
+          1.631
+        ]
+      },
+      "flower_b": {
+        "avant": [
+          90.5,
+          203.4,
+          208.8
+        ],
+        "cible": [
+          83.0,
+          219.0,
+          222.0
+        ],
+        "facteur": [
+          0.917,
+          1.076,
+          1.063
+        ]
+      },
+      "bush": {
+        "avant": [
+          94.7,
+          146.7,
+          61.9
+        ],
+        "cible": [
+          49.0,
+          143.0,
+          51.0
+        ],
+        "facteur": [
+          0.518,
+          0.975,
+          0.823
+        ]
+      },
+      "path": {
+        "avant": [
+          245.6,
+          186.3,
+          159.7
+        ],
+        "cible": [
+          244.0,
+          194.0,
+          163.0
+        ],
+        "facteur": [
+          0.994,
+          1.041,
+          1.02
+        ]
+      },
+      "rock": {
+        "avant": [
+          204.0,
+          147.5,
+          80.4
+        ],
+        "cible": [
+          200.0,
+          148.0,
+          85.0
+        ],
+        "facteur": [
+          0.98,
+          1.003,
+          1.057
+        ]
+      },
+      "grass": {
+        "avant": [
+          122.7,
+          209.5,
+          78.3
+        ],
+        "cible": [
+          117.0,
+          213.0,
+          84.0
+        ],
+        "facteur": [
+          0.953,
+          1.017,
+          1.073
+        ]
+      }
+    }
+  },
+  "segmentation": "socle EGF1 + autel = pierre claire (lum>165, sat<70) dans la zone nord, dilate 2 px ; parois = ocre touchant les bords ; grotte protegee lors du remplissage des pixels non classes",
+  "layer_order_bottom_to_top": [
+    "calques/FGF1_00_sol_complet.png",
+    "calques/FGF1_01_passage_sombre.png",
+    "calques/FGF1_02_herbe.png",
+    "animation/fleurs/FGF1_03_fleurs_vent_fX.png",
+    "calques/FGF1_04_sentier.png",
+    "calques/FGF1_05_rochers.png",
+    "calques/FGF1_06_autel.png",
+    "animation/lueur/FGF1_07_lueur_autel_fXX.png",
+    "calques/FGF1_08_parois.png",
+    "animation/petales/FGF1_09_petales_fXX.png"
+  ],
+  "flowers": {
+    "phases": 8,
+    "frame_length_ticks": 10,
+    "clusters": [
+      {
+        "base_xy": [
+          507,
+          299
+        ],
+        "hauteur_px": 47,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          282,
+          300
+        ],
+        "hauteur_px": 45,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          224,
+          348
+        ],
+        "hauteur_px": 86,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          556,
+          316
+        ],
+        "hauteur_px": 48,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          488,
+          285
+        ],
+        "hauteur_px": 9,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          477,
+          284
+        ],
+        "hauteur_px": 5,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          473,
+          294
+        ],
+        "hauteur_px": 9,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          492,
+          294
+        ],
+        "hauteur_px": 7,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          207,
+          296
+        ],
+        "hauteur_px": 8,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          195,
+          307
+        ],
+        "hauteur_px": 18,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          544,
+          302
+        ],
+        "hauteur_px": 10,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          483,
+          296
+        ],
+        "hauteur_px": 1,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          213,
+          308
+        ],
+        "hauteur_px": 11,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          201,
+          311
+        ],
+        "hauteur_px": 4,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          558,
+          352
+        ],
+        "hauteur_px": 20,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          573,
+          350
+        ],
+        "hauteur_px": 18,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          626,
+          373
+        ],
+        "hauteur_px": 41,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          168,
+          345
+        ],
+        "hauteur_px": 11,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          171,
+          376
+        ],
+        "hauteur_px": 42,
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          167,
+          354
+        ],
+        "hauteur_px": 7,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          559,
+          374
+        ],
+        "hauteur_px": 23,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          549,
+          360
+        ],
+        "hauteur_px": 6,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          197,
+          387
+        ],
+        "hauteur_px": 25,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          177,
+          374
+        ],
+        "hauteur_px": 7,
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          541,
+          425
+        ],
+        "hauteur_px": 42,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          190,
+          439
+        ],
+        "hauteur_px": 46,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          234,
+          440
+        ],
+        "hauteur_px": 43,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          592,
+          548
+        ],
+        "hauteur_px": 151,
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          551,
+          400
+        ],
+        "hauteur_px": 2,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          528,
+          411
+        ],
+        "hauteur_px": 6,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          540,
+          409
+        ],
+        "hauteur_px": 2,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          134,
+          428
+        ],
+        "hauteur_px": 19,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          304,
+          419
+        ],
+        "hauteur_px": 4,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          163,
+          424
+        ],
+        "hauteur_px": 6,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          127,
+          452
+        ],
+        "hauteur_px": 24,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          152,
+          433
+        ],
+        "hauteur_px": 5,
+        "decalage": 0
+      },
+      {
+        "base_xy": [
+          168,
+          437
+        ],
+        "hauteur_px": 9,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          157,
+          431
+        ],
+        "hauteur_px": 2,
+        "decalage": 1
+      },
+      {
+        "base_xy": [
+          494,
+          483
+        ],
+        "hauteur_px": 43,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          244,
+          490
+        ],
+        "hauteur_px": 49,
+        "decalage": 6
+      },
+      {
+        "base_xy": [
+          664,
+          511
+        ],
+        "hauteur_px": 51,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          199,
+          488
+        ],
+        "hauteur_px": 22,
+        "decalage": 3
+      },
+      {
+        "base_xy": [
+          212,
+          485
+        ],
+        "hauteur_px": 7,
+        "decalage": 4
+      },
+      {
+        "base_xy": [
+          640,
+          508
+        ],
+        "hauteur_px": 23,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          171,
+          534
+        ],
+        "hauteur_px": 43,
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          531,
+          548
+        ],
+        "hauteur_px": 43,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          222,
+          519
+        ],
+        "hauteur_px": 5,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          227,
+          519
+        ],
+        "hauteur_px": 2,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          223,
+          521
+        ],
+        "hauteur_px": 1,
+        "decalage": 5
+      },
+      {
+        "base_xy": [
+          533,
+          527
+        ],
+        "hauteur_px": 3,
+        "decalage": 7
+      },
+      {
+        "base_xy": [
+          582,
+          547
+        ],
+        "hauteur_px": 22,
+        "decalage": 2
+      },
+      {
+        "base_xy": [
+          515,
+          546
+        ],
+        "hauteur_px": 10,
+        "decalage": 6
+      }
+    ],
+    "modele": "cisaillement ancre au pied, 8 phases fermees",
+    "origine": "pixels du decor genere, mouvement cree par nous"
+  },
+  "glow": {
+    "phases": 12,
+    "frame_length_ticks": 10,
+    "centre": [
+      385,
+      176
+    ],
+    "modele": "halo trame damier, rayon 30 +/- 5 px, alpha binaire",
+    "origine": "genere"
+  },
+  "petals": {
+    "phases": 24,
+    "frame_length_ticks": 5,
+    "nombre": 28,
+    "span": 288,
+    "step": 12,
+    "couleurs": [
+      [
+        234,
+        132,
+        48
+      ],
+      [
+        244,
+        217,
+        86
+      ],
+      [
+        95,
+        249,
+        254
+      ]
+    ],
+    "modele": "chute 12 px/phase modulo 288 + oscillation 3 px, boucle fermee",
+    "origine": "genere",
+    "placements": [
+      {
+        "x0": 535,
+        "y0": 243,
+        "couleur": 0,
+        "decalage": 2
+      },
+      {
+        "x0": 171,
+        "y0": 131,
+        "couleur": 1,
+        "decalage": 13
+      },
+      {
+        "x0": 548,
+        "y0": 106,
+        "couleur": 2,
+        "decalage": 0
+      },
+      {
+        "x0": 204,
+        "y0": 131,
+        "couleur": 0,
+        "decalage": 9
+      },
+      {
+        "x0": 644,
+        "y0": 123,
+        "couleur": 1,
+        "decalage": 15
+      },
+      {
+        "x0": 453,
+        "y0": 26,
+        "couleur": 2,
+        "decalage": 17
+      },
+      {
+        "x0": 101,
+        "y0": 4,
+        "couleur": 0,
+        "decalage": 14
+      },
+      {
+        "x0": 229,
+        "y0": 105,
+        "couleur": 1,
+        "decalage": 14
+      },
+      {
+        "x0": 168,
+        "y0": 24,
+        "couleur": 2,
+        "decalage": 16
+      },
+      {
+        "x0": 696,
+        "y0": 196,
+        "couleur": 0,
+        "decalage": 19
+      },
+      {
+        "x0": 330,
+        "y0": 10,
+        "couleur": 1,
+        "decalage": 15
+      },
+      {
+        "x0": 426,
+        "y0": 215,
+        "couleur": 2,
+        "decalage": 14
+      },
+      {
+        "x0": 375,
+        "y0": 1,
+        "couleur": 0,
+        "decalage": 16
+      },
+      {
+        "x0": 182,
+        "y0": 138,
+        "couleur": 1,
+        "decalage": 3
+      },
+      {
+        "x0": 432,
+        "y0": 133,
+        "couleur": 2,
+        "decalage": 9
+      },
+      {
+        "x0": 426,
+        "y0": 40,
+        "couleur": 0,
+        "decalage": 10
+      },
+      {
+        "x0": 522,
+        "y0": 264,
+        "couleur": 1,
+        "decalage": 5
+      },
+      {
+        "x0": 581,
+        "y0": 98,
+        "couleur": 2,
+        "decalage": 9
+      },
+      {
+        "x0": 577,
+        "y0": 58,
+        "couleur": 0,
+        "decalage": 5
+      },
+      {
+        "x0": 295,
+        "y0": 185,
+        "couleur": 1,
+        "decalage": 20
+      },
+      {
+        "x0": 239,
+        "y0": 100,
+        "couleur": 2,
+        "decalage": 20
+      },
+      {
+        "x0": 692,
+        "y0": 224,
+        "couleur": 0,
+        "decalage": 13
+      },
+      {
+        "x0": 577,
+        "y0": 68,
+        "couleur": 1,
+        "decalage": 3
+      },
+      {
+        "x0": 483,
+        "y0": 71,
+        "couleur": 2,
+        "decalage": 15
+      },
+      {
+        "x0": 212,
+        "y0": 148,
+        "couleur": 0,
+        "decalage": 19
+      },
+      {
+        "x0": 245,
+        "y0": 161,
+        "couleur": 1,
+        "decalage": 15
+      },
+      {
+        "x0": 207,
+        "y0": 138,
+        "couleur": 2,
+        "decalage": 17
+      },
+      {
+        "x0": 480,
+        "y0": 193,
+        "couleur": 0,
+        "decalage": 13
+      }
+    ]
+  },
+  "water": null,
+  "scene_loop_ticks": 240,
+  "fidelity": {
+    "seuil": 35,
+    "mesures": {
+      "flower_r": {
+        "capture_rgb": [
+          223.6,
+          98.1,
+          46.9
+        ],
+        "decor_rgb": [
+          223.3,
+          97.6,
+          46.5
+        ],
+        "distance": 0.7
+      },
+      "flower_y": {
+        "capture_rgb": [
+          229.8,
+          186.8,
+          85.6
+        ],
+        "decor_rgb": [
+          232.7,
+          189.4,
+          78.7
+        ],
+        "distance": 7.9
+      },
+      "flower_b": {
+        "capture_rgb": [
+          83.0,
+          219.2,
+          222.0
+        ],
+        "decor_rgb": [
+          83.2,
+          217.6,
+          219.4
+        ],
+        "distance": 3.1
+      },
+      "bush": {
+        "capture_rgb": [
+          48.7,
+          143.2,
+          51.0
+        ],
+        "decor_rgb": [
+          53.4,
+          144.7,
+          52.6
+        ],
+        "distance": 5.1
+      },
+      "path": {
+        "capture_rgb": [
+          244.1,
+          194.1,
+          162.6
+        ],
+        "decor_rgb": [
+          242.9,
+          191.7,
+          161.2
+        ],
+        "distance": 3.0
+      },
+      "rock": {
+        "capture_rgb": [
+          199.6,
+          147.8,
+          84.7
+        ],
+        "decor_rgb": [
+          200.5,
+          148.0,
+          84.2
+        ],
+        "distance": 1.1
+      },
+      "grass": {
+        "capture_rgb": [
+          117.3,
+          213.1,
+          84.2
+        ],
+        "decor_rgb": [
+          116.8,
+          213.1,
+          83.5
+        ],
+        "distance": 0.9
+      }
+    }
+  },
+  "access": {
+    "entry_px": [
+      368,
+      560
+    ],
+    "boss_px": [
+      384,
+      344
+    ],
+    "objectif_px": [
+      376,
+      248
+    ],
+    "path_found_16x16": true,
+    "arene_accessible": true,
+    "cells_explored": 1304,
+    "blocked_cells": 4479,
+    "total_cells": 6912,
+    "rule": "case bloquee si > 25 % hors herbe/sentier/fleurs"
+  },
+  "pmdo": {
+    "target": "0.8.12",
+    "asset": "fgf1_fin_grotte_fleurie",
+    "namespace": "fin_grotte_fleurie",
+    "tiles_per_bank": {
+      "FGF1_00_SOL": 6912,
+      "FGF1_01_PASSAGE": 207,
+      "FGF1_02_HERBE": 1983,
+      "FGF1_03_FLEURS": 2179,
+      "FGF1_04_SENTIER": 833,
+      "FGF1_05_ROCHERS": 688,
+      "FGF1_06_AUTEL": 253,
+      "FGF1_07_LUEUR": 1459,
+      "FGF1_08_PAROIS": 3496,
+      "FGF1_09_PETALES": 327
+    },
+    "banks": [
+      "FGF1_00_SOL",
+      "FGF1_01_PASSAGE",
+      "FGF1_02_HERBE",
+      "FGF1_03_FLEURS",
+      "FGF1_04_SENTIER",
+      "FGF1_05_ROCHERS",
+      "FGF1_06_AUTEL",
+      "FGF1_07_LUEUR",
+      "FGF1_08_PAROIS",
+      "FGF1_09_PETALES"
+    ],
+    "runtime_tested": false,
+    "warp": "aucun",
+    "sortie": "aucune (fond de donjon)"
+  },
+  "art_approved": false
+}

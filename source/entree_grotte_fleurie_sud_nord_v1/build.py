@@ -145,18 +145,23 @@ def clean_moss(a):
     return out, moss
 
 
-def complete_masks(m):
+def complete_masks(m, protect_cave=False):
     """Couverture totale : tout pixel non classé (fissures sombres, ombres) prend la matière
-    classée la plus proche. Sans cela, le sol d'herbe transparaît dans les falaises."""
+    classée la plus proche. Sans cela, le sol d'herbe transparaît dans les falaises.
+    protect_cave=True (EGF2/FGF1) : la grotte reste strictement le magenta dilaté — sinon les
+    roches sombres au-dessus de la bouche sont absorbées et les stalactites disparaissent."""
     keys = ['cave', 'path', 'rock', 'boulder', 'bush', 'flower', 'grass']
     labels = np.zeros(next(iter(m.values())).shape, np.int8)
     for i, k in enumerate(keys, 1):
         labels[m[k]] = i
     unc = labels == 0
     if unc.any():
-        _, inds = nd.distance_transform_edt(unc, return_indices=True)
+        seed = unc | (labels == 1) if protect_cave else unc
+        _, inds = nd.distance_transform_edt(seed, return_indices=True)
         filled = labels[inds[0], inds[1]]
         for i, k in enumerate(keys, 1):
+            if protect_cave and k == 'cave':
+                continue
             m[k] = m[k] | (unc & (filled == i))
     return m
 

@@ -7,6 +7,35 @@
 
 # Guilde Treehouse — passages ouverts PMD
 
+## Grotte Fleurie : l'entrée en version longue (EGF2) + le fond du donjon (FGF1) — 4 novembre 2026
+
+**Demande** : « fait la v2 la map était plus grande en longueur avec chemin etc stp et fait le fond de la Grotte fleurie ». Deux lots livrés, **EGF1 conservée intacte** (lot, namespace et asset distincts : les trois cartes coexistent).
+
+### EGF2 — Entrée Grotte Fleurie V2, version LONGUE (2:3 portrait)
+
+- Sorties : `renders/entree_grotte_fleurie_sud_nord_v2/`, aperçu `apercu_entree_grotte_fleurie_sud_nord_v2.html`, source `source/entree_grotte_fleurie_sud_nord_v2/`. Asset `egf2_entree_grotte_fleurie`, namespace `entree_grotte_fleurie_sud_nord_v2`. **768×1152** (96×144 cases, `TexSize=1`) : **deux fois la hauteur d'EGF1**.
+- **Chemin de sable rosé en S** du sud jusqu'à la bouche de grotte à dents au nord, prairies fleuries R/J/B de part et d'autre, rochers ocre, buissons ronds, falaises stratifiées sur les deux flancs.
+- **Méthode** : socle EGF1 réutilisé par chargement de module (`loadmod`) avec bascule de géométrie — classifieur, `clean_moss`, `quilt_sol` (herbe saine prélevée **dans le décor V2**, pas de second rendu), étalonnage par matière vers la même capture, réduction par classe, palette commune 96 + fleurs 32. Normalisation ×0,911392 (848×1264 → 773×1152, recadrage 2/3 px).
+- **Correctif partagé** : `complete_masks(m, protect_cave=False)` gagne le paramètre `protect_cave`. Sans lui, les roches sombres au-dessus du magenta étaient absorbées par le masque grotte et **les stalactites disparaissaient**. À `True` (EGF2/FGF1), la grotte reste le magenta dilaté et les pixels non classés vont vers la matière non-grotte la plus proche. Défaut `False` → **EGF1 inchangée**.
+- **Calques (9 + Top)** : sol, entrée sombre, herbe, **fleurs au vent 8×10** (14 bouquets), sentier, rochers, buissons, falaises, **6 papillons 48×5** répartis sur toute la longueur (3 jaunes / 3 bleus, boucles en huit déphasées). Pas d'eau. Scène PPCM **240 ticks = 4 s**.
+- **Fidélité** (seuil 35) : herbe 3,1 · sentier 1,8 · roche 3,3 · buisson 13,8 · fleurs R 0,8 / J 8,8 / B 5,0.
+- **Marqueurs/collisions** : `entrance` (352,1136) · `donjon_seuil` (376,280) ; **chemin 16×16 vérifié sur toute la longueur** (BFS, 5298 cases explorées, 7165 bloquées / 13824). Aucun warp.
+- **Contrôles** : **9 tests PASS** + `verify.py` **3255 contrôles indépendants OK**. `EGF2_projet_pmdo_0812.zip` (3,23 Mo), `EGF2_calques_png_8px.zip` (9,40 Mo), aperçu HTML (4,98 Mo).
+
+### FGF1 — Fin Grotte Fleurie : le FOND du donjon (4:3)
+
+- Sorties : `renders/fin_grotte_fleurie_v1/`, aperçu `apercu_fin_grotte_fleurie_v1.html`, source `source/fin_grotte_fleurie_v1/`. Asset `fgf1_fin_grotte_fleurie`, namespace `fin_grotte_fleurie`. **768×576** (96×72 cases), comme les autres `fin_*`.
+- **Layout** : salle **close** ceinte de parois ocre sur les quatre côtés, sol d'herbe tapissé de bouquets R/J/B, chemin rosé du sud vers la clairière centrale, **autel fleuri de pierre claire** sur estrade au nord devant un passage sombre (magenta dans le brut).
+- **Autel** : masque dédié « pierre claire » (luminance > 165, saturation < 70) dans la zone nord, **fermeture large + remplissage** pour englober la mosaïque et les fleurs posées dessus (sinon elles partaient en herbe et ressortaient vertes), retiré des autres matières, **couleurs d'origine conservées** (pas d'étalonnage sur l'autel) et **palette dédiée 32**.
+- **Calques (10 + Top)** : sol, passage sombre, herbe, **fleurs au vent 8×10** (52 bouquets), sentier, rochers, **autel**, **lueur 12×10**, parois, **pétales 24×5**. Pas d'eau, pas de papillons (fond de donjon). Scène PPCM **240 ticks = 4 s**.
+- **Lueur** : halo qui épouse la silhouette de l'autel (distance transform), dégradé obtenu en **tramage ordonné Bayer 4×4** pour rester en **alpha binaire** (exigence tuiles PMDO), rayon qui respire de ±2,5 px sur 12 phases. Premier essai en anneau elliptique = trait blanc parasite → abandonné.
+- **Pétales** : 28 sprites 4×4 procéduraux, chute de 12 px/phase **modulo 288** (24×12 = 288 → boucle fermée) + oscillation sinusoïdale de 3 px, une couleur par famille de bouquet, la plus claire de chaque famille pour rester lisible sur l'herbe (R 234,132,48 · J 244,217,86 · B 95,249,254).
+- **Fidélité** (seuil 35) : herbe 0,9 · sentier 3,0 · roche 1,1 · buisson 5,1 · fleurs R 0,7 / J 7,9 / B 3,1.
+- **Marqueurs/collisions** : `entrance` (368,560) sud · `boss` (384,344) clairière centrale (zone libre 32×32) · `objectif` (376,248) pied de l'autel ; chemin 16×16 vérifié vers l'autel **et** vers l'arène (4479 cases bloquées / 6912). **Aucun warp, aucune sortie** : raccordement EGF1/EGF2 → FGF1 à faire dans l'éditeur.
+- **Contrôles** : **12 tests PASS** (dont salle fermée, autel présent, lueur binaire/locale/animée, pétales boucle fermée) + `verify.py` **5437 contrôles indépendants OK**. `FGF1_projet_pmdo_0812.zip` (1,71 Mo), `FGF1_calques_png_8px.zip` (5,26 Mo), aperçu HTML (2,76 Mo).
+
+**État des trois lots** : `runtime_tested: false`, `art_approved: false`. **Aucun n'est versé au mod unique validé** `guilde_entrees_sud_nord` (19 cartes) : en attente de validation. Galerie régénérée : **190 lots · 328 vues · 106 animées**. Préfixes pris en plus : **EGF2**, **FGF1**.
+
 ## Entrée Grotte Fleurie : recréation de la capture PMDO utilisateur, EGF1 (4 novembre 2026)
 
 **Demande** : « tu peux me retrouver cette map s'il te plaît ? » (capture 637×471 avec Mudkip + un Pokémon gris Acier/Roche). Recherche exhaustive : **ni une map du projet** (187 lots, deux planches contact) **ni un des 79 rips racine**, ni le web. L'utilisateur a confirmé l'origine (« une capture de mon PMDO ») et choisi **« La recréer en map PMDO »**.
